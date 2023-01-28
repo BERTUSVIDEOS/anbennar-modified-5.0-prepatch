@@ -1,0 +1,97 @@
+
+country_decisions = {
+
+	lorentish_nation = {
+		major = yes
+		potential = {
+			OR = {
+				ai = no
+				NOT = { exists = A01 }
+			}
+			culture_group = lencori
+			NOT = { has_country_flag = formed_lorent_flag }
+			OR = {
+				ai = no
+				is_playing_custom_nation = no
+			}
+			NOT = { tag = Z01 }	#Anbennar
+			NOT = { tag = A01 }	#Lorent
+			is_colonial_nation = no
+			OR = {
+				is_former_colonial_nation = no
+				AND = {
+					is_former_colonial_nation = yes
+					ai = no
+				}
+			}
+			normal_or_historical_nations = yes
+			was_never_end_game_tag_trigger = yes
+			NOT = { has_country_flag = formed_enteben }
+		}
+		provinces_to_highlight = {
+			OR = {
+				province_id = 67	# Lorentaine
+				AND = {
+					region = lencenor_region
+					root = {
+						NOT = {
+							num_of_owned_provinces_with = {
+								is_core = ROOT
+								region = lencenor_region
+								value = 58
+							}
+						}
+					}
+				}
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		}
+		allow = {
+			is_at_war = no
+			is_free_or_tributary_trigger = yes
+			is_nomad = no
+			NOT = { exists = A01 }
+			owns_core_province = 67	# Lorentaine
+			num_of_owned_provinces_with = {
+				value = 58	#0→58	#58/117 of lencenor region minus venail, redlaged, & rubyhold 
+				region = lencenor_region
+			}
+		}
+		effect = {
+			67 = { #Lorentaine
+				move_capital_effect = yes
+			}
+			change_tag = A01
+			hidden_effect = { restore_country_name = yes }
+			swap_non_generic_missions = yes
+			remove_non_electors_emperors_from_empire_effect = yes
+			change_government = monarchy
+			add_government_reform = wine_empire	#bertus mod
+			lencenor_region = {
+				limit = {
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = A01
+			}
+			add_country_modifier = {
+				name = "centralization_modifier"
+				duration = 7300
+			}
+			add_prestige = 25
+			if = {
+				limit = {
+					has_custom_ideas = no
+				}
+				country_event = { id = ideagroups.1 } #Swap Ideas
+			}
+			set_country_flag = formed_lorent_flag
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+}

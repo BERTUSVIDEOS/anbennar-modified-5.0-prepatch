@@ -1,0 +1,2516 @@
+
+get_necromancer_power = {
+	set_variable = {
+		which = necromancer_power_var
+		value = 0
+	}
+	set_variable = {
+		which = necromancer_power_from_mage_towers_var
+		value = 0
+	}
+	set_variable = {
+		which = necromancer_power_from_damestear_var
+		value = 0
+	}
+	set_variable = {
+		which = necromancer_power_from_mil_var
+		value = 0
+	}
+	set_variable = {
+		which = necromancer_power_from_all_power_cost_var
+		value = 0
+	}
+	change_variable = {	#Magical Infamy base
+		which = necromancer_power_var
+		which = pointsWitchKing
+	}
+	every_owned_province = {
+		limit = {has_building = mage_tower}
+		owner = {
+			change_variable = {	#1 per mage tower
+				which = necromancer_power_from_mage_towers_var
+				value = 1
+			}
+		}
+	}
+	change_variable = {	#mage towers base
+		which = necromancer_power_var
+		which = necromancer_power_from_mage_towers_var
+	}	
+	change_variable = {
+		which = necromancer_power_from_damestear_var
+		which = damestear
+	}
+	multiply_variable = {	#5% per damestear good produced
+		which = necromancer_power_from_damestear_var
+		value = 0.05
+	}
+	change_variable = {
+		which = necromancer_power_from_damestear_var
+		value = 1
+	}
+	multiply_variable = {	# damestear boost
+		which = necromancer_power_var
+		which = necromancer_power_from_damestear_var
+	}
+	export_to_variable = {
+		which = necromancer_power_from_mil_var
+		value = trigger_value:mil
+	}
+	multiply_variable = {	#5% per mil point
+		which = necromancer_power_from_mil_var
+		value = 0.05
+	}
+	change_variable = {
+		which = necromancer_power_from_mil_var
+		value = 1
+	}
+	multiply_variable = {	#mil boost
+		which = necromancer_power_var
+		which = necromancer_power_from_mil_var
+	}
+	export_to_variable = {
+		which = necromancer_power_from_all_power_cost_var
+		value = modifier:all_power_cost
+	}
+	multiply_variable = {
+		which = necromancer_power_from_all_power_cost_var
+		value = -1
+	}
+	change_variable = {
+		which = necromancer_power_from_all_power_cost_var
+		value = 1
+	}
+	multiply_variable = {	#all power cost boost
+		which = necromancer_power_var
+		which = necromancer_power_from_all_power_cost_var
+	}
+	if = {	#necropolis bonus 
+		limit = {332 = {owned_by = ROOT has_great_project = { type = the_necropolis tier = 3}}}
+		multiply_variable = { which = necromancer_power_var value = 1.5 }
+	}
+	else_if = {	#necropolis bonus 
+		limit = {332 = {owned_by = ROOT has_great_project = { type = the_necropolis tier = 2}}}
+		multiply_variable = { which = necromancer_power_var value = 1.25 }
+	}
+	else_if = {	#necropolis bonus 
+		limit = {332 = {owned_by = ROOT has_great_project = { type = the_necropolis tier = 1}}}
+		multiply_variable = { which = necromancer_power_var value = 1.1 }
+	}
+	if = {	#necropolis bonus 
+		limit = {has_ruler_flag = necromancy_3}
+		multiply_variable = { which = necromancer_power_var value = 1.5 }
+	}
+	trigger_switch = {
+		on_trigger = current_age
+		age_of_discovery = {multiply_variable = { which = necromancer_power_var value = 0.33 }}
+		age_of_reformation = {multiply_variable = { which = necromancer_power_var value = 0.66 }}
+		age_of_revolutions = {multiply_variable = { which = necromancer_power_var value = 1.33 }}
+	}
+	
+	#localisations adaptation
+	change_variable = {
+		which = necromancer_power_from_damestear_var
+		value = -1
+	}
+	multiply_variable = {
+		which = necromancer_power_from_damestear_var
+		value = 100
+	}
+	change_variable = {
+		which = necromancer_power_from_mil_var
+		value = -1
+	}
+	multiply_variable = {
+		which = necromancer_power_from_mil_var
+		value = 100
+	}
+	change_variable = {
+		which = necromancer_power_from_all_power_cost_var
+		value = -1
+	}
+	multiply_variable = {
+		which = necromancer_power_from_all_power_cost_var
+		value = 100
+	}
+	zombie_allowed_amount = yes
+}
+zombie_allowed_amount = {
+	set_variable = {
+		which = num_of_undead_var
+		value = 0
+	}
+	export_to_variable = {
+		which = num_of_undead_var
+		value = trigger_value:num_of_streltsy
+	}
+	change_variable = {
+		which = num_of_undead_var
+		value = 1
+	}
+	while = {
+		limit = {
+			check_variable = {
+				which = necromancer_power_var 
+				which = num_of_undead_var
+			}
+		}
+		capital_scope = {
+			streltsy_infantry = ROOT
+		}
+		change_variable = {
+			which = num_of_undead_var
+			value = 1
+		}
+	}
+}
+has_elite_regiments = {
+	OR = {
+		has_estate_privilege = estate_elite_regiments
+		has_estate_privilege = estate_human_elite_regiments
+		has_estate_privilege = estate_elven_elite_regiments
+		has_estate_privilege = estate_dwarven_elite_regiments
+		has_estate_privilege = estate_gnomish_elite_regiments
+		has_estate_privilege = estate_harimari_elite_regiments
+		has_estate_privilege = estate_gnollish_elite_regiments
+		has_estate_privilege = estate_ruinborn_elite_regiments
+		has_estate_privilege = estate_orcish_elite_regiments
+		has_estate_privilege = estate_goblin_elite_regiments
+		has_estate_privilege = estate_ogre_elite_regiments
+		has_estate_privilege = estate_centaur_elite_regiments
+		has_estate_privilege = estate_half_elven_elite_regiments
+		has_estate_privilege = estate_half_orcish_elite_regiments
+		has_estate_privilege = estate_hobgoblin_elite_regiments
+		has_estate_privilege = estate_kobold_elite_regiments
+	}
+}
+remove_estate_race_councelor = {
+	remove_estate_privilege = estate_human_$type$_chairman
+	remove_country_modifier = estate_human_$type$_chairman_modifier
+	remove_estate_privilege = estate_elven_$type$_chairman
+	remove_country_modifier = estate_elven_$type$_chairman_modifier
+	remove_estate_privilege = estate_dwarven_$type$_chairman
+	remove_country_modifier = estate_dwarven_$type$_chairman_modifier
+	remove_estate_privilege = estate_halfling_$type$_chairman
+	remove_country_modifier = estate_halfling_$type$_chairman_modifier
+	remove_estate_privilege = estate_gnomish_$type$_chairman
+	remove_country_modifier = estate_gnomish_$type$_chairman_modifier
+	remove_estate_privilege = estate_harimari_$type$_chairman
+	remove_country_modifier = estate_harimari_$type$_chairman_modifier
+	remove_estate_privilege = estate_gnollish_$type$_chairman
+	remove_country_modifier = estate_gnollish_$type$_chairman_modifier
+	remove_estate_privilege = estate_ruinborn_$type$_chairman
+	remove_country_modifier = estate_ruinborn_$type$_chairman_modifier
+	remove_estate_privilege = estate_orcish_$type$_chairman
+	remove_country_modifier = estate_orcish_$type$_chairman_modifier
+	remove_estate_privilege = estate_goblin_$type$_chairman
+	remove_country_modifier = estate_goblin_$type$_chairman_modifier
+	remove_estate_privilege = estate_ogre_$type$_chairman
+	remove_country_modifier = estate_ogre_$type$_chairman_modifier
+	remove_estate_privilege = estate_centaur_$type$_chairman
+	remove_country_modifier = estate_centaur_$type$_chairman_modifier
+	remove_estate_privilege = estate_troll_$type$_chairman
+	remove_country_modifier = estate_troll_$type$_chairman_modifier
+	remove_estate_privilege = estate_harpy_$type$_chairman
+	remove_country_modifier = estate_harpy_$type$_chairman_modifier
+	remove_estate_privilege = estate_half_orcish_$type$_chairman
+	remove_country_modifier = estate_half_orcish_$type$_chairman_modifier
+	remove_estate_privilege = estate_half_elven_$type$_chairman
+	remove_country_modifier = estate_half_elven_$type$_chairman_modifier
+	remove_estate_privilege = estate_hobgoblin_$type$_chairman
+	remove_country_modifier = estate_hobgoblin_$type$_chairman_modifier
+	remove_estate_privilege = estate_kobold_$type$_chairman
+	remove_country_modifier = estate_kobold_$type$_chairman_modifier
+}
+country_chairman_effect = {
+	if = {
+		limit = {has_country_modifier = estate_human_$type$_chairman_modifier}
+		custom_tooltip = has_human_$type$_chairman_tooltip
+	}
+	else_if = {
+		limit = {has_country_modifier = estate_elven_$type$_chairman_modifier}
+		custom_tooltip = has_elven_$type$_chairman_tooltip
+	}
+	else_if = {
+		limit = {has_country_modifier = estate_dwarven_$type$_chairman_modifier}
+		custom_tooltip = has_dwarven_$type$_chairman_tooltip
+	}
+	else_if = {
+		limit = {has_country_modifier = estate_halfling_$type$_chairman_modifier}
+		custom_tooltip = has_halfling_$type$_chairman_tooltip
+	}
+	else_if = {
+		limit = {has_country_modifier = estate_gnomish_$type$_chairman_modifier}
+		custom_tooltip = has_gnomish_$type$_chairman_tooltip
+	}
+	else_if = {
+		limit = {has_country_modifier = estate_harimari_$type$_chairman_modifier}
+		custom_tooltip = has_harimari_$type$_chairman_tooltip
+	}
+	else_if = {
+		limit = {has_country_modifier = estate_gnollish_$type$_chairman_modifier}
+		custom_tooltip = has_gnollish_$type$_chairman_tooltip
+	}
+	else_if = {
+		limit = {has_country_modifier = estate_ruinborn_$type$_chairman_modifier}
+		custom_tooltip = has_ruinborn_$type$_chairman_tooltip
+	}
+	else_if = {
+		limit = {has_country_modifier = estate_orcish_$type$_chairman_modifier}
+		custom_tooltip = has_orcish_$type$_chairman_tooltip
+	}
+	else_if = {
+		limit = {has_country_modifier = estate_goblin_$type$_chairman_modifier}
+		custom_tooltip = has_goblin_$type$_chairman_tooltip
+	}
+	else_if = {
+		limit = {has_country_modifier = estate_ogre_$type$_chairman_modifier}
+		custom_tooltip = has_ogre_$type$_chairman_tooltip
+	}
+	else_if = {
+		limit = {has_country_modifier = estate_centaur_$type$_chairman_modifier}
+		custom_tooltip = has_centaur_$type$_chairman_tooltip
+	}
+	else_if = {
+		limit = {has_country_modifier = estate_troll_$type$_chairman_modifier}
+		custom_tooltip = has_troll_$type$_chairman_tooltip
+	}
+	else_if = {
+		limit = {has_country_modifier = estate_harpy_$type$_chairman_modifier}
+		custom_tooltip = has_harpy_$type$_chairman_tooltip
+	}
+	else_if = {
+		limit = {has_country_modifier = estate_half_orcish_$type$_chairman_modifier}
+		custom_tooltip = has_half_orcish_$type$_chairman_tooltip
+	}
+	else_if = {
+		limit = {has_country_modifier = estate_half_elven_$type$_chairman_modifier}
+		custom_tooltip = has_half_elven_$type$_chairman_tooltip
+	}
+	else_if = {
+		limit = {has_country_modifier = estate_hobgoblin_$type$_chairman_modifier}
+		custom_tooltip = has_hobgoblin_$type$_chairman_tooltip
+	}
+	else_if = {
+		limit = {has_country_modifier = estate_kobold_$type$_chairman_modifier}
+		custom_tooltip = has_kobold_$type$_chairman_tooltip
+	}
+	else = {custom_tooltip = no_$type$_chairman_tooltip}
+}
+country_administration_effect = {
+	if = {limit = {has_country_modifier = human_administration} custom_tooltip = has_human_$type$_tooltip}
+	if = {limit = {has_country_modifier = elven_administration} custom_tooltip = has_elven_$type$_tooltip}
+	if = {limit = {has_country_modifier = dwarven_administration} custom_tooltip = has_dwarven_$type$_tooltip}
+	if = {limit = {has_country_modifier = halfling_administration} custom_tooltip = has_halfling_$type$_tooltip}
+	if = {limit = {has_country_modifier = harimari_administration} custom_tooltip = has_harimari_$type$_tooltip}
+	if = {limit = {has_country_modifier = gnollish_administration} custom_tooltip = has_gnollish_$type$_tooltip}
+	if = {limit = {has_country_modifier = ruinborn_administration} custom_tooltip = has_ruinborn_$type$_tooltip}
+	if = {limit = {has_country_modifier = orcish_administration} custom_tooltip = has_orcish_$type$_tooltip}
+	if = {limit = {has_country_modifier = goblin_administration} custom_tooltip = has_goblin_$type$_tooltip}
+	if = {limit = {has_country_modifier = ogre_administration} custom_tooltip = has_ogre_$type$_tooltip}
+	if = {limit = {has_country_modifier = centaur_administration} custom_tooltip = has_centaur_$type$_tooltip}
+	if = {limit = {has_country_modifier = troll_administration} custom_tooltip = has_troll_$type$_tooltip}
+	if = {limit = {has_country_modifier = harpy_administration} custom_tooltip = has_harpy_$type$_tooltip}
+	if = {limit = {has_country_modifier = half_orcish_administration} custom_tooltip = has_half_orcish_$type$_tooltip}
+	if = {limit = {has_country_modifier = half_elven_administration} custom_tooltip = has_half_elven_$type$_tooltip}
+	if = {limit = {has_country_modifier = hobgoblin_administration} custom_tooltip = has_hobgoblin_$type$_tooltip}
+	if = {limit = {has_country_modifier = kobold_administration} custom_tooltip = has_kobold_$type$_tooltip}
+}
+clear_artificers_academies = {
+	remove_country_modifier = artificers_academies_31
+	remove_country_modifier = artificers_academies_27
+	remove_country_modifier = artificers_academies_20
+	remove_country_modifier = artificers_academies_14
+	remove_country_modifier = artificers_academies_8
+	remove_country_modifier = artificers_academies_6
+	remove_country_modifier = artificers_academies_1
+}
+setup_artificers_academies = {
+	clear_artificers_academies = yes
+	if = {
+		limit = {
+			has_estate_privilege  = estate_artificers_academies
+		}
+		trigger_switch = {
+			on_trigger = has_country_flag
+			mil_tech_31_flag = {add_country_modifier = {name = artificers_academies_31 duration = -1}}
+			mil_tech_27_flag = {add_country_modifier = {name = artificers_academies_27 duration = -1}}
+			mil_tech_20_flag = {add_country_modifier = {name = artificers_academies_20 duration = -1}}
+			mil_tech_14_flag = {add_country_modifier = {name = artificers_academies_14 duration = -1}}
+			mil_tech_8_flag = {add_country_modifier = {name = artificers_academies_8 duration = -1}}
+			mil_tech_6_flag = {add_country_modifier = {name = artificers_academies_6 duration = -1}}
+			mil_tech_1_flag = {add_country_modifier = {name = artificers_academies_1 duration = -1}}
+		}
+	}
+}
+setup_battlemages_training = {
+	add_country_modifier = {name = magic_training duration = -1}
+}
+clear_battlemages_training = {
+	remove_country_modifier = magic_training
+}
+setup_battlemages_shock = {
+	clear_battlemages_shock = yes
+	if = {
+		limit = {
+			has_estate_privilege  = estate_mages_battlemage_academies
+			NOT = {has_estate_privilege  = estate_mages_fire_academy}
+			NOT = {
+				has_race_recruitment = {
+					race = centaur
+				}
+			}
+		}
+		trigger_switch = {
+			on_trigger = has_country_flag
+			mil_tech_31_flag = {add_country_modifier = {name = magic_academies_31 duration = -1}}
+			mil_tech_28_flag = {add_country_modifier = {name = magic_academies_28 duration = -1}}
+			mil_tech_27_flag = {add_country_modifier = {name = magic_academies_27 duration = -1}}
+			mil_tech_21_flag = {add_country_modifier = {name = magic_academies_21 duration = -1}}
+			mil_tech_20_flag = {add_country_modifier = {name = magic_academies_20 duration = -1}}
+			mil_tech_14_flag = {add_country_modifier = {name = magic_academies_14 duration = -1}}
+			mil_tech_11_flag = {add_country_modifier = {name = magic_academies_11 duration = -1}}
+			mil_tech_8_flag = {add_country_modifier = {name = magic_academies_8 duration = -1}}
+			mil_tech_6_flag = {add_country_modifier = {name = magic_academies_6 duration = -1}}
+			mil_tech_5_flag = {add_country_modifier = {name = magic_academies_5 duration = -1}}
+			mil_tech_2_flag = {add_country_modifier = {name = magic_academies_2 duration = -1}}
+		}
+	}
+	else_if = {
+		limit = {
+			has_estate_privilege  = estate_mages_battlemage_academies
+			has_race_recruitment = {
+				race = centaur
+			}
+		}
+		trigger_switch = {
+			on_trigger = has_country_flag
+			mil_tech_31_flag = {add_country_modifier = {name = centaur_magic_academies_31 duration = -1}}
+			mil_tech_23_flag = {add_country_modifier = {name = centaur_magic_academies_23 duration = -1}}
+			mil_tech_17_flag = {add_country_modifier = {name = centaur_magic_academies_17 duration = -1}}
+			mil_tech_8_flag = {add_country_modifier = {name = centaur_magic_academies_8 duration = -1}}
+			mil_tech_5_flag = {add_country_modifier = {name = centaur_magic_academies_5 duration = -1}}
+			mil_tech_2_flag = {add_country_modifier = {name = centaur_magic_academies_2 duration = -1}}
+		}
+	}
+}
+clear_battlemages_shock = {
+	remove_country_modifier = magic_academies_2
+	remove_country_modifier = magic_academies_5
+	remove_country_modifier = magic_academies_6
+	remove_country_modifier = magic_academies_8
+	remove_country_modifier = magic_academies_11
+	remove_country_modifier = magic_academies_14
+	remove_country_modifier = magic_academies_20
+	remove_country_modifier = magic_academies_21
+	remove_country_modifier = magic_academies_27
+	remove_country_modifier = magic_academies_28
+	remove_country_modifier = magic_academies_31
+	remove_country_modifier = centaur_magic_academies_2
+	remove_country_modifier = centaur_magic_academies_5
+	remove_country_modifier = centaur_magic_academies_8
+	remove_country_modifier = centaur_magic_academies_17
+	remove_country_modifier = centaur_magic_academies_23
+	remove_country_modifier = centaur_magic_academies_31
+}
+take_estate_land_share_all = {
+	 change_estate_land_share = {
+		estate = $estate$
+		share = -100
+	}
+}
+set_basic_variables = {
+	set_variable = {
+		which = $RACE$_base_manpower_province_variable
+		value = 0
+	}
+	set_variable = {
+		which = $RACE$_efficiency_manpower_province_variable
+		value = 0
+	}
+	set_variable = {
+		which = $RACE$_dev_province_variable
+		value = 0
+	}
+	set_variable = {
+		which = $RACE$_total_base_manpower_variable
+		value = 0
+	}
+	set_variable = {
+		which = $RACE$_total_dev_variable
+		value = 0
+	}	
+}
+set_pop_percentage = {
+	if = {
+		limit = {
+			has_estate = estate_$RACE$
+		}
+		divide_variable = {
+			which = $RACE$_total_base_manpower_variable
+			which = all_races_base_manpower_variable
+		}
+		multiply_variable = {
+			which = $RACE$_total_base_manpower_variable
+			value = 100
+		}
+		divide_variable = {
+			which = $RACE$_total_dev_variable
+			which = all_races_total_dev_variable
+		}
+		multiply_variable = {
+			which = $RACE$_total_dev_variable
+			value = 100
+		}
+	}
+}
+change_estate_land_to_percentage = {
+	if = {
+		limit = {
+			has_race_recruitment = {
+				race = $RACE$
+			}
+		}
+		set_variable = {
+			which = land_to_percentage_var
+			value = 1.0
+		}
+		if = {
+			limit = {
+				check_variable = {
+					which = $RACE$_total_base_manpower_variable
+					which = land_to_percentage_var
+				}
+			}
+			change_estate_land_share = {
+				estate = estate_$RACE$
+				share = 0.99
+			}
+		}
+		while = {
+			limit = {
+				check_variable = {
+					which = $RACE$_total_base_manpower_variable
+					which = land_to_percentage_var
+				}
+			}
+			change_variable = {
+				which = land_to_percentage_var
+				value = 1
+			}
+			change_estate_land_share = {
+				estate = estate_$RACE$
+				share = 1
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			has_estate_privilege = estate_halfling_non_military_country
+		}
+		change_estate_land_share = {
+			estate = estate_halfling
+			share = 100
+		}
+		change_estate_land_share = {
+			estate = estate_halfling
+			share = -100
+		}
+	}
+}
+count_country_manpower = {		#Country
+	if = { #
+		limit = {
+			is_state_core = owner
+			culture_is_$RACE$ = yes
+		}
+		owner = {		#Country	
+			set_variable = {
+				which = $RACE$_base_manpower_province_variable
+				value = 0
+			}
+			export_to_variable = {
+				which = $RACE$_base_manpower_province_variable
+				value = base_manpower	# base manpower of province
+				who = ROOT				# PREV = Province
+			}
+			if = {
+				limit = {		
+					has_race_recruitment = {
+						race = $RACE$
+					}
+				}
+				change_variable = {
+					which = $RACE$_total_base_manpower_variable
+					which = $RACE$_base_manpower_province_variable
+				}
+				change_variable = {
+					which = all_races_base_manpower_variable
+					which = $RACE$_base_manpower_province_variable
+				}
+			}
+			export_to_variable = {
+				which = $RACE$_dev_province_variable
+				value = development			# Dev of province
+				who = PREV					# PREV = Province
+			}
+			change_variable = {
+				which = $RACE$_total_dev_variable
+				which = $RACE$_dev_province_variable
+			}
+			change_variable = {
+				which = all_races_total_dev_variable
+				which = $RACE$_dev_province_variable
+			}
+		}
+	}
+}
+update_race_recruitment = {
+	update_$race$_recruitment = yes
+}
+update_human_recruitment = {
+	set_estate_privilege = estate_human_recruitment
+}
+update_elven_recruitment = {
+	set_estate_privilege = estate_elven_recruitment
+}
+update_dwarven_recruitment = {
+	set_estate_privilege = estate_dwarven_recruitment
+}
+update_halfling_recruitment = {
+	update_tech_flag = yes
+	trigger_switch = {
+		on_trigger = has_country_flag
+		mil_tech_32_flag = {set_estate_privilege = estate_halfling_recruitment_32}
+		mil_tech_31_flag = {set_estate_privilege = estate_halfling_recruitment_31}
+		mil_tech_28_flag = {set_estate_privilege = estate_halfling_recruitment_28}
+		mil_tech_27_flag = {set_estate_privilege = estate_halfling_recruitment_27}
+		mil_tech_25_flag = {set_estate_privilege = estate_halfling_recruitment_25}
+		mil_tech_23_flag = {set_estate_privilege = estate_halfling_recruitment_23}
+		mil_tech_22_flag = {set_estate_privilege = estate_halfling_recruitment_22}
+		mil_tech_21_flag = {set_estate_privilege = estate_halfling_recruitment_21}
+		mil_tech_20_flag = {set_estate_privilege = estate_halfling_recruitment_20}
+		mil_tech_17_flag = {set_estate_privilege = estate_halfling_recruitment_17}
+		mil_tech_16_flag = {set_estate_privilege = estate_halfling_recruitment_16}
+		mil_tech_14_flag = {set_estate_privilege = estate_halfling_recruitment_14}
+		mil_tech_13_flag = {set_estate_privilege = estate_halfling_recruitment_13}
+		mil_tech_11_flag = {set_estate_privilege = estate_halfling_recruitment_11}
+		mil_tech_8_flag = {set_estate_privilege = estate_halfling_recruitment_8}
+		mil_tech_7_flag = {set_estate_privilege = estate_halfling_recruitment_7}
+		mil_tech_6_flag = {set_estate_privilege = estate_halfling_recruitment_6}
+		mil_tech_5_flag = {set_estate_privilege = estate_halfling_recruitment_5}
+		mil_tech_2_flag = {set_estate_privilege = estate_halfling_recruitment_2}
+		mil_tech_1_flag = {set_estate_privilege = estate_halfling_recruitment}
+	}
+}
+update_gnomish_recruitment = {
+	update_tech_flag = yes
+	trigger_switch = {
+		on_trigger = has_country_flag
+		mil_tech_32_flag = {set_estate_privilege = estate_gnomish_recruitment_32}
+		mil_tech_31_flag = {set_estate_privilege = estate_gnomish_recruitment_31}
+		mil_tech_28_flag = {set_estate_privilege = estate_gnomish_recruitment_28}
+		mil_tech_27_flag = {set_estate_privilege = estate_gnomish_recruitment_27}
+		mil_tech_25_flag = {set_estate_privilege = estate_gnomish_recruitment_25}
+		mil_tech_22_flag = {set_estate_privilege = estate_gnomish_recruitment_22}
+		mil_tech_21_flag = {set_estate_privilege = estate_gnomish_recruitment_21}
+		mil_tech_20_flag = {set_estate_privilege = estate_gnomish_recruitment_20}
+		mil_tech_16_flag = {set_estate_privilege = estate_gnomish_recruitment_16}
+		mil_tech_14_flag = {set_estate_privilege = estate_gnomish_recruitment_14}
+		mil_tech_13_flag = {set_estate_privilege = estate_gnomish_recruitment_13}
+		mil_tech_11_flag = {set_estate_privilege = estate_gnomish_recruitment_11}
+		mil_tech_8_flag = {set_estate_privilege = estate_gnomish_recruitment_8}
+		mil_tech_7_flag = {set_estate_privilege = estate_gnomish_recruitment_7}
+		mil_tech_6_flag = {set_estate_privilege = estate_gnomish_recruitment_6}
+		mil_tech_5_flag = {set_estate_privilege = estate_gnomish_recruitment_5}
+		mil_tech_2_flag = {set_estate_privilege = estate_gnomish_recruitment_2}
+		mil_tech_1_flag = {set_estate_privilege = estate_gnomish_recruitment}
+	}
+}
+update_harimari_recruitment = {
+	update_tech_flag = yes
+	trigger_switch = {
+		on_trigger = has_country_flag
+		mil_tech_32_flag = {set_estate_privilege = estate_harimari_recruitment_32}
+		mil_tech_31_flag = {set_estate_privilege = estate_harimari_recruitment_31}
+		mil_tech_28_flag = {set_estate_privilege = estate_harimari_recruitment_28}
+		mil_tech_27_flag = {set_estate_privilege = estate_harimari_recruitment_27}
+		mil_tech_25_flag = {set_estate_privilege = estate_harimari_recruitment_25}
+		mil_tech_22_flag = {set_estate_privilege = estate_harimari_recruitment_22}
+		mil_tech_21_flag = {set_estate_privilege = estate_harimari_recruitment_21}
+		mil_tech_20_flag = {set_estate_privilege = estate_harimari_recruitment_20}
+		mil_tech_16_flag = {set_estate_privilege = estate_harimari_recruitment_16}
+		mil_tech_14_flag = {set_estate_privilege = estate_harimari_recruitment_14}
+		mil_tech_13_flag = {set_estate_privilege = estate_harimari_recruitment_13}
+		mil_tech_11_flag = {set_estate_privilege = estate_harimari_recruitment_11}
+		mil_tech_8_flag = {set_estate_privilege = estate_harimari_recruitment_8}
+		mil_tech_7_flag = {set_estate_privilege = estate_harimari_recruitment_7}
+		mil_tech_6_flag = {set_estate_privilege = estate_harimari_recruitment_6}
+		mil_tech_5_flag = {set_estate_privilege = estate_harimari_recruitment_5}
+		mil_tech_2_flag = {set_estate_privilege = estate_harimari_recruitment_2}
+		mil_tech_1_flag = {set_estate_privilege = estate_harimari_recruitment}
+	}
+}
+update_gnollish_recruitment = {
+	update_tech_flag = yes
+	trigger_switch = {
+		on_trigger = has_country_flag
+		mil_tech_32_flag = {set_estate_privilege = estate_gnollish_recruitment_32}
+		mil_tech_31_flag = {set_estate_privilege = estate_gnollish_recruitment_31}
+		mil_tech_28_flag = {set_estate_privilege = estate_gnollish_recruitment_28}
+		mil_tech_27_flag = {set_estate_privilege = estate_gnollish_recruitment_27}
+		mil_tech_25_flag = {set_estate_privilege = estate_gnollish_recruitment_25}
+		mil_tech_22_flag = {set_estate_privilege = estate_gnollish_recruitment_22}
+		mil_tech_21_flag = {set_estate_privilege = estate_gnollish_recruitment_21}
+		mil_tech_20_flag = {set_estate_privilege = estate_gnollish_recruitment_20}
+		mil_tech_16_flag = {set_estate_privilege = estate_gnollish_recruitment_16}
+		mil_tech_14_flag = {set_estate_privilege = estate_gnollish_recruitment_14}
+		mil_tech_13_flag = {set_estate_privilege = estate_gnollish_recruitment_13}
+		mil_tech_11_flag = {set_estate_privilege = estate_gnollish_recruitment_11}
+		mil_tech_8_flag = {set_estate_privilege = estate_gnollish_recruitment_8}
+		mil_tech_7_flag = {set_estate_privilege = estate_gnollish_recruitment_7}
+		mil_tech_6_flag = {set_estate_privilege = estate_gnollish_recruitment_6}
+		mil_tech_5_flag = {set_estate_privilege = estate_gnollish_recruitment_5}
+		mil_tech_2_flag = {set_estate_privilege = estate_gnollish_recruitment_2}
+		mil_tech_1_flag = {set_estate_privilege = estate_gnollish_recruitment}
+	}
+}
+update_ruinborn_recruitment = {
+	set_estate_privilege = estate_ruinborn_recruitment
+}
+update_orcish_recruitment = {
+	update_tech_flag = yes
+	trigger_switch = {
+		on_trigger = has_country_flag
+		mil_tech_32_flag = {set_estate_privilege = estate_orcish_recruitment_32}
+		mil_tech_31_flag = {set_estate_privilege = estate_orcish_recruitment_31}
+		mil_tech_28_flag = {set_estate_privilege = estate_orcish_recruitment_28}
+		mil_tech_27_flag = {set_estate_privilege = estate_orcish_recruitment_27}
+		mil_tech_25_flag = {set_estate_privilege = estate_orcish_recruitment_25}
+		mil_tech_22_flag = {set_estate_privilege = estate_orcish_recruitment_22}
+		mil_tech_21_flag = {set_estate_privilege = estate_orcish_recruitment_21}
+		mil_tech_20_flag = {set_estate_privilege = estate_orcish_recruitment_20}
+		mil_tech_16_flag = {set_estate_privilege = estate_orcish_recruitment_16}
+		mil_tech_14_flag = {set_estate_privilege = estate_orcish_recruitment_14}
+		mil_tech_13_flag = {set_estate_privilege = estate_orcish_recruitment_13}
+		mil_tech_11_flag = {set_estate_privilege = estate_orcish_recruitment_11}
+		mil_tech_8_flag = {set_estate_privilege = estate_orcish_recruitment_8}
+		mil_tech_7_flag = {set_estate_privilege = estate_orcish_recruitment_7}
+		mil_tech_6_flag = {set_estate_privilege = estate_orcish_recruitment_6}
+		mil_tech_5_flag = {set_estate_privilege = estate_orcish_recruitment_5}
+		mil_tech_2_flag = {set_estate_privilege = estate_orcish_recruitment_2}
+		mil_tech_1_flag = {set_estate_privilege = estate_orcish_recruitment}
+	}
+}
+update_goblin_recruitment = {
+	update_tech_flag = yes
+	trigger_switch = {
+		on_trigger = has_country_flag
+		mil_tech_32_flag = {set_estate_privilege = estate_goblin_recruitment_32}
+		mil_tech_31_flag = {set_estate_privilege = estate_goblin_recruitment_31}
+		mil_tech_28_flag = {set_estate_privilege = estate_goblin_recruitment_28}
+		mil_tech_27_flag = {set_estate_privilege = estate_goblin_recruitment_27}
+		mil_tech_25_flag = {set_estate_privilege = estate_goblin_recruitment_25}
+		mil_tech_22_flag = {set_estate_privilege = estate_goblin_recruitment_22}
+		mil_tech_21_flag = {set_estate_privilege = estate_goblin_recruitment_21}
+		mil_tech_20_flag = {set_estate_privilege = estate_goblin_recruitment_20}
+		mil_tech_16_flag = {set_estate_privilege = estate_goblin_recruitment_16}
+		mil_tech_14_flag = {set_estate_privilege = estate_goblin_recruitment_14}
+		mil_tech_13_flag = {set_estate_privilege = estate_goblin_recruitment_13}
+		mil_tech_11_flag = {set_estate_privilege = estate_goblin_recruitment_11}
+		mil_tech_8_flag = {set_estate_privilege = estate_goblin_recruitment_8}
+		mil_tech_7_flag = {set_estate_privilege = estate_goblin_recruitment_7}
+		mil_tech_6_flag = {set_estate_privilege = estate_goblin_recruitment_6}
+		mil_tech_5_flag = {set_estate_privilege = estate_goblin_recruitment_5}
+		mil_tech_2_flag = {set_estate_privilege = estate_goblin_recruitment_2}
+		mil_tech_1_flag = {set_estate_privilege = estate_goblin_recruitment}
+	}
+}
+update_ogre_recruitment = {
+	update_tech_flag = yes
+	trigger_switch = {
+		on_trigger = has_country_flag
+		mil_tech_32_flag = {set_estate_privilege = estate_ogre_recruitment_32}
+		mil_tech_31_flag = {set_estate_privilege = estate_ogre_recruitment_31}
+		mil_tech_28_flag = {set_estate_privilege = estate_ogre_recruitment_28}
+		mil_tech_27_flag = {set_estate_privilege = estate_ogre_recruitment_27}
+		mil_tech_25_flag = {set_estate_privilege = estate_ogre_recruitment_25}
+		mil_tech_22_flag = {set_estate_privilege = estate_ogre_recruitment_22}
+		mil_tech_21_flag = {set_estate_privilege = estate_ogre_recruitment_21}
+		mil_tech_20_flag = {set_estate_privilege = estate_ogre_recruitment_20}
+		mil_tech_16_flag = {set_estate_privilege = estate_ogre_recruitment_16}
+		mil_tech_14_flag = {set_estate_privilege = estate_ogre_recruitment_14}
+		mil_tech_13_flag = {set_estate_privilege = estate_ogre_recruitment_13}
+		mil_tech_11_flag = {set_estate_privilege = estate_ogre_recruitment_11}
+		mil_tech_8_flag = {set_estate_privilege = estate_ogre_recruitment_8}
+		mil_tech_7_flag = {set_estate_privilege = estate_ogre_recruitment_7}
+		mil_tech_6_flag = {set_estate_privilege = estate_ogre_recruitment_6}
+		mil_tech_5_flag = {set_estate_privilege = estate_ogre_recruitment_5}
+		mil_tech_2_flag = {set_estate_privilege = estate_ogre_recruitment_2}
+		mil_tech_1_flag = {set_estate_privilege = estate_ogre_recruitment}
+	}
+}
+update_centaur_recruitment = {
+	update_tech_flag = yes
+	trigger_switch = {
+		on_trigger = has_country_flag		
+		mil_tech_32_flag = {set_estate_privilege = estate_centaur_recruitment_32}
+		mil_tech_31_flag = {set_estate_privilege = estate_centaur_recruitment_31}
+		mil_tech_30_flag = {set_estate_privilege = estate_centaur_recruitment_30}
+		mil_tech_27_flag = {set_estate_privilege = estate_centaur_recruitment_27}
+		mil_tech_25_flag = {set_estate_privilege = estate_centaur_recruitment_25}
+		mil_tech_23_flag = {set_estate_privilege = estate_centaur_recruitment_23}
+		mil_tech_22_flag = {set_estate_privilege = estate_centaur_recruitment_22}
+		mil_tech_20_flag = {set_estate_privilege = estate_centaur_recruitment_20}
+		mil_tech_17_flag = {set_estate_privilege = estate_centaur_recruitment_17}
+		mil_tech_16_flag = {set_estate_privilege = estate_centaur_recruitment_16}
+		mil_tech_14_flag = {set_estate_privilege = estate_centaur_recruitment_14}
+		mil_tech_13_flag = {set_estate_privilege = estate_centaur_recruitment_13}
+		mil_tech_8_flag = {set_estate_privilege = estate_centaur_recruitment_8}
+		mil_tech_7_flag = {set_estate_privilege = estate_centaur_recruitment_7}
+		mil_tech_5_flag = {set_estate_privilege = estate_centaur_recruitment_5}
+		mil_tech_2_flag = {set_estate_privilege = estate_centaur_recruitment_2}
+		mil_tech_1_flag = {set_estate_privilege = estate_centaur_recruitment}
+	}
+}
+update_harpy_recruitment = {
+	set_estate_privilege = estate_harpy_recruitment
+}
+update_troll_recruitment = {
+	update_tech_flag = yes
+	trigger_switch = {
+		on_trigger = has_country_flag		
+		mil_tech_31_flag = {set_estate_privilege = estate_troll_recruitment_31}
+		mil_tech_28_flag = {set_estate_privilege = estate_troll_recruitment_28}
+		mil_tech_27_flag = {set_estate_privilege = estate_troll_recruitment_27}
+		mil_tech_21_flag = {set_estate_privilege = estate_troll_recruitment_21}
+		mil_tech_20_flag = {set_estate_privilege = estate_troll_recruitment_20}
+		mil_tech_14_flag = {set_estate_privilege = estate_troll_recruitment_14}
+		mil_tech_11_flag = {set_estate_privilege = estate_troll_recruitment_11}
+		mil_tech_8_flag = {set_estate_privilege = estate_troll_recruitment_8}
+		mil_tech_6_flag = {set_estate_privilege = estate_troll_recruitment_6}
+		mil_tech_5_flag = {set_estate_privilege = estate_troll_recruitment_5}
+		mil_tech_2_flag = {set_estate_privilege = estate_troll_recruitment_2}
+		mil_tech_1_flag = {set_estate_privilege = estate_troll_recruitment}
+	}
+}
+update_half_orcish_recruitment = {
+	set_estate_privilege = estate_half_orcish_recruitment
+}
+update_half_elven_recruitment = {
+	set_estate_privilege = estate_half_elven_recruitment
+}
+update_hobgoblin_recruitment = {
+	set_estate_privilege = estate_hobgoblin_recruitment
+}
+update_kobold_recruitment = {
+	set_estate_privilege = estate_kobold_recruitment
+}
+update_tech_flag = {
+	if = {
+		limit = {
+			mil_tech = 32
+			NOT = {has_country_flag = mil_tech_32_flag}
+		}
+		set_country_flag = mil_tech_32_flag
+	}
+	if = {
+		limit = {
+			mil_tech = 31
+			NOT = {has_country_flag = mil_tech_31_flag}
+		}
+		set_country_flag = mil_tech_31_flag
+	}
+	if = {
+		limit = {
+			mil_tech = 30
+			NOT = {has_country_flag = mil_tech_30_flag}
+		}
+		set_country_flag = mil_tech_30_flag
+	}
+	if = {
+		limit = {
+			mil_tech = 29
+			NOT = {has_country_flag = mil_tech_29_flag}
+		}
+		set_country_flag = mil_tech_29_flag
+	}
+	if = {
+		limit = {
+			mil_tech = 28
+			NOT = {has_country_flag = mil_tech_28_flag}
+		}
+		set_country_flag = mil_tech_28_flag
+	}
+	if = {
+		limit = {
+			mil_tech = 27
+			NOT = {has_country_flag = mil_tech_27_flag}
+		}
+		set_country_flag = mil_tech_27_flag
+	}
+	if = {
+		limit = {
+			mil_tech = 26
+			NOT = {has_country_flag = mil_tech_26_flag}
+		}
+		set_country_flag = mil_tech_26_flag
+	}
+	if = {
+		limit = {
+			mil_tech = 25
+			NOT = {has_country_flag = mil_tech_25_flag}
+		}
+		set_country_flag = mil_tech_25_flag
+	}
+	if = {
+		limit = {
+			mil_tech = 24
+			NOT = {has_country_flag = mil_tech_24_flag}
+		}
+		set_country_flag = mil_tech_24_flag
+	}
+	if = {
+		limit = {
+			mil_tech = 23
+			NOT = {has_country_flag = mil_tech_23_flag}
+		}
+		set_country_flag = mil_tech_23_flag
+	}
+	if = {
+		limit = {
+			mil_tech = 22
+			NOT = {has_country_flag = mil_tech_22_flag}
+		}
+		set_country_flag = mil_tech_22_flag
+	}
+	if = {
+		limit = {
+			mil_tech = 21
+			NOT = {has_country_flag = mil_tech_21_flag}
+		}
+		set_country_flag = mil_tech_21_flag
+	}
+	if = {
+		limit = {
+			mil_tech = 20
+			NOT = {has_country_flag = mil_tech_20_flag}
+		}
+		set_country_flag = mil_tech_20_flag
+	}
+	if = {
+		limit = {
+			mil_tech = 19
+			NOT = {has_country_flag = mil_tech_19_flag}
+		}
+		set_country_flag = mil_tech_19_flag
+	}
+	if = {
+		limit = {
+			mil_tech = 18
+			NOT = {has_country_flag = mil_tech_18_flag}
+		}
+		set_country_flag = mil_tech_18_flag
+	}
+	if = {
+		limit = {
+			mil_tech = 17
+			NOT = {has_country_flag = mil_tech_16_flag}
+		}
+		set_country_flag = mil_tech_17_flag
+	}
+	if = {
+		limit = {
+			mil_tech = 16
+			NOT = {has_country_flag = mil_tech_16_flag}
+		}
+		set_country_flag = mil_tech_16_flag
+	}
+	if = {
+		limit = {
+			mil_tech = 15
+			NOT = {has_country_flag = mil_tech_15_flag}
+		}
+		set_country_flag = mil_tech_15_flag
+	}
+	if = {
+		limit = {
+			mil_tech = 14
+			NOT = {has_country_flag = mil_tech_14_flag}
+		}
+		set_country_flag = mil_tech_14_flag
+	}
+	if = {
+		limit = {
+			mil_tech = 13
+			NOT = {has_country_flag = mil_tech_13_flag}
+		}
+		set_country_flag = mil_tech_13_flag
+	}
+	if = {
+		limit = {
+			mil_tech = 12
+			NOT = {has_country_flag = mil_tech_12_flag}
+		}
+		set_country_flag = mil_tech_12_flag
+	}
+	if = {
+		limit = {
+			mil_tech = 11
+			NOT = {has_country_flag = mil_tech_11_flag}
+		}
+		set_country_flag = mil_tech_11_flag
+	}
+	if = {
+		limit = {
+			mil_tech = 10
+			NOT = {has_country_flag = mil_tech_10_flag}
+		}
+		set_country_flag = mil_tech_10_flag
+	}
+	if = {
+		limit = {
+			mil_tech = 9
+			NOT = {has_country_flag = mil_tech_9_flag}
+		}
+		set_country_flag = mil_tech_9_flag
+	}
+	if = {
+		limit = {
+			mil_tech = 8
+			NOT = {has_country_flag = mil_tech_8_flag}
+		}
+		set_country_flag = mil_tech_8_flag
+	}
+	if = {
+		limit = {
+			mil_tech = 7
+			NOT = {has_country_flag = mil_tech_7_flag}
+		}
+		set_country_flag = mil_tech_7_flag
+	}
+	if = {
+		limit = {
+			mil_tech = 6
+			NOT = {has_country_flag = mil_tech_6_flag}
+		}
+		set_country_flag = mil_tech_6_flag
+	}
+	if = {
+		limit = {
+			mil_tech = 5
+			NOT = {has_country_flag = mil_tech_5_flag}
+		}
+		set_country_flag = mil_tech_5_flag
+	}
+	if = {
+		limit = {
+			mil_tech = 4
+			NOT = {has_country_flag = mil_tech_4_flag}
+		}
+		set_country_flag = mil_tech_4_flag
+	}
+	if = {
+		limit = {
+			mil_tech = 3
+			NOT = {has_country_flag = mil_tech_3_flag}
+		}
+		set_country_flag = mil_tech_3_flag
+	}
+	if = {
+		limit = {
+			mil_tech = 2
+		}
+		set_country_flag = mil_tech_2_flag
+	}
+	if = {
+		limit = {
+			mil_tech = 1
+			NOT = {has_country_flag = mil_tech_1_flag}
+		}
+		set_country_flag = mil_tech_1_flag
+	}
+}
+get_magisterium_general = {
+	if = {
+		limit = {estate_influence = {estate = estate_mages influence = 80}}
+		define_general = {
+			fire = 4
+			shock = 11
+			manuever = 3
+			siege = 7
+		}
+		add_mil_power = -200
+	}
+	else_if = {
+		limit = {estate_influence = {estate = estate_mages influence = 70}}
+		define_general = {
+			fire = 3
+			shock = 10
+			manuever = 2
+			siege = 6
+		}
+		add_mil_power = -175
+	}
+	else_if = {
+		limit = {estate_influence = {estate = estate_mages influence = 60}}
+		define_general = {
+			fire = 3
+			shock = 9
+			manuever = 1
+			siege = 5
+		}
+		add_mil_power = -150
+	}
+	else_if = {
+		limit = {estate_influence = {estate = estate_mages influence = 50}}
+		define_general = {
+			fire = 2
+			shock = 8
+			manuever = 1
+			siege = 4
+		}
+		add_mil_power = -125
+	}
+	else_if = {
+		limit = {estate_influence = {estate = estate_mages influence = 40}}
+		define_general = {
+			fire = 2
+			shock = 7
+			manuever = 1
+			siege = 3
+		}
+		add_mil_power = -100
+	}
+	else_if = {
+		limit = {estate_influence = {estate = estate_mages influence = 30}}
+		define_general = {
+			fire = 2
+			shock = 7
+			manuever = 0
+			siege = 2
+		}
+		add_mil_power = -75
+	}
+	else_if = {
+		limit = {estate_influence = {estate = estate_mages influence = 20}}
+		define_general = {
+			fire = 1
+			shock = 6
+			manuever = 0
+			siege = 1
+		}
+		add_mil_power = -50
+	}
+	else = {
+		define_general = {
+			fire = 1
+			shock = 5
+			manuever = 0
+			siege = 0
+		}
+		add_mil_power = -25
+	}
+}
+get_magisterium_general_ideas = {
+	if = {
+		limit = {estate_influence = {estate = estate_mages influence = 80}}
+		define_general = {
+			fire = 5
+			shock = 12
+			manuever = 4
+			siege = 8
+		}
+		add_mil_power = -200
+	}
+	else_if = {
+		limit = {estate_influence = {estate = estate_mages influence = 70}}
+		define_general = {
+			fire = 4
+			shock = 11
+			manuever = 3
+			siege = 7
+		}
+		add_mil_power = -175
+	}
+	else_if = {
+		limit = {estate_influence = {estate = estate_mages influence = 60}}
+		define_general = {
+			fire = 4
+			shock = 10
+			manuever = 2
+			siege = 6
+		}
+		add_mil_power = -150
+	}
+	else_if = {
+		limit = {estate_influence = {estate = estate_mages influence = 50}}
+		define_general = {
+			fire = 3
+			shock = 9
+			manuever = 2
+			siege = 5
+		}
+		add_mil_power = -125
+	}
+	else_if = {
+		limit = {estate_influence = {estate = estate_mages influence = 40}}
+		define_general = {
+			fire = 3
+			shock = 8
+			manuever = 2
+			siege = 4
+		}
+		add_mil_power = -100
+	}
+	else_if = {
+		limit = {estate_influence = {estate = estate_mages influence = 30}}
+		define_general = {
+			fire = 3
+			shock = 8
+			manuever = 1
+			siege = 3
+		}
+		add_mil_power = -75
+	}
+	else_if = {
+		limit = {estate_influence = {estate = estate_mages influence = 20}}
+		define_general = {
+			fire = 2
+			shock = 7
+			manuever = 1
+			siege = 2
+		}
+		add_mil_power = -50
+	}
+	else = {
+		define_general = {
+			fire = 2
+			shock = 6
+			manuever = 1
+			siege = 1
+		}
+		add_mil_power = -25
+	}
+}
+get_artificers_general = {
+	if = {
+		limit = {estate_influence = {estate = estate_artificers influence = 80}}
+		define_general = {
+			shock = 4
+			fire = 9
+			manuever = 3
+			siege = 8
+		}
+		add_mil_power = -200
+	}
+	else_if = {
+		limit = {estate_influence = {estate = estate_artificers influence = 70}}
+		define_general = {
+			shock = 3
+			fire = 8
+			manuever = 2
+			siege = 7
+		}
+		add_mil_power = -175
+	}
+	else_if = {
+		limit = {estate_influence = {estate = estate_artificers influence = 60}}
+		define_general = {
+			shock = 3
+			fire = 7
+			manuever = 1
+			siege = 6
+		}
+		add_mil_power = -150
+	}
+	else_if = {
+		limit = {estate_influence = {estate = estate_artificers influence = 50}}
+		define_general = {
+			shock = 3
+			fire = 6
+			manuever = 1
+			siege = 5
+		}
+		add_mil_power = -125
+	}
+	else_if = {
+		limit = {estate_influence = {estate = estate_artificers influence = 40}}
+		define_general = {
+			shock = 3
+			fire = 6
+			manuever = 1
+			siege = 4
+		}
+		add_mil_power = -100
+	}
+	else_if = {
+		limit = {estate_influence = {estate = estate_artificers influence = 30}}
+		define_general = {
+			shock = 3
+			fire = 6
+			manuever = 0
+			siege = 3
+		}
+		add_mil_power = -75
+	}
+	else_if = {
+		limit = {estate_influence = {estate = estate_artificers influence = 20}}
+		define_general = {
+			shock = 2
+			fire = 6
+			manuever = 0
+			siege = 2
+		}
+		add_mil_power = -50
+	}
+	else = {
+		define_general = {
+			shock = 2
+			fire = 5
+			manuever = 0
+			siege = 1
+		}
+		add_mil_power = -25
+	}
+}
+get_artificers_general_ideas = {
+	if = {
+		limit = {estate_influence = {estate = estate_artificers influence = 80}}
+		define_general = {
+			shock = 5
+			fire = 10
+			manuever = 4
+			siege = 8
+		}
+		add_mil_power = -200
+	}
+	else_if = {
+		limit = {estate_influence = {estate = estate_artificers influence = 70}}
+		define_general = {
+			shock = 4
+			fire = 9
+			manuever = 3
+			siege = 7
+		}
+		add_mil_power = -175
+	}
+	else_if = {
+		limit = {estate_influence = {estate = estate_artificers influence = 60}}
+		define_general = {
+			shock = 4
+			fire = 8
+			manuever = 2
+			siege = 6
+		}
+		add_mil_power = -150
+	}
+	else_if = {
+		limit = {estate_influence = {estate = estate_artificers influence = 50}}
+		define_general = {
+			shock = 3
+			fire = 7
+			manuever = 2
+			siege = 5
+		}
+		add_mil_power = -125
+	}
+	else_if = {
+		limit = {estate_influence = {estate = estate_artificers influence = 40}}
+		define_general = {
+			shock = 3
+			fire = 6
+			manuever = 2
+			siege = 4
+		}
+		add_mil_power = -100
+	}
+	else_if = {
+		limit = {estate_influence = {estate = estate_artificers influence = 30}}
+		define_general = {
+			shock = 3
+			fire = 6
+			manuever = 1
+			siege = 4
+		}
+		add_mil_power = -75
+	}
+	else_if = {
+		limit = {estate_influence = {estate = estate_artificers influence = 20}}
+		define_general = {
+			shock = 3
+			fire = 6
+			manuever = 1
+			siege = 3
+		}
+		add_mil_power = -50
+	}
+	else = {
+		define_general = {
+			shock = 3
+			fire = 6
+			manuever = 1
+			siege = 2
+		}
+		add_mil_power = -25
+	}
+}
+get_dookan_general = {
+	random_list = {
+		33 = {
+			define_general = { 
+				fire = 8
+				shock = 3	
+				manuever = 1
+				siege = 3
+				trait = fire_specialist_personality
+				name = "Shagg't Firemouth"
+			}
+		}
+		33 = {
+			define_general = {
+				fire = 3
+				shock = 8	
+				manuever = 3
+				siege = 2
+				trait = shock_specialist_personality
+				name = "Krambru Strongarm"
+			}
+		}
+		33 = {
+			define_general = { 
+				fire = 3
+				shock = 3	
+				manuever = 6
+				siege = 6
+				trait = loot_specialist_personality
+				name = "Lutgor 'The Reaver'"
+			}
+		}
+	}
+}
+get_dookan_general_ideas = {
+	random_list = {
+		33 = {
+			define_general = { 
+				fire = 9
+				shock = 4	
+				manuever = 2
+				siege = 4
+				trait = fire_specialist_personality
+				name = "Shagg't Firemouth"
+			}
+		}
+		33 = {
+			define_general = {
+				fire = 5
+				shock = 9	
+				manuever = 5
+				siege = 3
+				trait = shock_specialist_personality
+				name = "Krambru Strongarm"
+			}
+		}
+		33 = {
+			define_general = { 
+				fire = 4
+				shock = 4	
+				manuever = 7
+				siege = 7
+				trait = loot_specialist_personality
+				name = "Lutgor 'The Reaver'"
+			}
+		}
+	}
+}
+get_ik_magthaal_general = {	
+	random_list = {
+		33 = {
+			define_general = { 
+				fire = 4
+				shock = 8	
+				manuever = 8
+				siege = 0
+				trait = goal_oriented_personality
+				name = "Zathnar longlegged"
+			}
+		}
+		33 = {
+			define_general = { 
+				fire = 7
+				shock = 7	
+				manuever = 7
+				siege = 0
+				trait = glory_seeker_personality
+				name = "Drogo 'The Great'"
+			}
+		}
+		33 = {
+			define_general = { 
+				fire = 2
+				shock = 8	
+				manuever = 4
+				siege = 2
+				trait = winged_general_personality
+				name = "Pegthus 'The Winged'"
+			}
+		}
+		33 = {
+			define_general = { 
+				fire = 0
+				shock = 10	
+				manuever = 0
+				siege = 0
+				trait = Bull_personality
+				name = "Kruthnu 'The Brawl'"
+			}
+		}
+	}
+}
+get_ik_magthaal_general_ideas = {	
+	random_list = {
+		33 = {
+			define_general = { 
+				fire = 5
+				shock = 9	
+				manuever = 9
+				siege = 1
+				trait = goal_oriented_personality
+				name = "Zathnar longlegged"
+			}
+		}
+		33 = {
+			define_general = { 
+				fire = 8
+				shock = 8	
+				manuever = 8
+				siege = 1
+				trait = glory_seeker_personality
+				name = "Drogo 'The Great'"
+			}
+		}
+		33 = {
+			define_general = { 
+				fire = 3
+				shock = 9	
+				manuever = 5
+				siege = 3
+				trait = winged_general_personality
+				name = "Pegthus 'The Winged'"
+			}
+		}
+		33 = {
+			define_general = { 
+				fire = 1
+				shock = 11	
+				manuever = 1
+				siege = 1
+				trait = Bull_personality
+				name = "Kruthnu 'The Brawl'"
+			}
+		}
+	}
+}
+get_feast_of_the_gods_general = {		
+	random_list = {
+		33 = {
+			define_general = { 
+				fire = 8
+				shock = 1	
+				manuever = 0
+				siege = 3
+				trait = ruthless_personality
+				name = "Carl 'The Loony'"
+			}
+		}
+		33 = {
+			define_general = {
+				fire = 5
+				shock = 5	
+				manuever = 2
+				siege = 0
+				trait = defensive_planner_personality
+				name = "Mike 'The Brainy'"
+			}
+		}
+		33 = {
+			define_general = { 
+				fire = 0
+				shock = 8	
+				manuever = 0
+				siege = 2
+				trait = big_belly_personality
+				name = "Jonhy 'The Fat'"
+			}
+		}
+		33 = {
+			define_general = { 
+				fire = 0
+				shock = 8	
+				manuever = 2
+				siege = 0
+				trait = master_of_arms_personality
+				name = "McGregor 'The Bully'"
+			}
+		}
+	}
+}
+get_feast_of_the_gods_general_ideas = {	
+	random_list = {
+		33 = {
+			define_general = { 
+				fire = 9
+				shock = 2	
+				manuever = 1
+				siege = 4
+				trait = ruthless_personality
+				name = "Carl 'The Loony'"
+			}
+		}
+		33 = {
+			define_general = { 
+				fire = 6
+				shock = 6	
+				manuever = 3
+				siege = 1
+				trait = defensive_planner_personality
+				name = "Mike 'The Brainy'"
+			}
+		}
+		33 = {
+			define_general = { 
+				fire = 1
+				shock = 9	
+				manuever = 1
+				siege = 3
+				trait = big_belly_personality
+				name = "Jonhy 'The Fat'"
+			}
+		}
+		33 = {
+			define_general = { 
+				fire = 1
+				shock = 9
+				manuever = 3
+				siege = 1
+				trait = master_of_arms_personality
+				name = "McGregor 'The Bully'"
+			}
+		}
+	}
+}
+summon_lord_alfonso = {
+	hidden_effect = {
+		kill_leader = {
+			type = "Lord Alfonso"
+		}
+		if = {
+			limit = {full_idea_group = generalstab0	}
+			change_variable = {which = lord_alfonso value = 3}
+		}
+		else = {
+			change_variable = {which = lord_alfonso value = 2}
+		}
+	}
+	if = {
+		limit = {check_variable = {which = lord_alfonso value = 30}}
+		define_general = {
+			name = "Lord Alfonso"
+			fire = 9
+			shock = 13
+			manuever = 8
+			siege = 8
+		}
+	}
+	else_if = {
+		limit = {check_variable = {which = lord_alfonso value = 29}}
+		define_general = {
+			name = "Lord Alfonso"
+			fire = 9
+			shock = 13
+			manuever = 8
+			siege = 7
+		}
+	}
+	else_if = {
+		limit = {check_variable = {which = lord_alfonso value = 28}}
+		define_general = {
+			name = "Lord Alfonso"
+			fire = 8
+			shock = 13
+			manuever = 8
+			siege = 7
+		}
+	}
+	else_if = {
+		limit = {check_variable = {which = lord_alfonso value = 27}}
+		define_general = {
+			name = "Lord Alfonso"
+			fire = 8
+			shock = 12
+			manuever = 8
+			siege = 7
+		}
+	}
+	else_if = {
+		limit = {check_variable = {which = lord_alfonso value = 26}}
+		define_general = {
+			name = "Lord Alfonso"
+			fire = 8
+			shock = 12
+			manuever = 8
+			siege = 6
+		}
+	}
+	else_if = {
+		limit = {check_variable = {which = lord_alfonso value = 25}}
+		define_general = {
+			name = "Lord Alfonso"
+			fire = 8
+			shock = 12
+			manuever = 7
+			siege = 6
+		}
+	}
+	else_if = {
+		limit = {check_variable = {which = lord_alfonso value = 24}}
+		define_general = {
+			name = "Lord Alfonso"
+			fire = 7
+			shock = 12
+			manuever = 7
+			siege = 6
+		}
+	}
+	else_if = {
+		limit = {check_variable = {which = lord_alfonso value = 23}}
+		define_general = {
+			name = "Lord Alfonso"
+			fire = 6
+			shock = 12
+			manuever = 7
+			siege = 6
+		}
+	}
+	else_if = {
+		limit = {check_variable = {which = lord_alfonso value = 22}}
+		define_general = {
+			name = "Lord Alfonso"
+			fire = 6
+			shock = 11
+			manuever = 7
+			siege = 6
+		}
+	}
+	else_if = {
+		limit = {check_variable = {which = lord_alfonso value = 21}}
+		define_general = {
+			name = "Lord Alfonso"
+			fire = 6
+			shock = 11
+			manuever = 7
+			siege = 5
+		}
+	}
+	else_if = {
+		limit = {check_variable = {which = lord_alfonso value = 20}}
+		define_general = {
+			name = "Lord Alfonso"
+			fire = 5
+			shock = 11
+			manuever = 7
+			siege = 5
+		}
+	}
+	else_if = {
+		limit = {check_variable = {which = lord_alfonso value = 19}}
+		define_general = {
+			name = "Lord Alfonso"
+			fire = 5
+			shock = 11
+			manuever = 6
+			siege = 5
+		}
+	}
+	else_if = {
+		limit = {check_variable = {which = lord_alfonso value = 18}}
+		define_general = {
+			name = "Lord Alfonso"
+			fire = 5
+			shock = 11
+			manuever = 5
+			siege = 5
+		}
+	}
+	else_if = {
+		limit = {check_variable = {which = lord_alfonso value = 17}}
+		define_general = {
+			name = "Lord Alfonso"
+			fire = 5
+			shock = 10
+			manuever = 5
+			siege = 5
+		}
+	}
+	else_if = {
+		limit = {check_variable = {which = lord_alfonso value = 16}}
+		define_general = {
+			name = "Lord Alfonso"
+			fire = 4
+			shock = 10
+			manuever = 5
+			siege = 5
+		}
+	}
+	else_if = {
+		limit = {check_variable = {which = lord_alfonso value = 15}}
+		define_general = {
+			name = "Lord Alfonso"
+			fire = 4
+			shock = 10
+			manuever = 5
+			siege = 4
+		}
+	}
+	else_if = {
+		limit = {check_variable = {which = lord_alfonso value = 14}}
+		define_general = {
+			name = "Lord Alfonso"
+			fire = 3
+			shock = 10
+			manuever = 5
+			siege = 4
+		}
+	}
+	else_if = {
+		limit = {check_variable = {which = lord_alfonso value = 13}}
+		define_general = {
+			name = "Lord Alfonso"
+			fire = 3
+			shock = 10
+			manuever = 4
+			siege = 4
+		}
+	}
+	else_if = {
+		limit = {check_variable = {which = lord_alfonso value = 12}}
+		define_general = {
+			name = "Lord Alfonso"
+			fire = 3
+			shock = 9
+			manuever = 4
+			siege = 4
+		}
+	}
+	else_if = {
+		limit = {check_variable = {which = lord_alfonso value = 11}}
+		define_general = {
+			name = "Lord Alfonso"
+			fire = 3
+			shock = 9
+			manuever = 4
+			siege = 3
+		}
+	}
+	else_if = {
+		limit = {check_variable = {which = lord_alfonso value = 10}}
+		define_general = {
+			name = "Lord Alfonso"
+			fire = 3
+			shock = 8
+			manuever = 4
+			siege = 3
+		}
+	}
+	else_if = {
+		limit = {check_variable = {which = lord_alfonso value = 9}}
+		define_general = {
+			name = "Lord Alfonso"
+			fire = 2
+			shock = 8
+			manuever = 4
+			siege = 3
+		}
+	}
+	else_if = {
+		limit = {check_variable = {which = lord_alfonso value = 8}}
+		define_general = {
+			name = "Lord Alfonso"
+			fire = 2
+			shock = 8
+			manuever = 4
+			siege = 2
+		}
+	}
+	else_if = {
+		limit = {check_variable = {which = lord_alfonso value = 7}}
+		define_general = {
+			name = "Lord Alfonso"
+			fire = 2
+			shock = 7
+			manuever = 4
+			siege = 2
+		}
+	}
+	else_if = {
+		limit = {check_variable = {which = lord_alfonso value = 6}}
+		define_general = {
+			name = "Lord Alfonso"
+			fire = 2
+			shock = 7
+			manuever = 3
+			siege = 2
+		}
+	}
+	else_if = {
+		limit = {check_variable = {which = lord_alfonso value = 5}}
+		define_general = {
+			name = "Lord Alfonso"
+			fire = 2
+			shock = 7
+			manuever = 3
+			siege = 1
+		}
+	}
+	else_if = {
+		limit = {check_variable = {which = lord_alfonso value = 4}}
+		define_general = {
+			name = "Lord Alfonso"
+			fire = 2
+			shock = 6
+			manuever = 3
+			siege = 1
+		}
+	}
+	else_if = {
+		limit = {check_variable = {which = lord_alfonso value = 3}}
+		define_general = {
+			name = "Lord Alfonso"
+			fire = 2
+			shock = 6
+			manuever = 2
+			siege = 1
+		}
+	}
+	else_if = {
+		limit = {check_variable = {which = lord_alfonso value = 2}}
+		define_general = {
+			name = "Lord Alfonso"
+			fire = 1
+			shock = 6
+			manuever = 2
+			siege = 1
+		}
+	}
+	else_if = {
+		limit = {check_variable = {which = lord_alfonso value = 1}}
+		define_general = {
+			name = "Lord Alfonso"
+			fire = 1
+			shock = 6
+			manuever = 2
+			siege = 0
+		}
+	}
+	else = {
+		hidden_effect = {
+			set_variable = {which = lord_alfonso value = 0}
+		}
+		define_general = {
+			name = "Lord Alfonso"
+			fire = 1
+			shock = 5
+			manuever = 2
+			siege = 0
+		}
+	}
+}
+update_tech_group = {
+	if = {
+		limit = {
+			OR = {
+				estate_territory = {
+					estate = estate_human
+					territory = 50.1
+				}
+				AND = {
+					estate_territory = {
+						estate = estate_human
+						territory = 30
+					}
+					estate_territory = {
+						estate = estate_half_elven
+						territory = 30
+					}
+					NOT = {
+						estate_territory = {
+							estate = estate_half_elven
+							territory = 50.1
+						}
+					}
+				}
+				AND = {
+					estate_territory = {
+						estate = estate_human
+						territory = 30
+					}
+					estate_territory = {
+						estate = estate_half_orcish
+						territory = 30
+					}
+					NOT = {
+						estate_territory = {
+							estate = estate_half_orcish
+							territory = 50.1
+						}
+					}
+				}
+			}
+		}
+		if = { limit = { capital_scope = { superregion = bulwar_superregion} NOT = {unit_type = tech_bulwari} }
+			change_unit_type = tech_bulwari
+		}
+		else_if = { limit = { capital_scope = { superregion = salahad_superregion} NOT = {unit_type = tech_salahadesi} }
+			change_unit_type = tech_salahadesi
+		}
+		else_if = { limit = { capital_scope = { superregion = rahen_superregion} NOT = {unit_type = tech_raheni} }
+			change_unit_type = tech_raheni
+		}
+		else_if = {
+			limit = {
+				OR = {
+					capital_scope = { superregion = yanshen_superregion }
+					capital_scope = { superregion = south_haless_superregion }
+				}
+				NOT = {unit_type = tech_halessi}
+			}
+			change_unit_type = tech_halessi
+		}
+		else_if = { limit = { capital_scope = { superregion = north_haless_superregion } NOT = {unit_type = tech_shuvuush} }
+			change_unit_type = tech_shuvuush
+		}
+		else_if = { limit = { capital_scope = { superregion = forbidden_lands_superregion } NOT = {unit_type = tech_islanders} }
+			change_unit_type = tech_islanders
+		}
+		else_if = { limit = { culture_group = gerudian NOT = {unit_type = tech_gerudian} }
+			change_unit_type = tech_gerudian
+		}
+		else_if = {
+			limit = {
+				capital_scope = {
+					NOT = {
+						culture_group = gerudian
+						superregion = north_haless_superregion 
+						superregion = forbidden_lands_superregion 
+						superregion = bulwar_superregion
+						superregion = salahad_superregion
+						superregion = rahen_superregion
+						superregion = yanshen_superregion
+						superregion = south_haless_superregion
+					}
+				}
+				NOT = {unit_type = tech_cannorian}
+			}
+			change_unit_type = tech_cannorian
+		}
+		clear_racial_military = yes
+		add_country_modifier = { 
+			name = human_military
+			duration = -1  
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				estate_territory = {
+					estate = estate_elven
+					territory = 50.1
+				}
+				AND = {
+					estate_territory = {
+						estate = estate_elven
+						territory = 30
+					}
+					estate_territory = {
+						estate = estate_half_elven
+						territory = 30
+					}
+					NOT = {
+						estate_territory = {
+							estate = estate_half_elven
+							territory = 50.1
+						}
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					capital_scope = { superregion = deepwoods_superregion }
+					primary_culture = wood_elf
+					AND = {
+						accepted_culture = wood_elf
+						NOT = { culture_group = elven }
+					}
+				}
+				NOT = {unit_type = tech_wood_elf}
+			}
+			change_unit_type = tech_wood_elf
+		}
+		else_if = {
+			limit = {
+				NOT = {unit_type = tech_east_elven}
+				OR = {
+					primary_culture = sun_elf
+					primary_culture = dawn_elf
+					primary_culture = desert_elf
+					primary_culture = sunrise_elf
+					capital_scope = { continent = asia }
+					capital_scope = { continent = africa }
+					AND = {
+						religion_group = bulwari
+						OR = {
+							capital_scope = { continent = north_america }
+							capital_scope = { continent = south_america }
+						}
+					}
+					AND = {
+						accepted_culture = sun_elf
+						NOT = { culture_group = elven }
+					}
+					AND = {
+						accepted_culture = dawn_elf
+						NOT = { culture_group = elven }
+					}
+					AND = {
+						accepted_culture = desert_elf
+						NOT = { culture_group = elven }
+					}
+					AND = {
+						accepted_culture = sunrise_elf
+						NOT = { culture_group = elven }
+					}
+				}
+			}
+			change_unit_type = tech_east_elven
+		}
+		else_if = {
+			limit = { NOT = { primary_culture = wood_elf primary_culture = sun_elf primary_culture = dawn_elf primary_culture = desert_elf primary_culture = sunrise_elf} NOT = {unit_type = tech_elven}}
+			change_unit_type = tech_elven
+		}
+		clear_racial_military = yes
+		add_country_modifier = { 
+			name = elven_military
+			duration = -1  
+		}
+	}
+	if = {
+		limit = {
+			estate_territory = {
+				estate = estate_dwarven
+				territory = 50.1
+			}
+			NOT = {unit_type = tech_dwarven}
+		}
+		change_unit_type = tech_dwarven
+		clear_racial_military = yes
+		add_country_modifier = { 
+			name = dwarven_military
+			duration = -1  
+		}
+	}
+	if = {
+		limit = {
+			estate_territory = {
+				estate = estate_halfling
+				territory = 50.1
+			}
+			NOT = {unit_type = tech_halfling}
+		}
+		change_unit_type = tech_halfling
+		clear_racial_military = yes
+		add_country_modifier = { 
+			name = halfling_military
+			duration = -1  
+		}
+	}
+	if = {
+		limit = {
+			estate_territory = {
+				estate = estate_gnomish
+				territory = 50.1
+			}
+			NOT = {unit_type = tech_gnomish}
+		}
+		change_unit_type = tech_gnomish
+		clear_racial_military = yes
+		add_country_modifier = { 
+			name = gnomish_military
+			duration = -1  
+		}
+	}
+	if = {
+		limit = {
+			estate_territory = {
+				estate = estate_harimari
+				territory = 50.1
+			}
+		}
+		if = {
+			limit = {
+				NOT = {unit_type = tech_east_harimari}
+				OR = {
+					capital_scope = { superregion = yanshen_superregion }
+					capital_scope = { superregion = south_haless_superregion }
+					capital_scope = { superregion = north_haless_superregion }
+					primary_culture = east_harimari
+					AND = {
+						accepted_culture = east_harimari
+						NOT = { culture_group = harimari }
+					}
+				}
+			}
+			change_unit_type = tech_east_harimari
+		}
+		else_if = {
+			limit = { NOT = { primary_culture = east_harimari } NOT = {unit_type = tech_harimari}}
+			change_unit_type = tech_harimari
+		}
+		clear_racial_military = yes
+		add_country_modifier = { 
+			name = harimari_military
+			duration = -1  
+		}
+	}
+	if = {
+		limit = {
+			estate_territory = {
+				estate = estate_gnollish
+				territory = 50.1
+			}
+			NOT = {unit_type = tech_gnollish}
+		}
+		change_unit_type = tech_gnollish
+		clear_racial_military = yes
+		add_country_modifier = { 
+			name = gnollish_military
+			duration = -1  
+		}
+	}
+	if = {
+		limit = {
+			estate_territory = {
+				estate = estate_ruinborn
+				territory = 50.1
+			}
+		}
+		if = { limit = { capital_scope = { superregion = ynn_superregion } NOT = {unit_type = tech_ynnic } }
+			change_unit_type = tech_ynnic
+		}
+		else_if = { limit = { capital_scope = { superregion = eordand_superregion } NOT = {unit_type = tech_eordand } }
+			change_unit_type = tech_eordand
+		}
+		else_if = { limit = { capital_scope = { superregion = kheionai_superregion } NOT = {unit_type = tech_kheionai } }
+			change_unit_type = tech_kheionai
+		}
+		else_if = { limit = { capital_scope = { superregion = greater_taychend_superregion } NOT = {unit_type = tech_taychendi } }
+			change_unit_type = tech_taychendi
+		}
+		else_if = {
+			limit = {
+				NOT = {unit_type = tech_north_aelantiri }
+				OR = {
+					capital_scope = { superregion = north_aelantir_superregion }
+					capital_scope = { superregion = ruined_sea_superregion }
+					capital_scope = { superregion = torn_sea_superregion }
+				}
+			}
+			change_unit_type = tech_north_aelantiri
+		}
+		else_if = {
+			limit = {
+				NOT = {unit_type = tech_south_aelantiri }
+				OR = {
+					capital_scope = { superregion = south_aelantir_superregion }
+					capital_scope = { superregion = effelai_superregion }
+				}
+			}
+			change_unit_type = tech_south_aelantiri
+		}
+		clear_racial_military = yes
+		add_country_modifier = { 
+			name = ruinborn_military
+			duration = -1  
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				estate_territory = {
+					estate = estate_orcish
+					territory = 50.1
+				}
+				AND = {
+					estate_territory = {
+						estate = estate_orcish
+						territory = 30
+					}
+					estate_territory = {
+						estate = estate_half_orcish
+						territory = 30
+					}
+					NOT = {
+						estate_territory = {
+							estate = estate_half_orcish
+							territory = 50.1
+						}
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					capital_scope = {
+						continent = serpentspine
+					}
+					primary_culture = black_orc
+					AND = {
+						accepted_culture = black_orc
+						NOT = { culture_group = orcish }
+					}
+				}
+				NOT = {unit_type = tech_black_orcish }
+			}
+			change_unit_type = tech_black_orcish
+		}
+		else_if = {
+			limit = {
+				OR = {
+					capital_scope = {
+						continent = asia
+						NOT = { superregion = forbidden_lands_superregion }
+					}
+					primary_culture = brown_orc
+					AND = {
+						accepted_culture = brown_orc
+						NOT = { culture_group = orcish }
+					}
+				}
+				NOT = {unit_type = tech_east_orcish }
+			}
+			change_unit_type = tech_east_orcish
+		}
+		else_if = {
+			limit = { NOT = {primary_culture = brown_orc primary_culture = black_orc } NOT = {unit_type = tech_orcish }}
+			change_unit_type = tech_orcish
+		}
+		clear_racial_military = yes
+		add_country_modifier = { 
+			name = orcish_military
+			duration = -1  
+		}
+	}
+	if = {
+		limit = {
+			estate_territory = {
+				estate = estate_goblin
+				territory = 50.1
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					capital_scope = {
+						continent = serpentspine
+					}
+					primary_culture = cave_goblin
+					primary_culture = undergrowth_goblin
+				}
+				NOT = {unit_type = tech_cave_goblin }
+			}
+			change_unit_type = tech_cave_goblin
+		}
+		else_if = {
+			limit = {
+				OR = {
+					primary_culture = exodus_goblin
+					primary_culture = march_goblin
+				}
+				NOT = {unit_type = tech_exodus_goblin }
+			}
+			change_unit_type = tech_exodus_goblin
+		}
+		else_if = {
+			limit = { NOT = { primary_culture = undergrowth_goblin primary_culture = cave_goblin primary_culture = exodus_goblin primary_culture = march_goblin} NOT = {unit_type = tech_goblin }}
+			change_unit_type = tech_goblin
+		}
+		clear_racial_military = yes
+		add_country_modifier = { 
+			name = goblin_military
+			duration = -1  
+		}
+	}
+	if = {
+		limit = {
+			estate_territory = {
+				estate = estate_ogre
+				territory = 50.1
+			}
+		}		
+		if = {
+			limit = {
+				OR = {
+					capital_scope = { superregion = yanshen_superregion }
+					capital_scope = { superregion = south_haless_superregion }
+					capital_scope = { superregion = north_haless_superregion }
+					capital_scope = { superregion = rahen_superregion }
+					primary_culture = horned_ogre
+					AND = {
+						accepted_culture = horned_ogre
+						NOT = { culture_group = ogre }
+					}
+				}
+				NOT = {unit_type = tech_eastern_ogre }
+			}
+			change_unit_type = tech_eastern_ogre
+		}
+		else_if = {
+			limit = { NOT = { primary_culture = horned_ogre } NOT = {unit_type = tech_ogre }}
+			change_unit_type = tech_ogre	#may need custom one
+		}
+		clear_racial_military = yes
+		add_country_modifier = { 
+			name = ogre_military
+			duration = -1  
+		}
+	}	
+	if = {
+		limit = {
+			estate_territory = {
+				estate = estate_centaur
+				territory = 50.1
+			}
+			NOT = {unit_type = tech_centaur }
+		}
+		change_unit_type = tech_centaur
+		clear_racial_military = yes
+		add_country_modifier = { 
+			name = centaur_military
+			duration = -1  
+		}
+	}
+	if = {
+		limit = {
+			estate_territory = {
+				estate = estate_troll
+				territory = 50.1
+			}
+			NOT = {unit_type = tech_troll }
+		}
+		change_unit_type = tech_troll
+		clear_racial_military = yes
+		add_country_modifier = { 
+			name = troll_military
+			duration = -1  
+		}
+	}
+	if = {
+		limit = {
+			estate_territory = {
+				estate = estate_harpy
+				territory = 50.1
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					capital_scope = { superregion = yanshen_superregion }
+					capital_scope = { superregion = south_haless_superregion }
+					capital_scope = { superregion = north_haless_superregion }
+					primary_culture = feng_harpy
+					AND = {
+						accepted_culture = feng_harpy
+						NOT = { culture_group = harpy }
+					}
+				}
+				NOT = {unit_type = tech_east_harpy }
+			}
+			change_unit_type = tech_east_harpy
+		}
+		else_if = {
+			limit = { NOT = { primary_culture = feng_harpy } NOT = {unit_type = tech_harpy }}
+			change_unit_type = tech_harpy
+		}
+		clear_racial_military = yes		
+		add_country_modifier = { 
+			name = harpy_military
+			duration = -1  
+		}
+	}
+	if = {
+		limit = {
+			estate_territory = {
+				estate = estate_half_orcish
+				territory = 50.1
+			}
+			NOT = {unit_type = tech_half_orcish }
+		}
+		change_unit_type = tech_half_orcish
+		clear_racial_military = yes
+		add_country_modifier = { 
+			name = half_orcish_military
+			duration = -1  
+		}
+	}
+	if = {
+		limit = {
+			estate_territory = {
+				estate = estate_obgoblin
+				territory = 50.1
+			}
+			NOT = {unit_type = tech_hobgoblin }
+		}
+		change_unit_type = tech_hobgoblin
+		clear_racial_military = yes
+		add_country_modifier = { 
+			name = hobgoblin_military
+			duration = -1  
+		}
+	}
+	if = {
+		limit = {
+			estate_territory = {
+				estate = estate_kobold
+				territory = 50.1
+			}
+		}		
+		if = {
+			limit = {
+				OR = {
+					capital_scope = { superregion = yanshen_superregion }
+					capital_scope = { superregion = south_haless_superregion }
+					capital_scope = { superregion = north_haless_superregion }
+					capital_scope = { superregion = rahen_superregion }
+					primary_culture = goldscale_kobold
+					AND = {
+						accepted_culture = goldscale_kobold
+						NOT = { culture_group = kobold }
+					}
+				}
+				NOT = {unit_type = tech_east_kobold }
+			}
+			change_unit_type = tech_east_kobold
+		}
+		else_if = {
+			limit = {  NOT = {primary_culture = goldscale_kobold } NOT = {unit_type = tech_kobold }}
+			change_unit_type = tech_kobold
+		}
+		clear_racial_military = yes
+		add_country_modifier = { 
+			name = kobold_military
+			duration = -1  
+		}
+	}	
+}

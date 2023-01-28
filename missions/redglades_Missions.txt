@@ -1,0 +1,440 @@
+
+A03_redglades_portal = {
+	slot = 1
+	generic = no
+	ai = yes 
+	potential = { tag = A03 }
+	has_country_shield = yes
+		
+	A03_redglades_development = {
+		icon = mission_spoils_of_war
+		required_missions = {	}
+		position = 1
+		
+		provinces_to_highlight = {
+			OR = {
+				area = redglades_area
+				area = east_redglades_area
+			}
+			NOT = {is_prosperous = yes}
+		}
+		trigger = {
+			115 = { #Redglades
+				trade_node_value = 10
+			}		
+			redglades_area = {	
+				is_prosperous = yes	
+				owned_by = ROOT				
+			}
+			east_redglades_area = {	
+				is_prosperous = yes	
+				owned_by = ROOT				
+			}
+		}		
+		
+		effect = {
+			define_advisor = {
+				type = idea_var_advisor_21
+				cost_multiplier = 0.50
+				skill = 2
+			}
+			add_stability = 1
+		}
+	}
+	A03_redglades_portal_ritual = {
+		icon = mission_spoils_of_war
+		required_missions = { A03_redglades_development }
+		position = 2
+		
+		trigger = {
+			NOT = { has_estate_privilege = estate_mages_cast_spells }
+			OR = {
+				estate_influence = {
+					estate = estate_mages
+					influence = 70
+				}
+				court_mage = 7
+				AND = {
+					adm = 5
+					dip = 5
+					mil = 5
+				}
+				custom_trigger_tooltip = {
+					tooltip = tooltip_has_evocation_2
+					has_ruler_flag = evocation_2
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = magic_realm_menu_cooldown
+				duration = 1825
+			}
+			add_country_modifier = {
+				name = redglades_portal_ritual_modifier
+				duration = 1825
+			}
+		}
+	}
+	A03_redglades_deepwoods_portal = {
+		icon = mission_spoils_of_war
+		required_missions = { A03_redglades_portal_ritual }
+		position = 3
+		
+		trigger = {
+			NOT = {has_estate_privilege = estate_mages_cast_spells}
+			NOT = {has_ruler_modifier = magic_realm_menu_cooldown}
+			NOT = {has_country_modifier = magic_realm_menu_cooldown}
+			NOT = {has_country_modifier = redglades_portal_ritual_modifier}
+			OR = {
+				estate_influence = {
+					estate = estate_mages
+					influence = 70
+				}
+				court_mage = 7
+				AND = {
+					adm = 5
+					dip = 5
+					mil = 5
+				}
+				custom_trigger_tooltip = {
+					tooltip = tooltip_has_evocation_2
+					has_ruler_flag = evocation_2
+				}
+			}
+		}
+		effect = {
+			if = {
+				limit = {					
+					NOT = {
+						any_ally = {
+							culture = wood_elf
+							capital_scope = {
+								superregion = deepwoods_superregion
+							}
+						}
+					}
+				}
+				clirypriah_area = {
+					limit = {
+						NOT = { owned_by = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+				prehnryn_area = {
+					limit = {
+						NOT = { owned_by = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			2854 = {
+				add_great_project = {
+					type = paithgwaur_portal
+					instant = yes 
+				}
+			}	
+		}
+	}
+	A03_redglades_culture = { 
+		icon = mission_rb_unite_the_clans
+		required_missions = { A03_redglades_deepwoods_portal }
+		position = 6
+		
+		trigger = {
+			OR = {
+				any_ally = {
+					culture = wood_elf
+					capital_scope = {
+						superregion = deepwoods_superregion
+					}
+					clirypriah_area = {
+						type = all
+						country_or_subject_holds = PREV
+
+					}
+					prehnryn_area = {
+						type = all
+						country_or_subject_holds = PREV
+
+					}
+				}
+				clirypriah_area = {
+					type = all
+					country_or_subject_holds = ROOT
+
+				}
+				prehnryn_area = {
+					type = all
+					country_or_subject_holds = ROOT
+				}
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					any_ally = {
+						culture = wood_elf
+						capital_scope = {
+							superregion = deepwoods_superregion
+						}
+						clirypriah_area = {
+							type = all
+							country_or_subject_holds = PREV
+
+						}
+						prehnryn_area = {
+							type = all
+							country_or_subject_holds = PREV
+
+						}
+					}
+				}
+				random_ally = {
+					limit = {	
+						culture = wood_elf
+						capital_scope = {
+							superregion = deepwoods_superregion
+						}
+					}
+					deepwoods_superregion = {
+						limit = {
+							NOT = { owned_by = PREV }
+							NOT = { is_permanent_claim = PREV }
+						}
+						add_permanent_claim = PREV
+					}
+				}
+			}
+			else = {
+				deepwoods_superregion = {
+					limit = {
+						NOT = { owned_by = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+}
+A03_redglades_trade = {
+	slot = 5
+	generic = no
+	ai = yes 
+	potential = { tag = A03 }
+	has_country_shield = yes
+	
+	A03_redglades_nuclear = {
+		icon = mission_conquer_5_states
+		required_missions = {	}
+		position = 1
+		
+		trigger = {
+			is_at_war = yes
+			NOT = {war_score = -33}
+			calc_true_if = {
+				all_country = {offensive_war_with = ROOT}
+				amount = 2
+			}
+		}
+		
+		effect = {
+			capital_scope = {
+				infantry = ROOT
+				infantry = ROOT
+				infantry = ROOT
+				infantry = ROOT
+				infantry = ROOT
+				infantry = ROOT
+			}
+			add_country_modifier = {
+				name = redglades_nuclear_modifier
+				duration = 1825
+			}
+		}
+	}
+	A03_redglades_barraks = {
+		icon = mission_rb_trinity_college_dublin
+		required_missions = {		}
+		position = 2
+		
+		provinces_to_highlight = {
+			OR = {
+				area = redglades_area
+				area = east_redglades_area
+			}
+			OR = {
+				NOT = {has_manpower_building_trigger = yes}
+				NOT = {has_forcelimit_building_trigger = yes}
+				NOT = {base_manpower = 10}
+			}
+		}
+		
+		trigger = {
+			redglades_area = {
+				type = all
+				has_manpower_building_trigger = yes
+				has_forcelimit_building_trigger = yes
+				base_manpower = 10
+			}
+			east_redglades_area = {
+				type = all			
+				has_manpower_building_trigger = yes
+				has_forcelimit_building_trigger = yes
+				base_manpower = 10
+			}
+		}
+		effect = {
+			redglades_area = {
+				add_permanent_province_modifier = {
+					name = redglades_barraks_modifier
+					duration = -1
+				}
+			}
+			east_redglades_area = {
+				add_permanent_province_modifier = {
+					name = redglades_barraks_modifier
+					duration = -1
+				}
+			}
+		}
+	}
+	A03_redglades_officials = { 
+		icon = mission_landsknecht_soldier
+		required_missions = { A03_redglades_barraks }
+		position = 5
+		
+		trigger = {
+			army_professionalism = 0.4
+			OR = {
+				army_tradition = 75
+				navy_tradition = 75
+			}
+		}
+		effect = {
+			if = {
+				limit = {army_tradition = 75}
+				add_country_modifier = {
+					name = redglades_oficials_modifier
+					duration = -1
+				}
+				define_general = {
+					name = "Great Inquisitor Amerendar"
+					shock = 11
+					fire = 2
+					manuever = 6
+					siege = 1
+					trait = shock_specialist_personality
+				}
+			}
+			else = {custom_tooltip = redglades_general_tt}
+			if = {
+				limit = {navy_tradition = 75}
+				add_country_modifier = {
+					name = redglades_admirals_modifier
+					duration = -1
+				}
+				define_explorer = {
+					name = "Am-Onchû Sparrow"
+					shock = 5
+					fire = 5
+					manuever = 6
+					siege = 2
+					trait = buccaneer_personality
+				}
+			}
+			else = {custom_tooltip = redglades_admiral_tt}
+		}
+	}
+	A03_redglades_professionalism = {
+		icon = mission_spoils_of_war
+		required_missions = { A03_redglades_officials }
+		position = 6
+		
+		trigger = {
+			army_professionalism = 0.6
+			all_neighbor_country = {
+				OR = {
+					alliance_with = ROOT
+					ROOT = {
+						has_won_war_against = {
+							who = PREV
+							max_years_since = 50
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = redglades_ranger_training_modifier
+				duration = -1
+			}
+		}
+	}
+	
+}
+A03_redglades_finisher = {
+	slot = 3
+	generic = no
+	ai = yes 
+	potential = { tag = A03 }
+	has_country_shield = yes
+	A03_redglades_archery = { 
+		icon = mission_rb_unite_the_clans
+		required_missions = { A03_redglades_culture A03_redglades_professionalism }
+		position = 7
+		
+		trigger = {
+			OR = {
+				any_ally = {
+					culture = wood_elf
+					capital_scope = {
+						superregion = deepwoods_superregion
+					}
+					num_of_owned_provinces_with = {
+						value = 20
+						superregion = deepwoods_superregion
+						owned_by = PREV
+					}
+				}
+				num_of_owned_provinces_with = {
+					value = 20
+					superregion = deepwoods_superregion
+					owned_by = ROOT
+				}
+			}
+			mil_power = 200
+			dip_power = 200
+		}
+		effect = {
+			add_dip_power = -200
+			add_mil_power = -200
+			random_ally = {
+				limit = {	
+					culture = wood_elf
+					capital_scope = {
+						superregion = deepwoods_superregion
+					}
+				}
+				add_dip_power = 200
+				add_mil_power = 200
+			}
+			change_primary_culture = wood_elf
+			change_technology_group = tech_wood_elf
+			change_unit_type = tech_wood_elf
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						culture_group = elven
+						NOT = {culture = wood_elf}
+					}
+					change_culture = wood_elf
+				}
+			}
+		}
+	}	
+}

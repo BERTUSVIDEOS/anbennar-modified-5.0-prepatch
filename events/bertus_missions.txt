@@ -1,0 +1,1205 @@
+namespace = bertus_missions
+
+country_event = {
+	id = bertus_missions.1001
+	title = bertus_missions.1001.title
+	desc = bertus_missions.1001.desc
+	picture = PRAYING_eventPicture
+
+	trigger = {
+	}
+	is_triggered_only = yes
+	mean_time_to_happen = {		
+	}
+	immediate = {
+	}
+	option = {	#propose agreement
+		name = bertus_missions.1001.a
+		trigger = {
+			NOT = {owns = 62}
+		}
+		tooltip = {			
+			62 = {
+				add_trade_modifier = {
+					who = ROOT
+					duration = 3650
+					power = 50
+					key = RUBYHOLD_TRADE
+				}
+				add_trade_modifier = {
+					who = owner
+					duration = 3650
+					power = -50
+					key = RUBYHOLD_TRADE
+				}
+				add_province_modifier = {
+					name = "beepeck_anbenncost_value"
+					duration = -1 
+				}
+			}
+			small_increase_of_dwarven_tolerance_effect = yes
+			add_mercantilism = 1
+		}
+		hidden_effect = {
+			62 = {owner = {country_event = {id = bertus_missions.1002}}}
+		}
+	}
+	option = {	#not now
+		name = bertus_missions.1001.b
+		trigger = {
+			NOT = {owns = 62}
+		}
+		add_country_modifier = {
+			name = no_rubymountain_trade_on_this_decade
+			duration = 3650
+		}
+		hidden_effect = {
+			country_event = {id = bertus_missions.1001 days = 3650}
+		}
+	}
+	option = {	#never
+		name = bertus_missions.1001.c
+		trigger = {
+			NOT = {owns = 62}
+		}
+	}
+	option = {	#set trading post
+		name = bertus_missions.1001.d
+		trigger = {
+			owns = 62
+		}
+		62 = {
+			add_province_modifier = {
+				name = "beepeck_anbenncost_value"
+				duration = -1 
+			}
+		}
+		hidden_effect = {
+			ruby_below_hold_area = {					
+				add_permanent_province_modifier = {
+					name = beepeck_anbenncost_value
+					duration = -1
+				}
+			}
+		}
+	}
+}
+country_event = {
+	id = bertus_missions.1002
+	title = bertus_missions.1002.title
+	desc = bertus_missions.1002.desc
+	picture = PRAYING_eventPicture
+
+	trigger = {
+	}
+	
+	is_triggered_only = yes
+	
+	mean_time_to_happen = {
+		
+	}
+	# 
+	immediate = {
+	}
+	option = {	#accept
+		name = bertus_missions.1002.a
+		tooltip = {
+			62 = {
+				add_trade_modifier = {
+					who = FROM
+					duration = 3650
+					power = 50
+					key = RUBYHOLD_TRADE
+				}
+				add_trade_modifier = {
+					who = owner
+					duration = 3650
+					power = -50
+					key = RUBYHOLD_TRADE
+				}
+			}
+		}
+		62 = {
+			add_province_modifier = {
+				name = "beepeck_anbenncost_value"
+				duration = 3650
+			}
+		}
+		hidden_effect = {
+			ruby_below_hold_area = {					
+				add_permanent_province_modifier = {
+					name = beepeck_anbenncost_value
+					duration = 3650
+				}
+			}
+		}
+	}
+	option = {	#reject
+		name = bertus_missions.1002.b
+		tooltip = {		
+			reverse_add_casus_belli = {
+				target = FROM
+				type = cb_trade_conflict
+				months = 120
+			}
+		}
+	}
+	after = {
+		hidden_effect = {
+			FROM = {country_event = {id = bertus_missions.1003}}
+		}
+	}
+}
+country_event = {
+	id = bertus_missions.1003
+	title = bertus_missions.1003.title
+	desc = bertus_missions.1003.desc
+	picture = PRAYING_eventPicture
+
+	is_triggered_only = yes
+	
+	mean_time_to_happen = {		
+	}
+	immediate = {
+	}
+	option = {	#they accept
+		name = bertus_missions.1001.a
+		trigger = {
+			62 = {has_province_modifier = beepeck_anbenncost_value}
+		}
+		62 = {
+			add_trade_modifier = {
+				who = ROOT
+				duration = 3650
+				power = 50
+				key = RUBYHOLD_TRADE
+			}
+			add_trade_modifier = {
+				who = owner
+				duration = 3650
+				power = -50
+				key = RUBYHOLD_TRADE
+			}
+			add_province_modifier = {
+				name = "beepeck_anbenncost_value"
+				duration = 3650 
+			}
+		}
+		small_increase_of_dwarven_tolerance_effect = yes
+		add_mercantilism = 1
+	}
+	option = {	#they reject
+		name = bertus_missions.1001.b
+		trigger = {
+			62 = {NOT = {has_province_modifier = beepeck_anbenncost_value}}
+		}
+		add_casus_belli = {
+			target = FROM
+			type = cb_trade_conflict
+			months = 120
+		}
+		add_country_modifier = {
+			name = no_rubymountain_trade_on_this_decade
+			duration = 3650
+		}
+		small_decrease_of_dwarven_tolerance_effect = yes
+	}
+	after = {
+		hidden_effect = {
+			country_event = {id = bertus_missions.1001 days = 3650}
+		}
+	}
+}
+province_event = {
+	id = bertus_missions.1004
+	title = bertus_missions.1004.title
+	desc = bertus_missions.1004.desc
+	picture = PRAYING_eventPicture
+
+	trigger = {
+		has_province_modifier = beepeck_house_stacking
+		OR = {
+			AND = {
+				has_shipyard_building_trigger = yes
+				NOT = {has_province_modifier = beepeck_house_stacking_naval_FL_10}
+			}
+			AND = {
+				has_dock_building_trigger = yes
+				NOT = {has_province_modifier = beepeck_house_stacking_sailors_10}
+			}
+			AND = {
+				has_manpower_building_trigger = yes
+				NOT = {has_province_modifier = beepeck_house_stacking_manpower_10}
+			}
+			AND = {
+				has_forcelimit_building_trigger = yes
+				NOT = {has_province_modifier = beepeck_house_stacking_FL_10}
+			}
+			AND = {
+				has_tax_building_trigger = yes
+				NOT = {has_province_modifier = beepeck_house_stacking_tax_10}
+			}
+			AND = {
+				has_production_building_trigger = yes
+				NOT = {has_province_modifier = beepeck_house_stacking_production_10}
+			}
+			AND = {
+				has_trade_building_trigger = yes
+				NOT = {has_province_modifier = beepeck_house_stacking_trade_10}
+			}
+		}
+	}
+	
+	mean_time_to_happen = {		
+	}
+	immediate = {
+	}
+	option = {	#
+		name = bertus_missions.1004.a
+		if = {
+			limit = {
+				has_shipyard_building_trigger = yes
+				NOT = {has_province_modifier = beepeck_house_stacking_naval_FL_10}
+			}
+			beepeck_stacking_effect = {type = naval_FL}
+			remove_building = shipyard
+			remove_building = grand_shipyard
+			remove_building = navyforcelimit_lvl_3
+		}
+		if = {
+			limit = {
+				has_dock_building_trigger = yes
+				NOT = {has_province_modifier = beepeck_house_stacking_sailors_10}
+			}
+			beepeck_stacking_effect = {type = sailors}
+			remove_building = dock
+			remove_building = drydock
+			remove_building = navymanpower_lvl_3
+		}
+		if = {
+			limit = {
+				has_manpower_building_trigger = yes
+				NOT = {has_province_modifier = beepeck_house_stacking_manpower_10}
+			}
+			beepeck_stacking_effect = {type = manpower}
+			remove_building = barracks
+			remove_building = training_fields
+			remove_building = manpower_lvl_3
+		}
+		if = {
+			limit = {
+				has_forcelimit_building_trigger = yes
+				NOT = {has_province_modifier = beepeck_house_stacking_FL_10}
+			}
+			beepeck_stacking_effect = {type = FL}
+			remove_building = regimental_camp
+			remove_building = conscription_center
+			remove_building = forcelimit_lvl_3
+		}
+		if = {
+			limit = {
+				has_tax_building_trigger = yes
+				NOT = {has_province_modifier = beepeck_house_stacking_tax_10}
+			}
+			beepeck_stacking_effect = {type = tax}
+			remove_building = taxation_lvl_1
+			remove_building = taxation_lvl_2
+			remove_building = taxation_lvl_3
+			remove_building = taxation_lvl_4
+		}
+		if = {
+			limit = {
+				has_production_building_trigger = yes
+				NOT = {has_province_modifier = beepeck_house_stacking_production_10}
+			}
+			beepeck_stacking_effect = {type = production}
+			remove_building = workshop
+			remove_building = counting_house
+			remove_building = production_lvl_3
+			remove_building = production_lvl_4
+			remove_building = production_lvl_5
+		}
+		if = {
+			limit = {
+				has_trade_building_trigger = yes
+				NOT = {has_province_modifier = beepeck_house_stacking_trade_10}
+			}
+			beepeck_stacking_effect = {type = trade}
+			remove_building = marketplace
+			remove_building = trade_depot
+			remove_building = stock_exchange
+			remove_building = trade_lvl_4
+		}
+	}
+}
+country_event = {
+	id = bertus_missions.1005
+	title = bertus_missions.1001.title
+	desc = bertus_missions.1001.desc
+	picture = PRAYING_eventPicture
+
+	trigger = {
+	}
+	is_triggered_only = yes
+	mean_time_to_happen = {		
+	}
+	immediate = {
+	}
+	option = {	#propose agreement
+		name = bertus_missions.1001.a
+		trigger = {
+			NOT = {owns = 115}
+		}
+		tooltip = {			
+			115 = {
+				add_trade_modifier = {
+					who = ROOT
+					duration = 3650
+					power = 50
+					key = REDGLADES_TRADE
+				}
+				add_trade_modifier = {
+					who = owner
+					duration = 3650
+					power = -50
+					key = RUBYHOLD_TRADE
+				}
+				add_province_modifier = {
+					name = "beepeck_anbenncost_value"
+					duration = -1 
+				}
+			}
+			small_increase_of_elven_tolerance_effect = yes
+			add_mercantilism = 1
+		}
+		hidden_effect = {
+			115 = {owner = {country_event = {id = bertus_missions.1006}}}
+		}
+	}
+	option = {	#not now
+		name = bertus_missions.1001.b
+		trigger = {
+			NOT = {owns = 115}
+		}
+		add_country_modifier = {
+			name = no_redglades_trade_on_this_decade
+			duration = 3650
+		}
+		hidden_effect = {
+			country_event = {id = bertus_missions.1005 days = 3650}
+		}
+	}
+	option = {	#never
+		name = bertus_missions.1001.c
+		trigger = {
+			NOT = {owns = 115}
+		}
+	}
+	option = {	#set trading post
+		name = bertus_missions.1001.d
+		trigger = {
+			owns = 115
+		}
+		115 = {
+			add_province_modifier = {
+				name = "beepeck_anbenncost_value"
+				duration = -1 
+			}
+		}
+	}
+}
+country_event = {
+	id = bertus_missions.1006
+	title = bertus_missions.1002.title
+	desc = bertus_missions.1002.desc
+	picture = PRAYING_eventPicture
+
+	trigger = {
+	}
+	
+	is_triggered_only = yes
+	
+	mean_time_to_happen = {
+		
+	}
+	# 
+	immediate = {
+	}
+	option = {	#accept
+		name = bertus_missions.1002.a
+		tooltip = {
+			115 = {
+				add_trade_modifier = {
+					who = FROM
+					duration = 3650
+					power = 50
+					key = REDGLADES_TRADE
+				}
+				add_trade_modifier = {
+					who = owner
+					duration = 3650
+					power = -50
+					key = REDGLADES_TRADE
+				}
+			}
+		}
+		115 = {
+			add_province_modifier = {
+				name = "beepeck_anbenncost_value"
+				duration = 3650
+			}
+		}
+	}
+	option = {	#reject
+		name = bertus_missions.1002.b
+		tooltip = {		
+			reverse_add_casus_belli = {
+				target = FROM
+				type = cb_trade_conflict
+				months = 120
+			}
+		}
+	}
+	after = {
+		hidden_effect = {
+			FROM = {country_event = {id = bertus_missions.1007}}
+		}
+	}
+}
+country_event = {
+	id = bertus_missions.1007
+	title = bertus_missions.1003.title
+	desc = bertus_missions.1003.desc
+	picture = PRAYING_eventPicture
+
+	is_triggered_only = yes
+	
+	mean_time_to_happen = {		
+	}
+	immediate = {
+	}
+	option = {	#they accept
+		name = bertus_missions.1001.a
+		trigger = {
+			115 = {has_province_modifier = beepeck_anbenncost_value}
+		}
+		115 = {
+			add_trade_modifier = {
+				who = ROOT
+				duration = 3650
+				power = 50
+				key = REDGLADES_TRADE
+			}
+			add_trade_modifier = {
+				who = owner
+				duration = 3650
+				power = -50
+				key = REDGLADES_TRADE
+			}
+			add_province_modifier = {
+				name = "beepeck_anbenncost_value"
+				duration = 3650 
+			}
+		}
+		small_increase_of_elven_tolerance_effect = yes
+		add_mercantilism = 1
+	}
+	option = {	#they reject
+		name = bertus_missions.1001.b
+		trigger = {
+			115 = {NOT = {has_province_modifier = beepeck_anbenncost_value}}
+		}
+		add_casus_belli = {
+			target = FROM
+			type = cb_trade_conflict
+			months = 120
+		}
+		add_country_modifier = {
+			name = no_redglades_trade_on_this_decade
+			duration = 3650
+		}
+		small_decrease_of_elven_tolerance_effect = yes
+	}
+	after = {
+		hidden_effect = {
+			country_event = {id = bertus_missions.1005 days = 3650}
+		}
+	}
+}
+country_event = {
+	id = bertus_missions.1008
+	title = bertus_missions.1008.title
+	desc = bertus_missions.1008.desc
+	picture = PRAYING_eventPicture
+
+	is_triggered_only = yes
+	
+	mean_time_to_happen = {		
+	}
+	immediate = {
+		2626 = {
+			add_elven_minority_size_effect = yes
+			add_elven_minority_size_effect = yes
+		}
+	}
+	option = {	#lumber
+		name = bertus_missions.1008.b
+		2626 = {
+			change_trade_goods = lumber
+			add_province_modifier = {
+				name = lumber_red_oak_trade_modifier
+				duration = -1
+			}
+			add_base_production = 3
+		}
+	}
+	option = {	#silk
+		name = bertus_missions.1008.a
+		2626 = {
+			change_trade_goods = silk
+			add_province_modifier = {
+				name = silk_forest_modifier
+				duration = -1
+			}
+		}
+	}	
+	option = {	#maple syrup
+		name = bertus_missions.1008.c
+		2626 = {
+			change_trade_goods = maple_syrup
+			add_province_modifier = {
+				name = maple_syrup_trade_modifier
+				duration = -1
+			}
+		}
+	}
+	option = {	#just come here
+		name = bertus_missions.1008.d
+		2626 = {
+			add_base_production = 3
+			add_base_tax = 3
+		}
+	}
+}
+country_event = {	#wex estalleni loyal nobles
+	id = bertus_missions.1009
+	title = bertus_missions.1009.title
+	desc = bertus_missions.1009.desc
+	picture = PRAYING_eventPicture
+
+	is_triggered_only = yes
+	
+	mean_time_to_happen = {		
+	}
+	immediate = {
+	}
+	option = {	#advisor
+		name = bertus_missions.1009.b
+		define_advisor = {
+			type = diplomat
+			skill = 2
+			culture = esmari
+			cost_multiplier = 75
+		}
+		add_dip_power = 100
+	}
+	option = {	#general
+		name = bertus_missions.1009.a
+		define_general = {
+			shock = 4
+			fire = 4
+			manuever = 4
+			siege = 1
+		}
+		add_mil_power = 50
+	}
+	option = {	#direct loyalty
+		name = bertus_missions.1009.c
+		if = {
+			limit = {
+				legitimacy = 100
+			}
+			random_province = {
+				limit = {
+					owned_by = A93
+					is_capital = no
+				}
+				cede_province = ROOT
+				add_core = ROOT
+				add_local_autonomy = 50
+			}
+		}
+		if = {
+			limit = {
+				A93 = {
+					has_opinion = {
+						who = ROOT
+						value = 100
+					}
+				}
+			}
+			random_province = {
+				limit = {
+					owned_by = A93
+					is_capital = no
+				}
+				cede_province = ROOT
+				add_core = ROOT
+				add_local_autonomy = 50
+			}
+		}
+		if = {
+			limit = {
+				imperial_influence = 50
+			}
+			random_province = {
+				limit = {
+					owned_by = A93
+					is_capital = no
+				}
+				cede_province = ROOT
+				add_core = ROOT
+				add_local_autonomy = 50
+			}
+		}
+		if = {
+			limit = {
+				estate_loyalty = {
+					estate = estate_human
+					loyalty = 80
+				}
+			}
+			random_province = {
+				limit = {
+					owned_by = A93
+					is_capital = no
+				}
+				cede_province = ROOT
+				add_core = ROOT
+				add_local_autonomy = 50
+			}
+		}
+	}
+}
+country_event = {
+	id = bertus_missions.1010
+	title = bertus_missions.1010.title
+	desc = bertus_missions.1010.desc
+	picture = PRAYING_eventPicture
+
+	trigger = {
+	}
+	is_triggered_only = yes
+	mean_time_to_happen = {		
+	}
+	immediate = {
+	}
+	option = {	#propose agreement
+		name = bertus_missions.1010.a
+		tooltip = {
+			add_country_modifier = {
+				name = khug_dwarven_aid
+				duration = 7300
+			}
+			if = {
+				limit = {
+					is_year = 1550
+				}
+				random_country = {
+					limit = {
+						capital_scope = {
+							OR = {
+								continent = europe
+								continent = serpentspine
+							}
+						}
+						culture_group = dwarven
+						has_opinion = { who = ROOT value = 100}
+					}
+					add_country_modifier = {
+						name = khug_dwarven_aid_reverse
+						duration = 7300 
+					}
+					add_estate_loyalty = {
+						estate = estate_dwarven
+						loyalty = 20
+					}
+					hidden_effect = {country_event = {id = bertus_missions.1011 days = 20}}
+				}
+			}
+			else = {				
+				random_country = {
+					limit = {
+						capital_scope = {
+							continent = europe
+						}
+						culture_group = dwarven
+						has_opinion = { who = ROOT value = 100}
+					}
+					add_country_modifier = {
+						name = khug_dwarven_aid_reverse
+						duration = 7300 
+					}
+					add_estate_loyalty = {
+						estate = estate_dwarven
+						loyalty = 20
+					}
+					hidden_effect = {country_event = {id = bertus_missions.1011}}
+				}
+			}
+		}		
+	}
+}
+country_event = {
+	id = bertus_missions.1011
+	title = bertus_missions.1011.title
+	desc = bertus_missions.1011.desc
+	picture = PRAYING_eventPicture
+
+	trigger = {
+	}
+	
+	is_triggered_only = yes
+	
+	mean_time_to_happen = {		
+	}
+	immediate = {
+	}
+	option = {	#accept
+		name = bertus_missions.1011.a
+		FROM = {
+			add_country_modifier = {
+				name = khug_dwarven_aid
+				duration = 7300
+			}
+		}
+		add_country_modifier = {
+			name = khug_dwarven_aid_reverse
+			duration = 7300
+		}
+		add_estate_loyalty = {
+			estate = estate_dwarven
+			loyalty = 20
+		}
+		set_country_flag = khug_helped
+	}
+	option = {	#reject
+		name = bertus_missions.1011.b
+		add_prestige = -10
+		add_legitimacy = -10
+		add_estate_loyalty = {
+			estate = estate_dwarven
+			loyalty = -10
+		}
+		set_country_flag = not_khug_helped
+	}
+	after = {
+		hidden_effect = {country_event = {id = bertus_missions.1012 days = 20}}
+	}
+}
+country_event = {
+	id = bertus_missions.1012
+	title = bertus_missions.1012.title
+	desc = bertus_missions.1012.desc
+	picture = PRAYING_eventPicture
+
+	is_triggered_only = yes
+	
+	mean_time_to_happen = {		
+	}
+	immediate = {
+	}
+	option = {	#they accept
+		name = bertus_missions.1012.a
+		trigger = {
+			has_country_modifier = khug_dwarven_aid
+		}
+		tooltip = {
+			add_country_modifier = {
+				name = khug_dwarven_aid
+				duration = 7300
+			}
+		}
+	}
+	option = {	#they reject
+		name = bertus_missions.1012.b
+		trigger = {
+			NOT = {has_country_modifier = khug_dwarven_aid}
+		}
+		add_legitimacy = -10
+		add_estate_loyalty = {
+			estate = estate_dwarven
+			loyalty = -10
+		}
+	}
+	after = {
+	}
+}
+country_event = {
+	id = bertus_missions.1013
+	title = bertus_missions.1013.title
+	desc = bertus_missions.1013.desc
+	picture = PRAYING_eventPicture
+
+	trigger = {
+	}
+	is_triggered_only = yes
+	mean_time_to_happen = {		
+	}
+	immediate = {
+	}
+	option = {	#propose agreement
+		name = bertus_missions.1013.a
+		tooltip = {
+			add_country_modifier = {
+				name = khug_anbennar_aid
+				duration = 7300
+			}
+			random_country = {
+				limit = {
+					is_part_of_hre = yes
+					capital_scope = {continent = europe}
+					NOT = {culture_group = dwarven culture_group = gnomish}
+					has_opinion = { who = ROOT value = 100}
+				}
+				add_country_modifier = {
+					name = khug_anbennar_aid_reverse
+					duration = 7300 
+				}
+				add_estate_loyalty = {
+					estate = estate_dwarven
+					loyalty = 20
+				}
+				medium_increase_of_dwarven_tolerance_effect = yes
+				hidden_effect = {country_event = {id = bertus_missions.1014 days = 20}}
+			}
+		}		
+	}
+}
+country_event = {
+	id = bertus_missions.1014
+	title = bertus_missions.1014.title
+	desc = bertus_missions.1014.desc
+	picture = PRAYING_eventPicture
+
+	trigger = {
+	}
+	
+	is_triggered_only = yes
+	
+	mean_time_to_happen = {		
+	}
+	immediate = {
+	}
+	option = {	#accept
+		name = bertus_missions.1014.a
+		FROM = {
+			add_country_modifier = {
+				name = khug_anbennar_aid
+				duration = 7300
+			}
+		}
+		add_country_modifier = {
+			name = khug_anbennar_aid_reverse
+			duration = 7300
+		}
+		add_estate_loyalty = {
+			estate = estate_dwarven
+			loyalty = 20
+		}
+		medium_increase_of_dwarven_tolerance_effect = yes
+		set_country_flag = khug_helped
+	}
+	option = {	#reject
+		name = bertus_missions.1014.b
+		add_prestige = -10
+		add_legitimacy = -10
+		add_estate_loyalty = {
+			estate = estate_dwarven
+			loyalty = -10
+		}
+		small_decrease_of_dwarven_tolerance_effect = yes
+		set_country_flag = not_khug_helped
+	}
+	after = {
+		hidden_effect = {country_event = {id = bertus_missions.1015 days = 20}}
+	}
+}
+country_event = {
+	id = bertus_missions.1015
+	title = bertus_missions.1015.title
+	desc = bertus_missions.1015.desc
+	picture = PRAYING_eventPicture
+
+	is_triggered_only = yes
+	
+	mean_time_to_happen = {		
+	}
+	immediate = {
+	}
+	option = {	#they accept
+		name = bertus_missions.1015.a
+		trigger = {
+			has_country_modifier = khug_anbennar_aid
+		}
+		tooltip = {
+			add_country_modifier = {
+				name = khug_anbennar_aid
+				duration = 7300
+			}
+		}
+	}
+	option = {	#they reject
+		name = bertus_missions.1015.b
+		trigger = {
+			NOT = {has_country_modifier = khug_anbennar_aid}
+		}
+		add_legitimacy = -10
+		add_estate_loyalty = {
+			estate = estate_dwarven
+			loyalty = -10
+		}
+	}
+	after = {
+	}
+}
+country_event = {
+	id = bertus_missions.1016
+	title = bertus_missions.1016.title
+	desc = bertus_missions.1016.desc
+	picture = PRAYING_eventPicture
+
+	trigger = {
+	}
+	is_triggered_only = yes
+	mean_time_to_happen = {		
+	}
+	immediate = {
+	}
+	option = {	#propose agreement
+		name = bertus_missions.1016.a
+		tooltip = {
+			add_country_modifier = {
+				name = khug_gnomish_aid
+				duration = 7300
+			}
+			random_country = {
+				limit = {
+					is_part_of_hre = yes
+					capital_scope = {continent = europe}
+					culture_group = gnomish
+					has_opinion = { who = ROOT value = 100}
+				}
+				add_country_modifier = {
+					name = khug_gnomish_aid_reverse
+					duration = 7300 
+				}
+				add_estate_loyalty = {
+					estate = estate_dwarven
+					loyalty = 20
+				}
+				medium_increase_of_dwarven_tolerance_effect = yes
+				hidden_effect = {country_event = {id = bertus_missions.1017 days = 20}}
+			}
+		}		
+	}
+}
+country_event = {
+	id = bertus_missions.1017
+	title = bertus_missions.1017.title
+	desc = bertus_missions.1017.desc
+	picture = PRAYING_eventPicture
+
+	trigger = {
+	}
+	
+	is_triggered_only = yes
+	
+	mean_time_to_happen = {		
+	}
+	immediate = {
+	}
+	option = {	#accept
+		name = bertus_missions.1017.a
+		FROM = {
+			add_country_modifier = {
+				name = khug_gnomish_aid
+				duration = 7300
+			}
+			medium_increase_of_gnomish_tolerance_effect = yes
+		}
+		add_country_modifier = {
+			name = khug_gnomish_aid_reverse
+			duration = 7300
+		}
+		add_estate_loyalty = {
+			estate = estate_dwarven
+			loyalty = 20
+		}
+		medium_increase_of_dwarven_tolerance_effect = yes
+		set_country_flag = khug_helped
+	}
+	option = {	#reject
+		name = bertus_missions.1017.b
+		add_prestige = -10
+		add_legitimacy = -10
+		add_estate_loyalty = {
+			estate = estate_dwarven
+			loyalty = -10
+		}
+		small_decrease_of_dwarven_tolerance_effect = yes
+		set_country_flag = not_khug_helped
+	}
+	after = {
+		hidden_effect = {country_event = {id = bertus_missions.1018 days = 20}}
+	}
+}
+country_event = {
+	id = bertus_missions.1018
+	title = bertus_missions.1018.title
+	desc = bertus_missions.1018.desc
+	picture = PRAYING_eventPicture
+
+	is_triggered_only = yes
+	
+	mean_time_to_happen = {		
+	}
+	immediate = {
+	}
+	option = {	#they accept
+		name = bertus_missions.1018.a
+		trigger = {
+			has_country_modifier = khug_gnomish_aid
+		}
+		tooltip = {
+			add_country_modifier = {
+				name = khug_gnomish_aid
+				duration = 7300
+			}
+			medium_increase_of_gnomish_tolerance_effect = yes
+		}
+	}
+	option = {	#they reject
+		name = bertus_missions.1018.b
+		trigger = {
+			NOT = {has_country_modifier = khug_gnomish_aid}
+		}
+		add_legitimacy = -10
+		add_estate_loyalty = {
+			estate = estate_dwarven
+			loyalty = -10
+		}
+		if = {
+			limit = {
+				has_estate = estate_gnomish
+			}
+			add_estate_loyalty = {
+				estate = estate_gnomish
+				loyalty = -10
+			}
+		}
+		small_decrease_of_gnomish_tolerance_effect = yes
+	}
+	after = {
+	}
+}
+country_event = {
+	id = bertus_missions.1019
+	title = bertus_missions.1019.title
+	desc = bertus_missions.1019.desc
+	picture = PRAYING_eventPicture
+
+	trigger = {	
+		NOT = {has_country_flag = not_khug_helped}
+		NOT = {has_country_flag = khug_helped}
+		capital_scope = {continent = europe}
+		has_opinion = { who = I07 value = 100 }
+		I07 = {has_country_flag = started_hold_foreign_investment}
+		NOT = {has_country_modifier = monstrous_nation}
+	}
+	
+	mean_time_to_happen = {
+		months = 600
+	}
+	immediate = {
+	}
+	option = {	#contribute
+		name = bertus_missions.1019.a
+		add_adm_power = -25
+		add_dip_power = -25
+		add_mil_power = -25
+		hidden_effect = {country_event = {id = bertus_missions.1020 days = 20}}
+		set_country_flag = khug_helped
+	}
+	option = {	#nope
+		name = bertus_missions.1019.b
+		if = {
+			limit = {has_estate = estate_dwarven}
+			add_estate_loyalty = {
+				estate = estate_dwarven
+				loyalty = -10
+			}
+		}
+		small_decrease_of_dwarven_tolerance_effect = yes
+		set_country_flag = not_khug_helped
+	}
+	after = {
+	}
+}
+country_event = {
+	id = bertus_missions.1020
+	title = bertus_missions.1020.title
+	desc = bertus_missions.1020.desc
+	picture = PRAYING_eventPicture
+
+	is_triggered_only = yes
+	
+	mean_time_to_happen = {
+	}
+	immediate = {
+	}
+	option = {	#contribute
+		name = bertus_missions.1020.a
+		add_adm_power = 25
+		add_dip_power = 25
+		add_mil_power = 25
+	}
+	after = {
+	}
+}
+country_event = {
+	id = bertus_missions.1021
+	title = bertus_missions.1021.title
+	desc = bertus_missions.1021.desc
+	picture = PRAYING_eventPicture
+
+	trigger = {
+		has_country_flag = khug_helped
+		NOT = {has_country_flag = repayed_by_khug_helped}
+		I07 = {
+			has_country_flag = khugdihr_return_investment_flag
+			NOT = {
+				is_rival = ROOT
+				ROOT = {is_rival = prev}
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 12
+	}
+	immediate = {
+	}
+	option = {	#return khugdihr investment
+		name = bertus_missions.1021.a
+		set_country_flag = repayed_by_khug_helped
+		add_adm_power = 100
+		add_dip_power = 100
+		add_mil_power = 100
+		add_estate_loyalty = {
+			estate = estate_dwarven
+			loyalty = 10
+		}
+		small_decrease_of_dwarven_tolerance_effect = yes
+	}
+}

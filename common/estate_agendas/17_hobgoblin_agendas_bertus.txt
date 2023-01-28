@@ -1,0 +1,1906 @@
+
+# Hire advisor
+estate_hobgoblin_hire_advisor = {
+	can_select = {
+		high_tolerance_hobgoblin_race_trigger = no
+		any_owned_province = {
+			culture_is_hobgoblin = yes
+			ROOT = {
+				NOT = {employed_advisor = {category = DIP culture = PREV}}
+			}
+		}
+	}
+	pre_effect = {	
+		random_owned_province = {
+			limit = {
+				culture_is_hobgoblin = yes 
+			}
+			save_event_target_as = agenda_province
+		}
+	}
+	selection_weight = {
+		factor = 1
+	}
+	task_requirements = {
+		employed_advisor = {
+			category = DIP
+			culture = event_target:agenda_province
+		}
+	}
+    task_completed_effect = {
+		small_increase_of_hobgoblin_tolerance_effect = yes
+		add_estate_loyalty = {
+			estate = estate_hobgoblin
+			loyalty = 10
+		}
+		add_estate_influence_modifier = {
+			estate = estate_hobgoblin
+			desc = EST_VAL_DIET_HIRED_ADVISOR
+			influence = 5
+			duration = 7300
+		}
+		
+    }
+    failing_effect = {
+        add_estate_loyalty_modifier = {
+            estate = estate_hobgoblin
+			desc = EST_VAL_AGENDA_DENIED
+			loyalty = -5
+			duration = 7300
+        }
+		
+    }
+}
+# Fire advisor
+estate_hobgoblin_fire_advisor = {
+	can_select = {
+		employed_advisor = {type = DIP}
+		NOT = {
+			employed_advisor = {
+				type = DIP
+				religion = ROOT
+			}
+		}
+	}
+	selection_weight = {
+		factor = 1
+	}
+	immediate_effect = {
+		hidden_effect = {set_country_flag = need_to_fire_dip_advisor}
+	}
+	on_invalid = {
+		clr_country_flag = need_to_fire_dip_advisor
+	}
+	task_requirements = {
+		custom_trigger_tooltip = {
+			tooltip = fire_dip_advisor_tooltip
+			has_country_flag = just_fired_dip_advisor
+		}
+	}
+    task_completed_effect = {
+		if = {
+			limit = {
+				any_owned_province = {culture_is_hobgoblin = yes}
+			}
+			random_owned_province = {
+				limit = {culture_is_hobgoblin = yes}
+				define_advisor = {
+					type = trader
+					skill = 2
+					culture = PREV
+					religion = PREV
+					location = PREV
+					cost_multiplier = 0.75
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				any_province = {has_discovered = ROOT culture_is_hobgoblin = yes}
+			}
+			random_province = {
+				limit = {has_discovered = ROOT culture_is_hobgoblin = yes}
+				define_advisor = {
+					type = trader
+					skill = 2
+					culture = PREV
+					religion = PREV
+					location = PREV
+					cost_multiplier = 0.75
+				}
+			}
+		}
+		else = {
+			random_province = {
+				limit = {culture_is_hobgoblin = yes}
+				define_advisor = {
+					type = trader
+					skill = 2
+					culture = PREV
+					religion = PREV
+					location = PREV
+					cost_multiplier = 0.75
+				}
+			}
+		}
+		clr_country_flag = just_fired_dip_advisor
+		clr_country_flag = need_to_fire_dip_advisor
+		
+	}
+	invalid_trigger = {
+		NOT = { has_country_flag = just_fired_dip_advisor }
+	}
+    failing_effect = {
+        add_estate_loyalty_modifier = {
+            estate = estate_hobgoblin
+			desc = EST_VAL_AGENDA_DENIED
+			loyalty = -5
+			duration = 7300
+        }
+		clr_country_flag = need_to_fire_dip_advisor
+		
+    }
+}
+
+# Pay off loans
+estate_hobgoblin_pay_off_loans = {
+	can_select = {
+		num_of_loans = 5
+		is_bankrupt = no
+	}
+	selection_weight = {
+		factor = 2
+	}
+	fail_if = {
+		is_bankrupt = yes
+	}
+	task_requirements = {
+		NOT = { num_of_loans = 1 }
+		hidden_trigger = {is_bankrupt = no}
+	}
+    task_completed_effect = {
+		add_inflation = -4
+		
+    }
+    failing_effect = {
+        add_estate_loyalty_modifier = {
+            estate = estate_hobgoblin
+			desc = EST_VAL_AGENDA_DENIED
+			loyalty = -5
+			duration = 7300
+        }
+		
+    }
+}
+
+# Restore republican tradition
+estate_hobgoblin_restore_republican_tradition = {
+	can_select = {
+		NOT = { republican_tradition = 65 }
+		republican_tradition = 20
+		OR = {
+			government = republic
+			government = dictatorship
+		}
+		NOT = { has_country_modifier = agenda_republicanism_restored }
+	}
+	selection_weight = {
+		factor = 2
+	}
+	fail_if = {
+		NOT = { government = republic }
+		NOT = { government = dictatorship }
+	}
+	task_requirements = {
+		republican_tradition = 80
+	}
+    task_completed_effect = {
+		add_country_modifier = {
+			name = agenda_republicanism_restored
+			duration = 3650
+		}
+		
+    }
+    failing_effect = {
+        add_estate_loyalty_modifier = {
+            estate = estate_hobgoblin
+			desc = EST_VAL_AGENDA_DENIED
+			loyalty = -5
+			duration = 7300
+        }
+		
+    }
+}
+
+# Reduce Inflation
+estate_hobgoblin_restore_currency = {
+	can_select = {
+		inflation = 10
+		NOT = {inflation = 30}
+		NOT = { has_country_modifier = boom_economy }
+	}
+	selection_weight = {
+		factor = 2
+	}
+	fail_if = {
+		inflation = 35
+	}
+	task_requirements = {
+		NOT = { inflation = 5 }
+	}
+    task_completed_effect = {
+		add_inflation = -4
+		add_country_modifier = {
+			name = boom_economy
+			duration = 5475
+		}
+		
+    }
+    failing_effect = {
+        add_estate_loyalty_modifier = {
+            estate = estate_hobgoblin
+			desc = EST_VAL_AGENDA_DENIED
+			loyalty = -5
+			duration = 7300
+        }
+		
+    }
+}
+
+# Recover Abysmal Inflation
+estate_hobgoblin_recovery_from_hyperinflation = {
+	can_select = {
+		inflation = 30
+	}
+	selection_weight = {
+		factor = 5
+	}
+	task_requirements = {
+		NOT = { inflation = 15 }
+	}
+    task_completed_effect = {
+		add_inflation = -10
+		add_country_modifier = {
+			name = boom_economy
+			duration = 5475
+		}
+		
+    }
+    failing_effect = {
+        add_estate_loyalty_modifier = {
+            estate = estate_hobgoblin
+			desc = EST_VAL_AGENDA_DENIED
+			loyalty = -5
+			duration = 7300
+        }
+		
+    }
+}
+
+# Get a treasury
+estate_hobgoblin_get_cash = {
+	can_select = {
+		NOT = { years_of_income = 0.5 }
+		NOT = { num_of_loans = 1 }
+		is_at_war = no
+	}
+	selection_weight = {
+		factor = 1
+	}
+	task_requirements = {
+		years_of_income = 2.0
+		NOT = { num_of_loans = 1 }
+	}
+	fail_if = {
+		num_of_loans = 6
+	}
+	task_completed_effect = {
+		add_estate_loyalty = {
+			estate = estate_hobgoblin
+			loyalty = 10
+		}
+		if = {
+			limit = {
+				any_owned_province = {culture_is_hobgoblin = yes}
+			}
+			random_owned_province = {
+				limit = {culture_is_hobgoblin = yes}
+				define_advisor = {
+					type = master_of_mint
+					skill = 2
+					culture = PREV
+					religion = PREV
+					location = PREV
+					cost_multiplier = 0.75
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				any_province = {has_discovered = ROOT culture_is_hobgoblin = yes}
+			}
+			random_province = {
+				limit = {has_discovered = ROOT culture_is_hobgoblin = yes}
+				define_advisor = {
+					type = master_of_mint
+					skill = 2
+					culture = PREV
+					religion = PREV
+					location = PREV
+					cost_multiplier = 0.75
+				}
+			}
+		}
+		else = {
+			random_province = {
+				limit = {culture_is_hobgoblin = yes}
+				define_advisor = {
+					type = master_of_mint
+					skill = 2
+					culture = PREV
+					religion = PREV
+					location = PREV
+					cost_multiplier = 0.75
+				}
+			}
+		}
+		add_estate_influence_modifier = {
+			estate = estate_hobgoblin
+			desc = EST_VAL_DIET_GET_CASH
+			influence = 5
+			duration = 7300
+		}
+		
+	}
+    failing_effect = {
+        add_estate_loyalty_modifier = {
+            estate = estate_hobgoblin
+			desc = EST_VAL_AGENDA_DENIED
+			loyalty = -5
+			duration = 7300
+        }
+		
+    }
+}
+
+# Reduce corruption
+estate_hobgoblin_reduce_corruption = {
+	can_select = {
+		corruption = 5
+		is_bankrupt = no
+		NOT = { has_country_modifier = freedom_from_corruption }
+	}
+	selection_weight = {
+		factor = 1.5
+	}
+	pre_effect = {
+		set_variable = {
+			which = estate_hobgoblin_reduce_corruption_var
+			value = 0
+		}
+		if = {
+			limit = {
+				NOT = {corruption = 10}
+			}
+			set_variable = {
+				which = estate_hobgoblin_reduce_corruption_var
+				value = 1
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {corruption = 15}
+			}
+			set_variable = {
+				which = estate_hobgoblin_reduce_corruption_var
+				value = 2
+			}
+		}
+		else = {
+			set_variable = {
+				which = estate_hobgoblin_reduce_corruption_var
+				value = 3
+			}
+		}
+	}
+	task_requirements = {
+		if = {
+			limit = {
+				check_variable = {
+					which = estate_hobgoblin_reduce_corruption_var
+					value = 3
+				}
+			}
+			NOT = { corruption = 10 }
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					which = estate_hobgoblin_reduce_corruption_var
+					value = 2
+				}
+			}
+			NOT = { corruption = 5 }
+		}
+		else = {
+			NOT = { corruption = 1 }
+		}
+	}
+    task_completed_effect = {
+		add_estate_loyalty = {
+			estate = estate_hobgoblin
+			loyalty = 10
+		}
+		add_country_modifier = {
+			name = freedom_from_corruption
+			duration = 5475
+		}
+		add_estate_influence_modifier = {
+			estate = estate_hobgoblin
+			desc = EST_VAL_DIET_REDUCE_CORRUPTION
+			influence = 5
+			duration = 7300
+		}
+		
+    }
+    failing_effect = {
+        add_estate_loyalty_modifier = {
+            estate = estate_hobgoblin
+			desc = EST_VAL_AGENDA_DENIED
+			loyalty = -5
+			duration = 7300
+        }
+		
+    }
+}
+
+# Give autonomy priv
+estate_hobgoblin_three_privileges = {
+	can_select = {
+		high_tolerance_hobgoblin_race_trigger = no
+		any_owned_province = {culture_is_hobgoblin = yes}
+		NOT = {has_estate_privilege = estate_hobgoblin_autonomy}
+	}
+	selection_weight = {
+		factor = 1
+	}
+	task_requirements = {
+		has_estate_privilege = estate_hobgoblin_autonomy
+	}
+    task_completed_effect = {
+		medium_increase_of_hobgoblin_tolerance_effect = yes
+		add_estate_loyalty = {
+			estate = estate_hobgoblin
+			loyalty = 20
+		}
+		every_owned_province = {
+			limit = {culture_is_hobgoblin = yes}
+			add_unrest = -10
+		}
+		add_estate_influence_modifier = {
+			estate = estate_hobgoblin
+			desc = EST_VAL_DIET_AUTONOMY
+			influence = 10
+			duration = 7300
+		}
+		
+    }
+    failing_effect = {
+        add_estate_loyalty_modifier = {
+            estate = estate_hobgoblin
+			desc = EST_VAL_AGENDA_DENIED
+			loyalty = -5
+			duration = 7300
+        }
+		
+    }
+}
+
+# Protect against Piracy
+estate_hobgoblin_protect_against_piracy = {
+	can_select = {
+		any_active_trade_node = {
+			trade_share = {
+				country = root
+				share = 20
+			}
+			privateer_power = {
+				share = 20
+			}
+			NOT = {
+				privateer_power = {
+					share = 5
+					country = root
+				}
+			}
+		}
+	}
+	selection_weight = {
+		factor = 2
+	}
+	pre_effect = {
+		random_active_trade_node = {
+			limit = {
+				trade_share = {
+					country = root
+					share = 20
+				}
+				privateer_power = {
+					share = 20
+				}
+				NOT = {
+					privateer_power = {
+						share = 5
+						country = root
+					}
+				}
+			}
+			save_event_target_as = agenda_trade_node
+		}
+		random_active_trade_node = {
+			limit = {
+				trade_share = {
+					country = root
+					share = 20
+				}
+				privateer_power = {
+					share = 20
+				}
+				NOT = {
+					privateer_power = {
+						share = 5
+						country = root
+					}
+				}
+				OR = {
+					trade_share = {
+						country = root
+						share = 35
+					}
+					privateer_power = {
+						share = 35
+					}
+				}
+			}
+			save_event_target_as = agenda_trade_node
+			if = {
+				limit = {
+					OR = {
+						is_sea = yes
+						has_port = no #shouldn't ever be the case, but just in case...
+					}
+				}
+				save_event_target_as = agenda_trade_node_sea
+			}
+			else = {
+				sea_zone = {
+					save_event_target_as = agenda_trade_node_sea
+				}
+			}
+		}
+	}
+	provinces_to_highlight = {
+		province_id = event_target:agenda_trade_node
+	}
+	task_requirements = {
+		event_target:agenda_trade_node = {
+			trade_share = {
+				country = root
+				share = 20
+			}
+			NOT = {
+				privateer_power = {
+					share = 5
+				}
+			}
+		}
+	}
+    task_completed_effect = {
+		add_estate_loyalty = {
+			estate = estate_hobgoblin
+			loyalty = 10
+		}
+		add_country_modifier = {
+			name = merchant_society
+			duration = 3650
+		}
+		event_target:agenda_province = {
+			get_tolerance_from_provinces = {
+				race = hobgoblin
+			}
+		}
+		
+    }
+    failing_effect = {
+        add_estate_loyalty_modifier = {
+            estate = estate_hobgoblin
+			desc = EST_VAL_AGENDA_DENIED
+			loyalty = -5
+			duration = 7300
+        }
+		
+    }
+}
+
+# Build university in 
+estate_hobgoblin_build_university_in_x = {
+	can_select = {
+		any_owned_province = {
+			culture_is_hobgoblin = yes 
+			has_university_building_trigger = no
+		}
+	}
+	selection_weight = {
+		factor = 1
+	}
+	pre_effect = {
+		random_owned_province = {
+			limit = {
+				is_state_core = root
+				has_university_building_trigger = no
+				development = 10
+				culture_is_hobgoblin = yes 
+			}
+			save_event_target_as = agenda_province
+		}
+		random_owned_province = {
+			limit = {
+				is_state_core = root
+				has_university_building_trigger = no
+				development = 15
+				culture_is_hobgoblin = yes 
+			}
+			save_event_target_as = agenda_province
+		}
+		random_owned_province = {
+			limit = {
+				is_state_core = root
+				has_university_building_trigger = no
+				development = 20
+				culture_is_hobgoblin = yes 
+			}
+			save_event_target_as = agenda_province
+		}
+		random_owned_province = {
+			limit = {
+				is_state_core = root
+				has_university_building_trigger = no
+				is_capital = yes
+				culture_is_hobgoblin = yes 
+			}
+			save_event_target_as = agenda_province
+		}
+	}
+	provinces_to_highlight = {
+		province_id = event_target:agenda_province
+	}
+	fail_if = {
+		event_target:agenda_province = {
+			NOT = { owned_by = root }
+		}
+	}
+    task_requirements = {
+		event_target:agenda_province = {
+			has_university_building_trigger = yes
+		}
+    }
+    task_completed_effect = {
+		add_estate_loyalty = {
+			estate = estate_hobgoblin
+			loyalty = 10
+		}
+		add_estate_influence_modifier = {
+			estate = estate_hobgoblin
+			desc = EST_VAL_DIET_UNIVERSITY
+			influence = 5
+			duration = 7300
+		}
+		event_target:agenda_province = {
+			add_base_production = 1
+			get_tolerance_from_provinces = {
+				race = hobgoblin
+			}
+			if = {
+				limit = {has_building = university}
+				add_scaled_local_adm_power = 3
+				add_scaled_local_dip_power = 3
+				add_scaled_local_mil_power = 3
+			}
+			if = {
+				limit = {has_building = education_lvl_2}
+				add_scaled_local_adm_power = 2
+				add_scaled_local_dip_power = 2
+				add_scaled_local_mil_power = 2
+			}
+			else = {				
+				add_scaled_local_adm_power = 1
+				add_scaled_local_dip_power = 1
+				add_scaled_local_mil_power = 1
+			}
+		}
+		
+    }
+    failing_effect = {
+		event_target:agenda_province = {
+			if = {
+				limit = { owned_by = root }
+				add_named_unrest = {
+					name = local_hobgoblins_displeased
+					value = 5
+				}
+			}
+		}
+        add_estate_loyalty_modifier = {
+            estate = estate_hobgoblin
+			desc = EST_VAL_AGENDA_DENIED
+			loyalty = -5
+			duration = 7300
+        }
+		
+    }
+}
+
+# Build manufactory building
+estate_hobgoblin_build_manufactory_in_x = {
+	can_select = {
+		any_owned_province = {
+			is_state_core = root
+			culture_is_hobgoblin = yes 
+			root_can_build_manufactory_here_trigger = yes
+		}
+	}
+	selection_weight = {
+		factor = 2
+	}
+	pre_effect = {
+		random_owned_province = {
+			limit = {
+				is_state_core = root
+				root_can_build_manufactory_here_trigger = yes
+				culture_is_hobgoblin = yes 
+			}
+			save_event_target_as = agenda_province
+		}
+		random_owned_province = {
+			limit = {
+				is_state_core = root
+				base_production = 5
+				root_can_build_manufactory_here_trigger = yes
+				culture_is_hobgoblin = yes 
+			}
+			save_event_target_as = agenda_province
+		}
+		random_owned_province = {
+			limit = {
+				is_state_core = root
+				base_production = 10
+				root_can_build_manufactory_here_trigger = yes
+				culture_is_hobgoblin = yes 
+			}
+			save_event_target_as = agenda_province
+		}
+	}
+	provinces_to_highlight = {
+		province_id = event_target:agenda_province
+	}
+	fail_if = {
+		event_target:agenda_province = {
+			NOT = { owned_by = root }
+		}
+	}
+    task_requirements = {
+		event_target:agenda_province = {
+			custom_trigger_tooltip = {
+				tooltip = has_manufactory_trigger_tooltip
+				
+				if = {
+					limit = {
+						OR = {
+							trade_goods = naval_supplies
+							trade_goods = fish
+							trade_goods = salt
+						}
+					}
+					has_building = wharf
+				}
+				else_if = {
+					limit = {
+						OR = {
+							trade_goods = copper
+							trade_goods = iron
+						}
+					}
+					has_building = weapons
+				}
+				else_if = {
+					limit = {
+						OR = {
+							trade_goods = wool
+							trade_goods = cloth
+							trade_goods = silk
+							trade_goods = dyes
+						}
+					}
+					has_building = textile
+				}
+				else_if = {
+					limit = {
+						OR = {
+							trade_goods = ivory
+							trade_goods = slaves
+							trade_goods = spices
+							trade_goods = fur
+							trade_goods = incense
+						}
+					}
+					has_building = tradecompany
+				}
+				else_if = {
+					limit = {
+						OR = {
+							trade_goods = grain
+							trade_goods = livestock
+							trade_goods = wine
+						}
+					}
+					has_building = farm_estate
+				}
+				else_if = {
+					limit = {
+						OR = {
+							trade_goods = paper
+							trade_goods = gems
+							trade_goods = tropical_wood
+							trade_goods = glass
+							trade_goods = chinaware
+						}
+					}
+					has_building = mills
+				}
+				else_if = {
+					limit = {
+						trade_goods = coal
+					}
+					has_building = furnace
+				}
+				else = {
+					has_building = plantations
+				}
+			}
+		}
+    }
+    task_completed_effect = {
+		add_estate_loyalty = {
+			estate = estate_hobgoblin
+			loyalty = 10
+		}
+		add_estate_influence_modifier = {
+			estate = estate_hobgoblin
+			desc = EST_VAL_DIET_MANUFACTORY
+			influence = 5
+			duration = 7300
+		}
+		event_target:agenda_province = {
+			add_base_production = 1
+			add_province_modifier = {
+				name = prospering_production
+				duration = 5475
+			}
+			get_tolerance_from_provinces = {
+				race = hobgoblin
+			}
+		}
+		
+    }
+    failing_effect = {
+		event_target:agenda_province = {
+			if = {
+				limit = { owned_by = root }
+				add_named_unrest = {
+					name = local_hobgoblins_displeased
+					value = 5
+				}
+			}
+		}
+        add_estate_loyalty_modifier = {
+            estate = estate_hobgoblin
+			desc = EST_VAL_AGENDA_DENIED
+			loyalty = -5
+			duration = 7300
+        }
+		
+    }
+}
+
+# Build production building in 
+estate_hobgoblin_build_production_building_in_x = {
+	can_select = {
+		adm_tech = 6
+		any_owned_province = {
+			culture_is_hobgoblin = yes 
+			is_state_core = root
+			has_production_building_trigger = no
+			NOT = { trade_goods = gold }
+		}
+	}
+	selection_weight = {
+		factor = 1
+	}
+	pre_effect = {
+		random_owned_province = {
+			limit = {
+				culture_is_hobgoblin = yes 
+				is_state_core = root
+				has_production_building_trigger = no
+				NOT = { trade_goods = gold }
+			}
+			save_event_target_as = agenda_province
+		}
+		random_owned_province = {
+			limit = {
+				culture_is_hobgoblin = yes 
+				is_state_core = root
+				base_production = 4
+				has_production_building_trigger = no
+				NOT = { trade_goods = gold }
+			}
+			save_event_target_as = agenda_province
+		}
+		random_owned_province = {
+			limit = {
+				culture_is_hobgoblin = yes 
+				is_state_core = root
+				OR = {
+					base_production = 7
+					has_building = wharf
+					has_building = weapons
+					has_building = textile
+					has_building = tradecompany
+					has_building = farm_estate
+					has_building = mills
+					has_building = plantations
+					has_building = furnace
+				}
+				has_production_building_trigger = no
+				NOT = { trade_goods = gold }
+			}
+			save_event_target_as = agenda_province
+		}
+	}
+	provinces_to_highlight = {
+		province_id = event_target:agenda_province
+	}
+	fail_if = {
+		event_target:agenda_province = {
+			NOT = { owned_by = root culture_is_hobgoblin = no }
+		}
+	}
+    task_requirements = {
+		event_target:agenda_province = {
+			has_production_building_trigger = yes
+		}
+    }
+    task_completed_effect = {
+		add_estate_loyalty = {
+			estate = estate_hobgoblin
+			loyalty = 10
+		}
+		add_estate_influence_modifier = {
+			estate = estate_hobgoblin
+			desc = EST_VAL_DIET_PRODUCTION_BUILDING
+			influence = 5
+			duration = 7300
+		}
+		event_target:agenda_province = {
+			add_base_production = 1
+			get_tolerance_from_provinces = {
+				race = hobgoblin
+			}
+		}
+		
+    }
+    failing_effect = {
+		event_target:agenda_province = {
+			if = {
+				limit = { owned_by = root }
+				add_named_unrest = {
+					name = local_hobgoblins_displeased
+					value = 5
+				}
+			}
+		}
+        add_estate_loyalty_modifier = {
+            estate = estate_hobgoblin
+			desc = EST_VAL_AGENDA_DENIED
+			loyalty = -5
+			duration = 7300
+        }
+		
+    }
+}
+
+# Build trade building in 
+estate_hobgoblin_build_trade_building_in_x = {
+	can_select = {
+		dip_tech = 4
+		any_owned_province = {
+			culture_is_hobgoblin = yes 
+			has_trade_building_trigger = no
+			is_state_core = root
+		}
+	}
+	selection_weight = {
+		factor = 1
+	}
+	pre_effect = {
+		random_owned_province = {
+			limit = {
+				culture_is_hobgoblin = yes 
+				has_trade_building_trigger = no
+				is_state_core = root
+			}
+			save_event_target_as = agenda_province
+		}
+		random_owned_province = {
+			limit = {
+				culture_is_hobgoblin = yes 
+				has_trade_building_trigger = no
+				is_state_core = root
+				OR = {
+					province_has_center_of_trade_of_level = 1
+					province_trade_power = 10
+				}
+			}
+			save_event_target_as = agenda_province
+		}
+		random_owned_province = {
+			limit = {
+				culture_is_hobgoblin = yes 
+				has_trade_building_trigger = no
+				is_state_core = root
+				OR = {
+					province_has_center_of_trade_of_level = 2
+					province_trade_power = 20
+				}
+			}
+			save_event_target_as = agenda_province
+		}
+	}
+	provinces_to_highlight = {
+		province_id = event_target:agenda_province
+	}
+	fail_if = {
+		event_target:agenda_province = {
+			NOT = { owned_by = root culture_is_hobgoblin = no}
+		}
+	}
+    task_requirements = {
+		event_target:agenda_province = {
+			has_trade_building_trigger = no
+		}
+    }
+    task_completed_effect = {
+		add_estate_loyalty = {
+			estate = estate_hobgoblin
+			loyalty = 10
+		}
+		add_estate_influence_modifier = {
+			estate = estate_hobgoblin
+			desc = EST_VAL_DIET_TRADE_BUILDING
+			influence = 5
+			duration = 7300
+		}
+		event_target:agenda_province = {
+			add_base_production = 1
+			get_tolerance_from_provinces = {
+				race = hobgoblin
+			}
+		}
+		
+    }
+    failing_effect = {
+		event_target:agenda_province = {
+			if = {
+				limit = { owned_by = root }
+				add_named_unrest = {
+					name = local_hobgoblins_displeased
+					value = 5
+				}
+			}
+		}
+        add_estate_loyalty_modifier = {
+            estate = estate_hobgoblin
+			desc = EST_VAL_AGENDA_DENIED
+			loyalty = -5
+			duration = 7300
+        }
+		
+    }
+}
+# Increase autonomy in 
+estate_hobgoblin_increase_autonomy_in_x = {
+	can_select = {
+		any_owned_province = {
+			culture_is_hobgoblin = yes 
+			is_state_core = root
+			NOT = { local_autonomy = 75 }
+			is_capital = no
+			NOT = { has_province_modifier = autonomy_increased }
+			NOT = { has_province_modifier = autonomy_decreased }
+		}
+	}
+	selection_weight = {
+		factor = 1.5
+	}
+	pre_effect = {
+		set_variable = {
+			which = estate_hobgoblin_increase_autonomy_in_province_x_var
+			value = 0
+		}
+		random_owned_province = {
+			limit = {
+				NOT = { local_autonomy = 75 }
+				culture_is_hobgoblin = yes 
+				is_state_core = root
+				is_capital = no
+				NOT = { has_province_modifier = autonomy_increased }
+				NOT = { has_province_modifier = autonomy_decreased }
+			}
+			save_event_target_as = agenda_province
+
+			if = {
+				limit = {
+					local_autonomy = 60
+				}
+				root = {
+					set_variable = {
+						which = estate_hobgoblin_increase_autonomy_in_province_x_var
+						value = 5
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					local_autonomy = 45
+				}
+				root = {
+					set_variable = {
+						which = estate_hobgoblin_increase_autonomy_in_province_x_var
+						value = 4
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					local_autonomy = 30
+				}
+				root = {
+					set_variable = {
+						which = estate_hobgoblin_increase_autonomy_in_province_x_var
+						value = 3
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					local_autonomy = 15
+				}
+				root = {
+					set_variable = {
+						which = estate_hobgoblin_increase_autonomy_in_province_x_var
+						value = 2
+					}
+				}
+			}
+			else = {
+				root = {
+					set_variable = {
+						which = estate_hobgoblin_increase_autonomy_in_province_x_var
+						value = 1
+					}
+				}
+			}
+			choose_random_development_bonus_effect = yes
+		}
+	}
+	on_invalid = {
+		event_target:agenda_province = {
+			clear_random_development_bonus_flags_effect = yes
+		}
+	}
+	provinces_to_highlight = {
+		province_id = event_target:agenda_province
+	}
+	fail_if = {
+		custom_trigger_tooltip = {
+			tooltip = estate_hobgoblin_increase_autonomy_in_castonath_fail_if_tt
+			hidden_trigger = {
+				if = {
+					limit = {
+						check_variable = {
+							which = estate_hobgoblin_increase_autonomy_in_province_x_var
+							value = 5
+						}
+					}
+					event_target:agenda_province = {
+						culture_is_hobgoblin = no
+						NOT = { local_autonomy = 50 }
+					}
+				}
+				else_if = {
+					limit = {
+						check_variable = {
+							which = estate_hobgoblin_increase_autonomy_in_province_x_var
+							value = 4
+						}
+					}
+					event_target:agenda_province = {
+						culture_is_hobgoblin = no
+						NOT = { local_autonomy = 35 }
+					}
+				}
+				else_if = {
+					limit = {
+						check_variable = {
+							which = estate_hobgoblin_increase_autonomy_in_province_x_var
+							value = 3
+						}
+					}
+					event_target:agenda_province = {
+						culture_is_hobgoblin = no
+						NOT = { local_autonomy = 20 }
+					}
+				}
+				else_if = {
+					limit = {
+						check_variable = {
+							which = estate_hobgoblin_increase_autonomy_in_province_x_var
+							value = 2
+						}
+					}
+					event_target:agenda_province = {
+						culture_is_hobgoblin = no
+						NOT = { local_autonomy = 5 }
+					}
+				}
+				else = {
+					hidden_trigger = {
+						always = no
+					}
+				}
+			}
+		}	
+	}
+	task_requirements = {
+		if = {
+			limit = {
+				check_variable = {
+					which = estate_hobgoblin_increase_autonomy_in_province_x_var
+					value = 5
+				}
+			}
+			event_target:agenda_province = {
+				local_autonomy = 75
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					which = estate_hobgoblin_increase_autonomy_in_province_x_var
+					value = 4
+				}
+			}
+			event_target:agenda_province = {
+				local_autonomy = 60
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					which = estate_hobgoblin_increase_autonomy_in_province_x_var
+					value = 3
+				}
+			}
+			event_target:agenda_province = {
+				local_autonomy = 45
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					which = estate_hobgoblin_increase_autonomy_in_province_x_var
+					value = 2
+				}
+			}
+			event_target:agenda_province = {
+				local_autonomy = 30
+			}
+		}
+		else = {
+			event_target:agenda_province = {
+				local_autonomy = 15
+			}
+		}
+	}
+    task_completed_effect = {
+		add_estate_loyalty = {
+			estate = estate_hobgoblin
+			loyalty = 10
+		}
+		add_estate_influence_modifier = {
+			estate = estate_hobgoblin
+			desc = EST_VAL_DIET_INCREASE_AUTONOMY
+			influence = 5
+			duration = 7300
+		}
+		event_target:agenda_province = {
+			apply_random_development_bonus_bonus_effect = yes
+			get_tolerance_from_provinces = {
+				race = hobgoblin
+			}
+		}
+		
+    }
+    failing_effect = {
+		event_target:agenda_province = {
+			clear_random_development_bonus_flags_effect = yes
+		}
+        add_estate_loyalty_modifier = {
+            estate = estate_hobgoblin
+			desc = EST_VAL_AGENDA_DENIED
+			loyalty = -5
+			duration = 7300
+        }
+		
+    }
+}
+
+# Tax building in 
+estate_hobgoblin_build_temple_in_x = {
+	can_select = {
+		adm_tech = 4
+		any_owned_province = {
+			culture_is_hobgoblin = yes
+			has_tax_building_trigger = no
+			is_state_core = root
+		}
+	}
+	selection_weight = {
+		factor = 1
+	}
+	pre_effect = {
+		set_variable = {
+			which = estate_hobgoblin_build_temple_in_x_var
+			value = 0
+		}
+		random_owned_province = {
+			limit = {
+				culture_is_hobgoblin = yes
+				has_tax_building_trigger = no
+				is_state_core = root
+			}
+			save_event_target_as = agenda_province
+		}
+		random_owned_province = {
+			limit = {
+				culture_is_hobgoblin = yes
+				has_tax_building_trigger = no
+				is_state_core = root
+				base_tax = 4
+			}
+			save_event_target_as = agenda_province
+		}
+		random_owned_province = {
+			limit = {
+				culture_is_hobgoblin = yes
+				has_tax_building_trigger = no
+				is_state_core = root
+				base_tax = 7
+			}
+			save_event_target_as = agenda_province
+		}
+	}
+	provinces_to_highlight = {
+		province_id = event_target:agenda_province
+	}
+	fail_if = {
+		event_target:agenda_province = {
+			NOT = { owned_by = root culture_is_hobgoblin = no}
+		}
+	}
+    task_requirements = {
+		event_target:agenda_province = {
+			has_tax_building_trigger = yes
+		}
+    }
+    task_completed_effect = {
+		add_estate_loyalty = {
+			estate = estate_hobgoblin
+			loyalty = 10
+		}
+		add_estate_influence_modifier = {
+			estate = estate_hobgoblin
+			desc = EST_VAL_DIET_TAX_BUILDING
+			influence = 5
+			duration = 7300
+		}
+		event_target:agenda_province = {
+			add_base_tax = 1
+			get_tolerance_from_provinces = {
+				race = hobgoblin
+			}			
+		}
+		
+    }
+    failing_effect = {
+		event_target:agenda_province = {
+			if = {
+				limit = { owned_by = root }
+				add_named_unrest = {
+					name = local_hobgoblins_displeased
+					value = 5
+				}
+			}
+		}
+		add_estate_loyalty_modifier = {
+			estate = estate_hobgoblin
+			desc = EST_VAL_AGENDA_DENIED
+			loyalty = -5
+			duration = 7300
+		}
+		
+    }
+}
+
+# Patrician familial relations
+estate_hobgoblin_familial_connections = {
+	can_select = {
+		high_tolerance_hobgoblin_race_trigger = no
+		any_known_country = {
+			is_subject = no
+			culture_is_hobgoblin = yes
+			has_opinion	= { who = ROOT value = -50}
+			NOT = { has_opinion = { who = ROOT value = 50 } }
+		}
+	}
+	selection_weight = {
+		factor = 1
+	}
+	pre_effect = {
+		random_known_country = {
+			limit = {
+				culture_is_hobgoblin = yes
+				has_opinion	= { who = ROOT value = -50}
+				NOT = { has_opinion = { who = ROOT value = 50 } }
+			}
+			save_event_target_as = patrician_familial_connection_country
+		}
+	}
+	task_requirements = {
+		event_target:patrician_familial_connection_country = {
+			has_opinion = { who = ROOT value = 100 }
+		}
+	}
+	task_completed_effect = {
+		small_increase_of_hobgoblin_tolerance_effect = yes
+		add_estate_loyalty = {
+			estate = estate_hobgoblin
+			loyalty = 5
+		}
+		
+	}
+	fail_if = {
+		event_target:patrician_familial_connection_country = {
+			NOT = { num_of_cities = 1 }
+		}
+	}
+    failing_effect = {
+        add_estate_loyalty_modifier = {
+            estate = estate_hobgoblin
+			desc = EST_VAL_AGENDA_DENIED
+			loyalty = -5
+			duration = 7300
+        }
+		
+    }
+}
+
+# War with non hobgoblin
+estate_hobgoblin_war_with_non_hobgoblin = {
+	can_select = {
+		is_free_or_tributary_trigger = yes
+		is_at_war = no
+		has_estate_privilege = estate_hobgoblin_intolerance_policy
+		any_neighbor_country = {
+			culture_is_hobgoblin = no
+			is_free_or_tributary_trigger = yes
+			NOT = { is_subject_of = root }
+			NOT = { overlord_of = root }
+			NOT = { alliance_with = root }
+			NOT = { ROOT = { truce_with = prev } }
+			NOT = { 
+				has_opinion = {
+					who = root
+					value = 25
+				}
+			}
+			ROOT = {knows_country = prev}
+			OR = {
+				is_part_of_hre = no
+				NOT = { hre_reform_passed = landfriede }
+				ROOT = { is_part_of_hre = no }
+			}
+		}
+	}
+	selection_weight = {
+		factor = 1
+	}
+	pre_effect = {
+		random_neighbor_country = {
+			limit = {
+				culture_is_hobgoblin = no
+				is_free_or_tributary_trigger = yes
+				NOT = { is_subject_of = root }
+				NOT = { overlord_of = root }
+				NOT = { alliance_with = root }
+				NOT = { ROOT = { truce_with = prev } }
+				NOT = { 
+					has_opinion = {
+						who = root
+						value = 25
+					}
+				}
+				ROOT = {knows_country = prev}
+				OR = {
+					is_part_of_hre = no
+					NOT = { hre_reform_passed = landfriede }
+					ROOT = { is_part_of_hre = no }
+				}
+			}
+			save_event_target_as = agenda_country
+		}
+	}
+	provinces_to_highlight = {
+		is_capital_of = event_target:agenda_country
+	}
+	task_requirements = {
+		event_target:agenda_country = {
+			war_with = ROOT
+		}
+	}
+	fail_if = {
+		event_target:agenda_country = {
+			NOT = { num_of_cities = 1 }
+		}
+	}
+	task_completed_effect = {
+		add_estate_loyalty = {
+			estate = estate_hobgoblin
+			loyalty = 20
+		}
+		add_estate_influence_modifier = {
+			estate = estate_hobgoblin
+			desc = EST_VAL_DIET_WAR_WITH_NON_HUMAN
+			influence = 10
+			duration = 7300
+		}
+		add_country_modifier = {
+			name = thriving_arms_industry
+			duration = 1825
+		}
+		
+	}
+    failing_effect = {
+        add_estate_loyalty_modifier = {
+            estate = estate_hobgoblin
+			desc = EST_VAL_AGENDA_DENIED
+			loyalty = -5
+			duration = 7300
+		}
+		
+    }
+}
+estate_hobgoblin_develop_production_x = {
+	selection_weight = {
+		factor = 1
+	}
+	can_select = {
+		any_owned_province = {			
+			is_state_core = root
+			has_any_hobgoblin_pop_trigger = yes
+		}
+	}
+	pre_effect = {
+		if = {
+			limit = {				
+				any_owned_province = {
+					is_state_core = root
+					culture_is_hobgoblin = yes
+				}
+			}
+			random_owned_province = {
+				limit = {
+					is_state_core = root
+					culture_is_hobgoblin = yes
+				}
+				save_event_target_as = agenda_province
+			}
+		}
+		else = {
+			random_owned_province = {
+				limit = {
+					is_state_core = root
+					has_any_hobgoblin_pop_trigger = yes
+				}
+				save_event_target_as = agenda_province
+			}
+		}
+		event_target:agenda_province = {
+			set_variable = {
+				which = province_dip_var
+				value = 0
+			}
+			export_to_variable = {
+				which = province_dip_var
+				value = trigger_value:base_production
+			}
+			change_variable = {
+				which = province_dip_var
+				value = 2
+			}
+		}
+	}
+	provinces_to_highlight = {
+		province_id = event_target:agenda_province
+	}
+	fail_if = {
+		event_target:agenda_province = {
+			OR = {			
+				NOT = { owned_by = root }
+				hidden_trigger = {has_any_hobgoblin_pop_trigger = no}
+			}
+		}
+	}
+    task_requirements = {
+		event_target:agenda_province = {
+			base_production = "province_dip_var"
+		}
+    }
+    task_completed_effect = {
+		add_estate_loyalty = {
+			estate = estate_hobgoblin
+			loyalty = 10
+		}
+		add_estate_influence_modifier = {
+			estate = estate_hobgoblin
+			desc = EST_VAL_DIET_DEV_PRODUCTION
+			influence = 5
+			duration = 7300
+		}
+		event_target:agenda_province = {
+			get_tolerance_from_provinces = {
+				race = hobgoblin
+			}
+		}
+		
+    }
+    failing_effect = {
+		event_target:agenda_province = {
+			if = {
+				limit = { owned_by = root }
+				add_named_unrest = {
+					name = local_burghers_displeased
+					value = 5
+				}
+			}
+		}
+        add_estate_loyalty_modifier = {
+            estate = estate_burghers
+			desc = EST_VAL_AGENDA_DENIED
+			loyalty = -5
+			duration = 7300
+        }
+		
+    }
+}
+estate_hobgoblin_develop_tax_x = {
+	selection_weight = {
+		factor = 1
+	}
+	can_select = {
+		any_owned_province = {			
+			is_state_core = root
+			has_any_hobgoblin_pop_trigger = yes
+		}
+	}
+	pre_effect = {
+		if = {
+			limit = {				
+				any_owned_province = {
+					is_state_core = root
+					culture_is_hobgoblin = yes
+				}
+			}
+			random_owned_province = {
+				limit = {
+					is_state_core = root
+					culture_is_hobgoblin = yes
+				}
+				save_event_target_as = agenda_province
+			}
+		}
+		else = {
+			random_owned_province = {
+				limit = {
+					is_state_core = root
+					has_any_hobgoblin_pop_trigger = yes
+				}
+				save_event_target_as = agenda_province
+			}
+		}
+		event_target:agenda_province = {
+			set_variable = {
+				which = province_tax_var
+				value = 0
+			}
+			export_to_variable = {
+				which = province_tax_var
+				value = trigger_value:base_tax
+			}
+			change_variable = {
+				which = province_tax_var
+				value = 2
+			}
+		}
+	}
+	provinces_to_highlight = {
+		province_id = event_target:agenda_province
+	}
+	fail_if = {
+		event_target:agenda_province = {
+			OR = {			
+				NOT = { owned_by = root }
+				hidden_trigger = {has_any_hobgoblin_pop_trigger = no}
+			}
+		}
+	}
+    task_requirements = {
+		event_target:agenda_province = {
+			base_tax = "province_tax_var"
+		}
+    }
+    task_completed_effect = {
+		add_estate_loyalty = {
+			estate = estate_hobgoblin
+			loyalty = 10
+		}
+		add_estate_influence_modifier = {
+			estate = estate_hobgoblin
+			desc = EST_VAL_DIET_DEV_TAX
+			influence = 5
+			duration = 7300
+		}
+		event_target:agenda_province = {
+			get_tolerance_from_provinces = {
+				race = hobgoblin
+			}
+		}
+		
+    }
+    failing_effect = {
+		event_target:agenda_province = {
+			if = {
+				limit = { owned_by = root }
+				add_unrest = 5
+			}
+		}
+        add_estate_loyalty_modifier = {
+            estate = estate_burghers
+			desc = EST_VAL_AGENDA_DENIED
+			loyalty = -5
+			duration = 7300
+        }
+		
+    }
+}
+estate_hobgoblin_develop_manpower_x = {
+	selection_weight = {
+		factor = 1
+	}
+	can_select = {
+		any_owned_province = {			
+			is_state_core = root
+			has_any_hobgoblin_pop_trigger = yes
+			NOT = {has_province_modifier = non_military_pop}
+		}
+	}
+	pre_effect = {
+		if = {
+			limit = {				
+				any_owned_province = {
+					is_state_core = root
+					culture_is_hobgoblin = yes
+				}
+			}
+			random_owned_province = {
+				limit = {
+					is_state_core = root
+					culture_is_hobgoblin = yes
+				}
+				save_event_target_as = agenda_province
+			}
+		}
+		else = {
+			random_owned_province = {
+				limit = {
+					is_state_core = root
+					has_any_hobgoblin_pop_trigger = yes
+				}
+				save_event_target_as = agenda_province
+			}
+		}
+		event_target:agenda_province = {
+			set_variable = {
+				which = province_manpower_var
+				value = 0
+			}
+			export_to_variable = {
+				which = province_manpower_var
+				value = trigger_value:base_manpower
+			}
+			change_variable = {
+				which = province_manpower_var
+				value = 2
+			}
+		}
+	}
+	provinces_to_highlight = {
+		province_id = event_target:agenda_province
+	}
+	fail_if = {
+		event_target:agenda_province = {
+			OR = {
+				NOT = { owned_by = root }
+				hidden_trigger = {has_any_hobgoblin_pop_trigger = no}
+			}
+		}
+	}
+    task_requirements = {
+		event_target:agenda_province = {
+			base_manpower = "province_manpower_var"
+		}
+    }
+    task_completed_effect = {
+		add_estate_loyalty = {
+			estate = estate_hobgoblin
+			loyalty = 10
+		}
+		add_estate_influence_modifier = {
+			estate = estate_hobgoblin
+			desc = EST_VAL_DIET_DEV_MANPOWER
+			influence = 5
+			duration = 7300
+		}
+		event_target:agenda_province = {
+			get_tolerance_from_provinces = {
+				race = hobgoblin
+			}
+		}
+		
+    }
+    failing_effect = {
+		event_target:agenda_province = {
+			if = {
+				limit = { owned_by = root }
+				add_unrest = 5
+			}
+		}
+        add_estate_loyalty_modifier = {
+            estate = estate_burghers
+			desc = EST_VAL_AGENDA_DENIED
+			loyalty = -5
+			duration = 7300
+        }
+		
+    }
+}

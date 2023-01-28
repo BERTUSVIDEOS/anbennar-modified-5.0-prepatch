@@ -1,0 +1,1879 @@
+
+estate_ogre_first_hand_chairman = {
+	icon = privilege_empty_throne_black
+	influence = 0.10
+	loyalty = 0.10
+	is_valid = {
+		always = no	#via estate interactions
+		OR = {AND = {uses_isolationism = yes NOT = {isolationism = 2}} uses_isolationism = no}
+	}
+	can_select = {	
+		estate_influence = {
+			estate = estate_ogre
+			influence = 40
+		}
+		high_tolerance_ogre_race_trigger = yes		
+		NOT = {has_race_councelor = {type = first_hand}}
+	}
+	on_granted = {		
+		small_increase_of_ogre_tolerance_effect = yes	
+		hidden_effect = {
+			add_ruler_modifier = { 
+				name = has_first_hand_chairman
+				duration = -1
+				hidden = yes
+			}
+			add_country_modifier = {
+				name = estate_ogre_first_hand_chairman_modifier
+				duration = -1
+				hidden = yes
+			}
+		}
+	}
+	modifier = {	
+	}
+	conditional_modifier = {
+		trigger = {		
+			is_part_of_hre = no
+			has_country_modifier = human_administration
+		}
+		modifier = {
+			legitimacy = -0.5
+			devotion = -0.25			
+			reelection_cost = 0.1
+			human_loyalty_modifier = -0.1
+		}
+	}
+	conditional_modifier = {
+		trigger = {		
+			is_part_of_hre = no
+			has_country_modifier = elven_administration
+		}
+		modifier = {
+			legitimacy = -2.0
+			devotion = -1.0		
+			reelection_cost = 1.0
+			elven_loyalty_modifier = -0.5
+		}
+	}
+	conditional_modifier = {
+		trigger = {		
+			is_part_of_hre = no
+			has_country_modifier = dwarven_administration
+		}
+		modifier = {
+			legitimacy = -1.0
+			devotion = -0.5			
+			reelection_cost = 0.25
+			dwarven_loyalty_modifier = -0.2
+		}
+	}
+	conditional_modifier = {
+		trigger = {		
+			is_part_of_hre = no
+			has_country_modifier = gnollish_administration
+		}
+		modifier = {
+			legitimacy = -0.5
+			devotion = -0.25			
+			reelection_cost = 0.1
+			gnollish_loyalty_modifier = -0.1
+		}
+	}
+	conditional_modifier = {
+		trigger = {		
+			is_part_of_hre = no
+			has_country_modifier = harimari_administration
+		}
+		modifier = {
+			legitimacy = -0.5
+			devotion = -0.25		
+			reelection_cost = 0.1
+			harimari_loyalty_modifier = -0.1
+		}
+	}
+	conditional_modifier = {
+		trigger = {		
+			is_part_of_hre = no
+			has_country_modifier = ruinborn_administration
+		}
+		modifier = {
+			legitimacy = -0.5
+			devotion = -0.25		
+			reelection_cost = 0.1
+			ruinborn_loyalty_modifier = -0.1
+		}
+	}
+	conditional_modifier = {
+		trigger = {		
+			is_part_of_hre = no
+			has_country_modifier = centaur_administration
+		}
+		modifier = {
+			legitimacy = -1.0
+			devotion = -0.5			
+			reelection_cost = 0.25
+			centaur_loyalty_modifier = -0.2
+		}
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {	
+	}
+	on_invalid_province = {
+	}
+	penalties = {
+		governing_capacity_modifier = -0.25
+		technology_cost = 0.05
+	}
+	benefits = {
+		harsh_treatment_cost = -0.5
+		global_unrest = -2
+	}
+	conditional_modifier = {
+		trigger = {		
+			is_at_war = yes
+		}
+		modifier = {
+			global_autonomy = -0.1
+		}
+	}
+	on_revoked = {
+	}
+	cooldown_years = 10
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_ogre_diplomacy_chairman = {
+	icon = privilege_empty_throne_blue
+	max_absolutism = -10
+	loyalty = 0.05
+	influence = 0.05
+	is_valid = {
+		always = no	#via estate interactions
+		OR = {AND = {uses_isolationism = yes NOT = {isolationism = 3}} uses_isolationism = no}
+		NOT = {has_race_councelor = {type = diplomacy}}
+	}
+	can_select = {	
+		estate_influence = {
+			estate = estate_ogre
+			influence = 40
+		}	
+		high_tolerance_ogre_race_trigger = yes
+		NOT = {has_race_councelor = {type = diplomacy}}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_ruler_modifier = { 
+				name = has_first_hand_chairman
+				duration = -1
+				hidden = yes
+			}
+			add_country_modifier = {
+				name = estate_ogre_diplomacy_chairman_modifier
+				duration = -1
+				hidden = yes
+			}
+		}	
+	}
+	penalties = {
+		ae_impact = 0.1
+		improve_relation_modifier = -0.3
+		spy_offence = -0.2
+	}
+	benefits = {
+		global_spy_defence = 0.1
+		liberty_desire = 25
+		reduced_liberty_desire = 25
+		reduced_liberty_desire_on_same_continent = 25
+		accept_vassalization_reasons = 10	
+	}
+	cooldown_years = 10
+	ai_will_do = {
+		factor = 1
+		modifier = { #will lose it via invalid sooner or later
+			factor = 10
+			has_estate_privilege = estate_nobles_french_strong_duchies
+		}
+	}
+}
+estate_ogre_military_chairman = {
+	icon = privilege_empty_throne_red
+	influence = 0.05
+	loyalty = 0.05
+	is_valid = {
+		always = no	#via estate interactions
+		OR = {AND = {uses_isolationism = yes NOT = {isolationism = 3}} uses_isolationism = no}
+		NOT = {has_race_councelor = {type = military}}
+	}
+	can_select = {
+		estate_influence = {
+			estate = estate_ogre
+			influence = 40
+		}
+		high_tolerance_ogre_race_trigger = yes	
+		NOT = {has_race_councelor = {type = military}}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_ruler_modifier = { 
+				name = has_first_hand_chairman
+				duration = -1
+				hidden = yes
+			}
+			add_country_modifier = {
+				name = estate_ogre_military_chairman_modifier
+				duration = -1
+				hidden = yes
+			}
+		}	
+	}
+	penalties = {
+		leader_land_shock = -1
+		leader_land_fire = -1
+	}
+	benefits = {
+		siege_ability = 0.1
+		leader_siege = 1
+	}
+	on_revoked = {
+		if = {
+			limit = {
+				OR = {
+					has_country_modifier = centaur_administration
+					has_country_modifier = elven_administration
+				}
+			}
+			add_stability = 1
+			add_legitimacy = 20
+			add_devotion = 10
+			add_republican_tradition = 5
+		}
+	}
+	cooldown_years = 10
+	ai_will_do = {
+		factor = 1
+	}
+}
+estate_ogre_economic_chairman = {
+	icon = privilege_empty_throne_yellow
+	influence = 0.05
+	loyalty = 0.05
+	is_valid = {
+		always = no	#via estate interactions
+		OR = {AND = {uses_isolationism = yes NOT = {isolationism = 3}} uses_isolationism = no}
+		NOT = {has_race_councelor = {type = economic}}
+	}
+	can_select = {
+		estate_influence = {
+			estate = estate_ogre
+			influence = 40
+		}
+		high_tolerance_ogre_race_trigger = yes		
+		NOT = {has_race_councelor = {type = economic}}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_ruler_modifier = { 
+				name = has_first_hand_chairman
+				duration = -1
+				hidden = yes
+			}
+			add_country_modifier = {
+				name = estate_ogre_economic_chairman_modifier
+				duration = -1
+				hidden = yes
+			}
+		}	
+	}
+	penalties = {	
+		state_maintenance_modifier = 0.25
+		production_efficiency = -0.1
+		global_trade_power = -0.1
+	}
+	benefits = {
+		global_trade_goods_size_modifier = 0.2
+	}
+	on_revoked = {
+	}
+	cooldown_years = 10
+	ai_will_do = {
+		factor = 1
+	}
+}
+estate_ogre_navy_chairman = {
+	icon = privilege_empty_throne_purple
+	influence = 0.05
+	loyalty = 0.05
+	is_valid = {
+		always = no	#via estate interactions
+		OR = {AND = {uses_isolationism = yes NOT = {isolationism = 3}} uses_isolationism = no}
+		NOT = {has_race_councelor = {type = navy}}
+		any_owned_province = {
+			has_port = yes
+		}
+	}
+	can_select = {
+		estate_influence = {
+			estate = estate_ogre
+			influence = 40
+		}
+		high_tolerance_ogre_race_trigger = yes	
+		NOT = {has_race_councelor = {type = navy}}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_ruler_modifier = { 
+				name = has_first_hand_chairman
+				duration = -1
+				hidden = yes
+			}
+			add_country_modifier = {
+				name = estate_ogre_navy_chairman_modifier
+				duration = -1
+				hidden = yes
+			}
+		}	
+	}
+	penalties = {		
+		global_sailors_modifier = -0.5
+		naval_forcelimit_modifier = -0.5
+	}
+	benefits = {
+		ship_durability = 0.2
+		heavy_ship_power = 0.2
+	}
+	on_revoked = {
+	}
+	cooldown_years = 10
+	ai_will_do = {
+		factor = 1
+	}
+}
+estate_ogre_recruitment = {
+	icon = privilege_demand_more_troops
+	loyalty = -0.10
+	influence = 0.10
+	is_valid = {
+		OR = {AND = {uses_isolationism = yes NOT = {isolationism = 4}} uses_isolationism = no}
+		NOT = {mil_tech = 2}
+	}
+	can_select = {		
+		high_tolerance_ogre_race_trigger = yes	
+		any_owned_province = {
+			culture_is_ogre = yes
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			set_country_flag = estate_ogre_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+	}
+	modifier_by_land_ownership = {		
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	mechanics = {
+		enables_cossack_regiments
+	}
+	can_revoke = {
+	}
+	on_revoked = {
+		hidden_effect = {
+			clr_country_flag = estate_ogre_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+		add_mil_power = -100
+	}
+	on_invalid = {
+		hidden_effect = {
+			clr_country_flag = estate_ogre_recruitment_flag
+			update_ogre_recruitment = yes
+			set_estate_privilege = estate_ogre_recruitment_2
+		}
+	}
+	ai_will_do = {
+		factor = 1000
+	}
+}
+estate_ogre_recruitment_2 = {
+	icon = privilege_demand_more_troops
+	loyalty = -0.10
+	influence = 0.10
+	is_valid = {
+		OR = {AND = {uses_isolationism = yes NOT = {isolationism = 4}} uses_isolationism = no}
+		mil_tech = 2
+		NOT = {mil_tech = 5}
+	}
+	can_select = {		
+		high_tolerance_ogre_race_trigger = yes	
+		any_owned_province = {
+			culture_is_ogre = yes
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			set_country_flag = estate_ogre_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+		set_country_flag = estate_ogre_recruitment_flag
+	}
+	modifier_by_land_ownership = {
+		infantry_fire = 0.35
+		infantry_shock = 0.5
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	mechanics = {
+		enables_cossack_regiments
+	}
+	can_revoke = {
+	}
+	on_revoked = {
+		hidden_effect = {
+			clr_country_flag = estate_ogre_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+		add_mil_power = -100
+		clr_country_flag = estate_ogre_recruitment_flag
+	}
+	on_invalid = {
+		clr_country_flag = estate_ogre_recruitment_flag
+		update_ogre_recruitment = yes
+		set_estate_privilege = estate_ogre_recruitment_5
+	}
+	cooldown_years = 10
+	ai_will_do = {
+		factor = 1000
+	}
+}
+estate_ogre_recruitment_5 = {
+	icon = privilege_demand_more_troops
+	loyalty = -0.10
+	influence = 0.10
+	is_valid = {
+		OR = {AND = {uses_isolationism = yes NOT = {isolationism = 4}} uses_isolationism = no}
+		mil_tech = 5
+		NOT = {mil_tech = 6}
+	}
+	can_select = {		
+		high_tolerance_ogre_race_trigger = yes	
+		any_owned_province = {
+			culture_is_ogre = yes
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			set_country_flag = estate_ogre_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+	}
+	modifier_by_land_ownership = {
+		infantry_fire = 0.35
+		infantry_shock = 0.65
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	mechanics = {
+		enables_cossack_regiments
+	}
+	can_revoke = {
+	}
+	on_revoked = {
+		hidden_effect = {
+			clr_country_flag = estate_ogre_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+		add_mil_power = -100		
+	}
+	on_invalid = {
+		clr_country_flag = estate_ogre_recruitment_flag
+		update_ogre_recruitment = yes
+		set_estate_privilege = estate_ogre_recruitment_6
+	}
+	cooldown_years = 10
+	ai_will_do = {
+		factor = 1000
+	}
+}
+estate_ogre_recruitment_6 = {
+	icon = privilege_demand_more_troops
+	loyalty = -0.10
+	influence = 0.10
+	is_valid = {
+		OR = {AND = {uses_isolationism = yes NOT = {isolationism = 4}} uses_isolationism = no}
+		mil_tech = 6
+		NOT = {mil_tech = 7}
+	}
+	can_select = {		
+		high_tolerance_ogre_race_trigger = yes	
+		any_owned_province = {
+			culture_is_ogre = yes
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			set_country_flag = estate_ogre_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+	}
+	modifier_by_land_ownership = {
+		infantry_fire = 0.55
+		infantry_shock = 0.95	
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	mechanics = {
+		enables_cossack_regiments
+	}
+	can_revoke = {
+	}
+	on_revoked = {
+		hidden_effect = {
+			clr_country_flag = estate_ogre_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+		add_mil_power = -100		
+	}
+	on_invalid = {
+		clr_country_flag = estate_ogre_recruitment_flag
+		update_ogre_recruitment = yes
+		set_estate_privilege = estate_ogre_recruitment_7
+	}
+	cooldown_years = 10
+	ai_will_do = {
+		factor = 1000
+	}
+}
+estate_ogre_recruitment_7 = {
+	icon = privilege_demand_more_troops
+	loyalty = -0.10
+	influence = 0.10
+	is_valid = {
+		OR = {AND = {uses_isolationism = yes NOT = {isolationism = 4}} uses_isolationism = no}
+		mil_tech = 7
+		NOT = {mil_tech = 8}
+	}
+	can_select = {		
+		high_tolerance_ogre_race_trigger = yes	
+		any_owned_province = {
+			culture_is_ogre = yes
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			set_country_flag = estate_ogre_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+	}
+	modifier_by_land_ownership = {
+		infantry_fire = 0.55
+		infantry_shock = 0.95
+		artillery_fire = -0.25		
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	mechanics = {
+		enables_cossack_regiments
+	}
+	can_revoke = {
+	}
+	on_revoked = {
+		hidden_effect = {
+			clr_country_flag = estate_ogre_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+		add_mil_power = -100		
+	}
+	on_invalid = {
+		clr_country_flag = estate_ogre_recruitment_flag
+		update_ogre_recruitment = yes
+		set_estate_privilege = estate_ogre_recruitment_8
+	}
+	cooldown_years = 10
+	ai_will_do = {
+		factor = 1000
+	}
+}
+estate_ogre_recruitment_8 = {
+	icon = privilege_demand_more_troops
+	loyalty = -0.10
+	influence = 0.10
+	is_valid = {
+		OR = {AND = {uses_isolationism = yes NOT = {isolationism = 4}} uses_isolationism = no}
+		mil_tech = 8
+		NOT = {mil_tech = 11}
+	}
+	can_select = {		
+		high_tolerance_ogre_race_trigger = yes	
+		any_owned_province = {
+			culture_is_ogre = yes
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			set_country_flag = estate_ogre_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+	}
+	modifier_by_land_ownership = {
+		infantry_fire = 0.8
+		infantry_shock = 0.95	
+		artillery_fire = -0.25	
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	mechanics = {
+		enables_cossack_regiments
+	}
+	can_revoke = {
+	}
+	on_revoked = {
+		hidden_effect = {
+			clr_country_flag = estate_ogre_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+		add_mil_power = -100		
+	}
+	on_invalid = {
+		clr_country_flag = estate_ogre_recruitment_flag
+		update_ogre_recruitment = yes
+		set_estate_privilege = estate_ogre_recruitment_11
+	}
+	cooldown_years = 10
+	ai_will_do = {
+		factor = 1000
+	}
+}
+estate_ogre_recruitment_11 = {
+	icon = privilege_demand_more_troops
+	loyalty = -0.10
+	influence = 0.10
+	is_valid = {
+		OR = {AND = {uses_isolationism = yes NOT = {isolationism = 4}} uses_isolationism = no}
+		mil_tech = 11
+		NOT = {mil_tech = 13}
+	}
+	can_select = {		
+		high_tolerance_ogre_race_trigger = yes	
+		any_owned_province = {
+			culture_is_ogre = yes
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			set_country_flag = estate_ogre_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+	}
+	modifier_by_land_ownership = {
+		infantry_fire = 0.8
+		infantry_shock = 1.15	
+		artillery_fire = -0.25
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	mechanics = {
+		enables_cossack_regiments
+	}
+	can_revoke = {
+	}
+	on_revoked = {
+		hidden_effect = {
+			clr_country_flag = estate_ogre_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+		add_mil_power = -100		
+	}
+	on_invalid = {
+		clr_country_flag = estate_ogre_recruitment_flag
+		update_ogre_recruitment = yes
+		set_estate_privilege = estate_ogre_recruitment_13
+	}
+	cooldown_years = 10
+	ai_will_do = {
+		factor = 1000
+	}
+}
+estate_ogre_recruitment_13 = {
+	icon = privilege_demand_more_troops
+	loyalty = -0.10
+	influence = 0.10
+	is_valid = {
+		OR = {AND = {uses_isolationism = yes NOT = {isolationism = 4}} uses_isolationism = no}
+		mil_tech = 13
+		NOT = {mil_tech = 14}
+	}
+	can_select = {		
+		high_tolerance_ogre_race_trigger = yes	
+		any_owned_province = {
+			culture_is_ogre = yes
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			set_country_flag = estate_ogre_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+	}
+	modifier_by_land_ownership = {
+		infantry_fire = 0.8
+		infantry_shock = 1.15	
+		artillery_fire = -0.5
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	mechanics = {
+		enables_cossack_regiments
+	}
+	can_revoke = {
+	}
+	on_revoked = {
+		hidden_effect = {
+			clr_country_flag = estate_ogre_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+		add_mil_power = -100		
+	}
+	on_invalid = {
+		clr_country_flag = estate_ogre_recruitment_flag
+		update_ogre_recruitment = yes
+		set_estate_privilege = estate_ogre_recruitment_14
+	}
+	cooldown_years = 10
+	ai_will_do = {
+		factor = 1000
+	}
+}
+estate_ogre_recruitment_14 = {
+	icon = privilege_demand_more_troops
+	loyalty = -0.10
+	influence = 0.10
+	is_valid = {
+		OR = {AND = {uses_isolationism = yes NOT = {isolationism = 4}} uses_isolationism = no}
+		mil_tech = 14
+		NOT = {mil_tech = 16}
+	}
+	can_select = {		
+		high_tolerance_ogre_race_trigger = yes	
+		any_owned_province = {
+			culture_is_ogre = yes
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			set_country_flag = estate_ogre_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+	}
+	modifier_by_land_ownership = {
+		infantry_fire = 1.1
+		infantry_shock = 1.15	
+		artillery_fire = -0.5
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	mechanics = {
+		enables_cossack_regiments
+	}
+	can_revoke = {
+	}
+	on_revoked = {
+		hidden_effect = {
+			clr_country_flag = estate_ogre_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+		add_mil_power = -100		
+	}
+	on_invalid = {
+		clr_country_flag = estate_ogre_recruitment_flag
+		update_ogre_recruitment = yes
+		set_estate_privilege = estate_ogre_recruitment_16
+	}
+	cooldown_years = 10
+	ai_will_do = {
+		factor = 1000
+	}
+}
+estate_ogre_recruitment_16 = {
+	icon = privilege_demand_more_troops
+	loyalty = -0.10
+	influence = 0.10
+	is_valid = {
+		OR = {AND = {uses_isolationism = yes NOT = {isolationism = 4}} uses_isolationism = no}
+		mil_tech = 16
+		NOT = {mil_tech = 20}
+	}
+	can_select = {		
+		high_tolerance_ogre_race_trigger = yes	
+		any_owned_province = {
+			culture_is_ogre = yes
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			set_country_flag = estate_ogre_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+	}
+	modifier_by_land_ownership = {
+		infantry_fire = 1.1
+		infantry_shock = 1.15	
+		artillery_fire = -1.0
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	mechanics = {
+		enables_cossack_regiments
+	}
+	can_revoke = {
+	}
+	on_revoked = {
+		hidden_effect = {
+			clr_country_flag = estate_ogre_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+		add_mil_power = -100		
+	}
+	on_invalid = {
+		clr_country_flag = estate_ogre_recruitment_flag
+		update_ogre_recruitment = yes
+		set_estate_privilege = estate_ogre_recruitment_20
+	}
+	cooldown_years = 10
+	ai_will_do = {
+		factor = 1000
+	}
+}
+estate_ogre_recruitment_20 = {
+	icon = privilege_demand_more_troops
+	loyalty = -0.10
+	influence = 0.10
+	is_valid = {
+		OR = {AND = {uses_isolationism = yes NOT = {isolationism = 4}} uses_isolationism = no}
+		mil_tech = 20
+		NOT = {mil_tech = 21}
+	}
+	can_select = {		
+		high_tolerance_ogre_race_trigger = yes	
+		any_owned_province = {
+			culture_is_ogre = yes
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			set_country_flag = estate_ogre_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+	}
+	modifier_by_land_ownership = {
+		infantry_fire = 1.6
+		infantry_shock = 1.15
+		artillery_fire = -1.0
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	mechanics = {
+		enables_cossack_regiments
+	}
+	can_revoke = {
+	}
+	on_revoked = {
+		hidden_effect = {
+			clr_country_flag = estate_ogre_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+		add_mil_power = -100		
+	}
+	on_invalid = {
+		clr_country_flag = estate_ogre_recruitment_flag
+		update_ogre_recruitment = yes
+		set_estate_privilege = estate_ogre_recruitment_21
+	}
+	cooldown_years = 10
+	ai_will_do = {
+		factor = 1000
+	}
+}
+estate_ogre_recruitment_21 = {
+	icon = privilege_demand_more_troops
+	loyalty = -0.10
+	influence = 0.10
+	is_valid = {
+		OR = {AND = {uses_isolationism = yes NOT = {isolationism = 4}} uses_isolationism = no}
+		mil_tech = 21
+		NOT = {mil_tech = 22}
+	}
+	can_select = {		
+		high_tolerance_ogre_race_trigger = yes	
+		any_owned_province = {
+			culture_is_ogre = yes
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			set_country_flag = estate_ogre_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+	}
+	modifier_by_land_ownership = {
+		infantry_fire = 1.6
+		infantry_shock = 1.65
+		artillery_fire = -1.0
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	mechanics = {
+		enables_cossack_regiments
+	}
+	can_revoke = {
+	}
+	on_revoked = {
+		hidden_effect = {
+			clr_country_flag = estate_ogre_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+		add_mil_power = -100		
+	}
+	on_invalid = {
+		clr_country_flag = estate_ogre_recruitment_flag
+		update_ogre_recruitment = yes
+		set_estate_privilege = estate_ogre_recruitment_22
+	}
+	cooldown_years = 10
+	ai_will_do = {
+		factor = 1000
+	}
+}
+estate_ogre_recruitment_22 = {
+	icon = privilege_demand_more_troops
+	loyalty = -0.10
+	influence = 0.10
+	is_valid = {
+		OR = {AND = {uses_isolationism = yes NOT = {isolationism = 4}} uses_isolationism = no}
+		mil_tech = 22
+		NOT = {mil_tech = 25}
+	}
+	can_select = {		
+		high_tolerance_ogre_race_trigger = yes	
+		any_owned_province = {
+			culture_is_ogre = yes
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			set_country_flag = estate_ogre_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+	}
+	modifier_by_land_ownership = {
+		infantry_fire = 1.6
+		infantry_shock = 1.65
+		artillery_fire = -1.5
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	mechanics = {
+		enables_cossack_regiments
+	}
+	can_revoke = {
+	}
+	on_revoked = {
+		hidden_effect = {
+			clr_country_flag = estate_ogre_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+		add_mil_power = -100		
+	}
+	on_invalid = {
+		clr_country_flag = estate_ogre_recruitment_flag
+		update_ogre_recruitment = yes
+		set_estate_privilege = estate_ogre_recruitment_25
+	}
+	cooldown_years = 10
+	ai_will_do = {
+		factor = 1000
+	}
+}
+estate_ogre_recruitment_25 = {
+	icon = privilege_demand_more_troops
+	loyalty = -0.10
+	influence = 0.10
+	is_valid = {
+		OR = {AND = {uses_isolationism = yes NOT = {isolationism = 4}} uses_isolationism = no}
+		mil_tech = 25
+		NOT = {mil_tech = 27}
+	}
+	can_select = {		
+		high_tolerance_ogre_race_trigger = yes	
+		any_owned_province = {
+			culture_is_ogre = yes
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			set_country_flag = estate_ogre_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+	}
+	modifier_by_land_ownership = {
+		infantry_fire = 1.6
+		infantry_shock = 1.65
+		artillery_fire = -2.0
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	mechanics = {
+		enables_cossack_regiments
+	}
+	can_revoke = {
+	}
+	on_revoked = {
+		hidden_effect = {
+			clr_country_flag = estate_ogre_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+		add_mil_power = -100		
+	}
+	on_invalid = {
+		clr_country_flag = estate_ogre_recruitment_flag
+		update_ogre_recruitment = yes
+		set_estate_privilege = estate_ogre_recruitment_27
+	}
+	cooldown_years = 10
+	ai_will_do = {
+		factor = 1000
+	}
+}
+estate_ogre_recruitment_27 = {
+	icon = privilege_demand_more_troops
+	loyalty = -0.10
+	influence = 0.10
+	is_valid = {
+		OR = {AND = {uses_isolationism = yes NOT = {isolationism = 4}} uses_isolationism = no}
+		mil_tech = 27
+		NOT = {mil_tech = 28}
+	}
+	can_select = {		
+		high_tolerance_ogre_race_trigger = yes	
+		any_owned_province = {
+			culture_is_ogre = yes
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			set_country_flag = estate_ogre_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+	}
+	modifier_by_land_ownership = {
+		infantry_fire = 2.1
+		infantry_shock = 1.65
+		artillery_fire = -2.0
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	mechanics = {
+		enables_cossack_regiments
+	}
+	can_revoke = {
+	}
+	on_revoked = {
+		hidden_effect = {
+			clr_country_flag = estate_ogre_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+		add_mil_power = -100		
+	}
+	on_invalid = {
+		clr_country_flag = estate_ogre_recruitment_flag
+		update_ogre_recruitment = yes
+		set_estate_privilege = estate_ogre_recruitment_28
+	}
+	cooldown_years = 10
+	ai_will_do = {
+		factor = 1000
+	}
+}
+estate_ogre_recruitment_28 = {
+	icon = privilege_demand_more_troops
+	loyalty = -0.10
+	influence = 0.10
+	is_valid = {
+		OR = {AND = {uses_isolationism = yes NOT = {isolationism = 4}} uses_isolationism = no}
+		mil_tech = 28
+		NOT = {mil_tech = 31}
+	}
+	can_select = {		
+		high_tolerance_ogre_race_trigger = yes	
+		any_owned_province = {
+			culture_is_ogre = yes
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			set_country_flag = estate_ogre_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+	}
+	modifier_by_land_ownership = {
+		infantry_fire = 2.1
+		infantry_shock = 2.15
+		artillery_fire = -2.0
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	mechanics = {
+		enables_cossack_regiments
+	}
+	can_revoke = {
+	}
+	on_revoked = {
+		hidden_effect = {
+			clr_country_flag = estate_ogre_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+		add_mil_power = -100		
+	}
+	on_invalid = {
+		clr_country_flag = estate_ogre_recruitment_flag
+		update_ogre_recruitment = yes
+		set_estate_privilege = estate_ogre_recruitment_31
+	}
+	cooldown_years = 10
+	ai_will_do = {
+		factor = 1000
+	}
+}
+estate_ogre_recruitment_31 = {
+	icon = privilege_demand_more_troops
+	loyalty = -0.10
+	influence = 0.10
+	is_valid = {
+		OR = {AND = {uses_isolationism = yes NOT = {isolationism = 4}} uses_isolationism = no}
+		mil_tech = 31
+		NOT = {mil_tech = 32}
+	}
+	can_select = {		
+		high_tolerance_ogre_race_trigger = yes	
+		any_owned_province = {
+			culture_is_ogre = yes
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			set_country_flag = estate_ogre_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+	}
+	modifier_by_land_ownership = {
+		infantry_fire = 3.1
+		infantry_shock = 2.15
+		artillery_fire = -2.0
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	mechanics = {
+		enables_cossack_regiments
+	}
+	can_revoke = {
+	}
+	on_revoked = {
+		hidden_effect = {
+			clr_country_flag = estate_ogre_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+		add_mil_power = -100		
+	}
+	on_invalid = {
+		clr_country_flag = estate_ogre_recruitment_flag
+		update_ogre_recruitment = yes
+		set_estate_privilege = estate_ogre_recruitment_32
+	}
+	cooldown_years = 10
+	ai_will_do = {
+		factor = 1000
+	}
+}
+estate_ogre_recruitment_32 = {
+	icon = privilege_demand_more_troops
+	loyalty = -0.10
+	influence = 0.10
+	is_valid = {
+		OR = {AND = {uses_isolationism = yes NOT = {isolationism = 4}} uses_isolationism = no}
+		mil_tech = 32
+	}
+	can_select = {		
+		high_tolerance_ogre_race_trigger = yes	
+		any_owned_province = {
+			culture_is_ogre = yes
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			set_country_flag = estate_ogre_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+	}
+	modifier_by_land_ownership = {
+		infantry_fire = 3.1
+		infantry_shock = 2.15
+		artillery_fire = -2.5
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	mechanics = {
+		enables_cossack_regiments
+	}
+	conditional_modifier = {
+		trigger = {
+			any_country = {
+				estate_territory = {
+					estate = estate_centaur
+					territory = 60
+				}
+				war_with = ROOT
+			}
+			estate_territory = {
+				estate = estate_ogre
+				territory = 60
+			}
+		}
+		modifier = {
+			shock_damage_received = -0.25
+		}
+	}
+	can_revoke = {
+	}
+	on_revoked = {
+		hidden_effect = {
+			clr_country_flag = estate_ogre_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+		add_mil_power = -100		
+	}
+	on_invalid = {
+		clr_country_flag = estate_ogre_recruitment_flag
+	}
+	cooldown_years = 10
+	ai_will_do = {
+		factor = 1000
+	}
+}
+estate_ogre_extensive_recruitment = {
+	icon = privilege_recruit_rajput_general
+	loyalty = -0.20
+	is_valid = {
+		has_race_recruitment = {
+			race = ogre
+		}
+		army_professionalism = 0.20
+	}
+	can_select = {
+		army_professionalism = 0.40
+	}
+	on_granted = {
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	modifier_by_land_ownership = {
+		yearly_army_professionalism = -0.03
+		manpower_recovery_speed = 0.5
+	}
+	mechanics = {
+	}
+	on_revoked = {
+	}
+	on_invalid = {
+	}
+	cooldown_years = 5
+	ai_will_do = {
+		factor = 1
+	}
+}
+estate_ogre_elite_regiments = {
+	icon = privilege_recruit_rajput_general
+	is_valid = {
+		has_race_recruitment = {
+			race = ogre
+		}
+	}
+	can_select = {
+		has_elite_regiments = no
+	}
+	on_granted = {
+		add_country_modifier = {
+			name = elite_guard_modifier
+			duration = -1
+		}
+	}
+	penalties = {
+		yearly_corruption = 0.20
+	}
+	benefits = {
+		special_unit_forcelimit = 0.05
+	}
+	mechanics = {
+	}
+	on_revoked = {
+		remove_country_modifier = elite_guard_modifier
+	}
+	on_invalid = {
+		remove_country_modifier = elite_guard_modifier
+	}
+	ai_will_do = {
+		factor = 1
+	}
+}
+estate_ogre_intolerance_policy = {
+	icon = privilege_ogre_supremacy	
+	influence = 0.10
+	is_valid = {
+		if = {
+			limit = {
+				has_global_flag = call_to_reaction_hre_flag
+				is_part_of_hre = yes
+			}
+			always = no
+		}
+		OR = {AND = {uses_isolationism = yes NOT = {isolationism = 1}} uses_isolationism = no}
+		has_country_modifier = ogre_military
+		has_country_modifier = ogre_administration
+	}
+	can_select = {
+		estate_territory = {
+			estate = estate_ogre
+			territory = 70
+		}
+	}
+	on_granted = {
+		custom_tooltip = estate_ogre_one_culture_gta
+		custom_tooltip = estate_ogre_one_culture_gtb
+		remove_racial_culture = { race = human }
+		remove_racial_culture = { race = elven }
+		remove_racial_culture = { race = dwarven }
+		remove_racial_culture = { race = halfling }
+		remove_racial_culture = { race = gnomish }
+		remove_racial_culture = { race = harimari }
+		remove_racial_culture = { race = gnollish }
+		remove_racial_culture = { race = ruinborn }
+		remove_racial_culture = { race = orcish }
+		remove_racial_culture = { race = goblin }
+		remove_racial_culture = { race = centaur }
+		remove_racial_culture = { race = troll }
+		remove_racial_culture = { race = harpy }
+		remove_racial_culture = { race = half_orcish }
+		remove_racial_culture = { race = half_elven }
+		remove_racial_culture = { race = hobgoblin }
+		remove_racial_culture = { race = kobold }
+	}
+	on_granted_province = {
+		add_racial_superiority_modifier = {
+			race = ogre
+		}
+	}
+	penalties = {
+		tolerance_heathen = -2
+		tolerance_heretic = -2
+		relation_with_other_culture = -50
+	}
+	benefits = {
+		global_missionary_strength = 0.01
+	}
+	conditional_modifier = {
+		trigger = {
+			any_known_country = {
+				NOT = { culture_is_ogre = yes }
+				war_with = root
+			}
+		}
+		modifier = {
+			land_morale = 0.05
+			shock_damage_received = -0.05
+			fire_damage_received = -0.05
+			manpower_recovery_speed = 0.1
+			reinforce_speed = 0.1
+			recover_army_morale_speed = 0.025			
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			any_ally = {
+				NOT = { culture_is_ogre = yes }
+			}
+		}
+		modifier = {
+			land_morale = -0.05
+			stability_cost_modifier = 0.2
+			legitimacy = -1
+			republican_tradition = -0.25
+			devotion = -0.5
+			global_unrest = 2		
+		}
+	}
+	on_revoked = {
+		custom_tooltip = estate_one_culture_rta
+		custom_tooltip = estate_one_culture_rtb
+	}
+	on_revoked_province = {
+		remove_racial_superiority_modifier = yes
+	}
+	on_invalid_province = {
+		remove_racial_superiority_modifier = yes
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		country_event = {
+			id = bertus_racial_military.5110
+		}
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_ogre_autonomy = {
+	icon = privilege_grant_autonomy
+	loyalty = 0.2
+	influence = 0.10
+	is_valid = {
+		OR = {AND = {uses_isolationism = yes NOT = {isolationism = 3}} uses_isolationism = no}
+		NOT = { has_country_modifier = ogre_administration }
+	}
+	can_select = {
+		any_owned_province = {
+			culture_is_ogre = yes
+		}
+	}
+	on_granted = {
+		small_increase_of_ogre_tolerance_effect = yes
+		custom_tooltip = estate_guaranteed_autonomy_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {culture_is_ogre = yes}
+			add_province_modifier = {
+				name = estate_guaranteed_autonomy_mod
+				duration = -1
+			}
+		}
+		else_if = {
+			limit = {has_province_modifier = estate_guaranteed_autonomy_mod}
+			remove_province_modifier = estate_guaranteed_autonomy_mod
+		}
+	}
+	on_revoked_province = {
+		if = {
+			limit = {has_province_modifier = estate_guaranteed_autonomy_mod}
+			remove_province_modifier = estate_guaranteed_autonomy_mod
+		}
+	}
+	on_invalid_province = {
+		if = {
+			limit = {has_province_modifier = estate_guaranteed_autonomy_mod}
+			remove_province_modifier = estate_guaranteed_autonomy_mod
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	ai_will_do = {
+		factor = 0
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		country_event = {
+			id = bertus_racial_military.5110
+		}
+	}
+}
+estate_ogre_purge = {
+	icon = privilege_grant_autonomy
+	loyalty = -0.2
+	influence = -0.20
+	is_valid = {
+	}
+	can_select = {
+		can_purge_race = {
+			RACE = ogre
+		}
+	
+	}
+	on_granted = {		
+		largest_decrease_of_ogre_tolerance_effect = yes
+		add_country_modifier = { name = racial_pop_ogre_purge duration = -1 }
+		
+		custom_tooltip = racial_pop_events_debug.3.tooltip
+		
+		custom_tooltip = pop_menu_purge_effect_unrest_tt
+		
+		hidden_effect = {
+			add_purguing_unrest = {
+				race = ogre
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {		
+		remove_country_modifier = racial_pop_ogre_purge
+	}
+	on_invalid = {
+		remove_country_modifier = racial_pop_ogre_purge
+	}
+	ai_will_do = {
+		factor = 0
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+	}
+}
+estate_ogre_expulsion = {
+	icon = privilege_grant_autonomy
+	loyalty = -0.1
+	influence = -0.1
+	is_valid = {	
+		if = {
+			limit = {uses_isolationism = yes}
+			isolationism = 3
+		}
+	}
+	can_select = {
+		can_expel_race = {
+			RACE = ogre
+		}	
+	}
+	on_granted = {				
+		large_decrease_of_ogre_tolerance_effect = yes
+		
+		add_country_modifier = { 
+			name = racial_pop_ogre_expulsion
+			duration = -1  
+		}
+		
+		custom_tooltip = racial_pop_events_debug.2.tooltip
+		
+		custom_tooltip = pop_menu_expel_effect_unrest_tt
+		
+		hidden_effect = {
+			add_expulsion_unrest = {
+				race = orcish
+			}
+		}
+	}
+	benefits = {
+	}
+	on_revoked = {		
+		remove_country_modifier = racial_pop_ogre_expulsion
+	}
+	on_invalid = {
+		remove_country_modifier = racial_pop_ogre_expulsion
+	}
+	ai_will_do = {
+		factor = 0
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+	}
+}
+estate_ogre_focus = {
+	icon = privilege_grant_autonomy
+	loyalty = 0.1
+	influence = 0.1
+	is_valid = {					
+		if = {
+			limit = {
+				has_global_flag = call_to_action_hre_flag
+			}
+			is_part_of_hre = no
+		}		
+		NOT = { has_country_modifier = ogre_administration }
+		NOT = { has_country_modifier = ogre_military }		
+	}
+	can_select = {
+		NOT = {
+			OR = {
+				has_country_modifier = racial_pop_ogre_purge
+				has_country_modifier = racial_pop_ogre_expulsion
+			}
+		}
+		NOT = { has_racial_focus = yes }
+	}
+	on_granted = {	
+		custom_tooltip = pop_menu_focus_desc_tt
+		add_country_modifier = {
+			name = racial_focus_ogre
+			duration = -1
+		}
+	}
+	benefits = {
+	}
+	on_revoked = {		
+		remove_country_modifier = racial_focus_ogre
+	}
+	on_invalid = {
+		remove_country_modifier = racial_focus_ogre
+	}
+	ai_will_do = {
+		factor = 0
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+	}
+}
+estate_ogre_non_military_swap = {
+	icon = privilege_grant_autonomy
+	loyalty = 0.1
+	is_valid = {	
+		any_owned_province = {
+			culture_is_ogre = yes
+			has_province_modifier = non_military_pop
+		}
+	}
+	can_select = {
+		NOT = {
+			OR = {
+				has_country_modifier = racial_pop_ogre_purge
+				has_country_modifier = racial_pop_ogre_expulsion
+			}
+		}
+	}
+	on_granted = {	
+		custom_tooltip = non_military_swap_tt
+	}
+	benefits = {
+	}
+	on_revoked = {		
+	}
+	on_invalid = {
+	}
+	ai_will_do = {
+		factor = 0
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+	}
+}
+estate_ogre_militar_education = {
+	icon = privilege_promote_maratha_nobility
+	influence = 0.10
+	is_valid = {
+		OR = {AND = {uses_isolationism = yes NOT = {isolationism = 2}} uses_isolationism = no}
+		NOT = {
+			heir_mil = 5
+		}
+		has_heir = yes
+	}
+	can_select = {	
+		estate_influence = {
+			estate = estate_ogre
+			influence = 40
+		}
+		high_tolerance_ogre_race_trigger = yes
+		NOT = {has_estate_privilege = estate_ogre_militar_education}
+	}
+	on_granted = {
+		custom_tooltip = estate_militar_education_tooltip
+	}
+	penalties = {
+		yearly_corruption = 0.2
+	}
+	benefits = {
+	}
+	conditional_modifier = {
+		trigger = {
+			has_country_modifier = short_lived_personality
+		}
+		modifier = {
+			yearly_corruption = -0.1
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			has_country_modifier = elven_administration
+		}
+		modifier = {
+			yearly_corruption = 0.6
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			has_country_modifier = gnomish_administration
+		}
+		modifier = {
+			yearly_corruption = 0.4
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			has_country_modifier = dwarven_administration
+		}
+		modifier = {
+			yearly_corruption = 0.2
+		}
+	}
+	on_revoked = {
+	}
+	on_invalid = {
+	}
+	cooldown_years = 5
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_ogre_militar_education
+		if = {
+			limit = {
+				NOT = {
+					heir_mil = 5
+				}
+			}
+			change_heir_mil = 1
+		}
+	}
+	ai_will_do = {
+		factor = 5
+	}
+}
+estate_ogre_colonizers = {
+	icon = privilege_new_world_mission
+	is_valid = {
+		num_of_colonists = 1
+	}
+	can_select = {
+		estate_influence = {
+			estate = estate_ogre
+			influence = 40
+		}
+		high_tolerance_ogre_race_trigger = yes
+		OR = {
+			has_estate_privilege = estate_ogre_economic_chairman
+			has_country_modifier = estate_ogre_economic_chairman_modifier
+		}
+	}
+	on_granted = {
+	}
+	modifier = {
+		global_colonial_growth = 20
+		yearly_corruption = 0.2
+	}
+	penalties = {
+	}
+	on_revoked = {
+	}
+	cooldown_years = 10
+	ai_will_do = {
+		factor = 0
+	}
+}

@@ -1,0 +1,1695 @@
+
+namespace = slave_ruler_election
+
+
+# Succession
+country_event = {
+	id = slave_ruler_election.0
+	title = slave_ruler_election.0.t
+	desc = slave_ruler_election.0.d
+	picture = THREE_HEIRS_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		NOT = {has_reform = xenophile_elections_reform}
+	}
+	
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					OR = {
+						has_owner_culture = yes
+						has_owner_accepted_culture = yes
+					}
+				}
+				save_event_target_as = first_ruler_alternative_province
+			}
+			random_owned_province = {
+				limit = {
+					OR = {
+						has_owner_culture = yes
+						has_owner_accepted_culture = yes
+					}
+					NOT = { culture = event_target:first_ruler_alternative_province }
+				}
+				save_event_target_as = second_ruler_alternative_province
+			}
+			random_owned_province = {
+				limit = {
+					OR = {
+						has_owner_culture = yes
+						has_owner_accepted_culture = yes
+					}
+					NOT = { culture = event_target:first_ruler_alternative_province }
+					NOT = { culture = event_target:second_ruler_alternative_province }
+				}
+				save_event_target_as = third_ruler_alternative_province
+			}
+			random_province = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					culture = surani
+					owner = {
+						NOT = { war_with = ROOT }
+						NOT = { is_rival = ROOT }
+						NOT = { is_enemy = ROOT }
+					}
+					if = {
+						limit = { owner = { has_saved_event_target = first_ruler_alternative_province } }
+						NOT = { culture = event_target:first_ruler_alternative_province }
+					}
+					if = {
+						limit = {
+							owner = { has_saved_event_target = second_ruler_alternative_province }
+						}
+						NOT = { culture = event_target:second_ruler_alternative_province }
+					}
+					if = {
+						limit = { owner = { has_saved_event_target = third_ruler_alternative_province } }
+						NOT = { culture = event_target:third_ruler_alternative_province }
+					}
+				}
+				save_event_target_as = fourth_ruler_alternative_province
+			}
+			random_list = {	#Age Tombola
+				15 = { set_country_flag = age_1 }
+				15 = { set_country_flag = age_2 }
+				15 = { set_country_flag = age_3 }
+				15 = { set_country_flag = age_4 }
+				15 = { set_country_flag = age_5 }
+				15 = { set_country_flag = age_6 }
+				15 = { set_country_flag = age_7 }
+			}
+			
+			set_variable = {
+				which = first_ruler_culture_fraction
+				value = 0
+			}
+			set_variable = {
+				which = second_ruler_culture_fraction
+				value = 0
+			}
+			set_variable = {
+				which = third_ruler_culture_fraction
+				value = 0
+			}
+			
+			every_owned_province = {
+				if = { #Candidate 1
+					limit = {
+						culture = event_target:first_ruler_alternative_province
+						is_core = ROOT
+						is_state = yes
+					}										#ROOT = Country
+					export_to_variable = {
+						variable_name = first_ruler_culture_fraction
+						value = development					# Dev of Province
+					}
+					ROOT = {
+						change_variable = {
+							which = first_ruler_culture_fraction
+							which = PREV
+						}
+					}
+				}
+				else_if = { #Candidate 2
+					limit = {
+						culture = event_target:second_ruler_alternative_province
+						is_core = ROOT
+						is_state = yes
+					}										#ROOT = Country
+					export_to_variable = {
+						variable_name = second_ruler_culture_fraction
+						value = development					# Dev of Province
+					}
+					ROOT = {
+						change_variable = {
+							which = second_ruler_culture_fraction
+							which = PREV
+						}
+					}
+				}
+				else_if = { #Candidate 3
+					limit = {
+						culture = event_target:third_ruler_alternative_province
+						is_core = ROOT
+						is_state = yes
+					}										#ROOT = Country
+					export_to_variable = {
+						variable_name = third_ruler_culture_fraction
+						value = development					# Dev of Province
+					}
+					ROOT = {
+						change_variable = {
+							which = third_ruler_culture_fraction
+							which = PREV
+						}
+					}
+				}
+			}
+			
+			### Set Comparison Variables
+			set_variable = {
+				which = totalDev
+				value = 0
+			}
+			export_to_variable = {
+				variable_name = totalDev
+				value = total_development
+				who = ROOT
+			}
+			
+			#############################
+			##    Calculate %Dev of each Culture
+			#############################
+			divide_variable = {
+				which = first_ruler_culture_fraction
+				which = totalDev
+			}
+			divide_variable = {
+				which = second_ruler_culture_fraction
+				which = totalDev
+			}
+			divide_variable = {
+				which = third_ruler_culture_fraction
+				which = totalDev
+			}
+		}
+	}
+
+	option = {
+		name = "slave_ruler_election.0.a"
+		ai_chance = {
+			factor = 25
+		}
+		trigger = {
+			has_saved_event_target = first_ruler_alternative_province
+		}
+		trigger_switch = {
+			on_trigger = has_country_flag
+			age_1 = {
+				define_ruler = {
+					culture = event_target:first_ruler_alternative_province
+					hide_skills = yes
+					age = 30
+				}
+			}
+			age_2 = {
+				define_ruler = {
+					culture = event_target:first_ruler_alternative_province
+					hide_skills = yes
+					age = 32
+				}
+			}
+			age_3 = {
+				define_ruler = {
+					culture = event_target:first_ruler_alternative_province
+					hide_skills = yes
+					age = 35
+				}
+			}
+			age_4 = {
+				define_ruler = {
+					culture = event_target:first_ruler_alternative_province
+					hide_skills = yes
+					age = 40
+				}
+			}
+			age_5 = {
+				define_ruler = {
+					culture = event_target:first_ruler_alternative_province
+					hide_skills = yes
+					age = 42
+				}
+			}
+			age_6 = {
+				define_ruler = {
+					culture = event_target:first_ruler_alternative_province
+					hide_skills = yes
+					age = 45
+				}
+			}
+			age_7 = {
+				define_ruler = {
+					culture = event_target:first_ruler_alternative_province
+					hide_skills = yes
+					age = 50
+				}
+			}
+		}
+		
+		# Subtract republican tradition
+		if = {
+			limit = { 
+				check_variable = {
+					which = first_ruler_culture_fraction
+					value = 1
+				}
+			}
+			add_republican_tradition = -50
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = first_ruler_culture_fraction
+					value = 0.95
+				}
+			}
+			add_republican_tradition = -47.5
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = first_ruler_culture_fraction
+					value = 0.9
+				}
+			}
+			add_republican_tradition = -45
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = first_ruler_culture_fraction
+					value = 0.85
+				}
+			}
+			add_republican_tradition = -42.5
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = first_ruler_culture_fraction
+					value = 0.8
+				}
+			}
+			add_republican_tradition = -40
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = first_ruler_culture_fraction
+					value = 0.75
+				}
+			}
+			add_republican_tradition = -37.5
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = first_ruler_culture_fraction
+					value = 0.7
+				}
+			}
+			add_republican_tradition = -35
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = first_ruler_culture_fraction
+					value = 0.65
+				}
+			}
+			add_republican_tradition = -32.5
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = first_ruler_culture_fraction
+					value = 0.6
+				}
+			}
+			add_republican_tradition = -30
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = first_ruler_culture_fraction
+					value = 0.55
+				}
+			}
+			add_republican_tradition = -27.5
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = first_ruler_culture_fraction
+					value = 0.5
+				}
+			}
+			add_republican_tradition = -25
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = first_ruler_culture_fraction
+					value = 0.45
+				}
+			}
+			add_republican_tradition = -22.5
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = first_ruler_culture_fraction
+					value = 0.4
+				}
+			}
+			add_republican_tradition = -10
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = first_ruler_culture_fraction
+					value = 0.35
+				}
+			}
+			add_republican_tradition = -17.5
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = first_ruler_culture_fraction
+					value = 0.3
+				}
+			}
+			add_republican_tradition = -15
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = first_ruler_culture_fraction
+					value = 0.25
+				}
+			}
+			add_republican_tradition = -12.5
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = first_ruler_culture_fraction
+					value = 0.2
+				}
+			}
+			add_republican_tradition = -10
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = first_ruler_culture_fraction
+					value = 0.15
+				}
+			}
+			add_republican_tradition = -7.5
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = first_ruler_culture_fraction
+					value = 0.1
+				}
+			}
+			add_republican_tradition = -5
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = first_ruler_culture_fraction
+					value = 0.05
+				}
+			}
+			add_republican_tradition = -2.5
+		}
+	}
+	option = {
+		name = "slave_ruler_election.0.b"	# An administrator type
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 0.01
+				event_target:second_ruler_alternative_province = { culture = ROOT }
+			}
+		}
+		trigger = {
+			has_saved_event_target = second_ruler_alternative_province
+		}
+		trigger_switch = {
+			on_trigger = has_country_flag
+			age_7 = {
+				define_ruler = {
+					culture = event_target:second_ruler_alternative_province
+					hide_skills = yes
+					age = 30
+				}
+			}
+			age_6 = {
+				define_ruler = {
+					culture = event_target:second_ruler_alternative_province
+					hide_skills = yes
+					age = 32
+				}
+			}
+			age_5 = {
+				define_ruler = {
+					culture = event_target:second_ruler_alternative_province
+					hide_skills = yes
+					age = 35
+				}
+			}
+			age_3 = {
+				define_ruler = {
+					culture = event_target:second_ruler_alternative_province
+					hide_skills = yes
+					age = 40
+				}
+			}
+			age_4 = {
+				define_ruler = {
+					culture = event_target:second_ruler_alternative_province
+					hide_skills = yes
+					age = 42
+				}
+			}
+			age_2 = {
+				define_ruler = {
+					culture = event_target:second_ruler_alternative_province
+					hide_skills = yes
+					age = 45
+				}
+			}
+			age_1 = {
+				define_ruler = {
+					culture = event_target:second_ruler_alternative_province
+					hide_skills = yes
+					age = 50
+				}
+			}
+		}
+		
+		# Subtract republican tradition
+		if = {
+			limit = { 
+				check_variable = {
+					which = second_ruler_culture_fraction
+					value = 1
+				}
+			}
+			add_republican_tradition = -50
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = second_ruler_culture_fraction
+					value = 0.95
+				}
+			}
+			add_republican_tradition = -47.5
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = second_ruler_culture_fraction
+					value = 0.9
+				}
+			}
+			add_republican_tradition = -45
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = second_ruler_culture_fraction
+					value = 0.85
+				}
+			}
+			add_republican_tradition = -42.5
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = second_ruler_culture_fraction
+					value = 0.8
+				}
+			}
+			add_republican_tradition = -40
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = second_ruler_culture_fraction
+					value = 0.75
+				}
+			}
+			add_republican_tradition = -37.5
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = second_ruler_culture_fraction
+					value = 0.7
+				}
+			}
+			add_republican_tradition = -35
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = second_ruler_culture_fraction
+					value = 0.65
+				}
+			}
+			add_republican_tradition = -32.5
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = second_ruler_culture_fraction
+					value = 0.6
+				}
+			}
+			add_republican_tradition = -30
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = second_ruler_culture_fraction
+					value = 0.55
+				}
+			}
+			add_republican_tradition = -27.5
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = second_ruler_culture_fraction
+					value = 0.5
+				}
+			}
+			add_republican_tradition = -25
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = second_ruler_culture_fraction
+					value = 0.45
+				}
+			}
+			add_republican_tradition = -22.5
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = second_ruler_culture_fraction
+					value = 0.4
+				}
+			}
+			add_republican_tradition = -10
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = second_ruler_culture_fraction
+					value = 0.35
+				}
+			}
+			add_republican_tradition = -17.5
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = second_ruler_culture_fraction
+					value = 0.3
+				}
+			}
+			add_republican_tradition = -15
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = second_ruler_culture_fraction
+					value = 0.25
+				}
+			}
+			add_republican_tradition = -12.5
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = second_ruler_culture_fraction
+					value = 0.2
+				}
+			}
+			add_republican_tradition = -10
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = second_ruler_culture_fraction
+					value = 0.15
+				}
+			}
+			add_republican_tradition = -7.5
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = second_ruler_culture_fraction
+					value = 0.1
+				}
+			}
+			add_republican_tradition = -5
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = second_ruler_culture_fraction
+					value = 0.05
+				}
+			}
+			add_republican_tradition = -2.5
+		}
+	}
+	option = {
+		name = "slave_ruler_election.0.c"
+		trigger = {
+			has_saved_event_target = third_ruler_alternative_province
+		}
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 0.01
+				event_target:third_ruler_alternative_province = { culture = ROOT }
+			}
+		}
+		
+		trigger_switch = {
+			on_trigger = has_country_flag
+			age_6 = {
+				define_ruler = {
+					culture = event_target:third_ruler_alternative_province
+					hide_skills = yes
+					age = 30
+				}
+			}
+			age_3 = {
+				define_ruler = {
+					culture = event_target:third_ruler_alternative_province
+					hide_skills = yes
+					age = 32
+				}
+			}
+			age_2 = {
+				define_ruler = {
+					culture = event_target:third_ruler_alternative_province
+					hide_skills = yes
+					age = 35
+				}
+			}
+			age_5 = {
+				define_ruler = {
+					culture = event_target:third_ruler_alternative_province
+					hide_skills = yes
+					age = 40
+				}
+			}
+			age_1 = {
+				define_ruler = {
+					culture = event_target:third_ruler_alternative_province
+					hide_skills = yes
+					age = 42
+				}
+			}
+			age_7 = {
+				define_ruler = {
+					culture = event_target:third_ruler_alternative_province
+					hide_skills = yes
+					age = 45
+				}
+			}
+			age_4 = {
+				define_ruler = {
+					culture = event_target:third_ruler_alternative_province
+					hide_skills = yes
+					age = 50
+				}
+			}
+		}
+		
+		# Subtract republican tradition
+		if = {
+			limit = { 
+				check_variable = {
+					which = third_ruler_culture_fraction
+					value = 1
+				}
+			}
+			add_republican_tradition = -50
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = third_ruler_culture_fraction
+					value = 0.95
+				}
+			}
+			add_republican_tradition = -47.5
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = third_ruler_culture_fraction
+					value = 0.9
+				}
+			}
+			add_republican_tradition = -45
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = third_ruler_culture_fraction
+					value = 0.85
+				}
+			}
+			add_republican_tradition = -42.5
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = third_ruler_culture_fraction
+					value = 0.8
+				}
+			}
+			add_republican_tradition = -40
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = third_ruler_culture_fraction
+					value = 0.75
+				}
+			}
+			add_republican_tradition = -37.5
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = third_ruler_culture_fraction
+					value = 0.7
+				}
+			}
+			add_republican_tradition = -35
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = third_ruler_culture_fraction
+					value = 0.65
+				}
+			}
+			add_republican_tradition = -32.5
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = third_ruler_culture_fraction
+					value = 0.6
+				}
+			}
+			add_republican_tradition = -30
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = third_ruler_culture_fraction
+					value = 0.55
+				}
+			}
+			add_republican_tradition = -27.5
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = third_ruler_culture_fraction
+					value = 0.5
+				}
+			}
+			add_republican_tradition = -25
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = third_ruler_culture_fraction
+					value = 0.45
+				}
+			}
+			add_republican_tradition = -22.5
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = third_ruler_culture_fraction
+					value = 0.4
+				}
+			}
+			add_republican_tradition = -10
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = third_ruler_culture_fraction
+					value = 0.35
+				}
+			}
+			add_republican_tradition = -17.5
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = third_ruler_culture_fraction
+					value = 0.3
+				}
+			}
+			add_republican_tradition = -15
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = third_ruler_culture_fraction
+					value = 0.25
+				}
+			}
+			add_republican_tradition = -12.5
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = third_ruler_culture_fraction
+					value = 0.2
+				}
+			}
+			add_republican_tradition = -10
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = third_ruler_culture_fraction
+					value = 0.15
+				}
+			}
+			add_republican_tradition = -7.5
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = third_ruler_culture_fraction
+					value = 0.1
+				}
+			}
+			add_republican_tradition = -5
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = third_ruler_culture_fraction
+					value = 0.05
+				}
+			}
+			add_republican_tradition = -2.5
+		}
+	}
+	option = {
+		name = "slave_ruler_election.0.dd"	# A circassian warrior
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 0.01
+				event_target:fourth_ruler_alternative_province = { culture = ROOT }
+			}
+		}
+		trigger = {
+			has_saved_event_target = fourth_ruler_alternative_province
+		}
+		add_army_tradition = 15
+		trigger_switch = {
+			on_trigger = has_country_flag
+			age_7 = {
+				define_ruler = {
+					culture = event_target:fourth_ruler_alternative_province
+					hide_skills = yes
+					age = 30
+				}
+			}
+			age_5 = {
+				define_ruler = {
+					culture = event_target:fourth_ruler_alternative_province
+					hide_skills = yes
+					age = 32
+				}
+			}
+			age_4 = {
+				define_ruler = {
+					culture = event_target:fourth_ruler_alternative_province
+					hide_skills = yes
+					age = 35
+				}
+			}
+			age_2 = {
+				define_ruler = {
+					culture = event_target:fourth_ruler_alternative_province
+					hide_skills = yes
+					age = 40
+				}
+			}
+			age_3 = {
+				define_ruler = {
+					culture = event_target:fourth_ruler_alternative_province
+					hide_skills = yes
+					age = 42
+				}
+			}
+			age_1 = {
+				define_ruler = {
+					culture = event_target:fourth_ruler_alternative_province
+					hide_skills = yes
+					age = 45
+				}
+			}
+			age_6 = {
+				define_ruler = {
+					culture = event_target:fourth_ruler_alternative_province
+					hide_skills = yes
+					age = 50
+				}
+			}
+		}
+	}
+	after = {
+		trigger_switch = {
+			on_trigger = has_country_flag
+			age_1 = { clr_country_flag = age_1 }
+			age_3 = { clr_country_flag = age_3 }
+			age_2 = { clr_country_flag = age_2 }
+			age_5 = { clr_country_flag = age_5 }
+			age_6 = { clr_country_flag = age_6 }
+			age_7 = { clr_country_flag = age_7 }
+			age_4 = { clr_country_flag = age_4 }
+		}
+	}
+}
+# Succession
+country_event = {
+	id = slave_ruler_election.1
+	title = slave_ruler_election.1.t
+	desc = slave_ruler_election.1.desc
+	picture = THREE_HEIRS_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		has_reform = xenophile_elections_reform
+	}
+	
+	immediate = {
+		hidden_effect = {		
+			random_owned_province = {
+				limit = {
+					has_integrated_human_pop_trigger = yes
+					culture_is_human = yes
+				}				
+				save_event_target_as = human_ruler_alternative_province
+				owner = {
+					random_list = {	
+						10 = {define_exiled_ruler = {exiled_as = exiled_human_ruler_alternative_province_@ROOT culture = event_target:human_ruler_alternative_province min_age = 30 max_age = 40 adm = 3 max_random_dip = 5 max_random_mil = 5 option = 0}}
+						10 = {define_exiled_ruler = {exiled_as = exiled_human_ruler_alternative_province_@ROOT culture = event_target:human_ruler_alternative_province min_age = 30 max_age = 40 max_random_adm = 5 dip = 3 max_random_mil = 5 option = 0}}
+						10 = {define_exiled_ruler = {exiled_as = exiled_human_ruler_alternative_province_@ROOT culture = event_target:human_ruler_alternative_province min_age = 30 max_age = 40 max_random_adm = 5 max_random_dip = 5 mil = 3 option = 0}}
+						10 = {define_exiled_ruler = {exiled_as = exiled_human_ruler_alternative_province_@ROOT culture = event_target:human_ruler_alternative_province min_age = 30 max_age = 40 adm = 3 max_random_dip = 5 max_random_mil = 5 option = 0}}
+						10 = {define_exiled_ruler = {exiled_as = exiled_human_ruler_alternative_province_@ROOT culture = event_target:human_ruler_alternative_province min_age = 30 max_age = 40 max_random_adm = 5 max_random_dip = 5 mil = 3 option = 0}}
+						10 = {define_exiled_ruler = {exiled_as = exiled_human_ruler_alternative_province_@ROOT culture = event_target:human_ruler_alternative_province min_age = 30 max_age = 40 max_random_adm = 5 dip = 3 max_random_mil = 5 option = 0}}
+					}
+				}
+			}
+			random_owned_province = {
+				limit = {
+					has_integrated_elven_pop_trigger = yes
+					culture_is_elven = yes
+				}
+				save_event_target_as = elven_ruler_alternative_province
+				owner = {
+					random_list = {		
+						10 = {define_exiled_ruler = {exiled_as = exiled_elven_ruler_alternative_province_@ROOT culture = event_target:elven_ruler_alternative_province min_age = 70 max_age = 80 adm = 3 max_random_dip = 5 max_random_mil = 5 option = 1}}
+						10 = {define_exiled_ruler = {exiled_as = exiled_elven_ruler_alternative_province_@ROOT culture = event_target:elven_ruler_alternative_province min_age = 70 max_age = 80 max_random_adm = 5 dip = 3 max_random_mil = 5 option = 1}}
+						10 = {define_exiled_ruler = {exiled_as = exiled_elven_ruler_alternative_province_@ROOT culture = event_target:elven_ruler_alternative_province min_age = 70 max_age = 80 max_random_adm = 5 max_random_dip = 5 mil = 3 option = 1}}
+						10 = {define_exiled_ruler = {exiled_as = exiled_elven_ruler_alternative_province_@ROOT culture = event_target:elven_ruler_alternative_province min_age = 70 max_age = 80 adm = 3 max_random_dip = 5 max_random_mil = 5 option = 1}}
+						10 = {define_exiled_ruler = {exiled_as = exiled_elven_ruler_alternative_province_@ROOT culture = event_target:elven_ruler_alternative_province min_age = 70 max_age = 80 max_random_adm = 5 max_random_dip = 5 mil = 3 option = 1}}
+						10 = {define_exiled_ruler = {exiled_as = exiled_elven_ruler_alternative_province_@ROOT culture = event_target:elven_ruler_alternative_province min_age = 70 max_age = 80 max_random_adm = 5 dip = 3 max_random_mil = 5 option = 1}}
+					}
+				}
+			}
+			random_owned_province = {
+				limit = {
+					has_integrated_dwarven_pop_trigger = yes
+					culture_is_dwarven = yes
+				}
+				save_event_target_as = dwarven_ruler_alternative_province				
+				owner = {
+					random_list = {		
+						10 = {define_exiled_ruler = {exiled_as = exiled_dwarven_ruler_alternative_province_@ROOT culture = event_target:dwarven_ruler_alternative_province min_age = 60 max_age = 70 adm = 3 max_random_dip = 5 max_random_mil = 5 option = 2}}
+						10 = {define_exiled_ruler = {exiled_as = exiled_dwarven_ruler_alternative_province_@ROOT culture = event_target:dwarven_ruler_alternative_province min_age = 60 max_age = 70 max_random_adm = 5 dip = 3 max_random_mil = 5 option = 2}}
+						10 = {define_exiled_ruler = {exiled_as = exiled_dwarven_ruler_alternative_province_@ROOT culture = event_target:dwarven_ruler_alternative_province min_age = 60 max_age = 70 max_random_adm = 5 max_random_dip = 5 mil = 3 option = 2}}
+						10 = {define_exiled_ruler = {exiled_as = exiled_dwarven_ruler_alternative_province_@ROOT culture = event_target:dwarven_ruler_alternative_province min_age = 60 max_age = 70 adm = 3 max_random_dip = 5 max_random_mil = 5 option = 2}}
+						10 = {define_exiled_ruler = {exiled_as = exiled_dwarven_ruler_alternative_province_@ROOT culture = event_target:dwarven_ruler_alternative_province min_age = 60 max_age = 70 max_random_adm = 5 max_random_dip = 5 mil = 3 option = 2}}
+						10 = {define_exiled_ruler = {exiled_as = exiled_dwarven_ruler_alternative_province_@ROOT culture = event_target:dwarven_ruler_alternative_province min_age = 60 max_age = 70 max_random_adm = 5 dip = 3 max_random_mil = 5 option = 2}}
+					}
+				}
+			}
+			random_owned_province = {
+				limit = {
+					has_integrated_halfling_pop_trigger = yes
+					culture_is_halfling = yes
+				}
+				save_event_target_as = halfling_ruler_alternative_province
+				owner = {
+					random_list = {		
+						10 = {define_exiled_ruler = {exiled_as = exiled_halfling_ruler_alternative_province_@ROOT culture = event_target:halfling_ruler_alternative_province max_age = 16 max_age = 30 adm = 3 max_random_dip = 5 max_random_mil = 5 option = 3}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_halfling_ruler_alternative_province_@ROOT culture = event_target:halfling_ruler_alternative_province max_age = 16 max_age = 30 max_random_adm = 5 dip = 3 max_random_mil = 5 option = 3}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_halfling_ruler_alternative_province_@ROOT culture = event_target:halfling_ruler_alternative_province max_age = 16 max_age = 30 max_random_adm = 5 max_random_dip = 5 mil = 3 option = 3}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_halfling_ruler_alternative_province_@ROOT culture = event_target:halfling_ruler_alternative_province max_age = 16 max_age = 30 adm = 3 max_random_dip = 5 max_random_mil = 5 option = 3}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_halfling_ruler_alternative_province_@ROOT culture = event_target:halfling_ruler_alternative_province max_age = 16 max_age = 30 max_random_adm = 5 max_random_dip = 5 mil = 3 option = 3}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_halfling_ruler_alternative_province_@ROOT culture = event_target:halfling_ruler_alternative_province max_age = 16 max_age = 30 max_random_adm = 5 dip = 3 max_random_mil = 5 option = 3}}
+					}
+				}
+			}
+			random_owned_province = {
+				limit = {
+					has_integrated_gnomish_pop_trigger = yes
+					culture_is_gnomish = yes
+				}
+				save_event_target_as = gnomish_ruler_alternative_province
+				owner = {
+					random_list = {		
+						10 = {define_exiled_ruler = {exiled_as = exiled_gnomish_ruler_alternative_province_@ROOT culture = event_target:gnomish_ruler_alternative_province min_age = 60 max_age = 70 adm = 3 max_random_dip = 5 max_random_mil = 5 option = 4}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_gnomish_ruler_alternative_province_@ROOT culture = event_target:gnomish_ruler_alternative_province min_age = 60 max_age = 70 max_random_adm = 5 dip = 3 max_random_mil = 5 option = 4}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_gnomish_ruler_alternative_province_@ROOT culture = event_target:gnomish_ruler_alternative_province min_age = 60 max_age = 70 max_random_adm = 5 max_random_dip = 5 mil = 3 option = 4}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_gnomish_ruler_alternative_province_@ROOT culture = event_target:gnomish_ruler_alternative_province min_age = 60 max_age = 70 adm = 3 max_random_dip = 5 max_random_mil = 5 option = 4}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_gnomish_ruler_alternative_province_@ROOT culture = event_target:gnomish_ruler_alternative_province min_age = 60 max_age = 70 max_random_adm = 5 max_random_dip = 5 mil = 3 option = 4}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_gnomish_ruler_alternative_province_@ROOT culture = event_target:gnomish_ruler_alternative_province min_age = 60 max_age = 70 max_random_adm = 5 dip = 3 max_random_mil = 5 option = 4}}	
+					}
+				}
+			}
+			random_owned_province = {
+				limit = {
+					has_integrated_harimari_pop_trigger = yes
+					culture_is_harimari = yes
+				}
+				save_event_target_as = harimari_ruler_alternative_province
+				owner = {
+					random_list = {		
+						10 = {define_exiled_ruler = {exiled_as = exiled_harimari_ruler_alternative_province_@ROOT culture = event_target:harimari_ruler_alternative_province min_age = 20 max_age = 40 adm = 3 max_random_dip = 5 max_random_mil = 5 option = 5}}
+						10 = {define_exiled_ruler = {exiled_as = exiled_harimari_ruler_alternative_province_@ROOT culture = event_target:harimari_ruler_alternative_province min_age = 20 max_age = 40 max_random_adm = 5 dip = 3 max_random_mil = 5 option = 5}}
+						10 = {define_exiled_ruler = {exiled_as = exiled_harimari_ruler_alternative_province_@ROOT culture = event_target:harimari_ruler_alternative_province min_age = 20 max_age = 40 max_random_adm = 5 max_random_dip = 5 mil = 3 option = 5}}
+						10 = {define_exiled_ruler = {exiled_as = exiled_harimari_ruler_alternative_province_@ROOT culture = event_target:harimari_ruler_alternative_province min_age = 20 max_age = 40 adm = 3 max_random_dip = 5 max_random_mil = 5 option = 5}}
+						10 = {define_exiled_ruler = {exiled_as = exiled_harimari_ruler_alternative_province_@ROOT culture = event_target:harimari_ruler_alternative_province min_age = 20 max_age = 40 max_random_adm = 5 max_random_dip = 5 mil = 3 option = 5}}
+						10 = {define_exiled_ruler = {exiled_as = exiled_harimari_ruler_alternative_province_@ROOT culture = event_target:harimari_ruler_alternative_province min_age = 20 max_age = 40 max_random_adm = 5 dip = 3 max_random_mil = 5 option = 5}}
+					}
+				}
+			}
+			random_owned_province = {
+				limit = {
+					has_integrated_gnollish_pop_trigger = yes
+					culture_is_gnollish = yes
+				}
+				save_event_target_as = gnollish_ruler_alternative_province
+				owner = {
+					random_list = {		
+						10 = {define_exiled_ruler = {exiled_as = exiled_gnollish_ruler_alternative_province_@ROOT culture = event_target:gnollish_ruler_alternative_province min_age = 20 max_age = 40 adm = 3 max_random_dip = 5 max_random_mil = 5 option = 6}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_gnollish_ruler_alternative_province_@ROOT culture = event_target:gnollish_ruler_alternative_province min_age = 20 max_age = 40 max_random_adm = 5 dip = 3 max_random_mil = 5 option = 6}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_gnollish_ruler_alternative_province_@ROOT culture = event_target:gnollish_ruler_alternative_province min_age = 20 max_age = 40 max_random_adm = 5 max_random_dip = 5 mil = 3 option = 6}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_gnollish_ruler_alternative_province_@ROOT culture = event_target:gnollish_ruler_alternative_province min_age = 20 max_age = 40 adm = 3 max_random_dip = 5 max_random_mil = 5 option = 6}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_gnollish_ruler_alternative_province_@ROOT culture = event_target:gnollish_ruler_alternative_province min_age = 20 max_age = 40 max_random_adm = 5 max_random_dip = 5 mil = 3 option = 6}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_gnollish_ruler_alternative_province_@ROOT culture = event_target:gnollish_ruler_alternative_province min_age = 20 max_age = 40 max_random_adm = 5 dip = 3 max_random_mil = 5 option = 6}}	
+					}
+				}
+			}
+			random_owned_province = {
+				limit = {
+					has_integrated_ruinborn_pop_trigger = yes
+					culture_is_ruinborn = yes
+				}
+				save_event_target_as = ruinborn_ruler_alternative_province
+				owner = {
+					random_list = {		
+						10 = {define_exiled_ruler = {exiled_as = exiled_ruinborn_ruler_alternative_province_@ROOT culture = event_target:ruinborn_ruler_alternative_province min_age = 30 max_age = 40 adm = 3 max_random_dip = 5 max_random_mil = 5 option = 7}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_ruinborn_ruler_alternative_province_@ROOT culture = event_target:ruinborn_ruler_alternative_province min_age = 30 max_age = 40 max_random_adm = 5 dip = 3 max_random_mil = 5 option = 7}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_ruinborn_ruler_alternative_province_@ROOT culture = event_target:ruinborn_ruler_alternative_province min_age = 30 max_age = 40 max_random_adm = 5 max_random_dip = 5 mil = 3 option = 7}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_ruinborn_ruler_alternative_province_@ROOT culture = event_target:ruinborn_ruler_alternative_province min_age = 30 max_age = 40 adm = 3 max_random_dip = 5 max_random_mil = 5 option = 7}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_ruinborn_ruler_alternative_province_@ROOT culture = event_target:ruinborn_ruler_alternative_province min_age = 30 max_age = 40 max_random_adm = 5 max_random_dip = 5 mil = 3 option = 7}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_ruinborn_ruler_alternative_province_@ROOT culture = event_target:ruinborn_ruler_alternative_province min_age = 30 max_age = 40 max_random_adm = 5 dip = 3 max_random_mil = 5 option = 7}}	
+					}
+				}
+			}
+			random_owned_province = {
+				limit = {
+					has_integrated_orcish_pop_trigger = yes
+					culture_is_orcish = yes
+				}
+				save_event_target_as = orcish_ruler_alternative_province
+				owner = {
+					random_list = {		
+						10 = {define_exiled_ruler = {exiled_as = exiled_orcish_ruler_alternative_province_@ROOT culture = event_target:orcish_ruler_alternative_province min_age = 30 max_age = 40 adm = 3 max_random_dip = 5 max_random_mil = 5 option = 8}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_orcish_ruler_alternative_province_@ROOT culture = event_target:orcish_ruler_alternative_province min_age = 30 max_age = 40 max_random_adm = 5 dip = 3 max_random_mil = 5 option = 8}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_orcish_ruler_alternative_province_@ROOT culture = event_target:orcish_ruler_alternative_province min_age = 30 max_age = 40 max_random_adm = 5 max_random_dip = 5 mil = 3 option = 8}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_orcish_ruler_alternative_province_@ROOT culture = event_target:orcish_ruler_alternative_province min_age = 30 max_age = 40 adm = 3 max_random_dip = 5 max_random_mil = 5 option = 8}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_orcish_ruler_alternative_province_@ROOT culture = event_target:orcish_ruler_alternative_province min_age = 30 max_age = 40 max_random_adm = 5 max_random_dip = 5 mil = 3 option = 8}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_orcish_ruler_alternative_province_@ROOT culture = event_target:orcish_ruler_alternative_province min_age = 30 max_age = 40 max_random_adm = 5 dip = 3 max_random_mil = 5 option = 8}}	
+					}
+				}
+			}
+			random_owned_province = {
+				limit = {
+					has_integrated_goblin_pop_trigger = yes
+					culture_is_goblin = yes
+				}
+				save_event_target_as = goblin_ruler_alternative_province
+				owner = {
+					random_list = {		
+						10 = {define_exiled_ruler = {exiled_as = exiled_goblin_ruler_alternative_province_@ROOT culture = event_target:goblin_ruler_alternative_province max_age = 16 max_age = 30 adm = 3 max_random_dip = 5 max_random_mil = 5 option = 9}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_goblin_ruler_alternative_province_@ROOT culture = event_target:goblin_ruler_alternative_province max_age = 16 max_age = 30 max_random_adm = 5 dip = 3 max_random_mil = 5 option = 9}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_goblin_ruler_alternative_province_@ROOT culture = event_target:goblin_ruler_alternative_province max_age = 16 max_age = 30 max_random_adm = 5 max_random_dip = 5 mil = 3 option = 9}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_goblin_ruler_alternative_province_@ROOT culture = event_target:goblin_ruler_alternative_province max_age = 16 max_age = 30 adm = 3 max_random_dip = 5 max_random_mil = 5 option = 9}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_goblin_ruler_alternative_province_@ROOT culture = event_target:goblin_ruler_alternative_province max_age = 16 max_age = 30 max_random_adm = 5 max_random_dip = 5 mil = 3 option = 9}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_goblin_ruler_alternative_province_@ROOT culture = event_target:goblin_ruler_alternative_province max_age = 16 max_age = 30 max_random_adm = 5 dip = 3 max_random_mil = 5 option = 9}}	
+					}
+				}
+			}
+			random_owned_province = {
+				limit = {
+					has_integrated_ogre_pop_trigger = yes
+					culture_is_ogre = yes
+				}
+				save_event_target_as = ogre_ruler_alternative_province
+				owner = {
+					random_list = {		
+						10 = {define_exiled_ruler = {exiled_as = exiled_ogre_ruler_alternative_province_@ROOT culture = event_target:ogre_ruler_alternative_province min_age = 30 max_age = 40 adm = 3 max_random_dip = 5 max_random_mil = 5 option = 10}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_ogre_ruler_alternative_province_@ROOT culture = event_target:ogre_ruler_alternative_province min_age = 30 max_age = 40 max_random_adm = 5 dip = 3 max_random_mil = 5 option = 10}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_ogre_ruler_alternative_province_@ROOT culture = event_target:ogre_ruler_alternative_province min_age = 30 max_age = 40 max_random_adm = 5 max_random_dip = 5 mil = 3 option = 10}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_ogre_ruler_alternative_province_@ROOT culture = event_target:ogre_ruler_alternative_province min_age = 30 max_age = 40 adm = 3 max_random_dip = 5 max_random_mil = 5 option = 10}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_ogre_ruler_alternative_province_@ROOT culture = event_target:ogre_ruler_alternative_province min_age = 30 max_age = 40 max_random_adm = 5 max_random_dip = 5 mil = 3 option = 10}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_ogre_ruler_alternative_province_@ROOT culture = event_target:ogre_ruler_alternative_province min_age = 30 max_age = 40 max_random_adm = 5 dip = 3 max_random_mil = 5 option = 10}}	
+					}
+				}
+			}
+			random_owned_province = {
+				limit = {
+					has_integrated_centaur_pop_trigger = yes
+					culture_is_centaur = yes
+				}
+				save_event_target_as = centaur_ruler_alternative_province
+				owner = {
+					random_list = {		
+						10 = {define_exiled_ruler = {exiled_as = exiled_centaur_ruler_alternative_province_@ROOT culture = event_target:centaur_ruler_alternative_province min_age = 30 max_age = 40 adm = 3 max_random_dip = 5 max_random_mil = 5 option = 11}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_centaur_ruler_alternative_province_@ROOT culture = event_target:centaur_ruler_alternative_province min_age = 30 max_age = 40 max_random_adm = 5 dip = 3 max_random_mil = 5 option = 11}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_centaur_ruler_alternative_province_@ROOT culture = event_target:centaur_ruler_alternative_province min_age = 30 max_age = 40 max_random_adm = 5 max_random_dip = 5 mil = 3 option = 11}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_centaur_ruler_alternative_province_@ROOT culture = event_target:centaur_ruler_alternative_province min_age = 30 max_age = 40 adm = 3 max_random_dip = 5 max_random_mil = 5 option = 11}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_centaur_ruler_alternative_province_@ROOT culture = event_target:centaur_ruler_alternative_province min_age = 30 max_age = 40 max_random_adm = 5 max_random_dip = 5 mil = 3 option = 11}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_centaur_ruler_alternative_province_@ROOT culture = event_target:centaur_ruler_alternative_province min_age = 30 max_age = 40 max_random_adm = 5 dip = 3 max_random_mil = 5 option = 11}}	
+					}
+				}
+			}
+			random_owned_province = {
+				limit = {
+					has_integrated_harpy_pop_trigger = yes
+					culture_is_harpy = yes
+				}
+				save_event_target_as = harpy_ruler_alternative_province
+				owner = {
+					random_list = {		
+						10 = {define_exiled_ruler = {exiled_as = exiled_harpy_ruler_alternative_province_@ROOT culture = event_target:harpy_ruler_alternative_province min_age = 20 max_age = 40 adm = 3 max_random_dip = 5 max_random_mil = 5 option = 12}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_harpy_ruler_alternative_province_@ROOT culture = event_target:harpy_ruler_alternative_province min_age = 20 max_age = 40 max_random_adm = 5 dip = 3 max_random_mil = 5 option = 12}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_harpy_ruler_alternative_province_@ROOT culture = event_target:harpy_ruler_alternative_province min_age = 20 max_age = 40 max_random_adm = 5 max_random_dip = 5 mil = 3 option = 12}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_harpy_ruler_alternative_province_@ROOT culture = event_target:harpy_ruler_alternative_province min_age = 20 max_age = 40 adm = 3 max_random_dip = 5 max_random_mil = 5 option = 12}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_harpy_ruler_alternative_province_@ROOT culture = event_target:harpy_ruler_alternative_province min_age = 20 max_age = 40 max_random_adm = 5 max_random_dip = 5 mil = 3 option = 12}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_harpy_ruler_alternative_province_@ROOT culture = event_target:harpy_ruler_alternative_province min_age = 20 max_age = 40 max_random_adm = 5 dip = 3 max_random_mil = 5 option = 12}}	
+					}
+				}
+			}
+			random_owned_province = {
+				limit = {
+					has_integrated_troll_pop_trigger = yes
+					culture_is_troll = yes
+				}
+				save_event_target_as = troll_ruler_alternative_province
+				owner = {
+					random_list = {		
+						10 = {define_exiled_ruler = {exiled_as = exiled_troll_ruler_alternative_province_@ROOT culture = event_target:troll_ruler_alternative_province min_age = 30 max_age = 40 adm = 3 max_random_dip = 5 max_random_mil = 5 option = 13}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_troll_ruler_alternative_province_@ROOT culture = event_target:troll_ruler_alternative_province min_age = 30 max_age = 40 max_random_adm = 5 dip = 3 max_random_mil = 5 option = 13}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_troll_ruler_alternative_province_@ROOT culture = event_target:troll_ruler_alternative_province min_age = 30 max_age = 40 max_random_adm = 5 max_random_dip = 5 mil = 3 option = 13}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_troll_ruler_alternative_province_@ROOT culture = event_target:troll_ruler_alternative_province min_age = 30 max_age = 40 adm = 3 max_random_dip = 5 max_random_mil = 5 option = 13}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_troll_ruler_alternative_province_@ROOT culture = event_target:troll_ruler_alternative_province min_age = 30 max_age = 40 max_random_adm = 5 max_random_dip = 5 mil = 3 option = 13}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_troll_ruler_alternative_province_@ROOT culture = event_target:troll_ruler_alternative_province min_age = 30 max_age = 40 max_random_adm = 5 dip = 3 max_random_mil = 5 option = 13}}	
+					}
+				}
+			}
+			random_owned_province = {
+				limit = {
+					has_integrated_half_orcish_pop_trigger = yes
+					culture_is_half_orcish = yes
+				}
+				save_event_target_as = half_orcish_ruler_alternative_province
+				owner = {
+					random_list = {		
+						10 = {define_exiled_ruler = {exiled_as = exiled_half_orcish_ruler_alternative_province_@ROOT culture = event_target:half_orcish_ruler_alternative_province min_age = 30 max_age = 40 adm = 3 max_random_dip = 5 max_random_mil = 5 option = 14}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_half_orcish_ruler_alternative_province_@ROOT culture = event_target:half_orcish_ruler_alternative_province min_age = 30 max_age = 40 max_random_adm = 5 dip = 3 max_random_mil = 5 option = 14}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_half_orcish_ruler_alternative_province_@ROOT culture = event_target:half_orcish_ruler_alternative_province min_age = 30 max_age = 40 max_random_adm = 5 max_random_dip = 5 mil = 3 option = 14}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_half_orcish_ruler_alternative_province_@ROOT culture = event_target:half_orcish_ruler_alternative_province min_age = 30 max_age = 40 adm = 3 max_random_dip = 5 max_random_mil = 5 option = 14}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_half_orcish_ruler_alternative_province_@ROOT culture = event_target:half_orcish_ruler_alternative_province min_age = 30 max_age = 40 max_random_adm = 5 max_random_dip = 5 mil = 3 option = 14}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_half_orcish_ruler_alternative_province_@ROOT culture = event_target:half_orcish_ruler_alternative_province min_age = 30 max_age = 40 max_random_adm = 5 dip = 3 max_random_mil = 5 option = 14}}	
+					}
+				}
+			}
+			random_owned_province = {
+				limit = {
+					has_integrated_half_elven_pop_trigger = yes
+					culture_is_half_elven = yes
+				}
+				save_event_target_as = half_elven_ruler_alternative_province
+				owner = {
+					random_list = {		
+						10 = {define_exiled_ruler = {exiled_as = exiled_half_elven_ruler_alternative_province_@ROOT culture = event_target:half_elven_ruler_alternative_province min_age = 56 max_age = 74 adm = 3 max_random_dip = 5 max_random_mil = 5 option = 15}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_half_elven_ruler_alternative_province_@ROOT culture = event_target:half_elven_ruler_alternative_province min_age = 56 max_age = 74 max_random_adm = 5 dip = 3 max_random_mil = 5 option = 15}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_half_elven_ruler_alternative_province_@ROOT culture = event_target:half_elven_ruler_alternative_province min_age = 56 max_age = 74 max_random_adm = 5 max_random_dip = 5 mil = 3 option = 15}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_half_elven_ruler_alternative_province_@ROOT culture = event_target:half_elven_ruler_alternative_province min_age = 56 max_age = 74 adm = 3 max_random_dip = 5 max_random_mil = 5 option = 15}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_half_elven_ruler_alternative_province_@ROOT culture = event_target:half_elven_ruler_alternative_province min_age = 56 max_age = 74 max_random_adm = 5 max_random_dip = 5 mil = 3 option = 15}}	
+						10 = {define_exiled_ruler = {exiled_as = exiled_half_elven_ruler_alternative_province_@ROOT culture = event_target:half_elven_ruler_alternative_province min_age = 56 max_age = 74 max_random_adm = 5 dip = 3 max_random_mil = 5 option = 15}}	
+					}
+				}
+			}
+			random_owned_province = {
+				limit = {
+					has_integrated_hobgoblin_pop_trigger = yes
+					culture_is_hobgoblin = yes
+				}
+				save_event_target_as = hobgoblin_ruler_alternative_province
+				owner = {
+					random_list = {		
+						10 = {define_exiled_ruler = {exiled_as = exiled_hobgoblin_ruler_alternative_province_@ROOT culture = event_target:hobgoblin_ruler_alternative_province min_age = 30 max_age = 40 adm = 3 max_random_dip = 5 max_random_mil = 5 option = 16}}
+						10 = {define_exiled_ruler = {exiled_as = exiled_hobgoblin_ruler_alternative_province_@ROOT culture = event_target:hobgoblin_ruler_alternative_province min_age = 30 max_age = 40 max_random_adm = 5 dip = 3 max_random_mil = 5 option = 16}}
+						10 = {define_exiled_ruler = {exiled_as = exiled_hobgoblin_ruler_alternative_province_@ROOT culture = event_target:hobgoblin_ruler_alternative_province min_age = 30 max_age = 40 max_random_adm = 5 max_random_dip = 5 mil = 3 option = 16}}
+						10 = {define_exiled_ruler = {exiled_as = exiled_hobgoblin_ruler_alternative_province_@ROOT culture = event_target:hobgoblin_ruler_alternative_province min_age = 30 max_age = 40 adm = 3 max_random_dip = 5 max_random_mil = 5 option = 16}}
+						10 = {define_exiled_ruler = {exiled_as = exiled_hobgoblin_ruler_alternative_province_@ROOT culture = event_target:hobgoblin_ruler_alternative_province min_age = 30 max_age = 40 max_random_adm = 5 max_random_dip = 5 mil = 3 option = 16}}
+						10 = {define_exiled_ruler = {exiled_as = exiled_hobgoblin_ruler_alternative_province_@ROOT culture = event_target:hobgoblin_ruler_alternative_province min_age = 30 max_age = 40 max_random_adm = 5 dip = 3 max_random_mil = 5 option = 16}}
+					}
+				}					
+			}
+			random_owned_province = {
+				limit = {
+					has_integrated_kobold_pop_trigger = yes
+					culture_is_kobold = yes
+				}
+				save_event_target_as = kobold_ruler_alternative_province
+				owner = {
+					random_list = {		
+						10 = {define_exiled_ruler = {exiled_as = exiled_kobold_ruler_alternative_province_@ROOT culture = event_target:kobold_ruler_alternative_province min_age = 30 max_age = 40 adm = 3 max_random_dip = 5 max_random_mil = 5 option = 17}}
+						10 = {define_exiled_ruler = {exiled_as = exiled_kobold_ruler_alternative_province_@ROOT culture = event_target:kobold_ruler_alternative_province min_age = 30 max_age = 40 max_random_adm = 5 dip = 3 max_random_mil = 5 option = 17}}
+						10 = {define_exiled_ruler = {exiled_as = exiled_kobold_ruler_alternative_province_@ROOT culture = event_target:kobold_ruler_alternative_province min_age = 30 max_age = 40 max_random_adm = 5 max_random_dip = 5 mil = 3 option = 17}}
+						10 = {define_exiled_ruler = {exiled_as = exiled_kobold_ruler_alternative_province_@ROOT culture = event_target:kobold_ruler_alternative_province min_age = 30 max_age = 40 adm = 3 max_random_dip = 5 max_random_mil = 5 option = 17}}
+						10 = {define_exiled_ruler = {exiled_as = exiled_kobold_ruler_alternative_province_@ROOT culture = event_target:kobold_ruler_alternative_province min_age = 30 max_age = 40 max_random_adm = 5 max_random_dip = 5 mil = 3 option = 17}}
+						10 = {define_exiled_ruler = {exiled_as = exiled_kobold_ruler_alternative_province_@ROOT culture = event_target:kobold_ruler_alternative_province min_age = 30 max_age = 40 max_random_adm = 5 dip = 3 max_random_mil = 5 option = 17}}
+					}
+				}
+			}
+					
+			slave_ruler_race_selection = yes
+			slave_ruler_race_selection = yes
+			slave_ruler_race_selection = yes
+		}
+	}
+
+	option = {	#random
+		name = "slave_ruler_election.1.z"
+		ai_chance = {
+			factor = 25
+		}
+		random_list = {
+			10 = {	trigger = {	has_saved_event_target = human_ruler_alternative_province	}
+				set_ruler = exiled_human_ruler_alternative_province_@ROOT 
+			}
+			10 = {	trigger = {	has_saved_event_target = elven_ruler_alternative_province	}
+				set_ruler = exiled_elven_ruler_alternative_province_@ROOT
+			}
+			10 = {	trigger = {	has_saved_event_target = dwarven_ruler_alternative_province	}
+				set_ruler = exiled_dwarven_ruler_alternative_province_@ROOT
+			}
+			10 = {	trigger = {	has_saved_event_target = halfling_ruler_alternative_province	}
+				set_ruler = exiled_halfling_ruler_alternative_province_@ROOT
+			}
+			10 = {	trigger = {	has_saved_event_target = gnomish_ruler_alternative_province	}
+				set_ruler = exiled_gnomish_ruler_alternative_province_@ROOT
+			}
+			10 = {	trigger = {	has_saved_event_target = harimari_ruler_alternative_province	}
+				set_ruler = exiled_harimari_ruler_alternative_province_@ROOT
+			}	
+			10 = {	trigger = {	has_saved_event_target = gnollish_ruler_alternative_province	}
+				set_ruler = exiled_gnollish_ruler_alternative_province_@ROOT
+			}
+			10 = {	trigger = {	has_saved_event_target = ruinborn_ruler_alternative_province	}
+				set_ruler = exiled_ruinborn_ruler_alternative_province_@ROOT
+			}
+			10 = {	trigger = {	has_saved_event_target = orcish_ruler_alternative_province	}
+				set_ruler = exiled_orcish_ruler_alternative_province_@ROOT 
+			}
+			10 = {	trigger = {	has_saved_event_target = goblin_ruler_alternative_province	}
+				set_ruler = exiled_goblin_ruler_alternative_province_@ROOT
+			}
+			10 = {	trigger = {	has_saved_event_target = ogre_ruler_alternative_province	}
+				set_ruler = exiled_ogre_ruler_alternative_province_@ROOT
+			}
+			10 = {	trigger = {	has_saved_event_target = centaur_ruler_alternative_province	}
+				set_ruler = exiled_centaur_ruler_alternative_province_@ROOT
+			}
+			10 = {	trigger = {	has_saved_event_target = harpy_ruler_alternative_province	}
+				set_ruler = exiled_harpy_ruler_alternative_province_@ROOT
+			}
+			10 = {	trigger = {	has_saved_event_target = troll_ruler_alternative_province	}
+				set_ruler = exiled_troll_ruler_alternative_province_@ROOT
+			}
+			10 = {	trigger = {	has_saved_event_target = half_orcish_ruler_alternative_province	}
+				set_ruler = exiled_half_orcish_ruler_alternative_province_@ROOT
+			}
+			10 = {	trigger = {	has_saved_event_target = half_elven_ruler_alternative_province	}
+				set_ruler = exiled_half_elven_ruler_alternative_province_@ROOT
+			}
+			10 = {	trigger = {	has_saved_event_target = hobgoblin_ruler_alternative_province	}
+				set_ruler = exiled_hobgoblin_ruler_alternative_province_@ROOT
+			}
+			10 = {	trigger = {	has_saved_event_target = kobold_ruler_alternative_province	}
+				set_ruler = exiled_kobold_ruler_alternative_province_@ROOT
+			}
+		}
+	}
+	option = {
+		name = "slave_ruler_election.1.a"
+		ai_chance = {
+			factor = 25
+		}
+		trigger = {	
+			has_saved_event_target = human_ruler_alternative_province
+			has_ruler_flag = human_ruler_flag
+		}
+		add_republican_tradition = -5
+		if = {
+			limit = {ruler_is_human = yes}
+			add_republican_tradition = -5
+		}
+		set_ruler = exiled_human_ruler_alternative_province_@ROOT
+	}
+	option = {
+		name = "slave_ruler_election.1.b"
+		ai_chance = {
+			factor = 25
+		}
+		trigger = {			
+			has_saved_event_target = elven_ruler_alternative_province
+			has_ruler_flag = elven_ruler_flag
+		}
+		add_republican_tradition = -5
+		if = {
+			limit = {ruler_is_elven = yes}
+			add_republican_tradition = -5
+		}
+		set_ruler = exiled_elven_ruler_alternative_province_@ROOT
+	}
+	option = {
+		name = "slave_ruler_election.1.c"
+		ai_chance = {
+			factor = 25
+		}
+		trigger = {			
+			has_saved_event_target = dwarven_ruler_alternative_province
+			has_ruler_flag = dwarven_ruler_flag
+		}
+		add_republican_tradition = -5
+		if = {
+			limit = {ruler_is_dwarven = yes}
+			add_republican_tradition = -5
+		}
+		set_ruler = exiled_dwarven_ruler_alternative_province_@ROOT
+	}
+	option = {
+		name = "slave_ruler_election.1.d"
+		ai_chance = {
+			factor = 25
+		}
+		trigger = {
+			has_saved_event_target = halfling_ruler_alternative_province
+			has_ruler_flag = halfling_ruler_flag
+		}
+		add_republican_tradition = -5
+		if = {
+			limit = {ruler_is_halfling = yes}
+			add_republican_tradition = -5
+		}
+		set_ruler = exiled_halfling_ruler_alternative_province_@ROOT
+	}
+	option = {
+		name = "slave_ruler_election.1.e"
+		ai_chance = {
+			factor = 25
+		}
+		trigger = {
+			has_saved_event_target = gnomish_ruler_alternative_province
+			has_ruler_flag = gnomish_ruler_flag
+		}
+		add_republican_tradition = -5
+		if = {
+			limit = {ruler_is_gnomish = yes}
+			add_republican_tradition = -5
+		}
+		set_ruler = exiled_gnomish_ruler_alternative_province_@ROOT
+	}
+	option = {
+		name = "slave_ruler_election.1.f"
+		ai_chance = {
+			factor = 25
+		}
+		trigger = {
+			has_saved_event_target = harimari_ruler_alternative_province
+			has_ruler_flag = harimari_ruler_flag
+		}
+		add_republican_tradition = -5
+		if = {
+			limit = {ruler_is_harimari = yes}
+			add_republican_tradition = -5
+		}
+		set_ruler = exiled_harimari_ruler_alternative_province_@ROOT
+	}
+	option = {
+		name = "slave_ruler_election.1.g"
+		ai_chance = {
+			factor = 25
+		}
+		trigger = {
+			has_saved_event_target = gnollish_ruler_alternative_province
+			has_ruler_flag = gnollish_ruler_flag
+		}
+		add_republican_tradition = -5
+		if = {
+			limit = {ruler_is_gnollish = yes}
+			add_republican_tradition = -5
+		}
+		set_ruler = exiled_gnollish_ruler_alternative_province_@ROOT
+	}
+	option = {
+		name = "slave_ruler_election.1.h"
+		ai_chance = {
+			factor = 25
+		}
+		trigger = {
+			has_saved_event_target = ruinborn_ruler_alternative_province
+			has_ruler_flag = ruinborn_ruler_flag
+		}
+		add_republican_tradition = -5
+		if = {
+			limit = {ruler_is_ruinborn = yes}
+			add_republican_tradition = -5
+		}
+		set_ruler = exiled_ruinborn_ruler_alternative_province_@ROOT
+	}
+	option = {
+		name = "slave_ruler_election.1.i"
+		ai_chance = {
+			factor = 25
+		}
+		trigger = {
+			has_saved_event_target = goblin_ruler_alternative_province
+			has_ruler_flag = goblin_ruler_flag
+		}
+		add_republican_tradition = -5
+		if = {
+			limit = {ruler_is_orcish = yes}
+			add_republican_tradition = -5
+		}
+		set_ruler = exiled_orcish_ruler_alternative_province_@ROOT
+	}
+	option = {
+		name = "slave_ruler_election.1.j"
+		ai_chance = {
+			factor = 25
+		}
+		trigger = {
+			has_saved_event_target = orcish_ruler_alternative_province
+			has_ruler_flag = orcish_ruler_flag
+		}
+		add_republican_tradition = -5
+		if = {
+			limit = {ruler_is_goblin = yes}
+			add_republican_tradition = -5
+		}
+		set_ruler = exiled_goblin_ruler_alternative_province_@ROOT
+	}
+	option = {
+		name = "slave_ruler_election.1.k"
+		ai_chance = {
+			factor = 25
+		}
+		trigger = {
+			has_saved_event_target = ogre_ruler_alternative_province
+			has_ruler_flag = ogre_ruler_flag
+		}
+		add_republican_tradition = -5
+		if = {
+			limit = {ruler_is_ogre = yes}
+			add_republican_tradition = -5
+		}
+		set_ruler = exiled_ogre_ruler_alternative_province_@ROOT
+	}
+	option = {
+		name = "slave_ruler_election.1.l"
+		ai_chance = {
+			factor = 25
+		}
+		trigger = {
+			has_saved_event_target = centaur_ruler_alternative_province
+			has_ruler_flag = centaur_ruler_flag
+		}
+		add_republican_tradition = -5
+		if = {
+			limit = {ruler_is_centaur = yes}
+			add_republican_tradition = -5
+		}
+		set_ruler = exiled_centaur_ruler_alternative_province_@ROOT
+	}
+	option = {
+		name = "slave_ruler_election.1.m"
+		ai_chance = {
+			factor = 25
+		}
+		trigger = {
+			has_saved_event_target = harpy_ruler_alternative_province
+			has_ruler_flag = harpy_ruler_flag
+		}
+		add_republican_tradition = -5
+		if = {
+			limit = {ruler_is_troll = yes}
+			add_republican_tradition = -5
+		}
+		set_ruler = exiled_troll_ruler_alternative_province_@ROOT
+	}
+	option = {
+		name = "slave_ruler_election.1.n"
+		ai_chance = {
+			factor = 25
+		}
+		trigger = {
+			has_saved_event_target = troll_ruler_alternative_province
+			has_ruler_flag = troll_ruler_flag
+		}
+		add_republican_tradition = -5
+		if = {
+			limit = {ruler_is_harpy = yes}
+			add_republican_tradition = -5
+		}
+		set_ruler = exiled_harpy_ruler_alternative_province_@ROOT
+	}
+	option = {
+		name = "slave_ruler_election.1.o"
+		ai_chance = {
+			factor = 25
+		}
+		trigger = {
+			has_saved_event_target = half_orcish_ruler_alternative_province
+			has_ruler_flag = half_orcish_ruler_flag
+		}
+		add_republican_tradition = -5
+		if = {
+			limit = {ruler_is_half_orcish = yes}
+			add_republican_tradition = -5
+		}
+		set_ruler = exiled_half_orcish_ruler_alternative_province_@ROOT
+	}
+	option = {
+		name = "slave_ruler_election.1.p"
+		ai_chance = {
+			factor = 25
+		}
+		trigger = {
+			has_saved_event_target = half_elven_ruler_alternative_province
+			has_ruler_flag = half_elven_ruler_flag
+		}
+		add_republican_tradition = -5
+		if = {
+			limit = {ruler_is_half_elven = yes}
+			add_republican_tradition = -5
+		}
+		set_ruler = exiled_half_elven_ruler_alternative_province_@ROOT
+	}
+	option = {
+		name = "slave_ruler_election.1.q"
+		ai_chance = {
+			factor = 25
+		}
+		trigger = {
+			has_saved_event_target = hobgoblin_ruler_alternative_province
+			has_ruler_flag = hobgoblin_ruler_flag
+		}
+		add_republican_tradition = -5
+		if = {
+			limit = {ruler_is_hobgoblin = yes}
+			add_republican_tradition = -5
+		}
+		set_ruler = exiled_hobgoblin_ruler_alternative_province_@ROOT
+	}
+	option = {
+		name = "slave_ruler_election.1.r"
+		ai_chance = {
+			factor = 25
+		}
+		trigger = {
+			has_saved_event_target = kobold_ruler_alternative_province
+			has_ruler_flag = kobold_ruler_flag
+		}
+		add_republican_tradition = -5
+		if = {
+			limit = {ruler_is_kobold = yes}
+			add_republican_tradition = -10
+		}
+		set_ruler = exiled_kobold_ruler_alternative_province_@ROOT
+	}
+	after = {
+		clear_exiled_ruler = exiled_human_ruler_alternative_province_@ROOT
+		clear_exiled_ruler = exiled_elven_ruler_alternative_province_@ROOT
+		clear_exiled_ruler = exiled_dwarven_ruler_alternative_province_@ROOT
+		clear_exiled_ruler = exiled_halfling_ruler_alternative_province_@ROOT
+		clear_exiled_ruler = exiled_gnomish_ruler_alternative_province_@ROOT
+		clear_exiled_ruler = exiled_harimari_ruler_alternative_province_@ROOT
+		clear_exiled_ruler = exiled_gnollish_ruler_alternative_province_@ROOT
+		clear_exiled_ruler = exiled_ruinborn_ruler_alternative_province_@ROOT
+		clear_exiled_ruler = exiled_orcish_ruler_alternative_province_@ROOT
+		clear_exiled_ruler = exiled_goblin_ruler_alternative_province_@ROOT
+		clear_exiled_ruler = exiled_ogre_ruler_alternative_province_@ROOT
+		clear_exiled_ruler = exiled_centaur_ruler_alternative_province_@ROOT
+		clear_exiled_ruler = exiled_harpy_ruler_alternative_province_@ROOT
+		clear_exiled_ruler = exiled_troll_ruler_alternative_province_@ROOT
+		clear_exiled_ruler = exiled_half_orcish_ruler_alternative_province_@ROOT
+		clear_exiled_ruler = exiled_half_elven_ruler_alternative_province_@ROOT
+		clear_exiled_ruler = exiled_hobgoblin_ruler_alternative_province_@ROOT
+		clear_exiled_ruler = exiled_kobold_ruler_alternative_province_@ROOT
+	}
+}

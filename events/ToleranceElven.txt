@@ -1,0 +1,760 @@
+
+namespace = elven_tolerance_events
+
+# Event organizer for the elven tolerance events - should be a huge improvement to performance - having 1 overall check for having the minority instead of one for EACH new event that gets added
+country_event = {
+	id = elven_tolerance_events.0
+	title = race_setup_events.1.d
+	desc = race_setup_events.1.d
+	picture = BORDER_TENSION_eventPicture
+
+	hidden = yes
+	#is_triggered_only = yes
+
+	trigger = {
+		any_owned_province = {
+			has_any_elven_pop_trigger = yes
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 3650
+		modifier = {
+			factor = 0.75
+			has_country_modifier = racial_focus_elven
+		}
+		modifier = {
+			factor = 0.75
+			has_idea = tolerance_idea_2
+		}
+	}
+
+	option = {
+		random_list = {
+			1 = {
+				#do nothing
+				modifier = {
+					factor = 5
+					high_tolerance_elven_race_trigger = yes
+				}
+			}
+			# Elven advisor
+			1 = {
+				country_event = {
+					id = elven_tolerance_events.1
+				}
+			}
+			# Elven lord 
+			1 = {
+				modifier = {
+					factor = 0
+					NOT = {
+						any_owned_province = {
+							has_any_elven_pop_trigger = yes
+							NOT = { has_province_modifier = autonomous_elven_landholders }
+						}
+					}
+				}
+				country_event = {
+					id = elven_tolerance_events.2
+				}
+			}
+			# bandits
+			1 = {
+				modifier = {
+					factor = 1.5
+					low_tolerance_elven_race_trigger = yes
+				}
+				modifier = {
+					factor = 0
+					NOT = {
+						any_owned_province = {
+							NOT = { has_province_modifier = elven_bandits_punished }
+							NOT = { has_province_modifier = elven_bandits_run_free }
+							NOT = { has_province_modifier = elven_bandits_run_free_gov_support }
+							OR = {
+								has_terrain = woods
+								has_terrain = forest
+								has_terrain = ancient_forest
+								has_terrain = gladeway
+							}
+							has_elven_minority_trigger = yes
+						}						
+					}
+				}
+				country_event = {
+					id = elven_tolerance_events.3
+				}
+			}
+			# Elven Minister
+			1 = {
+				country_event = {
+					id = elven_tolerance_events.4
+				}
+			}
+		}
+	}
+}
+
+# Elven advisor
+country_event = {
+	id = elven_tolerance_events.1
+	title = elven_tolerance_events.1.t
+	desc = elven_tolerance_events.1.d
+	picture = ADVISOR_eventPicture
+	GOTO = elven_advisor_culture_province
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = { has_elven_minority_trigger = yes }
+				save_event_target_as = elven_advisor_culture_province
+				set_variable = {which = province_manpower value = 0}
+				export_to_variable = {which = province_manpower value = base_manpower}
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
+			}
+			random_owned_province = {
+				limit = { has_elven_majority_trigger = yes }
+				save_event_target_as = elven_advisor_culture_province
+				set_variable = {which = province_manpower value = 0}
+				export_to_variable = {which = province_manpower value = base_manpower}
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
+			}
+		}
+	}
+
+	# Recruit
+	option = {
+		name = elven_tolerance_events.1.a
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0.1
+				wants_to_decrease_tolerance_elven = yes
+			}
+		}
+		country_event = {	#long lived advisor
+			id = bertus_changes.1011
+		}
+		add_estate_loyalty = {
+			estate = estate_elven
+			loyalty = 10
+		}
+		event_target:elven_advisor_culture_province = {
+			get_treasury_from_provinces = {	#bertus mod
+				cash_per_dev = -5
+			}
+			get_prestige_from_provinces = {	#bertus mod
+				prestige_per_dev = -0.5
+			}
+		}
+		small_increase_of_elven_tolerance_effect = yes
+	}
+	# A true exemplar of the community!
+	option = {
+		name = elven_tolerance_events.1.b
+		ai_chance = {
+			factor = 50
+		}
+		small_increase_of_elven_tolerance_effect = yes
+		event_target:elven_advisor_culture_province = {
+			get_treasury_from_provinces = {	#bertus mod
+				cash_per_dev = -2
+			}
+		}
+	}
+	# So what?
+	option = {
+		name = elven_tolerance_events.1.c
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0.1
+				wants_to_increase_tolerance_elven = yes
+			}
+		}
+		small_decrease_of_elven_tolerance_effect = yes
+		event_target:elven_advisor_culture_province = {
+			get_prestige_from_provinces = {	#bertus mod
+				prestige_per_dev = 0.5
+			}
+		}
+	}
+
+	after = {
+	}
+}
+country_event = {
+	id = elven_tolerance_events.2
+	title = elven_tolerance_events.2.t
+	desc = elven_tolerance_events.2.d
+	picture = COURT_eventPicture
+	GOTO = elven_lords_province
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		any_owned_province = {
+			NOT = { has_province_modifier = elven_local_lords }
+			NOT = { has_province_modifier = elven_local_lords_punished }
+			has_any_elven_pop_trigger = yes
+		}
+	}
+	
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					NOT = { has_province_modifier = elven_local_lords }
+					NOT = { has_province_modifier = elven_local_lords_punished }
+					has_elven_minority_trigger = yes
+				}
+				save_event_target_as = elven_lords_province
+				set_variable = {which = province_manpower value = 0}
+				export_to_variable = {which = province_manpower value = base_manpower}
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
+			}
+			random_owned_province = {
+				limit = {
+					NOT = { has_province_modifier = elven_local_lords }
+					NOT = { has_province_modifier = elven_local_lords_punished }
+					has_elven_majority_trigger = yes
+				}
+				save_event_target_as = elven_lords_province
+				set_variable = {which = province_manpower value = 0}
+				export_to_variable = {which = province_manpower value = base_manpower}
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
+			}
+		}
+	}
+	
+	option = {		# A lord is a lord
+		name = elven_tolerance_events.2.a
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0.5
+				has_dlc = "The Cossacks"
+				has_estate = estate_nobles
+				NOT = {
+					estate_loyalty = {
+						estate = estate_nobles
+						loyalty = 40
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				wants_to_maintain_tolerance_elven = yes
+			}
+			modifier = {
+				factor = 0.1
+				wants_to_decrease_tolerance_elven = yes
+			}
+		}
+		reduce_legitimacy_small_effect = yes
+		small_increase_of_elven_tolerance_effect = yes
+		add_estate_loyalty = {
+			estate = estate_elven
+			loyalty = 10
+		}
+		event_target:elven_lords_province = {
+			area = {
+				limit = {
+					owned_by = ROOT
+					NOT = { has_province_modifier = elven_local_lords }
+					NOT = { has_province_modifier = elven_local_lords_punished }
+				}
+				add_province_modifier = {
+					name = elven_local_lords
+					duration = 3650
+				}
+				if = {
+					limit = {
+						owner = {high_tolerance_elven_race_trigger = yes}
+					}
+					add_unrest = 2
+					get_prestige_from_provinces = {	#bertus mod
+						prestige_per_dev = -0.2
+					}
+				}
+				else = {		
+					add_unrest = -1
+					get_prestige_from_provinces = {	#bertus mod
+						prestige_per_dev = 0.1
+					}
+				}
+			}
+		}
+	}
+	option = {		# Obviously these claims are fake
+		name = elven_tolerance_events.2.b
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0.8
+				legitimacy = 75
+			}
+		}
+		increase_legitimacy_small_effect = yes
+		add_estate_loyalty = {
+			estate = estate_elven
+			loyalty = -5
+		}
+		event_target:elven_lords_province = {
+			area = {
+				limit = {
+					owned_by = ROOT
+				}
+				add_unrest = 5
+			}
+		}
+	}
+	option = {		# Punish them for these lies
+		name = elven_tolerance_events.2.c
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 1.2
+				has_dlc = "The Cossacks"
+				has_estate = estate_nobles
+				NOT = {
+					estate_loyalty = {
+						estate = estate_nobles
+						loyalty = 40
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				wants_to_maintain_tolerance_elven = yes
+			}
+			modifier = {
+				factor = 0.1
+				wants_to_increase_tolerance_elven = yes
+			}
+		}
+		add_estate_loyalty = {
+			estate = estate_elven
+			loyalty = -10
+		}
+		small_decrease_of_elven_tolerance_effect = yes
+		event_target:elven_lords_province = {
+			area = {
+				limit = {
+					owned_by = ROOT
+					NOT = { has_province_modifier = elven_local_lords }
+					NOT = { has_province_modifier = elven_local_lords_punished }
+					has_any_elven_pop_trigger = yes
+				}
+				add_province_modifier = {
+					name = elven_local_lords_punished
+					duration = 3650
+				}
+			}
+		}
+	}
+	option = {		# Explain their duties to them
+		name = elven_tolerance_events.2.e
+		trigger = { ruler_has_personality = calm_personality }
+		highlight = yes
+		ai_chance = {
+			factor = 100
+		}
+		add_estate_loyalty = {
+			estate = estate_elven
+			loyalty = 5
+		}
+		custom_tooltip = elven_tolerance_events_2_e_tooltip
+	}
+	option = {		# These documents are fake!
+		name = elven_tolerance_events.2.f
+		trigger = {
+			OR = {
+				ruler_has_personality = embezzler_personality
+				ruler_has_personality = intricate_web_weaver_personality
+			}
+		}
+		highlight = yes
+		ai_chance = {
+			factor = 100
+			modifier = {
+				factor = 0.5
+				wants_to_maintain_tolerance_elven = yes
+			}
+			modifier = {
+				factor = 0.1
+				wants_to_increase_tolerance_elven = yes
+			}
+		}
+		custom_tooltip = elven_tolerance_events_2_f_tooltip
+		small_decrease_of_elven_tolerance_effect = yes
+		event_target:elven_lords_province = {
+			area = {
+				limit = {
+					owned_by = ROOT
+					NOT = { has_province_modifier = elven_local_lords }
+					NOT = { has_province_modifier = elven_local_lords_punished }
+					has_elven_minority_trigger = yes
+				}
+				add_unrest = -1
+				add_province_modifier = {
+					name = elven_local_lords_punished
+					duration = 1825
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = elven_tolerance_events.3
+	title = elven_tolerance_events.3.t
+	desc = elven_tolerance_events.3.d
+	picture = BORDER_TENSION_eventPicture
+	GOTO = elven_bandit_province
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = { culture_group = elven }
+		any_owned_province = {
+			NOT = { has_province_modifier = elven_bandits_punished }
+			NOT = { has_province_modifier = elven_bandits_run_free }
+			NOT = { has_province_modifier = elven_bandits_run_free_gov_support }
+			has_elven_minority_trigger = yes
+			OR = {
+				has_terrain = woods
+				has_terrain = forest
+				has_terrain = ancient_forest
+				has_terrain = gladeway
+			}
+		}
+	}
+	
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					NOT = { has_province_modifier = elven_bandits_punished }
+					NOT = { has_province_modifier = elven_bandits_run_free }
+					NOT = { has_province_modifier = elven_bandits_run_free_gov_support }
+					has_elven_minority_trigger = yes
+				}
+				save_event_target_as = elven_bandit_province
+				set_variable = {which = province_manpower value = 0}
+				export_to_variable = {which = province_manpower value = base_manpower}
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
+			}
+		}
+	}
+	
+	option = {		# This is an issue we can ignore
+		name = elven_tolerance_events.3.a
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0.8
+				NOT = { prestige = 0 }
+			}
+		}
+		event_target:elven_bandit_province = {
+			area = {
+				limit = {
+					owned_by = ROOT
+					NOT = { has_province_modifier = elven_bandits_punished }
+					NOT = { has_province_modifier = elven_bandits_run_free }
+					NOT = { has_province_modifier = elven_bandits_run_free_gov_support }
+					has_elven_minority_trigger = yes
+				}
+				add_province_modifier = {
+					name = elven_bandits_run_free
+					duration = 1825
+				}
+				get_prestige_from_provinces = {	#bertus mod
+					prestige_per_dev = -0.1
+				}
+			}
+		}
+	}
+	option = {	# We need to punish them!
+		name = elven_tolerance_events.3.b
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0.5
+				wants_to_maintain_tolerance_elven = yes
+			}
+			modifier = {
+				factor = 0.1
+				wants_to_increase_tolerance_elven = yes
+			}
+		}
+		add_estate_loyalty = {
+			estate = estate_elven
+			loyalty = -10
+		}
+		small_decrease_of_elven_tolerance_effect = yes
+		event_target:elven_bandit_province = {
+			area = {
+				limit = {
+					owned_by = ROOT
+					NOT = { has_province_modifier = elven_bandits_punished }
+					NOT = { has_province_modifier = elven_bandits_run_free }
+					NOT = { has_province_modifier = elven_bandits_run_free_gov_support }
+					has_elven_minority_trigger = yes
+				}
+				add_province_modifier = {
+					name = elven_bandits_punished
+					duration = 1825
+				}
+				get_manpower_from_provinces = {	#bertus mod
+					manpower_per_dev = -0.5
+				}
+			}
+		}
+	}
+	option = {		# Hire them to collect our taxes
+		name = elven_tolerance_events.3.c
+		trigger = {
+			NOT = { has_country_modifier = minority_bandits_run_free_gov_support_global }
+		}
+		highlight = yes
+		ai_chance = {
+			factor = 100
+			modifier = {
+				factor = 0.8
+				NOT = { prestige = 0 }
+			}
+		}
+		add_estate_loyalty = {
+			estate = estate_elven
+			loyalty = 10
+		}
+		add_country_modifier = {
+			name = minority_bandits_run_free_gov_support_global
+			duration = 1095
+		}
+		event_target:elven_bandit_province = {
+			area = {
+				limit = {
+					owned_by = ROOT
+				}
+				get_prestige_from_provinces = {	#bertus mod
+					prestige_per_dev = -0.5
+				}
+			}
+		}
+	}
+}
+country_event = {
+	id = elven_tolerance_events.4
+	title = elven_tolerance_events.4.t
+	desc = elven_tolerance_events.4.desc
+	picture = DEBATE_REPUBLICAN_eventPicture
+	GOTO = elven_wants_representation_province
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = { culture_group = elven }
+		any_owned_province = {
+			NOT = { has_province_modifier = elven_represenatives_prov }
+			NOT = { has_province_modifier = elven_not_given_represenatives_prov }
+			NOT = { local_autonomy = 50 }
+			has_elven_minority_trigger = yes
+		}
+	}
+	
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					NOT = { has_province_modifier = elven_represenatives_prov }
+					NOT = { has_province_modifier = elven_not_given_represenatives_prov }
+					NOT = { local_autonomy = 50 }
+					has_elven_minority_trigger = yes
+				}
+				save_event_target_as = elven_wants_representation_province
+				set_variable = {which = province_manpower value = 0}
+				export_to_variable = {which = province_manpower value = base_manpower}
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
+			}
+			random_owned_province = {
+				limit = {
+					NOT = { has_province_modifier = elven_represenatives_prov }
+					NOT = { has_province_modifier = elven_not_given_represenatives_prov }
+					NOT = { local_autonomy = 50 }
+					has_elven_minority_trigger = yes
+					is_in_capital_area = yes
+				}
+				save_event_target_as = elven_wants_representation_province
+				set_variable = {which = province_manpower value = 0}
+				export_to_variable = {which = province_manpower value = base_manpower}
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
+			}
+			random_owned_province = {
+				limit = {
+					NOT = { has_province_modifier = elven_represenatives_prov }
+					NOT = { has_province_modifier = elven_not_given_represenatives_prov }
+					NOT = { local_autonomy = 50 }
+					has_elven_minority_trigger = yes
+					is_in_capital_area = yes
+					development = 10
+				}
+				save_event_target_as = elven_wants_representation_province
+				set_variable = {which = province_manpower value = 0}
+				export_to_variable = {which = province_manpower value = base_manpower}
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
+			}
+			random_owned_province = {
+				limit = {
+					NOT = { has_province_modifier = elven_represenatives_prov }
+					NOT = { has_province_modifier = elven_not_given_represenatives_prov }
+					NOT = { local_autonomy = 50 }
+					has_elven_minority_trigger = yes
+					is_in_capital_area = yes
+					development = 20
+				}
+				save_event_target_as = elven_wants_representation_province
+				set_variable = {which = province_manpower value = 0}
+				export_to_variable = {which = province_manpower value = base_manpower}
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
+			}
+		}
+	}
+	
+	option = {		# Of course!
+		name = elven_tolerance_events.4.a
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0.5
+				wants_to_maintain_tolerance_elven = yes
+			}
+			modifier = {
+				factor = 0.1
+				wants_to_decrease_tolerance_elven = yes
+			}
+		}
+		#add_adm_power = -40	#-40→0
+		add_estate_loyalty = {
+			estate = estate_elven
+			loyalty = 10
+		}
+		small_increase_of_elven_tolerance_effect = yes
+		event_target:elven_wants_representation_province = {
+			area = {
+				limit = {
+					owned_by = ROOT
+					NOT = { has_province_modifier = elven_represenatives_prov }
+					NOT = { has_province_modifier = elven_not_given_represenatives_prov }
+					NOT = { local_autonomy = 50 }
+					has_elven_minority_trigger = yes
+				}
+				add_province_modifier = {
+					name = elven_represenatives_prov
+					duration = 1825
+				}
+				get_treasury_from_provinces = {	#bertus mod
+					cash_per_dev = -2
+				}
+			}
+		}
+	}
+	option = {		# Make some concessions
+		name = elven_tolerance_events.4.b
+		ai_chance = {
+			factor = 50
+		}
+		event_target:elven_wants_representation_province = {
+			area = {
+				limit = {
+					owned_by = ROOT
+					NOT = { has_province_modifier = elven_represenatives_prov }
+					NOT = { has_province_modifier = elven_not_given_represenatives_prov }
+					NOT = { local_autonomy = 50 }
+					has_elven_minority_trigger = yes
+				}
+				add_local_autonomy = 20	#2.5→20
+			}
+		}
+	}
+	option = {		# No. Haven't we given them enough?!
+		name = elven_tolerance_events.4.c
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0.5
+				wants_to_maintain_tolerance_elven = yes
+			}
+			modifier = {
+				factor = 0.1
+				wants_to_increase_tolerance_elven = yes
+			}
+		}
+		small_decrease_of_elven_tolerance_effect = yes
+		event_target:elven_wants_representation_province = {
+			area = {
+				limit = {
+					owned_by = ROOT
+					NOT = { has_province_modifier = elven_represenatives_prov }
+					NOT = { has_province_modifier = elven_not_given_represenatives_prov }
+					NOT = { local_autonomy = 50 }
+					has_elven_minority_trigger = yes
+				}
+				add_province_modifier = {
+					name = elven_not_given_represenatives_prov
+					duration = 1825
+				}
+				get_manpower_from_provinces = {	#bertus mod
+					manpower_per_dev = -0.5
+				}
+			}
+		}
+	}
+	option = {		# What an interesting idea
+		name = elven_tolerance_events.4.e
+		trigger = { ruler_has_personality = free_thinker_personality }
+		highlight = yes
+		ai_chance = {
+			factor = 100
+			modifier = {
+				factor = 0.5
+				wants_to_maintain_tolerance_elven = yes
+			}
+			modifier = {
+				factor = 0.1
+				wants_to_decrease_tolerance_elven = yes
+			}
+		}
+		medium_increase_of_elven_tolerance_effect = yes
+		event_target:elven_wants_representation_province = {
+			area = {
+				limit = {
+					owned_by = ROOT
+					NOT = { has_province_modifier = elven_represenatives_prov }
+					NOT = { has_province_modifier = elven_not_given_represenatives_prov }
+					NOT = { local_autonomy = 50 }
+					has_elven_minority_trigger = yes
+				}
+				add_local_autonomy = 5
+				add_province_modifier = {
+					name = elven_represenatives_prov
+					duration = 3650
+				}
+			}
+		}
+	}
+}

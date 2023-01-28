@@ -1,0 +1,885 @@
+
+#emperor_reichstag_collegia	#empty reform
+emperor_reichsreform = {
+	empire = hre
+	gui_container = mainline
+	ai_acceptance_decentralize = yes
+	
+	potential = {
+		has_dlc = "Emperor"
+	}
+	province = {
+		institution_growth = 1
+		local_institution_spread = 0.25
+	}
+	emperor = {
+		diplomats = 1
+		diplomatic_reputation = 1
+	}
+	all = {
+		diplomats = 1
+	}
+	on_effect = {
+		custom_tooltip = celebrate_space_tooltip
+		custom_tooltip = spacing_tooltip
+	}
+}
+
+emperor_landsknechtswesen = {
+	empire = hre
+	required_reform = emperor_reichsreform
+	gui_container = mainline
+	ai_acceptance_decentralize = yes
+	
+	potential = {
+		has_dlc = "Emperor"
+	}
+	emperor = {
+		mercenary_manpower = 0.15
+		merc_maintenance_modifier = -0.10
+	}
+	all = {
+		imperial_mercenary_cost = -0.2
+	}
+	on_effect = {
+		custom_tooltip = celebrate_space_tooltip
+		custom_tooltip = spacing_tooltip
+	}
+}
+
+emperor_reichsstabilitaet = {
+	empire = hre
+	required_reform = emperor_landsknechtswesen
+	gui_container = mainline
+	ai_acceptance_decentralize = yes
+
+	potential = {
+		has_dlc = "Emperor"
+	}
+	province = {
+		local_autonomy = -0.025
+		local_unrest = -1
+	}
+	emperor = {
+		monthly_reform_progress_modifier = 0.1
+		legitimacy = 0.5
+		stability_cost_modifier = -0.05
+	}
+	all = {
+		monthly_reform_progress_modifier = 0.1
+		legitimacy = 0.5
+		republican_tradition = 0.1
+		devotion = 0.2
+		stability_cost_modifier = -0.05
+	}
+	on_effect = {
+		custom_tooltip = celebrate_space_tooltip
+		custom_tooltip = spacing_tooltip
+	}
+}
+emperor_gemeinerpfennig = {
+	empire = hre
+	required_reform = emperor_reichsstabilitaet
+	gui_container = mainline
+	ai_acceptance_decentralize = yes
+	
+	potential = {
+		has_dlc = "Emperor"
+	}
+	
+	emperor_per_prince = {
+		global_tax_income = 6
+	}
+	member = {
+		global_tax_income = -6
+	}
+	all = {
+		interest = -0.25
+	}
+	province = {
+		local_tax_modifier = 0.10
+	}
+	on_effect = {
+		custom_tooltip = celebrate_space_tooltip
+		custom_tooltip = spacing_tooltip
+	}
+}
+emperor_workers_rights = {
+	empire = hre
+	required_reform = emperor_gemeinerpfennig
+	gui_container = mainline
+	ai_acceptance_decentralize = yes
+	
+	potential = {
+		has_dlc = "Emperor"
+	}
+	
+	province = {
+		local_build_cost = -0.05
+		local_production_efficiency = 0.05
+	}
+	emperor = {
+		production_efficiency = 0.1
+	}
+	on_effect = {
+		custom_tooltip = celebrate_space_tooltip
+		custom_tooltip = spacing_tooltip
+	}
+}
+
+emperor_reichsregiment = {
+	empire = hre
+	required_reform = emperor_workers_rights
+	gui_container = mainline
+	ai_acceptance_decentralize = yes
+
+	potential = {
+		has_dlc = "Emperor"
+	}
+	
+	emperor = {
+		yearly_absolutism = 0.5
+		max_absolutism = 5
+	}
+	all = {
+		yearly_absolutism = 0.5
+		max_absolutism = 5
+	}
+	province = {
+		local_governing_cost = -0.05
+	}
+	on_effect = {
+		custom_tooltip = celebrate_space_tooltip
+		custom_tooltip = spacing_tooltip
+	}
+}
+emperor_imperial_estates = {
+	empire = hre
+	required_reform = emperor_reichsregiment
+	gui_container = mainline
+	ai_acceptance_decentralize = yes
+	potential = {
+		has_dlc = "Emperor"
+	}	
+	emperor = {
+		advisor_cost = -0.05
+		all_estate_loyalty_equilibrium = 0.05
+		all_estate_influence_modifier  = 0.05
+	}
+	all = {
+		advisor_cost = -0.05
+		all_estate_loyalty_equilibrium = 0.05
+		all_estate_influence_modifier  = 0.05
+	}
+	on_effect = {
+		custom_tooltip = celebrate_space_tooltip
+		custom_tooltip = spacing_tooltip
+	}
+}
+emperor_landfriede = {
+	empire = hre
+	required_reform = emperor_imperial_estates
+	gui_container = mainline
+	ai_acceptance_decentralize = yes
+	
+	potential = {
+		has_dlc = "Emperor"
+	}
+
+	emperor = {
+		global_regiment_cost = -0.05	
+	}
+	emperor_per_prince = {
+		land_forcelimit = 2
+	}
+	member = {
+		land_forcelimit = -2
+	}
+	province = {
+		local_warscore_cost_modifier = 0.1
+		local_core_creation = 0.1
+	}
+	on_effect = {
+		custom_tooltip = celebrate_space_tooltip
+		custom_tooltip = spacing_tooltip
+	}
+}
+emperor_privilegia_de_non_appelando = {
+	empire = hre
+	required_reform = emperor_landfriede
+	gui_container = mainline
+	ai_acceptance_decentralize = yes
+
+	potential = {
+		has_dlc = "Emperor"
+	}
+
+	province = {
+		local_defender_dice_roll_bonus = 1
+	}
+	emperor = {
+		morale_damage_received = -0.05
+	}
+	all = {
+		morale_damage_received = -0.05
+	}
+	emperor_per_prince = {
+		global_manpower = 3
+	}
+	member = {
+		global_manpower = -3
+	}
+	on_effect = {
+		custom_tooltip = celebrate_space_tooltip
+		custom_tooltip = spacing_tooltip
+	}	
+}
+emperor_renovatio = {
+	empire = hre
+	required_reform = emperor_privilegia_de_non_appelando
+	gui_container = mainline
+	ai_acceptance_decentralize = yes
+	potential = {
+		has_dlc = "Emperor"
+	}
+	emperor = {
+		all_power_cost = -0.025
+	}
+	all = {
+		all_power_cost = -0.025
+	}	
+	on_effect = {
+		custom_tooltip = celebrate_space_tooltip
+		custom_tooltip = spacing_tooltip
+	}
+}
+emperor_perpetual_diet = {
+	empire = hre
+	required_reform = emperor_reichsreform
+	gui_container = mainline
+	ai_acceptance_decentralize = yes
+
+	potential = {
+		has_dlc = "Emperor"
+	}
+	on_effect = {
+		custom_tooltip = "PERPETUAL_DIET_ESTABLISHED"
+		hidden_effect = {	#its always gonna be Anbenncost 
+			if = {
+				limit = {
+					8 = { # Anbenncost
+						is_part_of_hre = yes
+					}
+				}
+				8 = {
+					province_event = {
+						id = hre_event.6
+					}
+					add_province_triggered_modifier = perpetual_diet
+				}
+			}
+			else = {
+				random_province = {
+					limit = {
+						is_part_of_hre = yes
+						is_capital = yes
+						OR = {
+							AND = {
+								has_dlc = "Art of War"
+								owner = { has_reform = free_city }
+							}
+							AND = {
+								owner = { is_elector = yes }
+								development = 20
+							}
+							development = 30
+						}
+					}
+					province_event = {
+						id = hre_event.6
+					}
+					add_province_triggered_modifier = perpetual_diet
+				}
+			}
+		}
+		custom_tooltip = celebrate_space_tooltip
+		custom_tooltip = spacing_tooltip
+	}
+	off_effect = {
+		every_province = {
+			remove_province_triggered_modifier = perpetual_diet
+		}
+	}
+}
+emperor_reichskrieg = {
+	empire = hre
+	required_reform = emperor_perpetual_diet
+	gui_container = mainline
+	ai_acceptance_decentralize = yes
+
+	potential = {
+		has_dlc = "Emperor"
+	}
+
+	###############################
+	on_effect = {
+		hidden_effect = {
+			emperor = {
+				country_event = {
+					id = bertus_changes.6028
+					days = 1
+				}
+			}
+		}
+		custom_tooltip = emperor_reichskrieg_tooltip
+		imperial_ban_allowed = yes
+		custom_tooltip = "EXPAND_EMPIRE_CB"
+		enable_imperial_realm_war = yes
+		custom_tooltip = REICHSKRIEG_DEFENSE_OF_REALM_MODIFIER
+		set_global_flag = flag_reform_hre_1
+		custom_tooltip = get_20_imperial_authority_tooltip
+		custom_tooltip = celebrate_space_tooltip
+		custom_tooltip = spacing_tooltip
+	}
+	off_effect = {
+		imperial_ban_allowed = no
+		enable_imperial_realm_war = no
+		clr_global_flag = flag_reform_hre_1
+		custom_tooltip = celebrate_space_tooltip
+		custom_tooltip = spacing_tooltip
+	}	
+}
+imperial_cities = {
+	empire = hre
+	required_reform = emperor_perpetual_diet
+	gui_container = mainline
+	ai_acceptance_decentralize = yes
+
+	potential = {
+		has_dlc = "Emperor"
+	}
+
+	emperor = {
+		max_free_cities = 5
+		free_city_imperial_authority = 0.5
+	}
+	
+	on_effect = {
+		custom_tooltip = imperial_cities_tooltip
+		set_global_flag = flag_reform_hre_2
+		custom_tooltip = celebrate_space_tooltip
+		custom_tooltip = spacing_tooltip
+	}
+	off_effect = {
+		clr_global_flag = flag_reform_hre_2
+	}
+
+}
+emperors_legitimacy = {
+
+	empire = hre
+	required_reform = emperor_perpetual_diet
+	gui_container = mainline
+	ai_acceptance_decentralize = yes
+	#disables_hre_badboy_points = yes
+
+	potential = {
+		has_dlc = "Emperor"
+	}
+	
+	emperor = {		
+	}
+	
+	on_effect = {
+		hidden_effect = {
+			emperor = {
+				country_event = {
+					id = bertus_changes.6028
+					days = 1
+				}
+			}
+		}
+		custom_tooltip = tooltip_emperors_legitimacy	
+		custom_tooltip = get_20_imperial_authority_tooltip
+		set_global_flag = flag_reform_hre_3
+		custom_tooltip = celebrate_space_tooltip
+		custom_tooltip = spacing_tooltip
+	}
+	off_effect = {
+		clr_global_flag = flag_reform_hre_3
+	}
+	
+}
+emperor_regional_centralization = {
+	empire = hre
+	required_reform = emperor_perpetual_diet
+	gui_container = mainline
+	ai_acceptance_decentralize = yes
+	potential = {
+		has_dlc = "Emperor"
+	}
+		
+	on_effect = {
+		hidden_effect = {
+			emperor = {
+				country_event = {
+					id = bertus_changes.6028
+					days = 1
+				}
+			}
+		}
+		custom_tooltip = tooltip_unlocks_regional_reforms	
+		custom_tooltip = get_20_imperial_authority_tooltip
+		set_global_flag = flag_reform_hre_4
+		custom_tooltip = celebrate_space_tooltip
+		custom_tooltip = spacing_tooltip
+	}
+	off_effect = {
+		clr_global_flag = flag_reform_hre_4
+	}
+	
+}
+emperor_hofgericht = { 
+	empire = hre
+	required_reform = emperor_perpetual_diet
+	gui_container = mainline
+	ai_acceptance_decentralize = yes
+	potential = {
+		has_dlc = "Emperor"
+	}
+	emperor = {
+		imperial_authority = 0.25
+	}
+	
+	on_effect = {
+		custom_tooltip = get_20_imperial_authority_tooltip
+		hidden_effect = {
+			emperor = {
+				country_event = {
+					id = bertus_changes.6028
+					days = 1
+				}
+			}
+		}
+		custom_tooltip = celebrate_space_tooltip
+		custom_tooltip = spacing_tooltip
+		set_global_flag = flag_reform_hre_5
+	}
+	off_effect = {
+		clr_global_flag = flag_reform_hre_5
+	}
+	
+}
+
+emperor_imperial_estates1 = {
+	empire = hre
+	gui_container = mainline
+	potential = {
+		always = no
+	}
+}
+
+emperor_imperial_estates2 = {
+	empire = hre
+	gui_container = mainline
+	potential = {
+		always = no
+	}
+}
+
+emperor_imperial_estates3 = {
+	empire = hre
+	gui_container = mainline
+	potential = {
+		always = no
+	}
+}
+
+
+emperor_erbkaisertum = {
+	empire = hre
+	gui_container = mainline
+	required_reform = emperor_perpetual_diet 
+	ai_acceptance_decentralize = yes
+	
+	potential = {
+		has_dlc = "Emperor"
+	}
+	
+	on_effect = {
+		custom_tooltip = celebrate_space_tooltip
+		if = {
+			limit = {
+				has_global_flag = flag_reform_hre_1
+				has_global_flag = flag_reform_hre_2
+				has_global_flag = flag_reform_hre_3
+				has_global_flag = flag_reform_hre_4
+				has_global_flag = flag_reform_hre_5
+			}
+			
+			if = {
+				limit = {
+					hre_religion_locked = no
+					hre_religion_treaty = no
+				}
+				set_hre_religion_treaty = yes
+			}
+			
+			hre_inheritable = yes
+		}
+		else = {
+			custom_tooltip = tooltip_si_tomas_esta_reforma_sos_monkey		
+		}
+		custom_tooltip = celebrate_space_tooltip
+		custom_tooltip = spacing_tooltip
+	}
+	off_effect = {
+		hre_inheritable = no
+		clr_country_flag = usurp_emperorship_hereditary_flag	#Anbennar - long lived emperor stuffs
+	}
+}
+
+imperial_colleges = {
+	empire = hre
+	required_reform = emperor_perpetual_diet
+	gui_container = left_branch
+	ai_acceptance_decentralize = yes
+
+	potential = {
+		has_dlc = "Emperor"
+	}
+	all = {
+		idea_cost = -0.05
+	}
+	on_effect = {
+		custom_tooltip = get_20_imperial_authority_tooltip
+		hidden_effect = {
+			emperor = {
+				country_event = {
+					id = bertus_changes.6028
+					days = 1
+				}
+			}
+		}
+		custom_tooltip = celebrate_space_tooltip
+		set_imperial_incident = incident_imperial_colleges
+		custom_tooltip = tooltip_option_alpha
+		custom_tooltip = tooltip_parliamentary_colleges_hre
+		custom_tooltip = tooltip_option_beta
+		custom_tooltip = tooltip_emperor_college_hre
+		tooltip = {			
+			every_province = {
+				limit = {
+					is_part_of_hre = yes
+					NOT = {
+						OR = {
+							culture_is_human = yes
+							culture_is_elven = yes
+							culture_is_dwarven= yes
+							culture_is_halfling= yes
+							culture_is_gnomish = yes
+							culture_is_half_elven = yes
+							culture_is_harimari = yes
+						}
+					}
+				}
+				set_in_empire = no
+			}
+		}
+		custom_tooltip = celebrate_space_tooltip
+		custom_tooltip = spacing_tooltip
+	}
+
+	off_effect = {
+		clr_global_flag = parliamentary_colleges_hre_flag
+		clr_global_flag = emperor_college_hre_flag
+	}
+}
+imperial_call = {
+	empire = hre
+	required_reform = emperor_perpetual_diet
+	gui_container = left_branch
+	ai_acceptance_decentralize = yes
+	potential = {
+		has_dlc = "Emperor"
+	}
+	all = {
+		morale_damage = 0.05
+		manpower_against_imperial_enemies = 25
+	}
+	on_effect = {
+		custom_tooltip = get_20_imperial_authority_tooltip
+		hidden_effect = {
+			emperor = {
+				country_event = {
+					id = bertus_changes.6028
+					days = 1
+				}
+			}
+		}
+		custom_tooltip = celebrate_space_tooltip
+		set_imperial_incident = incident_imperial_call
+		custom_tooltip = tooltip_option_alpha
+		custom_tooltip = tooltip_call_to_reaction_hre
+		custom_tooltip = tooltip_option_beta
+		custom_tooltip = tooltip_call_to_action_hre
+		custom_tooltip = celebrate_space_tooltip
+		custom_tooltip = spacing_tooltip
+	}
+	off_effect = {
+		clr_global_flag = call_to_reaction_hre_flag
+		clr_global_flag = call_to_action_hre_flag
+	}
+}
+eralas_reform = {
+	empire = hre
+	required_reform = emperor_perpetual_diet
+	gui_container = left_branch
+	ai_acceptance_decentralize = yes
+
+	potential = {
+		has_dlc = "Emperor"
+	}
+	all = {
+		monthly_splendor = 1
+	}
+	on_effect = {
+		custom_tooltip = get_20_imperial_authority_tooltip
+		hidden_effect = {
+			emperor = {
+				country_event = {
+					id = bertus_changes.6028
+					days = 1
+				}
+			}
+		}
+		custom_tooltip = celebrate_space_tooltip
+		set_imperial_incident = incident_eralas_reform
+		custom_tooltip = tooltip_option_alpha
+		custom_tooltip = tooltip_federal_dominance_hre
+		custom_tooltip = tooltip_option_beta
+		custom_tooltip = tooltip_imperial_dominance_hre
+		custom_tooltip = celebrate_space_tooltip
+		custom_tooltip = spacing_tooltip
+	}
+	off_effect = {
+		clr_global_flag = federal_dominance_hre_flag
+		clr_global_flag = imperial_dominance_hre_flag
+	}
+}
+imperial_authority_reform = {
+	empire = hre
+	required_reform =  emperor_perpetual_diet
+	gui_container = left_branch
+	ai_acceptance_decentralize = yes
+	
+	potential = {
+		has_dlc = "Emperor"
+	}
+	all = {
+		yearly_corruption = -0.1
+	}
+	on_effect = {
+		custom_tooltip = get_20_imperial_authority_tooltip
+		hidden_effect = {
+			emperor = {
+				country_event = {
+					id = bertus_changes.6028
+					days = 1
+				}
+			}
+		}
+		custom_tooltip = celebrate_space_tooltip
+		set_imperial_incident = incident_imperial_authority_reform
+		custom_tooltip = tooltip_option_alpha
+		custom_tooltip = tooltip_shared_authority_hre
+		custom_tooltip = tooltip_option_beta
+		custom_tooltip = tooltip_emperors_will_hre
+		custom_tooltip = celebrate_space_tooltip
+		custom_tooltip = spacing_tooltip
+	}
+	off_effect = {
+		clr_global_flag = federal_shared_authority_hre_flag
+		clr_global_flag = emperors_will_hre_flag
+	}
+}
+market_reform = {
+	empire = hre
+	required_reform =  emperor_perpetual_diet
+	gui_container = left_branch
+	ai_acceptance_decentralize = yes
+
+	potential = {
+		has_dlc = "Emperor"
+	}
+	province = {
+		trade_value_modifier = 0.05
+	}
+	on_effect = {
+		custom_tooltip = get_20_imperial_authority_tooltip
+		hidden_effect = {
+			emperor = {
+				country_event = {
+					id = bertus_changes.6028
+					days = 1
+				}
+			}
+		}
+		custom_tooltip = celebrate_space_tooltip
+		set_imperial_incident = incident_market_reform
+		custom_tooltip = tooltip_option_alpha
+		custom_tooltip = tooltip_open_market_hre
+		custom_tooltip = tooltip_option_beta
+		custom_tooltip = tooltip_closed_market_hre
+		custom_tooltip = celebrate_space_tooltip
+		custom_tooltip = spacing_tooltip
+	}
+	off_effect = {
+		clr_global_flag = open_market_hre_flag
+		clr_global_flag = closed_market_hre_flag
+	}
+}
+religious_reform = {
+	empire = hre
+	required_reform =  emperor_perpetual_diet
+	gui_container = left_branch
+	ai_acceptance_decentralize = yes
+
+	potential = {
+		has_dlc = "Emperor"
+	}
+	all = {
+		religious_unity = 0.1
+	}	
+	on_effect = {
+		custom_tooltip = get_20_imperial_authority_tooltip
+		hidden_effect = {
+			emperor = {
+				country_event = {
+					id = bertus_changes.6028
+					days = 1
+				}
+			}
+		}
+		set_imperial_incident = incident_religious_reform
+		custom_tooltip = tooltip_option_alpha
+		custom_tooltip = tooltip_religious_tolerance_hre
+		custom_tooltip = tooltip_option_beta
+		custom_tooltip = tooltip_imperial_faith_hre
+		custom_tooltip = celebrate_space_tooltip
+		custom_tooltip = spacing_tooltip
+	}
+	off_effect = {
+		clr_global_flag = religious_tolerance_hre_flag
+		clr_global_flag = imperial_faith_hre_flag
+	}
+}
+weddings_reform = {
+	empire = hre
+	required_reform =  emperor_perpetual_diet
+	gui_container = left_branch
+	ai_acceptance_decentralize = yes
+
+	potential = {
+		has_dlc = "Emperor"
+	}
+	province = {
+		local_development_cost_modifier = -0.05
+	}
+	on_effect = {
+		custom_tooltip = get_20_imperial_authority_tooltip
+		hidden_effect = {
+			emperor = {
+				country_event = {
+					id = bertus_changes.6028
+					days = 1
+				}
+			}
+		}
+		custom_tooltip = celebrate_space_tooltip
+		set_imperial_incident = incident_weddings_reform
+		custom_tooltip = tooltip_option_alpha
+		custom_tooltip = tooltip_xenophile_weddings_hre
+		custom_tooltip = tooltip_option_beta
+		custom_tooltip = tooltip_xenophobe_weddings_hre
+		custom_tooltip = celebrate_space_tooltip
+		custom_tooltip = spacing_tooltip
+	}
+	off_effect = {
+		clr_global_flag = xenophile_weddings_hre_flag
+		clr_global_flag = xenophobe_weddings_hre_flag
+	}
+}
+resource_reform = {
+	empire = hre
+	required_reform =  emperor_perpetual_diet
+	gui_container = left_branch
+	ai_acceptance_decentralize = yes
+
+	potential = {
+		has_dlc = "Emperor"
+	}
+	all = {
+		build_time = -0.10
+		great_project_upgrade_cost = -0.10
+	}
+	on_effect = {
+		custom_tooltip = get_20_imperial_authority_tooltip
+		hidden_effect = {
+			emperor = {
+				country_event = {
+					id = bertus_changes.6028
+					days = 1
+				}
+			}
+		}
+		set_imperial_incident = incident_resource_reform
+		custom_tooltip = tooltip_option_alpha
+		custom_tooltip = tooltip_agriculture_reform_hre
+		custom_tooltip = tooltip_option_beta
+		custom_tooltip = tooltip_minery_reform_hre
+		custom_tooltip = celebrate_space_tooltip
+		custom_tooltip = spacing_tooltip
+	}
+	off_effect = {
+		clr_global_flag = agriculture_reform_hre_flag
+		clr_global_flag = minery_reform_hre_flag
+	}
+}
+high_ministery_reform = {
+	empire = hre
+	required_reform =  emperor_perpetual_diet
+	gui_container = left_branch
+	ai_acceptance_decentralize = yes
+
+	potential = {
+		has_dlc = "Emperor"
+	}
+	all = {
+		prestige = 0.25
+	}
+	on_effect = {
+		custom_tooltip = get_20_imperial_authority_tooltip
+		hidden_effect = {
+			emperor = {
+				country_event = {
+					id = bertus_changes.6028
+					days = 1
+				}
+			}
+		}
+		set_imperial_incident = incident_high_ministery_reform
+		custom_tooltip = tooltip_option_alpha
+		custom_tooltip = tooltip_high_artificer_hre
+		custom_tooltip = tooltip_option_beta
+		custom_tooltip = tooltip_high_mage_hre
+		custom_tooltip = celebrate_space_tooltip
+		custom_tooltip = spacing_tooltip
+	}
+	off_effect = {
+		clr_global_flag = high_artificer_hre_flag
+		clr_global_flag = high_mage_hre_flag
+	}
+}
+
+#Socorro Bertus me tiene esclavizado trabajando en su mod, dejo este mensaje escondido para que algun valiente venga a mi rescate.

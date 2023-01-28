@@ -1,0 +1,235 @@
+
+namespace = flavor_marrhold
+
+# Gryf the Young #
+# Revenge
+country_event = {
+	id = flavor_marrhold.1
+	title = flavor_marrhold.1.t
+	desc = flavor_marrhold.1.d
+	picture = MILITARY_CAMP_eventPicture
+	
+	#is_triggered_only = yes	#bertus mod
+	trigger = {	#bertus mod
+		#always = yes
+		has_country_flag = marrhold_revenge_flag
+		NOT = {has_country_modifier = marrhold_revenge_modifier}		
+		any_neighbor_country = {
+			war_with = ROOT
+			OR = {
+				culture_group = orcish
+				culture_group = goblin
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		months = 120
+		modifier = {
+			factor = 0.8
+			has_estate_privilege = estate_human_intolerance_policy
+		}
+		modifier = {
+			factor = 0.8
+			has_estate_privilege = estate_orcish_purge
+		}
+		modifier = {
+			factor = 0.8
+			has_estate_privilege = estate_goblin_purge
+		}
+	}
+
+	option = {	# This is for Seovol
+		name = flavor_marrhold.1.a
+		add_prestige = 5
+		add_country_modifier = {	#bertus mod
+			name = marrhold_revenge_modifier
+			duration = 1825
+		}
+	}
+}
+# Justice
+country_event = {
+	id = flavor_marrhold.2
+	title = flavor_marrhold.2.t
+	desc = flavor_marrhold.2.d
+	picture = REFORM_eventPicture
+	
+	is_triggered_only = yes
+	trigger = {	#bertus mod
+		#always = yes
+		has_country_flag = marrhold_justice_flag
+		FROM = {
+			fort_level = 1
+			is_capital = yes
+			owner = {
+				culture_group = orcish
+				culture_group = goblin
+			}
+			OR = {
+				NOT = { has_province_flag = was_magdeburgerized }
+				had_province_flag = { flag = was_magdeburgerized days = 7300 } #20 Years CD
+			}
+		}
+	}
+
+	immediate = {
+		hidden_effect = {
+			remove_country_modifier = marrhold_justice_modifier
+			FROM = {
+				clr_province_flag = was_magdeburgerized
+				set_province_flag = was_magdeburgerized
+			}
+		}
+	}
+	option = {	# Peace, at last?
+		name = flavor_marrhold.2.a
+		add_mil_power = 50
+		add_loot_from_province_effect = yes
+		add_country_modifier = {	#bertus mod
+			name = marrhold_justice_modifier
+			duration = 3650
+		}
+		FROM = {
+			tooltip = {culture_conversion_dev_reduction = yes}
+			hidden_effect = {
+				province_event = {
+					id = flavor_marrhold.5
+				}
+			}
+		}
+		every_country = {
+			limit = {
+				culture_group = FROM
+			}
+			add_opinion = {
+				who = ROOT
+				modifier = sack_of_x
+			}
+		}
+	}
+}
+# Rebirth
+country_event = {
+	id = flavor_marrhold.3
+	title = flavor_marrhold.3.t
+	desc = flavor_marrhold.3.d
+	picture = NEW_HEIR_eventPicture
+	
+	#is_triggered_only = yes	#bertus mod
+	trigger = {	#bertus mod	
+		#always = yes
+		government_rank = 3
+		heir_has_ruler_dynasty = yes
+		heir_age = 12
+		is_heir_leader = no
+		heir_mil = 4
+		has_country_flag = rebirth_flag
+	}
+	
+	mean_time_to_happen = {
+		months = 120
+		modifier = {
+			factor = 0.8
+			has_estate_privilege = estate_human_intolerance_policy
+		}
+		modifier = {
+			factor = 0.8
+			has_estate_privilege = estate_orcish_purge
+		}
+		modifier = {
+			factor = 0.8
+			has_estate_privilege = estate_goblin_purge
+		}
+		modifier = {
+			factor = 0.5
+			any_country = {
+				war_with = ROOT
+				OR = {
+					culture_group = orcish
+					culture_group = goblin
+				}
+			}
+		}
+	}
+
+	option = {	# A new generation
+		name = flavor_marrhold.3.a
+		add_prestige = 10	#15→10
+		increase_heir_dip_effect = yes
+		increase_heir_mil_effect = yes
+		add_heir_claim = 10
+		define_heir_to_general = {	#bertus mod	
+			fire = 4
+			shock = 6
+			manuever = 6
+			siege = 3
+			trait = griffon_emperor_personality
+		}
+	}
+}
+# Remembrance
+country_event = {
+	id = flavor_marrhold.4
+	title = flavor_marrhold.4.t
+	desc = flavor_marrhold.4.d
+	picture = ARTWORK_eventPicture
+	
+	is_triggered_only = yes
+	trigger = {
+		always = yes
+	}
+# Never forgetti
+	option = {
+		name = flavor_marrhold.4.a
+		add_stability_or_adm_power = yes
+		add_prestige = 25
+	}
+}
+province_event = {
+	id = flavor_marrhold.5
+	title = flavor_marrhold.5.t
+	desc = flavor_marrhold.5.d
+	picture = NEW_HEIR_eventPicture
+	
+	is_triggered_only = yes
+	trigger = {
+		always = yes
+	}
+	option = {
+		name = flavor_marrhold.5.a
+		culture_conversion_dev_reduction = yes
+		owner = {
+			add_country_modifier = {
+				name = dookan_reconnected_with_past_lives
+				duration = 730
+			}
+			if = {
+				limit = {full_idea_group = generalstab0}
+				get_dookan_general_ideas = yes
+			}
+			else = {get_dookan_general = yes}
+		}
+	}
+}
+province_event = {	#bolean for mission
+	id = flavor_marrhold.6
+	title = flavor_marrhold.6.t
+	desc = flavor_marrhold.6.d
+	picture = NEW_HEIR_eventPicture
+	
+	hidden = yes
+	is_triggered_only = yes
+	trigger = {
+		always = yes
+	}
+	option = {
+		name = flavor_marrhold.6.a
+		controller = {		
+			country_event = {
+				id = flavor_marrhold.2
+				days = 1
+			}
+		}
+	}
+}

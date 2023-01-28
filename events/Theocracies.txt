@@ -1,0 +1,1542 @@
+
+########################################
+# Events for Theocracy
+#
+# written by Johan Andersson
+########################################
+
+# Anbennar Changes
+# added NOT = { has_adventurer_reform = yes } to theocracy.1, adventurer ver in Adventurers.txt
+
+namespace = theocracy
+
+country_event = {
+	id = theocracy.1
+	title = theocracy.1.t
+	desc = theocracy.1.desc
+	# desc = {
+	#	desc = theocracy.1.desc.KOL_secondogeniture_of_BAV
+	#	trigger = {
+	#		potato
+	#	}
+	# }
+	picture = RELIGION_eventPicture
+
+	is_triggered_only = yes
+
+	trigger = {
+		NOT = { has_reform = papacy_reform }
+		NOT = { has_country_flag = in_theocracy_heir_selection }
+		NOT = { has_country_flag = is_selecting_stat_bonus_for_heir }
+		has_government_attribute = heir
+
+		# Anbennar
+		NOT = { has_adventurer_reform = yes }
+		NOT = { has_reform = magocracy_reform }
+		NOT = { has_reform = magisterium_reform }
+		NOT = { has_reform = verkal_ozovar_magocracy }
+		NOT = { has_reform = tehanek_magocracy_reform }
+		NOT = { 
+			OR = {
+				has_reform = wulin
+				has_reform = xiaken
+				has_reform = indep_xiaken
+				has_reform = one_xia
+			}
+		}
+		NOT = { has_reform = tagharoghi_reform }
+		NOT = { has_estate = estate_acolytes }	#they have their own evil thing
+		NOT = { has_reform = kar_ankash_theocracy_reform }	#They select heirs through shatteredcrown.44
+		NOT = { has_reform = balrijin_sage_council_reform }	#They select heirs through flavour_balrijin.30
+		OR = { #They select heirs through theocracy.2
+			NOT = { has_reform = oracular_order_reform }
+			NOT = { has_country_flag = has_caste_estates }
+		}
+		NOT = { has_country_flag = lich_ruler_has_phylactery }
+	}
+
+	immediate = {
+		hidden_effect = {
+			set_country_flag = in_theocracy_heir_selection
+			
+			clr_country_flag = theo_local_noble_flag
+			clr_country_flag = theo_foreign_noble_flag
+			clr_country_flag = theo_merchants_son_flag
+			clr_country_flag = theo_talented_theologian_flag
+			clr_country_flag = theo_local_preacher_flag
+			clr_country_flag = theo_papal_protege_flag
+			clr_country_flag = theo_imam_khatib_flag
+			clr_country_flag = theo_influential_reformer_flag
+			random_list = {
+				1 = {	#Local Human,etc:
+					trigger = {
+						has_estate = estate_human
+						high_tolerance_human_race_trigger = yes
+						any_owned_province = {
+							is_capital = no
+							is_state = yes
+						}
+					}
+					random_owned_province = {
+						limit = { 
+							is_capital = no
+							is_state = yes
+						}
+						save_event_target_as = human_province
+					}
+				}
+				1 = {	#Local elven,etc:
+					trigger = {
+						has_estate = estate_elven
+						high_tolerance_elven_race_trigger = yes
+						any_owned_province = {
+							is_capital = no
+							is_state = yes
+						}
+					}
+					random_owned_province = {
+						limit = { 
+							is_capital = no
+							is_state = yes
+						}
+						save_event_target_as = elven_province
+					}
+				}
+				1 = {	#Local dwarven,etc:
+					trigger = {
+						has_estate = estate_dwarven
+						high_tolerance_dwarven_race_trigger = yes
+						any_owned_province = {
+							is_capital = no
+							is_state = yes
+						}
+					}
+					random_owned_province = {
+						limit = { 
+							is_capital = no
+							is_state = yes
+						}
+						save_event_target_as = dwarven_province
+					}
+				}
+				1 = {	#Local halfling,etc:
+					trigger = {
+						has_estate = estate_halfling
+						high_tolerance_halfling_race_trigger = yes
+						any_owned_province = {
+							is_capital = no
+							is_state = yes
+						}
+					}
+					random_owned_province = {
+						limit = { 
+							is_capital = no
+							is_state = yes
+						}
+						save_event_target_as = halfling_province
+					}
+				}
+				1 = {	#Local gnomish,etc:
+					trigger = {
+						has_estate = estate_gnomish
+						high_tolerance_gnomish_race_trigger = yes
+						any_owned_province = {
+							is_capital = no
+							is_state = yes
+						}
+					}
+					random_owned_province = {
+						limit = { 
+							is_capital = no
+							is_state = yes
+						}
+						save_event_target_as = gnomish_province
+					}
+				}
+				1 = {	#Local harimari,etc:
+					trigger = {
+						has_estate = estate_harimari
+						high_tolerance_harimari_race_trigger = yes
+						any_owned_province = {
+							is_capital = no
+							is_state = yes
+						}
+					}
+					random_owned_province = {
+						limit = { 
+							is_capital = no
+							is_state = yes
+						}
+						save_event_target_as = harimari_province
+					}
+				}
+				1 = {	#Local gnollish,etc:
+					trigger = {
+						has_estate = estate_gnollish
+						high_tolerance_gnollish_race_trigger = yes
+						any_owned_province = {
+							is_capital = no
+							is_state = yes
+						}
+					}
+					random_owned_province = {
+						limit = { 
+							is_capital = no
+							is_state = yes
+						}
+						save_event_target_as = gnollish_province
+					}
+				}
+				1 = {	#Local ruinborn,etc:
+					trigger = {
+						has_estate = estate_ruinborn
+						high_tolerance_ruinborn_race_trigger = yes
+						any_owned_province = {
+							is_capital = no
+							is_state = yes
+						}
+					}
+					random_owned_province = {
+						limit = { 
+							is_capital = no
+							is_state = yes
+						}
+						save_event_target_as = ruinborn_province
+					}
+				}
+				1 = {	#Local orcish,etc:
+					trigger = {
+						has_estate = estate_orcish
+						high_tolerance_orcish_race_trigger = yes
+						any_owned_province = {
+							is_capital = no
+							is_state = yes
+						}
+					}
+					random_owned_province = {
+						limit = { 
+							is_capital = no
+							is_state = yes
+						}
+						save_event_target_as = orcish_province
+					}
+				}
+				1 = {	#Local goblin,etc:
+					trigger = {
+						has_estate = estate_goblin
+						high_tolerance_goblin_race_trigger = yes
+						any_owned_province = {
+							is_capital = no
+							is_state = yes
+						}
+					}
+					random_owned_province = {
+						limit = { 
+							is_capital = no
+							is_state = yes
+						}
+						save_event_target_as = goblin_province
+					}
+				}
+				1 = {	#Local ogre,etc:
+					trigger = {
+						has_estate = estate_ogre
+						high_tolerance_ogre_race_trigger = yes
+						any_owned_province = {
+							is_capital = no
+							is_state = yes
+						}
+					}
+					random_owned_province = {
+						limit = { 
+							is_capital = no
+							is_state = yes
+						}
+						save_event_target_as = ogre_province
+					}
+				}
+				1 = {	#Local centaur,etc:
+					trigger = {
+						has_estate = estate_centaur
+						high_tolerance_centaur_race_trigger = yes
+						any_owned_province = {
+							is_capital = no
+							is_state = yes
+						}
+					}
+					random_owned_province = {
+						limit = { 
+							is_capital = no
+							is_state = yes
+						}
+						save_event_target_as = centaur_province
+					}
+				}
+				1 = {	#Local troll,etc:
+					trigger = {
+						has_estate = estate_troll
+						high_tolerance_troll_race_trigger = yes
+						any_owned_province = {
+							is_capital = no
+							is_state = yes
+						}
+					}
+					random_owned_province = {
+						limit = { 
+							is_capital = no
+							is_state = yes
+						}
+						save_event_target_as = troll_province
+					}
+				}
+				1 = {	#Local harpy,etc:
+					trigger = {
+						has_estate = estate_harpy
+						high_tolerance_harpy_race_trigger = yes
+						any_owned_province = {
+							is_capital = no
+							is_state = yes
+						}
+					}
+					random_owned_province = {
+						limit = { 
+							is_capital = no
+							is_state = yes
+						}
+						save_event_target_as = harpy_province
+					}
+				}
+				1 = {	#Local half orcish,etc:
+					trigger = {
+						has_estate = estate_half_orcish
+						high_tolerance_half_orcish_race_trigger = yes
+						any_owned_province = {
+							is_capital = no
+							is_state = yes
+						}
+					}
+					random_owned_province = {
+						limit = { 
+							is_capital = no
+							is_state = yes
+						}
+						save_event_target_as = half_orcish_province
+					}
+				}
+				1 = {	#Local half elven,etc:
+					trigger = {
+						has_estate = estate_half_elven
+						high_tolerance_half_elven_race_trigger = yes
+						any_owned_province = {
+							is_capital = no
+							is_state = yes
+						}
+					}
+					random_owned_province = {
+						limit = { 
+							is_capital = no
+							is_state = yes
+						}
+						save_event_target_as = half_elven_province
+					}
+				}
+				1 = {	#Local hobgoblin,etc:
+					trigger = {
+						has_estate = estate_hobgoblin
+						high_tolerance_hobgoblin_race_trigger = yes
+						any_owned_province = {
+							is_capital = no
+							is_state = yes
+						}
+					}
+					random_owned_province = {
+						limit = { 
+							is_capital = no
+							is_state = yes
+						}
+						save_event_target_as = hobgoblin_province
+					}
+				}
+				1 = {	#Local kobold,etc:
+					trigger = {
+						has_estate = estate_kobold
+						high_tolerance_kobold_race_trigger = yes
+						any_owned_province = {
+							is_capital = no
+							is_state = yes
+						}
+					}
+					random_owned_province = {
+						limit = { 
+							is_capital = no
+							is_state = yes
+						}
+						save_event_target_as = kobold_province
+					}
+				}
+			}
+			#Papal Protoge:
+			random_country = {
+				limit = {
+					tag = Z97 # Anbennar
+				}
+				save_event_target_as = papal_protoge_country
+			}		
+			
+			# Anbennar
+			random = {
+				chance = 50
+				set_country_flag = anb_female_heir
+			}
+		}
+	}
+	
+	# Anbennar 
+	after = {
+		clr_country_flag = anb_female_heir
+	}
+
+	option = {
+		name = theocracy.1.a		# A Local Noble
+		trigger = {
+			# NOT = { has_country_flag = KOL_secondogeniture_of_BAV }
+			# Anbennar
+			NOT = {
+				OR = {
+					has_country_modifier = elven_administration
+					has_country_modifier = gnomish_administration
+					has_country_modifier = dwarven_administration
+				}
+			}
+		}
+		set_country_flag = theo_local_noble_flag # USED IN DEVOTION.TXT
+		if = {
+			limit = {
+				OR = {
+					has_saved_event_target = human_province
+					has_saved_event_target = elven_province
+					has_saved_event_target = dwarven_province
+					has_saved_event_target = halfling_province
+					has_saved_event_target = gnomish_province
+					has_saved_event_target = harimari_province
+					has_saved_event_target = gnollish_province
+					has_saved_event_target = ruinborn_province
+					has_saved_event_target = orcish_province
+					has_saved_event_target = goblin_province
+					has_saved_event_target = ogre_province
+					has_saved_event_target = centaur_province
+					has_saved_event_target = troll_province
+					has_saved_event_target = harpy_province
+					has_saved_event_target = half_orcish_province
+					has_saved_event_target = half_elven_province
+					has_saved_event_target = hobgoblin_province
+					has_saved_event_target = kobold_province
+				}
+				NOT = {
+					OR = {
+						# Anbennar - Equal gender religions + rolled female heir
+						AND = {
+							OR = {
+								religion = corinite
+								religion = ravelian
+								religion = the_thought	#its secular, after all!
+								religion = elven_forebears
+								religion = regent_court
+							}
+							has_country_flag = anb_female_heir
+						}
+						# Anbennar - Female priests by culture or religion
+						culture_group = gnollish
+						culture_group = harpy
+					}
+				}
+			}
+			if = {
+				limit = {
+					has_government_attribute = can_see_theocratic_heir_stats
+				}				
+				trigger_switch = {
+					on_trigger = has_saved_event_target
+					human_province = {define_heir = {age = 35 culture = event_target:human_province hidden = yes}}
+					elven_province = {define_heir = { age = 35 culture = event_target:elven_province hidden = yes}}
+					dwarven_province = {define_heir = { age = 35 culture = event_target:dwarven_province hidden = yes}}
+					halfling_province = {define_heir = { age = 35 culture = event_target:halfling_province hidden = yes}}
+					gnomish_province = {define_heir = { age = 35 culture = event_target:gnomish_province hidden = yes}}
+					harimari_province = {define_heir = { age = 35 culture = event_target:harimari_province hidden = yes}}
+					gnollish_province = {define_heir = { age = 35 culture = event_target:gnollish_province hidden = yes}}
+					ruinborn_province = {define_heir = { age = 35 culture = event_target:ruinborn_province hidden = yes}}
+					orcish_province = {define_heir = { age = 35 culture = event_target:orcish_province hidden = yes}}
+					goblin_province = {define_heir = { age = 35 culture = event_target:goblin_province hidden = yes}}
+					ogre_province = {define_heir = { age = 35 culture = event_target:ogre_province hidden = yes}}
+					centaur_province = {define_heir = { age = 35 culture = event_target:centaur_province hidden = yes}}
+					troll_province = {define_heir = { age = 35 culture = event_target:troll_province hidden = yes}}
+					harpy_province = {define_heir = { age = 35 culture = event_target:harpy_province hidden = yes}}
+					half_orcish_province = {define_heir = { age = 35 culture = event_target:half_orcish_province hidden = yes}}
+					half_elven_province = {define_heir = { age = 35 culture = event_target:half_elven_province hidden = yes}}
+					hobgoblin_province = {define_heir = { age = 35 culture = event_target:hobgoblin_province hidden = yes}}
+					kobold_province = {define_heir = { age = 35 culture = event_target:kobold_province hidden = yes}}
+				}
+			}
+			else = {
+				trigger_switch = {
+					on_trigger = has_saved_event_target
+					human_province = {define_heir = {age = 35 culture = event_target:human_province}}
+					elven_province = {define_heir = { age = 35 culture = event_target:elven_province}}
+					dwarven_province = {define_heir = { age = 35 culture = event_target:dwarven_province}}
+					halfling_province = {define_heir = { age = 35 culture = event_target:halfling_province}}
+					gnomish_province = {define_heir = { age = 35 culture = event_target:gnomish_province}}
+					harimari_province = {define_heir = { age = 35 culture = event_target:harimari_province}}
+					gnollish_province = {define_heir = { age = 35 culture = event_target:gnollish_province}}
+					ruinborn_province = {define_heir = { age = 35 culture = event_target:ruinborn_province}}
+					orcish_province = {define_heir = { age = 35 culture = event_target:orcish_province}}
+					goblin_province = {define_heir = { age = 35 culture = event_target:goblin_province}}
+					ogre_province = {define_heir = { age = 35 culture = event_target:ogre_province}}
+					centaur_province = {define_heir = { age = 35 culture = event_target:centaur_province}}
+					troll_province = {define_heir = { age = 35 culture = event_target:troll_province}}
+					harpy_province = {define_heir = { age = 35 culture = event_target:harpy_province}}
+					half_orcish_province = {define_heir = { age = 35 culture = event_target:half_orcish_province}}
+					half_elven_province = {define_heir = { age = 35 culture = event_target:half_elven_province}}
+					hobgoblin_province = {define_heir = { age = 35 culture = event_target:hobgoblin_province}}
+					kobold_province = {define_heir = { age = 35 culture = event_target:kobold_province}}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				OR = {
+					has_saved_event_target = human_province
+					has_saved_event_target = elven_province
+					has_saved_event_target = dwarven_province
+					has_saved_event_target = halfling_province
+					has_saved_event_target = gnomish_province
+					has_saved_event_target = harimari_province
+					has_saved_event_target = gnollish_province
+					has_saved_event_target = ruinborn_province
+					has_saved_event_target = orcish_province
+					has_saved_event_target = goblin_province
+					has_saved_event_target = ogre_province
+					has_saved_event_target = centaur_province
+					has_saved_event_target = troll_province
+					has_saved_event_target = harpy_province
+					has_saved_event_target = half_orcish_province
+					has_saved_event_target = half_elven_province
+					has_saved_event_target = hobgoblin_province
+					has_saved_event_target = kobold_province
+				}
+				OR = {
+					# Anbennar - Equal gender religions + rolled female heir
+					AND = {
+						OR = {
+							religion = corinite
+							religion = ravelian
+							religion = the_thought	#its secular, after all!
+							religion = elven_forebears
+							religion = regent_court
+						}
+						has_country_flag = anb_female_heir
+					}
+					# Anbennar - Female priests by culture or religion
+					culture_group = gnollish
+					culture_group = harpy
+				}
+			}
+			if = {
+				limit = {
+					has_government_attribute = can_see_theocratic_heir_stats
+				}				
+				trigger_switch = {
+					on_trigger = has_saved_event_target
+					human_province = {define_heir = {age = 35 female = yes culture = event_target:human_province}}
+					elven_province = {define_heir = { age = 35 female = yes culture = event_target:elven_province}}
+					dwarven_province = {define_heir = { age = 35 female = yes culture = event_target:dwarven_province}}
+					halfling_province = {define_heir = { age = 35 female = yes culture = event_target:halfling_province}}
+					gnomish_province = {define_heir = { age = 35 female = yes culture = event_target:gnomish_province}}
+					harimari_province = {define_heir = { age = 35 female = yes culture = event_target:harimari_province}}
+					gnollish_province = {define_heir = { age = 35 female = yes culture = event_target:gnollish_province}}
+					ruinborn_province = {define_heir = { age = 35 female = yes culture = event_target:ruinborn_province}}
+					orcish_province = {define_heir = { age = 35 female = yes culture = event_target:orcish_province}}
+					goblin_province = {define_heir = { age = 35 female = yes culture = event_target:goblin_province}}
+					ogre_province = {define_heir = { age = 35 female = yes culture = event_target:ogre_province}}
+					centaur_province = {define_heir = { age = 35 female = yes culture = event_target:centaur_province}}
+					troll_province = {define_heir = { age = 35 female = yes culture = event_target:troll_province}}
+					harpy_province = {define_heir = { age = 35 female = yes culture = event_target:harpy_province}}
+					half_orcish_province = {define_heir = { age = 35 female = yes culture = event_target:half_orcish_province}}
+					half_elven_province = {define_heir = { age = 35 female = yes culture = event_target:half_elven_province}}
+					hobgoblin_province = {define_heir = { age = 35 female = yes culture = event_target:hobgoblin_province}}
+					kobold_province = {define_heir = { age = 35 female = yes culture = event_target:kobold_province}}
+				}
+			}
+			else = {
+				trigger_switch = {
+					on_trigger = has_saved_event_target
+					human_province = {define_heir = {age = 35 female = yes culture = event_target:human_province hidden = yes}}
+					elven_province = {define_heir = { age = 35 female = yes culture = event_target:elven_province hidden = yes}}
+					dwarven_province = {define_heir = { age = 35 female = yes culture = event_target:dwarven_province hidden = yes}}
+					halfling_province = {define_heir = { age = 35 female = yes culture = event_target:halfling_province hidden = yes}}
+					gnomish_province = {define_heir = { age = 35 female = yes culture = event_target:gnomish_province hidden = yes}}
+					harimari_province = {define_heir = { age = 35 female = yes culture = event_target:harimari_province hidden = yes}}
+					gnollish_province = {define_heir = { age = 35 female = yes culture = event_target:gnollish_province hidden = yes}}
+					ruinborn_province = {define_heir = { age = 35 female = yes culture = event_target:ruinborn_province hidden = yes}}
+					orcish_province = {define_heir = { age = 35 female = yes culture = event_target:orcish_province hidden = yes}}
+					goblin_province = {define_heir = { age = 35 female = yes culture = event_target:goblin_province hidden = yes}}
+					ogre_province = {define_heir = { age = 35 female = yes culture = event_target:ogre_province hidden = yes}}
+					centaur_province = {define_heir = { age = 35 female = yes culture = event_target:centaur_province hidden = yes}}
+					troll_province = {define_heir = { age = 35 female = yes culture = event_target:troll_province hidden = yes}}
+					harpy_province = {define_heir = { age = 35 female = yes culture = event_target:harpy_province hidden = yes}}
+					half_orcish_province = {define_heir = { age = 35 female = yes culture = event_target:half_orcish_province hidden = yes}}
+					half_elven_province = {define_heir = { age = 35 female = yes culture = event_target:half_elven_province hidden = yes}}
+					hobgoblin_province = {define_heir = { age = 35 female = yes culture = event_target:hobgoblin_province hidden = yes}}
+					kobold_province = {define_heir = { age = 35 female = yes culture = event_target:kobold_province hidden = yes}}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				OR = {
+					# Anbennar - Equal gender religions + rolled female heir
+					AND = {
+						OR = {
+							religion = corinite
+							religion = ravelian
+							religion = the_thought	#its secular, after all!
+							religion = elven_forebears
+							religion = regent_court
+						}
+						has_country_flag = anb_female_heir
+					}
+					# Anbennar - Female priests by culture or religion
+					culture_group = gnollish
+					culture_group = harpy
+				}
+			}
+			if = {limit = {has_government_attribute = can_see_theocratic_heir_stats} define_heir = {age = 35 female = yes}}
+			else = {define_heir = {age = 35 hidden = yes female = yes}}
+		}
+		else = {
+			if = {limit = {has_government_attribute = can_see_theocratic_heir_stats} define_heir = {age = 35}}
+			else = {define_heir = {age = 35 hidden = yes}}
+		}
+		add_devotion = -10
+		add_prestige = 10
+		clr_country_flag = in_theocracy_heir_selection
+		custom_tooltip = theocracy.1.tt
+	}
+
+	option = {
+		name = theocracy.1.b		# A Foreign Noble
+		trigger = {
+			# NOT = { has_country_flag = KOL_secondogeniture_of_BAV }
+			any_neighbor_country = {
+				government = monarchy
+				has_regency = no
+				religion = ROOT
+			}
+			# Anbennar
+			NOT = {
+				OR = {
+					has_country_modifier = elven_administration
+					has_country_modifier = gnomish_administration
+					has_country_modifier = dwarven_administration
+				}
+			}
+		}
+		set_country_flag = theo_foreign_noble_flag # USED IN DEVOTION.TXT
+
+		random_neighbor_country = { 
+			limit = {
+				government = monarchy
+				has_regency = no
+				religion = ROOT
+			}
+			ROOT = {
+				if = {
+					limit = {
+						NOT = {
+							OR = {
+								# Anbennar - Equal gender religions + rolled female heir
+								AND = {
+									OR = {
+										religion = corinite
+										religion = ravelian
+										religion = the_thought	#its secular, after all!
+										religion = elven_forebears
+										religion = regent_court
+									}
+									has_country_flag = anb_female_heir
+								}
+								# Anbennar - Female priests by culture or religion
+								culture_group = gnollish
+								culture_group = harpy
+							}
+						}
+					}
+					if = {
+						limit = { has_government_attribute = can_see_theocratic_heir_stats }
+						define_heir = { 
+							dynasty = PREV 
+							age = 35
+							culture = PREV
+						}
+					}
+					else = {
+						define_heir = { 
+							dynasty = PREV 
+							age = 35
+							culture = PREV
+							hidden = yes
+						}
+					}
+				}
+				else = {
+					if = {
+						limit = { has_government_attribute = can_see_theocratic_heir_stats }
+						define_heir = { 
+							dynasty = PREV 
+							age = 35
+							culture = PREV
+							female = yes
+						}
+					}
+					else = {
+						define_heir = { 
+							dynasty = PREV 
+							age = 35
+							culture = PREV
+							female = yes
+							hidden = yes
+						}
+					}
+				}
+			}
+			add_opinion = { who = ROOT modifier = opinion_theocracy_noble }
+		}
+		clr_country_flag = in_theocracy_heir_selection
+		custom_tooltip = theocracy.1.tt
+	}
+
+	option = {
+		name = theocracy.1.c		# A Merchant's Son
+		trigger = {
+			# NOT = { has_country_flag = KOL_secondogeniture_of_BAV }
+			# Anbennar
+			NOT = {
+				OR = {
+					has_country_modifier = elven_administration
+					has_country_modifier = gnomish_administration
+					has_country_modifier = dwarven_administration
+				}
+			}
+		}
+		set_country_flag = theo_merchants_son_flag # USED IN DEVOTION.TXT
+
+		if = {
+			limit = {
+				NOT = {
+					OR = {
+						# Anbennar - Equal gender religions + rolled female heir
+						AND = {
+							OR = {
+								religion = corinite
+								religion = ravelian
+								religion = the_thought	#its secular, after all!
+								religion = elven_forebears
+								religion = regent_court
+							}
+							has_country_flag = anb_female_heir
+						}
+						# Anbennar - Female priests by culture or religion
+						culture_group = gnollish
+						culture_group = harpy
+					}
+				}
+			}
+			if = {
+				limit = { has_government_attribute = can_see_theocratic_heir_stats }
+				define_heir = {
+					age = 35
+				}
+			}
+			else = {
+				define_heir = {
+					age = 35
+					hidden = yes
+				}
+			}
+		}
+		else = {
+			if = {
+				limit = { has_government_attribute = can_see_theocratic_heir_stats }
+				define_heir = {
+					age = 35
+				female = yes
+				}
+			}
+			else = {
+				define_heir = {
+					age = 35
+					hidden = yes
+				female = yes
+				}
+			}
+		}
+		add_years_of_income = 0.5
+		add_devotion = -20
+		clr_country_flag = in_theocracy_heir_selection
+		custom_tooltip = theocracy.1.tt
+	}
+
+	option = {
+		name = theocracy.1.e		# A Talented Theologian
+		trigger = {
+			# NOT = { has_country_flag = KOL_secondogeniture_of_BAV }
+			# Anbennar
+			NOT = {
+				OR = {
+					has_country_modifier = elven_administration
+					has_country_modifier = gnomish_administration
+					has_country_modifier = dwarven_administration
+				}
+			}
+		}
+		set_country_flag = theo_talented_theologian_flag # USED IN DEVOTION.TXT
+		if = {
+			limit = {
+				has_saved_event_target = church_province
+				NOT = {
+					OR = {
+						# Anbennar - Equal gender religions + rolled female heir
+						AND = {
+							OR = {
+								religion = corinite
+								religion = ravelian
+								religion = the_thought	#its secular, after all!
+								religion = elven_forebears
+								religion = regent_court
+							}
+							has_country_flag = anb_female_heir
+						}
+						# Anbennar - Female priests by culture or religion
+						culture_group = gnollish
+						culture_group = harpy
+					}
+				}
+			}
+			if = {
+				limit = { has_government_attribute = can_see_theocratic_heir_stats }
+				define_heir = {
+					age = 35
+				}
+			}
+			else = {
+				define_heir = {
+					age = 35
+					hidden = yes
+				}
+			}
+		}
+		else = {
+			if = {
+				limit = { has_government_attribute = can_see_theocratic_heir_stats }
+				define_heir = {
+					age = 35
+				female = yes
+				}
+			}
+			else = {
+				define_heir = {
+					age = 35
+				female = yes
+					hidden = yes
+				}
+			}
+		}
+		add_devotion = 5
+		add_prestige = -20
+		clr_country_flag = in_theocracy_heir_selection
+		custom_tooltip = theocracy.1.tt
+	}
+	option = {
+		name = theocracy.1.f		# A Local Preacher
+		trigger = {
+			# Anbennar
+			NOT = {
+				OR = {
+					has_country_modifier = elven_administration
+					has_country_modifier = gnomish_administration
+					has_country_modifier = dwarven_administration
+				}
+			}
+		}
+		set_country_flag = theo_local_preacher_flag # USED IN DEVOTION.TXT
+
+		if = {
+			limit = {
+				NOT = {
+					OR = {
+						# Anbennar - Equal gender religions + rolled female heir
+						AND = {
+							OR = {
+								religion = corinite
+								religion = ravelian
+								religion = the_thought	#its secular, after all!
+								religion = elven_forebears
+								religion = regent_court
+							}
+							has_country_flag = anb_female_heir
+						}
+						# Anbennar - Female priests by culture or religion
+						culture_group = gnollish
+						culture_group = harpy
+					}
+				}
+			}
+			if = {
+				limit = { has_government_attribute = can_see_theocratic_heir_stats }
+				define_heir = {
+					age = 35
+					hidden = yes
+				}
+			}
+			else = {
+				define_heir = {
+					age = 35
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				OR = {
+					# Anbennar - Equal gender religions + rolled female heir
+					AND = {
+						OR = {
+							religion = corinite
+							religion = ravelian
+							religion = the_thought	#its secular, after all!
+							religion = elven_forebears
+							religion = regent_court
+						}
+						has_country_flag = anb_female_heir
+					}
+					# Anbennar - Female priests by culture or religion
+					culture_group = gnollish
+					culture_group = harpy
+				}
+			}
+			if = {
+				limit = { has_government_attribute = can_see_theocratic_heir_stats }
+				define_heir = {
+					age = 35
+					hidden = yes
+					female = yes
+				}
+			}
+			else = {
+				define_heir = {
+					age = 35
+					female = yes
+				}
+			}
+		}
+		add_devotion = 20
+		add_prestige = -40		
+		clr_country_flag = in_theocracy_heir_selection
+		custom_tooltip = theocracy.1.tt
+	}
+	option = {
+		name = theocracy.1.d		# A Papal Protege
+		trigger = {
+			# Anbennar
+			religion = ravelian
+			NOT = {
+				OR = {
+					has_country_modifier = elven_administration
+					has_country_modifier = gnomish_administration
+					has_country_modifier = dwarven_administration
+				}
+			}
+		}
+		set_country_flag = theo_papal_protege_flag # USED IN DEVOTION.TXT
+		if = {
+			limit = {
+				NOT = {
+					OR = {
+						# Anbennar - Equal gender religions + rolled female heir
+						AND = {
+							OR = {
+								religion = corinite
+								religion = ravelian
+								religion = the_thought	#its secular, after all!
+								religion = elven_forebears
+								religion = regent_court
+							}
+							has_country_flag = anb_female_heir
+						}
+						# Anbennar - Female priests by culture or religion
+						culture_group = gnollish
+						culture_group = harpy
+					}
+				}
+			}
+			if = {	
+				limit = { 
+					has_saved_event_target = papal_protoge_country
+				}
+				if = {
+					limit = { 
+						has_government_attribute = can_see_theocratic_heir_stats 
+					}
+					define_heir = {
+						age = 35
+						culture = event_target:papal_protoge_country
+					}
+				}
+				else = {
+					define_heir = {
+						age = 35
+						culture = event_target:papal_protoge_country
+						hidden = yes
+					}
+				}
+			}
+			else = {	
+				if = {			
+					limit = {
+						has_government_attribute = can_see_theocratic_heir_stats 
+					}
+					define_heir = {
+						age = 35						
+					}
+				}
+				else = {	
+					define_heir = {
+						age = 35
+						hidden = yes
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				OR = {
+					# Anbennar - Equal gender religions + rolled female heir
+					AND = {
+						OR = {
+							religion = corinite
+							religion = ravelian
+							religion = the_thought	#its secular, after all!
+							religion = elven_forebears
+							religion = regent_court
+						}
+						has_country_flag = anb_female_heir
+					}
+					# Anbennar - Female priests by culture or religion
+					culture_group = gnollish
+					culture_group = harpy
+				}
+			}
+			if = {	
+				limit = { 
+					has_saved_event_target = papal_protoge_country
+				}
+				if = {
+					limit = { 
+						has_government_attribute = can_see_theocratic_heir_stats 
+					}
+					define_heir = {
+						age = 35
+						female = yes
+						culture = event_target:papal_protoge_country
+					}
+				}
+				else = {
+					define_heir = {
+						age = 35
+						culture = event_target:papal_protoge_country
+						hidden = yes
+						female = yes
+					}
+				}
+			}
+			else = {	
+				if = {			
+					limit = {
+						has_government_attribute = can_see_theocratic_heir_stats 
+					}
+					define_heir = {
+						age = 35	
+						female = yes					
+					}
+				}
+				else = {	
+					define_heir = {
+						age = 35
+						hidden = yes
+						female = yes
+					}
+				}
+			}
+		}
+		add_papal_influence = 10
+		add_devotion = -10
+		clr_country_flag = in_theocracy_heir_selection
+		custom_tooltip = theocracy.1.tt
+	}
+	option = {
+		name = theocracy.1.h		# An Influential Reformer
+		trigger = {
+			# NOT = { has_country_flag = KOL_secondogeniture_of_BAV }
+			# Anbennar
+			OR = {
+				religion = the_jadd
+				religion = righteous_path
+				religion = lefthand_path
+			}
+			NOT = {
+				OR = {
+					has_country_modifier = elven_administration
+					has_country_modifier = gnomish_administration
+					has_country_modifier = dwarven_administration
+				}
+			}
+		}
+		set_country_flag = theo_influential_reformer_flag # USED IN DEVOTION.TXT
+		
+		if = {
+			limit = { has_government_attribute = can_see_theocratic_heir_stats }
+			if = {
+				limit = {
+					OR = {
+						has_global_modifier_value = {
+							which = female_advisor_chance
+							value = 1
+						}
+						# Anbennar - Equal gender religions + rolled female heir
+						AND = {
+							OR = {
+								religion = corinite
+								religion = ravelian
+								religion = the_thought	#its secular, after all!
+								religion = elven_forebears
+								religion = regent_court
+							}
+							has_country_flag = anb_female_heir
+						}
+						# Anbennar - Female priests by culture or religion
+						culture_group = gnollish
+						culture_group = harpy
+					}
+				}
+				define_heir = {
+					age = 35
+					female = yes
+				}
+			}
+			else = {
+				define_heir = {
+					age = 35
+				}
+			}
+		}
+		else = {
+			if = {
+				limit = {
+					OR = {
+						has_global_modifier_value = {
+							which = female_advisor_chance
+							value = 1
+						}
+						# Anbennar - Equal gender religions + rolled female heir
+						AND = {
+							OR = {
+								religion = corinite
+								religion = ravelian
+								religion = the_thought	#its secular, after all!
+								religion = elven_forebears
+								religion = regent_court
+							}
+							has_country_flag = anb_female_heir
+						}
+						# Anbennar - Female priests by culture or religion
+						culture_group = gnollish
+						culture_group = harpy
+					}
+				}
+				define_heir = {
+					age = 35
+					female = yes
+					hidden = yes
+				}
+			}
+			else = {
+				define_heir = {
+					age = 35
+					hidden = yes
+				}
+			}
+		}
+		if = { 
+			limit = { religion = the_jadd }
+			add_fervor = 10
+		}
+		if = { 
+			limit = { 
+				OR = {
+					religion = righteous_path
+					religion = lefthand_path
+				}
+			}
+			add_church_power = 10
+		}
+
+		add_prestige = -10
+		clr_country_flag = in_theocracy_heir_selection
+		custom_tooltip = theocracy.1.tt
+	}
+	option = { # Anbennar
+		name = theocracy.1.i		# A Long lived Heir
+		trigger = {
+			OR = {
+				has_country_modifier = elven_administration
+				has_country_modifier = gnomish_administration
+				has_country_modifier = dwarven_administration
+			}
+		}
+		if = {
+			limit = { has_government_attribute = can_see_theocratic_heir_stats }
+			if = {
+				limit = { has_country_modifier = elven_administration }
+				if = {
+					limit = { has_country_flag = anb_female_long_lived_heir }
+					anb_define_long_lived_heir = { age = 175 female = yes }
+				}
+				else = {
+					anb_define_long_lived_heir = { age = 175 }
+				}
+			}
+			else_if = {
+				limit = { has_country_modifier = gnomish_administration }
+				if = {
+					limit = { has_country_flag = anb_female_long_lived_heir }
+					anb_define_long_lived_heir = { age = 109 female = yes }
+				}
+				else = {
+					anb_define_long_lived_heir = { age = 109 }
+				}
+			}
+			else_if = {
+				limit = { has_country_modifier = dwarven_administration }
+				if = {
+					limit = { has_country_flag = anb_female_long_lived_heir }
+					anb_define_long_lived_heir = { age = 88 female = yes }
+				}
+				else = {
+					anb_define_long_lived_heir = { age = 88 }
+				}
+			}
+		}
+		else = {
+			if = {
+				limit = { has_country_modifier = elven_administration }
+				if = {
+					limit = { has_country_flag = anb_female_long_lived_heir }
+					anb_define_long_lived_heir = { age = 175 female = yes hidden = yes }
+				}
+				else = {
+					anb_define_long_lived_heir = { age = 175 hidden = yes }
+				}
+			}
+			else_if = {
+				limit = { has_country_modifier = gnomish_administration }
+				if = {
+					limit = { has_country_flag = anb_female_long_lived_heir }
+					anb_define_long_lived_heir = { age = 109 female = yes hidden = yes }
+				}
+				else = {
+					anb_define_long_lived_heir = { age = 109 hidden = yes }
+				}
+			}
+			else_if = {
+				limit = { has_country_modifier = dwarven_administration }
+				if = {
+					limit = { has_country_flag = anb_female_long_lived_heir }
+					anb_define_long_lived_heir = { age = 88 female = yes hidden = yes }
+				}
+				else = {
+					anb_define_long_lived_heir = { age = 88 hidden = yes }
+				}
+			}
+		}
+		hidden_effect = {
+			clr_country_flag = in_theocracy_heir_selection
+		}
+	}
+	
+}
+
+country_event = {
+	id = theocracy.2
+	title = theocracy.1.t
+	desc = theocracy.1.desc
+
+	picture = PRIEST_PHANTOM_eventPicture
+
+	is_triggered_only = yes
+
+	trigger = {		
+		has_reform = oracular_order_reform
+		has_country_flag = has_caste_estates
+		NOT = { has_country_flag = in_theocracy_heir_selection }
+		has_government_attribute = heir
+	}
+
+	immediate = {
+		hidden_effect = {
+			set_country_flag = in_theocracy_heir_selection
+			if = {
+				limit = {
+					any_owned_province = {
+						OR = {
+							culture_group = upper_raheni
+							culture_group = middle_raheni
+							culture_group = south_raheni
+						}
+					}
+				}
+				random_owned_province = {
+					limit = {
+						OR = {
+							culture_group = upper_raheni
+							culture_group = middle_raheni
+							culture_group = south_raheni
+						}
+					}
+					save_event_target_as = human_oracle_apprentice
+				}
+			}
+			random_list = {
+				25 = {  #female harimari
+					modifier = {
+						factor = 0
+						NOT = { has_country_flag = harimari_in_uppercastes }
+					}
+					set_country_flag = female_harimari_oracle
+				}
+				25 = { #male harimari
+					modifier = {
+						factor = 0
+						NOT = { has_country_flag = harimari_in_uppercastes }
+					}
+					set_country_flag = male_harimari_oracle
+				}
+				25 = {  #female human
+					modifier = {
+						factor = 0
+						NOT = { has_country_flag = human_in_uppercastes }
+					}
+					set_country_flag = female_human_oracle
+				}
+				25 = {  #female human
+					modifier = {
+						factor = 0
+						NOT = { has_country_flag = human_in_uppercastes }
+					}
+					set_country_flag = male_human_oracle
+				}
+			}
+		}
+	}
+
+	after = {
+		clr_country_flag = female_harimari_oracle
+		clr_country_flag = male_harimari_oracle
+		clr_country_flag = female_human_oracle
+		clr_country_flag = male_human_oracle
+	}
+
+	option = {
+		name = theocracy.2.a		# An oracle-apprentice is presented
+		if = { limit = { has_country_flag = female_harimari_oracle } 
+			define_heir = {
+				culture = royal_harimari
+				max_random_mil = 5
+				change_mil = -1
+				age = 40
+				claim = 100
+				female = yes
+				hide_skills = yes
+			}
+			add_estate_loyalty = {
+				estate = estate_uppercastes
+				loyalty = 10
+			}
+			add_estate_loyalty = {
+				estate = estate_lowercastes
+				loyalty = -10
+			}
+		}
+		if = { limit = { has_country_flag = male_harimari_oracle } 
+			define_heir = {
+				culture = royal_harimari
+				max_random_mil = 5
+				change_mil = -1
+				age = 40
+				claim = 100
+				hide_skills = yes
+			}
+			add_estate_loyalty = {
+				estate = estate_uppercastes
+				loyalty = 10
+			}
+			add_estate_loyalty = {
+				estate = estate_lowercastes
+				loyalty = -10
+			}
+		}
+		if = { limit = { has_country_flag = female_human_oracle } 
+			if = { limit = { has_saved_event_target = human_oracle_apprentice }
+				define_heir = {
+					culture = event_target:human_oracle_apprentice
+					max_random_mil = 5
+					change_mil = -1
+					age = 40
+					claim = 100
+					female = yes
+					hide_skills = yes
+				}
+				event_target:human_oracle_apprentice = {
+					if = { limit = { province_with_uppercastes_goods = yes }
+						ROOT = {
+							add_estate_loyalty = {
+								estate = estate_uppercastes
+								loyalty = 10
+							}
+							add_estate_loyalty = {
+								estate = estate_lowercastes
+								loyalty = -10
+							}
+						}
+					}
+					if = { limit = { province_with_middlecastes_goods = yes }
+						ROOT = {
+							add_estate_loyalty = {
+								estate = estate_middlecastes
+								loyalty = 10
+							}
+							add_estate_loyalty = {
+								estate = estate_uppercastes
+								loyalty = -5
+							}
+							add_estate_loyalty = {
+								estate = estate_lowercastes
+								loyalty = -5
+							}
+						}
+					}
+					if = { limit = { province_with_lowercastes_goods = yes }
+						ROOT = {
+							add_estate_loyalty = {
+								estate = estate_lowercastes
+								loyalty = 10
+							}
+							add_estate_loyalty = {
+								estate = estate_uppercastes
+								loyalty = -10
+							}
+						}
+					}
+				}
+			}
+			else = {
+				define_heir = {
+					culture = muthadhaya
+					max_random_mil = 5
+					change_mil = -1
+					age = 40
+					claim = 100
+					female = yes
+					hide_skills = yes
+				}
+				add_estate_loyalty = {
+					estate = estate_uppercastes
+					loyalty = 10
+				}
+				add_estate_loyalty = {
+					estate = estate_lowercastes
+					loyalty = -10
+				}
+			}
+		}
+		if = { limit = { has_country_flag = male_human_oracle } 
+			if = { limit = { has_saved_event_target = human_oracle_apprentice }
+				define_heir = {
+					culture = event_target:human_oracle_apprentice
+					max_random_mil = 5
+					change_mil = -1
+					claim = 100
+					hide_skills = yes
+				}
+				event_target:human_oracle_apprentice = {
+					if = { limit = { province_with_uppercastes_goods = yes }
+						ROOT = {
+							add_estate_loyalty = {
+								estate = estate_uppercastes
+								loyalty = 10
+							}
+							add_estate_loyalty = {
+								estate = estate_lowercastes
+								loyalty = -10
+							}
+						}
+					}
+					if = { limit = { province_with_middlecastes_goods = yes }
+						ROOT = {
+							add_estate_loyalty = {
+								estate = estate_middlecastes
+								loyalty = 10
+							}
+							add_estate_loyalty = {
+								estate = estate_uppercastes
+								loyalty = -5
+							}
+							add_estate_loyalty = {
+								estate = estate_lowercastes
+								loyalty = -5
+							}
+						}
+					}
+					if = { limit = { province_with_lowercastes_goods = yes }
+						ROOT = {
+							add_estate_loyalty = {
+								estate = estate_lowercastes
+								loyalty = 10
+							}
+							add_estate_loyalty = {
+								estate = estate_uppercastes
+								loyalty = -10
+							}
+						}
+					}
+				}
+			}
+			else = {
+				define_heir = {
+					culture = muthadhaya
+					max_random_mil = 5
+					change_mil = -1
+					claim = 100
+					hide_skills = yes
+				}
+				add_estate_loyalty = {
+					estate = estate_uppercastes
+					loyalty = 10
+				}
+				add_estate_loyalty = {
+					estate = estate_lowercastes
+					loyalty = -10
+				}
+			}
+		}
+		set_heir_mage_effect = yes
+		clr_country_flag = in_theocracy_heir_selection
+	}
+}

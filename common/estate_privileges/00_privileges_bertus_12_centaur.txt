@@ -1,0 +1,6591 @@
+
+estate_centaur_first_hand_chairman = {
+	icon = privilege_empty_throne_black
+	influence = 0.10
+	loyalty = 0.10
+	is_valid = {
+		OR = {AND = { uses_isolationism = yes NOT = {isolationism = 2} } uses_isolationism = no}
+	}
+	can_select = {	
+		estate_influence = {
+			estate = estate_centaur
+			influence = 40
+		}
+		high_tolerance_centaur_race_trigger = yes	
+		NOT = {has_race_councelor = {type = first_hand}}
+	}
+	on_granted = {		
+		small_increase_of_centaur_tolerance_effect = yes	
+		hidden_effect = {
+			add_ruler_modifier = { 
+				name = has_first_hand_chairman
+				duration = -1
+				hidden = yes
+			}
+			add_country_modifier = {
+				name = estate_centaur_first_hand_chairman_modifier
+				duration = -1
+				hidden = yes
+			}
+		}
+	}
+	modifier = {	
+	}
+	conditional_modifier = {
+		trigger = {		
+			is_part_of_hre = no
+			has_country_modifier = human_administration
+		}
+		modifier = {
+			legitimacy = -0.5
+			devotion = -0.25			
+			reelection_cost = 0.1
+			human_loyalty_modifier = -0.1
+		}
+	}
+	conditional_modifier = {
+		trigger = {		
+			is_part_of_hre = no
+			has_country_modifier = elven_administration
+		}
+		modifier = {
+			legitimacy = -1.0
+			devotion = -0.5		
+			reelection_cost = 0.25
+			elven_loyalty_modifier = -0.2
+		}
+	}
+	conditional_modifier = {
+		trigger = {		
+			is_part_of_hre = no
+			has_country_modifier = dwarven_administration
+		}
+		modifier = {
+			legitimacy = -0.5
+			devotion = -0.25		
+			reelection_cost = 0.1
+			dwarven_loyalty_modifier = -0.1
+		}
+	}
+	conditional_modifier = {
+		trigger = {		
+			is_part_of_hre = no
+			has_country_modifier = gnollish_administration
+		}
+		modifier = {
+			legitimacy = -0.5
+			devotion = -0.25			
+			reelection_cost = 0.1
+			gnollish_loyalty_modifier = -0.1
+		}
+	}
+	conditional_modifier = {
+		trigger = {		
+			is_part_of_hre = no
+			has_country_modifier = harimari_administration
+		}
+		modifier = {
+			legitimacy = -0.5
+			devotion = -0.25		
+			reelection_cost = 0.1
+			harimari_loyalty_modifier = -0.1
+		}
+	}
+	conditional_modifier = {
+		trigger = {		
+			is_part_of_hre = no
+			has_country_modifier = ruinborn_administration
+		}
+		modifier = {
+			legitimacy = -0.5
+			devotion = -0.25		
+			reelection_cost = 0.1
+			ruinborn_loyalty_modifier = -0.1
+		}
+	}
+	conditional_modifier = {
+		trigger = {		
+			is_part_of_hre = no
+			has_country_modifier = orcish_administration
+		}
+		modifier = {
+			legitimacy = -0.5
+			devotion = -0.2			
+			reelection_cost = 0.1
+			centaur_loyalty_modifier = -0.1
+		}
+	}
+	conditional_modifier = {
+		trigger = {		
+			is_part_of_hre = no
+			has_country_modifier = ogre_administration
+		}
+		modifier = {
+			legitimacy = -2.0
+			devotion = -1.0		
+			reelection_cost = 0.5
+			ogre_loyalty_modifier = -0.5
+		}
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {	
+	}
+	on_invalid_province = {
+	}
+	penalties = {
+		stability_cost_modifier = 0.1
+	}
+	benefits = {
+		harsh_treatment_cost = -0.2
+		horde_unity = 1
+	}
+	conditional_modifier = {
+		trigger = {		
+			is_at_war = yes
+		}
+		modifier = {
+			global_autonomy = -0.1
+		}
+	}
+	on_revoked = {
+	}
+	cooldown_years = 10
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_diplomacy_chairman = {
+	icon = privilege_empty_throne_blue
+	loyalty = 0.05
+	influence = 0.05
+	is_valid = {
+		always = no	#via estate interactions
+		OR = {AND = { uses_isolationism = yes NOT = {isolationism = 3} } uses_isolationism = no}
+		NOT = {has_race_councelor = {type = diplomacy}}
+	}
+	can_select = {		
+		estate_influence = {
+			estate = estate_centaur
+			influence = 40
+		}
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_race_councelor = {type = diplomacy}}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_ruler_modifier = { 
+				name = has_first_hand_chairman
+				duration = -1
+				hidden = yes
+			}
+			add_country_modifier = {
+				name = estate_centaur_diplomacy_chairman_modifier
+				duration = -1
+				hidden = yes
+			}
+		}
+	}
+	penalties = {
+		spy_offence = -0.25
+	}
+	benefits = {
+		envoy_travel_time = -0.25
+		reduced_liberty_desire = -0.2
+	}
+	cooldown_years = 10
+	ai_will_do = {
+		factor = 1
+		modifier = { #will lose it via invalid sooner or later
+			factor = 10
+			has_estate_privilege = estate_nobles_french_strong_duchies
+		}
+	}
+}
+estate_centaur_military_chairman = {
+	icon = privilege_empty_throne_red
+	influence = 0.05
+	loyalty = 0.05
+	is_valid = {
+		always = no	#via estate interactions
+		OR = {AND = { uses_isolationism = yes NOT = {isolationism = 3} } uses_isolationism = no}
+		NOT = {has_race_councelor = {type = military}}
+	}
+	can_select = {
+		estate_influence = {
+			estate = estate_centaur
+			influence = 40
+		}
+		high_tolerance_centaur_race_trigger = yes	
+		NOT = {has_race_councelor = {type = military}}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_ruler_modifier = { 
+				name = has_first_hand_chairman
+				duration = -1
+				hidden = yes
+			}
+			add_country_modifier = {
+				name = estate_centaur_military_chairman_modifier
+				duration = -1
+				hidden = yes
+			}
+		}
+	}
+	penalties = {
+		artillery_levels_available_vs_fort = -2
+		defensiveness = -0.25
+		fort_maintenance_modifier = -0.2
+	}
+	benefits = {
+		war_exhaustion_cost = -0.2
+		war_exhaustion = -0.05
+		loot_amount = 0.5
+	}
+	on_revoked = {
+		if = {
+			limit = {
+				OR = {
+					has_country_modifier = halfling_administration
+					has_country_modifier = gnomish_administration
+				}
+			}
+			add_stability = 1
+			add_legitimacy = 20
+			add_devotion = 10
+			add_republican_tradition = 5
+		}
+	}
+	cooldown_years = 10
+	ai_will_do = {
+		factor = 1
+	}
+}
+estate_centaur_economic_chairman = {
+	icon = privilege_empty_throne_yellow
+	influence = 0.05
+	loyalty = 0.05
+	is_valid = {
+		always = no	#via estate interactions
+		OR = {AND = { uses_isolationism = yes NOT = {isolationism = 3} } uses_isolationism = no}
+		NOT = {has_race_councelor = {type = economic}}
+	}
+	can_select = {
+		estate_influence = {
+			estate = estate_centaur
+			influence = 40
+		}
+		high_tolerance_centaur_race_trigger = yes	
+		NOT = {has_race_councelor = {type = economic}}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_ruler_modifier = { 
+				name = has_first_hand_chairman
+				duration = -1
+				hidden = yes
+			}
+			add_country_modifier = {
+				name = estate_centaur_economic_chairman_modifier
+				duration = -1
+				hidden = yes
+			}
+		}
+	}
+	penalties = {	
+		global_own_trade_power = -0.2
+	}
+	benefits = {
+		caravan_power = 0.3
+		available_province_loot = 0.5
+	}
+	on_revoked = {
+	}
+	cooldown_years = 10
+	ai_will_do = {
+		factor = 1
+	}
+}
+estate_centaur_navy_chairman = {
+	icon = privilege_empty_throne_purple
+	influence = 0.05
+	loyalty = 0.05
+	is_valid = {
+		always = no	#via estate interactions
+		OR = {AND = { uses_isolationism = yes NOT = {isolationism = 3} } uses_isolationism = no}
+		NOT = {has_race_councelor = {type = navy}}
+		any_owned_province = {
+			has_port = yes
+		}
+	}
+	can_select = {
+		estate_influence = {
+			estate = estate_centaur
+			influence = 40
+		}
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_race_councelor = {type = navy}}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_ruler_modifier = { 
+				name = has_first_hand_chairman
+				duration = -1
+				hidden = yes
+			}
+			add_country_modifier = {
+				name = estate_centaur_navy_chairman_modifier
+				duration = -1
+				hidden = yes
+			}
+		}
+	}
+	penalties = {		
+		global_sailors_modifier = -0.25
+		global_ship_trade_power = -0.25
+		heavy_ship_power = -0.2
+		galley_power = -0.2
+	}
+	benefits = {
+		global_ship_repair = 0.2
+		ship_durability = 0.2
+	}
+	on_revoked = {
+	}
+	cooldown_years = 10
+	ai_will_do = {
+		factor = 1
+	}
+}
+estate_centaur_recruitment = {
+	icon = privilege_demand_more_troops
+	loyalty = -0.10
+	influence = 0.10
+	is_valid = {
+		OR = {
+			AND = {
+				uses_isolationism = yes
+				NOT = {isolationism = 4}
+			}
+			uses_isolationism = no
+		}
+		NOT = {mil_tech = 2}
+	}
+	can_select = {		
+		high_tolerance_centaur_race_trigger = yes	
+		any_owned_province = {
+			culture_is_centaur = yes
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			set_country_flag = estate_centaur_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+	}
+	modifier_by_land_ownership = {
+		
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	mechanics = {
+		enables_cossack_regiments
+	}
+	can_revoke = {
+	}
+	on_revoked = {
+		hidden_effect = {
+			clr_country_flag = estate_centaur_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+		add_mil_power = -100
+	}
+	on_invalid = {
+		clr_country_flag = estate_centaur_recruitment_flag
+		set_estate_privilege = estate_centaur_recruitment_2
+		update_centaur_recruitment = yes
+	}
+	ai_will_do = {
+		factor = 1000
+	}
+}
+estate_centaur_recruitment_2 = {
+	icon = privilege_demand_more_troops
+	loyalty = -0.10
+	influence = 0.10
+	is_valid = {
+		OR = {
+			AND = {
+				uses_isolationism = yes
+				NOT = {isolationism = 4}
+			}
+			uses_isolationism = no
+		}
+		mil_tech = 2
+		NOT = {mil_tech = 5}
+	}
+	can_select = {		
+		high_tolerance_centaur_race_trigger = yes	
+		any_owned_province = {
+			culture_is_centaur = yes
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			set_country_flag = estate_centaur_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+	}
+	modifier_by_land_ownership = {
+		cavalry_fire = 0.10
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	mechanics = {
+		enables_cossack_regiments
+	}
+	can_revoke = {
+	}
+	on_revoked = {
+		hidden_effect = {
+			clr_country_flag = estate_centaur_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+		add_mil_power = -100
+	}
+	on_invalid = {
+		clr_country_flag = estate_centaur_recruitment_flag
+		update_centaur_recruitment = yes
+		set_estate_privilege = estate_centaur_recruitment_5
+	}
+	ai_will_do = {
+		factor = 1000
+	}
+}
+estate_centaur_recruitment_5 = {
+	icon = privilege_demand_more_troops
+	loyalty = -0.10
+	influence = 0.10
+	is_valid = {
+		OR = {
+			AND = {
+				uses_isolationism = yes
+				NOT = {isolationism = 4}
+			}
+			uses_isolationism = no
+		}
+		mil_tech = 5
+		NOT = {mil_tech = 7}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes	
+		any_owned_province = {
+			culture_is_centaur = yes
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			set_country_flag = estate_centaur_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+	}
+	modifier_by_land_ownership = {
+		cavalry_fire = 0.20
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	mechanics = {
+		enables_cossack_regiments
+	}
+	can_revoke = {
+	}
+	on_revoked = {
+		hidden_effect = {
+			clr_country_flag = estate_centaur_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+		add_mil_power = -100
+	}
+	on_invalid = {
+		clr_country_flag = estate_centaur_recruitment_flag
+		update_centaur_recruitment = yes
+		set_estate_privilege = estate_centaur_recruitment_7
+	}
+	ai_will_do = {
+		factor = 1000
+	}
+}
+estate_centaur_recruitment_7 = {
+	icon = privilege_demand_more_troops
+	loyalty = -0.10
+	influence = 0.10
+	is_valid = {
+		OR = {
+			AND = {
+				uses_isolationism = yes
+				NOT = {isolationism = 4}
+			}
+			uses_isolationism = no
+		}
+		mil_tech = 7
+		NOT = {mil_tech = 9}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes	
+		any_owned_province = {
+			culture_is_centaur = yes
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			set_country_flag = estate_centaur_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+	}
+	modifier_by_land_ownership = {
+		cavalry_fire = 0.20
+		artillery_fire = -0.15
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	mechanics = {
+		enables_cossack_regiments
+	}
+	can_revoke = {
+	}
+	on_revoked = {
+		hidden_effect = {
+			clr_country_flag = estate_centaur_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+		add_mil_power = -100
+	}
+	on_invalid = {
+		clr_country_flag = estate_centaur_recruitment_flag
+		update_centaur_recruitment = yes
+		set_estate_privilege = estate_centaur_recruitment_9
+	}
+	ai_will_do = {
+		factor = 1000
+	}
+}
+estate_centaur_recruitment_9 = {
+	icon = privilege_demand_more_troops
+	loyalty = -0.10
+	influence = 0.10
+	is_valid = {
+		OR = {
+			AND = {
+				uses_isolationism = yes
+				NOT = {isolationism = 4}
+			}
+			uses_isolationism = no
+		}
+		mil_tech = 9
+		NOT = {mil_tech = 13}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes	
+		any_owned_province = {
+			culture_is_centaur = yes
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			set_country_flag = estate_centaur_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+	}
+	modifier_by_land_ownership = {
+		cavalry_fire = 0.30
+		artillery_fire = -0.15
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	mechanics = {
+		enables_cossack_regiments
+	}
+	can_revoke = {
+	}
+	on_revoked = {
+		hidden_effect = {
+			clr_country_flag = estate_centaur_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+		add_mil_power = -100
+	}
+	on_invalid = {
+		clr_country_flag = estate_centaur_recruitment_flag
+		update_centaur_recruitment = yes
+		set_estate_privilege = estate_centaur_recruitment_13
+	}
+	ai_will_do = {
+		factor = 1000
+	}
+}
+estate_centaur_recruitment_13 = {
+	icon = privilege_demand_more_troops
+	loyalty = -0.10
+	influence = 0.10
+	is_valid = {
+		OR = {
+			AND = {
+				uses_isolationism = yes
+				NOT = {isolationism = 4}
+			}
+			uses_isolationism = no
+		}
+		mil_tech = 13
+		NOT = {mil_tech = 16}
+	}
+	can_select = {		
+		high_tolerance_centaur_race_trigger = yes	
+		any_owned_province = {
+			culture_is_centaur = yes
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			set_country_flag = estate_centaur_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+	}
+	modifier_by_land_ownership = {
+		cavalry_fire = 0.40
+		artillery_fire = -0.30
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	mechanics = {
+		enables_cossack_regiments
+	}
+	can_revoke = {
+	}
+	on_revoked = {
+		hidden_effect = {
+			clr_country_flag = estate_centaur_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+		add_mil_power = -100
+	}
+	on_invalid = {
+		clr_country_flag = estate_centaur_recruitment_flag
+		update_centaur_recruitment = yes
+		set_estate_privilege = estate_centaur_recruitment_16
+	}
+	ai_will_do = {
+		factor = 1000
+	}
+}
+estate_centaur_recruitment_16 = {
+	icon = privilege_demand_more_troops
+	loyalty = -0.10
+	influence = 0.10
+	is_valid = {
+		OR = {
+			AND = {
+				uses_isolationism = yes
+				NOT = {isolationism = 4}
+			}
+			uses_isolationism = no
+		}
+		mil_tech = 16
+		NOT = {mil_tech = 17}
+	}
+	can_select = {		
+		high_tolerance_centaur_race_trigger = yes	
+		any_owned_province = {
+			culture_is_centaur = yes
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			set_country_flag = estate_centaur_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+	}
+	modifier_by_land_ownership = {
+		cavalry_fire = 0.40
+		artillery_fire = -0.60
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	mechanics = {
+		enables_cossack_regiments
+	}
+	can_revoke = {
+	}
+	on_revoked = {
+		hidden_effect = {
+			clr_country_flag = estate_centaur_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+		add_mil_power = -100
+	}
+	on_invalid = {
+		clr_country_flag = estate_centaur_recruitment_flag
+		update_centaur_recruitment = yes
+		set_estate_privilege = estate_centaur_recruitment_17
+	}
+	ai_will_do = {
+		factor = 1000
+	}
+}
+estate_centaur_recruitment_17 = {
+	icon = privilege_demand_more_troops
+	loyalty = -0.10
+	influence = 0.10
+	is_valid = {
+		OR = {
+			AND = {
+				uses_isolationism = yes
+				NOT = {isolationism = 4}
+			}
+			uses_isolationism = no
+		}
+		mil_tech = 17
+		NOT = {mil_tech = 21}
+	}
+	can_select = {		
+		high_tolerance_centaur_race_trigger = yes	
+		any_owned_province = {
+			culture_is_centaur = yes
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			set_country_flag = estate_centaur_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+	}
+	modifier_by_land_ownership = {
+		cavalry_fire = 0.50
+		artillery_fire = -0.60
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	mechanics = {
+		enables_cossack_regiments
+	}
+	can_revoke = {
+	}
+	on_revoked = {
+		hidden_effect = {
+			clr_country_flag = estate_centaur_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+		add_mil_power = -100
+	}
+	on_invalid = {
+		clr_country_flag = estate_centaur_recruitment_flag
+		update_centaur_recruitment = yes
+		set_estate_privilege = estate_centaur_recruitment_121
+	}
+	ai_will_do = {
+		factor = 1000
+	}
+}
+estate_centaur_recruitment_21 = {
+	icon = privilege_demand_more_troops
+	loyalty = -0.10
+	influence = 0.10
+	is_valid = {
+		OR = {
+			AND = {
+				uses_isolationism = yes
+				NOT = {isolationism = 4}
+			}
+			uses_isolationism = no
+		}
+		mil_tech = 21
+		NOT = {mil_tech = 22}
+	}
+	can_select = {		
+		high_tolerance_centaur_race_trigger = yes	
+		any_owned_province = {
+			culture_is_centaur = yes
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			set_country_flag = estate_centaur_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+	}
+	modifier_by_land_ownership = {
+		cavalry_fire = 0.60
+		artillery_fire = -0.60
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	mechanics = {
+		enables_cossack_regiments
+	}
+	can_revoke = {
+	}
+	on_revoked = {
+		hidden_effect = {
+			clr_country_flag = estate_centaur_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+		add_mil_power = -100
+	}
+	on_invalid = {
+		clr_country_flag = estate_centaur_recruitment_flag
+		update_centaur_recruitment = yes
+		set_estate_privilege = estate_centaur_recruitment_22
+	}
+	ai_will_do = {
+		factor = 1000
+	}
+}
+estate_centaur_recruitment_22 = {
+	icon = privilege_demand_more_troops
+	loyalty = -0.10
+	influence = 0.10
+	is_valid = {
+		OR = {
+			AND = {
+				uses_isolationism = yes
+				NOT = {isolationism = 4}
+			}
+			uses_isolationism = no
+		}
+		mil_tech = 22
+		NOT = {mil_tech = 25}
+	}
+	can_select = {		
+		high_tolerance_centaur_race_trigger = yes	
+		any_owned_province = {
+			culture_is_centaur = yes
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			set_country_flag = estate_centaur_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+	}
+	modifier_by_land_ownership = {
+		cavalry_fire = 0.60
+		artillery_fire = -0.90
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	mechanics = {
+		enables_cossack_regiments
+	}
+	can_revoke = {
+	}
+	on_revoked = {
+		hidden_effect = {
+			clr_country_flag = estate_centaur_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+		add_mil_power = -100
+	}
+	on_invalid = {
+		clr_country_flag = estate_centaur_recruitment_flag
+		update_centaur_recruitment = yes
+		set_estate_privilege = estate_centaur_recruitment_25
+	}
+	ai_will_do = {
+		factor = 1000
+	}
+}
+estate_centaur_recruitment_25 = {
+	icon = privilege_demand_more_troops
+	loyalty = -0.10
+	influence = 0.10
+	is_valid = {
+		OR = {
+			AND = {
+				uses_isolationism = yes
+				NOT = {isolationism = 4}
+			}
+			uses_isolationism = no
+		}
+		mil_tech = 25
+		NOT = {mil_tech = 29}
+	}
+	can_select = {		
+		high_tolerance_centaur_race_trigger = yes	
+		any_owned_province = {
+			culture_is_centaur = yes
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			set_country_flag = estate_centaur_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+	}
+	modifier_by_land_ownership = {
+		cavalry_fire = 0.70
+		artillery_fire = -1.20
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	mechanics = {
+		enables_cossack_regiments
+	}
+	can_revoke = {
+	}
+	on_revoked = {
+		hidden_effect = {
+			clr_country_flag = estate_centaur_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+		add_mil_power = -100
+	}
+	on_invalid = {
+		clr_country_flag = estate_centaur_recruitment_flag
+		update_centaur_recruitment = yes
+		set_estate_privilege = estate_centaur_recruitment_29
+	}
+	ai_will_do = {
+		factor = 1000
+	}
+}
+estate_centaur_recruitment_29 = {
+	icon = privilege_demand_more_troops
+	loyalty = -0.10
+	influence = 0.10
+	is_valid = {
+		OR = {
+			AND = {
+				uses_isolationism = yes
+				NOT = {isolationism = 4}
+			}
+			uses_isolationism = no
+		}
+		mil_tech = 29
+		NOT = {mil_tech = 32}
+	}
+	can_select = {		
+		high_tolerance_centaur_race_trigger = yes	
+		any_owned_province = {
+			culture_is_centaur = yes
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			set_country_flag = estate_centaur_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+	}
+	modifier_by_land_ownership = {
+		cavalry_fire = 0.80
+		artillery_fire = -1.20
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	mechanics = {
+		enables_cossack_regiments
+	}
+	can_revoke = {
+	}
+	on_revoked = {
+		hidden_effect = {
+			clr_country_flag = estate_centaur_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+		add_mil_power = -100
+	}
+	on_invalid = {
+		clr_country_flag = estate_centaur_recruitment_flag
+		update_centaur_recruitment = yes
+		set_estate_privilege = estate_centaur_recruitment_32
+	}
+	ai_will_do = {
+		factor = 1000
+	}
+}
+estate_centaur_recruitment_32 = {
+	icon = privilege_demand_more_troops
+	loyalty = -0.10
+	influence = 0.10
+	is_valid = {
+		OR = {
+			AND = {
+				uses_isolationism = yes
+				NOT = {isolationism = 4}
+			}
+			uses_isolationism = no
+		}
+		mil_tech = 32
+	}
+	can_select = {		
+		high_tolerance_centaur_race_trigger = yes	
+		any_owned_province = {
+			culture_is_centaur = yes
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			set_country_flag = estate_centaur_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+	}
+	modifier_by_land_ownership = {
+		cavalry_fire = 0.90
+		artillery_fire = -1.50
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	mechanics = {
+		enables_cossack_regiments
+	}
+	can_revoke = {
+	}
+	on_revoked = {
+		hidden_effect = {
+			clr_country_flag = estate_centaur_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+		add_mil_power = -100
+	}
+	on_invalid = {
+		clr_country_flag = estate_centaur_recruitment_flag
+	}
+	ai_will_do = {
+		factor = 1000
+	}
+}
+estate_centaur_training_rights = {
+	icon = privilege_cawa_peacekeeper
+	influence = 0
+	loyalty = 0
+	is_valid = {
+		always = no
+	}
+	can_select = {	
+	}
+	on_granted = {
+	}
+	modifier = {
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+	}
+	cooldown_years = 10
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_extensive_recruitment = {
+	icon = privilege_recruit_rajput_general
+	loyalty = -0.20
+	is_valid = {
+		has_race_recruitment = {
+			race = centaur
+		}
+		army_professionalism = 0.20
+	}
+	can_select = {
+		army_professionalism = 0.40
+	}
+	on_granted = {
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	modifier_by_land_ownership = {
+		yearly_army_professionalism = -0.03
+		manpower_recovery_speed = 0.5
+	}
+	mechanics = {
+	}
+	on_revoked = {
+	}
+	on_invalid = {
+	}
+	cooldown_years = 5
+	ai_will_do = {
+		factor = 1
+	}
+}
+estate_centaur_elite_regiments = {
+	icon = privilege_recruit_rajput_general
+	is_valid = {
+		has_race_recruitment = {
+			race = centaur
+		}
+	}
+	can_select = {
+		has_elite_regiments = no
+	}
+	on_granted = {
+		add_country_modifier = {
+			name = elite_guard_modifier
+			duration = -1
+		}
+	}
+	penalties = {
+		yearly_corruption = 0.20
+	}
+	benefits = {
+		special_unit_forcelimit = 0.05
+	}
+	mechanics = {
+	}
+	on_revoked = {
+		remove_country_modifier = elite_guard_modifier
+	}
+	on_invalid = {
+		remove_country_modifier = elite_guard_modifier
+	}
+	ai_will_do = {
+		factor = 1
+	}
+}
+estate_centaur_intolerance_policy = {
+	icon = privilege_centaur_supremacy	
+	influence = 0.10
+	is_valid = {
+		if = {
+			limit = {
+				has_global_flag = call_to_reaction_hre_flag
+				is_part_of_hre = yes
+			}
+			always = no
+		}
+		OR = {
+			AND = {
+				uses_isolationism = yes
+				NOT = {isolationism = 1}
+			}
+			uses_isolationism = no
+		}
+		has_country_modifier = centaur_military
+		has_country_modifier = centaur_administration
+	}
+	can_select = {
+		estate_territory = {
+			estate = estate_centaur
+			territory = 70
+		}
+	}
+	on_granted = {
+		custom_tooltip = estate_centaur_one_culture_gta
+		custom_tooltip = estate_centaur_one_culture_gtb
+		remove_racial_culture = { race = human }
+		remove_racial_culture = { race = elven }
+		remove_racial_culture = { race = dwarven }
+		remove_racial_culture = { race = halfling }
+		remove_racial_culture = { race = gnomish }
+		remove_racial_culture = { race = harimari }
+		remove_racial_culture = { race = gnollish }
+		remove_racial_culture = { race = ruinborn }
+		remove_racial_culture = { race = orcish }
+		remove_racial_culture = { race = goblin }
+		remove_racial_culture = { race = ogre }
+		remove_racial_culture = { race = troll }
+		remove_racial_culture = { race = harpy }
+		remove_racial_culture = { race = half_orcish }
+		remove_racial_culture = { race = half_elven }
+		remove_racial_culture = { race = hobgoblin }
+		remove_racial_culture = { race = kobold }
+	}
+	on_granted_province = {
+		add_racial_superiority_modifier = {
+			race = centaur
+		}
+	}
+	penalties = {
+		tolerance_heathen = -2
+		tolerance_heretic = -2
+		relation_with_other_culture = -50
+	}
+	benefits = {
+		global_missionary_strength = 0.01
+	}
+	conditional_modifier = {
+		trigger = {
+			any_known_country = {
+				NOT = { culture_is_centaur = yes }
+				war_with = root
+			}
+		}
+		modifier = {
+			land_morale = 0.05
+			shock_damage_received = -0.05
+			fire_damage_received = -0.05
+			manpower_recovery_speed = 0.1
+			reinforce_speed = 0.1
+			recover_army_morale_speed = 0.025			
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			any_ally = {
+				NOT = { culture_is_centaur = yes }
+			}
+		}
+		modifier = {
+			land_morale = -0.05
+			stability_cost_modifier = 0.2
+			legitimacy = -1
+			republican_tradition = -0.25
+			devotion = -0.5
+			global_unrest = 2		
+		}
+	}
+	on_revoked = {
+		custom_tooltip = estate_one_culture_rta
+		custom_tooltip = estate_one_culture_rtb
+	}
+	on_revoked_province = {
+		remove_racial_superiority_modifier = yes
+	}
+	on_invalid_province = {
+		remove_racial_superiority_modifier = yes
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		country_event = {
+			id = bertus_racial_military.5111
+		}
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_autonomy = {
+	icon = privilege_grant_autonomy
+	loyalty = 0.2
+	influence = 0.10
+	is_valid = {
+		NOT = { has_country_modifier = centaur_administration }
+	}
+	can_select = {
+		OR = {
+			AND = {
+				uses_isolationism = yes
+				NOT = {isolationism = 3}
+			}
+			uses_isolationism = no
+		}
+		any_owned_province = {
+			culture_is_centaur = yes
+		}
+	}
+	on_granted = {
+		small_increase_of_centaur_tolerance_effect = yes
+		custom_tooltip = estate_guaranteed_autonomy_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {culture_is_centaur = yes}
+			add_province_modifier = {
+				name = estate_guaranteed_autonomy_mod
+				duration = -1
+			}
+		}
+		else_if = {
+			limit = {has_province_modifier = estate_guaranteed_autonomy_mod}
+			remove_province_modifier = estate_guaranteed_autonomy_mod
+		}
+	}
+	on_revoked_province = {
+		if = {
+			limit = {has_province_modifier = estate_guaranteed_autonomy_mod}
+			remove_province_modifier = estate_guaranteed_autonomy_mod
+		}
+	}
+	on_invalid_province = {
+		if = {
+			limit = {has_province_modifier = estate_guaranteed_autonomy_mod}
+			remove_province_modifier = estate_guaranteed_autonomy_mod
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	ai_will_do = {
+		factor = 0
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		country_event = {
+			id = bertus_racial_military.5041
+		}
+	}
+}
+estate_centaur_purge = {
+	icon = privilege_grant_autonomy
+	loyalty = -0.2
+	influence = -0.20
+	is_valid = {
+		if = {
+			limit = {uses_isolationism = yes}
+			isolationism = 3
+		}
+	}
+	can_select = {
+		can_purge_race = {
+			RACE = centaur
+		}
+	}
+	on_granted = {		
+		largest_decrease_of_centaur_tolerance_effect = yes
+		add_country_modifier = { name = racial_pop_centaur_purge duration = -1 }
+		
+		custom_tooltip = racial_pop_events_debug.3.tooltip
+		
+		custom_tooltip = pop_menu_purge_effect_unrest_tt
+		
+		hidden_effect = {
+			add_purguing_unrest = {
+				race = centaur
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {		
+		remove_country_modifier = racial_pop_centaur_purge
+	}
+	on_invalid = {
+		remove_country_modifier = racial_pop_centaur_purge
+	}
+	ai_will_do = {
+		factor = 0
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+	}
+}
+estate_centaur_expulsion = {
+	icon = privilege_grant_autonomy
+	loyalty = -0.1
+	influence = -0.1
+	is_valid = {	
+		if = {
+			limit = {uses_isolationism = yes}
+			isolationism = 3
+		}
+	}
+	can_select = {
+		can_expel_race = {
+			RACE = centaur
+		}
+	}
+	on_granted = {				
+		large_decrease_of_centaur_tolerance_effect = yes
+		
+		add_country_modifier = { 
+			name = racial_pop_centaur_expulsion
+			duration = -1  
+		}
+		
+		custom_tooltip = racial_pop_events_debug.2.tooltip
+		
+		custom_tooltip = pop_menu_expel_effect_unrest_tt
+		
+		hidden_effect = {
+			add_expulsion_unrest = {
+				race = centaur
+			}
+		}
+	}
+	benefits = {
+	}
+	on_revoked = {		
+		remove_country_modifier = racial_pop_centaur_expulsion
+	}
+	on_invalid = {
+		remove_country_modifier = racial_pop_centaur_expulsion
+	}
+	ai_will_do = {
+		factor = 0
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+	}
+}
+estate_centaur_focus = {
+	icon = privilege_grant_autonomy
+	loyalty = 0.1
+	influence = 0.1
+	is_valid = {					
+		if = {
+			limit = {
+				has_global_flag = call_to_action_hre_flag
+			}
+			is_part_of_hre = no
+		}		
+		NOT = { has_country_modifier = centaur_administration }
+		NOT = { has_country_modifier = centaur_military }		
+	}
+	can_select = {
+		NOT = {
+			OR = {
+				has_country_modifier = racial_pop_centaur_purge
+				has_country_modifier = racial_pop_centaur_expulsion
+			}
+		}
+		NOT = { has_racial_focus = yes }
+	}
+	on_granted = {	
+		custom_tooltip = pop_menu_focus_desc_tt
+		add_country_modifier = {
+			name = racial_focus_centaur
+			duration = -1
+		}
+	}
+	benefits = {
+	}
+	on_revoked = {		
+		remove_country_modifier = racial_focus_centaur
+	}
+	on_invalid = {
+		remove_country_modifier = racial_focus_centaur
+	}
+	ai_will_do = {
+		factor = 0
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+	}
+}
+estate_centaur_non_military_swap = {
+	icon = privilege_grant_autonomy
+	loyalty = 0.1
+	is_valid = {	
+		any_owned_province = {
+			culture_is_centaur = yes
+			has_province_modifier = non_military_pop
+		}
+	}
+	can_select = {
+		NOT = {
+			OR = {
+				has_country_modifier = racial_pop_centaur_purge
+				has_country_modifier = racial_pop_centaur_expulsion
+			}
+		}
+	}
+	on_granted = {	
+		custom_tooltip = non_military_swap_tt
+	}
+	benefits = {
+	}
+	on_revoked = {		
+	}
+	on_invalid = {
+	}
+	ai_will_do = {
+		factor = 0
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+	}
+}
+estate_centaur_militar_education = {
+	icon = privilege_promote_maratha_nobility
+	influence = 0.10
+	is_valid = {
+		NOT = {
+			heir_mil = 5
+		}
+		has_heir = yes
+	}
+	can_select = {	
+		estate_influence = {
+			estate = estate_centaur
+			influence = 40
+		}
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_estate_privilege = estate_centaur_militar_education}
+	}
+	on_granted = {
+		custom_tooltip = estate_militar_education_tooltip
+	}
+	penalties = {
+		yearly_corruption = 0.2
+	}
+	benefits = {
+	}
+	conditional_modifier = {
+		trigger = {
+			has_country_modifier = short_lived_personality
+		}
+		modifier = {
+			yearly_corruption = -0.1
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			has_country_modifier = elven_administration
+		}
+		modifier = {
+			yearly_corruption = 0.6
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			has_country_modifier = gnomish_administration
+		}
+		modifier = {
+			yearly_corruption = 0.4
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			has_country_modifier = dwarven_administration
+		}
+		modifier = {
+			yearly_corruption = 0.2
+		}
+	}
+	on_revoked = {
+	}
+	on_invalid = {
+	}
+	cooldown_years = 5
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_militar_education
+		if = {
+			limit = {
+				NOT = {
+					heir_mil = 5
+				}
+			}
+			change_heir_mil = 1
+		}
+	}
+	ai_will_do = {
+		factor = 5
+	}
+}
+estate_centaur_colonizers = {
+	icon = privilege_new_world_mission
+	is_valid = {
+		num_of_colonists = 1
+	}
+	can_select = {
+		estate_influence = {
+			estate = estate_centaur
+			influence = 40
+		}
+		high_tolerance_centaur_race_trigger = yes
+		OR = {
+			has_estate_privilege = estate_centaur_economic_chairman
+			has_country_modifier = estate_centaur_economic_chairman_modifier
+		}
+	}
+	on_granted = {
+	}
+	modifier = {
+		global_colonial_growth = 20
+		yearly_corruption = 0.2
+	}
+	penalties = {
+	}
+	on_revoked = {
+	}
+	cooldown_years = 10
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_incense = {
+	icon = privilege_monopoly_of_goods_incence
+	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = incense
+			culture_is_centaur = yes
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_incense_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_incense_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = incense
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_INCENSE_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_incense_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = incense
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_brahmins_monopoly_of_incense_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_incense_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_incense_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_brahmins_monopoly_of_incense
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_grain = {
+	icon = privilege_monopoly_of_goods_grain	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = grain
+			culture_is_centaur = yes
+		}
+		NOT = {
+			has_country_flag = hoard_monopolies_food
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_grain_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_grain_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = grain
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_GRAIN_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_grain_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = grain
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_grain_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_grain_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_grain_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_grain
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_wine = {
+	icon = privilege_monopoly_of_goods_wine	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = wine
+			culture_is_centaur = yes
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_wine_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_wine_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}		
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = wine
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_WINE_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_wine_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = wine
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_wine_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_wine_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_wine_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_wine
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_tobacco = {
+	icon = privilege_monopoly_of_goods_tobacco	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = tobacco
+			culture_is_centaur = yes
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_tobacco_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_tobacco_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}		
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = tobacco
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_TOBACCO_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_tobacco_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = tobacco
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_tobacco_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_tobacco_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_tobacco_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_tobacco
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_livestock = {
+	icon = privilege_monopoly_of_goods_livestock	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = livestock
+			culture_is_centaur = yes
+		}
+		NOT = {
+			has_country_flag = hoard_monopolies_food
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_livestock_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_livestock_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = livestock
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_LIVESTOCK_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_livestock_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = livestock
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_livestock_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_livestock_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_livestock_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_livestock
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_wool = {
+	icon = privilege_monopoly_of_goods_wool	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = wool
+			culture_is_centaur = yes
+		}
+		NOT = {
+			has_country_flag = hoard_monopolies_textile
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_wool_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_wool_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = wool
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_WOOL_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_wool_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = wool
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_wool_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_wool_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_wool_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_wool
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_dyes = {
+	icon = privilege_monopoly_of_goods_dyes	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = dyes
+			culture_is_centaur = yes
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_dyes_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_dyes_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = dyes
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_DYES_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_dyes_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = dyes
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_dyes_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_dyes_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_dyes_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_dyes
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_cloth = {
+	icon = privilege_monopoly_of_goods_cloth	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = cloth
+			culture_is_centaur = yes
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_cloth_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_cloth_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = cloth
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_CLOTH_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_cloth_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = cloth
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_cloth_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_cloth_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_cloth_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_cloth
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_glass = {
+	icon = privilege_monopoly_of_goods_glass	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = glass
+			culture_is_centaur = yes
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_glass_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_glass_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = glass
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_GLASS_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_glass_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = glass
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_glass_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_glass_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_glass_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_glass
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_paper = {
+	icon = privilege_monopoly_of_goods_paper	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = paper
+			culture_is_centaur = yes
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_paper_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {	
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_paper_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}		
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = paper
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_PAPER_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_paper_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = paper
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_paper_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_paper_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_paper_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_paper
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_silk = {
+	icon = privilege_monopoly_of_goods_silk	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = silk
+			culture_is_centaur = yes
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_silk_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_silk_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = silk
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_SILK_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_silk_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = silk
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_silk_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_silk_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_silk_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_silk
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_fur = {
+	icon = privilege_monopoly_of_goods_fur	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = fur
+			culture_is_centaur = yes
+		}
+		NOT = {
+			has_country_flag = hoard_monopolies_textile
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_fur_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {		
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_fur_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}		
+					
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = fur
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_FUR_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_fur_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = fur
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_fur_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_fur_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_fur_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_fur
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_ivory = {
+	icon = privilege_monopoly_of_goods_ivory	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = ivory
+			culture_is_centaur = yes
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_ivory_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_ivory_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = ivory
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_IVORY_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_ivory_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = ivory
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_ivory_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_ivory_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_ivory_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_ivory
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_tea = {
+	icon = privilege_monopoly_of_goods_tea	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = tea
+			culture_is_centaur = yes
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_tea_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_tea_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = tea
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_TEA_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_tea_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = tea
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_tea_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_tea_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_tea_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_tea
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_chinaware = {
+	icon = privilege_monopoly_of_goods_chinaware	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = chinaware
+			culture_is_centaur = yes
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_chinaware_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_chinaware_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = chinaware
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_CHINAWARE_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_chinaware_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = chinaware
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_chinaware_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_chinaware_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_chinaware_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_chinaware
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_spices = {
+	icon = privilege_monopoly_of_goods_spices	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = spices
+			culture_is_centaur = yes
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_spices_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_spices_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = spices
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_SPICES_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_spices_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = spices
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_spices_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_spices_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_spices_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_spices
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_coffee = {
+	icon = privilege_monopoly_of_goods_coffee	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = coffee
+			culture_is_centaur = yes
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_coffee_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_coffee_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = coffee
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_COFFEE_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_coffee_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = coffee
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_coffee_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_coffee_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_coffee_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_coffee
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_cotton = {
+	icon = privilege_monopoly_of_goods_cotton	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = cotton
+			culture_is_centaur = yes
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_cotton_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_cotton_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = cotton
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_COTTON_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_cotton_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = cotton
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_cotton_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_cotton_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_cotton_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_cotton
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_sugar = {
+	icon = privilege_monopoly_of_goods_sugar	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = sugar
+			culture_is_centaur = yes
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_sugar_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_sugar_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = sugar
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_SUGAR_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_sugar_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = sugar
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_sugar_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_sugar_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_sugar_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_sugar
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_cocoa = {
+	icon = privilege_monopoly_of_goods_cocoa	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = cocoa
+			culture_is_centaur = yes
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_cocoa_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_cocoa_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = cocoa
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_COCOA_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_cocoa_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = cocoa
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_cocoa_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_cocoa_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_cocoa_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_cocoa
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_tropical_wood = {
+	icon = privilege_monopoly_of_goods_tropical_wood	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = tropical_wood
+			culture_is_centaur = yes
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_tropical_wood_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_tropical_wood_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = tropical_wood
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_TROPICAL_WOOD_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_tropical_wood_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = tropical_wood
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_tropical_wood_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_tropical_wood_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_tropical_wood_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_tropical_wood
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_cloves = {
+	icon = privilege_monopoly_of_goods_cloves	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = cloves
+			culture_is_centaur = yes
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_cloves_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_cloves_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = cloves
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_CLOVES_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_cloves_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = cloves
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_cloves_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_cloves_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_cloves_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_cloves
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_precursor_relics = {
+	icon = privilege_monopoly_of_goods_precursor_relics	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = precursor_relics
+			culture_is_centaur = yes
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_precursor_relics_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_precursor_relics_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = precursor_relics
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRECURSOR_RELICS_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_precursor_relics_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = precursor_relics
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_precursor_relics_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_precursor_relics_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_precursor_relics_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_precursor_relics
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_fungi = {
+	icon = privilege_monopoly_of_goods_fungi	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = fungi
+			culture_is_centaur = yes
+		}
+		NOT = {
+			has_country_flag = hoard_monopolies_food
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_fungi_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_fungi_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = fungi
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_FUNGI_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_fungi_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = fungi
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_fungi_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_fungi_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_fungi_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_fungi
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_amber = {
+	icon = privilege_monopoly_of_goods_amber	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = amber
+			culture_is_centaur = yes
+		}
+		NOT = {
+			has_country_flag = hoard_monopolies_food
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_amber_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_amber_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = amber
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_AMBER_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC	
+		custom_tooltip = estate_centaur_monopoly_of_amber_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = amber
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_amber_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_amber_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_amber_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_amber
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_apiculture = {
+	icon = privilege_monopoly_of_goods_apiculture	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = apiculture
+			culture_is_centaur = yes
+		}
+		NOT = {
+			has_country_flag = hoard_monopolies_food
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_apiculture_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_apiculture_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = apiculture
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_APICULTURE_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_apiculture_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = apiculture
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_apiculture_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_apiculture_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_apiculture_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_apiculture
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_beer = {
+	icon = privilege_monopoly_of_goods_beer	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = beer
+			culture_is_centaur = yes
+		}
+		NOT = {
+			has_country_flag = hoard_monopolies_food
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_beer_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_beer_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = beer
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_BEER_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_beer_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = beer
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_beer_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_beer_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_beer_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_beer
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_camel = {
+	icon = privilege_monopoly_of_goods_camel	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = camel
+			culture_is_centaur = yes
+		}
+		NOT = {
+			has_country_flag = hoard_monopolies_food
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_camel_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_camel_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = camel
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_CAMEL_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_camel_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = camel
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_camel_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_camel_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_camel_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_camel
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_carpet = {
+	icon = privilege_monopoly_of_goods_carpet	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = carpet
+			culture_is_centaur = yes
+		}
+		NOT = {
+			has_country_flag = hoard_monopolies_food
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_carpet_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_carpet_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = carpet
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_CARPET_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_carpet_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = carpet
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_carpet_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_carpet_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_carpet_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_carpet
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_champagne = {
+	icon = privilege_monopoly_of_goods_champagne	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = champagne
+			culture_is_centaur = yes
+		}
+		NOT = {
+			has_country_flag = hoard_monopolies_food
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_champagne_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_champagne_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = champagne
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_CHAMPAGNE_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_champagne_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = champagne
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_champagne_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_champagne_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_champagne_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_champagne
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_cheese = {
+	icon = privilege_monopoly_of_goods_cheese	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = cheese
+			culture_is_centaur = yes
+		}
+		NOT = {
+			has_country_flag = hoard_monopolies_food
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_cheese_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_cheese_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = cheese
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_CHEESE_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_cheese_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = cheese
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_cheese_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_cheese_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_cheese_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_cheese
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_cinnamon = {
+	icon = privilege_monopoly_of_goods_cinnamon	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = cinnamon
+			culture_is_centaur = yes
+		}
+		NOT = {
+			has_country_flag = hoard_monopolies_food
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_cinnamon_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_cinnamon_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = cinnamon
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_CHINNAMON_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_cinnamon_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = cinnamon
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_cinnamon_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_cinnamon_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_cinnamon_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_cinnamon
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_citrus = {
+	icon = privilege_monopoly_of_goods_citrus	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = citrus
+			culture_is_centaur = yes
+		}
+		NOT = {
+			has_country_flag = hoard_monopolies_food
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_citrus_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_citrus_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = citrus
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_CITRUS_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_citrus_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = citrus
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_citrus_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_citrus_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_citrus_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_citrus
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_dates = {
+	icon = privilege_monopoly_of_goods_dates	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = dates
+			culture_is_centaur = yes
+		}
+		NOT = {
+			has_country_flag = hoard_monopolies_food
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_dates_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_dates_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = dates
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_DATES_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_dates_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = dates
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_dates_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_dates_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_dates_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_dates
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_ebony = {
+	icon = privilege_monopoly_of_goods_ebony	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = ebony
+			culture_is_centaur = yes
+		}
+		NOT = {
+			has_country_flag = hoard_monopolies_food
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_ebony_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_ebony_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = ebony
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_EBONY_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_ebony_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = ebony
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_ebony_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_ebony_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_ebony_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_ebony
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_elephants = {
+	icon = privilege_monopoly_of_goods_elephants	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = elephants
+			culture_is_centaur = yes
+		}
+		NOT = {
+			has_country_flag = hoard_monopolies_food
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_elephants_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_elephants_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = elephants
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_ELEPHANTS_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_elephants_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = elephants
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_elephants_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_elephants_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_elephants_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_elephants
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_exotic_animals = {
+	icon = privilege_monopoly_of_goods_exotic_animals	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = exotic_animals
+			culture_is_centaur = yes
+		}
+		NOT = {
+			has_country_flag = hoard_monopolies_food
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_exotic_animals_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_exotic_animals_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = exotic_animals
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_EXOTIC_ANIMALS_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_exotic_animals_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = exotic_animals
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_exotic_animals_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_exotic_animals_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_exotic_animals_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_exotic_animals
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_gunpowder = {
+	icon = privilege_monopoly_of_goods_gunpowder	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = gunpowder
+			culture_is_centaur = yes
+		}
+		NOT = {
+			has_country_flag = hoard_monopolies_food
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_gunpowder_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_gunpowder_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = gunpowder
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_GUNPOWDER_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_gunpowder_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = gunpowder
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_gunpowder_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_gunpowder_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_gunpowder_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_gunpowder
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_horses = {
+	icon = privilege_monopoly_of_goods_horses	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = horses
+			culture_is_centaur = yes
+		}
+		NOT = {
+			has_country_flag = hoard_monopolies_food
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_horses_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_horses_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = horses
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_HORSES_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_horses_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = horses
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_horses_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_horses_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_horses_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_horses
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_indigo = {
+	icon = privilege_monopoly_of_goods_indigo	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = indigo
+			culture_is_centaur = yes
+		}
+		NOT = {
+			has_country_flag = hoard_monopolies_food
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_indigo_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_indigo_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = indigo
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_INDIGO_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_indigo_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = indigo
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_indigo_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_indigo_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_indigo_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_indigo
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_leather = {
+	icon = privilege_monopoly_of_goods_leather	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		always = no
+		any_owned_province = {
+			trade_goods = leather
+			culture_is_centaur = yes
+		}
+		NOT = {
+			has_country_flag = hoard_monopolies_food
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_leather_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_leather_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = leather
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_LEATHER_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_leather_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = leather
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_leather_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_leather_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_leather_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_leather
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_llama = {
+	icon = privilege_monopoly_of_goods_llama	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = llama
+			culture_is_centaur = yes
+		}
+		NOT = {
+			has_country_flag = hoard_monopolies_food
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_llama_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_llama_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = llama
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_LLAMA_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_llama_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = llama
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_llama_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_llama_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_llama_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_llama
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_lumber = {
+	icon = privilege_monopoly_of_goods_lumber	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = lumber
+			culture_is_centaur = yes
+		}
+		NOT = {
+			has_country_flag = hoard_monopolies_food
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_lumber_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_lumber_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = lumber
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_LUMBER_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_lumber_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = lumber
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_lumber_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_lumber_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_lumber_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_lumber
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_maize = {
+	icon = privilege_monopoly_of_goods_maize	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = maize
+			culture_is_centaur = yes
+		}
+		NOT = {
+			has_country_flag = hoard_monopolies_food
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_maize_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_maize_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = maize
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_MAIZE_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_maize_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = maize
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_maize_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_maize_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_maize_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_maize
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_maple_syrup = {
+	icon = privilege_monopoly_of_goods_maple_syrup	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = maple_syrup
+			culture_is_centaur = yes
+		}
+		NOT = {
+			has_country_flag = hoard_monopolies_food
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_maple_syrup_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_maple_syrup_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = maple_syrup
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_MAPLE_SYRUP_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_maple_syrup_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = maple_syrup
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_maple_syrup_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_maple_syrup_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_maple_syrup_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_maple_syrup
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_metalworking = {
+	icon = privilege_monopoly_of_goods_metalworking	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		always = no
+		any_owned_province = {
+			trade_goods = metalworking
+			culture_is_centaur = yes
+		}
+		NOT = {
+			has_country_flag = hoard_monopolies_food
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_metalworking_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_metalworking_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = metalworking
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_METALWORKING_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_metalworking_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = metalworking
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_metalworking_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_metalworking_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_metalworking_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_metalworking
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_munitions = {
+	icon = privilege_monopoly_of_goods_munitions	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		always = no
+		any_owned_province = {
+			trade_goods = munitions
+			culture_is_centaur = yes
+		}
+		NOT = {
+			has_country_flag = hoard_monopolies_food
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_munitions_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_munitions_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = munitions
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_MUNITIONS_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_munitions_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = munitions
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_munitions_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_munitions_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_munitions_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_munitions
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_olives = {
+	icon = privilege_monopoly_of_goods_olives	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = olive_oil
+			culture_is_centaur = yes
+		}
+		NOT = {
+			has_country_flag = hoard_monopolies_food
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_olives_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_olives_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = olive_oil
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_OLIVES_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_olives_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = olive_oil
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_olives_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_olives_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_olives_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_olives
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_opium = {
+	icon = privilege_monopoly_of_goods_opium	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = opium
+			culture_is_centaur = yes
+		}
+		NOT = {
+			has_country_flag = hoard_monopolies_food
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_opium_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_opium_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = opium
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_OPIUM_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_opium_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = opium
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_opium_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_opium_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_opium_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_opium
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_optics = {
+	icon = privilege_monopoly_of_goods_optics	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		always = no
+		any_owned_province = {
+			trade_goods = optics
+			culture_is_centaur = yes
+		}
+		NOT = {
+			has_country_flag = hoard_monopolies_food
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_optics_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_optics_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = optics
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_OPTICS_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_optics_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = optics
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_optics_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_optics_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_optics_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_optics
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_palm_oil = {
+	icon = privilege_monopoly_of_goods_palm_oil	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = palm_oil
+			culture_is_centaur = yes
+		}
+		NOT = {
+			has_country_flag = hoard_monopolies_food
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_palm_oil_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_palm_oil_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = palm_oil
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_PALM_OIL_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_palm_oil_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = palm_oil
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_palm_oil_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_palm_oil_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_palm_oil_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_palm_oil
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_potato = {
+	icon = privilege_monopoly_of_goods_potato	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = potato
+			culture_is_centaur = yes
+		}
+		NOT = {
+			has_country_flag = hoard_monopolies_food
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_potato_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_potato_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = potato
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_POTATO_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_potato_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = potato
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_potato_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_potato_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_potato_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_potato
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_rice = {
+	icon = privilege_monopoly_of_goods_rice	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = rice
+			culture_is_centaur = yes
+		}
+		NOT = {
+			has_country_flag = hoard_monopolies_food
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_rice_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_rice_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = rice
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_RICE_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_rice_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = rice
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_rice_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_rice_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_rice_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_rice
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_rum = {
+	icon = privilege_monopoly_of_goods_rum	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = rum
+			culture_is_centaur = yes
+		}
+		NOT = {
+			has_country_flag = hoard_monopolies_food
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_rum_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_rum_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = rum
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_RUM_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_rum_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = rum
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_rum_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_rum_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_rum_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_rum
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_saffron = {
+	icon = privilege_monopoly_of_goods_saffron	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = saffron
+			culture_is_centaur = yes
+		}
+		NOT = {
+			has_country_flag = hoard_monopolies_food
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_saffron_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_saffron_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = saffron
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_SAFFRON_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_saffron_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = saffron
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_saffron_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_saffron_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_saffron_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_saffron
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_steam_engine = {
+	icon = privilege_monopoly_of_goods_steam_engine	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		always = no
+		any_owned_province = {
+			trade_goods = steam_engine
+			culture_is_centaur = yes
+		}
+		NOT = {
+			has_country_flag = hoard_monopolies_food
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_steam_engine_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_steam_engine_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = steam_engine
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_STEAM_ENGINE_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_steam_engine_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = steam_engine
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_steam_engine_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_steam_engine_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_steam_engine_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_steam_engine
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_tar = {
+	icon = privilege_monopoly_of_goods_tar	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = tar
+			culture_is_centaur = yes
+		}
+		NOT = {
+			has_country_flag = hoard_monopolies_food
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_tar_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_tar_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = tar
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_TAR_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_tar_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = tar
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_tar_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_tar_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_tar_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_tar
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_tomato = {
+	icon = privilege_monopoly_of_goods_tomato	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = tomato
+			culture_is_centaur = yes
+		}
+		NOT = {
+			has_country_flag = hoard_monopolies_food
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_tomato_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_tomato_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = tomato
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_TOMATO_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_tomato_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = tomato
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_tomato_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_tomato_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_tomato_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_tomato
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_uniforms = {
+	icon = privilege_monopoly_of_goods_uniforms	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		always = no
+		any_owned_province = {
+			trade_goods = uniforms
+			culture_is_centaur = yes
+		}
+		NOT = {
+			has_country_flag = hoard_monopolies_food
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_uniforms_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_uniforms_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = uniforms
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_UNIFORMS_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_uniforms_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = uniforms
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_uniforms_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_uniforms_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_uniforms_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_uniforms
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_vanilla = {
+	icon = privilege_monopoly_of_goods_vanilla	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = vanilla
+			culture_is_centaur = yes
+		}
+		NOT = {
+			has_country_flag = hoard_monopolies_food
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_vanilla_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_vanilla_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = vanilla
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_VANILLA_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_vanilla_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = vanilla
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_vanilla_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_vanilla_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_vanilla_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_vanilla
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_woodworking = {
+	icon = privilege_monopoly_of_goods_woodworking	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		always = no
+		any_owned_province = {
+			trade_goods = woodworking
+			culture_is_centaur = yes
+		}
+		NOT = {
+			has_country_flag = hoard_monopolies_food
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_woodworking_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_woodworking_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = woodworking
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_WOODWORKING_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_woodworking_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = woodworking
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_woodworking_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_woodworking_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_woodworking_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_woodworking
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+estate_centaur_monopoly_of_nutmeg = {
+	icon = privilege_monopoly_of_goods_nutmeg	
+	loyalty = 0.05
+	is_valid = {
+		has_dlc = "Emperor"
+		any_owned_province = {
+			trade_goods = nutmeg
+			culture_is_centaur = yes
+		}
+		NOT = {
+			has_country_flag = hoard_monopolies_food
+		}
+	}
+	can_select = {
+		high_tolerance_centaur_race_trigger = yes
+		NOT = {has_country_modifier = estate_monopoly_of_nutmeg_cooldown_modifier}
+		custom_trigger_tooltip = {
+			tooltip = unavailable_during_revolution_disaster
+			NOT = { has_disaster = revolution }
+			NOT = {
+				has_disaster_progress = {
+					disaster = revolution
+					value = 1
+				}
+			}
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = estate_monopoly_of_nutmeg_cooldown_modifier
+				duration = 3600
+				hidden = yes
+			}
+		}
+		add_years_of_owned_provinces_production_income = {
+			years = 11
+			trigger = {
+				trade_goods = nutmeg
+				culture_is_centaur = yes
+			}
+			custom_tooltip = CENTAUR_MONOPOLY_INCOME_NUTMEG_DESC
+		}
+		custom_tooltip = CENTAUR_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = estate_centaur_monopoly_of_nutmeg_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				trade_goods = nutmeg
+				culture_is_centaur = yes
+			}
+			add_province_modifier = {
+				name = estate_monopoly_of_nutmeg_mod
+				duration = 3650
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	on_revoked = {
+		custom_tooltip = estate_centaur_monopoly_of_nutmeg_revoke_tooltip
+	}
+	on_revoked_province = {
+	}
+	on_invalid = {
+		custom_tooltip = estate_centaur_monopoly_of_nutmeg_revoke_tooltip
+	}
+	on_invalid_province = {
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_centaur_monopoly_of_nutmeg
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}

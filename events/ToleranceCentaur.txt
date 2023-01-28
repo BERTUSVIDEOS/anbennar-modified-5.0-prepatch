@@ -1,0 +1,821 @@
+
+namespace = centaur_tolerance_events
+
+# Event organizer for the centaur tolerance events - should be a huge improvement to performance - having 1 overall check for having the minority instead of one for EACH new event that gets added
+country_event = {
+	id = centaur_tolerance_events.0
+	title = race_setup_events.1.d
+	desc = race_setup_events.1.d
+	picture = BORDER_TENSION_eventPicture
+	
+
+	hidden = yes
+	#is_triggered_only = yes
+
+	trigger = {
+		any_owned_province = {
+			has_any_centaur_pop_trigger = yes
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 3650
+		modifier = {
+			factor = 0.75
+			has_country_modifier = racial_focus_centaur
+		}
+		modifier = {
+			factor = 0.75
+			has_idea = tolerance_idea_2
+		}
+	}
+
+	option = {
+		random_list = {
+			# Centaur advisor
+			1 = {
+				country_event = {
+					id = centaur_tolerance_events.1
+				}
+			}
+			# Minor landholders demand autonomy
+			1 = {
+				trigger = {
+					any_owned_province = {
+						has_any_centaur_pop_trigger = yes
+						NOT = { has_province_modifier = autonomous_centaur_landholders }
+					}
+				}
+				modifier = {
+					factor = 1.5
+					NOT = { prestige = 0 }
+				}
+				modifier = {
+					factor = 1.5
+					NOT = { legitimacy_equivalent = 75 }
+				}
+				country_event = {
+					id = centaur_tolerance_events.2
+				}
+			}
+			# Ambitious centaurs in government
+			1 = {
+				modifier = {
+					factor = 1.5
+					high_tolerance_centaur_race_trigger = yes
+				}
+				country_event = {
+					id = centaur_tolerance_events.3
+				}
+			}
+			# Centaur dominance undermining us
+			1 = {
+				country_event = {
+					id = centaur_tolerance_events.4
+				}
+			}
+			# Angry centaur mob farms
+			1 = {
+				modifier = {
+					factor = 1.5
+					low_tolerance_centaur_race_trigger = yes
+				}
+				modifier = {
+					factor = 1.5
+					NOT = { stability = 0 }
+				}
+				country_event = {
+					id = centaur_tolerance_events.6
+				}
+			}
+			# Centaur highwaymen
+			1 = {
+				trigger = {
+					any_owned_province = {
+						has_centaur_minority_trigger = yes
+						NOT = { has_province_modifier = centaur_highwaymen }
+						NOT = { has_province_modifier = centaur_populace_punished_for_highwaymen }
+					}
+				}
+				modifier = {
+					factor = 1.5
+					low_tolerance_centaur_race_trigger = yes
+				}
+				modifier = {
+					factor = 2
+					NOT = { stability = 0 }
+				}
+				modifier = {
+					factor = 2
+					average_unrest = 1
+				}
+				country_event = {
+					id = centaur_tolerance_events.7
+				}
+			}
+		}
+	}
+}
+
+# Centaur advisor
+country_event = {
+	id = centaur_tolerance_events.1
+	title = centaur_tolerance_events.1.t
+	desc = centaur_tolerance_events.1.d
+	picture = ADVISOR_eventPicture
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					has_centaur_minority_trigger = yes
+				}
+				save_event_target_as = centaur_advisor_province
+				set_variable = {which = province_manpower value = 0}
+				export_to_variable = {which = province_manpower value = base_manpower}
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
+			}
+			random_owned_province = {
+				limit = {
+					has_large_centaur_minority_trigger = yes
+				}
+				save_event_target_as = centaur_advisor_province
+				set_variable = {which = province_manpower value = 0}
+				export_to_variable = {which = province_manpower value = base_manpower}
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
+			}
+			random_owned_province = {
+				limit = {
+					has_centaur_majority_trigger = yes
+				}
+				save_event_target_as = centaur_advisor_province
+				set_variable = {which = province_manpower value = 0}
+				export_to_variable = {which = province_manpower value = base_manpower}
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
+			}
+		}
+	}
+
+	# Recruit
+	option = {
+		name = centaur_tolerance_events.1.a
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0.1
+				wants_to_decrease_tolerance_centaur = yes
+			}
+		}
+		add_corruption = 2
+		add_estate_loyalty = {
+			estate = estate_centaur
+			loyalty = 10
+		}
+		define_advisor = {
+			type = idea_var_advisor_4
+			skill = 3
+			cost_multiplier = 0.75	#bertus mod
+			culture = event_target:centaur_advisor_province
+			religion = event_target:centaur_advisor_province
+		}
+		event_target:centaur_advisor_province = {			
+			get_treasury_from_provinces = {	#bertus mod
+				cash_per_dev = -5
+			}
+		}
+	}
+	# A true exemplar of the community!
+	option = {
+		name = centaur_tolerance_events.1.b
+		ai_chance = {
+			factor = 50
+		}
+		add_estate_loyalty = {
+			estate = estate_centaur
+			loyalty = 10
+		}
+		small_increase_of_centaur_tolerance_effect = yes
+	}
+	# So what?
+	option = {
+		name = centaur_tolerance_events.1.c
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0.1
+				wants_to_increase_tolerance_centaur = yes
+			}
+		}
+		add_estate_loyalty = {
+			estate = estate_centaur
+			loyalty = -10
+		}
+		small_decrease_of_centaur_tolerance_effect = yes
+		increase_legitimacy_small_effect = yes
+	}
+
+	after = {
+	}
+}
+
+# Minor landholders demand autonomy
+country_event = {
+	id = centaur_tolerance_events.2
+	title = centaur_tolerance_events.2.t
+	desc = centaur_tolerance_events.2.d
+	picture = GREAT_BUILDING_eventPicture
+	GOTO = centaur_autonomous_landholders_province
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					has_centaur_minority_trigger = yes
+					NOT = { has_province_modifier = autonomous_centaur_landholders }
+				}
+				save_event_target_as = centaur_autonomous_landholders_province
+				set_variable = {which = province_manpower value = 0}
+				export_to_variable = {which = province_manpower value = base_manpower}
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
+			}
+			random_owned_province = {
+				limit = {
+					has_centaur_majority_trigger = yes
+					NOT = { has_province_modifier = autonomous_centaur_landholders }
+				}
+				save_event_target_as = centaur_autonomous_landholders_province
+				set_variable = {which = province_manpower value = 0}
+				export_to_variable = {which = province_manpower value = base_manpower}
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
+			}
+			random_owned_province = {
+				limit = {
+					has_centaur_majority_trigger = yes
+					development = 10
+					NOT = { has_province_modifier = autonomous_centaur_landholders }
+					
+				}
+				save_event_target_as = centaur_autonomous_landholders_province
+				set_variable = {which = province_manpower value = 0}
+				export_to_variable = {which = province_manpower value = base_manpower}
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
+			}
+			random_owned_province = {
+				limit = {
+					has_centaur_majority_trigger = yes
+					development = 20
+					NOT = { has_province_modifier = autonomous_centaur_landholders }
+					
+				}
+				save_event_target_as = centaur_autonomous_landholders_province
+				set_variable = {which = province_manpower value = 0}
+				export_to_variable = {which = province_manpower value = base_manpower}
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
+			}
+			random_owned_province = {
+				limit = {
+					has_centaur_majority_trigger = yes
+					development = 30
+					NOT = { has_province_modifier = autonomous_centaur_landholders }
+					
+				}
+				save_event_target_as = centaur_autonomous_landholders_province
+				set_variable = {which = province_manpower value = 0}
+				export_to_variable = {which = province_manpower value = base_manpower}
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
+			}
+		}
+	}
+
+	# Aight then
+	option = {
+		name = centaur_tolerance_events.2.a
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0.1
+				wants_to_increase_tolerance_centaur = yes
+			}
+			modifier = {
+				factor = 0.1
+				wants_to_maintain_tolerance_centaur = yes
+			}
+		}
+		medium_increase_of_centaur_tolerance_effect = yes
+		add_estate_loyalty = {
+			estate = estate_centaur
+			loyalty = 20
+		}
+		event_target:centaur_autonomous_landholders_province = {
+			add_province_modifier = {
+				name = autonomous_centaur_landholders
+				duration = 3650
+			}
+		}
+	}
+	# We cannot do this
+	option = {
+		name = centaur_tolerance_events.2.b
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0.8
+				wants_to_increase_tolerance_centaur = yes
+			}
+		}
+		small_decrease_of_centaur_tolerance_effect = yes
+		event_target:centaur_autonomous_landholders_province = {
+			add_unrest = 5
+		}
+	}
+	# How about we confiscate your land instead?
+	option = {
+		name = centaur_tolerance_events.2.c
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0.1
+				wants_to_increase_tolerance_centaur = yes
+			}
+		}
+		medium_decrease_of_centaur_tolerance_effect = yes
+		add_estate_loyalty = {
+			estate = estate_centaur
+			loyalty = -20
+		}
+		event_target:centaur_autonomous_landholders_province = {
+			add_unrest = 20
+			get_treasury_from_provinces = {
+				cash_per_dev = 20				
+			}
+		}
+	}
+}
+
+# Ambitious centaurs in government
+country_event = {
+	id = centaur_tolerance_events.3
+	title = centaur_tolerance_events.3.t
+	desc = centaur_tolerance_events.3.d
+	picture = PAINTER_ARTIST_eventPicture
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			random_province = {
+				limit = {
+					has_centaur_minority_trigger = yes
+				}
+				save_event_target_as = centaur_in_government_province
+				set_variable = {which = province_manpower value = 0}
+				export_to_variable = {which = province_manpower value = base_manpower}
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
+			}
+			random_province = {
+				limit = {
+					has_centaur_majority_trigger = yes
+				}
+				save_event_target_as = centaur_in_government_province
+				set_variable = {which = province_manpower value = 0}
+				export_to_variable = {which = province_manpower value = base_manpower}
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
+			}
+			random_province = {
+				limit = {
+					has_centaur_majority_trigger = yes
+					development = 10
+				}
+				save_event_target_as = centaur_in_government_province
+				set_variable = {which = province_manpower value = 0}
+				export_to_variable = {which = province_manpower value = base_manpower}
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
+			}
+			random_province = {
+				limit = {
+					has_centaur_majority_trigger = yes
+					development = 20
+				}
+				save_event_target_as = centaur_in_government_province
+				set_variable = {which = province_manpower value = 0}
+				export_to_variable = {which = province_manpower value = base_manpower}
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
+			}
+			random_province = {
+				limit = {
+					has_centaur_majority_trigger = yes
+					development = 30
+				}
+				save_event_target_as = centaur_in_government_province
+				set_variable = {which = province_manpower value = 0}
+				export_to_variable = {which = province_manpower value = base_manpower}
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
+			}
+		}
+	}
+	# Their ambition will drive us further
+	option = {
+		name = centaur_tolerance_events.3.a
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0.5
+				wants_to_decrease_tolerance_centaur = yes
+			}
+		}
+		add_estate_loyalty = {
+			estate = estate_centaur
+			loyalty = 30
+		}
+		add_estate_loyalty = {
+			estate = all
+			loyalty = -10
+		}		
+		event_target:centaur_in_government_province = {
+			get_prestige_from_provinces = {
+				prestige_per_dev = -0.2
+			}
+			random_list = {
+				1 = {
+					add_scaled_local_adm_power = 5
+				}
+				1 = {
+					add_scaled_local_dip_power = 5
+				}
+				1 = {
+					add_scaled_local_mil_power = 5
+				}
+			}
+		}
+		small_increase_of_centaur_tolerance_effect = yes
+	}
+	# I guess its to be expected
+	option = {
+		name = centaur_tolerance_events.3.b
+		ai_chance = {
+			factor = 50
+		}
+		add_estate_loyalty = {
+			estate = estate_centaur
+			loyalty = 10
+		}
+		add_reform_progress_medium_effect = yes
+	}
+	# Curtail ambitious officials
+	option = {
+		name = centaur_tolerance_events.3.c
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0.1
+				wants_to_increase_tolerance_centaur = yes
+			}
+		}
+		event_target:centaur_in_government_province = {
+			get_prestige_from_provinces = {
+				prestige_per_dev = 0.2
+			}
+		}
+		increase_legitimacy_small_effect = yes
+		small_decrease_of_centaur_tolerance_effect = yes
+	}
+	# Reward them for their contributions
+	option = {
+		name = centaur_tolerance_events.3.e
+		trigger = {
+			high_tolerance_centaur_race_trigger = yes
+		}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0.1
+				NOT = { years_of_income = 0.5 }
+			}
+			modifier = {
+				factor = 0.1
+				NOT = { wants_to_decrease_tolerance_centaur = yes }
+			}
+		}
+		add_estate_loyalty = {
+			estate = estate_centaur
+			loyalty = 10
+		}
+		event_target:centaur_in_government_province = {
+			get_treasury_from_provinces = {
+				cash_per_dev = -5
+			}
+			random_list = {
+				1 = {
+					add_scaled_local_adm_power = 10
+				}
+				1 = {
+					add_scaled_local_dip_power = 10
+				}
+				1 = {
+					add_scaled_local_mil_power = 10
+				}
+			}
+		}
+		small_increase_of_centaur_tolerance_effect = yes
+	}
+}
+
+# Centaur dominance undermining us
+country_event = {
+	id = centaur_tolerance_events.4
+	title = centaur_tolerance_events.4.t
+	desc = centaur_tolerance_events.4.d
+	picture = OVEREXTENSION_eventPicture
+
+	is_triggered_only = yes
+
+	# That just means less work for us
+	option = {
+		name = centaur_tolerance_events.4.a
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0.1
+				wants_to_decrease_tolerance_centaur = yes
+			}
+		}
+		small_increase_of_centaur_tolerance_effect = yes
+		add_estate_loyalty = {
+			estate = estate_centaur
+			loyalty = 10
+		}
+		add_corruption = 2
+	}
+	# What can you do?
+	option = {
+		name = centaur_tolerance_events.4.b
+		ai_chance = {
+			factor = 50
+		}
+		add_prestige = -10
+	}
+	# They need to be put in their place
+	option = {
+		name = centaur_tolerance_events.4.c
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0.1
+				wants_to_increase_tolerance_centaur = yes
+			}
+		}
+		add_prestige = 10
+		add_estate_loyalty = {
+			estate = estate_centaur
+			loyalty = -10
+		}
+		small_decrease_of_centaur_tolerance_effect = yes
+	}
+}
+
+# Angry centaur mob forms
+country_event = {
+	id = centaur_tolerance_events.6
+	title = centaur_tolerance_events.6.t
+	desc = centaur_tolerance_events.6.d
+	picture = ANGRY_MOB_eventPicture
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					has_centaur_minority_trigger = yes
+				}
+				save_event_target_as = centaur_mob_province
+				set_variable = {which = province_manpower value = 0}
+				export_to_variable = {which = province_manpower value = base_manpower}
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
+			}
+			random_owned_province = {
+				limit = {
+					has_centaur_majority_trigger = yes
+				}
+				save_event_target_as = centaur_mob_province
+				set_variable = {which = province_manpower value = 0}
+				export_to_variable = {which = province_manpower value = base_manpower}
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
+			}
+			random_owned_province = {
+				limit = {
+					has_centaur_majority_trigger = yes
+					development = 20
+				}
+				save_event_target_as = centaur_mob_province
+				set_variable = {which = province_manpower value = 0}
+				export_to_variable = {which = province_manpower value = base_manpower}
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
+			}
+			random_owned_province = {
+				limit = {
+					has_centaur_majority_trigger = yes
+					development = 30
+				}
+				save_event_target_as = centaur_mob_province
+				set_variable = {which = province_manpower value = 0}
+				export_to_variable = {which = province_manpower value = base_manpower}
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
+			}
+			random_owned_province = {
+				limit = {
+					has_centaur_majority_trigger = yes
+					development = 40
+				}
+				save_event_target_as = centaur_mob_province
+				set_variable = {which = province_manpower value = 0}
+				export_to_variable = {which = province_manpower value = base_manpower}
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
+			}
+		}
+	}
+	# De-escalate the situation
+	option = {
+		name = centaur_tolerance_events.6.a
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0.1
+				wants_to_decrease_tolerance_centaur = yes
+			}
+		}
+		small_increase_of_centaur_tolerance_effect = yes
+		add_estate_loyalty = {
+			estate = estate_centaur
+			loyalty = 10
+		}
+		event_target:centaur_mob_province = {
+			get_prestige_from_provinces = {
+				prestige_per_dev = -0.1
+			}
+		}
+	}
+	# Just centaurs being centaurs
+	option = {
+		name = centaur_tolerance_events.6.b
+		ai_chance = {
+			factor = 50
+		}
+		event_target:centaur_mob_province = {
+			add_unrest = 10
+		}
+	}
+	# Send out the troops!
+	option = {
+		name = centaur_tolerance_events.6.c
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0.1
+				wants_to_increase_tolerance_centaur = yes
+			}
+		}
+		small_decrease_of_centaur_tolerance_effect = yes
+		add_estate_loyalty = {
+			estate = estate_centaur
+			loyalty = -10
+		}
+		event_target:centaur_mob_province = {
+			get_manpower_from_provinces = {
+				manpower_per_dev = -0.5
+			}
+		}
+	}
+}
+
+# Centaur highwaymen
+#TODO - MAKE THIS TROY's MONSTER SYSTEM
+country_event = {
+	id = centaur_tolerance_events.7
+	title = centaur_tolerance_events.7.t
+	desc = centaur_tolerance_events.7.d
+	picture = BORDER_TENSION_eventPicture
+	GOTO = centaur_highwaymen_province
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					has_centaur_minority_trigger = yes
+					NOT = { has_province_modifier = centaur_highwaymen }
+					NOT = { has_province_modifier = centaur_populace_punished_for_highwaymen }
+				}
+				save_event_target_as = centaur_highwaymen_province
+				set_variable = {which = province_manpower value = 0}
+				export_to_variable = {which = province_manpower value = base_manpower}
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
+			}
+			random_owned_province = {
+				limit = {
+					has_centaur_minority_trigger = yes
+					unrest = 1
+					NOT = { has_province_modifier = centaur_highwaymen }
+					NOT = { has_province_modifier = centaur_populace_punished_for_highwaymen }
+				}
+				save_event_target_as = centaur_highwaymen_province
+				set_variable = {which = province_manpower value = 0}
+				export_to_variable = {which = province_manpower value = base_manpower}
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
+			}
+		}
+	}
+
+	# It will be more trouble finding them than its worth
+	option = {
+		name = centaur_tolerance_events.7.a
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0.1
+				wants_to_decrease_tolerance_centaur = yes
+			}
+		}
+		small_increase_of_centaur_tolerance_effect = yes		
+		add_estate_loyalty = {
+			estate = all
+			loyalty = -10
+		}	
+		add_estate_loyalty = {
+			estate = estate_centaur
+			loyalty = 10
+		}
+		event_target:centaur_highwaymen_province = {
+			add_province_modifier = {
+				name = centaur_highwaymen
+				duration = 3650
+			}
+		}
+	}
+	# Establish more frequent patrols
+	option = {
+		name = centaur_tolerance_events.7.b
+		ai_chance = {
+			factor = 50
+		}
+		event_target:centaur_highwaymen_province = {
+			get_manpower_from_provinces = {
+				manpower_per_dev = -0.5
+			}
+			add_unrest = -10
+		}
+	}
+	# Punish them all for harbouring the criminals
+	option = {
+		name = centaur_tolerance_events.7.c
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0.1
+				wants_to_increase_tolerance_centaur = yes
+			}
+		}
+		small_decrease_of_centaur_tolerance_effect = yes
+		add_estate_loyalty = {
+			estate = estate_centaur
+			loyalty = -10
+		}
+		event_target:centaur_highwaymen_province = {
+			area = {
+				add_unrest = -10
+				add_province_modifier = {
+					name = centaur_populace_punished_for_highwaymen
+					duration = 3650
+				}
+				get_manpower_from_provinces = {
+					manpower_per_dev = -0.5
+				}
+			}
+		}
+	}
+}

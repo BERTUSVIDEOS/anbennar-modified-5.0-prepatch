@@ -1,0 +1,142 @@
+# INSTRUCTIONS:
+# -------------
+# is_triggered_only - Triggered from within the code or by event effects. DO NOT REMOVE THE STOCK ONES.
+# months - The number of months this CB will be valid. Only works for triggered CBs.
+# prerequisites - A condition that automatically activates a CB. Does not work for triggered CBs.
+# no_opinion_hit - If yes you get no negative opinion from this
+#
+# ROOT = attacker
+# FROM = target
+#
+# NOTE: The order in which the peace options are listed is the order in which the AI will normally prioritize them in peace treaties
+#
+# TRIGGERED - Triggered from within the code or by event effects
+# --------------------------------------------------------------
+
+# Restoration of recently broken PU
+cb_ogre_force_tributary = { 
+ 
+	valid_for_subject = no 
+ 
+	prerequisites = {
+		has_dlc = "Mandate of Heaven" 
+		has_country_modifier = ogre_administration	#Anbennar
+		FROM = {
+			OR = {
+				NOT = {
+					total_development = 100
+				}
+				NOT = {
+					num_of_owned_provinces_with = {
+						value = 20
+						is_overseas = no
+					}
+				}
+			}	
+		}
+	} 
+	attacker_disabled_po = {
+		po_demand_provinces
+		po_release_vassals
+		po_release_annexed
+		po_return_cores
+		po_become_vassal
+		po_subjugate_vassal
+		po_form_personal_union
+		po_transfer_vassals
+	} 
+	war_goal = take_capital_force_tributary 
+} 
+cb_david_vs_goliath = {
+
+	valid_for_subject = no
+
+	prerequisites = {	
+		full_idea_group = konigreich0
+		is_revolution_target = no		
+		FROM = {
+			is_neighbor_of = ROOT
+			government_rank = 3
+		}		
+	}
+
+	war_goal = david_vs_goliath
+}
+cb_konigreich = {
+
+	valid_for_subject = no
+
+	prerequisites = {	
+		full_idea_group = imperialismus0
+		is_revolution_target = no	
+		government_rank = 3	
+		FROM = {
+			is_neighbor_of = ROOT
+			NOT = {government_rank = 2}
+		}		
+	}
+
+	war_goal = take_capital_vassalize
+}
+cb_dwarovar_one_king = {
+
+	valid_for_subject = no
+
+	prerequisites = {	
+		has_government_attribute = dwarovar_one_king_cb
+		FROM = {
+			any_owned_province = {
+				continent = serpentspine
+			}
+		}		
+	}
+
+	war_goal = take_serpentspine
+}
+# race theory
+cb_on_own_race = {
+
+	prerequisites = {
+		has_government_attribute = cb_on_own_race
+		is_free_or_tributary_trigger = yes
+		culture_group_claim = FROM
+		FROM = {
+			is_purguing_our_race = yes
+		}
+	}
+
+	war_goal = take_province_nationalist
+}
+# Enforced Tolerance
+cb_on_purguers = {
+
+	prerequisites = {
+		has_government_attribute = cb_on_purguers
+		is_free_or_tributary_trigger = yes
+		FROM = {
+			OR = {
+				has_country_modifier = racial_pop_human_purge
+				has_country_modifier = racial_pop_elven_purge
+				has_country_modifier = racial_pop_dwarven_purge
+				has_country_modifier = racial_pop_halfling_purge
+				has_country_modifier = racial_pop_gnomish_purge
+				has_country_modifier = racial_pop_harimari_purge
+				has_country_modifier = racial_pop_gnollish_purge
+				has_country_modifier = racial_pop_ruinborn_purge
+				has_country_modifier = racial_pop_orcish_purge
+				has_country_modifier = racial_pop_goblin_purge
+				has_country_modifier = racial_pop_ogre_purge
+				has_country_modifier = racial_pop_centaur_purge
+				has_country_modifier = racial_pop_troll_purge
+				has_country_modifier = racial_pop_harpy_purge
+				has_country_modifier = racial_pop_half_orcish_purge
+				has_country_modifier = racial_pop_half_elven_purge
+				has_country_modifier = racial_pop_hobgoblin_purge
+				has_country_modifier = racial_pop_kobold_purge
+			}
+		}
+	}
+
+	war_goal = superiority_anti_monster
+}
+

@@ -1,0 +1,100 @@
+
+#has_university_building = {	#double key?
+#	OR = {
+#		has_building = education_lvl_1
+#		has_building = education_lvl_2
+#		has_building = university
+#	}
+#}
+
+incomplete_hold = {	
+	OR = {
+		has_province_modifier = incomplete_hold
+		has_province_modifier = incomplete_hold_1
+		has_province_modifier = incomplete_hold_2
+		has_province_modifier = incomplete_hold_3
+		has_province_modifier = incomplete_hold_4
+	}
+}
+not_unruly_lands = {	
+	NOT = {
+		has_province_modifier = unrule_lands
+		has_province_modifier = unrule_lands_1
+		has_province_modifier = unrule_lands_2
+		has_province_modifier = unrule_lands_3
+		has_province_modifier = unrule_lands_4
+	}
+}
+not_fiting_religion = {
+	OR = {
+		AND = {
+			culture_is_ruinborn = no
+			culture_is_dwarven = no
+			religion_group = dwarven
+		}
+		AND = {
+			culture_is_ruinborn = no
+			culture_is_goblin = no
+			culture_is_orcish = no
+			culture_is_half_orcish = no
+			religion_group = goblin
+		}
+		AND = {
+			culture_is_ruinborn = no
+			culture_is_orcish = no
+			culture_is_goblin = no
+			culture_is_half_orcish = no
+			religion_group = orcish
+		}
+		AND = {
+			culture_is_ruinborn = no
+			culture_is_elven = no
+			culture_is_half_elven = no
+			religion_group = elven
+		}
+		AND = {
+			culture_is_ruinborn = no
+			culture_is_elven = no
+			culture_is_half_elven = no
+			religion_group = fey_religion
+			if = {
+				limit = {
+					religion = fey_court
+				}
+				NOT = {
+					culture = emerald_orc
+				}
+			}
+		}
+		AND = {
+			culture_is_ruinborn = no
+			culture_is_gnollish = no
+			religion_group = gnollish
+		}
+		AND = {
+			culture_is_ruinborn = no
+			culture_is_centaur = no
+			religion_group = centaur_religion
+		}
+		AND = {
+			culture_is_ruinborn = no
+			culture_is_ogre = no
+			religion = feast_of_the_gods
+		}
+		AND = {
+			culture_is_ruinborn = no
+			NOT = {culture_group = giantkind}
+			religion = mountain_watchers
+		}
+		AND = {
+			culture_is_ruinborn = no
+			culture_is_harpy = no
+			religion_group = harpy_cults
+		}
+		AND = {
+			culture_is_ruinborn = no
+			culture_is_kobold = no
+			religion_group = dragon_cult
+		}
+	}
+}

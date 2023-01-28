@@ -1,0 +1,906 @@
+silverforge_innovations = {
+	slot = 1 
+	generic = no
+	ai = yes 
+	potential = { tag = A73 }
+	has_country_shield = yes
+	
+	
+	silverforge_secure_our_surroundings = { 
+		icon = the_alpine_wall
+		required_missions = {  }
+		position = 3
+		
+		provinces_to_highlight = {
+			owner = {
+				is_neighbor_of = ROOT
+				NOT = {
+					alliance_with = ROOT
+					NOT = {
+						army_strength = {
+							who = ROOT
+							value = 0.66
+						}
+					}
+				}
+			}
+		}
+		trigger = {
+			all_neighbor_country = {
+				OR = {
+					alliance_with = ROOT
+					NOT = {
+						army_strength = {
+							who = ROOT
+							value = 0.66
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			add_prestige = 10
+			270 = {
+				add_permanent_claim = ROOT
+			}
+			260 = {
+				add_permanent_claim = ROOT
+			}	
+			263 = {
+				add_permanent_claim = ROOT
+			}	
+			add_country_modifier = {
+				name = "thriving_arms_industry"
+				duration = 7300
+			}
+		}
+	}
+	
+	silverforge_west_forest = {
+		icon = mission_alone_in_the_wood
+		required_missions = { 
+			silverforge_secure_our_surroundings
+		}
+		position = 4
+		
+		provinces_to_highlight = {
+			OR = {
+				province_id = 270
+				province_id = 260
+				province_id = 263
+			}
+			NOT = {owned_by = ROOT }
+		}
+		
+		trigger = {
+			270 = {
+				owned_by = ROOT
+			}
+			260 = {
+				owned_by = ROOT
+			}
+			263 = {
+				owned_by = ROOT
+			}
+		}
+		effect = {
+			bennonhill_area = {
+				add_permanent_claim = ROOT
+			}
+			hearthswood_area = {
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	silverforge_take_the_flatlands = {
+		icon = restore_great_moravia
+		required_missions = { 
+			silverforge_west_forest
+		}
+		position = 5
+		
+		provinces_to_highlight = {
+			area = bennonhill_area
+			NOT = {owned_by = ROOT }
+		}
+		
+		trigger = {
+			bennonhill_area = {
+				type = all
+				owned_by = ROOT
+			}
+			high_tolerance_gnomish_race_trigger = yes
+		}
+		effect = {
+			custom_tooltip = unlock_artificer_tt
+			set_country_flag = supporting_artificers
+			add_prestige = 10
+			define_advisor = {
+				type = master_of_mint
+				skill = 3
+				cost_multiplier = 0.50
+				culture = imperial_gnome
+				religion = regent_court
+			}
+			cann_esmar_area = {
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	silverforge_take_the_esmar_river = {
+		icon = mission_pf_map_table
+		required_missions = {
+			silverforge_hearthswood
+			silverforge_take_the_flatlands
+		}
+		position = 6
+		
+		provinces_to_highlight = {
+			area = cann_esmar_area	
+			NOT = {owned_by = ROOT }
+		}
+		
+		trigger = {
+			cann_esmar_area = {
+				type = all
+				owned_by = ROOT
+			}
+			266 = {
+				development = 30
+				owned_by = ROOT
+				province_has_center_of_trade_of_level = 2
+			}
+		}
+		effect = {
+			add_prestige = 10
+			912 = {
+				add_province_triggered_modifier = silverforge_glass_production
+			}
+			266 = {
+				add_province_modifier = {
+					name = silverforge_esmaraine_market
+					duration = -1
+				}
+			}
+		}
+	}
+	silverforge_calascandar_development = { 
+		icon = mission_invade_island
+		required_missions = {
+			silverforge_east_dameshead_coast
+		}		
+		position = 8
+		
+		provinces_to_highlight = {
+			area = heartland_borders_area
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			heartland_borders_area = {
+				type = all
+				owned_by = ROOT
+			}
+		}
+		effect = {
+			damescrown_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			add_country_modifier = {
+				name = army_enthusiasm
+				duration = 3650
+			}
+		}
+	}
+}
+
+silverforge_internal_development = {
+	slot = 2 
+	generic = no
+	ai = yes 
+	potential = { tag = A73 }
+	has_country_shield = yes
+	
+	silverforge_iron_deposits = { 
+		icon = mission_riches_of_golconda
+		required_missions = {
+			
+		}
+		position = 2
+		
+		provinces_to_highlight = {
+			province_id = 912
+		}
+		trigger = {
+			912 = {
+				trade_goods = iron
+				base_production = 15
+				is_capital = yes
+			}
+		}
+		effect = {
+			912 = {
+				add_province_modifier = {
+					name = silverforge_iron_deposits
+					duration = -1
+				}
+				add_province_modifier = {
+					name = "growth_of_capital"
+					duration = 7300
+				}
+				custom_tooltip = reduce_incompleted_hold_level_tt
+				hidden_effect = {reduce_incompleted_hold_level = yes}
+			}
+		}
+	}
+	
+	silverforge_hearthswood = { 
+		icon = develop_konigsberg
+		required_missions = { 
+			silverforge_west_forest
+		}
+		
+		position = 5
+		
+		provinces_to_highlight = {
+			area = hearthswood_area
+		}
+		
+		trigger = {
+			hearthswood_area = {
+				type = all
+				base_production = 10
+			}
+			OR = {			
+				hearthswood_area = {
+					type = all
+					owned_by = ROOT
+					culture = ROOT
+				}
+				any_ally = {
+					hearthswood_area = {
+						type = all
+						owned_by = PREV
+					}
+					has_opinion = {
+						who = ROOT
+						value = 200
+					}
+					reverse_has_opinion = {
+						who = ROOT
+						value = 200
+					}
+				}
+			}
+		}
+		effect = {
+			add_prestige = 10
+			912 = {
+				custom_tooltip = reduce_incompleted_hold_level_tt
+				hidden_effect = {reduce_incompleted_hold_level = yes}
+			}
+			273 = {
+				change_trade_goods = lumber
+				add_province_modifier = {
+					name = silver_good_lumber_modifier
+					duration = -1
+				}
+				add_dwarven_minority_size_effect = yes
+			}
+			272 = {
+				change_trade_goods = lumber
+				add_province_modifier = {
+					name = silver_good_lumber_modifier
+					duration = -1
+				}
+				add_dwarven_minority_size_effect = yes
+			}
+			900 = {
+				change_trade_goods = lumber
+				add_permanent_province_modifier = {
+					name = silver_good_lumber_modifier
+					duration = -1
+				}
+				add_dwarven_minority_size_effect = yes
+			}
+		}
+	}
+	silverforge_expand_west = { 
+		icon = mission_advance_to_the_dnieper
+		required_missions = {
+			silverforge_hearthswood
+		}
+		
+		provinces_to_highlight = {
+			area = songbarges_area
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			songbarges_area = {
+				type = all
+				owned_by = ROOT	
+			}
+		}
+		effect = {
+			konwell_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			ryalanar_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}	
+	silverforge_east_dameshead_coast = { 
+		icon = mission_invade_island
+		required_missions = {
+			silverforge_expand_west
+		}
+		
+		provinces_to_highlight = {
+			OR = {
+				area = ryalanar_area
+				area = konwell_area
+			}
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			konwell_area = {
+				type = all
+				owned_by = ROOT
+			}
+			ryalanar_area = {
+				type = all
+				owned_by = ROOT
+			}
+		}
+		effect = {
+			add_prestige = 10
+			275 = {
+				add_province_modifier = {
+					name = silverforge_konwell_port
+					duration = -1
+				}
+			}
+			heartland_borders_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	silverforge_konwell_fortress = { 
+		icon = mission_invade_island
+		required_missions = {
+			silverforge_east_dameshead_coast
+		}
+		
+		provinces_to_highlight = {
+			province_id = 275
+		}
+		trigger = {
+			275 = {
+				development = 40
+				OR = {
+					has_building = coastal_defence
+					has_building = naval_battery
+				}
+				OR = {
+					has_building = fort_16th
+					has_building = fort_17th
+					has_building = fort_18th
+				}
+			}
+		}
+		effect = {
+			275 = {
+				remove_province_modifier = silverforge_konwell_port
+				add_province_modifier = {
+					name = silverforge_konwell_fortress
+					duration = -1
+				}
+			}
+		}
+	}
+}
+
+silverforge_deepwoods_development = {
+	slot = 3
+	generic = no
+	ai = yes 
+	potential = { tag = A73 }
+	has_country_shield = yes
+	
+	silverforge_restore_the_archives = { 
+		icon = found_the_vatican_library
+		required_missions = {
+		}
+		position = 1
+		
+		trigger = {
+			adm_power = 100
+			912 = {
+				development = 25
+				has_building = education_lvl_1
+			}
+			innovativeness = 20
+		}
+		effect = {
+			add_adm_power = -100
+			add_treasury = -500
+			if = {
+				limit = { has_dlc = "Rule Britannia" }
+				change_innovativeness = 5
+			}
+			912 = {
+				hidden_effect = {
+					if = {
+						limit = {has_building = education_lvl_1}
+						remove_building = education_lvl_1
+					}
+					if = {
+						limit = {has_building = education_lvl_2}
+						remove_building = education_lvl_2
+					}
+				}
+				add_building = university
+				add_permanent_province_modifier = {
+					name = silverforge_archive_knowledge
+					duration = -1
+				}
+				custom_tooltip = reduce_incompleted_hold_level_tt
+				hidden_effect = {reduce_incompleted_hold_level = yes}
+			}
+		}
+	}
+	silverforge_repair_the_warding_gate = { 
+		icon = mission_el_badi_palace
+		required_missions = { silverforge_restore_the_archives }
+		position = 2
+		
+		provinces_to_highlight = {
+			OR = {
+				province_id = 308
+				province_id = 912
+			}
+		}
+		trigger = {
+			308 = {
+				owned_by = ROOT
+				fort_level = 2
+				development = 20
+			}
+			mil_power = 200
+			treasury = 600
+		}
+		effect = {
+			add_treasury = -600
+			add_mil_power = -200
+			308 = {
+				#add_building = gate_fort_1
+				add_province_modifier = {
+					name = silverforge_the_warding_gate_1
+					duration = -1
+				}
+			}
+			912 = {
+				#add_building = gate_fort_1
+				add_province_modifier = {
+					name = silverforge_the_warding_gate_1
+					duration = -1
+				}
+			}
+		}
+	}
+	silverforge_recast_the_warding_spell = {
+		icon = fortify_the_passes
+		required_missions = {
+			silverforge_repair_the_warding_gate
+			silverforge_iron_deposits
+		}
+		
+		position = 3
+		
+		provinces_to_highlight = {
+			OR = {
+				province_id = 308
+				province_id = 912
+			}
+		}
+		
+		trigger = {
+			production_leader = {
+				trade_goods = iron
+			}
+			OR = {
+				AND = {
+					ruler_has_personality = mage_personality
+					custom_trigger_tooltip = {
+				        tooltip = tooltip_has_abjuration_2
+						OR = {
+							has_ruler_flag = abjuration_2
+							has_ruler_flag = abjuration_3
+						}
+					}
+				}
+				estate_loyalty = {
+					estate = estate_mages
+					loyalty = 60
+				}
+			}
+		}
+		effect = {
+			308 = {
+				#add_building = gate_fort_2
+				remove_province_modifier = silverforge_the_warding_gate_1
+				add_province_modifier = {
+					name = silverforge_the_warding_gate_2
+					duration = -1
+				}
+				add_building = fort_16th
+			}
+			912 = {
+				#add_building = gate_fort_2
+				remove_province_modifier = silverforge_the_warding_gate_1
+				add_province_modifier = {
+					name = silverforge_the_warding_gate_2
+					duration = -1
+				}
+				add_building = fort_16th
+			}
+		}
+	}
+	
+	silverforge_kekigs_legacy = { 
+		icon = mission_a_great_mandala
+		required_missions = {
+			silverforge_recast_the_warding_spell
+		}
+		position = 4
+		
+		provinces_to_highlight = {
+			OR = {
+				province_id = 308
+				province_id = 912
+			}
+		}
+		trigger = {
+			fortification_expert = 3
+			treasury = 1000
+			mil_power = 200
+			308 = {
+				has_province_modifier = silverforge_developed_gate
+			}
+			912 = {
+				has_province_modifier = silverforge_developed_gate
+			}
+		}
+		effect = {
+			add_treasury = -1000
+			add_mil_power = -200
+			308 = {
+				#add_building = gate_fort_3
+				remove_province_modifier = silverforge_the_warding_gate_2
+				add_province_modifier = {
+					name = silverforge_the_warding_gate_3
+					duration = -1
+				}
+			}
+			912 = {
+				#add_building = gate_fort_3
+				remove_province_modifier = silverforge_the_warding_gate_2
+				add_province_modifier = {
+					name = silverforge_the_warding_gate_3
+					duration = -1
+				}
+			}
+		}
+	}
+	
+}
+
+silverforge_expansion = {
+	slot = 4
+	generic = no
+	ai = yes 
+	potential = { tag = A73 }
+	has_country_shield = yes
+	
+	silverforge_gate_to_east = { 
+		icon = fortress_of_belgrade
+		required_missions = {
+		}
+		position = 3
+		
+		provinces_to_highlight = {
+			province_id = 308
+		}
+		trigger = {
+			308 = {
+				owned_by = ROOT
+				base_production = 15
+			}
+		}
+		effect = {
+			add_prestige = 10
+			308 = {
+				add_province_triggered_modifier = silverforge_developed_mine
+			}
+			add_country_modifier = {
+				name = "strong_treasury"
+				duration = 7300
+			}
+			high_esmar_area = {
+				add_permanent_claim = ROOT
+			}			
+		}
+	}
+	
+	silverforge_esmaraine_trade_hub = {
+		icon = mission_dominate_home_trade_node
+		required_missions = {
+			silverforge_gate_to_east
+		}
+		position = 4
+		
+		provinces_to_highlight = {
+			province_id = 901
+		}
+		
+		trigger = {
+			901 = {
+				development = 20
+				owned_by = ROOT
+				province_has_center_of_trade_of_level = 2				
+			}			
+		}
+		effect = {
+			add_prestige = 10
+			912 = {
+				add_province_modifier = {
+					name = silverforge_mining_trade
+					duration = -1
+				}
+				center_of_trade = 1
+				custom_tooltip = reduce_incompleted_hold_level_tt
+				hidden_effect = {reduce_incompleted_hold_level = yes}
+			}
+			308 = {center_of_trade = -3}
+			ashfields_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	silverforge_expand_east = { 
+		icon = mission_fortifying_the_plain
+		required_missions = {
+			silverforge_esmaraine_trade_hub
+		}
+		position = 5
+		
+		provinces_to_highlight = {
+			area = ashfields_area
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			ashfields_area = {
+				owned_by = ROOT
+				type = all
+			}
+		}
+		effect = {
+			add_prestige = 10
+			wexhills_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	silverforge_metal_hills = { 
+		icon = mission_portuguese_ceylon
+		required_missions = {
+			silverforge_expand_east
+		}
+		
+		provinces_to_highlight = {
+			area = wexhills_area
+			NOT = { owned_by = ROOT }
+			NOT = { base_production = 10}
+			NOT = { has_production_building_trigger = yes}
+		}
+		trigger = {
+			OR = {		
+				num_of_owned_provinces_with = {
+					area = wexhills_area
+					base_production = 10
+					has_production_building_trigger = yes
+					value = 4
+				}
+				any_ally = {
+					num_of_owned_provinces_with = {
+						area = wexhills_area
+						base_production = 10
+						has_production_building_trigger = yes
+						value = 4
+					}
+					has_opinion = {
+						who = ROOT
+						value = 200
+					}
+					reverse_has_opinion = {
+						who = ROOT
+						value = 200
+					}
+				}
+			}
+			
+		}
+		effect = {
+			add_prestige = 10
+			wexhills_area = {
+				type = all
+				add_province_modifier = {
+					name = silverforge_mining_trade
+					duration = -1
+				}
+				add_dwarven_minority_size_effect = yes
+			}
+			912 = {
+				add_province_modifier = {
+					name = silverforge_mine_monopolies
+					duration = -1
+				}
+				custom_tooltip = reduce_incompleted_hold_level_tt
+				hidden_effect = {reduce_incompleted_hold_level = yes}
+			}
+			add_country_modifier = {
+				name = "proto_industrialization"
+				duration = 7300
+			}
+			gisden_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}	
+}
+
+silverforge_trade = {
+	slot = 3
+	generic = no
+	ai = yes 
+	potential = { tag = A73 }
+	has_country_shield = yes
+	
+	silverforge_oldpassage = {
+		icon = mission_rb_trinity_college_dublin
+		required_missions = {
+		}
+		position = 6
+		
+		provinces_to_highlight = {
+			province_id = 263
+		}
+		
+		trigger = {
+			263 = {
+				owned_by = ROOT
+				base_production = 20
+			}	
+		}
+		effect = {
+			263 = {
+				center_of_trade = 2
+				change_trade_goods = mithril
+			}
+		}
+	}
+	silverforge_reform_the_forest_rangers = {
+		icon = mission_spoils_of_war
+		required_missions = {
+			silverforge_oldpassage
+		}
+		position = 6
+		
+		trigger = {
+			912 = {
+				has_manpower_building_trigger = yes
+				has_forcelimit_building_trigger = yes
+				base_manpower = 20
+				base_production = 20
+			}
+			army_professionalism = 0.40
+			treasury = 500
+		}
+		effect = {
+			set_country_flag = silverforge_fire_flag
+			add_treasury = -500
+			add_country_modifier = {
+				name = silverforge_ranger_training_1
+				duration = -1
+			}
+			custom_tooltip = silverforge_ranger_training_1_tooltip
+		}
+	}
+	
+	silverforge_launch_the_expedition = { 
+		icon = mission_landsknecht_soldier
+		required_missions = {
+			silverforge_reform_the_forest_rangers
+		}
+		position = 7
+		
+		trigger = {
+			912 = {
+				has_manpower_building_trigger = yes
+				has_forcelimit_building_trigger = yes
+				base_manpower = 30
+			}
+			army_professionalism = 0.60
+			treasury = 1000
+		}
+		effect = {
+			add_treasury = -1000
+			remove_country_modifier = silverforge_ranger_training_1
+			add_country_modifier = {
+				name = silverforge_ranger_training_2
+				duration = -1
+			}
+			custom_tooltip = silverforge_ranger_training_2_tooltip
+		}
+	}
+	
+	silverforge_arrow_lumber_camps = { 
+		icon = mission_rb_unite_the_clans
+		required_missions = {
+			silverforge_launch_the_expedition
+		}
+		position = 8
+		
+		provinces_to_highlight = {
+		}
+		trigger = {
+			912 = {
+				has_manpower_building_trigger = yes
+				has_forcelimit_building_trigger = yes
+				base_manpower = 40
+			}
+			army_professionalism = 0.80
+			treasury = 2000
+		}
+		effect = {
+			add_treasury = -2000
+			remove_country_modifier = silverforge_ranger_training_2
+			add_country_modifier = {
+				name = silverforge_ranger_training_3
+				duration = -1
+			}
+			custom_tooltip = silverforge_ranger_training_3_tooltip
+		}
+	}
+	
+}

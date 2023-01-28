@@ -1,0 +1,732 @@
+
+namespace = goblin_tolerance_events
+
+# Event organizer for the goblin tolerance events - should be a huge improvement to performance - having 1 overall check for having the minority instead of one for EACH new event that gets added
+country_event = {
+	id = goblin_tolerance_events.0
+	title = race_setup_events.1.d
+	desc = race_setup_events.1.d
+	picture = BORDER_TENSION_eventPicture
+	
+
+	hidden = yes
+	#is_triggered_only = yes
+
+	trigger = {
+		any_owned_province = {
+			has_any_goblin_pop_trigger = yes
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 3650
+		modifier = {
+			factor = 0.75
+			has_country_modifier = racial_focus_goblin
+		}
+		modifier = {
+			factor = 0.75
+			has_idea = tolerance_idea_2
+		}
+	}
+
+	option = {
+		random_list = {
+			1 = {
+				#do nothing
+				modifier = {
+					factor = 5
+					high_tolerance_goblin_race_trigger = yes
+				}
+			}
+			# Goblin Chief
+			1 = {
+				trigger = {
+					any_owned_province = {
+						has_any_goblin_pop_trigger = yes
+						NOT = { has_province_modifier = autonomous_goblin_landholders }
+					}
+				}
+				modifier = {
+					factor = 1.5
+					NOT = { prestige = 0 }
+				}
+				modifier = {
+					factor = 1.5
+					NOT = { legitimacy_equivalent = 75 }
+				}
+				country_event = {
+					id = goblin_tolerance_events.2
+				}
+			}
+			# Ambitious goblins in government
+			1 = {
+				modifier = {
+					factor = 1.5
+					high_tolerance_goblin_race_trigger = yes
+				}
+				country_event = {
+					id = goblin_tolerance_events.3
+				}
+			}
+			# Goblin dominance undermining us
+			1 = {
+				country_event = {
+					id = goblin_tolerance_events.4
+				}
+			}
+			# Rapid growth due to goblin minority
+			1 = {
+				modifier = {
+					factor = 1.1
+					stability = 1
+				}
+				modifier = {
+					factor = 1.2
+					stability = 2
+				}
+				modifier = {
+					factor = 1.3
+					stability = 3
+				}
+				modifier = {
+					factor = 1.3
+					NOT = { high_tolerance_goblin_race_trigger = yes }
+				}
+				country_event = {
+					id = goblin_tolerance_events.5
+				}
+			}
+			# Angry goblin mob farms
+			1 = {
+				modifier = {
+					factor = 1.5
+					low_tolerance_goblin_race_trigger = yes
+				}
+				modifier = {
+					factor = 1.5
+					NOT = { stability = 0 }
+				}
+				country_event = {
+					id = goblin_tolerance_events.6
+				}
+			}
+			# Goblin highwaymen
+			1 = {
+				trigger = {
+					any_owned_province = {
+						has_goblin_minority_trigger = yes
+						NOT = { has_province_modifier = goblin_highwaymen }
+						NOT = { has_province_modifier = goblin_populace_punished_for_highwaymen }
+					}
+				}
+				modifier = {
+					factor = 1.5
+					low_tolerance_goblin_race_trigger = yes
+				}
+				modifier = {
+					factor = 2
+					NOT = { stability = 0 }
+				}
+				modifier = {
+					factor = 2
+					average_unrest = 1
+				}
+				country_event = {
+					id = goblin_tolerance_events.7
+				}
+			}
+		}
+	}
+}
+
+
+# Minor landholders demand autonomy
+country_event = {
+	id = goblin_tolerance_events.2
+	title = goblin_tolerance_events.2.t
+	desc = goblin_tolerance_events.2.d
+	picture = GREAT_BUILDING_eventPicture
+	GOTO = goblin_autonomous_landholders_province
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = { 
+					has_any_goblin_pop_trigger = yes
+					NOT = { has_province_modifier = autonomous_goblin_landholders }
+				}
+				save_event_target_as = goblin_autonomous_landholders_province
+				set_variable = {which = province_manpower value = 0}
+				export_to_variable = {which = province_manpower value = base_manpower}
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
+			}
+		}
+	}
+
+	# Aight then
+	option = {
+		name = goblin_tolerance_events.2.a
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0.1
+				wants_to_increase_tolerance_goblin = yes
+			}
+			modifier = {
+				factor = 0.1
+				wants_to_maintain_tolerance_goblin = yes
+			}
+		}
+		medium_increase_of_goblin_tolerance_effect = yes
+		reduce_legitimacy_large_effect = yes
+		add_estate_loyalty = {
+			estate = estate_goblin
+			loyalty = 10
+		}
+		event_target:goblin_autonomous_landholders_province = {
+			add_local_autonomy = 30
+			get_prestige_from_provinces = {	#bertus mod
+				prestige_per_dev = -1.0
+			}
+			get_treasury_from_provinces = {	#bertus mod
+				cash_per_dev = 30
+			}
+		}
+	}
+	# We cannot do this
+	option = {
+		name = goblin_tolerance_events.2.b
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0.8
+				wants_to_increase_tolerance_goblin = yes
+			}
+		}
+		event_target:goblin_autonomous_landholders_province = {
+			add_unrest = 5
+		}
+	}
+	# How about we confiscate your land instead?
+	option = {
+		name = goblin_tolerance_events.2.c
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0.1
+				wants_to_increase_tolerance_goblin = yes
+			}
+		}
+		medium_decrease_of_goblin_tolerance_effect = yes
+		event_target:goblin_autonomous_landholders_province = {
+			get_manpower_from_provinces = {	#bertus mod
+				manpower_per_dev = -1
+			}
+		}
+	}
+}
+
+# Ambitious goblins in government
+country_event = {
+	id = goblin_tolerance_events.3
+	title = goblin_tolerance_events.3.t
+	desc = goblin_tolerance_events.3.d
+	picture = ORDER_TENSION_eventPicture
+	GOTO = goblin_bandit_province
+
+
+	is_triggered_only = yes
+
+	# Their ambition will drive us further
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					has_goblin_minority_trigger = yes
+				}
+				save_event_target_as = goblin_bandit_province
+				set_variable = {which = province_manpower value = 0}
+				export_to_variable = {which = province_manpower value = base_manpower}
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
+			}
+		}
+	}
+	option = {
+		name = goblin_tolerance_events.3.a
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0.5
+				wants_to_decrease_tolerance_goblin = yes
+			}
+		}
+		event_target:goblin_bandit_province = {
+			area = {
+				limit = {
+					owned_by = ROOT
+					has_goblin_minority_trigger = yes
+				}
+				add_unrest = 5
+				get_treasury_from_provinces = {	#bertus mod
+					cash_per_dev = -2
+				}
+			}
+		}
+	}
+	# 
+	option = {
+		name = goblin_tolerance_events.3.b
+		ai_chance = {
+			factor = 50
+		}
+		add_estate_loyalty = {
+			estate = estate_goblin
+			loyalty = -10
+		}
+		small_decrease_of_goblin_tolerance_effect = yes
+		event_target:goblin_bandit_province = {
+			area = {
+				limit = {
+					owned_by = ROOT
+					has_goblin_minority_trigger = yes
+				}
+				get_manpower_from_provinces = {	#bertus mod
+					manpower_per_dev = -0.5
+				}
+			}
+		}
+	}
+	# 
+	option = {
+		name = goblin_tolerance_events.3.c
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0.1
+				wants_to_increase_tolerance_goblin = yes
+			}
+		}
+		increase_legitimacy_small_effect = yes
+		small_decrease_of_goblin_tolerance_effect = yes
+		event_target:goblin_bandit_province = {
+			area = {
+				limit = {
+					owned_by = ROOT
+					has_goblin_minority_trigger = yes
+				}
+				get_prestige_from_provinces = {	#bertus mod
+					prestige_per_dev = -0.5
+				}
+			}
+		}
+	}
+}
+
+# Goblin dominance undermining us
+country_event = {
+	id = goblin_tolerance_events.4
+	title = goblin_tolerance_events.4.t
+	desc = goblin_tolerance_events.4.d
+	picture = OVEREXTENSION_eventPicture
+	GOTO = goblin_advisor_province
+
+	is_triggered_only = yes
+	
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					has_goblin_minority_trigger = yes
+				}
+				save_event_target_as = goblin_advisor_province
+				set_variable = {which = province_manpower value = 0}
+				export_to_variable = {which = province_manpower value = base_manpower}
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
+			}
+			random_owned_province = {
+				limit = {
+					has_large_goblin_minority_trigger = yes
+				}
+				save_event_target_as = goblin_advisor_province
+				set_variable = {which = province_manpower value = 0}
+				export_to_variable = {which = province_manpower value = base_manpower}
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
+			}
+			random_owned_province = {
+				limit = {
+					has_goblin_majority_trigger = yes
+				}
+				save_event_target_as = goblin_advisor_province
+				set_variable = {which = province_manpower value = 0}
+				export_to_variable = {which = province_manpower value = base_manpower}
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
+			}
+		}
+	}
+
+	# 
+	option = {
+		name = goblin_tolerance_events.4.a
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0.1
+				wants_to_decrease_tolerance_goblin = yes
+			}
+		}
+		small_increase_of_goblin_tolerance_effect = yes
+		add_corruption = 2
+		add_estate_loyalty = {
+			estate = estate_goblin
+			loyalty = 10
+		}
+		define_advisor = {
+			type = grand_captain
+			skill = 3
+			cost_multiplier = 0.75	#bertus mod
+			culture = event_target:goblin_advisor_province
+			religion = event_target:goblin_advisor_province
+		}
+		event_target:goblin_advisor_province = {			
+			get_treasury_from_provinces = {	#bertus mod
+				cash_per_dev = -5
+			}
+		}
+	}
+	# 
+	option = {
+		name = goblin_tolerance_events.4.b
+		ai_chance = {
+			factor = 50
+		}
+		add_estate_loyalty = {
+			estate = estate_goblin
+			loyalty = 10
+		}
+	}
+	# 
+	option = {
+		name = goblin_tolerance_events.4.c
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0.1
+				wants_to_increase_tolerance_goblin = yes
+			}
+		}
+		add_estate_loyalty = {
+			estate = estate_goblin
+			loyalty = -10
+		}
+		small_decrease_of_goblin_tolerance_effect = yes
+		increase_legitimacy_small_effect = yes
+	}
+}
+
+# crime
+country_event = {
+	id = goblin_tolerance_events.5
+	title = goblin_tolerance_events.5.t
+	desc = goblin_tolerance_events.5.d
+	picture = CITY_VIEW_eventPicture
+	GOTO = goblin_rapid_development_province
+
+	is_triggered_only = yes
+
+	trigger = {
+		NOT = { culture_is_goblin = yes }
+		any_owned_province = {
+			has_goblin_minority_trigger = yes
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1		
+	}
+
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					has_goblin_minority_trigger = yes
+				}
+				save_event_target_as = goblin_rapid_development_province
+				set_variable = {which = province_manpower value = 0}
+				export_to_variable = {which = province_manpower value = base_manpower}
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
+			}
+			random_owned_province = {
+				limit = {
+					has_large_goblin_minority_trigger = yes
+				}
+				save_event_target_as = goblin_rapid_development_province
+				set_variable = {which = province_manpower value = 0}
+				export_to_variable = {which = province_manpower value = base_manpower}
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
+			}
+		}
+	}
+
+	# Support further development schemes
+	option = {
+		name = goblin_tolerance_events.5.a
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0.1
+				NOT = { years_of_income = 0.3 }
+			}
+			modifier = {
+				factor = 0.1
+				wants_to_decrease_tolerance_goblin = yes
+			}
+		}
+		#add_years_of_income = -0.3	#-0.3→0
+		medium_increase_of_goblin_tolerance_effect = yes
+		event_target:goblin_rapid_development_province = {
+			remove_1_dev_to_provinces = yes
+			add_unrest = 3
+		}
+	}
+	# Great!
+	option = {
+		name = goblin_tolerance_events.5.b
+		ai_chance = {
+			factor = 50
+		}
+		event_target:goblin_rapid_development_province = {
+			get_manpower_from_provinces = {	#bertus mod
+				manpower_per_dev = -0.5
+			}
+		}
+		
+	}
+	# Don't acknowledge their efforts
+	option = {
+		name = goblin_tolerance_events.5.c
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0.1
+				wants_to_increase_tolerance_goblin = yes
+			}
+		}
+		small_decrease_of_goblin_tolerance_effect = yes
+		event_target:goblin_rapid_development_province = {
+			remove_goblin_minority_size_effect = yes
+			get_manpower_from_provinces = {	#bertus mod
+				manpower_per_dev = -1.0
+			}
+		}
+	}
+}
+
+# Angry goblin mob forms
+country_event = {
+	id = goblin_tolerance_events.6
+	title = goblin_tolerance_events.6.t
+	desc = goblin_tolerance_events.6.d
+	picture = ANGRY_MOB_eventPicture
+	GOTO = goblin_goblin_festival_province
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					has_goblin_minority_trigger = yes
+				}
+				save_event_target_as = goblin_goblin_festival_province
+				set_variable = {which = province_manpower value = 0}
+				export_to_variable = {which = province_manpower value = base_manpower}
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
+			}
+			random_owned_province = {
+				limit = {
+					has_large_goblin_minority_trigger = yes
+				}
+				save_event_target_as = goblin_goblin_festival_province
+				set_variable = {which = province_manpower value = 0}
+				export_to_variable = {which = province_manpower value = base_manpower}
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
+			}
+		}
+	}
+	# De-escalate the situation
+	option = {
+		name = goblin_tolerance_events.6.a
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0.1
+				wants_to_decrease_tolerance_goblin = yes
+			}
+		}
+		small_increase_of_goblin_tolerance_effect = yes
+		add_estate_loyalty = {
+			estate = estate_goblin
+			loyalty = 10
+		}
+		event_target:goblin_goblin_festival_province = {
+			add_province_modifier = {
+				name = food_festival
+				duration = 1095
+			}		
+			get_treasury_from_provinces = {	#bertus mod
+				cash_per_dev = -5
+			}
+		}
+	}
+	# Just goblins being goblins
+	option = {
+		name = goblin_tolerance_events.6.b
+		ai_chance = {
+			factor = 50
+		}
+		event_target:halfling_food_festival_province = {
+			add_province_modifier = {
+				name = food_festival
+				duration = 365
+			}
+		}
+		add_estate_loyalty = {
+			estate = estate_goblin
+			loyalty = 5
+		}
+	}
+	# Send out the troops!
+	option = {
+		name = goblin_tolerance_events.6.c
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0.1
+				wants_to_increase_tolerance_goblin = yes
+			}
+		}
+		add_estate_loyalty = {
+			estate = estate_goblin
+			loyalty = -10
+		}
+		event_target:goblin_goblin_festival_province = {		
+			remove_goblin_minority_size_effect = yes
+			get_manpower_from_provinces = {	#bertus mod
+				manpower_per_dev = -0.5
+			}
+			add_unrest = 5
+		}
+		small_decrease_of_goblin_tolerance_effect = yes
+	}
+}
+
+# Goblin overpopulation
+#TODO - MAKE THIS TROY's MONSTER SYSTEM
+country_event = {
+	id = goblin_tolerance_events.7
+	title = goblin_tolerance_events.7.t
+	desc = goblin_tolerance_events.7.d
+	picture = BORDER_TENSION_eventPicture
+	GOTO = goblin_highwaymen_province
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					has_goblin_minority_trigger = yes
+				}
+				save_event_target_as = goblin_highwaymen_province
+				set_variable = {which = province_manpower value = 0}
+				export_to_variable = {which = province_manpower value = base_manpower}
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
+			}
+			random_owned_province = {
+				limit = {
+					has_goblin_majority_trigger = yes
+				}
+				save_event_target_as = goblin_highwaymen_province
+				set_variable = {which = province_manpower value = 0}
+				export_to_variable = {which = province_manpower value = base_manpower}
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
+			}
+		}
+	}
+
+	# help them move
+	option = {
+		name = goblin_tolerance_events.7.a
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0.1
+				wants_to_decrease_tolerance_goblin = yes
+			}
+		}
+		add_estate_loyalty = {
+			estate = estate_goblin
+			loyalty = 10
+		}
+		small_increase_of_goblin_tolerance_effect = yes
+		event_target:goblin_highwaymen_province = {
+			get_treasury_from_provinces = {	#bertus mod
+				cash_per_dev = -5
+			}
+			random_neighbor_province = {
+				add_1_dev_to_provinces = yes
+				add_goblin_minority_size_effect = yes
+			}
+		}
+	}
+	# cool
+	option = {
+		name = goblin_tolerance_events.7.b
+		ai_chance = {
+			factor = 50
+		}
+		event_target:goblin_highwaymen_province = {
+			add_devastation = 10
+			random_neighbor_province = {
+				add_1_dev_to_provinces = yes
+				add_goblin_minority_size_effect = yes
+			}
+		}
+	}
+	# ban them from moving
+	option = {
+		name = goblin_tolerance_events.7.c
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0.1
+				wants_to_increase_tolerance_goblin = yes
+			}
+		}
+		add_estate_loyalty = {
+			estate = estate_goblin
+			loyalty = -10
+		}
+		medium_decrease_of_goblin_tolerance_effect = yes
+		event_target:goblin_highwaymen_province = {		
+			add_1_dev_to_provinces = yes	
+			get_manpower_from_provinces = {	#bertus mod
+				manpower_per_dev = -0.5
+			}
+		}
+	}
+}

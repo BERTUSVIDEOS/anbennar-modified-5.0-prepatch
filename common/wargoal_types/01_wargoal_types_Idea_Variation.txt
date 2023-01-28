@@ -1,0 +1,210 @@
+# INSTRUCTIONS:
+# -------------
+# prestige_factor - Multiplied with any prestige increase normally associated with a peace option.
+# transfer_trade_cost_factor - Multiplied with the cost for transfering trade power.
+# peace_cost_factor - Multiplied with the cost of the peace options in the peace treaty
+# po_xxx - Peace options. If toggled on, badboy_factor and prestige_factor are multiplied with any associated base changes to these (see defines.txt.)
+# allowed_provinces - If 'po_demand_provinces' is on, badboy_factor applies to these provinces.
+# allow_annex - Always allow annexation (even if other rules disallow)
+# deny_annex - Always deny annexation (even if other rules allows it)
+#
+# ROOT = attacker
+# FROM = target
+#
+# Place peace offers in attacker and/or defender blocks
+# The peace options are:
+# po_demand_provinces
+# po_revoke_cores
+# po_release_vassals
+# po_release_annexed
+# po_change_religion
+# po_form_personal_union
+# po_gold
+# po_become_vassal
+# po_concede_defeat
+# po_annul_treaties
+# po_change_government
+# po_revoke_elector
+# po_trade_power
+# po_steer_trade
+# po_humiliate
+# po_enforce_rebel_demands
+#
+# NOTE: The order in which the peace options are listed is the order in which the AI will normally prioritize them in peace treaties
+#
+# WAR GOAL TYPES:
+#	- take_colony
+#	- take_core
+#	- take_border
+#	- take_province
+#	- take_capital
+#	- defend_capital
+#	- defend_country
+#	- naval_superiority
+#	- superiority
+#	- take_region
+#	- blockade_ports
+#
+# --------------------------------------------------------------
+
+coast_invasion = {
+	type = take_province
+	
+	attacker = {
+		badboy_factor = 0.0
+		prestige_factor = 1.0
+		peace_cost_factor = 1.0
+
+		allowed_provinces = {
+			has_port = yes
+			range = ROOT
+		}
+	
+		allowed_provinces_are_eligible = yes	
+		
+		peace_options = {
+			po_demand_provinces
+			po_gold
+			po_concede_defeat
+			po_trade_power
+			po_steer_trade
+			po_humiliate
+			po_humiliate_rival
+		}
+	
+		prov_desc = ALL_CLAIMS
+	}
+	war_name = COAST_WAR_NAME
+}
+seekrieg = {
+	type = naval_superiority
+	
+
+	attacker = {
+		badboy_factor = 0.0
+		prestige_factor = 2.5
+		peace_cost_factor = 0.5
+
+		allowed_provinces = {
+			always = no
+		}
+	
+		allowed_provinces_are_eligible = yes	
+		
+		peace_options = {
+			po_gold
+			po_concede_defeat
+			po_trade_power
+			po_steer_trade
+			po_humiliate
+			po_humiliate_rival
+		}
+	
+		transfer_trade_cost_factor = 0.5
+		deny_annex = yes
+
+		country_desc = ALL_COUNTRIES
+		prov_desc = NO_PROVS
+	}
+	war_name = SEEKRIEG_WAR_NAME
+}
+
+
+dynastie = {
+	type = take_capital
+	
+	attacker = {
+		badboy_factor = 0.0
+		prestige_factor = 2
+		peace_cost_factor = 1.4
+	
+		peace_options = {
+			po_form_personal_union
+		}	
+	}
+	
+	defender = {
+		badboy_factor = 0.5
+		prestige_factor = 2
+		peace_cost_factor = 1
+
+		
+		peace_options = {
+			po_form_personal_union
+		}
+	}
+		
+	war_name = DYNASTIE_WAR_NAME
+}
+david_vs_goliath = {
+	type = superiority
+	
+	attacker = {
+		badboy_factor = 0.0
+		prestige_factor = 2.0
+		peace_cost_factor = 0.75
+	
+		peace_options = {
+			po_demand_provinces
+		}	
+		prov_desc = ALL_PROVS
+	}
+	
+	defender = {
+		badboy_factor = 0.5
+		prestige_factor = 1.0
+		peace_cost_factor = 0.5
+
+		
+		peace_options = {
+			po_demand_provinces
+			po_return_cores
+			po_subjugate_vassal
+			po_gold
+			po_annul_treaties
+			po_trade_power
+		}
+		allowed_provinces = {
+			is_core = ROOT
+		}
+	
+		allowed_provinces_are_eligible = yes
+	}
+		
+	war_name = EVIL_RULER_WAR
+}
+take_serpentspine = {
+	type = take_province
+	
+	attacker = {
+		badboy_factor = 0.0
+		prestige_factor = 1
+		peace_cost_factor = 0.5	
+		
+		allowed_provinces = {
+			continent = serpenspine
+		}
+		
+		peace_options = {
+			po_demand_provinces
+			po_revoke_cores
+			po_gold
+		}
+		
+		country_desc = ALL_PRIMITIVES
+		prov_desc = ALL_PRIMITIVES
+	}
+	
+	defender = {
+		badboy_factor = 1
+		prestige_factor = 1
+		peace_cost_factor = 1
+
+		peace_options = {
+			po_demand_provinces
+		}
+	}
+
+	war_name = PRIMITIVE_WAR_NAME	
+}
+

@@ -1,0 +1,841 @@
+
+magic_siege_defence = {
+	if = {
+		limit = {has_ward_province_modifiers = yes}
+		province_event = {id = bertus_changes.1106}	#magic defence
+	}
+}
+slave_ruler_race_selection = {
+	random_list = {
+		10 = {	
+			trigger = {	has_saved_event_target = human_ruler_alternative_province	NOT = { has_ruler_flag = human_ruler_flag}	}
+			set_ruler_flag = human_ruler_flag	
+		}
+		10 = {	
+			trigger = {	has_saved_event_target = elven_ruler_alternative_province	NOT = { has_ruler_flag = elven_ruler_flag}	}
+			set_ruler_flag = elven_ruler_flag	
+		}
+		10 = {	
+			trigger = {	has_saved_event_target = dwarven_ruler_alternative_province	NOT = { has_ruler_flag = dwarven_ruler_flag}	}
+			set_ruler_flag = dwarven_ruler_flag	
+		}
+		10 = {	
+			trigger = {	has_saved_event_target = halfling_ruler_alternative_province	NOT = { has_ruler_flag = halfling_ruler_flag}	}
+			set_ruler_flag = halfling_ruler_flag	
+		}
+		10 = {	
+			trigger = {	has_saved_event_target = gnomish_ruler_alternative_province	NOT = { has_ruler_flag = gnomish_ruler_flag}	}
+			set_ruler_flag = gnomish_ruler_flag	
+		}
+		10 = {	
+			trigger = {	has_saved_event_target = harimari_ruler_alternative_province	NOT = { has_ruler_flag = harimari_ruler_flag}	}
+			set_ruler_flag = harimari_ruler_flag	}
+		10 = {	
+			trigger = {	has_saved_event_target = gnollish_ruler_alternative_province	NOT = { has_ruler_flag = gnollish_ruler_flag}	}
+			set_ruler_flag = gnollish_ruler_flag	
+		}
+		10 = {	
+			trigger = {	has_saved_event_target = ruinborn_ruler_alternative_province	NOT = { has_ruler_flag = ruinborn_ruler_flag}	}
+			set_ruler_flag = ruinborn_ruler_flag	
+		}
+		10 = {	
+			trigger = {	has_saved_event_target = goblin_ruler_alternative_province	NOT = { has_ruler_flag = goblin_ruler_flag}	}
+			set_ruler_flag = goblin_ruler_flag	
+		}
+		10 = {	
+			trigger = {	has_saved_event_target = orcish_ruler_alternative_province	NOT = { has_ruler_flag = orcish_ruler_flag}	}
+			set_ruler_flag = orcish_ruler_flag	
+		}
+		10 = {	
+			trigger = {	has_saved_event_target = ogre_ruler_alternative_province	NOT = { has_ruler_flag = ogre_ruler_flag}	}
+			set_ruler_flag = ogre_ruler_flag	
+		}
+		10 = {	
+			trigger = {	has_saved_event_target = centaur_ruler_alternative_province	NOT = { has_ruler_flag = centaur_ruler_flag}	}
+			set_ruler_flag = centaur_ruler_flag	
+		}
+		10 = {	
+			trigger = {	has_saved_event_target = harpy_ruler_alternative_province	NOT = { has_ruler_flag = harpy_ruler_flag}	}
+			set_ruler_flag = harpy_ruler_flag	
+		}
+		10 = {	
+			trigger = {	has_saved_event_target = troll_ruler_alternative_province	NOT = { has_ruler_flag = troll_ruler_flag}	}
+			set_ruler_flag = troll_ruler_flag	
+		}
+		10 = {	
+			trigger = {	has_saved_event_target = half_orcish_ruler_alternative_province	NOT = { has_ruler_flag = half_orcish_ruler_flag}	}
+			set_ruler_flag = half_orcish_ruler_flag	
+		}
+		10 = {	
+			trigger = {	has_saved_event_target = half_elven_ruler_alternative_province	NOT = { has_ruler_flag = half_elven_ruler_flag}	}
+			set_ruler_flag = half_elven_ruler_flag	
+		}
+		10 = {	
+			trigger = {	has_saved_event_target = hobgoblin_ruler_alternative_province	NOT = { has_ruler_flag = hobgoblin_ruler_flag}	}
+			set_ruler_flag = hobgoblin_ruler_flag	
+		}
+		10 = {	
+			trigger = {	has_saved_event_target = kobold_ruler_alternative_province	NOT = { has_ruler_flag = kobold_ruler_flag}	}
+			set_ruler_flag = kobold_ruler_flag	
+		}
+	}
+}
+colonize_next_level_effect = {
+	province_event = { id = bertus_changes.1102}
+}
+reduce_incompleted_hold_level = {
+	if = {
+		limit = {has_province_modifier = incomplete_hold_4}
+		remove_province_modifier = incomplete_hold_4
+	}
+	else_if = {
+		limit = {has_province_modifier = incomplete_hold_3}
+		remove_province_modifier = incomplete_hold_3
+		add_permanent_province_modifier = {name = incomplete_hold_4 duration = -1}
+	}
+	else_if = {
+		limit = {has_province_modifier = incomplete_hold_2}
+		remove_province_modifier = incomplete_hold_2 
+		add_permanent_province_modifier = {name = incomplete_hold_3 duration = -1}
+	}
+	else_if = {
+		limit = {has_province_modifier = incomplete_hold_1}
+		remove_province_modifier = incomplete_hold_1 
+		add_permanent_province_modifier = {name = incomplete_hold_2 duration = -1}
+	}
+	else = {
+		remove_province_modifier = incomplete_hold 
+		add_permanent_province_modifier = {name = incomplete_hold_1 duration = -1}	
+	}
+}
+beepeck_stacking_effect = {
+	if = {
+		limit = {has_province_modifier = beepeck_house_stacking_$type$_9}
+		remove_province_modifier = beepeck_house_stacking_$type$_9 
+		add_permanent_province_modifier = {name = beepeck_house_stacking_$type$_10 duration = -1}
+	}
+	else_if = {
+		limit = {has_province_modifier = beepeck_house_stacking_$type$_8}
+		remove_province_modifier = beepeck_house_stacking_$type$_8 
+		add_permanent_province_modifier = {name = beepeck_house_stacking_$type$_9 duration = -1}
+	}
+	else_if = {
+		limit = {has_province_modifier = beepeck_house_stacking_$type$_7}
+		remove_province_modifier = beepeck_house_stacking_$type$_7 
+		add_permanent_province_modifier = {name = beepeck_house_stacking_$type$_8 duration = -1}
+	}
+	else_if = {
+		limit = {has_province_modifier = beepeck_house_stacking_$type$_6}
+		remove_province_modifier = beepeck_house_stacking_$type$_6
+		add_permanent_province_modifier = {name = beepeck_house_stacking_$type$_7 duration = -1}
+	}
+	else_if = {
+		limit = {has_province_modifier = beepeck_house_stacking_$type$_5}
+		remove_province_modifier = beepeck_house_stacking_$type$_5
+		add_permanent_province_modifier = {name = beepeck_house_stacking_$type$_6 duration = -1}
+	}
+	else_if = {
+		limit = {has_province_modifier = beepeck_house_stacking_$type$_4}
+		remove_province_modifier = beepeck_house_stacking_$type$_4 
+		add_permanent_province_modifier = {name = beepeck_house_stacking_$type$_5 duration = -1}
+	}
+	else_if = {
+		limit = {has_province_modifier = beepeck_house_stacking_$type$_3}
+		remove_province_modifier = beepeck_house_stacking_$type$_3
+		add_permanent_province_modifier = {name = beepeck_house_stacking_$type$_4 duration = -1}
+	}
+	else_if = {
+		limit = {has_province_modifier = beepeck_house_stacking_$type$_2}
+		remove_province_modifier = beepeck_house_stacking_$type$_2 
+		add_permanent_province_modifier = {name = beepeck_house_stacking_$type$_3 duration = -1}
+	}
+	else_if = {
+		limit = {has_province_modifier = beepeck_house_stacking_$type$_1}
+		remove_province_modifier = beepeck_house_stacking_$type$_1 
+		add_permanent_province_modifier = {name = beepeck_house_stacking_$type$_2 duration = -1}
+	}
+	else = {
+		add_permanent_province_modifier = {name = beepeck_house_stacking_$type$_1 duration = -1}
+	}
+}
+revoke_reform_effect = {
+	revoke_reform = salere_reform
+}
+small_increase_of_all_tolerance_in_hre_effect = {
+	if = {
+		limit = {any_country = {limit = {is_part_of_hre = yes culture_is_human = yes}}}
+		small_increase_of_human_tolerance_effect = yes
+	}
+	if = {
+		limit = {any_country = {limit = {is_part_of_hre = yes culture_is_elven = yes}}}
+		small_increase_of_elven_tolerance_effect = yes
+	}
+	if = {
+		limit = {any_country = {limit = {is_part_of_hre = yes culture_is_dwarven = yes}}}
+		small_increase_of_dwarven_tolerance_effect = yes
+	}
+	if = {
+		limit = {any_country = {limit = {is_part_of_hre = yes culture_is_halfling = yes}}}
+		small_increase_of_halfling_tolerance_effect = yes
+	}
+	if = {
+		limit = {any_country = {limit = {is_part_of_hre = yes culture_is_gnomish = yes}}}
+		small_increase_of_gnomish_tolerance_effect = yes
+	}
+	if = {
+		limit = {any_country = {limit = {is_part_of_hre = yes culture_is_harimari = yes}}}
+		small_increase_of_harimari_tolerance_effect = yes
+	}
+	if = {
+		limit = {any_country = {limit = {is_part_of_hre = yes culture_is_gnollish = yes}}}
+		small_increase_of_gnollish_tolerance_effect = yes
+	}
+	if = {
+		limit = {any_country = {limit = {is_part_of_hre = yes culture_is_ruinborn = yes}}}
+		small_increase_of_ruinborn_tolerance_effect = yes
+	}
+	if = {
+		limit = {any_country = {limit = {is_part_of_hre = yes culture_is_orcish = yes}}}
+		small_increase_of_orcish_tolerance_effect = yes
+	}
+	if = {
+		limit = {any_country = {limit = {is_part_of_hre = yes culture_is_goblin = yes}}}
+		small_increase_of_goblin_tolerance_effect = yes
+	}
+	if = {
+		limit = {any_country = {limit = {is_part_of_hre = yes culture_is_ogre = yes}}}
+		small_increase_of_ogre_tolerance_effect = yes
+	}
+	if = {
+		limit = {any_country = {limit = {is_part_of_hre = yes culture_is_centaur = yes}}}
+		small_increase_of_centaur_tolerance_effect = yes
+	}
+	if = {
+		limit = {any_country = {limit = {is_part_of_hre = yes culture_is_troll = yes}}}
+		small_increase_of_troll_tolerance_effect = yes
+	}
+	if = {
+		limit = {any_country = {limit = {is_part_of_hre = yes culture_is_harpy = yes}}}
+		small_increase_of_harpy_tolerance_effect = yes
+	}
+	if = {
+		limit = {any_country = {limit = {is_part_of_hre = yes culture_is_half_orcish = yes}}}
+		small_increase_of_half_orcish_tolerance_effect = yes
+	}
+	if = {
+		limit = {any_country = {limit = {is_part_of_hre = yes culture_is_half_elven = yes}}}
+		small_increase_of_half_elven_tolerance_effect = yes
+	}
+	if = {
+		limit = {any_country = {limit = {is_part_of_hre = yes culture_is_hobgoblin = yes}}}
+		small_increase_of_hobgoblin_tolerance_effect = yes
+	}
+	if = {
+		limit = {any_country = {limit = {is_part_of_hre = yes culture_is_kobold = yes}}}
+		small_increase_of_kobold_tolerance_effect = yes
+	}
+}
+small_increase_of_all_tolerance_effect = {
+	small_increase_of_human_tolerance_effect = yes
+	small_increase_of_elven_tolerance_effect = yes
+	small_increase_of_dwarven_tolerance_effect = yes
+	small_increase_of_halfling_tolerance_effect = yes
+	small_increase_of_gnomish_tolerance_effect = yes
+	small_increase_of_harimari_tolerance_effect = yes
+	small_increase_of_gnollish_tolerance_effect = yes
+	small_increase_of_ruinborn_tolerance_effect = yes
+	small_increase_of_orcish_tolerance_effect = yes
+	small_increase_of_goblin_tolerance_effect = yes
+	small_increase_of_ogre_tolerance_effect = yes
+	small_increase_of_centaur_tolerance_effect = yes
+	small_increase_of_troll_tolerance_effect = yes
+	small_increase_of_harpy_tolerance_effect = yes
+	small_increase_of_half_orcish_tolerance_effect = yes
+	small_increase_of_half_elven_tolerance_effect = yes
+	small_increase_of_hobgoblin_tolerance_effect = yes
+	small_increase_of_kobold_tolerance_effect = yes
+}
+add_expulsion_unrest = {
+	every_owned_province = {
+		limit = { has_small_$race$_minority_trigger = yes }
+		add_unrest = 2
+	}
+	every_owned_province = {
+		limit = { has_large_$race$_minority_trigger = yes }
+		add_unrest = 5
+	}
+	every_owned_province = {
+		limit = { culture_is_$race$ = yes }
+		add_unrest = 10
+	}
+}
+add_purguing_unrest = {
+	every_owned_province = {
+		limit = { has_small_$race$_minority_trigger = yes }
+		add_unrest = 5
+	}
+	every_owned_province = {
+		limit = { has_large_$race$_minority_trigger = yes }
+		add_unrest = 7
+	}
+	every_owned_province = {
+		limit = { culture_is_$race$ = yes }
+		add_unrest = 15
+	}
+}
+remove_racial_superiority_modifier = {
+	if = {
+		limit = {has_province_modifier = racial_superiority}
+		remove_province_modifier = racial_superiority
+	}
+	if = {
+		limit = {has_province_modifier = inferior_race}
+		remove_province_modifier = inferior_race
+	}
+}
+add_racial_superiority_modifier = {
+	if = {
+		limit = {
+			culture_is_$race$ = yes
+			has_owner_accepted_culture = yes
+		}
+		add_province_modifier = {
+			name = racial_superiority
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = {has_province_modifier = racial_superiority}
+		remove_province_modifier = racial_superiority
+	}
+	if = {
+		limit = {
+			OR = {
+				culture_is_$race$ = no
+			}
+		}
+		add_province_modifier = {
+			name = inferior_race
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = {has_province_modifier = inferior_race}
+		remove_province_modifier = inferior_race
+	}
+}
+remove_racial_culture = {
+	small_decrease_of_$race$_tolerance_effect = yes
+	if = {
+		limit = {
+			any_owned_province = {					
+				culture_is_$race$ = yes
+				owner = {accepted_culture = PREV}
+			}
+		}
+		custom_tooltip = remove_$race$_culture_tooltip
+		every_owned_province = {
+			limit = {
+				culture_is_$race$ = yes
+				owner = {accepted_culture = PREV}
+			}
+			owner = {
+				remove_accepted_culture = PREV
+			}
+		}
+	}
+}
+block_area_effect = {
+	set_province_flag = cant_colonize_bertus_flag
+}
+colonization_malus = {
+	add_permanent_province_modifier = {
+		name = colonizating_malus
+		duration = -1
+	}
+	add_permanent_province_modifier = {
+		name = colonizating_malus_2
+		duration = 74874
+	}
+	add_permanent_province_modifier = {
+		name = colonizating_malus_3
+		duration = 38374
+	}
+}
+reset_development_bertus = {
+	change_religion = ---
+	change_culture = ---
+	add_base_tax = -100
+	add_base_production = -100
+	add_base_manpower = -100
+}
+reset_natives_colonizable_province = {
+	random_list = {
+		20 = {change_native_size = 5}
+		40 = {change_native_size = 10}
+		60 = {change_native_size = 20}
+		80 = {change_native_size = 30}
+		100 = {change_native_size = 40}
+		100 = {change_native_size = 50}
+		80 = {change_native_size = 60}
+		60 = {change_native_size = 70}
+		40 = {change_native_size = 80}
+		20 = {change_native_size = 90}
+		10 = {change_native_size = 100}
+		6 = {change_native_size = 110}
+		5 = {change_native_size = 120}
+		4 = {change_native_size = 130}
+		3 = {change_native_size = 140}
+		2 = {change_native_size = 150}
+		1 = {change_native_size = 160}
+		1 = {change_native_size = 170}
+		1 = {change_native_size = 180}
+		1 = {change_native_size = 190}
+		1 = {change_native_size = 200}
+	}
+}
+reset_native_ferocity_colonizable_province = {
+	random_list = {
+		10 = {change_native_ferocity = 0.1}
+		10 = {change_native_ferocity = 0.2}
+		10 = {change_native_ferocity = 0.3}
+		40 = {change_native_ferocity = 0.4}
+		30 = {change_native_ferocity = 0.5}
+		20 = {change_native_ferocity = 0.6}
+		10 = {change_native_ferocity = 0.7}
+		3 = {change_native_ferocity = 0.8}
+		2 = {change_native_ferocity = 0.9}
+		1 = {change_native_ferocity = 1.0}
+	}
+}
+reset_native_hostileness_colonizable_province = {
+	random_list = {
+		10 = {change_native_hostileness = 0.1}
+		10 = {change_native_hostileness = 0.2}
+		20 = {change_native_hostileness = 0.3}
+		40 = {change_native_hostileness = 0.4}
+		50 = {change_native_hostileness = 0.5}
+		40 = {change_native_hostileness = 0.6}
+		20 = {change_native_hostileness = 0.7}
+		10 = {change_native_hostileness = 0.8}
+		5 = {change_native_hostileness = 0.9}
+		1 = {change_native_hostileness = 1.0}
+	}
+}
+select_adm_advisor_elf_admin = {
+	random_list = {
+		1 = {set_country_flag = elf_admin_philosopher_flag}
+		1 = {set_country_flag = elf_admin_natural_scientist_flag}
+		1 = {set_country_flag = elf_admin_artist_flag}
+		1 = {set_country_flag = elf_admin_treasurer_flag}
+		1 = {set_country_flag = elf_admin_theologian_flag}
+		1 = {set_country_flag = elf_admin_master_of_mint_flag}
+		1 = {set_country_flag = elf_admin_inquisitor_flag}
+		1 = {set_country_flag = elf_admin_court_mage_flag}
+		1 = {set_country_flag = elf_admin_idea_var_advisor_1_flag}
+		1 = {set_country_flag = elf_admin_idea_var_advisor_3_flag}
+		1 = {set_country_flag = elf_admin_idea_var_advisor_4_flag}
+		1 = {set_country_flag = elf_admin_idea_var_advisor_6_flag}
+		1 = {set_country_flag = elf_admin_idea_var_advisor_8_flag}
+		1 = {set_country_flag = elf_admin_idea_var_advisor_9_flag}
+		1 = {set_country_flag = elf_admin_idea_var_advisor_20_flag}
+		1 = {set_country_flag = elf_admin_idea_var_advisor_31_flag}
+		1 = {
+			if = {
+				limit = {militarised_society = 10}
+				set_country_flag = elf_admin_idea_var_advisor_30_flag	#militarization
+			}
+			else = {set_country_flag = elf_admin_court_mage_flag}
+		}
+		1 = {
+			if = {
+				limit = {OR = {is_emperor = yes is_emperor_of_china = yes}}
+				set_country_flag = elf_admin_idea_var_advisor_32_flag	#imperial authority
+			}
+			else = {set_country_flag = elf_admin_court_mage_flag}
+		}
+	}
+}
+clear_adm_advisor_elf_admin = {
+	clr_country_flag = elf_admin_philosopher_flag
+	clr_country_flag = elf_admin_natural_scientist_flag
+	clr_country_flag = elf_admin_artist_flag
+	clr_country_flag = elf_admin_treasurer_flag
+	clr_country_flag = elf_admin_theologian_flag
+	clr_country_flag = elf_admin_master_of_mint_flag
+	clr_country_flag = elf_admin_inquisitor_flag
+	clr_country_flag = elf_admin_court_mage_flag
+	clr_country_flag = elf_admin_idea_var_advisor_1_flag
+	clr_country_flag = elf_admin_idea_var_advisor_3_flag
+	clr_country_flag = elf_admin_idea_var_advisor_4_flag
+	clr_country_flag = elf_admin_idea_var_advisor_6_flag
+	clr_country_flag = elf_admin_idea_var_advisor_8_flag
+	clr_country_flag = elf_admin_idea_var_advisor_9_flag
+	clr_country_flag = elf_admin_idea_var_advisor_20_flag
+	clr_country_flag = elf_admin_idea_var_advisor_30_flag
+	clr_country_flag = elf_admin_idea_var_advisor_31_flag
+	clr_country_flag = elf_admin_idea_var_advisor_32_flag
+}
+
+define_elf_advisor = {
+	define_advisor = {
+		type = $type$
+		cost_multiplier = 0.50
+		skill = 3
+		culture = event_target:foreign_culture_province
+		religion = event_target:foreign_culture_province
+	}
+}
+get_adm_advisor_elf_admin = {	
+	trigger_switch = {
+		on_trigger = has_country_flag
+		elf_admin_philosopher_flag = {define_elf_advisor = {type = philosopher}}
+		elf_admin_natural_scientist_flag = {define_elf_advisor = {type = natural_scientist}}
+		elf_admin_artist_flag = {define_elf_advisor = {type = artist}}
+		elf_admin_treasurer_flag = {define_elf_advisor = {type = treasurer}}
+		elf_admin_theologian_flag = {define_elf_advisor = {type = theologian}}
+		elf_admin_master_of_mint_flag = {define_elf_advisor = {type = master_of_mint}}
+		elf_admin_inquisitor_flag = {define_elf_advisor = {type = inquisitor}}
+		elf_admin_court_mage_flag = {define_elf_advisor = {type = court_mage}}
+		elf_admin_idea_var_advisor_1_flag = {define_elf_advisor = {type = idea_var_advisor_1}}
+		elf_admin_idea_var_advisor_3_flag = {define_elf_advisor = {type = idea_var_advisor_3}}
+		elf_admin_idea_var_advisor_4_flag = {define_elf_advisor = {type = idea_var_advisor_4}}
+		elf_admin_idea_var_advisor_6_flag = {define_elf_advisor = {type = idea_var_advisor_6}}
+		elf_admin_idea_var_advisor_8_flag = {define_elf_advisor = {type = idea_var_advisor_8}}
+		elf_admin_idea_var_advisor_9_flag = {define_elf_advisor = {type = idea_var_advisor_9}}
+		elf_admin_idea_var_advisor_20_flag = {define_elf_advisor = {type = idea_var_advisor_20}}
+		elf_admin_idea_var_advisor_30_flag = {define_elf_advisor = {type = idea_var_advisor_30}}
+		elf_admin_idea_var_advisor_31_flag = {define_elf_advisor = {type = idea_var_advisor_31}}
+		elf_admin_idea_var_advisor_32_flag = { define_elf_advisor = {type = idea_var_advisor_32}}
+	}
+}
+select_dip_advisor_elf_admin = {
+	random_list = {
+		1 = {set_country_flag = elf_admin_statesman_flag}
+		1 = {
+			if = {
+				limit = {has_port = yes}
+				set_country_flag = elf_admin_naval_reformer_flag	#naval morale
+			}
+			else = {set_country_flag = elf_admin_trader_flag}
+		}
+		1 = {set_country_flag = elf_admin_trader_flag}
+		1 = {set_country_flag = elf_admin_spymaster_flag}
+		1 = {
+			if = {
+				limit = {num_of_colonists = 1}
+				set_country_flag = elf_admin_colonial_governor_flag	#tariffs
+			}
+			else = {set_country_flag = elf_admin_trader_flag}
+		}
+		1 = {
+			if = {
+				limit = {num_of_colonists = 1}
+				set_country_flag = elf_admin_navigator_flag	#coring range
+			}
+			else = {set_country_flag = elf_admin_trader_flag}
+		}
+		1 = {set_country_flag = elf_admin_diplomat_flag}
+		1 = {set_country_flag = elf_admin_runic_priest_flag}
+		1 = {
+			if = {
+				limit = {vassal = 1}
+				set_country_flag = idea_var_advisor_2	#integration cost
+			}
+			else = {set_country_flag = elf_admin_statesman_flag}
+		}
+		1 = {
+			if = {
+				limit = {has_port = yes}
+				set_country_flag = idea_var_advisor_7	#naval FL
+			}
+			else = {set_country_flag = elf_admin_trader_flag}
+		}
+		1 = {
+			if = {
+				limit = {num_of_colonists = 1}
+				set_country_flag = idea_var_advisor_10	#colonial growth
+			}
+			else = {set_country_flag = elf_admin_trader_flag}
+		}
+		1 = {set_country_flag = idea_var_advisor_19}	#culture conversion
+		1 = {set_country_flag = idea_var_advisor_21}	#own trade power
+		1 = {
+			if = {
+				limit = {has_port = yes}
+				set_country_flag = idea_var_advisor_22	#sailors
+			}
+			else = {set_country_flag = elf_admin_spymaster_flag}
+		}
+		1 = {set_country_flag = idea_var_advisor_23}	#province war socre
+		1 = {
+			if = {
+				limit = {num_of_heavy_ship = 10}
+				set_country_flag = idea_var_advisor_24	#heavy ship power
+			}
+			else = {set_country_flag = elf_admin_spymaster_flag}
+		}
+		1 = {
+			if = {
+				limit = {num_of_galley = 20}
+				set_country_flag = idea_var_advisor_25	#galley power
+			}
+			else = {set_country_flag = idea_var_advisor_21}	#own trade power
+		}
+		1 = {
+			if = {
+				limit = {num_of_light_ship = 20}
+				set_country_flag = idea_var_advisor_26	#light ship power
+			}
+			else = {set_country_flag = elf_admin_diplomat_flag}
+		}
+		1 = {
+			if = {
+				limit = {num_of_subjects = 1}
+				set_country_flag = idea_var_advisor_27	#liberty desire 
+			}
+			else = {set_country_flag = elf_admin_statesman_flag}
+		}
+	}
+}
+clear_dip_advisor_elf_admin = {
+	clr_country_flag = elf_admin_statesman_flag
+	clr_country_flag = elf_admin_naval_reformer_flag
+	clr_country_flag = elf_admin_trader_flag
+	clr_country_flag = elf_admin_spymaster_flag
+	clr_country_flag = elf_admin_diplomat_flag
+	clr_country_flag = elf_admin_navigator_flag
+	clr_country_flag = elf_admin_colonial_governor_flag
+	clr_country_flag = elf_admin_runic_priest_flag
+	clr_country_flag = elf_admin_colonial_governor_flag	#tariffs
+	clr_country_flag = elf_admin_idea_var_advisor_2_flag	#integration cost
+	clr_country_flag = elf_admin_idea_var_advisor_7_flag	#naval FL
+	clr_country_flag = elf_admin_idea_var_advisor_10_flag	#colonial growth
+	clr_country_flag = elf_admin_idea_var_advisor_19_flag	#culture conversion
+	clr_country_flag = elf_admin_idea_var_advisor_21_flag	#own trade power
+	clr_country_flag = elf_admin_idea_var_advisor_23_flag	#province war socre
+	clr_country_flag = elf_admin_idea_var_advisor_24_flag	#heavy ship power
+	clr_country_flag = elf_admin_idea_var_advisor_25_flag	#galley power
+	clr_country_flag = elf_admin_idea_var_advisor_26_flag	#light ship power
+	clr_country_flag = elf_admin_idea_var_advisor_27_flag	#liberty desire 
+}
+get_dip_advisor_elf_admin = {
+	trigger_switch = {
+		on_trigger = has_country_flag
+		elf_admin_statesman_flag = {define_elf_advisor = {type = statesman}}
+		elf_admin_naval_reformer_flag = {define_elf_advisor = {type = naval_reformer}}
+		elf_admin_trader_flag = {define_elf_advisor = {type = trader}}
+		elf_admin_spymaster_flag = {define_elf_advisor = {type = spymaster}}
+		elf_admin_diplomat_flag = {define_elf_advisor = {type = diplomat}}
+		elf_admin_idea_var_advisor_2_flag = {define_elf_advisor = {type = idea_var_advisor_2}}	#integration cost
+		elf_admin_idea_var_advisor_7_flag = {define_elf_advisor = {type = idea_var_advisor_7}}	#naval FL
+		elf_admin_idea_var_advisor_10_flag = {define_elf_advisor = {type = idea_var_advisor_10}}	#colonial growth
+		elf_admin_idea_var_advisor_19_flag = {define_elf_advisor = {type = idea_var_advisor_19}}	#culture conversion
+		elf_admin_idea_var_advisor_21_flag = {define_elf_advisor = {type = idea_var_advisor_21}}	#own trade power
+		elf_admin_idea_var_advisor_23_flag = {define_elf_advisor = {type = idea_var_advisor_23}}	#province war socre
+		elf_admin_idea_var_advisor_24_flag = {define_elf_advisor = {type = idea_var_advisor_24}}	#heavy ship power
+		elf_admin_idea_var_advisor_25_flag = {define_elf_advisor = {type = idea_var_advisor_25}}	#galley power
+		elf_admin_idea_var_advisor_26_flag = {define_elf_advisor = {type = idea_var_advisor_26}}	#light ship power
+		elf_admin_idea_var_advisor_27_flag = {define_elf_advisor = {type = idea_var_advisor_27}}	#liberty desire 
+		elf_admin_navigator_flag = {define_elf_advisor = {type = navigator}}
+		elf_admin_colonial_governor_flag = {define_elf_advisor = {type = colonial_governor}}
+		elf_admin_runic_priest_flag = {define_elf_advisor = {type = runic_priest}}
+	}
+}
+select_mil_advisor_elf_admin = {
+	random_list = {
+		1 = {set_country_flag = elf_admin_army_reformer_flag}
+		1 = {set_country_flag = elf_admin_army_organiser_flag}
+		1 = {set_country_flag = elf_admin_commandant_flag}
+		1 = {set_country_flag = elf_admin_quartermaster_flag}
+		1 = {set_country_flag = elf_admin_recruitmaster_flag}
+		1 = {set_country_flag = elf_admin_fortification_expert_flag}
+		1 = {set_country_flag = elf_admin_grand_captain_flag}
+		1 = {set_country_flag = elf_admin_war_master_flag}
+		1 = {set_country_flag = elf_admin_idea_var_advisor_5_flag}
+		1 = {set_country_flag = elf_admin_idea_var_advisor_11_flag}
+		1 = {set_country_flag = elf_admin_idea_var_advisor_12_flag}
+		1 = {
+			if = {
+				limit = {cavalry_fraction = 0.2}
+				set_country_flag = elf_admin_idea_var_advisor_13_flag	#cav power
+			}
+			else = {set_country_flag = elf_admin_idea_var_advisor_12_flag}
+		}
+		1 = {
+			if = {
+				limit = {num_of_artillery = 20}
+				set_country_flag = elf_admin_idea_var_advisor_14_flag	#art power
+			}
+			else = {set_country_flag = elf_admin_idea_var_advisor_12_flag}
+		}
+		1 = {set_country_flag = elf_admin_idea_var_advisor_15_flag}
+		1 = {set_country_flag = elf_admin_idea_var_advisor_16_flag}
+		1 = {set_country_flag = elf_admin_idea_var_advisor_17_flag}
+		1 = {set_country_flag = elf_admin_idea_var_advisor_18_flag}
+		1 = {
+			if = {
+				limit = {num_of_mercenaries = 30}
+				set_country_flag = elf_admin_idea_var_advisor_28_flag	#mercenary disc
+			}
+			else = {set_country_flag = elf_admin_elf_admin_commandant_flag_flag}
+		}
+		1 = {set_country_flag = elf_admin_idea_var_advisor_29_flag}
+	}
+}
+clear_mil_advisor_elf_admin = {
+	clr_country_flag = elf_admin_army_reformer_flag
+	clr_country_flag = elf_admin_army_organiser_flag
+	clr_country_flag = elf_admin_commandant_flag
+	clr_country_flag = elf_admin_quartermaster_flag
+	clr_country_flag = elf_admin_recruitmaster_flag
+	clr_country_flag = elf_admin_fortification_expert_flag
+	clr_country_flag = elf_admin_grand_captain_flag
+	clr_country_flag = elf_admin_war_master_flag
+	clr_country_flag = elf_admin_idea_var_advisor_5_flag
+	clr_country_flag = elf_admin_idea_var_advisor_11_flag
+	clr_country_flag = elf_admin_idea_var_advisor_12_flag
+	clr_country_flag = elf_admin_idea_var_advisor_13_flag
+	clr_country_flag = elf_admin_idea_var_advisor_14_flag
+	clr_country_flag = elf_admin_idea_var_advisor_15_flag
+	clr_country_flag = elf_admin_idea_var_advisor_16_flag
+	clr_country_flag = elf_admin_idea_var_advisor_17_flag
+	clr_country_flag = elf_admin_idea_var_advisor_18_flag
+	clr_country_flag = elf_admin_idea_var_advisor_28_flag
+	clr_country_flag = elf_admin_idea_var_advisor_29_flag
+}
+get_mil_advisor_elf_admin = {
+	trigger_switch = {
+		on_trigger = has_country_flag
+		elf_admin_army_reformer_flag = {define_elf_advisor = {type = army_reformer}}
+		elf_admin_army_organiser_flag = {define_elf_advisor = {type = army_organiser}}
+		elf_admin_commandant_flag = {define_elf_advisor = {type = commandant}}
+		elf_admin_quartermaster_flag = {define_elf_advisor = {type = quartermaster}}
+		elf_admin_recruitmaster_flag = {define_elf_advisor = {type = recruitmaster}}
+		elf_admin_fortification_expert_flag = {define_elf_advisor = {type = fortification_expert}}
+		elf_admin_grand_captain_flag = {define_elf_advisor = {type = grand_captain}}
+		elf_admin_war_master_flag = {define_elf_advisor = {type = war_master}}
+		elf_admin_idea_var_advisor_5_flag = {define_elf_advisor = {type = idea_var_advisor_5}}
+		elf_admin_idea_var_advisor_11_flag = {define_elf_advisor = {type = idea_var_advisor_11}}
+		elf_admin_idea_var_advisor_12_flag = {define_elf_advisor = {type = idea_var_advisor_12}}
+		elf_admin_idea_var_advisor_13_flag = {define_elf_advisor = {type = idea_var_advisor_13}}
+		elf_admin_idea_var_advisor_14_flag = {define_elf_advisor = {type = idea_var_advisor_14}}
+		lf_admin_idea_var_advisor_15_flag = {define_elf_advisor = {type = idea_var_advisor_15}}
+		elf_admin_idea_var_advisor_16_flag = {define_elf_advisor = {type = idea_var_advisor_16}}
+		elf_admin_idea_var_advisor_17_flag = {define_elf_advisor = {type = idea_var_advisor_17}}
+		elf_admin_idea_var_advisor_18_flag = {define_elf_advisor = {type = idea_var_advisor_18}}
+		elf_admin_idea_var_advisor_28_flag = {define_elf_advisor = {type = idea_var_advisor_28}}
+		elf_admin_idea_var_advisor_29_flag= {define_elf_advisor = {type = idea_var_advisor_29}}
+	}
+}
+get_any_advisor_elf_admin = {
+	random_list = {
+		1 = { get_adm_advisor_elf_admin = yes}
+		1 = { get_dip_advisor_elf_admin = yes}
+		1 = { get_mil_advisor_elf_admin = yes}
+	}
+}
+boost_ruler_general = {
+	if = {
+		limit = {
+			has_leader_with = {total_pips = 14}
+			OR = {NOT = {adm = 1} NOT = {dip = 1} NOT = {mil = 1}}
+		}
+		if = {
+			limit = {NOT = {adm = 1}}
+			change_adm = 1
+		}
+		if = {
+			limit = {NOT = {dip = 1}}
+			change_dip = 1
+		}
+		if = {
+			limit = {NOT = {mil = 1}}
+			change_mil = 1
+		}
+	}
+	if = {
+		limit = {
+			has_leader_with = {total_pips = 16}
+			OR = {NOT = {adm = 2} NOT = {dip = 2} NOT = {mil = 2}}
+		}
+		if = {
+			limit = {NOT = {adm = 2}}
+			change_adm = 1
+		}
+		if = {
+			limit = {NOT = {dip = 2}}
+			change_dip = 1
+		}
+		if = {
+			limit = {NOT = {mil = 2}}
+			change_mil = 1
+		}
+	}
+	if = {
+		limit = {
+			has_leader_with = {total_pips = 18}
+			OR = {NOT = {adm = 3} NOT = {dip = 3} NOT = {mil = 3}}
+		}
+		if = {
+			limit = {NOT = {adm = 3}}
+			change_adm = 1
+		}
+		if = {
+			limit = {NOT = {dip = 3}}
+			change_dip = 1
+		}
+		if = {
+			limit = {NOT = {mil = 3}}
+			change_mil = 1
+		}
+	}
+	if = {
+		limit = {
+			has_leader_with = {total_pips = 20}
+			OR = {NOT = {adm = 4} NOT = {dip = 4} NOT = {mil = 4}}
+		}
+		if = {
+			limit = {NOT = {adm = 4}}
+			change_adm = 1
+		}
+		if = {
+			limit = {NOT = {dip = 4}}
+			change_dip = 1
+		}
+		if = {
+			limit = {NOT = {mil = 4}}
+			change_mil = 1
+		}
+	}
+	if = {
+		limit = {
+			has_leader_with = {total_pips = 22}
+			OR = {NOT = {adm = 5} NOT = {dip = 5} NOT = {mil = 5}}
+		}
+		if = {
+			limit = {NOT = {adm = 5}}
+			change_adm = 1
+		}
+		if = {
+			limit = {NOT = {dip = 5}}
+			change_dip = 1
+		}
+		if = {
+			limit = {NOT = {mil = 5}}
+			change_mil = 1
+		}
+	}
+}
+increase_imperial_centralization = {
+	if = {limit = {has_global_flag = imperial_centralization_9_flag } set_global_flag = imperial_centralization_10_flag}
+	else_if = {limit = {has_global_flag = imperial_centralization_8_flag} set_global_flag = imperial_centralization_9_flag}
+	else_if = {limit = {has_global_flag = imperial_centralization_7_flag} set_global_flag = imperial_centralization_8_flag}
+	else_if = {limit = {has_global_flag = imperial_centralization_6_flag} set_global_flag = imperial_centralization_7_flag}
+	else_if = {limit = {has_global_flag = imperial_centralization_5_flag} set_global_flag = imperial_centralization_6_flag}
+	else_if = {limit = {has_global_flag = imperial_centralization_4_flag} set_global_flag = imperial_centralization_5_flag}
+	else_if = {limit = {has_global_flag = imperial_centralization_3_flag} set_global_flag = imperial_centralization_4_flag}
+	else_if = {limit = {has_global_flag = imperial_centralization_2_flag} set_global_flag = imperial_centralization_3_flag}
+	else_if = {limit = {has_global_flag = imperial_centralization_1_flag} set_global_flag = imperial_centralization_2_flag}
+	else = {set_global_flag = imperial_centralization_1_flag}
+}

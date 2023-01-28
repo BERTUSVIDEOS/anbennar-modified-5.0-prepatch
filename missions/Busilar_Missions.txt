@@ -1,0 +1,1122 @@
+
+busilar_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	
+	potential = {
+		tag = A29
+	}
+	
+	A29_reclaim_mount_khenak = {
+		icon = mission_control_the_desh
+		position = 1
+		
+		provinces_to_highlight = {
+			area = inner_khenak_area
+			NOT = { owned_by = ROOT }
+		}
+		
+		trigger = {
+			inner_khenak_area = {
+				type = all
+				owned_by = ROOT
+			}
+		}
+		
+		effect = {
+			gnollsgate_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	A29_claim_escandar = {
+		icon = fight_bosnian_heresies
+		position = 3
+		
+		required_missions = {
+			A29_reclaim_mount_khenak
+		}
+		
+		provinces_to_highlight = {
+			area = gnollsgate_area
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		trigger = {
+			gnollsgate_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		effect = {
+			hawkfields_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			rhinmond_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			greater_bardswood_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	A29_expand_our_coastline = {
+		icon = dalmatian_conquest
+		position = 4
+		
+		required_missions = {
+			A29_claim_escandar
+		}
+		
+		provinces_to_highlight = {
+			area = hawkfields_area
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		trigger = {
+			hawkfields_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		effect = {
+			nathalaire_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			highcliff_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	A29_the_imperial_flooded_coast = {
+		icon = develop_provence
+		position = 5
+		
+		required_missions = {
+			A29_expand_our_coastline
+		}
+		
+		provinces_to_highlight = {
+			OR = {
+				area = nathalaire_area
+				area = highcliff_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		trigger = {
+			nathalaire_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			highcliff_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		effect = {
+			451 = {
+				add_center_of_trade_level = 1
+				add_scaled_local_dip_power = 10
+			}
+			daravans_folly_region = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT				
+			}
+		}
+	}
+}
+
+busilar_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	
+	potential = {
+		tag = A29
+	}
+	
+	A29_reinforce_the_khenak = {
+		icon = alpine_defenses
+		position = 2
+		
+		required_missions = {
+			A29_reclaim_mount_khenak
+		}
+		
+		provinces_to_highlight = {
+			province_id = 1153
+			OR = {
+				NOT = { has_fort_building_trigger = yes }
+				NOT = { development = 10 }
+			}
+		}
+		
+		trigger = {
+			treasury = 100
+			1153 = {
+				has_fort_building_trigger = yes
+				development = 10
+			}
+		}
+		
+		effect = {
+			add_treasury = -100
+			1153 = {
+				add_permanent_province_modifier = {
+					name = busilar_khenak_fortifications
+					duration = -1
+				}
+			}
+		}
+	}
+	
+	A29_revitalize_the_copper_mines = {
+		icon = mission_rb_central_belt_coal_mining
+		position = 3
+		
+		required_missions = {
+			A29_reinforce_the_khenak
+		}
+		
+		provinces_to_highlight = {
+			OR = {
+				province_id = 364
+				province_id = 371
+				province_id = 367
+			}
+			OR = {
+				NOT = { has_production_building_trigger = yes }
+				NOT = { development = 15 }
+			}
+		}
+		
+		trigger = {
+			364 = {
+				has_production_building_trigger = yes
+				base_production = 10
+			}
+			371 = {
+				has_production_building_trigger = yes
+				base_production = 10
+			}
+			367 = {
+				has_production_building_trigger = yes
+				base_production = 10
+			}
+		}
+		
+		effect = {
+			364 = {
+				add_province_modifier = {
+					name = busilar_busilari_copper_mines
+					duration = -1
+				}
+			}
+			367 = {
+				add_province_modifier = {
+					name = busilar_busilari_copper_mines
+					duration = -1
+				}
+			}
+			371 = {
+				add_province_modifier = {
+					name = busilar_busilari_copper_mines
+					duration = -1
+				}
+			}
+		}
+	}
+	
+	A29_rhinmond_area = {
+		icon = the_hundred_years_war
+		position = 4
+		
+		required_missions = {
+			A29_claim_escandar
+		}
+		
+		provinces_to_highlight = {
+			OR = {
+				area = rhinmond_area
+				area = greater_bardswood_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		trigger = {
+			rhinmond_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			greater_bardswood_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		effect = {
+			arannen_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			tellum_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	A29_the_imperial_cub = {
+		icon = mission_onward_to_gaur
+		position = 8
+		
+		required_missions = {
+			A29_rhinmond_area
+		}
+		
+		provinces_to_highlight = {
+			OR = {
+				area = arannen_area
+				area = tellum_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		trigger = {
+			arannen_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			tellum_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		effect = {
+			904 = {
+				add_center_of_trade_level  = 1
+				add_province_triggered_modifier = busilar_busilari_stone_lion
+			}
+			add_prestige = 20
+		}
+	}
+}
+
+busilar_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	
+	potential = {
+		tag = A29
+	}
+	
+	A29_modernize_the_arsenal = {
+		icon = africa_proconsulare
+		position = 4
+		
+		required_missions = {
+			A29_revitalize_the_copper_mines
+			A29_expand_port_jaher
+		}
+		
+		provinces_to_highlight = {
+			province_id = 365
+			OR = {
+				NOT = { development = 35 }
+				NOT = { has_building = drydock }
+				NOT = { has_building = grand_shipyard }
+			}
+		}
+		
+		trigger = {
+			365 = {
+				development = 35
+				has_building = drydock
+				has_building = grand_shipyard
+			}
+		}
+		
+		effect = {
+			365 = {
+				add_province_modifier = {
+					name = busilar_modern_busilari_arsenal
+					duration = -1
+				}
+			}
+		}
+	}
+	
+	A29_reunite_with_our_brothers = {
+		icon = mission_protect_granada
+		position = 5
+		
+		required_missions = {
+			A29_rebuild_the_lion_armada
+		}
+		
+		provinces_to_highlight = {
+			area = crathanor_area
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		trigger = {
+			OR = {
+				crathanor_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+				U17 = {
+					is_subject_of = A29
+				}
+			}
+		}
+		
+		effect = {
+			reuyel_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			medbahar_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	A29_a_frontier_for_crathanor = {
+		icon = mission_arabian_fort
+		position = 6
+		
+		required_missions = {
+			A29_reunite_with_our_brothers
+		}
+		
+		provinces_to_highlight = {
+			OR = {
+				area = reuyel_area
+				area = medbahar_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		trigger = {
+			reuyel_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			medbahar_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		effect = {
+			if = {
+				limit = {
+					exists = F23
+				}
+				add_casus_belli = {
+					target = F23
+					type = cb_vassalize_mission
+					months = 240
+				}
+			}
+			else = {
+				tungr_mountains_area = {
+					limit = {
+						NOT = { is_core = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+	
+	A29_the_copper_dwarves = {
+		icon = mission_fortify_rajputana
+		position = 7
+		
+		required_missions = {
+			A29_a_frontier_for_crathanor
+		}
+		
+		provinces_to_highlight = {
+			area = tungr_mountains_area
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		trigger = {
+			tungr_mountains_area = { 
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		effect = {
+			if = {
+				limit = { F23 = { is_subject_of = ROOT } }
+				tungr_mountains_area = {
+					cede_province = F23
+				}
+			}
+			add_accepted_culture = copper_dwarf
+			large_increase_of_dwarven_tolerance_effect = yes
+		}
+	}
+	
+	A29_westend_pillar = {
+		icon = mission_conquer_tunisia
+		position = 8
+		
+		required_missions = {
+			A29_the_copper_dwarves
+		}
+		
+		trigger = {
+			516 = {
+				culture_group = businori
+				development = 30
+			}
+		}
+		
+		effect = {
+			516 = {
+				add_center_of_trade_level  = 1
+				add_province_triggered_modifier = busilar_busilari_stone_lion
+			}
+			add_prestige = 20
+		}
+	}
+	
+	A29_stone_lions_of_busilar = {
+		icon = mission_reclaim_dehli
+		position = 9
+		
+		required_missions = {
+			A29_the_imperial_cub
+			A29_westend_pillar
+			A29_a_symbol_of_our_protection
+		}
+
+		trigger = {	
+			prestige = 50
+			legitimacy = 90
+		}
+		
+		effect = {
+			set_government_rank = 3
+			add_country_modifier = {
+				name = busilar_the_stone_lions_of_busilar
+				duration = -1
+			}
+			capital_scope = {
+				add_province_triggered_modifier = busilar_the_stone_lions_of_busilar
+			}
+		}
+	}
+	
+	A29_the_gnolls_defeated = {
+		icon = mission_accomodate_the_rajputs
+		position = 11
+		
+		required_missions = {
+			A29_fulfilling_our_promise
+		}
+		
+		provinces_to_highlight = {
+			region = akan_region
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = akan_region
+				value = 15
+			}
+		}
+		
+		effect = {
+			every_owned_province = {
+				limit = {
+					culture_group = gnollish
+					region = akan_region
+				}
+				random_list = {
+					33 = {
+						change_culture = desha
+					}
+					33 = {
+						change_culture = khasani
+					}
+					33 = {
+						change_culture = far_akani
+					}
+				}
+				change_religion = ROOT
+			}
+		}
+	}
+}
+
+busilar_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	
+	potential = {
+		tag = A29
+	}
+	
+	A29_stabilize_the_country = {
+		icon = mission_secure_khandesh
+		position = 2
+		
+		trigger = {
+			stability = 2
+		}
+		
+		effect = {
+			add_country_modifier = {
+				name = busilar_reconstruction
+				duration = 3650
+			}
+		}
+	}
+	
+	A29_expand_port_jaher = {
+		icon = a_question_of_spain
+		position = 3
+		
+		required_missions = {
+			A29_stabilize_the_country
+		}
+		
+		provinces_to_highlight = {
+			province_id = 365
+			OR = {
+				NOT = { development = 25 }
+				NOT = { has_dock_building_trigger = yes }
+				NOT = { has_shipyard_building_trigger = yes }
+			}
+		}
+		
+		trigger = {
+			365 = {
+				development = 25
+				has_dock_building_trigger = yes
+				has_shipyard_building_trigger = yes
+			}
+		}
+		
+		effect = {
+			365 = {
+				add_permanent_province_modifier = {
+					name = busilar_expanded_port
+					duration = -1
+				}
+				add_permanent_province_modifier = {
+					name = busilar_colonial_port
+					duration = -1
+				}
+			}
+			define_explorer = {
+				fire = 3
+				shock = 3
+				manuever = 4
+				siege = 1
+			}			
+		}
+	}
+	
+	A29_rebuild_the_lion_armada = {
+		icon = crusader_fleet
+		position = 4
+		
+		required_missions = {
+			A29_expand_port_jaher
+		}
+		
+		trigger = {
+			navy_size_percentage = 0.90
+		}
+		
+		effect = {
+			if = {
+				limit = { exists = U17 }
+				add_casus_belli = {
+					target = U17
+					type = cb_vassalize_mission
+					months = 240
+				}
+			}
+			else = {
+				crathanor_area = {
+					limit = {
+						NOT = { is_core = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}	
+		}
+	}
+	
+	A29_prepare_for_our_revenge = {
+		icon = mission_warrior_gold
+		position = 5
+		
+		required_missions = {
+			A29_rebuild_the_lion_armada
+		}
+		
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 5
+				base_manpower = 10
+				has_manpower_building_trigger = yes
+			}
+		}
+		
+		effect = {
+			isle_of_tef_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			define_admiral = {
+				fire = 5
+				shock = 5
+				manuever = 6
+				siege = 2
+			}
+		}
+	}
+	
+	A29_ending_the_rivalry = {
+		icon = the_latin_empire
+		position = 6
+		
+		required_missions = {
+			A29_prepare_for_our_revenge
+		}
+		
+		provinces_to_highlight = {
+			area = isle_of_tef_area
+			NOT = {	country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		trigger = {
+			isle_of_tef_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT 
+			}
+		}
+		
+		effect = {
+			if = {
+				limit = { exists = U06 }
+				add_casus_belli = {
+					target = U06
+					type = cb_vassalize_mission
+					months = 240
+				}
+			}
+			else = {
+				deshak_area = {
+					limit = {
+						NOT = { is_core = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+	
+	A29_a_symbol_of_our_protection = {
+		icon = mission_plus_ultra
+		position = 8
+		
+		required_missions = {
+			A29_ending_the_rivalry
+		}
+		
+		provinces_to_highlight = {
+			area = deshak_area
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		trigger = {
+			deshak_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		effect = {
+			382 = {
+				add_center_of_trade_level  = 1
+				add_province_triggered_modifier = busilar_busilari_stone_lion
+			}
+			add_prestige = 20
+		}
+	}
+	
+	A29_surpass_the_gnolls = {
+		icon = mission_conquer_timbuktu
+		position = 9
+		
+		required_missions = {
+			A29_a_symbol_of_our_protection
+		}
+		
+		trigger = {
+			army_size = U07
+			navy_size = U07
+		}
+		
+		effect = {
+			middle_akan_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			akan_mountains_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	A29_fulfilling_our_promise = {
+		icon = mission_reconquer_ceuta
+		position = 10
+		
+		required_missions = {
+			A29_surpass_the_gnolls
+		}
+		
+		provinces_to_highlight = {
+			OR = {
+				area = middle_akan_area
+				area = akan_mountains_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		trigger = {
+			middle_akan_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			akan_mountains_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		effect = {
+			akan_region = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	A29_lion_marsh = {
+		icon = mission_clear_the_delta
+		position = 11
+		
+		required_missions = {
+			A29_a_western_outpost
+		}
+		
+		provinces_to_highlight = {
+			colonial_region = colonial_leechden
+			OR = {
+				NOT = { country_or_non_sovereign_subject_holds = ROOT }
+				NOT = { is_city = yes }
+			}
+			has_discovered = ROOT
+		}
+		
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 10
+				colonial_region = colonial_leechden
+				is_city = yes
+			}
+		}
+		
+		effect = {
+			add_country_modifier = {
+				name = colonial_enthusiasm
+				duration = 5475
+			}
+		}
+	}
+	
+	A29_nur_hapaine = {
+		icon = mission_demand_garjat_fealty
+		position = 12
+		
+		required_missions = {
+			A29_lion_marsh
+		}
+		
+		provinces_to_highlight = {
+			colonial_region = colonial_lai_peninsula
+			OR = {
+				NOT = { country_or_non_sovereign_subject_holds = ROOT }
+				NOT = { is_city = yes }
+			}
+			has_discovered = ROOT
+		}
+		
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 10
+				colonial_region = colonial_lai_peninsula
+				is_city = yes
+			}
+		}
+		
+		effect = {
+			add_country_modifier = {
+				name = busilar_colonial_offices
+				duration = 5475
+			}
+		}
+	}
+}
+
+busilar_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	
+	potential = {
+		tag = A29
+	}
+	
+	A29_wander_to_aelantir = {
+		icon = mission_launch_a_flagship
+		position = 4
+		
+		required_missions = {
+			A29_expand_port_jaher
+		}
+		
+		trigger = {
+			has_discovered = 928
+		}
+		
+		effect = {
+			add_country_modifier = {
+				name = busilar_exploration_of_aelantir
+				duration = 7300
+			}
+			add_country_modifier = {
+				name = "colonial_enthusiasm"
+				duration = 5475
+			}
+		}
+	}
+	
+	A29_a_western_outpost = {
+		icon = mission_claim_the_canaries
+		position = 10
+		
+		required_missions = {
+			A29_wander_to_aelantir
+		}
+		
+		provinces_to_highlight = {
+			colonial_region = colonial_endralliande
+			OR = {
+				NOT = { country_or_non_sovereign_subject_holds = ROOT }
+				NOT = { is_city = yes }
+			}
+			has_discovered = ROOT
+		}
+		
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 10
+				colonial_region = colonial_endralliande
+				is_city = yes
+			}
+		}
+		
+		effect = {
+			add_country_modifier = {
+				name = busilar_colonial_offices
+				duration = 5475
+			}
+		}
+	}
+
+	A29_nariande = {
+		icon = mission_colonize_the_west
+		position = 11
+		
+		required_missions = {
+			A29_a_western_outpost
+		}
+		
+		provinces_to_highlight = {
+			colonial_region = colonial_isles
+			OR = {
+				NOT = { country_or_non_sovereign_subject_holds = ROOT }
+				NOT = { is_city = yes }
+			}
+			has_discovered = ROOT
+		}
+		
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 10
+				colonial_region = colonial_isles
+				is_city = yes
+			}
+		}
+		
+		effect = {
+			add_country_modifier = {
+				name = busilar_colonial_offices
+				duration = 5475
+			}
+		}
+	}
+	
+	A29_nur_lorbet = {
+		icon = mission_unite_coromandel
+		position = 12
+		
+		required_missions = {
+			A29_nariande
+		}
+		
+		provinces_to_highlight = {
+			colonial_region = colonial_soruin
+			OR = {
+				NOT = { country_or_non_sovereign_subject_holds = ROOT }
+				NOT = { is_city = yes }
+			}
+			has_discovered = ROOT
+		}
+		
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 10
+				colonial_region = colonial_soruin
+				is_city = yes
+			}
+		}
+		
+		effect = {
+			add_country_modifier = {
+				name = colonial_enthusiasm
+				duration = 5475
+			}
+		}
+	}
+	
+	A29_nur_busilar = {
+		icon = mission_south_african_bases
+		position = 13
+		
+		required_missions = {
+			A29_nur_lorbet
+		}
+		
+		provinces_to_highlight = {
+			colonial_region = colonial_amadia
+			OR = {
+				NOT = { country_or_non_sovereign_subject_holds = ROOT }
+				NOT = { is_city = yes }
+			}
+			has_discovered = ROOT
+		}
+		
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 10
+				colonial_region = colonial_amadia
+				is_city = yes
+			}
+		}
+		
+		effect = {
+			add_country_modifier = {
+				name = busilar_colonial_offices
+				duration = 5475
+			}
+		}
+	}
+}

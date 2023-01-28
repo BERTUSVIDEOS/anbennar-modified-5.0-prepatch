@@ -1,0 +1,1103 @@
+
+interaction = {	#1-1
+    key = empty_interaction
+    random_seed = random
+	cooldown_months = 1
+
+    trigger = {	
+		custom_trigger_tooltip = {
+			tooltip = celebrate_space_tooltip
+			always = no
+		}
+    }
+    effect = {
+    }
+	ai_will_do = {
+		factor = 0
+	}
+}
+interaction = {	#2-1
+    key = empty_interaction
+    random_seed = random
+	cooldown_months = 1
+
+    trigger = {	
+		custom_trigger_tooltip = {
+			tooltip = celebrate_space_tooltip
+			always = no
+		}
+    }
+    effect = {
+    }
+	ai_will_do = {
+		factor = 0
+	}
+}
+interaction = {	#3-1
+    key = empty_interaction
+    random_seed = random
+	cooldown_months = 1
+
+    trigger = {	
+		custom_trigger_tooltip = {
+			tooltip = celebrate_space_tooltip
+			always = no
+		}
+    }
+    effect = {
+    }
+	ai_will_do = {
+		factor = 0
+	}
+}
+interaction = {	#4-1
+    key = empty_interaction
+    random_seed = random
+	cooldown_months = 1
+
+    trigger = {	
+		custom_trigger_tooltip = {
+			tooltip = celebrate_space_tooltip
+			always = no
+		}
+    }
+    effect = {
+    }
+	ai_will_do = {
+		factor = 0
+	}
+}
+interaction = {	#5-1
+    key = empty_interaction
+    random_seed = random
+	cooldown_months = 1
+
+    trigger = {	
+		custom_trigger_tooltip = {
+			tooltip = celebrate_space_tooltip
+			always = no
+		}
+    }
+    effect = {
+    }
+	ai_will_do = {
+		factor = 0
+	}
+}
+interaction = {	#6-1
+    key = empty_interaction
+    random_seed = random
+	cooldown_months = 1
+
+    trigger = {		
+		custom_trigger_tooltip = {
+			tooltip = celebrate_space_tooltip
+			always = no
+		}
+    }
+    effect = {
+    }
+	ai_will_do = {
+		factor = 0
+	}
+}
+interaction = {	#7-1
+    key = country_goods_interaction
+    random_seed = random
+	cooldown_months = 0
+
+    trigger = {
+		custom_trigger_tooltip = {
+			tooltip = trade_goods_variables_localisations_tooltip
+			always = yes
+		}
+    }
+    effect = {	
+		custom_tooltip = spacing_tooltip
+		if = {
+			limit = {
+				NOT = {
+					has_country_flag = bertus_show_food_flag
+					has_country_flag = bertus_show_metals_flag
+					has_country_flag = bertus_show_textiles_flag
+					has_country_flag = bertus_show_animal_flag
+					has_country_flag = bertus_show_spices_flag
+					has_country_flag = bertus_show_precious_flag
+					has_country_flag = bertus_show_special_flag
+					has_country_flag = bertus_show_manufactured_flag
+				}
+			}
+			if = {	#has goods de-activated
+				limit = {NOT = {has_global_flag = stored_goods_activated_flag}}
+				custom_tooltip = bertus_deactivated_goods_tt
+			}
+			custom_tooltip = bertus_open_goods_menu_tt
+			hidden_effect = {
+				country_event = {id = ANEX_event.34}
+				if = {	#has goods activated
+					limit = {has_global_flag = stored_goods_activated_flag}
+					country_event = {id = bertus_goods.1000}
+					set_country_flag = bertus_show_food_flag
+				}
+				country_event = {id = bertus_changes.7000}
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = bertus_show_food_flag
+			}
+			clr_country_flag = bertus_show_food_flag
+			set_country_flag = bertus_show_metals_flag
+			custom_tooltip = bertus_show_food_tt
+			if = {	#has goods activated
+				limit = {has_global_flag = stored_goods_activated_flag}
+				custom_tooltip = food_needed_tooltip
+			}
+			custom_tooltip = trade_goods_variables_tooltip
+			if = {limit = {grain = 1} custom_tooltip = trade_goods_grain_tooltip}
+			if = {limit = {rice = 1} custom_tooltip = trade_goods_rice_tooltip}
+			if = {limit = {fish = 1} custom_tooltip = trade_goods_fish_tooltip}
+			if = {limit = {livestock = 1} custom_tooltip = trade_goods_livestock_tooltip}
+			if = {limit = {maize = 1} custom_tooltip = trade_goods_maize_tooltip}
+			if = {limit = {potato = 1} custom_tooltip = trade_goods_potato_tooltip}
+			if = {limit = {citrus = 1} custom_tooltip = trade_goods_citrus_tooltip}
+			if = {limit = {dates = 1} custom_tooltip = trade_goods_dates_tooltip}
+			if = {limit = {seafood = 1} custom_tooltip = trade_goods_seafood_tooltip}
+			if = {limit = {cheese = 1} custom_tooltip = trade_goods_cheese_tooltip}
+			if = {limit = {maple_syrup = 1} custom_tooltip = trade_goods_maple_syrup_tooltip}
+			if = {limit = {tomato = 1} custom_tooltip = trade_goods_tomato_tooltip}
+			if = {limit = {sea_turtle = 1} custom_tooltip = trade_goods_sea_turtle_tooltip}
+			if = {limit = {apiculture = 1} custom_tooltip = trade_goods_apiculture_tooltip}
+			if = {limit = {fungi = 1} custom_tooltip = trade_goods_fungi_tooltip}
+			if = {limit = {serpentbloom = 1} custom_tooltip = trade_goods_serpentbloom_tooltip}
+			if = {limit = {salt = 1} custom_tooltip = trade_goods_salt_tooltip}
+			if = {limit = {palm_oil = 1} custom_tooltip = trade_goods_palm_oil_tooltip}
+			if = {limit = {olive_oil = 1} custom_tooltip = trade_goods_olive_oil_tooltip}
+			if = {limit = {whaling = 1} custom_tooltip = trade_goods_whaling_tooltip}
+			if = {limit = {wine = 1} custom_tooltip = trade_goods_wine_tooltip}
+			if = {limit = {champagne = 1} custom_tooltip = trade_goods_champagne_tooltip}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = bertus_show_metals_flag
+			}
+			clr_country_flag = bertus_show_metals_flag
+			set_country_flag = bertus_show_textiles_flag
+			custom_tooltip = bertus_show_metals_tt
+			if = {	#has goods activated
+				limit = {has_global_flag = stored_goods_activated_flag}
+				custom_tooltip = iron_needed_tooltip
+				if = {limit = {mil_tech = 7} custom_tooltip = copper_needed_tooltip}
+			}
+			custom_tooltip = spacing_tooltip
+			custom_tooltip = trade_goods_variables_tooltip
+			# Metals
+			if = {limit = {copper = 1} custom_tooltip = trade_goods_copper_tooltip}
+			if = {limit = {iron = 1} custom_tooltip = trade_goods_iron_tooltip}
+			if = {limit = {tin = 1} custom_tooltip = trade_goods_tin_tooltip}
+			if = {limit = {lead = 1} custom_tooltip = trade_goods_lead_tooltip}
+			if = {limit = {zinc = 1} custom_tooltip = trade_goods_zinc_tooltip}
+			if = {limit = {mercury = 1} custom_tooltip = trade_goods_mercury_tooltip}
+			if = {limit = {brass = 1} custom_tooltip = trade_goods_brass_tooltip}
+			if = {limit = {mithril = 1} custom_tooltip = trade_goods_mithril_tooltip}
+			if = {limit = {silver = 1} custom_tooltip = trade_goods_silver_tooltip}
+			if = {limit = {gold = 1} custom_tooltip = trade_goods_gold_tooltip}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = bertus_show_textiles_flag
+			}
+			clr_country_flag = bertus_show_textiles_flag
+			set_country_flag = bertus_show_animal_flag
+			custom_tooltip = bertus_show_textiles_tt
+			custom_tooltip = trade_goods_variables_tooltip
+			# Textiles
+			if = {limit = {wool = 1} custom_tooltip = trade_goods_wool_tooltip}
+			if = {limit = {fur = 1} custom_tooltip = trade_goods_fur_tooltip}
+			if = {limit = {cloth = 1} custom_tooltip = trade_goods_cloth_tooltip}
+			if = {limit = {cotton = 1} custom_tooltip = trade_goods_cotton_tooltip}
+			if = {limit = {silk = 1} custom_tooltip = trade_goods_silk_tooltip}
+			if = {limit = {carpet = 1} custom_tooltip = trade_goods_carpet_tooltip}
+		}	
+		else_if = {
+			limit = {
+				has_country_flag = bertus_show_animal_flag
+			}
+			clr_country_flag = bertus_show_animal_flag
+			set_country_flag = bertus_show_spices_flag
+			custom_tooltip = bertus_show_animal_tt
+			if = {	#has goods activated
+				limit = {has_global_flag = stored_goods_activated_flag}
+				if = {limit = {uses_horses = yes} custom_tooltip = horses_needed_tooltip}
+				if = {limit = {uses_camels = yes} custom_tooltip = camel_needed_tooltip}
+				if = {limit = {uses_elephants = yes} custom_tooltip = elephants_needed_tooltip}
+			}
+			custom_tooltip = trade_goods_variables_tooltip
+			# animal
+			if = {limit = {camel = 1} custom_tooltip = trade_goods_camel_tooltip}
+			if = {limit = {horses = 1} custom_tooltip = trade_goods_horses_tooltip}
+			if = {limit = {elephants = 1} custom_tooltip = trade_goods_elephants_tooltip}
+			if = {limit = {llama = 1} custom_tooltip = trade_goods_llama_tooltip}
+			if = {limit = {exotic_animals = 1} custom_tooltip = trade_goods_exotic_animals_tooltip}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = bertus_show_spices_flag
+			}
+			clr_country_flag = bertus_show_spices_flag
+			set_country_flag = bertus_show_precious_flag
+			custom_tooltip = bertus_show_spices_tt
+			custom_tooltip = trade_goods_variables_tooltip
+			#Spices
+			if = {limit = {tea = 1} custom_tooltip = trade_goods_tea_tooltip}
+			if = {limit = {coffee = 1} custom_tooltip = trade_goods_coffee_tooltip}
+			if = {limit = {sugar = 1} custom_tooltip = trade_goods_sugar_tooltip}
+			if = {limit = {spices = 1} custom_tooltip = trade_goods_spices_tooltip}
+			if = {limit = {tobacco = 1} custom_tooltip = trade_goods_tobacco_tooltip}
+			if = {limit = {vanilla = 1} custom_tooltip = trade_goods_vanilla_tooltip}
+			if = {limit = {cinnamon = 1} custom_tooltip = trade_goods_cinnamon_tooltip}
+			if = {limit = {cocoa = 1} custom_tooltip = trade_goods_cocoa_tooltip}
+			if = {limit = {cloves = 1} custom_tooltip = trade_goods_cloves_tooltip}
+			if = {limit = {nutmeg = 1} custom_tooltip = trade_goods_nutmeg_tooltip}
+			if = {limit = {saffron = 1} custom_tooltip = trade_goods_saffron_tooltip}
+			if = {limit = {opium = 1} custom_tooltip = trade_goods_opium_tooltip}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = bertus_show_precious_flag
+			}
+			clr_country_flag = bertus_show_precious_flag
+			set_country_flag = bertus_show_special_flag
+			custom_tooltip = bertus_show_precious_tt
+			custom_tooltip = trade_goods_variables_tooltip
+			#precious
+			if = {limit = {incense = 1} custom_tooltip = trade_goods_incense_tooltip}
+			if = {limit = {glass = 1} custom_tooltip = trade_goods_glass_tooltip}
+			if = {limit = {paper = 1} custom_tooltip = trade_goods_paper_tooltip}
+			if = {limit = {amber = 1} custom_tooltip = trade_goods_amber_tooltip}
+			if = {limit = {ebony = 1} custom_tooltip = trade_goods_ebony_tooltip}
+			if = {limit = {chinaware = 1} custom_tooltip = trade_goods_chinaware_tooltip}
+			if = {limit = {gems = 1} custom_tooltip = trade_goods_gems_tooltip}
+			if = {limit = {pearls = 1} custom_tooltip = trade_goods_pearls_tooltip}
+			if = {limit = {ivory = 1} custom_tooltip = trade_goods_ivory_tooltip}
+			if = {limit = {dyes = 1} custom_tooltip = trade_goods_dyes_tooltip}
+			if = {limit = {indigo = 1} custom_tooltip = trade_goods_indigo_tooltip}
+			if = {limit = {marble = 1} custom_tooltip = trade_goods_marble_tooltip}
+			if = {limit = {jade = 1} custom_tooltip = trade_goods_jade_tooltip}
+			if = {limit = {damestear = 1} custom_tooltip = trade_goods_damestear_tooltip}
+			if = {limit = {precursor_relics = 1} custom_tooltip = trade_goods_precursor_relics_tooltip}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = bertus_show_special_flag
+			}
+			clr_country_flag = bertus_show_special_flag
+			set_country_flag = bertus_show_manufactured_flag
+			custom_tooltip = bertus_show_special_tt
+			custom_tooltip = trade_goods_variables_tooltip
+			#Trade Goods
+			if = {limit = {slaves = 1} custom_tooltip = trade_goods_slaves_tooltip}
+			if = {limit = {lumber = 1} custom_tooltip = trade_goods_lumber_tooltip}
+			if = {limit = {tropical_wood = 1} custom_tooltip = trade_goods_tropical_wood_tooltip}
+			if = {limit = {naval_supplies = 1} custom_tooltip = trade_goods_naval_supplies_tooltip}
+			if = {limit = {tar = 1} custom_tooltip = trade_goods_tar_tooltip}
+			if = {limit = {sulfur = 1} custom_tooltip = trade_goods_sulfur_tooltip}
+			if = {limit = {gunpowder = 1} custom_tooltip = trade_goods_gunpowder_tooltip}
+			if = {limit = {coal = 1} custom_tooltip = trade_goods_coal_tooltip}
+		}
+		else = {
+			clr_country_flag = bertus_show_manufactured_flag
+			custom_tooltip = bertus_show_manufactured_tt
+			if = {	#has goods activated
+				limit = {has_global_flag = stored_goods_activated_flag}
+				if = {limit = {mil_tech = 7} custom_tooltip = metalworking_needed_tooltip}
+				if = {limit = {mil_tech = 7} custom_tooltip = leather_needed_tooltip}
+				if = {limit = {mil_tech = 15} custom_tooltip = munitions_needed_tooltip}
+				if = {limit = {mil_tech = 16} custom_tooltip = cannon_needed_tooltip}
+				if = {limit = {adm_tech = 15} custom_tooltip = beer_needed_tooltip}
+				if = {limit = {mil_tech = 21} custom_tooltip = uniforms_needed_tooltip}
+				if = {limit = {dip_tech = 9} custom_tooltip = optics_needed_tooltip}
+				if = {limit = {dip_tech = 17} custom_tooltip = rum_needed_tooltip}
+				if = {limit = {adm_tech = 10} custom_tooltip = woodworking_needed_tooltip}
+				if = {limit = {dip_tech = 11} custom_tooltip = jewellery_needed_tooltip}
+				if = {limit = {adm_tech = 24} custom_tooltip = steam_engine_needed_tooltip}
+			}
+			custom_tooltip = spacing_tooltip
+			custom_tooltip = trade_goods_manufactured_tooltip
+			#manufactured		
+			if = {limit = {metalworking = 1} custom_tooltip = trade_goods_metalworking_tooltip}
+			if = {limit = {leather = 1} custom_tooltip = trade_goods_leather_tooltip}
+			if = {limit = {munitions = 1} custom_tooltip = trade_goods_munitions_tooltip}
+			if = {limit = {cannon = 1} custom_tooltip = trade_goods_cannon_tooltip}
+			if = {limit = {beer = 1} custom_tooltip = trade_goods_beer_tooltip}
+			if = {limit = {uniforms = 1} custom_tooltip = trade_goods_uniforms_tooltip}
+			if = {limit = {optics = 1} custom_tooltip = trade_goods_optics_tooltip}
+			if = {limit = {rum = 1} custom_tooltip = trade_goods_rum_tooltip}
+			if = {limit = {woodworking = 1} custom_tooltip = trade_goods_woodworking_tooltip}
+			if = {limit = {jewellery = 1} custom_tooltip = trade_goods_jewellery_tooltip}
+			if = {limit = {steam_engine = 1} custom_tooltip = trade_goods_steam_engine_tooltip}
+		}
+		custom_tooltip = spacing_tooltip
+    }
+	ai_will_do = {
+		factor = 0
+	}
+}
+interaction = {	#8-1
+    key = country_study_magic_interaction
+    random_seed = random
+	cooldown_months = 0
+
+    trigger = {
+		hidden_trigger = {
+			ai = no	#bertus mod
+			NOT = { has_ruler_flag = magic_menu_opened }
+		}
+		NOT = { has_ruler_modifier = magic_realm_menu_cooldown }
+		NOT = { has_ruler_modifier = ruler_recently_casted_spell }
+		NOT = {has_country_modifier = magic_realm_menu_cooldown}
+		NOT = {has_country_modifier = ruler_recently_casted_spell}
+		ruler_has_mage_personality = yes
+		if = { limit = { NOT = {months_of_ruling = 2 }}
+			months_of_ruling = 2
+		}
+		if = { limit = { is_lesser_in_union = yes }
+			is_lesser_in_union = no
+		}
+		if = { limit = { ai = yes }
+			NOT = { has_ruler_modifier = ruler_recently_casted_spell }
+		}
+		if = { limit = { has_ruler_flag = abjuration_3 }
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_abjuration_3 }
+		}
+		else_if = { limit = { has_ruler_flag = abjuration_2 }
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_abjuration_2 }
+		}
+		else_if = { limit = { has_ruler_flag = abjuration_1 }
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_abjuration_1 }
+		}
+		else = {
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_abjuration_0 }
+		}
+		
+		if = { limit = { has_ruler_flag = conjuration_3 }
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_conjuration_3 }
+		}
+		else_if = { limit = { has_ruler_flag = conjuration_2 }
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_conjuration_2 }
+		}
+		else_if = { limit = { has_ruler_flag = conjuration_1 }
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_conjuration_1 }
+		}
+		else = {
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_conjuration_0 }
+		}
+		
+		if = { limit = { has_ruler_flag = divination_3 }
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_divination_3 }
+		}
+		else_if = { limit = { has_ruler_flag = divination_2 }
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_divination_2 }
+		}
+		else_if = { limit = { has_ruler_flag = divination_1 }
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_divination_1 }
+		}
+		else = {
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_divination_0 }
+		}
+		
+		if = { limit = { has_ruler_flag = enchantment_3 }
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_enchantment_3 }
+		}
+		else_if = { limit = { has_ruler_flag = enchantment_2 }
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_enchantment_2 }
+		}
+		else_if = { limit = { has_ruler_flag = enchantment_1 }
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_enchantment_1 }
+		}
+		else = {
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_enchantment_0 }
+		}
+		
+		if = { limit = { has_ruler_flag = evocation_3 }
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_evocation_3 }
+		}
+		else_if = { limit = { has_ruler_flag = evocation_2 }
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_evocation_2 }
+		}
+		else_if = { limit = { has_ruler_flag = evocation_1 }
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_evocation_1 }
+		}
+		else = {
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_evocation_0 }
+		}
+		
+		if = { limit = { has_ruler_flag = illusion_3 }
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_illusion_3 }
+		}
+		else_if = { limit = { has_ruler_flag = illusion_2 }
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_illusion_2 }
+		}
+		else_if = { limit = { has_ruler_flag = illusion_1 }
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_illusion_1 }
+		}
+		else = {
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_illusion_0 }
+		}
+		
+		if = { limit = { has_ruler_flag = necromancy_3 }
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_necromancy_3 }
+		}
+		else_if = { limit = { has_ruler_flag = necromancy_2 }
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_necromancy_2 }
+		}
+		else_if = { limit = { has_ruler_flag = necromancy_1 }
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_necromancy_1 }
+		}
+		else = {
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_necromancy_0 }
+		}
+		
+		if = { limit = { has_ruler_flag = transmutation_3 }
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_transmutation_3 }
+		}
+		else_if = { limit = { has_ruler_flag = transmutation_2 }
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_transmutation_2 }
+		}
+		else_if = { limit = { has_ruler_flag = transmutation_1 }
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_transmutation_1 }
+		}
+		else = {
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_transmutation_0 }
+		}
+    }
+    effect = {
+		custom_tooltip = open_ruler_magic_menu_tt
+		hidden_effect = { country_event = { id = magic_ruler.0 } }
+		open_single_menu = yes	#prevents people from opening the menu multiple times
+		#Allows for vampires that become mages naturally
+		hidden_effect = {
+			if = { 
+				limit = { has_ruler_flag = is_a_vampire }
+				set_country_flag = mage_vampire
+			}
+		}
+    }
+	ai_will_do = {
+		factor = 0
+	}
+}
+interaction = {	#9-1
+    key = country_administration_interaction
+    random_seed = random
+	cooldown_months = 0
+
+    trigger = {
+		hidden_trigger = {
+			OR = {
+				NOT = { has_country_flag = racial_pop_menu_opened }
+				had_country_flag = {	#If something weird happens and the flag wasn't cleared, allow to open after a year
+					flag = racial_military_menu_opened
+					days = 365
+				}
+			}
+		}
+    }
+    effect = {		
+		country_administration_effect = {
+			type = administration
+		}
+		custom_tooltip = tolerance_of_human_info_tooltip
+		custom_tooltip = tolerance_of_elven_info_tooltip
+		custom_tooltip = tolerance_of_dwarven_info_tooltip
+		custom_tooltip = tolerance_of_halfling_info_tooltip
+		custom_tooltip = tolerance_of_gnomish_info_tooltip
+		custom_tooltip = tolerance_of_harimari_info_tooltip
+		custom_tooltip = tolerance_of_gnollish_info_tooltip
+		custom_tooltip = tolerance_of_ruinborn_info_tooltip
+		custom_tooltip = tolerance_of_goblin_info_tooltip
+		custom_tooltip = tolerance_of_orcish_info_tooltip
+		custom_tooltip = tolerance_of_ogre_info_tooltip
+		custom_tooltip = tolerance_of_centaur_info_tooltip
+		custom_tooltip = tolerance_of_troll_info_tooltip
+		custom_tooltip = tolerance_of_harpy_info_tooltip
+		custom_tooltip = tolerance_of_half_orcish_info_tooltip
+		custom_tooltip = tolerance_of_half_elven_info_tooltip
+		custom_tooltip = tolerance_of_hobgoblin_info_tooltip
+		custom_tooltip = tolerance_of_kobold_info_tooltip
+		custom_tooltip = spacing_tooltip
+		custom_tooltip = pop_menu_access_tt
+		hidden_effect = {
+			if = { limit = { ai = yes }
+				country_event = { id = racial_pop_misc.1 }
+			}
+			else = {	
+				pop_menu_calculations = yes
+				country_event = { id = racial_pop_misc.3 }
+			}
+			set_country_flag = racial_pop_menu_opened
+		}
+    }
+	ai_will_do = {
+		factor = 0
+	}
+}
+interaction = {	#1-2
+    key = empty_interaction
+    random_seed = random
+	cooldown_months = 1
+
+    trigger = {	
+		custom_trigger_tooltip = {
+			tooltip = celebrate_space_tooltip
+			always = no
+		}
+    }
+    effect = {
+    }
+	ai_will_do = {
+		factor = 0
+	}
+}
+interaction = {	#2-2
+    key = empty_interaction
+    random_seed = random
+	cooldown_months = 1
+
+    trigger = {	
+		custom_trigger_tooltip = {
+			tooltip = celebrate_space_tooltip
+			always = no
+		}
+    }
+    effect = {
+    }
+	ai_will_do = {
+		factor = 0
+	}
+}
+interaction = {	#3-2
+    key = empty_interaction
+    random_seed = random
+	cooldown_months = 1
+
+    trigger = {	
+		custom_trigger_tooltip = {
+			tooltip = celebrate_space_tooltip
+			always = no
+		}
+    }
+    effect = {
+    }
+	ai_will_do = {
+		factor = 0
+	}
+}
+interaction = {	#4-2
+    key = empty_interaction
+    random_seed = random
+	cooldown_months = 1
+
+    trigger = {	
+		custom_trigger_tooltip = {
+			tooltip = celebrate_space_tooltip
+			always = no
+		}
+    }
+    effect = {
+    }
+	ai_will_do = {
+		factor = 0
+	}
+}
+interaction = {	#5-2
+    key = empty_interaction
+    random_seed = random
+	cooldown_months = 1
+
+    trigger = {	
+		custom_trigger_tooltip = {
+			tooltip = celebrate_space_tooltip
+			always = no
+		}
+    }
+    effect = {
+    }
+	ai_will_do = {
+		factor = 0
+	}
+}
+interaction = {	#6-2
+    key = empty_interaction
+    random_seed = random
+	cooldown_months = 1
+
+    trigger = {	
+		custom_trigger_tooltip = {
+			tooltip = celebrate_space_tooltip
+			always = no
+		}
+    }
+    effect = {
+    }
+	ai_will_do = {
+		factor = 0
+	}
+}
+interaction = {	#7-2
+    key = research_artificery
+    random_seed = random
+	cooldown_months = 0
+
+    trigger = {
+		custom_trigger_tooltip = {
+			tooltip = has_artificer_estate_tt
+			OR = {
+				has_estate = estate_artificers
+				AND = {
+					has_estate = estate_dragon_command
+					has_institution = manufactories
+				}
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					has_estate = estate_artificers
+					has_estate = estate_dragon_command
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = is_not_researching_invention_tt
+				NOT = { has_estate_privilege = artifice_invention_research_privilege }
+				NOT = { has_estate_privilege = artifice_invention_directed_research }
+				NOT = { has_estate_privilege = artifice_invention_directed_research_feiten_precursor_secrets }
+			}
+			hidden_trigger = { NOT = { has_country_flag = artificery_research_choice_ongoing } }
+		}
+    }
+    effect = {
+		if = {
+			limit = {
+				OR = {
+					has_estate = estate_artificers
+					has_estate = estate_dragon_command
+				}
+			}
+			if = {
+				limit = {
+					NOT = { has_estate_privilege = estate_artificers_organization_state }
+					NOT = { has_estate_privilege = estate_artificers_organization_feiten_shuimu_cadre }
+				}
+				custom_tooltip = set_research_privilege_tt
+				hidden_effect = {
+					set_estate_privilege = artifice_invention_research_privilege
+					country_event = { id = artifice_events.1 }
+				}
+			}
+			else = {
+				if = { limit = { tag = event_target:feiten_or_was_feiten_target }	#Feiten
+					if = {
+						limit = {
+							mission_completed = feiten_secrets_of_the_precursors
+							OR = {
+								any_subject_country = { any_owned_province = { trade_goods = precursor_relics } }
+								any_owned_province = { trade_goods = precursor_relics }
+							}
+						}
+						set_country_flag = artificery_research_choice_ongoing
+						hidden_effect = { country_event = { id = artifice_events.10 } }
+					}
+					else = {
+						custom_tooltip = set_research_privilege_tt
+						hidden_effect = { set_estate_privilege = artifice_invention_directed_research }
+					}
+				}
+				else = {
+					custom_tooltip = set_research_privilege_tt
+					hidden_effect = { set_estate_privilege = artifice_invention_directed_research }
+				}
+				hidden_effect = { country_event = { id = artifice_events.4 } }	#fast research
+			}
+		}
+		if = {
+			limit = {
+				has_estate = estate_artificers
+			}
+			custom_tooltip = artifice_breakdown
+			hidden_effect = { country_event = { id = artificers_estate_events.100 } }
+		}
+		else = {
+			custom_tooltip = celebrate_space_tooltip			
+		}
+    }
+	ai_will_do = {
+		factor = 0
+	}
+}
+interaction = {	#8-2
+    key = cast_spell
+    random_seed = random
+	cooldown_months = 0
+
+    trigger = {
+		hidden_trigger = {
+			ai = no	#bertus mod
+		}
+		NOT = {has_country_modifier = cant_cast_magic}
+		custom_trigger_tooltip = {
+			tooltip = has_magic_estate_tt
+			OR = {
+				has_estate = estate_mages
+				has_estate = estate_acolytes
+				tag = Y01	#azjakuma
+				has_estate_privilege = artifice_invention_korashi_tuners
+			}
+		}
+		if = { limit = { has_estate = estate_mages }
+			estate_influence = { estate = estate_mages influence = 15 }
+			if = { limit = { tag = Y63 has_country_flag = Y63_unlocked_minor_runes }
+				hidden_trigger = { NOT = { has_country_flag = V63_runes_menu_open } }
+			}
+			else = {
+				NOT = { has_estate_privilege = estate_mages_cast_spells }
+				if = { limit = { tag = I02 }	#krak
+					mission_completed = krak_relighting_forges
+				}
+			}
+		}
+		else_if = { limit = { has_estate = estate_acolytes }
+			estate_influence = { estate = estate_acolytes influence = 15 }
+			NOT = { has_estate_privilege = estate_acolytes_cast_spells }
+		}
+		else_if = { limit = { tag = Y01 }
+			if = { limit = { has_country_flag = azjakuma_two_magics_allowed }
+				custom_trigger_tooltip = {
+					tooltip = no_other_magic_shirgrii_two_tooltip
+					NOT = {
+						calc_true_if = {
+							has_estate_privilege = estate_shinukhorchi_cast_magic
+							has_estate_privilege = estate_chumijemoya_cast_magic
+							has_estate_privilege = estate_ajgriijarul_cast_magic
+							has_estate_privilege = estate_kabiurgarko_cast_magic
+							has_estate_privilege = estate_khelorvalshi_cast_magic
+							amount = 2
+						}
+					}
+				}
+			}
+			else = {
+				custom_trigger_tooltip = {
+					tooltip = no_other_magic_shirgrii_tooltip
+					NOT = { 
+						has_estate_privilege = estate_shinukhorchi_cast_magic
+						has_estate_privilege = estate_chumijemoya_cast_magic
+						has_estate_privilege = estate_ajgriijarul_cast_magic
+						has_estate_privilege = estate_kabiurgarko_cast_magic
+						has_estate_privilege = estate_khelorvalshi_cast_magic
+					}
+				}
+			}
+			hidden_trigger = { NOT = { has_country_flag = azjakuma_magic_menu_opened } }
+		}
+		else_if = { limit = { has_estate_privilege = artifice_invention_korashi_tuners }
+			NOT = { has_country_modifier = magic_cooldown }
+		}
+    }
+    effect = {
+		
+		if = { limit = { has_estate = estate_mages }
+			if = { limit = { tag = Y63 has_country_flag = Y63_unlocked_minor_runes }
+				custom_tooltip = Y63_open_runes_manu_tt
+				set_country_flag = V63_runes_menu_open
+				hidden_effect = { country_event = { id = verkalozovar_events.100 } }
+			}
+			else = {
+				custom_tooltip = opens_magic_estate_menu_tt
+				custom_tooltip = cast_spell_effect_tt
+				hidden_effect = {
+					set_estate_privilege = estate_mages_cast_spells
+					if = { limit = { tag = I02 }
+						country_event = { id = flavor_krak.100 }
+					}
+					else = {
+						country_event = { id = magic_estate.1 }
+					}
+				}
+			}
+		}
+		else_if = { limit = { has_estate = estate_acolytes }
+			custom_tooltip = opens_magic_estate_menu_tt
+			custom_tooltip = cast_spell_effect_tt
+			hidden_effect = {
+				set_estate_privilege = estate_acolytes_cast_spells
+				country_event = { id = acolyte_estate.1 }
+			}
+		}
+		else_if = { limit = { tag = Y01 }
+			custom_tooltip = opens_shirgrii_magic_menu_tt
+			custom_tooltip = cast_spell_effect_tt
+			hidden_effect = {
+				set_country_flag = azjakuma_magic_menu_opened
+				country_event = { id = flavor_azjakuma.1250 }
+			}
+			clr_country_flag = remove_azjakuma_casting_spells
+		}
+		else_if = { limit = { has_estate_privilege = artifice_invention_korashi_tuners }
+			custom_tooltip = opens_magic_estate_menu_tt
+			custom_tooltip = cast_spell_effect_tt
+			hidden_effect = {
+				country_event = { id = magic_estate.1 }
+			}
+		}
+		clr_country_flag = revoke_mage_estate_spells
+    }
+	ai_will_do = {
+		factor = 0
+	}
+}
+interaction = {	#9-2
+    key = country_military_interaction
+    random_seed = random
+	cooldown_months = 0
+
+    trigger = {
+		hidden_trigger = {
+			NOT = { has_country_flag = racial_military_menu_opened }
+		}
+    }
+    effect = {
+		country_administration_effect = {
+			type = military
+		}
+		country_event = {id = bertus_racial_military.1001}
+		hidden_effect = {
+			#country_event = {
+			#	id = racial_modifiers.1
+			#}		
+		}
+    }
+	ai_will_do = {
+		factor = 0
+	}
+}
+interaction = {	#1-3
+    key = first_chair_interaction
+    random_seed = random
+	cooldown_months = 0
+
+    trigger = {
+    }
+    effect = {
+		country_chairman_effect = {
+			type = first_hand
+		}
+		if = {
+			limit = {
+				OR = {
+					had_country_flag = {
+						flag = first_hand_cooldown_flag
+						days = 3650
+					}
+					NOT = {has_country_flag = first_hand_cooldown_flag}
+				}
+			}
+			country_event = {
+				id = bertus_racial_military.5200
+			}
+		}
+		else = {
+			custom_tooltip = choose_first_hand_chairman_cooldown_tooltip
+		}
+    }
+	ai_will_do = {
+		factor = 0
+	}
+}
+interaction = {	#2-3
+    key = diplomacy_chair_interaction
+    random_seed = random
+	cooldown_months = 0
+
+    trigger = {
+    }
+    effect = {
+		country_chairman_effect = {
+			type = diplomacy
+		}
+		if = {
+			limit = {
+				OR = {
+					had_country_flag = {
+						flag = diplomacy_chairman_cooldown_flag
+						days = 3650
+					}
+					NOT = {has_country_flag = diplomacy_chairman_cooldown_flag}
+				}
+			}
+			country_event = {
+				id = bertus_racial_military.5201
+			}
+		}
+		else = {
+			custom_tooltip = choose_diplomacy_chairman_cooldown_tooltip
+		}
+    }
+	ai_will_do = {
+		factor = 0
+	}
+}
+interaction = {	#3-3
+    key = military_chair_interaction
+    random_seed = random
+	cooldown_months = 0
+
+    trigger = {
+    }
+    effect = {
+		country_chairman_effect = {
+			type = military
+		}
+		if = {
+			limit = {
+				OR = {
+					had_country_flag = {
+						flag = military_chairman_cooldown_flag
+						days = 3650
+					}
+					NOT = {has_country_flag = military_chairman_cooldown_flag}
+				}
+			}
+			country_event = {
+				id = bertus_racial_military.5202
+			}
+		}
+		else = {
+			custom_tooltip = choose_military_chairman_cooldown_tooltip
+		}
+    }
+	ai_will_do = {
+		factor = 0
+	}
+}
+interaction = {	#4-3
+    key = economic_chair_interaction
+    random_seed = random
+	cooldown_months = 0
+
+    trigger = {
+    }
+    effect = {
+		country_chairman_effect = {
+			type = economic
+		}
+		if = {
+			limit = {
+				OR = {
+					had_country_flag = {
+						flag = economic_chairman_cooldown_flag
+						days = 3650
+					}
+					NOT = {has_country_flag = economic_chairman_cooldown_flag}
+				}
+			}
+			country_event = {
+				id = bertus_racial_military.5203
+			}
+		}
+		else = {
+			custom_tooltip = choose_economic_chairman_cooldown_tooltip
+		}
+		if = {
+			limit = {
+				has_country_modifier = estate_halfling_economic_chairman_modifier
+			}
+			custom_tooltip = estate_halfling_economic_chairman_tooltip
+		}
+    }
+	ai_will_do = {
+		factor = 0
+	}
+}
+interaction = {	#5-3
+    key = navy_chair_interaction
+    random_seed = random
+	cooldown_months = 0
+
+    trigger = {
+    }
+    effect = {
+		country_chairman_effect = {
+			type = navy
+		}
+		if = {
+			limit = {
+				any_owned_province = {
+					has_port = yes
+				}
+				OR = {
+					had_country_flag = {
+						flag = navy_chairman_cooldown_flag
+						days = 3650
+					}
+					NOT = {has_country_flag = navy_chairman_cooldown_flag}
+				}
+			}
+			country_event = {
+				id = bertus_racial_military.5204
+			}
+		}
+		else = {
+			custom_tooltip = choose_navy_chairman_cooldown_tooltip
+		}
+    }
+	ai_will_do = {
+		factor = 0
+	}
+}
+interaction = {	#6-3
+    key = empty_interaction
+    random_seed = random
+	cooldown_months = 1
+
+    trigger = {	
+		custom_trigger_tooltip = {
+			tooltip = celebrate_space_tooltip
+			always = no
+		}
+    }
+    effect = {
+    }
+	ai_will_do = {
+		factor = 0
+	}
+}
+interaction = {	#7-3
+    key = bertus_diet
+    random_seed = random
+	cooldown_months = 12
+
+    trigger = {
+        NOT = { has_any_active_estate_agenda = yes }
+		hidden_trigger = { has_any_estates = yes }
+		NOT = { has_government_attribute = blocked_call_diet }
+    }
+
+    effect = {
+        custom_tooltip = ESTATES_SUMMON_THE_DIET_DESC
+        hidden_effect = {
+	        country_event = { id = bertus_changes.1112 }               
+        }
+        custom_tooltip = SEPERATOR_TOOLTIP
+
+		if = {
+			limit = {
+				has_government_attribute = republican_tradition_from_diets
+			}
+			add_scaled_republican_tradition = 2
+		}
+    }
+	ai_will_do = {
+		factor = 0
+	}
+}

@@ -1,0 +1,1187 @@
+###########################################################
+# Events for the Burghers Estate
+#
+# written by Henrik Lohmander
+###########################################################
+
+namespace = bertus_human_estate_events
+
+#Robber Barons
+#human vs elven
+country_event = {
+	id = bertus_human_estate_events.2
+	title = bertus_human_estate_events.2.t
+	desc = bertus_human_estate_events.2.d
+	picture = BURGHER_ESTATE_eventPicture
+	
+	trigger = {
+		has_estate = estate_human
+		has_estate = estate_elven
+		OR = {
+			high_tolerance_human_race_trigger = yes
+			medium_tolerance_human_race_trigger = yes
+		}
+		OR = {
+			high_tolerance_elven_race_trigger = yes
+			medium_tolerance_elven_race_trigger = yes
+		}
+		NOT = {
+			has_estate_influence_modifier = {
+				estate = estate_human
+				modifier = EST_VAL_HUMAN_VS_ELVEN_POSITIVE
+			}
+		}
+		NOT = {
+			has_estate_influence_modifier = {
+				estate = estate_human
+				modifier = EST_VAL_HUMAN_VS_ELVEN_NEGATIVE
+			}
+		}
+		any_owned_province = {
+			is_territory = no
+			is_capital = no
+			is_city = yes
+		}
+	}
+	
+	is_triggered_only = yes
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = bertus_human_estate_events.2.a #They only take what is their right.
+		ai_chance = {
+			factor = 50
+		}
+		random_owned_province = {
+			limit = {
+				is_territory = no
+				is_capital = no
+				is_city = yes
+			}
+			add_base_tax = 1
+		}
+		add_estate_loyalty = {
+			estate = estate_elven
+			loyalty = 15
+		}
+		small_increase_of_elven_tolerance_effect = yes
+		add_estate_loyalty = {
+			estate = estate_human
+			loyalty = -15
+		}
+		small_decrease_of_human_tolerance_effect = yes
+		add_estate_influence_modifier = {
+			estate = estate_human
+			desc = EST_VAL_HUMAN_VS_ELVEN_NEGATIVE
+			influence = -10
+			duration = 5475
+		}
+		add_estate_influence_modifier = {
+			estate = estate_elven
+			desc = EST_VAL_HUMAN_VS_ELVEN_POSITIVE
+			influence = 10
+			duration = 5475
+		}
+	}
+	option = {
+		name = bertus_human_estate_events.2.b #We must curb such excesses!
+		ai_chance = {
+			factor = 50
+		}
+		random_owned_province = {
+			limit = {
+				is_territory = no
+				is_capital = no
+				is_city = yes
+			}
+			add_base_production = 1
+		}
+		add_estate_loyalty = {
+			estate = estate_elven
+			loyalty = -15
+		}
+		small_decrease_of_elven_tolerance_effect = yes
+		add_estate_loyalty = {
+			estate = estate_human
+			loyalty = 15
+		}
+		small_increase_of_human_tolerance_effect = yes
+		add_estate_influence_modifier = {
+			estate = estate_elven
+			desc = EST_VAL_HUMAN_VS_ELVEN_NEGATIVE
+			influence = -10
+			duration = 5475
+		}
+		add_estate_influence_modifier = {
+			estate = estate_human
+			desc = EST_VAL_HUMAN_VS_ELVEN_POSITIVE
+			influence = 10
+			duration = 5475
+		}
+	}
+}
+
+#AnbennarDependencyNote = refers to a lot of estuaries here boys, i've added the ones we have right now - afaik the old estuaries should be fine as we never replaced the vanilla event_modifiers
+#Demands for city Privileges
+country_event = {
+	id = bertus_human_estate_events.4
+	title = bertus_human_estate_events.4.t
+	desc = bertus_human_estate_events.4.d
+	picture = BURGHER_ESTATE_eventPicture
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		has_estate = estate_human
+		OR = {
+			high_tolerance_human_race_trigger = yes
+			medium_tolerance_human_race_trigger = yes
+		}
+		any_owned_province = {
+			is_overseas = no
+			has_seat_in_parliament = no
+			OR = {
+				development = 10
+				province_has_center_of_trade_of_level = 1
+			}
+			is_capital = no
+			is_territory = no
+			is_city = yes
+		}
+		NOT = {
+			has_estate_influence_modifier = {
+				estate = estate_human
+				modifier = EST_VAL_HUMAN_CITY_PRIVILEGES_DENIED
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+		modifier = {
+			factor = 1.2
+			any_owned_province = {
+				is_overseas = no
+				is_capital = no
+				has_seat_in_parliament = no
+				OR = {
+					development = 10
+					province_has_center_of_trade_of_level = 1
+				}
+				has_river_estuary_trigger = yes
+				is_city = yes
+			}
+		}
+	}
+	
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					has_any_human_pop_trigger = yes
+					is_overseas = no
+					has_seat_in_parliament = no
+					OR = {
+						development = 10
+						province_has_center_of_trade_of_level = 1
+					}
+					is_capital = no
+					is_territory = no
+					is_city = yes
+				}
+				save_event_target_as = growing_city
+			}
+			random_owned_province = {
+				limit = {
+					has_any_human_pop_trigger = yes
+					is_overseas = no
+					has_seat_in_parliament = no
+					OR = {
+						development = 20
+						province_has_center_of_trade_of_level = 2
+					}
+					is_capital = no
+					is_territory = no
+					is_city = yes
+				}
+				save_event_target_as = growing_city
+			}
+			random_owned_province = {
+				limit = {
+					has_any_human_pop_trigger = yes
+					is_overseas = no
+					has_seat_in_parliament = no
+					OR = {
+						development = 30
+						province_has_center_of_trade_of_level = 3
+					}
+					is_capital = no
+					is_territory = no
+					is_city = yes
+				}
+				save_event_target_as = growing_city
+			}
+		}
+	}
+	
+	option = {
+		name = bertus_human_estate_events.4.a #Ok
+		add_estate_loyalty = {
+			estate = estate_human
+			loyalty = 15
+		}
+		small_increase_of_human_tolerance_effect = yes
+		event_target:growing_city = {
+			add_base_tax = 2
+			add_local_autonomy = 25
+		}
+	}
+	option = {
+		name = bertus_human_estate_events.4.b #Ok
+		add_estate_loyalty = {
+			estate = estate_human
+			loyalty = -15
+		}
+		small_decrease_of_human_tolerance_effect = yes
+		add_estate_influence_modifier = {
+			estate = estate_human
+			desc = EST_VAL_HUMAN_CITY_PRIVILEGES_DENIED
+			influence = -10
+			duration = 5475
+		}
+	}
+}
+
+#Immoral Prices
+#Force the Burghers to lose influence or face revolt in Burgher controlled provinces.
+country_event = {
+	id = bertus_human_estate_events.5
+	title = bertus_human_estate_events.5.t
+	desc = bertus_human_estate_events.5.d
+	picture = BURGHER_ESTATE_eventPicture
+	
+	trigger = {
+		has_estate = estate_human
+		any_owned_province = {
+			OR = {
+				owner = { government = republic }
+				development = 10
+				province_trade_power = 5
+			}
+			is_capital = no
+			is_city = yes
+		}
+		NOT = {
+			has_estate_influence_modifier = {
+				estate = estate_human
+				modifier = EST_VAL_HUMAN_FREE_OF_MEDDLING
+			}
+		}
+		NOT = {
+			has_estate_influence_modifier = {
+				estate = estate_human
+				modifier = EST_VAL_HUMAN_PRICE_MEDDLING
+			}
+		}
+	}
+	
+	is_triggered_only = yes
+	
+	mean_time_to_happen = {
+		days = 1
+		modifier = {
+			factor = 2.0
+			inflation = 5 #Rising Prices
+		}
+	} 
+	
+	immediate = {
+	}
+
+	option = {
+		name = bertus_human_estate_events.5.a #Force them to sell at a just price.
+		ai_chance = {
+			factor = 75
+		}
+		hidden_effect = {
+			every_owned_province = {
+				limit = { has_province_flag = bread_revolt_vs_human }
+				clr_province_flag = bread_revolt_vs_human
+			}
+		}
+		add_estate_loyalty = {
+			estate = estate_human
+			loyalty = -20
+		}
+		add_estate_influence_modifier = {
+			estate = estate_human
+			desc = EST_VAL_HUMAN_PRICE_MEDDLING
+			influence = -10
+			duration = 5475
+		}
+	}
+	option = {
+		name = bertus_human_estate_events.5.b #We should not meddle with the Burghers.
+		ai_chance = {
+			factor = 25
+		}
+		add_estate_influence_modifier = {
+			estate = estate_human
+			desc = EST_VAL_HUMAN_FREE_OF_MEDDLING
+			influence = -10
+			duration = 5475
+		}
+		add_estate_loyalty = {
+			estate = estate_human
+			loyalty = -15
+		}
+		random_owned_province = {
+			spawn_rebels = {
+				type = anti_tax_rebels
+				size = 1
+			}
+		}
+	}
+	option = {
+		name = bertus_human_estate_events.5.c #Pay for the bread.
+		ai_chance = {
+			factor = 50
+		}
+		add_years_of_income = -0.10
+		add_estate_influence_modifier = {
+			estate = estate_human
+			desc = EST_VAL_HUMAN_FREE_OF_MEDDLING
+			influence = 10
+			duration = 5475
+		}
+		add_estate_loyalty = {
+			estate = estate_human
+			loyalty = 15
+		}
+		small_increase_of_human_tolerance_effect = yes
+	}
+}
+
+#Parallel Authority
+#Burghers vs Clergy
+country_event = {
+	id = bertus_human_estate_events.6
+	title = bertus_human_estate_events.6.t
+	desc = bertus_human_estate_events.6.d
+	picture = BURGHER_ESTATE_UPSET_eventPicture
+	
+	trigger = {
+		has_estate = estate_human
+		has_estate = estate_dwarven
+		NOT = {
+			has_estate_influence_modifier = {
+				estate = estate_human
+				modifier = EST_VAL_HUMAN_AUTHORITY_ASSERTED
+			}
+		}
+		NOT = {
+			has_estate_influence_modifier = {
+				estate = estate_human
+				modifier = EST_VAL_HUMAN_AUTHORITY_QUESTIONED
+			}
+		}
+	}
+	
+	is_triggered_only = yes
+	
+	mean_time_to_happen = {
+		days = 1
+	} 
+	
+	option = {
+		name = bertus_human_estate_events.6.a #The Clergy cannot do whatever they please!
+		ai_chance = {
+			factor = 50
+		}
+		add_estate_loyalty = {
+			estate = estate_human
+			loyalty = 15
+		}
+		small_increase_of_human_tolerance_effect = yes
+		add_estate_loyalty = {
+			estate = estate_dwarven
+			loyalty = -15
+		}
+		small_decrease_of_dwarven_tolerance_effect = yes
+		add_estate_influence_modifier = {
+			estate = estate_human
+			desc = EST_VAL_HUMAN_AUTHORITY_ASSERTED
+			influence = 10
+			duration = 5475
+		}
+		add_estate_influence_modifier = {
+			estate = estate_dwarven
+			desc = EST_VAL_HUMAN_AUTHORITY_ASSERTED
+			influence = -10
+			duration = 5475
+		}
+	}
+	option = {
+		name = bertus_human_estate_events.6.b #These men stand above us all and should be afforded respect.
+		ai_chance = {
+			factor = 50
+		}
+		add_estate_loyalty = {
+			estate = estate_human
+			loyalty = -15
+		}
+		small_decrease_of_human_tolerance_effect = yes
+		add_estate_loyalty = {
+			estate = estate_dwarven
+			loyalty = 15
+		}
+		small_increase_of_dwarven_tolerance_effect = yes
+		add_estate_influence_modifier = {
+			estate = estate_human
+			desc = EST_VAL_HUMAN_AUTHORITY_QUESTIONED
+			influence = -10
+			duration = 5475
+		}
+		add_estate_influence_modifier = {
+			estate = estate_dwarven
+			desc = EST_VAL_HUMAN_AUTHORITY_QUESTIONED
+			influence = 10
+			duration = 5475
+		}
+	}
+}
+
+#Extension of Privileges
+country_event = {
+	id = bertus_human_estate_events.7
+	title = bertus_human_estate_events.7.t
+	desc = bertus_human_estate_events.7.d
+	picture = BURGHER_ESTATE_UPSET_eventPicture
+	
+	trigger = {
+		has_estate = estate_human
+		any_owned_province = {
+			OR = {
+				development = 15
+				province_trade_power = 8
+			}
+			is_city = yes
+			is_capital = no
+		}
+		NOT = {
+			has_estate_influence_modifier = {
+				estate = estate_human
+				modifier = EST_VAL_HUMAN_RIGHTS_EXTENDED
+			}
+		}
+		NOT = {
+			has_estate_influence_modifier = {
+				estate = estate_human
+				modifier = EST_VAL_HUMAN_RIGHTS_REFUSED
+			}
+		}
+	}
+	
+	is_triggered_only = yes
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+	}
+	
+	option = {
+		name = bertus_human_estate_events.7.a #
+		ai_chance = {
+			factor = 25
+		}
+		add_estate_loyalty = {
+			estate = estate_human
+			loyalty = 10
+		}
+		add_estate_influence_modifier = {
+			estate = estate_human
+			desc = EST_VAL_HUMAN_RIGHTS_EXTENDED
+			influence = 10
+			duration = 5475
+		}
+		small_increase_of_human_tolerance_effect = yes
+		random_owned_province = {
+			limit = {
+				OR = {
+					development = 15
+					province_trade_power = 8
+				}
+				is_city = yes
+				is_capital = no
+			}
+			add_local_autonomy = 33
+		}
+	}
+	option = {
+		name = bertus_human_estate_events.7.b #
+		ai_chance = {
+			factor = 75
+		}
+		add_estate_loyalty = {
+			estate = estate_human
+			loyalty = -20
+		}
+		small_decrease_of_human_tolerance_effect = yes
+		add_estate_influence_modifier = {
+			estate = estate_human
+			desc = EST_VAL_HUMAN_RIGHTS_REFUSED
+			influence = -10
+			duration = 5475
+		}
+	}
+}
+
+#Hurtful Trade Policies
+#Strengthen Burghers for better trade efficiency.
+country_event = {
+	id = bertus_human_estate_events.8
+	title = bertus_human_estate_events.8.t
+	desc = bertus_human_estate_events.8.d
+	picture = BURGHER_ESTATE_UPSET_eventPicture
+	
+	trigger = {
+		has_estate = estate_human
+		num_of_trade_embargos = 1
+		NOT = {
+			has_estate_influence_modifier = {
+				estate = estate_human
+				modifier = EST_VAL_HUMAN_BYPASSING_EMBARGO
+			}
+		}
+		NOT = {
+			has_estate_influence_modifier = {
+				estate = estate_human
+				modifier = EST_VAL_HUMAN_DENIED_BYPASS_OF_EMBARGO
+			}
+		}
+	}
+	
+	is_triggered_only = yes
+	
+	mean_time_to_happen = {
+		days = 1
+	} 
+	
+	option = {
+		name = bertus_human_estate_events.8.a #We must support the $ESTATE_HUMAN$
+		ai_chance = {
+			factor = 50
+		}
+		add_country_modifier = {
+			name = "burgher_favorable_trade_laws"
+			duration = 3650
+		}
+		add_estate_loyalty = {
+			estate = estate_human
+			loyalty = 15
+		}
+		small_increase_of_human_tolerance_effect = yes
+		add_estate_influence_modifier = {
+			estate = estate_human
+			desc = EST_VAL_HUMAN_BYPASSING_EMBARGO
+			influence = 10
+			duration = 3650
+		}
+	}
+	option = {
+		name = bertus_human_estate_events.8.b #We cannot let our trade policy be decided by these peddlers.
+		ai_chance = {
+			factor = 50
+		}
+		add_country_modifier = {
+			name = "burgher_unfavorable_trade_laws"
+			duration = 3650
+		}
+		add_estate_loyalty = {
+			estate = estate_human
+			loyalty = -15
+		}
+		small_decrease_of_human_tolerance_effect = yes
+		add_estate_influence_modifier = {
+			estate = estate_human
+			desc = EST_VAL_HUMAN_DENIED_BYPASS_OF_EMBARGO
+			influence = -10
+			duration = 3650
+		}
+	}
+}
+
+#Putting out system
+#Permanent but unpopular province boost vs popular but temporary tex income boost.
+country_event = {
+	id = bertus_human_estate_events.9
+	title = bertus_human_estate_events.9.t
+	desc = bertus_human_estate_events.9.d
+	picture = BURGHER_ESTATE_eventPicture
+	
+	trigger = {
+		has_estate = estate_human
+		dip_tech = 5
+		num_of_cities = 8
+		NOT = {
+			has_estate_influence_modifier = {
+				estate = estate_human
+				modifier = EST_VAL_HUMAN_PROTO_CAPITALISTS
+			}
+		}
+		NOT = {
+			any_owned_province = {
+				has_province_modifier = thankful_guilds
+			}
+		}
+		NOT = {
+			any_owned_province = {
+				has_province_modifier = conflict_within_city
+			}
+		}
+		any_owned_province = {
+			OR = {
+				owner = { government = republic }
+				development = 10
+				province_trade_power = 5
+			}
+			is_capital = no
+		}
+	}
+	
+	is_triggered_only = yes
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					OR = {
+						owner = { government = republic }
+						development = 10
+						province_trade_power = 5
+					}
+					is_capital = no
+				}
+				set_province_flag = putting_out_system
+			}
+			random_owned_province = {
+				limit = {
+					OR = {
+						owner = { government = republic }
+						development = 10
+						province_trade_power = 5
+					}
+					is_capital = no
+					NOT = { has_province_flag = putting_out_system }
+					owner = { num_of_cities = 12 }
+				}
+				set_province_flag = putting_out_system
+			}
+			random_owned_province = {
+				limit = {
+					OR = {
+						owner = { government = republic }
+						development = 10
+						province_trade_power = 5
+					}
+					is_capital = no
+					NOT = { has_province_flag = putting_out_system }
+					owner = { num_of_cities = 18 }
+				}
+				random = {
+					chance = 75
+					set_province_flag = putting_out_system
+				}
+			}
+			random_owned_province = {
+				limit = {
+					OR = {
+						owner = { government = republic }
+						development = 10
+						province_trade_power = 5
+					}
+					is_capital = no
+					NOT = { has_province_flag = putting_out_system }
+					owner = { num_of_cities = 24 }
+				}
+				random = {
+					chance = 55
+					set_province_flag = putting_out_system
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = bertus_human_estate_events.9.a #Support the Capitalists
+		ai_chance = {
+			factor = 50
+		}
+		add_estate_loyalty = {
+			estate = estate_human
+			loyalty = -15
+		}
+		every_owned_province = {
+			limit = { has_province_flag = putting_out_system }
+			add_base_production = 1
+			add_province_modifier = {
+				name = "conflict_within_city"
+				duration = 3650
+			}
+			clr_province_flag = putting_out_system
+		}
+	}
+	option = {
+		name = bertus_human_estate_events.9.b #Support the Guilds
+		ai_chance = {
+			factor = 50
+		}
+		add_estate_loyalty = {
+			estate = estate_human
+			loyalty = 15
+		}
+		add_estate_influence_modifier = {
+			estate = estate_human
+			desc = EST_VAL_HUMAN_PROTO_CAPITALISTS
+			influence = 10
+			duration = 3650
+		}
+		every_owned_province = {
+			limit = { has_province_flag = putting_out_system }
+			add_province_modifier = {
+				name = "thankful_guilds"
+				duration = 3650
+			}
+			clr_province_flag = putting_out_system
+		}
+	}
+}
+
+#Demands for greater Social Mobility
+#Demands from Strong Burgher faction to anger the clergy and nobles.
+country_event = {
+	id = bertus_human_estate_events.10
+	title = bertus_human_estate_events.10.t
+	desc = bertus_human_estate_events.10.d
+	picture = BURGHER_ESTATE_UPSET_eventPicture
+	
+	trigger = {
+		has_estate = estate_human
+		OR = {
+			has_estate = estate_dwarven
+			has_estate = estate_elven
+		}
+		NOT = {
+			has_estate_influence_modifier = {
+				estate = estate_human
+				modifier = EST_VAL_HUMAN_NEW_MEN
+			}
+		}
+		NOT = {
+			has_estate_influence_modifier = {
+				estate = estate_human
+				modifier = EST_VAL_HUMAN_BARRED_FROM_CAREERS
+			}
+		}
+	}
+	
+	is_triggered_only = yes
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = {
+		name = bertus_human_estate_events.10.a # "We must not stand in the way of these new men."
+		ai_chance = {
+			factor = 50
+		}
+		add_estate_influence_modifier = {
+			estate = estate_human
+			desc = EST_VAL_HUMAN_NEW_MEN
+			influence = 10
+			duration = 7300
+		}
+		add_country_modifier = {
+			name = "new_men"
+			duration = 3650
+		}
+		if = {
+			limit = { has_estate = estate_elven }
+			add_estate_loyalty = {
+				estate = estate_elven
+				loyalty = -20
+			}
+		}
+		if = {
+			limit = { has_estate = estate_dwarven }
+			add_estate_loyalty = {
+				estate = estate_dwarven
+				loyalty = -20
+			}
+		}
+		add_meritocracy_effect = yes
+	}
+	option = {
+		name = bertus_human_estate_events.10.b #"We must protect the ancient rights of the other Estates."
+		ai_chance = {
+			factor = 50
+		}
+		add_estate_influence_modifier = {
+			estate = estate_human
+			desc = EST_VAL_HUMAN_BARRED_FROM_CAREERS
+			influence = -10
+			duration = 7300
+		}
+		add_country_modifier = {
+			name = "held_back_commoners"
+			duration = 5475
+		}
+		add_estate_loyalty = {
+			estate = estate_human	
+			loyalty = -20
+		}
+		if = {
+			limit = { has_estate = estate_dwarven }
+			add_estate_loyalty = {
+				estate = estate_dwarven
+				loyalty = 15
+			}
+			add_army_tradition = 15
+			add_navy_tradition = 15
+		}
+		if = {
+			limit = { has_estate = estate_elven }
+			add_estate_loyalty = {
+				estate = estate_elven
+				loyalty = 15
+			}
+			add_adm_power = 75
+		}
+		reduce_meritocracy_effect = yes
+	}
+}
+
+#Urbanisation
+#Support for Richer Cities or don't for weaker Burghers.
+country_event = {
+	id = bertus_human_estate_events.13
+	title = bertus_human_estate_events.13.t
+	desc = bertus_human_estate_events.13.d
+	picture = BURGHER_ESTATE_eventPicture
+	
+	trigger = {
+		has_estate = estate_human
+		NOT = {
+			has_estate_influence_modifier = {
+				estate = estate_human
+				modifier = EST_VAL_HUMAN_NOT_SUPPORTING_CITY_GROWTH
+			}
+		}
+		NOT = {
+			has_estate_influence_modifier = {
+				estate = estate_human
+				modifier = EST_VAL_HUMAN_SUPPORTED_CITY_GROWTH
+			}
+		}
+		any_owned_province = {
+			OR = {
+				owner = { government = republic }
+				development = 10
+				province_trade_power = 5
+			}
+			is_city = yes
+		}
+	}
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					OR = {
+						owner = { government = republic }
+						development = 10
+						province_trade_power = 5
+					}
+					is_city = yes
+				}
+				set_province_flag = urbanisation
+			}
+			random_owned_province = {
+				limit = {
+					OR = {
+						owner = { government = republic }
+						development = 10
+						province_trade_power = 5
+					}
+					NOT = { has_province_flag = urbanisation }
+					owner = { num_of_cities = 8 }
+					is_city = yes
+				}
+				set_province_flag = urbanisation
+			}
+			random_owned_province = {
+				limit = {
+					OR = {
+						owner = { government = republic }
+						development = 10
+						province_trade_power = 5
+					}
+					NOT = { has_province_flag = urbanisation }
+					owner = { num_of_cities = 14 }
+					is_city = yes
+				}
+				set_province_flag = urbanisation
+			}
+			random_owned_province = {
+				limit = {
+					OR = {
+						owner = { government = republic }
+						development = 10
+						province_trade_power = 5
+					}
+					NOT = { has_province_flag = urbanisation }
+					owner = { num_of_cities = 18 }
+					is_city = yes
+				}
+				set_province_flag = urbanisation
+			}
+			random_owned_province = {
+				limit = {
+					OR = {
+						owner = { government = republic }
+						development = 10
+						province_trade_power = 5
+					}
+					NOT = { has_province_flag = urbanisation }
+					owner = { num_of_cities = 22 }
+					is_city = yes
+				}
+				random = {
+					chance = 75
+					set_province_flag = urbanisation
+				}
+			}
+			random_owned_province = {
+				limit = {
+					OR = {
+						owner = { government = republic }
+						development = 10
+						province_trade_power = 5
+					}
+					NOT = { has_province_flag = urbanisation }
+					owner = { num_of_cities = 28 }
+					is_city = yes
+				}
+				random = {
+					chance = 75
+					set_province_flag = urbanisation
+				}
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = {
+		name = bertus_human_estate_events.13.a #
+		ai_chance = {
+			factor = 50
+		}
+		add_years_of_income = -0.1
+		every_owned_province = {
+			limit = { has_province_flag = urbanisation }
+			add_1_dev_to_provinces = yes
+			clr_province_flag = urbanisation
+		}
+		add_estate_loyalty = {
+			estate = estate_human
+			loyalty = 10
+		}
+		add_estate_influence_modifier = {
+			estate = estate_human
+			influence = 10
+			desc = EST_VAL_HUMAN_SUPPORTED_CITY_GROWTH
+			duration = 7300
+		}
+	}
+	option = {
+		name = bertus_human_estate_events.13.b #
+		ai_chance = {
+			factor = 50
+		}
+		every_owned_province = {
+			limit = { has_province_flag = urbanisation }
+			add_province_modifier = {
+				name = "unsanitary_suburbs"
+				duration = 7300
+			}
+			clr_province_flag = urbanisation
+		}
+		add_estate_loyalty = {
+			estate = estate_human
+			loyalty = -15
+		}
+		add_estate_influence_modifier = {
+			estate = estate_human
+			influence = -10
+			desc = EST_VAL_HUMAN_NOT_SUPPORTING_CITY_GROWTH
+			duration = 7300
+		}
+	}
+}
+
+#Demands for greater Economic Freedom
+#Demands from Estates at High Influence
+country_event = {
+	id = bertus_human_estate_events.14
+	title = bertus_human_estate_events.14.t
+	desc = bertus_human_estate_events.14.d
+	picture = BURGHER_ESTATE_UPSET_eventPicture
+	
+	trigger = {
+		has_estate = estate_human
+		NOT = {
+			has_estate_influence_modifier = {
+				estate = estate_human
+				modifier = EST_VAL_HUMAN_REFUSED_CHANGE_IN_TRADE_POLICY
+			}
+		}
+		NOT = {
+			has_estate_influence_modifier = {
+				estate = estate_human
+				modifier = EST_VAL_HUMAN_CHANGE_IN_TRADE_POLICY
+			}
+		}
+		mercantilism = 15
+	}
+	
+	is_triggered_only = yes
+	
+	mean_time_to_happen = {
+		days = 1
+		modifier = {
+			factor = 2.0
+			dip_tech = 20
+		}
+	}
+	
+	option = {
+		name = bertus_human_estate_events.14.a #
+		ai_chance = {
+			factor = 25
+		}
+		add_mercantilism = -2
+		add_estate_loyalty = {
+			estate = estate_human
+			loyalty = 10
+		}
+		add_estate_influence_modifier = {
+			estate = estate_human
+			desc = EST_VAL_HUMAN_CHANGE_IN_TRADE_POLICY
+			influence = 10
+			duration = 5475
+		}
+	}
+	option = {
+		name = bertus_human_estate_events.14.b #
+		ai_chance = {
+			factor = 75
+		}
+		add_mercantilism = 1
+		add_estate_loyalty = {
+			estate = estate_human
+			loyalty = -10
+		}
+		add_estate_influence_modifier = {
+			estate = estate_human
+			desc = EST_VAL_HUMAN_REFUSED_CHANGE_IN_TRADE_POLICY
+			influence = -10
+			duration = 5475
+		}
+	}
+}
+
+#City Protests
+#Consequence for Angry Burgher Estate
+country_event = {
+	id = bertus_human_estate_events.15
+	title = bertus_human_estate_events.15.t
+	desc = bertus_human_estate_events.15.d
+	picture = BURGHER_ESTATE_UPSET_eventPicture
+	
+	trigger = {
+		has_estate = estate_human
+		any_owned_province = {
+			OR = {
+				owner = { government = republic }
+				development = 10
+				province_trade_power = 5
+			}
+			is_capital = no
+			is_city = yes
+		}
+	}
+	
+	is_triggered_only = yes
+	
+	immediate = {
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = {
+		name = bertus_human_estate_events.15.a #
+		ai_chance = {
+			factor = 0
+		}
+		random_owned_province = {
+			spawn_rebels = {
+				type = particularist_rebels
+				size = 1
+			}
+		}
+	}
+	option = {
+		name = bertus_human_estate_events.15.b #
+		ai_chance = {
+			factor = 1
+		}
+		random_owned_province = {
+			add_local_autonomy = 33
+		}
+		add_estate_loyalty = {
+			estate = estate_human
+			loyalty = 15
+		}
+	}
+}
+
+#Province revolt
+province_event = {
+	id = bertus_human_estate_events.16
+	title = bertus_human_estate_events.16.t
+	desc = bertus_human_estate_events.16.d
+	picture = BURGHER_ESTATE_UPSET_eventPicture
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = bertus_human_estate_events.16.a #Ok.
+	}
+}

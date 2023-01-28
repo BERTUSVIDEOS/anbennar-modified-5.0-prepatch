@@ -1,0 +1,165 @@
+namespace = bertus_TOP
+
+country_event = { #	top calculator
+	id = bertus_TOP.1001
+	title = bertus_TOP.1001.t
+	desc = ANEX_setting_event.1001.d
+	picture = WESTERNISATION_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		has_global_flag = bertus_TOP_activated_flag
+	}
+
+	hidden = yes
+
+	immediate = {
+		if = {
+			limit = {
+				NOT = {has_country_flag = has_top_k_set_flag}
+			}
+			set_country_flag = has_top_k_set_flag
+			set_constants = yes
+		}
+	}
+
+	option = {
+		name = bertus_TOP.1001.a
+		bertus_power_calculator = yes
+	}
+	after = {
+		set_tops = yes
+		country_event = {id = bertus_TOP.1002 days = 1}
+	}
+}
+country_event = { #	year event helper
+	id = bertus_TOP.1002
+	title = bertus_TOP.1002.t
+	desc = ANEX_setting_event.1002.d
+	picture = WESTERNISATION_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		has_global_flag = bertus_TOP_activated_flag
+	}
+
+	hidden = yes
+
+	immediate = {
+	}
+
+	option = {
+		name = bertus_TOP.1002.a
+	}
+	after = {
+		country_event = {id = bertus_TOP.1001 days = 364}
+	}
+}
+country_event = { #	tag assignator
+	id = bertus_TOP.1003
+	title = bertus_TOP.1003.t
+	desc = ANEX_setting_event.1003.d
+	picture = WESTERNISATION_eventPicture
+
+	trigger = {
+		has_global_flag = bertus_TOP_activated_flag
+		ai = no
+		OR = {
+			has_country_flag = is_player_1_flag
+			NOT = {has_global_flag = started_assigning_flags}
+		}
+		any_country = {
+			was_player = yes 
+			NOT = {has_tag_assigned = yes }
+		}
+	}
+
+	hidden = yes
+
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		if = {
+			limit = {NOT = {has_global_flag = started_assigning_flags}}
+			set_global_flag = started_assigning_flags	
+			set_variable = {
+				which = tag_counter_var
+				value = 0
+			}
+			change_variable = {
+				which = tag_counter_var
+				value = 1
+			}
+			set_variable = {
+				which = player_tag_var
+				value = 0
+			}
+			change_variable = {
+				which = player_tag_var
+				which = tag_counter_var
+			}
+			assign_tag_to_players = yes		
+			if = {
+				limit = {NOT = {has_country_flag = has_top_k_set_flag}}
+				set_country_flag = has_top_k_set_flag
+				set_constants = yes
+			}
+			bertus_power_calculator = yes	
+			set_tops = yes
+		}
+	}
+
+	option = {
+		name = bertus_TOP.1003.a
+		while = {
+			limit = {
+				any_country = {
+					was_player = yes 
+					NOT = {has_tag_assigned = yes }
+				}
+			}
+			random_country = {
+				limit = {
+					was_player = yes 
+					NOT = {has_tag_assigned = yes }
+				}
+				set_variable = {
+					which = tag_counter_var
+					value = 0
+				}
+				change_variable = {
+					which = tag_counter_var
+					which = PREV
+				}
+				change_variable = {
+					which = tag_counter_var
+					value = 1
+				}
+				set_variable = {
+					which = player_tag_var
+					value = 0
+				}
+				change_variable = {
+					which = player_tag_var
+					which = tag_counter_var
+				}
+				assign_tag_to_players = yes		
+				if = {
+					limit = {NOT = {has_country_flag = has_top_k_set_flag}}
+					set_country_flag = has_top_k_set_flag
+					set_constants = yes
+				}
+				bertus_power_calculator = yes	
+			}
+			change_variable = {
+				which = tag_counter_var
+				value = 1
+			}
+		}
+	}
+	after = {
+		set_tops = yes
+	}
+}
