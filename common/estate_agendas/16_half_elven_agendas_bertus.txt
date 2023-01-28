@@ -12,10 +12,15 @@ estate_half_elven_hire_advisor = {
 	}
 	pre_effect = {	
 		random_owned_province = {
-			limit = {
-				culture_is_half_elven = yes 
-			}
+			limit = {culture_is_half_elven = yes }
 			save_event_target_as = agenda_province
+		}
+		define_advisor = {
+			type = diplomat
+			skill = 1
+			culture = event_target:agenda_province
+			religion = event_target:agenda_province
+			location = event_target:agenda_province
 		}
 	}
 	selection_weight = {
@@ -1223,8 +1228,10 @@ estate_half_elven_increase_autonomy_in_x = {
 						}
 					}
 					event_target:agenda_province = {
-						culture_is_half_elven = no
-						NOT = { local_autonomy = 50 }
+						OR = {
+							culture_is_half_elven = no
+							NOT = { local_autonomy = 50 }
+						}
 					}
 				}
 				else_if = {
@@ -1235,8 +1242,10 @@ estate_half_elven_increase_autonomy_in_x = {
 						}
 					}
 					event_target:agenda_province = {
-						culture_is_half_elven = no
-						NOT = { local_autonomy = 35 }
+						OR = {
+							culture_is_half_elven = no
+							NOT = { local_autonomy = 35 }
+						}
 					}
 				}
 				else_if = {
@@ -1247,8 +1256,10 @@ estate_half_elven_increase_autonomy_in_x = {
 						}
 					}
 					event_target:agenda_province = {
-						culture_is_half_elven = no
-						NOT = { local_autonomy = 20 }
+						OR = {
+							culture_is_half_elven = no
+							NOT = { local_autonomy = 20 }
+						}
 					}
 				}
 				else_if = {
@@ -1260,7 +1271,10 @@ estate_half_elven_increase_autonomy_in_x = {
 					}
 					event_target:agenda_province = {
 						culture_is_half_elven = no
-						NOT = { local_autonomy = 5 }
+						OR = {
+							culture_is_half_elven = no
+							NOT = { local_autonomy = 5 }
+						}
 					}
 				}
 				else = {

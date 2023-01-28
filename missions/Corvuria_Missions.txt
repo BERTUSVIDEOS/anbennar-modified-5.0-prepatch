@@ -1063,6 +1063,7 @@ A59_resettle_swamps = {
 			OR = {
 				area = central_dreadmire_area
 				area = north_dreadmire_area
+				area = ravenhill_area
 			}
 			OR = {
 				NOT = { owned_by = ROOT }
@@ -1081,6 +1082,11 @@ A59_resettle_swamps = {
 				owned_by = ROOT
 				is_core = ROOT
 			}
+		    ravenhill_area = {
+				type = all
+				owned_by = ROOT
+				is_core = ROOT
+			}
 		}
 		
 		effect = {
@@ -1095,7 +1101,7 @@ A59_resettle_swamps = {
 				}
 				add_permanent_claim = ROOT
 			}
-			east_overmarch_area = {
+			west_overmarch_area = {
 				limit = {
 					NOT = { is_core = ROOT }
 					NOT = { is_permanent_claim = ROOT }
@@ -1111,7 +1117,10 @@ A59_resettle_swamps = {
 		position = 3
 		
 		provinces_to_highlight = {
-			area = flooded_coast_area
+			OR = 
+				area = flooded_coast_area
+				area = west_overmarch_area
+			}
 			NOT = { province_id = 451 }
 			OR = {
 				NOT = { owned_by = ROOT }
@@ -1130,10 +1139,27 @@ A59_resettle_swamps = {
 					province_id = 451
 				}
 			}
+		    west_overmarch_area = {
+				type = all
+				OR = {
+					AND = {
+						owned_by = ROOT
+						is_core = ROOT
+					}
+					province_id = 451
+				}
+			}
 		}
 		
 		effect = {
-			west_overmarch_area = {
+			east_overmarch_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			south_overmarch_area = {
 				limit = {
 					NOT = { is_core = ROOT }
 					NOT = { is_permanent_claim = ROOT }
