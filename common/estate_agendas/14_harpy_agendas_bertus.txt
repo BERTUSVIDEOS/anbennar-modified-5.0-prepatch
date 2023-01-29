@@ -10,14 +10,14 @@ estate_harpy_hire_advisor = {
 			}
 		}
 	}
-	pre_effect = {	
+	pre_effect = {
 		random_owned_province = {
 			limit = {culture_is_harpy = yes }
 			save_event_target_as = agenda_province
 		}
 		define_advisor = {
 			type = diplomat
-			skill = 1
+			skill = 2
 			culture = event_target:agenda_province
 			religion = event_target:agenda_province
 			location = event_target:agenda_province
@@ -37,7 +37,10 @@ estate_harpy_hire_advisor = {
 		add_estate_loyalty = {
 			estate = estate_harpy
 			loyalty = 10
-		}
+		}		
+		event_target:agenda_province = {
+			add_scaled_local_dip_power = 3
+		}			
 		add_estate_influence_modifier = {
 			estate = estate_harpy
 			desc = EST_VAL_DIET_HIRED_ADVISOR
@@ -52,8 +55,7 @@ estate_harpy_hire_advisor = {
 			desc = EST_VAL_AGENDA_DENIED
 			loyalty = -5
 			duration = 7300
-        }
-		
+        }		
     }
 }
 # Fire advisor
@@ -268,8 +270,7 @@ estate_harpy_recovery_from_hyperinflation = {
 		add_country_modifier = {
 			name = boom_economy
 			duration = 5475
-		}
-		
+		}		
     }
     failing_effect = {
         add_estate_loyalty_modifier = {
@@ -297,7 +298,7 @@ estate_harpy_get_cash = {
 		NOT = { num_of_loans = 1 }
 	}
 	fail_if = {
-		num_of_loans = 6
+		num_of_loans = 2
 	}
 	task_completed_effect = {
 		add_estate_loyalty = {
@@ -445,8 +446,7 @@ estate_harpy_reduce_corruption = {
 			desc = EST_VAL_DIET_REDUCE_CORRUPTION
 			influence = 5
 			duration = 7300
-		}
-		
+		}		
     }
     failing_effect = {
         add_estate_loyalty_modifier = {
@@ -454,8 +454,7 @@ estate_harpy_reduce_corruption = {
 			desc = EST_VAL_AGENDA_DENIED
 			loyalty = -5
 			duration = 7300
-        }
-		
+        }		
     }
 }
 
@@ -481,14 +480,14 @@ estate_harpy_three_privileges = {
 		every_owned_province = {
 			limit = {culture_is_harpy = yes}
 			add_unrest = -10
+			add_scaled_local_adm_power = 1
 		}
 		add_estate_influence_modifier = {
 			estate = estate_harpy
 			desc = EST_VAL_DIET_AUTONOMY
 			influence = 10
 			duration = 7300
-		}
-		
+		}		
     }
     failing_effect = {
         add_estate_loyalty_modifier = {
@@ -496,90 +495,156 @@ estate_harpy_three_privileges = {
 			desc = EST_VAL_AGENDA_DENIED
 			loyalty = -5
 			duration = 7300
-        }
-		
+        }		
     }
 }
 
-# Protect against Piracy
-estate_harpy_protect_against_piracy = {
+#Improve trade power in node X
+estate_harpy_increase_trade_power_in_x = {
 	can_select = {
 		any_active_trade_node = {
 			trade_share = {
 				country = root
-				share = 20
-			}
-			privateer_power = {
-				share = 20
+				share = 5
 			}
 			NOT = {
-				privateer_power = {
-					share = 5
+				trade_share = {
 					country = root
+					share = 50
 				}
+			}
+			any_trade_node_member_province = {
+				has_port = yes
 			}
 		}
 	}
 	selection_weight = {
-		factor = 2
+		factor = 1.5
+		modifier = {
+			factor = 2
+			num_of_merchants = 4
+		}
+		modifier = {
+			factor = 2
+			trade_income_percentage = 0.3
+		}
+		modifier = {
+			factor = 2
+			trade_income_percentage = 0.4
+		}
 	}
 	pre_effect = {
-		random_active_trade_node = {
-			limit = {
-				trade_share = {
-					country = root
-					share = 20
-				}
-				privateer_power = {
-					share = 20
-				}
-				NOT = {
-					privateer_power = {
-						share = 5
-						country = root
-					}
-				}
-			}
-			save_event_target_as = agenda_trade_node
+		set_variable = {
+			which = estate_harpy_increase_trade_power_in_X_var
+			value = 0
 		}
 		random_active_trade_node = {
 			limit = {
 				trade_share = {
 					country = root
-					share = 20
-				}
-				privateer_power = {
-					share = 20
+					share = 5
 				}
 				NOT = {
-					privateer_power = {
-						share = 5
-						country = root
-					}
-				}
-				OR = {
 					trade_share = {
 						country = root
-						share = 35
+						share = 50
 					}
-					privateer_power = {
-						share = 35
-					}
+				}
+				any_trade_node_member_province = {
+					has_port = yes
 				}
 			}
 			save_event_target_as = agenda_trade_node
 			if = {
 				limit = {
-					OR = {
-						is_sea = yes
-						has_port = no #shouldn't ever be the case, but just in case...
+					trade_share = { #Requires 65
+						country = root
+						share = 40
 					}
 				}
-				save_event_target_as = agenda_trade_node_sea
+				root = {
+					set_variable = {
+						which = estate_harpy_increase_trade_power_in_X_var
+						value = 7
+					}
+				}
 			}
-			else = {
-				sea_zone = {
-					save_event_target_as = agenda_trade_node_sea
+			else_if = {
+				limit = {
+					trade_share = { #Requires 50
+						country = root
+						share = 30
+					}
+				}
+				root = {
+					set_variable = {
+						which = estate_harpy_increase_trade_power_in_X_var
+						value = 6
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					trade_share = { #Requires 40
+						country = root
+						share = 23
+					}
+				}
+				root = {
+					set_variable = {
+						which = estate_harpy_increase_trade_power_in_X_var
+						value = 5
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					trade_share = { #Requires 30
+						country = root
+						share = 15
+					}
+				}
+				root = {
+					set_variable = {
+						which = estate_harpy_increase_trade_power_in_X_var
+						value = 4
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					trade_share = { #Requires 25
+						country = root
+						share = 10
+					}
+				}
+				root = {
+					set_variable = {
+						which = estate_harpy_increase_trade_power_in_X_var
+						value = 3
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					trade_share = { #Requires 20
+						country = root
+						share = 7
+					}
+				}
+				root = {
+					set_variable = {
+						which = estate_harpy_increase_trade_power_in_X_var
+						value = 2
+					}
+				}
+			}
+			else = { #Requires 15
+				root = {
+					set_variable = {
+						which = estate_harpy_increase_trade_power_in_X_var
+						value = 1
+					}
 				}
 			}
 		}
@@ -589,33 +654,114 @@ estate_harpy_protect_against_piracy = {
 	}
 	task_requirements = {
 		event_target:agenda_trade_node = {
-			trade_share = {
-				country = root
-				share = 20
+			if = {
+				limit = {
+					root = {
+						check_variable = {
+							which = estate_harpy_increase_trade_power_in_X_var
+							value = 7
+						}
+					}
+				}
+				trade_share = {
+					country = root
+					share = 65
+				}
 			}
-			NOT = {
-				privateer_power = {
-					share = 5
+			else_if = {
+				limit = {
+					root = {
+						check_variable = {
+							which = estate_harpy_increase_trade_power_in_X_var
+							value = 6
+						}
+					}
+				}
+				trade_share = {
+					country = root
+					share = 50
+				}
+			}
+			else_if = {
+				limit = {
+					root = {
+						check_variable = {
+							which = estate_harpy_increase_trade_power_in_X_var
+							value = 5
+						}
+					}
+				}
+				trade_share = {
+					country = root
+					share = 40
+				}
+			}
+			else_if = {
+				limit = {
+					root = {
+						check_variable = {
+							which = estate_harpy_increase_trade_power_in_X_var
+							value = 4
+						}
+					}
+				}
+				trade_share = {
+					country = root
+					share = 30
+				}
+			}
+			else_if = {
+				limit = {
+					root = {
+						check_variable = {
+							which = estate_harpy_increase_trade_power_in_X_var
+							value = 3
+						}
+					}
+				}
+				trade_share = {
+					country = root
+					share = 25
+				}
+			}
+			else_if = {
+				limit = {
+					root = {
+						check_variable = {
+							which = estate_harpy_increase_trade_power_in_X_var
+							value = 2
+						}
+					}
+				}
+				trade_share = {
+					country = root
+					share = 20
+				}
+			}
+			else_if = {
+				limit = {
+					root = {
+						check_variable = {
+							which = estate_harpy_increase_trade_power_in_X_var
+							value = 1
+						}
+					}
+				}
+				trade_share = {
+					country = root
+					share = 15
 				}
 			}
 		}
 	}
-    task_completed_effect = {
+	task_completed_effect = {
 		add_estate_loyalty = {
 			estate = estate_harpy
 			loyalty = 10
 		}
-		add_country_modifier = {
-			name = merchant_society
-			duration = 3650
-		}
-		event_target:agenda_province = {
-			get_tolerance_from_provinces = {
-				race = harpy
-			}
-		}
-		
-    }
+		small_increase_of_harpy_tolerance_effect = yes
+		add_dip_power = 50
+	}
     failing_effect = {
         add_estate_loyalty_modifier = {
             estate = estate_harpy
@@ -623,7 +769,6 @@ estate_harpy_protect_against_piracy = {
 			loyalty = -5
 			duration = 7300
         }
-		
     }
 }
 
@@ -926,6 +1071,7 @@ estate_harpy_build_production_building_in_x = {
 			is_state_core = root
 			has_production_building_trigger = no
 			NOT = { trade_goods = gold }
+			NOT = { trade_goods = silver }
 		}
 	}
 	selection_weight = {
@@ -938,6 +1084,7 @@ estate_harpy_build_production_building_in_x = {
 				is_state_core = root
 				has_production_building_trigger = no
 				NOT = { trade_goods = gold }
+				NOT = { trade_goods = silver }
 			}
 			save_event_target_as = agenda_province
 		}
@@ -948,6 +1095,7 @@ estate_harpy_build_production_building_in_x = {
 				base_production = 4
 				has_production_building_trigger = no
 				NOT = { trade_goods = gold }
+				NOT = { trade_goods = silver }
 			}
 			save_event_target_as = agenda_province
 		}
@@ -968,6 +1116,7 @@ estate_harpy_build_production_building_in_x = {
 				}
 				has_production_building_trigger = no
 				NOT = { trade_goods = gold }
+				NOT = { trade_goods = silver }
 			}
 			save_event_target_as = agenda_province
 		}
@@ -1601,8 +1750,7 @@ estate_harpy_war_with_non_harpy = {
 		add_country_modifier = {
 			name = thriving_arms_industry
 			duration = 1825
-		}
-		
+		}		
 	}
     failing_effect = {
         add_estate_loyalty_modifier = {
@@ -1610,8 +1758,7 @@ estate_harpy_war_with_non_harpy = {
 			desc = EST_VAL_AGENDA_DENIED
 			loyalty = -5
 			duration = 7300
-		}
-		
+		}		
     }
 }
 estate_harpy_develop_production_x = {
@@ -1709,7 +1856,7 @@ estate_harpy_develop_production_x = {
 			}
 		}
         add_estate_loyalty_modifier = {
-            estate = estate_burghers
+            estate = estate_harpy
 			desc = EST_VAL_AGENDA_DENIED
 			loyalty = -5
 			duration = 7300
@@ -1798,8 +1945,7 @@ estate_harpy_develop_tax_x = {
 			get_tolerance_from_provinces = {
 				race = harpy
 			}
-		}
-		
+		}		
     }
     failing_effect = {
 		event_target:agenda_province = {
@@ -1809,12 +1955,11 @@ estate_harpy_develop_tax_x = {
 			}
 		}
         add_estate_loyalty_modifier = {
-            estate = estate_burghers
+            estate = estate_harpy
 			desc = EST_VAL_AGENDA_DENIED
 			loyalty = -5
 			duration = 7300
-        }
-		
+        }		
     }
 }
 estate_harpy_develop_manpower_x = {
@@ -1834,12 +1979,14 @@ estate_harpy_develop_manpower_x = {
 				any_owned_province = {
 					is_state_core = root
 					culture_is_harpy = yes
+					NOT = {has_province_modifier = non_military_pop}
 				}
 			}
 			random_owned_province = {
 				limit = {
 					is_state_core = root
 					culture_is_harpy = yes
+					NOT = {has_province_modifier = non_military_pop}
 				}
 				save_event_target_as = agenda_province
 			}
@@ -1849,6 +1996,7 @@ estate_harpy_develop_manpower_x = {
 				limit = {
 					is_state_core = root
 					has_any_harpy_pop_trigger = yes
+					NOT = {has_province_modifier = non_military_pop}
 				}
 				save_event_target_as = agenda_province
 			}
@@ -1910,11 +2058,106 @@ estate_harpy_develop_manpower_x = {
 			}
 		}
         add_estate_loyalty_modifier = {
-            estate = estate_burghers
+            estate = estate_harpy
 			desc = EST_VAL_AGENDA_DENIED
 			loyalty = -5
 			duration = 7300
         }
 		
+    }
+}
+#Manpower reserves
+estate_harpy_build_up_manpower_reserves = {
+	can_select = {
+		NOT = { manpower_percentage = 0.40 }
+	}
+	selection_weight = {
+		factor = 5
+		modifier = {
+			factor = 1.5
+			NOT = { manpower_percentage = 0.35 }
+		}
+		modifier = {
+			factor = 1.5
+			NOT = { manpower_percentage = 0.3 }
+		}
+		modifier = {
+			factor = 1.5
+			NOT = { manpower_percentage = 0.25 }
+		}
+		modifier = {
+			factor = 2
+			NOT = { manpower_percentage = 0.2 }
+		}
+		modifier = {
+			factor = 3
+			NOT = { manpower_percentage = 0.15 }
+		}
+	}
+	pre_effect = {
+		set_variable = {
+			which = estate_harpy_build_up_manpower_reserves_variable
+			value = 0
+		}
+		if = {
+			limit = {NOT = {manpower_percentage = 0.1}}
+			set_variable = {
+				which = estate_harpy_build_up_manpower_reserves_variable
+				value = 1
+			}
+		}
+		else_if = {
+			limit = {NOT = {manpower_percentage = 0.25}}
+			set_variable = {
+				which = estate_harpy_build_up_manpower_reserves_variable
+				value = 2
+			}
+		}
+		else = {
+			set_variable = {
+				which = estate_harpy_build_up_manpower_reserves_variable
+				value = 3
+			}
+		}
+	}
+	fail_if = {		
+	}
+	task_requirements = {
+		if = {
+			limit = {
+				check_variable = {
+					which = estate_harpy_build_up_manpower_reserves_variable
+					value = 3
+				}
+			}
+			manpower_percentage = 0.50
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					which = estate_harpy_build_up_manpower_reserves_variable
+					value = 2
+				}
+			}
+			manpower_percentage = 0.40
+		}
+		else = {
+			manpower_percentage = 0.25
+		}
+	}
+	task_completed_effect = {
+		add_estate_loyalty = {
+			estate = estate_harpy
+			loyalty = 10
+		}
+		add_yearly_manpower = 1
+	}
+    failing_effect = {
+        add_estate_loyalty_modifier = {
+            estate = estate_harpy
+			desc = EST_VAL_AGENDA_DENIED
+			loyalty = -5
+			duration = 7300
+        }
     }
 }
