@@ -588,7 +588,7 @@ kobildzan_kobildzex_guild_of_trapsmiths = {
 			enemy_core_creation = 0.33
 		}
 		on_upgraded = {
-			owner = (
+			owner = {
 				mission_reward_artifice_points_3 = yes
 			}
 		}
@@ -768,8 +768,7 @@ anbenncost_imperial_palace = {
 			factor = 1000
 		}
 		province_modifiers = {
-			local_defensiveness = 0.1
-			local_development_cost = -0.05
+			local_development_cost_modifier = -0.05
 		}
 		area_modifier = {
 		}
@@ -780,8 +779,10 @@ anbenncost_imperial_palace = {
 			devotion = 0.25
 		}
 		on_upgraded = {
-			add_imperial_influence = 3
-			add_absolutism = 3
+			owner = {				
+				add_imperial_influence = 5
+				add_absolutism = 5
+			}
 		}
 	}
 	tier_2 = {
@@ -792,8 +793,7 @@ anbenncost_imperial_palace = {
 			factor = 2000
 		}
 		province_modifiers = {
-			local_defensiveness = 0.2
-			local_development_cost = -0.1
+			local_development_cost_modifier = -0.10
 		}
 		area_modifier = {
 		}
@@ -806,8 +806,10 @@ anbenncost_imperial_palace = {
 			max_absolutism = 5
 		}
 		on_upgraded = {
-			add_imperial_influence = 5
-			add_absolutism = 5
+			owner = {				
+				add_imperial_influence = 10
+				add_absolutism = 10
+			}
 		}
 	}
 	tier_3 = {
@@ -818,8 +820,7 @@ anbenncost_imperial_palace = {
 			factor = 3000
 		}
 		province_modifiers = {
-			local_defensiveness = 0.33
-			local_development_cost = -0.15
+			local_development_cost_modifier = -0.15
 		}
 		area_modifier = {
 		}
@@ -833,8 +834,10 @@ anbenncost_imperial_palace = {
 			administrative_efficiency = 0.025
 		}
 		on_upgraded = {
-			add_imperial_influence = 10
-			add_absolutism = 10
+			owner = {				
+				add_imperial_influence = 20
+				add_absolutism = 20
+			}
 		}
 	}
 }
@@ -862,7 +865,7 @@ moonhaven_port_munas = {
 			OR = {
 				culture_group = anbennarian
 				culture = moon_elf
-				culture_group = half_elven
+				culture_group = half_elf
 			}
 		}
 	}	
@@ -872,7 +875,7 @@ moonhaven_port_munas = {
 			OR = {
 				culture_group = anbennarian
 				culture = moon_elf
-				culture_group = half_elven
+				culture_group = half_elf
 			}
 		}
 	}
@@ -1024,7 +1027,7 @@ silvelar_silver_spires = {
 			factor = 1000
 		}
 		province_modifiers = {
-			gold_depletion_chance_modifier = -0.1
+			local_gold_depletion_chance_modifier = -0.33
 			local_development_cost = -0.05
 			trade_goods_size = 0.5
 		}
@@ -1044,8 +1047,8 @@ silvelar_silver_spires = {
 		cost_to_upgrade = {
 			factor = 2000
 		}
-		province_modifiers = {
-			gold_depletion_chance_modifier = -0.2
+		province_modifiers = { 
+			local_gold_depletion_chance_modifier = -0.66
 			local_development_cost = -0.1
 			trade_goods_size = 1
 		}
@@ -1075,7 +1078,7 @@ silvelar_silver_spires = {
 			factor = 3000
 		}
 		province_modifiers = {
-			gold_depletion_chance_modifier = -0.3
+			local_gold_depletion_chance_modifier = -1.0
 			allowed_num_of_buildings = 1
 			local_development_cost = -0.15
 			trade_goods_size = 1.5
@@ -1228,7 +1231,7 @@ damish_temple_moonmount_library = {
 			OR = {
 				culture_group = anbennarian
 				culture = moon_elf
-				culture_group = half_elven
+				culture_group = half_elf
 			}
 		}
 	}	
@@ -1238,7 +1241,7 @@ damish_temple_moonmount_library = {
 			OR = {
 				culture_group = anbennarian
 				culture = moon_elf
-				culture_group = half_elven
+				culture_group = half_elf
 			}
 		}
 	}	
@@ -1410,16 +1413,24 @@ neckcliffe_the_imperial_dockyard = {
 			factor = 1000
 		}
 		province_modifiers = {
-			local_ship_repair = 0.15
-			ship_recruit_speed = -0.1
+			local_ship_repair = 0.33
+			local_sailors_modifier = 0.5
 		}
 		area_modifier = {
-			local_sailors_modifier = 0.1
 		}
 		country_modifiers = {
-			naval_forcelimit_modifier = 0.05
 		}
 		on_upgraded = {
+			owner = {			
+				define_admiral = {
+					name = "Reinhard von Lohengramm"
+					trait = naval_gunner_personality
+					fire = 5
+					shock = 6
+					manuever = 8
+					siege = 2
+				}
+			}
 		}
 	}
 	tier_2 = {
@@ -1430,27 +1441,16 @@ neckcliffe_the_imperial_dockyard = {
 			factor = 2000
 		}
 		province_modifiers = {
-			local_ship_repair = 0.25
-			ship_recruit_speed = -0.2
-			province_trade_power_value = 3
+			local_ship_repair = 0.66
+			local_sailors_modifier = 1.0
 		}
 		area_modifier = {
-			local_sailors_modifier = 0.2
 		}
 		country_modifiers = {
 			naval_forcelimit_modifier = 0.1
 			flagship_morale = 0.25
 		}
 		on_upgraded = {
-			define_advisor = {
-			type = naval_reformer
-			name = "Paul von Oberstein"
-			skill = 3
-			culture = west_damerian
-			religion = regent_court
-			location = 26
-			discount = yes
-			}
 		}
 	}
 	tier_3 = {
@@ -1461,29 +1461,16 @@ neckcliffe_the_imperial_dockyard = {
 			factor = 3000
 		}
 		province_modifiers = {
-			local_ship_repair = 0.5
-			ship_recruit_speed = -0.33
-			province_trade_power_value = 5
+			local_ship_repair = 1.0
+			local_sailors_modifier = 2.0
 		}
 		area_modifier = {
-			local_sailors_modifier = 0.33
 		}
 		country_modifiers = {
-			naval_forcelimit_modifier = 0.15
+			naval_forcelimit_modifier = 0.20
 			flagship_morale = 0.5
-			own_coast_naval_combat_bonus = 1
 		}
 		on_upgraded = {
-			owner = {
-				define_admiral = {
-					name = "Reinhard von Lohengramm"
-					trait = naval_gunner_personality
-					fire = 5
-					shock = 6
-					manuever = 8
-					siege = 2
-				}
-			}
 		}
 	}
 }
@@ -2107,7 +2094,7 @@ ibevar_temple_of_munas = {
 			OR = {
 				culture_group = anbennarian
 				culture = moon_elf
-				culture_group = half_elven
+				culture_group = half_elf
 			}
 			has_owner_religion = yes
 			OR = {
@@ -2122,7 +2109,7 @@ ibevar_temple_of_munas = {
 			OR = {
 				culture_group = anbennarian
 				culture = moon_elf
-				culture_group = half_elven
+				culture_group = half_elf
 			}
 			has_owner_religion = yes
 			OR = {
@@ -2248,7 +2235,7 @@ lorentaine_mage_academy = {
 			OR = {
 				culture_group = lencori
 				culture = moon_elf
-				culture_group = half_elven
+				culture_group = half_elf
 			}
 		}
 	}	
@@ -2258,7 +2245,7 @@ lorentaine_mage_academy = {
 			OR = {
 				culture_group = lencori
 				culture = moon_elf
-				culture_group = half_elven
+				culture_group = half_elf
 			}
 		}
 	}	
@@ -2640,7 +2627,7 @@ celmaldor_icewind_palace_of_commerce = {
 			province_is_or_accepts_culture = yes
 			OR = {
 				culture = moon_elf
-				culture_group = half_elven
+				culture_group = half_elf
 				culture = white_reachman
 				culture = blue_reachman
 			}
@@ -2651,7 +2638,7 @@ celmaldor_icewind_palace_of_commerce = {
 			province_is_or_accepts_culture = yes
 			OR = {
 				culture = moon_elf
-				culture_group = half_elven
+				culture_group = half_elf
 				culture = white_reachman
 				culture = blue_reachman
 			}
@@ -2772,7 +2759,7 @@ freecestir_mustering_grounds = {
 				culture_group = anbennarian
 				culture_group = alenic
 				culture = moon_elf
-				culture_group = half_elven
+				culture_group = half_elf
 			}
 		}
 	}	
@@ -2783,7 +2770,7 @@ freecestir_mustering_grounds = {
 				culture_group = anbennarian
 				culture_group = alenic
 				culture = moon_elf
-				culture_group = half_elven
+				culture_group = half_elf
 			}
 		}
 	}	

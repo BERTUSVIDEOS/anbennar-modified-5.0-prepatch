@@ -165,6 +165,11 @@ country_event = {
 			}
 			# Orcish Minister
 			1 = {
+				trigger = {
+					any_owned_province = {
+						has_any_orcish_pop_trigger = yes
+					}
+				}
 				modifier = {
 					factor = 1.5
 					medium_tolerance_orcish_race_trigger = yes
@@ -1250,19 +1255,37 @@ country_event = {
 	is_triggered_only = yes
 
 	# If you have a orcish culture province, that's the one the advisor comes from
-	immediate = {
+	immediate = {		
 		hidden_effect = {
-			if = {
+			random_owned_province = {
 				limit = {
-					any_owned_province = {
-						culture_group = orcish
-					}
+					has_orcish_minority_trigger = yes
 				}
-				random_owned_province = {
-					limit = { culture_group = orcish }
-					save_event_target_as = orcish_advisor_culture_province
+				save_event_target_as = orcish_advisor_province
+				set_variable = {which = province_manpower value = 0}
+				export_to_variable = {which = province_manpower value = base_manpower}
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
+			}
+			random_owned_province = {
+				limit = {
+					has_large_orcish_minority_trigger = yes
 				}
-				set_country_flag = orcish_advisor_culture_set
+				save_event_target_as = orcish_advisor_province
+				set_variable = {which = province_manpower value = 0}
+				export_to_variable = {which = province_manpower value = base_manpower}
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
+			}
+			random_owned_province = {
+				limit = {
+					has_orcish_majority_trigger = yes
+				}
+				save_event_target_as = orcish_advisor_province
+				set_variable = {which = province_manpower value = 0}
+				export_to_variable = {which = province_manpower value = base_manpower}
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
 			}
 		}
 	}
@@ -1272,357 +1295,21 @@ country_event = {
 		name = orcish_tolerance_events.8.a
 		ai_chance = {
 			factor = 50
-			modifier = {
-				factor = 0.5
-				wants_to_maintain_tolerance_orcish = yes
-			}
-			modifier = {
-				factor = 0.1
-				wants_to_decrease_tolerance_orcish = yes
-			}
 		}
-		small_increase_of_orcish_tolerance_effect = yes
-		if = {
-			limit = { has_country_flag = orcish_advisor_culture_set }
-			if = {
-				limit = { monthly_income = 50 }
-				random_list = {
-					1 = {
-						define_advisor = {
-							type = army_reformer
-							culture = event_target:orcish_advisor_culture_province
-							religion = event_target:orcish_advisor_culture_province
-							skill = 3
-							cost_multiplier = 0.75	#bertus mod
-						}
-					}
-					1 = {
-						define_advisor = {
-							type = commandant
-							culture = event_target:orcish_advisor_culture_province
-							religion = event_target:orcish_advisor_culture_province
-							skill = 3
-							cost_multiplier = 0.75	#bertus mod
-						}
-					}
-				}
-			}
-			else_if = {
-				limit = { monthly_income = 25 }
-				random_list = {
-					1 = {
-						define_advisor = {
-							type = army_reformer
-							culture = event_target:orcish_advisor_culture_province
-							religion = event_target:orcish_advisor_culture_province
-							skill = 2
-							cost_multiplier = 0.75	#bertus mod
-						}
-					}
-					1 = {
-						define_advisor = {
-							type = commandant
-							culture = event_target:orcish_advisor_culture_province
-							religion = event_target:orcish_advisor_culture_province
-							skill = 2
-							cost_multiplier = 0.75	#bertus mod
-						}
-					}
-				}
-			}
-			else = {
-				random_list = {
-					1 = {
-						define_advisor = {
-							type = army_reformer
-							culture = event_target:orcish_advisor_culture_province
-							religion = event_target:orcish_advisor_culture_province
-							skill = 1
-							cost_multiplier = 0.75	#bertus mod
-						}
-					}
-					1 = {
-						define_advisor = {
-							type = commandant
-							culture = event_target:orcish_advisor_culture_province
-							religion = event_target:orcish_advisor_culture_province
-							skill = 1
-							cost_multiplier = 0.75	#bertus mod
-						}
-					}
-				}
-			}
+		add_estate_loyalty = {
+			estate = estate_orcish
+			loyalty = 10
 		}
-		else_if = {
-			limit = {
-				capital_scope = {
-					continent = europe
-				}
-			}
-			if = {
-				limit = { monthly_income = 50 }
-				random_list = {
-					1 = {
-						define_advisor = {
-							type = army_reformer
-							culture = green_orc
-							skill = 3
-							cost_multiplier = 0.75	#bertus mod
-						}
-					}
-					1 = {
-						define_advisor = {
-							type = commandant
-							culture = green_orc
-							skill = 3
-							cost_multiplier = 0.75	#bertus mod
-						}
-					}
-				}
-			}
-			else_if = {
-				limit = { monthly_income = 25 }
-				random_list = {
-					1 = {
-						define_advisor = {
-							type = army_reformer
-							culture = green_orc
-							skill = 2
-							cost_multiplier = 0.75	#bertus mod
-						}
-					}
-					1 = {
-						define_advisor = {
-							type = commandant
-							culture = green_orc
-							skill = 2
-							cost_multiplier = 0.75	#bertus mod
-						}
-					}
-				}
-			}
-			else = {
-				random_list = {
-					1 = {
-						define_advisor = {
-							type = army_reformer
-							culture = green_orc
-							skill = 1
-							cost_multiplier = 0.75	#bertus mod
-						}
-					}
-					1 = {
-						define_advisor = {
-							type = commandant
-							culture = green_orc
-							skill = 1
-							cost_multiplier = 0.75	#bertus mod
-						}
-					}
-				}
-			}
+		define_advisor = {
+			type = idea_var_advisor_4
+			skill = 3
+			cost_multiplier = 0.75	#bertus mod
+			culture = event_target:orcish_advisor_province
+			religion = event_target:orcish_advisor_province
 		}
-		else_if = {
-			limit = {
-				capital_scope = {
-					superregion = bulwar_superregion
-					continent = serpentspine
-				}
-			}
-			if = {
-				limit = { monthly_income = 50 }
-				random_list = {
-					1 = {
-						define_advisor = {
-							type = army_reformer
-							culture = black_orc
-							skill = 3
-							cost_multiplier = 0.75	#bertus mod
-						}
-					}
-					1 = {
-						define_advisor = {
-							type = commandant
-							culture = black_orc
-							skill = 3
-							cost_multiplier = 0.75	#bertus mod
-						}
-					}
-				}
-			}
-			else_if = {
-				limit = { monthly_income = 25 }
-				random_list = {
-					1 = {
-						define_advisor = {
-							type = army_reformer
-							culture = black_orc
-							skill = 2
-							cost_multiplier = 0.75	#bertus mod
-						}
-					}
-					1 = {
-						define_advisor = {
-							type = commandant
-							culture = black_orc
-							skill = 2
-							cost_multiplier = 0.75	#bertus mod
-						}
-					}
-				}
-			}
-			else = {
-				random_list = {
-					1 = {
-						define_advisor = {
-							type = army_reformer
-							culture = black_orc
-							skill = 1
-							cost_multiplier = 0.75	#bertus mod
-						}
-					}
-					1 = {
-						define_advisor = {
-							type = commandant
-							culture = black_orc
-							skill = 1
-							cost_multiplier = 0.75	#bertus mod
-						}
-					}
-				}
-			}
-		}
-		else_if = {
-			limit = {
-				capital_scope = {
-					continent = asia
-				}
-			}
-			if = {
-				limit = { monthly_income = 50 }
-				random_list = {
-					1 = {
-						define_advisor = {
-							type = army_reformer
-							culture = brown_orc
-							skill = 3
-							cost_multiplier = 0.75	#bertus mod
-						}
-					}
-					1 = {
-						define_advisor = {
-							type = commandant
-							culture = brown_orc
-							skill = 3
-							cost_multiplier = 0.75	#bertus mod
-						}
-					}
-				}
-			}
-			else_if = {
-				limit = { monthly_income = 25 }
-				random_list = {
-					1 = {
-						define_advisor = {
-							type = army_reformer
-							culture = brown_orc
-							skill = 2
-							cost_multiplier = 0.75	#bertus mod
-						}
-					}
-					1 = {
-						define_advisor = {
-							type = commandant
-							culture = brown_orc
-							skill = 2
-							cost_multiplier = 0.75	#bertus mod
-						}
-					}
-				}
-			}
-			else = {
-				random_list = {
-					1 = {
-						define_advisor = {
-							type = army_reformer
-							culture = brown_orc
-							skill = 1
-							cost_multiplier = 0.75	#bertus mod
-						}
-					}
-					1 = {
-						define_advisor = {
-							type = commandant
-							culture = brown_orc
-							skill = 1
-							cost_multiplier = 0.75	#bertus mod
-						}
-					}
-				}
-			}
-		}
-		else = {
-			if = {
-				limit = { monthly_income = 50 }
-				random_list = {
-					1 = {
-						define_advisor = {
-							type = army_reformer
-							culture = green_orc
-							skill = 3
-							cost_multiplier = 0.75	#bertus mod
-						}
-					}
-					1 = {
-						define_advisor = {
-							type = commandant
-							culture = green_orc
-							skill = 3
-							cost_multiplier = 0.75	#bertus mod
-						}
-					}
-				}
-			}
-			else_if = {
-				limit = { monthly_income = 25 }
-				random_list = {
-					1 = {
-						define_advisor = {
-							type = army_reformer
-							culture = green_orc
-							skill = 2
-							cost_multiplier = 0.75	#bertus mod
-						}
-					}
-					1 = {
-						define_advisor = {
-							type = commandant
-							culture = green_orc
-							skill = 2
-							cost_multiplier = 0.75	#bertus mod
-						}
-					}
-				}
-			}
-			else = {
-				random_list = {
-					1 = {
-						define_advisor = {
-							type = army_reformer
-							culture = green_orc
-							skill = 1
-							cost_multiplier = 0.75	#bertus mod
-						}
-					}
-					1 = {
-						define_advisor = {
-							type = commandant
-							culture = green_orc
-							skill = 1
-							cost_multiplier = 0.75	#bertus mod
-						}
-					}
-				}
+		event_target:orcish_advisor_province = {			
+			get_treasury_from_provinces = {	#bertus mod
+				cash_per_dev = -5
 			}
 		}
 	}
@@ -1632,12 +1319,12 @@ country_event = {
 		name = orcish_tolerance_events.8.b
 		ai_chance = {
 			factor = 50
-			modifier = {
-				factor = 2
-				wants_to_increase_tolerance_orcish = yes
-			}
 		}
-		medium_increase_of_orcish_tolerance_effect = yes
+		add_estate_loyalty = {
+			estate = estate_orcish
+			loyalty = 10
+		}
+		small_increase_of_orcish_tolerance_effect = yes
 	}
 
 	# We dun give a shit
@@ -1645,16 +1332,16 @@ country_event = {
 		name = orcish_tolerance_events.8.c
 		ai_chance = {
 			factor = 50
-			modifier = {
-				factor = 2
-				wants_to_decrease_tolerance_orcish = yes
-			}
+		}
+		add_estate_loyalty = {
+			estate = estate_orcish
+			loyalty = -10
 		}
 		small_decrease_of_orcish_tolerance_effect = yes
+		increase_legitimacy_small_effect = yes
 	}
 
 	after = {
-		clr_country_flag = orcish_advisor_culture_set
 	}
 }
 

@@ -41,6 +41,11 @@ country_event = {
 			}
 			# Ogre advisor
 			1 = {
+				trigger = {
+					any_owned_province = {
+						has_any_ogre_pop_trigger = yes
+					}
+				}
 				country_event = {
 					id = ogre_tolerance_events.1
 				}
@@ -157,73 +162,37 @@ country_event = {
 
 	immediate = {
 		hidden_effect = {
-			if = {
+			random_owned_province = {
 				limit = {
-					any_owned_province = {
-						culture_is_ogre = yes
-					}
+					has_ogre_minority_trigger = yes
 				}
-				random_owned_province = {
-					limit = { culture_is_ogre = yes }
-					save_event_target_as = ogre_advisor_culture_province
-				}
+				save_event_target_as = ogre_advisor_province
+				set_variable = {which = province_manpower value = 0}
+				export_to_variable = {which = province_manpower value = base_manpower}
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
 			}
-			# This is literal cancer, but (probably) better than doing conditionals for the million of ogre cultures
-			else = {
-				# Iterates through all neighboring countries for a ogre culture 
-				while = {
-					limit = {
-						NOT = { has_country_flag = ogre_culture_found }
-						any_neighbor_country = {
-							NOT = { has_country_flag = ogre_culture_searched }
-						}
-					}
-					random_neighbor_country = {
-						limit = { NOT = { has_country_flag = ogre_culture_searched } }
-						if = {
-							limit = {
-								any_owned_province = {
-									culture_is_ogre = yes
-								}
-							}
-							random_owned_province = {
-								limit = { culture_is_ogre = yes }
-								save_event_target_as = ogre_advisor_culture_province
-							}
-							ROOT = {
-								set_country_flag = ogre_culture_found
-							}
-						}
-						set_country_flag = ogre_culture_searched
-					}
+			random_owned_province = {
+				limit = {
+					has_large_ogre_minority_trigger = yes
 				}
-				# If no neighboring country with ogre culture in any province, then looks to continent
-				if = {
-					limit = {
-						NOT = { has_country_flag = ogre_culture_found }
-						any_known_country = {
-							same_continent = ROOT
-							any_owned_province = {
-								culture_is_ogre = yes
-							}
-						}
-					}
-					random_known_country = {
-						limit = {
-							same_continent = ROOT
-							any_owned_province = {
-								culture_is_ogre = yes
-							}
-						}
-						random_owned_province = {
-							limit = { culture_is_ogre = yes }
-							save_event_target_as = ogre_advisor_culture_province
-						}
-					}
-				}
-				# If nothing on continent with ogre culture, then give up
+				save_event_target_as = ogre_advisor_province
+				set_variable = {which = province_manpower value = 0}
+				export_to_variable = {which = province_manpower value = base_manpower}
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
 			}
-		}	
+			random_owned_province = {
+				limit = {
+					has_ogre_majority_trigger = yes
+				}
+				save_event_target_as = ogre_advisor_province
+				set_variable = {which = province_manpower value = 0}
+				export_to_variable = {which = province_manpower value = base_manpower}
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
+			}
+		}
 	}
 
 	# Recruit
@@ -231,194 +200,33 @@ country_event = {
 		name = ogre_tolerance_events.1.a
 		ai_chance = {
 			factor = 50
-			modifier = {
-				factor = 0.1
-				wants_to_decrease_tolerance_ogre = yes
+		}
+		add_estate_loyalty = {
+			estate = estate_ogre
+			loyalty = 10
+		}
+		define_advisor = {
+			type = idea_var_advisor_4
+			skill = 3
+			cost_multiplier = 0.75	#bertus mod
+			culture = event_target:ogre_advisor_province
+			religion = event_target:ogre_advisor_province
+		}
+		event_target:ogre_advisor_province = {			
+			get_treasury_from_provinces = {	#bertus mod
+				cash_per_dev = -5
 			}
 		}
-		if = {
-			limit = { monthly_income = 50 }
-			random_list = {
-				1 = {
-					define_advisor = {
-						type = theologian
-						culture = event_target:ogre_advisor_culture_province
-						skill = 3
-						
-						cost_multiplier = 0.75	#bertus mod
-					}
-				}
-				1 = {
-					define_advisor = {
-						type = philosopher
-						culture = event_target:ogre_advisor_culture_province
-						skill = 3
-						
-						cost_multiplier = 0.75	#bertus mod
-					}
-				}
-				1 = {
-					define_advisor = {
-						type = grand_captain
-						culture = event_target:ogre_advisor_culture_province
-						skill = 3
-						
-						cost_multiplier = 0.75	#bertus mod
-					}
-				}
-				1 = {
-					define_advisor = {
-						type = army_organiser
-						culture = event_target:ogre_advisor_culture_province
-						skill = 3
-						
-						cost_multiplier = 0.75	#bertus mod
-					}
-				}
-				1 = {
-					define_advisor = {
-						type = navigator
-						culture = event_target:ogre_advisor_culture_province
-						skill = 3
-						
-						cost_multiplier = 0.75	#bertus mod
-					}
-				}
-				1 = {
-					define_advisor = {
-						type = trader
-						culture = event_target:ogre_advisor_culture_province
-						skill = 3
-						
-						cost_multiplier = 0.75	#bertus mod
-					}
-				}
-			}
-		}
-		else_if = {
-			limit = { monthly_income = 25 }
-			random_list = {
-				1 = {
-					define_advisor = {
-						type = theologian
-						culture = event_target:ogre_advisor_culture_province
-						skill = 2
-						
-						cost_multiplier = 0.75	#bertus mod
-					}
-				}
-				1 = {
-					define_advisor = {
-						type = philosopher
-						culture = event_target:ogre_advisor_culture_province
-						skill = 2
-						
-						cost_multiplier = 0.75	#bertus mod
-					}
-				}
-				1 = {
-					define_advisor = {
-						type = grand_captain
-						culture = event_target:ogre_advisor_culture_province
-						skill = 2
-						
-						cost_multiplier = 0.75	#bertus mod
-					}
-				}
-				1 = {
-					define_advisor = {
-						type = army_organiser
-						culture = event_target:ogre_advisor_culture_province
-						skill = 2
-						
-						cost_multiplier = 0.75	#bertus mod
-					}
-				}
-				1 = {
-					define_advisor = {
-						type = navigator
-						culture = event_target:ogre_advisor_culture_province
-						skill = 2
-						
-						cost_multiplier = 0.75	#bertus mod
-					}
-				}
-				1 = {
-					define_advisor = {
-						type = trader
-						culture = event_target:ogre_advisor_culture_province
-						skill = 2
-						
-						cost_multiplier = 0.75	#bertus mod
-					}
-				}
-			}
-		}
-		else = {
-			random_list = {
-				1 = {
-					define_advisor = {
-						type = theologian
-						culture = event_target:ogre_advisor_culture_province
-						skill = 1
-						
-						cost_multiplier = 0.75	#bertus mod
-					}
-				}
-				1 = {
-					define_advisor = {
-						type = philosopher
-						culture = event_target:ogre_advisor_culture_province
-						skill = 1
-						
-						cost_multiplier = 0.75	#bertus mod
-					}
-				}
-				1 = {
-					define_advisor = {
-						type = grand_captain
-						culture = event_target:ogre_advisor_culture_province
-						skill = 1
-						
-						cost_multiplier = 0.75	#bertus mod
-					}
-				}
-				1 = {
-					define_advisor = {
-						type = army_organiser
-						culture = event_target:ogre_advisor_culture_province
-						skill = 1
-						
-						cost_multiplier = 0.75	#bertus mod
-					}
-				}
-				1 = {
-					define_advisor = {
-						type = navigator
-						culture = event_target:ogre_advisor_culture_province
-						skill = 1
-						
-						cost_multiplier = 0.75	#bertus mod
-					}
-				}
-				1 = {
-					define_advisor = {
-						type = trader
-						culture = event_target:ogre_advisor_culture_province
-						skill = 1
-						
-						cost_multiplier = 0.75	#bertus mod
-					}
-				}
-			}
-		}
-		medium_increase_of_ogre_tolerance_effect = yes
 	}
 	# A true exemplar of the community!
 	option = {
 		name = ogre_tolerance_events.1.b
 		ai_chance = {
 			factor = 50
+		}
+		add_estate_loyalty = {
+			estate = estate_ogre
+			loyalty = 10
 		}
 		small_increase_of_ogre_tolerance_effect = yes
 	}
@@ -432,14 +240,15 @@ country_event = {
 				wants_to_increase_tolerance_ogre = yes
 			}
 		}
+		add_estate_loyalty = {
+			estate = estate_ogre
+			loyalty = -10
+		}
 		small_decrease_of_ogre_tolerance_effect = yes
+		increase_legitimacy_small_effect = yes
 	}
 
 	after = {
-		clr_country_flag = ogre_culture_found
-		every_neighbor_country = {
-			clr_country_flag = ogre_culture_searched
-		}
 	}
 }
 
