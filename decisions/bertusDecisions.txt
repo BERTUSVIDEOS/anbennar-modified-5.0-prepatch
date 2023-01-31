@@ -1,5 +1,105 @@
 country_decisions = {
 
+	kedwall_canal = {
+		potential = {
+			6000 = {
+				owned_by = ROOT
+				NOT = {
+					has_great_project = {
+						type = kedwall_canal
+						tier = 0
+					}
+				}
+			}
+		}
+		provinces_to_highlight = {
+			province_id = 6000
+		}
+		allow = {	
+			6000 = {controlled_by = ROOT}
+		}
+		effect = {
+			6000 = {
+				add_great_project = {
+					type = kedwall_canal
+					instant = no 
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	kedwall_canal_management_close = {
+		potential = {			
+			6000 = {
+				OR = {
+					owned_by = ROOT
+					controlled_by = ROOT
+				}
+				has_great_project = {
+					type = kedwall_canal
+					tier = 2
+				}
+				NOT = {has_province_flag = closed_kedwall_canal_flag}
+			}
+		}
+		provinces_to_highlight = {
+			province_id = 6000
+		}
+		allow = {	
+			6000 = {
+				controlled_by = ROOT
+			}
+		}
+		effect = {
+			custom_tooltip = close_canal_tt
+			hidden_effect = {
+				6000 = {
+					set_province_flag = closed_kedwall_canal_flag
+					remove_canal = kedwall_canal
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	kedwall_canal_management_open = {
+		potential = {			
+			6000 = {
+				OR = {
+					owned_by = ROOT
+					controlled_by = ROOT
+				}
+				has_great_project = {
+					type = kedwall_canal
+					tier = 2
+				}
+				has_province_flag = closed_kedwall_canal_flag
+			}
+		}
+		provinces_to_highlight = {
+			province_id = 6000
+		}
+		allow = {			
+			6000 = {
+				controlled_by = ROOT
+			}
+		}
+		effect = {
+			custom_tooltip = open_canal_tt
+			hidden_effect = {
+				6000 = {
+					clr_province_flag = closed_kedwall_canal_flag
+					add_canal = kedwall_canal
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
 	rycastle_canal_management_open = {
 		potential = {			
 			731 = {

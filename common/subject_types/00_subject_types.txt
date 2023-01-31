@@ -237,18 +237,16 @@ vassal = {
 
 	# Modifiers:
 	modifier_subject = {
+		trigger = {		#bertus mod
+			ai = no
+		}
+		modifier = autonomous_subject
+	}
+	modifier_subject = {
 		modifier = vassal_nation
 	}
 	modifier_overlord = {
 		modifier = vassal_subject
-	}
-	modifier_overlord = {
-		trigger = {ai = no}
-		modifier = player_non_autonomous_subject
-	}
-	modifier_subject = {
-		trigger = {ai = no}
-		modifier = player_non_autonomous_subject
 	}
 	modifier_overlord = {
 		modifier = pirate_subject
@@ -311,13 +309,9 @@ march = {
 	# Modifiers:
 	modifier_overlord = clear #We don't want to duplicate the ones inherited from vassal
 	modifier_subject = clear #Ditto
-	modifier_overlord = {
-		trigger = {ai = no}
-		modifier = player_non_autonomous_subject
-	}
 	modifier_subject = {
 		trigger = {ai = no}
-		modifier = player_non_autonomous_subject
+		modifier = autonomous_subject
 	}
 	modifier_subject = {
 		modifier = subject_nation
@@ -781,33 +775,9 @@ colony = {
 		}
 	}
 	modifier_overlord = {
-		modifier = overlord_wrong_colony_modifier
+		modifier = overlord_player_colony_modifier
 		trigger = {
-			OR = {
-				AND = {
-					ai = no
-					is_subject_of_type = crown_colony
-				}
-				AND = {
-					ai = yes
-					is_subject_of_type = self_governing_colony
-				}
-			}
-		}
-	}
-	modifier_subject = {
-		modifier = wrong_colony_modifier
-		trigger = {
-			OR = {
-				AND = {
-					ai = no
-					is_subject_of_type = crown_colony
-				}
-				AND = {
-					ai = yes
-					is_subject_of_type = self_governing_colony
-				}
-			}
+			ai = no
 		}
 	}
 	
@@ -853,7 +823,6 @@ self_governing_colony = {	#if player - bertus mod
 	copy_from = colony
 
 	is_potential_overlord = {
-		FROM = {ai = no}
 	}
 	
 	base_liberty_desire = -200
@@ -1072,9 +1041,6 @@ autonomous_vassal = {
 	
 	modifier_overlord = clear #We don't want to duplicate the ones inherited from default
 	modifier_subject = clear
-	modifier_subject = {
-		modifier = autonomous_subject
-	}
 	
 	modifier_overlord = {
 		modifier = aelnar_holy_knight_maintenance
