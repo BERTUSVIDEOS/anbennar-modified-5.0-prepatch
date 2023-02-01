@@ -200,7 +200,7 @@ estate_gnollish_restore_republican_tradition = {
 		NOT = { has_country_modifier = agenda_republicanism_restored }
 	}
 	selection_weight = {
-		factor = 10
+		factor = 20
 	}
 	fail_if = {
 		NOT = { government = republic }
@@ -236,7 +236,7 @@ estate_gnollish_restore_currency = {
 		NOT = { has_country_modifier = boom_economy }
 	}
 	selection_weight = {
-		factor = 10
+		factor = 20
 	}
 	fail_if = {
 		inflation = 35
@@ -270,7 +270,7 @@ estate_gnollish_recovery_from_hyperinflation = {
 		inflation = 30
 	}
 	selection_weight = {
-		factor = 20
+		factor = 50
 	}
 	task_requirements = {
 		NOT = { inflation = 15 }
@@ -302,10 +302,10 @@ estate_gnollish_get_cash = {
 		is_at_war = no
 	}
 	selection_weight = {
-		factor = 10
+		factor = 20
 	}
 	task_requirements = {
-		years_of_income = 2.0
+		years_of_income = 1.0
 		NOT = { num_of_loans = 1 }
 	}
 	fail_if = {
@@ -395,7 +395,7 @@ estate_gnollish_reduce_corruption = {
 		NOT = { has_country_modifier = freedom_from_corruption }
 	}
 	selection_weight = {
-		factor = 10
+		factor = 30
 	}
 	pre_effect = {
 		set_variable = {
@@ -486,21 +486,21 @@ estate_gnollish_three_privileges = {
 	selection_weight = {
 		factor = 10		
 		modifier = {
-			factor = 2
+			factor = 1.6
 			num_of_owned_provinces_with = {
 				value = 5
 				culture_is_gnollish = yes
 			}
 		}
 		modifier = {
-			factor = 2
+			factor = 1.4
 			num_of_owned_provinces_with = {
 				value = 10
 				culture_is_gnollish = yes
 			}
 		}
 		modifier = {
-			factor = 2
+			factor = 1.2
 			num_of_owned_provinces_with = {
 				value = 20
 				culture_is_gnollish = yes
@@ -544,6 +544,7 @@ estate_gnollish_three_privileges = {
 #Improve trade power in node X
 estate_gnollish_increase_trade_power_in_x = {
 	can_select = {
+		NOT = {has_country_modifier = agenda_trade_power_dip_boost_modifier}
 		high_tolerance_gnollish_race_trigger = yes
 		any_active_trade_node = {
 			trade_share = {
@@ -564,15 +565,15 @@ estate_gnollish_increase_trade_power_in_x = {
 	selection_weight = {
 		factor = 10
 		modifier = {
-			factor = 2
+			factor = 1.6
 			num_of_merchants = 4
 		}
 		modifier = {
-			factor = 2
+			factor = 1.4
 			trade_income_percentage = 0.3
 		}
 		modifier = {
-			factor = 2
+			factor = 1.2
 			trade_income_percentage = 0.4
 		}
 	}
@@ -802,7 +803,10 @@ estate_gnollish_increase_trade_power_in_x = {
 			estate = estate_gnollish
 			loyalty = 10
 		}
-		add_dip_power = 50
+		add_country_modifier = {
+			name = agenda_trade_power_dip_boost_modifier
+			duration = 1825
+		}
 	}
     failing_effect = {
         add_estate_loyalty_modifier = {
@@ -818,7 +822,12 @@ estate_gnollish_increase_trade_power_in_x = {
 estate_gnollish_build_university_in_x = {
 	can_select = {
 		any_owned_province = {
-			culture_is_gnollish = yes 
+			culture_is_gnollish = yes
+			is_state_core = root
+			OR = {
+				development = 10
+				is_capital = yes
+			}
 			has_university_building_trigger = no
 		}
 	}
@@ -1327,7 +1336,7 @@ estate_gnollish_increase_autonomy_in_x = {
 		}
 	}
 	selection_weight = {
-		factor = 10
+		factor = 15
 	}
 	pre_effect = {
 		set_variable = {
@@ -1670,7 +1679,7 @@ estate_gnollish_familial_connections = {
 		}
 	}
 	selection_weight = {
-		factor = 10
+		factor = 15
 	}
 	pre_effect = {
 		random_known_country = {
@@ -1739,7 +1748,7 @@ estate_gnollish_war_with_non_gnollish = {
 		}
 	}
 	selection_weight = {
-		factor = 10
+		factor = 30
 	}
 	pre_effect = {
 		random_neighbor_country = {
@@ -1804,6 +1813,7 @@ estate_gnollish_war_with_non_gnollish = {
 		}		
     }
 }
+#Dev Production in
 estate_gnollish_develop_production_x = {
 	selection_weight = {
 		factor = 10
@@ -1907,6 +1917,7 @@ estate_gnollish_develop_production_x = {
 		
     }
 }
+#Dev Taxes in
 estate_gnollish_develop_tax_x = {
 	selection_weight = {
 		factor = 10
@@ -2005,6 +2016,7 @@ estate_gnollish_develop_tax_x = {
         }		
     }
 }
+#Dev Manpower in
 estate_gnollish_develop_manpower_x = {
 	selection_weight = {
 		factor = 10
@@ -2116,29 +2128,39 @@ estate_gnollish_build_up_manpower_reserves = {
 		has_race_recruitment = {
 			race = gnollish
 		}
+		NOT ={
+			any_owned_province = {
+				has_construction = army
+			}
+		}
 	}
 	selection_weight = {
 		factor = 10
 		modifier = {
-			factor = 2
+			factor = 1.7
 			NOT = { manpower_percentage = 0.35 }
 		}
 		modifier = {
-			factor = 2
+			factor = 1.6
 			NOT = { manpower_percentage = 0.3 }
 		}
 		modifier = {
-			factor = 2
+			factor = 1.5
 			NOT = { manpower_percentage = 0.25 }
 		}
 		modifier = {
-			factor = 2
+			factor = 1.4
 			NOT = { manpower_percentage = 0.2 }
 		}
 		modifier = {
-			factor = 3
+			factor = 1.3
 			NOT = { manpower_percentage = 0.15 }
 		}
+		#Castigo para los que deliberadamente bajan su manpower a 0 para disparar la agenda
+		#modifier = {
+		#	factor = 0
+		#	NOT = { manpower_percentage = 0.0 }
+		#}
 	}
 	pre_effect = {
 		set_variable = {
@@ -2205,5 +2227,319 @@ estate_gnollish_build_up_manpower_reserves = {
 			loyalty = -5
 			duration = 7300
         }
+    }
+}
+# recruit race
+estate_gnollish_recruitment_agenda = {
+	can_select = {
+		high_tolerance_gnollish_race_trigger = yes
+		NOT = {has_race_recruitment = {race = gnollish}}
+		any_owned_province = {
+			culture_is_gnollish = yes
+		}
+	}
+	pre_effect = {
+	}
+	selection_weight = {
+		factor = 10
+	}
+	task_requirements = {
+		has_race_recruitment = {race = gnollish}
+	}
+    task_completed_effect = {
+		add_estate_loyalty = {
+			estate = estate_gnollish
+			loyalty = 10
+		}
+		every_owned_province = {
+			limit = {culture_is_gnollish = yes}			
+			get_manpower_from_provinces = {
+				manpower_per_dev = 0.100
+			}
+		}
+		add_estate_influence_modifier = {
+			estate = estate_gnollish
+			desc = EST_VAL_DIET_RECRUITMENT
+			influence = 5
+			duration = 7300
+		}
+		
+    }
+    failing_effect = {
+        add_estate_loyalty_modifier = {
+            estate = estate_gnollish
+			desc = EST_VAL_AGENDA_DENIED
+			loyalty = -5
+			duration = 7300
+        }		
+    }
+}
+# first chairman race
+estate_gnollish_first_chairman_agenda = {
+	can_select = {
+		high_tolerance_gnollish_race_trigger = yes
+		NOT = {has_estate_privilege = estate_gnollish_first_hand_chairman}
+	}
+	pre_effect = {
+	}
+	selection_weight = {
+		factor = 10
+	}
+	task_requirements = {
+		has_estate_privilege = estate_gnollish_first_hand_chairman
+	}
+    task_completed_effect = {
+		add_estate_loyalty = {
+			estate = estate_gnollish
+			loyalty = 10
+		}
+		add_adm_power = 50
+		add_estate_influence_modifier = {
+			estate = estate_gnollish
+			desc = EST_VAL_DIET_CHAIRMAN
+			influence = 5
+			duration = 7300
+		}
+		
+    }
+    failing_effect = {
+        add_estate_loyalty_modifier = {
+            estate = estate_gnollish
+			desc = EST_VAL_AGENDA_DENIED
+			loyalty = -5
+			duration = 7300
+        }		
+    }
+}
+# diplo chairman race
+estate_gnollish_diplomacy_chairman_agenda = {
+	can_select = {
+		high_tolerance_gnollish_race_trigger = yes
+		NOT = {has_country_modifier = estate_gnollish_diplomacy_chairman_modifier}
+	}
+	pre_effect = {
+	}
+	selection_weight = {
+		factor = 10
+	}
+	task_requirements = {
+		has_country_modifier = estate_gnollish_diplomacy_chairman_modifier
+	}
+    task_completed_effect = {
+		add_estate_loyalty = {
+			estate = estate_gnollish
+			loyalty = 10
+		}
+		add_dip_power = 50
+		add_estate_influence_modifier = {
+			estate = estate_gnollish
+			desc = EST_VAL_DIET_CHAIRMAN
+			influence = 5
+			duration = 7300
+		}
+		
+    }
+    failing_effect = {
+        add_estate_loyalty_modifier = {
+            estate = estate_gnollish
+			desc = EST_VAL_AGENDA_DENIED
+			loyalty = -5
+			duration = 7300
+        }		
+    }
+}
+# militar chairman race
+estate_gnollish_military_chairman_agenda = {
+	can_select = {
+		high_tolerance_gnollish_race_trigger = yes
+		NOT = {has_country_modifier = estate_gnollish_military_chairman_modifier}
+	}
+	pre_effect = {
+	}
+	selection_weight = {
+		factor = 10
+	}
+	task_requirements = {
+		has_country_modifier = estate_gnollish_military_chairman_modifier
+	}
+    task_completed_effect = {
+		add_estate_loyalty = {
+			estate = estate_gnollish
+			loyalty = 10
+		}
+		add_mil_power = 50
+		add_estate_influence_modifier = {
+			estate = estate_gnollish
+			desc = EST_VAL_DIET_CHAIRMAN
+			influence = 5
+			duration = 7300
+		}
+		
+    }
+    failing_effect = {
+        add_estate_loyalty_modifier = {
+            estate = estate_gnollish
+			desc = EST_VAL_AGENDA_DENIED
+			loyalty = -5
+			duration = 7300
+        }		
+    }
+}
+# economic chairman race
+estate_gnollish_economic_chairman_agenda = {
+	can_select = {
+		high_tolerance_gnollish_race_trigger = yes
+		NOT = {has_country_modifier = estate_gnollish_economic_chairman_modifier}
+	}
+	pre_effect = {
+	}
+	selection_weight = {
+		factor = 10
+	}
+	task_requirements = {
+		has_country_modifier = estate_gnollish_economic_chairman_modifier
+	}
+    task_completed_effect = {
+		add_estate_loyalty = {
+			estate = estate_gnollish
+			loyalty = 10
+		}
+		add_years_of_income = 0.5
+		add_estate_influence_modifier = {
+			estate = estate_gnollish
+			desc = EST_VAL_DIET_CHAIRMAN
+			influence = 5
+			duration = 7300
+		}
+		
+    }
+    failing_effect = {
+        add_estate_loyalty_modifier = {
+            estate = estate_gnollish
+			desc = EST_VAL_AGENDA_DENIED
+			loyalty = -5
+			duration = 7300
+        }		
+    }
+}
+# navy chairman race
+estate_gnollish_navy_chairman_agenda = {
+	can_select = {
+		high_tolerance_gnollish_race_trigger = yes
+		NOT = {has_country_modifier = estate_gnollish_navy_chairman_modifier}
+	}
+	pre_effect = {
+	}
+	selection_weight = {
+		factor = 10
+	}
+	task_requirements = {
+		has_country_modifier = estate_gnollish_navy_chairman_modifier
+	}
+    task_completed_effect = {
+		add_estate_loyalty = {
+			estate = estate_gnollish
+			loyalty = 10
+		}
+		add_dip_power = 50
+		add_estate_influence_modifier = {
+			estate = estate_gnollish
+			desc = EST_VAL_DIET_CHAIRMAN
+			influence = 5
+			duration = 7300
+		}
+		
+    }
+    failing_effect = {
+        add_estate_loyalty_modifier = {
+            estate = estate_gnollish
+			desc = EST_VAL_AGENDA_DENIED
+			loyalty = -5
+			duration = 7300
+        }		
+    }
+}
+# Increase stability
+estate_gnollish_increase_stability_agenda = {
+	can_select = {
+		high_tolerance_gnollish_race_trigger = yes
+		NOT = {stability = -1}
+	}
+	selection_weight = {
+		factor = 30
+	}
+	pre_effect = {
+		set_variable = {
+			which = estate_gnollish_increase_stability_var
+			value = 0
+		}
+		if = {
+			limit = {
+				NOT = {stability = -1}
+			}
+			set_variable = {
+				which = estate_gnollish_increase_stability_var
+				value = 1
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {stability = -2}
+			}
+			set_variable = {
+				which = estate_gnollish_increase_stability_var
+				value = 2
+			}
+		}
+		else = {
+			set_variable = {
+				which = estate_gnollish_increase_stability_var
+				value = 3
+			}
+		}
+	}
+	task_requirements = {
+		stability = 1
+	}
+    task_completed_effect = {
+		if = {
+			limit = {
+				check_variable = {
+					which = estate_gnollish_increase_stability_var
+					value = 3
+				}
+			}
+			add_adm_power = 150
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					which = estate_gnollish_increase_stability_var
+					value = 2
+				}
+			}
+			add_adm_power = 100
+		}
+		else = {
+			add_adm_power = 50
+		}
+		add_estate_loyalty = {
+			estate = estate_gnollish
+			loyalty = 10
+		}
+		add_estate_influence_modifier = {
+			estate = estate_gnollish
+			desc = EST_VAL_DIET_INCREASE_STABILITY
+			influence = 5
+			duration = 7300
+		}		
+    }
+    failing_effect = {
+        add_estate_loyalty_modifier = {
+            estate = estate_gnollish
+			desc = EST_VAL_AGENDA_DENIED
+			loyalty = -5
+			duration = 7300
+        }		
     }
 }

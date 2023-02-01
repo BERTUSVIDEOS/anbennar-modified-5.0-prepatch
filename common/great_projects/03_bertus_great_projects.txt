@@ -1153,7 +1153,6 @@ eborthil_fortress = {
 		country_modifiers = {
 		}
 		on_upgraded = {
-			add_canal = rycastle_canal
 		}
 	}
 
@@ -4881,7 +4880,7 @@ ciranmyna_palace = {
 		}
 	}
 }
-white_walls_of_castanor_monument = {
+west_white_walls_of_castanor_monument = {
 	#start = 850
 	
 	date = 1368.01.01 #
@@ -4890,18 +4889,25 @@ white_walls_of_castanor_monument = {
 		months = 12
 	}
 
-	build_cost = 100
+	build_cost = 1000
 
 	can_be_moved = no
 
 	move_days_per_unit_distance = 1	
 	
-	starting_tier = 0	
+	starting_tier = 1
 
 	type = monument
 
 	build_trigger = {
-		has_province_modifier = white_walls_of_castanor
+		OR = {
+			province_id = 850
+			province_id = 747
+			province_id = 746
+			province_id = 753
+			province_id = 755
+			province_id = 756
+		}
 	}
 
 	on_built = {
@@ -4939,10 +4945,10 @@ white_walls_of_castanor_monument = {
 	}
 	tier_1 = {		
 		upgrade_time = {
-			months = 60
+			months = 120
 		}
 		cost_to_upgrade = {
-			factor = 100
+			factor = 1000
 		}
 		province_modifiers = {
 			local_defensiveness = 0.10
@@ -4958,15 +4964,31 @@ white_walls_of_castanor_monument = {
 				duration = -1
 				hidden = yes
 			}
-			hidden_effect = {remove_province_modifier = white_walls_of_castanor_3}
+			hidden_effect = {
+				hidden_effect = {				
+					every_province = {
+						limit = {						
+							OR = {
+								province_id = 850
+								province_id = 747
+								province_id = 746
+								province_id = 753
+								province_id = 755
+								province_id = 756
+							}
+						}
+						remove_province_modifier = white_walls_of_castanor_3
+					}
+				}
+			}
 		}
 	}
 	tier_2 = {		
 		upgrade_time = {
-			months = 120
+			months = 240
 		}
 		cost_to_upgrade = {
-			factor = 250
+			factor = 2000
 		}
 		province_modifiers = {
 			local_defensiveness = 0.25
@@ -4978,21 +5000,35 @@ white_walls_of_castanor_monument = {
 		country_modifiers = {
 		}
 		on_upgraded = {
-			add_province_modifier = {
-				name = white_walls_of_castanor_2
-				duration = -1
-				hidden = yes
+			hidden_effect = {				
+				every_province = {
+					limit = {						
+						OR = {
+							province_id = 850
+							province_id = 747
+							province_id = 746
+							province_id = 753
+							province_id = 755
+							province_id = 756
+						}
+					}
+					add_province_modifier = {
+						name = white_walls_of_castanor_2
+						duration = -1
+						hidden = yes
+					}
+					remove_province_modifier = white_walls_of_castanor_1
+					remove_province_modifier = white_walls_of_castanor_3
+				}
 			}
-			hidden_effect = {remove_province_modifier = white_walls_of_castanor_1}
-			hidden_effect = {remove_province_modifier = white_walls_of_castanor_3}
 		}
 	}
 	tier_3 = {		
 		upgrade_time = {
-			months = 120
+			months = 360
 		}
 		cost_to_upgrade = {
-			factor = 500
+			factor = 3000
 		}
 		province_modifiers = {
 			local_defensiveness = 0.50
@@ -5004,12 +5040,215 @@ white_walls_of_castanor_monument = {
 		country_modifiers = {
 		}
 		on_upgraded = {
-			add_province_modifier = {
-				name = white_walls_of_castanor_3
-				duration = -1
-				hidden = yes
+			hidden_effect = {				
+				every_province = {
+					limit = {						
+						OR = {
+							province_id = 850
+							province_id = 747
+							province_id = 746
+							province_id = 753
+							province_id = 755
+							province_id = 756
+						}
+					}
+					add_province_modifier = {
+						name = white_walls_of_castanor_3
+						duration = -1
+						hidden = yes
+					}
+					remove_province_modifier = white_walls_of_castanor_2
+				}
 			}
-			hidden_effect = {remove_province_modifier = white_walls_of_castanor_2}
+		}
+	}
+}
+east_white_walls_of_castanor_monument = {
+	#start = 850
+	
+	date = 1368.01.01 #
+	
+	time = {
+		months = 12
+	}
+
+	build_cost = 1000
+
+	can_be_moved = no
+
+	move_days_per_unit_distance = 1	
+	
+	starting_tier = 1	
+
+	type = monument
+
+	build_trigger = {
+		OR = {
+			province_id = 860
+			province_id = 862
+			province_id = 869
+			province_id = 865
+			province_id = 855
+			province_id = 828
+			province_id = 830
+			province_id = 829
+		}
+	}
+
+	on_built = {
+		show_ambient_object = the_great_wall_of_china
+	}	
+
+	on_destroyed = {
+		hide_ambient_object = the_great_wall_of_china
+	}
+
+	can_use_modifiers_trigger = {
+	}
+
+	can_upgrade_trigger = {
+	}
+
+	keep_trigger = {
+	}
+
+	tier_0 = {
+		upgrade_time = {
+			months = 0
+		}
+		cost_to_upgrade = {
+			factor = 0
+		}
+		province_modifiers = {
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+		}
+		on_upgraded = {
+		}
+	}
+	tier_1 = {		
+		upgrade_time = {
+			months = 120
+		}
+		cost_to_upgrade = {
+			factor = 1000
+		}
+		province_modifiers = {
+			local_defensiveness = 0.10
+			local_garrison_size = 0.10
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+		}
+		on_upgraded = {
+			hidden_effect = {				
+				every_province = {
+					limit = {	
+						OR = {
+							province_id = 860
+							province_id = 862
+							province_id = 869
+							province_id = 865
+							province_id = 855
+							province_id = 828
+							province_id = 830
+							province_id = 829
+						}
+					}
+					add_province_modifier = {
+						name = white_walls_of_castanor_1
+						duration = -1
+						hidden = yes
+					}
+					remove_province_modifier = white_walls_of_castanor_3
+				}
+			}
+		}
+	}
+	tier_2 = {		
+		upgrade_time = {
+			months = 240
+		}
+		cost_to_upgrade = {
+			factor = 2000
+		}
+		province_modifiers = {
+			local_defensiveness = 0.25
+			local_garrison_size = 0.25
+			local_attacker_dice_roll_bonus = -1
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+		}
+		on_upgraded = {
+			hidden_effect = {				
+				every_province = {
+					limit = {	
+						OR = {
+							province_id = 860
+							province_id = 862
+							province_id = 869
+							province_id = 865
+							province_id = 855
+							province_id = 828
+							province_id = 830
+							province_id = 829
+						}
+					}
+					add_province_modifier = {
+						name = white_walls_of_castanor_2
+						duration = -1
+						hidden = yes
+					}
+					remove_province_modifier = white_walls_of_castanor_1
+					remove_province_modifier = white_walls_of_castanor_3
+				}
+			}
+		}
+	}
+	tier_3 = {		
+		upgrade_time = {
+			months = 360
+		}
+		cost_to_upgrade = {
+			factor = 3000
+		}
+		province_modifiers = {
+			local_defensiveness = 0.50
+			local_garrison_size = 0.50
+			local_attacker_dice_roll_bonus = -2
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+		}
+		on_upgraded = {
+			hidden_effect = {				
+				every_province = {
+					limit = {	
+						OR = {
+							province_id = 860
+							province_id = 862
+							province_id = 869
+							province_id = 865
+							province_id = 855
+							province_id = 828
+							province_id = 830
+							province_id = 829
+						}
+					}
+					add_province_modifier = {
+						name = white_walls_of_castanor_3
+						duration = -1
+						hidden = yes
+					}
+					remove_province_modifier = white_walls_of_castanor_2
+				}
+			}
 		}
 	}
 }
@@ -5426,7 +5665,7 @@ deranne_westport_gateway_to_aelantir = {
 	}
 }
 throatport_cloth_hall = {
-	start = 13 #Krakow
+	start = 15 #Krakow
 	date = 1250.01.01
 	time = { months = 0	}
 	build_cost = 0

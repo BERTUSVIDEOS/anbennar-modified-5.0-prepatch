@@ -28,8 +28,19 @@ country_event = {
 	option = {
 		name = flavor_wesdam.1.a
 		
-		set_ruler_culture = high_lorentish
-		set_heir_culture = high_lorentish
+		if = {
+			limit = {has_heir = yes}
+			set_ruler_culture = high_lorentish
+			set_heir_culture = high_lorentish
+		}
+		else = {
+			define_heir = {
+				culture = high_lorentish
+				adm = 3
+				dip = 3
+				mil = 3
+			}
+		}
 		
 		add_prestige = 20
 		custom_tooltip = laurens_lorentish_tooltip
@@ -69,11 +80,22 @@ country_event = {
 		name = flavor_wesdam.1.b
 		
 		custom_tooltip = laurens_damerian_tooltip
-		set_ruler_culture = west_damerian
-		set_heir_culture = west_damerian
 		
 		add_stability_or_adm_power = yes
 		
+		if = {
+			limit = {has_heir = yes}
+			set_ruler_culture = west_damerian
+			set_heir_culture = west_damerian
+		}
+		else = {
+			define_heir = {
+				culture = west_damerian
+				adm = 4
+				dip = 4
+				mil = 4
+			}
+		}
 		every_country = {
 			limit = {
 				capital_scope = { region = lencenor_region }
