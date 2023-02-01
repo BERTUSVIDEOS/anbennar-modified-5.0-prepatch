@@ -260,9 +260,9 @@ country_event = {
 				duration = 3650	#10 years
 			}
 			every_rival_country = {
-				remove_fow = 4
 				add_spy_network_from = { who = ROOT value = 30 }
 				ROOT = { add_spy_network_from = { who = PREV value = -30 } }
+				hidden_effect = {country_event = {id = bertus_changes.1113}}
 			}
 		}
 		else_if = { limit = { estate_influence = { estate = estate_mages influence = 33 } }
@@ -273,9 +273,9 @@ country_event = {
 				duration = 3650	#10 years
 			}
 			every_rival_country = {
-				remove_fow = 3
 				add_spy_network_from = { who = ROOT value = 20 }
 				add_spy_network_in = { who = ROOT value = -20 }
+				hidden_effect = {country_event = {id = bertus_changes.1113}}
 			}
 		}
 		else = {
@@ -286,9 +286,9 @@ country_event = {
 				duration = 3650	#10 years
 			}
 			every_rival_country = {
-				remove_fow = 2
 				add_spy_network_from = { who = ROOT value = 10 }
 				add_spy_network_in = { who = ROOT value = -10 }
+				hidden_effect = {country_event = {id = bertus_changes.1113}}
 			}
 		}
 	}
@@ -320,7 +320,6 @@ country_event = {
 					duration = 3650	#10 years
 				}
 				every_rival_country = {
-					remove_fow = 4
 					add_spy_network_from = { who = ROOT value = 30 }
 					ROOT = { add_spy_network_from = { who = PREV value = -30 } }
 				}
@@ -333,7 +332,6 @@ country_event = {
 					duration = 3650	#10 years
 				}
 				every_rival_country = {
-					remove_fow = 3
 					add_spy_network_from = { who = ROOT value = 20 }
 					add_spy_network_in = { who = ROOT value = -20 }
 				}
@@ -346,7 +344,6 @@ country_event = {
 					duration = 3650
 				}
 				every_rival_country = {
-					remove_fow = 2
 					add_spy_network_from = { who = ROOT value = 10 }
 					add_spy_network_in = { who = ROOT value = -10 }
 				}
@@ -376,13 +373,21 @@ country_event = {
 		}
 		add_years_of_income = -0.5
 		
-		every_country = { limit = { is_neighbor_of  = ROOT }
-			remove_fow = 3
+		hidden_effect = {
+			every_country = { 
+				limit = { is_neighbor_of = ROOT }
+				country_event = {id = bertus_changes.1113}
+			}
 		}	
 		if = { limit = { estate_influence = { estate = estate_mages influence = 66 } }
 			add_country_modifier = {
 				name = magic_estate_scrying_neighbours_3
 				duration = 3650	#10 years
+			}
+			hidden_effect = {
+				every_neighbor_country = {
+					country_event = {id = bertus_changes.1113}
+				}
 			}
 			if = { limit = { neighbor_is_ahead_in_institution = yes }
 				capital_scope = {
@@ -401,6 +406,11 @@ country_event = {
 				name = magic_estate_scrying_neighbours_2
 				duration = 3650	#10 years
 			}
+			hidden_effect = {
+				every_neighbor_country = {
+					country_event = {id = bertus_changes.1113}
+				}
+			}
 			if = { limit = { neighbor_is_ahead_in_institution = yes }
 				capital_scope = {
 					area = {
@@ -417,6 +427,11 @@ country_event = {
 			add_country_modifier = {
 				name = magic_estate_scrying_neighbours_1
 				duration = 3650
+			}
+			hidden_effect = {
+				every_neighbor_country = {
+					country_event = {id = bertus_changes.1113}
+				}
 			}
 			if = { limit = { neighbor_is_ahead_in_institution = yes }
 				capital_scope = {
@@ -458,9 +473,6 @@ country_event = {
 		
 		tooltip = {
 			add_years_of_income = -0.5
-			every_country = { limit = { is_neighbor_of  = ROOT }
-				remove_fow = 3
-			}	
 			if = { limit = { estate_influence = { estate = estate_mages influence = 66 } }
 				add_country_modifier = {
 					name = magic_estate_scrying_neighbours_3
@@ -772,7 +784,6 @@ country_event = {
 		
 		if = { limit = { estate_influence = { estate = estate_mages influence = 66 } }
 			add_years_of_income = -0.60
-			add_mil_power = -150
 			
 			capital_scope = {
 				every_province = {
@@ -781,7 +792,7 @@ country_event = {
 						NOT = {
 							province_distance = {
 								who = PREV
-								distance = 30
+								distance = 45
 							}
 						}
 						has_no_ward_province_modifiers = yes
@@ -800,7 +811,6 @@ country_event = {
 		}
 		else_if = { limit = { estate_influence = { estate = estate_mages influence = 33 } }
 			add_years_of_income = -0.40
-			add_mil_power = -100
 			capital_scope = {
 				every_province = {
 					limit = {
@@ -808,7 +818,7 @@ country_event = {
 						NOT = {
 							province_distance = {
 								who = PREV
-								distance = 20
+								distance = 30
 							}
 						}
 						has_no_ward_province_modifiers = yes
@@ -827,7 +837,6 @@ country_event = {
 		}
 		else = {
 			add_years_of_income = -0.20
-			add_mil_power = -50
 			
 			capital_scope = {
 				every_province = {
@@ -836,7 +845,7 @@ country_event = {
 						NOT = {
 							province_distance = {
 								who = PREV
-								distance = 10
+								distance = 15
 							}
 						}
 						has_no_ward_province_modifiers = yes
