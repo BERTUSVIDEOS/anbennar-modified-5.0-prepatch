@@ -533,91 +533,101 @@ venail_3 = {
 				name = venail_immigration_complete
 				duration = 1825
 			}
-			hidden_effect = {
-				every_owned_province = {
-					limit = { continent = europe }
-					export_to_variable = {
-						which = TotalDev
-						value = development
-					}
-					ROOT = { change_variable = { which = TotalDev which = PREV } }
-				}
-			}
-			every_subject_country = {
-				limit = { is_colonial_nation_of = A21 }
-				hidden_effect = {
-					export_to_variable = {
-						which = treasuryAvailable
-						value = treasury
-						who = THIS
-					}
-					export_to_variable = {
-						which = manpowerAvailable
-						value = manpower
-						who = THIS
-					}
-					currency_effect = { currency=treasury takeFrom=THIS addTo=ROOT which=treasuryAvailable }
-					currency_effect = { currency=manpower takeFrom=THIS addTo=ROOT which=manpowerAvailable }
-				}
-				ROOT = { inherit = PREV }
-			}
-			reduce_stability_or_adm_power = yes
-			if = {
+			if = {	#bertus mod
 				limit = {
-					OR = {
-						any_owned_province = { has_province_flag = venail_capital }
-						any_subject_country = {
-							any_owned_province = {
-								has_province_flag = venail_capital
-							}
+					NOT = {
+						ai = no
+						overlord = {
+							ai = no
 						}
 					}
 				}
-				random_province = {
-					limit = { has_province_flag = venail_capital }
-					move_capital_effect = yes
-					if = {
-						limit = {
-							NOT = {
-								trade_goods = gems
-								trade_goods = gold
-								trade_goods = damestear
-								trade_goods = precursor_relics
-								trade_goods = dyes
+				hidden_effect = {
+					every_owned_province = {
+						limit = { continent = europe }
+						export_to_variable = {
+							which = TotalDev
+							value = development
+						}
+						ROOT = { change_variable = { which = TotalDev which = PREV } }
+					}
+				}
+				every_subject_country = {
+					limit = { is_colonial_nation_of = A21 }
+					hidden_effect = {
+						export_to_variable = {
+							which = treasuryAvailable
+							value = treasury
+							who = THIS
+						}
+						export_to_variable = {
+							which = manpowerAvailable
+							value = manpower
+							who = THIS
+						}
+						currency_effect = { currency=treasury takeFrom=THIS addTo=ROOT which=treasuryAvailable }
+						currency_effect = { currency=manpower takeFrom=THIS addTo=ROOT which=manpowerAvailable }
+					}
+					ROOT = { inherit = PREV }
+				}
+				reduce_stability_or_adm_power = yes
+				if = {
+					limit = {
+						OR = {
+							any_owned_province = { has_province_flag = venail_capital }
+							any_subject_country = {
+								any_owned_province = {
+									has_province_flag = venail_capital
+								}
 							}
 						}
-						change_trade_goods = paper
 					}
-					add_center_of_trade_level = 1
-					rename_capital = "Aelnar"
-					change_province_name = "Aelnar"
+					random_province = {
+						limit = { has_province_flag = venail_capital }
+						move_capital_effect = yes
+						if = {
+							limit = {
+								NOT = {
+									trade_goods = gems
+									trade_goods = gold
+									trade_goods = damestear
+									trade_goods = precursor_relics
+									trade_goods = dyes
+								}
+							}
+							change_trade_goods = paper
+						}
+						add_center_of_trade_level = 1
+						rename_capital = "Aelnar"
+						change_province_name = "Aelnar"
+					}
 				}
+				else = {
+					random_province = {
+						limit = { colonial_region = colonial_noruin }
+						move_capital_effect = yes
+						if = {
+							limit = {
+								NOT = {
+									trade_goods = gems
+									trade_goods = gold
+									trade_goods = damestear
+									trade_goods = precursor_relics
+									trade_goods = dyes
+								}
+							}
+							change_trade_goods = paper
+						}
+						add_center_of_trade_level = 1
+						rename_capital = "Aelnar"
+						change_province_name = "Aelnar"
+					}
+				}
+				# Country with rights settles island, must happen before decolonization
+				hidden_effect = { 88 = { owner = { country_event = { id = venail.20 } } } }
+				hidden_effect = { country_event = { id = venail.105 } }
+				custom_tooltip = venail_new_beginning_tooltip
 			}
-			else = {
-				random_province = {
-					limit = { colonial_region = colonial_noruin }
-					move_capital_effect = yes
-					if = {
-						limit = {
-							NOT = {
-								trade_goods = gems
-								trade_goods = gold
-								trade_goods = damestear
-								trade_goods = precursor_relics
-								trade_goods = dyes
-							}
-						}
-						change_trade_goods = paper
-					}
-					add_center_of_trade_level = 1
-					rename_capital = "Aelnar"
-					change_province_name = "Aelnar"
-				}
-			}
-			# Country with rights settles island, must happen before decolonization
-			hidden_effect = { 88 = { owner = { country_event = { id = venail.20 } } } }
-			hidden_effect = { country_event = { id = venail.105 } }
-			custom_tooltip = venail_new_beginning_tooltip
 		}
 	}
 	
