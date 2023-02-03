@@ -991,83 +991,7 @@ estate_ruinborn_build_manufactory_in_x = {
 	}
     task_requirements = {
 		event_target:agenda_province = {
-			custom_trigger_tooltip = {
-				tooltip = has_manufactory_trigger_tooltip
-				
-				if = {
-					limit = {
-						OR = {
-							trade_goods = naval_supplies
-							trade_goods = fish
-							trade_goods = salt
-						}
-					}
-					has_building = wharf
-				}
-				else_if = {
-					limit = {
-						OR = {
-							trade_goods = copper
-							trade_goods = iron
-						}
-					}
-					has_building = weapons
-				}
-				else_if = {
-					limit = {
-						OR = {
-							trade_goods = wool
-							trade_goods = cloth
-							trade_goods = silk
-							trade_goods = dyes
-						}
-					}
-					has_building = textile
-				}
-				else_if = {
-					limit = {
-						OR = {
-							trade_goods = ivory
-							trade_goods = slaves
-							trade_goods = spices
-							trade_goods = fur
-							trade_goods = incense
-						}
-					}
-					has_building = tradecompany
-				}
-				else_if = {
-					limit = {
-						OR = {
-							trade_goods = grain
-							trade_goods = livestock
-							trade_goods = wine
-						}
-					}
-					has_building = farm_estate
-				}
-				else_if = {
-					limit = {
-						OR = {
-							trade_goods = paper
-							trade_goods = gems
-							trade_goods = tropical_wood
-							trade_goods = glass
-							trade_goods = chinaware
-						}
-					}
-					has_building = mills
-				}
-				else_if = {
-					limit = {
-						trade_goods = coal
-					}
-					has_building = furnace
-				}
-				else = {
-					has_building = plantations
-				}
-			}
+			has_manufactory_trigger = yes
 		}
     }
     task_completed_effect = {
@@ -1281,7 +1205,7 @@ estate_ruinborn_build_trade_building_in_x = {
 	}
     task_requirements = {
 		event_target:agenda_province = {
-			has_trade_building_trigger = no
+			has_trade_building_trigger = yes
 		}
     }
     task_completed_effect = {
@@ -2467,6 +2391,14 @@ estate_ruinborn_increase_stability_agenda = {
 	}
 	selection_weight = {
 		factor = 30
+		modifier = {
+			factor = 2
+			NOT = {stability = -1}
+		}
+		modifier = {
+			factor = 2
+			NOT = {stability = -2}
+		}
 	}
 	pre_effect = {
 		set_variable = {
@@ -2475,7 +2407,7 @@ estate_ruinborn_increase_stability_agenda = {
 		}
 		if = {
 			limit = {
-				NOT = {stability = -1}
+				NOT = {stability = -3}
 			}
 			set_variable = {
 				which = estate_ruinborn_increase_stability_var
@@ -2506,7 +2438,7 @@ estate_ruinborn_increase_stability_agenda = {
 			limit = {
 				check_variable = {
 					which = estate_ruinborn_increase_stability_var
-					value = 3
+					value = 1
 				}
 			}
 			add_adm_power = 150
