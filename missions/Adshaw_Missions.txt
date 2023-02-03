@@ -1885,34 +1885,9 @@ adshaw_3_missions_m = {
 			adshaw_serpents_swamp
 		}
 		
-		trigger = {
-			if = {
-				limit = {
-					A24 = { exists = no }
-				}
-				has_spawned_supported_rebels = A13
-			}
-			else_if = {
-				limit = {
-					A24 = {
-						exists = yes 
-						is_subject = yes
-					}
-				}
-				OR = {
-					is_supporting_independence_of = A24
-					A24 = { is_subject_of = ROOT }
-				}
-			}
-			else_if = {
-				limit = {
-					A24 = {
-						exists = yes
-						is_subject = no
-					}
-				}
-				alliance_with = A24
-			}
+		trigger = {	#bertus mod
+			manpower_percentage = 0.9
+			army_size_percentage = 0.9
 		}
 		
 		effect = {
@@ -2501,15 +2476,15 @@ adshaw_4_missions_m = {
 			adshaw_loose_ends
 		}
 		
-		trigger = {
-			dip_power = 200
-			adm_power = 200
+		trigger = {	#bertus mod
+			dip_power = 100
+			adm_power = 100
 			treasury = 100
 		}
 		
-		effect = {
-			add_dip_power = -200
-			add_adm_power = -200
+		effect = {	#bertus mod
+			add_dip_power = -100
+			add_adm_power = -100
 			add_treasury = -100
 			add_country_modifier = {
 				name = Z26_death_adders
@@ -2526,27 +2501,50 @@ adshaw_4_missions_m = {
 		}
 		
 		trigger = {
-			has_spy_network_in = {
-				who = A13
-				value = 75
+			if = {
+				limit = {
+					NOT ={owns = 221}
+				}
+				any_country = {
+					owns = 221
+					has_spy_network_from = {
+						who = PREV
+						value = 75
+					}
+				}
+			}
+			else = {
+				dip_power = 100
 			}
 		}
 		
 		effect = {
-			add_spy_network_in = {
-				who = A13
-				value = -75
+			if = {
+				limit = {
+					NOT ={owns = 221}
+				}
+				random_country = {
+					limit = {
+						owns = 221
+					}				
+					add_spy_network_from = {
+						who = PREV
+						value = -75
+					}
+				}
+			}
+			else = {
+				add_dip_power = -100
 			}
 			custom_tooltip = adshaw_greatmarcher_agitation
 			hidden_effect = {
-				A13 = {
-					every_owned_province = {
-						limit = {
-							culture = old_alenic
-						}
-						add_nationalism = 25
-						add_unrest = 15
+				every_province = {
+					limit = {
+						culture = old_alenic
+						NOT = {owned_by = ROOT}
 					}
+					add_nationalism = 20
+					add_unrest = 10
 				}
 			}
 		}
