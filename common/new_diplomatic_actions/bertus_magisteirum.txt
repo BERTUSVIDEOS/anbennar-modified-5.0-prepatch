@@ -1,0 +1,172 @@
+
+magisterium_invite_organization_action = {
+	category = influence
+	require_acceptance = yes
+	alert_index = 21
+	
+	is_visible = {
+		tag = A85
+		FROM = { NOT = {has_estate_privilege = estate_mages_organization_magisterium }}
+    }
+	
+	is_allowed = {
+		FROM = { NOT = {war_with = ROOT}}
+		FROM = { has_opinion = {who = ROOT value = 100}}
+	}
+
+    on_accept = {
+		FROM = {
+			set_estate_privilege = estate_mages_organization_magisterium			
+			if = {limit = {has_estate_privilege = estate_mages_organization_state} revoke_estate_privilege = estate_mages_organization_state}
+			if = {limit = {has_estate_privilege = estate_mages_organization_guilds} revoke_estate_privilege = estate_mages_organization_guilds}
+			if = {limit = {has_estate_privilege = estate_mages_organization_religious} revoke_estate_privilege = estate_mages_organization_religious}
+			if = {limit = {has_estate_privilege = estate_mages_organization_covenant} revoke_estate_privilege = estate_mages_organization_covenant}
+			if = {limit = {has_estate_privilege = estate_mages_organization_elissa} revoke_estate_privilege = estate_mages_organization_elissa}
+			if = {limit = {has_estate_privilege = estate_mages_organization_bardic_college} revoke_estate_privilege = estate_mages_organization_bardic_college}
+			if = {limit = {has_estate_privilege = estate_mages_organization_ice_smiths} revoke_estate_privilege = estate_mages_organization_ice_smiths}
+			add_stability = -2
+		}
+	}
+	ai_acceptance = {
+		add_entry = {
+			name = OPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = THIS
+			}
+			divide_variable = { which = ai_value value = 4 }
+		}
+	}
+	ai_will_do = {
+		always = no
+	}
+}
+
+magisterium_study_assistance_action = {
+	category = influence
+	require_acceptance = yes
+	alert_index = 21
+	
+	is_visible = {
+		tag = A85
+		FROM = { has_estate_privilege = estate_mages_organization_magisterium }
+		FROM = {NOT = { has_ruler_flag = magisterium_study_assistance_flag}}
+    }
+	
+	is_allowed = {
+		FROM = { ruler_studying_magic = yes }
+		FROM = { has_opinion = {who = ROOT value = 100}}
+		FROM = { NOT = {war_with = ROOT}}
+	}
+
+    on_accept = {
+		FROM = {set_ruler_flag = magisterium_study_assistance_flag}
+	}
+	ai_acceptance = {
+		always = yes
+	}
+	ai_will_do = {
+		always = no
+	}
+}
+cancel_magisterium_study_assistance_action = {
+	category = influence
+	
+	require_acceptance = no
+	
+	is_visible = {
+		FROM = { has_ruler_flag = magisterium_study_assistance_flag }
+    }
+	
+	is_allowed = {
+		hidden_trigger = { FROM = { has_ruler_flag = magisterium_study_assistance_flag } }
+	}
+
+    on_accept = {
+		FROM = { clr_ruler_flag = magisterium_study_assistance_flag }
+	}
+	
+	ai_will_do = {
+		always = no
+	}
+}
+denounce_banned_studying_action = {
+	category = influence
+	
+	require_acceptance = no
+	
+	is_visible = {
+		FROM = { has_ruler_flag = caught_studying_banned_magic_flag }
+    }
+	
+	is_allowed = {
+		hidden_trigger = { FROM = { has_ruler_flag = caught_studying_banned_magic_flag } }
+	}
+
+    on_accept = {
+		FROM = { set_ruler_flag = magister_denounced_flag }
+	}
+	
+	ai_will_do = {
+		always = no
+	}
+}
+
+magisterium_investigate_action = {
+	category = covert
+	require_acceptance = no
+	alert_index = 42
+	
+	is_visible = {
+		FROM = { has_estate_privilege = estate_mages_organization_magisterium }
+		FROM = {NOT = {has_ruler_flag = magisterium_investigating_flag_@ROOT}}
+    }
+	
+	is_allowed = {
+		has_spy_network_in = {who = FROM value = 50}
+		FROM = { magisterium_can_investigate = yes}
+	}
+
+    on_accept = {
+		set_country_flag = magisterium_investigating_flag_@FROM
+		FROM = {
+			set_ruler_flag = magisterium_investigating_flag_@ROOT
+			country_event = {
+				id = bertus_changes.1115
+				days = 365
+				random = 1460
+			}
+		}
+		add_spy_network_in = {
+			who = FROM
+			value = -50
+		}
+		
+	}
+	ai_will_do = {
+		always = no
+	}
+}
+cancel_magisterium_investigate_action = {
+	category = covert	
+	require_acceptance = no
+	
+	is_visible = {
+		FROM = { has_ruler_flag = magisterium_investigating_flag_@ROOT }
+    }
+	
+	is_allowed = {
+		hidden_trigger = { FROM = { has_ruler_flag = magisterium_investigating_flag_@ROOT } }
+	}
+
+    on_accept = {
+		FROM = { clr_ruler_flag = magisterium_investigating_flag_@ROOT }
+		clr_country_flag = magisterium_investigating_flag_@FROM
+	}
+	
+	ai_will_do = {
+		always = no
+	}
+}
