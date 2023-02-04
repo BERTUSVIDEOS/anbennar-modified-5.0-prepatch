@@ -13,7 +13,7 @@ grain = {
 		land_forcelimit = 0.5
 	}
 	chance = {
-		factor = 35
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -127,8 +127,12 @@ grain = {
 			has_winter = normal_winter
 		}
 		modifier = {
-			factor = 1.5
+			factor = 2.0
 			has_terrain = farmlands
+		}
+		modifier = {
+			factor = 1.5
+			has_terrain = grasslands
 		}
 		modifier = {
 			factor = 2 # new world breadbasket
@@ -147,18 +151,6 @@ grain = {
 				region = dry_coast_region
 			}
 		}
-		modifier = {
-			factor = 0
-			has_terrain = marsh
-			region = leechdens_region
-		}
-		modifier = {
-			factor = 0
-			OR = {
-				province_id = 4236
-				region = moduk_region
-			}
-		}
 	}
 }
 
@@ -171,7 +163,7 @@ wine = {
 		local_unrest = -1
 	}
 	chance = {
-		factor = 5
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -280,13 +272,6 @@ wine = {
 			factor = 1.1
 			FROM = { culture_group = lencori }
 		}
-		modifier = { #Force Tradegood in a hold to avoid exploiting
-			factor = 10000
-			OR = {
-				province_id = 2973
-				province_id = 4149
-			}
-		}
 	}
 }
 
@@ -299,7 +284,7 @@ wool = {
 		local_friendly_movement_speed = 0.10
 	}
 	chance = {
-		factor = 30
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -425,7 +410,7 @@ cloth = {
 		local_development_cost = -0.1
 	}
 	chance = {
-		factor = 10
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -482,7 +467,7 @@ cloth = {
 			}
 		}
 		modifier = {
-			factor = 0
+			factor = 0.1
 			OR = {
 				has_terrain = cavern
 				has_terrain = dwarven_road
@@ -501,6 +486,14 @@ cloth = {
 			factor = 2
 			has_terrain = city_terrain
 		}
+		modifier = {
+			factor = 0
+			OR = {
+				has_terrain = dwarven_under_hold
+				has_terrain = dwarven_road
+				has_terrain = cavern
+			}
+		}
 	}
 }
 
@@ -513,7 +506,7 @@ fish = {
 		local_sailors_modifier = 0.25
 	}
 	chance = {
-		factor = 20
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -629,7 +622,7 @@ fur = {
 		province_trade_power_modifier = 0.10
 	}
 	chance = {
-		factor = 15
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -780,7 +773,7 @@ salt = {
 		local_defensiveness = 0.15
 	}
 	chance = {
-		factor = 5
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -836,13 +829,14 @@ salt = {
 			}
 		}
 		modifier = {
-			factor = 0
-			NOT = { has_terrain = desert }
-			NOT = { has_terrain = marsh }
-			NOT = { has_terrain = mountain }
-			NOT = { has_terrain = highlands }
-			NOT = { has_terrain = cavern }
-			NOT = { has_terrain = dwarven_road }
+			factor = 0.25
+			NOT = { 
+				has_terrain = desert
+				has_terrain = marsh
+				has_terrain = mountain
+				has_terrain = highlands
+				has_terrain = cavern
+			}
 		}
 		modifier = {
 			factor = 2
@@ -870,7 +864,7 @@ naval_supplies = {
 		naval_forcelimit = 0.5
 	}
 	chance = {
-		factor = 15
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -997,7 +991,7 @@ copper = {
 		regiment_recruit_speed = -0.2
 	}
 	chance = {
-		factor = 15
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -1074,16 +1068,18 @@ copper = {
 			NOT = { continent = new_world }
 		}
 		modifier = {
-			factor = 1.1
-			is_random_new_world = yes
+			factor = 2.0
 			OR = {
 				has_terrain = mountain
 				has_terrain = highlands
+				has_terrain = hills
+				has_terrain = dwarven_road
+				has_terrain = dwarven_under_hold
 				has_terrain = cavern
 			}
 		}
 		modifier = {
-			factor = 1.1
+			factor = 1.25
 			superregion = gerudia_superregion
 		}
 
@@ -1104,16 +1100,6 @@ copper = {
 			factor = 0
 			region = domandrod_region
 		}
-		
-		modifier = { #Force Tradegood in a hold to avoid exploiting
-			factor = 10000
-			OR = {
-				province_id = 526
-				province_id = 4247
-			}
-		}
-		
-		
 	}
 }
 
@@ -1122,7 +1108,7 @@ gold = {
 	#no modifiers
 	
 	chance = {
-		factor = 5
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -1181,7 +1167,7 @@ gold = {
 			NOT = { continent = new_world }
 		}
 		modifier = {
-			factor = 0
+			factor = 0.1
 			continent = europe
 			OR = {
 				has_terrain = forest
@@ -1199,51 +1185,44 @@ gold = {
 			}
 		}
 		modifier = {
-			factor = 0.3
+			factor = 0.25
 			OR = {
 				has_terrain = dwarven_under_hold
+				has_terrain = dwarven_road
 				superregion = forbidden_lands_superregion
 			}
 		}
 		modifier = {
 			factor = 1.5
-			has_terrain = mountain
+			OR = {
+				has_terrain = mountain
+				has_terrain = hills
+				has_terrain = highlands
+			}
+		}
+		modifier = {
+			factor = 2
+			OR = {
+				has_terrain = mountain
+				has_terrain = hills
+				has_terrain = highlands
+			}
 			OR = {
 				continent = north_america
 				continent = south_america
 			}
 		}
 		modifier = {
-			factor = 1.1
+			factor = 5
 			OR = {
-				superregion = gerudia_superregion
-				region = amadia_region
+				has_terrain = mountain
+				has_terrain = hills
+				has_terrain = highlands
 			}
-		}
-		modifier = {
-			factor = 1.5
-			normal_or_historical_nations = no
-		}
-		modifier = {
-			factor = 10
-			has_terrain = mountain
 			OR = { 
 				region = amadia_region # four provinces
 				region = dalaire_region # three provinces
 			}
-		}
-		modifier = {
-			factor = 5 # not as much as mountains, but still a lot!
-			has_terrain = hills
-			OR = { 
-				region = amadia_region # three provinces
-				region = dalaire_region # four provinces
-			}
-		}
-		modifier = {
-			factor = 3 # not as much as mountains, but still a lot!
-			has_terrain = highlands
-			region = amadia_region # four provinces
 		}
 		modifier = {
 			factor = 1.5
@@ -1257,36 +1236,16 @@ gold = {
 			}
 		}
 		modifier = {
-			factor = 0.6
-			superregion = escann_superregion
-		}
-		modifier = {
-			factor = 0
-			continent = serpentspine
-			FROM = { NOT = { num_of_cities = 2 } }
-			FROM = { ai = yes }
-		}
-		modifier = {
 			factor = 1000	#dragon turtle's hoard
 			province_id = 2262
 		}
 		modifier = {
-			factor = 1.1
-			region = domandrod_region
-		}
-		modifier = {
-			factor = 0
+			factor = 0.1
 			owner = { has_reform = roadwarrior_great_convoy }
 		}
 		modifier = {
 			factor = 2
 			owner = { has_reform = dwarovar_treasures_of_our_forefathers }
-		}
-		modifier = { #Force Tradegood in a hold to avoid exploiting
-			factor = 10000
-			OR = {
-				province_id = 2914
-			}
 		}
 	}
 }
@@ -1300,7 +1259,7 @@ iron = {
 		local_build_time = -0.2
 	}
 	chance = {
-		factor = 10
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -1351,7 +1310,7 @@ iron = {
 			}
 		}
 		modifier = {
-			factor = 1.2
+			factor = 2.0
 			OR = {
 				has_terrain = mountain
 				has_terrain = hills
@@ -1387,18 +1346,6 @@ iron = {
 			factor = 1000
 			province_id = 6254
 		}
-		
-		modifier = { #Force Tradegood in a hold to avoid exploiting
-			factor = 10000
-			OR = {
-				province_id = 4208
-				province_id = 4097
-				province_id = 4217
-				province_id = 4284
-				province_id = 912
-			}
-		}
-
 	}
 }
 
@@ -1413,7 +1360,7 @@ slaves = {
 		local_missionary_strength = 0.01
 	}
 	chance = {
-		factor = 7
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -1496,7 +1443,7 @@ ivory = {
 	}
 	
 	chance = {
-		factor = 15
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -1627,7 +1574,7 @@ tea = {
 		garrison_growth = 0.25
 	}
 	chance = {
-		factor = 15
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -1769,7 +1716,7 @@ chinaware = {
 	}
 	
 	chance = {
-		factor = 0
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -1845,7 +1792,7 @@ spices = {
 		local_monthly_devastation = -0.1
 	}
 	chance = {
-		factor = 25
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -1975,7 +1922,7 @@ coffee = {
 		local_institution_spread = 0.1
 	}
 	chance = {
-		factor = 15
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -2125,7 +2072,7 @@ cotton = {
 		local_development_cost = -0.1
 	}
 	chance = {
-		factor = 20
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -2247,7 +2194,7 @@ sugar = {
 		local_unrest = -1
 	}
 	chance = {
-		factor = 15
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -2378,7 +2325,7 @@ tobacco = {
 		province_trade_power_modifier = 0.10
 	}
 	chance = {
-		factor = 15
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -2520,7 +2467,7 @@ cocoa = {
 		local_manpower_modifier = 0.10
 	}
 	chance = {
-		factor = 15
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -2651,7 +2598,7 @@ silk = {
 		province_trade_power_value = 2
 	}
 	chance = {
-		factor = 5
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -2762,7 +2709,7 @@ dyes = {
 		province_trade_power_modifier = 0.10
 	}
 	chance = {
-		factor = 15
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -2879,7 +2826,7 @@ tropical_wood = {
 		local_build_cost = -0.2
 	}
 	chance = {
-		factor = 25
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -3003,7 +2950,7 @@ livestock = {
 		supply_limit_modifier = 0.5
 	}
 	chance = {
-		factor = 30
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -3129,7 +3076,7 @@ incense = {
 		trade_value_modifier = 0.1
 	}
 	chance = {
-		factor = 8
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -3184,7 +3131,7 @@ incense = {
 			}
 		}
 		modifier = {
-			factor = 0
+			factor = 0.1
 			OR = {
 				continent = europe
 				region = northern_pass_region
@@ -3194,16 +3141,6 @@ incense = {
 				has_climate = arctic
 			}
 		}
-		modifier = {
-			factor = 0
-			OR = {
-				has_terrain = mountain
-				has_terrain = cavern
-				has_terrain = dwarven_under_hold
-				has_terrain = dwarven_road
-			}
-		}
-		
 		modifier = {
 			factor = 1.25
 			OR = {
@@ -3219,10 +3156,13 @@ incense = {
 			factor = 2.0
 			FROM = { has_country_flag = encourage_cash_crops_flag }
 		}
-		modifier = { #Force Tradegood in a hold to avoid exploiting
-			factor = 10000
+		modifier = {
+			factor = 0
 			OR = {
-				province_id = 4323
+				has_terrain = mountain
+				has_terrain = cavern
+				has_terrain = dwarven_under_hold
+				has_terrain = dwarven_road
 			}
 		}
 	}
@@ -3287,24 +3227,32 @@ glass = {
 				province_id = 249	#Aramar (Ara temple) gold
 				province_id = 4128	#hall of the ancestors marble
 				province_id = 4119	#amldihr paper
-				province_id = 4149	#amlharaz glass
 				province_id = 4122	#verkal vazkron	 salt
 				province_id = 4020	#dur vazhatun beer
 			}
 		}
 		modifier = {
-			factor = 2.0
-			development = 22
+			factor = 2
+			development = 15
 		}
 		modifier = {
 			factor = 2
+			development = 20
+		}
+		modifier = {
+			factor = 5
 			has_terrain = city_terrain
 		}
 		modifier = {
-			factor = 1000
+			factor = 0.5
+			NOT = {development = 10}
+		}
+		modifier = {
+			factor = 0
 			OR = {
-				#province_id = 4238 #Orlghelovar
-				province_id = 4313 #Force Tradegood in a hold to avoid exploiting
+				has_terrain = dwarven_under_hold
+				has_terrain = dwarven_road
+				has_terrain = cavern
 			}
 		}
 	}
@@ -3319,7 +3267,7 @@ paper = {
 		local_state_maintenance_modifier = -0.1
 	}
 	chance = {
-		factor = 5
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -3368,29 +3316,53 @@ paper = {
 				province_id = 35	#toref citadel gold
 				province_id = 249	#Aramar (Ara temple) gold
 				province_id = 4128	#hall of the ancestors marble
-				province_id = 4119	#amldihr paper
 				province_id = 4149	#amlharaz glass
 				province_id = 4122	#verkal vazkron	 salt
 				province_id = 4020	#dur vazhatun beer
 			}
 		}
 		modifier = {
-			factor = 0
-			NOT = { development = 18 }
-			NOT = { has_terrain = city_terrain }
+			factor = 2
+			development = 15
 		}
 		modifier = {
-			factor = 2.0
-			development = 22
+			factor = 2
+			development = 20
 		}
-		modifier = { #Force Tradegood in a hold to avoid exploiting
-			factor = 10000
+		modifier = {
+			factor = 5
+			has_terrain = city_terrain
+		}
+		modifier = {
+			factor = 0.5
+			NOT = {development = 10}
+		}
+		modifier = {
+			factor = 0.1
+			continent = europe
 			OR = {
-			province_id = 4119
+				has_terrain = forest
+				has_terrain = woods
+				has_terrain = drylands
+				has_terrain = grasslands
+				has_terrain = savannah
+				has_terrain = steppe
+				has_terrain = jungle
+				has_terrain = coastline
+				has_terrain = coastal_desert
+				has_terrain = marsh
+				has_terrain = city_terrain
+				has_terrain = mushroom_forest_terrain
 			}
-		}	
-
-
+		}
+		modifier = {
+			factor = 0
+			OR = {
+				has_terrain = dwarven_under_hold
+				has_terrain = dwarven_road
+				has_terrain = cavern
+			}
+		}
 	}
 }
 
@@ -3403,7 +3375,7 @@ gems = {
 		local_tax_modifier = 0.15
 	}
 	chance = {
-		factor = 5
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -3531,18 +3503,6 @@ gems = {
 			factor = 2.0
 			FROM = { has_country_flag = encourage_cash_crops_flag }
 		}
-		
-		modifier = { #Force Tradegood in a hold to avoid exploiting
-			factor = 10000
-			OR = {
-				province_id = 63
-				province_id = 4093
-				province_id = 4124
-				province_id = 5424
-				province_id = 4350
-			}
-		}		
-
 	}
 }
 
@@ -3571,7 +3531,7 @@ coal = {
 		local_state_maintenance_modifier = -0.2
 	}
 	chance = {
-		factor = 1
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -3639,7 +3599,7 @@ cloves = {
 		province_trade_power_modifier = 0.2
 	}
 	chance = {
-		factor = 150
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -3696,26 +3656,47 @@ cloves = {
 			}
 		}
 		modifier = {
-			factor = 0
-			OR = {
-				has_terrain = cavern
-				has_terrain = dwarven_under_hold
-				has_terrain = dwarven_road
-			}
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				OR = {	#We'll need to change this for Sarhal
-					area = molluca_area
-					area = spice_islands_area
-				}
-			}
-		}
-		modifier = {
 			factor = 2.0
 			FROM = {
 				has_country_flag = encourage_cash_crops_flag
+			}
+		}
+		modifier = {
+			factor = 2
+			development = 20
+		}
+		modifier = {
+			factor = 5
+			has_terrain = city_terrain
+		}
+		modifier = {
+			factor = 0.5
+			NOT = {development = 10}
+		}
+		modifier = {
+			factor = 0.1
+			OR = {
+				has_terrain = dwarven_road
+				has_terrain = dwarven_hold
+				has_terrain = dwarven_under_hold
+				has_terrain = cavern
+				has_terrain = mountain
+				has_terrain = dwarven_road
+				has_terrain = glacier
+				has_terrain = marsh
+				has_terrain = hills
+				has_terrain = forest
+				has_terrain = woods
+				has_terrain = mountain
+				has_terrain = city_terrain
+			}
+		}
+		modifier = {
+			factor = 0
+			OR = {
+				has_terrain = dwarven_under_hold
+				has_terrain = dwarven_road
+				has_terrain = cavern
 			}
 		}
 	}
@@ -3839,7 +3820,7 @@ mithril = {
 		shock_damage = 0.02
 	}
 	chance = {
-		factor = 1
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -3896,16 +3877,14 @@ mithril = {
 		}
 		modifier = {
 			factor = 0
-			NOT = { has_terrain = cavern }
-			NOT = { has_terrain = dwarven_road }
-			NOT = { has_terrain = dwarven_under_hold }
+			NOT = { continent = serpentspine }
 		}
 		modifier = {
-			factor = 3
-			has_terrain = dwarven_under_hold
+			factor = 0.5
+			has_terrain = dwarven_road
 		}
 		modifier = {
-			factor = 5			
+			factor = 2
 			has_terrain = cavern
 		}
 		modifier = {
@@ -3934,7 +3913,7 @@ fungi = {
 		local_development_cost = -0.1
 	}
 	chance = {
-		factor = 5
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -3990,23 +3969,23 @@ fungi = {
 			}
 		}
 		modifier = {
-			factor = 0
-			NOT = { continent = serpentspine }
-			NOT = { region = mushroom_forest_region }
-			NOT = { region = domandrod_region }
+			factor = 10
+			OR = {
+				region = mushroom_forest_region
+				region = domandrod_region
+			}
 		}
 		modifier = {
 			factor = 0
+			NOT = {continent = serpentspine}
+		}
+		modifier = {
+			factor = 0.5
 			continent = serpentspine
-			NOT = { has_terrain = cavern }
 		}
 		modifier = {
-			factor = 3
+			factor = 5
 			has_terrain = cavern
-		}
-		modifier = {
-			factor = 0.6
-			has_terrain = dwarven_road
 		}
 		modifier = {
 			factor = 100
@@ -4023,12 +4002,6 @@ fungi = {
 			factor = 20
 			area = drunken_pass_area
 		}
-		modifier = { #Force Tradegood in a hold to avoid exploiting
-			factor = 10000
-			OR = {
-				province_id = 2931
-			}
-		}
 	}
 }
 
@@ -4042,7 +4015,7 @@ serpentbloom = {
 		local_manpower_modifier = 0.10
 	}
 	chance = {
-		factor = 5
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -4103,20 +4076,12 @@ serpentbloom = {
 			NOT = { continent = serpentspine }
 		}
 		modifier = {
-			factor = 0
+			factor = 0.1
 			NOT = { has_terrain = cavern }
 		}
 		modifier = {
 			factor = 35
 			area = drunken_pass_area
-		}
-		
-		modifier = { #Force Tradegood in a hold to avoid exploiting
-			factor = 10000
-			OR = {
-				province_id = 4020
-				province_id = 4078
-			}
 		}
 	}
 }
@@ -4129,7 +4094,7 @@ beer = {#latent
 		land_forcelimit = 1.0
 	}
 	chance = {
-		factor = 10
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -4185,7 +4150,7 @@ beer = {#latent
 			}
 		}
 		modifier = {
-			factor = 0
+			factor = 0.1
 			OR = {
 				has_terrain = desert
 				has_terrain = coastal_desert
@@ -4207,7 +4172,7 @@ apiculture = { #+
 		local_defensiveness = 0.1
 	}
 	chance = {
-		factor = 10
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -4324,7 +4289,7 @@ whaling = { #+
 		local_production_efficiency = 0.15
 	}
 	chance = {
-		factor = 8
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -4420,7 +4385,7 @@ lumber = { #+
 		local_build_cost = -0.20
 	}
 	chance = {
-		factor = 20
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -4495,7 +4460,7 @@ palm_oil = {
 		province_trade_power_modifier = 0.10
 	}
 	chance = {
-		factor = 10
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -4569,9 +4534,8 @@ cinnamon = {
 	province = {
 		trade_value_modifier = 0.10
 	}
-
 	chance = {
-		factor = 10
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -4628,7 +4592,7 @@ cinnamon = {
 			}
 		}
 		modifier = {
-			factor = 0
+			factor = 0.1
 			OR = {
 				has_terrain = desert
 				has_terrain = coastal_desert
@@ -4663,7 +4627,7 @@ saffron = {#+
 		local_monthly_devastation = -0.1
 	}
 	chance = {
-		factor = 20
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -4720,7 +4684,7 @@ saffron = {#+
 			}
 		}
 		modifier = {
-			factor = 0
+			factor = 0.1
 			OR = {
 				has_terrain = desert
 				has_terrain = coastal_desert
@@ -4756,7 +4720,7 @@ rice = { #+
 		local_manpower_modifier = 0.25
 	}
 	chance = {
-		factor = 10
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -4877,7 +4841,7 @@ opium = {
 		local_unrest = -1
 	}
 	chance = {
-		factor = 2
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -4961,7 +4925,7 @@ rum = {#latent
 		naval_forcelimit = 1
 	}
 	chance = {
-		factor = 1
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -5044,7 +5008,7 @@ horses = { #+
 		local_regiment_cost = -0.2
 	}
 	chance = {
-		factor = 15
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -5193,7 +5157,7 @@ olive_oil = {
 		trade_value_modifier = 0.10
 	}
 	chance = {
-		factor = 10
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -5285,7 +5249,7 @@ amber = {
 		local_development_cost = -0.05
 	}
 	chance = {
-		factor = 1
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -5365,7 +5329,7 @@ jade = {
 		local_state_maintenance_modifier = -0.25
 	}
 	chance = {
-		factor = 2
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -5429,7 +5393,7 @@ jade = {
 			}
 		}
 		modifier = {
-			factor = 0
+			factor = 0.1
 			NOT = {
 				has_terrain = mountain
 				has_terrain = hills
@@ -5437,12 +5401,6 @@ jade = {
 				has_terrain = cavern
 				has_terrain = dwarven_road
 				has_terrain = dwarven_under_hold
-			}
-		}
-		modifier = { #Force Tradegood in a hold to avoid exploiting
-			factor = 10000
-			OR = {
-				province_id = 4311
 			}
 		}
 	}
@@ -5457,7 +5415,7 @@ marble = {
 		local_development_cost = -0.05
 	}
 	chance = {
-		factor = 10
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -5517,7 +5475,6 @@ marble = {
 				has_terrain = hills
 				has_terrain = highlands
 				has_terrain = mountain
-				has_terrain = dwarven_road
 			}
 		}
 		modifier = {
@@ -5552,7 +5509,7 @@ lead = {
 		local_regiment_cost = -0.15
 	}
 	chance = {
-		factor = 10
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -5607,7 +5564,7 @@ lead = {
 			}
 		}
 		modifier = {
-			factor = 0
+			factor = 0.1
 			NOT = {
 				has_terrain = mountain
 				has_terrain = hills
@@ -5615,14 +5572,6 @@ lead = {
 				has_terrain = cavern
 				has_terrain = dwarven_road
 				has_terrain = dwarven_under_hold
-			}
-		}
-		modifier = { #Force Tradegood in a hold to avoid exploiting
-			factor = 10000
-			OR = {
-				province_id = 2868
-				province_id = 4238
-				province_id = 4147
 			}
 		}
 	}
@@ -5691,7 +5640,7 @@ mercury = {
 		local_institution_spread = 0.2
 	}
 	chance = {
-		factor = 1
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -5748,7 +5697,7 @@ mercury = {
 			}
 		}
 		modifier = {
-			factor = 0
+			factor = 0.1
 			OR = {
 				has_terrain = desert
 				has_terrain = coastal_desert
@@ -5761,7 +5710,7 @@ mercury = {
 			}
 		}
 		modifier = {
-			factor = 0
+			factor = 0.1
 			NOT = {
 				has_terrain = farmlands
 				has_terrain = drylands
@@ -5782,7 +5731,7 @@ camel = {#+
 		local_production_efficiency = 0.1
 	}
 	chance = {
-		factor = 10
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -5851,9 +5800,7 @@ camel = {#+
 		}
 		modifier = {
 			factor = 0
-			NOT = {
-				has_climate = arid
-			}
+			NOT = {has_climate = arid}
 		}
 		modifier = {
 			factor = 1.5
@@ -5876,7 +5823,7 @@ gunpowder = {#latent
 		local_hostile_attrition = 1
 	}
 	chance = {
-		factor = 5
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -5931,10 +5878,14 @@ gunpowder = {#latent
 				province_id = 4020	#dur vazhatun beer
 			}
 		}
+		modifier = {
+			factor = 0.25
+			NOT = {owner = {mil_tech = 13}}
+		}
 	}
 }
 
-elephants = {#+
+elephants = {#
 	color = { 0.28 0.42 0.42 }
 	modifier = {
 	}
@@ -5942,7 +5893,7 @@ elephants = {#+
 		local_build_time = -0.3
 	}
 	chance = {
-		factor = 15
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -6016,9 +5967,8 @@ tin = {#+
 	province = {
 		trade_goods_size_modifier = 0.01
 	}
-
 	chance = {
-		factor = 10
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -6073,7 +6023,7 @@ tin = {#+
 			}
 		}
 		modifier = {
-			factor = 0
+			factor = 0.1
 			NOT = {
 				has_terrain = highlands
 				has_terrain = hills
@@ -6086,14 +6036,6 @@ tin = {#+
 		modifier = {
 			factor = 0.7
 			region = central_africa_region
-		}
-		modifier = { #Force Tradegood in a hold to avoid exploiting
-			factor = 10000
-			OR = {
-				province_id = 2963 #Hul-Jorkad
-				province_id = 4128 
-				province_id = 4266
-			}
 		}
 	}
 }
@@ -6108,7 +6050,7 @@ dates = {#
 		province_trade_power_value = 5	#0→5
 	}
 	chance = {
-		factor = 10
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -6169,7 +6111,7 @@ dates = {#
 			NOT = {
 				has_terrain = desert
 				has_terrain = coastal_desert
-				has_climate = date
+				has_climate = arid
 				has_terrain = drylands
 			}
 		}
@@ -6186,7 +6128,7 @@ cheese = {#latent
 		local_culture_conversion_cost = -0.20
 	}
 	chance = {
-		factor = 10
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -6253,9 +6195,9 @@ cheese = {#latent
 			factor = 0
 			NOT = {
 				has_terrain = farmlands
+				has_terrain = grasslands
 				has_terrain = drylands
 				has_terrain = city_terrain
-				has_terrain = grasslands
 				has_terrain = highlands
 			}
 		}
@@ -6272,7 +6214,7 @@ citrus = {#+
 		province_trade_power_value = 5
 	}
 	chance = {
-		factor = 10
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -6359,7 +6301,7 @@ seafood = {#+
 		local_sailors_modifier = 0.20
 	}
 	chance = {
-		factor = 10
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -6467,7 +6409,7 @@ carpet = {#latent
 		province_trade_power_modifier = 0.10
 	}
 	chance = {
-		factor = 10
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -6524,24 +6466,36 @@ carpet = {#latent
 			}
 		}
 		modifier = {
-			factor = 0
+			factor = 0.1
 			OR = {
 				has_terrain = cavern
 				has_terrain = dwarven_road
 				has_terrain = mushroom_forest_terrain
-				AND = {
-					NOT = { development = 18 }
-					NOT = { has_terrain = city_terrain }
-                }
 			}
 		}
 		modifier = {
-			factor = 2.0
-			development = 22
+			factor = 2
+			development = 15
 		}
 		modifier = {
 			factor = 2
+			development = 20
+		}
+		modifier = {
+			factor = 5
 			has_terrain = city_terrain
+		}
+		modifier = {
+			factor = 0.5
+			NOT = {development = 10}
+		}
+		modifier = {
+			factor = 0
+			OR = {
+				has_terrain = dwarven_under_hold
+				has_terrain = dwarven_road
+				has_terrain = cavern
+			}
 		}
 	}
 }
@@ -6555,7 +6509,7 @@ nutmeg = {
 		local_development_cost = -0.05
 	}
 	chance = {
-		factor = 1
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -6633,7 +6587,7 @@ maize = {
 		local_manpower_modifier = 0.15
 	}
 	chance = {
-		factor = 2
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -6708,7 +6662,7 @@ pearls = { #+
 		local_tax_modifier = 0.2
 	}
 	chance = {
-		factor = 10
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -6848,7 +6802,7 @@ metalworking = {#latent
 silver = {
 	color = { 0.33 0.38 0.44 }
 	chance = {
-		factor = 5
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -6905,15 +6859,85 @@ silver = {
 			}
 		}
 		modifier = {
-			factor = 0
-			NOT = {
-				has_terrain = mountain
-				has_terrain = highlands
-				has_terrain = hills
-				has_terrain = cavern
+			factor = 0.1
+			continent = europe
+			OR = {
+				has_terrain = forest
+				has_terrain = woods
+				has_terrain = drylands
+				has_terrain = grasslands
+				has_terrain = savannah
+				has_terrain = steppe
+				has_terrain = jungle
+				has_terrain = coastline
+				has_terrain = coastal_desert
+				has_terrain = marsh
+				has_terrain = city_terrain
+				has_terrain = mushroom_forest_terrain
+			}
+		}
+		modifier = {
+			factor = 0.25
+			OR = {
 				has_terrain = dwarven_under_hold
 				has_terrain = dwarven_road
+				superregion = forbidden_lands_superregion
 			}
+		}
+		modifier = {
+			factor = 1.5
+			OR = {
+				has_terrain = mountain
+				has_terrain = hills
+				has_terrain = highlands
+			}
+		}
+		modifier = {
+			factor = 2
+			OR = {
+				has_terrain = mountain
+				has_terrain = hills
+				has_terrain = highlands
+			}
+			OR = {
+				continent = north_america
+				continent = south_america
+			}
+		}
+		modifier = {
+			factor = 5
+			OR = {
+				has_terrain = mountain
+				has_terrain = hills
+				has_terrain = highlands
+			}
+			OR = { 
+				region = amadia_region # four provinces
+				region = dalaire_region # three provinces
+			}
+		}
+		modifier = {
+			factor = 1.5
+			OR = {
+				area = silvegor_area
+				area = borawid_area
+				area = chaka_nelir_area
+				area = oomu_nelir_area
+				area = paiss_siqum_area
+				area = chaiwafmul_area
+			}
+		}
+		modifier = {
+			factor = 1000	#dragon turtle's hoard
+			province_id = 2262
+		}
+		modifier = {
+			factor = 0.1
+			owner = { has_reform = roadwarrior_great_convoy }
+		}
+		modifier = {
+			factor = 2
+			owner = { has_reform = dwarovar_treasures_of_our_forefathers }
 		}
 	}
 }
@@ -6927,7 +6951,7 @@ exotic_animals = {
 		province_trade_power_modifier = 0.1
 	}
 	chance = {
-		factor = 10
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -6987,7 +7011,33 @@ exotic_animals = {
 			factor = 0
 			NOT = { continent = north_america }
 			NOT = { continent = south_america }
-
+		}
+		modifier = {
+			factor = 0.1
+			OR = {
+				has_terrain = dwarven_road
+				has_terrain = dwarven_hold
+				has_terrain = dwarven_under_hold
+				has_terrain = cavern
+				has_terrain = mountain
+				has_terrain = dwarven_road
+				has_terrain = glacier
+				has_terrain = marsh
+				has_terrain = hills
+				has_terrain = forest
+				has_terrain = woods
+				has_terrain = highlands
+				has_terrain = city_terrain
+			}
+		}
+		modifier = {
+			factor = 0.1
+			OR = {
+				has_climate = arid
+				has_winter = normal_winter
+				has_winter = mild_winter
+				has_winter = severe_winter
+			}
 		}
 	}
 }
@@ -7001,7 +7051,7 @@ vanilla = { #+
 		local_governing_cost = -0.2
 	}
 	chance = {
-		factor = 25
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -7068,11 +7118,30 @@ vanilla = { #+
 			}
 		}
 		modifier = {
-			factor = 0
+			factor = 0.1
 			OR = {
+				has_terrain = dwarven_road
+				has_terrain = dwarven_hold
+				has_terrain = dwarven_under_hold
+				has_terrain = cavern
 				has_terrain = mountain
+				has_terrain = dwarven_road
+				has_terrain = glacier
+				has_terrain = marsh
+				has_terrain = hills
+				has_terrain = forest
+				has_terrain = woods
 				has_terrain = highlands
+				has_terrain = city_terrain
+			}
+		}
+		modifier = {
+			factor = 0.1
+			OR = {
 				has_climate = arid
+				has_winter = normal_winter
+				has_winter = mild_winter
+				has_winter = severe_winter
 			}
 		}
 	}
@@ -7223,7 +7292,7 @@ ebony = {
 		local_development_cost = -0.05
 	}
 	chance = {
-		factor = 10
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -7318,7 +7387,7 @@ tar = {
 		naval_maintenance_modifier = -0.01
 	}
 	chance = {
-		factor = 10
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -7439,6 +7508,14 @@ tar = {
 				has_terrain = jungle
 			}
 		}
+		modifier = {
+			factor = 0
+			OR = {
+				has_terrain = dwarven_under_hold
+				has_terrain = dwarven_road
+				has_terrain = cavern
+			}
+		}
 	}
 }
 
@@ -7451,7 +7528,7 @@ sulfur = {  #TUtu pepega s provkami#
 		local_hostile_attrition = 1
 	}
 	chance = {
-		factor = 5
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -7506,17 +7583,11 @@ sulfur = {  #TUtu pepega s provkami#
 			}
 		}
 		modifier = {
-			factor = 2
+			factor = 1.25
 			OR  = {
 				has_terrain = cavern
 				has_terrain = dwarven_road
 				has_terrain = dwarven_hold
-			}
-
-		}
-		modifier = {
-			factor = 3
-			OR = {
 				has_terrain = highlands
 				has_terrain = mountain
 				has_terrain = hills
@@ -7535,13 +7606,6 @@ sulfur = {  #TUtu pepega s provkami#
 				has_terrain = drylands
 				has_terrain = steppe
 				has_terrain = savannah
-			}
-		}
-		modifier = { #Force Tradegood in a hold to avoid exploiting
-			factor = 10000
-			OR = {
-				province_id = 2863
-				province_id = 4218
 			}
 		}
 
@@ -7694,7 +7758,7 @@ maple_syrup = {
 		trade_value_modifier = 0.1
 	}
 	chance = {
-		factor = 10
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -7785,7 +7849,7 @@ potato = {
 		local_manpower_modifier = 0.15
 	}
 	chance = {
-		factor = 15
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -7969,7 +8033,7 @@ zinc = {#+
 		local_defensiveness = 0.15
 	}
 	chance = {
-		factor = 10
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -8024,7 +8088,7 @@ zinc = {#+
 			}
 		}
 		modifier = {
-			factor = 0
+			factor = 0.1
 			NOT = {
 				has_terrain = mountain
 				has_terrain = hills
@@ -8040,15 +8104,6 @@ zinc = {#+
 				has_terrain = mountain
 				has_terrain = hills
 				has_terrain = highlands
-			}
-		}
-		
-		modifier = { #Force Tradegood in a hold to avoid expliting
-			factor = 10000
-			OR = {
-				province_id = 4039 #gor burad
-				province_id = 4122
-				province_id = 4265
 			}
 		}
 	}
@@ -8133,7 +8188,7 @@ brass = {#+
 		local_monthly_devastation = -0.1
 	}
 	chance = {
-		factor = 3
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -8189,7 +8244,7 @@ brass = {#+
 			}
 		}
 		modifier = {
-			factor = 0
+			factor = 0.1
 			NOT = {
 				has_terrain = mountain
 				has_terrain = hills
@@ -8207,17 +8262,6 @@ brass = {#+
 				has_terrain = highlands
 			}
 		}
-		modifier = { #Force Tradegood in a hold to avoid exploiting
-			factor = 10000
-			OR = {
-			province_id = 4056
-
-			#momentaneo hasta que logre hacer que aparesca papel y glass respectivamente
-			province_id = 4119 
-			province_id = 4313
-
-			}
-		}	
 	}
 }
 
@@ -8287,15 +8331,7 @@ cannon = {#latent
 		}
 		modifier = { 
 			factor = 0	
-			owner = {
-				NOT = {mil_tech = 7}
-			}
-		}
-		modifier = { 
-			factor = 0.1
-			owner = {
-				NOT = {mil_tech = 13}
-			}
+			owner = {NOT = {mil_tech = 7}}
 		}
 	}
 }
@@ -8309,7 +8345,7 @@ tomato = {
 		local_manpower_modifier = 0.15
 	}
 	chance = {
-		factor = 15
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -8409,7 +8445,7 @@ champagne = {#latent
 		local_unrest = -1
 	}
 	chance = {
-		factor = 4
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -8483,7 +8519,7 @@ llama = {
 		local_production_efficiency = 0.1
 	}
 	chance = {
-		factor = 5
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -8559,7 +8595,7 @@ indigo = {
 		province_trade_power_modifier = 0.10
 	}
 	chance = {
-		factor = 5
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
@@ -8635,7 +8671,7 @@ sea_turtle = {
 		province_trade_power_modifier = 0.10
 	}
 	chance = {
-		factor = 10
+		factor = 100
 		modifier = {
 			factor = 0
 			OR = {
