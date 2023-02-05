@@ -5,8 +5,6 @@
 -- NDefines.NDiplomacy.MAX_CLIENT_STATES = 20
 
 NDefines.NGame.GREAT_PROJECT_WARSCORE_COST_MODIFIER = 0.1	--0.33→-0.1-- How much each great project multiplies a war score cost by (so 1 GP adds 33% 2 add 66% etc)
-NDefines.NGame.INFILTRATE_ADMINISTRATION_COST = 50 -- 40→50
-NDefines.NGame.INFILTRATE_ADMINISTRATION_DURATION = 8 -- 60→8
 NDefines.NGame.AE_SAME_RELIGION = 0.25	--0.5→0.25
 NDefines.NGame.AE_DIFFERENT_RELIGION = -0.75	-- -0.5→-0.75
 NDefines.NGame.AE_HRE_INTERNAL = 0.25	-- 0.5→0.25
@@ -28,6 +26,8 @@ NDefines.NDiplomacy.IMPERIAL_CITY_IA = 0.01	--0.005→0.01		-- Monthly per imper
 NDefines.NDiplomacy.CHANGE_COLONIAL_TYPE_COST = 0	--1000→0
 NDefines.NDiplomacy.CORRUPT_OFFICIALS_COST = 75	--25→75
 NDefines.NDiplomacy.PO_BECOME_VASSAL_AE = 0	--0.5→0
+NDefines.NDiplomacy.INFILTRATE_ADMINISTRATION_COST = 75 -- 40→75
+NDefines.NDiplomacy.INFILTRATE_ADMINISTRATION_DURATION = 0 -- 60→0
 
 NDefines.NCountry.CORRUPTION_FROM_BANNERS = 0	--5→0
 NDefines.NCountry.DISINHERIT_PRESTIGE_HIT = -25	-- -50→-25

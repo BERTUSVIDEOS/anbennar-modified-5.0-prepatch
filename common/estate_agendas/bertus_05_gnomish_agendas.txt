@@ -521,8 +521,10 @@ estate_gnomish_three_privileges = {
 		}
 		every_owned_province = {
 			limit = {culture_is_gnomish = yes}
-			add_unrest = -10
+			hidden_effect = {add_unrest = -10}
 			add_scaled_local_adm_power = 1
+			add_scaled_local_dip_power = 1
+			add_scaled_local_mil_power = 1
 		}
 		add_estate_influence_modifier = {
 			estate = estate_gnomish
@@ -1816,8 +1818,16 @@ estate_gnomish_develop_production_x = {
 			duration = 7300
 		}
 		event_target:agenda_province = {
-			get_tolerance_from_provinces = {
-				race = gnomish
+			if = {
+				limit = {owner = {high_tolerance_gnomish_race_trigger = yes}}				
+				get_prestige_from_provinces = {
+					prestige_per_dev = 0.1
+				}
+			}
+			else = {
+				get_tolerance_from_provinces = {
+					race = gnomish
+				}
 			}
 		}
 		
@@ -1920,10 +1930,18 @@ estate_gnomish_develop_tax_x = {
 			duration = 7300
 		}
 		event_target:agenda_province = {
-			get_tolerance_from_provinces = {
-				race = gnomish
+			if = {
+				limit = {owner = {high_tolerance_gnomish_race_trigger = yes}}				
+				get_prestige_from_provinces = {
+					prestige_per_dev = 0.1
+				}
 			}
-		}		
+			else = {
+				get_tolerance_from_provinces = {
+					race = gnomish
+				}
+			}
+		}
     }
     failing_effect = {
 		event_target:agenda_province = {
@@ -2023,8 +2041,16 @@ estate_gnomish_develop_manpower_x = {
 			duration = 7300
 		}
 		event_target:agenda_province = {
-			get_tolerance_from_provinces = {
-				race = gnomish
+			if = {
+				limit = {owner = {high_tolerance_gnomish_race_trigger = yes}}				
+				get_prestige_from_provinces = {
+					prestige_per_dev = 0.1
+				}
+			}
+			else = {
+				get_tolerance_from_provinces = {
+					race = gnomish
+				}
 			}
 		}
 		
