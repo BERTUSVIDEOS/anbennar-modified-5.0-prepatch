@@ -1,0 +1,79 @@
+namespace = sjr_lorent_set_up
+province_event = {
+	id = sjr_lorent_set_up.1001
+	title = sjr_lorent_set_up.1001.t
+	desc = sjr_lorent_set_up.1001.desc
+	picture = DIPLOMACY_eventPicture
+	
+	hidden = yes
+	
+    trigger = {
+		OR = {
+			AND = { #cuando hay que ponerlo
+				OR = {
+					region = lencenor_region
+					area = 	lorenans_reach_area
+					area = roysfort_area
+					area = the_borders_area
+					area = thomsbridge_area
+					area = applefields_area
+					area = lasean_area
+					area = carneteria_area
+					province_id = 63
+				}
+				NOT = {
+					has_province_modifier = peace_under_lorent_modifier
+				}
+				owner = {
+					OR = {
+						tag = A01
+						is_subject_of = A01
+					}
+					#NOT = { had_recent_war = 5 }
+					#is_at_war = NO
+				}
+				owner = { is_at_war = NO }
+				owner = { NOT = { had_recent_war = 2 } }
+				NOT = { has_global_flag = pax_lorentish_flag_off }
+			}
+			AND = {  #Cuando hay que quitarlo
+				has_province_modifier = peace_under_lorent_modifier
+				OR =  { 
+					NOT = {
+						owner = {
+							OR = {
+								tag = A01
+								is_subject_of = A01
+							}
+						}
+					}
+					owner = { is_at_war = yes }
+				}
+				#has_global_flag = pax_lorentish_flag_off
+			}
+		}
+    }
+	
+	immediate = {
+	
+	}
+	option = {
+		name = sjr_lorent_set_up.a
+		trigger = {
+			NOT = {
+				has_province_modifier = peace_under_lorent_modifier
+			}
+		}
+		add_province_modifier = { 
+			name = peace_under_lorent_modifier
+			duration = -1  
+		}
+	}
+	option = {
+		name = sjr_lorent_set_up.b
+		trigger = {
+			has_province_modifier = peace_under_lorent_modifier
+		}
+		remove_province_modifier = peace_under_lorent_modifier
+	}
+}

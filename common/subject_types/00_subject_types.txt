@@ -59,6 +59,7 @@ gylikheion = {}
 patronate = {}
 subject_free_city = {}
 holy_order_subject = {}
+lorent_sphere_subject = {}
 
 default = {
 	# Graphics:
@@ -882,9 +883,11 @@ tributary_state = {
 					#Anbennar
 					culture_group = gnollish
 					culture_group = ogre
+					primary_cultur = high_lorentish
 				}
 			}
 			has_country_flag = forced_tributary_state	#A special flag for the Ottomans so they can get Crimea without allowing them to make tributaries by default
+			primary_cultur = high_lorentish
 		}
 		#Anbennar
 		NOT = {
@@ -2896,5 +2899,109 @@ holy_order_subject = {	#bertus mod
 				has_government_attribute = subject_tax_modifier_25
 			}
 		}
+	}
+}
+
+
+lorent_sphere_subject = {
+	#If similar subject added check if it needs to be added to these scripted triggers:
+	#is_subject_except_tributary_trigger
+	#is_free_or_tributary_trigger
+	copy_from = default
+	can_have_great_projects_moved_by_overlord = no
+
+	# Triggers:
+	is_potential_overlord = {
+		tag = A01
+	}
+	# Graphics:
+	sprite = GFX_subject_tributary_state
+	diplomacy_overlord_sprite = GFX_diplomacy_leadtributary
+	diplomacy_subject_sprite = GFX_diplomacy_amtributary
+
+	# Properties:
+	can_fight_independence_war = no
+	joins_overlords_wars = no
+	joins_colonial_wars = no
+	is_voluntary = yes
+	overlord_can_attack = yes
+	takes_diplo_slot = no
+	base_liberty_desire = -10
+	relative_power_class = 1
+	should_quit_wars_on_activation = no
+	can_send_tribute = yes
+	can_have_subjects_of_other_types = yes
+	uses_military_focus = no
+	overlord_protects_external = yes
+	counts_for_borders = no
+	can_use_claims = no
+	share_rebel_popup = no
+	can_transfer_in_peace = no
+	can_set_mil_focus = no
+	can_send_missionary_to_subject = no
+	overlord_can_fabricate_for = no
+	does_overlord_size_count_for_warscore_cost = no
+	can_concentrate_development = no
+
+	forcelimit_to_overlord = 0.25						# Percent of subject FL to use as base for modifiers
+	naval_forcelimit_to_overlord = 0.25					# Percent of subject FL to use as base for modifiers
+	manpower_to_overlord = 0.25							# Percent of subject FL to use as base for modifiers
+	sailors_to_overlord = 0.25							# Percent of subject FL to use as base for modifiers
+	pays_overlord = 0.5									# 1.0 represents the amount payed by vassals
+	
+	liberty_desire_development_ratio = 0.25
+	trust_on_start = 0
+	
+	overlord_opinion_modifier = is_tributary
+	subject_opinion_modifier = is_tributary
+	
+	can_fight = {
+		independent_nations = yes
+		same_overlord = lorent_sphere_subject 
+		other_overlord = all
+	}
+	can_rival = {
+		independent_nations = yes
+		same_overlord = lorent_sphere_subject 
+		other_overlord = all
+	}
+	can_ally = {
+		independent_nations = yes
+		same_overlord = lorent_sphere_subject 
+		other_overlord = all
+	}
+	can_marry = {
+		independent_nations = yes
+		same_overlord = lorent_sphere_subject 
+		other_overlord = all
+	}
+
+	# Subject Interactions:
+	# (immediate)
+	enforce_religion = no
+	grant_core_claim = no
+	bestow_gifts = no
+	send_additional_troops = no
+	demand_artifacts = no
+	demand_additional_tribute = no
+	block_settlement_growth = no
+	allow_settlement_growth = no
+	placate_rulers = no
+	knowledge_sharing = no
+	# (continuous)
+	embargo_rivals = no
+
+	# Modifiers:
+	modifier_subject = clear # Tributaries don't get the ordinary subject_nation penalty 
+	modifier_subject = clear #Ditto
+	#modifier_subject = {
+	#	modifier = 		#tributary_state_behind_overlord_tech_adm
+	#}
+	modifier_overlord = {
+		modifier = 	lorent_sphere_subject_Overlord_bonus	#tributary_state_behind_overlord_tech_dip
+	}
+	modifier_subject = {
+		#if lorent has more than 4 subjects
+		modifier = 	lorent_sphere_subject_subject_bonus	#tributary_state_behind_overlord_tech_dip
 	}
 }
