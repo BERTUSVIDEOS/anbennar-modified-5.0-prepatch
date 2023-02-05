@@ -10,20 +10,26 @@ magisterium_invite_organization_action = {
     }
 	
 	is_allowed = {
-		FROM = { NOT = {war_with = ROOT}}
-		FROM = { has_opinion = {who = ROOT value = 100}}
+		custom_trigger_tooltip = {
+			tooltip = not_war_with_root_tt
+			FROM = { NOT = {war_with = ROOT}}
+		}
+		custom_trigger_tooltip = {
+			tooltip = from_has_100_opinion_tt
+			FROM = { has_opinion = {who = ROOT value = 100}}
+		}
 	}
 
     on_accept = {
 		FROM = {
 			set_estate_privilege = estate_mages_organization_magisterium			
-			if = {limit = {has_estate_privilege = estate_mages_organization_state} revoke_estate_privilege = estate_mages_organization_state}
-			if = {limit = {has_estate_privilege = estate_mages_organization_guilds} revoke_estate_privilege = estate_mages_organization_guilds}
-			if = {limit = {has_estate_privilege = estate_mages_organization_religious} revoke_estate_privilege = estate_mages_organization_religious}
-			if = {limit = {has_estate_privilege = estate_mages_organization_covenant} revoke_estate_privilege = estate_mages_organization_covenant}
-			if = {limit = {has_estate_privilege = estate_mages_organization_elissa} revoke_estate_privilege = estate_mages_organization_elissa}
-			if = {limit = {has_estate_privilege = estate_mages_organization_bardic_college} revoke_estate_privilege = estate_mages_organization_bardic_college}
-			if = {limit = {has_estate_privilege = estate_mages_organization_ice_smiths} revoke_estate_privilege = estate_mages_organization_ice_smiths}
+			if = {limit = {has_estate_privilege = estate_mages_organization_state} remove_estate_privilege = estate_mages_organization_state}
+			if = {limit = {has_estate_privilege = estate_mages_organization_guilds} remove_estate_privilege = estate_mages_organization_guilds}
+			if = {limit = {has_estate_privilege = estate_mages_organization_religious} remove_estate_privilege = estate_mages_organization_religious}
+			if = {limit = {has_estate_privilege = estate_mages_organization_covenant} remove_estate_privilege = estate_mages_organization_covenant}
+			if = {limit = {has_estate_privilege = estate_mages_organization_elissa} remove_estate_privilege = estate_mages_organization_elissa}
+			if = {limit = {has_estate_privilege = estate_mages_organization_bardic_college} remove_estate_privilege = estate_mages_organization_bardic_college}
+			if = {limit = {has_estate_privilege = estate_mages_organization_ice_smiths} remove_estate_privilege = estate_mages_organization_ice_smiths}
 			add_stability = -2
 		}
 	}
@@ -56,9 +62,18 @@ magisterium_study_assistance_action = {
     }
 	
 	is_allowed = {
-		FROM = { ruler_studying_magic = yes }
-		FROM = { has_opinion = {who = ROOT value = 100}}
-		FROM = { NOT = {war_with = ROOT}}
+		custom_trigger_tooltip = {
+			tooltip = from_is_studying_magic_tt
+			FROM = { ruler_studying_magic = yes }
+		}
+		custom_trigger_tooltip = {
+			tooltip = from_has_100_opinion_tt
+			FROM = { has_opinion = {who = ROOT value = 100}}
+		}
+		custom_trigger_tooltip = {
+			tooltip = not_war_with_root_tt
+			FROM = { NOT = {war_with = ROOT}}
+		}
 	}
 
     on_accept = {
@@ -73,6 +88,7 @@ magisterium_study_assistance_action = {
 }
 cancel_magisterium_study_assistance_action = {
 	category = influence
+	alert_index = 21
 	
 	require_acceptance = no
 	
@@ -92,8 +108,9 @@ cancel_magisterium_study_assistance_action = {
 		always = no
 	}
 }
-denounce_banned_studying_action = {
+magister_sphere_denounce_action = {
 	category = influence
+	alert_index = 21
 	
 	require_acceptance = no
 	
@@ -106,7 +123,10 @@ denounce_banned_studying_action = {
 	}
 
     on_accept = {
-		FROM = { set_ruler_flag = magister_denounced_flag }
+		FROM = { 
+			set_ruler_flag = magister_denounced_flag 
+			country_event = {id = bertus_changes.1117}
+		}
 	}
 	
 	ai_will_do = {
@@ -115,9 +135,9 @@ denounce_banned_studying_action = {
 }
 
 magisterium_investigate_action = {
-	category = covert
+	category = influence
 	require_acceptance = no
-	alert_index = 42
+	alert_index = 21
 	
 	is_visible = {
 		FROM = { has_estate_privilege = estate_mages_organization_magisterium }
@@ -125,8 +145,14 @@ magisterium_investigate_action = {
     }
 	
 	is_allowed = {
-		has_spy_network_in = {who = FROM value = 50}
-		FROM = { magisterium_can_investigate = yes}
+		custom_trigger_tooltip = {
+			tooltip = need_50_spy_network_tt
+			has_spy_network_in = {who = FROM value = 50}
+		}
+		custom_trigger_tooltip = {
+			tooltip = magisterium_can_investigate_tt
+			FROM = { magisterium_can_investigate = yes}
+		}
 	}
 
     on_accept = {
@@ -150,8 +176,9 @@ magisterium_investigate_action = {
 	}
 }
 cancel_magisterium_investigate_action = {
-	category = covert	
+	category = influence	
 	require_acceptance = no
+	alert_index = 21
 	
 	is_visible = {
 		FROM = { has_ruler_flag = magisterium_investigating_flag_@ROOT }
