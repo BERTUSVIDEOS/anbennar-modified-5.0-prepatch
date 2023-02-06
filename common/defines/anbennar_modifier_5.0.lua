@@ -29,6 +29,7 @@ NDefines.NDiplomacy.PO_BECOME_VASSAL_AE = 0	--0.5→0
 NDefines.NDiplomacy.INFILTRATE_ADMINISTRATION_COST = 75 -- 40→75
 NDefines.NDiplomacy.INFILTRATE_ADMINISTRATION_DURATION = 0 -- 60→0
 
+NDefines.NCountry.CHANGE_COLONIAL_TYPE_COOLDOWN_DURATION = 0    --10→0
 NDefines.NCountry.CORRUPTION_FROM_BANNERS = 0	--5→0
 NDefines.NCountry.DISINHERIT_PRESTIGE_HIT = -25	-- -50→-25
 NDefines.NCountry.EMBRACE_INSTITUTION_COST = 2.5	-- 2.5 per development (autonomy modified)
