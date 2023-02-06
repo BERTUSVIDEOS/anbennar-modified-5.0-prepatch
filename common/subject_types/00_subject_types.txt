@@ -2915,9 +2915,9 @@ lorent_sphere_subject = {
 		tag = A01
 	}
 	# Graphics:
-	sprite = GFX_subject_tributary_state
-	diplomacy_overlord_sprite = GFX_diplomacy_leadtributary
-	diplomacy_subject_sprite = GFX_diplomacy_amtributary
+	sprite = GFX_icon_lorent_sphere_subject
+	diplomacy_overlord_sprite = GFX_diplomacy_lead_lorent_sphere_subject
+	diplomacy_subject_sprite = GFX_diplomacy_am_lorent_sphere_subject
 
 	# Properties:
 	can_fight_independence_war = no
@@ -2945,7 +2945,7 @@ lorent_sphere_subject = {
 
 	forcelimit_to_overlord = 0.25						# Percent of subject FL to use as base for modifiers
 	naval_forcelimit_to_overlord = 0.25					# Percent of subject FL to use as base for modifiers
-	manpower_to_overlord = 0.25							# Percent of subject FL to use as base for modifiers
+	manpower_to_overlord = 0.33							# Percent of subject FL to use as base for modifiers
 	sailors_to_overlord = 0.25							# Percent of subject FL to use as base for modifiers
 	pays_overlord = 0.5									# 1.0 represents the amount payed by vassals
 	
@@ -2998,10 +2998,22 @@ lorent_sphere_subject = {
 	#	modifier = 		#tributary_state_behind_overlord_tech_adm
 	#}
 	modifier_overlord = {
-		modifier = 	lorent_sphere_subject_Overlord_bonus	#tributary_state_behind_overlord_tech_dip
+		#if lorent is IA
+		modifier = 	lorent_sphere_subject_Overlord_bonus	
+		trigger = {
+			overlord = {
+				AI = yes
+			}
+		}
+
 	}
 	modifier_subject = {
-		#if lorent has more than 4 subjects
-		modifier = 	lorent_sphere_subject_subject_bonus	#tributary_state_behind_overlord_tech_dip
+		#if lorent is IA
+		modifier = 	lorent_sphere_subject_subject_bonus	
+		trigger = {
+			overlord = {
+				AI = yes
+			}
+		}
 	}
 }
