@@ -1,8 +1,9 @@
 namespace = sjr_lorent_set_up
+
 province_event = {
-	id = sjr_lorent_set_up.1001
-	title = sjr_lorent_set_up.1001.t
-	desc = sjr_lorent_set_up.1001.desc
+	id = sjr_lorent_set_up.1
+	title = sjr_lorent_set_up.1.t
+	desc = sjr_lorent_set_up.1.desc
 	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
@@ -34,7 +35,7 @@ province_event = {
 				}
 				owner = { is_at_war = NO }
 				owner = { NOT = { had_recent_war = 2 } }
-				NOT = { has_global_flag = pax_lorentish_flag_off }
+				NOT = { has_global_flag = peace_under_lorent_flag_off }
 			}
 			AND = {  #Cuando hay que quitarlo
 				has_province_modifier = peace_under_lorent_modifier
@@ -48,8 +49,8 @@ province_event = {
 						}
 					}
 					owner = { is_at_war = yes }
+					has_global_flag = peace_under_lorent_flag_off
 				}
-				#has_global_flag = pax_lorentish_flag_off
 			}
 		}
     }
@@ -58,7 +59,7 @@ province_event = {
 	
 	}
 	option = {
-		name = sjr_lorent_set_up.a
+		name = sjr_lorent_set_up.1.a
 		trigger = {
 			NOT = {
 				has_province_modifier = peace_under_lorent_modifier
@@ -70,10 +71,108 @@ province_event = {
 		}
 	}
 	option = {
-		name = sjr_lorent_set_up.b
+		name = sjr_lorent_set_up.1.b
 		trigger = {
 			has_province_modifier = peace_under_lorent_modifier
 		}
 		remove_province_modifier = peace_under_lorent_modifier
+	}
+}
+
+
+
+country_event = {
+	id = sjr_lorent_set_up.2
+	title = sjr_lorent_set_up_off.2.t
+	desc = sjr_lorent_set_up_off.2.desc
+	picture = DIPLOMACY_eventPicture
+	
+	hidden = yes
+	#major = yes
+	#major_trigger = {
+	#	#Capital in lencenor
+	#}
+
+    trigger = {
+		A01 = {
+			not = { lorent_sphere_subject = 5 }
+		}
+		not = { has_global_flag = peace_under_lorent_flag_off }
+	}
+		
+	immediate = {
+	
+	}
+	option = {
+		name = sjr_lorent_set_up.2.a
+		trigger = {
+		}
+		set_global_flag = peace_under_lorent_flag_off
+	}
+}
+
+
+country_event = {
+	id = sjr_lorent_set_up.3
+	title = sjr_lorent_set_up_off.3.t
+	desc = sjr_lorent_set_up_off.3.desc
+	picture = PLAGUE_eventPicture
+	
+	hidden = no
+	fire_only_once = yes
+	
+    trigger = {
+		NOT = { is_year = 1446 }
+		tag = A01
+		#AI = no
+	}
+		
+	immediate = {
+	
+	}
+	option = {
+		name = sjr_lorent_set_up.3.a
+		trigger = {
+			AI = no
+		}
+		add_country_modifier = { 
+			name = lorent_player_modifier
+			duration = 3650
+			#desc = LORENT_PLAYER_modifier_DESC_TOOLTIP
+			#hidden = no
+		}
+		add_stability = -1
+		add_war_exhaustion = 10
+		add_corruption = 5
+		add_manpower = -30
+		add_sailors = -5000
+		#add_truce_with = A20
+		#add_truce_with = A04
+		#add_truce_with = A88
+		#add_truce_with = A11
+		#add_truce_with = Z11
+		#add_truce_with = A12
+		#add_truce_with = A22
+		#add_truce_with = A87
+	}
+	option = {
+		name = sjr_lorent_set_up.3.b
+		trigger = {
+			AI = YES
+		}
+		add_country_modifier = { 
+			name = lorent_AI_modifier
+			duration = 3650
+			#desc = LORENT_PLAYER_modifier_DESC_TOOLTIP
+			#hidden = no
+		}
+		#add_truce_with = A20
+		#add_truce_with = A04
+		#add_truce_with = A88
+		#add_truce_with = A11
+		#add_truce_with = Z11
+		#add_truce_with = A12
+		#add_truce_with = A22
+		#add_truce_with = A87
 	}
 }
