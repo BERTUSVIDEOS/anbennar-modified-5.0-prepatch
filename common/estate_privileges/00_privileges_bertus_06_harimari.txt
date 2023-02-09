@@ -1419,14 +1419,32 @@ estate_harimari_intolerance_policy = {
 				NOT = { culture_is_harimari = yes }
 				war_with = root
 			}
+			NOT = {has_government_attribute = faster_purguing_reform}
 		}
 		modifier = {
-			land_morale = 0.05
-			shock_damage_received = -0.05
-			fire_damage_received = -0.05
+			morale_damage = 0.05
+			shock_damage = 0.05
+			fire_damage = 0.05
 			manpower_recovery_speed = 0.1
 			reinforce_speed = 0.1
 			recover_army_morale_speed = 0.025			
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			any_known_country = {
+				NOT = { culture_is_harimari = yes }
+				war_with = root
+			}
+			has_government_attribute = faster_purguing_reform
+		}
+		modifier = {
+			morale_damage = 0.10
+			shock_damage = 0.10
+			fire_damage = 0.10
+			manpower_recovery_speed = 0.2
+			reinforce_speed = 0.2
+			recover_army_morale_speed = 0.05			
 		}
 	}
 	conditional_modifier = {
@@ -1772,7 +1790,12 @@ estate_harimari_militar_education = {
 estate_harimari_colonizers = {
 	icon = privilege_new_world_mission
 	is_valid = {
-		num_of_colonists = 1
+		OR = {
+			num_of_colonists = 1
+			any_neighbor_province = {
+				is_city = no
+			}
+		}
 	}
 	can_select = {
 		estate_influence = {
@@ -1789,6 +1812,7 @@ estate_harimari_colonizers = {
 	}
 	modifier = {
 		global_colonial_growth = 20
+		colonists = 1
 		yearly_corruption = 0.2
 	}
 	penalties = {
@@ -1839,9 +1863,9 @@ estate_harimari_monopoly_of_incense = {
 				trade_goods = incense
 				culture_is_harimari = yes
 			}
-			custom_tooltip = harimari_MONOPOLY_INCOME_INCENSE_DESC
+			custom_tooltip = HARIMARI_MONOPOLY_INCOME_INCENSE_DESC
 		}
-		custom_tooltip = harimari_MONOPOLY_INCOME_PRODUCTION_BOOST_1.3_DESC
+		custom_tooltip = HARIMARI_MONOPOLY_INCOME_PRODUCTION_BOOST_1.3_DESC
 		custom_tooltip = estate_harimari_monopoly_of_incense_effect_tooltip
 	}
 	on_granted_province = {
@@ -1919,9 +1943,9 @@ estate_harimari_monopoly_of_livestock = {
 				trade_goods = livestock
 				culture_is_harimari = yes
 			}
-			custom_tooltip = harimari_MONOPOLY_INCOME_LIVESTOCK_DESC
+			custom_tooltip = HARIMARI_MONOPOLY_INCOME_LIVESTOCK_DESC
 		}
-		custom_tooltip = harimari_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = HARIMARI_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_harimari_monopoly_of_livestock_effect_tooltip
 	}
 	on_granted_province = {
@@ -1996,9 +2020,9 @@ estate_harimari_monopoly_of_glass = {
 				trade_goods = glass
 				culture_is_harimari = yes
 			}
-			custom_tooltip = harimari_MONOPOLY_INCOME_GLASS_DESC
+			custom_tooltip = HARIMARI_MONOPOLY_INCOME_GLASS_DESC
 		}
-		custom_tooltip = harimari_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = HARIMARI_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_harimari_monopoly_of_glass_effect_tooltip
 	}
 	on_granted_province = {
@@ -2073,9 +2097,9 @@ estate_harimari_monopoly_of_paper = {
 				trade_goods = paper
 				culture_is_harimari = yes
 			}
-			custom_tooltip = harimari_MONOPOLY_INCOME_PAPER_DESC
+			custom_tooltip = HARIMARI_MONOPOLY_INCOME_PAPER_DESC
 		}
-		custom_tooltip = harimari_MONOPOLY_INCOME_PRODUCTION_BOOST_1.3_DESC
+		custom_tooltip = HARIMARI_MONOPOLY_INCOME_PRODUCTION_BOOST_1.3_DESC
 		custom_tooltip = estate_harimari_monopoly_of_paper_effect_tooltip
 	}
 	on_granted_province = {
@@ -2150,9 +2174,9 @@ estate_harimari_monopoly_of_silk = {
 				trade_goods = silk
 				culture_is_harimari = yes
 			}
-			custom_tooltip = harimari_MONOPOLY_INCOME_SILK_DESC
+			custom_tooltip = HARIMARI_MONOPOLY_INCOME_SILK_DESC
 		}
-		custom_tooltip = harimari_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = HARIMARI_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_harimari_monopoly_of_silk_effect_tooltip
 	}
 	on_granted_province = {
@@ -2230,9 +2254,9 @@ estate_harimari_monopoly_of_fur = {
 				trade_goods = fur
 				culture_is_harimari = yes
 			}
-			custom_tooltip = harimari_MONOPOLY_INCOME_FUR_DESC
+			custom_tooltip = HARIMARI_MONOPOLY_INCOME_FUR_DESC
 		}
-		custom_tooltip = harimari_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = HARIMARI_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_harimari_monopoly_of_fur_effect_tooltip
 	}
 	on_granted_province = {
@@ -2307,9 +2331,9 @@ estate_harimari_monopoly_of_ivory = {
 				trade_goods = ivory
 				culture_is_harimari = yes
 			}
-			custom_tooltip = harimari_MONOPOLY_INCOME_IVORY_DESC
+			custom_tooltip = HARIMARI_MONOPOLY_INCOME_IVORY_DESC
 		}
-		custom_tooltip = harimari_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = HARIMARI_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_harimari_monopoly_of_ivory_effect_tooltip
 	}
 	on_granted_province = {
@@ -2384,9 +2408,9 @@ estate_harimari_monopoly_of_tea = {
 				trade_goods = tea
 				culture_is_harimari = yes
 			}
-			custom_tooltip = harimari_MONOPOLY_INCOME_TEA_DESC
+			custom_tooltip = HARIMARI_MONOPOLY_INCOME_TEA_DESC
 		}
-		custom_tooltip = harimari_MONOPOLY_INCOME_PRODUCTION_BOOST_1.3_DESC
+		custom_tooltip = HARIMARI_MONOPOLY_INCOME_PRODUCTION_BOOST_1.3_DESC
 		custom_tooltip = estate_harimari_monopoly_of_tea_effect_tooltip
 	}
 	on_granted_province = {
@@ -2461,9 +2485,9 @@ estate_harimari_monopoly_of_chinaware = {
 				trade_goods = chinaware
 				culture_is_harimari = yes
 			}
-			custom_tooltip = harimari_MONOPOLY_INCOME_CHINAWARE_DESC
+			custom_tooltip = HARIMARI_MONOPOLY_INCOME_CHINAWARE_DESC
 		}
-		custom_tooltip = harimari_MONOPOLY_INCOME_PRODUCTION_BOOST_1.3_DESC
+		custom_tooltip = HARIMARI_MONOPOLY_INCOME_PRODUCTION_BOOST_1.3_DESC
 		custom_tooltip = estate_harimari_monopoly_of_chinaware_effect_tooltip
 	}
 	on_granted_province = {
@@ -2538,9 +2562,9 @@ estate_harimari_monopoly_of_spices = {
 				trade_goods = spices
 				culture_is_harimari = yes
 			}
-			custom_tooltip = harimari_MONOPOLY_INCOME_SPICES_DESC
+			custom_tooltip = HARIMARI_MONOPOLY_INCOME_SPICES_DESC
 		}
-		custom_tooltip = harimari_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = HARIMARI_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_harimari_monopoly_of_spices_effect_tooltip
 	}
 	on_granted_province = {
@@ -2615,9 +2639,9 @@ estate_harimari_monopoly_of_coffee = {
 				trade_goods = coffee
 				culture_is_harimari = yes
 			}
-			custom_tooltip = harimari_MONOPOLY_INCOME_COFFEE_DESC
+			custom_tooltip = HARIMARI_MONOPOLY_INCOME_COFFEE_DESC
 		}
-		custom_tooltip = harimari_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = HARIMARI_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_harimari_monopoly_of_coffee_effect_tooltip
 	}
 	on_granted_province = {
@@ -2692,9 +2716,9 @@ estate_harimari_monopoly_of_cotton = {
 				trade_goods = cotton
 				culture_is_harimari = yes
 			}
-			custom_tooltip = harimari_MONOPOLY_INCOME_COTTON_DESC
+			custom_tooltip = HARIMARI_MONOPOLY_INCOME_COTTON_DESC
 		}
-		custom_tooltip = harimari_MONOPOLY_INCOME_PRODUCTION_BOOST_1.3_DESC
+		custom_tooltip = HARIMARI_MONOPOLY_INCOME_PRODUCTION_BOOST_1.3_DESC
 		custom_tooltip = estate_harimari_monopoly_of_cotton_effect_tooltip
 	}
 	on_granted_province = {
@@ -2769,9 +2793,9 @@ estate_harimari_monopoly_of_sugar = {
 				trade_goods = sugar
 				culture_is_harimari = yes
 			}
-			custom_tooltip = harimari_MONOPOLY_INCOME_SUGAR_DESC
+			custom_tooltip = HARIMARI_MONOPOLY_INCOME_SUGAR_DESC
 		}
-		custom_tooltip = harimari_MONOPOLY_INCOME_PRODUCTION_BOOST_1.3_DESC
+		custom_tooltip = HARIMARI_MONOPOLY_INCOME_PRODUCTION_BOOST_1.3_DESC
 		custom_tooltip = estate_harimari_monopoly_of_sugar_effect_tooltip
 	}
 	on_granted_province = {
@@ -2846,9 +2870,9 @@ estate_harimari_monopoly_of_tropical_wood = {
 				trade_goods = tropical_wood
 				culture_is_harimari = yes
 			}
-			custom_tooltip = harimari_MONOPOLY_INCOME_TROPICAL_WOOD_DESC
+			custom_tooltip = HARIMARI_MONOPOLY_INCOME_TROPICAL_WOOD_DESC
 		}
-		custom_tooltip = harimari_MONOPOLY_INCOME_PRODUCTION_BOOST_1.3_DESC
+		custom_tooltip = HARIMARI_MONOPOLY_INCOME_PRODUCTION_BOOST_1.3_DESC
 		custom_tooltip = estate_harimari_monopoly_of_tropical_wood_effect_tooltip
 	}
 	on_granted_province = {
@@ -2923,9 +2947,9 @@ estate_harimari_monopoly_of_cloves = {
 				trade_goods = cloves
 				culture_is_harimari = yes
 			}
-			custom_tooltip = harimari_MONOPOLY_INCOME_CLOVES_DESC
+			custom_tooltip = HARIMARI_MONOPOLY_INCOME_CLOVES_DESC
 		}
-		custom_tooltip = harimari_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = HARIMARI_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_harimari_monopoly_of_cloves_effect_tooltip
 	}
 	on_granted_province = {
@@ -3000,9 +3024,9 @@ estate_harimari_monopoly_of_precursor_relics = {
 				trade_goods = precursor_relics
 				culture_is_harimari = yes
 			}
-			custom_tooltip = harimari_MONOPOLY_INCOME_PRECURSOR_RELICS_DESC
+			custom_tooltip = HARIMARI_MONOPOLY_INCOME_PRECURSOR_RELICS_DESC
 		}
-		custom_tooltip = harimari_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = HARIMARI_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_harimari_monopoly_of_precursor_relics_effect_tooltip
 	}
 	on_granted_province = {
@@ -3080,9 +3104,9 @@ estate_harimari_monopoly_of_amber = {
 				trade_goods = amber
 				culture_is_harimari = yes
 			}
-			custom_tooltip = harimari_MONOPOLY_INCOME_AMBER_DESC
+			custom_tooltip = HARIMARI_MONOPOLY_INCOME_AMBER_DESC
 		}
-		custom_tooltip = harimari_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC	
+		custom_tooltip = HARIMARI_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC	
 		custom_tooltip = estate_harimari_monopoly_of_amber_effect_tooltip
 	}
 	on_granted_province = {
@@ -3160,9 +3184,9 @@ estate_harimari_monopoly_of_apiculture = {
 				trade_goods = apiculture
 				culture_is_harimari = yes
 			}
-			custom_tooltip = harimari_MONOPOLY_INCOME_APICULTURE_DESC
+			custom_tooltip = HARIMARI_MONOPOLY_INCOME_APICULTURE_DESC
 		}
-		custom_tooltip = harimari_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = HARIMARI_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_harimari_monopoly_of_apiculture_effect_tooltip
 	}
 	on_granted_province = {
@@ -3240,9 +3264,9 @@ estate_harimari_monopoly_of_carpet = {
 				trade_goods = carpet
 				culture_is_harimari = yes
 			}
-			custom_tooltip = harimari_MONOPOLY_INCOME_CARPET_DESC
+			custom_tooltip = HARIMARI_MONOPOLY_INCOME_CARPET_DESC
 		}
-		custom_tooltip = harimari_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = HARIMARI_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_harimari_monopoly_of_carpet_effect_tooltip
 	}
 	on_granted_province = {
@@ -3320,9 +3344,9 @@ estate_harimari_monopoly_of_cinnamon = {
 				trade_goods = cinnamon
 				culture_is_harimari = yes
 			}
-			custom_tooltip = harimari_MONOPOLY_INCOME_CHINNAMON_DESC
+			custom_tooltip = HARIMARI_MONOPOLY_INCOME_CHINNAMON_DESC
 		}
-		custom_tooltip = harimari_MONOPOLY_INCOME_PRODUCTION_BOOST_1.3_DESC
+		custom_tooltip = HARIMARI_MONOPOLY_INCOME_PRODUCTION_BOOST_1.3_DESC
 		custom_tooltip = estate_harimari_monopoly_of_cinnamon_effect_tooltip
 	}
 	on_granted_province = {
@@ -3400,9 +3424,9 @@ estate_harimari_monopoly_of_citrus = {
 				trade_goods = citrus
 				culture_is_harimari = yes
 			}
-			custom_tooltip = harimari_MONOPOLY_INCOME_CITRUS_DESC
+			custom_tooltip = HARIMARI_MONOPOLY_INCOME_CITRUS_DESC
 		}
-		custom_tooltip = harimari_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = HARIMARI_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_harimari_monopoly_of_citrus_effect_tooltip
 	}
 	on_granted_province = {
@@ -3480,9 +3504,9 @@ estate_harimari_monopoly_of_dates = {
 				trade_goods = dates
 				culture_is_harimari = yes
 			}
-			custom_tooltip = harimari_MONOPOLY_INCOME_DATES_DESC
+			custom_tooltip = HARIMARI_MONOPOLY_INCOME_DATES_DESC
 		}
-		custom_tooltip = harimari_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = HARIMARI_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_harimari_monopoly_of_dates_effect_tooltip
 	}
 	on_granted_province = {
@@ -3560,9 +3584,9 @@ estate_harimari_monopoly_of_ebony = {
 				trade_goods = ebony
 				culture_is_harimari = yes
 			}
-			custom_tooltip = harimari_MONOPOLY_INCOME_EBONY_DESC
+			custom_tooltip = HARIMARI_MONOPOLY_INCOME_EBONY_DESC
 		}
-		custom_tooltip = harimari_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = HARIMARI_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_harimari_monopoly_of_ebony_effect_tooltip
 	}
 	on_granted_province = {
@@ -3640,9 +3664,9 @@ estate_harimari_monopoly_of_elephants = {
 				trade_goods = elephants
 				culture_is_harimari = yes
 			}
-			custom_tooltip = harimari_MONOPOLY_INCOME_ELEPHANTS_DESC
+			custom_tooltip = HARIMARI_MONOPOLY_INCOME_ELEPHANTS_DESC
 		}
-		custom_tooltip = harimari_MONOPOLY_INCOME_PRODUCTION_BOOST_1.3_DESC
+		custom_tooltip = HARIMARI_MONOPOLY_INCOME_PRODUCTION_BOOST_1.3_DESC
 		custom_tooltip = estate_harimari_monopoly_of_elephants_effect_tooltip
 	}
 	on_granted_province = {
@@ -3720,9 +3744,9 @@ estate_harimari_monopoly_of_exotic_animals = {
 				trade_goods = exotic_animals
 				culture_is_harimari = yes
 			}
-			custom_tooltip = harimari_MONOPOLY_INCOME_EXOTIC_ANIMALS_DESC
+			custom_tooltip = HARIMARI_MONOPOLY_INCOME_EXOTIC_ANIMALS_DESC
 		}
-		custom_tooltip = harimari_MONOPOLY_INCOME_PRODUCTION_BOOST_1.3_DESC
+		custom_tooltip = HARIMARI_MONOPOLY_INCOME_PRODUCTION_BOOST_1.3_DESC
 		custom_tooltip = estate_harimari_monopoly_of_exotic_animals_effect_tooltip
 	}
 	on_granted_province = {
@@ -3800,9 +3824,9 @@ estate_harimari_monopoly_of_indigo = {
 				trade_goods = indigo
 				culture_is_harimari = yes
 			}
-			custom_tooltip = harimari_MONOPOLY_INCOME_INDIGO_DESC
+			custom_tooltip = HARIMARI_MONOPOLY_INCOME_INDIGO_DESC
 		}
-		custom_tooltip = harimari_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = HARIMARI_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_harimari_monopoly_of_indigo_effect_tooltip
 	}
 	on_granted_province = {
@@ -3881,9 +3905,9 @@ estate_harimari_monopoly_of_jewellery = {
 				trade_goods = jewellery
 				culture_is_harimari = yes
 			}
-			custom_tooltip = harimari_MONOPOLY_INCOME_JEWELLERY_DESC
+			custom_tooltip = HARIMARI_MONOPOLY_INCOME_JEWELLERY_DESC
 		}
-		custom_tooltip = harimari_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = HARIMARI_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_harimari_monopoly_of_jewellery_effect_tooltip
 	}
 	on_granted_province = {
@@ -3962,9 +3986,9 @@ estate_harimari_monopoly_of_leather = {
 				trade_goods = leather
 				culture_is_harimari = yes
 			}
-			custom_tooltip = harimari_MONOPOLY_INCOME_LEATHER_DESC
+			custom_tooltip = HARIMARI_MONOPOLY_INCOME_LEATHER_DESC
 		}
-		custom_tooltip = harimari_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = HARIMARI_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_harimari_monopoly_of_leather_effect_tooltip
 	}
 	on_granted_province = {
@@ -4043,9 +4067,9 @@ estate_harimari_monopoly_of_metalworking = {
 				trade_goods = metalworking
 				culture_is_harimari = yes
 			}
-			custom_tooltip = harimari_MONOPOLY_INCOME_METALWORKING_DESC
+			custom_tooltip = HARIMARI_MONOPOLY_INCOME_METALWORKING_DESC
 		}
-		custom_tooltip = harimari_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = HARIMARI_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_harimari_monopoly_of_metalworking_effect_tooltip
 	}
 	on_granted_province = {
@@ -4123,9 +4147,9 @@ estate_harimari_monopoly_of_opium = {
 				trade_goods = opium
 				culture_is_harimari = yes
 			}
-			custom_tooltip = harimari_MONOPOLY_INCOME_OPIUM_DESC
+			custom_tooltip = HARIMARI_MONOPOLY_INCOME_OPIUM_DESC
 		}
-		custom_tooltip = harimari_MONOPOLY_INCOME_PRODUCTION_BOOST_1.3_DESC
+		custom_tooltip = HARIMARI_MONOPOLY_INCOME_PRODUCTION_BOOST_1.3_DESC
 		custom_tooltip = estate_harimari_monopoly_of_opium_effect_tooltip
 	}
 	on_granted_province = {
@@ -4204,9 +4228,9 @@ estate_harimari_monopoly_of_optics = {
 				trade_goods = optics
 				culture_is_harimari = yes
 			}
-			custom_tooltip = harimari_MONOPOLY_INCOME_OPTICS_DESC
+			custom_tooltip = HARIMARI_MONOPOLY_INCOME_OPTICS_DESC
 		}
-		custom_tooltip = harimari_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = HARIMARI_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_harimari_monopoly_of_optics_effect_tooltip
 	}
 	on_granted_province = {
@@ -4284,9 +4308,9 @@ estate_harimari_monopoly_of_palm_oil = {
 				trade_goods = palm_oil
 				culture_is_harimari = yes
 			}
-			custom_tooltip = harimari_MONOPOLY_INCOME_PALM_OIL_DESC
+			custom_tooltip = HARIMARI_MONOPOLY_INCOME_PALM_OIL_DESC
 		}
-		custom_tooltip = harimari_MONOPOLY_INCOME_PRODUCTION_BOOST_1.3_DESC
+		custom_tooltip = HARIMARI_MONOPOLY_INCOME_PRODUCTION_BOOST_1.3_DESC
 		custom_tooltip = estate_harimari_monopoly_of_palm_oil_effect_tooltip
 	}
 	on_granted_province = {
@@ -4364,9 +4388,9 @@ estate_harimari_monopoly_of_rice = {
 				trade_goods = rice
 				culture_is_harimari = yes
 			}
-			custom_tooltip = harimari_MONOPOLY_INCOME_RICE_DESC
+			custom_tooltip = HARIMARI_MONOPOLY_INCOME_RICE_DESC
 		}
-		custom_tooltip = harimari_MONOPOLY_INCOME_PRODUCTION_BOOST_1.3_DESC
+		custom_tooltip = HARIMARI_MONOPOLY_INCOME_PRODUCTION_BOOST_1.3_DESC
 		custom_tooltip = estate_harimari_monopoly_of_rice_effect_tooltip
 	}
 	on_granted_province = {
@@ -4444,9 +4468,9 @@ estate_harimari_monopoly_of_saffron = {
 				trade_goods = saffron
 				culture_is_harimari = yes
 			}
-			custom_tooltip = harimari_MONOPOLY_INCOME_SAFFRON_DESC
+			custom_tooltip = HARIMARI_MONOPOLY_INCOME_SAFFRON_DESC
 		}
-		custom_tooltip = harimari_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = HARIMARI_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_harimari_monopoly_of_saffron_effect_tooltip
 	}
 	on_granted_province = {
@@ -4525,9 +4549,9 @@ estate_harimari_monopoly_of_steam_engine = {
 				trade_goods = steam_engine
 				culture_is_harimari = yes
 			}
-			custom_tooltip = harimari_MONOPOLY_INCOME_STEAM_ENGINE_DESC
+			custom_tooltip = HARIMARI_MONOPOLY_INCOME_STEAM_ENGINE_DESC
 		}
-		custom_tooltip = harimari_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = HARIMARI_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_harimari_monopoly_of_steam_engine_effect_tooltip
 	}
 	on_granted_province = {
@@ -4606,9 +4630,9 @@ estate_harimari_monopoly_of_uniforms = {
 				trade_goods = uniforms
 				culture_is_harimari = yes
 			}
-			custom_tooltip = harimari_MONOPOLY_INCOME_UNIFORMS_DESC
+			custom_tooltip = HARIMARI_MONOPOLY_INCOME_UNIFORMS_DESC
 		}
-		custom_tooltip = harimari_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = HARIMARI_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_harimari_monopoly_of_uniforms_effect_tooltip
 	}
 	on_granted_province = {
@@ -4686,9 +4710,9 @@ estate_harimari_monopoly_of_vanilla = {
 				trade_goods = vanilla
 				culture_is_harimari = yes
 			}
-			custom_tooltip = harimari_MONOPOLY_INCOME_VANILLA_DESC
+			custom_tooltip = HARIMARI_MONOPOLY_INCOME_VANILLA_DESC
 		}
-		custom_tooltip = harimari_MONOPOLY_INCOME_PRODUCTION_BOOST_1.3_DESC
+		custom_tooltip = HARIMARI_MONOPOLY_INCOME_PRODUCTION_BOOST_1.3_DESC
 		custom_tooltip = estate_harimari_monopoly_of_vanilla_effect_tooltip
 	}
 	on_granted_province = {
@@ -4767,9 +4791,9 @@ estate_harimari_monopoly_of_woodworking = {
 				trade_goods = woodworking
 				culture_is_harimari = yes
 			}
-			custom_tooltip = harimari_MONOPOLY_INCOME_WOODWORKING_DESC
+			custom_tooltip = HARIMARI_MONOPOLY_INCOME_WOODWORKING_DESC
 		}
-		custom_tooltip = harimari_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = HARIMARI_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_harimari_monopoly_of_woodworking_effect_tooltip
 	}
 	on_granted_province = {
@@ -4847,9 +4871,9 @@ estate_harimari_monopoly_of_nutmeg = {
 				trade_goods = nutmeg
 				culture_is_harimari = yes
 			}
-			custom_tooltip = harimari_MONOPOLY_INCOME_NUTMEG_DESC
+			custom_tooltip = HARIMARI_MONOPOLY_INCOME_NUTMEG_DESC
 		}
-		custom_tooltip = harimari_MONOPOLY_INCOME_PRODUCTION_BOOST_1.3_DESC
+		custom_tooltip = HARIMARI_MONOPOLY_INCOME_PRODUCTION_BOOST_1.3_DESC
 		custom_tooltip = estate_harimari_monopoly_of_nutmeg_effect_tooltip
 	}
 	on_granted_province = {

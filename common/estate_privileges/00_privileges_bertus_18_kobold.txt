@@ -491,6 +491,7 @@ estate_kobold_intolerance_policy = {
 				NOT = { culture_is_kobold = yes }
 				war_with = root
 			}
+			NOT = {has_government_attribute = faster_purguing_reform}
 		}
 		modifier = {
 			morale_damage = 0.05
@@ -499,6 +500,23 @@ estate_kobold_intolerance_policy = {
 			manpower_recovery_speed = 0.1
 			reinforce_speed = 0.1
 			recover_army_morale_speed = 0.025			
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			any_known_country = {
+				NOT = { culture_is_kobold = yes }
+				war_with = root
+			}
+			has_government_attribute = faster_purguing_reform
+		}
+		modifier = {
+			morale_damage = 0.10
+			shock_damage = 0.10
+			fire_damage = 0.10
+			manpower_recovery_speed = 0.2
+			reinforce_speed = 0.2
+			recover_army_morale_speed = 0.05			
 		}
 	}
 	conditional_modifier = {
@@ -846,7 +864,12 @@ estate_kobold_administrative_education = {
 estate_kobold_colonizers = {
 	icon = privilege_new_world_mission
 	is_valid = {
-		num_of_colonists = 1
+		OR = {
+			num_of_colonists = 1
+			any_neighbor_province = {
+				is_city = no
+			}
+		}
 	}
 	can_select = {
 		estate_influence = {
@@ -863,6 +886,7 @@ estate_kobold_colonizers = {
 	}
 	modifier = {
 		global_colonial_growth = 20
+		colonists = 1
 		yearly_corruption = 0.2
 	}
 	penalties = {
@@ -913,9 +937,9 @@ estate_kobold_monopoly_of_incense = {
 				trade_goods = incense
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_INCENSE_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_INCENSE_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_incense_effect_tooltip
 	}
 	on_granted_province = {
@@ -993,9 +1017,9 @@ estate_kobold_monopoly_of_iron = {
 				trade_goods = iron
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_IRON_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_IRON_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_iron_effect_tooltip
 	}
 	on_granted_province = {
@@ -1073,9 +1097,9 @@ estate_kobold_monopoly_of_copper = {
 				trade_goods = copper
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_COPPER_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_COPPER_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_copper_effect_tooltip
 	}
 	on_granted_province = {
@@ -1153,9 +1177,9 @@ estate_kobold_monopoly_of_grain = {
 				trade_goods = grain
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_GRAIN_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_GRAIN_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_grain_effect_tooltip
 	}
 	on_granted_province = {
@@ -1236,9 +1260,9 @@ estate_kobold_monopoly_of_wine = {
 					trade_goods = wine
 					culture_is_kobold = yes
 				}
-				custom_tooltip = kobold_MONOPOLY_INCOME_WINE_DESC
+				custom_tooltip = KOBOLD_MONOPOLY_INCOME_WINE_DESC
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_1.3_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_1.3_DESC
 		}
 		else = {		
 			add_years_of_owned_provinces_production_income = {
@@ -1247,9 +1271,9 @@ estate_kobold_monopoly_of_wine = {
 					trade_goods = wine
 					culture_is_kobold = yes
 				}
-				custom_tooltip = kobold_MONOPOLY_INCOME_WINE_DESC
+				custom_tooltip = KOBOLD_MONOPOLY_INCOME_WINE_DESC
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		}
 		custom_tooltip = estate_kobold_monopoly_of_wine_effect_tooltip
 	}
@@ -1325,9 +1349,9 @@ estate_kobold_monopoly_of_tobacco = {
 				trade_goods = tobacco
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_TOBACCO_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_TOBACCO_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_tobacco_effect_tooltip
 	}
 	on_granted_province = {
@@ -1408,9 +1432,9 @@ estate_kobold_monopoly_of_fish = {
 					trade_goods = fish
 					culture_is_kobold = yes
 				}
-				custom_tooltip = kobold_MONOPOLY_INCOME_FISH_DESC
+				custom_tooltip = KOBOLD_MONOPOLY_INCOME_FISH_DESC
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_1.3_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_1.3_DESC
 		}
 		else = {				
 			add_years_of_owned_provinces_production_income = {
@@ -1419,9 +1443,9 @@ estate_kobold_monopoly_of_fish = {
 					trade_goods = fish
 					culture_is_kobold = yes
 				}
-				custom_tooltip = kobold_MONOPOLY_INCOME_FISH_DESC
+				custom_tooltip = KOBOLD_MONOPOLY_INCOME_FISH_DESC
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		}
 		custom_tooltip = estate_kobold_monopoly_of_fish_effect_tooltip
 	}
@@ -1500,9 +1524,9 @@ estate_kobold_monopoly_of_livestock = {
 				trade_goods = livestock
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_LIVESTOCK_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_LIVESTOCK_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_livestock_effect_tooltip
 	}
 	on_granted_province = {
@@ -1577,9 +1601,9 @@ estate_kobold_monopoly_of_naval_supplies = {
 				trade_goods = naval_supplies
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_NAVAL_SUPPLIES_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_NAVAL_SUPPLIES_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_naval_supplies_effect_tooltip
 	}
 	on_granted_province = {
@@ -1657,9 +1681,9 @@ estate_kobold_monopoly_of_wool = {
 				trade_goods = wool
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_WOOL_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_WOOL_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_wool_effect_tooltip
 	}
 	on_granted_province = {
@@ -1734,9 +1758,9 @@ estate_kobold_monopoly_of_dyes = {
 				trade_goods = dyes
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_DYES_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_DYES_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_dyes_effect_tooltip
 	}
 	on_granted_province = {
@@ -1811,9 +1835,9 @@ estate_kobold_monopoly_of_cloth = {
 				trade_goods = cloth
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_CLOTH_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_CLOTH_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_cloth_effect_tooltip
 	}
 	on_granted_province = {
@@ -1891,9 +1915,9 @@ estate_kobold_monopoly_of_salt = {
 				trade_goods = salt
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_SALT_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_SALT_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_salt_effect_tooltip
 	}
 	on_granted_province = {
@@ -1968,9 +1992,9 @@ estate_kobold_monopoly_of_glass = {
 				trade_goods = glass
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_GLASS_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_GLASS_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_glass_effect_tooltip
 	}
 	on_granted_province = {
@@ -2045,9 +2069,9 @@ estate_kobold_monopoly_of_paper = {
 				trade_goods = paper
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_PAPER_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_PAPER_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_paper_effect_tooltip
 	}
 	on_granted_province = {
@@ -2122,9 +2146,9 @@ estate_kobold_monopoly_of_gems = {
 				trade_goods = gems
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_GEMS_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_GEMS_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_gems_effect_tooltip
 	}
 	on_granted_province = {
@@ -2199,9 +2223,9 @@ estate_kobold_monopoly_of_silk = {
 				trade_goods = silk
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_SILK_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_SILK_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_silk_effect_tooltip
 	}
 	on_granted_province = {
@@ -2286,9 +2310,9 @@ estate_kobold_monopoly_of_fur = {
 					trade_goods = fur
 					culture_is_kobold = yes
 				}
-				custom_tooltip = kobold_MONOPOLY_INCOME_FUR_DESC
+				custom_tooltip = KOBOLD_MONOPOLY_INCOME_FUR_DESC
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_1.3_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_1.3_DESC
 		}
 		else = {				
 			add_years_of_owned_provinces_production_income = {
@@ -2297,9 +2321,9 @@ estate_kobold_monopoly_of_fur = {
 					trade_goods = fur
 					culture_is_kobold = yes
 				}
-				custom_tooltip = kobold_MONOPOLY_INCOME_FUR_DESC
+				custom_tooltip = KOBOLD_MONOPOLY_INCOME_FUR_DESC
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		}
 		custom_tooltip = estate_kobold_monopoly_of_fur_effect_tooltip
 	}
@@ -2375,9 +2399,9 @@ estate_kobold_monopoly_of_ivory = {
 				trade_goods = ivory
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_IVORY_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_IVORY_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_ivory_effect_tooltip
 	}
 	on_granted_province = {
@@ -2452,9 +2476,9 @@ estate_kobold_monopoly_of_tea = {
 				trade_goods = tea
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_TEA_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_TEA_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_tea_effect_tooltip
 	}
 	on_granted_province = {
@@ -2529,9 +2553,9 @@ estate_kobold_monopoly_of_chinaware = {
 				trade_goods = chinaware
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_CHINAWARE_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_CHINAWARE_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_chinaware_effect_tooltip
 	}
 	on_granted_province = {
@@ -2606,9 +2630,9 @@ estate_kobold_monopoly_of_spices = {
 				trade_goods = spices
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_SPICES_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_SPICES_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_spices_effect_tooltip
 	}
 	on_granted_province = {
@@ -2683,9 +2707,9 @@ estate_kobold_monopoly_of_coffee = {
 				trade_goods = coffee
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_COFFEE_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_COFFEE_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_coffee_effect_tooltip
 	}
 	on_granted_province = {
@@ -2760,9 +2784,9 @@ estate_kobold_monopoly_of_cotton = {
 				trade_goods = cotton
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_COTTON_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_COTTON_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_cotton_effect_tooltip
 	}
 	on_granted_province = {
@@ -2837,9 +2861,9 @@ estate_kobold_monopoly_of_sugar = {
 				trade_goods = sugar
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_SUGAR_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_SUGAR_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_sugar_effect_tooltip
 	}
 	on_granted_province = {
@@ -2914,9 +2938,9 @@ estate_kobold_monopoly_of_cocoa = {
 				trade_goods = cocoa
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_COCOA_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_COCOA_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_cocoa_effect_tooltip
 	}
 	on_granted_province = {
@@ -2991,9 +3015,9 @@ estate_kobold_monopoly_of_tropical_wood = {
 				trade_goods = tropical_wood
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_TROPICAL_WOOD_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_TROPICAL_WOOD_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_tropical_wood_effect_tooltip
 	}
 	on_granted_province = {
@@ -3068,9 +3092,9 @@ estate_kobold_monopoly_of_cloves = {
 				trade_goods = cloves
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_CLOVES_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_CLOVES_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_cloves_effect_tooltip
 	}
 	on_granted_province = {
@@ -3148,9 +3172,9 @@ estate_kobold_monopoly_of_mithril = {
 				trade_goods = mithril
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_MITHRIL_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_MITHRIL_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_mithril_effect_tooltip
 	}
 	on_granted_province = {
@@ -3225,9 +3249,9 @@ estate_kobold_monopoly_of_precursor_relics = {
 				trade_goods = precursor_relics
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_PRECURSOR_RELICS_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRECURSOR_RELICS_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_precursor_relics_effect_tooltip
 	}
 	on_granted_province = {
@@ -3305,9 +3329,9 @@ estate_kobold_monopoly_of_fungi = {
 				trade_goods = fungi
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_FUNGI_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_FUNGI_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_fungi_effect_tooltip
 	}
 	on_granted_province = {
@@ -3385,9 +3409,9 @@ estate_kobold_monopoly_of_amber = {
 				trade_goods = amber
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_AMBER_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_AMBER_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC	
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC	
 		custom_tooltip = estate_kobold_monopoly_of_amber_effect_tooltip
 	}
 	on_granted_province = {
@@ -3465,9 +3489,9 @@ estate_kobold_monopoly_of_apiculture = {
 				trade_goods = apiculture
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_APICULTURE_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_APICULTURE_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_apiculture_effect_tooltip
 	}
 	on_granted_province = {
@@ -3545,9 +3569,9 @@ estate_kobold_monopoly_of_beer = {
 				trade_goods = beer
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_BEER_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_BEER_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_beer_effect_tooltip
 	}
 	on_granted_province = {
@@ -3625,9 +3649,9 @@ estate_kobold_monopoly_of_brass = {
 				trade_goods = brass
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_BRASS_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_BRASS_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_brass_effect_tooltip
 	}
 	on_granted_province = {
@@ -3719,9 +3743,9 @@ estate_kobold_monopoly_of_camel = {
 					trade_goods = camel
 					culture_is_kobold = yes
 				}
-				custom_tooltip = kobold_MONOPOLY_INCOME_CAMEL_DESC
+				custom_tooltip = KOBOLD_MONOPOLY_INCOME_CAMEL_DESC
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_1.3_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_1.3_DESC
 		}
 		else = {
 			add_years_of_owned_provinces_production_income = {
@@ -3730,9 +3754,9 @@ estate_kobold_monopoly_of_camel = {
 					trade_goods = camel
 					culture_is_kobold = yes
 				}
-				custom_tooltip = kobold_MONOPOLY_INCOME_CAMEL_DESC
+				custom_tooltip = KOBOLD_MONOPOLY_INCOME_CAMEL_DESC
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		}
 		custom_tooltip = estate_kobold_monopoly_of_camel_effect_tooltip
 	}
@@ -3812,9 +3836,9 @@ estate_kobold_monopoly_of_cannon = {
 				trade_goods = cannon
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_CANNON_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_CANNON_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_cannon_effect_tooltip
 	}
 	on_granted_province = {
@@ -3892,9 +3916,9 @@ estate_kobold_monopoly_of_carpet = {
 				trade_goods = carpet
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_CARPET_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_CARPET_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_carpet_effect_tooltip
 	}
 	on_granted_province = {
@@ -3978,9 +4002,9 @@ estate_kobold_monopoly_of_champagne = {
 					trade_goods = champagne
 					culture_is_kobold = yes
 				}
-				custom_tooltip = kobold_MONOPOLY_INCOME_CHAMPAGNE_DESC
+				custom_tooltip = KOBOLD_MONOPOLY_INCOME_CHAMPAGNE_DESC
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_1.3_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_1.3_DESC
 		}
 		else = {
 			add_years_of_owned_provinces_production_income = {
@@ -3989,9 +4013,9 @@ estate_kobold_monopoly_of_champagne = {
 					trade_goods = champagne
 					culture_is_kobold = yes
 				}
-				custom_tooltip = kobold_MONOPOLY_INCOME_CHAMPAGNE_DESC
+				custom_tooltip = KOBOLD_MONOPOLY_INCOME_CHAMPAGNE_DESC
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		}
 		custom_tooltip = estate_kobold_monopoly_of_champagne_effect_tooltip
 	}
@@ -4070,9 +4094,9 @@ estate_kobold_monopoly_of_cheese = {
 				trade_goods = cheese
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_CHEESE_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_CHEESE_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_cheese_effect_tooltip
 	}
 	on_granted_province = {
@@ -4150,9 +4174,9 @@ estate_kobold_monopoly_of_cinnamon = {
 				trade_goods = cinnamon
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_CHINNAMON_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_CHINNAMON_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_cinnamon_effect_tooltip
 	}
 	on_granted_province = {
@@ -4230,9 +4254,9 @@ estate_kobold_monopoly_of_citrus = {
 				trade_goods = citrus
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_CITRUS_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_CITRUS_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_citrus_effect_tooltip
 	}
 	on_granted_province = {
@@ -4310,9 +4334,9 @@ estate_kobold_monopoly_of_dates = {
 				trade_goods = dates
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_DATES_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_DATES_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_dates_effect_tooltip
 	}
 	on_granted_province = {
@@ -4390,9 +4414,9 @@ estate_kobold_monopoly_of_ebony = {
 				trade_goods = ebony
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_EBONY_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_EBONY_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_ebony_effect_tooltip
 	}
 	on_granted_province = {
@@ -4470,9 +4494,9 @@ estate_kobold_monopoly_of_elephants = {
 				trade_goods = elephants
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_ELEPHANTS_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_ELEPHANTS_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_elephants_effect_tooltip
 	}
 	on_granted_province = {
@@ -4550,9 +4574,9 @@ estate_kobold_monopoly_of_exotic_animals = {
 				trade_goods = exotic_animals
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_EXOTIC_ANIMALS_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_EXOTIC_ANIMALS_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_exotic_animals_effect_tooltip
 	}
 	on_granted_province = {
@@ -4630,9 +4654,9 @@ estate_kobold_monopoly_of_gunpowder = {
 				trade_goods = gunpowder
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_GUNPOWDER_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_GUNPOWDER_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_gunpowder_effect_tooltip
 	}
 	on_granted_province = {
@@ -4716,9 +4740,9 @@ estate_kobold_monopoly_of_horses = {
 					trade_goods = horses
 					culture_is_kobold = yes
 				}
-				custom_tooltip = kobold_MONOPOLY_INCOME_HORSES_DESC
+				custom_tooltip = KOBOLD_MONOPOLY_INCOME_HORSES_DESC
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_1.3_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_1.3_DESC
 		}
 		else = {
 			add_years_of_owned_provinces_production_income = {
@@ -4727,9 +4751,9 @@ estate_kobold_monopoly_of_horses = {
 					trade_goods = horses
 					culture_is_kobold = yes
 				}
-				custom_tooltip = kobold_MONOPOLY_INCOME_HORSES_DESC
+				custom_tooltip = KOBOLD_MONOPOLY_INCOME_HORSES_DESC
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		}
 		custom_tooltip = estate_kobold_monopoly_of_horses_effect_tooltip
 	}
@@ -4808,9 +4832,9 @@ estate_kobold_monopoly_of_indigo = {
 				trade_goods = indigo
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_INDIGO_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_INDIGO_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_indigo_effect_tooltip
 	}
 	on_granted_province = {
@@ -4888,9 +4912,9 @@ estate_kobold_monopoly_of_jade = {
 				trade_goods = jade
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_JADE_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_JADE_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_jade_effect_tooltip
 	}
 	on_granted_province = {
@@ -4975,9 +4999,9 @@ estate_kobold_monopoly_of_jewellery = {
 					trade_goods = jewellery
 					culture_is_kobold = yes
 				}
-				custom_tooltip = kobold_MONOPOLY_INCOME_JEWELLERY_DESC
+				custom_tooltip = KOBOLD_MONOPOLY_INCOME_JEWELLERY_DESC
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_1.3_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_1.3_DESC
 		}
 		else = {
 			add_years_of_owned_provinces_production_income = {
@@ -4986,9 +5010,9 @@ estate_kobold_monopoly_of_jewellery = {
 					trade_goods = jewellery
 					culture_is_kobold = yes
 				}
-				custom_tooltip = kobold_MONOPOLY_INCOME_JEWELLERY_DESC
+				custom_tooltip = KOBOLD_MONOPOLY_INCOME_JEWELLERY_DESC
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		}
 		custom_tooltip = estate_kobold_monopoly_of_jewellery_effect_tooltip
 	}
@@ -5067,9 +5091,9 @@ estate_kobold_monopoly_of_lead = {
 				trade_goods = lead
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_LEAD_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_LEAD_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_lead_effect_tooltip
 	}
 	on_granted_province = {
@@ -5148,9 +5172,9 @@ estate_kobold_monopoly_of_leather = {
 				trade_goods = leather
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_LEATHER_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_LEATHER_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_leather_effect_tooltip
 	}
 	on_granted_province = {
@@ -5228,9 +5252,9 @@ estate_kobold_monopoly_of_llama = {
 				trade_goods = llama
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_LLAMA_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_LLAMA_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_llama_effect_tooltip
 	}
 	on_granted_province = {
@@ -5308,9 +5332,9 @@ estate_kobold_monopoly_of_lumber = {
 				trade_goods = lumber
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_LUMBER_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_LUMBER_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_lumber_effect_tooltip
 	}
 	on_granted_province = {
@@ -5388,9 +5412,9 @@ estate_kobold_monopoly_of_maize = {
 				trade_goods = maize
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_MAIZE_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_MAIZE_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_maize_effect_tooltip
 	}
 	on_granted_province = {
@@ -5468,9 +5492,9 @@ estate_kobold_monopoly_of_maple_syrup = {
 				trade_goods = maple_syrup
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_MAPLE_SYRUP_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_MAPLE_SYRUP_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_maple_syrup_effect_tooltip
 	}
 	on_granted_province = {
@@ -5548,9 +5572,9 @@ estate_kobold_monopoly_of_marble = {
 				trade_goods = marble
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_MARBLE_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_MARBLE_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_marble_effect_tooltip
 	}
 	on_granted_province = {
@@ -5628,9 +5652,9 @@ estate_kobold_monopoly_of_mercury = {
 				trade_goods = mercury
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_MERCURY_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_MERCURY_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_mercury_effect_tooltip
 	}
 	on_granted_province = {
@@ -5709,9 +5733,9 @@ estate_kobold_monopoly_of_metalworking = {
 				trade_goods = metalworking
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_METALWORKING_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_METALWORKING_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_metalworking_effect_tooltip
 	}
 	on_granted_province = {
@@ -5790,9 +5814,9 @@ estate_kobold_monopoly_of_munitions = {
 				trade_goods = munitions
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_MUNITIONS_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_MUNITIONS_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_munitions_effect_tooltip
 	}
 	on_granted_province = {
@@ -5870,9 +5894,9 @@ estate_kobold_monopoly_of_olives = {
 				trade_goods = olive_oil
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_OLIVES_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_OLIVES_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_olives_effect_tooltip
 	}
 	on_granted_province = {
@@ -5950,9 +5974,9 @@ estate_kobold_monopoly_of_opium = {
 				trade_goods = opium
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_OPIUM_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_OPIUM_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_opium_effect_tooltip
 	}
 	on_granted_province = {
@@ -6031,9 +6055,9 @@ estate_kobold_monopoly_of_optics = {
 				trade_goods = optics
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_OPTICS_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_OPTICS_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_optics_effect_tooltip
 	}
 	on_granted_province = {
@@ -6111,9 +6135,9 @@ estate_kobold_monopoly_of_palm_oil = {
 				trade_goods = palm_oil
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_PALM_OIL_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_PALM_OIL_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_palm_oil_effect_tooltip
 	}
 	on_granted_province = {
@@ -6198,9 +6222,9 @@ estate_kobold_monopoly_of_pearls = {
 					trade_goods = pearls
 					culture_is_kobold = yes
 				}
-				custom_tooltip = kobold_MONOPOLY_INCOME_PEARLS_DESC
+				custom_tooltip = KOBOLD_MONOPOLY_INCOME_PEARLS_DESC
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_1.3_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_1.3_DESC
 		}
 		else = {
 			add_years_of_owned_provinces_production_income = {
@@ -6209,9 +6233,9 @@ estate_kobold_monopoly_of_pearls = {
 					trade_goods = pearls
 					culture_is_kobold = yes
 				}
-				custom_tooltip = kobold_MONOPOLY_INCOME_PEARLS_DESC
+				custom_tooltip = KOBOLD_MONOPOLY_INCOME_PEARLS_DESC
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		}
 		custom_tooltip = estate_kobold_monopoly_of_pearls_effect_tooltip
 	}
@@ -6290,9 +6314,9 @@ estate_kobold_monopoly_of_potato = {
 				trade_goods = potato
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_POTATO_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_POTATO_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_potato_effect_tooltip
 	}
 	on_granted_province = {
@@ -6370,9 +6394,9 @@ estate_kobold_monopoly_of_rice = {
 				trade_goods = rice
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_RICE_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_RICE_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_rice_effect_tooltip
 	}
 	on_granted_province = {
@@ -6450,9 +6474,9 @@ estate_kobold_monopoly_of_rum = {
 				trade_goods = rum
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_RUM_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_RUM_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_rum_effect_tooltip
 	}
 	on_granted_province = {
@@ -6530,9 +6554,9 @@ estate_kobold_monopoly_of_saffron = {
 				trade_goods = saffron
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_SAFFRON_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_SAFFRON_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_saffron_effect_tooltip
 	}
 	on_granted_province = {
@@ -6617,9 +6641,9 @@ estate_kobold_monopoly_of_sea_turtle = {
 					trade_goods = sea_turtle
 					culture_is_kobold = yes
 				}
-				custom_tooltip = kobold_MONOPOLY_INCOME_SEA_TURTLE_DESC
+				custom_tooltip = KOBOLD_MONOPOLY_INCOME_SEA_TURTLE_DESC
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_1.3_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_1.3_DESC
 		}
 		else = {
 			add_years_of_owned_provinces_production_income = {
@@ -6628,9 +6652,9 @@ estate_kobold_monopoly_of_sea_turtle = {
 					trade_goods = sea_turtle
 					culture_is_kobold = yes
 				}
-				custom_tooltip = kobold_MONOPOLY_INCOME_SEA_TURTLE_DESC
+				custom_tooltip = KOBOLD_MONOPOLY_INCOME_SEA_TURTLE_DESC
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		}
 		custom_tooltip = estate_kobold_monopoly_of_sea_turtle_effect_tooltip
 	}
@@ -6716,9 +6740,9 @@ estate_kobold_monopoly_of_seafood = {
 					trade_goods = seafood
 					culture_is_kobold = yes
 				}
-				custom_tooltip = kobold_MONOPOLY_INCOME_SEAFOOD_DESC
+				custom_tooltip = KOBOLD_MONOPOLY_INCOME_SEAFOOD_DESC
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_1.3_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_1.3_DESC
 		}
 		else = {
 			add_years_of_owned_provinces_production_income = {
@@ -6727,9 +6751,9 @@ estate_kobold_monopoly_of_seafood = {
 					trade_goods = seafood
 					culture_is_kobold = yes
 				}
-				custom_tooltip = kobold_MONOPOLY_INCOME_SEAFOOD_DESC
+				custom_tooltip = KOBOLD_MONOPOLY_INCOME_SEAFOOD_DESC
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		}
 		custom_tooltip = estate_kobold_monopoly_of_seafood_effect_tooltip
 	}
@@ -6809,9 +6833,9 @@ estate_kobold_monopoly_of_steam_engine = {
 				trade_goods = steam_engine
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_STEAM_ENGINE_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_STEAM_ENGINE_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_steam_engine_effect_tooltip
 	}
 	on_granted_province = {
@@ -6889,9 +6913,9 @@ estate_kobold_monopoly_of_sulfur = {
 				trade_goods = sulfur
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_SULFUR_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_SULFUR_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_sulfur_effect_tooltip
 	}
 	on_granted_province = {
@@ -6969,9 +6993,9 @@ estate_kobold_monopoly_of_tar = {
 				trade_goods = tar
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_TAR_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_TAR_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_tar_effect_tooltip
 	}
 	on_granted_province = {
@@ -7049,9 +7073,9 @@ estate_kobold_monopoly_of_tin = {
 				trade_goods = tin
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_TIN_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_TIN_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_tin_effect_tooltip
 	}
 	on_granted_province = {
@@ -7129,9 +7153,9 @@ estate_kobold_monopoly_of_tomato = {
 				trade_goods = tomato
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_TOMATO_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_TOMATO_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_tomato_effect_tooltip
 	}
 	on_granted_province = {
@@ -7210,9 +7234,9 @@ estate_kobold_monopoly_of_uniforms = {
 				trade_goods = uniforms
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_UNIFORMS_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_UNIFORMS_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_uniforms_effect_tooltip
 	}
 	on_granted_province = {
@@ -7290,9 +7314,9 @@ estate_kobold_monopoly_of_vanilla = {
 				trade_goods = vanilla
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_VANILLA_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_VANILLA_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_vanilla_effect_tooltip
 	}
 	on_granted_province = {
@@ -7377,9 +7401,9 @@ estate_kobold_monopoly_of_whaling = {
 					trade_goods = whaling
 					culture_is_kobold = yes
 				}
-				custom_tooltip = kobold_MONOPOLY_INCOME_WHALING_DESC
+				custom_tooltip = KOBOLD_MONOPOLY_INCOME_WHALING_DESC
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_1.3_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_1.3_DESC
 		}
 		else = {
 			add_years_of_owned_provinces_production_income = {
@@ -7388,9 +7412,9 @@ estate_kobold_monopoly_of_whaling = {
 					trade_goods = whaling
 					culture_is_kobold = yes
 				}
-				custom_tooltip = kobold_MONOPOLY_INCOME_WHALING_DESC
+				custom_tooltip = KOBOLD_MONOPOLY_INCOME_WHALING_DESC
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		}
 		custom_tooltip = estate_kobold_monopoly_of_whaling_effect_tooltip
 	}
@@ -7470,9 +7494,9 @@ estate_kobold_monopoly_of_woodworking = {
 				trade_goods = woodworking
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_WOODWORKING_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_WOODWORKING_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_woodworking_effect_tooltip
 	}
 	on_granted_province = {
@@ -7550,9 +7574,9 @@ estate_kobold_monopoly_of_zinc = {
 				trade_goods = zinc
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_ZINC_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_ZINC_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_zinc_effect_tooltip
 	}
 	on_granted_province = {
@@ -7630,9 +7654,9 @@ estate_kobold_monopoly_of_nutmeg = {
 				trade_goods = nutmeg
 				culture_is_kobold = yes
 			}
-			custom_tooltip = kobold_MONOPOLY_INCOME_NUTMEG_DESC
+			custom_tooltip = KOBOLD_MONOPOLY_INCOME_NUTMEG_DESC
 		}
-		custom_tooltip = kobold_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
+		custom_tooltip = KOBOLD_MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		custom_tooltip = estate_kobold_monopoly_of_nutmeg_effect_tooltip
 	}
 	on_granted_province = {

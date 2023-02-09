@@ -1605,14 +1605,32 @@ estate_gnomish_intolerance_policy = {
 				NOT = { culture_is_gnomish = yes }
 				war_with = root
 			}
+			NOT = {has_government_attribute = faster_purguing_reform}
 		}
 		modifier = {
-			land_morale = 0.05
-			shock_damage_received = -0.05
-			fire_damage_received = -0.05
+			morale_damage = 0.05
+			shock_damage = 0.05
+			fire_damage = 0.05
 			manpower_recovery_speed = 0.1
 			reinforce_speed = 0.1
 			recover_army_morale_speed = 0.025			
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			any_known_country = {
+				NOT = { culture_is_gnomish = yes }
+				war_with = root
+			}
+			has_government_attribute = faster_purguing_reform
+		}
+		modifier = {
+			morale_damage = 0.10
+			shock_damage = 0.10
+			fire_damage = 0.10
+			manpower_recovery_speed = 0.2
+			reinforce_speed = 0.2
+			recover_army_morale_speed = 0.05			
 		}
 	}
 	conditional_modifier = {
@@ -1978,7 +1996,12 @@ estate_gnomish_diplomatic_education = {
 estate_gnomish_colonizers = {
 	icon = privilege_new_world_mission
 	is_valid = {
-		num_of_colonists = 1
+		OR = {
+			num_of_colonists = 1
+			any_neighbor_province = {
+				is_city = no
+			}
+		}
 	}
 	can_select = {
 		estate_influence = {
@@ -1995,6 +2018,7 @@ estate_gnomish_colonizers = {
 	}
 	modifier = {
 		global_colonial_growth = 20
+		colonists = 1
 		yearly_corruption = 0.2
 	}
 	penalties = {

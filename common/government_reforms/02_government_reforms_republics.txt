@@ -3141,6 +3141,11 @@ lottery_reform = { #sortition
 		bonus_stats_for_elected_ruler = yes
 	}
 	has_term_election = no
+	effect = {
+		hidden_effect = {
+			country_event = {id = elections.800}
+		}
+	}
 	ai = {
 		factor = 1
 	}
@@ -4181,10 +4186,12 @@ dwarovar_cartel_backing = {
 	
 	modifiers = {
 		global_trade_power = 0.1
-		burghers_loyalty_modifier = 0.05
-		burghers_influence_modifier = 0.05
+		free_adm_policy = 1
+		stability_cost_modifier = 0.25
 	}
-	custom_attributes = { dwarovar_cartel_backing_effect = yes }
+	custom_attributes = {
+		boosted_stability = yes
+	}
 
 	ai = { factor = 1 }
 }
@@ -4537,7 +4544,7 @@ landholders_reform = {
 		manpower_in_own_culture_provinces = 0.20
 	}
 	custom_attributes = {
-		faster_purguing_reform = yes			
+		faster_purguing_reform = yes
 	}
 	ai = {
 		factor = 1
@@ -4597,6 +4604,9 @@ estate_council_reform = {	#new LotN
 
 attorney_general_reform = {	#new LotN
 	icon = "three_classes_reform"
+	potential = {
+		potential = { NOT = {culture_group = dwarven }}
+	}
 	allow_normal_conversion = yes
 	modifiers = {
 		same_culture_advisor_cost = -0.10
@@ -4715,6 +4725,7 @@ appointment_by_committee_reform = {
 	icon = "politician"
 	allow_normal_conversion = yes
 	potential = {
+		potential = { NOT = {culture_group = dwarven }}
 		#NOT = { has_reform = nezkaru_council_reform }
 	}
 	modifiers = {

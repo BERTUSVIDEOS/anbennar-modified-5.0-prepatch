@@ -570,7 +570,7 @@ estate_human_intolerance_policy = {
 			territory = 70
 		}
 	}
-	on_granted = {		
+	on_granted = {
 		custom_tooltip = estate_human_one_culture_gta
 		custom_tooltip = estate_human_one_culture_gtb
 		remove_racial_culture = { race = elven }
@@ -610,6 +610,7 @@ estate_human_intolerance_policy = {
 				NOT = { culture_is_human = yes }
 				war_with = root
 			}
+			NOT = {has_government_attribute = faster_purguing_reform}
 		}
 		modifier = {
 			morale_damage = 0.05
@@ -622,9 +623,24 @@ estate_human_intolerance_policy = {
 	}
 	conditional_modifier = {
 		trigger = {
-			any_ally = {
+			any_known_country = {
 				NOT = { culture_is_human = yes }
+				war_with = root
 			}
+			has_government_attribute = faster_purguing_reform
+		}
+		modifier = {
+			morale_damage = 0.10
+			shock_damage = 0.10
+			fire_damage = 0.10
+			manpower_recovery_speed = 0.2
+			reinforce_speed = 0.2
+			recover_army_morale_speed = 0.05			
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			any_ally = {NOT = { culture_is_human = yes }}
 		}
 		modifier = {
 			land_morale = -0.05
@@ -1040,7 +1056,12 @@ estate_human_administrative_education = {
 estate_human_colonizers = {
 	icon = privilege_new_world_mission
 	is_valid = {
-		num_of_colonists = 1
+		OR = {
+			num_of_colonists = 1
+			any_neighbor_province = {
+				is_city = no
+			}
+		}
 	}
 	can_select = {
 		estate_influence = {
@@ -1057,6 +1078,7 @@ estate_human_colonizers = {
 	}
 	modifier = {
 		global_colonial_growth = 20
+		colonists = 1
 		yearly_corruption = 0.2
 	}
 	penalties = {

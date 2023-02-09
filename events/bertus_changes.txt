@@ -7582,7 +7582,11 @@ country_event = {
 	picture = DHIMMI_ESTATE_eventPicture
 	
 	trigger = {
-		has_government_attribute = magic_commander_academy
+		OR = {
+			has_government_attribute = magic_commander_academy
+			has_government_attribute = artificer_commander_academy
+		}
+		ai = no
 	}
 	
 	mean_time_to_happen = {
@@ -7590,20 +7594,31 @@ country_event = {
 	}
 
 	option = {
+		name = bertus_changes.6010.z #Nah		
+	}
+
+	option = {
 		name = bertus_changes.6010.a #Ok
 		if = {
-			limit = {
-				full_idea_group = generalstab0
+			limit = {has_government_attribute = magic_commander_academy}
+			if = {
+				limit = {full_idea_group = generalstab0}
+				get_magisterium_general_ideas = yes
 			}
-			get_magisterium_general_ideas = yes
+			else = {
+				get_magisterium_general = yes
+			}
 		}
-		else = {
-			get_magisterium_general = yes
+		if = {
+			limit = {has_government_attribute = artificer_commander_academy}
+			if = {
+				limit = {full_idea_group = generalstab0}
+				get_artificers_general_ideas = yes
+			}
+			else = {
+				get_artificers_general = yes
+			}
 		}
-	}
-	option = {
-		name = bertus_changes.6010.b #Nah	
-		
 	}
 }
 province_event = {	#Parliamentary Colleges free cities boost

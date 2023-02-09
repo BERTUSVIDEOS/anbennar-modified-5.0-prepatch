@@ -1589,7 +1589,7 @@ ogre_kingdom = {
 	icon = "misl_confederacy"
 	allow_normal_conversion = no
 	potential = {
-		has_reform = ogre_kingdom
+		culture_group = ogre
 	}
 	legacy_equivalent = feudal_monarchy
 	valid_for_nation_designer = yes
@@ -1598,19 +1598,22 @@ ogre_kingdom = {
 		culture_group = ogre
 		NOT = { primary_culture = horned_ogre }
 	}
-	lock_level_when_selected = yes
 	maintain_dynasty = yes
 
 	modifiers = {
-		defensiveness = 0.15
+		legitimacy = 0.5
+		heir_chance = 0.25
 		land_morale = 0.05
 		max_absolutism = 10
-		global_unrest = 3
+		vassal_income = 0.1
+		vassal_forcelimit_bonus = 0.125
+		diplomatic_upkeep = 1
+		global_unrest = 2
 		global_institution_spread = -0.2
 	}
 }
 
-mengotsa = {
+mengotsa = {	#bertus mod
 	icon = "admiral_king_reform"
 	allow_normal_conversion = no
 	fixed_rank = 3
@@ -1625,21 +1628,23 @@ mengotsa = {
 		NOT = { primary_culture = horned_ogre }
 	}
 
-	lock_level_when_selected = yes
 	maintain_dynasty = yes
 	allow_force_tributary = yes
 
 	modifiers = {
-		defensiveness = 0.2
+		legitimacy = 0.5
+		heir_chance = 0.25
 		vassal_income = 0.2
-		land_morale = 0.05	#0.1→0.05
-		land_maintenance_modifier = -0.1
+		vassal_forcelimit_bonus = 0.25
+		diplomatic_upkeep = 2
+		land_morale = 0.05
+		land_maintenance_modifier = -0.05
 		max_absolutism = 20
 	}
 	custom_attributes = {
-		locked_government_type = yes
-		claim_states = yes
 		armoured_ogre_boost = yes
+		can_fabricate_for_vassals = yes
+		can_transfer_vassal_wargoal = yes
 	}
 	effect = {
 		add_country_modifier = {
@@ -1652,12 +1657,15 @@ mengotsa = {
 	}
 }
 
-ogre_empire = {
+ogre_empire = {	#bertus mod
 	icon = "rajput_kingdom"
 	allow_normal_conversion = no
 	fixed_rank = 3
 	potential = {
-		has_reform = ogre_empire
+		culture_group = ogre
+	}
+	trigger = {
+		government_rank = 3
 	}
 	legacy_equivalent = feudal_monarchy
 	valid_for_nation_designer = yes
@@ -1667,17 +1675,28 @@ ogre_empire = {
 		NOT = { primary_culture = horned_ogre }
 	}
 
-	lock_level_when_selected = yes
 	maintain_dynasty = yes
 
 	modifiers = {
-		defensiveness = 0.3
-		build_cost = -0.15
-		land_morale = 0.075
-		development_cost = -0.1
-		land_maintenance_modifier = -0.1
-		global_institution_spread = -0.1
-		max_absolutism = 15
+		legitimacy = 0.5
+		heir_chance = 0.25
+		land_morale = 0.05
+		land_maintenance_modifier = -0.05
+		max_absolutism = 20
+		governing_capacity_modifier = 0.20
+	}
+	custom_attributes = {
+		claim_states = yes
+		armoured_ogre_boost = yes
+	}
+	effect = {
+		add_country_modifier = {
+			name = armoured_ogre_modifier
+			duration = -1
+		}
+	}
+	removed_effect = {
+		remove_country_modifier = armoured_ogre_modifier
 	}
 }
 
@@ -1850,7 +1869,6 @@ cyranvar_parliament_reform = {
 		allow = { has_dlc = "Common Sense" }
 		has_parliament = yes
 		custom_attributes = {
-			blocked_call_diet = yes
 			disables_estate_nobles = yes
 		}
 	}
@@ -2296,7 +2314,6 @@ kharunyana_monarchy = {
 		allow = { has_dlc = "Common Sense" }
 		has_parliament = yes
 		custom_attributes = {
-			blocked_call_diet = yes
 			disables_estate_nobles = yes
 		}
 	}
@@ -2900,7 +2917,6 @@ ourdi_new_bulwari_accord = {
 		allow = { has_dlc = "Common Sense" }
 		has_parliament = yes
 		custom_attributes = {
-			blocked_call_diet = yes
 			disables_estate_nobles = yes
 		}
 	}
@@ -3361,6 +3377,7 @@ enforce_privileges_reform = {	#bertus mod
 		NOT = {culture_group = dwarven}
 		NOT = {has_reform = alenic_monarchy}
 		NOT = {has_reform = alenic_empire}
+		NOT = {culture_group = ogre}
 	}
 	modifiers = {
 		governing_cost = -0.1
@@ -3395,6 +3412,8 @@ quash_noble_power_reform = {	#bertus mod
 		global_rebel_suppression_efficiency = 0.5
 		mil_advisor_cost = -0.1
 		country_military_power = 1
+	}
+	custom_attributes = {
 		claim_states = yes
 	}
 	ai = {
@@ -3413,6 +3432,7 @@ grant_noble_castle_rights_reform = {	#bertus mod	#new LotN
 		is_revolutionary = no
 		NOT = { has_reform = hobgoblin_stratocracy_reform }	#Anbennar
 		NOT = {culture_group = dwarven}
+		NOT = {culture_group = ogre}
 	}
 	modifiers = {
 		war_exhaustion = -0.02
@@ -3444,6 +3464,7 @@ maintain_nobles_status_quo_reform = {	#bertus mod	#new LotN
 		is_revolutionary = no
 		NOT = { has_reform = hobgoblin_stratocracy_reform }	#Anbennar
 		NOT = {culture_group = dwarven}
+		NOT = {culture_group = ogre}
 	}
 	modifiers = {
 		stability_cost_modifier = -0.1
@@ -3465,6 +3486,7 @@ grant_military_command_reform = {	#bertus mod	#new LotN
 		is_revolutionary = no
 		NOT = { has_reform = hobgoblin_stratocracy_reform }	#Anbennar
 		NOT = {culture_group = dwarven}
+		NOT = { culture_group = ogre }
 	}
 	modifiers = {
 		army_tradition = 0.25
@@ -3812,10 +3834,11 @@ magical_elite_reform = {	#bertus mod
 			}
 		}
 		NOT = {culture_group = dwarven}
+		NOT = {culture_group = ogre}
 	}
 	modifiers = {
-		mages_loyalty_modifier = -0.05
-		mages_influence_modifier = -0.05
+		mages_loyalty_modifier = 0.05
+		mages_influence_modifier = 0.05
 	}
 	custom_attributes = {
 		increased_magic_ruler_chance = yes
@@ -4289,22 +4312,21 @@ seghdihr_segbandalic_military = {
 	}
 }
 
-ogre_shaman_reform = {
+ogre_shaman_reform = {	#bertus mod
 	icon = "chieftain"
 	allow_normal_conversion = yes
 	potential = {
 		OR = {
-			has_reform = great_ogre_horde
-			has_reform = mengotsa
-			has_reform = ogre_empire
-			has_reform = ogre_kingdom
-			has_reform = ogre_horde
+			culture_group = ogre
 		}
 	}
 	modifiers = {
-		advisor_cost = -0.05
-		reform_progress_growth = 0.25
-		church_influence_modifier = 0.1
+		stability_cost_modifier = -0.1
+		monthly_reform_progress_modifier = 0.2
+		legitimacy = 0.5
+	}
+	custom_attributes = {
+		increased_magic_ruler_chance = yes
 	}
 	ai = {
 		factor = 1
@@ -4316,16 +4338,15 @@ ogre_magardon_reform = {
 	allow_normal_conversion = yes
 	potential = {
 		OR = {
-			has_reform = great_ogre_horde
-			has_reform = mengotsa
-			has_reform = ogre_empire
-			has_reform = ogre_kingdom
-			has_reform = ogre_horde
+			culture_group = ogre
 		}
 	}
 	modifiers = {
 		army_tradition = 0.5
-		general_cost = -0.1
+		land_maintenance_modifier = -0.05
+	}
+	custom_attributes = {
+		mil_advisors_give_manpower_recovery_from_skill_level = yes
 	}
 	ai = {
 		factor = 1
@@ -4867,11 +4888,7 @@ of_noble_bearing_reform = {	#bertus mod
 	icon = "nobleman"
 	allow_normal_conversion = yes
 	potential = {
-		NOT = { has_reform = hobgoblin_stratocracy_reform }
-		NOT = { has_reform = ogre_kingdom }
-		NOT = { has_reform = mengotsa }
-		NOT = { has_reform = ogre_empire }
-		NOT = { has_reform = great_ogre_horde }
+		NOT = { culture_group = ogre }
 		OR = {
 			is_revolutionary = no
 			NOT = { has_dlc = "Emperor" }
@@ -5207,7 +5224,7 @@ khug_asra_reform_monarchy = {
 	}
 }
 
-ogre_consolidate_power_reform = {
+ogre_consolidate_power_reform = {	#bertus mod
 	icon = "english_monarchy"
 	allow_normal_conversion = yes
 	potential = {
@@ -5220,14 +5237,19 @@ ogre_consolidate_power_reform = {
 	}
 	modifiers = {
 		core_creation = -0.05
-		stability_cost_modifier = -0.05
+		land_maintenance_modifier = -0.05
+		stability_cost_modifier = 0.25
+		free_adm_policy = 1
+	}
+	custom_attributes = {
+		boosted_stability = yes
 	}
 	ai = {
 		factor = 1
 	}
 }
 
-ogre_delegate_tribes_reform = {
+ogre_delegate_tribes_reform = {	#bertus mod
 	icon = "tribal_council"
 	allow_normal_conversion = yes
 	potential = {
@@ -5240,7 +5262,11 @@ ogre_delegate_tribes_reform = {
 	}
 	modifiers = {
 		development_cost = -0.05
- 		land_maintenance_modifier = -0.05
+		advisor_cost = 0.1
+		free_dip_policy = 1	#0→1	
+	}
+	custom_attributes = {
+		meritocratic_advisors = yes
 	}
 	ai = {
 		factor = 1
@@ -5277,10 +5303,7 @@ royal_decree_reform = {	#bertus mod
 	allow_normal_conversion = yes
 	potential = {
 		NOT = { has_reform = hobgoblin_stratocracy_reform }
-		NOT = { has_reform = ogre_kingdom }
-		NOT = { has_reform = mengotsa }
-		NOT = { has_reform = ogre_empire }
-		NOT = { has_reform = great_ogre_horde }
+		NOT = { culture_group = ogre }
 		is_revolutionary = no
 	}
 	trigger = {
@@ -5590,7 +5613,6 @@ jadd_exemplary = {
 		allow = { has_dlc = "Common Sense" }
 		has_parliament = yes
 		custom_attributes = {
-			blocked_call_diet = yes
 			disables_estate_nobles = yes
 		}
 	}
@@ -5663,7 +5685,6 @@ seghdihr_segamlavad = {
 		allow = { has_dlc = "Common Sense" }
 		has_parliament = yes
 		custom_attributes = {
-			blocked_call_diet = yes
 			disables_estate_nobles = yes
 		}
 	}
@@ -5674,14 +5695,16 @@ ogre_claim_mengurkha_reform = {
 	allow_normal_conversion = yes
 	potential = {
 		OR = {
-			has_reform = great_ogre_horde
-			has_reform = mengotsa
-			has_reform = ogre_empire
-			has_reform = ogre_kingdom
+			culture_group = ogre
 		}
 	}
 	modifiers = {
-		max_absolutism = 20
+		max_absolutism = 10
+		yearly_absolutism = 1
+		legitimacy = 0.5
+		stability_cost_modifier = -0.1
+		reform_progress_growth = 0.2
+		all_estate_loyalty_equilibrium = 0.05
 	}
 	ai = {
 		factor = 1
@@ -5693,10 +5716,7 @@ ogre_clan_assembly_reform = {
 	allow_normal_conversion = yes
 	potential = {
 		OR = {
-			has_reform = great_ogre_horde
-			has_reform = mengotsa
-			has_reform = ogre_empire
-			has_reform = ogre_kingdom
+			culture_group = ogre
 		}
 	}
 	modifiers = {
@@ -5706,9 +5726,6 @@ ogre_clan_assembly_reform = {
 	conditional = {
 		allow = { has_dlc = "Common Sense" }
 		has_parliament = yes
-		custom_attributes = {
-			blocked_call_diet = yes
-		}
 	}
 	ai = {
 		factor = 1
@@ -6375,7 +6392,9 @@ halessi_hegemon_reform = {
 		max_absolutism = 5
 		yearly_absolutism = 0.5
 	}
-	claim_states = yes
+	custom_attributes = {
+		claim_states = yes
+	}
 
 	effect = {
 		custom_tooltip = Y98_halessi_hegemon_reform_tt

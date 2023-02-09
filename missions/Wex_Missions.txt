@@ -363,17 +363,43 @@ wex_slot_2 = {
 		
 		provinces_to_highlight = {
 			owned_by = ROOT
-			trade_goods = munitions
+			if = {
+				limit = {
+					has_global_flag = stored_goods_activated_flag
+				}
+				trade_goods = munitions
+			}
+			else = {
+				OR = {
+					trade_goods = iron
+					trade_goods = copper
+				}
+			}
 		}
 		
 		trigger = {
-			check_variable = {
-				which = munitions
-				value = 10
+			if = {
+				limit = {
+					has_global_flag = stored_goods_activated_flag
+				}
+				check_variable = {
+					which = munitions
+					value = 10
+				}
+				check_variable = {
+					which = munitions_ratio
+					value = 1.5
+				}
 			}
-			check_variable = {
-				which = munitions_ratio
-				value = 1.5
+			else = {
+				check_variable = {
+					which = iron
+					value = 10
+				}
+				check_variable = {
+					which = copper
+					value = 10
+				}
 			}
 		}
 		
@@ -673,13 +699,24 @@ wex_slot_3 = {
 		position = 11
 		
 		trigger = {
-			check_variable = {
-				which = jewellery
-				value = 10
+			if = {
+				limit = {
+					has_global_flag = stored_goods_activated_flag
+				}
+				check_variable = {
+					which = jewellery
+					value = 10
+				}
+				check_variable = {
+					which = jewellery_ratio
+					value = 1.5
+				}
 			}
-			check_variable = {
-				which = jewellery_ratio
-				value = 1.5
+			else = {
+				check_variable = {
+					which = silver
+					value = 5
+				}
 			}
 		}
 		
@@ -867,13 +904,24 @@ wex_slot_4 = {
 		position = 11
 		
 		trigger = {
-			check_variable = {
-				which = metalworking
-				value = 10
+			if = {
+				limit = {
+					has_global_flag = stored_goods_activated_flag
+				}
+				check_variable = {
+					which = metalworking
+					value = 10
+				}
+				check_variable = {
+					which = metalworking_ratio
+					value = 1.5
+				}
 			}
-			check_variable = {
-				which = metalworking_ratio
-				value = 1.5
+			else = {
+				check_variable = {
+					which = brass
+					value = 5
+				}
 			}
 		}
 		
