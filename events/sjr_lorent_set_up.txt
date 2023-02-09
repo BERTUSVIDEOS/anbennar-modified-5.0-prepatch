@@ -7,7 +7,7 @@ province_event = {
 	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
-	
+
     trigger = {
 		OR = {
 			AND = { #cuando hay que ponerlo
@@ -118,17 +118,22 @@ country_event = {
 	desc = sjr_lorent_set_up_off.3.desc
 	picture = PLAGUE_eventPicture
 	
+	is_triggered_only = yes
 	hidden = no
 	fire_only_once = yes
 	
     trigger = {
-		NOT = { is_year = 1446 }
-		tag = A01
-		#AI = no
 	}
 		
 	immediate = {
-	
+		hidden_effect = {
+			every_subject_country = {
+				add_truce_with = ROOT
+				ROOT = {
+					add_truce_with = PREV
+				}
+			}
+		}
 	}
 	option = {
 		name = sjr_lorent_set_up.3.a
@@ -137,15 +142,14 @@ country_event = {
 		}
 		add_country_modifier = { 
 			name = lorent_player_modifier
-			duration = 3650
+			duration = 7300
 			#desc = LORENT_PLAYER_modifier_DESC_TOOLTIP
 			#hidden = no
 		}
-		add_stability = -1
 		add_war_exhaustion = 10
 		add_corruption = 5
 		add_manpower = -30
-		add_sailors = -5000
+		add_sailors = -10000
 		#add_truce_with = A20
 		#add_truce_with = A04
 		#add_truce_with = A88

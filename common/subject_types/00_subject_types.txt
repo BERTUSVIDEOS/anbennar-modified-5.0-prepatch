@@ -1013,7 +1013,7 @@ autonomous_vassal = {
 	gets_help_with_rebels = no
 	overlord_can_attack = no
 	overlord_protects_external = no
-	takes_diplo_slot = yes
+	takes_diplo_slot = no
 	
 	max_government_rank = 1
 	trust_on_start = 40
@@ -1023,7 +1023,7 @@ autonomous_vassal = {
 	liberty_desire_development_ratio = 0.1
 	liberty_desire_same_dynasty = -10.0
 	pays_overlord = 1.0			#0.35→1.0				#1.0 Is what vassal pays
-	relative_power_class = 2 							#Same as vassal
+	relative_power_class = 1 							#
 	liberty_desire_revolution = 10.0
 	
 	# Subject Interactions:
@@ -1036,7 +1036,7 @@ autonomous_vassal = {
 	subsidize_armies = no
 	send_additional_troops = no
 	
-	send_officers = yes
+	send_officers = no
 	
 	# Modifiers:
 	overlord_opinion_modifier = is_vassal
@@ -2935,10 +2935,9 @@ lorent_sphere_subject = {
 	can_release_in_peace = yes
 	uses_military_focus = no
 	overlord_enforce_peace_attacking = no	
-	can_use_claims = yes
+	can_use_claims = no
 	overlord_protects_external = yes
 	counts_for_borders = no
-	can_use_claims = no
 	share_rebel_popup = no
 	can_transfer_in_peace = no
 	can_set_mil_focus = no
@@ -2947,12 +2946,12 @@ lorent_sphere_subject = {
 	does_overlord_size_count_for_warscore_cost = no
 	can_concentrate_development = no
 
-	max_government_rank = 2
+	max_government_rank = 1
 
 	#forcelimit_bonus = 0.0	
 	forcelimit_to_overlord = 0.25						# Percent of subject FL to use as base for modifiers
 	naval_forcelimit_to_overlord = 0.25					# Percent of subject FL to use as base for modifiers
-	manpower_to_overlord = 0.33							# Percent of subject FL to use as base for modifiers
+	manpower_to_overlord = 0.25							# Percent of subject FL to use as base for modifiers
 	sailors_to_overlord = 0.25							# Percent of subject FL to use as base for modifiers
 	pays_overlord = 0.5									# 1.0 represents the amount payed by vassals
 	
@@ -2984,7 +2983,6 @@ lorent_sphere_subject = {
 	}
 
 	# Subject Interactions:
-# Subject Interactions:
 	# (continuous)
 	embargo_rivals = no
 	support_loyalists = yes
@@ -3036,21 +3034,29 @@ lorent_sphere_subject = {
 	#}
 	modifier_overlord = {
 		#if lorent is IA
-		modifier = 	lorent_sphere_subject_Overlord_bonus	
+		modifier = 	lorent_sphere_subject_overlord_bonus	
 		trigger = {
-			overlord = {
-				AI = yes
+			NOT = {liberty_desire = 50}
+			FROM = {
+				ai = yes
 			}
 		}
-
 	}
 	modifier_subject = {
 		#if lorent is IA
-		modifier = 	lorent_sphere_subject_subject_bonus	
+		modifier = 	lorent_sphere_subject_bonus	
 		trigger = {
-			overlord = {
-				AI = yes
+			NOT = {liberty_desire = 50}
+			FROM = {
+				ai = yes
 			}
+		}
+	}
+	modifier_subject = {
+		#if lorent is IA
+		modifier = 	lorent_sphere_no_fl	
+		trigger = {
+			liberty_desire = 50
 		}
 	}
 }
