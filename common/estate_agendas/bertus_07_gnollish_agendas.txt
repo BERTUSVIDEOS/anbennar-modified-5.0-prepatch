@@ -1009,13 +1009,18 @@ estate_gnollish_build_manufactory_in_x = {
 			duration = 7300
 		}
 		event_target:agenda_province = {
-			add_base_production = 1
-			add_province_modifier = {
-				name = prospering_production
-				duration = 5475
+			if = {
+				limit = {owner = {high_tolerance_gnollish_race_trigger = yes}}	
+				add_base_production = 1
+				add_province_modifier = {
+					name = prospering_production
+					duration = 5475
+				}
 			}
-			get_tolerance_from_provinces = {
-				race = gnollish
+			else = {
+				get_tolerance_from_provinces = {
+					race = gnollish
+				}
 			}
 		}
 		
@@ -1124,12 +1129,16 @@ estate_gnollish_build_production_building_in_x = {
 			duration = 7300
 		}
 		event_target:agenda_province = {
-			add_base_production = 1
-			get_tolerance_from_provinces = {
-				race = gnollish
+			if = {
+				limit = {owner = {high_tolerance_gnollish_race_trigger = yes}}	
+				add_base_production = 1
 			}
-		}
-		
+			else = {
+				get_tolerance_from_provinces = {
+					race = gnollish
+				}
+			}
+		}	
     }
     failing_effect = {
 		event_target:agenda_province = {
@@ -1223,12 +1232,16 @@ estate_gnollish_build_trade_building_in_x = {
 			duration = 7300
 		}
 		event_target:agenda_province = {
-			add_base_production = 1
-			get_tolerance_from_provinces = {
-				race = gnollish
+			if = {
+				limit = {owner = {high_tolerance_gnollish_race_trigger = yes}}	
+				add_base_production = 1
+			}
+			else = {
+				get_tolerance_from_provinces = {
+					race = gnollish
+				}
 			}
 		}
-		
     }
     failing_effect = {
 		event_target:agenda_province = {
@@ -1476,12 +1489,16 @@ estate_gnollish_increase_autonomy_in_x = {
 			duration = 7300
 		}
 		event_target:agenda_province = {
-			apply_random_development_bonus_bonus_effect = yes
-			get_tolerance_from_provinces = {
-				race = gnollish
+			if = {
+				limit = {owner = {high_tolerance_gnollish_race_trigger = yes}}	
+				apply_random_development_bonus_bonus_effect = yes
+			}
+			else = {
+				get_tolerance_from_provinces = {
+					race = gnollish
+				}
 			}
 		}
-		
     }
     failing_effect = {
 		event_target:agenda_province = {
@@ -1567,10 +1584,15 @@ estate_gnollish_build_temple_in_x = {
 			duration = 7300
 		}
 		event_target:agenda_province = {
-			add_base_tax = 1
-			get_tolerance_from_provinces = {
-				race = gnollish
-			}			
+			if = {
+				limit = {owner = {high_tolerance_gnollish_race_trigger = yes}}	
+				add_base_tax = 1
+			}
+			else = {
+				get_tolerance_from_provinces = {
+					race = gnollish
+				}
+			}
 		}
 		
     }

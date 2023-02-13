@@ -152,17 +152,25 @@ country_event = {
 			#set_legacy_government = despotic_monarchy
 		}
 		if = {
-			limit = {
-				has_country_flag = strengthened_signoria_flag
-			}
+			limit = {has_country_flag = strengthened_signoria_flag}
 			custom_tooltip = strengthened_signoria_election_tt
 			clr_country_flag = strengthened_signoria_flag
 		}
+		else_if = {	#long-lived races
+			limit = {has_country_modifier = elven_administration}
+			add_scaled_republican_tradition = -15
+		}
+		else_if = {	#long-lived races
+			limit = {has_country_modifier = gnomish_administration}
+			add_scaled_republican_tradition = -13
+		}
+		else_if = {	#long-lived races
+			limit = {has_country_modifier = dwarven_administration}
+			add_scaled_republican_tradition = -12
+		}
 		else = {
 			if = {
-				limit = {
-					has_country_flag = increased_election_cost
-				}
+				limit = {has_country_flag = increased_election_cost}
 				add_scaled_republican_tradition = -15
 				clr_country_flag = increased_election_cost
 			}
@@ -171,20 +179,12 @@ country_event = {
 			}
 		}
 		random_list = {
-			10 = {
-				add_adm_power = 50
-			}
-			10 = {
-				add_dip_power = 50
-			}
-			10 = {
-				add_mil_power = 50
-			}
+			10 = {add_adm_power = 50}
+			10 = {add_dip_power = 50}
+			10 = {add_mil_power = 50}
 		}
 		if = {
-			limit = {
-				has_government_attribute = reelection_depowers_estates
-			}
+			limit = {has_government_attribute = reelection_depowers_estates}
 			add_estate_influence_modifier = {
 				estate = all
 				influence = -10

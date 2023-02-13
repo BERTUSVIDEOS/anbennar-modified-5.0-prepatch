@@ -384,10 +384,6 @@ country_event = {
 			factor = 0
 		}
 		reduce_stability_or_adm_power = yes
-		add_estate_loyalty = {
-			estate = estate_burghers
-			loyalty = -20
-		}
 	}	
 }
 
@@ -424,24 +420,6 @@ country_event = {
 					modifier = { # Relations should begin to sour a bit
 						factor = 2
 						is_year = 1575
-					}
-					modifier = { # More likely if disloyal
-						factor = 1.5
-						NOT = {
-							estate_loyalty = {
-								estate = estate_burghers
-								loyalty = 40
-							}
-						}
-					}
-					modifier = { # More likely if disloyal
-						factor = 1.5
-						NOT = {
-							estate_loyalty = {
-								estate = estate_burghers
-								loyalty = 30
-							}
-						}
 					}
 					set_country_flag = council_oppose_ruler
 				}
@@ -509,13 +487,6 @@ country_event = {
 		trigger = {
 			has_country_flag = council_oppose_ruler
 		}
-		if = { # AI is seriously bad at managing land share
-			limit = { ai = no }
-			change_estate_land_share = {
-				estate = estate_burghers
-				share = 5
-			}
-		}
 		add_years_of_income = -0.25
 		add_ruler_modifier = {
 			name = magnate_council_support
@@ -548,10 +519,6 @@ country_event = {
 			name = bought_magnate_business
 			duration = 3650
 		}
-		change_estate_land_share = {
-			estate = estate_burghers
-			share = -2.5
-		}
 	}
 	
 	# Sell their stuff
@@ -579,13 +546,6 @@ country_event = {
 	
 	mean_time_to_happen = {
 		days = 1
-		modifier = { # Less likely in influential
-			factor = 0.5
-			estate_influence = {
-				estate = estate_burghers
-				influence = 65
-			}
-		}
 	}
 	
 	# We can do nothing
@@ -594,14 +554,7 @@ country_event = {
 		ai_chance = {
 			factor = 1
 		}
-		change_estate_land_share = {
-			estate = estate_burghers
-			share = 5
-		}
-		change_estate_land_share = {
-			estate = estate_nobles
-			share = -5
-		}
+		add_dip_power = -20	#bertus mod
 	}
 }
 
@@ -647,16 +600,12 @@ country_event = {
 		}
 	}
 	
-	option = {
+	option = {	#bertus mod
 		ai_chance = {
 			factor = 1
 		}
 		name = flavor_gawed.8.a
-		change_estate_land_share = {
-			estate = estate_burghers
-			share = 5
-		}
-		add_years_of_income = 1
+		add_years_of_income = 0.2
 	}
 	
 	option = {
@@ -694,27 +643,6 @@ country_event = {
 	
 	mean_time_to_happen = {
 		days = 1
-		modifier = {
-			factor = 2
-			estate_loyalty = {
-				estate = estate_burghers
-				loyalty = 60
-			}
-		}
-		modifier = {
-			factor = 2
-			estate_loyalty = {
-				estate = estate_burghers
-				loyalty = 65
-			}
-		}
-		modifier = {
-			factor = 2
-			estate_loyalty = {
-				estate = estate_burghers
-				loyalty = 70
-			}
-		}
 	}
 	
 	option = {
@@ -723,12 +651,6 @@ country_event = {
 		}
 		name = flavor_gawed.9.a
 		add_years_of_income = -0.25
-		add_estate_influence_modifier = {
-			influence = 10
-			duration = 1825
-			desc = EXPANDED_MAGNATE_PRIVILEGES
-			estate = estate_burghers
-		}
 		remove_country_modifier = magnate_council_opposition
 		add_ruler_modifier = {
 			name = magnate_council_support
@@ -762,27 +684,13 @@ country_event = {
 	trigger = {
 		has_country_modifier = magnate_council_opposition
 		estate_influence = {
-			estate = estate_burghers
-			influence = 50
+			estate = estate_human
+			influence = 100
 		}
 	}
 	
 	mean_time_to_happen = {
 		days = 1
-		modifier = {
-			factor = 2
-			estate_influence = {
-				estate = estate_burghers
-				influence = 60
-			}
-		}
-		modifier = {
-			factor = 1.5
-			estate_influence = {
-				estate = estate_burghers
-				influence = 70
-			}
-		}
 	}
 	
 	immediate = {
@@ -817,10 +725,6 @@ country_event = {
 			}
 			add_local_autonomy = -10 # Cause the winner is happy
 		}
-		add_estate_loyalty = {
-			estate = estate_burghers
-			loyalty = 10
-		}
 	}
 	
 	# Stay Neutral
@@ -830,12 +734,6 @@ country_event = {
 			factor = 1
 		}
 		add_prestige = 5
-		add_estate_influence_modifier = {
-			influence = -10
-			duration = 1825
-			desc = MAGNATES_FEUDING
-			estate = estate_burghers
-		}
 	}
 }
 
@@ -851,8 +749,8 @@ country_event = {
 	trigger = {
 		has_country_modifier = magnate_council_opposition
 		estate_influence = {
-			estate = estate_burghers
-			influence = 30
+			estate = estate_human
+			influence = 75
 		}
 	}
 	
@@ -861,13 +759,6 @@ country_event = {
 		modifier = { # Relations should begin to sour a bit
 			factor = 5
 			is_year = 1575
-		}
-		modifier = {
-			factor = 2
-			estate_influence = {
-				estate = estate_burghers
-				influence = 50
-			}
 		}
 	}
 	
@@ -895,10 +786,6 @@ country_event = {
 			}
 			add_local_autonomy = 10
 		}
-		change_estate_land_share = {
-			estate = estate_burghers
-			share = 5
-		}
 	}
 	
 	# Stop this now!
@@ -907,34 +794,10 @@ country_event = {
 		ai_chance = {
 			factor = 1
 		}
-		if = {
-			limit = {
-				estate_loyalty = {
-					estate = estate_burghers
-					loyalty = 40
-				}
-			}
-			event_target:business_province = {
-				spawn_rebels = {
-					type = particularist_rebels
-					size = 3
-				}
-			}
-			add_estate_loyalty = {
-				estate = estate_burghers
-				loyalty = -10
-			}
-		}
-		else = {
-			event_target:business_province = {
-				spawn_rebels = {
-					type = particularist_rebels
-					size = 4
-				}
-			}
-			add_estate_loyalty = {
-				estate = estate_burghers
-				loyalty = -10
+		event_target:business_province = {
+			spawn_rebels = {
+				type = particularist_rebels
+				size = 4
 			}
 		}
 		add_prestige = -10
