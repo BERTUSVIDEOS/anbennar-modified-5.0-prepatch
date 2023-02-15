@@ -1,0 +1,2320 @@
+namespace = bertus_artificers
+
+country_event = {	#
+	id = bertus_artificers.1
+	title = bertus_artificers.1.t
+	desc = bertus_artificers.1.desc
+	picture = INVENTION_eventPicture
+	
+	is_triggered_only = yes
+    trigger = {	
+    }
+		
+	immediate = {
+	}
+	option = {	#close
+		name = bertus_artificers.50000.z
+		highlight = yes
+	}
+	option = {	#
+		name = bertus_artificers.1.a
+		trigger = {			
+			NOT = { has_estate_privilege = estate_artificers_organization_state }
+			NOT = { has_estate_privilege = estate_artificers_organization_feiten_shuimu_cadre }
+		}
+		custom_tooltip = set_research_privilege_tt
+		hidden_effect = {
+			set_estate_privilege = artifice_invention_research_privilege
+			country_event = { id = artifice_events.1 }
+		}
+	}
+	option = {	#
+		name = bertus_artificers.1.b
+		trigger = {			
+			OR = { 
+				has_estate_privilege = estate_artificers_organization_state
+				has_estate_privilege = estate_artificers_organization_feiten_shuimu_cadre 
+			}
+		}
+		if = { limit = { tag = event_target:feiten_or_was_feiten_target }	#Feiten
+			if = {
+				limit = {
+					mission_completed = feiten_secrets_of_the_precursors
+					OR = {
+						any_subject_country = { any_owned_province = { trade_goods = precursor_relics } }
+						any_owned_province = { trade_goods = precursor_relics }
+					}
+				}
+				set_country_flag = artificery_research_choice_ongoing
+				hidden_effect = { country_event = { id = artifice_events.10 } }
+			}
+			else = {
+				custom_tooltip = set_research_privilege_tt
+				hidden_effect = { set_estate_privilege = artifice_invention_directed_research }
+			}
+		}
+		else = {
+			custom_tooltip = set_research_privilege_tt
+			hidden_effect = { set_estate_privilege = artifice_invention_directed_research }
+		}
+		hidden_effect = { country_event = { id = artifice_events.4 } }	#fast research
+	}
+	option = {	#Artificer Armory
+		name = bertus_artificers.1.c
+		country_event = {id = bertus_artificers.50000}
+	}
+	after = {
+	}
+}
+country_event = {	#
+	id = bertus_artificers.50000
+	title = bertus_artificers.50000.t
+	desc = bertus_artificers.50000.desc
+	picture = INVENTION_eventPicture
+	
+	is_triggered_only = yes
+    trigger = {	
+    }
+		
+	immediate = {
+	}
+	option = {	#back
+		name = bertus_artificers.50000.z
+		highlight = yes
+		country_event = {id = bertus_artificers.1}
+	}
+	option = {	#Weapon
+		name = bertus_artificers.50000.a
+		trigger = {
+			OR = {
+				has_country_flag = unlocked_artifice_invention_elemental_rifles
+				has_country_flag = unlocked_artifice_invention_vorpal_rifles
+				has_country_flag = unlocked_artifice_invention_sparkdrive_rifles
+			}
+		}
+		country_event = {
+			id = bertus_artificers.51000
+		}
+	}
+	option = {	#Projectiles
+		name = bertus_artificers.50000.b
+		trigger = {
+			OR = {
+				has_country_flag = invention_elemental_gunpowder
+				has_country_flag = unlocked_artifice_invention_vorpal_bullets
+				has_country_flag = unlocked_artifice_invention_black_damestear_bullets				
+			}
+		}
+		country_event = {
+			id = bertus_artificers.52000
+		}
+	}
+	option = {	#Armor
+		name = bertus_artificers.50000.c
+		trigger = {
+			OR = {
+				has_country_flag = unlocked_artifice_invention_war_golems
+				has_country_flag = unlocked_artifice_invention_scale_plating
+				has_country_flag = unlocked_artifice_invention_warframe	
+				has_country_flag = unlocked_artifice_invention_vorpal_rune_protection
+				has_country_flag = unlocked_artifice_invention_dragonscale_plating
+				has_country_flag = unlocked_artifice_invention_giantshape_warframe
+				has_country_flag = unlocked_artifice_invention_veykoda_rune_protections
+				has_country_flag = unlocked_artifice_invention_personal_mageshields
+				has_country_flag = unlocked_artifice_invention_kronium_battlesuit		
+			}
+		}
+		country_event = {
+			id = bertus_artificers.53000
+		}
+	}
+	option = {	#Gadget
+		name = bertus_artificers.50000.d
+		trigger = {
+			OR = {
+				has_country_flag = unlocked_artifice_invention_mechanim_power_fists
+				has_country_flag = unlocked_artifice_invention_mechanim_auto_rifle
+				has_country_flag = unlocked_artifice_invention_artificer_exo_arms
+				has_country_flag = unlocked_artifice_invention_mechanic_fists
+				has_country_flag = unlocked_artifice_invention_codorran_powered_exosuit
+				has_country_flag = unlocked_artifice_invention_predator_exoskeleton		
+				has_country_flag = unlocked_artifice_invention_portable_turrets
+				has_country_flag = unlocked_artifice_invention_power_fists		
+				has_country_flag = unlocked_artifice_invention_mechanim_soldiers
+			}
+		}
+		country_event = {
+			id = bertus_artificers.54000
+		}
+	}
+	option = {	#Enhancement
+		name = bertus_artificers.50000.e
+		trigger = {
+			OR = {
+				has_country_flag = unlocked_artifice_invention_elemental_serum
+				has_country_flag = unlocked_artifice_invention_soldier_serum
+				has_country_flag = unlocked_artifice_invention_avatar_supersoldier_serum
+				has_country_flag = unlocked_artifice_invention_dragonblood_gene_warriors
+				has_country_flag = unlocked_artifice_invention_controlled_rage_serum
+				has_country_flag = unlocked_artifice_invention_vernman_hero_tonic				
+			}
+		}
+		country_event = {
+			id = bertus_artificers.55000
+		}
+	}
+	after = {
+	}
+}
+country_event = {	#Weapons
+	id = bertus_artificers.51000
+	title = bertus_artificers.51000.t
+	desc = bertus_artificers.51000.desc
+	picture = INVENTION_eventPicture
+	
+	is_triggered_only = yes
+    trigger = {	
+    }
+	
+	immediate = {
+		
+	}
+	option = {	#back
+		name = bertus_artificers.50000.z
+		highlight = yes
+		
+		country_event = {
+			id = bertus_artificers.50000
+		}
+	}
+	option = {	#lvl 1
+		name = bertus_artificers.51000.a
+		trigger = {
+			OR = {
+				has_country_flag = unlocked_artifice_invention_elemental_rifles
+			}
+		}
+		
+		country_event = {id = bertus_artificers.51100}
+	}
+	option = {	#lvl 2
+		name = bertus_artificers.51000.b
+		trigger = {
+			OR = {
+				has_country_flag = unlocked_artifice_invention_vorpal_rifles
+			}
+		}
+		
+		country_event = {id = bertus_artificers.51200}
+	}
+	option = {	#lvl 3
+		name = bertus_artificers.51000.c
+		trigger = {			
+			OR = {
+				has_country_flag = unlocked_artifice_invention_sparkdrive_rifles
+			}
+		}
+		
+		country_event = {id = bertus_artificers.51300}
+	}
+	after = {
+	}
+}
+country_event = {	#weapon lvl 1
+	id = bertus_artificers.51100
+	title = bertus_artificers.51100.t
+	desc = bertus_artificers.51100.desc
+	picture = INVENTION_eventPicture
+	
+	is_triggered_only = yes
+    trigger = {	
+    }
+	
+	immediate = {
+		
+	}
+	option = {	#back
+		name = bertus_artificers.50000.z
+		highlight = yes
+		
+		country_event = {id = bertus_artificers.51000}
+	}
+	option = {	#option A
+		name = bertus_artificers.51100.a
+		trigger = {
+			OR = {
+				artifice_has_points_for_basic = yes
+				has_country_flag = artifice_weapons_1_flag
+			}
+			has_country_flag = unlocked_artifice_invention_elemental_rifles
+			NOT = {has_country_flag = artifice_weapons_2_flag}
+			NOT = {has_country_flag = artifice_weapons_3_flag}
+			NOT = {has_country_flag = artifice_arcane_blaster_bertus_flag}
+		}
+		if = {
+			custom_tooltip = remove_country_modifier_artifice_weapons_1_tt
+			limit = {has_country_flag = artifice_weapons_1_flag}
+			clr_country_flag = artifice_weapons_1_flag
+			hidden_effect = {clear_artificers_weapon = yes}
+			artifice_remove_basic = yes
+		}
+		else = {
+			custom_tooltip = add_country_modifier_artifice_weapons_1_tt
+			set_country_flag = artifice_weapons_1_flag
+			setup_artificers_weapon = yes
+			artifice_granted_basic = yes
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.51000}}		
+	}
+	option = {	#option A unable
+		name = bertus_artificers.51100.a.unable
+		trigger = {
+			has_country_flag = unlocked_artifice_invention_elemental_rifles
+			OR = {
+				AND = {					
+					artifice_has_points_for_basic = no
+					NOT = {has_country_flag = artifice_weapons_1_flag}
+				}
+				has_country_flag = artifice_weapons_2_flag
+				has_country_flag = artifice_weapons_3_flag
+				has_country_flag = artifice_arcane_blaster_bertus_flag
+			}
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.51000}}
+	}
+	after = {
+	}
+}
+country_event = {	#weapon lvl 2
+	id = bertus_artificers.51200
+	title = bertus_artificers.51200.t
+	desc = bertus_artificers.51200.desc
+	picture = INVENTION_eventPicture
+	
+	is_triggered_only = yes
+    trigger = {	
+    }
+	
+	immediate = {
+		
+	}
+	option = {	#back
+		name = bertus_artificers.50000.z
+		highlight = yes
+		
+		country_event = {id = bertus_artificers.51000}
+	}
+	option = {	#option A
+		name = bertus_artificers.51200.a
+		trigger = {
+			OR = {
+				artifice_has_points_for_expert = yes
+				has_country_flag = artifice_weapons_2_flag
+			}
+			has_country_flag = unlocked_artifice_invention_vorpal_rifles
+			NOT = {has_country_flag = artifice_weapons_1_flag}
+			NOT = {has_country_flag = artifice_weapons_3_flag}
+			NOT = {has_country_flag = artifice_arcane_blaster_bertus_flag}
+		}
+		if = {
+			limit = {has_country_flag = artifice_weapons_2_flag}
+			custom_tooltip = remove_country_modifier_artifice_weapons_2_tt
+			clr_country_flag = artifice_weapons_2_flag
+			hidden_effect = {clear_artificers_weapon = yes}
+			artifice_remove_expert = yes
+		}
+		else = {
+			custom_tooltip = add_country_modifier_artifice_weapons_2_tt
+			set_country_flag = artifice_weapons_2_flag
+			setup_artificers_weapon = yes
+			artifice_granted_expert = yes
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.51000}}		
+	}
+	option = {	#option A unable
+		name = bertus_artificers.51200.a.unable
+		trigger = {
+			has_country_flag = unlocked_artifice_invention_vorpal_rifles
+			OR = {
+				AND = {					
+					artifice_has_points_for_expert = no
+					NOT = {has_country_flag = artifice_weapons_2_flag}
+				}
+				has_country_flag = artifice_weapons_1_flag
+				has_country_flag = artifice_weapons_3_flag
+				has_country_flag = artifice_arcane_blaster_bertus_flag
+			}
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.51000}}
+	}
+	after = {
+	}
+}
+country_event = {	#weapon lvl 3
+	id = bertus_artificers.51300
+	title = bertus_artificers.51300.t
+	desc = bertus_artificers.51300.desc
+	picture = INVENTION_eventPicture
+	
+	is_triggered_only = yes
+    trigger = {	
+    }
+	
+	immediate = {
+		
+	}
+	option = {	#back
+		name = bertus_artificers.50000.z
+		highlight = yes
+		
+		country_event = {id = bertus_artificers.51000}
+	}
+	option = {	#option A
+		name = bertus_artificers.51300.a
+		trigger = {
+			OR = {
+				artifice_has_points_for_advanced = yes
+				has_country_flag = artifice_weapons_3_flag
+			}
+			has_country_flag = unlocked_artifice_invention_sparkdrive_rifles
+			NOT = {has_country_flag = artifice_weapons_2_flag}
+			NOT = {has_country_flag = artifice_weapons_1_flag}
+			NOT = {has_country_flag = artifice_arcane_blaster_bertus_flag}
+		}
+		if = {
+			limit = {has_country_flag = artifice_weapons_3_flag}
+			custom_tooltip = remove_country_modifier_artifice_weapons_3_tt
+			clr_country_flag = artifice_weapons_3_flag
+			hidden_effect = {clear_artificers_weapon = yes}
+			artifice_remove_advanced = yes
+		}
+		else = {
+			custom_tooltip = add_country_modifier_artifice_weapons_3_tt
+			set_country_flag = artifice_weapons_3_flag
+			setup_artificers_weapon = yes
+			artifice_granted_advanced = yes
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.51000}}		
+	}
+	option = {	#option A unable
+		name = bertus_artificers.51300.a.unable
+		trigger = {
+			has_country_flag = unlocked_artifice_invention_sparkdrive_rifles
+			OR = {
+				AND = {					
+					artifice_has_points_for_advanced = no
+					NOT = {has_country_flag = artifice_weapons_3_flag}
+				}
+				has_country_flag = artifice_weapons_1_flag
+				has_country_flag = artifice_weapons_2_flag
+				has_country_flag = artifice_arcane_blaster_bertus_flag
+			}
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.51000}}
+	}
+	option = {	#option B
+		name = bertus_artificers.51300.b
+		trigger = {
+			OR = {
+				artifice_has_points_for_advanced = yes
+				has_country_flag = artifice_arcane_blaster_bertus_flag
+			}
+			has_country_flag = unlocked_artifice_invention_arcane_blaster
+			NOT = {has_country_flag = artifice_weapons_1_flag}
+			NOT = {has_country_flag = artifice_weapons_2_flag}
+			NOT = {has_country_flag = artifice_weapons_3_flag}
+		}
+		if = {
+			limit = {has_country_flag = artifice_arcane_blaster_bertus_flag}
+			custom_tooltip = remove_country_modifier_artifice_weapons_arcane_blaster_tt
+			clr_country_flag = artifice_arcane_blaster_bertus_flag
+			hidden_effect = {clear_artificers_weapon = yes}
+			artifice_remove_advanced = yes
+		}
+		else = {
+			custom_tooltip = add_country_modifier_artifice_weapons_arcane_blaster_tt
+			set_country_flag = artifice_arcane_blaster_bertus_flag
+			setup_artificers_weapon = yes
+			artifice_granted_advanced = yes
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.51000}}		
+	}
+	option = {	#option B unable
+		name = bertus_artificers.51300.b.unable
+		trigger = {
+			has_country_flag = unlocked_artifice_invention_arcane_blaster
+			OR = {
+				AND = {					
+					artifice_has_points_for_advanced = no
+					NOT = {has_country_flag = artifice_arcane_blaster_bertus_flag}
+				}
+				has_country_flag = artifice_weapons_1_flag
+				has_country_flag = artifice_weapons_2_flag
+				has_country_flag = artifice_weapons_3_flag
+			}
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.51000}}
+	}
+	after = {
+	}
+}
+country_event = {	#Projectiles
+	id = bertus_artificers.52000
+	title = bertus_artificers.52000.t
+	desc = bertus_artificers.52000.desc
+	picture = INVENTION_eventPicture
+	
+	is_triggered_only = yes
+    trigger = {	
+    }
+	
+	immediate = {
+		
+	}
+	option = {	#back
+		name = bertus_artificers.50000.z
+		highlight = yes
+		
+		country_event = {id = bertus_artificers.50000}
+	}
+	option = {	#lvl 1
+		name = bertus_artificers.52000.a
+		trigger = {
+			OR = {
+				has_country_flag = invention_elemental_gunpowder			
+			}
+		}
+		
+		country_event = {id = bertus_artificers.52100}
+	}
+	option = {	#lvl 2
+		name = bertus_artificers.52000.b
+		trigger = {
+			OR = {
+				has_country_flag = unlocked_artifice_invention_vorpal_bullets			
+			}
+		}
+		
+		country_event = {id = bertus_artificers.52200}
+	}
+	option = {	#lvl 3
+		name = bertus_artificers.52000.c
+		trigger = {
+			OR = {
+				has_country_flag = unlocked_artifice_invention_black_damestear_bullets				
+			}
+		}
+		
+		country_event = {id = bertus_artificers.52300}
+	}
+	after = {
+	}
+}
+country_event = {	#Bullet lvl 1
+	id = bertus_artificers.52100
+	title = bertus_artificers.52100.t
+	desc = bertus_artificers.52100.desc
+	picture = INVENTION_eventPicture
+	
+	is_triggered_only = yes
+    trigger = {	
+    }
+	
+	immediate = {
+		
+	}
+	option = {	#back
+		name = bertus_artificers.50000.z
+		highlight = yes
+		
+		country_event = {id = bertus_artificers.52000}
+	}
+	option = {	#option A
+		name = bertus_artificers.52100.a
+		trigger = {
+			OR = {
+				artifice_has_points_for_basic = yes
+				has_country_modifier = elemental_bullets_modifier
+			}
+			has_country_flag = invention_elemental_gunpowder
+			NOT = {has_country_modifier = vorpal_bullets_modifier}
+			NOT = {has_country_modifier = black_damestear_bullets_modifier}
+		}
+		if = {
+			limit = {has_country_modifier = elemental_bullets_modifier}
+			remove_country_modifier = elemental_bullets_modifier
+			artifice_remove_basic = yes
+		}
+		else = {
+			add_country_modifier = {
+				name = elemental_bullets_modifier
+				duration = -1
+			}
+			artifice_granted_basic = yes
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.52000}}		
+	}
+	option = {	#option A unable
+		name = bertus_artificers.52100.a.unable
+		trigger = {
+			has_country_flag = invention_elemental_gunpowder
+			OR = {
+				AND = {					
+					artifice_has_points_for_basic = no
+					NOT = {has_country_modifier = elemental_bullets_modifier}
+				}
+				has_country_modifier = vorpal_bullets_modifier
+				has_country_modifier = black_damestear_bullets_modifier
+			}
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.52000}}
+	}
+	after = {
+	}
+}
+country_event = {	#Bullet lvl 2
+	id = bertus_artificers.52200
+	title = bertus_artificers.52200.t
+	desc = bertus_artificers.52200.desc
+	picture = INVENTION_eventPicture
+	
+	is_triggered_only = yes
+    trigger = {	
+    }
+	
+	immediate = {
+		
+	}
+	option = {	#back
+		name = bertus_artificers.50000.z
+		highlight = yes
+		
+		country_event = {id = bertus_artificers.52000}
+	}
+	option = {	#option A
+		name = bertus_artificers.52200.a
+		trigger = {
+			OR = {
+				artifice_has_points_for_expert = yes
+				has_country_modifier = vorpal_bullets_modifier
+			}
+			has_country_flag = unlocked_artifice_invention_vorpal_bullets
+			NOT = {has_country_modifier = elemental_bullets_modifier}
+			NOT = {has_country_modifier = black_damestear_bullets_modifier}
+		}
+		if = {
+			limit = {has_country_modifier = vorpal_bullets_modifier}
+			remove_country_modifier = vorpal_bullets_modifier
+			artifice_remove_expert = yes
+		}
+		else = {
+			add_country_modifier = {
+				name = vorpal_bullets_modifier
+				duration = -1
+			}
+			artifice_granted_expert = yes
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.52000}}		
+	}
+	option = {	#option A unable
+		name = bertus_artificers.52200.a.unable
+		trigger = {
+			has_country_flag = unlocked_artifice_invention_vorpal_bullets
+			OR = {
+				AND = {					
+					artifice_has_points_for_expert = no
+					NOT = {has_country_modifier = vorpal_bullets_modifier}
+				}
+				has_country_modifier = elemental_bullets_modifier
+				has_country_modifier = black_damestear_bullets_modifier
+			}
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.52000}}
+	}
+	after = {
+	}
+}
+country_event = {	#Bullet lvl 3
+	id = bertus_artificers.52300
+	title = bertus_artificers.52300.t
+	desc = bertus_artificers.52300.desc
+	picture = INVENTION_eventPicture
+	
+	is_triggered_only = yes
+    trigger = {	
+    }
+	
+	immediate = {
+		
+	}
+	option = {	#back
+		name = bertus_artificers.50000.z
+		highlight = yes
+		
+		country_event = {id = bertus_artificers.52000}
+	}
+	option = {	#option A
+		name = bertus_artificers.52300.a
+		trigger = {
+			OR = {
+				artifice_has_points_for_advanced = yes
+				has_country_modifier = black_damestear_bullets_modifier
+			}
+			has_country_flag = unlocked_artifice_invention_black_damestear_bullets
+			NOT = {has_country_modifier = elemental_bullets_modifier}
+			NOT = {has_country_modifier = vorpal_bullets_modifier}
+		}
+		if = {
+			limit = {has_country_modifier = black_damestear_bullets_modifier}
+			remove_country_modifier = black_damestear_bullets_modifier
+			artifice_remove_advanced = yes
+		}
+		else = {
+			add_country_modifier = {
+				name = black_damestear_bullets_modifier
+				duration = -1
+			}
+			artifice_granted_advanced = yes
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.52000}}		
+	}
+	option = {	#option A unable
+		name = bertus_artificers.52300.a.unable
+		trigger = {
+			has_country_flag = unlocked_artifice_invention_black_damestear_bullets
+			OR = {
+				AND = {					
+					artifice_has_points_for_advanced = no
+					NOT = {has_country_modifier = black_damestear_bullets_modifier}
+				}
+				has_country_modifier = elemental_bullets_modifier
+				has_country_modifier = vorpal_bullets_modifier
+			}
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.52000}}
+	}
+	after = {
+	}
+}
+country_event = {	#Armor
+	id = bertus_artificers.53000
+	title = bertus_artificers.53000.t
+	desc = bertus_artificers.53000.desc
+	picture = INVENTION_eventPicture
+	
+	is_triggered_only = yes
+    trigger = {	
+    }
+	
+	immediate = {
+		
+	}
+	option = {	#back
+		name = bertus_artificers.50000.z
+		highlight = yes
+		
+		country_event = {id = bertus_artificers.50000}
+	}
+	option = {	#lvl 1
+		name = bertus_artificers.53000.a
+		trigger = {
+			OR = {
+				has_country_flag = unlocked_artifice_invention_war_golems
+				has_country_flag = unlocked_artifice_invention_scale_plating
+				has_country_flag = unlocked_artifice_invention_warframe		
+			}
+		}
+		
+		country_event = {id = bertus_artificers.53100}
+	}
+	option = {	#lvl 2
+		name = bertus_artificers.53000.b
+		trigger = {
+			OR = {
+				has_country_flag = unlocked_artifice_invention_vorpal_rune_protection
+				has_country_flag = unlocked_artifice_invention_dragonscale_plating
+				has_country_flag = unlocked_artifice_invention_giantshape_warframe	
+			}
+		}
+		
+		country_event = {id = bertus_artificers.53200}
+	}
+	option = {	#lvl 3
+		name = bertus_artificers.53000.c
+		trigger = {
+			OR = {
+				has_country_flag = unlocked_artifice_invention_veykoda_rune_protections
+				has_country_flag = unlocked_artifice_invention_personal_mageshields
+				has_country_flag = unlocked_artifice_invention_kronium_battlesuit		
+			}
+		}
+		
+		country_event = {id = bertus_artificers.53300}
+	}
+	after = {
+	}
+}
+country_event = {	#Armor lvl 1
+	id = bertus_artificers.53100
+	title = bertus_artificers.53100.t
+	desc = bertus_artificers.53100.desc
+	picture = INVENTION_eventPicture
+	
+	is_triggered_only = yes
+    trigger = {	
+    }
+	
+	immediate = {
+		
+	}
+	option = {	#back
+		name = bertus_artificers.50000.z
+		highlight = yes
+		
+		country_event = {id = bertus_artificers.53000}
+	}
+	option = {	#option A
+		name = bertus_artificers.53100.a
+		trigger = {
+			OR = {
+				artifice_has_points_for_basic = yes
+				has_country_modifier = artifice_armor_shock_1_modifier
+			}
+			has_country_flag = unlocked_artifice_invention_war_golems
+			NOT = {has_country_modifier = artifice_armor_shock_2_modifier}
+			NOT = {has_country_modifier = artifice_armor_shock_3_modifier}
+			NOT = {has_country_modifier = artifice_armor_fire_1_modifier}
+			NOT = {has_country_modifier = artifice_armor_fire_2_modifier}
+			NOT = {has_country_modifier = artifice_armor_fire_3_modifier}
+			NOT = {has_country_modifier = artifice_armor_mixed_1_modifier}
+			NOT = {has_country_modifier = artifice_armor_mixed_2_modifier}
+			NOT = {has_country_modifier = artifice_armor_mixed_3_modifier}
+		}
+		if = {
+			limit = {has_country_modifier = artifice_armor_shock_1_modifier}
+			remove_country_modifier = artifice_armor_shock_1_modifier
+			artifice_remove_basic = yes
+		}
+		else = {
+			add_country_modifier = {
+				name = artifice_armor_shock_1_modifier
+				duration = -1
+			}
+			artifice_granted_basic = yes
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.53000}}		
+	}
+	option = {	#option A unable
+		name = bertus_artificers.53100.a.unable
+		trigger = {
+			has_country_flag = unlocked_artifice_invention_war_golems
+			OR = {
+				AND = {					
+					artifice_has_points_for_basic = no
+					NOT = {has_country_modifier = artifice_armor_shock_1_modifier}
+				}
+				has_country_modifier = artifice_armor_shock_2_modifier
+				has_country_modifier = artifice_armor_shock_3_modifier
+				has_country_modifier = artifice_armor_fire_1_modifier
+				has_country_modifier = artifice_armor_fire_2_modifier
+				has_country_modifier = artifice_armor_fire_3_modifier
+				has_country_modifier = artifice_armor_mixed_1_modifier
+				has_country_modifier = artifice_armor_mixed_2_modifier
+				has_country_modifier = artifice_armor_mixed_3_modifier
+			}
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.53000}}		
+	}
+	option = {	#option B
+		name = bertus_artificers.53100.b
+		trigger = {
+			OR = {
+				artifice_has_points_for_basic = yes
+				has_country_modifier = artifice_armor_fire_1_modifier
+			}
+			has_country_flag = unlocked_artifice_invention_scale_plating
+			NOT = {has_country_modifier = artifice_armor_shock_1_modifier}
+			NOT = {has_country_modifier = artifice_armor_shock_2_modifier}
+			NOT = {has_country_modifier = artifice_armor_shock_3_modifier}
+			NOT = {has_country_modifier = artifice_armor_fire_2_modifier}
+			NOT = {has_country_modifier = artifice_armor_fire_3_modifier}
+			NOT = {has_country_modifier = artifice_armor_mixed_1_modifier}
+			NOT = {has_country_modifier = artifice_armor_mixed_2_modifier}
+			NOT = {has_country_modifier = artifice_armor_mixed_3_modifier}
+		}
+		if = {
+			limit = {has_country_modifier = artifice_armor_fire_1_modifier}
+			remove_country_modifier = artifice_armor_fire_1_modifier
+			artifice_remove_basic = yes
+		}
+		else = {
+			add_country_modifier = {
+				name = artifice_armor_fire_1_modifier
+				duration = -1
+			}
+			artifice_granted_basic = yes
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.53000}}		
+	}
+	option = {	#option B unable
+		name = bertus_artificers.53100.b.unable
+		trigger = {
+			has_country_flag = unlocked_artifice_invention_scale_plating
+			OR = {
+				AND = {					
+					artifice_has_points_for_basic = no
+					NOT = {has_country_modifier = artifice_armor_fire_1_modifier}
+				}
+				has_country_modifier = artifice_armor_shock_1_modifier
+				has_country_modifier = artifice_armor_shock_2_modifier
+				has_country_modifier = artifice_armor_shock_3_modifier
+				has_country_modifier = artifice_armor_fire_2_modifier
+				has_country_modifier = artifice_armor_fire_3_modifier
+				has_country_modifier = artifice_armor_mixed_1_modifier
+				has_country_modifier = artifice_armor_mixed_2_modifier
+				has_country_modifier = artifice_armor_mixed_3_modifier
+			}
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.53000}}		
+	}
+	option = {	#option C
+		name = bertus_artificers.53100.c
+		trigger = {
+			OR = {
+				artifice_has_points_for_basic = yes
+				has_country_modifier = artifice_armor_mixed_1_modifier
+			}
+			has_country_flag = unlocked_artifice_invention_warframe	
+			NOT = {has_country_modifier = artifice_armor_shock_1_modifier}
+			NOT = {has_country_modifier = artifice_armor_shock_2_modifier}
+			NOT = {has_country_modifier = artifice_armor_shock_3_modifier}
+			NOT = {has_country_modifier = artifice_armor_firea_modifier}
+			NOT = {has_country_modifier = artifice_armor_fire_2_modifier}
+			NOT = {has_country_modifier = artifice_armor_fire_3_modifier}
+			NOT = {has_country_modifier = artifice_armor_mixed_2_modifier}
+			NOT = {has_country_modifier = artifice_armor_mixed_3_modifier}
+		}
+		if = {
+			limit = {has_country_modifier = artifice_armor_mixed_1_modifier}
+			remove_country_modifier = artifice_armor_mixed_1_modifier
+			artifice_remove_basic = yes
+		}
+		else = {
+			add_country_modifier = {
+				name = artifice_armor_mixed_1_modifier
+				duration = -1
+			}
+			artifice_granted_basic = yes
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.53000}}		
+	}
+	option = {	#option C unable
+		name = bertus_artificers.53100.c.unable
+		trigger = {
+			has_country_flag = unlocked_artifice_invention_warframe
+			OR = {
+				AND = {					
+					artifice_has_points_for_basic = no
+					NOT = {has_country_modifier = artifice_armor_mixed_1_modifier}
+				}
+				has_country_modifier = artifice_armor_shock_1_modifier
+				has_country_modifier = artifice_armor_shock_2_modifier
+				has_country_modifier = artifice_armor_shock_3_modifier
+				has_country_modifier = artifice_armor_fire_1_modifier
+				has_country_modifier = artifice_armor_fire_2_modifier
+				has_country_modifier = artifice_armor_fire_3_modifier
+				has_country_modifier = artifice_armor_mixed_2_modifier
+				has_country_modifier = artifice_armor_mixed_3_modifier
+			}
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.53000}}		
+	}
+	after = {
+	}
+}
+country_event = {	#Armor lvl 2
+	id = bertus_artificers.53200
+	title = bertus_artificers.53200.t
+	desc = bertus_artificers.53200.desc
+	picture = INVENTION_eventPicture
+	
+	is_triggered_only = yes
+    trigger = {	
+    }
+	
+	immediate = {
+		
+	}
+	option = {	#back
+		name = bertus_artificers.50000.z
+		highlight = yes
+		
+		country_event = {id = bertus_artificers.53000}
+	}
+	option = {	#option A
+		name = bertus_artificers.53200.a
+		trigger = {
+			OR = {
+				artifice_has_points_for_expert = yes
+				has_country_modifier = artifice_armor_shock_2_modifier
+			}
+			has_country_flag = unlocked_artifice_invention_vorpal_rune_protection
+			NOT = {has_country_modifier = artifice_armor_shock_1_modifier}
+			NOT = {has_country_modifier = artifice_armor_shock_3_modifier}
+			NOT = {has_country_modifier = artifice_armor_fire_1_modifier}
+			NOT = {has_country_modifier = artifice_armor_fire_2_modifier}
+			NOT = {has_country_modifier = artifice_armor_fire_3_modifier}
+			NOT = {has_country_modifier = artifice_armor_mixed_1_modifier}
+			NOT = {has_country_modifier = artifice_armor_mixed_2_modifier}
+			NOT = {has_country_modifier = artifice_armor_mixed_3_modifier}
+		}
+		if = {
+			limit = {has_country_modifier = artifice_armor_shock_2_modifier}
+			remove_country_modifier = artifice_armor_shock_2_modifier
+			artifice_remove_expert = yes
+		}
+		else = {
+			add_country_modifier = {
+				name = artifice_armor_shock_2_modifier
+				duration = -1
+			}
+			artifice_granted_expert = yes
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.53000}}		
+	}
+	option = {	#option A unable
+		name = bertus_artificers.53200.a.unable
+		trigger = {
+			has_country_flag = unlocked_artifice_invention_vorpal_rune_protection
+			OR = {
+				AND = {					
+					artifice_has_points_for_expert = no
+					NOT = {has_country_modifier = artifice_armor_shock_2_modifier}
+				}
+				has_country_modifier = artifice_armor_shock_1_modifier
+				has_country_modifier = artifice_armor_shock_3_modifier
+				has_country_modifier = artifice_armor_fire_1_modifier
+				has_country_modifier = artifice_armor_fire_2_modifier
+				has_country_modifier = artifice_armor_fire_3_modifier
+				has_country_modifier = artifice_armor_mixed_1_modifier
+				has_country_modifier = artifice_armor_mixed_2_modifier
+				has_country_modifier = artifice_armor_mixed_3_modifier
+			}
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.53000}}		
+	}
+	option = {	#option B
+		name = bertus_artificers.53200.b
+		trigger = {
+			OR = {
+				artifice_has_points_for_expert = yes
+				has_country_modifier = artifice_armor_fire_2_modifier
+			}
+			has_country_flag = unlocked_artifice_invention_dragonscale_plating
+			NOT = {has_country_modifier = artifice_armor_shock_1_modifier}
+			NOT = {has_country_modifier = artifice_armor_shock_2_modifier}
+			NOT = {has_country_modifier = artifice_armor_shock_3_modifier}
+			NOT = {has_country_modifier = artifice_armor_fire_1_modifier}
+			NOT = {has_country_modifier = artifice_armor_fire_3_modifier}
+			NOT = {has_country_modifier = artifice_armor_mixed_1_modifier}
+			NOT = {has_country_modifier = artifice_armor_mixed_2_modifier}
+			NOT = {has_country_modifier = artifice_armor_mixed_3_modifier}
+		}
+		if = {
+			limit = {has_country_modifier = artifice_armor_fire_2_modifier}
+			remove_country_modifier = artifice_armor_fire_2_modifier
+			artifice_remove_expert = yes
+		}
+		else = {
+			add_country_modifier = {
+				name = artifice_armor_fire_2_modifier
+				duration = -1
+			}
+			artifice_granted_expert = yes
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.53000}}		
+	}
+	option = {	#option B unable
+		name = bertus_artificers.53200.b.unable
+		trigger = {
+			has_country_flag = unlocked_artifice_invention_dragonscale_plating
+			OR = {
+				AND = {					
+					artifice_has_points_for_expert = no
+					NOT = {has_country_modifier = artifice_armor_fire_2_modifier}
+				}
+				has_country_modifier = artifice_armor_shock_1_modifier
+				has_country_modifier = artifice_armor_shock_2_modifier
+				has_country_modifier = artifice_armor_shock_3_modifier
+				has_country_modifier = artifice_armor_fire_1_modifier
+				has_country_modifier = artifice_armor_fire_3_modifier
+				has_country_modifier = artifice_armor_mixed_1_modifier
+				has_country_modifier = artifice_armor_mixed_2_modifier
+				has_country_modifier = artifice_armor_mixed_3_modifier
+			}
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.53000}}		
+	}
+	option = {	#option C
+		name = bertus_artificers.53200.c
+		trigger = {
+			OR = {
+				artifice_has_points_for_expert = yes
+				has_country_modifier = artifice_armor_mixed_2_modifier
+			}
+			has_country_flag = unlocked_artifice_invention_giantshape_warframe
+			NOT = {has_country_modifier = artifice_armor_shock_1_modifier}
+			NOT = {has_country_modifier = artifice_armor_shock_2_modifier}
+			NOT = {has_country_modifier = artifice_armor_shock_3_modifier}
+			NOT = {has_country_modifier = artifice_armor_fire_1_modifier}
+			NOT = {has_country_modifier = artifice_armor_fire_2_modifier}
+			NOT = {has_country_modifier = artifice_armor_fire_3_modifier}
+			NOT = {has_country_modifier = artifice_armor_mixed_1_modifier}
+			NOT = {has_country_modifier = artifice_armor_mixed_3_modifier}
+		}
+		if = {
+			limit = {has_country_modifier = artifice_armor_mixed_2_modifier}
+			remove_country_modifier = artifice_armor_mixed_2_modifier
+			artifice_remove_expert = yes
+		}
+		else = {
+			add_country_modifier = {
+				name = artifice_armor_mixed_2_modifier
+				duration = -1
+			}
+			artifice_granted_expert = yes
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.53000}}		
+	}
+	option = {	#option C unable
+		name = bertus_artificers.53200.c.unable
+		trigger = {
+			has_country_flag = unlocked_artifice_invention_giantshape_warframe
+			OR = {
+				AND = {					
+					artifice_has_points_for_expert = no
+					NOT = {has_country_modifier = artifice_armor_mixed_2_modifier}
+				}
+				has_country_modifier = artifice_armor_shock_1_modifier
+				has_country_modifier = artifice_armor_shock_2_modifier
+				has_country_modifier = artifice_armor_shock_3_modifier
+				has_country_modifier = artifice_armor_fire_1_modifier
+				has_country_modifier = artifice_armor_fire_2_modifier
+				has_country_modifier = artifice_armor_fire_3_modifier
+				has_country_modifier = artifice_armor_mixed_1_modifier
+				has_country_modifier = artifice_armor_mixed_3_modifier
+			}
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.53000}}		
+	}
+	after = {
+	}
+}
+country_event = {	#Armor lvl 3
+	id = bertus_artificers.53300
+	title = bertus_artificers.53300.t
+	desc = bertus_artificers.53300.desc
+	picture = INVENTION_eventPicture
+	
+	is_triggered_only = yes
+    trigger = {	
+    }
+	
+	immediate = {
+		
+	}
+	option = {	#back
+		name = bertus_artificers.50000.z
+		highlight = yes
+		
+		country_event = {id = bertus_artificers.53000}
+	}
+	option = {	#option A
+		name = bertus_artificers.53300.a
+		trigger = {
+			OR = {
+				artifice_has_points_for_advanced = yes
+				has_country_modifier = artifice_armor_shock_3_modifier
+			}
+			has_country_flag = unlocked_artifice_invention_veykoda_rune_protections
+			NOT = {has_country_modifier = artifice_armor_shock_1_modifier}
+			NOT = {has_country_modifier = artifice_armor_shock_2_modifier}
+			NOT = {has_country_modifier = artifice_armor_fire_1_modifier}
+			NOT = {has_country_modifier = artifice_armor_fire_2_modifier}
+			NOT = {has_country_modifier = artifice_armor_fire_3_modifier}
+			NOT = {has_country_modifier = artifice_armor_mixed_1_modifier}
+			NOT = {has_country_modifier = artifice_armor_mixed_2_modifier}
+			NOT = {has_country_modifier = artifice_armor_mixed_3_modifier}
+		}
+		if = {
+			limit = {has_country_modifier = artifice_armor_shock_3_modifier}
+			remove_country_modifier = artifice_armor_shock_3_modifier
+			artifice_remove_advanced = yes
+		}
+		else = {
+			add_country_modifier = {
+				name = artifice_armor_shock_3_modifier
+				duration = -1
+			}
+			artifice_granted_advanced = yes
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.53000}}		
+	}
+	option = {	#option A unable
+		name = bertus_artificers.53300.a.unable
+		trigger = {
+			has_country_flag = unlocked_artifice_invention_veykoda_rune_protections
+			OR = {
+				AND = {					
+					artifice_has_points_for_advanced = no
+					NOT = {has_country_modifier = artifice_armor_fire_3_modifier}
+				}
+				has_country_modifier = artifice_armor_shock_1_modifier
+				has_country_modifier = artifice_armor_shock_2_modifier
+				has_country_modifier = artifice_armor_fire_1_modifier
+				has_country_modifier = artifice_armor_fire_2_modifier
+				has_country_modifier = artifice_armor_fire_3_modifier
+				has_country_modifier = artifice_armor_mixed_1_modifier
+				has_country_modifier = artifice_armor_mixed_2_modifier
+				has_country_modifier = artifice_armor_mixed_3_modifier
+			}
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.53000}}		
+	}
+	option = {	#option B
+		name = bertus_artificers.53300.b
+		trigger = {
+			OR = {
+				artifice_has_points_for_advanced = yes
+				has_country_modifier = artifice_armor_fire_3_modifier
+			}
+			has_country_flag = unlocked_artifice_invention_personal_mageshields
+			NOT = {has_country_modifier = artifice_armor_shock_1_modifier}
+			NOT = {has_country_modifier = artifice_armor_shock_2_modifier}
+			NOT = {has_country_modifier = artifice_armor_shock_3_modifier}
+			NOT = {has_country_modifier = artifice_armor_fire_1_modifier}
+			NOT = {has_country_modifier = artifice_armor_fire_2_modifier}
+			NOT = {has_country_modifier = artifice_armor_mixed_1_modifier}
+			NOT = {has_country_modifier = artifice_armor_mixed_2_modifier}
+			NOT = {has_country_modifier = artifice_armor_mixed_3_modifier}
+		}
+		if = {
+			limit = {has_country_modifier = artifice_armor_fire_3_modifier}
+			remove_country_modifier = artifice_armor_fire_3_modifier
+			artifice_remove_advanced = yes
+		}
+		else = {
+			add_country_modifier = {
+				name = artifice_armor_fire_3_modifier
+				duration = -1
+			}
+			artifice_granted_advanced = yes
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.53000}}		
+	}
+	option = {	#option B unable
+		name = bertus_artificers.53300.b.unable
+		trigger = {
+			has_country_flag = unlocked_artifice_invention_personal_mageshields
+			OR = {
+				AND = {	
+					artifice_has_points_for_advanced = no
+					NOT = {has_country_modifier = artifice_armor_fire_3_modifier}
+				}
+				has_country_modifier = artifice_armor_shock_1_modifier
+				has_country_modifier = artifice_armor_shock_2_modifier
+				has_country_modifier = artifice_armor_shock_3_modifier
+				has_country_modifier = artifice_armor_fire_1_modifier
+				has_country_modifier = artifice_armor_fire_2_modifier
+				has_country_modifier = artifice_armor_mixed_1_modifier
+				has_country_modifier = artifice_armor_mixed_2_modifier
+				has_country_modifier = artifice_armor_mixed_3_modifier
+			}
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.53000}}		
+	}
+	option = {	#option C
+		name = bertus_artificers.53300.c
+		trigger = {
+			OR = {
+				artifice_has_points_for_advanced = yes
+				has_country_modifier = artifice_armor_mixed_3_modifier
+			}
+			has_country_flag = unlocked_artifice_invention_kronium_battlesuit
+			NOT = {has_country_modifier = artifice_armor_shock_1_modifier}
+			NOT = {has_country_modifier = artifice_armor_shock_2_modifier}
+			NOT = {has_country_modifier = artifice_armor_shock_3_modifier}
+			NOT = {has_country_modifier = artifice_armor_fire_1_modifier}
+			NOT = {has_country_modifier = artifice_armor_fire_2_modifier}
+			NOT = {has_country_modifier = artifice_armor_fire_3_modifier}
+			NOT = {has_country_modifier = artifice_armor_mixed_1_modifier}
+			NOT = {has_country_modifier = artifice_armor_mixed_2_modifier}
+		}
+		if = {
+			limit = {has_country_modifier = artifice_armor_mixed_3_modifier}
+			remove_country_modifier = artifice_armor_mixed_3_modifier
+			artifice_remove_advanced = yes
+		}
+		else = {
+			add_country_modifier = {
+				name = artifice_armor_mixed_3_modifier
+				duration = -1
+			}
+			artifice_granted_advanced = yes
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.53000}}		
+	}
+	option = {	#option C unable
+		name = bertus_artificers.53300.c.unable
+		trigger = {
+			has_country_flag = unlocked_artifice_invention_kronium_battlesuit
+			OR = {
+				AND = {	
+					artifice_has_points_for_advanced = no
+					NOT = {has_country_modifier = artifice_armor_mixed_3_modifier}
+				}
+				has_country_modifier = artifice_armor_shock_1_modifier
+				has_country_modifier = artifice_armor_shock_2_modifier
+				has_country_modifier = artifice_armor_shock_3_modifier
+				has_country_modifier = artifice_armor_fire_1_modifier
+				has_country_modifier = artifice_armor_fire_2_modifier
+				has_country_modifier = artifice_armor_fire_3_modifier
+				has_country_modifier = artifice_armor_mixed_1_modifier
+				has_country_modifier = artifice_armor_mixed_2_modifier
+			}
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.53000}}		
+	}
+	after = {
+	}
+}
+country_event = {	#Gadget
+	id = bertus_artificers.54000
+	title = bertus_artificers.54000.t
+	desc = bertus_artificers.54000.desc
+	picture = INVENTION_eventPicture
+	
+	is_triggered_only = yes
+    trigger = {	
+    }
+	
+	immediate = {
+		
+	}
+	option = {	#back
+		name = bertus_artificers.50000.z
+		highlight = yes
+		
+		country_event = {id = bertus_artificers.50000}
+	}
+	option = {	#lvl 1
+		name = bertus_artificers.54000.a
+		
+		country_event = {id = bertus_artificers.54100}
+	}
+	option = {	#lvl 2
+		name = bertus_artificers.54000.b
+		
+		country_event = {id = bertus_artificers.54100}
+	}
+	option = {	#lvl 3
+		name = bertus_artificers.54000.c
+		
+		country_event = {id = bertus_artificers.54200}
+	}
+	after = {
+	}
+}
+country_event = {	#Gadget lvl 1
+	id = bertus_artificers.54100
+	title = bertus_artificers.54100.t
+	desc = bertus_artificers.54100.desc
+	picture = INVENTION_eventPicture
+	
+	is_triggered_only = yes
+    trigger = {	
+    }
+	
+	immediate = {
+		
+	}
+	option = {	#back
+		name = bertus_artificers.50000.z
+		highlight = yes
+		
+		country_event = {id = bertus_artificers.54000}
+	}
+	option = {	#option A
+		name = bertus_artificers.54100.a
+		trigger = {
+			OR = {
+				artifice_has_points_for_basic = yes
+				has_country_modifier = artifice_portable_turrets
+			}
+			has_country_flag = unlocked_artifice_invention_portable_turrets
+			NOT = {has_country_modifier = artifice_power_fists}
+			NOT = {has_country_modifier = artifice_predator_exoskeleton}
+			NOT = {has_country_modifier = artifice_codorran_exoskeleton}
+			NOT = {has_country_modifier = artifice_mechanic_fists_modifier}
+			NOT = {has_country_modifier = artifice_exo_arms}
+			NOT = {has_country_modifier = artifice_mechanim_auto_rifle_modifier}
+			NOT = {has_country_modifier = artifice_mechanim_power_fists_modifier}
+			NOT = {has_country_modifier = artifice_mechanim_soldiers}
+		}
+		if = {
+			limit = {has_country_modifier = artifice_portable_turrets}
+			remove_country_modifier = artifice_portable_turrets
+			artifice_remove_advanced = yes
+		}
+		else = {
+			add_country_modifier = {
+				name = artifice_portable_turrets
+				duration = -1
+			}
+			artifice_granted_basic = yes
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.54000}}	
+	}
+	option = {	#option A unable
+		name = bertus_artificers.55100.a.unable
+		trigger = {
+			has_country_flag = unlocked_artifice_invention_portable_turrets
+			OR = {
+				AND = {					
+					artifice_has_points_for_basic = no
+					NOT = {has_country_modifier = artifice_portable_turrets}
+				}
+				has_country_modifier = artifice_power_fists
+				has_country_modifier = artifice_predator_exoskeleton
+				has_country_modifier = artifice_codorran_exoskeleton
+				has_country_modifier = artifice_mechanic_fists_modifier
+				has_country_modifier = artifice_exo_arms
+				has_country_modifier = artifice_mechanim_auto_rifle_modifier
+				has_country_modifier = artifice_mechanim_power_fists_modifier
+				has_country_modifier = artifice_mechanim_soldiers
+			}
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.54000}}		
+	}
+	option = {	#option B
+		name = bertus_artificers.54100.b
+		trigger = {
+			OR = {
+				artifice_has_points_for_basic = yes
+				has_country_modifier = artifice_power_fists
+			}
+			has_country_flag = unlocked_artifice_invention_power_fists
+			NOT = {has_country_modifier = artifice_portable_turrets}
+			NOT = {has_country_modifier = artifice_predator_exoskeleton}
+			NOT = {has_country_modifier = artifice_codorran_exoskeleton}
+			NOT = {has_country_modifier = artifice_mechanic_fists_modifier}
+			NOT = {has_country_modifier = artifice_exo_arms}
+			NOT = {has_country_modifier = artifice_mechanim_auto_rifle_modifier}
+			NOT = {has_country_modifier = artifice_mechanim_power_fists_modifier}
+			NOT = {has_country_modifier = artifice_mechanim_soldiers}
+		}
+		if = {
+			limit = {has_country_modifier = artifice_power_fists}
+			remove_country_modifier = artifice_power_fists
+			artifice_remove_advanced = yes
+		}
+		else = {
+			add_country_modifier = {
+				name = artifice_power_fists
+				duration = -1
+			}
+			artifice_granted_basic = yes
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.54000}}	
+	}
+	option = {	#option B unable
+		name = bertus_artificers.55100.b.unable
+		trigger = {
+			has_country_flag = unlocked_artifice_invention_power_fists
+			OR = {
+				AND = {					
+					artifice_has_points_for_basic = no
+					NOT = {has_country_modifier = artifice_power_fists}
+				}
+				has_country_modifier = artifice_portable_turrets
+				has_country_modifier = artifice_predator_exoskeleton
+				has_country_modifier = artifice_codorran_exoskeleton
+				has_country_modifier = artifice_mechanic_fists_modifier
+				has_country_modifier = artifice_exo_arms
+				has_country_modifier = artifice_mechanim_auto_rifle_modifier
+				has_country_modifier = artifice_mechanim_power_fists_modifier
+				has_country_modifier = artifice_mechanim_soldiers
+			}
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.54000}}		
+	}
+	option = {	#option C
+		name = bertus_artificers.54100.c
+		trigger = {
+			OR = {
+				artifice_has_points_for_basic = yes
+				has_country_modifier = artifice_predator_exoskeleton
+			}
+			has_country_flag = unlocked_artifice_invention_predator_exoskeleton
+			NOT = {has_country_modifier = artifice_power_fists}
+			NOT = {has_country_modifier = artifice_portable_turrets}
+			NOT = {has_country_modifier = artifice_codorran_exoskeleton}
+			NOT = {has_country_modifier = artifice_mechanic_fists_modifier}
+			NOT = {has_country_modifier = artifice_exo_arms}
+			NOT = {has_country_modifier = artifice_mechanim_auto_rifle_modifier}
+			NOT = {has_country_modifier = artifice_mechanim_power_fists_modifier}
+			NOT = {has_country_modifier = artifice_mechanim_soldiers}
+		}
+		if = {
+			limit = {has_country_modifier = artifice_predator_exoskeleton}
+			remove_country_modifier = artifice_predator_exoskeleton
+			artifice_remove_advanced = yes
+		}
+		else = {
+			add_country_modifier = {
+				name = artifice_predator_exoskeleton
+				duration = -1
+			}
+			artifice_granted_basic = yes
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.54000}}	
+	}
+	option = {	#option C unable
+		name = bertus_artificers.55100.c.unable
+		trigger = {
+			has_country_flag = unlocked_artifice_invention_predator_exoskeleton
+			OR = {
+				AND = {					
+					artifice_has_points_for_basic = no
+					NOT = {has_country_modifier = artifice_predator_exoskeleton}
+				}
+				has_country_modifier = artifice_power_fists
+				has_country_modifier = artifice_portable_turrets
+				has_country_modifier = artifice_codorran_exoskeleton
+				has_country_modifier = artifice_mechanic_fists_modifier
+				has_country_modifier = artifice_exo_arms
+				has_country_modifier = artifice_mechanim_auto_rifle_modifier
+				has_country_modifier = artifice_mechanim_power_fists_modifier
+				has_country_modifier = artifice_mechanim_soldiers
+			}
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.54000}}		
+	}
+	after = {
+	}
+}
+country_event = {	#Gadget lvl 2
+	id = bertus_artificers.54200
+	title = bertus_artificers.54200.t
+	desc = bertus_artificers.54200.desc
+	picture = INVENTION_eventPicture
+	
+	is_triggered_only = yes
+    trigger = {	
+    }
+	
+	immediate = {
+		
+	}
+	option = {	#back
+		name = bertus_artificers.50000.z
+		highlight = yes
+		
+		country_event = {id = bertus_artificers.54000}
+	}
+	option = {	#option A
+		name = bertus_artificers.54200.a
+		trigger = {
+			OR = {
+				artifice_has_points_for_expert = yes
+				has_country_modifier = artifice_codorran_exoskeleton
+			}
+			has_country_flag = unlocked_artifice_invention_codorran_powered_exosuit
+			NOT = {has_country_modifier = artifice_power_fists}
+			NOT = {has_country_modifier = artifice_predator_exoskeleton}
+			NOT = {has_country_modifier = artifice_portable_turrets}
+			NOT = {has_country_modifier = artifice_mechanic_fists_modifier}
+			NOT = {has_country_modifier = artifice_exo_arms}
+			NOT = {has_country_modifier = artifice_mechanim_auto_rifle_modifier}
+			NOT = {has_country_modifier = artifice_mechanim_power_fists_modifier}
+			NOT = {has_country_modifier = artifice_mechanim_soldiers}
+		}
+		if = {
+			limit = {has_country_modifier = artifice_codorran_exoskeleton}
+			remove_country_modifier = artifice_codorran_exoskeleton
+			artifice_remove_expert = yes
+		}
+		else = {
+			add_country_modifier = {
+				name = artifice_codorran_exoskeleton
+				duration = -1
+			}
+			artifice_granted_expert = yes
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.54000}}	
+	}
+	option = {	#option A unable
+		name = bertus_artificers.55200.a.unable
+		trigger = {
+			has_country_flag = unlocked_artifice_invention_codorran_powered_exosuit
+			OR = {
+				AND = {					
+					artifice_has_points_for_expert = no
+					NOT = {has_country_modifier = artifice_codorran_exoskeleton}
+				}
+				has_country_modifier = artifice_power_fists
+				has_country_modifier = artifice_predator_exoskeleton
+				has_country_modifier = artifice_portable_turrets
+				has_country_modifier = artifice_mechanic_fists_modifier
+				has_country_modifier = artifice_exo_arms
+				has_country_modifier = artifice_mechanim_auto_rifle_modifier
+				has_country_modifier = artifice_mechanim_power_fists_modifier
+				has_country_modifier = artifice_mechanim_soldiers
+			}
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.54000}}		
+	}
+	option = {	#option B
+		name = bertus_artificers.54200.b
+		trigger = {
+			OR = {
+				artifice_has_points_for_expert = yes
+				has_country_modifier = artifice_mechanic_fists_modifier
+			}
+			has_country_flag = unlocked_artifice_invention_mechanic_fists
+			NOT = {has_country_modifier = artifice_power_fists}
+			NOT = {has_country_modifier = artifice_predator_exoskeleton}
+			NOT = {has_country_modifier = artifice_portable_turrets}
+			NOT = {has_country_modifier = artifice_codorran_exoskeleton}
+			NOT = {has_country_modifier = artifice_exo_arms}
+			NOT = {has_country_modifier = artifice_mechanim_auto_rifle_modifier}
+			NOT = {has_country_modifier = artifice_mechanim_power_fists_modifier}
+			NOT = {has_country_modifier = artifice_mechanim_soldiers}
+		}
+		if = {
+			limit = {has_country_modifier = artifice_mechanic_fists_modifier}
+			remove_country_modifier = artifice_mechanic_fists_modifier
+			artifice_remove_expert = yes
+		}
+		else = {
+			add_country_modifier = {
+				name = artifice_mechanic_fists_modifier
+				duration = -1
+			}
+			artifice_granted_expert = yes
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.54000}}	
+	}
+	option = {	#option B unable
+		name = bertus_artificers.55200.b.unable
+		trigger = {
+			has_country_flag = unlocked_artifice_invention_mechanic_fists
+			OR = {
+				AND = {					
+					artifice_has_points_for_expert = no
+					NOT = {has_country_modifier = artifice_mechanic_fists_modifier}
+				}
+				has_country_modifier = artifice_power_fists
+				has_country_modifier = artifice_predator_exoskeleton
+				has_country_modifier = artifice_portable_turrets
+				has_country_modifier = artifice_codorran_exoskeleton
+				has_country_modifier = artifice_exo_arms
+				has_country_modifier = artifice_mechanim_auto_rifle_modifier
+				has_country_modifier = artifice_mechanim_power_fists_modifier
+				has_country_modifier = artifice_mechanim_soldiers
+			}
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.54000}}		
+	}
+	option = {	#option C
+		name = bertus_artificers.54200.c
+		trigger = {
+			OR = {
+				artifice_has_points_for_expert = yes
+				has_country_modifier = artifice_exo_arms
+			}
+			has_country_flag = unlocked_artifice_invention_artificer_exo_arms
+			NOT = {has_country_modifier = artifice_power_fists}
+			NOT = {has_country_modifier = artifice_predator_exoskeleton}
+			NOT = {has_country_modifier = artifice_portable_turrets}
+			NOT = {has_country_modifier = artifice_codorran_exoskeleton}
+			NOT = {has_country_modifier = artifice_mechanic_fists_modifier}
+			NOT = {has_country_modifier = artifice_mechanim_auto_rifle_modifier}
+			NOT = {has_country_modifier = artifice_mechanim_power_fists_modifier}
+			NOT = {has_country_modifier = artifice_mechanim_soldiers}
+		}
+		if = {
+			limit = {has_country_modifier = artifice_exo_arms}
+			remove_country_modifier = artifice_exo_arms
+			artifice_remove_expert = yes
+		}
+		else = {
+			add_country_modifier = {
+				name = artifice_exo_arms
+				duration = -1
+			}
+			artifice_granted_expert = yes
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.54000}}	
+	}
+	option = {	#option C unable
+		name = bertus_artificers.55200.c.unable
+		trigger = {
+			has_country_flag = unlocked_artifice_invention_artificer_exo_arms
+			OR = {
+				AND = {					
+					artifice_has_points_for_expert = no
+					NOT = {has_country_modifier = artifice_exo_arms}
+				}
+				has_country_modifier = artifice_power_fists
+				has_country_modifier = artifice_predator_exoskeleton
+				has_country_modifier = artifice_portable_turrets
+				has_country_modifier = artifice_codorran_exoskeleton
+				has_country_modifier = artifice_mechanic_fists_modifier
+				has_country_modifier = artifice_mechanim_auto_rifle_modifier
+				has_country_modifier = artifice_mechanim_power_fists_modifier
+				has_country_modifier = artifice_mechanim_soldiers
+			}
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.54000}}		
+	}
+	after = {
+	}
+}
+country_event = {	#Gadget lvl 3
+	id = bertus_artificers.54300
+	title = bertus_artificers.54300.t
+	desc = bertus_artificers.54300.desc
+	picture = INVENTION_eventPicture
+	
+	is_triggered_only = yes
+    trigger = {	
+    }
+	
+	immediate = {
+		
+	}
+	option = {	#back
+		name = bertus_artificers.50000.z
+		highlight = yes
+		
+		country_event = {id = bertus_artificers.54000}
+	}
+	option = {	#option A
+		name = bertus_artificers.54300.a
+		trigger = {
+			OR = {
+				artifice_has_points_for_advanced = yes
+				has_country_modifier = artifice_mechanim_auto_rifle_modifier
+			}
+			has_country_flag = unlocked_artifice_invention_mechanim_auto_rifle
+			NOT = {has_country_modifier = artifice_power_fists}
+			NOT = {has_country_modifier = artifice_predator_exoskeleton}
+			NOT = {has_country_modifier = artifice_portable_turrets}
+			NOT = {has_country_modifier = artifice_codorran_exoskeleton}
+			NOT = {has_country_modifier = artifice_mechanic_fists_modifier}
+			NOT = {has_country_modifier = artifice_exo_arms}
+			NOT = {has_country_modifier = artifice_mechanim_power_fists_modifier}
+			NOT = {has_country_modifier = artifice_mechanim_soldiers}
+		}
+		if = {
+			limit = {has_country_modifier = artifice_mechanim_auto_rifle_modifier}
+			remove_country_modifier = artifice_mechanim_auto_rifle_modifier
+			artifice_remove_advanced = yes
+		}
+		else = {
+			add_country_modifier = {
+				name = artifice_mechanim_auto_rifle_modifier
+				duration = -1
+			}
+			artifice_granted_expert = yes
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.54000}}	
+	}
+	option = {	#option A unable
+		name = bertus_artificers.55300.a.unable
+		trigger = {
+			has_country_flag = unlocked_artifice_invention_mechanim_auto_rifle
+			OR = {
+				AND = {					
+					artifice_has_points_for_advanced = no
+					NOT = {has_country_modifier = artifice_mechanim_auto_rifle_modifier}
+				}
+				has_country_modifier = artifice_power_fists
+				has_country_modifier = artifice_predator_exoskeleton
+				has_country_modifier = artifice_portable_turrets
+				has_country_modifier = artifice_mechanic_fists_modifier
+				has_country_modifier = artifice_exo_arms
+				has_country_modifier = artifice_codorran_exoskeleton
+				has_country_modifier = artifice_mechanim_power_fists_modifier
+				has_country_modifier = artifice_mechanim_soldiers
+			}
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.54000}}		
+	}
+	option = {	#option B
+		name = bertus_artificers.54300.b
+		trigger = {
+			OR = {
+				artifice_has_points_for_advanced = yes
+				has_country_modifier = artifice_mechanim_power_fists_modifier
+			}
+			has_country_flag = unlocked_artifice_invention_mechanim_power_fists
+			NOT = {has_country_modifier = artifice_power_fists}
+			NOT = {has_country_modifier = artifice_predator_exoskeleton}
+			NOT = {has_country_modifier = artifice_portable_turrets}
+			NOT = {has_country_modifier = artifice_codorran_exoskeleton}
+			NOT = {has_country_modifier = artifice_mechanic_fists_modifier}
+			NOT = {has_country_modifier = artifice_exo_arms}
+			NOT = {has_country_modifier = artifice_mechanim_auto_rifle_modifier}
+			NOT = {has_country_modifier = artifice_mechanim_soldiers}
+		}
+		if = {
+			limit = {has_country_modifier = artifice_mechanim_power_fists_modifier}
+			remove_country_modifier = artifice_mechanim_power_fists_modifier
+			artifice_remove_advanced = yes
+		}
+		else = {
+			add_country_modifier = {
+				name = artifice_mechanim_power_fists_modifier
+				duration = -1
+			}
+			artifice_granted_expert = yes
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.54000}}	
+	}
+	option = {	#option B unable
+		name = bertus_artificers.55300.b.unable
+		trigger = {
+			has_country_flag = unlocked_artifice_invention_mechanim_power_fists
+			OR = {
+				AND = {					
+					artifice_has_points_for_advanced = no
+					NOT = {has_country_modifier = artifice_mechanim_power_fists_modifier}
+				}
+				has_country_modifier = artifice_power_fists
+				has_country_modifier = artifice_predator_exoskeleton
+				has_country_modifier = artifice_portable_turrets
+				has_country_modifier = artifice_mechanic_fists_modifier
+				has_country_modifier = artifice_exo_arms
+				has_country_modifier = artifice_codorran_exoskeleton
+				has_country_modifier = artifice_mechanim_auto_rifle_modifier
+				has_country_modifier = artifice_mechanim_soldiers
+			}
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.54000}}		
+	}
+	option = {	#option C
+		name = bertus_artificers.54300.c
+		trigger = {
+			OR = {
+				artifice_has_points_for_advanced = yes
+				has_country_modifier = artifice_mechanim_soldiers
+			}
+			has_country_flag = unlocked_artifice_invention_mechanim_soldiers
+			NOT = {has_country_modifier = artifice_power_fists}
+			NOT = {has_country_modifier = artifice_predator_exoskeleton}
+			NOT = {has_country_modifier = artifice_portable_turrets}
+			NOT = {has_country_modifier = artifice_codorran_exoskeleton}
+			NOT = {has_country_modifier = artifice_mechanic_fists_modifier}
+			NOT = {has_country_modifier = artifice_exo_arms}
+			NOT = {has_country_modifier = artifice_mechanim_power_fists_modifier}
+			NOT = {has_country_modifier = artifice_mechanim_auto_rifle_modifier}
+		}
+		if = {
+			limit = {has_country_modifier = artifice_mechanim_soldiers}
+			remove_country_modifier = artifice_mechanim_soldiers
+			artifice_remove_advanced = yes
+		}
+		else = {
+			add_country_modifier = {
+				name = artifice_mechanim_soldiers
+				duration = -1
+			}
+			artifice_granted_expert = yes
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.54000}}	
+	}
+	option = {	#option C unable
+		name = bertus_artificers.55300.c.unable
+		trigger = {
+			has_country_flag = unlocked_artifice_invention_mechanim_soldiers
+			OR = {
+				AND = {					
+					artifice_has_points_for_advanced = no
+					NOT = {has_country_modifier = artifice_mechanim_soldiers}
+				}
+				has_country_modifier = artifice_power_fists
+				has_country_modifier = artifice_predator_exoskeleton
+				has_country_modifier = artifice_portable_turrets
+				has_country_modifier = artifice_mechanic_fists_modifier
+				has_country_modifier = artifice_exo_arms
+				has_country_modifier = artifice_codorran_exoskeleton
+				has_country_modifier = artifice_mechanim_power_fists_modifier
+				has_country_modifier = artifice_mechanim_auto_rifle_modifier
+			}
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.54000}}		
+	}
+	after = {
+	}
+}
+country_event = {	#Enhancement
+	id = bertus_artificers.55000
+	title = bertus_artificers.55000.t
+	desc = bertus_artificers.55000.desc
+	picture = INVENTION_eventPicture
+	
+	is_triggered_only = yes
+    trigger = {	
+    }
+	
+	immediate = {
+		
+	}
+	option = {	#back
+		name = bertus_artificers.50000.z
+		highlight = yes
+		
+		country_event = {id = bertus_artificers.50000}
+	}
+	option = {	#lvl 1
+		name = bertus_artificers.55000.a
+		trigger = {
+			OR = {
+				has_country_flag = unlocked_artifice_invention_elemental_serum		
+			}
+		}
+		
+		country_event = {id = bertus_artificers.55100}
+	}
+	option = {	#lvl 2
+		name = bertus_artificers.55000.b
+		trigger = {
+			OR = {
+				has_country_flag = unlocked_artifice_invention_soldier_serum		
+			}
+		}
+		
+		country_event = {id = bertus_artificers.55200}
+	}
+	option = {	#lvl 3
+		name = bertus_artificers.55000.c
+		trigger = {
+			OR = {
+				has_country_flag = unlocked_artifice_invention_avatar_supersoldier_serum
+				has_country_flag = unlocked_artifice_invention_dragonblood_gene_warriors
+				has_country_flag = unlocked_artifice_invention_controlled_rage_serum
+				has_country_flag = unlocked_artifice_invention_vernman_hero_tonic				
+			}
+		}
+		
+		country_event = {id = bertus_artificers.55300}
+	}
+	after = {
+	}
+}
+country_event = {	#Enhancement lvl 1
+	id = bertus_artificers.55100
+	title = bertus_artificers.55100.t
+	desc = bertus_artificers.55100.desc
+	picture = INVENTION_eventPicture
+	
+	is_triggered_only = yes
+    trigger = {	
+    }
+	
+	immediate = {
+		
+	}
+	option = {	#back
+		name = bertus_artificers.50000.z
+		highlight = yes
+		
+		country_event = {id = bertus_artificers.55000}
+	}
+	option = {	#option A
+		name = bertus_artificers.55100.a
+		trigger = {
+			OR = {
+				artifice_has_points_for_basic = yes
+				has_country_modifier = artifice_enhancement_1_modifier
+			}
+			has_country_flag = unlocked_artifice_invention_elemental_serum
+			NOT = {has_country_modifier = artifice_enhancement_2_modifier}
+			NOT = {has_country_modifier = artifice_enhancement_3_modifier}
+			NOT = {has_country_modifier = artifice_enhancement_rage_3_modifier}
+			NOT = {has_country_modifier = artifice_enhancement_dragon_3_modifier}
+			NOT = {has_country_modifier = artifice_enhancement_hero_3_modifier}
+		}
+		if = {
+			limit = {has_country_modifier = artifice_enhancement_1_modifier}
+			remove_country_modifier = artifice_enhancement_1_modifier
+			artifice_remove_basic = yes
+		}
+		else = {
+			add_country_modifier = {
+				name = artifice_enhancement_1_modifier
+				duration = -1
+			}
+			artifice_granted_basic = yes
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.55000}}		
+	}
+	option = {	#option A unable
+		name = bertus_artificers.55100.a.unable
+		trigger = {
+			has_country_flag = unlocked_artifice_invention_elemental_serum
+			OR = {
+				AND = {
+					artifice_has_points_for_basic = no
+					NOT = {has_country_modifier = artifice_enhancement_1_modifier}
+				}
+				has_country_modifier = artifice_enhancement_2_modifier
+				has_country_modifier = artifice_enhancement_3_modifier
+				has_country_modifier = artifice_enhancement_rage_3_modifier
+				has_country_modifier = artifice_enhancement_dragon_3_modifier
+				has_country_modifier = artifice_enhancement_hero_3_modifier
+			}
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.55000}}		
+	}
+	after = {
+	}
+}
+country_event = {	#Enhancement lvl 2
+	id = bertus_artificers.55200
+	title = bertus_artificers.55200.t
+	desc = bertus_artificers.55200.desc
+	picture = INVENTION_eventPicture
+	
+	is_triggered_only = yes
+    trigger = {	
+    }
+	
+	immediate = {
+		
+	}
+	option = {	#back
+		name = bertus_artificers.50000.z
+		highlight = yes
+		
+		country_event = {id = bertus_artificers.55000}
+	}
+	option = {	#option A
+		name = bertus_artificers.55200.a
+		trigger = {
+			OR = {
+				artifice_has_points_for_expert = yes
+				has_country_modifier = artifice_enhancement_2_modifier
+			}
+			has_country_flag = unlocked_artifice_invention_soldier_serum
+			NOT = {has_country_modifier = artifice_enhancement_1_modifier}
+			NOT = {has_country_modifier = artifice_enhancement_3_modifier}
+			NOT = {has_country_modifier = artifice_enhancement_rage_3_modifier}
+			NOT = {has_country_modifier = artifice_enhancement_dragon_3_modifier}
+			NOT = {has_country_modifier = artifice_enhancement_hero_3_modifier}
+		}
+		if = {
+			limit = {has_country_modifier = artifice_enhancement_2_modifier}
+			remove_country_modifier = artifice_enhancement_2_modifier
+			artifice_remove_expert = yes
+		}
+		else = {
+			add_country_modifier = {
+				name = artifice_enhancement_2_modifier
+				duration = -1
+			}
+			artifice_granted_expert = yes
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.55000}}		
+	}
+	option = {	#option A unable
+		name = bertus_artificers.55200.a.unable
+		trigger = {
+			has_country_flag = unlocked_artifice_invention_soldier_serum
+			OR = {
+				AND = {
+					artifice_has_points_for_expert = no
+					NOT = {has_country_modifier = artifice_enhancement_2_modifier}
+				}
+				has_country_modifier = artifice_enhancement_1_modifier
+				has_country_modifier = artifice_enhancement_3_modifier
+				has_country_modifier = artifice_enhancement_rage_3_modifier
+				has_country_modifier = artifice_enhancement_dragon_3_modifier
+				has_country_modifier = artifice_enhancement_hero_3_modifier
+			}
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.55000}}		
+	}
+	after = {
+	}
+}
+country_event = {	#Enhancement lvl 3
+	id = bertus_artificers.55300
+	title = bertus_artificers.55300.t
+	desc = bertus_artificers.55300.desc
+	picture = INVENTION_eventPicture
+	
+	is_triggered_only = yes
+    trigger = {	
+    }
+	
+	immediate = {
+		
+	}
+	option = {	#back
+		name = bertus_artificers.50000.z
+		highlight = yes
+		
+		country_event = {id = bertus_artificers.55000}
+	}
+	option = {	#option A
+		name = bertus_artificers.55300.a
+		trigger = {
+			OR = {
+				artifice_has_points_for_advanced = yes
+				has_country_modifier = artifice_enhancement_3_modifier
+			}
+			has_country_flag = unlocked_artifice_invention_avatar_supersoldier_serum
+			NOT = {has_country_modifier = artifice_enhancement_1_modifier}
+			NOT = {has_country_modifier = artifice_enhancement_2_modifier}
+			NOT = {has_country_modifier = artifice_enhancement_rage_3_modifier}
+			NOT = {has_country_modifier = artifice_enhancement_dragon_3_modifier}
+			NOT = {has_country_modifier = artifice_enhancement_hero_3_modifier}
+		}
+		if = {
+			limit = {has_country_modifier = artifice_enhancement_3_modifier}
+			remove_country_modifier = artifice_enhancement_3_modifier
+			artifice_remove_advanced = yes
+		}
+		else = {
+			add_country_modifier = {
+				name = artifice_enhancement_3_modifier
+				duration = -1
+			}
+			artifice_granted_advanced = yes
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.55000}}		
+	}
+	option = {	#option A unable
+		name = bertus_artificers.55300.a.unable
+		trigger = {
+			has_country_flag = unlocked_artifice_invention_avatar_supersoldier_serum
+			OR = {
+				AND = {
+					artifice_has_points_for_advanced = no
+					NOT = {has_country_modifier = artifice_enhancement_3_modifier}
+				}
+				has_country_modifier = artifice_enhancement_1_modifier
+				has_country_modifier = artifice_enhancement_2_modifier
+				has_country_modifier = artifice_enhancement_rage_3_modifier
+				has_country_modifier = artifice_enhancement_dragon_3_modifier
+				has_country_modifier = artifice_enhancement_hero_3_modifier
+			}
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.55000}}		
+	}
+	option = {	#option B
+		name = bertus_artificers.55300.b
+		trigger = {
+			OR = {
+				artifice_has_points_for_advanced = yes
+				has_country_modifier = artifice_enhancement_dragon_3_modifier
+			}
+			has_country_flag = unlocked_artifice_invention_dragonblood_gene_warriors
+			NOT = {has_country_modifier = artifice_enhancement_1_modifier}
+			NOT = {has_country_modifier = artifice_enhancement_2_modifier}
+			NOT = {has_country_modifier = artifice_enhancement_3_modifier}
+			NOT = {has_country_modifier = artifice_enhancement_rage_3_modifier}
+			NOT = {has_country_modifier = artifice_enhancement_hero_3_modifier}
+		}
+		if = {
+			limit = {has_country_modifier = artifice_enhancement_dragon_3_modifier}
+			remove_country_modifier = artifice_enhancement_dragon_3_modifier
+			artifice_remove_advanced = yes
+		}
+		else = {
+			add_country_modifier = {
+				name = artifice_enhancement_dragon_3_modifier
+				duration = -1
+			}
+			artifice_granted_advanced = yes
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.55000}}		
+	}
+	option = {	#option B unable
+		name = bertus_artificers.55300.b.unable
+		trigger = {
+			has_country_flag = unlocked_artifice_invention_dragonblood_gene_warriors
+			OR = {
+				AND = {
+					artifice_has_points_for_advanced = no
+					NOT = {has_country_modifier = artifice_enhancement_dragon_3_modifier}
+				}
+				has_country_modifier = artifice_enhancement_1_modifier
+				has_country_modifier = artifice_enhancement_2_modifier
+				has_country_modifier = artifice_enhancement_3_modifier
+				has_country_modifier = artifice_enhancement_rage_3_modifier
+				has_country_modifier = artifice_enhancement_hero_3_modifier
+			}
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.55000}}		
+	}
+	option = {	#option C
+		name = bertus_artificers.55300.c
+		trigger = {
+			OR = {
+				artifice_has_points_for_advanced = yes
+				has_country_modifier = artifice_enhancement_rage_3_modifier
+			}
+			has_country_flag = unlocked_artifice_invention_controlled_rage_serum
+			NOT = {has_country_modifier = artifice_enhancement_1_modifier}
+			NOT = {has_country_modifier = artifice_enhancement_2_modifier}
+			NOT = {has_country_modifier = artifice_enhancement_3_modifier}
+			NOT = {has_country_modifier = artifice_enhancement_dragon_3_modifier}
+			NOT = {has_country_modifier = artifice_enhancement_hero_3_modifier}
+		}
+		if = {
+			limit = {has_country_modifier = artifice_enhancement_rage_3_modifier}
+			remove_country_modifier = artifice_enhancement_rage_3_modifier
+			artifice_remove_advanced = yes
+		}
+		else = {
+			add_country_modifier = {
+				name = artifice_enhancement_rage_3_modifier
+				duration = -1
+			}
+			artifice_granted_advanced = yes
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.55000}}		
+	}
+	option = {	#option C unable
+		name = bertus_artificers.55300.c.unable
+		trigger = {
+			has_country_flag = unlocked_artifice_invention_controlled_rage_serum
+			OR = {
+				AND = {
+					artifice_has_points_for_advanced = no
+					NOT = {has_country_modifier = artifice_enhancement_rage_3_modifier}
+				}
+				has_country_modifier = artifice_enhancement_1_modifier
+				has_country_modifier = artifice_enhancement_2_modifier
+				has_country_modifier = artifice_enhancement_3_modifier
+				has_country_modifier = artifice_enhancement_dragon_3_modifier
+				has_country_modifier = artifice_enhancement_hero_3_modifier
+			}
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.55000}}		
+	}
+	option = {	#option D
+		name = bertus_artificers.55300.d
+		trigger = {
+			OR = {
+				artifice_has_points_for_advanced = yes
+				has_country_modifier = artifice_enhancement_hero_3_modifier
+			}
+			has_country_flag = unlocked_artifice_invention_vernman_hero_tonic
+			NOT = {has_country_modifier = artifice_enhancement_1_modifier}
+			NOT = {has_country_modifier = artifice_enhancement_2_modifier}
+			NOT = {has_country_modifier = artifice_enhancement_3_modifier}
+			NOT = {has_country_modifier = artifice_enhancement_dragon_3_modifier}
+			NOT = {has_country_modifier = artifice_enhancement_rage_3_modifier}
+		}
+		if = {
+			limit = {has_country_modifier = artifice_enhancement_hero_3_modifier}
+			remove_country_modifier = artifice_enhancement_hero_3_modifier
+			artifice_remove_advanced = yes
+		}
+		else = {
+			add_country_modifier = {
+				name = artifice_enhancement_hero_3_modifier
+				duration = -1
+			}
+			artifice_granted_advanced = yes
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.55000}}		
+	}
+	option = {	#option D unable
+		name = bertus_artificers.55300.d.unable
+		trigger = {
+			has_country_flag = unlocked_artifice_invention_vernman_hero_tonic
+			OR = {
+				AND = {
+					artifice_has_points_for_advanced = no
+					NOT = {has_country_modifier = artifice_enhancement_hero_3_modifier}
+				}
+				has_country_modifier = artifice_enhancement_1_modifier
+				has_country_modifier = artifice_enhancement_2_modifier
+				has_country_modifier = artifice_enhancement_3_modifier
+				has_country_modifier = artifice_enhancement_dragon_3_modifier
+				has_country_modifier = artifice_enhancement_rage_3_modifier
+			}
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.55000}}		
+	}
+	after = {
+	}
+}
