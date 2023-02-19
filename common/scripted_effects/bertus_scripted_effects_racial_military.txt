@@ -582,8 +582,9 @@ set_pop_percentage = {
 change_estate_land_to_percentage = {
 	if = {
 		limit = {
-			has_race_recruitment = {
-				race = $RACE$
+			any_owned_province = {
+				culture_is_$race$ = yes
+				NOT = {has_province_modifier = non_military_pop}
 			}
 		}
 		set_variable = {
@@ -650,10 +651,8 @@ count_country_manpower = {		#Country
 				who = ROOT				# PREV = Province
 			}
 			if = {
-				limit = {		
-					has_race_recruitment = {
-						race = $RACE$
-					}
+				limit = {
+					ROOT = {NOT = {has_province_modifier = non_military_pop}}
 				}
 				change_variable = {
 					which = $RACE$_total_base_manpower_variable
@@ -1467,245 +1466,257 @@ get_artificers_general_ideas = {
 	}
 }
 get_dookan_general = {
-	random_list = {
-		33 = {
-			define_general = { 
-				fire = 8
-				shock = 3	
-				manuever = 1
-				siege = 3
-				trait = fire_specialist_personality
-				name = "Shagg't Firemouth"
+	tooltip = {
+		random_list = {
+			33 = {
+				define_general = { 
+					fire = 8
+					shock = 3	
+					manuever = 1
+					siege = 3
+					trait = fire_specialist_personality
+					name = "Shagg't Firemouth"
+				}
 			}
-		}
-		33 = {
-			define_general = {
-				fire = 3
-				shock = 8	
-				manuever = 3
-				siege = 2
-				trait = shock_specialist_personality
-				name = "Krambru Strongarm"
+			33 = {
+				define_general = {
+					fire = 3
+					shock = 8	
+					manuever = 3
+					siege = 2
+					trait = shock_specialist_personality
+					name = "Krambru Strongarm"
+				}
 			}
-		}
-		33 = {
-			define_general = { 
-				fire = 3
-				shock = 3	
-				manuever = 6
-				siege = 6
-				trait = loot_specialist_personality
-				name = "Lutgor 'The Reaver'"
+			33 = {
+				define_general = { 
+					fire = 3
+					shock = 3	
+					manuever = 6
+					siege = 6
+					trait = loot_specialist_personality
+					name = "Lutgor 'The Reaver'"
+				}
 			}
 		}
 	}
 }
 get_dookan_general_ideas = {
-	random_list = {
-		33 = {
-			define_general = { 
-				fire = 9
-				shock = 4	
-				manuever = 2
-				siege = 4
-				trait = fire_specialist_personality
-				name = "Shagg't Firemouth"
+	tooltip = {
+		random_list = {
+			33 = {
+				define_general = { 
+					fire = 9
+					shock = 4	
+					manuever = 2
+					siege = 4
+					trait = fire_specialist_personality
+					name = "Shagg't Firemouth"
+				}
 			}
-		}
-		33 = {
-			define_general = {
-				fire = 5
-				shock = 9	
-				manuever = 5
-				siege = 3
-				trait = shock_specialist_personality
-				name = "Krambru Strongarm"
+			33 = {
+				define_general = {
+					fire = 5
+					shock = 9	
+					manuever = 5
+					siege = 3
+					trait = shock_specialist_personality
+					name = "Krambru Strongarm"
+				}
 			}
-		}
-		33 = {
-			define_general = { 
-				fire = 4
-				shock = 4	
-				manuever = 7
-				siege = 7
-				trait = loot_specialist_personality
-				name = "Lutgor 'The Reaver'"
+			33 = {
+				define_general = { 
+					fire = 4
+					shock = 4	
+					manuever = 7
+					siege = 7
+					trait = loot_specialist_personality
+					name = "Lutgor 'The Reaver'"
+				}
 			}
 		}
 	}
 }
 get_ik_magthaal_general = {	
-	random_list = {
-		33 = {
-			define_general = { 
-				fire = 4
-				shock = 8	
-				manuever = 8
-				siege = 0
-				trait = goal_oriented_personality
-				name = "Zathnar longlegged"
+	tooltip = {
+		random_list = {
+			33 = {
+				define_general = { 
+					fire = 4
+					shock = 8	
+					manuever = 8
+					siege = 0
+					trait = goal_oriented_personality
+					name = "Zathnar longlegged"
+				}
 			}
-		}
-		33 = {
-			define_general = { 
-				fire = 7
-				shock = 7	
-				manuever = 7
-				siege = 0
-				trait = glory_seeker_personality
-				name = "Drogo 'The Great'"
+			33 = {
+				define_general = { 
+					fire = 7
+					shock = 7	
+					manuever = 7
+					siege = 0
+					trait = glory_seeker_personality
+					name = "Drogo 'The Great'"
+				}
 			}
-		}
-		33 = {
-			define_general = { 
-				fire = 2
-				shock = 8	
-				manuever = 4
-				siege = 2
-				trait = winged_general_personality
-				name = "Pegthus 'The Winged'"
+			33 = {
+				define_general = { 
+					fire = 2
+					shock = 8	
+					manuever = 4
+					siege = 2
+					trait = winged_general_personality
+					name = "Pegthus 'The Winged'"
+				}
 			}
-		}
-		33 = {
-			define_general = { 
-				fire = 0
-				shock = 10	
-				manuever = 0
-				siege = 0
-				trait = Bull_personality
-				name = "Kruthnu 'The Brawl'"
+			33 = {
+				define_general = { 
+					fire = 0
+					shock = 10	
+					manuever = 0
+					siege = 0
+					trait = Bull_personality
+					name = "Kruthnu 'The Brawl'"
+				}
 			}
 		}
 	}
 }
 get_ik_magthaal_general_ideas = {	
-	random_list = {
-		33 = {
-			define_general = { 
-				fire = 5
-				shock = 9	
-				manuever = 9
-				siege = 1
-				trait = goal_oriented_personality
-				name = "Zathnar longlegged"
+	tooltip = {
+		random_list = {
+			33 = {
+				define_general = { 
+					fire = 5
+					shock = 9	
+					manuever = 9
+					siege = 1
+					trait = goal_oriented_personality
+					name = "Zathnar longlegged"
+				}
 			}
-		}
-		33 = {
-			define_general = { 
-				fire = 8
-				shock = 8	
-				manuever = 8
-				siege = 1
-				trait = glory_seeker_personality
-				name = "Drogo 'The Great'"
+			33 = {
+				define_general = { 
+					fire = 8
+					shock = 8	
+					manuever = 8
+					siege = 1
+					trait = glory_seeker_personality
+					name = "Drogo 'The Great'"
+				}
 			}
-		}
-		33 = {
-			define_general = { 
-				fire = 3
-				shock = 9	
-				manuever = 5
-				siege = 3
-				trait = winged_general_personality
-				name = "Pegthus 'The Winged'"
+			33 = {
+				define_general = { 
+					fire = 3
+					shock = 9	
+					manuever = 5
+					siege = 3
+					trait = winged_general_personality
+					name = "Pegthus 'The Winged'"
+				}
 			}
-		}
-		33 = {
-			define_general = { 
-				fire = 1
-				shock = 11	
-				manuever = 1
-				siege = 1
-				trait = Bull_personality
-				name = "Kruthnu 'The Brawl'"
+			33 = {
+				define_general = { 
+					fire = 1
+					shock = 11	
+					manuever = 1
+					siege = 1
+					trait = Bull_personality
+					name = "Kruthnu 'The Brawl'"
+				}
 			}
 		}
 	}
 }
 get_feast_of_the_gods_general = {	
-	random_list = {
-		33 = {
-			define_general = { 
-				fire = 9
-				shock = 3
-				manuever = 3
-				siege = 3
-				trait = ruthless_personality
-				name = "Carl 'The Loony'"
+	tooltip = {
+		random_list = {
+			33 = {
+				define_general = { 
+					fire = 9
+					shock = 3
+					manuever = 3
+					siege = 3
+					trait = ruthless_personality
+					name = "Carl 'The Loony'"
+				}
 			}
-		}
-		33 = {
-			define_general = { 
-				fire = 6
-				shock = 6	
-				manuever = 6
-				siege = 0
-				trait = defensive_planner_personality
-				name = "Mike 'The Brainy'"
+			33 = {
+				define_general = { 
+					fire = 6
+					shock = 6	
+					manuever = 6
+					siege = 0
+					trait = defensive_planner_personality
+					name = "Mike 'The Brainy'"
+				}
 			}
-		}
-		33 = {
-			define_general = { 
-				fire = 1
-				shock = 12	
-				manuever = 5
-				siege = 0
-				trait = big_belly_personality
-				name = "Jonhy 'The Fat'"
+			33 = {
+				define_general = { 
+					fire = 1
+					shock = 12	
+					manuever = 5
+					siege = 0
+					trait = big_belly_personality
+					name = "Jonhy 'The Fat'"
+				}
 			}
-		}
-		33 = {
-			define_general = { 
-				fire = 3
-				shock = 9
-				manuever = 3
-				siege = 3
-				trait = master_of_arms_personality
-				name = "McGregor 'The Bully'"
+			33 = {
+				define_general = { 
+					fire = 3
+					shock = 9
+					manuever = 3
+					siege = 3
+					trait = master_of_arms_personality
+					name = "McGregor 'The Bully'"
+				}
 			}
 		}
 	}
 }
 get_feast_of_the_gods_general_ideas = {	
-	random_list = {
-		33 = {
-			define_general = { 
-				fire = 10
-				shock = 4
-				manuever = 4
-				siege = 4
-				trait = ruthless_personality
-				name = "Carl 'The Loony'"
+	tooltip = {
+		random_list = {
+			33 = {
+				define_general = { 
+					fire = 10
+					shock = 4
+					manuever = 4
+					siege = 4
+					trait = ruthless_personality
+					name = "Carl 'The Loony'"
+				}
 			}
-		}
-		33 = {
-			define_general = { 
-				fire = 7
-				shock = 7	
-				manuever = 7
-				siege = 1
-				trait = defensive_planner_personality
-				name = "Mike 'The Brainy'"
+			33 = {
+				define_general = { 
+					fire = 7
+					shock = 7	
+					manuever = 7
+					siege = 1
+					trait = defensive_planner_personality
+					name = "Mike 'The Brainy'"
+				}
 			}
-		}
-		33 = {
-			define_general = { 
-				fire = 2
-				shock = 13	
-				manuever = 6
-				siege = 1
-				trait = big_belly_personality
-				name = "Jonhy 'The Fat'"
+			33 = {
+				define_general = { 
+					fire = 2
+					shock = 13	
+					manuever = 6
+					siege = 1
+					trait = big_belly_personality
+					name = "Jonhy 'The Fat'"
+				}
 			}
-		}
-		33 = {
-			define_general = { 
-				fire = 4
-				shock = 10
-				manuever = 4
-				siege = 4
-				trait = master_of_arms_personality
-				name = "McGregor 'The Bully'"
+			33 = {
+				define_general = { 
+					fire = 4
+					shock = 10
+					manuever = 4
+					siege = 4
+					trait = master_of_arms_personality
+					name = "McGregor 'The Bully'"
+				}
 			}
 		}
 	}

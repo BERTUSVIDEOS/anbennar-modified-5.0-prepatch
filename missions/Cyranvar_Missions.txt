@@ -534,12 +534,19 @@ cyranvar_2 = {
 		
 		provinces_to_highlight = {
 			province_group = deepwoods_outward_gladeway
-			NOT = { has_influencing_fort = yes }
+			NOT = {	owned_by = ROOT}
+			NOT = {	
+				any_neighbor_province = {
+					has_fort_trigger = yes
+					owned_by = ROOT
+				}
+			}
 		}
 		
 		trigger = {
 			deepwoods_outward_gladeway = {
 				type = all
+				owned_by = ROOT
 				any_neighbor_province = {
 					has_fort_trigger = yes
 					owned_by = ROOT
@@ -550,6 +557,10 @@ cyranvar_2 = {
 		effect = {
 			add_stability_or_adm_power = yes
 			deepwoods_superregion = {
+				limit = {
+					has_fort_trigger = yes
+					owned_by = ROOT
+				}
 				add_permanent_province_modifier = {
 					name = cyranvar_the_oak_guard
 					duration = -1

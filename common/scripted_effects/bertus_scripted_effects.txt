@@ -1,4 +1,147 @@
 
+get_random_racial_adm_advisor = {
+	random_list = {
+		10 = {define_advisor = { skill = 3 type = treasurer cost_multiplier = $cost_multiplier$ culture = PREV religion = PREV}}
+		10 = {define_advisor = { skill = 3 type = philosopher cost_multiplier = $cost_multiplier$ culture = PREV religion = PREV}}
+		10 = {define_advisor = { skill = 3 type = artist cost_multiplier = $cost_multiplier$ culture = PREV religion = PREV}}
+		10 = {define_advisor = { skill = 3 type = theologian cost_multiplier = $cost_multiplier$ culture = PREV religion = PREV}}
+		10 = {define_advisor = { skill = 3 type = master_of_mint cost_multiplier = $cost_multiplier$ culture = PREV religion = PREV}}
+		10 = {define_advisor = { skill = 3 type = inquisitor cost_multiplier = $cost_multiplier$ culture = PREV religion = PREV}}
+		10 = {define_advisor = { skill = 3 type = natural_scientist cost_multiplier = $cost_multiplier$ culture = PREV religion = PREV}}
+		10 = {define_advisor = { skill = 3 type = court_mage cost_multiplier = $cost_multiplier$ culture = PREV religion = PREV}}
+		10 = {define_advisor = { skill = 3 type = idea_var_advisor_1 cost_multiplier = $cost_multiplier$ culture = PREV religion = PREV}}
+		10 = {define_advisor = { skill = 3 type = idea_var_advisor_3 cost_multiplier = $cost_multiplier$ culture = PREV religion = PREV}}
+		10 = {define_advisor = { skill = 3 type = idea_var_advisor_4 cost_multiplier = $cost_multiplier$ culture = PREV religion = PREV}}
+		10 = {define_advisor = { skill = 3 type = idea_var_advisor_6 cost_multiplier = $cost_multiplier$ culture = PREV religion = PREV}}
+		10 = {define_advisor = { skill = 3 type = idea_var_advisor_8 cost_multiplier = $cost_multiplier$ culture = PREV religion = PREV}}
+		10 = {define_advisor = { skill = 3 type = idea_var_advisor_9 cost_multiplier = $cost_multiplier$ culture = PREV religion = PREV}}
+		10 = {define_advisor = { skill = 3 type = idea_var_advisor_20 cost_multiplier = $cost_multiplier$ culture = PREV religion = PREV}}
+		10 = {define_advisor = { skill = 3 type = idea_var_advisor_30 cost_multiplier = $cost_multiplier$ culture = PREV religion = PREV}}
+		10 = {define_advisor = { skill = 3 type = idea_var_advisor_31 cost_multiplier = $cost_multiplier$ culture = PREV religion = PREV}}
+		10 = {define_advisor = { skill = 3 type = idea_var_advisor_32 cost_multiplier = $cost_multiplier$ culture = PREV religion = PREV}}
+	}
+}
+get_random_cost_dependant_racial_advisor = {
+	if = {	#90% short lived
+		limit = {
+			OR = {
+				culture_is_goblin = yes
+				culture_is_gnollish = yes
+			}
+		}
+		ROOT = {
+			get_random_racial_adm_advisor = {
+				cost_multiplier = 0.90
+			}
+		}
+	}
+	if = {	#80%	standar
+		limit = {
+			OR = {
+				culture_is_human = yes
+				culture_is_hobgoblin = yes
+				culture_is_ruinborn = yes
+				culture_is_orcish = yes
+				culture_is_half_orcish = yes
+				culture_is_ogre = yes
+				culture_is_centaur = yes
+				culture_is_troll = yes
+				culture_is_harpy = yes
+			}
+		}
+		ROOT = {
+			get_random_racial_adm_advisor = {
+				cost_multiplier = 0.80
+			}
+		}
+	}
+	if = {	#70%	standar+
+		limit = {
+			OR = {
+				culture_is_halfling = yes
+				culture_is_harimari = yes
+				culture_is_kobold = yes
+			}
+		}
+		ROOT = {
+			get_random_racial_adm_advisor = {
+				cost_multiplier = 0.70
+			}
+		}
+	}
+	if = {	#66% long lived dwarven 
+		limit = {
+			OR = {
+				culture_is_dwarven = yes
+				culture_is_half_elven = yes
+			}
+		}
+		ROOT = {
+			get_random_racial_adm_advisor = {
+				cost_multiplier = 0.66
+			}
+		}
+	}
+	if = {	#60% long lived gnomish
+		limit = {culture_is_gnomish = yes}
+		ROOT = {
+			get_random_racial_adm_advisor = {
+				cost_multiplier = 0.60
+			}
+		}
+	}
+	if = {	#50% long lived elven
+		limit = {culture_is_elven = yes}
+		ROOT = {
+			get_random_racial_adm_advisor = {
+				cost_multiplier = 0.50
+			}
+		}
+	}
+}
+
+get_racial_advisor = {
+	custom_tooltip = get_$race$_advisor_tt
+	hidden_effect = {
+		if = {
+			limit = {
+				has_saved_event_target = province_event_target 
+				event_target:province_event_target = {culture_is_$race$ = yes}
+			}
+			event_target:province_event_target = {
+				get_random_cost_dependant_racial_advisor = yes
+			}
+		}
+		else_if = {
+			limit = {any_owned_province = {culture_is_$race$ = yes}}
+			random_owned_province = {
+				limit = {culture_is_$race$ = yes}
+				get_random_cost_dependant_racial_advisor = yes
+			}
+		}
+		else_if = {
+			limit = {
+				any_province = {
+					continent = cannor
+					culture_is_$race$ = yes
+				}
+			}
+			random_province = {
+				limit = {
+					continent = cannor
+					culture_is_$race$ = yes
+				}
+				get_random_cost_dependant_racial_advisor = yes
+			}
+		}
+		else = {
+			random_province = {
+				limit = {culture_is_$race$ = yes}
+				get_random_cost_dependant_racial_advisor = yes
+			}
+		}
+	}
+}
 magic_siege_defence = {
 	if = {
 		limit = {has_ward_province_modifiers = yes}

@@ -14,7 +14,10 @@ estate_hobgoblin_hire_advisor = {
 		random_owned_province = {
 			limit = {culture_is_hobgoblin = yes }
 			save_event_target_as = agenda_province
+			save_event_target_as = agenda_province_hobgoblin
 		}
+	}
+	immediate_effect  = {
 		define_advisor = {
 			type = diplomat
 			skill = 2
@@ -72,6 +75,12 @@ estate_hobgoblin_fire_advisor = {
 	selection_weight = {
 		factor = 10
 	}
+	pre_effect = {
+		random_owned_province = {
+			limit = {culture_is_hobgoblin = yes}
+			save_event_target_as = province_event_target
+		}
+	}
 	immediate_effect = {
 		hidden_effect = {set_country_flag = need_to_fire_dip_advisor}
 	}
@@ -85,56 +94,8 @@ estate_hobgoblin_fire_advisor = {
 		}
 	}
     task_completed_effect = {
-		if = {
-			limit = {
-				any_owned_province = {culture_is_hobgoblin = yes}
-			}
-			random_owned_province = {
-				limit = {culture_is_hobgoblin = yes}
-				owner = {
-					define_advisor = {
-						type = trader
-						skill = 2
-						culture = PREV
-						religion = PREV
-						location = PREV
-						cost_multiplier = 0.75
-					}
-				}
-			}
-		}
-		else_if = {
-			limit = {
-				any_province = {has_discovered = ROOT culture_is_hobgoblin = yes}
-			}
-			random_province = {
-				limit = {has_discovered = ROOT culture_is_hobgoblin = yes}
-				owner = {
-					define_advisor = {
-						type = trader
-						skill = 2
-						culture = PREV
-						religion = PREV
-						location = PREV
-						cost_multiplier = 0.75
-					}
-				}
-			}
-		}
-		else = {
-			random_province = {
-				limit = {culture_is_hobgoblin = yes}
-				owner = {
-					define_advisor = {
-						type = trader
-						skill = 2
-						culture = PREV
-						religion = PREV
-						location = PREV
-						cost_multiplier = 0.75
-					}
-				}
-			}
+		get_racial_advisor = {
+			race = hobgoblin
 		}
 		clr_country_flag = just_fired_dip_advisor
 		clr_country_flag = need_to_fire_dip_advisor
@@ -372,8 +333,7 @@ estate_hobgoblin_get_cash = {
 			desc = EST_VAL_DIET_GET_CASH
 			influence = 5
 			duration = 7300
-		}
-		
+		}		
 	}
     failing_effect = {
         add_estate_loyalty_modifier = {
@@ -507,6 +467,14 @@ estate_hobgoblin_three_privileges = {
 			}
 		}
 	}
+	pre_effect = {
+		every_owned_province = {
+			limit = {				
+				culture_is_hobgoblin = yes
+			}
+			save_event_target_as = agenda_province
+		}
+	}
 	task_requirements = {
 		has_estate_privilege = estate_hobgoblin_autonomy
 	}
@@ -520,12 +488,20 @@ estate_hobgoblin_three_privileges = {
 			estate = estate_hobgoblin
 			loyalty = 20
 		}
-		every_owned_province = {
-			limit = {culture_is_hobgoblin = yes}
-			hidden_effect = {add_unrest = -10}
+		event_target:agenda_province = {
+			add_unrest = -10
 			add_scaled_local_adm_power = 1
 			add_scaled_local_dip_power = 1
 			add_scaled_local_mil_power = 1
+		}
+		hidden_effect = {
+			every_owned_province = {
+				limit = {culture_is_hobgoblin = yes}
+				hidden_effect = {add_unrest = -10}
+				add_scaled_local_adm_power = 1
+				add_scaled_local_dip_power = 1
+				add_scaled_local_mil_power = 1
+			}
 		}
 		add_estate_influence_modifier = {
 			estate = estate_hobgoblin
@@ -846,6 +822,9 @@ estate_hobgoblin_build_university_in_x = {
 				culture_is_hobgoblin = yes 
 			}
 			save_event_target_as = agenda_province
+			save_event_target_as = agenda_province_hobgoblin
+			set_variable = {which = province_development value = 0}
+			export_to_variable = {which = province_development value = development}
 		}
 		random_owned_province = {
 			limit = {
@@ -855,6 +834,9 @@ estate_hobgoblin_build_university_in_x = {
 				culture_is_hobgoblin = yes 
 			}
 			save_event_target_as = agenda_province
+			save_event_target_as = agenda_province_hobgoblin
+			set_variable = {which = province_development value = 0}
+			export_to_variable = {which = province_development value = development}
 		}
 		random_owned_province = {
 			limit = {
@@ -864,6 +846,9 @@ estate_hobgoblin_build_university_in_x = {
 				culture_is_hobgoblin = yes 
 			}
 			save_event_target_as = agenda_province
+			save_event_target_as = agenda_province_hobgoblin
+			set_variable = {which = province_development value = 0}
+			export_to_variable = {which = province_development value = development}
 		}
 		random_owned_province = {
 			limit = {
@@ -873,6 +858,9 @@ estate_hobgoblin_build_university_in_x = {
 				culture_is_hobgoblin = yes 
 			}
 			save_event_target_as = agenda_province
+			save_event_target_as = agenda_province_hobgoblin
+			set_variable = {which = province_development value = 0}
+			export_to_variable = {which = province_development value = development}
 		}
 	}
 	provinces_to_highlight = {
@@ -901,9 +889,6 @@ estate_hobgoblin_build_university_in_x = {
 		}
 		event_target:agenda_province = {
 			add_base_production = 1
-			get_tolerance_from_provinces = {
-				race = hobgoblin
-			}
 			if = {
 				limit = {has_building = university}
 				add_scaled_local_adm_power = 3
@@ -920,6 +905,9 @@ estate_hobgoblin_build_university_in_x = {
 				add_scaled_local_adm_power = 1
 				add_scaled_local_dip_power = 1
 				add_scaled_local_mil_power = 1
+			}
+			get_tolerance_from_provinces = {
+				race = hobgoblin
 			}
 		}
 		
@@ -964,6 +952,9 @@ estate_hobgoblin_build_manufactory_in_x = {
 				culture_is_hobgoblin = yes 
 			}
 			save_event_target_as = agenda_province
+			save_event_target_as = agenda_province_hobgoblin
+			set_variable = {which = province_development value = 0}
+			export_to_variable = {which = province_development value = development}
 		}
 		random_owned_province = {
 			limit = {
@@ -973,6 +964,9 @@ estate_hobgoblin_build_manufactory_in_x = {
 				culture_is_hobgoblin = yes 
 			}
 			save_event_target_as = agenda_province
+			save_event_target_as = agenda_province_hobgoblin
+			set_variable = {which = province_development value = 0}
+			export_to_variable = {which = province_development value = development}
 		}
 		random_owned_province = {
 			limit = {
@@ -982,6 +976,9 @@ estate_hobgoblin_build_manufactory_in_x = {
 				culture_is_hobgoblin = yes 
 			}
 			save_event_target_as = agenda_province
+			save_event_target_as = agenda_province_hobgoblin
+			set_variable = {which = province_development value = 0}
+			export_to_variable = {which = province_development value = development}
 		}
 	}
 	provinces_to_highlight = {
@@ -1070,6 +1067,9 @@ estate_hobgoblin_build_production_building_in_x = {
 				NOT = { trade_goods = silver }
 			}
 			save_event_target_as = agenda_province
+			save_event_target_as = agenda_province_hobgoblin
+			set_variable = {which = province_development value = 0}
+			export_to_variable = {which = province_development value = development}
 		}
 		random_owned_province = {
 			limit = {
@@ -1081,6 +1081,9 @@ estate_hobgoblin_build_production_building_in_x = {
 				NOT = { trade_goods = silver }
 			}
 			save_event_target_as = agenda_province
+			save_event_target_as = agenda_province_hobgoblin
+			set_variable = {which = province_development value = 0}
+			export_to_variable = {which = province_development value = development}
 		}
 		random_owned_province = {
 			limit = {
@@ -1102,6 +1105,9 @@ estate_hobgoblin_build_production_building_in_x = {
 				NOT = { trade_goods = silver }
 			}
 			save_event_target_as = agenda_province
+			save_event_target_as = agenda_province_hobgoblin
+			set_variable = {which = province_development value = 0}
+			export_to_variable = {which = province_development value = development}
 		}
 	}
 	provinces_to_highlight = {
@@ -1168,6 +1174,7 @@ estate_hobgoblin_build_trade_building_in_x = {
 			culture_is_hobgoblin = yes 
 			has_trade_building_trigger = no
 			is_state_core = root
+			allowed_to_build_trade_building = yes
 		}
 	}
 	selection_weight = {
@@ -1179,32 +1186,44 @@ estate_hobgoblin_build_trade_building_in_x = {
 				culture_is_hobgoblin = yes 
 				has_trade_building_trigger = no
 				is_state_core = root
+				allowed_to_build_trade_building = yes
 			}
 			save_event_target_as = agenda_province
+			save_event_target_as = agenda_province_hobgoblin
+			set_variable = {which = province_development value = 0}
+			export_to_variable = {which = province_development value = development}
 		}
 		random_owned_province = {
 			limit = {
 				culture_is_hobgoblin = yes 
 				has_trade_building_trigger = no
 				is_state_core = root
+				allowed_to_build_trade_building = yes
 				OR = {
 					province_has_center_of_trade_of_level = 1
 					province_trade_power = 10
 				}
 			}
 			save_event_target_as = agenda_province
+			save_event_target_as = agenda_province_hobgoblin
+			set_variable = {which = province_development value = 0}
+			export_to_variable = {which = province_development value = development}
 		}
 		random_owned_province = {
 			limit = {
 				culture_is_hobgoblin = yes 
 				has_trade_building_trigger = no
 				is_state_core = root
+				allowed_to_build_trade_building = yes
 				OR = {
 					province_has_center_of_trade_of_level = 2
 					province_trade_power = 20
 				}
 			}
 			save_event_target_as = agenda_province
+			save_event_target_as = agenda_province_hobgoblin
+			set_variable = {which = province_development value = 0}
+			export_to_variable = {which = province_development value = development}
 		}
 	}
 	provinces_to_highlight = {
@@ -1293,6 +1312,9 @@ estate_hobgoblin_increase_autonomy_in_x = {
 				NOT = { has_province_modifier = autonomy_decreased }
 			}
 			save_event_target_as = agenda_province
+			save_event_target_as = agenda_province_hobgoblin
+			set_variable = {which = province_development value = 0}
+			export_to_variable = {which = province_development value = development}
 
 			if = {
 				limit = {
@@ -1539,6 +1561,9 @@ estate_hobgoblin_build_temple_in_x = {
 				is_state_core = root
 			}
 			save_event_target_as = agenda_province
+			save_event_target_as = agenda_province_hobgoblin
+			set_variable = {which = province_development value = 0}
+			export_to_variable = {which = province_development value = development}
 		}
 		random_owned_province = {
 			limit = {
@@ -1548,6 +1573,9 @@ estate_hobgoblin_build_temple_in_x = {
 				base_tax = 4
 			}
 			save_event_target_as = agenda_province
+			save_event_target_as = agenda_province_hobgoblin
+			set_variable = {which = province_development value = 0}
+			export_to_variable = {which = province_development value = development}
 		}
 		random_owned_province = {
 			limit = {
@@ -1557,6 +1585,9 @@ estate_hobgoblin_build_temple_in_x = {
 				base_tax = 7
 			}
 			save_event_target_as = agenda_province
+			save_event_target_as = agenda_province_hobgoblin
+			set_variable = {which = province_development value = 0}
+			export_to_variable = {which = province_development value = development}
 		}
 	}
 	provinces_to_highlight = {
@@ -1638,7 +1669,13 @@ estate_hobgoblin_familial_connections = {
 				NOT = { has_opinion = { who = ROOT value = 50 } }
 			}
 			save_event_target_as = patrician_familial_connection_country
+			every_owned_province = {
+				save_event_target_as = agenda_province_hobgoblin
+			}
 		}
+	}
+	provinces_to_highlight = {
+		owned_by = event_target:patrician_familial_connection_country
 	}
 	task_requirements = {
 		event_target:patrician_familial_connection_country = {
@@ -1721,6 +1758,9 @@ estate_hobgoblin_war_with_non_hobgoblin = {
 					ROOT = { is_part_of_hre = no }
 				}
 			}
+			every_owned_province = {				
+				save_event_target_as = agenda_province_hobgoblin
+			}
 			save_event_target_as = agenda_country
 		}
 	}
@@ -1787,6 +1827,9 @@ estate_hobgoblin_develop_production_x = {
 					culture_is_hobgoblin = yes
 				}
 				save_event_target_as = agenda_province
+				save_event_target_as = agenda_province_hobgoblin
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
 			}
 		}
 		else = {
@@ -1796,6 +1839,9 @@ estate_hobgoblin_develop_production_x = {
 					has_any_hobgoblin_pop_trigger = yes
 				}
 				save_event_target_as = agenda_province
+				save_event_target_as = agenda_province_hobgoblin
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
 			}
 		}
 		event_target:agenda_province = {
@@ -1843,7 +1889,7 @@ estate_hobgoblin_develop_production_x = {
 		event_target:agenda_province = {
 			if = {
 				limit = {owner = {high_tolerance_hobgoblin_race_trigger = yes}}				
-				get_prestige_from_provinces = {
+				gain_prestige_from_provinces = {
 					prestige_per_dev = 0.1
 				}
 			}
@@ -1899,6 +1945,7 @@ estate_hobgoblin_develop_tax_x = {
 					culture_is_hobgoblin = yes
 				}
 				save_event_target_as = agenda_province
+				save_event_target_as = agenda_province_hobgoblin
 			}
 		}
 		else = {
@@ -1908,21 +1955,15 @@ estate_hobgoblin_develop_tax_x = {
 					has_any_hobgoblin_pop_trigger = yes
 				}
 				save_event_target_as = agenda_province
+				save_event_target_as = agenda_province_hobgoblin
 			}
 		}
 		event_target:agenda_province = {
-			set_variable = {
-				which = province_tax_var
-				value = 0
-			}
-			export_to_variable = {
-				which = province_tax_var
-				value = trigger_value:base_tax
-			}
-			change_variable = {
-				which = province_tax_var
-				value = 2
-			}
+			set_variable = {which = province_tax_var value = 0}
+			export_to_variable = {which = province_tax_var value = trigger_value:base_tax}
+			change_variable = {which = province_tax_var value = 2}
+			set_variable = {which = prestige_per_dev_tooltip value = 0}
+			change_variable = {which = prestige_per_dev_tooltip value = 0.1}
 		}
 	}
 	provinces_to_highlight = {
@@ -1955,7 +1996,7 @@ estate_hobgoblin_develop_tax_x = {
 		event_target:agenda_province = {
 			if = {
 				limit = {owner = {high_tolerance_hobgoblin_race_trigger = yes}}				
-				get_prestige_from_provinces = {
+				gain_prestige_from_provinces = {
 					prestige_per_dev = 0.1
 				}
 			}
@@ -2009,6 +2050,9 @@ estate_hobgoblin_develop_manpower_x = {
 					NOT = {has_province_modifier = non_military_pop}
 				}
 				save_event_target_as = agenda_province
+				save_event_target_as = agenda_province_hobgoblin
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
 			}
 		}
 		else = {
@@ -2019,6 +2063,9 @@ estate_hobgoblin_develop_manpower_x = {
 					NOT = {has_province_modifier = non_military_pop}
 				}
 				save_event_target_as = agenda_province
+				save_event_target_as = agenda_province_hobgoblin
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
 			}
 		}
 		event_target:agenda_province = {
@@ -2066,7 +2113,7 @@ estate_hobgoblin_develop_manpower_x = {
 		event_target:agenda_province = {
 			if = {
 				limit = {owner = {high_tolerance_hobgoblin_race_trigger = yes}}				
-				get_prestige_from_provinces = {
+				gain_prestige_from_provinces = {
 					prestige_per_dev = 0.1
 				}
 			}
@@ -2212,6 +2259,11 @@ estate_hobgoblin_recruitment_agenda = {
 		}
 	}
 	pre_effect = {
+		every_owned_province = {
+			limit = {culture_is_hobgoblin = yes}
+			set_variable = {which = manpower_per_dev_tooltip value = 0}
+			change_variable = {which = manpower_per_dev_tooltip value = 0.1}
+		}
 	}
 	selection_weight = {
 		factor = 10
@@ -2226,7 +2278,7 @@ estate_hobgoblin_recruitment_agenda = {
 		}
 		every_owned_province = {
 			limit = {culture_is_hobgoblin = yes}			
-			get_manpower_from_provinces = {
+			gain_manpower_from_provinces = {
 				manpower_per_dev = 0.100
 			}
 		}
