@@ -311,9 +311,9 @@ province_event = {
 			AND = {
 				OR = {
 					has_elven_majority_trigger = yes
+					has_half_elven_majority_trigger = yes
 					has_halfling_majority_trigger = yes
 					has_gnomish_majority_trigger = yes
-					has_harimari_majority_trigger = yes
 				}
 				NOT = {
 					has_pop_race_modifier = {
@@ -326,9 +326,9 @@ province_event = {
 			}
 			AND = {
 				has_elven_majority_trigger = no
+				has_half_elven_majority_trigger = yes
 				has_halfling_majority_trigger = no
 				has_gnomish_majority_trigger = no
-				has_harimari_majority_trigger = no
 				has_pop_race_modifier = {
 					race = all
 					class = bonus
@@ -3653,6 +3653,7 @@ province_event = {	#mountain preference
 					has_harpy_majority_trigger = yes
 					culture = hill_goblin
 					culture = cave_goblin
+					culture = undergrowth_goblin
 					culture = forest_troll
 				}
 				NOT = {has_province_modifier = mountain_preference}
@@ -3666,6 +3667,7 @@ province_event = {	#mountain preference
 					has_harpy_majority_trigger = yes
 					culture = hill_goblin
 					culture = cave_goblin
+					culture = undergrowth_goblin
 					culture = forest_troll
 				}
 				has_province_modifier = mountain_preference
@@ -3688,6 +3690,7 @@ province_event = {	#mountain preference
 				has_harpy_majority_trigger = yes
 				culture = hill_goblin
 				culture = cave_goblin
+				culture = undergrowth_goblin
 				culture = forest_troll
 			}
 		}
@@ -3705,6 +3708,7 @@ province_event = {	#mountain preference
 				has_harpy_majority_trigger = yes
 				culture = hill_goblin
 				culture = cave_goblin
+				culture = undergrowth_goblin
 				culture = forest_troll
 			}
 		}
@@ -3727,6 +3731,7 @@ province_event = {	#cavern preference
 					has_kobold_majority_trigger = yes
 					has_troll_majority_trigger = yes
 					culture = cave_goblin
+					culture = undergrowth_goblin
 					culture = black_orc
 				}
 				NOT = {has_province_modifier = cavern_preference}
@@ -3738,6 +3743,7 @@ province_event = {	#cavern preference
 					has_kobold_majority_trigger = yes
 					has_troll_majority_trigger = yes
 					culture = cave_goblin
+					culture = undergrowth_goblin
 					culture = black_orc
 				}
 				has_province_modifier = cavern_preference
@@ -3758,6 +3764,7 @@ province_event = {	#cavern preference
 				has_kobold_majority_trigger = yes
 				has_troll_majority_trigger = yes
 				culture = cave_goblin
+				culture = undergrowth_goblin
 				culture = black_orc
 			}
 		}
@@ -3773,6 +3780,7 @@ province_event = {	#cavern preference
 				has_kobold_majority_trigger = yes
 				has_troll_majority_trigger = yes
 				culture = cave_goblin
+				culture = undergrowth_goblin
 				culture = black_orc
 			}
 		}
@@ -3799,6 +3807,7 @@ province_event = {	#tunnel preference
 					has_troll_majority_trigger = yes
 					has_dwarven_majority_trigger = yes
 					culture = cave_goblin
+					culture = undergrowth_goblin
 					culture = black_orc
 				}
 				NOT = {has_province_modifier = tunnel_preference}
@@ -3814,15 +3823,13 @@ province_event = {	#tunnel preference
 					has_troll_majority_trigger = yes
 					has_dwarven_majority_trigger = yes
 					culture = cave_goblin
+					culture = undergrowth_goblin
 					culture = black_orc
 				}
 				has_province_modifier = tunnel_preference
 			}
 		}
     }
-	
-	mean_time_to_happen = {
-	}
 	
 	immediate = {
 		
@@ -3835,6 +3842,7 @@ province_event = {	#tunnel preference
 				has_troll_majority_trigger = yes
 				has_dwarven_majority_trigger = yes
 				culture = cave_goblin
+				culture = undergrowth_goblin
 				culture = black_orc
 			}
 		}
@@ -3851,6 +3859,7 @@ province_event = {	#tunnel preference
 				has_troll_majority_trigger = yes
 				has_dwarven_majority_trigger = yes
 				culture = cave_goblin
+				culture = undergrowth_goblin
 				culture = black_orc
 			}
 		}
@@ -5371,6 +5380,16 @@ province_event = {	#non principal military pop
     }
 	
 	mean_time_to_happen = {
+		days = 365
+		modifier = {
+			factor = 2.0
+			owner = {is_at_war = yes}
+		}
+		modifier = {
+			factor = 2.0
+			NOT = {has_province_modifier = non_military_pop}
+			owner = {manpower_percentage = 0.90}
+		}
 	}
 	
 	immediate = {
@@ -5391,5 +5410,8 @@ province_event = {	#non principal military pop
 			has_non_military_pop = no
 		}
 		remove_non_military_pop = yes
+	}
+	after = {
+		owner = {country_event = {id = bertus_racial_military.1001}}
 	}
 }

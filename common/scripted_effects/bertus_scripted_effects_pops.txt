@@ -384,10 +384,10 @@ culture_conversion_dev_reduction = {
 			}
 			add_base_manpower = -1
 		}
-		update_bertus_pops = yes
+		hidden_effect = {update_bertus_pops = yes}
 	}
 }
-get_manpower_from_provinces = {
+gain_manpower_from_provinces = {
 	hidden_effect = {
 		set_variable = {
 			which = province_manpower
@@ -423,10 +423,47 @@ get_manpower_from_provinces = {
 			owner = { add_manpower = $manpower_per_dev$ }
 		}
 	}
-	custom_tooltip = get_manpower_from_provinces_tt
-	tooltip = {add_manpower = $manpower_per_dev$ }
+	custom_tooltip = gain_manpower_from_provinces_tt
 }
-get_treasury_from_provinces = {
+lose_manpower_from_provinces = {
+	hidden_effect = {
+		set_variable = {
+			which = province_manpower
+			value = 0
+		}
+		set_variable = {
+			which = manpower_per_dev_tooltip
+			value = 0
+		}
+		set_variable = {
+			which = cicles_per_manpower
+			value = 1
+		}
+		export_to_variable = {
+			which = province_manpower
+			value = base_manpower
+		}
+		subtract_variable = {
+			which = manpower_per_dev_tooltip
+			value = $manpower_per_dev$
+		}
+		while = {
+			limit = {
+				check_variable = {
+					which = province_manpower
+					which = cicles_per_manpower
+				}
+			}
+			change_variable = {
+				which = cicles_per_manpower
+				value = 1
+			}
+			owner = { add_manpower = -$manpower_per_dev$ }
+		}
+	}
+	custom_tooltip = lose_manpower_from_provinces_tt
+}
+gain_treasury_from_provinces = {
 	hidden_effect = {
 		set_variable = {
 			which = province_development
@@ -462,10 +499,47 @@ get_treasury_from_provinces = {
 			owner = { add_treasury = $cash_per_dev$ }
 		}
 	}
-	custom_tooltip = get_treasury_from_provinces_tt
-	tooltip = { add_treasury = $cash_per_dev$ }
+	custom_tooltip = gain_treasury_from_provinces_tt
 }
-get_prestige_from_provinces = {
+lose_treasury_from_provinces = {
+	hidden_effect = {
+		set_variable = {
+			which = province_development
+			value = 0
+		}
+		set_variable = {
+			which = cash_per_dev_tooltip
+			value = 0
+		}
+		set_variable = {
+			which = cicles_per_development
+			value = 1
+		}
+		export_to_variable = {
+			which = province_development
+			value = development
+		}
+		subtract_variable = {
+			which = cash_per_dev_tooltip
+			value = $cash_per_dev$
+		}
+		while = {
+			limit = {
+				check_variable = {
+					which = province_development
+					which = cicles_per_development
+				}
+			}
+			change_variable = {
+				which = cicles_per_development
+				value = 1
+			}
+			owner = { add_treasury = -$cash_per_dev$ }
+		}
+	}
+	custom_tooltip = lose_treasury_from_provinces_tt
+}
+gain_prestige_from_provinces = {
 	hidden_effect = {
 		set_variable = {
 			which = province_development
@@ -501,8 +575,45 @@ get_prestige_from_provinces = {
 			owner = { add_prestige = $prestige_per_dev$ }
 		}
 	}
-	custom_tooltip = get_prestige_from_provinces_tt
-	tooltip = {add_prestige = $prestige_per_dev$ }
+	custom_tooltip = gain_prestige_from_provinces_tt
+}
+lose_prestige_from_provinces = {
+	hidden_effect = {
+		set_variable = {
+			which = province_development
+			value = 0
+		}
+		set_variable = {
+			which = prestige_per_dev_tooltip
+			value = 0
+		}
+		set_variable = {
+			which = cicles_per_development
+			value = 1
+		}
+		export_to_variable = {
+			which = province_development
+			value = development
+		}
+		subtract_variable = {
+			which = prestige_per_dev_tooltip
+			value = $prestige_per_dev$
+		}
+		while = {
+			limit = {
+				check_variable = {
+					which = province_development
+					which = cicles_per_development
+				}
+			}
+			change_variable = {
+				which = cicles_per_development
+				value = 1
+			}
+			owner = { add_prestige = -$prestige_per_dev$ }
+		}
+	}
+	custom_tooltip = lose_prestige_from_provinces_tt
 }
 get_tolerance_from_provinces = {
 	hidden_effect = {
@@ -575,38 +686,26 @@ get_intolerance_from_provinces = {
 	tooltip = {owner = { smallest_decrease_of_$race$_tolerance_effect = yes }}
 }
 add_1_dev_to_provinces = {
-	random_list = {
-		25 = {
-			add_base_tax = 1
+	custom_tooltip = add_1_dev_to_provinces_tt
+	hidden_effect = {
+		random_list = {
+			25 = {add_base_tax = 1}
+			25 = {add_base_production = 1}
+			25 = {add_base_manpower = 1}
 		}
-		25 = {
-			add_base_production = 1
-		}
-		25 = {
-			add_base_manpower = 1
-		}
-		25 = {
-			#nothing
-		}
+		update_bertus_pops = yes
 	}
-	update_bertus_pops = yes
 }
 remove_1_dev_to_provinces = {
-	random_list = {
-		25 = {
-			add_base_tax = -1
+	custom_tooltip = remove_1_dev_to_provinces_tt
+	hidden_effect = {
+		random_list = {
+			25 = {add_base_tax = -1}
+			25 = {add_base_production = -1}
+			25 = {add_base_manpower = -1}
 		}
-		25 = {
-			add_base_production = -1
-		}
-		25 = {
-			add_base_manpower = -1
-		}
-		25 = {
-			#nothing
-		}
+		update_bertus_pops = yes
 	}
-	update_bertus_pops = yes
 }
 get_levies_from_dev = {
 	hidden_effect = {

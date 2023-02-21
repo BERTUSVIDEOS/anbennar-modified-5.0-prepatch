@@ -101,7 +101,7 @@ estate_artificers_organization_international_gommo = {
 	}
 	benefits = {
 		production_efficiency = 0.1
-		special_unit_forcelimit = 0.05
+		#special_unit_forcelimit = 0.05	#0.05→0
 	}
 	ai_will_do = {
 		factor = 5
@@ -207,7 +207,7 @@ estate_artificers_organization_state = {
 	}
 	benefits = {
 		production_efficiency = -0.1
-		special_unit_forcelimit = 0.1
+		#special_unit_forcelimit = 0.1	#0.10→0
 	}
 	ai_will_do = {
 		factor = 5
@@ -318,7 +318,7 @@ estate_artificers_organization_independent_unions = {
 	}
 	benefits = {
 		production_efficiency = 0.05
-		special_unit_forcelimit = 0.05
+		#special_unit_forcelimit = 0.05	#0.05→0
 	}
 	ai_will_do = {
 		factor = 0
@@ -425,7 +425,7 @@ estate_artificers_organization_ravelian_control = {
 		church_influence_modifier = 0.05
 		
 		papal_influence = 0.5
-		special_unit_forcelimit = 0.1
+		#special_unit_forcelimit = 0.1	#0.10→0
 	}
 	ai_will_do = {
 		factor = 5
@@ -521,7 +521,7 @@ estate_artificers_organization_sun_elf = {
 	}
 	benefits = {
 		nobles_influence_modifier = 0.10
-		special_unit_forcelimit = 0.025
+		#special_unit_forcelimit = 0.025	#0.025→0
 	}
 	ai_will_do = {
 		factor = 0
@@ -554,7 +554,7 @@ estate_artificers_organization_covenant = {
 	penalties = {
 	}
 	benefits = {
-		special_unit_forcelimit = 0.05
+		#special_unit_forcelimit = 0.05	#0.05→0
 	}
 	ai_will_do = {
 		factor = 5
@@ -660,7 +660,7 @@ estate_artificers_organization_feiten_shuimu_cadre = {
 			siege_ability = 0.2
 			ship_power_propagation = 0.2
 			movement_speed_in_fleet_modifier = 2
-			special_unit_forcelimit = 0.025
+			#special_unit_forcelimit = 0.025	#0.025→0
 			naval_maintenance_modifier = 0.5
 			fire_damage_received = 0.2 # Balloons/airships blowing/burning up result in lots of collateral damage
 		}
@@ -685,7 +685,7 @@ estate_artificers_organization_feiten_shuimu_cadre = {
 			siege_ability = 0.15
 			ship_power_propagation = 0.15
 			movement_speed_in_fleet_modifier = 1.5
-			special_unit_forcelimit = 0.025
+			#special_unit_forcelimit = 0.025	#0.025→0
 			naval_maintenance_modifier = 0.5
 			fire_damage_received = 0.2
 		}
@@ -710,7 +710,7 @@ estate_artificers_organization_feiten_shuimu_cadre = {
 			siege_ability = 0.1
 			ship_power_propagation = 0.1
 			movement_speed_in_fleet_modifier = 1
-			special_unit_forcelimit = 0.025
+			#special_unit_forcelimit = 0.025	#0.025→0
 			naval_maintenance_modifier = 0.5
 			fire_damage_received = 0.2
 		}
@@ -729,7 +729,7 @@ estate_artificers_organization_feiten_shuimu_cadre = {
 			siege_ability = 0.05
 			ship_power_propagation = 0.05
 			movement_speed_in_fleet_modifier = 0.5
-			special_unit_forcelimit = 0.025
+			#special_unit_forcelimit = 0.025	#0.025→0
 			naval_maintenance_modifier = 0.5
 			fire_damage_received = 0.2
 		}
@@ -1326,6 +1326,7 @@ artifice_invention_sparkdrive_rifles = {
 	influence = 0 #artificer privileges must never affect influence due to the fact influence affects points
 	is_valid = {
 		has_country_flag = unlocked_artifice_invention_sparkdrive_rifles
+		always = no	#bertus mod into artificer menu
 	}
 	can_select = {
 		artifice_has_points_for_basic = yes
@@ -1554,9 +1555,12 @@ artifice_invention_vorpal_bullets = {
 	influence = 0 #artificer privileges must never affect influence due to the fact influence affects points
 	is_valid = {
 		has_country_flag = unlocked_artifice_invention_vorpal_bullets
+		always = no	#bertus mod into artificer menu
 	}
 	can_select = {
 		artifice_has_points_for_basic = yes
+		NOT = { has_estate_privilege = artifice_invention_black_damestear_bullets }
+		always = no	#bertus mod into artificer menu
 	}
 	can_revoke = {
 		always = yes
@@ -1564,20 +1568,25 @@ artifice_invention_vorpal_bullets = {
 	on_granted = {
 		artifice_granted_basic = yes
 		#update_artifice_points = yes #is included in the above effect
-
+		add_country_modifier = {
+			name = artifice_invention_vorpal_bullets_modifier
+			duration = -1
+		}
 	}
 	on_revoked = {
 		artifice_remove_basic = yes
 		#update_artifice_points = yes #is included in the above effect
+		remove_country_modifier = artifice_invention_vorpal_bullets_modifier
 	}
 	on_invalid = {
 		artifice_remove_basic = yes
 		#update_artifice_points = yes #is included in the above effect
+		remove_country_modifier = artifice_invention_vorpal_bullets_modifier
 	}
 	penalties = {
 	}
 	benefits = {
-		morale_damage = 0.075
+		#morale_damage = 0.075	#0.075→0
 	}
 	ai_will_do = {
 		factor = 5
@@ -1596,6 +1605,7 @@ artifice_invention_war_golems = {
 	is_valid = {
 		has_country_flag = unlocked_artifice_invention_war_golems
 		NOT = { has_country_flag = asra_model_golem_unlocked }
+		always = no	#bertus mod into artificer menu
 	}
 	can_select = {
 		artifice_has_points_for_expert = yes
@@ -1645,9 +1655,11 @@ artifice_invention_black_damestear_bullets = {
 	influence = 0 #artificer privileges must never affect influence due to the fact influence affects points
 	is_valid = {
 		has_country_flag = unlocked_artifice_invention_black_damestear_bullets
+		always = no	#bertus mod into artificer menu
 	}
 	can_select = {
 		artifice_has_points_for_advanced = yes
+		NOT = { has_estate_privilege = artifice_invention_vorpal_bullets }
 	}
 	can_revoke = {
 		always = yes
@@ -1655,20 +1667,26 @@ artifice_invention_black_damestear_bullets = {
 	on_granted = {
 		artifice_granted_advanced = yes
 		#update_artifice_points = yes #is included in the above effect
+		add_country_modifier = {
+			name = artifice_invention_black_damestear_bullets_modifier
+			duration = -1
+		}
 	}
 	on_revoked = {
 		artifice_remove_advanced = yes
 		#update_artifice_points = yes #is included in the above effect
+		remove_country_modifier = artifice_invention_black_damestear_bullets_modifier
 	}
 	on_invalid = {
 		artifice_remove_advanced = yes
 		#update_artifice_points = yes #is included in the above effect
+		remove_country_modifier = artifice_invention_black_damestear_bullets_modifier
 	}
 	penalties = {
 		#foo
 	}
 	benefits = {
-		discipline = 0.05
+		#discipline = 0.025	#0.05→0
 		yearly_revolutionary_zeal = 1
 	}
 	ai_will_do = {
@@ -2008,7 +2026,7 @@ artifice_invention_artillery_autoloader = {
 		#foo
 	}
 	benefits = {
-		artillery_power = 0.15
+		artillery_power = 0.10	#0.15→0.10
 	}
 	ai_will_do = {
 		factor = 75
@@ -2227,7 +2245,7 @@ artifice_invention_prototype_tanks = {
 		#foo
 	}
 	benefits = {
-		cavalry_fire = 2
+		cavalry_fire = 0.5	#2→0.5
 	}
 	ai_will_do = {
 		factor = 50
@@ -2245,6 +2263,7 @@ artifice_invention_personal_mageshields = {
 	influence = 0 #artificer privileges must never affect influence due to the fact influence affects points
 	is_valid = {
 		has_country_flag = unlocked_artifice_invention_personal_mageshields
+		always = no	#bertus mod into artificer menu
 	}
 	can_select = {
 		artifice_has_points_for_advanced = yes
@@ -2469,6 +2488,7 @@ artifice_invention_arcane_blaster = {
 	influence = 0 #artificer privileges must never affect influence due to the fact influence affects points
 	is_valid = {
 		has_country_flag = unlocked_artifice_invention_arcane_blaster
+		always = no	#bertus mod into artificer menu
 	}
 	can_select = {
 		artifice_has_points_for_advanced = yes
@@ -3253,6 +3273,7 @@ artifice_invention_avatar_serum = {
 	influence = 0 #artificer privileges must never affect influence due to the fact influence affects points
 	is_valid = {
 		has_country_flag = unlocked_artifice_invention_avatar_supersoldier_serum
+		always = no	#bertus mod into artificer menu
 	}
 	can_select = {
 		artifice_has_points_for_advanced = yes
@@ -3663,6 +3684,7 @@ artifice_invention_kronium_battlesuit = {
 	influence = 0 #artificer privileges must never affect influence due to the fact influence affects points
 	is_valid = {
 		has_country_flag = unlocked_artifice_invention_kronium_battlesuit
+		always = no	#bertus mod into artificer menu
 	}
 	can_select = {
 		artifice_has_points_for_advanced = yes
@@ -3879,6 +3901,7 @@ artifice_invention_dragonscale_plating = {
 	influence = 0 #artificer privileges must never affect influence due to the fact influence affects points
 	is_valid = {
 		has_country_flag = unlocked_artifice_invention_dragonscale_plating
+		always = no	#bertus mod into artificer menu
 	}
 	can_select = {
 		artifice_has_points_for_basic = yes
@@ -3926,6 +3949,7 @@ artifice_invention_giantshape_warframe = {
 	influence = 0 #artificer privileges must never affect influence due to the fact influence affects points
 	is_valid = {
 		has_country_flag = unlocked_artifice_invention_giantshape_warframe
+		always = no	#bertus mod into artificer menu
 	}
 	can_select = {
 		artifice_has_points_for_advanced = yes
@@ -3976,6 +4000,7 @@ artifice_invention_veykoda_rune_protections = {
 	influence = 0 #artificer privileges must never affect influence due to the fact influence affects points
 	is_valid = {
 		has_country_flag = unlocked_artifice_invention_veykoda_rune_protections
+		always = no	#bertus mod into artificer menu
 	}
 	can_select = {
 		artifice_has_points_for_expert = yes
@@ -4023,6 +4048,7 @@ artifice_invention_dragonblood_gene_warriors = {
 	influence = 0 #artificer privileges must never affect influence due to the fact influence affects points
 	is_valid = {
 		has_country_flag = unlocked_artifice_invention_dragonblood_gene_warriors
+		always = no	#bertus mod into artificer menu
 	}
 	can_select = {
 		artifice_has_points_for_advanced = yes
@@ -4111,6 +4137,7 @@ artifice_invention_vernman_hero_tonic = {
 	influence = 0 #artificer privileges must never affect influence due to the fact influence affects points
 	is_valid = {
 		has_country_flag = unlocked_artifice_invention_vernman_hero_tonic
+		always = no	#bertus mod into artificer menu
 	}
 	can_select = {
 		artifice_has_points_for_basic = yes
@@ -4156,6 +4183,7 @@ artifice_invention_elemental_gunpowder = {
 	influence = 0 #artificer privileges must never affect influence due to the fact influence affects points
 	is_valid = {
 		has_country_flag = unlocked_artifice_invention_elemental_gunpowder
+		always = no	#bertus mod into artificer menu
 	}
 	can_select = {
 		artifice_has_points_for_expert = yes
@@ -4251,6 +4279,7 @@ artifice_invention_controlled_rage_serum = {
 	influence = 0 #artificer privileges must never affect influence due to the fact influence affects points
 	is_valid = {
 		has_country_flag = unlocked_artifice_invention_controlled_rage_serum
+		always = no	#bertus mod into artificer menu
 	}
 	can_select = {
 		artifice_has_points_for_expert = yes
