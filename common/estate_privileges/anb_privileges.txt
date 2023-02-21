@@ -588,7 +588,8 @@ estate_mages_battlemage_academies = {
 		custom_tooltip = tooltip_estate_mages_battlemage_academies
 	}
 	penalties = {
-		army_tradition_decay = 0.01
+		army_tradition_from_battle = -0.25	#0→-0.25
+		#army_tradition_decay = 0.01	#0.01→0
 		#country_military_power = -1	#-1→0
 	}
 	benefits = {
@@ -600,7 +601,8 @@ estate_mages_battlemage_academies = {
 			}
 		}
 		modifier = {
-			army_tradition_decay = -0.01
+			army_tradition_from_battle = 0.25	#0→0.25
+			#army_tradition_decay = -0.01	#-0.01→0
 		}
 	}
 	conditional_modifier = {
@@ -608,7 +610,8 @@ estate_mages_battlemage_academies = {
 			has_country_flag = battlemage_no_decay #Currently Ameion Archeology
 		}
 		modifier = {
-			army_tradition_decay = -0.01
+			army_tradition_from_battle = 0.25	#0→0.25
+			#army_tradition_decay = -0.01	#-0.01→0
 		}
 	}
 	ai_will_do = {
@@ -1477,12 +1480,13 @@ estate_adventurers_heroes_in_the_army = {
 		custom_tooltip = heroes_in_the_army_tt
 	}
 	penalties = {
-		army_tradition_decay = 0.01	#0→0.01
+		army_tradition_from_battle = -0.25	#0→-0.25
+		#army_tradition_decay = 0.01	#0.01→0
 		#yearly_army_professionalism = -0.01	#-0.01→0	#this is easily offset by hiring a general
 		#drill_decay_modifier = 0.33
 	}
 	benefits = {
-		prestige_decay = -0.005	#0→-0.005
+		prestige_from_land = 0.25	#0→-0.25
 		#land_morale = 0.05	#0.1→0
 		#leader_land_manuever = 1	#1→0
 		#general_cost = 0.25	#0.25→0
@@ -3187,6 +3191,7 @@ estate_church_tax_on_local_festivals = {
 
 estate_mages_empowered_mages = {
 	icon = privilege_demand_more_troops
+	loyalty = -0.20	#0→-0.20
 	influence = 0.10
 	is_valid = {
 		OR = {
@@ -3197,17 +3202,28 @@ estate_mages_empowered_mages = {
 	}
 	can_select = { }
 
-	on_granted = { }
+	on_granted = {
+		add_country_modifier = {
+			name = mages_empowered_mages_modifier
+			duration = -1
+		}
+	 }
 
 	penalties = {
-		army_tradition_decay = 0.01
-		country_military_power = -1
+		army_tradition_from_battle = -0.25	#0→-0.25
+		#army_tradition_decay = 0.01	#0.01→0
+		#country_military_power = -1	#-1→0
 	}
 	benefits = {
-		land_morale = 0.05
+		#land_morale = 0.05
 	}
-	conditional_modifier = {
+	on_revoked = {
+		remove_country_modifier = mages_empowered_mages_modifier
 	}
+	on_invalid = {
+		remove_country_modifier = mages_empowered_mages_modifier
+	}
+	cooldown_years = 10
 	ai_will_do = {
 		factor = 10
 	}
