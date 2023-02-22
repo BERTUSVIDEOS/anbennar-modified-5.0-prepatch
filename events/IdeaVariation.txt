@@ -2495,36 +2495,18 @@ province_event = {
 	hidden = yes
 	
 	trigger = {
-		owner = {has_idea = zentra3}
-		development = 40
-		NOT = { has_province_modifier = centralized_province }
 		OR = {
-			is_capital = yes
 			AND = {
-				is_in_capital_area = yes				
-				OR = {
-					has_terrain = dwarven_hold
-					has_terrain = dwarven_hold_surface
-					has_terrain = dwarven_under_hold
-				}		
-				any_neighbor_province = {
-					owned_by = owner
-					OR = {
-						has_province_modifier = restored_rail
-						has_province_modifier = advanced_rail
-					}
-				}
-			}	
+				NOT = { has_province_modifier = centralized_province }
+				owner = {has_idea = zentra3}
+				development = 40
+			}
 			AND = {
-				has_shipyard_building_trigger = yes
-				any_province = {
-					owned_by = owner
-					has_province_modifier = centralized_province
-					has_shipyard_building_trigger = yes
-				}	
-			}	
-			any_neighbor_province = {
 				has_province_modifier = centralized_province
+				OR = {
+					NOT = {	owner = {has_idea = zentra3}}
+					NOT = {development = 40}
+				}
 			}
 		}
 	}
@@ -2535,65 +2517,18 @@ province_event = {
 
 	option = {
 		name = "flogi_ideas.14"
-		
+		trigger = {NOT = { has_province_modifier = centralized_province }}
 		add_province_modifier = {
 			name = centralized_province
 			duration = -1
 		}
 	}
-}
-	
-province_event = {
-
-	id = flogi_ideas.26
-	title = flogi_ideas.26
-	desc = flogi_ideas.26
-	hidden = yes
-	picture = POPE_PREACHING_eventPicture
-		
-	trigger = {
-		has_province_modifier = centralized_province
-		OR = {
-			NOT = {development = 40}	
-			NOT = {	owner = {has_idea = zentra3}}	
-			NOT = {
-				is_capital = yes
-				AND = {
-					is_in_capital_area = yes				
-					OR = {
-						has_terrain = dwarven_hold
-						has_terrain = dwarven_hold_surface
-						has_terrain = dwarven_under_hold
-					}			
-					any_neighbor_province = {
-						owned_by = owner
-						OR = {
-							has_province_modifier = restored_rail
-							has_province_modifier = advanced_rail
-						}
-					}
-				}		
-				AND = {
-					has_shipyard_building_trigger = yes
-					any_province = {
-						owned_by = owner
-						has_province_modifier = centralized_province
-						has_shipyard_building_trigger = yes
-					}
-				}
-				any_neighbor_province = {
-					has_province_modifier = centralized_province
-				}	
-			}
-		}
-	}
-	mean_time_to_happen = {
-		days = 1
-	}
 	option = {
 		name = "flogi_ideas.14"
+		trigger = {has_province_modifier = centralized_province}
 		remove_province_modifier = centralized_province
 	}
-}	
+}
+
 	
 		
