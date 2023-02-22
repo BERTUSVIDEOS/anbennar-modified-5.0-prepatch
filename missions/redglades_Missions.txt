@@ -361,13 +361,30 @@ A03_redglades_trade = {
 		
 		trigger = {
 			army_professionalism = 0.6
-			all_neighbor_country = {
-				OR = {
-					alliance_with = ROOT
-					ROOT = {
-						has_won_war_against = {
-							who = PREV
-							max_years_since = 50
+			OR = {
+				all_neighbor_country = {
+					OR = {
+						is_subject_of = ROOT
+						NOT = {
+							army_strength = {
+								who = ROOT
+								value = 1.0
+							} 
+						}
+					}
+				}
+				all_neighbor_country = {
+					army_strength = {
+						who = ROOT
+						value = 1.0
+					} 
+					OR = {
+						alliance_with = ROOT					
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 50
+							}
 						}
 					}
 				}
