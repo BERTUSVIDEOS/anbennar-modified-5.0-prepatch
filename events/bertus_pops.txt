@@ -326,7 +326,7 @@ province_event = {
 			}
 			AND = {
 				has_elven_majority_trigger = no
-				has_half_elven_majority_trigger = yes
+				has_half_elven_majority_trigger = no
 				has_halfling_majority_trigger = no
 				has_gnomish_majority_trigger = no
 				has_pop_race_modifier = {
@@ -5101,6 +5101,80 @@ province_event = {	#minery reform imperial reform
 			resource = goods_produced
 		}
 		remove_province_modifier = minery_reform_province_modifier
+	}
+}
+province_event = {
+	id = bertus_pops.1075
+	title = bertus_pops.1075.t
+	desc = bertus_pops.1075.desc
+	picture = DIPLOMACY_eventPicture
+	
+	hidden = yes
+	
+    trigger = {
+		OR = {
+			AND = {
+				has_province_modifier = estate_racial_taxation_mod
+				NOT = {
+					has_pop_race_modifier = {
+						race = all
+						class = racial_bonus
+						amount = 25percent
+						resource = tax
+					}
+				}
+			}
+			AND = {
+				NOT = {has_province_modifier = estate_racial_taxation_mod}
+				has_pop_race_modifier = {
+					race = all
+					class = racial_bonus
+					amount = 25percent
+					resource = tax
+				}
+			}
+		}
+    }
+	
+	immediate = {
+	
+	}
+	option = {
+		name = bertus_pops.1075.a
+		trigger = {
+			NOT = {
+				has_pop_race_modifier = {
+					race = all
+					class = racial_bonus
+					amount = 25percent
+					resource = tax
+				}
+			}
+		}
+		add_pop_modifier = {	
+			race = all
+			class = racial_bonus
+			amount = 25percent
+			resource = tax
+			onbase = base_tax
+		}
+	}
+	option = {
+		name = bertus_pops.1075.b
+		trigger = {
+			has_pop_race_modifier = {
+				race = all
+				class = racial_bonus
+				amount = 25percent
+				resource = tax
+			}
+		}
+		remove_pop_modifier = {
+			race = all
+			class = racial_bonus
+			amount = 25percent
+			resource = tax
+		}
 	}
 }
 province_event = {	#orc+human into half-orc

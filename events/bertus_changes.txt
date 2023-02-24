@@ -2404,7 +2404,6 @@ country_event = {	#setup players electors & other stuff
 	
 	immediate = {
 		set_global_flag = bertus_electors_selected_flag
-		set_global_flag = stored_goods_activated_flag
 		update_tech_flag = yes
 	}
 	option = {
@@ -2477,7 +2476,7 @@ country_event = {	#electors rank 2?
 	option = {
 		name = bertus_changes.1101.a
 		set_government_rank = 2
-		add_prestige = 25
+		add_prestige_or_monarch_power = {amount =  25}
 	}	
 	option = {
 		name = bertus_changes.1101.b
@@ -7861,7 +7860,7 @@ country_event = {	#wrong race elector incident
 		name = bertus_changes.6013.c #OUT
 		event_target:wrong_race_elector_target = {
 			set_in_empire = no
-			add_prestige = 20
+			add_prestige_or_monarch_power = {amount =  20}
 			add_legitimacy = 20
 			add_casus_belli = {
 				target = emperor
@@ -8686,13 +8685,20 @@ country_event = {	#empire free cityes vassalization
 	hidden = yes
 	
 	trigger = {
-		has_reform = free_city
-		hre_reform_passed = imperial_cities
 		OR = {
-			NOT = {
-				is_subject_of = emperor
-				has_country_flag = not_allegiant_to_emperor_flag
+			has_reform = free_city
+			is_subject_of_type = subject_free_city
+		}
+		hre_reform_passed = imperial_cities		
+		OR = {
+			NOT = {has_country_flag = not_allegiant_to_emperor_flag}
+			had_country_flag = {
+				flag = not_allegiant_to_emperor_flag
+				days = 7300
 			}
+		}
+		OR = {
+			NOT = {is_subject_of = emperor}
 			AND = {
 				is_subject_of = emperor
 				NOT = {is_subject_of_type = subject_free_city}		
@@ -8707,11 +8713,15 @@ country_event = {	#empire free cityes vassalization
 			}
 		}
 	}
-		
+	mean_time_to_happen = {
+		months = 12
+	}
+	
 	immediate = {
 	}
-	option = {
-		name = bertus_changes.6029.a #emperor influence
+	option = {	#	yes
+		name = bertus_changes.6029.a
+		trigger = {has_reform = free_city}
 		emperor = {
 			create_subject = {
 				subject_type = subject_free_city
@@ -8723,34 +8733,17 @@ country_event = {	#empire free cityes vassalization
 		add_government_reform = subject_free_city_reform
 		ai_chance = {
 			factor = 10			
-			modifier = {
-				factor = 2
-				emperor = {total_development = 500}
-			}		
-			modifier = {
-				factor = 2
-				emperor = {total_development = 1000}
-			}	
-			modifier = {
-				factor = 2
-				emperor = {has_opinion = {who = ROOT value = 100}}
-			}
-			modifier = {
-				factor = 2
-				emperor = {reverse_has_opinion = {who = ROOT value = 100}}
-			}
-			modifier = {
-				factor = 2
-				emperor = {NOT = {great_power_rank = 5}}
-			}
-			modifier = {
-				factor = 2
-				emperor = {	is_great_power = yes}
-			}
+			modifier = {factor = 2 emperor = {total_development = 500}}		
+			modifier = {factor = 2 emperor = {total_development = 1000}}	
+			modifier = {factor = 2 emperor = {has_opinion = {who = ROOT value = 100}}}
+			modifier = {factor = 2 emperor = {reverse_has_opinion = {who = ROOT value = 100}}}
+			modifier = {factor = 2 emperor = {NOT = {great_power_rank = 5}}}
+			modifier = {factor = 2 emperor = {	is_great_power = yes}}
 		}
 	}
-	option = {
-		name = bertus_changes.6029.b #emperor influence
+	option = {	#	nope
+		name = bertus_changes.6029.b
+		trigger = {has_reform = free_city}
 		set_country_flag = not_allegiant_to_emperor_flag
 		emperor = {
 			add_casus_belli = {
@@ -8780,26 +8773,22 @@ country_event = {	#empire free cityes vassalization
 		}
 		ai_chance = {
 			factor = 10			
-			modifier = {
-				factor = 2
-				emperor = {NOT = {total_development = 500}}
-			}		
-			modifier = {
-				factor = 2
-				emperor = {NOT = {total_development = 1000}}
-			}	
-			modifier = {
-				factor = 2
-				emperor = {NOT = {has_opinion = {who = ROOT value = -50}}}
-			}
-			modifier = {
-				factor = 2
-				emperor = {NOT = {reverse_has_opinion = {who = ROOT value = -50}}}
-			}
-			modifier = {
-				factor = 2
-				emperor = {NOT = {is_neighbor_of = ROOT}}
-			}
+			modifier = {factor = 2 emperor = {NOT = {total_development = 500}}}		
+			modifier = {factor = 2 emperor = {NOT = {total_development = 1000}}}	
+			modifier = {factor = 2 emperor = {NOT = {has_opinion = {who = ROOT value = -50}}}}
+			modifier = {factor = 2 emperor = {NOT = {reverse_has_opinion = {who = ROOT value = -50}}}}
+			modifier = {factor = 2 emperor = {NOT = {is_neighbor_of = ROOT}}}
+		}
+	}
+	option = {	#	free from false emperor
+		name = bertus_changes.6029.C
+		trigger = {is_subject_of_type = subject_free_city}
+
+		grant_independence = yes
+		remove_government_reform = subject_free_city_reform
+		add_government_reform = free_city
+		ai_chance = {
+			factor = 10
 		}
 	}
 	after = {

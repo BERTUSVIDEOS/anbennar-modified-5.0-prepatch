@@ -110,17 +110,18 @@ largest_decrease_of_halfling_tolerance_effect = {
 
 update_halfling_tolerance = {
 	hidden_effect = {
-		if = {	# If it ends up above the max it puts it at the highest point (never above 100)
+		while = {	# If it ends up above the max it puts it at the highest point (never above 100)
 			limit = {
 				check_variable = {
 					which = halfling_race_tolerance
 					which = max_race_tolerance
 				}
 			}
-			set_variable = {
+			change_variable = {
 				which = halfling_race_tolerance
-				which = max_race_tolerance
+				value = -1
 			}
+			add_prestige_or_monarch_power = { amount = 1 }
 		}
 		if = {	# If it ends up below 0 it adds back up to 1
 			limit = {

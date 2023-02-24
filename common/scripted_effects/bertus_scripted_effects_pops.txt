@@ -34,6 +34,7 @@ update_bertus_pops = {
 	remove_pop_modifier = {race = all class = malus amount = 25percent resource = trade_power }
 	remove_pop_modifier = {race = all class = bonus amount = 50percent resource = tax }
 	remove_pop_modifier = {race = all class = malus amount = 50percent resource = tax }
+	remove_pop_modifier = {race = all class = racial_bonus amount = 25percent resource = tax }
 	remove_pop_modifier = {race = all class = river_province amount = 20percent resource = sailor_forcelimit }
 	remove_pop_modifier = {race = all class = agriculture_bonus amount = 25percent resource = goods_produced }
 	remove_pop_modifier = {race = all class = minery_bonus amount = 25percent resource = goods_produced }
@@ -572,7 +573,7 @@ gain_prestige_from_provinces = {
 				which = cicles_per_development
 				value = 1
 			}
-			owner = { add_prestige = $prestige_per_dev$ }
+			owner = { add_prestige_or_monarch_power = {amount = $prestige_per_dev$ }}
 		}
 	}
 	custom_tooltip = gain_prestige_from_provinces_tt
@@ -644,7 +645,9 @@ get_tolerance_from_provinces = {
 				which = cicles_per_development
 				value = 1
 			}
-			owner = { smallest_increase_of_$race$_tolerance_effect = yes }
+			owner = {
+				smallest_increase_of_$race$_tolerance_effect = yes 
+			}
 		}
 	}
 	custom_tooltip = get_tolerance_from_provinces_tt

@@ -20,12 +20,10 @@ NDefines.NGame.TRIBUTE_BASE_MANPOWER = 0.50	--0.25→0.5-- Tributary State: Part
 NDefines.NDiplomacy.MONTHS_BEFORE_TOTAL_OCCUPATION = 12	--60→12-- Before this many months have passed in the war you cannot gain 100% warscore by just occupying the warleader
 NDefines.NDiplomacy.REVANCHISM_MONTHLY_DECAY = 0.277	-- 0.833→0.277 about 30 years
 NDefines.NDiplomacy.EMPEROR_REVOKE_AUTHORITY_COST = 10.0	--50→10
-NDefines.NDiplomacy.PO_DEMAND_PROVINCES_AE = 0 --0.6→0		-- _DDEF_PO_DEMAND_PROVINCES_AE = 10 (Per development)
 NDefines.NDiplomacy.LACK_OF_ELECTORS_HIT = 0	---0.1→0
 NDefines.NDiplomacy.IMPERIAL_CITY_IA = 0.01	--0.005→0.01		-- Monthly per imperial free city
 NDefines.NDiplomacy.CHANGE_COLONIAL_TYPE_COST = 0	--1000→0
 NDefines.NDiplomacy.CORRUPT_OFFICIALS_COST = 75	--25→75
-NDefines.NDiplomacy.PO_BECOME_VASSAL_AE = 0	--0.5→0
 NDefines.NDiplomacy.INFILTRATE_ADMINISTRATION_COST = 75 -- 40→75
 NDefines.NDiplomacy.INFILTRATE_ADMINISTRATION_DURATION = 0 -- 60→0
 

@@ -1,237 +1,7 @@
 
 namespace = ogre_tolerance_events
 
-# Event organizer for the ogre tolerance events - should be a huge improvement to performance - having 1 overall check for having the minority instead of one for EACH new event that gets added
-country_event = {
-	id = ogre_tolerance_events.0
-	title = race_setup_events.1.d
-	desc = race_setup_events.1.d
-	picture = BORDER_TENSION_eventPicture
-	
-	hidden = yes
-	#is_triggered_only = yes
-	
-	trigger = {
-		any_owned_province = {
-			has_any_ogre_pop_trigger = yes
-		}
-		always = no
-	}
-	
-	mean_time_to_happen = {
-		days = 3650
-		modifier = {
-			factor = 0.75
-			has_country_modifier = racial_focus_ogre
-		}
-		modifier = {
-			factor = 0.75
-			has_idea = tolerance_idea_2
-		}
-	}
-
-	option = {
-		random_list = {
-			1 = {
-				#do nothing
-				modifier = {
-					factor = 5
-					high_tolerance_ogre_race_trigger = yes
-				}
-			}
-			# Ogre advisor
-			1 = {
-				trigger = {
-					NOT = {has_country_modifier = ogre_administration}
-					any_owned_province = {
-						has_any_ogre_pop_trigger = yes
-					}
-				}
-				random_owned_province = {
-					limit = {
-						has_any_ogre_pop_trigger = yes
-					}
-					province_event = {
-						id = ogre_tolerance_events.1001
-					}
-				}
-			}
-			# Minor landholders demand autonomy
-			1 = {
-				trigger = {
-					NOT = {has_country_modifier = ogre_administration}
-					any_owned_province = {
-						has_any_ogre_pop_trigger = yes
-					}
-				}
-				random_owned_province = {
-					limit = {
-						has_any_ogre_pop_trigger = yes
-					}
-					province_event = {
-						id = ogre_tolerance_events.1002
-					}
-				}
-			}
-			# Ambitious ogres in government
-			1 = {
-				trigger = {
-					NOT = {has_country_modifier = ogre_administration}
-					OR = {
-						medium_tolerance_ogre_race_trigger = yes
-						high_tolerance_ogre_race_trigger = yes
-					}
-					any_owned_province = {
-						has_any_ogre_pop_trigger = yes
-					}
-				}
-				modifier = {
-					factor = 1.5
-					high_tolerance_ogre_race_trigger = yes
-				}
-				random_owned_province = {
-					limit = {
-						has_any_ogre_pop_trigger = yes
-					}
-					province_event = {
-						id = ogre_tolerance_events.1003
-					}
-				}
-			}
-			# Ogre dominance undermining us
-			1 = {
-				trigger = {
-					NOT = {has_country_modifier = ogre_administration}
-					OR = {
-						estate_influence = {
-							estate = estate_ogre
-							influence = 40
-						}
-						estate_territory = {
-							estate = estate_ogre
-							territory = 40
-						}
-						calc_true_if = {
-							has_estate_privilege = estate_ogre_first_hand_chairman
-							has_country_modifier = estate_ogre_diplomacy_chairman_modifier
-							has_country_modifier = estate_ogre_military_chairman_modifier
-							has_country_modifier = estate_ogre_economic_chairman_modifier
-							has_country_modifier = estate_ogre_navy_chairman_modifier
-							amount = 2
-						}
-						any_owned_province = {
-							culture_is_ogre = yes
-							ROOT = {
-								employed_advisor = {
-									culture = PREV
-								}
-							}
-						}
-					}
-				}
-				country_event = {
-					id = ogre_tolerance_events.1004
-				}
-			}
-			# Rapid growth due to ogre minority
-			1 = {
-				trigger = {
-					NOT = {has_country_modifier = ogre_administration}
-					any_owned_province = {
-						has_ogre_minority_trigger = yes
-					}
-				}
-				modifier = {
-					factor = 1.1
-					stability = 1
-				}
-				modifier = {
-					factor = 1.2
-					stability = 2
-				}
-				modifier = {
-					factor = 1.3
-					stability = 3
-				}
-				modifier = {
-					factor = 1.3
-					NOT = { high_tolerance_ogre_race_trigger = yes }
-				}
-				random_owned_province = {
-					limit = {
-						has_ogre_minority_trigger = yes
-					}
-					province_event = {
-						id = ogre_tolerance_events.1005
-					}
-				}
-			}
-			# Angry ogre mob farms
-			1 = {
-				trigger = {
-					NOT = {has_country_modifier = ogre_administration}
-					any_owned_province = {
-						has_any_ogre_pop_trigger = yes
-						pure_unrest = 1
-					}
-				}
-				modifier = {
-					factor = 1.5
-					low_tolerance_ogre_race_trigger = yes
-				}
-				modifier = {
-					factor = 1.5
-					NOT = { stability = 0 }
-				}
-				random_owned_province = {
-					limit = {
-						has_any_ogre_pop_trigger = yes
-						pure_unrest = 1
-					}
-					province_event = {
-						id = ogre_tolerance_events.1006
-					}
-				}
-			}
-			# Ogre highwaymen
-			1 = {
-				trigger = {
-					NOT = {has_country_modifier = ogre_administration}
-					any_owned_province = {
-						has_ogre_minority_trigger = yes
-						NOT = { has_province_modifier = highwaymen }
-						NOT = { has_province_modifier = populace_punished_for_highwaymen }
-					}
-				}
-				modifier = {
-					factor = 1.5
-					low_tolerance_ogre_race_trigger = yes
-				}
-				modifier = {
-					factor = 2
-					NOT = { stability = 1 }
-				}
-				modifier = {
-					factor = 2
-					average_unrest = 1
-				}
-				random_owned_province = {
-					limit = {
-						has_ogre_minority_trigger = yes
-						NOT = { has_province_modifier = highwaymen }
-						NOT = { has_province_modifier = populace_punished_for_highwaymen }
-					}
-					province_event = {
-						id = ogre_tolerance_events.1007
-					}
-				}
-			}
-		}
-	}
-}
-
-# Racial Minister
-province_event = {
+province_event = {	# Racial Minister
 	id = ogre_tolerance_events.1001
 	title = ogre_tolerance_events.1001.t
 	desc = ogre_tolerance_events.1001.desc
@@ -288,58 +58,31 @@ province_event = {
 			change_variable = {which = prestige_per_dev_tooltip value = 0.2}
 		}
 	}
-
-	# So what?
-	option = {
+	option = {	# So what?
 		name = ogre_tolerance_events.1001.a
-		ai_chance = {factor = 50}
 		
 		add_unrest = 10
 	}
-	# Recruit
-	option = {
+	option = {	# Recruit
 		name = ogre_tolerance_events.1001.b
-		ai_chance = {factor = 50}
 		owner = {
-			get_racial_advisor = {
-				race = ogre
-			}
-			add_estate_loyalty = {
-				estate = estate_ogre
-				loyalty = 10
-			}
+			get_racial_advisor = { race = ogre }			
+			add_estate_loyalty = { estate = estate_ogre loyalty = 10 }
 		}
-		get_tolerance_from_provinces = {
-			race = ogre
-		}
-		lose_treasury_from_provinces = {
-			cash_per_dev = 2
-		}
+		get_tolerance_from_provinces = { race = ogre }
+		lose_treasury_from_provinces = { cash_per_dev = 2 }
 	}
-	# Remove Him
-	option = {
+	option = {	# Remove Him
 		name = ogre_tolerance_events.1001.c
-		ai_chance = {factor = 50}
-		get_intolerance_from_provinces = {
-			race = ogre
-		}
-		gain_prestige_from_provinces = {
-			prestige_per_dev = 0.2
-		}
+		get_intolerance_from_provinces = { race = ogre }
+		gain_prestige_from_provinces = { prestige_per_dev = 0.2 }
 		owner = {
-			increase_legitimacy_small_effect = yes
-			add_estate_loyalty = {
-				estate = estate_ogre
-				loyalty = -10
-			}
+			increase_legitimacy_small_effect = yes			
+			add_estate_loyalty = { estate = estate_ogre loyalty = -10 }
 		}
-	}
-
-	after = {
 	}
 }
-# Minor landholders demand autonomy
-province_event = {
+province_event = {	# Minor landholders demand autonomy
 	id = ogre_tolerance_events.1002
 	title = ogre_tolerance_events.1002.t
 	desc = ogre_tolerance_events.1002.desc
@@ -380,62 +123,42 @@ province_event = {
 			change_variable = {which = cash_per_dev_tooltip value = 10}
 		}
 	}
-
-	# We cannot do this
-	option = {
+	option = {	# We cannot do this
 		name = ogre_tolerance_events.1002.a
-		ai_chance = {factor = 50}
 		
 		add_unrest = 10
 	}
-	# Aight then
-	option = {
+	option = {	# Aight then
 		name = ogre_tolerance_events.1002.b
-		ai_chance = {factor = 50}
 		owner = {
-			add_estate_loyalty = {
-				estate = estate_ogre
-				loyalty = 20
-			}
+			add_estate_loyalty = { estate = estate_ogre loyalty = 20 }
 		}
 		add_ogre_minority_size_effect = yes
 		add_local_autonomy = 25
-		get_tolerance_from_provinces = {
-			race = ogre
-		}
-		add_estate_influence_modifier = {
-			estate = estate_ogre
-			desc = EST_VAL_OGRE_LANDHOLDERS_DEMANDS
-			influence = 5
-			duration = 7300
+		get_tolerance_from_provinces = { race = ogre }
+		owner = {
+			add_estate_influence_modifier = {
+				estate = estate_ogre
+				desc = EST_VAL_OGRE_LANDHOLDERS_DEMANDS
+				influence = 5
+				duration = 7300
+			}
 		}
 	}
-	# How about we confiscate your land instead?
-	option = {
+	option = {	# How about we confiscate your land instead?
 		name = ogre_tolerance_events.1002.c
-		ai_chance = {factor = 50}
 		owner = {
-			add_estate_loyalty = {
-				estate = estate_ogre
-				loyalty = -20
-			}
+			add_estate_loyalty = { estate = estate_ogre loyalty = -20 }
 		}
 		add_unrest = 20
 		remove_ogre_minority_size_effect = yes
 		remove_1_dev_to_provinces = yes
-		get_intolerance_from_provinces = {
-			race = ogre
-		}
-		gain_treasury_from_provinces = {
-			cash_per_dev = 10
-		}
+		get_intolerance_from_provinces = { race = ogre }
+		gain_treasury_from_provinces = { cash_per_dev = 10 }
 		hidden_effect = {
 			random_province = {
 				limit = {
-					province_distance = {
-						who = THIS
-						distance = 100
-					}
+					province_distance = { who = THIS distance = 100 }
 					owner = {
 						NOT = {has_estate_privilege = estate_ogre_purge}
 						NOT = {has_estate_privilege = estate_ogre_expulsion}
@@ -447,8 +170,7 @@ province_event = {
 		}
 	}
 }
-# Ambitious ogres in government
-province_event = {
+province_event = {	# Ambitious ogres in government
 	id = ogre_tolerance_events.1003
 	title = ogre_tolerance_events.1003.t
 	desc = ogre_tolerance_events.1003.desc
@@ -456,9 +178,9 @@ province_event = {
 	GOTO = ROOT
 
 	trigger = {
-		owner = {NOT = {has_country_modifier = ogre_administration}}
 		has_any_ogre_pop_trigger = yes
 		owner = {
+			NOT = {has_country_modifier = ogre_administration}
 			OR = {
 				medium_tolerance_ogre_race_trigger = yes
 				high_tolerance_ogre_race_trigger = yes
@@ -493,81 +215,48 @@ province_event = {
 			change_variable = {which = cash_per_dev_tooltip value = 5}
 		}
 	}
-	# I guess its to be expected
-	option = {
+	option = {	# I guess its to be expected
 		name = ogre_tolerance_events.1003.a
 		ai_chance = {
 			factor = 50
 		}
 		owner = {
-			add_adm_power = -20
-			add_estate_loyalty = {
-				estate = estate_ogre
-				loyalty = 10
-			}
+			add_adm_power = -20			
+			add_estate_loyalty = { estate = estate_ogre loyalty = 10 }
 		}
 	}
-	# Their ambition will drive us further
-	option = {
+	option = {	# Their ambition will drive us further
 		name = ogre_tolerance_events.1003.b
-		ai_chance = {factor = 50}
-		owner = {
-			add_estate_loyalty = {
-				estate = all
-				loyalty = -10
-			}
-			add_estate_loyalty = {
-				estate = estate_ogre
-				loyalty = 30
-			}
+		owner = {			
+			add_estate_loyalty = { estate = all loyalty = -10 }
+			add_estate_loyalty = { estate = estate_ogre loyalty = 30 }
 		}
 		add_scaled_local_adm_power = 2
 		add_scaled_local_dip_power = 2
 		add_scaled_local_mil_power = 2
-		get_tolerance_from_provinces = {
-			race = ogre
-		}
-		lose_prestige_from_provinces = {
-			prestige_per_dev = 0.2
-		}
+		get_tolerance_from_provinces = { race = ogre }
+		lose_prestige_from_provinces = { prestige_per_dev = 0.2 }
 	}
-	# Curtail ambitious officials
-	option = {
+	option = {	# Curtail ambitious officials
 		name = ogre_tolerance_events.1003.c
-		ai_chance = {factor = 50}
-		owner = {
-			add_estate_loyalty = {
-				estate = all
-				loyalty = 10
-			}
-			add_estate_loyalty = {
-				estate = estate_ogre
-				loyalty = -20
-			}
+		owner = {			
+			add_estate_loyalty = { estate = all loyalty = 10 }
+			add_estate_loyalty = { estate = estate_ogre loyalty = -20 }
 			increase_legitimacy_small_effect = yes
 		}
-		get_intolerance_from_provinces = {
-			race = ogre
-		}
+		get_intolerance_from_provinces = { race = ogre }
 	}
-	# Reward them for their contributions
-	option = {
+	option = {	# Reward them for their contributions
 		name = ogre_tolerance_events.1003.d
-		trigger = {
-			owner = {high_tolerance_ogre_race_trigger = yes}
-		}
-		ai_chance = {factor = 50}
+		trigger = { owner = { high_tolerance_ogre_race_trigger = yes } }
 		owner = {change_government_reform_progress = 10}
 		add_scaled_local_adm_power = 3
 		add_scaled_local_dip_power = 3
 		add_scaled_local_mil_power = 3
-		lose_treasury_from_provinces = {
-			cash_per_dev = 5
-		}
+		lose_treasury_from_provinces = { cash_per_dev = 5 }
 	}
 }
-# Ogre dominance undermining us
-country_event = {
+country_event = {	# Ogre dominance undermining us
 	id = ogre_tolerance_events.1004
 	title = ogre_tolerance_events.1004.t
 	desc = ogre_tolerance_events.1004.desc
@@ -576,14 +265,8 @@ country_event = {
 	trigger = {
 		NOT = {has_country_modifier = ogre_administration}
 		OR = {
-			estate_influence = {
-				estate = estate_ogre
-				influence = 40
-			}
-			estate_territory = {
-				estate = estate_ogre
-				territory = 40
-			}
+			estate_influence = { estate = estate_ogre influence = 40 }
+			estate_territory = { estate = estate_ogre territory = 40 }
 			calc_true_if = {
 				has_estate_privilege = estate_ogre_first_hand_chairman
 				has_country_modifier = estate_ogre_diplomacy_chairman_modifier
@@ -594,11 +277,7 @@ country_event = {
 			}
 			any_owned_province = {
 				culture_is_ogre = yes
-				ROOT = {
-					employed_advisor = {
-						culture = PREV
-					}
-				}
+				ROOT = { employed_advisor = { culture = PREV } }
 			}
 		}
 	}
@@ -645,19 +324,14 @@ country_event = {
 			set_country_flag = ogre_tolerance_events_1004_flag
 		}
 	}
-
-	# What can we do?
-	option = {
+	option = {	# What can we do?
 		name = ogre_tolerance_events.1004.a
-		ai_chance = {factor = 50}
 		
 		reduce_legitimacy_small_effect = yes
 		add_prestige = -10
 	}
-	# That just means less work for us
-	option = {
+	option = {	# That just means less work for us
 		name = ogre_tolerance_events.1004.b
-		ai_chance = {factor = 50}
 		reduce_legitimacy_small_effect = yes
 		add_estate_loyalty_modifier = {
 			estate = estate_ogre
@@ -672,17 +346,12 @@ country_event = {
 			duration = 7300
 		}
 	}
-	# They need to be put in their place
-	option = {
+	option = {	# They need to be put in their place
 		name = ogre_tolerance_events.1004.c
-		ai_chance = {factor = 50}
-		add_prestige = 10
+		add_prestige_or_monarch_power = {amount =  10}
 		increase_legitimacy_small_effect = yes
-		small_decrease_of_ogre_tolerance_effect = yes
-		add_estate_loyalty = {
-			estate = estate_ogre
-			loyalty = -20
-		}
+		small_decrease_of_ogre_tolerance_effect = yes		
+		add_estate_loyalty = { estate = estate_ogre loyalty = -210 }
 		add_estate_loyalty_modifier = {
 			estate = estate_ogre
 			desc = EST_VAL_OGRE_PUT_IN_THEIR_PLACE
@@ -697,8 +366,7 @@ country_event = {
 		}
 	}
 }
-# Rapid growth due to ogre minority
-province_event = {
+province_event = {	# Rapid growth due to ogre minority
 	id = ogre_tolerance_events.1005
 	title = ogre_tolerance_events.1005.t
 	desc = ogre_tolerance_events.1005.desc
@@ -741,56 +409,34 @@ province_event = {
 			}
 		}
 	}
-
-	# Great!
-	option = {
+	option = {	# Great!
 		name = ogre_tolerance_events.1005.a
-		ai_chance = {factor = 50}
 
 		add_unrest = 10
 		add_ogre_minority_size_effect = yes
-	}
-	# Support further development 
-	option = {
+	} 
+	option = {	# Support further development
 		name = ogre_tolerance_events.1005.b
-		ai_chance = {factor = 50}
 		owner = {
-			add_estate_loyalty = {
-				estate = estate_ogre
-				loyalty = 10
-			}
+			add_estate_loyalty = { estate = estate_ogre loyalty = 10 }
 		}
-		get_tolerance_from_provinces = {
-			race = ogre
-		}
-		lose_treasury_from_provinces = {
-			cash_per_dev = 2
-		}
+		get_tolerance_from_provinces = { race = ogre }
+		lose_treasury_from_provinces = { cash_per_dev = 2}
 		add_ogre_minority_size_effect = yes
 	}
-	# They have no further use
-	option = {
+	option = {	# They have no further use
 		name = ogre_tolerance_events.1005.c
-		ai_chance = {factor = 50}
 
 		owner = {
-			add_estate_loyalty = {
-				estate = estate_ogre
-				loyalty = -10
-			}
+			add_estate_loyalty = { estate = estate_ogre loyalty = -10 }
 		}
-		get_intolerance_from_provinces = {
-			race = ogre
-		}
+		get_intolerance_from_provinces = { race = ogre }
 		remove_ogre_minority_size_effect = yes
 		remove_1_dev_to_provinces = yes
 		hidden_effect = {
 			random_province = {
 				limit = {
-					province_distance = {
-						who = THIS
-						distance = 100
-					}
+					province_distance = { who = THIS distance = 100 }
 					owner = {
 						NOT = {has_estate_privilege = estate_ogre_purge}
 						NOT = {has_estate_privilege = estate_ogre_expulsion}
@@ -802,9 +448,7 @@ province_event = {
 		}
 	}
 }
-
-# Angry ogre mob forms
-province_event = {
+province_event = {	# Angry ogre mob forms
 	id = ogre_tolerance_events.1006
 	title = ogre_tolerance_events.1006.t
 	desc = ogre_tolerance_events.1006.desc
@@ -851,53 +495,33 @@ province_event = {
 			change_variable = {which = prestige_per_dev_tooltip value = 0.1}
 		}
 	}
-	# Just ogres being ogres
-	option = {
+	option = {	# Just ogres being ogres
 		name = ogre_tolerance_events.1006.b
-		ai_chance = {factor = 50}
 		
 		add_unrest = 10
 	}
-
-	# De-escalate the situation
-	option = {
+	option = {	# De-escalate the situation
 		name = ogre_tolerance_events.1006.a
-		ai_chance = {factor = 50}
 		
 		owner = {
-			add_estate_loyalty = {
-				estate = estate_ogre
-				loyalty = 10
-			}
+			add_estate_loyalty = { estate = estate_ogre loyalty = 10 }
 		}
 		add_unrest = -10
-		lose_prestige_from_provinces = {
-			prestige_per_dev = 0.1
-		}
+		lose_prestige_from_provinces = { prestige_per_dev = 0.1 }
 	}
-	# Send out the troops!
-	option = {
+	option = {	# Send out the troops!
 		name = ogre_tolerance_events.1006.c
-		ai_chance = {factor = 50}
 		trigger = {owner = {manpower = 5}}
 		owner = {
-			add_estate_loyalty = {
-				estate = estate_ogre
-				loyalty = -10
-			}
+			add_estate_loyalty = { estate = estate_ogre loyalty = -10 }
 		}
-		lose_manpower_from_provinces = {
-			manpower_per_dev = 0.5
-		}
+		lose_manpower_from_provinces = { manpower_per_dev = 0.5 }
 		remove_ogre_minority_size_effect = yes
 		remove_1_dev_to_provinces = yes
 		hidden_effect = {
 			random_province = {
 				limit = {
-					province_distance = {
-						who = THIS
-						distance = 100
-					}
+					province_distance = { who = THIS distance = 100 }
 					owner = {
 						NOT = {has_estate_privilege = estate_ogre_purge}
 						NOT = {has_estate_privilege = estate_ogre_expulsion}
@@ -909,10 +533,7 @@ province_event = {
 		}
 	}
 }
-
-# Ogre highwaymen
-#TODO - MAKE THIS TROY's MONSTER SYSTEM
-province_event = {
+province_event = {	# Ogre highwaymen
 	id = ogre_tolerance_events.1007
 	title = ogre_tolerance_events.1007.t
 	desc = ogre_tolerance_events.1007.desc
@@ -944,10 +565,6 @@ province_event = {
 
 	immediate = {
 		hidden_effect = {
-			owner = {
-				clr_country_flag = ogre_tolerance_events_1007_flag 
-				set_country_flag = ogre_tolerance_events_1007_flag 
-			}
 			save_event_target_as = province_event_target
 			set_variable = {which = province_manpower value = 0}
 			export_to_variable = {which = province_manpower value = base_manpower}
@@ -957,65 +574,42 @@ province_event = {
 			export_to_variable = {which = province_development value = development}
 		}
 	}
-
-	# Not worth finding them
-	option = {
+	option = {	# Not worth finding them
 		name = ogre_tolerance_events.1007.a
-		ai_chance = {factor = 50}
 		
-		add_province_modifier = {
-			name = highwaymen_modifier
-			duration = 3650
-		}
+		add_province_modifier = { name = highwaymen_modifier duration = 3650 }
 	}
-	# Establish more frequent patrols
-	option = {
+	option = {	# Establish more frequent patrols
 		name = ogre_tolerance_events.1007.b
-		ai_chance = {factor = 50}
 		trigger = {owner = {manpower = 5}}
 		
+		hidden_effect = {
+			owner = {
+				clr_country_flag = ogre_tolerance_events_1007_flag 
+				set_country_flag = ogre_tolerance_events_1007_flag 
+			}
+		}
 		owner = {
-			add_estate_loyalty = {
-				estate = estate_ogre
-				loyalty = -10
-			}
-			add_estate_loyalty = {
-				estate = all
-				loyalty = 10
-			}
+			add_estate_loyalty = { estate = estate_ogre loyalty = -10 }
+			add_estate_loyalty = { estate = all loyalty = 10 }
 		}
 		add_unrest = -10
-		lose_manpower_from_provinces = {
-			manpower_per_dev = 0.5
-		}
+		lose_manpower_from_provinces = { manpower_per_dev = 0.5 }
 	}
-	# Punish them all for harbouring the criminals
-	option = {
+	option = {	# Punish them all for harbouring the criminals
 		name = ogre_tolerance_events.1007.c
-		ai_chance = {factor = 50}
 		
 		owner= {
-			add_estate_loyalty = {
-				estate = estate_ogre
-				loyalty = -10
-			}
+			add_estate_loyalty = { estate = estate_ogre loyalty = -10 }
 		}
-		add_province_modifier = {
-			name = populace_punished_for_highwaymen_modifier
-			duration = 3650
-		}
-		get_intolerance_from_provinces = {
-			race = ogre
-		}
+		add_province_modifier = { name = populace_punished_for_highwaymen_modifier duration = 3650 }
+		get_intolerance_from_provinces = { race = ogre }
 		remove_ogre_minority_size_effect = yes
 		remove_1_dev_to_provinces = yes
 		hidden_effect = {
 			random_province = {
 				limit = {
-					province_distance = {
-						who = THIS
-						distance = 100
-					}
+					province_distance = { who = THIS distance = 100 }
 					owner = {
 						NOT = {has_estate_privilege = estate_ogre_purge}
 						NOT = {has_estate_privilege = estate_ogre_expulsion}
@@ -1027,8 +621,7 @@ province_event = {
 		}
 	}
 }
-# minority arrives
-province_event = {
+province_event = {	# minority arrives
 	id = ogre_tolerance_events.1008
 	title = ogre_tolerance_events.1008.t
 	desc = ogre_tolerance_events.1008.desc
@@ -1054,7 +647,6 @@ province_event = {
 		modifier = {factor = 1.50 owner = {NOT = {legitimacy_equivalent = 80}}}
 		modifier = {factor = 1.50 pure_unrest = 5}
 		modifier = {factor = 1.50 pure_unrest = 10}
-
 		modifier = {factor = 0.75 owner = {has_country_modifier = racial_focus_ogre}}
 		modifier = {factor = 0.75 owner = {has_idea = tolerance_idea_2}}
 		modifier = {factor = 0.75 is_prosperous = yes}
@@ -1071,10 +663,6 @@ province_event = {
 
 	immediate = {
 		hidden_effect = {
-			owner = {
-				clr_country_flag = ogre_tolerance_events_1008_flag 
-				set_country_flag = ogre_tolerance_events_1008_flag 
-			}
 			save_event_target_as = province_event_target
 			set_variable = {which = province_development value = 0}
 			export_to_variable = {which = province_development value = development}
@@ -1082,42 +670,43 @@ province_event = {
 			change_variable = {which = cash_per_dev_tooltip value = 2}
 		}
 	}
-
-	# Nah
-	option = {
+	option = {	# Nah
 		name = ogre_tolerance_events.1008.a
-		ai_chance = {factor = 50}
-		
+
+		hidden_effect = {
+			owner = {
+				clr_country_flag = ogre_tolerance_events_1008_flag 
+				set_country_flag = ogre_tolerance_events_1008_flag 
+			}
+			random_province = {
+				limit = {
+					province_distance = { who = THIS distance = 100 }
+					owner = {
+						NOT = {has_estate_privilege = estate_ogre_purge}
+						NOT = {has_estate_privilege = estate_ogre_expulsion}
+					}
+				}
+				province_event = { id = ogre_tolerance_events.1008 }
+			}
+		}
 	}
-	# Yes!
-	option = {
+	option = {	# Yes!
 		name = ogre_tolerance_events.1008.b
-		ai_chance = {factor = 50}
 		
 		owner = {
-			add_estate_loyalty = {
-				estate = estate_ogre
-				loyalty = 10
-			}
+			add_estate_loyalty = { estate = estate_ogre loyalty = 10 }
 			small_increase_of_ogre_tolerance_effect = yes
 		}
 		add_ogre_minority_size_effect = yes
 	}
-	# Yeah, let them in for a price
-	option = {
+	option = {	# Yeah, let them in for a price
 		name = ogre_tolerance_events.1008.c
-		ai_chance = {factor = 50}
 		
 		owner= {
-			add_estate_loyalty = {
-				estate = estate_ogre
-				loyalty = -10
-			}
+			add_estate_loyalty = { estate = estate_ogre loyalty = -10 }
 		}
 		add_ogre_minority_size_effect = yes
-		gain_treasury_from_provinces = {
-			cash_per_dev = 2
-		}		
+		gain_treasury_from_provinces = { cash_per_dev = 2 }		
 	}
 }
 country_event = {	#autonomy privilege
@@ -1128,17 +717,15 @@ country_event = {	#autonomy privilege
 
 	is_triggered_only = yes
 
-	immediate = {
-	}
-
 	option = {
 		name = ogre_tolerance_events.5001.a
+
 		reapply_estate_privilege = { privilege = estate_ogre_autonomy }
 	}
 	option = {
 		name = ogre_tolerance_events.5001.b
-		custom_tooltip = remove_estate_ogre_autonomy.tooltip
-		
+
+		custom_tooltip = remove_estate_ogre_autonomy.tooltip		
 		remove_estate_privilege = estate_ogre_autonomy
 		hidden_effect = {
 			every_owned_province = {
@@ -1156,16 +743,14 @@ country_event = {	# Intolerance privilege
 
 	is_triggered_only = yes
 
-	immediate = {
-	}
-
 	option = {
 		name = ogre_tolerance_events.5002.a
+
 		reapply_estate_privilege = { privilege = estate_ogre_intolerance_policy }
 	}
 	option = {
 		name = ogre_tolerance_events.5002.b
-		
+
 		remove_estate_privilege = estate_ogre_intolerance_policy
 	}
 }

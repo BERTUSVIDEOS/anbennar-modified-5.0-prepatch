@@ -122,23 +122,43 @@ country_event = {	#cheat engine
 		hidden_effect = {country_event = {id = great_conqueror.1}}
 	}
 	option = {	#deactivate/activate trade goods
-		name = bertus_limitation_menu.60000.deactivate
-		trigger = {
-			has_global_flag = stored_goods_activated_flag
+		name = bertus_limitation_menu.60000.goods
+		if = {
+			limit = {
+				NOT = {has_global_flag = stored_goods_activated_flag}
+			}
+			custom_tooltip = activate_goods_tt
+			hidden_effect = {
+				country_event = {id = bertus_limitation_menu.50000}
+				set_global_flag = stored_goods_activated_flag
+			}
 		}
-		hidden_effect = {
-			country_event = {id = bertus_limitation_menu.50000}
-			clr_global_flag = stored_goods_activated_flag
+		else = {
+			custom_tooltip = deactivate_goods_tt
+			hidden_effect = {
+				country_event = {id = bertus_limitation_menu.50000}
+				clr_global_flag = stored_goods_activated_flag
+			}
 		}
 	}
-	option = {	#deactivate/activate trade goods
-		name = bertus_limitation_menu.60000.activate
-		trigger = {
-			NOT = {has_global_flag = stored_goods_activated_flag}
+	option = {	#deactivate/activate bad_boy
+		name = bertus_limitation_menu.60000.bad_boy
+		if = {
+			limit = {
+				NOT = {has_global_flag = aggresive_expansion_deactivated_flag}
+			}
+			custom_tooltip = deactivate_bad_boy_tt
+			hidden_effect = {
+				set_global_flag = aggresive_expansion_deactivated_flag
+				country_event = {id = bertus_limitation_menu.50000}
+			}
 		}
-		hidden_effect = {
-			country_event = {id = bertus_limitation_menu.50000}
-			set_global_flag = stored_goods_activated_flag
+		else = {
+			custom_tooltip = activate_bad_boy_tt
+			hidden_effect = {
+				clr_global_flag = aggresive_expansion_deactivated_flag
+				country_event = {id = bertus_limitation_menu.50000}
+			}
 		}
 	}
 	option = {	#activate power calculator
