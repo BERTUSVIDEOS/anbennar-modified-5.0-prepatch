@@ -14,14 +14,28 @@ cancel_lorent_sphere_overlord =  {
 	
 	is_allowed = {
 		OR = {
-			ROOT = {
-				NOT = {
-					has_opinion = {
-						who = FROM
-						value = 0
+			#ROOT = {
+				#or = {
+					and = {
+						NOT = {
+							has_opinion = {
+								who = FROM
+								value = 0
+							}
+						}
+						ai = no
 					}
-				}
-			}
+					and = {
+						NOT = {
+							has_opinion = {
+								who = FROM
+								value = -50
+							}
+						}
+						ai = yes
+					}
+				#}
+			#}
 			#FROM = { 		#No muestra el ratio en la condicion de la accion diplomatica
 			#	development_of_overlord_fraction = 0.90
 			#}
@@ -44,9 +58,10 @@ cancel_lorent_sphere_overlord =  {
 	on_accept = {
 		FROM = { grant_independence = yes }
 		FROM = { add_truce_with = ROOT }
-		#FROM = { country_event = { id = sjr_lorent_set_up.4 } }
-		#ROOT = { country_event = { id = sjr_lorent_set_up.4 } }
+		FROM = { country_event = { id = sjr_lorent_set_up.4 days = -1 } }
+		ROOT = { country_event = { id = sjr_lorent_set_up.4 days = -1 } }
 		#FROM = { add_country_modifier = { name = indipendence_fervor duration = -1  } }
+		hidden_effect = { FROM = { set_country_flag = use_request_submission } }
 	}
 	
 	ai_will_do = {
@@ -62,15 +77,26 @@ cancel_lorent_sphere_subject =  {
 
 	require_acceptance = no
 	is_visible = {
-		#is_subject_of_type_with_overlord = { who = ROOT type = lorent_sphere_subject }
+		#is_subject_of_type_with_overlord = { who = A01 type = lorent_sphere_subject }
+		#ROOT = { tag = A01 }
 		ROOT = {
-			is_subject_of = FROM 
-			subject_type = lorent_sphere_subject
+			#is_subject_of = FROM 
+			#subject_type = lorent_sphere_subject
+			is_subject_of_type_with_overlord = { who = FROM type = lorent_sphere_subject }
+			#overlord_of = FROM
+		}
+		FROM = {
+			#is_subject_of = ROOT
+			#is_subject_of_type_with_overlord = { who = FROM type = lorent_sphere_subject }
+			#subject_type = lorent_sphere_subject
+			overlord_of = ROOT
 		}
 	}
 	
 	is_allowed = {
 		ROOT =  { stability = -2 }
+		#is_subject_of_type_with_overlord = { who = A01 type = lorent_sphere_subject }
+		#ROOT = { tag = A01 }
 	}
 	
 	on_accept = {
@@ -84,22 +110,14 @@ cancel_lorent_sphere_subject =  {
 				months = 60
 			}
 		}
+		hidden_effect = { set_country_flag = use_request_submission }
 	}
 	
 	ai_will_do = {
 		#FROM =  {
 		ROOT =  {
-			#stability = 0
-			liberty_desire = 0
+			total_development = 500
 		}
 	}
 }
 
-
-
-
-#custom_trigger_tooltip = {
-#	tooltip = EST_CRUSHED_NOMADIC_TRIBES
-#	NOT = { has_country_flag = nomadic_tribes_estate_in_power
-#	}
-#}

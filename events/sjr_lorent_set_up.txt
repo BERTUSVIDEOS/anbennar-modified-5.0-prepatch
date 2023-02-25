@@ -13,14 +13,10 @@ province_event = {
 			AND = { #cuando hay que ponerlo
 				OR = {
 					region = lencenor_region
-					area = 	lorenans_reach_area
-					area = roysfort_area
-					area = the_borders_area
-					area = thomsbridge_area
-					area = applefields_area
-					area = lasean_area
-					area = carneteria_area
-					province_id = 63
+					region = west_dameshead_region
+					region = small_country_region
+					area = beepeck_area
+					area = iochand_area
 				}
 				NOT = {
 					has_province_modifier = peace_under_lorent_modifier
@@ -189,13 +185,14 @@ country_event = {
 	picture = PLAGUE_eventPicture
 	
 	hidden = no
-	fire_only_once = yes
+	fire_only_once = no
+	is_triggered_only = yes
 	
     trigger = {
-		always = no
+		not = { has_country_flag = troops_return }
 	}	
 	immediate = {
-	
+		set_country_flag = troops_return
 	}
 	option = {
 		name = sjr_lorent_set_up.4.a
@@ -203,8 +200,8 @@ country_event = {
 			NOT = { tag = A01 }
 		}	
 		name = sjr_lorent_set_up.4.a
-		global_manpower = 10
-		army_tradition = 10
+		add_manpower = 10
+		add_army_tradition = 10
 
 	}
 	option = {
@@ -213,14 +210,113 @@ country_event = {
 			tag = A01
 			ai = no
 		}
-		global_manpower = -10
+		add_manpower = -10
 	}
 	option = {
-		name = sjr_lorent_set_up.4.b
+		name = sjr_lorent_set_up.4.c
 		trigger = {
 			tag = A01
 			ai = yes
 		}
 	}
 }
-#country_event = sjr_lorent_set_up.5 
+
+
+country_event = {
+	id = sjr_lorent_set_up.5
+	title = sjr_lorent_set_up_off.5.t
+	desc = sjr_lorent_set_up_off.5.desc
+	picture = DIPLOMACY_eventPicture
+	
+	is_triggered_only = no
+	hidden = no
+	fire_only_once = no
+	
+    trigger = {
+		is_part_of_hre = yes
+		defensive_war_with = A01
+		A01 = { lorent_sphere_subject = 1 }
+		A01 = { is_vassal = no }
+		not = { total_development = A01 }
+		not = { has_global_flag = no_more_winelords }
+		not = { has_country_flag = fight_or_surrender_happen }			
+	}	
+	immediate = {
+		#hidden_effect = {
+			set_country_flag = fight_or_surrender_happen
+		#}
+	}
+	option = {
+		name = sjr_lorent_set_up.5.a
+		trigger = {
+			ai = no
+		}
+		white_peace = A01
+		A01 = {
+			create_subject = {
+				subject_type = lorent_sphere_subject
+				subject = A20
+			}
+		}
+		emperor = {
+			add_imperial_influence = -5
+		}
+		emperor = {
+			add_opinion = {
+				who = ROOT
+				modifier = resentful
+			}
+		}
+		every_elector = {
+			#any_elector = {
+			#all_elector = {
+			#elector = {
+				add_opinion = {
+					who = ROOT
+					modifier = resentful
+				}
+		}
+		A01 = {
+			country_event = { 
+				id = sjr_lorent_set_up.6
+				days = -1
+			}
+		}
+	}
+	option = {
+		name = sjr_lorent_set_up.5.b
+		trigger = {
+		}
+		add_manpower = 25
+		add_treasury = 250
+		add_mil_power = 50
+		add_country_modifier = { 
+			name = defend_the_empire_modifier
+			duration = 24  
+		}
+	}
+}
+
+
+country_event = {
+	id = sjr_lorent_set_up.6
+	title = sjr_lorent_set_up_off.6.t
+	desc = sjr_lorent_set_up_off.6.desc
+	picture = DIPLOMACY_eventPicture
+	
+	is_triggered_only = yes
+	hidden = no
+	fire_only_once = no
+	
+    trigger = {
+
+	}	
+	immediate = {
+	
+	}
+	option = {
+		name = sjr_lorent_set_up.6.a
+
+	}
+}
+
