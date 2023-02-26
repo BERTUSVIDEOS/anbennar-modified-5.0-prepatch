@@ -139,21 +139,22 @@ can_make_state = {
 	condition = {
 		tooltip = "gecko_state"
 		potential = {
-			FROM = {was_player = no ai = no}
+			FROM = { ai = no}
 		}
 		allow = {
 			OR = {
 				has_terrain = dwarven_hold
 				has_terrain = dwarven_hold_surface
+				area_for_scope_province = { is_capital_of = FROM }
 				area_for_scope_province = {
 					type = all
 					OR = {
 						has_terrain = dwarven_hold
 						has_terrain = dwarven_hold_surface
 						owned_by = ROOT
-						area_for_scope_province = { is_capital_of = ROOT }
 						owner = {is_subject_of = ROOT}
 						owner = { has_reform = free_city}
+						owner = { has_reform = subject_free_city}
 						NOT = {is_city = yes}
 					}			
 				}
