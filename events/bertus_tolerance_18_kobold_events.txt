@@ -15,7 +15,7 @@ province_event = {	# Racial Minister
 	mean_time_to_happen = {
 		days = 73000
 		modifier = {factor = 3.00 owner = {NOT = {had_country_flag = { flag = kobold_tolerance_events_1001_flag days = 1825}}}}
-		modifier = {factor = 2.0 owner = {any_owned_province = {culture_is_kobold = yes ROOT = {employed_advisor = {culture = PREV}}}}}
+		modifier = {factor = 2.0 owner = {any_owned_province = {culture_is_kobold = yes owner = {employed_advisor = {culture = PREV}}}}}
 		modifier = {factor = 0.75 owner = {has_country_modifier = racial_focus_kobold}}
 		modifier = {factor = 0.75 owner = {has_idea = tolerance_idea_2}}
 		modifier = {factor = 0.90 owner = {medium_tolerance_kobold_race_trigger = yes}}
@@ -130,9 +130,7 @@ province_event = {	# Minor landholders demand autonomy
 	}
 	option = {	# Aight then
 		name = kobold_tolerance_events.1002.b
-		owner = {
-			add_estate_loyalty = { estate = estate_kobold loyalty = 20 }
-		}
+		owner = {add_estate_loyalty = { estate = estate_kobold loyalty = 20 }}
 		add_kobold_minority_size_effect = yes
 		add_local_autonomy = 25
 		get_tolerance_from_provinces = { race = kobold }
@@ -217,9 +215,7 @@ province_event = {	# Ambitious kobolds in government
 	}
 	option = {	# I guess its to be expected
 		name = kobold_tolerance_events.1003.a
-		ai_chance = {
-			factor = 50
-		}
+		ai_chance = {factor = 50}
 		owner = {
 			add_adm_power = -20			
 			add_estate_loyalty = { estate = estate_kobold loyalty = 10 }
@@ -417,9 +413,7 @@ province_event = {	# Rapid growth due to kobold minority
 	} 
 	option = {	# Support further development
 		name = kobold_tolerance_events.1005.b
-		owner = {
-			add_estate_loyalty = { estate = estate_kobold loyalty = 10 }
-		}
+		owner = {add_estate_loyalty = { estate = estate_kobold loyalty = 10 }}
 		get_tolerance_from_provinces = { race = kobold }
 		lose_treasury_from_provinces = { cash_per_dev = 2}
 		add_kobold_minority_size_effect = yes
@@ -427,9 +421,7 @@ province_event = {	# Rapid growth due to kobold minority
 	option = {	# They have no further use
 		name = kobold_tolerance_events.1005.c
 
-		owner = {
-			add_estate_loyalty = { estate = estate_kobold loyalty = -10 }
-		}
+		owner = {add_estate_loyalty = { estate = estate_kobold loyalty = -10 }}
 		get_intolerance_from_provinces = { race = kobold }
 		remove_kobold_minority_size_effect = yes
 		remove_1_dev_to_provinces = yes
@@ -503,18 +495,14 @@ province_event = {	# Angry kobold mob forms
 	option = {	# De-escalate the situation
 		name = kobold_tolerance_events.1006.a
 		
-		owner = {
-			add_estate_loyalty = { estate = estate_kobold loyalty = 10 }
-		}
+		owner = {add_estate_loyalty = { estate = estate_kobold loyalty = 10 }}
 		add_unrest = -10
 		lose_prestige_from_provinces = { prestige_per_dev = 0.1 }
 	}
 	option = {	# Send out the troops!
 		name = kobold_tolerance_events.1006.c
 		trigger = {owner = {manpower = 5}}
-		owner = {
-			add_estate_loyalty = { estate = estate_kobold loyalty = -10 }
-		}
+		owner = {add_estate_loyalty = { estate = estate_kobold loyalty = -10 }}
 		lose_manpower_from_provinces = { manpower_per_dev = 0.5 }
 		remove_kobold_minority_size_effect = yes
 		remove_1_dev_to_provinces = yes
@@ -599,9 +587,7 @@ province_event = {	# Kobold highwaymen
 	option = {	# Punish them all for harbouring the criminals
 		name = kobold_tolerance_events.1007.c
 		
-		owner= {
-			add_estate_loyalty = { estate = estate_kobold loyalty = -10 }
-		}
+		owner= {add_estate_loyalty = { estate = estate_kobold loyalty = -10 }}
 		add_province_modifier = { name = populace_punished_for_highwaymen_modifier duration = 3650 }
 		get_intolerance_from_provinces = { race = kobold }
 		remove_kobold_minority_size_effect = yes
@@ -702,14 +688,12 @@ province_event = {	# minority arrives
 	option = {	# Yeah, let them in for a price
 		name = kobold_tolerance_events.1008.c
 		
-		owner= {
-			add_estate_loyalty = { estate = estate_kobold loyalty = -10 }
-		}
+		owner= {add_estate_loyalty = { estate = estate_kobold loyalty = -10 }}
 		add_kobold_minority_size_effect = yes
 		gain_treasury_from_provinces = { cash_per_dev = 2 }		
 	}
 }
-country_event = {	#autonomy privilege
+country_event = {	#kobold autonomy privilege
 	id = kobold_tolerance_events.5001
 	title = kobold_tolerance_events.5001.t
 	desc = kobold_tolerance_events.5001.desc
@@ -725,7 +709,7 @@ country_event = {	#autonomy privilege
 	option = {
 		name = kobold_tolerance_events.5001.b
 
-		custom_tooltip = remove_estate_kobold_autonomy.tooltip		
+		custom_tooltip = remove_estate_kobold_autonomy.tooltip
 		remove_estate_privilege = estate_kobold_autonomy
 		hidden_effect = {
 			every_owned_province = {
@@ -735,7 +719,7 @@ country_event = {	#autonomy privilege
 		}
 	}
 }
-country_event = {	# Intolerance privilege
+country_event = {	#kobold Intolerance privilege
 	id = kobold_tolerance_events.5002
 	title = kobold_tolerance_events.5002.t
 	desc = kobold_tolerance_events.5002.desc
@@ -752,5 +736,25 @@ country_event = {	# Intolerance privilege
 		name = kobold_tolerance_events.5002.b
 
 		remove_estate_privilege = estate_kobold_intolerance_policy
+	}
+}
+country_event = {	# kobold taxation
+	id = kobold_tolerance_events.5003
+	title = kobold_tolerance_events.5002.t
+	desc = kobold_tolerance_events.5002.desc
+	picture = TRADE_GOODS_PLANTATION_GOODS_IN_WAREHOUSE_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = kobold_tolerance_events.5003.a
+
+		reapply_estate_privilege = { privilege = estate_kobold_taxation_policy }
+	}
+	option = {
+		name = kobold_tolerance_events.5003.b
+
+		custom_tooltip = remove_estate_kobold_taxation_policy.tooltip
+		remove_estate_privilege = estate_kobold_taxation_policy
 	}
 }
