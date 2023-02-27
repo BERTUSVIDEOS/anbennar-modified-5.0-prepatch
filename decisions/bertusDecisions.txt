@@ -597,8 +597,215 @@ country_decisions = {
 			}
 		}
 		
-		ai_will_do = {
-			factor = 0
+		ai_will_do = {factor = 0}
+	}
+	greentide_nation = { #B01
+		major = yes
+		potential = {
+			OR = {
+				primary_culture = green_orc
+				primary_culture = common_goblin
+				primary_culture = cannor_half_orc
+			}
+			NOT = { exists = B01 }
+			normal_or_historical_nations = yes
+			is_free_or_tributary_trigger = yes
+			NOT = { has_country_flag = formed_greentide_nation }
+			NOT = { has_country_flag = super_orc_nation_formed }
+			was_never_end_game_tag_trigger = yes
 		}
+		provinces_to_highlight = {
+			OR = {
+				region = south_castanor_region
+				region = west_castanor_region
+				region = inner_castanor_region
+				province_id = 831
+				province_id = 832
+				province_id = 833
+			}
+			NOT = {
+				ROOT = {
+					num_of_owned_provinces_with = {
+						value = 116		#116/176
+						OR = {
+							region = south_castanor_region
+							region = west_castanor_region
+							region = inner_castanor_region
+						}
+					}
+				}
+			}
+			NOT = { owned_by = ROOT }
+		}
+		allow = {
+			is_at_war = no
+			has_country_modifier = monstrous_nation
+			num_of_owned_provinces_with = {
+				value = 116	#116/176
+				OR = {
+					region = south_castanor_region
+					region = west_castanor_region
+					region = inner_castanor_region
+				}
+				OR = {
+					culture_is_orcish = yes
+					culture_is_half_orcish = yes
+					culture_is_goblin = yes
+				}
+			}
+			owns_core_province = 831
+			owns_core_province = 832
+			owns_core_province = 833
+		}
+		effect = {
+			833 = {move_capital_effect = yes}
+			change_tag = B01
+			hidden_effect = { restore_country_name = yes }
+			remove_non_electors_emperors_from_empire_effect = yes
+			#swap_non_generic_missions = yes
+			add_prestige_or_monarch_power = {amount =  25}
+			if = {
+				limit = { has_custom_ideas = no}
+				country_event = { id = ideagroups.1 } #Swap Ideas
+			}
+			set_country_flag = formed_greentide_nation
+			set_country_flag = super_orc_nation_formed
+		}
+		ai_will_do = {factor = 1}
+		ai_importance = 400
+	}
+	escann_union_nation = { #B90
+		major = yes
+		potential = {
+			OR = {
+				primary_culture = green_orc
+				primary_culture = common_goblin
+				primary_culture = cannor_half_orc
+			}
+			NOT = { exists = B90 }
+			normal_or_historical_nations = yes
+			is_free_or_tributary_trigger = yes
+			NOT = { has_country_flag = formed_escann_union_nation }
+			NOT = { has_country_flag = super_orc_nation_formed }
+			was_never_end_game_tag_trigger = yes
+		}
+		provinces_to_highlight = {
+			OR = {
+				region = south_castanor_region
+				region = west_castanor_region
+				region = inner_castanor_region
+				province_id = 831
+				province_id = 832
+				province_id = 833
+			}
+			NOT = {
+				ROOT = {
+					num_of_owned_provinces_with = {
+						value = 132	#132/176
+						OR = {
+							region = south_castanor_region
+							region = west_castanor_region
+							region = inner_castanor_region
+						}
+					}
+				}
+			}
+			NOT = { owned_by = ROOT }
+		}
+		allow = {
+			is_at_war = no
+			num_of_owned_provinces_with = {
+				value = 132	#132/176
+				OR = {
+					region = south_castanor_region
+					region = west_castanor_region
+					region = inner_castanor_region
+				}
+			}
+			owns_core_province = 831
+			owns_core_province = 832
+			owns_core_province = 833
+		}
+		effect = {
+			832 = {move_capital_effect = yes}
+			change_tag = B90
+			hidden_effect = { restore_country_name = yes }
+			remove_non_electors_emperors_from_empire_effect = yes
+			#swap_non_generic_missions = yes
+			add_prestige_or_monarch_power = {amount =  25}
+			change_primary_culture = cannor_half_orc
+			set_ruler_culture = cannor_half_orc
+			set_heir_culture = cannor_half_orc
+			set_consort_culture = cannor_half_orc
+			if = {
+				limit = { has_custom_ideas = no}
+				country_event = { id = ideagroups.1 } #Swap Ideas
+			}
+			set_country_flag = formed_escann_union_nation
+			set_country_flag = super_orc_nation_formed
+		}
+		ai_will_do = {factor = 1}
+		ai_importance = 400
+	}
+	goblin_union_nation = { #B89
+		major = yes
+		potential = {
+			primary_culture = common_goblin
+			NOT = { exists = B89 }
+			normal_or_historical_nations = yes
+			is_free_or_tributary_trigger = yes
+			NOT = { has_country_flag = formed_goblin_union_nation }
+			NOT = { has_country_flag = goblin_nation_formed }
+			was_never_end_game_tag_trigger = yes
+		}
+		provinces_to_highlight = {
+			OR = {
+				region = south_castanor_region
+				region = west_castanor_region
+			}
+			NOT = {
+				ROOT = {
+					num_of_owned_provinces_with = {
+						value = 56	#56/112
+						OR = {
+							region = south_castanor_region
+							region = west_castanor_region
+						}
+						culture_is_goblin = yes
+					}
+				}
+			}
+			NOT = { owned_by = ROOT }
+		}
+		allow = {
+			is_at_war = no
+			num_of_owned_provinces_with = {
+				value = 56	#56/112
+				OR = {
+					region = south_castanor_region
+					region = west_castanor_region
+				}
+				culture_is_goblin = yes
+			}
+		}
+		effect = {
+			change_tag = B89
+			hidden_effect = { restore_country_name = yes }
+			remove_non_electors_emperors_from_empire_effect = yes
+			#swap_non_generic_missions = yes
+			add_prestige_or_monarch_power = {amount =  25}
+			change_primary_culture = common_goblin
+			set_ruler_culture = common_goblin
+			set_heir_culture = common_goblin
+			set_consort_culture = common_goblin
+			if = {
+				limit = { has_custom_ideas = no}
+				country_event = { id = ideagroups.1 } #Swap Ideas
+			}
+			set_country_flag = formed_goblin_union_nation
+			set_country_flag = goblin_nation_formed
+		}
+		ai_will_do = {factor = 1}
+		ai_importance = 400
 	}
 }
