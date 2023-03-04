@@ -1966,14 +1966,16 @@ magical_guild_reform = {	#bertus mod
 				NOT = { primary_culture = sun_elf }
 			}
 		}
-		NOT = { has_reform = magical_elite_reform}
+		NOT = { has_government_attribute = increased_magic_ruler_chance }
 		NOT = {culture_group = dwarven}
 	}
 	modifiers = {
-		artificers_loyalty_modifier = -0.10
-		artificers_influence_modifier = -0.10
 		mages_loyalty_modifier = 0.10
 		mages_influence_modifier = 0.10
+		artificers_loyalty_modifier = -0.10
+		artificers_influence_modifier = -0.10
+		adventurers_loyalty_modifier = -0.10
+		adventurers_influence_modifier = -0.10
 		yearly_corruption = 0.2
 		army_tradition_from_battle = -0.25
 		free_leader_pool = -1
@@ -1984,15 +1986,12 @@ magical_guild_reform = {	#bertus mod
 		magic_commander_academy = yes
 	}
 	effect = {
+		remove_estate_privilege = estate_adventurers_emergency_general
+		remove_estate_privilege = estate_mages_emergency_general
+		remove_estate_privilege = estate_artificers_emergency_general
 		country_event = {id = bertus_changes.6010}
 	}
-	ai = {
-		factor = 1
-		modifier = {
-			factor = 0
-			is_part_of_hre = no
-		}
-	}
+	ai = {factor = 1}
 }
 
 artificer_guild_reform = {	#bertus mod
@@ -2008,11 +2007,12 @@ artificer_guild_reform = {	#bertus mod
 				NOT = { primary_culture = sun_elf }
 			}
 		}
-		NOT = { has_reform = magical_elite_reform}
 	}
 	modifiers = {
 		artificers_loyalty_modifier = 0.10
 		artificers_influence_modifier = 0.10
+		adventurers_loyalty_modifier = -0.10
+		adventurers_influence_modifier = -0.10
 		mages_loyalty_modifier = -0.10
 		mages_influence_modifier = -0.10
 		yearly_corruption = 0.2
@@ -2023,13 +2023,46 @@ artificer_guild_reform = {	#bertus mod
 		artificer_commander_academy = yes
 	}
 	effect = {
+		remove_estate_privilege = estate_adventurers_emergency_general
+		remove_estate_privilege = estate_mages_emergency_general
+		remove_estate_privilege = estate_artificers_emergency_general
 		country_event = {id = bertus_changes.6010}
 	}
-	ai = {
-		factor = 1
-		modifier = {
-			factor = 0
-			is_part_of_hre = no
+	ai = {factor = 1}
+}
+adventurer_guild_reform = {	#bertus mod
+	icon = "indian_crown"
+	allow_normal_conversion = yes
+	potential = {
+		has_estate = estate_adventurers
+		NOT = { has_reform = hobgoblin_stratocracy_reform }
+		NOT = { has_reform = great_ogre_horde }
+		NOT = {
+			AND = {
+				religion = bulwari_sun_cult
+				NOT = { primary_culture = sun_elf }
+			}
 		}
 	}
+	modifiers = {
+		adventurers_loyalty_modifier = 0.10
+		adventurers_influence_modifier = 0.10
+		artificers_loyalty_modifier = -0.10
+		artificers_influence_modifier = -0.10
+		mages_loyalty_modifier = -0.10
+		mages_influence_modifier = -0.10
+		yearly_corruption = 0.2
+		army_tradition_from_battle = -0.25
+		free_leader_pool = -1
+	}
+	custom_attributes = {
+		adventurer_commander_academy = yes
+	}
+	effect = {
+		remove_estate_privilege = estate_adventurers_emergency_general
+		remove_estate_privilege = estate_mages_emergency_general
+		remove_estate_privilege = estate_artificers_emergency_general
+		country_event = {id = bertus_changes.6010}
+	}
+	ai = {factor = 1}
 }

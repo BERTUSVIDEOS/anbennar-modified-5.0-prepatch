@@ -3863,7 +3863,15 @@ country_event = {	#religion general
 		
 	is_triggered_only = yes
 	hidden = yes
-	immediate = {}
+	immediate = {
+		trigger_switch = {
+			on_trigger = religion
+			great_dookan = {set_country_flag = get_dookan_flag }
+			old_dookan = {set_country_flag = get_dookan_flag }
+			ik_magthaal = {set_country_flag = get_ik_magthaal_flag  }
+			feast_of_the_gods = {set_country_flag = get_feast_of_the_gods_flag }
+		}
+	}
 	
 	option = {	#
 		name = bertus_changes.3000.a
@@ -3872,12 +3880,12 @@ country_event = {	#religion general
 			limit = {has_global_flag = generals_activated_flag}
 			trigger_switch = {
 				on_trigger = religion
-				great_dookan = {set_country_flag = ShaggtFiremouth_flag get_improved_general = {type = dookan} }
-				old_dookan = {set_country_flag = ShaggtFiremouth_flag get_improved_general = {type = dookan}}
-				ik_magthaal = {set_country_flag = Zathnar_longlegged_flag get_improved_general = {type = ik_magthaal} }
-				feast_of_the_gods = {set_country_flag = Carl_The_Loony_flag get_improved_general = {type = feast_of_the_gods} }
+				great_dookan = {set_country_flag = ShaggtFiremouth_flag  }
+				old_dookan = {set_country_flag = ShaggtFiremouth_flag }
+				ik_magthaal = {set_country_flag = Zathnar_longlegged_flag }
+				feast_of_the_gods = {set_country_flag = Carl_The_Loony_flag }
 			}
-			custom_tooltip = improved_general_cost_tt
+			get_improved_general = yes
 		}
 		else = {
 			if = {
@@ -3908,12 +3916,12 @@ country_event = {	#religion general
 			limit = {has_global_flag = generals_activated_flag}
 			trigger_switch = {
 				on_trigger = religion
-				great_dookan = {set_country_flag = KrambruStrongarm_flag get_improved_general = {type = dookan} }
-				old_dookan = {set_country_flag = KrambruStrongarm_flag get_improved_general = {type = dookan} }
-				ik_magthaal = {set_country_flag = DrogoTheGreat_flag get_improved_general = {type = ik_magthaal} }
-				feast_of_the_gods = {set_country_flag = MikeTheBrainy_flag get_improved_general = {type = feast_of_the_gods} }
+				great_dookan = {set_country_flag = KrambruStrongarm_flag }
+				old_dookan = {set_country_flag = KrambruStrongarm_flag }
+				ik_magthaal = {set_country_flag = DrogoTheGreat_flag }
+				feast_of_the_gods = {set_country_flag = MikeTheBrainy_flag }
 			}
-			custom_tooltip = improved_general_cost_tt
+			get_improved_general = yes
 		}
 		else = {
 			if = {
@@ -3944,12 +3952,12 @@ country_event = {	#religion general
 			limit = {has_global_flag = generals_activated_flag}
 			trigger_switch = {
 				on_trigger = religion
-				great_dookan = {set_country_flag = LutgorTheReaver_flag get_improved_general = {type = dookan} }
-				old_dookan = {set_country_flag = LutgorTheReaver_flag get_improved_general = {type = dookan} }
-				ik_magthaal = {set_country_flag = PegthusTheWinged_flag get_improved_general = {type = ik_magthaal} }
-				feast_of_the_gods = {set_country_flag = JonhyTheFat_flag get_improved_general = {type = feast_of_the_gods} }
+				great_dookan = {set_country_flag = LutgorTheReaver_flag }
+				old_dookan = {set_country_flag = LutgorTheReaver_flag }
+				ik_magthaal = {set_country_flag = PegthusTheWinged_flag }
+				feast_of_the_gods = {set_country_flag = JonhyTheFat_flag }
 			}
-			custom_tooltip = improved_general_cost_tt
+			get_improved_general = yes
 		}
 		else = {
 			if = {
@@ -3986,10 +3994,10 @@ country_event = {	#religion general
 			limit = {has_global_flag = generals_activated_flag}
 			trigger_switch = {
 				on_trigger = religion
-				ik_magthaal = {set_country_flag = KruthnuTheBrawl_flag get_improved_general = {type = ik_magthaal} }
-				feast_of_the_gods = {set_country_flag = McGregorTheBully_flag get_improved_general = {type = feast_of_the_gods} }
+				ik_magthaal = {set_country_flag = KruthnuTheBrawl_flag }
+				feast_of_the_gods = {set_country_flag = McGregorTheBully_flag }
 			}
-			custom_tooltip = improved_general_cost_tt
+			get_improved_general = yes
 		}
 		else = {
 			if = {
@@ -4044,6 +4052,7 @@ country_event = {	#religion general
 		modifier = {factor = 1.2 NOT = {religious_unity = 0.75}}
 		modifier = {factor = 2.0 NOT = {religious_unity = 0.50}}
 	}
+	
 	immediate = {
 		if = {
 			limit = {NOT = {has_country_flag = find_reincarnated_warrior_aspect_flag}}
@@ -4053,12 +4062,10 @@ country_event = {	#religion general
 	option = {	#
 		name = bertus_changes.3001.a
 		trigger = {religion_group = orcish}
-		custom_tooltip = get_great_orcish_general_tt
 		if = {
 			limit = {has_global_flag = generals_activated_flag}
-			tooltip = {
-				get_improved_general = {type = dookan}
-			}
+			hidden_effect = {set_country_flag = get_dookan_flag}
+			custom_tooltip = get_great_dookan_general_tt
 			custom_tooltip = improved_general_cost_tt
 		}
 		else = {
@@ -4076,9 +4083,8 @@ country_event = {	#religion general
 		trigger = {religion = ik_magthaal}
 		if = {
 			limit = {has_global_flag = generals_activated_flag}
-			tooltip = {
-				get_improved_general = {type = ik_magthaal}
-			}
+			hidden_effect = {set_country_flag = get_ik_magthaal_flag}
+			custom_tooltip = get_great_ik_magthaal_general_tt
 			custom_tooltip = improved_general_cost_tt
 		}
 		else = {
@@ -4096,9 +4102,8 @@ country_event = {	#religion general
 		trigger = {religion = feast_of_the_gods}
 		if = {
 			limit = {has_global_flag = generals_activated_flag}
-			tooltip = {
-				get_improved_general = {type = feast_of_the_gods}
-			}
+			hidden_effect = {set_country_flag = get_feast_of_the_gods_flag}
+			custom_tooltip = get_great_feast_of_the_gods_general_tt
 			custom_tooltip = improved_general_cost_tt
 		}
 		else = {
@@ -6380,9 +6385,10 @@ country_event = {
 	trigger = {
 		OR = {
 			has_government_attribute = magic_commander_academy
+			has_estate_privilege = estate_mages_emergency_general
 			has_government_attribute = artificer_commander_academy
-			has_government_attribute = artificer_commander_academy
-			has_government_attribute = magic_commander_academy
+			has_estate_privilege = estate_artificers_emergency_general
+			has_government_attribute = adventurer_commander_academy
 			has_estate_privilege = estate_adventurers_emergency_general
 		}
 		ai = no
@@ -6393,23 +6399,6 @@ country_event = {
 		modifier = {factor = 3.0 is_subject = yes}
 	}
 	immediate = {
-		hidden_effect = {
-			if = {
-				limit = {has_global_flag = generals_activated_flag}
-				if = {
-					limit = {has_estate_privilege = estate_adventurers_emergency_general}
-					get_special_general_stats = {effect = hero}
-				}
-				if = {
-					limit = {has_government_attribute = magic_commander_academy}
-					get_special_general_stats = {effect = mage}
-				}
-				if = {
-					limit = {has_government_attribute = artificer_commander_academy}
-					get_special_general_stats = {effect = artificer}
-				}
-			}
-		}
 	}
 
 	option = {
@@ -6430,15 +6419,19 @@ country_event = {
 	option = {
 		name = bertus_changes.6010.a #Ok
 		if = {
-			limit = {has_estate_privilege = estate_adventurers_emergency_general}
-			get_improved_general = {type = hero}
+			limit = {OR = {has_government_attribute = adventurer_commander_academy has_estate_privilege = estate_adventurers_emergency_general}}
+			set_country_flag = get_hero_flag
+			hidden_effect = {get_improved_general = yes}
+			custom_tooltip = get_great_hero_general_tt
 			custom_tooltip = improved_general_cost_tt
 		}
 		if = {
-			limit = {has_government_attribute = magic_commander_academy}
+			limit = {OR = {has_government_attribute = magic_commander_academy has_estate_privilege = estate_mages_emergency_general}}
 			if = {
 				limit = {has_global_flag = generals_activated_flag}
-				get_improved_general = {type = mage}
+				set_country_flag = get_mage_flag
+				hidden_effect = {get_improved_general = yes}
+				custom_tooltip = get_great_mage_general_tt
 				custom_tooltip = improved_general_cost_tt
 			}
 			else = {
@@ -6452,10 +6445,12 @@ country_event = {
 			}
 		}
 		if = {
-			limit = {has_government_attribute = artificer_commander_academy}
+			limit = {OR = {has_government_attribute = artificer_commander_academy has_estate_privilege = estate_artificers_emergency_general}}
 			if = {
 				limit = {has_global_flag = generals_activated_flag}
-				get_improved_general = {type = artificer}
+				set_country_flag = get_artificer_flag
+				hidden_effect = {get_improved_general = yes}
+				custom_tooltip = get_great_artificer_general_tt
 				custom_tooltip = improved_general_cost_tt
 			}
 			else = {

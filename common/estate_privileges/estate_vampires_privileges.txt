@@ -742,7 +742,16 @@ estate_vampires_vampiric_military_command = {
 	}
 	on_granted = {	#bertus mod
 		custom_tooltip = estate_vampires_vampiric_military_command_tooltip
-		summon_lord_alfonso = yes
+		if = {
+			limit = {has_global_flag = generals_activated_flag}
+			set_country_flag = get_lord_alfonso_flag
+			custom_tooltip = get_lord_alfonso_general_tt
+			custom_tooltip = improved_general_cost_tt
+			hidden_effect = {get_improved_general = yes}
+		}
+		else = {
+			summon_lord_alfonso = yes
+		}
 	}
 	
 	penalties = {
