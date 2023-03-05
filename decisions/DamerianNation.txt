@@ -33,40 +33,26 @@ country_decisions = {
 			was_never_end_game_tag_trigger = yes
 		}
 		provinces_to_highlight = {
-			OR = {	
-				AND = {
-					OR = {
-						province_id = 168	# Auraire
-						province_id = 6		# Damesear
-						province_id = 5		# Varivar
-						province_id = 2		# Eargate
-						province_id = 8		# Anbenncost
-						province_id = 11	# Damesteeth
-					}
-					OR = {
-						ROOT = { dip = 5 }
-						ROOT = { dynasty = "Silmuna"}
-					}
-				}
-				AND = {
-					NOT = { ROOT = { dip = 5 } }
-					NOT = { ROOT = { dynasty = "Silmuna"} }
-					OR = {
-						province_id = 168	# Auraire
-						province_id = 6		# Damesear
-						province_id = 5		# Varivar
-						province_id = 2		# Eargate
-						province_id = 8		# Anbenncost
-						province_id = 11	# Damesteeth
-						province_id = 276	# Damescross
-						province_id = 330	# Acromton
-						province_id = 910	# Taxwick
-						province_id = 281	# Plumwall
-						province_id = 13	# Toothsend
-						province_id = 10	# Wesdam
+			OR = {	#bertus mod
+				region = west_dameshead_region
+				region = east_dameshead_region
+			}
+			OR = {
+				area = west_damesear_area
+				area = east_damesear_area
+				NOT = {
+					ROOT = {
+						num_of_owned_provinces_with = {	#bertus mod
+							value = 70
+							OR = {
+								region = west_dameshead_region
+								region = east_dameshead_region
+							}
+						}
 					}
 				}
 			}
+			NOT = { owned_by = ROOT }
 			OR = {
 				NOT = { owned_by = ROOT }
 				NOT = { is_core = ROOT }
@@ -77,39 +63,22 @@ country_decisions = {
 			is_free_or_tributary_trigger = yes
 			is_nomad = no			
 			NOT = { exists = A58 }
+			num_of_owned_provinces_with = {
+				value = 70	#70/107
+				OR = {
+					region = west_dameshead_region	#50
+					region = east_dameshead_region	#57
+				}
+			}
+			west_damesear_area = {
+				owned_by = ROOT
+			}
+			east_damesear_area = {
+				owned_by = ROOT
+			}
 			OR = {
-				#owns core Dameshead and is godly ruler or Silmuna
-				AND = {
-					owns_core_province = 168	# Auraire
-					owns_core_province = 6		# Damesear
-					owns_core_province = 5		# Varivar
-					owns_core_province = 2		# Eargate
-					owns_core_province = 8		# Anbenncost
-					owns_core_province = 11		# Damesteeth
-					
-					OR = {
-						dip = 5
-						dynasty = "Silmuna"
-					}
-				}
-				#owns de jure Damerian lands
-				AND = {
-					owns_core_province = 168	# Auraire
-					owns_core_province = 6		# Damesear
-					owns_core_province = 5		# Varivar
-					owns_core_province = 2		# Eargate
-					owns_core_province = 8		# Anbenncost
-					
-					owns_core_province = 276	# Damescross
-					owns_core_province = 330	# Acromton
-					owns_core_province = 910	# Taxwick
-					owns_core_province = 281	# Plumwall
-					
-					owns_core_province = 13		# Toothsend
-					owns_core_province = 10		# Wesdam
-					
-					owns_core_province = 11		# Damesteeth
-				}
+				dip = 5
+				dynasty = "Silmuna"
 			}
 		}
 		effect = {
@@ -122,27 +91,11 @@ country_decisions = {
 			#remove_non_electors_emperors_from_empire_effect = yes
 			add_government_reform = damerian_empire	#bertus mod
 			
-			west_damesear_area = {
-				limit = { NOT = { owned_by = ROOT } }
-				add_permanent_claim = A58
-			}
-			east_damesear_area = {
-				limit = { NOT = { owned_by = ROOT } }
-				add_permanent_claim = A58
-			}
 			west_dameshead_region = {
 				limit = { NOT = { owned_by = ROOT } }
 				add_permanent_claim = A58
 			}
-			damerian_dales_area = {
-				limit = { NOT = { owned_by = ROOT } }
-				add_permanent_claim = A58
-			}
-			the_commons_area = {
-				limit = { NOT = { owned_by = ROOT } }
-				add_permanent_claim = A58
-			}
-			heartlands_area = {
+			east_dameshead_region = {
 				limit = { NOT = { owned_by = ROOT } }
 				add_permanent_claim = A58
 			}
@@ -163,9 +116,6 @@ country_decisions = {
 			set_country_flag = formed_dameria_flag
 			set_country_flag = is_a_grand_duchy
 		}
-		ai_will_do = {
-			factor = 1
-		}
+		ai_will_do = {factor = 1}
 	}
-	
 }
