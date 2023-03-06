@@ -2482,6 +2482,59 @@ estate_halfling_autonomy = {
 		}
 	}
 }
+estate_halfling_taxation_policy = {
+	icon = privilege_grant_autonomy
+	loyalty = -0.1
+	is_valid = {
+		OR = {
+			AND = {
+				uses_isolationism = yes
+				isolationism = 3
+			}
+			uses_isolationism = no
+		}
+		NOT = { has_country_modifier = halfling_administration }
+	}
+	can_select = {
+		any_owned_province = { culture_is_halfling = yes }
+	}
+	on_granted = {
+		small_decrease_of_halfling_tolerance_effect = yes
+		custom_tooltip = estate_halfling_taxation_effect_tooltip
+	}
+	on_granted_province = {
+		if = {
+			limit = {culture_is_halfling = yes}
+			add_province_modifier = { name = estate_racial_taxation_mod duration = -1 }
+			province_event = {id = bertus_pops.1075 days = 1 random = 5}
+		}
+		else_if = {
+			limit = {has_province_modifier = estate_racial_taxation_mod}
+			remove_province_modifier = estate_racial_taxation_mod
+		}
+	}
+	on_revoked_province = {
+		if = {
+			limit = {has_province_modifier = estate_racial_taxation_mod}
+			remove_province_modifier = estate_racial_taxation_mod
+			province_event = {id = bertus_pops.1075 days = 1 random = 5}
+		}
+	}
+	on_invalid_province = {
+		if = {
+			limit = {has_province_modifier = estate_racial_taxation_mod}
+			remove_province_modifier = estate_racial_taxation_mod
+			province_event = {id = bertus_pops.1075 days = 1 random = 5}
+		}
+	}
+	penalties = {}
+	benefits = {}
+	ai_will_do = {factor = 0}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		country_event = { id = halfling_tolerance_events.5003 }
+	}
+}
 estate_halfling_purge = {
 	icon = privilege_grant_autonomy
 	loyalty = -0.2

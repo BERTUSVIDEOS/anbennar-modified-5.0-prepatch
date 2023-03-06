@@ -126,22 +126,23 @@ age_of_discovery = {
 	abilities = {
 		#PROBABLY OK
 		ab_allow_feudal_de_jure_law = {
+			modifier = {
+				vassal_income = 0.2
+				can_transfer_vassal_wargoal = yes
+			}
 			effect = {
 				custom_tooltip = feudal_de_jure_law
 				set_country_flag = feudal_de_jure_law
 			}
-			ai_will_do = {
-				factor = 10
-			}
+			ai_will_do = {factor = 10}
 		}
-		
-		ab_justified_wars = {
+		ab_justified_wars = {	#bertus mod
 			allow = {
 				NOT = { has_age_ability = ab_anbennar_decentralization_of_the_empire }
 			}
 			modifier = {
-				#ae_impact = -0.1	#0.1→0
-				fabricate_claims_cost = -0.25	#0→-0.25
+				ae_impact = -0.1
+				unjustified_demands = -0.50
 			}
 			ai_will_do = {
 				factor = 10
@@ -152,36 +153,13 @@ age_of_discovery = {
 				}
 			}
 		}
-		
 		ab_transfer_vassal_wargoal = {
 			modifier = {
-				can_transfer_vassal_wargoal = yes
+				fabricate_claims_cost = -0.25	#0→-0.25
 				can_chain_claim = yes
 			}
-			ai_will_do = {
-				factor = 10
-			}
+			ai_will_do = {factor = 10}
 		}
-		
-		ab_free_war_taxes = {
-			modifier = {
-				war_taxes_cost_modifier = -1.0
-			}
-			ai_will_do = {
-				factor = 10
-			}	
-		}
-		
-		ab_cavalry_armies = {
-			modifier = {
-				#cav_to_inf_ratio = 0.2	#0.2→0
-				cavalry_power = 0.1	#0→0.1
-			}
-			ai_will_do = {
-				factor = 10
-			}
-		}
-		
 		ab_colony_boost_development = {
 			modifier = {
 				can_colony_boost_development = yes
@@ -198,7 +176,33 @@ age_of_discovery = {
 				}
 			}
 		}
-		
+		ab_eborthil_ship_trade = {
+			allow = {	#bertus mod
+				any_province = {
+					has_port = yes
+				}
+			}
+			modifier = {
+				global_ship_trade_power = 0.25	#0.5→0.25
+				light_ship_cost = -0.20
+			}
+			ai_will_do = {
+				factor = 100
+			}
+		}
+		ab_free_war_taxes = {
+			modifier = {
+				war_taxes_cost_modifier = -1.0
+			}
+			ai_will_do = {factor = 10}	
+		}
+		ab_cavalry_armies = {
+			modifier = {
+				#cav_to_inf_ratio = 0.2	#0.2→0
+				cavalry_power = 0.1	#0→0.1
+			}
+			ai_will_do = {factor = 10}
+		}
 		ab_attack_bonus_in_capital_terrain = {
 			modifier = {
 				own_territory_dice_roll_bonus = 1
@@ -211,7 +215,6 @@ age_of_discovery = {
 				}
 			}
 		}
-		
 		ab_veterans_of_the_lilac_wars = {	#bertus mod
 			allow = {
 				capital_scope = { continent = europe }
@@ -221,11 +224,8 @@ age_of_discovery = {
 				#manpower_recovery_speed = 0.35	#0.35→0
 				mercenary_discipline = 0.05	#0→0.05
 			}
-			ai_will_do = {
-				factor = 10
-			}
+			ai_will_do = {factor = 10}
 		}
-		
 		ab_spoils_of_escann = {	#bertus mod
 			allow = {
 				capital_scope = { continent = europe }
@@ -236,37 +236,17 @@ age_of_discovery = {
 				available_province_loot = 0.50
 				morale_damage = 0.1
 			}
-			ai_will_do = {
-				factor = 10
-			}
+			ai_will_do = {factor = 10}
 		}
-		
 		ab_anbennar_decentralization_of_the_empire = {
 			allow = {
 				is_part_of_hre = yes
-				NOT = { has_age_ability = ab_justified_wars }
 			}
 			modifier = {
-				#ae_impact = -0.25	#-0.25→0
+				ae_impact = -0.25
 				fabricate_claims_cost = -0.50	#0→-0.5
 			}
-			ai_will_do = {
-				factor = 10
-			}
-		}
-		
-		ab_eborthil_ship_trade = {
-			allow = {	#bertus mod
-				any_province = {
-					has_port = yes
-				}
-			}
-			modifier = {
-				global_ship_trade_power = 0.25	#0.5→0.25
-			}
-			ai_will_do = {
-				factor = 100
-			}
+			ai_will_do = {factor = 10}
 		}
 	}
 }
@@ -396,36 +376,30 @@ age_of_reformation = {
 			modifier = {
 				warscore_cost_vs_other_religion = -0.25
 			}
-			ai_will_do = {
-				factor = 10
-			}
+			ai_will_do = {factor = 10}
 		}
 		
 		ab_ship_power_propagation = {
 			modifier = {
 				ship_power_propagation = 1.0	#0.2→1.0
 			}
-			ai_will_do = {
-				factor = 10
-			}
+			ai_will_do = {factor = 10}
 		}
 		
-		ab_institution_spread_from_true_faith = {
+		ab_institution_spread_from_true_faith = {	#bertus mod
 			modifier = {
 				institution_spread_from_true_faith = 0.5
+				embracement_cost = -0.1
 			}
-			ai_will_do = {
-				factor = 10
-			}
+			ai_will_do = {factor = 10}
 		}
 		
-		ab_prestige_per_development_from_conversion = {
+		ab_prestige_per_development_from_conversion = {	#bertus mod
 			modifier = {
 				prestige_per_development_from_conversion = 0.3
+				global_missionary_strength = 0.02
 			}
-			ai_will_do = {
-				factor = 10
-			}
+			ai_will_do = {factor = 10}
 		}
 		
 		ab_adventurer_armies = {
@@ -433,9 +407,7 @@ age_of_reformation = {
 				mercenary_manpower = 0.25	#0.5→0.25
 				merc_maintenance_modifier = -0.15	#-0.33→-0.15
 			}
-			ai_will_do = {
-				factor = 10
-			}
+			ai_will_do = {factor = 10}
 		}
 
 		#ab_call_of_the_high_seas = {	#bertus
@@ -507,9 +479,7 @@ age_of_reformation = {
 			modifier = {
 				own_territory_dice_roll_bonus = 1
 			}
-			ai_will_do = {
-				factor = 10
-			}
+			ai_will_do = {factor = 10}
 		}
 		
 	}
@@ -591,69 +561,64 @@ age_of_absolutism = {
 				custom_tooltip = edict_of_absolutism_tt
 				set_country_flag = edict_of_absolutism
 			}
-			ai_will_do = {
-				factor = 10
-			}
+			ai_will_do = {factor = 10}
 		}
-
-		ab_rival_change = {
+		ab_decadent_web_of_lies = {
 			modifier = {
-				rival_change_cost = -0.5
+				#diplomatic_upkeep = 1	#1→0
+				diplomats = 1	#0→1
+				spy_offence = 0.25
 			}
-			ai_will_do = {
-				factor = 0
-			}
-		}
-
-		ab_rival_border_fort = {
-			modifier = {
-				rival_border_fort_maintenance = -1.0
-			}
-			ai_will_do = {
-				factor = 10
-			}
-		}
-
-
-		ab_autonomy = {
+			ai_will_do = {factor = 10}
+		}	
+		ab_autonomy = {	#bertus mod
 			modifier = {
 				autonomy_change_time = -0.5
+				global_autonomy = -0.10
 			}
-			ai_will_do = {
-				factor = 10
-			}
+			ai_will_do = {factor = 10}
 		}
-
-
-		ab_harsh_treatment = {
-			modifier = {
-				harsh_treatment_cost = -0.5
-			}
-			ai_will_do = {
-				factor = 10
-			}
-		}
-
-	
 		ab_adm_efficiency = {
 			modifier = {
 				administrative_efficiency = 0.05
 			}
-			ai_will_do = {
-				factor = 10
-			}
+			ai_will_do = {factor = 10}
 		}
-
 		ab_yearly_absolutism = {
 			modifier = {
-				yearly_absolutism = 1
+				yearly_absolutism = 2	#1→2
 			}
 			ai_will_do = {
 				factor = 100
 			}
 		}
-	
-	
+		ab_rival_change = {	#bertus mod
+			modifier = {
+				rival_change_cost = -0.5
+				possible_condottieri = 1
+			}
+			ai_will_do = {
+				factor = 0
+			}
+		}
+		ab_rival_border_fort = {
+			modifier = {
+				rival_border_fort_maintenance = -1.0
+			}
+			ai_will_do = {factor = 10}
+		}
+		ab_harsh_treatment = {	#bertus mod
+			modifier = {
+				drill_gain_modifier = 0.50
+			}
+			ai_will_do = {factor = 10}
+		}
+		ab_attack_bonus_in_capital_terrain_2 = {
+			modifier = {
+				own_territory_dice_roll_bonus = 1
+			}
+			ai_will_do = {factor = 10}
+		}
 		ab_direct_rule_in_escann = {	#bertus mod
 			allow = {
 				OR = {
@@ -663,34 +628,24 @@ age_of_absolutism = {
 				}
 			}
 			modifier = {
-				yearly_absolutism = 2
+				yearly_absolutism = 3	#2→3
+				max_absolutism = 20	#0→20
 				reform_progress_growth = 0.20
 			}
 			ai_will_do = {
 				factor = 1000
 			}
 		}
-		
-		ab_decadent_web_of_lies = {
+		ab_dwarven_reclamation = {
 			allow = {
-				capital_scope = { continent = europe }
+				culture_group = dwarven
+				capital_scope = { continent = serpentspine }
 			}
-			modifier = {
-				#diplomatic_upkeep = 1	#1→0
-				diplomats = 1	#0→1
-				spy_offence = 0.25
-			}
-			ai_will_do = {
-				factor = 10
-			}
-		}	
-		
-		ab_attack_bonus_in_capital_terrain_2 = {
-			modifier = {
-				own_territory_dice_roll_bonus = 1
+			effect = {
+				custom_tooltip = ab_dwarven_reclamation_tooltip
 			}
 			ai_will_do = {
-				factor = 10
+				factor = 1000
 			}
 		}
 		#ab_escanni_consolidation_wars = {	#bertus	 mod
@@ -722,19 +677,6 @@ age_of_absolutism = {
 				# factor = 100
 			# }
 		# }
-
-		ab_dwarven_reclamation = {
-			allow = {
-				culture_group = dwarven
-				capital_scope = { continent = serpentspine }
-			}
-			effect = {
-				custom_tooltip = ab_dwarven_reclamation_tooltip
-			}
-			ai_will_do = {
-				factor = 1000
-			}
-		}
 	}
 }
 
@@ -798,7 +740,6 @@ age_of_revolutions = {
 	}
 
 	abilities = {
-
 		ab_allow_anti_revolutionary_zeal = {
 			modifier = {
 				liberty_desire_from_subject_development = -0.33
@@ -815,54 +756,16 @@ age_of_revolutions = {
 				}
 			}
 		}
-
-		ab_fortbreaker_inventions = {	#Napoleonic Warfare
-			modifier = {
-				artillery_levels_available_vs_fort = 3
-			}
-			ai_will_do = {
-				factor = 10
-			}
-		}
-		
-
-		
-		ab_force_march = {
-			modifier = {
-				force_march_free = yes
-			}
-			ai_will_do = {
-				factor = 10
-			}
-		}
-		ab_more_ships_can_fire = {
-			modifier = {
-				global_naval_engagement_modifier = 0.20
-			}
-			ai_will_do = {
-				factor = 10
-			}
-		}
 		ab_no_distance_for_core = {
 			modifier = {
 				ignore_coring_distance = yes
 			}
-			ai_will_do = {
-				factor = 10
-			}
+			ai_will_do = {factor = 10}
 		}
-		
-		ab_backrow_artillery = {
-			modifier = {
-				backrow_artillery_damage = 0.20
-			}
-			ai_will_do = {
-				factor = 10
-			}
-		}
-		ab_same_contine_lib_desire = {
+		ab_same_contine_lib_desire = {	#bertus mod
 			modifier = {
 				reduced_liberty_desire_on_same_continent = 25
+				vassal_forcelimit_bonus = 1.0
 			}
 			ai_will_do = {
 				factor = 15
@@ -877,33 +780,55 @@ age_of_revolutions = {
 				}
 			}
 		}
-		ab_artificer_machinations_of_war = {
+		ab_magical_industrialization = {	#bertus mod
 			modifier = {
-				fire_damage = 0.25
+				production_efficiency = 0.15
+				development_cost_modifier = -0.05
 			}
 			ai_will_do = {
 				factor = 100
 			}
 		}
-		ab_attack_bonus_in_capital_terrain_3 = {
+		ab_more_ships_can_fire = {
 			modifier = {
-				own_territory_dice_roll_bonus = 1
+				global_naval_engagement_modifier = 0.20
+			}
+			ai_will_do = {factor = 10}
+		}
+		ab_force_march = {	#bertus mod
+			modifier = {
+				force_march_free = yes
+				movement_speed = 0.10
+			}
+			ai_will_do = {factor = 10}
+		}
+		ab_fortbreaker_inventions = {	#Napoleonic Warfare
+			modifier = {
+				artillery_levels_available_vs_fort = 3
+			}
+			ai_will_do = {factor = 10}
+		}
+		ab_backrow_artillery = {
+			modifier = {
+				backrow_artillery_damage = 0.20
+			}
+			ai_will_do = {factor = 10}
+		}
+		ab_artificer_machinations_of_war = {
+			modifier = {
+				fire_damage = 0.10
+				infantry_fire = 0.2
 			}
 			ai_will_do = {
-				factor = 10
+				factor = 100
 			}
 		}
-		#ab_magical_industrialization = {	#bertus mod
-		#	modifier = {
-		#		production_efficiency = 0.15
-		#	}
-		#	ai_will_do = {
-		#		factor = 100
-		#	}
-		#}
 		ab_anbennarian_resurgence = {
 			allow = {
-				tag = Z01
+				any_owned_province = {
+					culture_group = anbennarian
+					has_owner_accepted_culture = yes
+				}
 			}
 			modifier = {
 				fire_damage_received = -0.10	#-0.33→-0.1
@@ -913,17 +838,24 @@ age_of_revolutions = {
 				factor = 100
 			}
 		}
-		ab_orcish_nation = {
+		ab_orcish_nation = {	#bertus mod
 			allow = {
-				culture_group = orcish
+				high_tolerance_orcish_race_trigger = yes
 			}
 			modifier = {
-				development_cost = -0.1	#-0.25→-0.1
-				defensiveness = 0.1	#0.5→0.1
+				development_cost = -0.1
 			}
 			ai_will_do = {
 				factor = 100
 			}
 		}
+		#ab_attack_bonus_in_capital_terrain_3 = {
+		#	modifier = {
+		#		own_territory_dice_roll_bonus = 1
+		#	}
+		#	ai_will_do = {
+		#		factor = 10
+		#	}
+		#}
 	}
 }
