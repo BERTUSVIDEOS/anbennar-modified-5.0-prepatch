@@ -21,8 +21,7 @@ magisterium_invite_organization_action = {
 	}
 
     on_accept = {
-		FROM = {
-			set_estate_privilege = estate_mages_organization_magisterium			
+		FROM = {			
 			if = {limit = {has_estate_privilege = estate_mages_organization_state} remove_estate_privilege = estate_mages_organization_state}
 			if = {limit = {has_estate_privilege = estate_mages_organization_guilds} remove_estate_privilege = estate_mages_organization_guilds}
 			if = {limit = {has_estate_privilege = estate_mages_organization_religious} remove_estate_privilege = estate_mages_organization_religious}
@@ -30,6 +29,7 @@ magisterium_invite_organization_action = {
 			if = {limit = {has_estate_privilege = estate_mages_organization_elissa} remove_estate_privilege = estate_mages_organization_elissa}
 			if = {limit = {has_estate_privilege = estate_mages_organization_bardic_college} remove_estate_privilege = estate_mages_organization_bardic_college}
 			if = {limit = {has_estate_privilege = estate_mages_organization_ice_smiths} remove_estate_privilege = estate_mages_organization_ice_smiths}
+			set_estate_privilege = estate_mages_organization_magisterium
 			add_stability = -2
 		}
 	}
@@ -45,9 +45,7 @@ magisterium_invite_organization_action = {
 			divide_variable = { which = ai_value value = 4 }
 		}
 	}
-	ai_will_do = {
-		always = no
-	}
+	ai_will_do = {always = no}
 }
 
 magisterium_study_assistance_action = {
@@ -77,14 +75,13 @@ magisterium_study_assistance_action = {
 	}
 
     on_accept = {
-		FROM = {set_ruler_flag = magisterium_study_assistance_flag}
+		FROM = {
+			set_ruler_flag = magisterium_study_assistance_flag 
+			country_event = {id = bertus_changes.1118}
+		}
 	}
-	ai_acceptance = {
-		always = yes
-	}
-	ai_will_do = {
-		always = no
-	}
+	ai_acceptance = {always = yes}
+	ai_will_do = {always = no}
 }
 cancel_magisterium_study_assistance_action = {
 	category = influence
@@ -101,12 +98,13 @@ cancel_magisterium_study_assistance_action = {
 	}
 
     on_accept = {
-		FROM = { clr_ruler_flag = magisterium_study_assistance_flag }
+		FROM = {
+			clr_ruler_flag = magisterium_study_assistance_flag 
+			country_event = {id = bertus_changes.1118}
+		}
 	}
 	
-	ai_will_do = {
-		always = no
-	}
+	ai_will_do = {always = no}
 }
 magister_sphere_denounce_action = {
 	category = influence
@@ -115,7 +113,10 @@ magister_sphere_denounce_action = {
 	require_acceptance = no
 	
 	is_visible = {
-		FROM = { has_ruler_flag = caught_studying_banned_magic_flag }
+		FROM = {
+			has_ruler_flag = caught_studying_banned_magic_flag 
+			NOT = {has_ruler_flag = magister_denounced_flag }
+		}
     }
 	
 	is_allowed = {
@@ -129,9 +130,7 @@ magister_sphere_denounce_action = {
 		}
 	}
 	
-	ai_will_do = {
-		always = no
-	}
+	ai_will_do = {always = no}
 }
 
 magisterium_investigate_action = {
@@ -146,8 +145,8 @@ magisterium_investigate_action = {
 	
 	is_allowed = {
 		custom_trigger_tooltip = {
-			tooltip = need_50_spy_network_tt
-			has_spy_network_in = {who = FROM value = 50}
+			tooltip = need_75_spy_network_tt
+			has_spy_network_in = {who = FROM value = 75}
 		}
 		custom_trigger_tooltip = {
 			tooltip = magisterium_can_investigate_tt
@@ -161,19 +160,15 @@ magisterium_investigate_action = {
 			set_ruler_flag = magisterium_investigating_flag_@ROOT
 			country_event = {
 				id = bertus_changes.1115
-				days = 365
-				random = 1460
 			}
 		}
 		add_spy_network_in = {
 			who = FROM
-			value = -50
+			value = -75
 		}
 		
 	}
-	ai_will_do = {
-		always = no
-	}
+	ai_will_do = {always = no}
 }
 cancel_magisterium_investigate_action = {
 	category = influence	
@@ -193,7 +188,5 @@ cancel_magisterium_investigate_action = {
 		clr_country_flag = magisterium_investigating_flag_@FROM
 	}
 	
-	ai_will_do = {
-		always = no
-	}
+	ai_will_do = {always = no}
 }

@@ -2410,6 +2410,7 @@ country_event = {	#setup players electors & other stuff
 		set_global_flag = bertus_electors_selected_flag
 		set_global_flag = stored_goods_activated_flag
 		update_tech_flag = yes
+		set_global_flag = prohibited_studying_necromancy
 	}
 	option = {
 		name = bertus_changes.1100.a
@@ -3353,16 +3354,16 @@ country_event = {	#Magister sphere banned study investigation
 		
 	hidden = yes
 	is_triggered_only = yes
-	#trigger = {
-		#studying_banned_magic = yes
-	#}
-	immediate = {
-	}
+	
 	option = {	#
 		name = bertus_changes.1115.a
-		FROM = {
-			country_event = {
-				id = bertus_changes.1116
+		hidden_effect = {
+			FROM = {
+				country_event = {
+					id = bertus_changes.1116
+					days = 365
+					random = 1460
+				}
 			}
 		}
 	}
@@ -3375,8 +3376,7 @@ country_event = {	#Magister sphere banned study investigation
 				
 	is_triggered_only = yes
 
-	trigger = {
-	}
+	trigger = {}
 	immediate = {
 		clr_country_flag = magisterium_investigating_flag_@FROM
 		FROM = {clr_ruler_flag = magisterium_investigating_flag_@ROOT}
@@ -3403,10 +3403,6 @@ country_event = {	#Magister sphere denounced
 				
 	is_triggered_only = yes
 
-	trigger = {
-	}
-	immediate = {
-	}
 	option = {	#
 		name = bertus_changes.1117.a
 		every_known_country = {
@@ -3420,7 +3416,49 @@ country_event = {	#Magister sphere denounced
 			estate = estate_mages
 			desc = EST_VAL_MAGISTER_SPHERE_DENOUNCED
 			loyalty  = -20
+			duration = 7300
 		}
+		add_estate_influence_modifier = {
+			estate = estate_mages
+			desc = EST_VAL_MAGISTER_SPHERE_DENOUNCED
+			influence  = -20
+			duration = 7300
+		}
+	}
+}
+country_event = {	#Magister sphere study assistance
+	id = bertus_changes.1118
+	title = bertus_changes.1118.t
+	desc = bertus_changes.1118.desc
+	picture = DIPLOMACY_eventPicture
+				
+	is_triggered_only = yes
+
+	trigger = {}
+	immediate = {}
+	
+	option = {	#study assistance on
+		trigger = {FROM = {has_ruler_flag = magisterium_study_assistance_flag}}
+		name = bertus_changes.1118.a
+		update_magic_study_experience_modifier = { value = 25 }
+	}
+	option = {	#study assistance off
+		name = bertus_changes.1118.c
+		trigger = {FROM = {NOT = {has_ruler_flag = magisterium_study_assistance_flag}}}
+		update_magic_study_experience_modifier = { value = -25 }
+	}
+}
+country_event = {	#Magister sphere forced to abdicate
+	id = bertus_changes.1119
+	title = bertus_changes.1119.t
+	desc = bertus_changes.1119.desc
+	picture = DIPLOMACY_eventPicture
+				
+	is_triggered_only = yes
+	
+	option = {	#
+		name = bertus_changes.1119.a
+		kill_ruler = yes
 	}
 }
 province_event = {	#farming transformation
