@@ -41,12 +41,7 @@ update_bertus_pops = {
 	remove_pop_modifier = {race = all class = emperor_college_bonus amount = 25percent resource = goods_produced }
 }
 add_pop_modifier = {
-	remove_pop_modifier = {
-		race = $race$ 
-		class = $class$ 
-		amount = $amount$ 
-		resource = $resource$
-	}
+	remove_pop_modifier = {race = $race$ class = $class$ amount = $amount$ resource = $resource$}
 	trigger_switch = {
 		on_trigger = $onbase$
 		100	= { add_province_modifier = { name = $race$_$class$_$amount$_$resource$_100	 duration = -1 hidden = yes } }
@@ -267,29 +262,12 @@ culture_conversion_dev_change_cost = {
 	add_nationalism = -50
 	custom_tooltip = culture_conversion_dev_change_cost_tt
 	hidden_effect = {
-		set_variable = {
-			which = province_development
-			value = 0
-		}
-		set_variable = {
-			which = cicles_per_development
-			value = 1
-		}
-		export_to_variable = {
-			which = province_development
-			value = development
-		}
+		set_variable = {which = province_development value = 0}
+		set_variable = {which = cicles_per_development value = 1}
+		export_to_variable = {which = province_development value = development}
 		while = {
-			limit = {
-				check_variable = {
-					which = province_development
-					which = cicles_per_development
-				}
-			}
-			change_variable = {
-				which = cicles_per_development
-				value = 1
-			}
+			limit = {check_variable = {which = province_development which = cicles_per_development}}
+			change_variable = {which = cicles_per_development value = 1}
 			owner = { add_treasury = -5 }
 		}
 	}
@@ -298,129 +276,46 @@ culture_conversion_dev_reduction = {
 	add_nationalism = -50
 	custom_tooltip = culture_conversion_dev_reduction_tt
 	hidden_effect = {
-		set_variable = {
-			which = province_tax
-			value = 0
-		}
-		set_variable = {
-			which = province_production
-			value = 0
-		}
-		set_variable = {
-			which = province_manpower
-			value = 0
-		}
-		set_variable = {
-			which = cicles_per_tax
-			value = 1
-		}
-		set_variable = {
-			which = cicles_per_production
-			value = 1
-		}
-		set_variable = {
-			which = cicles_per_manpower
-			value = 1
-		}
-		export_to_variable = {
-			which = province_tax
-			value = base_tax
-		}
-		export_to_variable = {
-			which = province_production
-			value = base_production
-		}
-		export_to_variable = {
-			which = province_manpower
-			value = base_manpower
-		}
-		multiply_variable = {
-			which = province_tax
-			value = 0.5
-		}
-		multiply_variable = {
-			which = province_production
-			value = 0.5
-		}
-		multiply_variable = {
-			which = province_manpower
-			value = 0.5
-		}
+		set_variable = {which = province_tax value = 0}
+		set_variable = {which = province_production value = 0}
+		set_variable = {which = province_manpower value = 0}
+		set_variable = {which = cicles_per_tax value = 1}
+		set_variable = {which = cicles_per_production value = 1}
+		set_variable = {which = cicles_per_manpower value = 1}
+		export_to_variable = {which = province_tax value = base_tax}
+		export_to_variable = {which = province_production value = base_production}
+		export_to_variable = {which = province_manpower value = base_manpower}
+		multiply_variable = {which = province_tax value = 0.5}
+		multiply_variable = {which = province_production value = 0.5}
+		multiply_variable = {which = province_manpower value = 0.5}
 		while = {
-			limit = {
-				check_variable = {
-					which = province_tax
-					which = cicles_per_tax
-				}
-			}
-			change_variable = {
-				which = cicles_per_tax
-				value = 1
-			}
+			limit = {check_variable = {which = province_tax which = cicles_per_tax}}
+			change_variable = {which = cicles_per_tax value = 1}
 			add_base_tax = -1
 		}
 		while = {
-			limit = {
-				check_variable = {
-					which = province_production
-					which = cicles_per_production
-				}
-			}
-			change_variable = {
-				which = cicles_per_production
-				value = 1
-			}
+			limit = {check_variable = {which = province_production which = cicles_per_production}}
+			change_variable = {which = cicles_per_production value = 1}
 			add_base_production = -1
 		}
 		while = {
-			limit = {
-				check_variable = {
-					which = province_manpower
-					which = cicles_per_manpower
-				}
-			}
-			change_variable = {
-				which = cicles_per_manpower
-				value = 1
-			}
+			limit = {check_variable = {which = province_manpower which = cicles_per_manpower}}
+			change_variable = {which = cicles_per_manpower value = 1}
 			add_base_manpower = -1
 		}
-		hidden_effect = {update_bertus_pops = yes}
+		hidden_effect = {province_event = {id = bertus_pops.1038}}
 	}
 }
 gain_manpower_from_provinces = {
 	hidden_effect = {
-		set_variable = {
-			which = province_manpower
-			value = 0
-		}
-		set_variable = {
-			which = manpower_per_dev_tooltip
-			value = 0
-		}
-		set_variable = {
-			which = cicles_per_manpower
-			value = 1
-		}
-		export_to_variable = {
-			which = province_manpower
-			value = base_manpower
-		}
-		change_variable = {
-			which = manpower_per_dev_tooltip
-			value = $manpower_per_dev$
-		}
+		set_variable = {which = province_manpower value = 0}
+		set_variable = {which = manpower_per_dev_tooltip value = 0}
+		set_variable = {which = cicles_per_manpower value = 1}
+		export_to_variable = {which = province_manpower value = base_manpower}
+		change_variable = {which = manpower_per_dev_tooltip value = $manpower_per_dev$}
 		while = {
-			limit = {
-				check_variable = {
-					which = province_manpower
-					which = cicles_per_manpower
-				}
-			}
-			change_variable = {
-				which = cicles_per_manpower
-				value = 1
-			}
+			limit = {check_variable = {which = province_manpower which = cicles_per_manpower}}
+			change_variable = {which = cicles_per_manpower value = 1}
 			owner = { add_manpower = $manpower_per_dev$ }
 		}
 	}
@@ -428,37 +323,14 @@ gain_manpower_from_provinces = {
 }
 lose_manpower_from_provinces = {
 	hidden_effect = {
-		set_variable = {
-			which = province_manpower
-			value = 0
-		}
-		set_variable = {
-			which = manpower_per_dev_tooltip
-			value = 0
-		}
-		set_variable = {
-			which = cicles_per_manpower
-			value = 1
-		}
-		export_to_variable = {
-			which = province_manpower
-			value = base_manpower
-		}
-		subtract_variable = {
-			which = manpower_per_dev_tooltip
-			value = $manpower_per_dev$
-		}
+		set_variable = {which = province_manpower value = 0}
+		set_variable = {which = manpower_per_dev_tooltip value = 0}
+		set_variable = {which = cicles_per_manpower value = 1}
+		export_to_variable = {which = province_manpower value = base_manpower}
+		subtract_variable = {which = manpower_per_dev_tooltip value = $manpower_per_dev$}
 		while = {
-			limit = {
-				check_variable = {
-					which = province_manpower
-					which = cicles_per_manpower
-				}
-			}
-			change_variable = {
-				which = cicles_per_manpower
-				value = 1
-			}
+			limit = {check_variable = {which = province_manpower which = cicles_per_manpower}}
+			change_variable = {which = cicles_per_manpower value = 1}
 			owner = { add_manpower = -$manpower_per_dev$ }
 		}
 	}
@@ -466,37 +338,14 @@ lose_manpower_from_provinces = {
 }
 gain_treasury_from_provinces = {
 	hidden_effect = {
-		set_variable = {
-			which = province_development
-			value = 0
-		}
-		set_variable = {
-			which = cash_per_dev_tooltip
-			value = 0
-		}
-		set_variable = {
-			which = cicles_per_development
-			value = 1
-		}
-		export_to_variable = {
-			which = province_development
-			value = development
-		}
-		change_variable = {
-			which = cash_per_dev_tooltip
-			value = $cash_per_dev$
-		}
+		set_variable = {which = province_development value = 0}
+		set_variable = {which = cash_per_dev_tooltip value = 0}
+		set_variable = {which = cicles_per_development value = 1}
+		export_to_variable = {which = province_development value = development}
+		change_variable = {which = cash_per_dev_tooltip value = $cash_per_dev$}
 		while = {
-			limit = {
-				check_variable = {
-					which = province_development
-					which = cicles_per_development
-				}
-			}
-			change_variable = {
-				which = cicles_per_development
-				value = 1
-			}
+			limit = {check_variable = {which = province_development which = cicles_per_development}}
+			change_variable = {which = cicles_per_development value = 1	}
 			owner = { add_treasury = $cash_per_dev$ }
 		}
 	}
@@ -504,37 +353,14 @@ gain_treasury_from_provinces = {
 }
 lose_treasury_from_provinces = {
 	hidden_effect = {
-		set_variable = {
-			which = province_development
-			value = 0
-		}
-		set_variable = {
-			which = cash_per_dev_tooltip
-			value = 0
-		}
-		set_variable = {
-			which = cicles_per_development
-			value = 1
-		}
-		export_to_variable = {
-			which = province_development
-			value = development
-		}
-		subtract_variable = {
-			which = cash_per_dev_tooltip
-			value = $cash_per_dev$
-		}
+		set_variable = {which = province_development value = 0}
+		set_variable = {which = cash_per_dev_tooltip value = 0}
+		set_variable = {which = cicles_per_development value = 1}
+		export_to_variable = {which = province_development value = development}
+		subtract_variable = {which = cash_per_dev_tooltip value = $cash_per_dev$}
 		while = {
-			limit = {
-				check_variable = {
-					which = province_development
-					which = cicles_per_development
-				}
-			}
-			change_variable = {
-				which = cicles_per_development
-				value = 1
-			}
+			limit = {check_variable = {which = province_development which = cicles_per_development}}
+			change_variable = {which = cicles_per_development value = 1}
 			owner = { add_treasury = -$cash_per_dev$ }
 		}
 	}
@@ -542,37 +368,14 @@ lose_treasury_from_provinces = {
 }
 gain_prestige_from_provinces = {
 	hidden_effect = {
-		set_variable = {
-			which = province_development
-			value = 0
-		}
-		set_variable = {
-			which = prestige_per_dev_tooltip
-			value = 0
-		}
-		set_variable = {
-			which = cicles_per_development
-			value = 1
-		}
-		export_to_variable = {
-			which = province_development
-			value = development
-		}
-		change_variable = {
-			which = prestige_per_dev_tooltip
-			value = $prestige_per_dev$
-		}
+		set_variable = {which = province_development value = 0}
+		set_variable = {which = prestige_per_dev_tooltip value = 0}
+		set_variable = {which = cicles_per_development value = 1}
+		export_to_variable = {which = province_development value = development}
+		change_variable = {which = prestige_per_dev_tooltip value = $prestige_per_dev$}
 		while = {
-			limit = {
-				check_variable = {
-					which = province_development
-					which = cicles_per_development
-				}
-			}
-			change_variable = {
-				which = cicles_per_development
-				value = 1
-			}
+			limit = {check_variable = {which = province_development which = cicles_per_development}}
+			change_variable = {which = cicles_per_development value = 1}
 			owner = { add_prestige_or_monarch_power = {amount = $prestige_per_dev$ }}
 		}
 	}
@@ -580,37 +383,14 @@ gain_prestige_from_provinces = {
 }
 lose_prestige_from_provinces = {
 	hidden_effect = {
-		set_variable = {
-			which = province_development
-			value = 0
-		}
-		set_variable = {
-			which = prestige_per_dev_tooltip
-			value = 0
-		}
-		set_variable = {
-			which = cicles_per_development
-			value = 1
-		}
-		export_to_variable = {
-			which = province_development
-			value = development
-		}
-		subtract_variable = {
-			which = prestige_per_dev_tooltip
-			value = $prestige_per_dev$
-		}
+		set_variable = {which = province_development value = 0}
+		set_variable = {which = prestige_per_dev_tooltip value = 0}
+		set_variable = {which = cicles_per_development value = 1}
+		export_to_variable = {which = province_development value = development}
+		subtract_variable = {which = prestige_per_dev_tooltip value = $prestige_per_dev$}
 		while = {
-			limit = {
-				check_variable = {
-					which = province_development
-					which = cicles_per_development
-				}
-			}
-			change_variable = {
-				which = cicles_per_development
-				value = 1
-			}
+			limit = {check_variable = {which = province_development which = cicles_per_development}}
+			change_variable = {which = cicles_per_development value = 1}
 			owner = { add_prestige = -$prestige_per_dev$ }
 		}
 	}
@@ -618,33 +398,13 @@ lose_prestige_from_provinces = {
 }
 get_tolerance_from_provinces = {
 	hidden_effect = {
-		set_variable = {
-			which = province_development
-			value = 0
-		}
-		set_variable = {
-			which = tolerance_per_dev_tooltip
-			value = 0
-		}
-		set_variable = {
-			which = cicles_per_development
-			value = 1
-		}
-		export_to_variable = {
-			which = province_development
-			value = development
-		}
+		set_variable = {which = province_development value = 0}
+		set_variable = {which = tolerance_per_dev_tooltip value = 0}
+		set_variable = {which = cicles_per_development value = 1}
+		export_to_variable = {which = province_development value = development}
 		while = {
-			limit = {
-				check_variable = {
-					which = province_development
-					which = cicles_per_development
-				}
-			}
-			change_variable = {
-				which = cicles_per_development
-				value = 1
-			}
+			limit = {check_variable = {which = province_development which = cicles_per_development}}
+			change_variable = {which = cicles_per_development value = 1}
 			owner = {smallest_increase_of_$race$_tolerance_effect = yes }
 		}
 	}
@@ -653,33 +413,13 @@ get_tolerance_from_provinces = {
 }
 get_intolerance_from_provinces = {
 	hidden_effect = {
-		set_variable = {
-			which = province_development
-			value = 0
-		}
-		set_variable = {
-			which = intolerance_per_dev_tooltip
-			value = 0
-		}
-		set_variable = {
-			which = cicles_per_development
-			value = 1
-		}
-		export_to_variable = {
-			which = province_development
-			value = development
-		}
+		set_variable = {which = province_development value = 0}
+		set_variable = {which = intolerance_per_dev_tooltip value = 0}
+		set_variable = {which = cicles_per_development value = 1}
+		export_to_variable = {which = province_development value = development}
 		while = {
-			limit = {
-				check_variable = {
-					which = province_development
-					which = cicles_per_development
-				}
-			}
-			change_variable = {
-				which = cicles_per_development
-				value = 1
-			}
+			limit = {check_variable = {which = province_development which = cicles_per_development}}
+			change_variable = {which = cicles_per_development value = 1}
 			owner = { smallest_decrease_of_$race$_tolerance_effect = yes }
 		}
 	}
@@ -694,7 +434,7 @@ add_1_dev_to_provinces = {
 			25 = {add_base_production = 1}
 			25 = {add_base_manpower = 1}
 		}
-		update_bertus_pops = yes
+		hidden_effect = {province_event = {id = bertus_pops.1038}}
 	}
 }
 remove_1_dev_to_provinces = {
@@ -705,57 +445,24 @@ remove_1_dev_to_provinces = {
 			25 = {add_base_production = -1}
 			25 = {add_base_manpower = -1}
 		}
-		update_bertus_pops = yes
+		hidden_effect = {province_event = {id = bertus_pops.1038}}
 	}
 }
 get_levies_from_dev = {
 	hidden_effect = {
-		set_variable = {
-			which = total_development_var
-			value = 0
-		}
-		set_variable = {
-			which = cicles_per_development
-			value = 1
-		}
+		set_variable = {which = total_development_var value = 0}
+		set_variable = {which = cicles_per_development value = 1}
 		every_owned_province = {
-			limit = {
-				culture_group = ROOT
-				NOT = {has_province_modifier = recruited_levy_modifier}
-			}
-			add_province_modifier = {
-				name = recruited_levy_modifier
-				duration = 3650
-			}
-			set_variable = {
-				which = total_development_var
-				value = 0
-			}
-			export_to_variable = {
-				which = total_development_var
-				value = development
-			}
-			ROOT = {
-				change_variable = {
-					which = total_development_var
-					which = PREV
-				}
-			}
+			limit = {culture_group = ROOT NOT = {has_province_modifier = recruited_levy_modifier}}
+			add_province_modifier = {name = recruited_levy_modifier duration = 3650}
+			set_variable = {which = total_development_var value = 0}
+			export_to_variable = {which = total_development_var value = development}
+			ROOT = {change_variable = {	which = total_development_var which = PREV}}
 		}
 		while = {
-			limit = {
-				check_variable = {
-					which = total_development_var
-					which = cicles_per_development
-				}
-			}
-			change_variable = {
-				which = cicles_per_development
-				value = $dev_per_levy$
-			}
-			capital_scope = {
-				carolean_infantry  = ROOT
-			}
+			limit = {check_variable = {which = total_development_var which = cicles_per_development}}
+			change_variable = {which = cicles_per_development value = $dev_per_levy$}
+			capital_scope = {carolean_infantry  = ROOT}
 		}
 	}
 }

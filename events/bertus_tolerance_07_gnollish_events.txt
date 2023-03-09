@@ -10,7 +10,7 @@ province_event = {	# Racial Minister
 
 	trigger = {
 		owner = {NOT = {has_country_modifier = gnollish_administration}}
-		has_any_gnollish_pop_trigger = yes
+		culture_is_gnollish = yes
 	}
 	mean_time_to_happen = {
 		days = 73000
@@ -31,25 +31,7 @@ province_event = {	# Racial Minister
 				set_country_flag = gnollish_tolerance_events_1001_flag 
 			}
 			save_event_target_as = province_event_target
-			if = {
-				limit = {culture_is_gnollish = yes}
-				save_event_target_as = advisor_province_event_target
-			}
-			else_if = {
-				limit = {owner = {any_owned_province = {culture_is_gnollish = yes}}}
-				owner = {
-					random_owned_province = {
-						limit = {culture_is_gnollish = yes}
-						save_event_target_as = advisor_province_event_target
-					}
-				}
-			}
-			else = {
-				random_province = {
-					limit = {culture_is_gnollish = yes}
-					save_event_target_as = advisor_province_event_target
-				}
-			}
+			save_event_target_as = advisor_province_event_target
 			set_variable = {which = province_development value = 0}
 			export_to_variable = {which = province_development value = development}
 			set_variable = {which = cash_per_dev_tooltip value = 0}
@@ -66,7 +48,7 @@ province_event = {	# Racial Minister
 	option = {	# Recruit
 		name = gnollish_tolerance_events.1001.b
 		owner = {
-			get_racial_advisor = { race = gnollish }			
+			get_racial_advisor = { race = gnollish }
 			add_estate_loyalty = { estate = estate_gnollish loyalty = 10 }
 		}
 		get_tolerance_from_provinces = { race = gnollish }
@@ -741,8 +723,8 @@ country_event = {	#gnollish Intolerance privilege
 }
 country_event = {	# gnollish taxation
 	id = gnollish_tolerance_events.5003
-	title = gnollish_tolerance_events.5002.t
-	desc = gnollish_tolerance_events.5002.desc
+	title = gnollish_tolerance_events.5003.t
+	desc = gnollish_tolerance_events.5003.desc
 	picture = TRADE_GOODS_PLANTATION_GOODS_IN_WAREHOUSE_eventPicture
 
 	is_triggered_only = yes
@@ -757,5 +739,37 @@ country_event = {	# gnollish taxation
 
 		custom_tooltip = remove_estate_gnollish_taxation_policy.tooltip
 		remove_estate_privilege = estate_gnollish_taxation_policy
+	}
+}
+country_event = {	# gnollish tolerance update
+	id = gnollish_tolerance_events.5004
+	title = gnollish_tolerance_events.5004.t
+	desc = gnollish_tolerance_events.5004.desc
+	picture = TRADE_GOODS_PLANTATION_GOODS_IN_WAREHOUSE_eventPicture
+
+	is_triggered_only = yes
+	hidden = yes
+
+	option = {
+		name = gnollish_tolerance_events.5004.a
+
+		every_owned_province = {
+			update_specific_racial_province_modifier_tolerance = { race=gnollish }
+		}
+	}
+}
+country_event = {	# gnollish tolerance update
+	id = gnollish_tolerance_events.5005
+	title = gnollish_tolerance_events.5005.t
+	desc = gnollish_tolerance_events.5005.desc
+	picture = TRADE_GOODS_PLANTATION_GOODS_IN_WAREHOUSE_eventPicture
+
+	is_triggered_only = yes
+	hidden = yes
+
+	option = {
+		name = gnollish_tolerance_events.5005.a
+
+		update_gnollish_tolerance = yes
 	}
 }

@@ -3,569 +3,6 @@
 # These are here to make it easier for the devs to mod events (also allows smaller adjustment of event effects)
 # All of these either increase or decrease the current tolerance by 5, 10, 15 or 20.
 
-reset_racial_military_via_administration = {
-	if = {
-		limit = {
-			has_country_modifier = orcish_administration
-		}
-		add_country_modifier = { 
-			name = restructuring_military
-			duration = 3650
-		}
-		add_country_modifier = { 
-			name = orcish_military
-			duration = -1  
-		}
-		if = {
-			limit = {
-				OR = {
-					capital_scope = {
-						continent = serpentspine
-					}
-					primary_culture = black_orc
-					AND = {
-						accepted_culture = black_orc
-						NOT = { culture_group = orcish }
-					}
-				}
-			}
-			change_unit_type = tech_black_orcish
-		}
-		else_if = {
-			limit = {
-				OR = {
-					capital_scope = {
-						continent = asia
-						NOT = { superregion = forbidden_lands_superregion }
-					}
-					primary_culture = brown_orc
-					AND = {
-						accepted_culture = brown_orc
-						NOT = { culture_group = orcish }
-					}
-				}
-			}
-			change_unit_type = tech_east_orcish
-		}
-		else = {
-			change_unit_type = tech_orcish
-		}
-	}
-	else_if = {
-		limit = {
-			has_country_modifier = human_administration
-		}
-		add_country_modifier = { 
-			name = restructuring_military
-			duration = 3650
-		}
-		add_country_modifier = { 
-			name = human_military
-			duration = -1  
-		}
-		if = {
-			limit = {
-				capital_scope = { superregion = bulwar_superregion }
-			}
-			change_unit_type = tech_bulwari
-		}
-		else_if = {
-			limit = {
-				capital_scope = { superregion = salahad_superregion }
-			}
-			change_unit_type = tech_salahadesi
-		}
-		else_if = {
-			limit = {
-				capital_scope = { superregion = rahen_superregion }
-			}
-			change_unit_type = tech_raheni
-		}
-		else_if = {
-			limit = {
-				OR = {
-					capital_scope = { superregion = yanshen_superregion }
-					capital_scope = { superregion = south_haless_superregion }
-				}
-			}
-			change_unit_type = tech_halessi
-		}
-		else_if = {
-			limit = {
-				capital_scope = { superregion = north_haless_superregion }
-			}
-			change_unit_type = tech_shuvuush
-		}
-		else_if = {
-			limit = {
-				capital_scope = { superregion = forbidden_lands_superregion }
-			}
-			change_unit_type = tech_islanders
-		}
-		else_if = {
-			limit = {
-				capital_scope = { superregion = gerudia_superregion }
-			}
-			change_unit_type = tech_gerudian
-		}
-		else = {
-			change_unit_type = tech_cannorian
-		}
-	}
-	else_if = {
-		limit = {
-			has_country_modifier = elven_administration
-		}
-		add_country_modifier = { 
-			name = restructuring_military
-			duration = 3650
-		}
-		add_country_modifier = { 
-			name = elven_military
-			duration = -1  
-		}
-		if = {
-			limit = {
-				OR = {
-					capital_scope = { superregion = deepwoods_superregion }
-					primary_culture = wood_elf
-					AND = {
-						accepted_culture = wood_elf
-						NOT = { culture_group = elven }
-					}
-				}
-			}
-			change_unit_type = tech_wood_elf
-		}
-		else_if = {
-			limit = {
-				OR = {
-					capital_scope = { continent = asia }
-					capital_scope = { continent = africa }
-					AND = {
-						OR = {
-							capital_scope = { continent = north_america }
-							capital_scope = { continent = south_america }
-						}
-						religion_group = bulwari
-					}
-					primary_culture = sun_elf
-					primary_culture = dawn_elf
-					primary_culture = desert_elf
-					primary_culture = sunrise_elf
-					AND = {
-						accepted_culture = sun_elf
-						NOT = { culture_group = elven }
-					}
-					AND = {
-						accepted_culture = dawn_elf
-						NOT = { culture_group = elven }
-					}
-					AND = {
-						accepted_culture = desert_elf
-						NOT = { culture_group = elven }
-					}
-					AND = {
-						accepted_culture = sunrise_elf
-						NOT = { culture_group = elven }
-					}
-				}
-			}
-			change_unit_type = tech_east_elven
-		}
-		else = {
-			change_unit_type = tech_elven
-		}
-	}
-	else_if = {
-		limit = {
-			has_country_modifier = half_elven_administration
-		}
-		add_country_modifier = { 
-			name = restructuring_military
-			duration = 3650
-		}
-		add_country_modifier = { 
-			name = half_elven_military
-			duration = -1  
-		}
-		change_unit_type = tech_cannorian
-	}
-	
-	else_if = {
-		limit = {
-			has_country_modifier = half_orcish_administration
-		}
-		add_country_modifier = { 
-			name = restructuring_military
-			duration = 3650
-		}
-		add_country_modifier = { 
-			name = half_orcish_military
-			duration = -1  
-		}
-		if = {
-			limit = {
-				OR = {
-					capital_scope = { superregion = gerudia_superregion }
-					primary_culture = grombar_half_orc
-					primary_culture = grombar_orc
-					primary_culture = gray_orc
-					AND = {
-						accepted_culture = grombar_half_orc
-						NOT = { culture_is_half_orcish = yes }
-					}
-					AND = {
-						accepted_culture = grombar_orc
-						NOT = { culture_is_half_orcish = yes }
-					}
-					AND = {
-						accepted_culture = gray_orc
-						NOT = { culture_is_half_orcish = yes }
-					}
-				}
-			}
-			change_unit_type = tech_gerudian
-		}
-		else = {
-			change_unit_type = tech_cannorian
-		}
-	}
-	else_if = {
-		limit = {
-			has_country_modifier = troll_administration
-		}
-		add_country_modifier = { 
-			name = restructuring_military
-			duration = 3650
-		}
-		add_country_modifier = { 
-			name = troll_military
-			duration = -1  
-		}
-		change_unit_type = tech_troll	#may need to be changed to troll maybe
-	}
-	else_if = {
-		limit = {
-			has_country_modifier = gnollish_administration
-		}
-		add_country_modifier = { 
-			name = restructuring_military
-			duration = 3650
-		}
-		add_country_modifier = { 
-			name = gnollish_military
-			duration = -1  
-		}
-		change_unit_type = tech_gnollish
-		if = {
-			limit = { is_tribal = no }
-			set_country_flag = gnoll_reformed_mil_flag
-		}
-	}
-	else_if = {
-		limit = {
-			has_country_modifier = goblin_administration
-		}
-		add_country_modifier = { 
-			name = restructuring_military
-			duration = 3650
-		}
-		add_country_modifier = { 
-			name = goblin_military
-			duration = -1  
-		}
-		if = {
-			limit = {
-				OR = {
-					capital_scope = { continent = serpentspine }
-					primary_culture = cave_goblin
-					primary_culture = undergrowth_goblin
-					AND = {
-						accepted_culture = cave_goblin
-						NOT = { culture_group = goblin }
-					}
-					AND = {
-						accepted_culture = undergrowth_goblin
-						NOT = { culture_group = goblin }
-					}
-				}
-			}
-			change_unit_type = tech_cave_goblin
-		}
-		if = {
-			limit = {
-				OR = {
-					capital_scope = { superregion = bulwar_superregion }
-					primary_culture = exodus_goblin
-					AND = {
-						accepted_culture = exodus_goblin
-						NOT = { culture_group = goblin }
-					}
-				}
-			}
-			change_unit_type = tech_exodus_goblin
-		}
-		else = {
-			change_unit_type = tech_goblin
-		}
-	}
-	else_if = {
-		limit = {
-			has_country_modifier = gnomish_administration
-		}
-		add_country_modifier = { 
-			name = restructuring_military
-			duration = 3650
-		}
-		add_country_modifier = { 
-			name = gnomish_military
-			duration = -1  
-		}
-		change_unit_type = tech_gnomish
-	}
-	else_if = {
-		limit = {
-			has_country_modifier = dwarven_administration
-		}
-		add_country_modifier = { 
-			name = restructuring_military
-			duration = 3650
-		}
-		add_country_modifier = { 
-			name = dwarven_military
-			duration = -1  
-		}
-		change_unit_type = tech_dwarven
-	}
-	else_if = {
-		limit = {
-			has_country_modifier = kobold_administration
-		}
-		add_country_modifier = { 
-			name = restructuring_military
-			duration = 3650
-		}
-		add_country_modifier = { 
-			name = kobold_military
-			duration = -1  
-		}
-		if = {
-			limit = {
-				OR = {
-					capital_scope = { superregion = yanshen_superregion }
-					capital_scope = { superregion = south_haless_superregion }
-					capital_scope = { superregion = north_haless_superregion }
-					capital_scope = { superregion = rahen_superregion }
-					primary_culture = goldscale_kobold
-					AND = {
-						accepted_culture = goldscale_kobold
-						NOT = { culture_group = kobold }
-					}
-				}
-			}
-			change_unit_type = tech_east_kobold
-		}
-		else = {
-			change_unit_type = tech_kobold
-		}
-	}
-	else_if = {
-		limit = {
-			has_country_modifier = ruinborn_administration
-		}
-		add_country_modifier = { 
-			name = restructuring_military
-			duration = 3650
-		}
-		add_country_modifier = { 
-			name = ruinborn_military
-			duration = -1  
-		}
-		if = {
-			limit = {
-				capital_scope = { superregion = ynn_superregion }
-			}
-			change_unit_type = tech_ynnic
-		}
-		else_if = {
-			limit = {
-				capital_scope = { superregion = eordand_superregion }
-			}
-			change_unit_type = tech_eordand
-		}
-		else_if = {
-			limit = {
-				capital_scope = { superregion = kheionai_superregion }
-			}
-			change_unit_type = tech_kheionai
-		}
-		else_if = {
-			limit = {
-				capital_scope = { superregion = greater_taychend_superregion }
-			}
-			change_unit_type = tech_taychendi
-		}
-		else_if = {
-			limit = {
-				OR = {
-					capital_scope = { superregion = north_aelantir_superregion }
-					capital_scope = { superregion = ruined_sea_superregion }
-					capital_scope = { superregion = torn_sea_superregion }
-				}
-			}
-			change_unit_type = tech_north_aelantiri
-		}
-		else_if = {
-			limit = {
-				OR = {
-					capital_scope = { superregion = south_aelantir_superregion }
-					capital_scope = { superregion = effelai_superregion }
-				}
-			}
-			change_unit_type = tech_south_aelantiri
-		}
-		else = {
-			change_unit_type = tech_north_aelantiri
-		}
-	}
-	else_if = {
-		limit = {
-			has_country_modifier = harpy_administration
-		}
-		add_country_modifier = { 
-			name = restructuring_military
-			duration = 3650
-		}
-		add_country_modifier = { 
-			name = harpy_military
-			duration = -1  
-		}
-		if = {
-			limit = {
-				OR = {
-					capital_scope = { superregion = yanshen_superregion }
-					capital_scope = { superregion = south_haless_superregion }
-					capital_scope = { superregion = north_haless_superregion }
-					primary_culture = feng_harpy
-					AND = {
-						accepted_culture = feng_harpy
-						NOT = { culture_group = harpy }
-					}
-				}
-			}
-			change_unit_type = tech_east_harpy
-		}
-		else = {
-			change_unit_type = tech_harpy
-		}
-	}
-	else_if = {
-		limit = {
-			has_country_modifier = halfling_administration
-		}
-		add_country_modifier = { 
-			name = restructuring_military
-			duration = 3650
-		}
-		add_country_modifier = { 
-			name = halfling_military
-			duration = -1  
-		}
-		change_unit_type = tech_halfling
-	}
-	else_if = {
-		limit = {
-			has_country_modifier = ogre_administration
-		}
-		add_country_modifier = { 
-			name = restructuring_military
-			duration = 3650
-		}
-		add_country_modifier = { 
-			name = ogre_military
-			duration = -1  
-		}
-		if = {
-			limit = {
-				OR = {
-					capital_scope = { superregion = yanshen_superregion }
-					capital_scope = { superregion = south_haless_superregion }
-					capital_scope = { superregion = north_haless_superregion }
-					capital_scope = { superregion = rahen_superregion }
-					primary_culture = horned_ogre
-					AND = {
-						accepted_culture = horned_ogre
-						NOT = { culture_group = ogre }
-					}
-				}
-			}
-			change_unit_type = tech_eastern_ogre 
-		}
-		else = {
-			change_unit_type = tech_ogre	#may need custom one
-		}
-	}
-	else_if = {
-		limit = {
-			has_country_modifier = centaur_administration
-		}
-		add_country_modifier = { 
-			name = restructuring_military
-			duration = 3650
-		}
-		add_country_modifier = { 
-			name = centaur_military
-			duration = -1  
-		}
-		change_unit_type = tech_centaur
-	}
-	else_if = {
-		limit = {
-			has_country_modifier = harimari_administration
-		}
-		add_country_modifier = { 
-			name = restructuring_military
-			duration = 3650
-		}
-		add_country_modifier = { 
-			name = harimari_military
-			duration = -1  
-		}
-		if = {
-			limit = {
-				OR = {
-					capital_scope = { superregion = yanshen_superregion }
-					capital_scope = { superregion = south_haless_superregion }
-					capital_scope = { superregion = north_haless_superregion }
-					primary_culture = east_harimari
-					AND = {
-						accepted_culture = east_harimari
-						NOT = { culture_group = harimari }
-					}
-				}
-			}
-			change_unit_type = tech_east_harimari
-		}
-		else = {
-			change_unit_type = tech_harimari
-		}
-	}
-	else_if = {
-		limit = {
-			has_country_modifier = hobgoblin_administration
-		}
-		add_country_modifier = { 
-			name = restructuring_military
-			duration = 3650
-		}
-		add_country_modifier = { 
-			name = hobgoblin_military
-			duration = -1  
-		}
-		change_unit_type = tech_hobgoblin
-	}
-}
 
 clear_racial_administration = {
 	remove_country_modifier = elven_administration
@@ -3009,37 +2446,22 @@ update_specific_racial_province_modifier_tolerance = { #$race$ = the race you're
 			limit = { owner = { high_tolerance_$race$_race_trigger = yes } }
 			#High Tolerance - Small Minority
 			if = {
-				limit = {
-					has_small_$race$_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = $race$_minority_integrated_small
-					duration = -1
-				}
+				limit = {has_small_$race$_minority_trigger = yes}
+				add_permanent_province_modifier = {name = $race$_minority_integrated_small duration = -1}
 				remove_province_modifier = $race$_minority_oppressed_small
 				remove_province_modifier = $race$_minority_coexisting_small
 			}
 			#High Tolerance - Large Minority
 			else_if = {
-				limit = {
-					has_large_$race$_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = $race$_minority_integrated_large
-					duration = -1
-				}
+				limit = {has_large_$race$_minority_trigger = yes}
+				add_permanent_province_modifier = {name = $race$_minority_integrated_large duration = -1}
 				remove_province_modifier = $race$_minority_oppressed_large
 				remove_province_modifier = $race$_minority_coexisting_large
 			}
 			#High Tolerance - Majority
 			else_if = {
-				limit = {
-					has_$race$_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = $race$_majority_integrated
-					duration = -1
-				}
+				limit = {has_$race$_majority_trigger = yes}
+				add_permanent_province_modifier = {name = $race$_majority_integrated duration = -1}
 				remove_province_modifier = $race$_majority_primary
 				remove_province_modifier = $race$_majority_oppressed
 				remove_province_modifier = $race$_majority_coexisting
@@ -3050,37 +2472,22 @@ update_specific_racial_province_modifier_tolerance = { #$race$ = the race you're
 			limit = { owner = { medium_tolerance_$race$_race_trigger = yes } }
 			#Medium Tolerance - Small Minority
 			if = {
-				limit = {
-					has_small_$race$_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = $race$_minority_coexisting_small
-					duration = -1
-				}
+				limit = {has_small_$race$_minority_trigger = yes}
+				add_permanent_province_modifier = {name = $race$_minority_coexisting_small duration = -1}
 				remove_province_modifier = $race$_minority_oppressed_small
 				remove_province_modifier = $race$_minority_integrated_small
 			}
 			#Medium Tolerance - Large Minority
 			else_if = {
-				limit = {
-					has_large_$race$_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = $race$_minority_coexisting_large
-					duration = -1
-				}
+				limit = {has_large_$race$_minority_trigger = yes}
+				add_permanent_province_modifier = {name = $race$_minority_coexisting_large duration = -1}
 				remove_province_modifier = $race$_minority_oppressed_large
 				remove_province_modifier = $race$_minority_integrated_large
 			}
 			#Medium Tolerance - Majority
 			else_if = {
-				limit = {
-					has_$race$_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = $race$_majority_coexisting
-					duration = -1
-				}
+				limit = {has_$race$_majority_trigger = yes}
+				add_permanent_province_modifier = {name = $race$_majority_coexisting duration = -1}
 				remove_province_modifier = $race$_majority_oppressed
 				remove_province_modifier = $race$_majority_integrated
 				remove_province_modifier = $race$_majority_primary
@@ -3091,37 +2498,22 @@ update_specific_racial_province_modifier_tolerance = { #$race$ = the race you're
 			limit = { owner = { low_tolerance_$race$_race_trigger = yes } }
 			#Low Tolerance - Small Minority
 			if = {
-				limit = {
-					has_small_$race$_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = $race$_minority_oppressed_small
-					duration = -1
-				}
+				limit = {has_small_$race$_minority_trigger = yes}
+				add_permanent_province_modifier = {name = $race$_minority_oppressed_small duration = -1}
 				remove_province_modifier = $race$_minority_integrated_small
 				remove_province_modifier = $race$_minority_coexisting_small
 			}
 			#Low Tolerance - Majority
 			else_if = {
-				limit = {
-					has_large_$race$_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = $race$_minority_oppressed_large
-					duration = -1
-				}
+				limit = {has_large_$race$_minority_trigger = yes}
+				add_permanent_province_modifier = {name = $race$_minority_oppressed_large duration = -1}
 				remove_province_modifier = $race$_minority_integrated_large
 				remove_province_modifier = $race$_minority_coexisting_large
 			}
 			#Low Tolerance - Majority
 			else_if = {
-				limit = {
-					has_$race$_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = $race$_majority_oppressed
-					duration = -1
-				}
+				limit = {has_$race$_majority_trigger = yes}
+				add_permanent_province_modifier = {name = $race$_majority_oppressed duration = -1}
 				remove_province_modifier = $race$_majority_primary
 				remove_province_modifier = $race$_majority_integrated
 				remove_province_modifier = $race$_majority_coexisting
@@ -4021,7 +3413,6 @@ cleanup_racial_province_minority_into_majority = {
 
 make_majority_primary = {
 	#AddNewRaceHere
-	
 	#dwarven
 	if = {
 		limit = {
@@ -4029,13 +3420,8 @@ make_majority_primary = {
 			owner = { has_country_modifier = dwarven_administration }
 		}
 		remove_province_modifier = dwarven_majority_integrated
-
-		add_permanent_province_modifier = {
-			name = dwarven_majority_primary
-			duration = -1
-		}
+		add_permanent_province_modifier = {name = dwarven_majority_primary duration = -1}
 	}
-	
 	#elven
 	else_if = {
 		limit = {
@@ -4043,13 +3429,8 @@ make_majority_primary = {
 			owner = { has_country_modifier = elven_administration }
 		}
 		remove_province_modifier = elven_majority_integrated
-
-		add_permanent_province_modifier = {
-			name = elven_majority_primary
-			duration = -1
-		}
+		add_permanent_province_modifier = {name = elven_majority_primary duration = -1}
 	}
-	
 	#halfling
 	else_if = {
 		limit = {
@@ -4057,13 +3438,8 @@ make_majority_primary = {
 			owner = { has_country_modifier = halfling_administration }
 		}
 		remove_province_modifier = halfling_majority_integrated
-
-		add_permanent_province_modifier = {
-			name = halfling_majority_primary
-			duration = -1
-		}
+		add_permanent_province_modifier = {name = halfling_majority_primary duration = -1}
 	}
-	
 	#gnomish
 	else_if = {
 		limit = {
@@ -4071,13 +3447,8 @@ make_majority_primary = {
 			owner = { has_country_modifier = gnomish_administration }
 		}
 		remove_province_modifier = gnomish_majority_integrated
-
-		add_permanent_province_modifier = {
-			name = gnomish_majority_primary
-			duration = -1
-		}
+		add_permanent_province_modifier = {name = gnomish_majority_primary duration = -1}
 	}
-	
 	#half_orcish
 	else_if = {
 		limit = {
@@ -4085,13 +3456,8 @@ make_majority_primary = {
 			owner = { has_country_modifier = half_orcish_administration }
 		}
 		remove_province_modifier = half_orcish_majority_integrated
-
-		add_permanent_province_modifier = {
-			name = half_orcish_majority_primary
-			duration = -1
-		}
+		add_permanent_province_modifier = {name = half_orcish_majority_primary duration = -1}
 	}
-	
 	#kobold
 	else_if = {
 		limit = {
@@ -4099,13 +3465,8 @@ make_majority_primary = {
 			owner = { has_country_modifier = kobold_administration }
 		}
 		remove_province_modifier = kobold_majority_integrated
-
-		add_permanent_province_modifier = {
-			name = kobold_majority_primary
-			duration = -1
-		}
+		add_permanent_province_modifier = {name = kobold_majority_primary duration = -1}
 	}
-	
 	#orcish
 	else_if = {
 		limit = {
@@ -4113,13 +3474,8 @@ make_majority_primary = {
 			owner = { has_country_modifier = orcish_administration }
 		}
 		remove_province_modifier = orcish_majority_integrated
-
-		add_permanent_province_modifier = {
-			name = orcish_majority_primary
-			duration = -1
-		}
+		add_permanent_province_modifier = {name = orcish_majority_primary duration = -1}
 	}
-	
 	#human
 	else_if = {
 		limit = {
@@ -4127,13 +3483,8 @@ make_majority_primary = {
 			owner = { has_country_modifier = human_administration }
 		}
 		remove_province_modifier = human_majority_integrated
-
-		add_permanent_province_modifier = {
-			name = human_majority_primary
-			duration = -1
-		}
+		add_permanent_province_modifier = {name = human_majority_primary duration = -1}
 	}
-	
 	#gnollish
 	else_if = {
 		limit = {
@@ -4141,13 +3492,8 @@ make_majority_primary = {
 			owner = { has_country_modifier = gnollish_administration }
 		}
 		remove_province_modifier = gnollish_majority_integrated
-
-		add_permanent_province_modifier = {
-			name = gnollish_majority_primary
-			duration = -1
-		}
+		add_permanent_province_modifier = {name = gnollish_majority_primary duration = -1}
 	}
-	
 	#ruinborn
 	else_if = {
 		limit = {
@@ -4155,13 +3501,8 @@ make_majority_primary = {
 			owner = { has_country_modifier = ruinborn_administration }
 		}
 		remove_province_modifier = ruinborn_majority_integrated
-
-		add_permanent_province_modifier = {
-			name = ruinborn_majority_primary
-			duration = -1
-		}
+		add_permanent_province_modifier = {name = ruinborn_majority_primary duration = -1}
 	}
-	
 	#goblin
 	else_if = {
 		limit = {
@@ -4169,13 +3510,8 @@ make_majority_primary = {
 			owner = { has_country_modifier = goblin_administration }
 		}
 		remove_province_modifier = goblin_majority_integrated
-
-		add_permanent_province_modifier = {
-			name = goblin_majority_primary
-			duration = -1
-		}
+		add_permanent_province_modifier = {name = goblin_majority_primary duration = -1}
 	}
-	
 	#harpy
 	else_if = {
 		limit = {
@@ -4183,13 +3519,8 @@ make_majority_primary = {
 			owner = { has_country_modifier = harpy_administration }
 		}
 		remove_province_modifier = harpy_majority_integrated
-
-		add_permanent_province_modifier = {
-			name = harpy_majority_primary
-			duration = -1
-		}
+		add_permanent_province_modifier = {name = harpy_majority_primary duration = -1}
 	}
-
 	#troll
 	else_if = {
 		limit = {
@@ -4197,13 +3528,8 @@ make_majority_primary = {
 			owner = { has_country_modifier = troll_administration }
 		}
 		remove_province_modifier = troll_majority_integrated
-
-		add_permanent_province_modifier = {
-			name = troll_majority_primary
-			duration = -1
-		}
+		add_permanent_province_modifier = {name = troll_majority_primary duration = -1}
 	}
-	
 	#half_elven
 	else_if = {
 		limit = {
@@ -4211,13 +3537,8 @@ make_majority_primary = {
 			owner = { has_country_modifier = half_elven_administration }
 		}
 		remove_province_modifier = half_elven_majority_integrated
-
-		add_permanent_province_modifier = {
-			name = half_elven_majority_primary
-			duration = -1
-		}
+		add_permanent_province_modifier = {name = half_elven_majority_primary duration = -1}
 	}
-	
 	#harimari
 	else_if = {
 		limit = {
@@ -4225,13 +3546,8 @@ make_majority_primary = {
 			owner = { has_country_modifier = harimari_administration }
 		}
 		remove_province_modifier = harimari_majority_integrated
-
-		add_permanent_province_modifier = {
-			name = harimari_majority_primary
-			duration = -1
-		}
+		add_permanent_province_modifier = {name = harimari_majority_primary duration = -1}
 	}
-	
 	#hobgoblin
 	else_if = {
 		limit = {
@@ -4239,13 +3555,8 @@ make_majority_primary = {
 			owner = { has_country_modifier = hobgoblin_administration }
 		}
 		remove_province_modifier = hobgoblin_majority_integrated
-
-		add_permanent_province_modifier = {
-			name = hobgoblin_majority_primary
-			duration = -1
-		}
+		add_permanent_province_modifier = {name = hobgoblin_majority_primary duration = -1}
 	}
-	
 	#centaur
 	else_if = {
 		limit = {
@@ -4253,13 +3564,8 @@ make_majority_primary = {
 			owner = { has_country_modifier = centaur_administration }
 		}
 		remove_province_modifier = centaur_majority_integrated
-
-		add_permanent_province_modifier = {
-			name = centaur_majority_primary
-			duration = -1
-		}
+		add_permanent_province_modifier = {name = centaur_majority_primary duration = -1}
 	}
-	
 	#ogre
 	else_if = {
 		limit = {
@@ -4267,11 +3573,7 @@ make_majority_primary = {
 			owner = { has_country_modifier = ogre_administration }
 		}
 		remove_province_modifier = ogre_majority_integrated
-
-		add_permanent_province_modifier = {
-			name = ogre_majority_primary
-			duration = -1
-		}
+		add_permanent_province_modifier = {name = ogre_majority_primary duration = -1}
 	}
 }
 

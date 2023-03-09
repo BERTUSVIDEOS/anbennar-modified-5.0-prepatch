@@ -386,10 +386,7 @@ clear_artificers_weapon = {
 	remove_country_modifier = artifice_weapons_arcane_blaster_31
 }
 take_estate_land_share_all = {
-	 change_estate_land_share = {
-		estate = $estate$
-		share = -100
-	}
+	 change_estate_land_share = {estate = $estate$ share = -100}
 }
 set_basic_variables = {
 	set_variable = {which = $RACE$_base_manpower_province_variable value = 0}
@@ -417,15 +414,11 @@ change_estate_land_to_percentage = {
 		}
 		set_variable = {which = land_to_percentage_var value = 1.0}
 		if = {
-			limit = {
-				check_variable = {which = $RACE$_total_base_manpower_variable which = land_to_percentage_var}
-			}
+			limit = {check_variable = {which = $RACE$_total_base_manpower_variable which = land_to_percentage_var}}
 			change_estate_land_share = {estate = estate_$RACE$ share = 0.99}
 		}
 		while = {
-			limit = {
-				check_variable = {which = $RACE$_total_base_manpower_variable which = land_to_percentage_var}
-			}
+			limit = {check_variable = {which = $RACE$_total_base_manpower_variable which = land_to_percentage_var}}
 			change_variable = {which = land_to_percentage_var value = 1}
 			change_estate_land_share = {estate = estate_$RACE$ share = 1}
 		}
@@ -803,6 +796,7 @@ get_special_general_stats = {
 			change_variable = {which = country_leader_fire_var value = 1}
 			change_variable = {which = country_leader_shock_var value = 1}
 			change_variable = {which = country_leader_manuever_var value = 1}
+			change_variable = {which = country_leader_siege_var value = 1}
 		}
 	}
 	else_if = {
@@ -810,6 +804,15 @@ get_special_general_stats = {
 		if = {
 			limit = {has_estate_privilege = estate_mages_battlemage_academies }
 			change_variable = {which = country_leader_shock_var value = 1}
+			change_variable = {which = country_leader_fire_var value = 1}
+			change_variable = {which = country_leader_manuever_var value = 1}
+		}
+		if = {
+			limit = {has_estate_privilege = estate_magisterium_battlemages }
+			change_variable = {which = country_leader_shock_var value = 1}
+			change_variable = {which = country_leader_fire_var value = 1}
+			change_variable = {which = country_leader_manuever_var value = 1}
+			change_variable = {which = country_leader_siege_var value = 1}
 		}
 		if = {
 			limit = {has_estate_privilege = estate_mages_fire_academy }
@@ -877,29 +880,29 @@ get_special_general_stats = {
 	}
 	else_if = {
 		limit = {has_country_flag = get_lord_alfonso_flag }
-		set_variable = {which = country_leader_lord_alfonso_shock_var value = 1}
-		set_variable = {which = country_leader_lord_alfonso_fire_var value = 2}
-		set_variable = {which = country_leader_lord_alfonso_manuever_var value = 3}
-		set_variable = {which = country_leader_lord_alfonso_siege_var value = 4}
+		set_variable = {which = country_leader_lord_alfonso_shock_var value = 0}
+		set_variable = {which = country_leader_lord_alfonso_fire_var value = 3}
+		set_variable = {which = country_leader_lord_alfonso_manuever_var value = 0}
+		set_variable = {which = country_leader_lord_alfonso_siege_var value = 0}
 		change_variable = {which = lord_alfonso value = 2}
 		while = {
 			limit = {check_variable = {which = lord_alfonso which = country_leader_lord_alfonso_shock_var}}
-			change_variable = {which = country_leader_lord_alfonso_shock_var value = 4}
+			change_variable = {which = country_leader_lord_alfonso_shock_var value = 6}
 			change_variable = {which = country_leader_shock_var value = 1}
 		}
 		while = {
 			limit = {check_variable = {which = lord_alfonso which = country_leader_lord_alfonso_fire_var}}
-			change_variable = {which = country_leader_lord_alfonso_fire_var value = 4}
+			change_variable = {which = country_leader_lord_alfonso_fire_var value = 6}
 			change_variable = {which = country_leader_fire_var value = 1}
 		}
 		while = {
 			limit = {check_variable = {which = lord_alfonso which = country_leader_lord_alfonso_manuever_var}}
-			change_variable = {which = country_leader_lord_alfonso_manuever_var value = 4}
+			change_variable = {which = country_leader_lord_alfonso_manuever_var value = 5}
 			change_variable = {which = country_leader_manuever_var value = 1}
 		}
 		while = {
 			limit = {check_variable = {which = lord_alfonso which = country_leader_lord_alfonso_siege_var}}
-			change_variable = {which = country_leader_lord_alfonso_siege_var value = 4}
+			change_variable = {which = country_leader_lord_alfonso_siege_var value = 8}
 			change_variable = {which = country_leader_siege_var value = 1}
 		}
 	}
@@ -1085,409 +1088,6 @@ clr_special_general_flags = {
 	clr_country_flag = KruthnuTheBrawl_flag
 	clr_country_flag = McGregorTheBully_flag
 	clear_saved_name = special_general_name
-}
-get_dookan_general = {
-	tooltip = {
-		random_list = {
-			33 = {
-				define_general = { fire = 8 shock = 3	 manuever = 1 siege = 3
-					trait = fire_specialist_personality
-					name = "Shagg't Firemouth"
-				}
-			}
-			33 = {
-				define_general = {
-					fire = 3 shock = 8	 manuever = 3 siege = 2
-					trait = shock_specialist_personality
-					name = "Krambru Strongarm"
-				}
-			}
-			33 = {
-				define_general = { fire = 3 shock = 3	 manuever = 6 siege = 6
-					trait = loot_specialist_personality
-					name = "Lutgor 'The Reaver'"
-				}
-			}
-		}
-	}
-}
-get_dookan_general_ideas = {
-	tooltip = {
-		random_list = {
-			33 = {
-				define_general = { fire = 9 shock = 4	 manuever = 2 siege = 4 
-					trait = fire_specialist_personality
-					name = "Shagg't Firemouth"
-				}
-			}
-			33 = {
-				define_general = {
-					fire = 5 shock = 9	 manuever = 5 siege = 3
-					trait = shock_specialist_personality
-					name = "Krambru Strongarm"
-				}
-			}
-			33 = {
-				define_general = { fire = 4 shock = 4	 manuever = 7 siege = 7
-					trait = loot_specialist_personality
-					name = "Lutgor 'The Reaver'"
-				}
-			}
-		}
-	}
-}
-get_ik_magthaal_general = {	
-	tooltip = {
-		random_list = {
-			33 = {
-				define_general = { fire = 4 shock = 8	 manuever = 8 siege = 0
-					trait = goal_oriented_personality
-					name = "Zathnar longlegged"
-				}
-			}
-			33 = {
-				define_general = { fire = 7 shock = 7	 manuever = 7 siege = 0
-					trait = glory_seeker_personality
-					name = "Drogo 'The Great'"
-				}
-			}
-			33 = {
-				define_general = { fire = 2 shock = 8	 manuever = 4 siege = 2
-					trait = winged_general_personality
-					name = "Pegthus 'The Winged'"
-				}
-			}
-			33 = {
-				define_general = { fire = 0 shock = 10	 manuever = 0 siege = 0
-					trait = Bull_personality
-					name = "Kruthnu 'The Brawl'"
-				}
-			}
-		}
-	}
-}
-get_ik_magthaal_general_ideas = {	
-	tooltip = {
-		random_list = {
-			33 = {
-				define_general = { fire = 5 shock = 9	 manuever = 9 siege = 1
-					trait = goal_oriented_personality
-					name = "Zathnar longlegged"
-				}
-			}
-			33 = {
-				define_general = { fire = 8 shock = 8	 manuever = 8 siege = 1
-					trait = glory_seeker_personality
-					name = "Drogo 'The Great'"
-				}
-			}
-			33 = {
-				define_general = { fire = 3 shock = 9	 manuever = 5 siege = 3
-					trait = winged_general_personality
-					name = "Pegthus 'The Winged'"
-				}
-			}
-			33 = {
-				define_general = { fire = 1 shock = 11	 manuever = 1 siege = 1
-					trait = Bull_personality
-					name = "Kruthnu 'The Brawl'"
-				}
-			}
-		}
-	}
-}
-get_feast_of_the_gods_general = {	
-	tooltip = {
-		random_list = {
-			33 = {
-				define_general = { fire = 9 shock = 3 manuever = 3 siege = 3
-					trait = ruthless_personality
-					name = "Carl 'The Loony'"
-				}
-			}
-			33 = {
-				define_general = { fire = 6 shock = 6	 manuever = 6 siege = 0
-					trait = defensive_planner_personality
-					name = "Mike 'The Brainy'"
-				}
-			}
-			33 = {
-				define_general = { fire = 1 shock = 12	 manuever = 5 siege = 0
-					trait = big_belly_personality
-					name = "Jonhy 'The Fat'"
-				}
-			}
-			33 = {
-				define_general = { fire = 3 shock = 9 manuever = 3 siege = 3
-					trait = master_of_arms_personality
-					name = "McGregor 'The Bully'"
-				}
-			}
-		}
-	}
-}
-get_feast_of_the_gods_general_ideas = {	
-	tooltip = {
-		random_list = {
-			33 = {
-				define_general = { fire = 10 shock = 4 manuever = 4 siege = 4
-					trait = ruthless_personality
-					name = "Carl 'The Loony'"
-				}
-			}
-			33 = {
-				define_general = { fire = 7 shock = 7	 manuever = 7 siege = 1
-					trait = defensive_planner_personality
-					name = "Mike 'The Brainy'"
-				}
-			}
-			33 = {
-				define_general = { fire = 2 shock = 13	 manuever = 6 siege = 1
-					trait = big_belly_personality
-					name = "Jonhy 'The Fat'"
-				}
-			}
-			33 = {
-				define_general = { fire = 4 shock = 10 manuever = 4 siege = 4
-					trait = master_of_arms_personality
-					name = "McGregor 'The Bully'"
-				}
-			}
-		}
-	}
-}
-summon_lord_alfonso = {
-	hidden_effect = {
-		kill_leader = {
-			type = "Lord Alfonso"
-		}
-		if = {
-			limit = {full_idea_group = generalstab0	}
-			change_variable = {which = lord_alfonso value = 3}
-		}
-		else = {
-			change_variable = {which = lord_alfonso value = 2}
-		}
-	}
-	if = {
-		limit = {check_variable = {which = lord_alfonso value = 30}}
-		define_general = {
-			name = "Lord Alfonso"
-			fire = 9 shock = 13 manuever = 8 siege = 8
-		}
-	}
-	else_if = {
-		limit = {check_variable = {which = lord_alfonso value = 29}}
-		define_general = {
-			name = "Lord Alfonso"
-			fire = 9 shock = 13 manuever = 8 siege = 7
-		}
-	}
-	else_if = {
-		limit = {check_variable = {which = lord_alfonso value = 28}}
-		define_general = {
-			name = "Lord Alfonso"
-			fire = 8 shock = 13 manuever = 8 siege = 7
-		}
-	}
-	else_if = {
-		limit = {check_variable = {which = lord_alfonso value = 27}}
-		define_general = {
-			name = "Lord Alfonso"
-			fire = 8 shock = 12 manuever = 8 siege = 7
-		}
-	}
-	else_if = {
-		limit = {check_variable = {which = lord_alfonso value = 26}}
-		define_general = {
-			name = "Lord Alfonso"
-			fire = 8 shock = 12 manuever = 8 siege = 6
-		}
-	}
-	else_if = {
-		limit = {check_variable = {which = lord_alfonso value = 25}}
-		define_general = {
-			name = "Lord Alfonso"
-			fire = 8 shock = 12 manuever = 7 siege = 6
-		}
-	}
-	else_if = {
-		limit = {check_variable = {which = lord_alfonso value = 24}}
-		define_general = {
-			name = "Lord Alfonso"
-			fire = 7 shock = 12 manuever = 7 siege = 6
-		}
-	}
-	else_if = {
-		limit = {check_variable = {which = lord_alfonso value = 23}}
-		define_general = {
-			name = "Lord Alfonso"
-			fire = 6 shock = 12 manuever = 7 siege = 6
-		}
-	}
-	else_if = {
-		limit = {check_variable = {which = lord_alfonso value = 22}}
-		define_general = {
-			name = "Lord Alfonso"
-			fire = 6 shock = 11 manuever = 7 siege = 6
-		}
-	}
-	else_if = {
-		limit = {check_variable = {which = lord_alfonso value = 21}}
-		define_general = {
-			name = "Lord Alfonso"
-			fire = 6 shock = 11 manuever = 7 siege = 5
-		}
-	}
-	else_if = {
-		limit = {check_variable = {which = lord_alfonso value = 20}}
-		define_general = {
-			name = "Lord Alfonso"
-			fire = 5 shock = 11 manuever = 7 siege = 5
-		}
-	}
-	else_if = {
-		limit = {check_variable = {which = lord_alfonso value = 19}}
-		define_general = {
-			name = "Lord Alfonso"
-			fire = 5 shock = 11 manuever = 6 siege = 5
-		}
-	}
-	else_if = {
-		limit = {check_variable = {which = lord_alfonso value = 18}}
-		define_general = {
-			name = "Lord Alfonso"
-			fire = 5 shock = 11 manuever = 5 siege = 5
-		}
-	}
-	else_if = {
-		limit = {check_variable = {which = lord_alfonso value = 17}}
-		define_general = {
-			name = "Lord Alfonso"
-			fire = 5 shock = 10 manuever = 5 siege = 5
-		}
-	}
-	else_if = {
-		limit = {check_variable = {which = lord_alfonso value = 16}}
-		define_general = {
-			name = "Lord Alfonso"
-			fire = 4 shock = 10 manuever = 5 siege = 5
-		}
-	}
-	else_if = {
-		limit = {check_variable = {which = lord_alfonso value = 15}}
-		define_general = {
-			name = "Lord Alfonso"
-			fire = 4 shock = 10 manuever = 5 siege = 4
-		}
-	}
-	else_if = {
-		limit = {check_variable = {which = lord_alfonso value = 14}}
-		define_general = {
-			name = "Lord Alfonso"
-			fire = 3 shock = 10 manuever = 5 siege = 4
-		}
-	}
-	else_if = {
-		limit = {check_variable = {which = lord_alfonso value = 13}}
-		define_general = {
-			name = "Lord Alfonso"
-			fire = 3 shock = 10 manuever = 4 siege = 4
-		}
-	}
-	else_if = {
-		limit = {check_variable = {which = lord_alfonso value = 12}}
-		define_general = {
-			name = "Lord Alfonso"
-			fire = 3 shock = 9 manuever = 4 siege = 4
-		}
-	}
-	else_if = {
-		limit = {check_variable = {which = lord_alfonso value = 11}}
-		define_general = {
-			name = "Lord Alfonso"
-			fire = 3 shock = 9 manuever = 4 siege = 3
-		}
-	}
-	else_if = {
-		limit = {check_variable = {which = lord_alfonso value = 10}}
-		define_general = {
-			name = "Lord Alfonso"
-			fire = 3 shock = 8 manuever = 4 siege = 3
-		}
-	}
-	else_if = {
-		limit = {check_variable = {which = lord_alfonso value = 9}}
-		define_general = {
-			name = "Lord Alfonso"
-			fire = 2 shock = 8 manuever = 4 siege = 3
-		}
-	}
-	else_if = {
-		limit = {check_variable = {which = lord_alfonso value = 8}}
-		define_general = {
-			name = "Lord Alfonso"
-			fire = 2 shock = 8 manuever = 4 siege = 2
-		}
-	}
-	else_if = {
-		limit = {check_variable = {which = lord_alfonso value = 7}}
-		define_general = {
-			name = "Lord Alfonso"
-			fire = 2 shock = 7 manuever = 4 siege = 2
-		}
-	}
-	else_if = {
-		limit = {check_variable = {which = lord_alfonso value = 6}}
-		define_general = {
-			name = "Lord Alfonso"
-			fire = 2 shock = 7 manuever = 3 siege = 2
-		}
-	}
-	else_if = {
-		limit = {check_variable = {which = lord_alfonso value = 5}}
-		define_general = {
-			name = "Lord Alfonso"
-			fire = 2 shock = 7 manuever = 3 siege = 1
-		}
-	}
-	else_if = {
-		limit = {check_variable = {which = lord_alfonso value = 4}}
-		define_general = {
-			name = "Lord Alfonso"
-			fire = 2 shock = 6 manuever = 3 siege = 1
-		}
-	}
-	else_if = {
-		limit = {check_variable = {which = lord_alfonso value = 3}}
-		define_general = {
-			name = "Lord Alfonso"
-			fire = 2 shock = 6 manuever = 2 siege = 1
-		}
-	}
-	else_if = {
-		limit = {check_variable = {which = lord_alfonso value = 2}}
-		define_general = {
-			name = "Lord Alfonso"
-			fire = 1 shock = 6 manuever = 2 siege = 1
-		}
-	}
-	else_if = {
-		limit = {check_variable = {which = lord_alfonso value = 1}}
-		define_general = {
-			name = "Lord Alfonso"
-			fire = 1 shock = 6 manuever = 2 siege = 0
-		}
-	}
-	else = {
-		hidden_effect = {
-			set_variable = {which = lord_alfonso value = 0}
-		}
-		define_general = {
-			name = "Lord Alfonso"
-			fire = 1 shock = 5 manuever = 2 siege = 0
-		}
-	}
 }
 update_tech_group = {
 	if = {
