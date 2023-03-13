@@ -389,7 +389,11 @@ estate_elven_recruitment = {
 	icon = privilege_demand_more_troops
 	loyalty = -0.10
 	influence = 0.10
-	is_valid = {	
+	is_valid = {
+		high_tolerance_elven_race_trigger = yes	
+		any_owned_province = {
+			culture_is_elven = yes
+		}
 		OR = {
 			AND = {
 				uses_isolationism = yes
@@ -397,6 +401,7 @@ estate_elven_recruitment = {
 			}
 			uses_isolationism = no			
 		}
+		NOT = {has_estate_privilege = estate_elven_ibevari_recruitment}
 	}
 	can_select = {		
 		high_tolerance_elven_race_trigger = yes	
@@ -416,12 +421,136 @@ estate_elven_recruitment = {
 		custom_tooltip = malus_if_dwarven_mechanic_tooltip
 		custom_tooltip = elven_bonus_against_dwarves_mechanic_tooltip
 	}
-	modifier_by_land_ownership = {	
+	modifier_by_land_ownership = {	}
+	penalties = {}
+	benefits = {}
+	mechanics = {
+		enables_cossack_regiments
 	}
-	penalties = {
+	conditional_modifier = {
+		trigger = {
+			estate_territory = {
+				estate = estate_elven
+				territory = 60
+			}
+			any_country = {
+				estate_territory = {
+					estate = estate_dwarven
+					territory = 40
+				}
+				war_with = ROOT
+			}
+		}
+		modifier = {
+			discipline = 0.05
+		}
 	}
-	benefits = {
+	conditional_modifier = {
+		trigger = {
+			estate_territory = {
+				estate = estate_elven
+				territory = 90
+			}
+		}
+		modifier = {
+			drill_decay_modifier = -0.2
+		}
 	}
+	conditional_modifier = {
+		trigger = {
+			estate_territory = {
+				estate = estate_elven
+				territory = 60
+			}
+			is_at_war = yes
+		}
+		modifier = {
+			war_exhaustion = 0.05
+		}
+	}
+	can_revoke = {
+	}
+	on_revoked = {
+		hidden_effect = {
+			clr_country_flag = estate_elven_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+		add_mil_power = -100
+	}
+	on_invalid = {
+		hidden_effect = {
+			clr_country_flag = estate_elven_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}		
+	}
+	ai_will_do = {
+		factor = 1000
+	}
+}
+estate_elven_ibevari_recruitment = {
+	icon = privilege_demand_more_troops
+	loyalty = -0.10
+	influence = 0.10
+	is_valid = {
+		high_tolerance_elven_race_trigger = yes	
+		any_owned_province = {
+			culture_is_elven = yes
+		}
+		OR = {
+			AND = {
+				uses_isolationism = yes
+				isolationism = 2
+			}
+			uses_isolationism = no
+		}
+		NOT = {
+			has_race_recruitment = { race = human }
+			has_race_recruitment = { race = dwarven }
+			has_race_recruitment = { race = gnomish }
+			has_race_recruitment = { race = halfling }
+			has_race_recruitment = { race = harimari }
+			has_race_recruitment = { race = gnollish }
+			has_race_recruitment = { race = orcish }
+			has_race_recruitment = { race = goblin }
+			has_race_recruitment = { race = half_orcish }
+			has_race_recruitment = { race = ogre }
+			has_race_recruitment = { race = centaur }
+			has_race_recruitment = { race = troll }
+			has_race_recruitment = { race = harpy }
+			has_race_recruitment = { race = hobgoblin }
+			has_race_recruitment = { race = kobold }
+		}
+	}
+	can_select = {
+		high_tolerance_elven_race_trigger = yes	
+		any_owned_province = {
+			culture_is_elven = yes
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			set_country_flag = estate_elven_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+		custom_tooltip = fast_pace_race_mechanic_tooltip
+		custom_tooltip = malus_if_monstrous_mechanic_tooltip
+		custom_tooltip = malus_if_dwarven_mechanic_tooltip
+		custom_tooltip = elven_bonus_against_dwarves_mechanic_tooltip
+	}
+	modifier_by_land_ownership = {
+		discipline = 0.10
+		mercenary_discipline = -0.10
+		military_tactics = 0.20
+		global_regiment_cost = 0.20
+	}
+	penalties = {}
+	benefits = {}
 	mechanics = {
 		enables_cossack_regiments
 	}
@@ -645,6 +774,7 @@ estate_elven_intolerance_policy = {
 	}
 	benefits = {
 		global_missionary_strength = 0.01
+		administrative_efficiency = 0.05
 	}
 	conditional_modifier = {
 		trigger = {
@@ -692,7 +822,8 @@ estate_elven_intolerance_policy = {
 			legitimacy = -1
 			republican_tradition = -0.25
 			devotion = -0.5
-			global_unrest = 2		
+			global_unrest = 2
+			administrative_efficiency = -0.05		
 		}
 	}
 	on_revoked = {
