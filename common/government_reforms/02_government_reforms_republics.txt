@@ -691,7 +691,6 @@ revolutionary_republic_reform = {
 		land_morale = 0.1
 		global_autonomy = -0.2
 		max_revolutionary_zeal = 50
-		max_absolutism = 40
 		papal_influence = -100
 	}
 	fixed_rank = 3
@@ -2908,7 +2907,7 @@ the_pirate_ways_reform = {	# new LotN
 	}
 }
 
-liberte_reform = {
+liberte_reform = {	#bertus mod
 	icon = "liberte_reform"
 	allow_normal_conversion = yes
 	potential = {
@@ -2918,14 +2917,22 @@ liberte_reform = {
 	modifiers = {
 		rr_girondists_influence = 0.1
 		num_accepted_cultures = 2
-		promote_culture_cost = -0.75
+		promote_culture_cost = -0.50
+	}
+	conditional = {
+		allow = {
+			has_dlc = "Leviathan"
+		}
+		custom_attributes = {
+			cultural_bureaucracy = yes
+		}
 	}
 	ai = {
 		factor = 2.5
 	}
 }
 
-egalite_reform = {
+egalite_reform = {	#bertus mod
 	icon = "egalite_reform"
 	allow_normal_conversion = yes
 	potential = {
@@ -2935,15 +2942,20 @@ egalite_reform = {
 	modifiers = {
 		rr_jacobins_influence = 0.1
 		republican_tradition = 0.25
-		legitimacy = 1
-		advisor_pool = 1
+		state_governing_cost = -0.10
+	}
+	conditional = {
+		allow = { has_dlc = "Mandate of Heaven" }
+		custom_attributes = {
+			unlock_special_state_edicts = yes
+		}
 	}
 	ai = {
 		factor = 2.5
 	}
 }
 
-fraternite_reform = {
+fraternite_reform = {	#bertus mod
 	icon = "fraternite_reform"
 	allow_normal_conversion = yes
 	potential = {
@@ -2952,9 +2964,11 @@ fraternite_reform = {
 	}
 	modifiers = {
 		rr_royalists_influence = 0.1
-		culture_conversion_cost = -0.2
-		harsh_treatment_cost = -0.25
-		reform_progress_growth = 0.1
+		reform_progress_growth = 0.20
+	}
+	custom_attributes = {
+		centralize_state_half_refund = yes
+		boost_30_dev_provinces = yes
 	}
 	ai = {
 		factor = 2.5
@@ -3191,25 +3205,50 @@ devotee_to_the_people_reform = {	#new Lotn
 #consolidate_power_in_doge_reform	#bertus mod
 #consolidate_power_in_cities_reform	#bertus mod
 
-legislative_assembly_reform = {
+legislative_assembly_reform = {	#bertus mod
 	icon = "legislative_assembly_reform"
 	allow_normal_conversion = yes
 	potential = {
+		has_estate = estate_artificers
 		is_revolutionary = yes
 		has_dlc = "Emperor"
 	}
 	modifiers = {
-		yearly_revolutionary_zeal = 1.5
+		yearly_revolutionary_zeal = 2.0
+		max_revolutionary_zeal = 20
+		artificers_loyalty_modifier = 0.10
+		artificers_influence_modifier = 0.10
+		adventurers_loyalty_modifier = -0.10
+		adventurers_influence_modifier = -0.10
+		mages_loyalty_modifier = -0.10
+		mages_influence_modifier = -0.10
+		free_leader_pool = -1
 	}
 	custom_attributes = {
+		artificer_commander_academy = yes
 		can_force_election = yes
+	}
+	effect = {
+		if = {
+			limit = {has_estate_privilege = estate_adventurers_emergency_general}
+			remove_estate_privilege = estate_adventurers_emergency_general
+		}
+		if = {
+			limit = {has_estate_privilege = estate_mages_emergency_general}
+			remove_estate_privilege = estate_mages_emergency_general
+		}
+		if = {
+			limit = {has_estate_privilege = estate_artificers_emergency_general}
+			remove_estate_privilege = estate_artificers_emergency_general
+		}
+		country_event = {id = bertus_changes.6010}
 	}
 	ai = {
 		factor = 10
 	}
 }
 
-national_constituent_reform = {
+national_constituent_reform = {	#bertus mod
 	icon = "national_constituent_reform"
 	allow_normal_conversion = yes
 	potential = {
@@ -3217,16 +3256,22 @@ national_constituent_reform = {
 		has_dlc = "Emperor"
 	}
 	modifiers = {
-		improve_relation_modifier = 0.15
-		diplomatic_upkeep = 1
 		reelection_cost = -0.15
+		all_estate_influence_modifier = 0.1
+		all_estate_loyalty_equilibrium = 0.1
+		adventurers_influence_modifier = -0.1
+		artificers_influence_modifier = -0.1
+		mages_influence_modifier = -0.1
+		adventurers_loyalty_modifier = -0.1
+		artificers_loyalty_modifier = -0.1
+		mages_loyalty_modifier = -0.1
 	}
 	ai = {
 		factor = 10
 	}
 }
 
-national_assembly_reform = {	#new LotN
+national_assembly_reform = {	#new LotN	#bertus mod
 	icon = "national_assembly"
 	allow_normal_conversion = yes
 	potential = {
@@ -3235,6 +3280,9 @@ national_assembly_reform = {	#new LotN
 	}
 	modifiers = {
 		candidate_random_bonus = 2
+		adm_tech_cost_modifier = -0.1
+		adm_advisor_cost = -0.1
+		country_admin_power = 2
 	}
 	custom_attributes = {
 		elections_increase_factions_influence = yes
@@ -3647,6 +3695,7 @@ presidential_reform = {
 	icon = "man_on_podium"
 	allow_normal_conversion = yes
 	potential = {
+		is_revolutionary = no
 		#NOT = { has_reform = nezkaru_council_reform }
 		NOT = {
 			has_reform = golden_republic_reform
@@ -3809,7 +3858,7 @@ municipal_self_defense_reform = {
 	}
 }
 
-feuillant_reform = {
+feuillant_reform = {	#bertus mod
 	icon = "feuillant_reform"
 	allow_normal_conversion = yes
 	potential = {
@@ -3834,19 +3883,19 @@ feuillant_reform = {
 			revolutionaries = {
 				land_morale = 0.1
 				republican_tradition = 0.1
-				yearly_revolutionary_zeal = 0.25
+				yearly_revolutionary_zeal = 2
 			}
 
 			monarchists = {
 				diplomatic_reputation = 1
-				manpower_recovery_speed = 0.1
+				manpower_recovery_speed = 0.2
 				global_unrest = -1
 			}
 		}
 	}
 }
 
-two_chamber_reform = {
+two_chamber_reform = {	#bertus mod
 	icon = "parliament_hall"
 	allow_normal_conversion = yes
 	potential = {
@@ -3855,6 +3904,7 @@ two_chamber_reform = {
 	}
 	modifiers = {
 		free_policy = 1
+		election_cycle = -1
 		republican_tradition = 0.15
 	}
 	
@@ -3863,6 +3913,29 @@ two_chamber_reform = {
 	}
 }
 
+presidential_revolutionary_reform = {
+	icon = "man_on_podium"
+	allow_normal_conversion = yes
+	potential = {
+		is_revolutionary = yes
+		NOT = {
+			has_reform = golden_republic_reform
+			has_reform = bulwar_twelve_families_reform
+		}
+	}
+	modifiers = {
+		max_revolutionary_zeal = 10
+		yearly_revolutionary_zeal = 1
+		reform_progress_growth = 0.2
+		all_estate_loyalty_equilibrium = 0.05
+	}
+	custom_attributes = {
+		has_parliament = yes
+	}
+	ai = {
+		factor = 1
+	}
+}
 azkare_extended_terms_reform = {
 	icon = "equal_electorate_reform"
 	allow_normal_conversion = yes
@@ -3936,6 +4009,7 @@ broaden_executive_powers_reform = {
 	allow_normal_conversion = yes
 	potential = {
 		#Anbennar
+		is_revolutionary = no
 		NOT = { culture_group = dwarven }
 	}
 	modifiers = {
@@ -4007,7 +4081,6 @@ consolidate_power_to_the_ruler_reform = {	#new LotN
 			is_revolutionary = no
 			NOT = { has_dlc = "Emperor" }
 		}
-		
 		#Anbennar
 		NOT = {
 			has_reform = bulwar_twelve_families_reform
@@ -4046,6 +4119,7 @@ consolidate_power_into_different_candidates_reform = {	#new LotN
 	icon = "dutch_republic"
 	allow_normal_conversion = yes
 	potential = {
+		is_revolutionary = no
 		NOT = { has_government_attribute = is_pirate_republic_reform }
 	}
 	trigger = {
@@ -4142,30 +4216,38 @@ absolute_president_reform = {
 	}
 	modifiers = {
 		all_power_cost = -0.05
-		election_cycle = 1
+		free_adm_policy = 1
+	}
+	custom_attributes = {
+		boosted_stability = yes
 	}
 	ai = {
 		factor = 2
 	}
 }
 
-revolutionary_council_reform = {
-	icon = "revolutionary_council_reform"
+military_electorate_reform = {
+	icon = "military_dictatorship_reform"
 	allow_normal_conversion = yes
 	potential = {
-		has_dlc = "Emperor"
 		is_revolutionary = yes
+		has_dlc = "Emperor"
 	}
 	modifiers = {
-		max_revolutionary_zeal = 10
-		election_cycle = -1
+		leader_land_fire = 1
+		army_tradition_from_battle = 0.25
+		free_land_leader_pool = 2
+		free_mil_policy = 1
+		rr_royalists_influence = 0.1
+		election_cycle = 4
 	}
-	conditional = {
-		allow = { has_dlc = "Common Sense" }
-		has_parliament = yes
+	custom_attributes = {
+		generals_become_rulers = yes
+		recruiting_generals_increases_professionalism = yes
 	}
+	
 	ai = {
-		factor = 2
+		factor = 1
 	}
 }
 
@@ -4327,12 +4409,282 @@ cutthroat_approach_reform = {	#new LotN
 	}
 }
 
+three_classes_reform = {
+	icon = "three_classes_reform"
+	allow_normal_conversion = yes
+	potential = {
+		is_revolutionary = yes
+		has_dlc = "Emperor"
+	}
+	modifiers = {
+		global_tax_modifier = 0.10
+		rr_jacobins_influence = 0.1
+	}
+	custom_attributes = {
+		faster_tolerance_events = yes
+		temples_modifier = yes
+	}
+	conditional = {
+		allow = { has_dlc = "Cradle of Civilization" }
+		custom_attributes = {
+			may_not_reduce_tax_on_own_exploitation = yes	#25% Chance
+			may_not_reduce_tax_on_foreign_exploitation = yes	#50% Chance
+		}
+	}
+	
+	ai = {
+		factor = 1
+	}
+}
+enlightened_principle_reform = {
+	icon = "enlightenment"
+	allow_normal_conversion = yes
+	potential = {
+		is_revolutionary = yes
+		has_dlc = "Emperor"
+	}
+	modifiers = {
+		vassal_forcelimit_bonus = 1.0
+		vassal_income = 0.20
+		diplomatic_upkeep = 2
+		rr_girondists_influence = 0.1
+	}
+	custom_attributes = {
+		subject_tax_modifier_25 = yes
+	}
+	
+	ai = {
+		factor = 1
+	}
+}
+aristocratic_values_reform = {
+	icon = "politeia"
+	allow_normal_conversion = yes
+	potential = {
+		is_revolutionary = yes
+		has_dlc = "Emperor"
+	}
+	modifiers = {
+		land_forcelimit_modifier = 0.20
+		leader_land_shock = 1
+		rr_royalists_influence = 0.1
+	}
+	custom_attributes = {
+		noble_castles_boost = yes
+		winning_battles_increases_legitimacy = yes
+	}
+	
+	ai = {
+		factor = 1
+	}
+}
+
+#Electorate
+
+landholders_reform = {
+	icon = "dutch_flag"
+	allow_normal_conversion = yes
+	potential = {
+		OR = {
+			is_revolutionary = no
+			NOT = { has_dlc = "Emperor" }
+		}
+		NOT = { has_reform = northern_league_magnates }
+		#NOT = { has_reform = nezkaru_council_reform }
+	}
+	modifiers = {
+		manpower_in_accepted_culture_provinces = 0.20
+		manpower_in_own_culture_provinces = 0.20
+	}
+	custom_attributes = {
+		faster_purguing_reform = yes
+	}
+	ai = {
+		factor = 1
+	}
+}
+
+citizenry_reform = {
+	icon = "people_walking"
+	allow_normal_conversion = yes
+	potential = {
+		OR = {
+			is_revolutionary = no
+			NOT = { has_dlc = "Emperor" }
+		}
+		NOT = { has_reform = northern_league_magnates }
+		#NOT = { has_reform = nezkaru_council_reform }
+	}
+	modifiers = {
+		global_manpower_modifier = 0.1
+		global_defender_dice_roll_bonus = 1
+	}
+	custom_attributes = {
+		faster_tolerance_events = yes
+	}
+	ai = {
+		factor = 1.5
+	}
+}
+
+estate_council_reform = {	#new LotN
+	icon = "council"
+	allow_normal_conversion = yes
+	potential = {
+		is_revolutionary = no
+		NOT = { has_government_attribute = is_pirate_republic_reform }
+		
+		#anbennar
+		NOT = {
+			has_reform = bulwar_twelve_families_reform
+			has_reform = krak_clan_council
+			has_reform = krak_free_council
+		}
+	}
+	modifiers = {
+		yearly_army_professionalism = 0.002
+		drill_gain_modifier = 0.25
+		war_exhaustion = -0.02
+	}
+	custom_attributes = {
+		reelection_increases_absolutism = yes
+		republican_tradition_from_advisors = yes
+	}
+	ai = {
+		factor = 1
+	}
+}
+
+attorney_general_reform = {	#new LotN
+	icon = "three_classes_reform"
+	potential = {
+		is_revolutionary = no
+		NOT = {culture_group = dwarven }
+	}
+	allow_normal_conversion = yes
+	modifiers = {
+		same_culture_advisor_cost = -0.10
+	}
+	custom_attributes = {
+		mil_advisors_give_manpower_recovery_from_skill_level = yes
+	}
+	ai = {
+		factor = 1
+	}
+}
+
+#dynastic_rulership_reform	#bertus mod
+
+rule_through_plunder_reform = {	#new LotN
+	icon = "rioting_burning_2"
+	allow_normal_conversion = yes
+	potential = {
+		has_government_attribute = is_pirate_republic_reform
+	}
+	modifiers = {
+		loot_amount = 1
+		land_attrition = -0.05
+	}
+	raze_province = yes
+	
+	ai = {
+		factor = 0
+	}
+}
+
+revolutionary_attorney_reform = {	#new LotN
+	icon = "three_classes_reform"
+	potential = {
+		is_revolutionary = yes
+		NOT = {culture_group = dwarven }
+	}
+	allow_normal_conversion = yes
+	modifiers = {
+		mil_advisor_cost = -0.10
+		reinforce_cost_modifier = -0.10
+		drill_gain_modifier = 0.20
+	}
+	custom_attributes = {
+		mil_advisors_give_manpower_recovery_from_skill_level = yes
+	}
+	ai = {
+		factor = 1
+	}
+}
+
+equal_electorate_reform = {
+	icon = "equal_electorate_reform"
+	allow_normal_conversion = yes
+	potential = {
+		is_revolutionary = yes
+		has_dlc = "Emperor"
+	}
+	modifiers = {
+		global_unrest = -2
+		global_tax_modifier = 0.10
+		adm_advisor_cost = -0.10
+		female_advisor_chance = 0.33
+		rr_jacobins_influence = 0.1
+	}
+	custom_attributes = {
+		extra_tax_per_adm_advisor_skill = yes	
+		republican_tradition_from_advisors = yes
+	}
+	
+	ai = {
+		factor = 1
+	}
+}
+
+revolutionary_council_reform = {
+	icon = "revolutionary_council_reform"
+	allow_normal_conversion = yes
+	potential = {
+		has_dlc = "Emperor"
+		is_revolutionary = yes
+	}
+	modifiers = {
+		free_dip_policy = 1
+		advisor_pool = 2
+		dip_advisor_cost = -0.10
+	}
+	custom_attributes = {
+		meritocratic_advisors = yes
+	}
+	ai = {
+		factor = 2
+	}
+}
+
+dwarovar_clan_heads = {
+	icon = "commander_king_reform"
+	potential = { culture_group = dwarven }
+	trigger = {
+		if = {
+			limit = { tag = I02 }
+			NOT = { has_reform = krak_free_council }
+		}
+	}
+
+	modifiers = {
+		global_manpower_modifier = 0.1
+		max_absolutism = 10
+	}
+	custom_attributes = {
+		mil_advisors_give_manpower_recovery_from_skill_level = yes
+	}
+	royal_marriage = yes
+
+	ai = { factor = 1 }
+}
+
 #Administration
 
 political_principle_reform = {
 	icon = "paper_with_seal_3"
 	allow_normal_conversion = yes
 	potential = {
+		is_revolutionary = no
 		NOT = { # Anebnnar
 			#has_reform = nezkaru_council_reform
 			has_reform = northern_league_magnates
@@ -4351,6 +4703,7 @@ moral_principle_reform = {
 	icon = "parliament_hall"
 	allow_normal_conversion = yes
 	potential = {
+		is_revolutionary = no
 		NOT = { # Anbennar
 			#has_reform = nezkaru_council_reform
 			has_reform = northern_league_magnates
@@ -4370,6 +4723,7 @@ stability_principle_reform = {	#new LotN
 	icon = "soldiers_6"
 	allow_normal_conversion = yes
 	potential = {
+		is_revolutionary = no
 		NOT = { has_reform = northern_league_magnates } #Anbennar
 	}
 	modifiers = {
@@ -4381,12 +4735,12 @@ stability_principle_reform = {	#new LotN
 	}
 }
 
-#enlightened_principle_reform	#bertus mod	#new LotN
 
 military_principle_reform = {	#new LotN
 	icon = "soldiers_3"
 	allow_normal_conversion = yes
 	potential = {
+		is_revolutionary = no
 		NOT = { has_reform = northern_league_magnates } #Anbennar
 	}
 	modifiers = {
@@ -4408,8 +4762,10 @@ revolutionary_principle_reform = {
 	}
 	modifiers = {
 		rr_girondists_influence = 0.1
-		land_morale = 0.1
-		global_manpower_modifier = 0.15
+		morale_damage_received = -0.10
+		recover_army_morale_speed = 0.10
+		war_exhaustion = -0.05
+		yearly_revolutionary_zeal = 2.0
 	}
 	ai = {
 		factor = 2
@@ -4426,6 +4782,10 @@ equality_principle_reform = {
 	modifiers = {
 		tolerance_heretic = 2
 		tolerance_heathen = 2
+		global_manpower_modifier = 0.20
+		ae_impact = -0.1
+		province_warscore_cost = -0.1
+
 		rr_jacobins_influence = 0.1
 	}
 	ai = {
@@ -4442,8 +4802,10 @@ imperial_principle_reform = {
 	}
 	modifiers = {
 		rr_royalists_influence = 0.1
-		ae_impact = -0.1
-		province_warscore_cost = -0.1
+		leader_land_manuever = 1
+		leader_siege = 1
+		mil_advisor_cost = -0.1
+		country_military_power = 2
 	}
 	ai = {
 		factor = 2
@@ -4529,199 +4891,6 @@ dwarovar_keep_to_tradition = {
 
 	ai = { factor = 1 }
 }
-
-#Electorate
-
-landholders_reform = {
-	icon = "dutch_flag"
-	allow_normal_conversion = yes
-	potential = {
-		OR = {
-			is_revolutionary = no
-			NOT = { has_dlc = "Emperor" }
-		}
-		NOT = { has_reform = northern_league_magnates }
-		#NOT = { has_reform = nezkaru_council_reform }
-	}
-	modifiers = {
-		manpower_in_accepted_culture_provinces = 0.20
-		manpower_in_own_culture_provinces = 0.20
-	}
-	custom_attributes = {
-		faster_purguing_reform = yes
-	}
-	ai = {
-		factor = 1
-	}
-}
-
-citizenry_reform = {
-	icon = "people_walking"
-	allow_normal_conversion = yes
-	potential = {
-		OR = {
-			is_revolutionary = no
-			NOT = { has_dlc = "Emperor" }
-		}
-		NOT = { has_reform = northern_league_magnates }
-		#NOT = { has_reform = nezkaru_council_reform }
-	}
-	modifiers = {
-		global_manpower_modifier = 0.1
-		global_defender_dice_roll_bonus = 1
-	}
-	custom_attributes = {
-		faster_tolerance_events = yes
-	}
-	ai = {
-		factor = 1.5
-	}
-}
-
-estate_council_reform = {	#new LotN
-	icon = "council"
-	allow_normal_conversion = yes
-	potential = {
-		is_revolutionary = no
-		NOT = { has_government_attribute = is_pirate_republic_reform }
-		
-		#anbennar
-		NOT = {
-			has_reform = bulwar_twelve_families_reform
-			has_reform = krak_clan_council
-			has_reform = krak_free_council
-		}
-	}
-	modifiers = {
-		yearly_army_professionalism = 0.002
-		drill_gain_modifier = 0.25
-		war_exhaustion = -0.02
-	}
-	custom_attributes = {
-		reelection_increases_absolutism = yes
-		republican_tradition_from_advisors = yes
-	}
-	ai = {
-		factor = 1
-	}
-}
-
-attorney_general_reform = {	#new LotN
-	icon = "three_classes_reform"
-	potential = {
-		NOT = {culture_group = dwarven }
-	}
-	allow_normal_conversion = yes
-	modifiers = {
-		same_culture_advisor_cost = -0.10
-	}
-	custom_attributes = {
-		mil_advisors_give_manpower_recovery_from_skill_level = yes
-	}
-	ai = {
-		factor = 1
-	}
-}
-
-#dynastic_rulership_reform	#bertus mod
-
-rule_through_plunder_reform = {	#new LotN
-	icon = "rioting_burning_2"
-	allow_normal_conversion = yes
-	potential = {
-		has_government_attribute = is_pirate_republic_reform
-	}
-	modifiers = {
-		loot_amount = 1
-		land_attrition = -0.05
-	}
-	raze_province = yes
-	
-	ai = {
-		factor = 0
-	}
-}
-
-equal_electorate_reform = {
-	icon = "equal_electorate_reform"
-	allow_normal_conversion = yes
-	potential = {
-		is_revolutionary = yes
-		has_dlc = "Emperor"
-	}
-	modifiers = {
-		global_unrest = -2
-		global_tax_modifier = 0.1
-		female_advisor_chance = 0.33
-		rr_jacobins_influence = 0.1
-	}
-	
-	ai = {
-		factor = 1
-	}
-}
-
-three_classes_reform = {
-	icon = "three_classes_reform"
-	allow_normal_conversion = yes
-	potential = {
-		is_revolutionary = yes
-		has_dlc = "Emperor"
-	}
-	modifiers = {
-		core_creation = -0.1
-		rr_girondists_influence = 0.1
-	}
-	
-	ai = {
-		factor = 1
-	}
-}
-
-military_electorate_reform = {
-	icon = "military_dictatorship_reform"
-	allow_normal_conversion = yes
-	potential = {
-		is_revolutionary = yes
-		has_dlc = "Emperor"
-	}
-	modifiers = {
-		leader_land_fire = 1
-		army_tradition = 0.25
-		rr_royalists_influence = 0.1
-	}
-	custom_attributes = {
-		generals_become_rulers = yes
-		has_term_election = no
-	}
-	
-	ai = {
-		factor = 1
-	}
-}
-
-dwarovar_clan_heads = {
-	icon = "commander_king_reform"
-	potential = { culture_group = dwarven }
-	trigger = {
-		if = {
-			limit = { tag = I02 }
-			NOT = { has_reform = krak_free_council }
-		}
-	}
-
-	modifiers = {
-		global_manpower_modifier = 0.1
-		max_absolutism = 10
-	}
-	custom_attributes = {
-		mil_advisors_give_manpower_recovery_from_skill_level = yes
-	}
-	royal_marriage = yes
-
-	ai = { factor = 1 }
-}
-
 
 #Office Selection Method
 
@@ -5017,6 +5186,11 @@ president_for_life_reform = {
 		republican_tradition = -0.5
 		monarch_admin_power = 1
 		monarch_military_power = 1
+		max_revolutionary_zeal = 20
+		monarch_lifespan = 0.25
+	}
+	custom_attributes = {
+		boosted_absolutism = yes
 	}
 }
 
@@ -5075,7 +5249,12 @@ government_for_people_reform = {
 		has_dlc = "Emperor"
 	}
 	modifiers = {
-		max_revolutionary_zeal = 20
+		development_cost_modifier = -0.10
+		global_trade_goods_size_modifier = 0.10
+		global_allowed_num_of_buildings = 1
+		build_cost = -0.1
+		build_time = -0.10
+		great_project_upgrade_cost = -0.10
 	}
 }
 
@@ -6302,6 +6481,5 @@ force_reelection_reform = {	#bertus mod
 	modifiers = {
 	}
 }
-#aristocratic_values_reform	#bertus mod
 #religious_values_reform	#bertus mod
 #devolution_of_powers_reform	#bertus mod

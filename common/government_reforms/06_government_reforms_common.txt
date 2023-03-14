@@ -1425,7 +1425,7 @@ cult_of_reason_reform = {	#new LotN
 	}
 }
 
-conserve_the_religion_reform = {	#new LotN
+conserve_the_religion_reform = {	#new LotN	#bertus mod
 	icon = "cult_of_supreme_being"
 	allow_normal_conversion = yes
 	potential = {
@@ -1435,8 +1435,28 @@ conserve_the_religion_reform = {	#new LotN
 	modifiers = {
 		rr_royalists_influence = 0.1
 		papal_influence = 100
-		tolerance_own = 2
-		idea_cost = -0.05
+		tolerance_own = 3
+	}
+	custom_attributes = {
+		if = {
+			limit = { 
+				OR = {
+					religion = great_dookan 
+					religion = old_dookan 
+					religion = ik_magthaal 
+					religion = feast_of_the_gods 
+				}
+			}
+			warlock_religion_actions_mechanic = yes
+		}
+		if = {
+			limit = {religion = regent_court}
+			deity_duality_reform_mechanic = yes
+		}
+		if = {
+			limit = {religion = goblinic_shamanism}
+			goblin_boosted_primary_cult_mechanic = yes
+		}
 	}
 	effect = {
 		if = {
@@ -1451,7 +1471,7 @@ conserve_the_religion_reform = {	#new LotN
 	}
 }
 
-secularization_of_the_state_reform = {	#new LotN
+secularization_of_the_state_reform = {	#new LotN	#bertus mod
 	icon = "partial_secularisation_reform"
 	allow_normal_conversion = yes
 	potential = {
@@ -1459,6 +1479,9 @@ secularization_of_the_state_reform = {	#new LotN
 		has_dlc = "Emperor"
 	}
 	modifiers = {
+		possible_policy = 1
+		free_policy = 1
+		idea_cost = -0.10
 		rr_girondists_influence = 0.1
 		no_religion_penalty = yes
 	}
@@ -1483,10 +1506,25 @@ empower_the_burghers_reform = {	#bertus mod	#new LotN
 		}
 	}
 	modifiers = {
-		trade_efficiency = 0.05
 	}
 	custom_attributes = {
 		trade_buildings_boost = yes
+	}
+	effect = {
+		hidden_effect = {
+			every_owned_province = {
+				limit = { has_trade_building_trigger = yes }
+				add_province_modifier = {name = trade_buildings_boost_modifier duration = -1}
+			}
+		}
+	}
+	removed_effect = {
+		hidden_effect = {
+			every_owned_province = {
+				limit = { has_province_modifier = trade_buildings_boost_modifier }
+				remove_province_modifier = trade_buildings_boost_modifier
+			}
+		}
 	}
 	ai = {
 		factor = 1
@@ -1593,8 +1631,9 @@ mercantilistic_approach_reform = {	#bertus mod	#new LotN
 		}
 	}
 	modifiers = {
+		trade_efficiency = 0.10
 		mercantilism_cost = -0.25
-		global_own_trade_power = 0.15
+		global_own_trade_power = 0.20
 		placed_merchant_power = 5
 	}
 	ai = {
@@ -1851,6 +1890,7 @@ the_social_contract_reform = {	#bertus mod	#new LotN
 	icon = "the_social_contract"
 	allow_normal_conversion = yes
 	potential = {
+		is_revolutionary = no
 		#OR = {
 		#	is_revolutionary = no
 		#	NOT = { has_dlc = "Emperor" }
@@ -1957,6 +1997,7 @@ magical_guild_reform = {	#bertus mod
 	potential = {
 		NOT = { has_adventurer_reform = yes } # Anbennar
 		has_estate = estate_mages
+		is_revolutionary = no
 		NOT = { has_country_flag = banned_magic }
 		NOT = { has_reform = hobgoblin_stratocracy_reform }
 		NOT = { has_reform = great_ogre_horde }
@@ -1986,9 +2027,18 @@ magical_guild_reform = {	#bertus mod
 		magic_commander_academy = yes
 	}
 	effect = {
-		remove_estate_privilege = estate_adventurers_emergency_general
-		remove_estate_privilege = estate_mages_emergency_general
-		remove_estate_privilege = estate_artificers_emergency_general
+		if = {
+			limit = {has_estate_privilege = estate_adventurers_emergency_general}
+			remove_estate_privilege = estate_adventurers_emergency_general
+		}
+		if = {
+			limit = {has_estate_privilege = estate_mages_emergency_general}
+			remove_estate_privilege = estate_mages_emergency_general
+		}
+		if = {
+			limit = {has_estate_privilege = estate_artificers_emergency_general}
+			remove_estate_privilege = estate_artificers_emergency_general
+		}
 		country_event = {id = bertus_changes.6010}
 	}
 	ai = {factor = 1}
@@ -1999,6 +2049,7 @@ artificer_guild_reform = {	#bertus mod
 	allow_normal_conversion = yes
 	potential = {
 		has_estate = estate_artificers
+		is_revolutionary = no
 		NOT = { has_reform = hobgoblin_stratocracy_reform }
 		NOT = { has_reform = great_ogre_horde }
 		NOT = {
@@ -2023,9 +2074,18 @@ artificer_guild_reform = {	#bertus mod
 		artificer_commander_academy = yes
 	}
 	effect = {
-		remove_estate_privilege = estate_adventurers_emergency_general
-		remove_estate_privilege = estate_mages_emergency_general
-		remove_estate_privilege = estate_artificers_emergency_general
+		if = {
+			limit = {has_estate_privilege = estate_adventurers_emergency_general}
+			remove_estate_privilege = estate_adventurers_emergency_general
+		}
+		if = {
+			limit = {has_estate_privilege = estate_mages_emergency_general}
+			remove_estate_privilege = estate_mages_emergency_general
+		}
+		if = {
+			limit = {has_estate_privilege = estate_artificers_emergency_general}
+			remove_estate_privilege = estate_artificers_emergency_general
+		}
 		country_event = {id = bertus_changes.6010}
 	}
 	ai = {factor = 1}
@@ -2035,6 +2095,7 @@ adventurer_guild_reform = {	#bertus mod
 	allow_normal_conversion = yes
 	potential = {
 		has_estate = estate_adventurers
+		is_revolutionary = no
 		NOT = { has_reform = hobgoblin_stratocracy_reform }
 		NOT = { has_reform = great_ogre_horde }
 		NOT = {
@@ -2059,9 +2120,18 @@ adventurer_guild_reform = {	#bertus mod
 		adventurer_commander_academy = yes
 	}
 	effect = {
-		remove_estate_privilege = estate_adventurers_emergency_general
-		remove_estate_privilege = estate_mages_emergency_general
-		remove_estate_privilege = estate_artificers_emergency_general
+		if = {
+			limit = {has_estate_privilege = estate_adventurers_emergency_general}
+			remove_estate_privilege = estate_adventurers_emergency_general
+		}
+		if = {
+			limit = {has_estate_privilege = estate_mages_emergency_general}
+			remove_estate_privilege = estate_mages_emergency_general
+		}
+		if = {
+			limit = {has_estate_privilege = estate_artificers_emergency_general}
+			remove_estate_privilege = estate_artificers_emergency_general
+		}
 		country_event = {id = bertus_changes.6010}
 	}
 	ai = {factor = 1}
