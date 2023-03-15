@@ -7,58 +7,47 @@
 ### Nation specific idea groups
 
 #Lorent ideas
-A01_ideas = {
-	start = {
-		#cavalry_power = 0.2	#0.2→0
-		#diplomatic_upkeep = 1	#1→0
-		vassal_forcelimit_bonus = 0.5	#1.0→0.5
-		reduced_liberty_desire = 15	#0→15
+A01_ideas = {	#bertus mod
+	free = yes		#will be added at load.
+	trigger = {
+		tag = A01
 	}
 
-	bonus = {
-		discipline = 0.05
+	start = {
+		vassal_forcelimit_bonus = 0.5
+		reduced_liberty_desire = 15
 	}
-	
-	trigger = {
-		OR = {
-			tag = A01
-		}
-	}
-	free = yes		#will be added at load.
-	
 	A01_romance_and_chivalry = {
-		#	cavalry_shock = 0→20%
-		prestige_from_land  = 0.25	#0→0.25
-		#cavalry_power = 0.2	#0.2→0
-		#diplomatic_reputation = 1	#1→0
+		#cavalry_shock = 15%
+		prestige_from_land  = 0.25
+		leader_land_shock = 1
 	}
 	A01_nobility_bound_in_blood = {
-		#vassal_forcelimit_bonus = 1.0	#1.0→0
-		#reduced_liberty_desire = 10	#5→0
-		global_autonomy = -0.025	#0→-0.025
-		diplomatic_upkeep = 1	#0→1
+		global_autonomy = -0.05
+		monarch_lifespan = 0.20
 	}
 	A01_ioriellan_renaissance = {
-		prestige = 0.5	#1→0.5
-		technology_cost = -0.05	#0→-0.05
+		prestige = 0.5
+		technology_cost = -0.05
 	}
 	A01_scions_of_elvenkind = {
-		colonists = 2	#1→2
-		native_uprising_chance = -0.5	#0→-0.5
+		colonists = 2
+		native_uprising_chance = -0.5
 	}
 	A01_halfling_free_company = {
-		#infantry_power = 0.1	#0.1→0
-		defensiveness = 0.1	#0→0.1
-		hostile_attrition = 1	#0→1
+		leader_land_manuever = 1
+		hostile_attrition = 1
+		max_hostile_attrition = 1
 	}
 	A01_iorielist_diplomacy = {
-		#improve_relation_modifier = 0.10	#0.1→0
-		diplomats = 1	#0→1
+		diplomats = 1
 		spy_offence = 0.1
 	}
 	A01_blood_of_lorenan = {
-		#hostile_attrition = 1.0	#1→0
-		land_morale = 0.2	#0.1→0.2
+		land_morale = 0.2
+	}
+	bonus = {
+		discipline = 0.05
 	}
 }
 
@@ -452,15 +441,7 @@ A12_ideas = {
 }
 
 #Gawed ideas
-A13_ideas = {
-	start = {
-		global_regiment_cost = -0.05	#-0.15→-0.05
-		global_manpower_modifier = 0.2
-	}
-	
-	bonus = {
-		infantry_power = 0.10
-	}
+A13_ideas = {	#bertus mod
 	
 	trigger = {
 		OR = {
@@ -469,6 +450,14 @@ A13_ideas = {
 	}
 	free = yes
 
+	start = {
+		production_efficiency = 0.20
+		allowed_num_of_buildings = 1
+	}
+	A13_frontier_forts = {
+		fort_maintenance_modifier = -0.2
+		garrison_size = 0.25
+	}
 	A13_peasant_levy = {
 		manpower_recovery_speed = 0.2
 		infantry_cost = -0.1	#0→-0.1
@@ -478,26 +467,23 @@ A13_ideas = {
 		land_forcelimit_modifier = 0.2
 	}
 	A13_alenic_outriders = {
-		hostile_attrition = 1	#0→1
-		movement_speed = 0.1	#0→0.1
-		#cavalry_power = 0.1	#0.1→0
-		#cavalry_flanking = 0.5	#0.5→0
-	}
-	A13_frontier_forts = {
-		fort_maintenance_modifier = -0.2
-		garrison_size = 0.25	#0→0.25
+		hostile_attrition = 1
+		movement_speed = 0.1
 	}
 	A13_children_of_the_alen = {
-		land_morale = 0.1
+		#infantry_shock = 10%
+		global_manpower_modifier = 0.33
 	}
 	A13_rapid_mobilization = {
-		#global_regiment_recruit_speed = -0.2	#-0.2→0
-		recover_army_morale_speed = 0.05	#0→0.05
-		reinforce_speed = 0.33	#0→0.33
+		recover_army_morale_speed = 0.05
+		reinforce_speed = 0.33
 	}
 	A13_alenic_industrialization = {
-		development_cost = -0.05	#-0.1→-0.05
-		production_efficiency = 0.1	#0→0.1
+		development_cost_modifier = -0.05
+		global_trade_goods_size_modifier = 0.10
+	}
+	bonus = {
+		infantry_power = 0.10
 	}
 }	
 # Madelairey ideas
@@ -1655,17 +1641,14 @@ A49_ideas = {
 }
 
 #Dameria ideas
-A58_ideas = {
+A58_ideas = {	#bertus mod
 	start = {
-		#heir_chance = 0.5	#0.5→0
-		#improve_relation_modifier = 0.3	#0.3→0
-		land_morale = 0.2	#0→0.2
-		yearly_army_professionalism = 0.005	#0→0.005
+		morale_damage = 0.10
+		morale_damage_received = -0.10
 	}
 	
 	bonus = {
-		#land_morale = 0.2	#0.2→0
-		max_absolutism = 30	#0→30
+		yearly_army_professionalism = 0.005
 	}
 	
 	trigger = {
@@ -1677,35 +1660,34 @@ A58_ideas = {
 	
 	A58_imperial_sovereignity = {
 		imperial_authority = 0.1
-		diplomatic_upkeep = 1
+		yearly_absolutism = 2
+		max_absolutism = 30
 	}
 	A58_wooden_wall_of_damesear = {
 		galley_cost = -0.15
 		galley_power = 0.20
 	}
 	A58_damerian_court_conduct = {
-		#diplomatic_reputation = 2	#2→0
-		legitimacy = 1	#0→1
-		devotion = 0.5	#0→0.5
-		republican_tradition = 0.2	#0→0.2
-		all_estate_loyalty_equilibrium = 0.1	#0→0.1
+		legitimacy = 1
+		devotion = 0.5
+		republican_tradition = 0.2
+		all_estate_loyalty_equilibrium = 0.1
 	}
 	A58_silmuna_school_of_the_arts = {
-		#idea_cost = -0.1	#-0.1→0
-		all_power_cost = -0.05	#0→-0.05
+		all_power_cost = -0.05
 	}
 	A58_damerian_adventurer_companies = {
-		#mercenary_cost = -0.15	#-0.15→0
-		mercenary_manpower = 0.5	#0→0.5
+		mercenary_manpower = 0.5
 		mercenary_discipline = 0.1
+		adventurers_influence_modifier = 0.10
 	}
 	A58_legacy_of_the_damerian_republic = {
 		prestige = 1
-		development_cost = -0.05	#0→-0.05
+		development_cost = -0.05
 	}
 	A58_anbenncost_the_city_of_the_worlds_desire = {
-		#global_own_trade_power = 0.2	#0.2→0
-		trade_efficiency = 0.2	#0→0.2
+		trade_efficiency = 0.2
+		great_project_upgrade_cost = -0.10
 	}
 }	
 
@@ -2953,7 +2935,7 @@ Z08_ideas = {
 	}
 	Z08_heroes_of_old = {
 		allowed_marine_fraction = 0.1	#0→0.1
-		#infantry_shock 		#0→20%
+		#infantry_shock 		#0→10%
 		#army_tradition_decay = -0.01	#-0.01→0
 		#female_advisor_chance = 0.25	#0.25→0
 	}
@@ -8069,6 +8051,7 @@ B58_ideas = {
 	 
 	B58_birthplace_of_chivalry = {	#The original knights
 		#cav_to_inf_ratio = 0	#0.2→0
+		#cavalry_shock = 15%
 		cavalry_flanking = 1
 	} 
 	B58_sons_of_adean = {			#High morale
@@ -9677,7 +9660,7 @@ B36_ideas = {
 		war_exhaustion = -0.05	#-0.01→-0.05
 	}
 	B36_griffon_riders_of_cannor = {
-		#cavalry_shock = 0	#0→10%
+		#cavalry_shock = 0	#0→7.5%
 		army_tradition = 0.5
 	}
 	B36_death_ring_of_marrvale = { 
@@ -10320,7 +10303,7 @@ H47_ideas = {
 		war_exhaustion  = -0.03
 	}
 	I89_the_seventh_limb = { #Use of Polearms
-		#cavalry_shock = 0.25	#0.25→10%
+		#cavalry_shock = 0.25	#0.25→7.5%
 		cavalry_power = 0.05	#0→0.05
 	}
 	I89_steppe_destiny = {
@@ -19357,7 +19340,7 @@ A31_ideas = {
  	}
 	A31_cannorian_homeland = { #Moonhaveners consider themselves fully Cannorian, being satisfied with their current position in the empire. As they recently became the last autonomous elven region in Anbennar the population became more willing to defend their homeland till the last man
 		#defensiveness = 0.20	#0.2→0
-		#infantry_shock 		#0→20%
+		#infantry_shock 		#0→10%
 		global_defender_dice_roll_bonus = 1	#0→1
 	}
 	A31_damerian_tea_trade = { 

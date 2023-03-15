@@ -178,6 +178,18 @@ country_event = {
 				add_scaled_republican_tradition = -10
 			}
 		}
+		if = {
+			limit = {has_government_attribute = generals_become_rulers}
+			hidden_effect = {
+				kill_leader = {type = general}
+				random_owned_province = {
+					spawn_rebels = {
+						type = pretender_rebels
+						size = 4
+					}
+				}
+			}
+		}
 		random_list = {
 			10 = {add_adm_power = 50}
 			10 = {add_dip_power = 50}
@@ -230,6 +242,9 @@ country_event = {
 	}
 	option = {
 		name = "EVTOPTB700"	# An administrator type
+		trigger = {
+			NOT = {has_government_attribute = generals_become_rulers}
+		}
 		ai_chance = { factor = 20 }
 		if = {
 			limit = { has_country_modifier = harpy_administration }
@@ -280,6 +295,9 @@ country_event = {
 	}
 	option = {
 		name = "EVTOPTC700"	# A diplomat
+		trigger = {
+			NOT = {has_government_attribute = generals_become_rulers}
+		}
 		ai_chance = { factor = 20 }
 		if = {
 			limit = { has_country_modifier = harpy_administration }
@@ -330,6 +348,9 @@ country_event = {
 	}
 	option = {
 		name = "EVTOPTD700"	# A military man
+		trigger = {
+			NOT = {has_government_attribute = generals_become_rulers}
+		}
 		ai_chance = { factor = 20 }
 		if = {
 			limit = { has_country_modifier = harpy_administration }
@@ -544,6 +565,17 @@ country_event = {
 			}
 		}
 	}
+	
+	option = {	# General ruler abdicates	#bertus mod
+		name = "bertus.abdicate_generalruler.a"	# Current ruler stays
+		trigger = {
+			has_government_attribute = generals_become_rulers
+		}
+		ai_chance = { factor = 1000	}
+		exile_ruler_as = {
+			name = actual_ruler
+		}
+	}
 }
 
 # Election!
@@ -619,11 +651,26 @@ country_event = {
 		add_karma = -5
 		
 		revival_stat_loss = yes
+		if = {
+			limit = {has_government_attribute = generals_become_rulers}
+			hidden_effect = {
+				kill_leader = {type = general}
+				random_owned_province = {
+					spawn_rebels = {
+						type = pretender_rebels
+						size = 4
+					}
+				}
+			}
+		}
 	}
 	
 	option = {
 		name = "EVTOPTB700"	# An administrator type
 		ai_chance = { factor = 40 }
+		trigger = {
+			NOT = {has_government_attribute = generals_become_rulers}
+		}
 		if = {
 			limit = { has_country_modifier = harpy_administration }
 			define_ruler = {
@@ -673,6 +720,9 @@ country_event = {
 	option = {
 		name = "EVTOPTC700"	# A diplomat
 		ai_chance = { factor = 30 }
+		trigger = {
+			NOT = {has_government_attribute = generals_become_rulers}
+		}
 		if = {
 			limit = { has_country_modifier = harpy_administration }
 			define_ruler = {
@@ -722,6 +772,9 @@ country_event = {
 	option = {
 		name = "EVTOPTD700"	# A military man
 		ai_chance = { factor = 30 }
+		trigger = {
+			NOT = {has_government_attribute = generals_become_rulers}
+		}
 		if = {
 			limit = { has_country_modifier = harpy_administration }
 			define_ruler = {
@@ -936,6 +989,17 @@ country_event = {
 			}
 		}
 	}
+	
+	option = {	# General ruler abdicates	#bertus mod
+		name = "bertus.abdicate_generalruler.a"	# Current ruler stays
+		trigger = {
+			has_government_attribute = generals_become_rulers
+		}
+		ai_chance = { factor = 1000	}
+		exile_ruler_as = {
+			name = actual_ruler
+		}
+	}
 }
 
 ########################################
@@ -953,6 +1017,9 @@ country_event = {
 	
 	option = {
 		name = "elections.EVTOPTB707"	# Bureaucrat Candidate
+		trigger = {
+			NOT = {has_government_attribute = generals_become_rulers}
+		}
 		ai_chance = { factor = 20 }
 		FROM = {
 			define_ruler = {
@@ -965,6 +1032,9 @@ country_event = {
 	}
 	option = {
 		name = "elections.EVTOPTC707"	# Diplomat Candidate
+		trigger = {
+			NOT = {has_government_attribute = generals_become_rulers}
+		}
 		ai_chance = { factor = 20 }
 		FROM = {
 			define_ruler = {
@@ -977,6 +1047,9 @@ country_event = {
 	}
 	option = {
 		name = "elections.EVTOPTD707"	# Military Candidate
+		trigger = {
+			NOT = {has_government_attribute = generals_become_rulers}
+		}
 		ai_chance = { factor = 20 }
 		FROM = {
 			define_ruler = {
@@ -985,6 +1058,17 @@ country_event = {
 				mil = 4
 			}	
 			set_ruler_flag = appointed_by_overlord
+		}
+	}
+	
+	option = {	# General ruler abdicates	#bertus mod
+		name = "bertus.abdicate_generalruler.a"	# Current ruler stays
+		trigger = {
+			has_government_attribute = generals_become_rulers
+		}
+		ai_chance = { factor = 1000	}
+		exile_ruler_as = {
+			name = actual_ruler
 		}
 	}
 }
