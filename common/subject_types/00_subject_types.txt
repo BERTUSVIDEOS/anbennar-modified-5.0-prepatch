@@ -59,6 +59,7 @@ gylikheion = {}
 patronate = {}
 subject_free_city = {}
 holy_order_subject = {}
+lorent_sphere_subject = {}
 
 default = {
 	# Graphics:
@@ -882,9 +883,11 @@ tributary_state = {
 					#Anbennar
 					culture_group = gnollish
 					culture_group = ogre
+					primary_cultur = high_lorentish
 				}
 			}
 			has_country_flag = forced_tributary_state	#A special flag for the Ottomans so they can get Crimea without allowing them to make tributaries by default
+			primary_cultur = high_lorentish
 		}
 		#Anbennar
 		NOT = {
@@ -1010,7 +1013,7 @@ autonomous_vassal = {
 	gets_help_with_rebels = no
 	overlord_can_attack = no
 	overlord_protects_external = no
-	takes_diplo_slot = yes
+	takes_diplo_slot = no
 	
 	max_government_rank = 1
 	trust_on_start = 40
@@ -1020,7 +1023,7 @@ autonomous_vassal = {
 	liberty_desire_development_ratio = 0.1
 	liberty_desire_same_dynasty = -10.0
 	pays_overlord = 1.0			#0.35→1.0				#1.0 Is what vassal pays
-	relative_power_class = 2 							#Same as vassal
+	relative_power_class = 1 							#
 	liberty_desire_revolution = 10.0
 	
 	# Subject Interactions:
@@ -1033,7 +1036,7 @@ autonomous_vassal = {
 	subsidize_armies = no
 	send_additional_troops = no
 	
-	send_officers = yes
+	send_officers = no
 	
 	# Modifiers:
 	overlord_opinion_modifier = is_vassal
@@ -2896,5 +2899,239 @@ holy_order_subject = {	#bertus mod
 				has_government_attribute = subject_tax_modifier_25
 			}
 		}
+	}
+}
+
+
+lorent_sphere_subject = {
+	#If similar subject added check if it needs to be added to these scripted triggers:
+	#is_subject_except_tributary_trigger
+	#is_free_or_tributary_trigger
+	copy_from = default
+	can_have_great_projects_moved_by_overlord = no
+
+	# Triggers:
+	is_potential_overlord = { tag = A01 }
+	can_be_established = { always = no }	
+
+	# Graphics:
+	sprite = GFX_icon_lorent_sphere_subject
+	diplomacy_overlord_sprite = GFX_diplomacy_lead_lorent_sphere_subject
+	diplomacy_subject_sprite = GFX_diplomacy_am_lorent_sphere_subject
+
+	# Properties:
+	can_fight_independence_war = yes
+	joins_overlords_wars = no
+	joins_colonial_wars = no
+	is_voluntary = yes
+	overlord_can_attack = no
+	takes_diplo_slot = no
+	base_liberty_desire = -10
+	relative_power_class = 1
+	should_quit_wars_on_activation = no
+	can_send_tribute = yes
+	has_power_projection = yes
+	can_have_subjects_of_other_types = yes
+	can_release_in_peace = yes
+	uses_military_focus = no
+	overlord_enforce_peace_attacking = no	
+	can_use_claims = no
+	overlord_protects_external = yes
+	counts_for_borders = no
+	share_rebel_popup = no
+	can_transfer_in_peace = no
+	can_set_mil_focus = no
+	can_send_missionary_to_subject = no
+	overlord_can_fabricate_for = no
+	does_overlord_size_count_for_warscore_cost = no
+	can_concentrate_development = no
+
+	max_government_rank = 1
+
+	#forcelimit_bonus = 0.0	
+	forcelimit_to_overlord = 0.25						# Percent of subject FL to use as base for modifiers
+	naval_forcelimit_to_overlord = 0.25					# Percent of subject FL to use as base for modifiers
+	manpower_to_overlord = 0.25							# Percent of subject FL to use as base for modifiers
+	sailors_to_overlord = 0.25							# Percent of subject FL to use as base for modifiers
+	pays_overlord = 0.5									# 1.0 represents the amount payed by vassals
+	
+	liberty_desire_development_ratio = 0.33
+	trust_on_start = 0
+	
+	overlord_opinion_modifier = is_lorent_sphere
+	subject_opinion_modifier = is_lorent_sphere
+	
+	can_fight = {
+		independent_nations = yes
+		same_overlord = lorent_sphere_subject 
+		other_overlord = all
+	}
+	can_rival = {
+		independent_nations = yes
+		same_overlord = lorent_sphere_subject 
+		other_overlord = all
+	}
+	can_ally = {
+		independent_nations = yes
+		same_overlord = lorent_sphere_subject 
+		other_overlord = all
+	}
+	can_marry = {
+		independent_nations = yes
+		same_overlord = lorent_sphere_subject 
+		other_overlord = all
+	}
+
+	# Subject Interactions:
+	# (continuous)
+	embargo_rivals = no
+	support_loyalists = yes
+	subsidize_armies = no
+	scutage = no
+	send_officers = no
+	divert_trade= no
+	# (immediate)
+	placate_rulers = no
+	place_relative_on_throne = no
+	enforce_religion = no
+	customize_subject = no
+	replace_governor = no
+	grant_province = no
+	enforce_culture = no
+	siphon_income = no
+	fortify_march = no
+	seize_territory = no
+	start_colonial_war = no
+	grant_core_claim = no
+	sacrifice_ruler = no
+	sacrifice_heir = no
+	increase_tariffs = no
+	decrease_tariffs = no
+	takeondebt = no
+	bestow_gifts = no
+	send_additional_troops = no
+	demand_artifacts = no
+	demand_additional_tribute = no
+	force_seppuku = no
+	press_sailors = no
+	contribute_to_capital = no
+	force_isolation = no
+	return_land = no
+	conscript_general = no
+	knowledge_sharing = no
+	block_settlement_growth = no
+	allow_settlement_growth = no
+	# (special)
+	sword_hunt = no
+	sankin_kotai = no
+	expel_ronin = no
+
+	# Modifiers:
+	modifier_subject = clear # Tributaries don't get the ordinary subject_nation penalty 
+	modifier_subject = clear #Ditto
+	#modifier_subject = {
+	#	modifier = 		#tributary_state_behind_overlord_tech_adm
+	#}
+	modifier_overlord = {
+		#if lorent is IA
+		modifier = 	lorent_sphere_subject_overlord_bonus	
+		trigger = {
+			NOT = {liberty_desire = 50}
+			FROM = {
+				ai = yes
+			}
+		}
+	}
+	modifier_subject = {
+		#if lorent is IA
+		modifier = 	lorent_sphere_subject_bonus	
+		trigger = {
+			NOT = {liberty_desire = 50}
+			FROM = {
+				ai = yes
+			}
+		}
+	}
+	modifier_subject = {
+		#if lorent is IA
+		modifier = 	lorent_sphere_no_fl	
+		trigger = {
+			liberty_desire = 50
+		}
+	}
+}
+
+
+crown_protectorate = {
+	copy_from = default
+	
+	# Triggers:
+	is_potential_overlord = { tag = A01 }
+	can_be_established = { always = no }	
+	
+	# Graphics:
+	sprite = GFX_icon_crown_protectorate
+	diplomacy_overlord_sprite = GFX_diplomacy_lead_crown_protectorate
+	diplomacy_subject_sprite = GFX_diplomacy_weak_crown_protectorate
+
+	# Properties:
+	#can_be_annexed = yes
+	can_be_integrated = yes
+	gets_help_with_rebels = yes
+	overlord_can_attack = no
+	overlord_protects_external = yes
+	takes_diplo_slot = yes
+	#has_overlords_ruler = yes
+	
+	max_government_rank = 1
+	#trust_on_start = 100
+	base_liberty_desire = -25
+	liberty_desire_development_ratio = 0.5
+	liberty_desire_same_dynasty = -10.0
+	relative_power_class = 0 							#
+	liberty_desire_revolution = 10.0
+	
+
+
+	naval_forcelimit_to_overlord = 0.0					# Percent of subject FL to use as base for modifiers
+	forcelimit_to_overlord = 0.0						# Percent of subject FL to use as base for modifiers
+	manpower_to_overlord = 0.0							# Percent of subject FL to use as base for modifiers
+	sailors_to_overlord = 0.0							# Percent of subject FL to use as base for modifiers
+	pays_overlord = 0.0									# 1.0 represents the amount payed by vassals
+	forcelimit_bonus = 0.0								# 1.0 represents bonus from having a vassal
+	military_focus = 2.0								# How much the AI subject should spend etc. on army and forts. 0 should make them spend nothing. Very high values will probably not make a big difference since there will be sanity checks.
+
+
+	# Subject Interactions:
+	scutage = no
+	embargo_rivals = no
+	sacrifice_ruler = no
+	sacrifice_heir = no
+	divert_trade = no
+	place_relative_on_throne = no
+	subsidize_armies = no
+	send_additional_troops = no
+	send_officers = no
+	conscript_general = yes
+
+	# Modifiers:
+	overlord_opinion_modifier = is_vassal
+	subject_opinion_modifier = is_vassal
+	
+	modifier_overlord = clear #We don't want to duplicate the ones inherited from default
+	modifier_subject = clear
+	
+	
+	can_fight = {
+		independent_nations = yes
+		other_overlord = all
+	}
+	can_rival = {
+		independent_nations = yes
+		other_overlord = all
+	}
+	can_marry = {
+		independent_nations = yes
+		other_overlord = all
 	}
 }
