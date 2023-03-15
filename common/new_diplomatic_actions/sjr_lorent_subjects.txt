@@ -1,0 +1,123 @@
+cancel_lorent_sphere_overlord =  {
+	category = influence
+
+	#alert_index = <int>             # The alert to use for the action. Refer to static_actions for the indexes. Optional.
+    alert_tooltip = cancel_lorent_sphere_overlord_alert_tooltip           # The localisation key to display in the alert tooltip. Optional.
+
+	require_acceptance = no
+	is_visible = {
+		overlord_of = FROM
+		FROM = {
+			is_subject_of_type = lorent_sphere_subject
+		}
+	}
+	
+	is_allowed = {
+		OR = {
+			#ROOT = {
+				#or = {
+					and = {
+						NOT = {
+							has_opinion = {
+								who = FROM
+								value = 0
+							}
+						}
+						ai = no
+					}
+					and = {
+						NOT = {
+							has_opinion = {
+								who = FROM
+								value = -50
+							}
+						}
+						ai = yes
+					}
+				#}
+			#}
+			#FROM = { 		#No muestra el ratio en la condicion de la accion diplomatica
+			#	development_of_overlord_fraction = 0.90
+			#}
+			#FROM = { 		#No muestra el 200 en la condicion de la accion diplomatica
+			#	higher_development_than = 200
+			#}
+			FROM = {
+				total_development = 500
+			}
+			FROM = {
+				total_development = ROOT
+			}
+		}
+		#FROM = {
+		#	is_subject_of_type = lorent_sphere_subject
+		#	is_subject_of = ROOT		
+		#}
+	}
+	
+	on_accept = {
+		FROM = { grant_independence = yes }
+		FROM = { add_truce_with = ROOT }
+		FROM = { country_event = { id = sjr_lorent_set_up.4 days = -1 } }
+		ROOT = { country_event = { id = sjr_lorent_set_up.4 days = -1 } }
+		#FROM = { add_country_modifier = { name = indipendence_fervor duration = -1  } }
+		hidden_effect = { FROM = { set_country_flag = use_request_submission } }
+	}
+	
+	ai_will_do = {
+		always = yes
+	}
+}
+
+cancel_lorent_sphere_subject =  {
+	category = influence
+
+	#alert_index = <int>             # The alert to use for the action. Refer to static_actions for the indexes. Optional.
+    #alert_tooltip = <key>           # The localisation key to display in the alert tooltip. Optional.
+
+	require_acceptance = no
+	is_visible = {
+		#is_subject_of_type_with_overlord = { who = A01 type = lorent_sphere_subject }
+		#ROOT = { tag = A01 }
+		ROOT = {
+			#is_subject_of = FROM 
+			#subject_type = lorent_sphere_subject
+			is_subject_of_type_with_overlord = { who = FROM type = lorent_sphere_subject }
+			#overlord_of = FROM
+		}
+		FROM = {
+			#is_subject_of = ROOT
+			#is_subject_of_type_with_overlord = { who = FROM type = lorent_sphere_subject }
+			#subject_type = lorent_sphere_subject
+			overlord_of = ROOT
+		}
+	}
+	
+	is_allowed = {
+		ROOT =  { stability = -2 }
+		#is_subject_of_type_with_overlord = { who = A01 type = lorent_sphere_subject }
+		#ROOT = { tag = A01 }
+	}
+	
+	on_accept = {
+		ROOT = { grant_independence = yes who = FROM }
+		add_stability = -1
+		add_corruption = 2
+		FROM =  {
+			add_casus_belli = {
+				target = ROOT
+				type = cb_imperial
+				months = 60
+			}
+		}
+		hidden_effect = { set_country_flag = use_request_submission }
+	}
+	
+	ai_will_do = {
+		#FROM =  {
+		ROOT =  {
+			total_development = 500
+		}
+	}
+}
+

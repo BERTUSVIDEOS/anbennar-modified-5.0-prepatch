@@ -1,0 +1,426 @@
+namespace = sjr_lorent_set_up
+
+province_event = {
+	id = sjr_lorent_set_up.1
+	title = sjr_lorent_set_up.1.t
+	desc = sjr_lorent_set_up.1.desc
+	picture = DIPLOMACY_eventPicture
+	
+	hidden = yes
+
+    trigger = {
+		OR = {
+			AND = { #cuando hay que ponerlo
+				OR = {
+					region = lencenor_region
+					region = west_dameshead_region
+					region = small_country_region
+					area = beepeck_area
+					area = iochand_area
+				}
+				NOT = {
+					has_province_modifier = peace_under_lorent_modifier
+				}
+				owner = {
+					OR = {
+						tag = A01
+						is_subject_of = A01
+					}
+					#NOT = { had_recent_war = 5 }
+					#is_at_war = NO
+				}
+				owner = { is_at_war = NO }
+				owner = { NOT = { had_recent_war = 2 } }
+				NOT = { has_global_flag = peace_under_lorent_flag_off }
+			}
+			AND = {  #Cuando hay que quitarlo
+				has_province_modifier = peace_under_lorent_modifier
+				OR =  { 
+					NOT = {
+						owner = {
+							OR = {
+								tag = A01
+								is_subject_of = A01
+							}
+						}
+					}
+					owner = { is_at_war = yes }
+					has_global_flag = peace_under_lorent_flag_off
+				}
+			}
+		}
+    }
+	
+	immediate = {
+	
+	}
+	option = {
+		name = sjr_lorent_set_up.1.a
+		trigger = {
+			NOT = {
+				has_province_modifier = peace_under_lorent_modifier
+			}
+		}
+		add_province_modifier = { 
+			name = peace_under_lorent_modifier
+			duration = -1  
+		}
+	}
+	option = {
+		name = sjr_lorent_set_up.1.b
+		trigger = {
+			has_province_modifier = peace_under_lorent_modifier
+		}
+		remove_province_modifier = peace_under_lorent_modifier
+	}
+}
+
+
+
+country_event = {
+	id = sjr_lorent_set_up.2
+	title = sjr_lorent_set_up_off.2.t
+	desc = sjr_lorent_set_up_off.2.desc
+	picture = DIPLOMACY_eventPicture
+	
+	hidden = yes
+	#major = yes
+	#major_trigger = {
+	#	#Capital in lencenor
+	#}
+
+    trigger = {
+		A01 = {
+			not = { lorent_sphere_subject = 5 }
+		}
+		not = { has_global_flag = peace_under_lorent_flag_off }
+	}
+		
+	immediate = {
+	
+	}
+	option = {
+		name = sjr_lorent_set_up.2.a
+		trigger = {
+		}
+		set_global_flag = peace_under_lorent_flag_off
+	}
+}
+
+
+country_event = {
+	id = sjr_lorent_set_up.3
+	title = sjr_lorent_set_up_off.3.t
+	desc = sjr_lorent_set_up_off.3.desc
+	picture = PLAGUE_eventPicture
+	
+	is_triggered_only = yes
+	hidden = no
+	fire_only_once = yes
+	
+    trigger = {
+	}
+		
+	immediate = {
+		hidden_effect = {
+			every_subject_country = {
+				add_truce_with = ROOT
+				ROOT = {
+					add_truce_with = PREV
+				}
+			}
+		}
+	}
+	option = {
+		name = sjr_lorent_set_up.3.a
+		trigger = {
+			AI = no
+		}
+		add_country_modifier = { 
+			name = lorent_player_modifier
+			duration = 7300
+			#desc = LORENT_PLAYER_modifier_DESC_TOOLTIP
+			#hidden = no
+		}
+		add_country_modifier = { 
+			name = lorent_aristocratic_military_modifier
+			duration = -1
+			desc = lorent_aristocratic_military_modifier_DESC_TOOLTIP
+			#hidden = no
+		}
+		add_war_exhaustion = 10
+		add_corruption = 5
+		add_manpower = -30
+		add_sailors = -10000
+		#add_truce_with = A20
+		#add_truce_with = A04
+		#add_truce_with = A88
+		#add_truce_with = A11
+		#add_truce_with = Z11
+		#add_truce_with = A12
+		#add_truce_with = A22
+		#add_truce_with = A87
+	}
+	option = {
+		name = sjr_lorent_set_up.3.b
+		trigger = {
+			AI = YES
+		}
+		add_country_modifier = { 
+			name = lorent_AI_modifier
+			duration = 3650
+			#desc = LORENT_PLAYER_modifier_DESC_TOOLTIP
+			#hidden = no
+		}
+		#add_truce_with = A20
+		#add_truce_with = A04
+		#add_truce_with = A88
+		#add_truce_with = A11
+		#add_truce_with = Z11
+		#add_truce_with = A12
+		#add_truce_with = A22
+		#add_truce_with = A87
+	}
+}
+
+
+country_event = {
+	id = sjr_lorent_set_up.4
+	title = sjr_lorent_set_up_off.4.t
+	desc = sjr_lorent_set_up_off.4.desc
+	picture = LAND_MILITARY_eventPicture
+	
+	hidden = no
+	fire_only_once = no
+	is_triggered_only = yes
+	
+    trigger = {
+		not = { has_country_flag = troops_return }
+	}	
+	immediate = {
+		set_country_flag = troops_return
+	}
+	option = {
+		name = sjr_lorent_set_up.4.a
+		trigger = {
+			NOT = { tag = A01 }
+		}	
+		name = sjr_lorent_set_up.4.a
+		add_manpower = 10
+		add_army_tradition = 10
+
+	}
+	option = {
+		name = sjr_lorent_set_up.4.b
+		trigger = {
+			tag = A01
+			ai = no
+		}
+		add_manpower = -10
+	}
+	option = {
+		name = sjr_lorent_set_up.4.c
+		trigger = {
+			tag = A01
+			ai = yes
+		}
+	}
+}
+
+
+country_event = {
+	id = sjr_lorent_set_up.5
+	title = sjr_lorent_set_up_off.5.t
+	desc = sjr_lorent_set_up_off.5.desc
+	picture = CONQUEST_eventPicture
+	
+	is_triggered_only = no
+	hidden = no
+	fire_only_once = no
+	
+    trigger = {
+		is_part_of_hre = yes
+		defensive_war_with = A01
+		A01 = { lorent_sphere_subject = 1 }
+		A01 = { is_vassal = no }
+		not = { total_development = A01 }
+		not = { has_global_flag = no_more_winelords }
+		not = { has_country_flag = fight_or_surrender_happen }			
+	}	
+	immediate = {
+		#hidden_effect = {
+			set_country_flag = fight_or_surrender_happen
+		#}
+	}
+	option = {
+		name = sjr_lorent_set_up.5.a
+		trigger = {
+			ai = no
+		}
+		white_peace = A01
+		A01 = {
+			create_subject = {
+				subject_type = lorent_sphere_subject
+				subject = A20
+			}
+		}
+		emperor = {
+			add_imperial_influence = -5
+		}
+		emperor = {
+			add_opinion = {
+				who = ROOT
+				modifier = resentful
+			}
+		}
+		every_elector = {
+			#any_elector = {
+			#all_elector = {
+			#elector = {
+				add_opinion = {
+					who = ROOT
+					modifier = resentful
+				}
+		}
+		A01 = {
+			country_event = { 
+				id = sjr_lorent_set_up.6
+				days = -1
+			}
+		}
+	}
+	option = {
+		name = sjr_lorent_set_up.5.b
+		trigger = {
+		}
+		add_manpower = 25
+		add_treasury = 250
+		add_mil_power = 50
+		add_country_modifier = { 
+			name = defend_the_empire_modifier
+			duration = 730 
+		}
+	}
+}
+
+
+country_event = {
+	id = sjr_lorent_set_up.6
+	title = sjr_lorent_set_up_off.6.t
+	desc = sjr_lorent_set_up_off.6.desc
+	picture = DIPLOMACY_eventPicture
+	
+	is_triggered_only = yes
+	hidden = no
+	fire_only_once = no
+	
+    trigger = {
+
+	}	
+	immediate = {
+	
+	}
+	option = {
+		name = sjr_lorent_set_up.6.a
+
+	}
+}
+
+
+
+country_event = {
+	id = sjr_lorent_set_up.7
+	title = sjr_lorent_set_up.7.t
+	desc = sjr_lorent_set_up.7.desc
+	picture = DIPLOMACY_eventPicture
+	
+	hidden = yes
+	is_triggered_only = yes
+
+    trigger = {
+
+    }
+	
+	immediate = {
+
+	}
+	option = {
+		name = sjr_lorent_set_up.7.a
+		trigger = {
+			67 = { has_building = canal_system_lvl_2 }
+		}
+	}
+	option = {
+		name = sjr_lorent_set_up.7.b
+		trigger = {
+			NOT = { 67 = { has_building = canal_system_lvl_2 } }
+		}
+		every_province = {
+			limit = {
+				or = {
+					area = upper_bloodwine_area
+					area = west_ruby_hills_area
+					area = ionnidar_area
+					area = middle_bloodwine_area
+					area = lower_bloodwine_area
+					area = upper_winebay_area
+					area = ainethan_area
+					province_id = 101
+					province_id = 81
+				}
+			}
+			add_permanent_province_modifier = { 
+				name = river_polluted_by_hold_digging_modifier
+				duration = 7300
+			}
+		}
+	}
+}
+
+country_event = {
+	id = sjr_lorent_set_up.8
+	title = sjr_lorent_set_up.8.t
+	desc = sjr_lorent_set_up.8.desc
+	picture = DIPLOMACY_eventPicture
+	
+	hidden = no
+	fire_only_once = yes
+
+    trigger = {
+		has_country_modifier = lorent_aristocratic_military_modifier
+		#or = {
+		army_professionalism = 0.25
+		army_tradition = 50
+		#}
+    }
+	
+	immediate = {
+
+	}
+	
+	option = {
+		name = sjr_lorent_set_up.8.a
+		
+		remove_country_modifier = lorent_aristocratic_military_modifier
+		add_country_modifier = {
+			name = lorent_aristocratic_military_removed_modifier
+			duration = -1
+		}
+
+
+	}
+	option = {
+		name = sjr_lorent_set_up.8.b
+
+		trigger = {
+			AI = no
+		}
+
+		remove_country_modifier = lorent_aristocratic_military_modifier
+		add_country_modifier = {
+			name = lorent_aristocratic_military_improved_modifier
+			duration = -1
+		}
+
+	}
+}

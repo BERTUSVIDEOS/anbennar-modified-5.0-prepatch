@@ -1,0 +1,62 @@
+country_decisions = {
+
+	request_submission = {
+		major = yes
+		potential = {
+			is_neighbor_of = A01
+			not = { has_country_flag = use_request_submission }
+			is_part_of_hre = yes
+			not = { has_global_flag = no_more_winelords }
+			A01 = { lorent_sphere_subject = 1 }
+			not = { has_country_flag = fight_or_surrender_happen }
+		}
+		
+		provinces_to_highlight = {
+
+		}
+		
+		allow = {
+			not = { alliance_with = emperor }
+			not = { total_development = A01 }
+			is_vassal = no
+		}
+
+		effect = {
+			A01 = {
+				create_subject = {
+					subject_type = lorent_sphere_subject
+					subject = ROOT
+				}
+			}
+			emperor = {
+				add_imperial_influence = -5
+			}
+			emperor = {
+				add_opinion = {
+					who = ROOT
+					modifier = resentful
+				}
+			}
+			every_elector = {
+			#any_elector = {
+			#all_elector = {
+			#elector = {
+				add_opinion = {
+					who = ROOT
+					modifier = resentful
+				}
+			}
+			A01 = {
+				country_event = { 
+					id = sjr_lorent_set_up.6
+					days = -1
+				}
+			}
+
+			hidden_effect = { set_country_flag = use_request_submission }
+		}	
+		ai_will_do = {
+			factor = 0
+		}
+	}
+}
