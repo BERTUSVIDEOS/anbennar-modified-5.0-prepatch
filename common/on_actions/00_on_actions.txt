@@ -1354,6 +1354,10 @@ on_peace_recipient = {
 # root = winning country, from = loser country
 on_war_won = {
 	if = {
+		limit = {NOT = { has_global_flag = ended_dominion_wars_flag } OR = {tag = A01 tag = A13}}
+		country_event = { id = bertus_changes.8101}
+	}
+	if = {
 		limit = {
 			any_known_country = {
 				humiliated_by = ROOT
@@ -4929,6 +4933,10 @@ on_yearly_pulse = {
 		100 = bertus_changes.6014
 		100 = bertus_changes.6015
 		1000 = 0
+	}
+	if = {
+		limit = {tag = A13 NOT = {has_global_flag = wars_of_dominion_happened_flag}}
+		increase_dominion_wars_tension = {amount = 1}
 	}
 }
 on_yearly_pulse_2 = {

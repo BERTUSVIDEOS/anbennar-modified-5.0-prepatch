@@ -6853,6 +6853,212 @@ country_event = {	#goods price events
 		custom_tooltip = Banquets_cheese_tt
 	}
 }
+country_event = {	#DOMINION WARS MENU
+	id = bertus_changes.8000
+	title = bertus_changes.8000.t
+	desc = bertus_changes.8000.desc
+	picture = DIPLOMACY_eventPicture
+	
+	is_triggered_only= yes
+
+	option = {
+		name = bertus_changes.8000.z
+		highlight = yes
+		clr_country_flag = opened_dominion_wars_menu_flag
+	}
+	option = {	#SUPORT LORENT
+		name = bertus_changes.8000.a
+		hidden_effect = {A01 = {country_event = {id = bertus_changes.8001}}}
+	}
+	option = {	#SUPORT GAWED
+		name = bertus_changes.8000.b
+		hidden_effect = {A13 = {country_event = {id = bertus_changes.8001}}}
+	}
+	option = {	#REDUCE TENSION
+		name = bertus_changes.8000.c
+		trigger = {
+			dip_power = 25
+			NOT = {has_country_modifier = dominion_wars_invested_dip}
+		}
+		add_dip_power = -25
+		increase_dominion_wars_tension = {amount = -1}
+		hidden_effect = {
+			add_country_modifier = {name = dominion_wars_invested_dip duration = 365}
+		}
+		clr_country_flag = opened_dominion_wars_menu_flag
+	}
+	option = {	#REDUCE TENSION not available
+		name = bertus_changes.8000.cnot
+		trigger = {
+			OR = {
+				NOT = {dip_power = 25}
+				has_country_modifier = dominion_wars_invested_dip
+			}
+		}
+		clr_country_flag = opened_dominion_wars_menu_flag
+	}
+	option = {	#REDUCE TENSION LORENT
+		name = bertus_changes.8002.dlorent
+		trigger = {has_spy_network_in = {who = A01 value = 50}}
+		add_spy_network_in = {who = A01 value = -50}
+		increase_dominion_wars_tension = {amount = -1}
+		clr_country_flag = opened_dominion_wars_menu_flag
+	}
+	option = {	#REDUCE TENSION GAWED
+		name = bertus_changes.8002.dgawed
+		trigger = {has_spy_network_in = {who = A13 value = 50}}
+		add_spy_network_in = {who = A13 value = -50}
+		increase_dominion_wars_tension = {amount = -1}
+		clr_country_flag = opened_dominion_wars_menu_flag
+	}
+	option = {	#INCREASE TENSION LORENT
+		name = bertus_changes.8002.elorent
+		trigger = {has_spy_network_in = {who = A01 value = 50}}
+		add_spy_network_in = {who = A01 value = -50}
+		increase_dominion_wars_tension = {amount = 1}
+		clr_country_flag = opened_dominion_wars_menu_flag
+	}
+	option = {	#INCREASE TENSION GAWED
+		name = bertus_changes.8002.egawed
+		trigger = {has_spy_network_in = {who = A13 value = 50}}
+		add_spy_network_in = {who = A13 value = -50}
+		increase_dominion_wars_tension = {amount = 1}
+		clr_country_flag = opened_dominion_wars_menu_flag
+	}
+}
+country_event = {	#DOMINION WARS TARGET
+	id = bertus_changes.8001
+	title = bertus_changes.8001.t
+	desc = bertus_changes.8001.desc
+	picture = DIPLOMACY_eventPicture
+	
+	hidden = yes
+	is_triggered_only= yes
+
+	option = {	#SUPORT LORENT
+		name = bertus_changes.8001.a
+		hidden_effect = {FROM = {country_event = {id = bertus_changes.8002}}}
+	}
+}
+country_event = {	#DOMINION WARS MENU OPTIONS
+	id = bertus_changes.8002
+	title = bertus_changes.8002.t
+	desc = bertus_changes.8002.desc
+	picture = DIPLOMACY_eventPicture
+	
+	is_triggered_only= yes
+
+	option = {
+		name = bertus_changes.8002.z
+		highlight = yes
+		hidden_effect = {country_event = {id = bertus_changes.8000}}
+	}
+	option = {	#SUPORT WITH MANPOWER
+		name = bertus_changes.8002.a
+		trigger = {manpower = 1}
+		add_manpower = -1
+		FROM = {increase_dominion_wars_power = {amount = 1}}
+		increase_dominion_wars_support = {amount = 1}
+		increase_dominion_wars_tension = {amount = 0.1}
+		hidden_effect = {
+			FROM = {country_event = {id = bertus_changes.8001}}
+		}
+	}
+	option = {	#SUPORT WITH MANPOWER
+		name = bertus_changes.8002.b
+		trigger = {treasury = 25}
+		add_treasury = -25
+		FROM = {increase_dominion_wars_power = {amount = 1}}
+		increase_dominion_wars_support = {amount = 1}
+		increase_dominion_wars_tension = {amount = 0.1}
+		hidden_effect = {
+			FROM = {country_event = {id = bertus_changes.8001}}
+		}
+	}
+}
+country_event = {	#DOMINION WAR!
+	id = bertus_changes.8100
+	title = bertus_changes.8100.t
+	desc = bertus_changes.8100.desc
+	picture = DIPLOMACY_eventPicture
+	
+	trigger = {
+		NOT = {has_global_flag = wars_of_dominion_happened_flag}
+		check_variable = {which = dominion_wars_progress value = 100}
+		not = {at_war_with = A01}
+	}
+	major = yes
+	mean_time_to_happen = {
+		days = 3650
+	}
+
+	immediate = {
+		set_global_flag = wars_of_dominion_happened_flag
+	}
+	option = {	#WAR!
+		name = bertus_changes.8100.a
+		if = {
+			limit = {A01 = {check_variable = {which = dominion_wars_power which = A13}}}
+			A01 = {declare_war = A13}
+		}
+		else = {
+			A13 = {declare_war = A01}
+		}
+	}
+	after = {
+		A13 = {get_wars_of_dominion_bonus = yes}
+		A01 = {get_wars_of_dominion_bonus = yes}
+	}
+}
+country_event = {	#END DOMINION WAR!
+	id = bertus_changes.8101
+	title = bertus_changes.8101.t
+	desc = bertus_changes.8101.desc
+	picture = DIPLOMACY_eventPicture
+	
+	is_triggered_only= yes
+
+	immediate = {
+		set_global_flag = ended_dominion_wars_flag
+	}
+	option = {	#WAR ENDING BONUS
+		name = bertus_changes.8101.a
+		if = {
+			limit = {tag = A13}
+			every_country = {
+				limit = {check_variable = {which = dominion_wars_support_gawed value = 1}}
+				set_variable = {which = temp value = 0}
+				while = {
+					limit = {
+						check_variable = {which = dominion_wars_support_gawed which = temp}
+					}
+					change_variable = {which = temp value = 1}
+					add_years_of_income = 0.1
+					add_adm_power = 25
+					add_dip_power = 25
+					add_mil_power = 25
+				}
+			}
+		}
+		if = {
+			limit = {tag = A01}
+			every_country = {
+				limit = {check_variable = {which = dominion_wars_support_lorent value = 1}}
+				set_variable = {which = temp value = 0}
+				while = {
+					limit = {
+						check_variable = {which = dominion_wars_support_lorent which = temp}
+					}
+					change_variable = {which = temp value = 1}
+					add_years_of_income = 0.1
+					add_adm_power = 25
+					add_dip_power = 25
+					add_mil_power = 25
+				}
+			}
+		}
+	}
+}
 country_event = {	#goods menu bolean
 	id = bertus_changes.7999
 	title = bertus_changes.7999.t

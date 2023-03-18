@@ -1,4 +1,43 @@
 
+increase_dominion_wars_tension = {
+	custom_tooltip = increase_dominio_wars_tension_$amount$_tt
+	hidden_effect = {
+		A13 = {change_variable = {which = dominion_wars_progress value = $amount$}}
+	}
+}
+increase_dominion_wars_power = {
+	custom_tooltip = increase_target_power_tt
+	hidden_effect = {
+		change_variable = {which = dominion_wars_power value = $amount$}
+	}
+}
+increase_dominion_wars_support = {
+	if = {limit = {FROM = {tag = A13}}
+	custom_tooltip = increase_gawed_support_tt
+		hidden_effect = {
+			change_variable = {which = dominion_wars_support_gawed value = $amount$}
+		}
+	}
+	if = {limit = {FROM = {tag = A01}}
+	custom_tooltip = increase_lorent_support_tt
+		hidden_effect = {
+			change_variable = {which = dominion_wars_support_lorent value = $amount$}
+		}
+	}
+}
+get_wars_of_dominion_bonus = {
+	set_variable = {which = dominion_wars_power_boost value = 0}
+	change_variable = {
+		which = dominion_wars_power
+		which = dominion_wars_power_boost
+	}
+	while = {
+		limit = {check_variable = {which = dominion_wars_power_boost value = 1}}
+		change_variable = {which = dominion_wars_power_boost value = -1}
+		add_yearly_manpower = 0.1
+		add_years_of_income = 0.1
+	}
+}
 get_random_racial_adm_advisor = {
 	random_list = {
 		10 = {define_advisor = { skill = 3 type = treasurer cost_multiplier = $cost_multiplier$ culture = PREV religion = PREV}}

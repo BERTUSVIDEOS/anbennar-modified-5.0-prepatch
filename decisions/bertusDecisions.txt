@@ -1,4 +1,35 @@
 country_decisions = {
+	wars_of_dominion = {
+		potential = {
+			NOT = {has_global_flag = wars_of_dominion_happened_flag}
+			OR = {
+				is_neighbor_of = A01
+				is_neighbor_of = A13
+				any_subject_country = {
+					is_subject_of = A01
+					is_neighbor_of = ROOT
+				}
+				any_subject_country = {
+					is_subject_of = A13
+					is_neighbor_of = ROOT
+				}
+				is_subject_of = A01
+				is_subject_of = A13
+			}
+			NOT = {tag = A01}
+			NOT = {tag = A13}
+		}
+		allow = {
+			NOT = {has_country_flag = opened_dominion_wars_menu_flag}
+		}
+		effect = {
+			set_country_flag = opened_dominion_wars_menu_flag
+			country_event = {id = bertus_changes.8000}
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
 	splendor_into_power = {
 		potential = {
 			splendor = 600
