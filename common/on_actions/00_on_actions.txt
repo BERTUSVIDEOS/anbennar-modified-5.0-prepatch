@@ -156,6 +156,23 @@ on_startup = {
 			}
 		}
 	}
+	# Add modifier to Oak Lords
+	if = {
+		limit = {
+			NOT = { is_year = 1445 }
+			has_government_attribute = oak_lord_boost
+		}
+		every_owned_province = {
+			limit = {
+				trade_goods = tropical_wood
+			}
+			add_province_modifier = {
+				name = oak_lord_province_modifier
+				duration = -1
+				hidden = yes
+			}
+		}
+	}
 	
 	if = {
 		limit = {
@@ -8703,6 +8720,24 @@ on_province_owner_change = {
 	#ANBENNAR
 	if = {
 		limit = {
+			NOT = { has_province_modifier = oak_lord_province_modifier }
+			owner = { has_government_attribute = oak_lord_boost}
+		}
+		hidden_effect = {
+			if = {
+				limit = {
+					trade_goods = tropical_wood
+				}
+				add_province_modifier = {
+					name = oak_lord_province_modifier
+					duration = -1
+					hidden = yes
+				}
+			}
+		}
+	}
+	if = {
+		limit = {
 			NOT = { has_province_modifier = wine_lord_wine }
 			owner = { has_government_attribute = winelord_boost}
 		}
@@ -9533,11 +9568,8 @@ on_general_recruited = {
 	if = {	#bertus mod
 		limit = {
 			has_government_attribute = recruiting_generals_give_yearly_manpower
-		}		
-		random = { 
-			chance = 10 
-			add_yearly_manpower = 1
 		}
+		add_yearly_manpower = 0.1
 	}
 	if = {	#bertus mod
 		limit = {
@@ -10538,6 +10570,7 @@ on_trade_good_changed = {
 				has_province_modifier = artifice_growthbeans_bonus
 				has_province_modifier = artifice_pearl_cultivator_bonus
 				has_province_modifier = wine_lord_wine
+				has_province_modifier = oak_lord_province_modifier
 				has_province_modifier = eordan_expedition_site
 				has_province_modifier = damestear_rich_deposit
 				has_province_modifier = huge_damestear
@@ -10554,6 +10587,7 @@ on_trade_good_changed = {
 		remove_province_modifier = artifice_growthbeans_bonus
 		remove_province_modifier = artifice_pearl_cultivator_bonus
 		remove_province_modifier = wine_lord_wine
+		remove_province_modifier = oak_lord_province_modifier
 		remove_province_modifier = eordan_expedition_site
 		remove_province_modifier = damestear_rich_deposit
 		remove_province_modifier = huge_damestear

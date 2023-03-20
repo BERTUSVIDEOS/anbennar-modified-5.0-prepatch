@@ -11,7 +11,7 @@ lorent_colonial = {
 	lorent_recover_from_lilac_wars = {
 		icon = mission_war_chest
 		required_missions = { }
-		position = 1
+		position = 5
 		
 		trigger = {
 			stability = 2
@@ -28,15 +28,18 @@ lorent_colonial = {
 	lorent_redglade_accord = {
 		icon = mission_princess_writing
 		required_missions = { lorent_recover_from_lilac_wars }
-		position = 5
+		position = 6
 		
 		trigger = {
 			if = {
 				limit = { exists = A03}
 				A03 = {
-					has_opinion = {
-						who = ROOT
-						value = 150
+					OR = {
+						has_opinion = {
+							who = ROOT
+							value = 150
+						}
+						war_with = ROOT
 					}
 				}
 			}
@@ -75,7 +78,6 @@ lorent_colonial = {
 	lorent_endral_the_explorer = {
 		icon = mission_establish_high_seas_navy
 		required_missions = { lorent_redglade_accord }
-		position = 6
 		
 		trigger = {
 			num_of_colonists = 1
@@ -122,7 +124,6 @@ lorent_colonial = {
 	lorent_colonize_endralliande = {
 		icon = mission_dominate_home_trade_node
 		required_missions = { lorent_rediscovery_of_aelantir }
-		position = 8
 		
 		provinces_to_highlight = {
 			colonial_region = colonial_endralliande
@@ -153,7 +154,6 @@ lorent_colonial = {
 	lorent_establish_a_proper_colony = {
 		icon = mission_colonial
 		required_missions = { lorent_colonize_endralliande }
-		position = 9
 		
 		provinces_to_highlight = {
 			colonial_region = colonial_endralliande
@@ -183,7 +183,6 @@ lorent_colonial = {
 	lorent_the_centre_of_the_ruin = {
 		icon = mission_invade_island
 		required_missions = { lorent_establish_a_proper_colony }
-		position = 10
 		
 		provinces_to_highlight = {
 			colonial_region = colonial_isles
@@ -213,7 +212,6 @@ lorent_colonial = {
 	lorent_headway_into_the_trollsbay = {
 		icon = mission_galleys_in_port
 		required_missions = { lorent_the_centre_of_the_ruin }
-		position = 11
 		
 		provinces_to_highlight = {
 			region = trollsbay_region
@@ -243,22 +241,18 @@ lorent_colonial = {
 	lorent_the_great_river = {
 		icon = mission_occupy_alexandria
 		required_missions = { lorent_headway_into_the_trollsbay }
-		position = 12
 		
 		provinces_to_highlight = {
-			superregion = ynn_superregion
+			region = trollsbay_region
 			NOT = { country_or_non_sovereign_subject_holds = ROOT }
 			has_discovered = ROOT
 		}
 		
 		trigger = {
-			custom_trigger_tooltip = {
-				tooltip = tooltip_colonize_ynn
-				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
-					value = 1
-					superregion = ynn_superregion
-					is_city = yes
-				}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 5
+				region = trollsbay_region
+				is_city = yes
 			}
 		}
 		
@@ -273,29 +267,30 @@ lorent_colonial = {
 	lorent_the_new_bloodwine = {
 		icon = mission_burning_separation
 		required_missions = { lorent_the_great_river }
-		position = 13
 		
 		provinces_to_highlight = {
-			superregion = ynn_superregion
+			region = trollsbay_region
 			NOT = { country_or_non_sovereign_subject_holds = ROOT }
 			has_discovered = ROOT
 		}
 		
 		trigger = {
-			custom_trigger_tooltip = {
-				tooltip = tooltip_colony_in_the_ynn
-				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
-					value = 5
-					superregion = ynn_superregion
-					is_city = yes
-				}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 20
+				region = trollsbay_region
+				is_city = yes
 			}
 		}
 		
 		effect = {
-			add_country_modifier = {
-				name = "lorent_expanding_in_the_ynn"
-				duration = 9125
+			trollsbay_region = {
+				limit = {
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+				add_province_modifier = {
+					name = "lorent_expanding_in_the_ynn"
+					duration = -1
+				}
 			}
 		}
 	}
@@ -371,7 +366,7 @@ lorent_internal = {
 	
 	lorent_renovating_lorentaine = {
 		icon = mission_city_prosperity
-		required_missions = { lorent_redglade_accord }
+		required_missions = { lorent_recover_from_lilac_wars }
 		position = 6
 		
 		provinces_to_highlight = {
@@ -415,14 +410,22 @@ lorent_internal = {
 			province_id = 67
 			OR = {
 				NOT = { owned_by = ROOT }
-				NOT = { has_building = university }
+				NOT = {
+					has_great_project = {
+						type = lorentaine_mage_academy
+						tier = 2
+					}
+				}
 			}
 		}
 		
 		trigger = {
 			67 = {
 				owned_by = ROOT
-				has_building = university
+				has_great_project = {
+					type = lorentaine_mage_academy
+					tier = 2
+				}
 			}
 		}
 		
@@ -478,7 +481,7 @@ lorent_internal = {
 	lorent_the_new_redglades = {
 		icon = mission_forest_pilgrim
 		required_missions = { lorent_establish_a_proper_colony	}
-		position = 10
+		position = 11
 		
 		provinces_to_highlight = {
 			region = bloodgroves_region
@@ -515,7 +518,6 @@ lorent_internal = {
 	lorent_encourage_elven_migration = {
 		icon = mission_fleet_arrival
 		required_missions = { lorent_the_new_redglades }
-		position = 11
 		
 		provinces_to_highlight = {
 			region = bloodgroves_region
@@ -574,6 +576,10 @@ lorent_unification_of_lencenor = {
 					NOT = { owned_by = ROOT }
 				}
 				add_permanent_claim = ROOT
+			}
+			add_country_modifier = {
+				name = army_enthusiasm
+				duration = 5475 #15 years
 			}
 		}
 	}
@@ -963,6 +969,10 @@ lorent_wine = {
 			OR = {
 				alliance_with = emperor
 				is_emperor = yes
+				has_won_war_against = {
+					who = emperor
+					max_years_since = 10
+				}
 				eoa_is_dismantled = yes
 			}
 		}
@@ -989,6 +999,13 @@ lorent_wine = {
 				}
 				add_permanent_claim = ROOT
 			}
+			carneteria_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
 			add_country_modifier = {
 				name = "lorent_emperor_disregards_lorentish_advances"
 				duration = 5475
@@ -1003,19 +1020,19 @@ lorent_wine = {
 		
 		provinces_to_highlight = {
 			OR = {
-				province_id = 33
-				province_id = 81
-				province_id = 86
-				province_id = 101
+				area = upper_winebay_area
+				area = lower_winebay_area
+				area = eastern_winebay_area
+				area = carneteria_area
 			}
 			NOT = { country_or_non_sovereign_subject_holds = ROOT }
 		}
 		
 		trigger = {
-			33 = { country_or_non_sovereign_subject_holds = ROOT }
-			81 = { country_or_non_sovereign_subject_holds = ROOT }
-			86 = { country_or_non_sovereign_subject_holds = ROOT }
-			101 = { country_or_non_sovereign_subject_holds = ROOT }
+			upper_winebay_area = { type = all country_or_non_sovereign_subject_holds = ROOT }
+			lower_winebay_area = { type = all  country_or_non_sovereign_subject_holds = ROOT }
+			eastern_winebay_area = { type = all  country_or_non_sovereign_subject_holds = ROOT }
+			carneteria_area = { type = all  country_or_non_sovereign_subject_holds = ROOT }
 		}
 		
 		effect = {
@@ -1033,12 +1050,7 @@ lorent_wine = {
 		position = 5
 		
 		provinces_to_highlight = {
-			OR = {
-				area = upper_winebay_area
-				area = lower_winebay_area
-				area = eastern_winebay_area
-			}
-			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			province_id = 1292
 		}
 		
 		trigger = {
@@ -1159,24 +1171,7 @@ lorent_wine = {
 		position = 7
 		
 		provinces_to_highlight = {
-			OR = {
-				province_id = 32
-				province_id = 33
-				province_id = 38
-				province_id = 59
-				province_id = 72
-				province_id = 74
-				province_id = 79
-				province_id = 81
-				province_id = 84
-				province_id = 85
-				province_id = 88
-				province_id = 97
-				province_id = 99
-				province_id = 101
-				province_id = 108
-				province_id = 114
-			}
+			region = lencenor_region
 			OR = {
 				NOT = { owned_by = ROOT }
 				NOT = { base_production = 11 }
@@ -1187,85 +1182,11 @@ lorent_wine = {
 		trigger = {
 			custom_trigger_tooltip = {
 				tooltip = tooltip_monopolize_wine_production
-				32 = {
-					owned_by = ROOT
+				num_of_owned_provinces_with = {
+					region = lencenor_region
 					base_production = 11
 					NOT = { local_autonomy = 25.1 }
-				}
-				33 = {
-					owned_by = ROOT
-					base_production = 11
-					NOT = { local_autonomy = 25.1 }
-				}
-				38 = {
-					owned_by = ROOT
-					base_production = 11
-					NOT = { local_autonomy = 25.1 }
-				}
-				59 = {
-					owned_by = ROOT
-					base_production = 11
-					NOT = { local_autonomy = 25.1 }
-				}
-				72 = {
-					owned_by = ROOT
-					base_production = 11
-					NOT = { local_autonomy = 25.1 }
-				}
-				74 = {
-					owned_by = ROOT
-					base_production = 11
-					NOT = { local_autonomy = 25.1 }
-				}
-				79 = {
-					owned_by = ROOT
-					base_production = 11
-					NOT = { local_autonomy = 25.1 }
-				}
-				81 = {
-					owned_by = ROOT
-					base_production = 11
-					NOT = { local_autonomy = 25.1 }
-				}
-				84 = {
-					owned_by = ROOT
-					base_production = 11
-					NOT = { local_autonomy = 25.1 }
-				}
-				85 = {
-					owned_by = ROOT
-					base_production = 11
-					NOT = { local_autonomy = 25.1 }
-				}
-				88 = {
-					owned_by = ROOT
-					base_production = 11
-					NOT = { local_autonomy = 25.1 }
-				}
-				97 = {
-					owned_by = ROOT
-					base_production = 11
-					NOT = { local_autonomy = 25.1 }
-				}
-				99 = {
-					owned_by = ROOT
-					base_production = 11
-					NOT = { local_autonomy = 25.1 }
-				}
-				101 = {
-					owned_by = ROOT
-					base_production = 11
-					NOT = { local_autonomy = 25.1 }
-				}
-				108 = {
-					owned_by = ROOT
-					base_production = 11
-					NOT = { local_autonomy = 25.1 }
-				}
-				114 = {
-					owned_by = ROOT
-					base_production = 11
-					NOT = { local_autonomy = 25.1 }
+					value = 16
 				}
 			}
 		}

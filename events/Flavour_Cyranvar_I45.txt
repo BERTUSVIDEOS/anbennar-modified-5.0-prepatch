@@ -303,29 +303,44 @@ country_event = {
 	desc = cyranvar.2.d
 	picture = ROYAL_COUPLE_FUTURE_eventPicture
 	
-	is_triggered_only = yes
-	
 	trigger = {
-		always = yes
+		has_government_attribute = cyranvar_special_election
+		NOT = {
+			has_country_modifier = cyranvar_parliament_ruler
+			has_country_modifier = cyranvar_absolute_ruler
+		}
+	}
+	immediate = {
+		remove_country_modifier = cyranvar_parliament_ruler
+		remove_country_modifier = cyranvar_absolute_ruler
 	}
 	#Parliament
-	option = {		
+	option = {
 		name = cyranvar.2.a
 		ai_chance = { factor = 40 }
-		hidden_effect = { set_country_flag = cyranvar_parliament_reform }
-		add_government_reform = cyranvar_parliament_reform
-		custom_tooltip = cyranvar_parliament_tooltip
+		define_ruler = {
+			adm = 1
+			dip = 1
+		}
+		add_country_modifier = {
+			name = cyranvar_parliament_ruler
+			duration = 36500
+		}
 	}
 	#Absolute ruler
-	option = {		
+	option = {
 		name = cyranvar.2.b
 		ai_chance = { factor = 60 }
+		define_ruler = {
+			mil = 1
+		}
 		add_country_modifier = {
 			name = cyranvar_absolute_ruler
-			duration = -1
+			duration = 36500
 		}
 		custom_tooltip = cyranvar_absolute_ruler_tooltip
 	}
+	after = {}
 }
 
 #Isolationist or Open Border path

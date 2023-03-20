@@ -1166,6 +1166,10 @@ shaman_control_the_military_reform = {	#bertus mod
 	allow_normal_conversion = yes
 	potential = {
 		OR = {
+			is_revolutionary = no
+			NOT = { has_dlc = "Emperor" }
+		}
+		OR = {
 			religion = great_dookan 
 			religion = old_dookan 
 			religion = ik_magthaal 
@@ -1184,6 +1188,7 @@ shaman_control_the_military_reform = {	#bertus mod
 		church_power_modifier = 0.25
 		max_absolutism = -20
 		mil_tech_cost_modifier = 0.05
+			is_revolutionary = no
 	}
 	effect = {
 		add_country_modifier = {
@@ -1207,6 +1212,10 @@ deity_duality_reform = {	#bertus mod
 	icon = "church"
 	allow_normal_conversion = yes
 	potential = {
+		OR = {
+			is_revolutionary = no
+			NOT = { has_dlc = "Emperor" }
+		}
 		NOT = { has_adventurer_reform = yes } # Anbennar
 		religion = regent_court
 	}
@@ -1232,6 +1241,10 @@ goblin_empowered_cult_reform = {	#bertus mod
 	icon = "church"
 	allow_normal_conversion = yes
 	potential = {
+		OR = {
+			is_revolutionary = no
+			NOT = { has_dlc = "Emperor" }
+		}
 		NOT = { has_adventurer_reform = yes } # Anbennar
 		religion = goblinic_shamanism
 	}
@@ -1255,6 +1268,10 @@ goblin_empowered_cult_reform = {	#bertus mod
 dwarovar_emulate_warriors = {	#bertus mod	
 	icon = "holy_state_reform"
 	potential = { 
+		OR = {
+			is_revolutionary = no
+			NOT = { has_dlc = "Emperor" }
+		}
 		NOT = { has_adventurer_reform = yes } # Anbennar
 		religion = ancestor_worship
 	}
@@ -1434,7 +1451,7 @@ conserve_the_religion_reform = {	#new LotN	#bertus mod
 	}
 	modifiers = {
 		rr_royalists_influence = 0.1
-		papal_influence = 100
+		curia_powers_cost = -0.25
 		tolerance_own = 3
 	}
 	custom_attributes = {
@@ -1992,7 +2009,10 @@ magical_guild_reform = {	#bertus mod
 			}
 		}
 		NOT = { has_government_attribute = increased_magic_ruler_chance }
-		NOT = {culture_group = dwarven}
+		OR = {
+			NOT = {culture_group = dwarven}
+			culture = ruby_dwarf
+		}
 	}
 	modifiers = {
 		mages_loyalty_modifier = 0.10
