@@ -52,7 +52,6 @@ province_event = {
     }
 	
 	immediate = {
-	
 	}
 	option = {
 		name = sjr_lorent_set_up.1.a
@@ -74,8 +73,6 @@ province_event = {
 		remove_province_modifier = peace_under_lorent_modifier
 	}
 }
-
-
 
 country_event = {
 	id = sjr_lorent_set_up.2
@@ -107,7 +104,6 @@ country_event = {
 	}
 }
 
-
 country_event = {
 	id = sjr_lorent_set_up.3
 	title = sjr_lorent_set_up_off.3.t
@@ -130,36 +126,46 @@ country_event = {
 				}
 			}
 		}
+		name = sjr_lorent_set_up.3.a
+		if = {
+			limit = {
+				AI = no
+			}
+			add_country_modifier = { 
+				name = lorent_player_modifier
+				duration = 7300
+			}
+			add_country_modifier = { 
+				name = lorent_aristocratic_military_modifier
+				duration = -1
+				desc = lorent_aristocratic_military_modifier_DESC_TOOLTIP
+			}
+			add_war_exhaustion = 10
+			add_corruption = 5
+			add_manpower = -100
+			add_sailors = -20000
+		}
 	}
 	option = {
 		name = sjr_lorent_set_up.3.a
 		trigger = {
 			AI = no
 		}
-		add_country_modifier = { 
-			name = lorent_player_modifier
-			duration = 7300
-			#desc = LORENT_PLAYER_modifier_DESC_TOOLTIP
-			#hidden = no
+		tooltip = {
+			add_country_modifier = { 
+				name = lorent_player_modifier
+				duration = 7300
+			}
+			add_country_modifier = { 
+				name = lorent_aristocratic_military_modifier
+				duration = -1
+				desc = lorent_aristocratic_military_modifier_DESC_TOOLTIP
+			}
+			add_war_exhaustion = 10
+			add_corruption = 5
+			add_manpower = -100
+			add_sailors = -20000
 		}
-		add_country_modifier = { 
-			name = lorent_aristocratic_military_modifier
-			duration = -1
-			desc = lorent_aristocratic_military_modifier_DESC_TOOLTIP
-			#hidden = no
-		}
-		add_war_exhaustion = 10
-		add_corruption = 5
-		add_manpower = -30
-		add_sailors = -10000
-		#add_truce_with = A20
-		#add_truce_with = A04
-		#add_truce_with = A88
-		#add_truce_with = A11
-		#add_truce_with = Z11
-		#add_truce_with = A12
-		#add_truce_with = A22
-		#add_truce_with = A87
 	}
 	option = {
 		name = sjr_lorent_set_up.3.b
@@ -169,20 +175,9 @@ country_event = {
 		add_country_modifier = { 
 			name = lorent_AI_modifier
 			duration = 3650
-			#desc = LORENT_PLAYER_modifier_DESC_TOOLTIP
-			#hidden = no
 		}
-		#add_truce_with = A20
-		#add_truce_with = A04
-		#add_truce_with = A88
-		#add_truce_with = A11
-		#add_truce_with = Z11
-		#add_truce_with = A12
-		#add_truce_with = A22
-		#add_truce_with = A87
 	}
 }
-
 
 country_event = {
 	id = sjr_lorent_set_up.4
@@ -226,7 +221,6 @@ country_event = {
 		}
 	}
 }
-
 
 country_event = {
 	id = sjr_lorent_set_up.5
@@ -303,7 +297,6 @@ country_event = {
 	}
 }
 
-
 country_event = {
 	id = sjr_lorent_set_up.6
 	title = sjr_lorent_set_up_off.6.t
@@ -326,57 +319,6 @@ country_event = {
 	}
 }
 
-
-
-country_event = {
-	id = sjr_lorent_set_up.7
-	title = sjr_lorent_set_up.7.t
-	desc = sjr_lorent_set_up.7.desc
-	picture = DIPLOMACY_eventPicture
-	
-	hidden = yes
-	is_triggered_only = yes
-
-    trigger = {
-
-    }
-	
-	immediate = {
-
-	}
-	option = {
-		name = sjr_lorent_set_up.7.a
-		trigger = {
-			67 = { has_building = canal_system_lvl_2 }
-		}
-	}
-	option = {
-		name = sjr_lorent_set_up.7.b
-		trigger = {
-			NOT = { 67 = { has_building = canal_system_lvl_2 } }
-		}
-		every_province = {
-			limit = {
-				or = {
-					area = upper_bloodwine_area
-					area = west_ruby_hills_area
-					area = ionnidar_area
-					area = middle_bloodwine_area
-					area = lower_bloodwine_area
-					area = upper_winebay_area
-					area = ainethan_area
-					province_id = 101
-					province_id = 81
-				}
-			}
-			add_permanent_province_modifier = { 
-				name = river_polluted_by_hold_digging_modifier
-				duration = 7300
-			}
-		}
-	}
-}
-
 country_event = {
 	id = sjr_lorent_set_up.8
 	title = sjr_lorent_set_up.8.t
@@ -388,39 +330,13 @@ country_event = {
 
     trigger = {
 		has_country_modifier = lorent_aristocratic_military_modifier
-		#or = {
 		army_professionalism = 0.25
 		army_tradition = 50
-		#}
     }
-	
-	immediate = {
 
-	}
-	
 	option = {
 		name = sjr_lorent_set_up.8.a
 		
 		remove_country_modifier = lorent_aristocratic_military_modifier
-		add_country_modifier = {
-			name = lorent_aristocratic_military_removed_modifier
-			duration = -1
-		}
-
-
-	}
-	option = {
-		name = sjr_lorent_set_up.8.b
-
-		trigger = {
-			AI = no
-		}
-
-		remove_country_modifier = lorent_aristocratic_military_modifier
-		add_country_modifier = {
-			name = lorent_aristocratic_military_improved_modifier
-			duration = -1
-		}
-
 	}
 }

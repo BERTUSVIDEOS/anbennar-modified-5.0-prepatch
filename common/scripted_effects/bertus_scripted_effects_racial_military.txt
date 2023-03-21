@@ -393,7 +393,7 @@ set_basic_variables = {
 	set_variable = {which = $RACE$_efficiency_manpower_province_variable value = 0}
 	set_variable = {which = $RACE$_dev_province_variable value = 0}
 	set_variable = {which = $RACE$_total_base_manpower_variable value = 0}
-	set_variable = {which = $RACE$_total_dev_variable value = 0}	
+	set_variable = {which = $RACE$_total_dev_variable value = 0}
 }
 set_pop_percentage = {
 	if = {
@@ -730,10 +730,9 @@ tech_flag_per_tech = {
 	}
 }
 get_special_general_stats = {
+	set_variable = {which = country_leader_total_var value = 0}
 	set_variable = {which = country_leader_shock_var value = 0}
 	set_variable = {which = country_leader_fire_var value = 0}
-	set_variable = {which = country_leader_total_var value = 0}
-	set_variable = {which = special_general_cost value = 0}
 	set_variable = {which = country_leader_manuever_var value = 0}
 	set_variable = {which = country_leader_siege_var value = 0}
 	export_to_variable = {which = country_leader_shock_var value = modifier:leader_land_shock}
@@ -807,6 +806,16 @@ get_special_general_stats = {
 	}
 	else_if = {
 		limit = {has_country_flag = get_mage_flag}
+		if = {
+			limit = {
+				OR = {
+					has_country_flag = magisterium_general_flag
+					has_government_attribute = is_magocracy
+				}
+			}
+			change_variable = {which = country_leader_shock_var value = 1}
+			change_variable = {which = country_leader_fire_var value = 1}
+		}
 		if = {
 			limit = {has_estate_privilege = estate_mages_battlemage_academies }
 			change_variable = {which = country_leader_shock_var value = 1}
@@ -979,23 +988,51 @@ get_special_general_stats = {
 
 	change_variable = {which = country_leader_total_var which = country_leader_shock_var}
 	change_variable = {which = country_leader_total_var which = country_leader_fire_var}
+	change_variable = {which = country_leader_total_var which = country_leader_manuever_var}
+	change_variable = {which = country_leader_total_var which = country_leader_siege_var}
 	
-	set_variable = {which = special_general_cost value = 0}
-	change_variable = {which = special_general_cost which = country_leader_shock_var}
-	change_variable = {which = special_general_cost which = country_leader_fire_var}
-	change_variable = {which = special_general_cost which = country_leader_manuever_var}
-	change_variable = {which = special_general_cost which = country_leader_siege_var}
-	set_variable = {which = special_general_cost_tt value = -5}
-	multiply_variable = {which = special_general_cost_tt which = special_general_cost}
+	set_variable = {which = special_general_cost value = 2}
+	if = {
+		limit = {
+			has_country_flag = magisterium_free_general_flag
+		}
+		set_variable = {which = special_general_cost value = 0}
+		set_variable = {which = special_general_cost_tt value = 0}
+		clr_country_flag = magisterium_free_general_flag
+	}
+	else = {
+		change_variable = {which = special_general_cost which = country_leader_shock_var}
+		change_variable = {which = special_general_cost which = country_leader_fire_var}
+		change_variable = {which = special_general_cost which = country_leader_manuever_var}
+		change_variable = {which = special_general_cost which = country_leader_siege_var}
+		
+		set_variable = {which = general_cost_var value = 0}
+		set_variable = {which = all_power_cost_var value = 0}
+		export_to_variable = {which = general_cost_var value = modifier:general_cost}
+		export_to_variable = {which = all_power_cost_var value = modifier:all_power_cost}
+		change_variable = {which = general_cost_var which = all_power_cost_var}
+		change_variable = {which = general_cost_var value = 1}
+		multiply_variable = {which = special_general_cost which = general_cost_var}
+
+		set_variable = {which = special_general_cost_tt value = -5}
+		multiply_variable = {which = special_general_cost_tt which = special_general_cost}
+		if = {
+			limit = {
+				has_government_attribute = is_magocracy
+			}
+			divide_variable = {which = special_general_cost value = 2}
+			divide_variable = {which = special_general_cost_tt value = 2}
+		}
+	}
 }
 get_improved_general = {
-	get_special_general_stats = yes
 	improved_general_cost = yes
 	general_defined_shock = yes
 }
 improved_general_cost = {
 	hidden_effect = {
 		set_variable = {which = cicles_var value = 1}
+
 		while = {
 			limit = {check_variable = {which = special_general_cost which = cicles_var}}
 			change_variable = {which = cicles_var value = 1}
@@ -1093,6 +1130,8 @@ clr_special_general_flags = {
 	clr_country_flag = JonhyTheFat_flag
 	clr_country_flag = KruthnuTheBrawl_flag
 	clr_country_flag = McGregorTheBully_flag
+	clr_country_flag = magisterium_free_general_flag
+	clr_country_flag = magisterium_general_flag
 	clear_saved_name = special_general_name
 }
 update_tech_group = {

@@ -926,3 +926,80 @@ increase_imperial_centralization = {
 	else_if = {limit = {has_global_flag = imperial_centralization_1_flag} set_global_flag = imperial_centralization_2_flag}
 	else = {set_global_flag = imperial_centralization_1_flag}
 }
+get_manpower_fraction = {
+	FROM = {
+		set_variable = {
+			which = current_manpower
+			value = 0
+		}
+		set_variable = {
+			which = manpower_to_transfer
+			value = 1
+		}
+		subtract_variable = {
+			which = manpower_to_transfer
+			value = $fraction$
+		}
+		export_to_variable = {
+			which = current_manpower
+			value = manpower
+		}
+		multiply_variable = {
+			which = manpower_to_transfer
+			which = current_manpower
+		}
+		while = {
+			limit = {
+				check_variable = {
+					which = current_manpower
+					which = manpower_to_transfer
+				}
+			}
+			subtract_variable = {
+				which = current_manpower
+				value = 1
+			}
+			add_manpower = -1
+			ROOT = {add_manpower = 1}
+		}
+	}
+}
+get_treasury_fraction = {
+	FROM = {
+		set_variable = {
+			which = current_treasury
+			value = 0
+		}
+		set_variable = {
+			which = treasury_to_transfer
+			value = 1
+		}
+		subtract_variable = {
+			which = treasury_to_transfer
+			value = $fraction$
+		}
+		export_to_variable = {
+			which = current_treasury
+			value = treasury
+		}
+		multiply_variable = {
+			which = treasury_to_transfer
+			which = current_treasury
+		}
+		while = {
+			limit = {
+				check_variable = {
+					which = current_treasury
+					which = treasury_to_transfer
+				}
+			}
+			subtract_variable = {
+				which = current_treasury
+				value = 1
+			}
+			add_treasury = -1
+			ROOT = {add_treasury = 1}
+		}
+	}
+	ROOT = {add_inflation = 2}
+}

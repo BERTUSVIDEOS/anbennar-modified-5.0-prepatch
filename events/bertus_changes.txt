@@ -2951,6 +2951,24 @@ country_event = {	#Magister sphere forced to abdicate
 		kill_ruler = yes
 	}
 }
+country_event = {	#Spell caught → Magister sphere denounced
+	id = bertus_changes.1120
+	title = bertus_changes.1120.t
+	desc = bertus_changes.1120.desc
+	picture = DIPLOMACY_eventPicture
+				
+	is_triggered_only = yes
+
+	option = {	#
+		name = bertus_changes.1120.a
+		ai_chance = {factor = 10}
+		country_event = {id = bertus_changes.1117}
+	}
+	option = {	#
+		name = bertus_changes.1120.a
+		ai_chance = {factor = 90}
+	}
+}
 country_event = {	#Imperial guard
 	id = bertus_changes.2023
 	title = bertus_changes.2023.t
@@ -5631,13 +5649,37 @@ country_event = {
 	
 	trigger = {
 		OR = {
+			has_country_flag = magisterium_free_general_flag
 			has_government_attribute = magic_commander_academy
 			has_government_attribute = artificer_commander_academy
 			has_government_attribute = adventurer_commander_academy
 		}
-		ai = no
 	}
-	
+	immediate = {
+		hidden_effect = {
+			if = {
+				limit = {has_government_attribute = adventurer_commander_academy}
+				set_country_flag = get_adventurer_flag
+			}
+			if = {
+				limit = {
+					OR = {
+						has_government_attribute = magic_commander_academy
+						has_country_flag = magisterium_free_general_flag
+					}
+				}
+				set_country_flag = get_mage_flag
+			}
+			if = {
+				limit = {has_government_attribute = artificer_commander_academy}
+				set_country_flag = get_artificer_flag
+			}
+			get_special_general_stats = yes
+			clr_country_flag = get_adventurer_flag
+			clr_country_flag = get_mage_flag
+			clr_country_flag = get_artificer_flag
+		}
+	}
 	mean_time_to_happen = {
 		years = 5
 		modifier = {factor = 3.0 is_subject = yes}
@@ -5645,25 +5687,30 @@ country_event = {
 
 	option = {
 		name = bertus_changes.6010.z #Nah
+		ai_chance = {factor = 1 modifier = {factor = 0 mil_power = 800}}
 	}
 	option = {
 		name = bertus_changes.6010.a #Ok
+		ai_chance = {factor = 1 modifier = {factor = 0 NOT = {mil_power = 800}}}
 		if = {
 			limit = {has_government_attribute = adventurer_commander_academy}
 			set_country_flag = get_adventurer_flag
-			set_saved_name = {key = special_general_name type = advisor scope = ROOT}
 		}
 		if = {
-			limit = {has_government_attribute = magic_commander_academy}
+			limit = {
+				OR = {
+					has_government_attribute = magic_commander_academy
+					has_country_flag = magisterium_free_general_flag
+				}
+			}
 			set_country_flag = get_mage_flag
-			set_saved_name = {key = special_general_name type = advisor scope = ROOT}
 		}
 		if = {
 			limit = {has_government_attribute = artificer_commander_academy}
 			set_country_flag = get_artificer_flag
-			set_saved_name = {key = special_general_name type = advisor scope = ROOT}
 		}
-		cusotm_tooltip = get_special_general_tt
+		set_saved_name = {key = special_general_name type = advisor scope = ROOT}
+		custom_tooltip = get_special_general_tt
 		hidden_effect = {country_event = {id = bertus_changes.6030}}
 	}
 	after = {
@@ -6589,11 +6636,100 @@ country_event = {
     is_triggered_only = yes
     hidden = yes
 
+	immediate = {
+		get_special_general_stats = yes
+	}
     option = {
         name = bertus_changes.6030.a #
-        get_improved_general = yes
+		ai_chance = {factor = 1}
+		change_variable = {which = country_leader_fire_var value = 1}
+		if = {
+			limit = {NOT = {check_variable = {which = country_leader_manuever_var value = 10}}}
+			change_variable = {which = country_leader_manuever_var value = 1}
+		}
+		else = {
+			change_variable = {which = country_leader_shock_var value = 1}
+		}
+    }
+    option = {
+        name = bertus_changes.6030.a #
+		ai_chance = {factor = 1}
+		change_variable = {which = country_leader_fire_var value = 1}
+		if = {
+			limit = {NOT = {check_variable = {which = country_leader_siege_var value = 10}}}
+			change_variable = {which = country_leader_siege_var value = 1}
+		}
+		else = {
+			change_variable = {which = country_leader_fire_var value = 1}
+		}
+    }
+    option = {
+        name = bertus_changes.6030.a #
+		ai_chance = {factor = 1}
+		change_variable = {which = country_leader_shock_var value = 1}
+		if = {
+			limit = {NOT = {check_variable = {which = country_leader_manuever_var value = 10}}}
+			change_variable = {which = country_leader_manuever_var value = 1}
+		}
+		else = {
+			change_variable = {which = country_leader_shock_var value = 1}
+		}
+    }
+    option = {
+        name = bertus_changes.6030.a #
+		ai_chance = {factor = 1}
+		change_variable = {which = country_leader_shock_var value = 1}
+		if = {
+			limit = {NOT = {check_variable = {which = country_leader_siege_var value = 10}}}
+			change_variable = {which = country_leader_siege_var value = 1}
+		}
+		else = {
+			change_variable = {which = country_leader_fire_var value = 1}
+		}
+    }
+    option = {
+        name = bertus_changes.6030.a #
+		ai_chance = {factor = 1}
+		change_variable = {which = country_leader_fire_var value = 1}
+		if = {
+			limit = {NOT = {check_variable = {which = country_leader_manuever_var value = 10}}}
+			change_variable = {which = country_leader_manuever_var value = 1}
+		}
+		else = {
+			change_variable = {which = country_leader_shock_var value = 1}
+		}
+    }
+    option = {
+        name = bertus_changes.6030.a #
+		ai_chance = {factor = 1}
+		if = {
+			limit = {NOT = {check_variable = {which = country_leader_manuever_var value = 10}}}
+			change_variable = {which = country_leader_manuever_var value = 1}
+		}
+		else = {
+			change_variable = {which = country_leader_shock_var value = 1}
+		}
+		if = {
+			limit = {check_variable = {which = country_leader_siege_var value = 10}}
+			change_variable = {which = country_leader_siege_var value = 1}
+		}
+		else = {
+			change_variable = {which = country_leader_fire_var value = 1}
+		}
+    }
+    option = {
+        name = bertus_changes.6030.a #
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0
+				check_variable = {which = country_leader_siege_var value = 9}
+			}
+		}
+		change_variable = {which = country_leader_siege_var value = 2}
     }
     after = {
+        get_improved_general = yes
         clr_special_general_flags = yes
     }
 }

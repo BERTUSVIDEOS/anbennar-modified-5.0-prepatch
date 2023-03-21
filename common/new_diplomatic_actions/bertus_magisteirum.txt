@@ -1,6 +1,6 @@
 
 magisterium_invite_organization_action = {
-	category = magisterium
+	category = mages_influence_modifier
 	require_acceptance = yes
 	alert_index = 21
 	
@@ -49,7 +49,7 @@ magisterium_invite_organization_action = {
 }
 
 magisterium_study_assistance_action = {
-	category = magisterium
+	category = mages_influence_modifier
 	require_acceptance = yes
 	alert_index = 21
 	
@@ -84,7 +84,7 @@ magisterium_study_assistance_action = {
 	ai_will_do = {always = no}
 }
 cancel_magisterium_study_assistance_action = {
-	category = magisterium
+	category = mages_influence_modifier
 	alert_index = 21
 	
 	require_acceptance = no
@@ -107,7 +107,7 @@ cancel_magisterium_study_assistance_action = {
 	ai_will_do = {always = no}
 }
 magister_sphere_denounce_action = {
-	category = magisterium
+	category = mages_influence_modifier
 	alert_index = 21
 	
 	require_acceptance = no
@@ -135,13 +135,12 @@ magister_sphere_denounce_action = {
 }
 
 magisterium_investigate_action = {
-	category = magisterium
+	category = mages_influence_modifier
 	require_acceptance = no
 	alert_index = 21
 	
 	is_visible = {
 		FROM = {
-			has_estate_privilege = estate_mages_organization_magisterium 
 			has_estate_privilege = estate_mages_organization_magisterium
 		}
 		FROM = {NOT = {has_ruler_flag = magisterium_investigating_flag_@ROOT}}
@@ -175,8 +174,8 @@ magisterium_investigate_action = {
 	ai_will_do = {always = no}
 }
 cancel_magisterium_investigate_action = {
-	category = magisterium
-	require_acceptance = no
+	category = mages_influence_modifier
+	require_acceptance = yes
 	alert_index = 21
 	
 	is_visible = {
@@ -192,5 +191,131 @@ cancel_magisterium_investigate_action = {
 		clr_country_flag = magisterium_investigating_flag_@FROM
 	}
 	
+	ai_will_do = {always = no}
+}
+magisterium_get_mage_general_action = {
+	category = mages_influence_modifier
+	require_acceptance = yes
+	alert_index = 21
+	
+	is_visible = {
+		tag = A85
+		FROM = {
+			has_estate_privilege = estate_mages_organization_magisterium 
+		}
+    }
+	
+	is_allowed = {
+		estate_loyalty = {
+			estate = estate_mages
+			loyalty = 60
+		}
+		custom_trigger_tooltip = {
+			tooltip = not_war_with_root_tt
+			FROM = { NOT = {war_with = ROOT}}
+		}
+	}
+
+    on_accept = {
+		ROOT = {
+			add_estate_loyalty = {
+				estate = estate_mages
+				loyalty = -20
+			}
+		}
+		FROM = {
+			set_country_flag = get_mage_flag
+			set_country_flag = magisterium_free_general_flag
+			country_event = {id = bertus_changes.6010}
+		}
+	}
+	ai_will_do = {always = no}
+}
+magisterium_get_mage_advisor_action = {
+	category = mages_influence_modifier
+	require_acceptance = yes
+	alert_index = 21
+	
+	is_visible = {
+		tag = A85
+		FROM = {
+			has_estate_privilege = estate_mages_organization_magisterium 
+		}
+    }
+	
+	is_allowed = {
+		estate_loyalty = {
+			estate = estate_mages
+			loyalty = 60
+		}
+		custom_trigger_tooltip = {
+			tooltip = not_war_with_root_tt
+			FROM = { NOT = {war_with = ROOT}}
+		}
+	}
+
+    on_accept = {
+		ROOT = {
+			add_estate_loyalty = {
+				estate = estate_mages
+				loyalty = -20
+			}
+		}
+		FROM = {
+			define_advisor = {
+				type = mage
+				skill = 2
+				culture = ROOT
+				religion = ROOT
+				cost_multiplier = 0.5
+			}
+		}
+	}
+	ai_will_do = {always = no}
+}
+magisterium_organize_magical_council_action = {
+	category = mages_influence_modifier
+	require_acceptance = yes
+	alert_index = 21
+	
+	is_visible = {
+		tag = A85
+		FROM = {
+			has_estate_privilege = estate_mages_organization_magisterium 
+		}
+    }
+	
+	is_allowed = {
+		NOT = {
+			any_province = {
+				has_province_modifier = magical_council_modifier
+			}
+		}
+		custom_trigger_tooltip = {
+			tooltip = not_war_with_root_tt
+			FROM = { NOT = {war_with = ROOT}}
+		}
+		custom_trigger_tooltip = {
+			tooltip = from_has_100_opinion_tt
+			FROM = { has_opinion = {who = ROOT value = 100}}
+		}
+	}
+
+    on_accept = {
+		ROOT = {
+			add_estate_loyalty = {
+				estate = estate_mages
+				loyalty = -20
+			}
+		}
+		FROM = {
+			capital_scope = {
+				add_province_modifier = {
+					name = magical_council_modifier
+					duration = 3650
+				}
+			}
+		}
+	}
 	ai_will_do = {always = no}
 }
