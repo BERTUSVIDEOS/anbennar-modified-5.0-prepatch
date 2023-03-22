@@ -4513,6 +4513,20 @@ on_adm_development = {
 			add_base_tax = 1
 		}
 	}
+	if = {	#bertus mod 
+		limit = { owner = {has_estate_privilege = artifice_invention_self_cleaning_parchment}}
+		random = {
+			chance = 10 
+			add_base_tax = 1
+		}
+	}
+	if = {	#bertus mod 
+		limit = { owner = {has_estate_privilege = artifice_invention_city_bots}}
+		random = {
+			chance = 10 
+			add_base_tax = 1
+		}
+	}
 	if = {
 		limit = { owner = { has_country_flag = enable_supplemental_development_flag } }
 		random = {
@@ -4645,13 +4659,6 @@ on_dip_development = {
 		}
 	}
 	if = {	#bertus mod
-		limit = {has_province_modifier = zentra_dev}
-		random = {
-			chance = 10 
-			add_base_production = 1
-		}
-	}
-	if = {	#bertus mod
 		limit = {
 			has_province_modifier = zentra_dev
 			province_has_center_of_trade_of_level = 3
@@ -4659,6 +4666,20 @@ on_dip_development = {
 		random = { 
 			chance = 10 
 			owner = { add_mercantilism = 1}			
+		}
+	}
+	if = {	#bertus mod
+		limit = {has_province_modifier = zentra_dev}
+		random = {
+			chance = 10 
+			add_base_production = 1
+		}
+	}
+	if = {	#bertus mod 
+		limit = { owner = {has_estate_privilege = artifice_invention_city_bots}}
+		random = {
+			chance = 10 
+			add_base_production = 1
 		}
 	}
 	if = {
@@ -4776,7 +4797,14 @@ on_mil_development = {
 			chance = 50 
 			add_base_manpower = 1
 		}
-	}	
+	}
+	if = {	#bertus mod 
+		limit = { owner = {has_estate_privilege = artifice_invention_city_bots}}
+		random = {
+			chance = 10 
+			add_base_manpower = 1
+		}
+	}
 	if = {
 		limit = { owner = { has_country_flag = enable_supplemental_development_flag } }
 		random_list = {
@@ -8776,7 +8804,10 @@ on_province_owner_change = {
 			owner = {
 				has_estate_privilege = artifice_invention_wine_ageifier
 			}
-			trade_goods = wine
+			OR = {
+				trade_goods = wine
+				trade_goods = champagne
+			}
 		}
 		hidden_effect = {
 			add_province_modifier = {
@@ -8791,23 +8822,26 @@ on_province_owner_change = {
 			owner = {
 				has_estate_privilege = artifice_invention_growth_beans
 			}
-			OR = {
-				trade_goods = grain
-				trade_goods = cocoa
-				trade_goods = sugar
-				trade_goods = wine
-				trade_goods = tobacco
-				trade_goods = spices
-				trade_goods = incense
-				trade_goods = tea
-				trade_goods = coffee
-				trade_goods = fungi
-				trade_goods = serpentbloom
-			}
+			province_with_farm_goods = yes
 		}
 		hidden_effect = {
 			add_province_modifier = {
 				name = artifice_growthbeans_bonus
+				duration = -1
+				hidden = yes
+			}
+		}
+	}
+	if = {
+		limit = {
+			owner = {
+				has_estate_privilege = artifice_invention_gene_food_cultivation
+			}
+			province_with_farm_goods = yes
+		}
+		hidden_effect = {
+			add_province_modifier = {
+				name = artifice_gene_food_cultivation_bonus
 				duration = -1
 				hidden = yes
 			}
@@ -9569,7 +9603,7 @@ on_general_recruited = {
 		limit = {
 			has_government_attribute = recruiting_generals_give_yearly_manpower
 		}
-		add_yearly_manpower = 0.1
+		add_yearly_manpower = 0.10
 	}
 	if = {	#bertus mod
 		limit = {
@@ -10568,6 +10602,7 @@ on_trade_good_changed = {
 				has_province_modifier = grain_bonus_prod
 				has_province_modifier = artifice_ageifier_bonus
 				has_province_modifier = artifice_growthbeans_bonus
+				has_province_modifier = artifice_gene_food_cultivation_bonus
 				has_province_modifier = artifice_pearl_cultivator_bonus
 				has_province_modifier = wine_lord_wine
 				has_province_modifier = oak_lord_province_modifier
@@ -10585,6 +10620,7 @@ on_trade_good_changed = {
 		remove_province_modifier = grain_bonus_prod
 		remove_province_modifier = artifice_ageifier_bonus
 		remove_province_modifier = artifice_growthbeans_bonus
+		remove_province_modifier = artifice_gene_food_cultivation_bonus
 		remove_province_modifier = artifice_pearl_cultivator_bonus
 		remove_province_modifier = wine_lord_wine
 		remove_province_modifier = oak_lord_province_modifier
@@ -10623,7 +10659,10 @@ on_trade_good_changed = {
 		}
 		if = {
 			limit = {
-				trade_goods = wine
+				OR = {
+					trade_goods = wine
+					trade_goods = champagne
+				}
 				owner = {
 					has_estate_privilege = artifice_invention_wine_ageifier
 				}
@@ -10639,22 +10678,23 @@ on_trade_good_changed = {
 				owner = {
 					has_estate_privilege = artifice_invention_growth_beans
 				}
-				OR = {
-					trade_goods = grain
-					trade_goods = cocoa
-					trade_goods = sugar
-					trade_goods = wine
-					trade_goods = tobacco
-					trade_goods = spices
-					trade_goods = incense
-					trade_goods = tea
-					trade_goods = coffee
-					trade_goods = fungi
-					trade_goods = serpentbloom
-				}
+				province_with_farm_goods = yes
 			}
 			add_province_modifier = {
 				name = artifice_growthbeans_bonus
+				duration = -1
+				hidden = yes
+			}
+		}
+		if = {
+			limit = {
+				owner = {
+					has_estate_privilege = artifice_invention_gene_food_cultivation
+				}
+				province_with_farm_goods = yes
+			}
+			add_province_modifier = {
+				name = artifice_gene_food_cultivation_bonus
 				duration = -1
 				hidden = yes
 			}
