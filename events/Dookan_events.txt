@@ -8,12 +8,33 @@ country_event = {
 	desc = great_dookan_events.1.d
 	picture = BATTLE_eventPicture
 	
-	is_triggered_only = yes
-	major = no
+	trigger = {
+		is_at_war = yes
+		NOT = {has_country_modifier = dookan_reconnected_with_past_lives}
+		OR = {
+			has_country_flag = invoke_warrior_heritage_aspect_flag
+			has_reform = shaman_control_the_military_reform
+		}
+	}
+	mean_time_to_happen = {
+		months = 120
+		modifier = {factor = 0.90 church_power = 300}
+		modifier = {factor = 0.50 church_power = 400}
+		modifier = {factor = 1.1 NOT = {religious_unity = 0.90}}
+		modifier = {factor = 1.2 NOT = {religious_unity = 0.75}}
+		modifier = {factor = 2.0 NOT = {religious_unity = 0.50}}
+		modifier = {factor = 0.9 war_score = 25}
+		modifier = {factor = 0.9 war_score = 50}
+		modifier = {factor = 0.9 war_score = 75}
+	}
 	
 	option = {
 		name = great_dookan_events.1.a
 		
+		if = {
+			limit = {NOT = {has_country_flag = invoke_warrior_heritage_aspect_flag}}
+			add_church_power = -50
+		}
 		add_country_modifier = {
 			name = "dookan_reconnected_with_past_lives"
 			duration = 75
@@ -28,9 +49,31 @@ country_event = {
 	desc = great_dookan_events.2.d
 	picture = FAMINE_eventPicture
 	
-	is_triggered_only = yes
-	major = no
+	trigger = {
+		OR = {
+			has_country_flag = purge_the_weak_aspect_flag
+			has_reform = shaman_control_the_military_reform
+		}
+	}
+	mean_time_to_happen = {
+		months = 120
+		modifier = {factor = 0.90 church_power = 300}
+		modifier = {factor = 0.50 church_power = 400}
+		modifier = {factor = 1.1 NOT = {religious_unity = 0.90}}
+		modifier = {factor = 1.2 NOT = {religious_unity = 0.75}}
+		modifier = {factor = 2.0 NOT = {religious_unity = 0.50}}
+	}
 	
+	option = {
+		name = bertus_changes.6010.z #Nah
+		trigger = {
+			NOT = {has_country_flag = purge_the_weak_aspect_flag}
+		}
+		if = {
+			limit = {NOT = {has_country_flag = purge_the_weak_aspect_flag}}
+			add_church_power = -25
+		}
+	}
 	option = {
 		name = great_dookan_events.2.a
 		
@@ -43,6 +86,9 @@ country_event = {
 			change_religion = ROOT
 		}
 	}
+	after = {
+		clr_country_flag = purge_the_weak_aspect_flag
+	}
 }
 
 #Gather a great host
@@ -52,18 +98,52 @@ country_event = {
 	desc = great_dookan_events.3.d
 	picture = MILITARY_CAMP_eventPicture
 	
-	is_triggered_only = yes
-	major = no
+	trigger = {
+		NOT = {has_country_modifier = dookan_gather_great_host}
+		OR = {
+			has_country_flag = gather_great_host_great_aspect_flag
+			has_reform = shaman_control_the_military_reform
+		}
+	}
+	mean_time_to_happen = {
+		months = 120
+		modifier = {factor = 0.90 church_power = 300}
+		modifier = {factor = 0.50 church_power = 400}
+		modifier = {factor = 1.1 NOT = {religious_unity = 0.90}}
+		modifier = {factor = 1.2 NOT = {religious_unity = 0.75}}
+		modifier = {factor = 2.0 NOT = {religious_unity = 0.50}}
+		modifier = {factor = 2.0 manpower_percentage = 0.90}
+	}
 	
+	immediate = {
+	}
+	
+	option = {
+		name = bertus_changes.6010.z #Nah
+		trigger = {
+			NOT = {has_country_flag = find_reincarnated_warrior_aspect_flag}
+		}
+		if = {
+			limit = {NOT = {has_country_flag = find_reincarnated_warrior_aspect_flag}}
+			add_church_power = -25
+		}
+	}
 	option = {
 		name = great_dookan_events.3.a
 		
+		if = {
+			limit = {NOT = {has_country_flag = find_reincarnated_warrior_aspect_flag}}
+			add_church_power = -50
+		}
 		add_yearly_manpower = 2	#5→2
 		#add_army_professionalism = -0.025	#-0.025→0
 		add_country_modifier = {
 			name = dookan_gather_great_host
 			duration = 730
 		}
+	}
+	after = {
+		clr_country_flag = find_reincarnated_warrior_aspect_flag
 	}
 }
 
@@ -74,8 +154,24 @@ country_event = {
 	desc = great_dookan_events.4.d
 	picture = COUNTRY_COLLAPSE_eventPicture
 	
-	is_triggered_only = yes
-	major = no
+	trigger = {
+		OR = {
+			has_country_flag = glorious_looting_aspect_flag
+			has_reform = shaman_control_the_military_reform
+		}
+	}
+	mean_time_to_happen = {
+		months = 120
+		modifier = {factor = 0.90 church_power = 200}
+		modifier = {factor = 0.90 church_power = 300}
+		modifier = {factor = 0.50 church_power = 400}
+		modifier = {factor = 1.1 NOT = {religious_unity = 0.90}}
+		modifier = {factor = 1.2 NOT = {religious_unity = 0.75}}
+		modifier = {factor = 2.0 NOT = {religious_unity = 0.50}}
+		modifier = {factor = 0.9 war_score = 25}
+		modifier = {factor = 0.9 war_score = 50}
+		modifier = {factor = 0.9 war_score = 75}
+	}
 	
 	option = {
 		name = great_dookan_events.4.a
@@ -106,6 +202,9 @@ country_event = {
 			}
 		}
 	}
+	after = {
+		clr_country_flag = glorious_looting_aspect_flag
+	}
 }
 
 #anoint slave herd
@@ -115,12 +214,28 @@ country_event = {
 	desc = great_dookan_events.5.d
 	picture = FAMINE_eventPicture
 	
-	is_triggered_only = yes
-	major = no
+	trigger = {
+		OR = {
+			has_country_flag = anoint_slave_herd_great_flag
+			has_reform = shaman_control_the_military_reform
+		}
+	}
+	mean_time_to_happen = {
+		months = 120
+		modifier = {factor = 0.90 church_power = 300}
+		modifier = {factor = 0.50 church_power = 400}
+		modifier = {factor = 1.1 NOT = {religious_unity = 0.90}}
+		modifier = {factor = 1.2 NOT = {religious_unity = 0.75}}
+		modifier = {factor = 2.0 NOT = {religious_unity = 0.50}}
+	}
 	
-	option = { #→bertus mod
+	option = { #bertus mod
 		name = great_dookan_events.5.a
 		
+		if = {
+			limit = {NOT = {has_country_flag = anoint_slave_herd_great_flag}}
+			add_church_power = -25
+		}
 		random_owned_province = {
 			limit = {
 				NOT = {trade_goods = slaves}
@@ -509,7 +624,7 @@ country_event = {	#→bertus mod
 	}
 }
 # dookans omens bertus
-country_event = {	#→bertus mod
+country_event = {	#bertus mod
 	id = great_dookan_events.16
 	title = great_dookan_events.16.t
 	desc = great_dookan_events.16.desc
@@ -563,19 +678,36 @@ country_event = {	#→bertus mod
 	}
 }
 # Dookan's Guidance
-country_event = {	#→bertus mod
+country_event = {	#bertus mod
 	id = great_dookan_events.17
 	title = great_dookan_events.17.t
 	desc = great_dookan_events.17.d
 	picture = FAMINE_eventPicture
 	
-	is_triggered_only = yes
-	major = no
+	trigger = {
+		NOT = {has_country_modifier = assemble_shamans_aspect_modifier}
+		OR = {
+			has_country_flag = assemble_shamans_great_aspect_flag
+			has_reform = shaman_control_the_military_reform
+		}
+	}
+	mean_time_to_happen = {
+		months = 120
+		modifier = {factor = 0.90 church_power = 300}
+		modifier = {factor = 0.50 church_power = 400}
+		modifier = {factor = 1.1 NOT = {religious_unity = 0.90}}
+		modifier = {factor = 1.2 NOT = {religious_unity = 0.75}}
+		modifier = {factor = 2.0 NOT = {religious_unity = 0.50}}
+	}
 	
 	option = {
 		name = great_dookan_events.17.a
+		if = {
+			limit = {NOT = {has_country_flag = assemble_shamans_great_aspect_flag}}
+			add_church_power = -25
+		}
 		add_country_modifier = {
-			name = "assemble_shamans_aspect_modifier"	#+100% army tradition from battles, +15% morale, +10% shock damage, -10% shock damage received for 5 years
+			name = "assemble_shamans_aspect_modifier"
 			duration = 3650
 		}
 	}
