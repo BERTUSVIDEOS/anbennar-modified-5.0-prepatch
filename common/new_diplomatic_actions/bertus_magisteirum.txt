@@ -47,6 +47,32 @@ magisterium_invite_organization_action = {
 	}
 	ai_will_do = {always = no}
 }
+magisterium_leave_organization_action = {
+	category = mages_influence_modifier
+	require_acceptance = no
+	alert_index = 21
+	
+	is_visible = {
+		has_estate_privilege = estate_mages_organization_magisterium 
+		FROM = { tag = A85}
+    }
+	
+	is_allowed = {
+		custom_trigger_tooltip = {
+			tooltip = not_war_with_root_tt
+			FROM = { NOT = {war_with = ROOT}}
+		}
+	}
+
+    on_accept = {
+		ROOT = {			
+			if = {limit = {has_estate_privilege = estate_mages_organization_state} remove_estate_privilege = estate_mages_organization_magisterium}
+			add_stability = -2
+			country_event = {id = estate_organization.1}
+		}
+	}
+	ai_will_do = {always = no}
+}
 
 magisterium_study_assistance_action = {
 	category = mages_influence_modifier

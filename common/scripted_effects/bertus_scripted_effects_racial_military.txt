@@ -778,6 +778,11 @@ get_special_general_stats = {
 	if = {
 		limit = {has_country_flag = get_adventurer_flag}
 		if = {
+			limit = {has_country_modifier = great_ording_unsung_heroes }
+			change_variable = {which = country_leader_shock_var value = 1}
+			change_variable = {which = country_leader_manuever_var value = 1}
+		}
+		if = {
 			limit = {estate_influence = {estate = estate_adventurers influence = 90}}
 			change_variable = {which = country_leader_fire_var value = 1}
 			change_variable = {which = country_leader_shock_var value = 1}
@@ -994,11 +999,15 @@ get_special_general_stats = {
 	set_variable = {which = special_general_cost value = 2}
 	if = {
 		limit = {
-			has_country_flag = magisterium_free_general_flag
+			OR = {
+				has_country_flag = hero_free_general_flag
+				has_country_flag = magisterium_free_general_flag
+			}
 		}
 		set_variable = {which = special_general_cost value = 0}
 		set_variable = {which = special_general_cost_tt value = 0}
 		clr_country_flag = magisterium_free_general_flag
+		clr_country_flag = hero_free_general_flag
 	}
 	else = {
 		change_variable = {which = special_general_cost which = country_leader_shock_var}
@@ -1131,6 +1140,7 @@ clr_special_general_flags = {
 	clr_country_flag = KruthnuTheBrawl_flag
 	clr_country_flag = McGregorTheBully_flag
 	clr_country_flag = magisterium_free_general_flag
+	clr_country_flag = hero_free_general_flag
 	clr_country_flag = magisterium_general_flag
 	clear_saved_name = special_general_name
 }

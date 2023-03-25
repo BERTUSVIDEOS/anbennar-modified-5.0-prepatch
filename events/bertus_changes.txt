@@ -2205,7 +2205,6 @@ country_event = {	#setup players electors & other stuff
 		name = bertus_changes.1100.a
 		every_country = {
 			limit = {ai = no}
-			add_country_modifier = {name = starting_gov_cap duration = 10}
 			if = {
 				limit = {OR = {culture_is_human = yes technology_group = tech_bulwari}}
 				set_estate_privilege = estate_human_recruitment
@@ -5649,6 +5648,7 @@ country_event = {
 	
 	trigger = {
 		OR = {
+			has_country_flag = hero_free_general_flag
 			has_country_flag = magisterium_free_general_flag
 			has_government_attribute = magic_commander_academy
 			has_government_attribute = artificer_commander_academy
@@ -5658,7 +5658,12 @@ country_event = {
 	immediate = {
 		hidden_effect = {
 			if = {
-				limit = {has_government_attribute = adventurer_commander_academy}
+				limit = {
+					OR = {
+						has_government_attribute = adventurer_commander_academy
+						has_country_flag = hero_free_general_flag
+					}
+				}
 				set_country_flag = get_adventurer_flag
 			}
 			if = {
@@ -5693,7 +5698,12 @@ country_event = {
 		name = bertus_changes.6010.a #Ok
 		ai_chance = {factor = 1 modifier = {factor = 0 NOT = {mil_power = 800}}}
 		if = {
-			limit = {has_government_attribute = adventurer_commander_academy}
+			limit = {
+				OR = {
+					has_government_attribute = adventurer_commander_academy
+					has_country_flag = hero_free_general_flag
+				}
+			}
 			set_country_flag = get_adventurer_flag
 		}
 		if = {
@@ -7122,7 +7132,7 @@ country_event = {	#DOMINION WAR!
 	trigger = {
 		NOT = {has_global_flag = wars_of_dominion_happened_flag}
 		check_variable = {which = dominion_wars_progress value = 100}
-		not = {at_war_with = A01}
+		NOT = {war_with = A01}
 	}
 	major = yes
 	mean_time_to_happen = {
