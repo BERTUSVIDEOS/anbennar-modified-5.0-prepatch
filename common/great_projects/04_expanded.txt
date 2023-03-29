@@ -3459,7 +3459,9 @@ ancardia_escanni_academy_of_war = {
 			factor = 3000
 		}
 		province_modifiers = {}
-		area_modifier = {}
+		area_modifier = {
+			local_manpower_modifier = 1.0
+		}
 		country_modifiers = {
 			yearly_army_professionalism = 0.002
 			drill_gain_modifier = 0.5
@@ -3467,6 +3469,10 @@ ancardia_escanni_academy_of_war = {
 		}
 		on_upgraded = {
 			owner = {
+				if = {
+					limit = {NOT = {has_country_flag = ancardia_escanni_academy_of_war_tier_3_activated_flag}}
+				}
+				set_country_flag = ancardia_escanni_academy_of_war_tier_3_activated_flag
 				add_mil_tech = 1
 			}
 		}

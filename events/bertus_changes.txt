@@ -5649,6 +5649,7 @@ country_event = {
 	picture = DHIMMI_ESTATE_eventPicture
 	
 	trigger = {
+		ai = no
 		OR = {
 			has_country_flag = hero_free_general_flag
 			has_country_flag = magisterium_free_general_flag
@@ -6752,20 +6753,39 @@ province_event = {
     picture = DHIMMI_ESTATE_eventPicture
 
 	trigger = {
-		owner = {
-			has_estate_privilege = estate_ogre_stone_soup_tooltip
+		OR = {
+			AND = {
+				owner = {
+					culture_is_ogre = yes
+					has_estate_privilege = estate_ogre_stone_soup
+				}
+				culture_is_ogre = no
+			}
+			AND = {
+				owner = {
+					culture_is_troll = yes
+					has_estate_privilege = estate_troll_stone_soup
+				}
+				culture_is_troll = no
+			}
 		}
-		culture_is_ogre = yes
 	}
-    hidden = yes
 
+	mean_time_to_happen = {
+		days = 365
+	}
 	immediate = {
-
+		hidden_effect = {
+			set_variable = {which = province_manpower value = 0}
+			export_to_variable = {which = province_manpower value = base_manpower}
+			set_variable = {which = manpower_per_dev_tooltip value = 0}
+			change_variable = {which = manpower_per_dev_tooltip value = 100}
+		}
 	}
     option = {
         name = bertus_changes.6031.a #
-		change_culture = ROOT
-		change_religion = ROOT
+		change_culture = owner
+		change_religion = owner
 		gain_manpower_from_provinces = {manpower_per_dev = 0.1}
 		add_scaled_local_adm_power = 5
 		add_scaled_local_dip_power = 5
