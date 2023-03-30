@@ -776,3 +776,389 @@ country_event = {	# human tolerance update
 		update_human_tolerance = yes
 	}
 }
+country_event = {	#Expulsion/Purge - Minority Expelled
+	id = racial_pop_events_human.17
+	title = racial_pop_events_human.17.t
+	picture = REFUGEES_ESCAPING_eventPicture
+	goto = racial_pop_province_origin
+	
+	desc = {
+		trigger = { has_country_modifier = racial_pop_human_expulsion }
+		desc = racial_pop_events_human.17.d
+	}
+	desc = {
+		trigger = { has_country_modifier = racial_pop_human_purge }
+		desc = racial_pop_events_human.17.dpurge
+	}
+
+	trigger = {
+		OR = {
+			has_country_modifier = racial_pop_human_expulsion
+			has_country_modifier = racial_pop_human_purge
+		}
+		any_owned_province = {
+			has_human_minority_trigger = yes
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1825
+		modifier = {
+			factor = 0.1
+			calc_true_if = {
+				all_owned_province = {
+					has_human_minority_trigger = yes
+				}
+				amount = 100
+			}
+		}
+		modifier = {
+			factor = 0.5
+			calc_true_if = {
+				all_owned_province = {
+					has_human_minority_trigger = yes
+				}
+				amount = 50
+			}
+		}
+		modifier = {
+			factor = 0.75
+			calc_true_if = {
+				all_owned_province = {
+					has_human_minority_trigger = yes
+				}
+				amount = 25
+			}
+		}
+		modifier = {factor = 0.90 has_country_modifier = monstrous_nation }
+		modifier = {factor = 0.50 has_country_modifier = racial_focus_human}
+		modifier = {factor = 0.75 has_country_modifier = racial_pop_human_purge}
+		modifier = {factor = 0.75 has_government_attribute = faster_purguing_reform}
+	}
+	
+	immediate = {
+		hidden_effect = {	#Make this the monstrous purge thing
+			random_owned_province = {
+				limit = {
+					has_human_minority_trigger = yes
+				}
+				save_event_target_as = racial_pop_province_origin
+			}
+		}
+		hidden_effect = {	#Which country to migrate to
+			random_neighbor_country = {
+				limit = {
+					NOT = { has_country_modifier = racial_pop_human_purge }
+					NOT = { has_country_modifier = racial_pop_human_expulsion }
+				}
+				save_event_target_as = racial_pop_migration_country
+			}
+			random_neighbor_country = {
+				limit = {
+					NOT = { has_country_modifier = racial_pop_human_purge }
+					NOT = { has_country_modifier = racial_pop_human_expulsion }
+					any_owned_province = {
+						development = 20
+					}
+				}
+				save_event_target_as = racial_pop_migration_country
+			}
+			random_neighbor_country = {
+				limit = {
+					NOT = { has_country_modifier = racial_pop_human_purge }
+					NOT = { has_country_modifier = racial_pop_human_expulsion }
+					medium_tolerance_human_race_trigger = yes
+				}
+				save_event_target_as = racial_pop_migration_country
+			}
+			random_neighbor_country = {
+				limit = {
+					NOT = { has_country_modifier = racial_pop_human_purge }
+					NOT = { has_country_modifier = racial_pop_human_expulsion }
+					medium_tolerance_human_race_trigger = yes
+					any_owned_province = {
+						development = 20
+					}
+				}
+				save_event_target_as = racial_pop_migration_country
+			}
+			random_neighbor_country = {
+				limit = {
+					NOT = { has_country_modifier = racial_pop_human_purge }
+					NOT = { has_country_modifier = racial_pop_human_expulsion }
+					high_tolerance_human_race_trigger = yes
+				}
+				save_event_target_as = racial_pop_migration_country
+			}
+			random_neighbor_country = {
+				limit = {
+					NOT = { has_country_modifier = racial_pop_human_purge }
+					NOT = { has_country_modifier = racial_pop_human_expulsion }
+					OR = {
+						medium_tolerance_human_race_trigger = yes
+						high_tolerance_human_race_trigger = yes
+					}
+					any_owned_province = {
+						development = 20
+						NOT = { has_human_minority_trigger = yes }
+						NOT = { has_human_majority_trigger = yes }
+					}
+				}
+				save_event_target_as = racial_pop_migration_country
+			}
+		}
+	}
+	option = {			#Expel!
+		name = racial_pop_events_human.17.a
+		trigger = {has_country_modifier = racial_pop_human_expulsion}
+		ai_chance = {factor = 50}
+		event_target:racial_pop_province_origin = {	#Remove Minority from Origin Province
+			remove_human_minority_size_effect = yes
+			add_devastation = 10
+		}
+		if = {	#only does this if they have an adjacent country
+			limit = {
+				any_neighbor_country = { 
+					NOT = { low_tolerance_human_race_trigger = yes }
+				}
+			}
+			event_target:racial_pop_migration_country  = {	#Calls Migrants Arrive to Migration Country
+				country_event = {
+					id = racial_pop_events_human.10
+					days = 14
+					random = 31
+				}
+			}
+		}
+		if = {
+			limit = { ruler_has_personality = greedy_personality }
+			if = {
+				limit = {
+					event_target:racial_pop_province_origin = {
+						development = 20
+					}
+				}
+				add_treasury = 50
+			}
+			else = {
+				add_treasury = 10
+			}
+		}
+		medium_decrease_of_human_tolerance_effect = yes
+	}
+	option = {			#Purge!
+		name = racial_pop_events_human.19.a
+		ai_chance = {factor = 50}
+		trigger = {has_country_modifier = racial_pop_human_purge}
+		if = {
+			limit = { 
+				ruler_has_personality = cruel_personality 
+				event_target:racial_pop_province_origin = {
+					has_large_human_minority_trigger = yes
+				}
+			}
+			event_target:racial_pop_province_origin = {	#Remove Minority from Origin Province
+				remove_human_minority_size_effect = yes
+				remove_human_minority_size_effect = yes
+				add_devastation = 20
+			}
+			large_decrease_of_human_tolerance_effect = yes
+		}
+		else = {
+			event_target:racial_pop_province_origin = {	#Remove Minority from Origin Province
+				remove_human_minority_size_effect = yes
+				add_devastation = 20
+			}
+			large_decrease_of_human_tolerance_effect = yes
+		}
+	}
+}
+
+country_event = {	#Expulsion/Purge - Majority Expelled
+	id = racial_pop_events_human.18
+	title = racial_pop_events_human.18.t
+	picture = REFUGEES_ESCAPING_eventPicture
+	goto = racial_pop_province_origin
+	
+	desc = {
+		trigger = { has_country_modifier = racial_pop_human_expulsion }
+		desc = racial_pop_events_human.18.d
+	}
+	desc = {
+		trigger = { has_country_modifier = racial_pop_human_purge }
+		desc = racial_pop_events_human.18.dpurge
+	}
+	trigger = {
+		OR = {
+			has_country_modifier = racial_pop_human_expulsion
+			has_country_modifier = racial_pop_human_purge
+		}
+		any_owned_province = {
+			has_human_majority_trigger = yes
+			culture_is_human = yes
+			NOT = {has_construction = culture}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 2737
+		modifier = {factor = 0.90 has_country_modifier = monstrous_nation }
+		modifier = {factor = 0.50 has_country_modifier = racial_focus_human}
+		modifier = {factor = 0.75 has_country_modifier = racial_pop_human_purge}
+		modifier = {factor = 0.75 has_government_attribute = faster_purguing_reform}
+		modifier = {
+			factor = 0.1
+			calc_true_if = {
+				all_owned_province = {
+					has_human_majority_trigger = yes
+					culture_is_human = yes
+					NOT = {has_construction = culture}
+				}
+				amount = 100
+			}
+		}
+		modifier = {
+			factor = 0.5
+			calc_true_if = {
+				all_owned_province = {
+					has_human_majority_trigger = yes
+					culture_is_human = yes
+					NOT = {has_construction = culture}
+				}
+				amount = 50
+			}
+		}
+		modifier = {
+			factor = 0.75
+			calc_true_if = {
+				all_owned_province = {
+					has_human_majority_trigger = yes
+					culture_is_human = yes
+					NOT = {has_construction = culture}
+				}
+				amount = 25
+			}
+		}
+	}
+	
+	immediate = {
+		hidden_effect = {	#Make this the monstrous purge thing
+			random_owned_province = {
+				limit = {
+					has_human_majority_trigger = yes
+					culture_is_human = yes
+					NOT = {has_construction = culture}
+				}
+				save_event_target_as = racial_pop_province_origin
+			}
+		}
+		hidden_effect = {	#Which country to migrate to
+			random_neighbor_country = {
+				limit = {
+					NOT = { has_country_modifier = racial_pop_human_purge }
+					NOT = { has_country_modifier = racial_pop_human_expulsion }
+				}
+				save_event_target_as = racial_pop_migration_country
+			}
+			random_neighbor_country = {
+				limit = {
+					NOT = { has_country_modifier = racial_pop_human_purge }
+					NOT = { has_country_modifier = racial_pop_human_expulsion }
+					any_owned_province = {
+						development = 20
+					}
+				}
+				save_event_target_as = racial_pop_migration_country
+			}
+			random_neighbor_country = {
+				limit = {
+					NOT = { has_country_modifier = racial_pop_human_purge }
+					NOT = { has_country_modifier = racial_pop_human_expulsion }
+					medium_tolerance_human_race_trigger = yes
+				}
+				save_event_target_as = racial_pop_migration_country
+			}
+			random_neighbor_country = {
+				limit = {
+					NOT = { has_country_modifier = racial_pop_human_purge }
+					NOT = { has_country_modifier = racial_pop_human_expulsion }
+					medium_tolerance_human_race_trigger = yes
+					any_owned_province = {
+						development = 20
+					}
+				}
+				save_event_target_as = racial_pop_migration_country
+			}
+			random_neighbor_country = {
+				limit = {
+					NOT = { has_country_modifier = racial_pop_human_purge }
+					NOT = { has_country_modifier = racial_pop_human_expulsion }
+					high_tolerance_human_race_trigger = yes
+				}
+				save_event_target_as = racial_pop_migration_country
+			}
+			random_neighbor_country = {
+				limit = {
+					NOT = { has_country_modifier = racial_pop_human_purge }
+					NOT = { has_country_modifier = racial_pop_human_expulsion }
+					OR = {
+						medium_tolerance_human_race_trigger = yes
+						high_tolerance_human_race_trigger = yes
+					}
+					any_owned_province = {
+						development = 20
+						NOT = { has_human_minority_trigger = yes }
+						NOT = { has_human_majority_trigger = yes }
+					}
+				}
+				save_event_target_as = racial_pop_migration_country
+			}
+		}
+	}
+	option = {			#Expel!
+		name = racial_pop_events_human.18.a
+		ai_chance = {factor = 50}
+		trigger = {has_country_modifier = racial_pop_human_expulsion}
+		event_target:racial_pop_province_origin = {	#Remove Minority from Origin Province
+			change_culture = ROOT
+			change_religion = ROOT
+			add_devastation = 30
+			culture_conversion_dev_reduction = yes
+			
+			add_permanent_province_modifier = { name = expulsion_unrest_modifier duration = 18250 }
+		}
+		if = {	#only does this if they have an adjacent country
+			limit = {
+				any_neighbor_country = { 
+					NOT = { low_tolerance_human_race_trigger = yes }
+				}
+			}
+			event_target:racial_pop_migration_country  = {	#Calls Migrants Arrive to Migration Country
+				country_event = {
+					id = racial_pop_events_human.10
+					days = 14
+					random = 31
+				}
+			}
+		}
+		medium_decrease_of_human_tolerance_effect = yes
+	}
+	option = {		#Purge!	
+		name = racial_pop_events_human.20.a
+		ai_chance = {factor = 50}
+		trigger = {has_country_modifier = racial_pop_human_purge}
+		event_target:racial_pop_province_origin = {	#Remove Minority from Origin Province
+			add_devastation = 50
+			change_culture = ROOT
+			change_religion = ROOT
+			culture_conversion_dev_reduction = yes
+			add_permanent_province_modifier = { name = purge_unrest_modifier duration = 9125 }
+			hidden_effect = {
+				remove_province_modifier = human_majority_oppressed
+				remove_province_modifier = human_majority_coexisting
+				remove_province_modifier = human_majority_integrated
+			}
+		}
+		large_decrease_of_human_tolerance_effect = yes
+	}	
+}
