@@ -1801,18 +1801,14 @@ hobgoblin_domestic_practices = {
 machiavellianistic_rule_reform = {	#bertus mod	#new LotN
 	icon = "machiavellianism"
 	allow_normal_conversion = yes
-	#potential = {
-	#	OR = {
-	#		is_revolutionary = no
-	#		NOT = { has_dlc = "Emperor" }
-	#	}
-	#}
+	
 	modifiers = {
-		ignore_coring_distance = yes
 		core_creation = -0.1
+		same_culture_advisor_cost = -0.10
+		stability_cost_to_declare_war = -1
 	}
 	custom_attributes = {
-		cb_on_own_race = yes
+		faster_purguing_reform = yes
 	}
 	ai = {
 		factor = 1
@@ -1822,12 +1818,6 @@ machiavellianistic_rule_reform = {	#bertus mod	#new LotN
 six_livres_reform = {	#bertus mod	#new LotN
 	icon = "six_livres"
 	allow_normal_conversion = yes
-	#potential = {
-	#	OR = {
-	#		is_revolutionary = no
-	#		NOT = { has_dlc = "Emperor" }
-	#	}
-	#}
 	trigger = {
 		has_parliament = yes
 	}
@@ -1839,6 +1829,7 @@ six_livres_reform = {	#bertus mod	#new LotN
 		custom_attributes = {
 			halved_parliament_bribes = yes
 			pariament_debate_bonus = yes
+			parliamnet_seats_boost = yes
 		}
 	}
 	ai = {
@@ -1850,34 +1841,46 @@ two_treatises_reform = {	#bertus mod	#new LotN
 	icon = "two_treaties"
 	allow_normal_conversion = yes
 	potential = {
-		#OR = {
-		#	is_revolutionary = no
-		#	NOT = { has_dlc = "Emperor" }
-		#}
 	}
 	modifiers = {
-		tolerance_of_heretics_capacity = 1
-		tolerance_of_heathens_capacity = 1
+		mages_influence_modifier = 0.1
+		adventurers_influence_modifier = 0.1
+		artificers_influence_modifier = 0.1
+		mages_loyalty_modifier = 0.1
+		adventurers_loyalty_modifier = 0.1
+		artificers_loyalty_modifier = 0.1
+		amount_of_carolean = 0.20
+		amount_of_cawa = 0.20
+		mercenary_manpower = 0.20
 	}
-	custom_attributes = {
-		cb_on_purguers = yes
-		faster_tolerance_events = yes
-		integrated_races_give_dev_cost = yes
+	effect = {
+		add_country_modifier = {
+			name = three_treatises_artificers_modifier
+			duration = -1
+			hidden = yes
+		}
+		add_country_modifier = {
+			name = three_treatises_battlemages_modifier
+			duration = -1
+			hidden = yes
+		}
+		add_country_modifier = {
+			name = three_treatises_mercenary_modifier
+			duration = -1
+			hidden = yes
+		}
 	}
-	ai = {
-		factor = 1
+	post_removed_effect = {
+		remove_country_modifier = three_treatises_artificers_modifier
+		remove_country_modifier = three_treatises_battlemages_modifier
+		remove_country_modifier = three_treatises_mercenary_modifier
 	}
+	ai = {factor = 1}
 }
 
 the_leviathan_reform = {	#bertus mod	#new LotN
 	icon = "leviathan"
 	allow_normal_conversion = yes
-	#potential = {
-	#	OR = {
-	#		is_revolutionary = no
-	#		NOT = { has_dlc = "Emperor" }
-	#	}
-	#}
 	modifiers = {
 		all_power_cost = -0.05
 		administrative_efficiency = 0.05
@@ -1892,14 +1895,9 @@ the_social_contract_reform = {	#bertus mod	#new LotN
 	allow_normal_conversion = yes
 	potential = {
 		is_revolutionary = no
-		#OR = {
-		#	is_revolutionary = no
-		#	NOT = { has_dlc = "Emperor" }
-		#}
 	}
 	modifiers = {
-		no_religion_penalty = yes
-		advisor_cost = -0.1
+		advisor_cost = -0.05
 		all_estate_influence_modifier = 0.1
 		all_estate_loyalty_equilibrium = 0.1
 		adventurers_influence_modifier = -0.1
@@ -1908,6 +1906,12 @@ the_social_contract_reform = {	#bertus mod	#new LotN
 		adventurers_loyalty_modifier = -0.1
 		artificers_loyalty_modifier = -0.1
 		mages_loyalty_modifier = -0.1
+
+	}
+	custom_attributes = {
+		integrated_races_give_land_morale = yes
+		integrated_races_give_dev_cost = yes
+		faster_tolerance_events = yes
 	}
 	ai = {
 		factor = 1

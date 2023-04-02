@@ -16,7 +16,6 @@ country_decisions = {
 			was_never_end_game_tag_trigger = yes
 		}
 		provinces_to_highlight = {
-			superregion = west_serpentspine_superregion
 			OR = {
 				owned_by = H75 #railskulker
 				owned_by = H84 #mountainshark
@@ -24,6 +23,22 @@ country_decisions = {
 				owned_by = H85 #truedagger
 				owned_by = H90 #spiderwretch
 				owned_by = H87 #thieving arrow
+				AND = {
+					superregion = west_serpentspine_superregion
+					root = {
+						NOT = {
+							num_of_owned_provinces_with = {
+								is_core = ROOT
+								superregion = west_serpentspine_superregion
+								value = 198	#198	#198/300
+							}
+						}
+					}
+				}
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
 			}
 			NOT = { country_or_non_sovereign_subject_holds = ROOT }
 		}
@@ -45,7 +60,10 @@ country_decisions = {
 				H90 = { OR = { exists = no is_subject_of = ROOT tag = ROOT } }
 				H87 = { OR = { exists = no is_subject_of = ROOT tag = ROOT } }
 			}
-			west_dwarovar_region = { type = all country_or_non_sovereign_subject_holds = ROOT }
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 198	#198	#198/300
+				superregion = west_serpentspine_superregion
+			}
 			special_formation_trigger = yes
 		}
 		effect = {

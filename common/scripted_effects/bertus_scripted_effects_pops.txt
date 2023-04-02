@@ -39,6 +39,9 @@ update_bertus_pops = {
 	remove_pop_modifier = {race = all class = agriculture_bonus amount = 25percent resource = goods_produced }
 	remove_pop_modifier = {race = all class = minery_bonus amount = 25percent resource = goods_produced }
 	remove_pop_modifier = {race = all class = emperor_college_bonus amount = 25percent resource = goods_produced }
+	remove_pop_modifier = {race = all class = parliament amount = 25percent resource = goods_produced }
+	remove_pop_modifier = {race = all class = parliament amount = 20percent resource = manpower }
+	remove_pop_modifier = {race = all class = parliament amount = 25percent resource = tax }
 }
 add_pop_modifier = {
 	remove_pop_modifier = {race = $race$ class = $class$ amount = $amount$ resource = $resource$}
@@ -272,9 +275,9 @@ culture_conversion_dev_change_cost = {
 		}
 	}
 }
-culture_conversion_dev_reduction = {
+bertus_dev_reduction = {
 	add_nationalism = -50
-	custom_tooltip = culture_conversion_dev_reduction_tt
+	custom_tooltip = culture_conversion_dev_$value$_reduction_tt
 	hidden_effect = {
 		set_variable = {which = province_tax value = 0}
 		set_variable = {which = province_production value = 0}
@@ -285,23 +288,35 @@ culture_conversion_dev_reduction = {
 		export_to_variable = {which = province_tax value = base_tax}
 		export_to_variable = {which = province_production value = base_production}
 		export_to_variable = {which = province_manpower value = base_manpower}
-		multiply_variable = {which = province_tax value = 0.5}
-		multiply_variable = {which = province_production value = 0.5}
-		multiply_variable = {which = province_manpower value = 0.5}
+		multiply_variable = {which = province_tax value = $value$}
+		multiply_variable = {which = province_production value = $value$}
+		multiply_variable = {which = province_manpower value = $value$}
 		while = {
 			limit = {check_variable = {which = province_tax which = cicles_per_tax}}
 			change_variable = {which = cicles_per_tax value = 1}
 			add_base_tax = -1
+			if = {
+				limit = {owner = {OR = {has_government_attribute = expulsion_purge_give_cash_and_power has_estate_privilege = estate_ogre_stone_soup}}}
+				owner = {add_treasury = 25 add_adm_power = 5}
+			}
 		}
 		while = {
 			limit = {check_variable = {which = province_production which = cicles_per_production}}
 			change_variable = {which = cicles_per_production value = 1}
 			add_base_production = -1
+			if = {
+				limit = {owner = {OR = {has_government_attribute = expulsion_purge_give_cash_and_power has_estate_privilege = estate_ogre_stone_soup}}}
+				owner = {add_treasury = 25 add_dip_power = 5}
+			}
 		}
 		while = {
 			limit = {check_variable = {which = province_manpower which = cicles_per_manpower}}
 			change_variable = {which = cicles_per_manpower value = 1}
 			add_base_manpower = -1
+			if = {
+				limit = {owner = {OR = {has_government_attribute = expulsion_purge_give_cash_and_power has_estate_privilege = estate_ogre_stone_soup}}}
+				owner = {add_treasury = 25 add_mil_power = 5}
+			}
 		}
 		hidden_effect = {province_event = {id = bertus_pops.1038}}
 	}

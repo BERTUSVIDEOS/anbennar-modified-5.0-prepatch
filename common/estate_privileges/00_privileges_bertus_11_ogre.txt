@@ -387,7 +387,7 @@ estate_ogre_recruitment_4 = {
 	influence = 0.10
 	is_valid = {
 		OR = {AND = {uses_isolationism = yes NOT = {isolationism = 4}} uses_isolationism = no}
-		mil_tech = 7
+		mil_tech = 4
 		NOT = {mil_tech = 5}
 	}
 	can_select = {		
@@ -1864,8 +1864,61 @@ estate_ogre_intolerance_policy = {
 		promote_culture_cost = 10.0
 	}
 	benefits = {
-		global_missionary_strength = 0.01
-		administrative_efficiency = 0.05
+	}
+	conditional_modifier = {
+		trigger = {
+			NOT = {
+				calc_true_if = {
+					has_government_attribute = faster_purguing_reform
+					has_idea = supremacy_schools
+					amount = 1
+				}
+			}
+		}
+		modifier = {
+			global_missionary_strength = 0.01
+			administrative_efficiency = 0.05		
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			calc_true_if = {
+				has_government_attribute = faster_purguing_reform
+				has_idea = supremacy_schools
+				amount = 1
+			}
+			NOT = {
+				calc_true_if = {
+					has_government_attribute = faster_purguing_reform
+					has_idea = supremacy_schools
+					amount = 2
+				}
+			}
+		}
+		modifier = {
+			global_missionary_strength = 0.02
+			administrative_efficiency = 0.10
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			calc_true_if = {
+				has_government_attribute = faster_purguing_reform
+				has_idea = supremacy_schools
+				amount = 2
+			}
+			NOT = {
+				calc_true_if = {
+					has_government_attribute = faster_purguing_reform
+					has_idea = supremacy_schools
+					amount = 3
+				}
+			}
+		}
+		modifier = {
+			global_missionary_strength = 0.03
+			administrative_efficiency = 0.15
+		}
 	}
 	conditional_modifier = {
 		trigger = {
@@ -1873,7 +1926,13 @@ estate_ogre_intolerance_policy = {
 				NOT = { culture_is_ogre = yes }
 				war_with = root
 			}
-			NOT = {has_government_attribute = faster_purguing_reform}
+			NOT = {
+				calc_true_if = {
+					has_government_attribute = faster_purguing_reform
+					has_idea = supremacy_schools
+					amount = 1
+				}
+			}
 		}
 		modifier = {
 			morale_damage = 0.05
@@ -1890,15 +1949,54 @@ estate_ogre_intolerance_policy = {
 				NOT = { culture_is_ogre = yes }
 				war_with = root
 			}
-			has_government_attribute = faster_purguing_reform
+			calc_true_if = {
+				has_government_attribute = faster_purguing_reform
+				has_idea = supremacy_schools
+				amount = 1
+			}
+			NOT = {
+				calc_true_if = {
+					has_government_attribute = faster_purguing_reform
+					has_idea = supremacy_schools
+					amount = 2
+				}
+			}
 		}
 		modifier = {
 			morale_damage = 0.10
 			shock_damage = 0.10
 			fire_damage = 0.10
-			manpower_recovery_speed = 0.2
-			reinforce_speed = 0.2
-			recover_army_morale_speed = 0.05			
+			manpower_recovery_speed = 0.20
+			reinforce_speed = 0.20
+			recover_army_morale_speed = 0.05
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			any_known_country = {
+				NOT = { culture_is_ogre = yes }
+				war_with = root
+			}
+			calc_true_if = {
+				has_government_attribute = faster_purguing_reform
+				has_idea = supremacy_schools
+				amount = 2
+			}
+			NOT = {
+				calc_true_if = {
+					has_government_attribute = faster_purguing_reform
+					has_idea = supremacy_schools
+					amount = 3
+				}
+			}
+		}
+		modifier = {
+			morale_damage = 0.15
+			shock_damage = 0.15
+			fire_damage = 0.15
+			manpower_recovery_speed = 0.30
+			reinforce_speed = 0.30
+			recover_army_morale_speed = 0.075
 		}
 	}
 	conditional_modifier = {
