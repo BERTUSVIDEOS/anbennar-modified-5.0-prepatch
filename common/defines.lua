@@ -1393,7 +1393,7 @@ NMilitary = {
 	CAV_LOOT = 0.3,								-- How many ducats/month will a single full strength cavalry regiment loot?
 	ART_LOOT = 0.05,							-- How many ducats/month will a single full strength artillery regiment loot?
 	-- Suppression values are multiplied by the static modifier friendly_regiments
-	MAX_REBEL_SUPPRESSION = 5.0;				-- Maximum amount of rebel suppression by troops in a province
+	MAX_REBEL_SUPPRESSION = 10.0;				--5→10-- Maximum amount of rebel suppression by troops in a province
 	INF_SUPPRESSION = 0.25,						-- The amount of reduction to unrest for each friendly infantry regiment in a province
 	CAV_SUPPRESSION = 0.25,						-- The amount of reduction to unrest for each friendly cavalry regiment in a province
 	ART_SUPPRESSION = 0.25,						-- The amount of reduction to unrest for each friendly artillery regiment in a province
@@ -1441,7 +1441,7 @@ NMilitary = {
 	NAVAL_DOCTRINE_MIN_FORCE_LIMIT = 20,			-- Minimum naval force limit to be able to select a naval doctrine
 	LEAGUE_LEADER_CHANGE_SCORE_THRESHOLD = 1.5,		-- Score * factor needed for leader change (Compared to current leader)
 	MAX_DRILL_DECAY = 0.9,							-- Drill can never Decay with more than this value.
-	AREA_REBEL_SUPPRESSION_MULTIPLIER = 5.0,		-- Armies suppressing rebels in areas adds this/<number of suppressed provinces> to rebel suppression in affected provinces.
+	AREA_REBEL_SUPPRESSION_MULTIPLIER = 1.0,		--5→1-- Armies suppressing rebels in areas adds this/<number of suppressed provinces> to rebel suppression in affected provinces.
 
 	BANNER_USES_CONSTRUCTION = 0,
 	STRELTSY_USES_CONSTRUCTION = 1,
