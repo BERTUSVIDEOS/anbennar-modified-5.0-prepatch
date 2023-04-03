@@ -1852,18 +1852,39 @@ phoenix_empire = {
 	nation_designer_trigger = {
 		religion = bulwari_sun_cult
 	}
+	fixed_rank = 3
 
 	modifiers = {
 		max_absolutism = 15
 		global_autonomy = -0.1
-		province_warscore_cost = -0.1
 		tolerance_own = 2
-		governing_capacity = 250
 	}
 	custom_attributes = {
 		disabled_expelling_human = yes
 		disabled_purging_human = yes
+		boosted_elven_chairman = yes
+		bulwar_reduced_governing_cost = yes
 		claim_states = yes
+	}
+	effect = {
+		hidden_effect = {
+			every_owned_province = {
+				limit = { superregion = bulwar_superregion }
+				add_province_modifier = {
+					name = phoenix_empire_bulwar_gov_cost_modifier
+					duration = -1
+					hidden = yes
+				}
+			}
+		}
+	}
+	removed_effect = {
+		hidden_effect = {
+			every_owned_province = {
+				limit = { has_province_modifier = phoenix_empire_bulwar_gov_cost_modifier }
+				remove_province_modifier = phoenix_empire_bulwar_gov_cost_modifier
+			}
+		}
 	}
 }
 
@@ -4039,6 +4060,7 @@ decentralize_reform = {	#bertus mod
 			is_revolutionary = no
 			NOT = { has_dlc = "Emperor" }
 		}
+		NOT = {has_reform = jaherian_administration }
 	}
 	modifiers = {
 		num_accepted_cultures = 2
@@ -4174,19 +4196,35 @@ restructured_dhenijansari_court_reform = {
 	}
 }
 
-jaherian_administration = {
+jaherian_administration = {	#bertus mod
 	icon = "noble_muslim"
 	allow_normal_conversion = yes
-	lock_level_when_selected = yes
+	#lock_level_when_selected = yes	#bertus mod
 	potential = {
 		OR = {
 			has_reform = jaherian_administration
 			have_had_reform = jaherian_administration
 		}
 	}
+	trigger = {
+		NOT = {has_reform = decentralize_reform }
+	}
 	modifiers = {
 		governing_capacity = 100
-		years_of_nationalism = -5
+		num_accepted_cultures = 2
+		manpower_in_accepted_culture_provinces = 0.10
+		manpower_in_own_culture_provinces = 0.10
+		human_loyalty_modifier = 0.10
+		elven_loyalty_modifier = 0.10
+		half_elven_loyalty_modifier = 0.10
+	}
+	conditional = {
+		allow = {
+			has_dlc = "Leviathan"
+		}
+		custom_attributes = {
+			cultural_bureaucracy = yes
+		}
 	}
 }
 

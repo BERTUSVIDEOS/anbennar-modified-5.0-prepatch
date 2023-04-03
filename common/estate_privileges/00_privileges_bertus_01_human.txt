@@ -4,7 +4,6 @@ estate_human_first_hand_chairman = {
 	influence = 0.10
 	loyalty = 0.10
 	is_valid = {
-		OR = {AND = {uses_isolationism = yes NOT = {isolationism = 2}} uses_isolationism = no}
 	}
 	can_select = {
 		estate_influence = {estate = estate_human influence = 40}
@@ -78,13 +77,6 @@ estate_human_diplomacy_chairman = {
 	loyalty = 0.05
 	is_valid = {
 		always = no	#via estate interactions
-		OR = {
-			AND = {
-				uses_isolationism = yes
-				NOT = {isolationism = 3}
-			}
-			uses_isolationism = no			
-		}
 		NOT = {has_race_councelor = {type = diplomacy}}
 	}
 	can_select = {
@@ -122,13 +114,6 @@ estate_human_military_chairman = {
 	loyalty = 0.05
 	is_valid = {
 		always = no	#via estate interactions
-		OR = {
-			AND = {
-				uses_isolationism = yes
-				NOT = {isolationism = 3}
-			}
-			uses_isolationism = no			
-		}
 		NOT = {has_race_councelor = {type = military}}
 	}
 	can_select = {
@@ -158,13 +143,6 @@ estate_human_economic_chairman = {
 	loyalty = 0.05
 	is_valid = {
 		always = no	#via estate interactions
-		OR = {
-			AND = {
-				uses_isolationism = yes
-				NOT = {isolationism = 3}
-			}
-			uses_isolationism = no			
-		}
 		NOT = {has_race_councelor = {type = economic}}
 	}
 	can_select = {
@@ -235,7 +213,6 @@ estate_human_recruitment = {
 	loyalty = -0.10
 	influence = 0.10
 	is_valid = {
-		OR = {AND = {uses_isolationism = yes NOT = {isolationism = 4}} uses_isolationism = no}
 		high_tolerance_human_race_trigger = yes
 		any_owned_province = {
 			culture_is_human = yes
@@ -371,13 +348,6 @@ estate_human_intolerance_policy = {
 			}
 			always = no
 		}
-		OR = {
-			AND = {
-				uses_isolationism = yes
-				NOT = {isolationism = 1}
-			}
-			uses_isolationism = no			
-		}
 		has_country_modifier = human_military
 		has_country_modifier = human_administration
 	}
@@ -386,6 +356,7 @@ estate_human_intolerance_policy = {
 			estate = estate_human
 			territory = 70
 		}
+		NOT = {has_estate_privilege = estate_half_elven_intolerance_policy}
 	}
 	on_granted = {
 		custom_tooltip = estate_human_one_culture_gta
@@ -775,13 +746,6 @@ estate_human_focus = {
 		if = {
 			limit = {has_global_flag = call_to_action_hre_flag}
 			is_part_of_hre = no
-		}		
-		OR = {
-			AND = {
-				uses_isolationism = yes
-				isolationism = 3
-			}
-			uses_isolationism = no			
 		}
 		NOT = { has_country_modifier = human_administration }
 		NOT = { has_country_modifier = human_military }		
@@ -828,7 +792,7 @@ estate_human_decrease_isolationism = {
 	on_revoked = {}
 	on_invalid = {}
 	ai_will_do = {factor = 0}
-	cooldown_years = 25
+	cooldown_years = 10
 	on_cooldown_expires = {
 		add_isolationism = -1
 		remove_estate_privilege = estate_human_decrease_isolationism
@@ -894,7 +858,6 @@ estate_human_administrative_education = {
 	icon = privilege_promote_maratha_nobility
 	influence = 0.10
 	is_valid = {
-		OR = {AND = {uses_isolationism = yes NOT = {isolationism = 2}} uses_isolationism = no}
 		NOT = {heir_adm = 5}
 		has_heir = yes
 	}

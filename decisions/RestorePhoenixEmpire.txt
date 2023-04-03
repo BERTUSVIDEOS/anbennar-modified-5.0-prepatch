@@ -1,7 +1,7 @@
 
 country_decisions = {
 
-	restore_phoenix_empire = {
+	restore_phoenix_empire = {	#bertus mod
 		major = yes
 		potential = {
 			primary_culture = sun_elf
@@ -24,7 +24,7 @@ country_decisions = {
 			NOT = {
 				ROOT = {
 					num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
-						value = 100
+						value = 115	#	115/175	ovdal tungr area & far salahad region uncounted for total
 						superregion = bulwar_superregion
 					}
 				}
@@ -46,7 +46,11 @@ country_decisions = {
 				dip_power = 300
 			}
 			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
-				value = 100
+				value = 115	#	115/175	ovdal tungr area & far salahad region uncounted for total
+				superregion = bulwar_superregion
+			}
+			development_in_provinces = {	#bertus mod
+				value = 1000
 				superregion = bulwar_superregion
 			}
 		}
@@ -54,32 +58,28 @@ country_decisions = {
 		effect = {
 			change_tag = F38
 			swap_non_generic_missions = yes
+			set_government_rank = 3
+			add_prestige_or_monarch_power = {amount =  50}
+			add_government_reform = phoenix_empire
 			hidden_effect = {
 				restore_country_name = yes
-				set_variable = { which = totalVassalDev value = 0 }
+				every_province = {
+					limit = {
+						owner = {
+							is_subject_of = ROOT
+						}
+						superregion = bulwar_superregion
+					}
+					add_core = ROOT
+				}
 				every_subject_country = {
 					limit = {
 						capital_scope = { superregion = bulwar_superregion }
 						NOT = { liberty_desire = 50 }
 					}
-					ROOT = {
-						export_to_variable = { which = tempVassalDev value = total_development who = PREV }
-						change_variable = { which = totalVassalDev which = tempVassalDev }
-					}
-				}
-				while = { limit = { check_variable = { which = totalVassalDev value = 1 } }
-					add_dip_power = -2
-					change_variable = { which = totalVassalDev value = -1 }
 				}
 			}
 			custom_tooltip = integrating_vassals_cost_2_dip_tt
-			every_subject_country = {
-				limit = {
-					capital_scope = { superregion = bulwar_superregion }
-					NOT = { liberty_desire = 50 }
-				}
-				ROOT = { inherit = PREV }
-			}
 			hidden_effect = {
 				every_owned_province = {
 					limit = {
@@ -88,8 +88,6 @@ country_decisions = {
 					set_in_empire = no
 				}
 			}
-			set_government_rank = 3
-			add_prestige_or_monarch_power = {amount =  50}
 			if = {
 				limit = { has_custom_ideas = no }
 				country_event = { id = ideagroups.1 } #Swap Ideas
@@ -112,8 +110,6 @@ country_decisions = {
 					add_province_triggered_modifier = phoenix_empire_timer
 				}
 			}
-			
-			lock_racial_admin = yes
 		}
 		ai_will_do = {
 			factor = 1

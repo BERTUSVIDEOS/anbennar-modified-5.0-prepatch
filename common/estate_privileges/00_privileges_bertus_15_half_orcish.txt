@@ -367,22 +367,28 @@ estate_half_orcish_intolerance_policy = {
 	influence = 0.10
 	is_valid = {
 		if = {
-			limit = {uses_isolationism = yes}
-			NOT = {isolationism = 1}
+			limit = {
+				has_global_flag = call_to_reaction_hre_flag
+				is_part_of_hre = no
+			}
+			always = no
 		}
-		has_country_modifier = half_orcish_military
-		has_country_modifier = half_orcish_administration
+		OR = {
+			has_estate_privilege = estate_orcish_first_hand_chairman
+			has_estate_privilege = estate_human_first_hand_chairman
+			has_estate_privilege = estate_half_orcish_first_hand_chairman
+		}
 	}
 	can_select = {
-		estate_territory = {
-			estate = estate_half_orcish
-			territory = 70
-		}
+		high_tolerance_human_race_trigger = yes
+		high_tolerance_orcish_race_trigger = yes
+		high_tolerance_half_orcish_race_trigger = yes
+		NOT = { has_estate_privilege = estate_human_intolerance_policy }
+		NOT = { has_estate_privilege = estate_orcish_intolerance_policy }
 	}
 	on_granted = {
 		custom_tooltip = estate_half_orcish_one_culture_gta
 		custom_tooltip = estate_half_orcish_one_culture_gtb
-		remove_racial_culture = { race = human }
 		remove_racial_culture = { race = elven }
 		remove_racial_culture = { race = dwarven }
 		remove_racial_culture = { race = halfling }
@@ -390,7 +396,6 @@ estate_half_orcish_intolerance_policy = {
 		remove_racial_culture = { race = harimari }
 		remove_racial_culture = { race = gnollish }
 		remove_racial_culture = { race = ruinborn }
-		remove_racial_culture = { race = orcish }
 		remove_racial_culture = { race = goblin }
 		remove_racial_culture = { race = ogre }
 		remove_racial_culture = { race = centaur }
@@ -403,6 +408,8 @@ estate_half_orcish_intolerance_policy = {
 	on_granted_province = {
 		add_racial_superiority_modifier = {
 			race = half_orcish
+			race2 = orcish
+			race3 = human
 		}
 	}
 	penalties = {
@@ -471,6 +478,8 @@ estate_half_orcish_intolerance_policy = {
 	conditional_modifier = {
 		trigger = {
 			any_known_country = {
+				NOT = { culture_is_orcish = yes }
+				NOT = { culture_is_human = yes }
 				NOT = { culture_is_half_orcish = yes }
 				war_with = root
 			}
@@ -494,6 +503,8 @@ estate_half_orcish_intolerance_policy = {
 	conditional_modifier = {
 		trigger = {
 			any_known_country = {
+				NOT = { culture_is_orcish = yes }
+				NOT = { culture_is_human = yes }
 				NOT = { culture_is_half_orcish = yes }
 				war_with = root
 			}
@@ -523,6 +534,8 @@ estate_half_orcish_intolerance_policy = {
 	conditional_modifier = {
 		trigger = {
 			any_known_country = {
+				NOT = { culture_is_orcish = yes }
+				NOT = { culture_is_human = yes }
 				NOT = { culture_is_half_orcish = yes }
 				war_with = root
 			}
@@ -551,6 +564,8 @@ estate_half_orcish_intolerance_policy = {
 	conditional_modifier = {
 		trigger = {
 			any_ally = {
+				NOT = { culture_is_orcish = yes }
+				NOT = { culture_is_human = yes }
 				NOT = { culture_is_half_orcish = yes }
 			}
 		}

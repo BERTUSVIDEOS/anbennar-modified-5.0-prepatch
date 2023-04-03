@@ -1627,7 +1627,13 @@ estate_halfling_intolerance_policy = {
 	icon = privilege_royal_authority	
 	influence = 0.10
 	is_valid = {
-		OR = {AND = {uses_isolationism = yes NOT = {isolationism = 1}} uses_isolationism = no}
+		if = {
+			limit = {
+				has_global_flag = call_to_reaction_hre_flag
+				is_part_of_hre = yes
+			}
+			always = no
+		}
 		has_country_modifier = halfling_military
 		has_country_modifier = halfling_administration
 	}
@@ -2055,7 +2061,6 @@ estate_halfling_focus = {
 			}
 			is_part_of_hre = no
 		}		
-		OR = {AND = {uses_isolationism = yes NOT = {isolationism = 3}} uses_isolationism = no}			
 		NOT = { has_country_modifier = halfling_administration }
 		NOT = { has_country_modifier = halfling_military }		
 	}

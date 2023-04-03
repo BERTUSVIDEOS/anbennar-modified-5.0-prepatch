@@ -1709,7 +1709,6 @@ estate_orcish_intolerance_policy = {
 			}
 			always = no
 		}
-		OR = {AND = {uses_isolationism = yes NOT = {isolationism = 1}} uses_isolationism = no}
 		has_country_modifier = orcish_military
 		has_country_modifier = orcish_administration
 		NOT = { has_estate_privilege = estate_goblin_green_supremacy_policy }
@@ -1936,8 +1935,6 @@ estate_orcish_green_supremacy_policy = {
 			}
 			always = no
 		}
-		has_dlc = "Emperor"
-		OR = {AND = {uses_isolationism = yes isolationism = 1} uses_isolationism = no}
 		OR = {
 			has_estate_privilege = estate_goblin_first_hand_chairman
 			has_estate_privilege = estate_orcish_first_hand_chairman
@@ -1971,24 +1968,10 @@ estate_orcish_green_supremacy_policy = {
 		remove_racial_culture = { race = kobold }
 	}
 	on_granted_province = {
-		if = {
-			limit = {
-				OR = {culture_is_goblin = yes culture_is_orcish = yes culture_is_half_orcish = yes}
-				has_owner_accepted_culture = yes
-			}
-			add_province_modifier = {name = racial_superiority duration = -1}
-		}
-		else_if = {
-			limit = {has_province_modifier = racial_superiority}
-			remove_province_modifier = racial_superiority
-		}
-		if = {
-			limit = {culture_is_goblin = no culture_is_orcish = no culture_is_half_orcish = no}
-			add_province_modifier = {name = inferior_race duration = -1}
-		}
-		else_if = {
-			limit = {has_province_modifier = inferior_race}
-			remove_province_modifier = inferior_race
+		add_racial_superiority_modifier = {
+			race = goblin
+			race2 = orcish
+			race3 = half_orcish
 		}
 	}
 	penalties = {

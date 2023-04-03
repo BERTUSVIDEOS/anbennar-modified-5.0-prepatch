@@ -1603,7 +1603,7 @@ phoenix_empire_3 = {
 		NOT = { was_tag = F52 }
 	}
 	
-	phoenix_empire_revive_the_phoenix = {
+	phoenix_empire_revive_the_phoenix = {	#bertus mod
 		icon = mission_sweat_fealty
 		position = 6
 		required_missions = {
@@ -1615,9 +1615,9 @@ phoenix_empire_3 = {
 		}
 		
 		trigger = {
-			bulwar_superregion = {
-				type = all
-				owned_by = ROOT
+			development_in_provinces = {
+				value = 2000
+				superregion = bulwar_superregion
 			}
 			if = {
 				limit = { NOT = { government = monarchy } }
@@ -1626,11 +1626,21 @@ phoenix_empire_3 = {
 		}
 		
 		effect = {
-			add_government_reform = phoenix_empire
+			add_country_modifier = {
+				name = phoenix_empire_revive_the_phoenix
+				duration = -1
+			}
+			add_prestige_or_monarch_power = {amount =  50}
+			bulwar_superregion = {
+				add_province_modifier = {
+					name = faster_integration
+					duration = 7300
+				}
+			}
 		}
 	}
 	
-	phoenix_empire_ignite_the_phoenix = {
+	phoenix_empire_ignite_the_phoenix = {	#bertus mod
 		icon = mission_torch_fire
 		position = 7
 		required_missions = {
@@ -1647,6 +1657,7 @@ phoenix_empire_3 = {
 		
 		effect = {
 			add_government_reform = jaherian_administration
+			add_stability_or_adm_power = yes
 		}
 	}
 	
