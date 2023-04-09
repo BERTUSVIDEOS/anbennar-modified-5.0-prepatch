@@ -1827,7 +1827,7 @@ estate_ogre_intolerance_policy = {
 	can_select = {
 		estate_territory = {
 			estate = estate_ogre
-			territory = 70
+			territory = 50
 		}
 	}
 	on_granted = {
@@ -2034,12 +2034,16 @@ estate_ogre_intolerance_policy = {
 	}
 }
 estate_ogre_autonomy = {
-	icon = privilege_grant_autonomy
+	icon = privilege_ogre_autonomy
 	loyalty = 0.2
 	influence = 0.10
 	is_valid = {
 		OR = {AND = {uses_isolationism = yes NOT = {isolationism = 3}} uses_isolationism = no}
 		NOT = { has_country_modifier = ogre_administration }
+		NOT = { has_country_modifier = racial_pop_ogre_enslavement }
+		NOT = { has_country_modifier = racial_pop_ogre_purge }
+		NOT = { has_country_modifier = racial_pop_ogre_expulsion }
+		NOT = { has_estate_privilege = estate_ogre_taxation_policy }
 	}
 	can_select = {
 		any_owned_province = {
@@ -2090,17 +2094,14 @@ estate_ogre_autonomy = {
 	}
 }
 estate_ogre_taxation_policy = {
-	icon = privilege_grant_autonomy
+	icon = privilege_ogre_taxation
 	loyalty = -0.1
 	is_valid = {
-		OR = {
-			AND = {
-				uses_isolationism = yes
-				isolationism = 3
-			}
-			uses_isolationism = no
-		}
 		NOT = { has_country_modifier = ogre_administration }
+		NOT = { has_country_modifier = racial_focus_ogre }
+		NOT = { has_country_modifier = racial_pop_ogre_expulsion }
+		NOT = { has_country_modifier = racial_pop_ogre_enslavement }
+		NOT = { has_country_modifier = racial_pop_ogre_purge }
 	}
 	can_select = {
 		any_owned_province = { culture_is_ogre = yes }
@@ -2186,15 +2187,17 @@ estate_ogre_stone_soup = {
 	}
 }
 estate_ogre_purge = {
-	icon = privilege_grant_autonomy
+	icon = privilege_ogre_purge
 	loyalty = -0.2
 	influence = -0.20
 	is_valid = {
+		NOT = { has_country_modifier = racial_pop_ogre_enslavement }
+		NOT = { has_country_modifier = racial_pop_ogre_expulsion }
+		NOT = { has_country_modifier = racial_focus_ogre }
+		NOT = { has_estate_privilege = estate_ogre_taxation_policy }
 	}
 	can_select = {
-		can_purge_race = {
-			RACE = ogre
-		}
+		can_purge_race = {RACE = ogre}
 	
 	}
 	on_granted = {		
@@ -2206,9 +2209,7 @@ estate_ogre_purge = {
 		custom_tooltip = pop_menu_purge_effect_unrest_tt
 		
 		hidden_effect = {
-			add_purguing_unrest = {
-				race = ogre
-			}
+			add_purguing_unrest = {race = ogre}
 		}
 	}
 	penalties = {
@@ -2222,26 +2223,36 @@ estate_ogre_purge = {
 		remove_country_modifier = racial_pop_ogre_purge
 	}
 	ai_will_do = {
-		factor = 0
+		factor = 1
+		modifier = {
+			factor = 0
+			medium_tolerance_ogre_race_trigger = yes
+		}
+		modifier = {
+			factor = 1000
+			NOT = {liberty_desire = 50}
+			culture_is_ogre = no
+			overlord = {
+				has_country_modifier = racial_pop_ogre_purge
+			}
+		}
 	}
 	cooldown_years = 10
 	on_cooldown_expires = {
 	}
 }
 estate_ogre_expulsion = {
-	icon = privilege_grant_autonomy
+	icon = privilege_ogre_expulsion
 	loyalty = -0.1
 	influence = -0.1
-	is_valid = {	
-		if = {
-			limit = {uses_isolationism = yes}
-			isolationism = 3
-		}
+	is_valid = {
+		NOT = { has_country_modifier = racial_pop_ogre_enslavement }
+		NOT = { has_country_modifier = racial_pop_ogre_purge }
+		NOT = { has_country_modifier = racial_focus_ogre }
+		NOT = { has_estate_privilege = estate_ogre_taxation_policy }
 	}
 	can_select = {
-		can_expel_race = {
-			RACE = ogre
-		}	
+		can_expel_race = {RACE = ogre}	
 	}
 	on_granted = {				
 		large_decrease_of_ogre_tolerance_effect = yes
@@ -2288,7 +2299,10 @@ estate_ogre_focus = {
 			is_part_of_hre = no
 		}		
 		NOT = { has_country_modifier = ogre_administration }
-		NOT = { has_country_modifier = ogre_military }		
+		NOT = { has_country_modifier = ogre_military }
+		NOT = { has_country_modifier = racial_pop_ogre_enslavement }
+		NOT = { has_country_modifier = racial_pop_ogre_purge }
+		NOT = { has_country_modifier = racial_pop_ogre_expulsion }
 	}
 	can_select = {
 		NOT = {
@@ -2320,6 +2334,54 @@ estate_ogre_focus = {
 	cooldown_years = 10
 	on_cooldown_expires = {
 	}
+}
+estate_ogre_enslavement = {
+	icon = privilege_ogre_enslavement
+	loyalty = -0.2
+	influence = -0.20
+	is_valid = {
+		NOT = {has_estate_privilege = estate_ogre_intolerance_policy}
+		can_enslave_race = {RACE = ogre}
+	}
+	can_select = {
+		NOT = {has_race_recruitment = {race = ogre}}
+	}
+	on_granted = {		
+		largest_decrease_of_ogre_tolerance_effect = yes
+		add_country_modifier = { name = racial_pop_ogre_enslavement duration = -1 }
+		custom_tooltip = ogre_enslave_global_effect_tt
+		custom_tooltip = ogre_enslave_effect_unrest_tt
+		hidden_effect = {add_expulsion_unrest = {race = ogre}}
+	}
+	penalties = {}
+	benefits = {}
+	on_revoked = {		
+		remove_country_modifier = racial_pop_ogre_enslavement
+	}
+	on_invalid = {
+		remove_country_modifier = racial_pop_ogre_enslavement
+	}
+	ai_will_do = {
+		factor = 1
+		modifier = {
+			factor = 0
+			medium_tolerance_ogre_race_trigger = yes
+		}
+		modifier = {
+			factor = 1000
+			NOT = {liberty_desire = 50}
+			culture_is_ogre = no
+			overlord = {
+				has_country_modifier = racial_pop_ogre_enslavement
+			}
+		}
+		modifier = {
+			factor = 10
+			has_country_modifier = monstrous_nation
+		}
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {}
 }
 estate_ogre_non_military_swap = {
 	icon = privilege_grant_autonomy

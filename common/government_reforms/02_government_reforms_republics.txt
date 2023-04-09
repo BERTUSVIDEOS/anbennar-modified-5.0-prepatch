@@ -44,11 +44,10 @@ oligarchy_reform = {
 		
 		#Anbennar
 		NOT = { tag = Y15 }
-		NOT = { culture_group = dwarven }
+		NOT = { culture_is_dwarven = yes }
 	}
 	nation_designer_trigger = {
-		NOT = { culture_group = latin }
-		NOT = { culture_group = dwarven }
+		NOT = { culture_is_dwarven = yes }
 	}
 	modifiers = {
 		global_tax_modifier = 0.05
@@ -534,7 +533,7 @@ noble_elite_reform = {
 		#Anbennar
 		NOT = { has_reform = obsidian_council_reform }
 		NOT = { tag = Y15 }
-		NOT = { culture_group = dwarven }
+		NOT = { culture_is_dwarven = yes }
 	}
 	modifiers = {
 		army_tradition = 0.5
@@ -563,10 +562,10 @@ dwarovar_elected_clans_reform = {
 	allow_normal_conversion = yes
 	duration = 8
 	potential = { 
-		culture_group = dwarven 
+		culture_is_dwarven = yes 
 		NOT = { tag = I02 }
 	}
-	nation_designer_trigger = { culture_group = dwarven }
+	nation_designer_trigger = { culture_is_dwarven = yes }
 	modifiers = {
 		diplomatic_reputation = 1
 		advisor_pool = 2
@@ -2339,6 +2338,7 @@ azkare_court = {
 		rulers_can_be_generals = no
 		disabled_purging = yes
 		disabled_expelling = yes
+		disabled_enslavement = yes
 	}
 	has_term_election = no
 }
@@ -2373,6 +2373,7 @@ sunrise_court_reform = {
 		has_parliament = yes
 		disabled_purging = yes
 		disabled_expelling = yes
+		disabled_enslavement = yes
 	}
 	duration = 30
 }
@@ -2729,7 +2730,7 @@ nepotism_reform = {
 			has_reform = free_slave_reform
 			has_reform = golden_republic_reform
 			has_reform = feiten_reformist_movement
-			culture_group = dwarven
+			culture_is_dwarven = yes
 		}
 		OR = {
 			is_revolutionary = no
@@ -3032,7 +3033,7 @@ frequent_elections_reform = {
 		NOT = {
 			has_reform = eternal_council
 			has_country_flag = mykx_disable_t3
-			culture_group = dwarven
+			culture_is_dwarven = yes
 		}
 	}
 	trigger = {
@@ -3070,7 +3071,7 @@ consolidation_of_power_reform = {
 		NOT = {
 			has_reform = eternal_council
 			has_country_flag = mykx_disable_t3
-			culture_group = dwarven
+			culture_is_dwarven = yes
 		}
 	}
 	modifiers = {
@@ -3407,7 +3408,7 @@ mykx_xhazobkult_reform = {
 
 dwarovar_new_minds = {
 	icon = "ballot_box"
-	potential = { culture_group = dwarven }
+	potential = { culture_is_dwarven = yes }
 	trigger = {
 		has_reform  = dwarovar_elected_clans_reform	#bertus mod
 		custom_trigger_tooltip = {
@@ -3432,9 +3433,9 @@ dwarovar_new_minds = {
 
 dwarovar_elder_wisdom = {
 	icon = "constitution"
-	potential = { culture_group = dwarven }
+	potential = { culture_is_dwarven = yes }
 	trigger = {
-		has_reform  = dwarovar_elected_clans_reform	#bertus mod
+		culture_is_dwarven = yes
 	}
 	
 	modifiers = {
@@ -3572,6 +3573,8 @@ union_of_states_reform = {
 	potential = {
 		NOT = { has_government_attribute = is_pirate_republic_reform }
 		NOT = { has_reform = golden_republic_reform }
+		NOT = { has_reform = free_city }
+		NOT = { has_reform = subject_free_city_reform }
 	}
 	
 	modifiers = {
@@ -3588,7 +3591,7 @@ union_of_states_reform = {
 	}
 	boost_income = yes
 	ai = {
-		factor = 1
+		factor = 0
 	}
 }
 
@@ -3715,7 +3718,7 @@ admiralty_reform = {
 			# has_reform = nezkaru_council_reform
 			tag = G32
 			tag = G59
-			culture_group = dwarven
+			culture_is_dwarven = yes
 		}
 	}
 	trigger = {
@@ -3995,7 +3998,7 @@ broaden_executive_powers_reform = {
 	potential = {
 		#Anbennar
 		is_revolutionary = no
-		NOT = { culture_group = dwarven }
+		NOT = { culture_is_dwarven = yes }
 	}
 	modifiers = {
 		free_adm_policy = 1
@@ -4176,6 +4179,8 @@ black_market_consortium_reform = {
 	legacy_equivalent = black_market_consortium_government
 	potential = {
 		has_government_attribute = is_pirate_republic_reform
+		NOT = { has_reform = free_city }
+		NOT = { has_reform = subject_free_city_reform }
 	}
 	modifiers = {
 		pr_smugglers_influence = 0.1
@@ -4259,7 +4264,7 @@ leading_by_example_reform = {
 
 dwarovar_cartel_backing = {
 	icon = "paper_money_map"
-	potential = { culture_group = dwarven }
+	potential = { culture_is_dwarven = yes }
 	
 	modifiers = {
 		global_trade_power = 0.1
@@ -4544,7 +4549,7 @@ attorney_general_reform = {	#new LotN
 	icon = "three_classes_reform"
 	potential = {
 		is_revolutionary = no
-		NOT = {culture_group = dwarven }
+		NOT = {culture_is_dwarven = yes }
 	}
 	allow_normal_conversion = yes
 	modifiers = {
@@ -4581,7 +4586,7 @@ revolutionary_attorney_reform = {	#new LotN
 	icon = "three_classes_reform"
 	potential = {
 		is_revolutionary = yes
-		NOT = {culture_group = dwarven }
+		NOT = {culture_is_dwarven = yes }
 	}
 	allow_normal_conversion = yes
 	modifiers = {
@@ -4643,7 +4648,7 @@ revolutionary_council_reform = {
 
 dwarovar_clan_heads = {
 	icon = "commander_king_reform"
-	potential = { culture_group = dwarven }
+	potential = { culture_is_dwarven = yes }
 	trigger = {
 		if = {
 			limit = { tag = I02 }
@@ -4858,7 +4863,7 @@ feiten_reformist_movement = {
 
 dwarovar_keep_to_tradition = {
 	icon = "noble_indian"
-	potential = { culture_group = dwarven }
+	potential = { culture_is_dwarven = yes }
 	trigger = { 
 		custom_trigger_tooltip = {
 			tooltip = "NEEDS_REGULAR_ELECTIONS"
@@ -4883,12 +4888,11 @@ appointment_by_committee_reform = {
 	icon = "politician"
 	allow_normal_conversion = yes
 	potential = {
-		NOT = {culture_group = dwarven }
+		NOT = {culture_is_dwarven = yes }
 		#NOT = { has_reform = nezkaru_council_reform }
 	}
 	modifiers = {
-		advisor_pool = 1
-		advisor_cost = -0.05
+		state_governing_cost  = -0.1
 		monthly_reform_progress = 0.2
 	}
 	custom_attributes = {
@@ -4914,11 +4918,11 @@ universal_suffrage_reform = {
 		#NOT = { has_reform = nezkaru_council_reform }
 	}
 	modifiers = {
-		state_governing_cost_increase = -10
-		state_governing_cost  = -0.1
+		advisor_pool = 1
+		advisor_cost = -0.05
 	}
 	custom_attributes = {
-		integrated_races_give_dev_cost = yes
+		extra_tax_per_adm_advisor_skill = yes	
 	}
 	ai = {
 		factor = 1

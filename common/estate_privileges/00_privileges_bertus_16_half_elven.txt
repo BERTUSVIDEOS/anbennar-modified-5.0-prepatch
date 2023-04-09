@@ -603,7 +603,7 @@ estate_half_elven_intolerance_policy = {
 	cooldown_years = 10
 	on_cooldown_expires = {
 		country_event = {
-			id = bertus_racial_military.5002
+			id = half_elven_tolerance_events.5002
 		}
 	}
 	ai_will_do = {
@@ -611,11 +611,15 @@ estate_half_elven_intolerance_policy = {
 	}
 }
 estate_half_elven_autonomy = {
-	icon = privilege_grant_autonomy
+	icon = privilege_half_elven_autonomy
 	loyalty = 0.2
 	influence = 0.10
 	is_valid = {
 		NOT = { has_country_modifier = half_elven_administration }
+		NOT = { has_country_modifier = racial_pop_half_elven_enslavement }
+		NOT = { has_country_modifier = racial_pop_half_elven_purge }
+		NOT = { has_country_modifier = racial_pop_half_elven_expulsion }
+		NOT = { has_estate_privilege = estate_half_elven_taxation_policy }
 	}
 	can_select = {
 		any_owned_province = {
@@ -666,17 +670,14 @@ estate_half_elven_autonomy = {
 	}
 }
 estate_half_elven_taxation_policy = {
-	icon = privilege_grant_autonomy
+	icon = privilege_half_elven_taxation
 	loyalty = -0.1
 	is_valid = {
-		OR = {
-			AND = {
-				uses_isolationism = yes
-				isolationism = 3
-			}
-			uses_isolationism = no
-		}
 		NOT = { has_country_modifier = half_elven_administration }
+		NOT = { has_country_modifier = racial_focus_half_elven }
+		NOT = { has_country_modifier = racial_pop_half_elven_expulsion }
+		NOT = { has_country_modifier = racial_pop_half_elven_enslavement }
+		NOT = { has_country_modifier = racial_pop_half_elven_purge }
 	}
 	can_select = {
 		any_owned_province = { culture_is_half_elven = yes }
@@ -719,15 +720,17 @@ estate_half_elven_taxation_policy = {
 	}
 }
 estate_half_elven_purge = {
-	icon = privilege_grant_autonomy
+	icon = privilege_half_elven_purge
 	loyalty = -0.2
 	influence = -0.20
 	is_valid = {
+		NOT = { has_country_modifier = racial_pop_half_elven_enslavement }
+		NOT = { has_country_modifier = racial_pop_half_elven_expulsion }
+		NOT = { has_country_modifier = racial_focus_half_elven }
+		NOT = { has_estate_privilege = estate_half_elven_taxation_policy }
 	}
 	can_select = {
-		can_purge_race = {
-			RACE = half_elven
-		}	
+		can_purge_race = {RACE = half_elven}	
 	}
 	on_granted = {		
 		largest_decrease_of_half_elven_tolerance_effect = yes
@@ -738,9 +741,7 @@ estate_half_elven_purge = {
 		custom_tooltip = pop_menu_purge_effect_unrest_tt
 		
 		hidden_effect = {
-			add_purguing_unrest = {
-				race = half_elven
-			}
+			add_purguing_unrest = {race = half_elven}
 		}
 	}
 	penalties = {
@@ -754,22 +755,36 @@ estate_half_elven_purge = {
 		remove_country_modifier = racial_pop_half_elven_purge
 	}
 	ai_will_do = {
-		factor = 0
+		factor = 1
+		modifier = {
+			factor = 0
+			medium_tolerance_half_elven_race_trigger = yes
+		}
+		modifier = {
+			factor = 1000
+			NOT = {liberty_desire = 50}
+			culture_is_half_elven = no
+			overlord = {
+				has_country_modifier = racial_pop_half_elven_purge
+			}
+		}
 	}
 	cooldown_years = 10
 	on_cooldown_expires = {
 	}
 }
 estate_half_elven_expulsion = {
-	icon = privilege_grant_autonomy
+	icon = privilege_half_elven_expulsion
 	loyalty = -0.1
 	influence = -0.1
 	is_valid = {
+		NOT = { has_country_modifier = racial_pop_half_elven_enslavement }
+		NOT = { has_country_modifier = racial_pop_half_elven_purge }
+		NOT = { has_country_modifier = racial_focus_half_elven }
+		NOT = { has_estate_privilege = estate_half_elven_taxation_policy }
 	}
 	can_select = {
-		can_expel_race = {
-			RACE = half_elven
-		}
+		can_expel_race = {RACE = half_elven}
 	}
 	on_granted = {				
 		large_decrease_of_half_elven_tolerance_effect = yes
@@ -816,7 +831,10 @@ estate_half_elven_focus = {
 			is_part_of_hre = no
 		}		
 		NOT = { has_country_modifier = half_elven_administration }
-		NOT = { has_country_modifier = half_elven_military }		
+		NOT = { has_country_modifier = half_elven_military }
+		NOT = { has_country_modifier = racial_pop_half_elven_enslavement }
+		NOT = { has_country_modifier = racial_pop_half_elven_purge }
+		NOT = { has_country_modifier = racial_pop_half_elven_expulsion }
 	}
 	can_select = {
 		NOT = {
@@ -847,6 +865,75 @@ estate_half_elven_focus = {
 	}
 	cooldown_years = 10
 	on_cooldown_expires = {
+	}
+}
+estate_half_elven_enslavement = {
+	icon = privilege_half_elven_enslavement
+	loyalty = -0.2
+	influence = -0.20
+	is_valid = {
+		NOT = {has_estate_privilege = estate_half_elven_intolerance_policy}
+		can_enslave_race = {RACE = half_elven}	
+	}
+	can_select = {
+		NOT = {has_race_recruitment = {race = half_elven}}	
+	}
+	on_granted = {		
+		largest_decrease_of_half_elven_tolerance_effect = yes
+		add_country_modifier = { name = racial_pop_half_elven_enslavement duration = -1 }
+		custom_tooltip = half_elven_enslave_global_effect_tt
+		custom_tooltip = half_elven_enslave_effect_unrest_tt
+		hidden_effect = {add_expulsion_unrest = {race = half_elven}}
+	}
+	penalties = {}
+	benefits = {}
+	on_revoked = {		
+		remove_country_modifier = racial_pop_half_elven_enslavement
+	}
+	on_invalid = {
+		remove_country_modifier = racial_pop_half_elven_enslavement
+	}
+	ai_will_do = {
+		factor = 1
+		modifier = {
+			factor = 0
+			medium_tolerance_half_elven_race_trigger = yes
+		}
+		modifier = {
+			factor = 1000
+			NOT = {liberty_desire = 50}
+			culture_is_half_elven = no
+			overlord = {
+				has_country_modifier = racial_pop_half_elven_enslavement
+			}
+		}
+		modifier = {
+			factor = 10
+			has_country_modifier = monstrous_nation
+		}
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {}
+}
+estate_half_elven_change_surael_praise = {
+	icon = privilege_grant_autonomy
+	loyalty = 0.1
+	influence = 0.1
+	is_valid = {
+		uses_isolationism = yes
+	}
+	can_select = {
+	}
+	on_granted = {
+		country_event = {id = bertus_changes.6033}
+	}
+	benefits = {}
+	on_revoked = {}
+	on_invalid = {}
+	ai_will_do = {factor = 0}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_half_elven_change_surael_praise
 	}
 }
 estate_half_elven_non_military_swap = {

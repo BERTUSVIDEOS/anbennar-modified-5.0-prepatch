@@ -6,7 +6,10 @@ tluukt_1 = {
 	generic = no
 	ai = yes
 	potential = {
-		tag = F28
+		OR = {
+			tag = F28
+			tag = U09
+		}
 	}
  	has_country_shield = yes
 	
@@ -22,7 +25,7 @@ tluukt_1 = {
 		}
 		
 		trigger = {
-			689 = {
+			488 = {
 				owned_by = ROOT
 				base_production = 5
 			}
@@ -62,7 +65,7 @@ tluukt_1 = {
 		}
 		
 		trigger = {
-			689 = {
+			488 = {
 				owned_by = ROOT
 				has_manpower_building_trigger = yes
 			}
@@ -76,10 +79,10 @@ tluukt_1 = {
 		
 		effect = {
 			if = {
-				limit =	{ 689 = { NOT = { trade_goods = gold } } }
-				689 = { change_trade_goods = gold }
+				limit =	{ 488 = { NOT = { trade_goods = gold } } }
+				488 = { change_trade_goods = gold }
 			}
-			689 = {
+			488 = {
 				add_base_production = 2
 				add_base_manpower = 2
 				add_permanent_province_modifier = { name = tluukt_new_veins duration = -1 }
@@ -157,17 +160,9 @@ tluukt_1 = {
 				base_tax = 8
 				has_tax_building_trigger = yes
 			}
-			has_spy_network_in = {
-				who = F31
-				value = 40
-			}	
 		}
 		
 		effect = {
-			add_spy_network_in = {
-				who = F31
-				value = -40
-			}
 			if = {
 				limit = { F31 = { is_subject_of_type = tributary_state } }
 				vassalize = F31
@@ -177,7 +172,6 @@ tluukt_1 = {
 				F31 = { change_government = theocracy }
 			}
 
-			eduz_vacyn_area = { add_permanent_claim = F31 }
 			upper_suran_area = { add_permanent_claim = F31 }
 			panuses_area = { add_permanent_claim = F31 }
 			
@@ -357,7 +351,7 @@ tluukt_1 = {
 				anzarzax_area = { add_permanent_claim = ROOT }
 				anzabad_area = { add_permanent_claim = ROOT }
 			}
-			upper_brasan_area = { add_permanent_claim = ROOT }
+			lower_naza_area = { add_permanent_claim = ROOT }
 			lower_brasan_area = { add_permanent_claim = ROOT }
 			medurubar_area = { add_permanent_claim = ROOT }
 			irrliam_area = { add_permanent_claim = ROOT }
@@ -378,7 +372,7 @@ tluukt_1 = {
 				}
 				AND = {
 					OR = {
-						area = upper_brasan_area
+						area = lower_naza_area
 						area = lower_brasan_area
 						area = medurubar_area
 						area = irrliam_area
@@ -389,7 +383,7 @@ tluukt_1 = {
 		}
 		
 		trigger = {
-			upper_brasan_area = { type = all country_or_subject_holds = ROOT }
+			lower_naza_area = { type = all country_or_subject_holds = ROOT }
 			lower_brasan_area = { type = all country_or_subject_holds = ROOT }
 			medurubar_area = { type = all country_or_subject_holds = ROOT }
 			irrliam_area = { type = all country_or_subject_holds = ROOT }		
@@ -442,20 +436,7 @@ tluukt_1 = {
 			kuz_mountains_area = { type = all country_or_subject_holds = ROOT }
 			imuluses_area = { type = all country_or_subject_holds = ROOT }
 			549 = {
-				OR = {
-					country_or_subject_holds = ROOT
-					AND = {
-						is_core = ROOT
-						owned_by = ROOT
-						NOT = { nationalism = 1 }
-					}
-					AND = {
-						any_subject_country = {
-							is_core = ROOT
-							owned_by = ROOT
-						}
-					}
-				}
+				country_or_subject_holds = ROOT
 			}
 		}
 		
@@ -558,7 +539,10 @@ tluukt_2 = {
 	generic = no
 	ai = yes
 	potential = {
-		tag = F28
+		OR = {
+			tag = F28
+			tag = U09
+		}
 	}
  	has_country_shield = yes
 	
@@ -637,7 +621,7 @@ tluukt_2 = {
 		position = 3
 		
 		provinces_to_highlight = {
-			area = inner_drolas_area
+			area = masusopot_area
 			NOT = {
 				country_or_non_sovereign_subject_holds = ROOT
 			}
@@ -645,7 +629,7 @@ tluukt_2 = {
 		
 		trigger = {
 			is_at_war = no			
-			inner_drolas_area = {
+			masusopot_area = {
 				type = all 
 				country_or_non_sovereign_subject_holds = ROOT
 			}
@@ -658,12 +642,6 @@ tluukt_2 = {
 					NOT = { overlord_of = F32 }
 				}
 				F32 = {
-					overlord = {
-						add_spy_network_from = {
-							who = ROOT
-							value = -40
-						}
-					}
 					country_event = { id = flavour_tluukt.18 days = 3 } #Event: Drolakand Coup (Violent Tributary)
 				}
 			}
@@ -688,12 +666,7 @@ tluukt_2 = {
 						inner_drolas_area = { type = all country_or_subject_holds = PREV }
 						is_subject = no
 					}
-					add_spy_network_from = {
-						who = F28
-						value = -40
-					}
 				}
-				outer_drolas_area = { add_permanent_claim = ROOT } 
 				inner_drolas_area = { add_permanent_claim = ROOT } 
 			}
 			sur_mountains_area = { add_permanent_claim = ROOT }
@@ -749,31 +722,19 @@ tluukt_2 = {
 		position = 5
 		
 		provinces_to_highlight = {
-			OR = {
-				AND = {
-					province_id = 608
-				}
-				owned_by = F42
-			}	
+			province_id = 608
 		}
 		
 		trigger = {
-			NOT = { exists = F42 }
-			traz_buranun_area = { type = all country_or_subject_holds = ROOT }
 			608 = {
-				OR = {
-					country_or_subject_holds = ROOT
-					AND = {
-						is_core = ROOT
-						owned_by = ROOT
-						NOT = { nationalism = 1 }
-					}
-				}
+				is_looted = yes
+				controlled_by = ROOT
 			}
 		}
 		
 		effect = {
 			#Event: Sack of Traz-Buranun
+			608 = {province_event = {id = army_professionalism_events.1}}
 			country_event = { id = flavour_tluukt.21 }
 			if = {
 				limit = {
@@ -808,45 +769,19 @@ tluukt_2 = {
 		position = 6
 		
 		provinces_to_highlight = {
-			OR = {
-				AND = {
-					province_id = 605
-					NOT = { owned_by = ROOT }
-				}
-				AND = {
-					exists = F36
-					owned_by = F36
-					F36 = { NOT = { is_subject_of = ROOT } }
-				}
-				AND = {
-					NOT = { exists = F36 }
-					OR = {
-						province_id = 607
-						province_id = 612
-					}
-					NOT = { owned_by = ROOT }
-				}
-			}
+			area = grixekyr_area
+			NOT = { owned_by = ROOT }
 		}
 		
 		trigger = {
-			605 = { owned_by = ROOT }
-			OR = {
-				F36 = { is_subject_of = ROOT }
-				AND = {
-					NOT = { exists = F36 }
-					607 = { owned_by = ROOT }
-					612 = { owned_by = ROOT }
-				}
-			}
+			grixekyr_area = { type = all owned_by = ROOT }
 		}
 		
 		effect = {
-			596 = { add_permanent_claim = ROOT }
-			613 = { add_permanent_claim = ROOT }
-			598 = { add_permanent_claim = ROOT }
 			sareyand_area = { add_permanent_claim = ROOT }
-			south_naza_area = { add_permanent_claim = ROOT }
+			bulwar_area = { add_permanent_claim = ROOT }
+			zansap_area = { add_permanent_claim = ROOT }
+			lower_brasan_area = { add_permanent_claim = ROOT }
 			#Event: Defile Jaher's Legacy
 			country_event = { id = flavour_tluukt.24 }
 		}
@@ -860,31 +795,19 @@ tluukt_2 = {
 		position = 8
 		
 		provinces_to_highlight = {
-			area = sareyand_area
-			NOT = { owned_by = ROOT }
-			OR = {
-				AND = {
-					is_core = ROOT
-					NOT = { nationalism = 1 }
-				}
-			}		
+			province_id = 625
 		}
 		
 		trigger = {
-			sareyand_area = {
-				type = all
-				owned_by = ROOT
-				OR = {
-					AND = {
-						is_core = ROOT
-						NOT = { nationalism = 1 }
-					}
-				}
+			625 = {
+				is_looted = yes
+				controlled_by = ROOT
 			}
 		}
 		
 		effect = {
 			#Event: Raxaklu Restored
+			625 = {province_event = {id = army_professionalism_events.1}}
 			country_event = { id = flavour_tluukt.26 }
 		}
 	}
@@ -1103,7 +1026,10 @@ tluukt_3 = {
 	generic = no
 	ai = yes
 	potential = {
-		tag = F28
+		OR = {
+			tag = F28
+			tag = U09
+		}
 	}
  	has_country_shield = yes
 	
@@ -1340,7 +1266,10 @@ tluukt_4 = {
 	generic = no
 	ai = yes
 	potential = {
-		tag = F28
+		OR = {
+			tag = F28
+			tag = U09
+		}
 	}
  	has_country_shield = yes
 	
@@ -1606,7 +1535,10 @@ tluukt_4e = {
 	generic = yes
 	ai = yes
 	potential = {
-		tag = F28
+		OR = {
+			tag = F28
+			tag = U09
+		}
 	}
  	has_country_shield = yes
 
@@ -1681,7 +1613,10 @@ tluukt_3j = {
 	generic = yes
 	ai = yes
 	potential = {
-		tag = F28
+		OR = {
+			tag = F28
+			tag = U09
+		}
 		has_country_flag = tluukt_jaddari
 	}
  	has_country_shield = yes
@@ -1872,7 +1807,10 @@ tluukt_4j = {
 	generic = yes
 	ai = yes
 	potential = {
-		tag = F28
+		OR = {
+			tag = F28
+			tag = U09
+		}
 		has_country_flag = tluukt_jaddari
 	}
 	has_country_shield = yes
@@ -1967,7 +1905,10 @@ tluukt_5j = {
 	generic = yes
 	ai = yes
 	potential = {
-		tag = F28
+		OR = {
+			tag = F28
+			tag = U09
+		}
 		has_country_flag = tluukt_jaddari
 	}
 	
@@ -2213,7 +2154,10 @@ tluukt_5j_siadanlen = {
 	generic = yes
 	ai = yes
 	potential = {
-		tag = F28
+		OR = {
+			tag = F28
+			tag = U09
+		}
 		has_country_flag = tluukt_jaddari
 		NOT = { has_country_flag = tluukt_kogzokka }
 	}
@@ -2268,7 +2212,10 @@ tluukt_5j_kogzokka = {
 	generic = yes
 	ai = yes
 	potential = {
-		tag = F28
+		OR = {
+			tag = F28
+			tag = U09
+		}
 		has_country_flag = tluukt_jaddari
 		has_country_flag = tluukt_kogzokka
 	}
@@ -2366,7 +2313,10 @@ tluukt_3z = {
 	generic = yes
 	ai = yes
 	potential = {
-		tag = F28
+		OR = {
+			tag = F28
+			tag = U09
+		}
 		has_country_flag = tluukt_zokka
 	}
  	has_country_shield = yes
@@ -2503,7 +2453,10 @@ tluukt_4z = {
 	generic = yes
 	ai = yes
 	potential = {
-		tag = F28
+		OR = {
+			tag = F28
+			tag = U09
+		}
 		has_country_flag = tluukt_zokka
 	}
  	has_country_shield = yes
@@ -2638,7 +2591,10 @@ tluukt_5z = {
 	generic = yes
 	ai = yes
 	potential = {
-		tag = F28
+		OR = {
+			tag = F28
+			tag = U09
+		}
 		has_country_flag = tluukt_zokka
 	}
  	has_country_shield = yes
@@ -3014,7 +2970,10 @@ tluukt_4s = {
 	generic = yes
 	ai = yes
 	potential = {
-		tag = F28
+		OR = {
+			tag = F28
+			tag = U09
+		}
 		has_country_flag = tluukt_stale
 	}
  	has_country_shield = yes
@@ -3053,7 +3012,10 @@ tluukt_5s = {
 	generic = yes
 	ai = yes
 	potential = {
-		tag = F28
+		OR = {
+			tag = F28
+			tag = U09
+		}
 		has_country_flag = tluukt_stale
 	}
  	has_country_shield = yes
@@ -3216,7 +3178,10 @@ tluukt_1b = {
 	generic = no
 	ai = yes
 	potential = {
-		tag = F28
+		OR = {
+			tag = F28
+			tag = U09
+		}
 		#has_country_flag = tluukt_reformed
 	}
  	has_country_shield = yes
@@ -3366,7 +3331,10 @@ tluukt_2b = {
 	generic = no
 	ai = yes
 	potential = {
-		tag = F28
+		OR = {
+			tag = F28
+			tag = U09
+		}
 		#has_country_flag = tluukt_reformed
 	}
  	has_country_shield = yes
@@ -3436,6 +3404,10 @@ tluukt_2b = {
 					value = trigger_value:total_development
 				}
 				export_to_variable = {
+					which = nElfDev
+					value = trigger_value:total_development
+				}
+				multiply_variable = {
 					which = nElfDev
 					value = 0
 				}
@@ -3655,7 +3627,10 @@ tluukt_3b = {
 	generic = no
 	ai = yes
 	potential = {
-		tag = F28
+		OR = {
+			tag = F28
+			tag = U09
+		}
 		#has_country_flag = tluukt_reformed
 	}
  	has_country_shield = yes
@@ -3683,7 +3658,6 @@ tluukt_3b = {
 				AND = {
 					OR = {
 						area = sareyand_area
-						area = south_naza_area
 					}
 					NOT = {
 						country_or_subject_holds = ROOT
@@ -3698,10 +3672,6 @@ tluukt_3b = {
 				type = all
 				owned_by = ROOT
 				is_core = ROOT
-			}
-			south_naza_area = {
-				type = all
-				country_or_subject_holds = ROOT
 			}
 			625 = {
 				NOT = { devastation = 1 }
@@ -4109,7 +4079,6 @@ tluukt_3b = {
 		icon = mission_new_army
 		required_missions = {
 			tluukt_trained_krahlabor
-			tluukt_integrate_krahraaks
 		}
 		position = 18
 		
@@ -4148,7 +4117,10 @@ tluukt_4b = {
 	generic = no
 	ai = yes
 	potential = {
-		tag = F28
+		OR = {
+			tag = F28
+			tag = U09
+		}
 		#has_country_flag = tluukt_reformed
 	}
  	has_country_shield = yes
@@ -4671,7 +4643,10 @@ tluukt_5b = {
 	generic = no
 	ai = yes
 	potential = {
-		tag = F28
+		OR = {
+			tag = F28
+			tag = U09
+		}
 		#has_country_flag = tluukt_reformed
 	}
  	has_country_shield = yes

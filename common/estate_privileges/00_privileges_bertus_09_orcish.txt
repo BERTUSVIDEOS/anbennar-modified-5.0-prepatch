@@ -29,7 +29,6 @@ estate_orcish_first_hand_chairman = {
 			}
 		}
 	}
-	modifier = {}
 	penalties = {
 		technology_cost = 0.05
 	}
@@ -1717,7 +1716,7 @@ estate_orcish_intolerance_policy = {
 	can_select = {
 		estate_territory = {
 			estate = estate_orcish
-			territory = 70
+			territory = 50
 		}
 	}
 	on_granted = {
@@ -2160,12 +2159,16 @@ estate_orcish_green_supremacy_policy = {
 	}
 }
 estate_orcish_autonomy = {
-	icon = privilege_grant_autonomy
+	icon = privilege_orcish_autonomy
 	loyalty = 0.2
 	influence = 0.10
 	is_valid = {
 		OR = {AND = {uses_isolationism = yes NOT = {isolationism = 3}} uses_isolationism = no}
 		NOT = { has_country_modifier = orcish_administration }
+		NOT = { has_country_modifier = racial_pop_orcish_enslavement }
+		NOT = { has_country_modifier = racial_pop_orcish_purge }
+		NOT = { has_country_modifier = racial_pop_orcish_expulsion }
+		NOT = { has_estate_privilege = estate_orcish_taxation_policy }
 	}
 	can_select = {
 		any_owned_province = {
@@ -2216,17 +2219,14 @@ estate_orcish_autonomy = {
 	}
 }
 estate_orcish_taxation_policy = {
-	icon = privilege_grant_autonomy
+	icon = privilege_orcish_taxation
 	loyalty = -0.1
 	is_valid = {
-		OR = {
-			AND = {
-				uses_isolationism = yes
-				isolationism = 3
-			}
-			uses_isolationism = no
-		}
 		NOT = { has_country_modifier = orcish_administration }
+		NOT = { has_country_modifier = racial_focus_orcish }
+		NOT = { has_country_modifier = racial_pop_orcish_expulsion }
+		NOT = { has_country_modifier = racial_pop_orcish_enslavement }
+		NOT = { has_country_modifier = racial_pop_orcish_purge }
 	}
 	can_select = {
 		any_owned_province = { culture_is_orcish = yes }
@@ -2269,19 +2269,17 @@ estate_orcish_taxation_policy = {
 	}
 }
 estate_orcish_purge = {
-	icon = privilege_grant_autonomy
+	icon = privilege_orcish_purge
 	loyalty = -0.2
 	influence = -0.20
 	is_valid = {
-		if = {
-			limit = {uses_isolationism = yes}
-			isolationism = 3
-		}
+		NOT = { has_country_modifier = racial_pop_orcish_enslavement }
+		NOT = { has_country_modifier = racial_pop_orcish_expulsion }
+		NOT = { has_country_modifier = racial_focus_orcish }
+		NOT = { has_estate_privilege = estate_orcish_taxation_policy }
 	}
 	can_select = {
-		can_purge_race = {
-			RACE = orcish
-		}
+		can_purge_race = {RACE = orcish}
 	
 	}
 	on_granted = {		
@@ -2293,9 +2291,7 @@ estate_orcish_purge = {
 		custom_tooltip = pop_menu_purge_effect_unrest_tt
 		
 		hidden_effect = {
-			add_purguing_unrest = {
-				race = orcish
-			}
+			add_purguing_unrest = {race = orcish}
 		}
 	}
 	penalties = {
@@ -2309,26 +2305,36 @@ estate_orcish_purge = {
 		remove_country_modifier = racial_pop_orcish_purge
 	}
 	ai_will_do = {
-		factor = 0
+		factor = 1
+		modifier = {
+			factor = 0
+			medium_tolerance_orcish_race_trigger = yes
+		}
+		modifier = {
+			factor = 1000
+			NOT = {liberty_desire = 50}
+			culture_is_orcish = no
+			overlord = {
+				has_country_modifier = racial_pop_orcish_purge
+			}
+		}
 	}
 	cooldown_years = 10
 	on_cooldown_expires = {
 	}
 }
 estate_orcish_expulsion = {
-	icon = privilege_grant_autonomy
+	icon = privilege_orcish_expulsion
 	loyalty = -0.1
 	influence = -0.1
 	is_valid = {
-		if = {
-			limit = {uses_isolationism = yes}
-			isolationism = 3
-		}
+		NOT = { has_country_modifier = racial_pop_orcish_enslavement }
+		NOT = { has_country_modifier = racial_pop_orcish_purge }
+		NOT = { has_country_modifier = racial_focus_orcish }
+		NOT = { has_estate_privilege = estate_orcish_taxation_policy }
 	}
 	can_select = {
-		can_expel_race = {
-			RACE = orcish
-		}
+		can_expel_race = {RACE = orcish}
 	}
 	on_granted = {				
 		large_decrease_of_orcish_tolerance_effect = yes
@@ -2376,6 +2382,9 @@ estate_orcish_focus = {
 		}		
 		NOT = { has_country_modifier = orcish_administration }
 		NOT = { has_country_modifier = orcish_military }
+		NOT = { has_country_modifier = racial_pop_orcish_enslavement }
+		NOT = { has_country_modifier = racial_pop_orcish_purge }
+		NOT = { has_country_modifier = racial_pop_orcish_expulsion }
 	}
 	can_select = {
 		NOT = {
@@ -2407,6 +2416,59 @@ estate_orcish_focus = {
 	cooldown_years = 10
 	on_cooldown_expires = {
 	}
+}
+estate_orcish_enslavement = {
+	icon = privilege_orcish_enslavement
+	loyalty = -0.2
+	influence = -0.20
+	is_valid = {
+		NOT = {
+			has_estate_privilege = estate_orcish_intolerance_policy
+			has_estate_privilege = estate_orcish_green_supremacy_policy
+			has_estate_privilege = estate_goblin_green_supremacy_policy
+			has_estate_privilege = estate_half_orcish_intolerance_policy
+		}
+		can_enslave_race = {RACE = orcish}	
+	}
+	can_select = {
+		NOT = {has_race_recruitment = {race = orcish}}
+	}
+	on_granted = {		
+		largest_decrease_of_orcish_tolerance_effect = yes
+		add_country_modifier = { name = racial_pop_orcish_enslavement duration = -1 }
+		custom_tooltip = orcish_enslave_global_effect_tt
+		custom_tooltip = orcish_enslave_effect_unrest_tt
+		hidden_effect = {add_expulsion_unrest = {race = orcish}}
+	}
+	penalties = {}
+	benefits = {}
+	on_revoked = {		
+		remove_country_modifier = racial_pop_orcish_enslavement
+	}
+	on_invalid = {
+		remove_country_modifier = racial_pop_orcish_enslavement
+	}
+	ai_will_do = {
+		factor = 1
+		modifier = {
+			factor = 0
+			medium_tolerance_orcish_race_trigger = yes
+		}
+		modifier = {
+			factor = 1000
+			NOT = {liberty_desire = 50}
+			culture_is_orcish = no
+			overlord = {
+				has_country_modifier = racial_pop_orcish_enslavement
+			}
+		}
+		modifier = {
+			factor = 10
+			has_country_modifier = monstrous_nation
+		}
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {}
 }
 estate_orcish_non_military_swap = {
 	icon = privilege_grant_autonomy

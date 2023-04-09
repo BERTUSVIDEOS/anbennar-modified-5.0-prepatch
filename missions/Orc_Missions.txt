@@ -419,13 +419,13 @@ orc_pillage = {
 		}
 		NOT = { is_year = 1445 }
 	}
-	orc_pillage_enemy_capital = {
+	orc_pillage_enemy_capital = {	#bertus mod
 		icon = mission_spoils_of_war
 		ai = yes
 		position = 4
 		trigger = {
 			any_country = {
-				war_with = ROOT	#bertus mod
+				war_with = ROOT
 				capital_scope = {
 					is_looted = yes
 					devastation = 10
@@ -435,13 +435,42 @@ orc_pillage = {
 		}
 		effect = {
 			add_years_of_income = 2
+			random_country = {
+				limit = {
+					war_with = ROOT
+					capital_scope = {
+						is_looted = yes
+						devastation = 10
+						controlled_by = ROOT
+					}
+				}
+				capital_scope = {
+					province_event = { id = army_professionalism_events.3 }
+					tooltip = {
+						add_devastation = 100
+						add_base_production = -2
+					}
+					tooltip = {
+						event_target:attacked_country = {
+							add_opinion = {
+								who = ROOT
+								modifier = sack_of_x
+							}
+							add_country_modifier = {
+								name = "enemies_sacked_city"
+								duration = 3650
+							}
+						}
+					}
+				}
+			}
 			add_country_modifier = {
 				name = orc_raised_morale
-				duration = 7300	#9125→7300
+				duration = 5475	#9125→5475
 			}
 		}
 	}
-	orc_war_chest = {
+	orc_war_chest = {	#bertus mod
 		icon = mission_war_chest
 		ai = yes
 		position = 5
@@ -449,10 +478,9 @@ orc_pillage = {
 			orc_pillage_enemy_capital
 		}
 		trigger = {
-			monthly_income = 2.5
+			share_of_starting_income = 3.0
 		}
 		effect = {
-			#add_years_of_income = -1	#-1→0
 			add_country_modifier = {
 				name = orc_funded_army
 				duration = 18250
@@ -476,7 +504,7 @@ orc_production = {
 		}
 		NOT = { is_year = 1445 }
 	}
-	orc_rising_power = {
+	orc_rising_power = {	#bertus mod
 		icon = mission_high_income
 		ai = yes
 		position = 7
@@ -487,13 +515,7 @@ orc_production = {
 			total_development = 200
 		}
 		effect = {
-			random_owned_province = {
-				add_base_tax = 1
-			}
-			random_owned_province = {
-				add_base_production = 1
-			}
-			add_prestige_or_monarch_power = {amount =  10}	#0→10
+			add_prestige_or_monarch_power = {amount =  25}	#0→25
 			add_absolutism = 10	#0→10
 			add_legitimacy = 25	#0→25
 		}
@@ -508,21 +530,33 @@ orc_production = {
 		trigger = {
 			#production_income_percentage = 0.25	#0.25→0
 			num_of_owned_provinces_with = {
-				value = 1
+				value = 5
 				province_has_center_of_trade_of_level = 2
+				culture_group = orcish
+			}
+			num_of_owned_provinces_with = {
+				value = 5
 				has_production_building_trigger = yes
 				culture_group = orcish
 			}
 		}
 		effect = {
-			random_owned_province = {
+			every_owned_province = {
 				limit = {
 					province_has_center_of_trade_of_level = 2
+					culture_group = orcish
+				}
+				add_base_production = 2
+			}
+			every_owned_province = {
+				limit = {
 					has_production_building_trigger = yes
 					culture_group = orcish
 				}
-				add_base_tax = 1
-				add_base_production = 1
+				add_province_modifier = {
+					name = orc_growing_production
+					duration = 18250
+				}
 			}
 			add_country_modifier = {
 				name = orc_war_industry
@@ -557,7 +591,7 @@ orc_aftermath_of_the_greentide_branch = {
 		effect = {
 			add_country_modifier = {
 				name = orc_increased_conscription
-				duration = 7300	#9125→7300
+				duration = 5475	#9125→5475
 			}
 		}
 	}
@@ -578,7 +612,7 @@ orc_aftermath_of_the_greentide_branch = {
 			add_dip_power = 75
 			add_country_modifier = {
 				name = orc_integration_of_new_lands
-				duration = 7300	#9125→7300
+				duration = 5475	#9125→5475
 			}
 		}
 	}
@@ -590,20 +624,15 @@ orc_aftermath_of_the_greentide_branch = {
 			orc_conquer_surrounding_tribes 
  		}
 		trigger = {
-			grown_by_development = 15
+			grown_by_development = 50
 			army_size = 10
 			manpower_percentage = 0.9
 		}
 		effect = {
-			random_owned_province = {
-				limit = {
-					culture_group = orcish					
-				}
-				add_base_manpower = 1
-			}
+			add_prestige_or_monarch_power = {amount =  25}
 			add_country_modifier = {
 				name = orc_growing_numbers
-				duration = 7300	#9125→7300
+				duration = 5475	#9125→5475
 			}
 		}
 	}
@@ -653,14 +682,10 @@ orc_aftermath_of_the_greentide_branch = {
 			}
 		}
 		effect = {
-			if = {
-				limit = { ai = yes }
-				add_mil_power = -50
-			}
 			add_army_tradition = 25
 			add_country_modifier = {
 				name = orc_experience_of_the_greentide
-				duration = 7300	#9125→7300
+				duration = 5475	#9125→5475
 			}
 		}
 	}
@@ -685,7 +710,7 @@ orc_aftermath_of_the_greentide_branch = {
 		effect = {
 			add_country_modifier = {
 				name = orc_time_for_revenge_has_come
-				duration = 1825	#9125→1825
+				duration = 5475	#1825→5475
 			}
 		}
 	}
@@ -736,33 +761,15 @@ orc_success_branch = {
 			}
 		}
 		effect = {
-			add_mil_power = 150
-			add_army_tradition = 10
-			capital_scope = {
-				add_base_production = 1
-				add_base_manpower = 1
-			}
-			random_owned_province = {
-				limit = {
-					is_capital = no
-					culture_group = orcish
-				}
-				add_base_manpower = 1
-			}
-			random_owned_province = {
-				limit = {
-					is_capital = no
-					culture_group = orcish
-				}
-				add_base_manpower = 1
-			}
+			add_mil_power = 100
+			country_event = {id = bertus_changes.6010}
 			add_country_modifier = {
 				name = orc_years_of_recovery
-				duration = 7300	#9125→7300
+				duration = 5475	#9125→5475
 			}
 		}
 	}
-	orc_army_of_conquerors = {
+	orc_army_of_conquerors = {	#bertus mod
 		icon = mission_assemble_an_army
 		ai = yes
 		position = 8
@@ -775,29 +782,20 @@ orc_success_branch = {
 				has_manpower_building_trigger = yes
 				culture_group = orcish
 			}
-			army_size = 30
+			army_tradition = 80
 		}
 		effect = {
-			capital_scope = {
-				add_base_manpower = 1
-			}
-			random_owned_province = {
+			every_owned_province = {
 				limit = {
 					is_capital = no
 					culture_group = orcish
+					has_manpower_building_trigger = yes
 				}
-				add_base_manpower = 1
-			}
-			random_owned_province = {
-				limit = {
-					is_capital = no
-					culture_group = orcish
-				}
-				add_base_manpower = 1
+				add_1_dev_to_provinces = yes
 			}
 			add_country_modifier = {
 				name = orc_army_formation
-				duration = 7300	#9125→7300
+				duration = 5475
 			}
 		}
 	}
@@ -820,24 +818,16 @@ orc_success_branch = {
 			stability = 3
 		}
 		effect = {
-			capital_scope = {
-				add_base_tax = 1
-				add_base_production = 1
-				add_base_manpower = 2
+			capital_scope = {	#bertus mod
 				add_province_modifier = {
 					name = orc_growing_production
 					duration = 18250
 				}
-			}
-			random_owned_province = {
-				limit = { is_capital = no }
-				add_base_tax = 1
-				add_base_manpower = 1
-			}
-			random_owned_province = {
-				limit = { is_capital = no }
-				add_base_production = 1
-				add_base_manpower = 1
+				area = {
+					add_base_tax = 2
+					add_base_production = 2
+					add_base_manpower = 2
+				}
 			}
 			add_country_modifier = {
 				name = orc_on_the_path_to_civilization
@@ -1030,32 +1020,27 @@ orc_development = {
 		NOT = { is_year = 1445 }
 	}
 	
-	orc_we_do_sow = {
+	orc_we_do_sow = {	#bertus mod
 		icon = mission_rb_import_potatoes
 		ai = yes
 		position = 1
 		trigger = {
 			num_of_provinces_in_states = 5
 			grain = 3
-			#years_of_income = 1.0	#1.0→0
 		}
 		effect = {
-			#add_years_of_income = -1.0	#1.0→0
-			every_owned_province = {	#bertus mod
+			every_owned_province = {
 				limit = {
 					trade_goods = grain
 				}
 				add_province_modifier = {
 					name = orc_rich_harvests
-					duration = 7300	#9125→7300
+					duration = 5475	#9125→5475
 				}		
-				add_base_tax = 1
+				add_base_manpower = 1
 				add_base_production = 1
-				owner = {
-					change_government_reform_progress = 5	#0→5
-				}			
+				owner = {change_government_reform_progress = 5}			
 			}
-			#change_government_reform_progress = 10	#10→0
 		}
 	}
 	
@@ -1078,7 +1063,7 @@ orc_development = {
 			#add_years_of_income = -1.0	#1.0→0
 			add_country_modifier = {
 				name = orc_warg_cavalry
-				duration = 7300	#9125→7300
+				duration = 5475	#9125→5475
 			}
 			every_owned_province = {
 				limit = {
@@ -1150,7 +1135,7 @@ orc_development = {
 			}
 			add_country_modifier = {
 				name = orc_cheap_blades
-				duration = 7300	#9125→7300
+				duration = 5475	#9125→5475
 			}
 			#change_government_reform_progress = 10 #10→0
 		}

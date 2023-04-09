@@ -1948,7 +1948,7 @@ country_event = {
 	is_triggered_only = yes
 	
 	trigger = {
-		has_idea = divine_supremacy
+		has_idea = total_supremacy
 	}
 	
 	mean_time_to_happen = {
@@ -3103,9 +3103,7 @@ country_event = {
 	mean_time_to_happen = {
 		days = 1
 	}
-
-	option = {
-		name = "EVTOPTA6313"
+	immediate = {
 		random_owned_province = {
 			limit = {
 				fort_level = 1
@@ -3114,6 +3112,14 @@ country_event = {
 				NOT = { has_province_modifier = local_fortress }
 				NOT = { has_province_modifier = fort_in_disrepair }
 			}
+			save_event_target = target_province
+		}
+	}
+
+	option = {
+		name = "EVTOPTA6313"
+		goto = event_target:target_province
+		event_target:target_province = {
 			add_province_modifier = {
 				name = "fort_in_disrepair"
 				duration = 3650

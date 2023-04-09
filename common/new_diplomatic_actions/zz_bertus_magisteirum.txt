@@ -34,16 +34,7 @@ magisterium_invite_organization_action = {
 		}
 	}
 	ai_acceptance = {
-		add_entry = {
-			name = OPINION
-			export_to_variable = {
-				variable_name = ai_value
-				value = opinion
-				who = FROM
-				with = THIS
-			}
-			divide_variable = { which = ai_value value = 4 }
-		}
+		always = yes
 	}
 	ai_will_do = {always = no}
 }
@@ -116,7 +107,9 @@ magisterium_study_assistance_action = {
 			country_event = {id = bertus_changes.1118}
 		}
 	}
-	ai_acceptance = {always = yes}
+	ai_acceptance = {
+		always = yes
+	}
 	ai_will_do = {always = no}
 }
 cancel_magisterium_study_assistance_action = {
@@ -211,7 +204,7 @@ magisterium_investigate_action = {
 }
 cancel_magisterium_investigate_action = {
 	category = mages_influence_modifier
-	require_acceptance = yes
+	require_acceptance = no
 	alert_index = 21
 	
 	is_visible = {
@@ -265,6 +258,9 @@ magisterium_get_mage_general_action = {
 			country_event = {id = bertus_changes.6010}
 		}
 	}
+	ai_acceptance = {
+		always = yes
+	}
 	ai_will_do = {always = no}
 }
 magisterium_get_mage_advisor_action = {
@@ -306,6 +302,9 @@ magisterium_get_mage_advisor_action = {
 				cost_multiplier = 0.5
 			}
 		}
+	}
+	ai_acceptance = {
+		always = yes
 	}
 	ai_will_do = {always = no}
 }
@@ -357,5 +356,21 @@ magisterium_organize_magical_council_action = {
 			}
 		}
 	}
-	ai_will_do = {always = no}
+	ai_acceptance = {
+		add_entry = {
+			name = OPINION
+			limit = { always = yes }
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = THIS
+			}
+			divide_variable = { which = ai_value value = 4 }
+			set_variable = {
+				ai_value = 25
+			}
+		}
+	}
+	ai_will_do = {}
 }

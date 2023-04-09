@@ -13,11 +13,25 @@ country_event = {
 	
 	is_triggered_only = yes
 	
-	mean_time_to_happen = {
-		days = 1
-	}
+	mean_time_to_happen = {days = 1}
 	# 
 	immediate = {
+		remove_country_modifier = castellos_deity
+		remove_country_modifier = the_dame_deity
+		remove_country_modifier = corin_deity
+		remove_country_modifier = adean_deity
+		remove_country_modifier = munas_moonsinger_deity
+		remove_country_modifier = ara_deity
+		remove_country_modifier = balgar_deity
+		remove_country_modifier = esmaryal_deity
+		remove_country_modifier = ryala_deity
+		remove_country_modifier = minara_deity
+		remove_country_modifier = falah_deity
+		remove_country_modifier = nerat_deity
+		remove_country_modifier = nathalyne_deity
+		remove_country_modifier = adean_adenica_admin_deity
+		remove_country_modifier = adean_adenica_war_deity
+		remove_country_modifier = begga_deity
 		if = {
 			limit = {
 				has_reform = deity_duality_reform
@@ -39,6 +53,7 @@ country_event = {
 				nathalyne = {add_ruler_modifier = {name = nathalyne_deity duration = -1}}
 				adean_adenica_admin = {add_ruler_modifier = {name = adean_adenica_admin_deity duration = -1}}
 				adean_adenica_war = {add_ruler_modifier = {name = adean_adenica_war_deity duration = -1}}
+				begga = {add_ruler_modifier = {name = begga_deity duration = -1}}
 			}
 		}
 	}
@@ -183,7 +198,6 @@ country_event = {
 	id = bertus_changes.1002
 	title = bertus_changes.1002.t
 	desc = bertus_changes.1002.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -226,13 +240,9 @@ province_event = {	#theatre/opera cultural change
 		}
 	}
 		
-	mean_time_to_happen = {
-		days = 1
-	}
+	mean_time_to_happen = {days = 1}
 	immediate = {
-		owner = {
-			save_event_target_as = owner_event_target
-		}
+		owner = {save_event_target_as = owner_event_target}
 	}
 	option = {	#nope
 		name = "bertus_changes.1003.z"
@@ -251,7 +261,7 @@ province_event = {	#theatre/opera cultural change
 				has_coexisting_human_minority_trigger = yes
 				has_integrated_human_minority_trigger = yes
 			}
-			culture_is_human = no
+			has_human_majority_trigger = no
 		}
 		
 		if = {
@@ -259,14 +269,14 @@ province_event = {	#theatre/opera cultural change
 				any_neighbor_province = {
 					owned_by = event_target:owner_event_target
 					has_owner_accepted_culture = yes
-					culture_is_human = yes
+					has_human_majority_trigger = yes
 				}
 			}			
 			random_neighbor_province = {
 				limit = {
 					has_owner_accepted_culture = yes
 					owned_by = event_target:owner_event_target
-					culture_is_human = yes
+					has_human_majority_trigger = yes
 				}
 				ROOT = {change_culture = PREV}
 			}
@@ -276,14 +286,14 @@ province_event = {	#theatre/opera cultural change
 				any_province = {
 					owned_by = event_target:owner_event_target
 					has_owner_accepted_culture = yes
-					culture_is_human = yes
+					has_human_majority_trigger = yes
 				}
 			}
 			random_province = {
 				limit = {
 					owned_by = event_target:owner_event_target
 					has_owner_accepted_culture = yes
-					culture_is_human = yes
+					has_human_majority_trigger = yes
 				}
 				ROOT = {
 					change_culture = PREV
@@ -292,7 +302,7 @@ province_event = {	#theatre/opera cultural change
 		}
 		else = {
 			random_province = {
-				limit = {culture_is_human = yes}					
+				limit = {has_human_majority_trigger = yes}					
 				ROOT = {change_culture = PREV}
 			}
 		}
@@ -312,7 +322,7 @@ province_event = {	#theatre/opera cultural change
 				has_coexisting_elven_minority_trigger = yes
 				has_integrated_elven_minority_trigger = yes
 			}
-			culture_is_elven = no
+			has_elven_majority_trigger = no
 		}
 		
 		if = {
@@ -320,14 +330,14 @@ province_event = {	#theatre/opera cultural change
 				any_neighbor_province = {
 					owned_by = event_target:owner_event_target
 					has_owner_accepted_culture = yes
-					culture_is_elven = yes
+					has_elven_majority_trigger = yes
 				}
 			}			
 			random_neighbor_province = {
 				limit = {
 					has_owner_accepted_culture = yes
 					owned_by = event_target:owner_event_target
-					culture_is_elven = yes
+					has_elven_majority_trigger = yes
 				}
 				ROOT = {change_culture = PREV}
 			}
@@ -337,14 +347,14 @@ province_event = {	#theatre/opera cultural change
 				any_province = {
 					owned_by = event_target:owner_event_target
 					has_owner_accepted_culture = yes
-					culture_is_elven = yes
+					has_elven_majority_trigger = yes
 				}
 			}		
 			random_province = {
 				limit = {					
 					owned_by = event_target:owner_event_target
 					has_owner_accepted_culture = yes
-					culture_is_elven = yes
+					has_elven_majority_trigger = yes
 				}					
 				ROOT = {
 					change_culture = PREV
@@ -354,7 +364,7 @@ province_event = {	#theatre/opera cultural change
 		else = {
 			random_province = {
 				limit = {					
-					culture_is_elven = yes
+					has_elven_majority_trigger = yes
 				}					
 				ROOT = {
 					change_culture = PREV
@@ -379,7 +389,7 @@ province_event = {	#theatre/opera cultural change
 				has_coexisting_dwarven_minority_trigger = yes
 				has_integrated_dwarven_minority_trigger = yes
 			}
-			culture_is_dwarven = no
+			has_dwarven_majority_trigger = no
 		}
 		
 		if = {
@@ -387,14 +397,14 @@ province_event = {	#theatre/opera cultural change
 				any_neighbor_province = {
 					owned_by = event_target:owner_event_target
 					has_owner_accepted_culture = yes
-					culture_is_dwarven = yes
+					has_dwarven_majority_trigger = yes
 				}
 			}			
 			random_neighbor_province = {
 				limit = {
 					has_owner_accepted_culture = yes
 					owned_by = event_target:owner_event_target
-					culture_is_dwarven = yes
+					has_dwarven_majority_trigger = yes
 				}
 				ROOT = {change_culture = PREV}
 			}
@@ -404,14 +414,14 @@ province_event = {	#theatre/opera cultural change
 				any_province = {
 					owned_by = event_target:owner_event_target
 					has_owner_accepted_culture = yes
-					culture_is_dwarven = yes
+					has_dwarven_majority_trigger = yes
 				}
 			}		
 			random_province = {
 				limit = {					
 					owned_by = event_target:owner_event_target
 					has_owner_accepted_culture = yes
-					culture_is_dwarven = yes
+					has_dwarven_majority_trigger = yes
 				}					
 				ROOT = {
 					change_culture = PREV
@@ -421,7 +431,7 @@ province_event = {	#theatre/opera cultural change
 		else = {
 			random_province = {
 				limit = {					
-					culture_is_dwarven = yes
+					has_dwarven_majority_trigger = yes
 				}					
 				ROOT = {
 					change_culture = PREV
@@ -446,7 +456,7 @@ province_event = {	#theatre/opera cultural change
 				has_coexisting_halfling_minority_trigger = yes
 				has_integrated_halfling_minority_trigger = yes
 			}
-			culture_is_halfling = no
+			has_halfling_majority_trigger = no
 		}
 		
 		if = {
@@ -454,14 +464,14 @@ province_event = {	#theatre/opera cultural change
 				any_neighbor_province = {
 					owned_by = event_target:owner_event_target
 					has_owner_accepted_culture = yes
-					culture_is_halfling = yes
+					has_halfling_majority_trigger = yes
 				}
 			}			
 			random_neighbor_province = {
 				limit = {
 					has_owner_accepted_culture = yes
 					owned_by = event_target:owner_event_target
-					culture_is_halfling = yes
+					has_halfling_majority_trigger = yes
 				}
 				ROOT = {change_culture = PREV}
 			}
@@ -471,14 +481,14 @@ province_event = {	#theatre/opera cultural change
 				any_province = {
 					owned_by = event_target:owner_event_target
 					has_owner_accepted_culture = yes
-					culture_is_halfling = yes
+					has_halfling_majority_trigger = yes
 				}
 			}		
 			random_province = {
 				limit = {					
 					owned_by = event_target:owner_event_target
 					has_owner_accepted_culture = yes
-					culture_is_halfling = yes
+					has_halfling_majority_trigger = yes
 				}					
 				ROOT = {
 					change_culture = PREV
@@ -488,7 +498,7 @@ province_event = {	#theatre/opera cultural change
 		else = {
 			random_province = {
 				limit = {					
-					culture_is_halfling = yes
+					has_halfling_majority_trigger = yes
 				}					
 				ROOT = {
 					change_culture = PREV
@@ -513,7 +523,7 @@ province_event = {	#theatre/opera cultural change
 				has_coexisting_gnomish_minority_trigger = yes
 				has_integrated_gnomish_minority_trigger = yes
 			}
-			NOT = {culture_is_gnomish = yes }
+			NOT = {has_gnomish_majority_trigger = yes }
 		}
 		
 		if = {
@@ -521,14 +531,14 @@ province_event = {	#theatre/opera cultural change
 				any_neighbor_province = {
 					owned_by = event_target:owner_event_target
 					has_owner_accepted_culture = yes
-					culture_is_gnomish = yes
+					has_gnomish_majority_trigger = yes
 				}
 			}			
 			random_neighbor_province = {
 				limit = {
 					has_owner_accepted_culture = yes
 					owned_by = event_target:owner_event_target
-					culture_is_gnomish = yes
+					has_gnomish_majority_trigger = yes
 				}
 				ROOT = {change_culture = PREV}
 			}
@@ -538,14 +548,14 @@ province_event = {	#theatre/opera cultural change
 				any_province = {
 					owned_by = event_target:owner_event_target
 					has_owner_accepted_culture = yes
-					culture_is_gnomish = yes
+					has_gnomish_majority_trigger = yes
 				}
 			}		
 			random_province = {
 				limit = {					
 					owned_by = event_target:owner_event_target
 					has_owner_accepted_culture = yes
-					culture_is_gnomish = yes
+					has_gnomish_majority_trigger = yes
 				}					
 				ROOT = {
 					change_culture = PREV
@@ -555,7 +565,7 @@ province_event = {	#theatre/opera cultural change
 		else = {
 			random_province = {
 				limit = {					
-					culture_is_gnomish = yes
+					has_gnomish_majority_trigger = yes
 				}					
 				ROOT = {
 					change_culture = PREV
@@ -580,7 +590,7 @@ province_event = {	#theatre/opera cultural change
 				has_coexisting_harimari_minority_trigger = yes
 				has_integrated_harimari_minority_trigger = yes
 			}
-			culture_is_harimari = no
+			has_harimari_majority_trigger = no
 		}
 		
 		if = {
@@ -588,14 +598,14 @@ province_event = {	#theatre/opera cultural change
 				any_neighbor_province = {
 					owned_by = event_target:owner_event_target
 					has_owner_accepted_culture = yes
-					culture_is_harimari = yes
+					has_harimari_majority_trigger = yes
 				}
 			}			
 			random_neighbor_province = {
 				limit = {
 					has_owner_accepted_culture = yes
 					owned_by = event_target:owner_event_target
-					culture_is_harimari = yes
+					has_harimari_majority_trigger = yes
 				}
 				ROOT = {change_culture = PREV}
 			}
@@ -605,14 +615,14 @@ province_event = {	#theatre/opera cultural change
 				any_province = {
 					owned_by = event_target:owner_event_target
 					has_owner_accepted_culture = yes
-					culture_is_harimari = yes
+					has_harimari_majority_trigger = yes
 				}
 			}		
 			random_province = {
 				limit = {					
 					owned_by = event_target:owner_event_target
 					has_owner_accepted_culture = yes
-					culture_is_harimari = yes
+					has_harimari_majority_trigger = yes
 				}					
 				ROOT = {
 					change_culture = PREV
@@ -622,7 +632,7 @@ province_event = {	#theatre/opera cultural change
 		else = {
 			random_province = {
 				limit = {					
-					culture_is_harimari = yes
+					has_harimari_majority_trigger = yes
 				}					
 				ROOT = {
 					change_culture = PREV
@@ -647,7 +657,7 @@ province_event = {	#theatre/opera cultural change
 				has_coexisting_gnollish_minority_trigger = yes
 				has_integrated_gnollish_minority_trigger = yes
 			}
-			culture_is_gnollish = no
+			has_gnollish_majority_trigger = no
 		}
 		
 		if = {
@@ -655,14 +665,14 @@ province_event = {	#theatre/opera cultural change
 				any_neighbor_province = {
 					owned_by = event_target:owner_event_target
 					has_owner_accepted_culture = yes
-					culture_is_gnollish = yes
+					has_gnollish_majority_trigger = yes
 				}
 			}			
 			random_neighbor_province = {
 				limit = {
 					has_owner_accepted_culture = yes
 					owned_by = event_target:owner_event_target
-					culture_is_gnollish = yes
+					has_gnollish_majority_trigger = yes
 				}
 				ROOT = {change_culture = PREV}
 			}
@@ -672,14 +682,14 @@ province_event = {	#theatre/opera cultural change
 				any_province = {
 					owned_by = event_target:owner_event_target
 					has_owner_accepted_culture = yes
-					culture_is_gnollish = yes
+					has_gnollish_majority_trigger = yes
 				}
 			}		
 			random_province = {
 				limit = {					
 					owned_by = event_target:owner_event_target
 					has_owner_accepted_culture = yes
-					culture_is_gnollish = yes
+					has_gnollish_majority_trigger = yes
 				}					
 				ROOT = {
 					change_culture = PREV
@@ -689,7 +699,7 @@ province_event = {	#theatre/opera cultural change
 		else = {
 			random_province = {
 				limit = {					
-					culture_is_gnollish = yes
+					has_gnollish_majority_trigger = yes
 				}					
 				ROOT = {
 					change_culture = PREV
@@ -714,7 +724,7 @@ province_event = {	#theatre/opera cultural change
 				has_coexisting_ruinborn_minority_trigger = yes
 				has_integrated_ruinborn_minority_trigger = yes
 			}
-			culture_is_ruinborn = no
+			has_ruinborn_majority_trigger = no
 		}
 		
 		if = {
@@ -722,14 +732,14 @@ province_event = {	#theatre/opera cultural change
 				any_neighbor_province = {
 					owned_by = event_target:owner_event_target
 					has_owner_accepted_culture = yes
-					culture_is_ruinborn = yes
+					has_ruinborn_majority_trigger = yes
 				}
 			}			
 			random_neighbor_province = {
 				limit = {
 					has_owner_accepted_culture = yes
 					owned_by = event_target:owner_event_target
-					culture_is_ruinborn = yes
+					has_ruinborn_majority_trigger = yes
 				}
 				ROOT = {change_culture = PREV}
 			}
@@ -739,14 +749,14 @@ province_event = {	#theatre/opera cultural change
 				any_province = {
 					owned_by = event_target:owner_event_target
 					has_owner_accepted_culture = yes
-					culture_is_ruinborn = yes
+					has_ruinborn_majority_trigger = yes
 				}
 			}		
 			random_province = {
 				limit = {					
 					owned_by = event_target:owner_event_target
 					has_owner_accepted_culture = yes
-					culture_is_ruinborn = yes
+					has_ruinborn_majority_trigger = yes
 				}					
 				ROOT = {
 					change_culture = PREV
@@ -756,7 +766,7 @@ province_event = {	#theatre/opera cultural change
 		else = {
 			random_province = {
 				limit = {					
-					culture_is_ruinborn = yes
+					has_ruinborn_majority_trigger = yes
 				}					
 				ROOT = {
 					change_culture = PREV
@@ -781,7 +791,7 @@ province_event = {	#theatre/opera cultural change
 				has_coexisting_orcish_minority_trigger = yes
 				has_integrated_orcish_minority_trigger = yes
 			}
-			culture_is_orcish = no
+			has_orcish_majority_trigger = no
 		}
 		
 		if = {
@@ -789,14 +799,14 @@ province_event = {	#theatre/opera cultural change
 				any_neighbor_province = {
 					owned_by = event_target:owner_event_target
 					has_owner_accepted_culture = yes
-					culture_is_orcish = yes
+					has_orcish_majority_trigger = yes
 				}
 			}			
 			random_neighbor_province = {
 				limit = {
 					has_owner_accepted_culture = yes
 					owned_by = event_target:owner_event_target
-					culture_is_orcish = yes
+					has_orcish_majority_trigger = yes
 				}
 				ROOT = {change_culture = PREV}
 			}
@@ -806,14 +816,14 @@ province_event = {	#theatre/opera cultural change
 				any_province = {
 					owned_by = event_target:owner_event_target
 					has_owner_accepted_culture = yes
-					culture_is_orcish = yes
+					has_orcish_majority_trigger = yes
 				}
 			}		
 			random_province = {
 				limit = {					
 					owned_by = event_target:owner_event_target
 					has_owner_accepted_culture = yes
-					culture_is_orcish = yes
+					has_orcish_majority_trigger = yes
 				}					
 				ROOT = {
 					change_culture = PREV
@@ -823,7 +833,7 @@ province_event = {	#theatre/opera cultural change
 		else = {
 			random_province = {
 				limit = {					
-					culture_is_orcish = yes
+					has_orcish_majority_trigger = yes
 				}					
 				ROOT = {
 					change_culture = PREV
@@ -847,7 +857,7 @@ province_event = {	#theatre/opera cultural change
 				has_coexisting_goblin_minority_trigger = yes
 				has_integrated_goblin_minority_trigger = yes
 			}
-			culture_is_goblin = no
+			has_goblin_majority_trigger = no
 		}
 		
 		if = {
@@ -855,14 +865,14 @@ province_event = {	#theatre/opera cultural change
 				any_neighbor_province = {
 					owned_by = event_target:owner_event_target
 					has_owner_accepted_culture = yes
-					culture_is_goblin = yes
+					has_goblin_majority_trigger = yes
 				}
 			}			
 			random_neighbor_province = {
 				limit = {
 					has_owner_accepted_culture = yes
 					owned_by = event_target:owner_event_target
-					culture_is_goblin = yes
+					has_goblin_majority_trigger = yes
 				}
 				ROOT = {change_culture = PREV}
 			}
@@ -872,14 +882,14 @@ province_event = {	#theatre/opera cultural change
 				any_province = {
 					owned_by = event_target:owner_event_target
 					has_owner_accepted_culture = yes
-					culture_is_goblin = yes
+					has_goblin_majority_trigger = yes
 				}
 			}		
 			random_province = {
 				limit = {					
 					owned_by = event_target:owner_event_target
 					has_owner_accepted_culture = yes
-					culture_is_goblin = yes
+					has_goblin_majority_trigger = yes
 				}					
 				ROOT = {
 					change_culture = PREV
@@ -889,7 +899,7 @@ province_event = {	#theatre/opera cultural change
 		else = {
 			random_province = {
 				limit = {					
-					culture_is_goblin = yes
+					has_goblin_majority_trigger = yes
 				}					
 				ROOT = {
 					change_culture = PREV
@@ -913,7 +923,7 @@ province_event = {	#theatre/opera cultural change
 				has_coexisting_ogre_minority_trigger = yes
 				has_integrated_ogre_minority_trigger = yes
 			}
-			culture_is_ogre = no
+			has_ogre_majority_trigger = no
 		}
 		
 		if = {
@@ -921,14 +931,14 @@ province_event = {	#theatre/opera cultural change
 				any_neighbor_province = {
 					owned_by = event_target:owner_event_target
 					has_owner_accepted_culture = yes
-					culture_is_ogre = yes
+					has_ogre_majority_trigger = yes
 				}
 			}			
 			random_neighbor_province = {
 				limit = {
 					has_owner_accepted_culture = yes
 					owned_by = event_target:owner_event_target
-					culture_is_ogre = yes
+					has_ogre_majority_trigger = yes
 				}
 				ROOT = {change_culture = PREV}
 			}
@@ -938,14 +948,14 @@ province_event = {	#theatre/opera cultural change
 				any_province = {
 					owned_by = event_target:owner_event_target
 					has_owner_accepted_culture = yes
-					culture_is_ogre = yes
+					has_ogre_majority_trigger = yes
 				}
 			}		
 			random_province = {
 				limit = {					
 					owned_by = event_target:owner_event_target
 					has_owner_accepted_culture = yes
-					culture_is_ogre = yes
+					has_ogre_majority_trigger = yes
 				}					
 				ROOT = {
 					change_culture = PREV
@@ -955,7 +965,7 @@ province_event = {	#theatre/opera cultural change
 		else = {
 			random_province = {
 				limit = {					
-					culture_is_ogre = yes
+					has_ogre_majority_trigger = yes
 				}					
 				ROOT = {
 					change_culture = PREV
@@ -979,7 +989,7 @@ province_event = {	#theatre/opera cultural change
 				has_coexisting_centaur_minority_trigger = yes
 				has_integrated_centaur_minority_trigger = yes
 			}
-			culture_is_centaur = no
+			has_centaur_majority_trigger = no
 		}
 		
 		if = {
@@ -987,14 +997,14 @@ province_event = {	#theatre/opera cultural change
 				any_neighbor_province = {
 					owned_by = event_target:owner_event_target
 					has_owner_accepted_culture = yes
-					culture_is_centaur = yes
+					has_centaur_majority_trigger = yes
 				}
 			}			
 			random_neighbor_province = {
 				limit = {
 					has_owner_accepted_culture = yes
 					owned_by = event_target:owner_event_target
-					culture_is_centaur = yes
+					has_centaur_majority_trigger = yes
 				}
 				ROOT = {change_culture = PREV}
 			}
@@ -1004,14 +1014,14 @@ province_event = {	#theatre/opera cultural change
 				any_province = {
 					owned_by = event_target:owner_event_target
 					has_owner_accepted_culture = yes
-					culture_is_centaur = yes
+					has_centaur_majority_trigger = yes
 				}
 			}		
 			random_province = {
 				limit = {					
 					owned_by = event_target:owner_event_target
 					has_owner_accepted_culture = yes
-					culture_is_centaur = yes
+					has_centaur_majority_trigger = yes
 				}					
 				ROOT = {
 					change_culture = PREV
@@ -1021,7 +1031,7 @@ province_event = {	#theatre/opera cultural change
 		else = {
 			random_province = {
 				limit = {					
-					culture_is_centaur = yes
+					has_centaur_majority_trigger = yes
 				}					
 				ROOT = {
 					change_culture = PREV
@@ -1045,7 +1055,7 @@ province_event = {	#theatre/opera cultural change
 				has_coexisting_troll_minority_trigger = yes
 				has_integrated_troll_minority_trigger = yes
 			}
-			culture_is_troll = no
+			has_troll_majority_trigger = no
 		}
 		
 		if = {
@@ -1053,14 +1063,14 @@ province_event = {	#theatre/opera cultural change
 				any_neighbor_province = {
 					owned_by = event_target:owner_event_target
 					has_owner_accepted_culture = yes
-					culture_is_troll = yes
+					has_troll_majority_trigger = yes
 				}
 			}			
 			random_neighbor_province = {
 				limit = {
 					has_owner_accepted_culture = yes
 					owned_by = event_target:owner_event_target
-					culture_is_troll = yes
+					has_troll_majority_trigger = yes
 				}
 				ROOT = {change_culture = PREV}
 			}
@@ -1070,14 +1080,14 @@ province_event = {	#theatre/opera cultural change
 				any_province = {
 					owned_by = event_target:owner_event_target
 					has_owner_accepted_culture = yes
-					culture_is_troll = yes
+					has_troll_majority_trigger = yes
 				}
 			}		
 			random_province = {
 				limit = {					
 					owned_by = event_target:owner_event_target
 					has_owner_accepted_culture = yes
-					culture_is_troll = yes
+					has_troll_majority_trigger = yes
 				}					
 				ROOT = {
 					change_culture = PREV
@@ -1087,7 +1097,7 @@ province_event = {	#theatre/opera cultural change
 		else = {
 			random_province = {
 				limit = {					
-					culture_is_troll = yes
+					has_troll_majority_trigger = yes
 				}					
 				ROOT = {
 					change_culture = PREV
@@ -1111,7 +1121,7 @@ province_event = {	#theatre/opera cultural change
 				has_coexisting_harpy_minority_trigger = yes
 				has_integrated_harpy_minority_trigger = yes
 			}
-			culture_is_harpy = no
+			has_harpy_majority_trigger = no
 		}
 		
 		if = {
@@ -1119,14 +1129,14 @@ province_event = {	#theatre/opera cultural change
 				any_neighbor_province = {
 					owned_by = event_target:owner_event_target
 					has_owner_accepted_culture = yes
-					culture_is_harpy = yes
+					has_harpy_majority_trigger = yes
 				}
 			}			
 			random_neighbor_province = {
 				limit = {
 					has_owner_accepted_culture = yes
 					owned_by = event_target:owner_event_target
-					culture_is_harpy = yes
+					has_harpy_majority_trigger = yes
 				}
 				ROOT = {change_culture = PREV}
 			}
@@ -1136,14 +1146,14 @@ province_event = {	#theatre/opera cultural change
 				any_province = {
 					owned_by = event_target:owner_event_target
 					has_owner_accepted_culture = yes
-					culture_is_harpy = yes
+					has_harpy_majority_trigger = yes
 				}
 			}		
 			random_province = {
 				limit = {					
 					owned_by = event_target:owner_event_target
 					has_owner_accepted_culture = yes
-					culture_is_harpy = yes
+					has_harpy_majority_trigger = yes
 				}					
 				ROOT = {
 					change_culture = PREV
@@ -1153,7 +1163,7 @@ province_event = {	#theatre/opera cultural change
 		else = {
 			random_province = {
 				limit = {					
-					culture_is_harpy = yes
+					has_harpy_majority_trigger = yes
 				}					
 				ROOT = {
 					change_culture = PREV
@@ -1177,7 +1187,7 @@ province_event = {	#theatre/opera cultural change
 				has_coexisting_half_orcish_minority_trigger = yes
 				has_integrated_half_orcish_minority_trigger = yes
 			}
-			culture_is_half_orcish = no
+			has_half_orcish_majority_trigger = no
 		}
 		
 		if = {
@@ -1185,14 +1195,14 @@ province_event = {	#theatre/opera cultural change
 				any_neighbor_province = {
 					owned_by = event_target:owner_event_target
 					has_owner_accepted_culture = yes
-					culture_is_half_orcish = yes
+					has_half_orcish_majority_trigger = yes
 				}
 			}			
 			random_neighbor_province = {
 				limit = {
 					has_owner_accepted_culture = yes
 					owned_by = event_target:owner_event_target
-					culture_is_half_orcish = yes
+					has_half_orcish_majority_trigger = yes
 				}
 				ROOT = {change_culture = PREV}
 			}
@@ -1202,14 +1212,14 @@ province_event = {	#theatre/opera cultural change
 				any_province = {
 					owned_by = event_target:owner_event_target
 					has_owner_accepted_culture = yes
-					culture_is_half_orcish = yes
+					has_half_orcish_majority_trigger = yes
 				}
 			}		
 			random_province = {
 				limit = {
 					owned_by = event_target:owner_event_target
 					has_owner_accepted_culture = yes
-					culture_is_half_orcish = yes
+					has_half_orcish_majority_trigger = yes
 				}
 				ROOT = {
 					change_culture = PREV
@@ -1219,7 +1229,7 @@ province_event = {	#theatre/opera cultural change
 		else = {
 			random_province = {
 				limit = {
-					culture_is_half_orcish = yes
+					has_half_orcish_majority_trigger = yes
 				}					
 				ROOT = {
 					change_culture = PREV
@@ -1243,7 +1253,7 @@ province_event = {	#theatre/opera cultural change
 				has_coexisting_half_elven_minority_trigger = yes
 				has_integrated_half_elven_minority_trigger = yes
 			}
-			culture_is_half_elven = no
+			has_half_elven_majority_trigger = no
 		}
 		
 		if = {
@@ -1251,14 +1261,14 @@ province_event = {	#theatre/opera cultural change
 				any_neighbor_province = {
 					owned_by = event_target:owner_event_target
 					has_owner_accepted_culture = yes
-					culture_is_half_elven = yes
+					has_half_elven_majority_trigger = yes
 				}
 			}			
 			random_neighbor_province = {
 				limit = {
 					has_owner_accepted_culture = yes
 					owned_by = event_target:owner_event_target
-					culture_is_half_elven = yes
+					has_half_elven_majority_trigger = yes
 				}
 				ROOT = {change_culture = PREV}
 			}
@@ -1268,14 +1278,14 @@ province_event = {	#theatre/opera cultural change
 				any_province = {
 					owned_by = event_target:owner_event_target
 					has_owner_accepted_culture = yes
-					culture_is_half_elven = yes
+					has_half_elven_majority_trigger = yes
 				}
 			}		
 			random_province = {
 				limit = {					
 					owned_by = event_target:owner_event_target
 					has_owner_accepted_culture = yes
-					culture_is_half_elven = yes
+					has_half_elven_majority_trigger = yes
 				}					
 				ROOT = {
 					change_culture = PREV
@@ -1285,7 +1295,7 @@ province_event = {	#theatre/opera cultural change
 		else = {
 			random_province = {
 				limit = {					
-					culture_is_half_elven = yes
+					has_half_elven_majority_trigger = yes
 				}					
 				ROOT = {
 					change_culture = PREV
@@ -1309,7 +1319,7 @@ province_event = {	#theatre/opera cultural change
 				has_coexisting_hobgoblin_minority_trigger = yes
 				has_integrated_hobgoblin_minority_trigger = yes
 			}
-			culture_is_hobgoblin = no
+			has_hobgoblin_majority_trigger = no
 		}
 		
 		if = {
@@ -1317,14 +1327,14 @@ province_event = {	#theatre/opera cultural change
 				any_neighbor_province = {
 					owned_by = event_target:owner_event_target
 					has_owner_accepted_culture = yes
-					culture_is_hobgoblin = yes
+					has_hobgoblin_majority_trigger = yes
 				}
 			}			
 			random_neighbor_province = {
 				limit = {
 					has_owner_accepted_culture = yes
 					owned_by = event_target:owner_event_target
-					culture_is_hobgoblin = yes
+					has_hobgoblin_majority_trigger = yes
 				}
 				ROOT = {change_culture = PREV}
 			}
@@ -1334,14 +1344,14 @@ province_event = {	#theatre/opera cultural change
 				any_province = {
 					owned_by = event_target:owner_event_target
 					has_owner_accepted_culture = yes
-					culture_is_hobgoblin = yes
+					has_hobgoblin_majority_trigger = yes
 				}
 			}		
 			random_province = {
 				limit = {					
 					owned_by = event_target:owner_event_target
 					has_owner_accepted_culture = yes
-					culture_is_hobgoblin = yes
+					has_hobgoblin_majority_trigger = yes
 				}					
 				ROOT = {
 					change_culture = PREV
@@ -1351,7 +1361,7 @@ province_event = {	#theatre/opera cultural change
 		else = {
 			random_province = {
 				limit = {					
-					culture_is_hobgoblin = yes
+					has_hobgoblin_majority_trigger = yes
 				}					
 				ROOT = {
 					change_culture = PREV
@@ -1375,7 +1385,7 @@ province_event = {	#theatre/opera cultural change
 				has_coexisting_kobold_minority_trigger = yes
 				has_integrated_kobold_minority_trigger = yes
 			}
-			culture_is_kobold = no
+			has_kobold_majority_trigger = no
 		}
 		
 		if = {
@@ -1383,14 +1393,14 @@ province_event = {	#theatre/opera cultural change
 				any_neighbor_province = {
 					owned_by = event_target:owner_event_target
 					has_owner_accepted_culture = yes
-					culture_is_kobold = yes
+					has_kobold_majority_trigger = yes
 				}
 			}			
 			random_neighbor_province = {
 				limit = {
 					has_owner_accepted_culture = yes
 					owned_by = event_target:owner_event_target
-					culture_is_kobold = yes
+					has_kobold_majority_trigger = yes
 				}
 				ROOT = {change_culture = PREV}
 			}
@@ -1400,14 +1410,14 @@ province_event = {	#theatre/opera cultural change
 				any_province = {
 					owned_by = event_target:owner_event_target
 					has_owner_accepted_culture = yes
-					culture_is_kobold = yes
+					has_kobold_majority_trigger = yes
 				}
 			}		
 			random_province = {
 				limit = {					
 					owned_by = event_target:owner_event_target
 					has_owner_accepted_culture = yes
-					culture_is_kobold = yes
+					has_kobold_majority_trigger = yes
 				}					
 				ROOT = {
 					change_culture = PREV
@@ -1417,7 +1427,7 @@ province_event = {	#theatre/opera cultural change
 		else = {
 			random_province = {
 				limit = {					
-					culture_is_kobold = yes
+					has_kobold_majority_trigger = yes
 				}					
 				ROOT = {
 					change_culture = PREV
@@ -1441,7 +1451,6 @@ country_event = {	#long lived advisors
 	id = bertus_changes.1010
 	title = bertus_changes.1010.t
 	desc = bertus_changes.1010.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -1449,12 +1458,14 @@ country_event = {	#long lived advisors
 	
 	option = {
 		name = bertus_changes.1010.a
-		random = {
-			chance = 25
-			country_event = {	#long lived advisor
-				id = bertus_changes.1011
-			}
+		ai_chance = {factor = 25}
+		country_event = {	#long lived advisor
+			id = bertus_changes.1011
 		}
+	}
+	option = {
+		name = bertus_changes.1010.a
+		ai_chance = {factor = 75}
 	}
 }
 country_event = {	#long lived advisors
@@ -1536,15 +1547,7 @@ country_event = {	#long lived advisors
 		
 		modifier = {
 			factor = 0.40
-			AND = {	
-				uses_isolationism = yes
-				isolationism = 1
-				NOT = {
-					isolationism = 3
-				}
-			}
 		}
-		modifier = {factor = 0.40 has_country_modifier = elven_administration uses_isolationism = no}
 		modifier = {factor = 0.60 has_country_modifier = gnomish_administration}
 		modifier = {factor = 0.80 has_country_modifier = dwarven_administration}
 		modifier = {factor = 0.80 has_harmonized_with = elven}
@@ -1632,9 +1635,6 @@ country_event = {	#long lived advisors
 	
 	immediate = {
 		hidden_effect = {
-			select_adm_advisor_elf_admin = yes
-			select_dip_advisor_elf_admin = yes
-			select_mil_advisor_elf_admin = yes
 			random_list = {
 				1 = {set_country_flag = elf_admin_adm_advisor_flag}
 				1 = {set_country_flag = elf_admin_dip_advisor_flag}
@@ -1650,7 +1650,7 @@ country_event = {	#long lived advisors
 						}
 						culture_group = elven
 					}
-					save_event_target_as = foreign_culture_province
+					save_event_target_as = province_event_target
 				}
 			}
 			else_if = {
@@ -1663,7 +1663,7 @@ country_event = {	#long lived advisors
 						}
 						culture_group = dwarven
 					}
-					save_event_target_as = foreign_culture_province
+					save_event_target_as = province_event_target
 				}
 			}
 			else_if = {
@@ -1676,7 +1676,7 @@ country_event = {	#long lived advisors
 						}
 						culture_group = gnomish
 					}
-					save_event_target_as = foreign_culture_province
+					save_event_target_as = province_event_target
 				}
 			}
 			else_if = {
@@ -1689,19 +1689,16 @@ country_event = {	#long lived advisors
 						}
 					}
 				}
-				random_ally = {
-					limit = {
-						OR = {
-							has_country_modifier = elven_administration
-							has_country_modifier = dwarven_administration
-							has_country_modifier = gnomish_administration
-						}
-					}
-					save_event_target_as = foreign_ally
-				}
 				random_province = {
 					limit = {
-						owned_by = event_target:foreign_ally
+						owner = {
+							alliance_with = ROOT
+							OR = {
+								has_country_modifier = elven_administration
+								has_country_modifier = dwarven_administration
+								has_country_modifier = gnomish_administration
+							}
+						}
 						has_owner_accepted_culture = yes
 						OR = {
 							culture_group = elven
@@ -1709,7 +1706,7 @@ country_event = {	#long lived advisors
 							culture_group = gnomish
 						}
 					}
-					save_event_target_as = foreign_culture_province
+					save_event_target_as = province_event_target
 				}
 			}
 			else_if = {
@@ -1730,22 +1727,20 @@ country_event = {	#long lived advisors
 							has_integrated_gnomish_pop_trigger = yes
 						}
 					}
-					save_event_target_as = foreign_culture_province
+					save_event_target_as = province_event_target
 				}
 			}	
 			else_if = {
 				limit = {has_estate_privilege = estate_raj_ministries_ceremonial_ruler_act}
 				random_owned_province = {
-					save_event_target_as = foreign_culture_province
+					save_event_target_as = province_event_target
 				}
 			}	
 			else_if = {
 				limit = {is_papal_controller = yes}
 				random_province = {
-					limit = {
-						religion = ravelian
-					}
-					save_event_target_as = foreign_culture_province
+					limit = {religion = ravelian}
+					save_event_target_as = province_event_target
 				}
 			}	
 			else = {
@@ -1758,7 +1753,7 @@ country_event = {	#long lived advisors
 							culture_group = gnomish
 						}
 					}
-					save_event_target_as = foreign_culture_province
+					save_event_target_as = province_event_target
 				}
 			}
 		}
@@ -1771,7 +1766,8 @@ country_event = {	#long lived advisors
 				has_country_flag = elf_admin_adm_advisor_flag
 			}
 		}
-		get_adm_advisor_elf_admin = yes
+		
+		get_racial_advisor = {race = elven class = adm}
 	}
 	option = {
 		name = bertus_changes.1011.b
@@ -1781,7 +1777,7 @@ country_event = {	#long lived advisors
 				has_country_flag = elf_admin_dip_advisor_flag
 			}
 		}
-		get_dip_advisor_elf_admin = yes
+		get_racial_advisor = {race = elven class = dip}
 	}
 	option = {
 		name = bertus_changes.1011.c
@@ -1791,13 +1787,10 @@ country_event = {	#long lived advisors
 				has_country_flag = elf_admin_mil_advisor_flag
 			}
 		}
-		get_mil_advisor_elf_admin = yes
+		get_racial_advisor = {race = elven class = mil}
 	}
 	after = {
 		hidden_effect = {
-			clear_adm_advisor_elf_admin = yes
-			clear_dip_advisor_elf_admin = yes
-			clear_mil_advisor_elf_admin = yes
 			clr_country_flag = elf_admin_adm_advisor_flag
 			clr_country_flag = elf_admin_dip_advisor_flag
 			clr_country_flag = elf_admin_mil_advisor_flag
@@ -1808,7 +1801,6 @@ province_event = {	#culture change
 	id = bertus_changes.1013
 	title = bertus_changes.1013.t
 	desc = bertus_changes.1013.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	is_triggered_only = yes
@@ -1966,7 +1958,6 @@ province_event = {	#
 	id = bertus_changes.1070
 	title = bertus_changes.1070.t
 	desc = bertus_changes.1070.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
     trigger = {
@@ -2177,7 +2168,6 @@ country_event = {	#setup players electors & other stuff
 	id = bertus_changes.1100
 	title = bertus_changes.1100.t
 	desc = bertus_changes.1100.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	is_triggered_only = yes
@@ -2195,11 +2185,11 @@ country_event = {	#setup players electors & other stuff
 		every_country = {
 			limit = {ai = no}
 			if = {
-				limit = {OR = {culture_is_human = yes technology_group = tech_bulwari}}
+				limit = {OR = {has_human_majority_trigger = yes technology_group = tech_bulwari}}
 				set_estate_privilege = estate_human_recruitment
 			}
 			if = {
-				limit = {OR = {culture_is_ruinborn = yes}}
+				limit = {has_ruinborn_majority_trigger = yes}
 				set_estate_privilege = estate_ruinborn_recruitment
 			}
 			trigger_switch = {
@@ -2242,6 +2232,10 @@ country_event = {	#setup players electors & other stuff
 			limit = {OR = {culture_group = dwarven technology_group = tech_cave_goblin	technology_group = tech_black_orcish}}
 			serpentspine = {discover_country = PREV}
 		}
+		every_country = {
+			limit = {monstrous_culture = yes}
+			country_event = {id = bertus_changes.1121 days = 10}
+		}
 	}
 }
 country_event = {	#electors rank 2?
@@ -2270,7 +2264,6 @@ province_event = {	#underhold
 	id = bertus_changes.1102
 	title = bertus_changes.1102.t
 	desc = bertus_changes.1102.desc
-	picture = DIPLOMACY_eventPicture
 		
 	hidden = yes
 	is_triggered_only = yes
@@ -2305,7 +2298,6 @@ province_event = {	#underhold helper
 	id = bertus_changes.1103
 	title = bertus_changes.1103.t
 	desc = bertus_changes.1103.desc
-	picture = DIPLOMACY_eventPicture
 		
 	hidden = yes
 	is_triggered_only = yes
@@ -2336,7 +2328,6 @@ country_event = {	#isolationism overflow
 	id = bertus_changes.1105
 	title = bertus_changes.1105.t
 	desc = bertus_changes.1105.desc
-	picture = DIPLOMACY_eventPicture
 		
 	hidden = yes
 	trigger = {
@@ -2355,19 +2346,18 @@ country_event = {	#isolationism overflow
 	option = {
 		name = bertus_changes.1105.a
 		trigger = {religion = runefather_worship}
-		add_isolationism = 1
+		increase_isolationism = {value = 1}
 	}
 	option = {
 		name = bertus_changes.1105.b
 		trigger = {religion = bulwari_sun_cult}
-		add_isolationism = -1
+		decrease_isolationism = {value = 1}
 	}	
 }
 province_event = {	#magic wards effect
 	id = bertus_changes.1106
 	title = bertus_changes.1106.t
 	desc = bertus_changes.1106.desc
-	picture = DIPLOMACY_eventPicture
 		
 	is_triggered_only = yes
 	hidden = yes
@@ -2501,7 +2491,6 @@ province_event = {	#ilusion end undiscover
 	id = bertus_changes.1108
 	title = bertus_changes.1108.t
 	desc = bertus_changes.1108.desc
-	picture = DIPLOMACY_eventPicture
 			
 	hidden = yes
 	is_triggered_only = yes
@@ -2728,7 +2717,6 @@ country_event = {	#Spell Show resourcess
 	id = bertus_changes.1113
 	title = bertus_changes.1113.t
 	desc = bertus_changes.1113.desc
-	picture = DIPLOMACY_eventPicture
 			
 	is_triggered_only = yes
 	hidden = yes
@@ -2755,7 +2743,6 @@ country_event = {	#Spell Show resourcess
 		set_variable = {which = current_undead value = 0}
 		export_to_variable = {which = current_undead value = trigger_value:num_of_streltsy}
 		set_variable = {which = current_artificers value = 0}
-		export_to_variable = {which = current_artificers value = trigger_value:amount_of_carolean}
 		set_variable = {which = current_peasants value = 0}
 		export_to_variable = {which = current_peasants value = trigger_value:num_of_rajput}
 		set_variable = {which = current_mercs value = 0}
@@ -2830,7 +2817,6 @@ country_event = {	#Magister sphere banned study investigation
 	id = bertus_changes.1115
 	title = bertus_changes.1115.t
 	desc = bertus_changes.1115.desc
-	picture = DIPLOMACY_eventPicture
 		
 	hidden = yes
 	is_triggered_only = yes
@@ -2959,11 +2945,45 @@ country_event = {	#Spell caught → Magister sphere denounced
 		ai_chance = {factor = 90}
 	}
 }
+country_event = {	#set up enslavement efficiency
+	id = bertus_changes.1121
+	title = bertus_changes.1121.t
+	desc = bertus_changes.1121.desc
+				
+	hidden = yes
+	trigger = {
+		NOT = {
+			check_variable = {
+				which = enslavement_efficiency_var
+				value = 0.1
+			}
+		}
+	}
+
+	option = {	#
+		name = bertus_changes.1121.a
+		ai_chance = {factor = 10}
+		if = {
+			limit = {
+				has_country_modifier = monstrous_nation
+			}
+			set_variable = {
+				which = enslavement_efficiency_var
+				value = 2
+			}
+		}
+		else = {
+			set_variable = {
+				which = enslavement_efficiency_var
+				value = 1
+			}
+		}
+	}
+}
 country_event = {	#Imperial guard
 	id = bertus_changes.2023
 	title = bertus_changes.2023.t
 	desc = bertus_changes.2023.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -2996,7 +3016,6 @@ country_event = {	#Wex fencing bonus
 	id = bertus_changes.2024
 	title = bertus_changes.2024.t
 	desc = bertus_changes.2024.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -3029,7 +3048,6 @@ country_event = {	#corvuria black knigts bonus
 	id = bertus_changes.2025
 	title = bertus_changes.2025.t
 	desc = bertus_changes.2025.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -3062,7 +3080,6 @@ country_event = {	#elite marines bonus
 	id = bertus_changes.2026
 	title = bertus_changes.2026.t
 	desc = bertus_changes.2026.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -3107,7 +3124,6 @@ country_event = {	#cavalry boost bonus
 	id = bertus_changes.2027
 	title = bertus_changes.2027.t
 	desc = bertus_changes.2027.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -3140,7 +3156,6 @@ country_event = {	#gnolsih guard boost bonus
 	id = bertus_changes.2028
 	title = bertus_changes.2028.t
 	desc = bertus_changes.2028.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -3173,7 +3188,6 @@ country_event = {	#iron orcs boost bonus
 	id = bertus_changes.2029
 	title = bertus_changes.2029.t
 	desc = bertus_changes.2029.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -3206,7 +3220,6 @@ country_event = {	#bladebreakers boost bonus
 	id = bertus_changes.2030
 	title = bertus_changes.2030.t
 	desc = bertus_changes.2030.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -3239,7 +3252,6 @@ country_event = {	#fungi fanatics boost bonus
 	id = bertus_changes.2031
 	title = bertus_changes.2031.t
 	desc = bertus_changes.2031.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -3288,7 +3300,6 @@ country_event = {	#armoured ogre boost bonus
 	id = bertus_changes.2032
 	title = bertus_changes.2032.t
 	desc = bertus_changes.2032.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -3325,7 +3336,6 @@ country_event = {	#plain chargers boost bonus
 	id = bertus_changes.2033
 	title = bertus_changes.2033.t
 	desc = bertus_changes.2033.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -3362,7 +3372,6 @@ country_event = {	#religion general
 	id = bertus_changes.3000
 	title = bertus_changes.3000.t
 	desc = bertus_changes.3000.desc
-	picture = DIPLOMACY_eventPicture
 		
 	is_triggered_only = yes
 	hidden = yes
@@ -3583,7 +3592,6 @@ province_event = {	#
 	id = bertus_changes.5001
 	title = bertus_changes.5001.t
 	desc = bertus_changes.5001.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -3628,7 +3636,6 @@ province_event = {	#
 	id = bertus_changes.5002
 	title = bertus_changes.5002.t
 	desc = bertus_changes.5002.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -3689,7 +3696,6 @@ province_event = {	#
 	id = bertus_changes.5003
 	title = bertus_changes.5003.t
 	desc = bertus_changes.5003.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -3734,7 +3740,6 @@ province_event = {	#
 	id = bertus_changes.5004
 	title = bertus_changes.5004.t
 	desc = bertus_changes.5004.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -3775,7 +3780,6 @@ province_event = {	#
 	id = bertus_changes.5005
 	title = bertus_changes.5005.t
 	desc = bertus_changes.5005.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -3818,7 +3822,6 @@ province_event = {	#
 	id = bertus_changes.5006
 	title = bertus_changes.5006.t
 	desc = bertus_changes.5006.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -3855,7 +3858,6 @@ province_event = {	#special oak
 	id = bertus_changes.5007
 	title = bertus_changes.5007.t
 	desc = bertus_changes.5007.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -3904,7 +3906,6 @@ province_event = {	#red oak
 	id = bertus_changes.5008
 	title = bertus_changes.5008.t
 	desc = bertus_changes.5008.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -3945,7 +3946,6 @@ province_event = {	#grey oak
 	id = bertus_changes.5009
 	title = bertus_changes.5009.t
 	desc = bertus_changes.5009.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -3990,7 +3990,6 @@ province_event = {	#
 	id = bertus_changes.5010
 	title = bertus_changes.5010.t
 	desc = bertus_changes.5010.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -4032,7 +4031,6 @@ province_event = {	#
 	id = bertus_changes.5011
 	title = bertus_changes.5011.t
 	desc = bertus_changes.5011.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -4074,7 +4072,6 @@ province_event = {	#
 	id = bertus_changes.5012
 	title = bertus_changes.5012.t
 	desc = bertus_changes.5012.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -4114,7 +4111,6 @@ province_event = {	#
 	id = bertus_changes.5013
 	title = bertus_changes.5013.t
 	desc = bertus_changes.5013.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -4155,7 +4151,6 @@ province_event = {	#
 	id = bertus_changes.5014
 	title = bertus_changes.5014.t
 	desc = bertus_changes.5014.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -4197,7 +4192,6 @@ province_event = {	#
 	id = bertus_changes.5015
 	title = bertus_changes.5015.t
 	desc = bertus_changes.5015.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -4248,7 +4242,6 @@ province_event = {	#copper bonus
 	id = bertus_changes.5016
 	title = bertus_changes.5016.t
 	desc = bertus_changes.5016.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -4303,7 +4296,6 @@ province_event = {	#
 	id = bertus_changes.5017
 	title = bertus_changes.5017.t
 	desc = bertus_changes.5017.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -4345,7 +4337,6 @@ province_event = {	#
 	id = bertus_changes.5018
 	title = bertus_changes.5018.t
 	desc = bertus_changes.5018.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -4386,7 +4377,6 @@ province_event = {	#
 	id = bertus_changes.5019
 	title = bertus_changes.5019.t
 	desc = bertus_changes.5019.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -4427,7 +4417,6 @@ province_event = {	#
 	id = bertus_changes.5020
 	title = bertus_changes.5020.t
 	desc = bertus_changes.5020.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -4470,7 +4459,6 @@ province_event = {	#
 	id = bertus_changes.5021
 	title = bertus_changes.5021.t
 	desc = bertus_changes.5021.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -4513,7 +4501,6 @@ province_event = {	#
 	id = bertus_changes.5022
 	title = bertus_changes.5022.t
 	desc = bertus_changes.5022.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -4556,7 +4543,6 @@ province_event = {	#
 	id = bertus_changes.5023
 	title = bertus_changes.5023.t
 	desc = bertus_changes.5023.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -4600,7 +4586,6 @@ province_event = {	#
 	id = bertus_changes.5024
 	title = bertus_changes.5024.t
 	desc = bertus_changes.5024.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -4642,7 +4627,6 @@ province_event = {	#
 	id = bertus_changes.5025
 	title = bertus_changes.5025.t
 	desc = bertus_changes.5025.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -4702,7 +4686,6 @@ province_event = {	#
 	id = bertus_changes.5026
 	title = bertus_changes.5026.t
 	desc = bertus_changes.5026.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -4758,7 +4741,6 @@ province_event = {	#
 	id = bertus_changes.5027
 	title = bertus_changes.5027.t
 	desc = bertus_changes.5027.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -4800,21 +4782,21 @@ province_event = {	#
 	id = bertus_changes.5029
 	title = bertus_changes.5029.t
 	desc = bertus_changes.5029.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
     trigger = {
 		OR = {
 			AND = {
-				province_group = bulwar_canals_goods_provinces
+				province_group = river_province
+				superregion = bulwar_superregion
 				province_with_farm_goods = yes
-				has_bulwar_canals_boost_pop_goods_produced = no
+				NOT = {has_pop_race_modifier = {race = all  class = bulwar_canals_boost amount = 25percent resource = goods_produced}}
 				owner = {owns = 601}
 				601 = {has_great_project = {type = bulwar_canals tier = 3}}
 			}
 			AND = {
-				has_bulwar_canals_boost_pop_goods_produced = yes
+				has_pop_race_modifier = {race = all  class = bulwar_canals_boost amount = 25percent resource = goods_produced}
 				OR = {
 					province_with_farm_goods = no	
 					owner = {NOT = {owns = 676}}		
@@ -4827,14 +4809,14 @@ province_event = {	#
 	
 	option = {
 		name = bertus_changes.5029.a
-		trigger = {has_bulwar_canals_boost_pop_goods_produced = no}
-		add_bulwar_canals_boost_pop_goods_produced = yes
+		trigger = {NOT = {has_pop_race_modifier = {race = all  class = bulwar_canals_boost amount = 25percent resource = goods_produced}}}
+		add_pop_modifier = {race = all  class = bulwar_canals_boost amount = 25percent resource = goods_produced onbase = base_production}
 		add_permanent_province_modifier = { name = bulwar_canals_boost_modifier	duration = -1 }
 	}
 	option = {
 		name = bertus_changes.5029.b
-		trigger = {has_bulwar_canals_boost_pop_goods_produced = yes}
-		remove_bulwar_canals_boost_pop_goods_produced = yes
+		trigger = {has_pop_race_modifier = {race = all  class = bulwar_canals_boost amount = 25percent resource = goods_produced}}
+		province_event = {id = bertus_pops.1038}
 		remove_province_modifier = bulwar_canals_boost_modifier
 	}
 }
@@ -4842,7 +4824,6 @@ province_event = {	#
 	id = bertus_changes.5030
 	title = bertus_changes.5030.t
 	desc = bertus_changes.5030.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -4850,15 +4831,15 @@ province_event = {	#
 		OR = {
 			AND = {
 				has_terrain = dwarven_road
-				province_with_mine_goods = yes
-				has_great_dam_boost_pop_goods_produced = no
+				province_with_mineable_goods = yes 
+				NOT = {has_pop_race_modifier = {race = all  class = great_dam_boost amount = 25percent resource = goods_produced}}
 				owner = {owns = 676}
 				676 = {has_great_project = {type = great_dam tier = 3}}
 			}
 			AND = {
-				has_great_dam_boost_pop_goods_produced = yes
+				has_pop_race_modifier = {race = all  class = great_dam_boost amount = 25percent resource = goods_produced}
 				OR = {
-					province_with_mine_goods = no		
+					province_with_mineable_goods = no		
 					owner = {not = {owns = 676}}	
 					NOT = {676 = {has_great_project = {type = great_dam tier = 3}}}	
 				}
@@ -4869,14 +4850,14 @@ province_event = {	#
 	
 	option = {
 		name = bertus_changes.5030.a
-		trigger = {has_great_dam_boost_pop_goods_produced = no}
-		add_great_dam_boost_pop_goods_produced = yes
+		trigger = {NOT = {has_pop_race_modifier = {race = all  class = great_dam_boost amount = 25percent resource = goods_produced}}}
+		add_pop_modifier = {race = all  class = great_dam_boost amount = 25percent resource = goods_produced onbase = base_production}
 		add_permanent_province_modifier = { name = great_dam_boost_modifier	duration = -1 }
 	}
 	option = {
 		name = bertus_changes.5030.b
-		trigger = {has_great_dam_boost_pop_goods_produced = yes}
-		remove_great_dam_boost_pop_goods_produced = yes
+		trigger = {has_pop_race_modifier = {race = all  class = great_dam_boost amount = 25percent resource = goods_produced}}
+		province_event = {id = bertus_pops.1038}
 		remove_province_modifier = great_dam_boost_modifier
 	}
 }
@@ -4884,7 +4865,6 @@ province_event = {	#iron bonus
 	id = bertus_changes.5031
 	title = bertus_changes.5031.t
 	desc = bertus_changes.5031.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -4937,7 +4917,6 @@ province_event = {	#grain bonus
 	id = bertus_changes.5032
 	title = bertus_changes.5032.t
 	desc = bertus_changes.5032.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -4986,7 +4965,6 @@ province_event = {	#faceting bonus
 	id = bertus_changes.5033
 	title = bertus_changes.5033.t
 	desc = bertus_changes.5033.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -5032,7 +5010,6 @@ province_event = {	#lead bonus
 	id = bertus_changes.5034
 	title = bertus_changes.5034.t
 	desc = bertus_changes.5034.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -5069,7 +5046,6 @@ province_event = {	#wine bonus
 	id = bertus_changes.5035
 	title = bertus_changes.5035.t
 	desc = bertus_changes.5035.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -5114,7 +5090,6 @@ province_event = {	#centralization bonus
 	id = bertus_changes.5036
 	title = bertus_changes.5036.t
 	desc = bertus_changes.5036.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -5152,7 +5127,6 @@ province_event = {	#coal bonus
 	id = bertus_changes.5037
 	title = bertus_changes.5037.t
 	desc = bertus_changes.5037.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -5189,7 +5163,6 @@ province_event = {	#
 	id = bertus_changes.6000
 	title = bertus_changes.6000.t
 	desc = bertus_changes.6000.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -5198,75 +5171,75 @@ province_event = {	#
 		base_manpower = 2
 		OR = {
 			AND = {
-				culture_is_human = yes
+				has_human_majority_trigger = yes
 				owner = {has_estate_privilege = estate_human_non_military_swap }
 			}
 			AND = {
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 				owner = {has_estate_privilege = estate_elven_non_military_swap }
 			}
 			AND = {
-				culture_is_dwarven = yes
+				has_dwarven_majority_trigger = yes
 				owner = {has_estate_privilege = estate_dwarven_non_military_swap }
 			}
 			AND = {
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 				owner = {has_estate_privilege = estate_halfling_non_military_swap }
 			}
 			AND = {
-				culture_is_gnomish = yes
+				has_gnomish_majority_trigger = yes
 				owner = {has_estate_privilege = estate_gnomish_non_military_swap }
 			}
 			AND = {
-				culture_is_harimari = yes
+				has_harimari_majority_trigger = yes
 				owner = {has_estate_privilege = estate_harimari_non_military_swap }
 			}
 			AND = {
-				culture_is_gnollish = yes
+				has_gnollish_majority_trigger = yes
 				owner = {has_estate_privilege = estate_gnollish_non_military_swap }
 			}
 			AND = {
-				culture_is_ruinborn = yes
+				has_ruinborn_majority_trigger = yes
 				owner = {has_estate_privilege = estate_ruinborn_non_military_swap }
 			}
 			AND = {
-				culture_is_orcish = yes
+				has_orcish_majority_trigger = yes
 				owner = {has_estate_privilege = estate_orcish_non_military_swap }
 			}
 			AND = {
-				culture_is_goblin = yes
+				has_goblin_majority_trigger = yes
 				owner = {has_estate_privilege = estate_goblin_non_military_swap }
 			}
 			AND = {
-				culture_is_ogre = yes
+				has_ogre_majority_trigger = yes
 				owner = {has_estate_privilege = estate_ogre_non_military_swap }
 			}
 			AND = {
-				culture_is_centaur = yes
+				has_centaur_majority_trigger = yes
 				owner = {has_estate_privilege = estate_centaur_non_military_swap }
 			}
 			AND = {
-				culture_is_troll = yes
+				has_troll_majority_trigger = yes
 				owner = {has_estate_privilege = estate_troll_non_military_swap }
 			}
 			AND = {
-				culture_is_harpy = yes
+				has_harpy_majority_trigger = yes
 				owner = {has_estate_privilege = estate_harpy_non_military_swap }
 			}
 			AND = {
-				culture_is_half_orcish = yes
+				has_half_orcish_majority_trigger = yes
 				owner = {has_estate_privilege = estate_half_orcish_non_military_swap }
 			}
 			AND = {
-				culture_is_half_elven = yes
+				has_half_elven_majority_trigger = yes
 				owner = {has_estate_privilege = estate_half_elven_non_military_swap }
 			}
 			AND = {
-				culture_is_hobgoblin = yes
+				has_hobgoblin_majority_trigger = yes
 				owner = {has_estate_privilege = estate_hobgoblin_non_military_swap }
 			}
 			AND = {
-				culture_is_kobold = yes
+				has_kobold_majority_trigger = yes
 				owner = {has_estate_privilege = estate_kobold_non_military_swap }
 			}
 		}
@@ -5282,78 +5255,24 @@ province_event = {	#
 		modifier = {
 			factor = 0.5			
 			OR = {
-				AND = {
-					culture_is_human = yes
-					has_province_modifier = human_majority_oppressed
-				}
-				AND = {
-					culture_is_elven = yes
-					has_province_modifier = elven_majority_oppressed
-				}
-				AND = {
-					culture_is_dwarven = yes
-					has_province_modifier = dwarven_majority_oppressed
-				}
-				AND = {
-					culture_is_halfling = yes
-					has_province_modifier = halfling_majority_oppressed
-				}
-				AND = {
-					culture_is_gnomish = yes
-					has_province_modifier = gnomish_majority_oppressed
-				}
-				AND = {
-					culture_is_harimari = yes
-					has_province_modifier = harimari_majority_oppressed
-				}
-				AND = {
-					culture_is_gnollish = yes
-					has_province_modifier = gnollish_majority_oppressed
-				}
-				AND = {
-					culture_is_ruinborn = yes
-					has_province_modifier = ruinborn_majority_oppressed
-				}
-				AND = {
-					culture_is_orcish = yes
-					has_province_modifier = orcish_majority_oppressed
-				}
-				AND = {
-					culture_is_goblin = yes
-					has_province_modifier = goblin_majority_oppressed
-				}
-				AND = {
-					culture_is_ogre = yes
-					has_province_modifier = ogre_majority_oppressed
-				}
-				AND = {
-					culture_is_centaur = yes
-					has_province_modifier = centaur_majority_oppressed
-				}
-				AND = {
-					culture_is_troll = yes
-					has_province_modifier = troll_majority_oppressed
-				}
-				AND = {
-					culture_is_harpy = yes
-					has_province_modifier = harpy_majority_oppressed
-				}
-				AND = {
-					culture_is_half_orcish = yes
-					has_province_modifier = half_orcish_majority_oppressed
-				}
-				AND = {
-					culture_is_half_elven = yes
-					has_province_modifier = half_elven_majority_oppressed
-				}
-				AND = {
-					culture_is_hobgoblin = yes
-					has_province_modifier = hobgoblin_majority_oppressed
-				}
-				AND = {
-					culture_is_kobold = yes
-					has_province_modifier = kobold_majority_oppressed
-				}
+				has_province_modifier = human_majority_oppressed
+				has_province_modifier = elven_majority_oppressed
+				has_province_modifier = dwarven_majority_oppressed
+				has_province_modifier = halfling_majority_oppressed
+				has_province_modifier = gnomish_majority_oppressed
+				has_province_modifier = harimari_majority_oppressed
+				has_province_modifier = gnollish_majority_oppressed
+				has_province_modifier = ruinborn_majority_oppressed
+				has_province_modifier = orcish_majority_oppressed
+				has_province_modifier = goblin_majority_oppressed
+				has_province_modifier = ogre_majority_oppressed
+				has_province_modifier = centaur_majority_oppressed
+				has_province_modifier = troll_majority_oppressed
+				has_province_modifier = harpy_majority_oppressed
+				has_province_modifier = half_orcish_majority_oppressed
+				has_province_modifier = half_elven_majority_oppressed
+				has_province_modifier = hobgoblin_majority_oppressed
+				has_province_modifier = kobold_majority_oppressed
 			}
 		}
 	}
@@ -5384,7 +5303,6 @@ country_event = {	#
 	id = bertus_changes.6001
 	title = bertus_changes.6001.t
 	desc = bertus_changes.6001.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	is_triggered_only = yes
@@ -5480,7 +5398,6 @@ country_event = {	#peasant levies spawn
 	id = bertus_changes.6004
 	title = bertus_changes.6004.t
 	desc = bertus_changes.6004.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -5504,7 +5421,6 @@ province_event = {	#noble castles
 	id = bertus_changes.6005
 	title = bertus_changes.6005.t
 	desc = bertus_changes.6005.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 		
@@ -5513,15 +5429,15 @@ province_event = {	#noble castles
 			AND = {
 				owner = {
 					has_government_attribute = noble_castles_boost
-					culture = ROOT
 				}
+				has_owner_culture = yes
 				NOT = {has_province_modifier = noble_castles_boost_modifier}
 				has_fort_trigger = yes
 			}
 			AND = {
 				has_province_modifier = noble_castles_boost_modifier
 				OR = {
-					owner = {NOT = {culture = ROOT}}
+					has_owner_culture = no
 					owner = {NOT = {has_government_attribute = noble_castles_boost}}
 					has_fort_trigger = no
 				}
@@ -5559,7 +5475,6 @@ province_event = {	#centralizing provinces
 	id = bertus_changes.6007
 	title = bertus_changes.6007.t
 	desc = bertus_changes.6007.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
     trigger = {
@@ -5598,7 +5513,6 @@ province_event = {	#empower the burghers
 	id = bertus_changes.6009
 	title = bertus_changes.6009.t
 	desc = bertus_changes.6009.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -5722,7 +5636,6 @@ province_event = {	#Parliamentary Colleges free cities boost
 	id = bertus_changes.6011
 	title = bertus_changes.6011.t
 	desc = bertus_changes.6011.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -5909,24 +5822,24 @@ province_event = {	#remove non emperor population
 	
 	option = {
 		name = bertus_changes.6015.a
-		if = { limit = {emperor = {culture_is_human = no} culture_is_human = yes} remove_human_minority_size_effect = yes }
-		if = { limit = {emperor = {culture_is_elven = no} culture_is_elven = yes} remove_elven_minority_size_effect = yes }
-		if = { limit = {emperor = {culture_is_dwarven = no} culture_is_dwarven = yes} remove_dwarven_minority_size_effect = yes }
-		if = { limit = {emperor = {culture_is_halfling = no} culture_is_halfling = yes} remove_halfling_minority_size_effect = yes }
-		if = { limit = {emperor = {culture_is_gnomish = no} culture_is_gnomish = yes} remove_gnomish_minority_size_effect = yes }
-		if = { limit = {emperor = {culture_is_harimari = no} culture_is_harimari = yes} remove_harimari_minority_size_effect = yes }
-		if = { limit = {emperor = {culture_is_gnollish = no} culture_is_gnollish = yes} remove_gnollish_minority_size_effect = yes }
-		if = { limit = {emperor = {culture_is_ruinborn = no} culture_is_ruinborn = yes} remove_ruinborn_minority_size_effect = yes }
-		if = { limit = {emperor = {culture_is_orcish = no} culture_is_orcish = yes} remove_orcish_minority_size_effect = yes }
-		if = { limit = {emperor = {culture_is_goblin = no} culture_is_goblin = yes} remove_goblin_minority_size_effect = yes }
-		if = { limit = {emperor = {culture_is_ogre = no} culture_is_ogre = yes} remove_ogre_minority_size_effect = yes }
-		if = { limit = {emperor = {culture_is_centaur = no} culture_is_centaur = yes} remove_centaur_minority_size_effect = yes }
-		if = { limit = {emperor = {culture_is_troll = no} culture_is_troll = yes} remove_troll_minority_size_effect = yes }
-		if = { limit = {emperor = {culture_is_harpy = no} culture_is_harpy = yes} remove_harpy_minority_size_effect = yes }
-		if = { limit = {emperor = {culture_is_half_orcish = no} culture_is_half_orcish = yes} remove_half_orcish_minority_size_effect = yes }
-		if = { limit = {emperor = {culture_is_half_elven = no} culture_is_half_elven = yes} remove_half_elven_minority_size_effect = yes }
-		if = { limit = {emperor = {culture_is_hobgoblin = no} culture_is_hobgoblin = yes} remove_hobgoblin_minority_size_effect = yes }
-		if = { limit = {emperor = {culture_is_kobold = no} culture_is_kobold = yes} remove_kobold_minority_size_effect = yes }
+		if = { limit = {emperor = {culture_is_human = no} has_human_majority_trigger = yes} remove_human_minority_size_effect = yes }
+		if = { limit = {emperor = {culture_is_elven = no} has_elven_majority_trigger = yes} remove_elven_minority_size_effect = yes }
+		if = { limit = {emperor = {culture_is_dwarven = no} has_dwarven_majority_trigger = yes} remove_dwarven_minority_size_effect = yes }
+		if = { limit = {emperor = {culture_is_halfling = no} has_halfling_majority_trigger = yes} remove_halfling_minority_size_effect = yes }
+		if = { limit = {emperor = {culture_is_gnomish = no} has_gnomish_majority_trigger = yes} remove_gnomish_minority_size_effect = yes }
+		if = { limit = {emperor = {culture_is_harimari = no} has_harimari_majority_trigger = yes} remove_harimari_minority_size_effect = yes }
+		if = { limit = {emperor = {culture_is_gnollish = no} has_gnollish_majority_trigger = yes} remove_gnollish_minority_size_effect = yes }
+		if = { limit = {emperor = {culture_is_ruinborn = no} has_ruinborn_majority_trigger = yes} remove_ruinborn_minority_size_effect = yes }
+		if = { limit = {emperor = {culture_is_orcish = no} has_orcish_majority_trigger = yes} remove_orcish_minority_size_effect = yes }
+		if = { limit = {emperor = {culture_is_goblin = no} has_goblin_majority_trigger = yes} remove_goblin_minority_size_effect = yes }
+		if = { limit = {emperor = {culture_is_ogre = no} has_ogre_majority_trigger = yes} remove_ogre_minority_size_effect = yes }
+		if = { limit = {emperor = {culture_is_centaur = no} has_centaur_majority_trigger = yes} remove_centaur_minority_size_effect = yes }
+		if = { limit = {emperor = {culture_is_troll = no} has_troll_majority_trigger = yes} remove_troll_minority_size_effect = yes }
+		if = { limit = {emperor = {culture_is_harpy = no} has_harpy_majority_trigger = yes} remove_harpy_minority_size_effect = yes }
+		if = { limit = {emperor = {culture_is_half_orcish = no} has_half_orcish_majority_trigger = yes} remove_half_orcish_minority_size_effect = yes }
+		if = { limit = {emperor = {culture_is_half_elven = no} has_half_elven_majority_trigger = yes} remove_half_elven_minority_size_effect = yes }
+		if = { limit = {emperor = {culture_is_hobgoblin = no} has_hobgoblin_majority_trigger = yes} remove_hobgoblin_minority_size_effect = yes }
+		if = { limit = {emperor = {culture_is_kobold = no} has_kobold_majority_trigger = yes} remove_kobold_minority_size_effect = yes }
 		remove_1_dev_to_provinces = yes
 	}
 }
@@ -5934,7 +5847,6 @@ province_event = {	#emperors race boost
 	id = bertus_changes.6016
 	title = bertus_changes.6016.t
 	desc = bertus_changes.6016.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -5945,24 +5857,24 @@ province_event = {	#emperors race boost
 				is_part_of_hre = yes
 				NOT = {has_province_modifier = xenophobe_weddings_boost_modifier}
 				OR = {
-					AND = {emperor = {culture_is_human = yes} culture_is_human = yes}
-					AND = {emperor = {culture_is_elven = yes} culture_is_elven = yes}
-					AND = {emperor = {culture_is_dwarven = yes} culture_is_dwarven = yes}
-					AND = {emperor = {culture_is_halfling = yes} culture_is_halfling = yes}
-					AND = {emperor = {culture_is_gnomish = yes} culture_is_gnomish = yes}
-					AND = {emperor = {culture_is_harimari = yes} culture_is_harimari = yes}
-					AND = {emperor = {culture_is_gnollish = yes} culture_is_gnollish = yes}
-					AND = {emperor = {culture_is_ruinborn = yes} culture_is_ruinborn = yes}
-					AND = {emperor = {culture_is_orcish = yes} culture_is_orcish = yes}
-					AND = {emperor = {culture_is_goblin = yes} culture_is_goblin = yes}
-					AND = {emperor = {culture_is_ogre = yes} culture_is_ogre = yes}
-					AND = {emperor = {culture_is_centaur = yes} culture_is_centaur = yes}
-					AND = {emperor = {culture_is_troll = yes} culture_is_troll = yes}
-					AND = {emperor = {culture_is_harpy = yes} culture_is_harpy = yes}
-					AND = {emperor = {culture_is_half_orcish = yes} culture_is_half_orcish = yes}
-					AND = {emperor = {culture_is_half_elven = yes} culture_is_half_elven = yes}
-					AND = {emperor = {culture_is_hobgoblin = yes} culture_is_hobgoblin = yes}
-					AND = {emperor = {culture_is_kobold = yes} culture_is_kobold = yes}
+					AND = {emperor = {culture_is_human = yes} has_human_majority_trigger = yes}
+					AND = {emperor = {culture_is_elven = yes} has_elven_majority_trigger = yes}
+					AND = {emperor = {culture_is_dwarven = yes} has_dwarven_majority_trigger = yes}
+					AND = {emperor = {culture_is_halfling = yes} has_halfling_majority_trigger = yes}
+					AND = {emperor = {culture_is_gnomish = yes} has_gnomish_majority_trigger = yes}
+					AND = {emperor = {culture_is_harimari = yes} has_harimari_majority_trigger = yes}
+					AND = {emperor = {culture_is_gnollish = yes} has_gnollish_majority_trigger = yes}
+					AND = {emperor = {culture_is_ruinborn = yes} has_ruinborn_majority_trigger = yes}
+					AND = {emperor = {culture_is_orcish = yes} has_orcish_majority_trigger = yes}
+					AND = {emperor = {culture_is_goblin = yes} has_goblin_majority_trigger = yes}
+					AND = {emperor = {culture_is_ogre = yes} has_ogre_majority_trigger = yes}
+					AND = {emperor = {culture_is_centaur = yes} has_centaur_majority_trigger = yes}
+					AND = {emperor = {culture_is_troll = yes} has_troll_majority_trigger = yes}
+					AND = {emperor = {culture_is_harpy = yes} has_harpy_majority_trigger = yes}
+					AND = {emperor = {culture_is_half_orcish = yes} has_half_orcish_majority_trigger = yes}
+					AND = {emperor = {culture_is_half_elven = yes} has_half_elven_majority_trigger = yes}
+					AND = {emperor = {culture_is_hobgoblin = yes} has_hobgoblin_majority_trigger = yes}
+					AND = {emperor = {culture_is_kobold = yes} has_kobold_majority_trigger = yes}
 				}
 			}
 			AND = {
@@ -5970,24 +5882,24 @@ province_event = {	#emperors race boost
 				OR = {
 					NOT = {has_global_flag = xenophobe_weddings_hre_flag}
 					is_part_of_hre = no
-					AND = {emperor = {culture_is_human = yes} NOT = { culture_is_human = yes}}
-					AND = {emperor = {culture_is_elven = yes} NOT = { culture_is_elven = yes}}
-					AND = {emperor = {culture_is_dwarven = yes} NOT = { culture_is_dwarven = yes}}
-					AND = {emperor = {culture_is_halfling = yes} NOT = { culture_is_halfling = yes}}
-					AND = {emperor = {culture_is_gnomish = yes} NOT = { culture_is_gnomish = yes}}
-					AND = {emperor = {culture_is_harimari = yes} NOT = { culture_is_harimari = yes}}
-					AND = {emperor = {culture_is_gnollish = yes} NOT = { culture_is_gnollish = yes}}
-					AND = {emperor = {culture_is_ruinborn = yes} NOT = { culture_is_ruinborn = yes}}
-					AND = {emperor = {culture_is_orcish = yes} NOT = { culture_is_orcish = yes}}
-					AND = {emperor = {culture_is_goblin = yes} NOT = { culture_is_goblin = yes}}
-					AND = {emperor = {culture_is_ogre = yes} NOT = { culture_is_ogre = yes}}
-					AND = {emperor = {culture_is_centaur = yes} NOT = { culture_is_centaur = yes}}
-					AND = {emperor = {culture_is_troll = yes} NOT = { culture_is_troll = yes}}
-					AND = {emperor = {culture_is_harpy = yes} NOT = { culture_is_harpy = yes}}
-					AND = {emperor = {culture_is_half_orcish = yes} NOT = { culture_is_half_orcish = yes}}
-					AND = {emperor = {culture_is_half_elven = yes} NOT = { culture_is_half_elven = yes}}
-					AND = {emperor = {culture_is_hobgoblin = yes} NOT = { culture_is_hobgoblin = yes}}
-					AND = {emperor = {culture_is_kobold = yes} NOT = { culture_is_kobold = yes}}
+					AND = {emperor = {culture_is_human = yes} has_human_majority_trigger = no}
+					AND = {emperor = {culture_is_elven = yes} has_elven_majority_trigger = no}
+					AND = {emperor = {culture_is_dwarven = yes} has_dwarven_majority_trigger = no}
+					AND = {emperor = {culture_is_halfling = yes} has_halfling_majority_trigger = no}
+					AND = {emperor = {culture_is_gnomish = yes} has_gnomish_majority_trigger = no}
+					AND = {emperor = {culture_is_harimari = yes} has_harimari_majority_trigger = no}
+					AND = {emperor = {culture_is_gnollish = yes} has_gnollish_majority_trigger = no}
+					AND = {emperor = {culture_is_ruinborn = yes} has_ruinborn_majority_trigger = no}
+					AND = {emperor = {culture_is_orcish = yes} has_orcish_majority_trigger = no}
+					AND = {emperor = {culture_is_goblin = yes} has_goblin_majority_trigger = no}
+					AND = {emperor = {culture_is_ogre = yes} has_ogre_majority_trigger = no}
+					AND = {emperor = {culture_is_centaur = yes} has_centaur_majority_trigger = no}
+					AND = {emperor = {culture_is_troll = yes} has_troll_majority_trigger = no}
+					AND = {emperor = {culture_is_harpy = yes} has_harpy_majority_trigger = no}
+					AND = {emperor = {culture_is_half_orcish = yes} has_half_orcish_majority_trigger = no}
+					AND = {emperor = {culture_is_half_elven = yes} has_half_elven_majority_trigger = no}
+					AND = {emperor = {culture_is_hobgoblin = yes} has_hobgoblin_majority_trigger = no}
+					AND = {emperor = {culture_is_kobold = yes} has_kobold_majority_trigger = no}
 				}
 			}
 		}
@@ -6009,7 +5921,6 @@ province_event = {	#emperors race malus
 	id = bertus_changes.6017
 	title = bertus_changes.6017.t
 	desc = bertus_changes.6017.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -6022,24 +5933,24 @@ province_event = {	#emperors race malus
 				OR = {
 					NOT = {has_global_flag = xenophobe_weddings_hre_flag}
 					is_part_of_hre = no
-					AND = {emperor = {culture_is_human = yes} NOT = { culture_is_human = yes}}
-					AND = {emperor = {culture_is_elven = yes} NOT = { culture_is_elven = yes}}
-					AND = {emperor = {culture_is_dwarven = yes} NOT = { culture_is_dwarven = yes}}
-					AND = {emperor = {culture_is_halfling = yes} NOT = { culture_is_halfling = yes}}
-					AND = {emperor = {culture_is_gnomish = yes} NOT = { culture_is_gnomish = yes}}
-					AND = {emperor = {culture_is_harimari = yes} NOT = { culture_is_harimari = yes}}
-					AND = {emperor = {culture_is_gnollish = yes} NOT = { culture_is_gnollish = yes}}
-					AND = {emperor = {culture_is_ruinborn = yes} NOT = { culture_is_ruinborn = yes}}
-					AND = {emperor = {culture_is_orcish = yes} NOT = { culture_is_orcish = yes}}
-					AND = {emperor = {culture_is_goblin = yes} NOT = { culture_is_goblin = yes}}
-					AND = {emperor = {culture_is_ogre = yes} NOT = { culture_is_ogre = yes}}
-					AND = {emperor = {culture_is_centaur = yes} NOT = { culture_is_centaur = yes}}
-					AND = {emperor = {culture_is_troll = yes} NOT = { culture_is_troll = yes}}
-					AND = {emperor = {culture_is_harpy = yes} NOT = { culture_is_harpy = yes}}
-					AND = {emperor = {culture_is_half_orcish = yes} NOT = { culture_is_half_orcish = yes}}
-					AND = {emperor = {culture_is_half_elven = yes} NOT = { culture_is_half_elven = yes}}
-					AND = {emperor = {culture_is_hobgoblin = yes} NOT = { culture_is_hobgoblin = yes}}
-					AND = {emperor = {culture_is_kobold = yes} NOT = { culture_is_kobold = yes}}
+					AND = {emperor = {culture_is_human = yes} has_human_majority_trigger = no}
+					AND = {emperor = {culture_is_elven = yes} has_elven_majority_trigger = no}
+					AND = {emperor = {culture_is_dwarven = yes} has_dwarven_majority_trigger = no}
+					AND = {emperor = {culture_is_halfling = yes} has_halfling_majority_trigger = no}
+					AND = {emperor = {culture_is_gnomish = yes} has_gnomish_majority_trigger = no}
+					AND = {emperor = {culture_is_harimari = yes} has_harimari_majority_trigger = no}
+					AND = {emperor = {culture_is_gnollish = yes} has_gnollish_majority_trigger = no}
+					AND = {emperor = {culture_is_ruinborn = yes} has_ruinborn_majority_trigger = no}
+					AND = {emperor = {culture_is_orcish = yes} has_orcish_majority_trigger = no}
+					AND = {emperor = {culture_is_goblin = yes} has_goblin_majority_trigger = no}
+					AND = {emperor = {culture_is_ogre = yes} has_ogre_majority_trigger = no}
+					AND = {emperor = {culture_is_centaur = yes} has_centaur_majority_trigger = no}
+					AND = {emperor = {culture_is_troll = yes} has_troll_majority_trigger = no}
+					AND = {emperor = {culture_is_harpy = yes} has_harpy_majority_trigger = no}
+					AND = {emperor = {culture_is_half_orcish = yes} has_half_orcish_majority_trigger = no}
+					AND = {emperor = {culture_is_half_elven = yes} has_half_elven_majority_trigger = no}
+					AND = {emperor = {culture_is_hobgoblin = yes} has_hobgoblin_majority_trigger = no}
+					AND = {emperor = {culture_is_kobold = yes} has_kobold_majority_trigger = no}
 				}
 			}
 			AND = {
@@ -6047,24 +5958,24 @@ province_event = {	#emperors race malus
 				OR = {
 					NOT = {has_global_flag = xenophobe_weddings_hre_flag}
 					is_part_of_hre = no
-					AND = {emperor = {culture_is_human = yes} culture_is_human = yes}
-					AND = {emperor = {culture_is_elven = yes} culture_is_elven = yes}
-					AND = {emperor = {culture_is_dwarven = yes} culture_is_dwarven = yes}
-					AND = {emperor = {culture_is_halfling = yes} culture_is_halfling = yes}
-					AND = {emperor = {culture_is_gnomish = yes} culture_is_gnomish = yes}
-					AND = {emperor = {culture_is_harimari = yes} culture_is_harimari = yes}
-					AND = {emperor = {culture_is_gnollish = yes} culture_is_gnollish = yes}
-					AND = {emperor = {culture_is_ruinborn = yes} culture_is_ruinborn = yes}
-					AND = {emperor = {culture_is_orcish = yes} culture_is_orcish = yes}
-					AND = {emperor = {culture_is_goblin = yes} culture_is_goblin = yes}
-					AND = {emperor = {culture_is_ogre = yes} culture_is_ogre = yes}
-					AND = {emperor = {culture_is_centaur = yes} culture_is_centaur = yes}
-					AND = {emperor = {culture_is_troll = yes} culture_is_troll = yes}
-					AND = {emperor = {culture_is_harpy = yes} culture_is_harpy = yes}
-					AND = {emperor = {culture_is_half_orcish = yes} culture_is_half_orcish = yes}
-					AND = {emperor = {culture_is_half_elven = yes} culture_is_half_elven = yes}
-					AND = {emperor = {culture_is_hobgoblin = yes} culture_is_hobgoblin = yes}
-					AND = {emperor = {culture_is_kobold = yes} culture_is_kobold = yes}
+					AND = {emperor = {culture_is_human = yes} has_human_majority_trigger = yes}
+					AND = {emperor = {culture_is_elven = yes} has_elven_majority_trigger = yes}
+					AND = {emperor = {culture_is_dwarven = yes} has_dwarven_majority_trigger = yes}
+					AND = {emperor = {culture_is_halfling = yes} has_halfling_majority_trigger = yes}
+					AND = {emperor = {culture_is_gnomish = yes} has_gnomish_majority_trigger = yes}
+					AND = {emperor = {culture_is_harimari = yes} has_harimari_majority_trigger = yes}
+					AND = {emperor = {culture_is_gnollish = yes} has_gnollish_majority_trigger = yes}
+					AND = {emperor = {culture_is_ruinborn = yes} has_ruinborn_majority_trigger = yes}
+					AND = {emperor = {culture_is_orcish = yes} has_orcish_majority_trigger = yes}
+					AND = {emperor = {culture_is_goblin = yes} has_goblin_majority_trigger = yes}
+					AND = {emperor = {culture_is_ogre = yes} has_ogre_majority_trigger = yes}
+					AND = {emperor = {culture_is_centaur = yes} has_centaur_majority_trigger = yes}
+					AND = {emperor = {culture_is_troll = yes} has_troll_majority_trigger = yes}
+					AND = {emperor = {culture_is_harpy = yes} has_harpy_majority_trigger = yes}
+					AND = {emperor = {culture_is_half_orcish = yes} has_half_orcish_majority_trigger = yes}
+					AND = {emperor = {culture_is_half_elven = yes} has_half_elven_majority_trigger = yes}
+					AND = {emperor = {culture_is_hobgoblin = yes} has_hobgoblin_majority_trigger = yes}
+					AND = {emperor = {culture_is_kobold = yes} has_kobold_majority_trigger = yes}
 				}
 			}
 		}
@@ -6337,16 +6248,14 @@ country_event = {	#incident: Colleges reform
 		every_province = {
 			limit = {
 				is_part_of_hre = yes
-				NOT = {
-					OR = {
-						culture_is_human = yes
-						culture_is_elven = yes
-						culture_is_dwarven= yes
-						culture_is_halfling= yes
-						culture_is_gnomish = yes
-						culture_is_half_elven = yes
-						culture_is_harimari = yes
-					}
+				OR = {
+					has_human_majority_trigger = no
+					has_elven_majority_trigger = no
+					has_dwarven_majority_trigger = no
+					has_halfling_majority_trigger = no
+					has_gnomish_majority_trigger = no
+					has_half_elven_majority_trigger = no
+					has_harimari_majority_trigger = no
 				}
 			}
 			set_in_empire = no
@@ -6748,20 +6657,20 @@ province_event = {
 					culture_is_ogre = yes
 					has_estate_privilege = estate_ogre_stone_soup
 				}
-				culture_is_ogre = no
+				has_ogre_majority_trigger = no
 			}
 			AND = {
 				owner = {
 					culture_is_troll = yes
 					has_estate_privilege = estate_troll_stone_soup
 				}
-				culture_is_troll = no
+				has_troll_majority_trigger = no
 			}
 		}
 	}
 
 	mean_time_to_happen = {
-		days = 365
+		months = 12
 	}
 	immediate = {
 		hidden_effect = {
@@ -6790,10 +6699,153 @@ country_event = {
 
 	is_triggered_only = yes
 
-	immediate = {
-	}
+	immediate = {}
     option = {
-        name = bertus_changes.6031.a #
+        name = bertus_changes.6032.a #
+    }
+}
+country_event = {
+    id = bertus_changes.6033
+    title = bertus_changes.6033.title
+    desc = bertus_changes.6033.desc
+    picture = DHIMMI_ESTATE_eventPicture
+
+	is_triggered_only = yes
+
+	immediate = {}
+    option = {
+        name = bertus_changes.6033.a #
+		trigger = {
+			isolationism = 1
+		}
+		tooltip = {
+			add_years_of_income = 1
+		}
+		hidden_effect = {
+			add_isolationism = -5
+		}
+    }
+    option = {
+        name = bertus_changes.6033.b #
+		trigger = {
+			OR = {
+				isolationism = 2
+				NOT = {isolationism = 1}
+			}
+		}
+		country_event = {
+			id = bertus_changes.1011
+		}
+		hidden_effect = {
+			add_isolationism = -5
+			add_isolationism = 1
+		}
+    }
+    option = {
+        name = bertus_changes.6033.c #
+		trigger = {
+			OR = {
+				isolationism = 3
+				NOT = {isolationism = 2}
+			}
+		}
+		set_country_flag = get_adventurer_flag
+		custom_tooltip = get_great_hero_general_tt
+		hidden_effect = {
+			set_saved_name = {key = special_general_name type = advisor scope = ROOT}
+			country_event = {id = bertus_changes.6030}
+		}
+		hidden_effect = {
+			add_isolationism = -5
+			add_isolationism = 2
+		}
+    }
+    option = {
+        name = bertus_changes.6033.d #
+		trigger = {
+			OR = {
+				isolationism = 4
+				NOT = {isolationism = 3}
+			}
+		}
+		tooltip = {
+			add_yearly_manpower = 5
+		}
+		hidden_effect = {
+			add_isolationism = -5
+			add_isolationism = 3
+		}
+    }
+    option = {
+        name = bertus_changes.6033.e #
+		trigger = {
+			OR = {
+				isolationism = 5
+				NOT = {isolationism = 4}
+			}
+		}
+		tooltip = {
+			random_list = {
+				33 = {
+					modifier = {factor = 0 adm = 6}
+					change_adm = 1
+				}
+				33 = {
+					modifier = {factor = 0 dip = 6}
+					change_dip = 1
+				}
+				33 = {
+					modifier = {factor = 0 mil = 6}
+					change_mil = 1
+				}
+			}
+		}
+		hidden_effect = {
+			add_isolationism = -5
+			add_isolationism = 4
+		}
+    }
+	after = {
+		get_isolationsim_bonus = yes
+	}
+}
+country_event = {	#enslavement decay
+    id = human_tolerance_events.6034
+    title = human_tolerance_events.6034.title
+    desc = human_tolerance_events.6034.desc
+
+    trigger = {
+		any_owned_province = {
+			has_local_slaves = yes
+		}
+	}
+
+	mean_time_to_happen = {
+		months = 120
+	}
+
+	immediate = {
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					has_local_slaves = yes
+				}
+				set_variable = {which = total_salves_development_lost_var value = 0}
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
+				while = {
+					limit = {check_variable = {which = province_development value = 0}}
+					subtract_variable = {which = province_development value = 10}
+					ROOT = {change_variable = {which = total_salves_development_lost_var value = 1}}
+					remove_1_dev_to_provinces = yes
+				}
+				hidden_effect = {province_event = {id = bertus_pops.1038}}	#update bertus pops
+			}
+		}
+	}
+		
+    option = {
+        name = human_tolerance_events.6034.a #
     }
 }
 country_event = {	#goods menu
@@ -7130,7 +7182,6 @@ country_event = {	#DOMINION WARS TARGET
 	id = bertus_changes.8001
 	title = bertus_changes.8001.t
 	desc = bertus_changes.8001.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	is_triggered_only= yes
@@ -7189,7 +7240,7 @@ country_event = {	#DOMINION WAR!
 	}
 	major = yes
 	mean_time_to_happen = {
-		days = 3650
+		months = 120
 	}
 
 	immediate = {
@@ -7263,7 +7314,6 @@ country_event = {	#goods menu bolean
 	id = bertus_changes.7999
 	title = bertus_changes.7999.t
 	desc = bertus_changes.7999.desc
-	picture = DIPLOMACY_eventPicture
 	
 	is_triggered_only= yes
 	hidden = yes

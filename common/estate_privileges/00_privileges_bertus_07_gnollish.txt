@@ -1678,18 +1678,16 @@ estate_gnollish_intolerance_policy = {
 	}
 }
 estate_gnollish_autonomy = {
-	icon = privilege_grant_autonomy
+	icon = privilege_gnollish_autonomy
 	loyalty = 0.2
 	influence = 0.10
 	is_valid = {
-		OR = {
-			AND = {
-				uses_isolationism = yes
-				NOT = {isolationism = 3}
-			}
-			uses_isolationism = no
-		}
+		OR = {AND = {uses_isolationism = yes NOT = {isolationism = 3}} uses_isolationism = no}
 		NOT = { has_country_modifier = gnollish_administration }
+		NOT = { has_country_modifier = racial_pop_gnollish_enslavement }
+		NOT = { has_country_modifier = racial_pop_gnollish_purge }
+		NOT = { has_country_modifier = racial_pop_gnollish_expulsion }
+		NOT = { has_estate_privilege = estate_gnollish_taxation_policy }
 	}
 	can_select = {
 		any_owned_province = {
@@ -1740,17 +1738,14 @@ estate_gnollish_autonomy = {
 	}
 }
 estate_gnollish_taxation_policy = {
-	icon = privilege_grant_autonomy
+	icon = privilege_gnollish_taxation
 	loyalty = -0.1
 	is_valid = {
-		OR = {
-			AND = {
-				uses_isolationism = yes
-				isolationism = 3
-			}
-			uses_isolationism = no
-		}
 		NOT = { has_country_modifier = gnollish_administration }
+		NOT = { has_country_modifier = racial_focus_gnollish }
+		NOT = { has_country_modifier = racial_pop_gnollish_expulsion }
+		NOT = { has_country_modifier = racial_pop_gnollish_enslavement }
+		NOT = { has_country_modifier = racial_pop_gnollish_purge }
 	}
 	can_select = {
 		any_owned_province = { culture_is_gnollish = yes }
@@ -1793,19 +1788,17 @@ estate_gnollish_taxation_policy = {
 	}
 }
 estate_gnollish_purge = {
-	icon = privilege_grant_autonomy
+	icon = privilege_gnollish_purge
 	loyalty = -0.2
 	influence = -0.20
 	is_valid = {
-		if = {
-			limit = {uses_isolationism = yes}
-			isolationism = 3
-		}
+		NOT = { has_country_modifier = racial_pop_gnollish_enslavement }
+		NOT = { has_country_modifier = racial_pop_gnollish_expulsion }
+		NOT = { has_country_modifier = racial_focus_gnollish }
+		NOT = { has_estate_privilege = estate_gnollish_taxation_policy }
 	}
 	can_select = {
-		can_purge_race = {
-			RACE = gnollish
-		}
+		can_purge_race = {RACE = gnollish}
 	}
 	on_granted = {		
 		largest_decrease_of_gnollish_tolerance_effect = yes
@@ -1816,9 +1809,7 @@ estate_gnollish_purge = {
 		custom_tooltip = pop_menu_purge_effect_unrest_tt
 		
 		hidden_effect = {
-			add_purguing_unrest = {
-				race = gnollish
-			}
+			add_purguing_unrest = {race = gnollish}
 		}
 	}
 	penalties = {
@@ -1832,26 +1823,36 @@ estate_gnollish_purge = {
 		remove_country_modifier = racial_pop_gnollish_purge
 	}
 	ai_will_do = {
-		factor = 0
+		factor = 1
+		modifier = {
+			factor = 0
+			medium_tolerance_orcish_race_trigger = yes
+		}
+		modifier = {
+			factor = 1000
+			NOT = {liberty_desire = 50}
+			culture_is_orcish = no
+			overlord = {
+				has_country_modifier = racial_pop_orcish_purge
+			}
+		}
 	}
 	cooldown_years = 10
 	on_cooldown_expires = {
 	}
 }
 estate_gnollish_expulsion = {
-	icon = privilege_grant_autonomy
+	icon = privilege_gnollish_expulsion
 	loyalty = -0.1
 	influence = -0.1
-	is_valid = {	
-		if = {
-			limit = {uses_isolationism = yes}
-			isolationism = 3
-		}
+	is_valid = {
+		NOT = { has_country_modifier = racial_pop_gnollish_enslavement }
+		NOT = { has_country_modifier = racial_pop_gnollish_purge }
+		NOT = { has_country_modifier = racial_focus_gnollish }
+		NOT = { has_estate_privilege = estate_gnollish_taxation_policy }
 	}
 	can_select = {
-		can_expel_race = {
-			RACE = gnollish
-		}
+		can_expel_race = {RACE = gnollish}
 	}
 	on_granted = {				
 		large_decrease_of_gnollish_tolerance_effect = yes
@@ -1898,7 +1899,10 @@ estate_gnollish_focus = {
 			is_part_of_hre = no
 		}		
 		NOT = { has_country_modifier = gnollish_administration }
-		NOT = { has_country_modifier = gnollish_military }		
+		NOT = { has_country_modifier = gnollish_military }
+		NOT = { has_country_modifier = racial_pop_gnollish_enslavement }
+		NOT = { has_country_modifier = racial_pop_gnollish_purge }
+		NOT = { has_country_modifier = racial_pop_gnollish_expulsion }
 	}
 	can_select = {
 		NOT = {
@@ -1930,6 +1934,54 @@ estate_gnollish_focus = {
 	cooldown_years = 10
 	on_cooldown_expires = {
 	}
+}
+estate_gnollish_enslavement = {
+	icon = privilege_gnollish_enslavement
+	loyalty = -0.2
+	influence = -0.20
+	is_valid = {
+		NOT = {has_estate_privilege = estate_gnollish_intolerance_policy}
+		can_enslave_race = {RACE = gnollish}
+	}
+	can_select = {
+		NOT = {has_race_recruitment = {race = gnollish}}
+	}
+	on_granted = {		
+		largest_decrease_of_gnollish_tolerance_effect = yes
+		add_country_modifier = { name = racial_pop_gnollish_enslavement duration = -1 }
+		custom_tooltip = gnollish_enslave_global_effect_tt
+		custom_tooltip = gnollish_enslave_effect_unrest_tt
+		hidden_effect = {add_expulsion_unrest = {race = gnollish}}
+	}
+	penalties = {}
+	benefits = {}
+	on_revoked = {		
+		remove_country_modifier = racial_pop_gnollish_enslavement
+	}
+	on_invalid = {
+		remove_country_modifier = racial_pop_gnollish_enslavement
+	}
+	ai_will_do = {
+		factor = 1
+		modifier = {
+			factor = 0
+			medium_tolerance_gnollish_race_trigger = yes
+		}
+		modifier = {
+			factor = 1000
+			NOT = {liberty_desire = 50}
+			culture_is_gnollish = no
+			overlord = {
+				has_country_modifier = racial_pop_gnollish_enslavement
+			}
+		}
+		modifier = {
+			factor = 10
+			has_country_modifier = monstrous_nation
+		}
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {}
 }
 estate_gnollish_non_military_swap = {
 	icon = privilege_grant_autonomy
@@ -1987,7 +2039,7 @@ estate_gnollish_militar_education = {
 		NOT = {has_estate_privilege = estate_gnollish_militar_education}
 	}
 	on_granted = {
-		custom_tooltip = estate_military_education_tooltip
+		custom_tooltip = estate_militar_education_tooltip
 	}
 	penalties = {
 		yearly_corruption = 0.2

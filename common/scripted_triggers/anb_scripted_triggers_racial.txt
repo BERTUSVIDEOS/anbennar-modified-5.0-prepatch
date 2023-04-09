@@ -2261,7 +2261,7 @@ culture_is_halfling = {
 
 culture_is_half_elven = {
 	custom_trigger_tooltip = {
-		tooltip = culture_is_half_elf_tt
+		tooltip = culture_is_half_elven_tt
 		OR = {
 			culture_group = half_elf
 			#this should contain half elves of other culture groups?
@@ -8393,8 +8393,8 @@ can_purge_race = {
 	is_part_of_hre = no	
 	NOT = {
 		OR = {
-			has_country_modifier = racial_pop_$RACE$_purge
 			has_country_modifier = racial_pop_$RACE$_expulsion
+			has_country_modifier = racial_pop_$RACE$_enslavement
 		}
 	}
 	NOT = { has_country_modifier = $RACE$_administration }
@@ -8436,7 +8436,7 @@ can_expel_race = {
 	NOT = {
 		OR = {
 			has_country_modifier = racial_pop_$RACE$_purge
-			has_country_modifier = racial_pop_$RACE$_expulsion
+			has_country_modifier = racial_pop_$RACE$_enslavement
 		}
 	}
 	NOT = { has_country_modifier = $RACE$_administration }
@@ -8465,4 +8465,41 @@ can_expel_race = {
 		}
 	}
 	#adm_power = 50	#bertus mod
+}
+can_enslave_race = {
+	OR = {
+		is_part_of_hre = no
+		AND = {
+			NOT = {has_global_flag = parliamentary_colleges_hre_flag}
+			is_part_of_hre = yes
+		}
+	}
+	NOT = {
+		OR = {
+			has_country_modifier = racial_pop_$RACE$_purge
+			has_country_modifier = racial_pop_$RACE$_expulsion
+		}
+	}
+	if = {
+		limit = { ai = yes }
+		OR = {
+			any_owned_province = {
+				has_$RACE$_minority_trigger = yes
+			}
+			any_owned_province = {
+				has_$RACE$_majority_trigger = yes
+			}
+		}
+	}
+	NOT = { has_country_modifier = forced_to_end_$RACE$_enslavement }
+	NOT = { has_government_attribute = disabled_enslavement }
+	NOT = { has_government_attribute = disabled_enslavement_$RACE$ }
+	if = {
+		limit = { has_country_flag = has_caste_estates }
+		NOT = {
+			is_race_in_any_caste = {
+				$RACE$ = yes
+			}
+		}
+	}
 }

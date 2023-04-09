@@ -137,21 +137,19 @@ barumand_1 = {
 		provinces_to_highlight = {
 		}
 		trigger = { 	
-			#estate_influence = {
-			#	estate = estate_nobles
-			#	influence = 40
-			#}
-			#estate_loyalty = {
-			#	estate = estate_nobles
-			#	loyalty = 60
-			#}
-			#has_estate_privilege = estate_nobles_supremacy_over_crown
-			#has_estate_privilege = estate_nobles_monopoly_of_livestock
+			estate_influence = {
+				estate = estate_orcish
+				influence = 40
+			}
+			estate_loyalty = {
+				estate = estate_orcish
+				loyalty = 60
+			}
+			has_estate_privilege = estate_orcish_monopoly_of_livestock
 		}
 		effect = {
-			#remove_estate_privilege = estate_nobles_monopoly_of_livestock
-			custom_tooltip = barumand_embassy_privilege_tt
-			set_country_flag = barumand_embassy_privilege
+			remove_estate_privilege = estate_orcish_monopoly_of_livestock
+			add_dip_power = 200
 		}
 	}
 	barumand_tamashrug_university = {
@@ -510,7 +508,7 @@ barumand_2 = {
 							}
 						}
 						total_development = 100
-						is_subject_of_type_with_overlord = { type = tributary_state who = Z53 }
+						is_subject_of_type_with_overlord = { type = tributary_state who = ROOT }
 					}
 				}
 			}
@@ -533,158 +531,15 @@ barumand_2 = {
 			barumand_let_us_in
 		}
 		provinces_to_highlight = {
-			owner = {
-				capital_scope = {
-					OR = {
-						region = south_castanor_region
-						region = west_castanor_region
-						region = inner_castanor_region
-						area = whistlevale_area
-						area = cursewood_area
-					}
-				}
-			}
 		}
 
 		trigger = {
-			custom_trigger_tooltip = {
-				tooltip = barumand_all_subjects_tt
-				all_known_country = {
-					OR = {
-						is_subject_of = ROOT
-						NOT = {
-							capital_scope = {
-								OR = {
-									region = south_castanor_region
-									region = west_castanor_region
-									region = inner_castanor_region
-									area = whistlevale_area
-									area = cursewood_area
-								}
-							}
-						}
-					}
-				}
-			}
-			OR = {
-				custom_trigger_tooltip = {
-					tooltip = barumand_four_tributary_tt
-					calc_true_if = {
-						all_subject_country = {
-							is_subject_of_type = tributary_state
-							has_opinion = { who = ROOT value = 100 } 
-							NOT = { liberty_desire = 10 } 
-						}
-						amount = 4
-					}
-				}
-				custom_trigger_tooltip = {
-					tooltip = barumand_all_kruman_tt
-					all_known_country = {
-						OR = {
-							is_subject_of_type = kruman
-							NOT = {
-								capital_scope = {
-									OR = {
-										region = south_castanor_region
-										region = west_castanor_region
-										region = inner_castanor_region
-										area = whistlevale_area
-										area = cursewood_area
-									}
-								}
-							}
-						}
-					}
-				}
-			}
+			legitimacy_equivalent = 80
+			stability = 3
 		}
 
         effect = {
-            if = {
-                limit = {
-                    calc_true_if = {
-                        all_subject_country = {
-                            is_subject_of_type = tributary_state
-							has_opinion = { who = ROOT value = 100 } 
-                            NOT = { liberty_desire = 10 } 
-                        }
-                        amount = 4
-                    }
-                }
-				custom_tooltip = barumand_create_4_kruman_tt
-				hidden_effect = {
-					random_subject_country = {
-						limit = {
-							is_subject_of_type = tributary_state
-							has_opinion = { who = ROOT value = 100 } 
-							NOT = { liberty_desire = 10 }
-							NOT = { is_subject_of_type = kruman }
-						}
-						grant_independence = yes
-						ROOT = {
-							create_subject = {
-								subject_type = kruman
-								subject = PREV
-							}
-						}
-					}
-					random_subject_country = {
-						limit = {
-							is_subject_of_type = tributary_state
-							has_opinion = { who = ROOT value = 100 } 
-							NOT = { liberty_desire = 10 } 
-							NOT = { is_subject_of_type = kruman }
-						}
-						grant_independence = yes
-						ROOT = {
-							create_subject = {
-								subject_type = kruman
-								subject = PREV
-							}
-						}
-					}
-					random_subject_country = {
-						limit = {
-							is_subject_of_type = tributary_state
-							has_opinion = { who = ROOT value = 180 } 
-							NOT = { liberty_desire = 10 } 
-							NOT = { is_subject_of_type = kruman }
-						}
-						grant_independence = yes
-						ROOT = {
-							create_subject = {
-								subject_type = kruman
-								subject = PREV
-							}
-						}
-					}
-					random_subject_country = {
-						limit = {
-							is_subject_of_type = tributary_state
-							has_opinion = { who = ROOT value = 180 } 
-							NOT = { liberty_desire = 10 } 
-							NOT = { is_subject_of_type = kruman }
-						}
-						grant_independence = yes
-						ROOT = {
-							create_subject = {
-								subject_type = kruman
-								subject = PREV
-							}
-						}
-					}
-				}
-            }
-            else = {
-                every_subject_country = {
-					limit = { is_subject_of_type = kruman }
-					add_country_modifier = { 
-						name = barumand_bread_festival_modifier
-						duration = 3650
-					}
-                }
-            }
+			add_prestige_or_monarch_power = {amount =  50}
         }
 	}
 	barumand_our_labour = {
@@ -1081,34 +936,25 @@ barumand_3 = {
 			barumand_their_diplomacy
 		}
 		provinces_to_highlight = {
-			owner = {
-				capital_scope = {
-					OR = {
-						region = south_castanor_region
-						region = west_castanor_region
-						region = inner_castanor_region
-						area = whistlevale_area
-						area = cursewood_area
-					}
-				}
+			OR = {
+				region = south_castanor_region
+				region = west_castanor_region
+				region = inner_castanor_region
 			}
+			NOT = { owned_by = ROOT }
 		}
 		trigger = {
-			all_known_country = {
-				OR = {
-					NOT = { 
-						capital_scope = {
-							OR = {
-								region = south_castanor_region
-								region = west_castanor_region
-								region = inner_castanor_region
-								area = whistlevale_area
-								area = cursewood_area
-							}
-						}
-					}
-					is_subject_of_type_with_overlord = { who = ROOT type = kruman }
-				}
+			inner_castanor_region = {
+				type = all
+				owned_by = ROOT
+			}
+			west_castanor_region = {
+				type = all
+				owned_by = ROOT
+			}
+			inner_castanor_region = {
+				type = all
+				owned_by = ROOT
 			}
 		}
 		effect = {
@@ -1558,21 +1404,23 @@ barumand_4 = {
 			}
 		}
 		trigger = {
-			NOT = {
-				calc_true_if = {
-					all_known_country = {
-						capital_scope = {
-							OR = {
-								region = south_castanor_region
-								region = inner_castanor_region
-								region = west_castanor_region
-								area = whistlevale_area
-								area = cursewood_area
+			custom_trigger_tooltip = {
+				tooltip = barumand_all_subjects_tt
+				all_known_country = {
+					OR = {
+						is_subject_of = ROOT
+						NOT = {
+							capital_scope = {
+								OR = {
+									region = south_castanor_region
+									region = west_castanor_region
+									region = inner_castanor_region
+									area = whistlevale_area
+									area = cursewood_area
+								}
 							}
 						}
-						NOT = { is_subject_of_type_with_overlord = { type = tributary_state who = Z53 } }
 					}
-					amount = 9
 				}
 			}
 		}
@@ -2156,10 +2004,8 @@ barumand_5 = {
 				803 = { has_fort_building_trigger = yes owned_by = ROOT }
 			}
 			OR = {
-				AND = {
-					has_spy_network_in = { who = A59 value = 50 } #Corvuria
-					A59 = { has_been_insulted_by_root = yes }
-				}
+				A59 = { has_been_insulted_by_root = yes }
+				has_spy_network_in = { who = A59 value = 50 } #Corvuria
 				NOT = { exists = A59 } #Corvuria
 				A59 = { #Corvuria
 					is_subject_of = ROOT

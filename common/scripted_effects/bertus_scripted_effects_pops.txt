@@ -1,7 +1,4 @@
 update_bertus_pops = {
-	remove_bulwar_canals_boost_pop_goods_produced = yes
-	remove_great_dam_boost_pop_goods_produced = yes
-	remove_surface_mine_boost_pop_goods_produced = yes
 	remove_super_boost_goods_produced = yes
 	remove_boost_pop_goods_produced = yes
 	remove_pop_modifier = {race = elven class = malus amount = 25percent resource = goods_produced }
@@ -42,9 +39,51 @@ update_bertus_pops = {
 	remove_pop_modifier = {race = all class = parliament amount = 25percent resource = goods_produced }
 	remove_pop_modifier = {race = all class = parliament amount = 20percent resource = manpower }
 	remove_pop_modifier = {race = all class = parliament amount = 25percent resource = tax }
+	remove_pop_modifier = {race = all class = great_dam_boost amount = 25percent resource = goods_produced}
+	remove_pop_modifier = {race = all class = great_dam_boost amount = 25percent resource = goods_produced}
+	if = {
+		limit = {NOT = {has_province_flag = foreign_slaves_flag }}
+		remove_pop_modifier = {race = all  class = enslavement_malus amount = 100percent resource = goods_produced}
+		remove_pop_modifier = {race = human  class = enslavement amount = 100percent resource = goods_produced}
+		remove_pop_modifier = {race = elven  class = enslavement amount = 100percent resource = goods_produced}
+		remove_pop_modifier = {race = dwarven  class = enslavement amount = 100percent resource = goods_produced}
+		remove_pop_modifier = {race = gnomish  class = enslavement amount = 100percent resource = goods_produced}
+		remove_pop_modifier = {race = halfling  class = enslavement amount = 100percent resource = goods_produced}
+		remove_pop_modifier = {race = harimari  class = enslavement amount = 100percent resource = goods_produced}
+		remove_pop_modifier = {race = gnollish class = enslavement amount = 100percent resource = goods_produced}
+		remove_pop_modifier = {race = ruinborn class = enslavement amount = 100percent resource = goods_produced}
+		remove_pop_modifier = {race = orcish class = enslavement amount = 100percent resource = goods_produced}
+		remove_pop_modifier = {race = goblin  class = enslavement amount = 100percent resource = goods_produced}
+		remove_pop_modifier = {race = ogre class = enslavement amount = 100percent resource = goods_produced}
+		remove_pop_modifier = {race = centaur class = enslavement amount = 100percent resource = goods_produced}
+		remove_pop_modifier = {race = troll class = enslavement amount = 100percent resource = goods_produced}
+		remove_pop_modifier = {race = harpy class = enslavement amount = 100percent resource = goods_produced}
+		remove_pop_modifier = {race = half_orcish class = enslavement amount = 100percent resource = goods_produced}
+		remove_pop_modifier = {race = half_elven class = enslavement amount = 100percent resource = goods_produced}
+		remove_pop_modifier = {race = hobgoblin class = enslavement amount = 100percent resource = goods_produced}
+		remove_pop_modifier = {race = kobold class = enslavement amount = 100percent resource = goods_produced}
+		clr_province_flag = has_human_enslaved_flag
+		clr_province_flag = has_elven_enslaved_flag
+		clr_province_flag = has_dwarven_enslaved_flag
+		clr_province_flag = has_halfling_enslaved_flag
+		clr_province_flag = has_gnomish_enslaved_flag
+		clr_province_flag = has_harimari_enslaved_flag
+		clr_province_flag = has_gnollish_enslaved_flag
+		clr_province_flag = has_ruinborn_enslaved_flag
+		clr_province_flag = has_orcish_enslaved_flag
+		clr_province_flag = has_goblin_enslaved_flag
+		clr_province_flag = has_ogre_enslaved_flag
+		clr_province_flag = has_centaur_enslaved_flag
+		clr_province_flag = has_troll_enslaved_flag
+		clr_province_flag = has_harpy_enslaved_flag
+		clr_province_flag = has_half_orcish_enslaved_flag
+		clr_province_flag = has_half_elven_enslaved_flag
+		clr_province_flag = has_hobgoblin_enslaved_flag
+		clr_province_flag = has_kobold_enslaved_flag
+	}
 }
 add_pop_modifier = {
-	remove_pop_modifier = {race = $race$ class = $class$ amount = $amount$ resource = $resource$}
+	remove_pop_modifier = { race = $race$ class = $class$ amount = $amount$ resource = $resource$}
 	trigger_switch = {
 		on_trigger = $onbase$
 		100	= { add_province_modifier = { name = $race$_$class$_$amount$_$resource$_100	 duration = -1 hidden = yes } }

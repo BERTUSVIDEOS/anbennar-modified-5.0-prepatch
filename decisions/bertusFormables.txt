@@ -1,4 +1,52 @@
 country_decisions = {
+	empire_of_anbennar_nation = { #B01
+		major = yes
+		potential = {
+			NOT = { exists = Z01 }
+			normal_or_historical_nations = yes
+			is_free_or_tributary_trigger = yes
+			NOT = { has_country_flag = formed_empire_of_anbennar_nation }
+			NOT = { has_country_flag = bertus_super_formable_flag }
+			capital_scope = {
+				is_part_of_hre = yes
+			}
+			hre_reform_passed = emperor_renovatio
+			is_emperor = yes
+		}
+		provinces_to_highlight = {
+			OR = {
+				is_part_of_hre = yes
+				province_id = 8
+			}
+			NOT = { owned_by = ROOT }
+		}
+		allow = {
+			is_at_war = no
+			development_in_provinces = {
+				value = 2000
+				is_part_of_hre = yes
+			}
+			8 = {
+				is_core = ROOT
+				owned_by = ROOT
+			}
+		}
+		effect = {
+			8 = {move_capital_effect = yes}
+			change_tag = Z01	#Empire of Anbennar
+			hidden_effect = { restore_country_name = yes }
+			#swap_non_generic_missions = yes	#no missions?
+			add_prestige_or_monarch_power = {amount =  25}
+			if = {
+				limit = { has_custom_ideas = no}
+				country_event = { id = ideagroups.1 } #Swap Ideas
+			}
+			set_country_flag = formed_empire_of_anbennar_nation
+			set_country_flag = bertus_super_formable_flag
+		}
+		ai_will_do = {factor = 1}
+		ai_importance = 400
+	}
 	goblin_hoard_nation = { #W97
 		major = yes
 		potential = {
@@ -7,7 +55,6 @@ country_decisions = {
 			normal_or_historical_nations = yes
 			is_free_or_tributary_trigger = yes
 			NOT = { has_country_flag = formed_greentide_nation }
-			NOT = { has_country_flag = super_orc_nation_formed }
 			capital_scope = {
 				region = west_dwarovar_region
 			}
@@ -64,7 +111,7 @@ country_decisions = {
 			normal_or_historical_nations = yes
 			is_free_or_tributary_trigger = yes
 			NOT = { has_country_flag = formed_greentide_nation }
-			NOT = { has_country_flag = super_orc_nation_formed }
+			NOT = { has_country_flag = bertus_super_formable_flag }
 			capital_scope = {
 				OR = {
 					region = south_castanor_region
@@ -122,13 +169,16 @@ country_decisions = {
 			hidden_effect = { restore_country_name = yes }
 			remove_non_electors_emperors_from_empire_effect = yes
 			#swap_non_generic_missions = yes
+			change_government = monarchy
+			add_government_reform = orcish_kingdom_reform
 			add_prestige_or_monarch_power = {amount =  25}
+			set_government_rank = 3
 			if = {
 				limit = { has_custom_ideas = no}
 				country_event = { id = ideagroups.1 } #Swap Ideas
 			}
 			set_country_flag = formed_greentide_nation
-			set_country_flag = super_orc_nation_formed
+			set_country_flag = bertus_super_formable_flag
 		}
 		ai_will_do = {factor = 1}
 		ai_importance = 400
@@ -145,7 +195,7 @@ country_decisions = {
 			normal_or_historical_nations = yes
 			is_free_or_tributary_trigger = yes
 			NOT = { has_country_flag = formed_escann_union_nation }
-			NOT = { has_country_flag = super_orc_nation_formed }
+			NOT = { has_country_flag = bertus_super_formable_flag }
 			capital_scope = {
 				OR = {
 					region = south_castanor_region
@@ -198,6 +248,7 @@ country_decisions = {
 			remove_non_electors_emperors_from_empire_effect = yes
 			#swap_non_generic_missions = yes
 			add_prestige_or_monarch_power = {amount =  25}
+			set_government_rank = 3
 			change_primary_culture = cannor_half_orc
 			set_ruler_culture = cannor_half_orc
 			set_heir_culture = cannor_half_orc
@@ -207,7 +258,7 @@ country_decisions = {
 				country_event = { id = ideagroups.1 } #Swap Ideas
 			}
 			set_country_flag = formed_escann_union_nation
-			set_country_flag = super_orc_nation_formed
+			set_country_flag = bertus_super_formable_flag
 		}
 		ai_will_do = {factor = 1}
 		ai_importance = 400

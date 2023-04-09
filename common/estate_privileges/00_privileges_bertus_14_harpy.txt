@@ -327,7 +327,7 @@ estate_harpy_intolerance_policy = {
 	can_select = {
 		estate_territory = {
 			estate = estate_harpy
-			territory = 70
+			territory = 50
 		}
 	}
 	on_granted = {
@@ -537,7 +537,12 @@ estate_harpy_autonomy = {
 	loyalty = 0.2
 	influence = 0.10
 	is_valid = {
+		OR = {AND = {uses_isolationism = yes NOT = {isolationism = 3}} uses_isolationism = no}
 		NOT = { has_country_modifier = harpy_administration }
+		NOT = { has_country_modifier = racial_pop_harpy_enslavement }
+		NOT = { has_country_modifier = racial_pop_harpy_purge }
+		NOT = { has_country_modifier = racial_pop_harpy_expulsion }
+		NOT = { has_estate_privilege = estate_harpy_taxation_policy }
 	}
 	can_select = {
 		OR = {AND = {uses_isolationism = yes NOT = {isolationism = 3}} uses_isolationism = no}
@@ -592,14 +597,11 @@ estate_harpy_taxation_policy = {
 	icon = privilege_grant_autonomy
 	loyalty = -0.1
 	is_valid = {
-		OR = {
-			AND = {
-				uses_isolationism = yes
-				isolationism = 3
-			}
-			uses_isolationism = no
-		}
 		NOT = { has_country_modifier = harpy_administration }
+		NOT = { has_country_modifier = racial_focus_harpy }
+		NOT = { has_country_modifier = racial_pop_harpy_expulsion }
+		NOT = { has_country_modifier = racial_pop_harpy_enslavement }
+		NOT = { has_country_modifier = racial_pop_harpy_purge }
 	}
 	can_select = {
 		any_owned_province = { culture_is_harpy = yes }
@@ -646,15 +648,13 @@ estate_harpy_purge = {
 	loyalty = -0.2
 	influence = -0.20
 	is_valid = {
-		if = {
-			limit = {uses_isolationism = yes}
-			isolationism = 3
-		}
+		NOT = { has_country_modifier = racial_pop_harpy_enslavement }
+		NOT = { has_country_modifier = racial_pop_harpy_expulsion }
+		NOT = { has_country_modifier = racial_focus_harpy }
+		NOT = { has_estate_privilege = estate_harpy_taxation_policy }
 	}
 	can_select = {
-		can_purge_race = {
-			RACE = harpy
-		}	
+		can_purge_race = {RACE = harpy}	
 	}
 	on_granted = {		
 		largest_decrease_of_harpy_tolerance_effect = yes
@@ -665,9 +665,7 @@ estate_harpy_purge = {
 		custom_tooltip = pop_menu_purge_effect_unrest_tt
 		
 		hidden_effect = {
-			add_purguing_unrest = {
-				race = harpy
-			}
+			add_purguing_unrest = {race = harpy}
 		}
 	}
 	penalties = {
@@ -681,7 +679,19 @@ estate_harpy_purge = {
 		remove_country_modifier = racial_pop_harpy_purge
 	}
 	ai_will_do = {
-		factor = 0
+		factor = 1
+		modifier = {
+			factor = 0
+			medium_tolerance_harpy_race_trigger = yes
+		}
+		modifier = {
+			factor = 1000
+			NOT = {liberty_desire = 50}
+			culture_is_harpy = no
+			overlord = {
+				has_country_modifier = racial_pop_harpy_purge
+			}
+		}
 	}
 	cooldown_years = 10
 	on_cooldown_expires = {
@@ -692,15 +702,13 @@ estate_harpy_expulsion = {
 	loyalty = -0.1
 	influence = -0.1
 	is_valid = {
-		if = {
-			limit = {uses_isolationism = yes}
-			isolationism = 3
-		}
+		NOT = { has_country_modifier = racial_pop_harpy_enslavement }
+		NOT = { has_country_modifier = racial_pop_harpy_purge }
+		NOT = { has_country_modifier = racial_focus_harpy }
+		NOT = { has_estate_privilege = estate_harpy_taxation_policy }
 	}
 	can_select = {
-		can_expel_race = {
-			RACE = harpy
-		}
+		can_expel_race = {RACE = harpy}
 	}
 	on_granted = {				
 		large_decrease_of_harpy_tolerance_effect = yes
@@ -747,7 +755,10 @@ estate_harpy_focus = {
 			is_part_of_hre = no
 		}				
 		NOT = { has_country_modifier = harpy_administration }
-		NOT = { has_country_modifier = harpy_military }		
+		NOT = { has_country_modifier = harpy_military }
+		NOT = { has_country_modifier = racial_pop_harpy_enslavement }
+		NOT = { has_country_modifier = racial_pop_harpy_purge }
+		NOT = { has_country_modifier = racial_pop_harpy_expulsion }
 	}
 	can_select = {
 		NOT = {
@@ -779,6 +790,54 @@ estate_harpy_focus = {
 	cooldown_years = 10
 	on_cooldown_expires = {
 	}
+}
+estate_harpy_enslavement = {
+	icon = privilege_grant_autonomy
+	loyalty = -0.2
+	influence = -0.20
+	is_valid = {
+		NOT = {has_estate_privilege = estate_harpy_intolerance_policy}
+		can_enslave_race = {RACE = harpy}
+	}
+	can_select = {
+		NOT = {has_race_recruitment = {race = harpy}}
+	}
+	on_granted = {		
+		largest_decrease_of_harpy_tolerance_effect = yes
+		add_country_modifier = { name = racial_pop_harpy_enslavement duration = -1 }
+		custom_tooltip = harpy_enslave_global_effect_tt
+		custom_tooltip = harpy_enslave_effect_unrest_tt
+		hidden_effect = {add_expulsion_unrest = {race = harpy}}
+	}
+	penalties = {}
+	benefits = {}
+	on_revoked = {		
+		remove_country_modifier = racial_pop_harpy_enslavement
+	}
+	on_invalid = {
+		remove_country_modifier = racial_pop_harpy_enslavement
+	}
+	ai_will_do = {
+		factor = 1
+		modifier = {
+			factor = 0
+			medium_tolerance_harpy_race_trigger = yes
+		}
+		modifier = {
+			factor = 1000
+			NOT = {liberty_desire = 50}
+			culture_is_harpy = no
+			overlord = {
+				has_country_modifier = racial_pop_harpy_enslavement
+			}
+		}
+		modifier = {
+			factor = 10
+			has_country_modifier = monstrous_nation
+		}
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {}
 }
 estate_harpy_non_military_swap = {
 	icon = privilege_grant_autonomy

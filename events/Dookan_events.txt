@@ -445,7 +445,6 @@ country_event = {
 	picture = FAMINE_eventPicture
 	
 	trigger = {
-		religion = old_dookan
 		NOT = { has_country_modifier = dookan_omen_of_calamity }
 		had_country_flag = {
 			flag = dookan_is_angry_flag
@@ -487,12 +486,18 @@ country_event = {
 	mean_time_to_happen = {
 		months = 12
 	}
+	immediate = {
+		random_owned_province = {
+			save_event_target = target_province
+		}
+	}
 	
 	option = {
 		name = great_dookan_events.14.a
+		goto = event_target:target_province
 		random_list = {
 			50 = {
-				random_owned_province = {
+				event_target:target_province = {
 					spawn_rebels = {
 						type = old_dookan_rebels
 						size = 2
@@ -500,7 +505,7 @@ country_event = {
 				}
 			}
 			50 = {
-				random_owned_province = {
+				event_target = {
 					spawn_rebels = {
 						type = old_dookan_rebels
 						size = 1
@@ -604,6 +609,10 @@ country_event = {	#→bertus mod
 				factor = 2
 				is_at_war = no
 			}
+			modifier = {
+				factor = 2
+				has_country_modifier = dookans_guidance_peace
+			}
 		}
 		
 		custom_tooltip = dookan_look_for_omens_tooltip
@@ -632,6 +641,11 @@ country_event = {	#→bertus mod
 			factor = 100
 			modifier = {
 				factor = 2
+				is_at_war = yes
+			}
+			modifier = {
+				factor = 2
+				army_tradition = 75
 				is_at_war = yes
 			}
 		}

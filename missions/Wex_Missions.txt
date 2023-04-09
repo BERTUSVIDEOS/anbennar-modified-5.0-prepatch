@@ -650,21 +650,40 @@ wex_slot_3 = {
 		
 		provinces_to_highlight = {
 			province_id = 306
+			province_id = 8
 		}
 		
 		trigger = {
 			is_emperor = yes
 			hre_reform_passed = emperor_perpetual_diet
-			8 = {
-				controlled_by = A30
+			is_at_war = no
+			OR = {
+				AND = {
+					306 = {is_capital = yes}
+					8 = {controlled_by = A30}
+				}
+				AND = {
+					8 = {is_capital = yes}
+					306 = {controlled_by = A30}
+				}
 			}
 		}
 		
 		effect = {
-			custom_tooltip = wex_diet_tt
-			hidden_effect = {
-				8 = { remove_province_triggered_modifier = perpetual_diet }
-				306 = { add_province_triggered_modifier = perpetual_diet }
+			if = {
+				limit = {
+					306 = {is_capital = yes}
+					8 = {controlled_by = A30}
+				}
+				custom_tooltip = wex_diet_tt
+				set_capital = 306
+				hidden_effect = {
+					8 = { remove_province_triggered_modifier = perpetual_diet }
+					306 = { add_province_triggered_modifier = perpetual_diet }
+				}
+			}
+			else = {
+				set_capital = 8
 			}
 		}
 	}
