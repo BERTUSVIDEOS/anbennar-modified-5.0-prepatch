@@ -154,12 +154,6 @@ country_decisions = {
 				}
 				add_claim = B31
 			}
-			lower_nath_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-				}
-				add_claim = B31
-			}
 			upper_nath_area = {
 				limit = {
 					NOT = { owned_by = ROOT }
@@ -328,18 +322,17 @@ country_decisions = {
 		}
 		
 		provinces_to_highlight = {
-			OR = {	#bertus mod
+			OR = {
 				region = south_castanor_region
+				region = west_castanor_region
 				region = inner_castanor_region
+				province_id = 817
 			}
 			NOT = {
 				ROOT = {
-					num_of_owned_provinces_with = {	#bertus mod
-						value = 54
-						OR = {
-							region = south_castanor_region
-							region = inner_castanor_region
-						}
+					num_of_owned_provinces_with = {
+						value = 35	#35
+						region = south_castanor_region
 					}
 				}
 			}
@@ -347,19 +340,18 @@ country_decisions = {
 		}
 		
 		allow = {
-			adm_tech = 7
-			government_rank = 1
+			is_at_war = no
+			num_of_owned_provinces_with = {
+				value = 35	#35
+				region = south_castanor_region
+			}
+			owns_core_province = 817
 			is_free_or_tributary_trigger = yes
 			is_nomad = no
 			is_at_war = no
 			NOT = { has_country_modifier = monstrous_nation }
-			
-			if = {
-				limit = { has_adventurer_reform = yes }
-				has_reform = found_our_nation
-				has_reform = local_administration
-			}
-			#num_of_cities = 5
+			has_adventurer_reform = yes
+			has_reform = found_our_nation
 			
 			#Ruler Prerequisites
 			OR = {
@@ -370,15 +362,6 @@ country_decisions = {
 				ruler_has_personality = inspiring_leader_personality
 			}
 			NOT = { ruler_has_personality = craven_personality }
-			
-			#Province Prerequisites			
-			num_of_owned_provinces_with = {	#bertus mod
-				value = 54
-				OR = {
-					region = south_castanor_region
-					region = inner_castanor_region
-				}
-			}
 		}
 		effect = {
 			set_country_flag = medium_formable_flag
@@ -398,21 +381,17 @@ country_decisions = {
 				country_event = { id = flavor_blademarches.1 days = 1 }
 				country_event = { id = adventurer.2 days = 1 }
 			}
-			if = {
-				limit = {
-					has_country_modifier = human_administration
-				}
-				custom_tooltip = tooltip_marcher_culture_provinces
-				hidden_effect = {
-					every_owned_province = {
-						limit = {
-							has_owner_culture = yes
-							owner = {
-								culture_is_human = yes
-							}
+			change_primary_culture = marcher
+			custom_tooltip = tooltip_marcher_culture_provinces
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						has_owner_culture = yes
+						owner = {
+							culture_is_human = yes
 						}
-						change_culture = marcher
 					}
+					change_culture = marcher
 				}
 			}
 			if = {
@@ -427,15 +406,6 @@ country_decisions = {
 				limit = { has_consort = yes consort_culture = ROOT consort_is_human = yes }
 				set_consort_culture = marcher
 			}
-			if = {
-				limit = {
-					has_country_modifier = human_administration
-				}
-				change_primary_culture = marcher
-				
-			}
-			set_country_flag = feudal_escann_kingdom
-			set_country_flag = no_formable_culture_shift
 			hidden_effect = { restore_country_name = yes }
 			remove_non_electors_emperors_from_empire_effect = yes
 			if = {
@@ -451,45 +421,13 @@ country_decisions = {
 			}
 			
 			#Claims
-			blademarch_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-				}
-				add_claim = B33
-			}
-			clovenwood_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-				}
-				add_claim = B33
-			}
-			banesfork_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-				}
-				add_claim = B33
-			}
-			beastgrave_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-				}
-				add_claim = B33
-			}
-			vernham_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-				}
-				add_claim = B33
-			}
-			dostans_way_area = {
+			south_castanor_region = {
 				limit = {
 					NOT = { owned_by = ROOT }
 				}
 				add_claim = B33
 			}
 			add_prestige_or_monarch_power = {amount = 25}
-			set_country_flag = formed_blademarches_flag
-			clr_country_flag = 	knightly_order_adventurer
 			country_event = { id = adventurer.2 days = 10}
 			if = {
 				limit = { has_custom_ideas = no }
@@ -497,6 +435,10 @@ country_decisions = {
 			}
 			country_event = { id = flavor_blademarches.2 days = 5 }
 			swap_non_generic_missions = yes
+			set_country_flag = feudal_escann_kingdom
+			set_country_flag = no_formable_culture_shift
+			set_country_flag = formed_blademarches_flag
+			clr_country_flag = 	knightly_order_adventurer
 		}
 		ai_will_do = {
 			factor = 2

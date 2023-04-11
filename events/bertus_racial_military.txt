@@ -4,7 +4,6 @@ country_event = {
 	id = bertus_racial_military.1001
 	title = "bertus_racial_military.1001.title"
 	desc = "bertus_racial_military.1001.desc"
-	picture = PRAYING_eventPicture
 
 	hidden = yes
 	
@@ -55,14 +54,16 @@ country_event = {
 	
 	after = {
 		country_event = {id = bertus_racial_military.1002}
-		country_event = {id = bertus_racial_military.6007}
+		if = {
+			limit = {has_estate_privilege = estate_undead_recruitment}
+			country_event = {id = bertus_racial_military.6007}
+		}
 	}
 }
 country_event = {
 	id = bertus_racial_military.1002
 	title = "bertus_racial_military.1002.title"
 	desc = "bertus_racial_military.1002.desc"
-	picture = PRAYING_eventPicture
 
 	trigger = {
 	}
@@ -137,7 +138,7 @@ country_event = {
 	after = {
 		while = {
 			limit = {
-				NOT = {crown_land_share = 0}
+				NOT = {crown_land_share = 0.1}
 			}
 			change_estate_land_share = {
 				estate = all
@@ -151,7 +152,6 @@ province_event = {
 	id = bertus_racial_military.1101
 	title = "bertus_racial_military.1101.title"
 	desc = "bertus_racial_military.1101.desc"
-	picture = PRAYING_eventPicture
 
 	hidden = yes
 	
@@ -189,10 +189,8 @@ province_event = {
 	id = bertus_racial_military.1102
 	title = "bertus_racial_military.1102.title"
 	desc = "bertus_racial_military.1102.desc"
-	picture = PRAYING_eventPicture
 
-	trigger = {
-	}
+	trigger = {}
 	hidden = yes
 	
 	is_triggered_only = yes
@@ -222,23 +220,17 @@ province_event = {
 		name = "bertus_racial_military.1102.a"		
 	}
 	
-	after = {
-	}
+	after = {}
 }
 country_event = {
 	id = bertus_racial_military.2010
 	title = "bertus_racial_military.2010.title"
 	desc = "bertus_racial_military.2010.desc"
-	picture = PRAYING_eventPicture
-
-	trigger = {
-	}
 	
 	hidden = yes	
 	is_triggered_only = yes
 	
-	immediate = {
-	}
+	immediate = {}
 	option = {
 		name = "bertus_racial_military.2010.a"
 	}
@@ -249,13 +241,9 @@ country_event = {
 	desc = "bertus_racial_military.4003.desc"
 	picture = PRAYING_eventPicture
 
-	trigger = {
-	}
-	
 	is_triggered_only = yes
 	
-	immediate = {
-	}
+	immediate = {}
 	option = {
 		name = "bertus_racial_military.4003.a"
 		trigger = {OR = {any_owned_province = { has_human_majority_trigger = yes} any_country = {culture_is_human = yes ROOT = {knows_country = PREV}}}}
@@ -264,102 +252,102 @@ country_event = {
 	}
 	option = {
 		name = "bertus_racial_military.4003.b"
-		trigger = {OR = {any_owned_province = { has_elven_majority_trigger = yes} any_country = {culture_is_elven = yes ROOT = {knows_country = PREV}}}}
+		trigger = {OR = {any_owned_province = { culture_is_elven = yes} any_country = {culture_is_elven = yes ROOT = {knows_country = PREV}}}}
 		small_increase_of_elven_tolerance_effect = yes
 		
 	}
 	option = {
 		name = "bertus_racial_military.4003.c"
-		trigger = {OR = {any_owned_province = { has_dwarven_majority_trigger = yes} any_country = {culture_is_dwarven = yes ROOT = {knows_country = PREV}}}}
+		trigger = {OR = {any_owned_province = { culture_is_dwarven = yes} any_country = {culture_is_dwarven = yes ROOT = {knows_country = PREV}}}}
 		small_increase_of_dwarven_tolerance_effect = yes
 	}
 	option = {
 		name = "bertus_racial_military.4003.d"
-		trigger = {OR = {any_owned_province = { has_halfling_majority_trigger = yes} any_country = {culture_is_halfling = yes ROOT = {knows_country = PREV}}}}
+		trigger = {OR = {any_owned_province = { culture_is_halfling = yes} any_country = {culture_is_halfling = yes ROOT = {knows_country = PREV}}}}
 		small_increase_of_halfling_tolerance_effect = yes
 		
 	}
 	option = {
 		name = "bertus_racial_military.4003.e"
-		trigger = {OR = {any_owned_province = { has_gnomish_majority_trigger = yes} any_country = {culture_is_gnomish = yes ROOT = {knows_country = PREV}}}}
+		trigger = {OR = {any_owned_province = { culture_is_gnomish = yes} any_country = {culture_is_gnomish = yes ROOT = {knows_country = PREV}}}}
 		small_increase_of_gnomish_tolerance_effect = yes
 		
 	}
 	option = {
 		name = "bertus_racial_military.4003.f"
-		trigger = {OR = {any_owned_province = { has_harimari_majority_trigger = yes} any_country = {culture_is_harimari = yes ROOT = {knows_country = PREV}}}}
+		trigger = {OR = {any_owned_province = { culture_is_harimari = yes} any_country = {culture_is_harimari = yes ROOT = {knows_country = PREV}}}}
 		small_increase_of_harimari_tolerance_effect = yes
 		
 	}
 	option = {
 		name = "bertus_racial_military.4003.g"
-		trigger = {OR = {any_owned_province = { has_gnollish_majority_trigger = yes} any_country = {culture_is_gnollish = yes ROOT = {knows_country = PREV}}}}
+		trigger = {OR = {any_owned_province = { culture_is_gnollish = yes} any_country = {culture_is_gnollish = yes ROOT = {knows_country = PREV}}}}
 		small_increase_of_gnollish_tolerance_effect = yes
 		
 	}
 	option = {
 		name = "bertus_racial_military.4003.h"
-		trigger = {OR = {any_owned_province = { has_ruinborn_majority_trigger = yes} any_country = {culture_is_ruinborn = yes ROOT = {knows_country = PREV}}}}
+		trigger = {OR = {any_owned_province = { culture_is_ruinborn = yes} any_country = {culture_is_ruinborn = yes ROOT = {knows_country = PREV}}}}
 		small_increase_of_ruinborn_tolerance_effect = yes
 		
 	}
 	option = {
 		name = "bertus_racial_military.4003.i"
-		trigger = {OR = {any_owned_province = { has_orcish_majority_trigger = yes} any_country = {culture_is_orcish = yes ROOT = {knows_country = PREV}}}}
+		trigger = {OR = {any_owned_province = { culture_is_orcish = yes} any_country = {culture_is_orcish = yes ROOT = {knows_country = PREV}}}}
 		small_increase_of_orcish_tolerance_effect = yes
 		
 	}
 	option = {
 		name = "bertus_racial_military.4003.j"
-		trigger = {OR = {any_owned_province = { has_goblin_majority_trigger = yes} any_country = {culture_is_goblin = yes ROOT = {knows_country = PREV}}}}
+		trigger = {OR = {any_owned_province = { culture_is_goblin = yes} any_country = {culture_is_goblin = yes ROOT = {knows_country = PREV}}}}
 		small_increase_of_goblin_tolerance_effect = yes
 		
 	}
 	option = {
 		name = "bertus_racial_military.4003.k"
-		trigger = {OR = {any_owned_province = { has_ogre_majority_trigger = yes} any_country = {culture_is_ogre = yes ROOT = {knows_country = PREV}}}}
+		trigger = {OR = {any_owned_province = { culture_is_ogre = yes} any_country = {culture_is_ogre = yes ROOT = {knows_country = PREV}}}}
 		small_increase_of_ogre_tolerance_effect = yes
 		
 	}
 	option = {
 		name = "bertus_racial_military.4003.l"
-		trigger = {OR = {any_owned_province = { has_centaur_majority_trigger = yes} any_country = {culture_is_centaur = yes ROOT = {knows_country = PREV}}}}
+		trigger = {OR = {any_owned_province = { culture_is_centaur = yes} any_country = {culture_is_centaur = yes ROOT = {knows_country = PREV}}}}
 		small_increase_of_centaur_tolerance_effect = yes
 		
 	}
 	option = {
 		name = "bertus_racial_military.4003.m"
-		trigger = {OR = {any_owned_province = { has_harpy_majority_trigger = yes} any_country = {culture_is_harpy = yes ROOT = {knows_country = PREV}}}}
+		trigger = {OR = {any_owned_province = { culture_is_harpy = yes} any_country = {culture_is_harpy = yes ROOT = {knows_country = PREV}}}}
 		small_increase_of_harpy_tolerance_effect = yes
 		
 	}
 	option = {
 		name = "bertus_racial_military.4003.n"
-		trigger = {OR = {any_owned_province = { has_troll_majority_trigger = yes} any_country = {culture_is_troll = yes ROOT = {knows_country = PREV}}}}
+		trigger = {OR = {any_owned_province = { culture_is_troll = yes} any_country = {culture_is_troll = yes ROOT = {knows_country = PREV}}}}
 		small_increase_of_troll_tolerance_effect = yes
 		
 	}
 	option = {
 		name = "bertus_racial_military.4003.o"
-		trigger = {OR = {any_owned_province = { has_half_orcish_majority_trigger = yes} any_country = {culture_is_half_orcish = yes ROOT = {knows_country = PREV}}}}
+		trigger = {OR = {any_owned_province = { culture_is_half_orcish = yes} any_country = {culture_is_half_orcish = yes ROOT = {knows_country = PREV}}}}
 		small_increase_of_half_orcish_tolerance_effect = yes
 		
 	}
 	option = {
 		name = "bertus_racial_military.4003.p"
-		trigger = {OR = {any_owned_province = { has_half_elven_majority_trigger = yes} any_country = {culture_is_half_elven = yes ROOT = {knows_country = PREV}}}}
+		trigger = {OR = {any_owned_province = { culture_is_half_elven = yes} any_country = {culture_is_half_elven = yes ROOT = {knows_country = PREV}}}}
 		small_increase_of_half_elven_tolerance_effect = yes
 		
 	}
 	option = {
 		name = "bertus_racial_military.4003.q"
-		trigger = {OR = {any_owned_province = { has_hobgoblin_majority_trigger = yes} any_country = {culture_is_hobgoblin = yes ROOT = {knows_country = PREV}}}}
+		trigger = {OR = {any_owned_province = { culture_is_hobgoblin = yes} any_country = {culture_is_hobgoblin = yes ROOT = {knows_country = PREV}}}}
 		small_increase_of_hobgoblin_tolerance_effect = yes
 		
 	}
 	option = {
 		name = "bertus_racial_military.4003.r"
-		trigger = {OR = {any_owned_province = { has_kobold_majority_trigger = yes} any_country = {culture_is_kobold = yes ROOT = {knows_country = PREV}}}}
+		trigger = {OR = {any_owned_province = { culture_is_kobold = yes} any_country = {culture_is_kobold = yes ROOT = {knows_country = PREV}}}}
 		small_increase_of_kobold_tolerance_effect = yes
 		
 	}
@@ -374,8 +362,7 @@ country_event = {
 
 	is_triggered_only = yes
 
-	immediate = {
-	}
+	immediate = {}
 
 	option = {
 		name = bertus_racial_military.5045.a
@@ -395,8 +382,7 @@ country_event = {
 
 	is_triggered_only = yes
 
-	immediate = {
-	}
+	immediate = {}
 
 	option = {
 		name = bertus_racial_military.5100.a
@@ -423,8 +409,7 @@ country_event = {
 
 	is_triggered_only = yes
 
-	immediate = {
-	}
+	immediate = {}
 
 	option = {
 		name = bertus_racial_military.5113.a
@@ -445,8 +430,7 @@ country_event = {
 
 	is_triggered_only = yes
 
-	immediate = {
-	}
+	immediate = {}
 
 	option = {
 		name = bertus_racial_military.5114.a
@@ -2297,7 +2281,6 @@ country_event = {
 	id = bertus_racial_military.6001
 	title = bertus_racial_military.6001.t
 	desc = bertus_racial_military.6001.desc
-	picture = TRADE_GOODS_PLANTATION_GOODS_IN_WAREHOUSE_eventPicture
 
 	hidden = yes
 	
@@ -2435,11 +2418,8 @@ country_event = {	#yearly helper for bertus_racial_military.6003
 	
 	hidden = yes
 	is_triggered_only = yes
-    trigger = {
-    }
 	
-	immediate = {
-	}
+	immediate = {}
 	
 	option = {
 		name = bertus_racial_military.6004.a
