@@ -49,14 +49,6 @@ country_event = {
 			}
 		}
 	}
-	
-	immediate = {
-		hidden_effect = {
-			random_owned_province = {
-				save_event_target_as = peasant_revolt_province
-			}
-		}
-	}
 
 	mean_time_to_happen = {
 		days = 1
@@ -72,6 +64,7 @@ country_event = {
 	
 	option = {
 		name = "EVTOPTB804A"
+		goto = peasant_revolt_province
 		event_target:peasant_revolt_province = {
 			particularist_rebels = 1
 		}
@@ -128,6 +121,7 @@ country_event = {
 	
 	option = {
 		name = "EVTOPTB812A"
+		goto = peasant_revolt_province
 		event_target:peasant_revolt_province = {
 			anti_tax_rebels = 1
 		}		
@@ -304,6 +298,7 @@ country_event = {
 		ai_chance = {
 			factor = 50
 		}
+		goto = anti_tax_revolt_province
 		add_estate_nobles_loyalty_effect = yes
 		event_target:anti_tax_revolt_province = {
 			anti_tax_rebels = 1
@@ -511,11 +506,19 @@ country_event = {
 	mean_time_to_happen = {
 		days = 1
 	}
+	immediate = {
+		hidden_effect = { 
+			random_owned_province = {
+				save_event_target_as = province_target
+			}
+		}
+	}
 	
 	option = {
 		name = "EVTOPTB800A"
+		goto = province_target
 		reduce_estate_nobles_loyalty_effect = yes
-		random_owned_province = {
+		event_target:province_target = {
 			noble_rebels = 1
 		}
 	}
@@ -657,6 +660,7 @@ country_event = {
 
 	option = {
 		name = "EVTOPTA6156"
+		goto = minority_religion_province
 		event_target:minority_religion_province = {
 			add_province_modifier = {
 				name = "minority_prospers"
@@ -687,14 +691,22 @@ country_event = {
 		days = 1
 	}
 
+	immediate = {
+		hidden_effect = { 
+			random_owned_province = {
+				limit = {
+					culture = ROOT
+					NOT = { religion = ROOT }
+				}
+				save_event_target_as = province_target
+			}
+		}
+	}
 	option = {
 		name = "EVTOPTA6157"
+		goto = province_target
 		reduce_estate_nobles_loyalty_effect = yes
-		random_owned_province = {
-			limit = {
-				culture = ROOT
-				NOT = { religion = ROOT }
-			}
+		event_target:province_target = {
 			noble_rebels = 1
 		}
 	}
@@ -1594,15 +1606,12 @@ country_event = {
 				}
 				set_country_flag = catholic_heresy
 			}
-		}
-	}
-	
-	option = {
-		name = "EVTOPTB821A"
-		# Christian
-		if = {
-			limit = {
-				has_country_flag = protestant_heresy
+			random_owned_province = {
+				limit = {
+					has_owner_religion = yes
+					NOT = { has_province_modifier = heresy }
+				}
+				save_event_target_as = province_target
 			}
 			random_owned_province = {
 				limit = {
@@ -1610,6 +1619,20 @@ country_event = {
 					is_reformation_center = no
 					NOT = { has_province_modifier = heresy }
 				}
+				save_event_target_as = province_target
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTB821A"
+		goto = province_target
+		# Christian
+		if = {
+			limit = {
+				has_country_flag = protestant_heresy
+			}
+			event_target:province_target = {
 				change_religion = protestant
 			}
 			clr_country_flag = protestant_heresy
@@ -1618,12 +1641,7 @@ country_event = {
 			limit = {
 				has_country_flag = reformed_heresy
 			}
-			random_owned_province = {
-				limit = {
-					has_owner_religion = yes
-					is_reformation_center = no
-					NOT = { has_province_modifier = heresy }
-				}
+			event_target:province_target = {
 				change_religion = reformed
 			}
 			clr_country_flag = reformed_heresy
@@ -1632,12 +1650,7 @@ country_event = {
 			limit = {
 				has_country_flag = catholic_heresy
 			}
-			random_owned_province = {
-				limit = {
-					has_owner_religion = yes
-					is_reformation_center = no
-					NOT = { has_province_modifier = heresy }
-				}
+			event_target:province_target = {
 				change_religion = catholic
 			}
 			clr_country_flag = catholic_heresy
@@ -1648,11 +1661,7 @@ country_event = {
 				religion_group = muslim
 			}
 			add_piety = -0.15
-			random_owned_province = {
-				limit = {
-					has_owner_religion = yes
-					NOT = { has_province_modifier = heresy }
-				}
+			event_target:province_target = {
 				change_religion = heretic
 			}
 		}
@@ -1662,11 +1671,7 @@ country_event = {
 				NOT = { religion_group = christian }
 				NOT = { religion_group = muslim }
 			}
-			random_owned_province = {
-				limit = {
-					has_owner_religion = yes
-					NOT = { has_province_modifier = heresy }
-				}
+			event_target:province_target = {
 				add_province_modifier = {
 					name = "heresy"
 					duration = 730
@@ -1801,6 +1806,12 @@ country_event = {
 				}
 				save_event_target_as = infidel_neighbor
 			}
+			random_owned_province = {
+				limit = {
+					religion = ROOT 
+				}
+				save_event_target_as = province_target
+			 } 
 		}
 	}
 
@@ -1811,11 +1822,9 @@ country_event = {
 	}
 	option = {
 		name = "EVTOPTB6196"
+		goto = province_target
 		add_piety = -0.15
-		random_owned_province = {
-			limit = {
-				religion = ROOT 
-			}
+		event_target:province_target = {
 			spawn_rebels = {
 				type = religious_rebels
 				size = 1
@@ -1948,11 +1957,21 @@ country_event = {
 	is_triggered_only = yes
 	
 	trigger = {
-		has_idea = divine_supremacy
+		has_idea = total_supremacy
 	}
 	
 	mean_time_to_happen = {
 		days = 1
+	}
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					religion = ROOT 
+				}
+				save_event_target_as = province_target
+			} 
+		}
 	}
 	
 	option = {
@@ -1962,11 +1981,9 @@ country_event = {
 
 	option = {
 		name = "EVTOPTB6161"
+		goto = province_target
 		add_piety = 0.2
-		random_owned_province = {
-			limit = {
-				religion = ROOT
-			}
+		event_target:province_target = {
 			spawn_rebels = {
 				type = religious_rebels
 				size = 1
@@ -2016,10 +2033,18 @@ country_event = {
 	mean_time_to_happen = {
 		days = 1
 	}
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				save_event_target_as = province_target
+			}
+		}
+	}
 	
 	option = {
 		name = "EVTOPTA6333"
-		random_owned_province = {
+		goto = province_target
+		event_target:province_target = {
 			revolutionary_rebels = 1
 		} 
 	}
@@ -2106,17 +2131,25 @@ country_event = {
 	mean_time_to_happen = {
 		days = 1
 	}
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					has_owner_religion = no
+					is_reformation_center = no
+					religion_group = root
+					has_missionary = no
+				}
+				save_event_target_as = province_target
+			} 
+		}
+	}
 
 	option = {
 		name = ideagroups.413.a
+		goto = province_target
 		add_piety = 0.05
-		random_owned_province = {
-			limit = {
-				has_owner_religion = no
-				is_reformation_center = no
-				religion_group = root
-				has_missionary = no
-			}
+		event_target:province_target = {
 			change_religion = root
 		}		
 	}
@@ -2144,18 +2177,25 @@ country_event = {
 	mean_time_to_happen = {
 		days = 1
 	}
-
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					has_owner_religion = no
+					is_reformation_center = no
+					NOT = { religion_group = root }
+					has_missionary = no
+				}
+				save_event_target_as = province_target
+			} 
+		}
+	}
 
 	option = {
 		name = ideagroups.414.a
+		goto = province_target
 		add_piety = 0.1
-		random_owned_province = {
-			limit = {
-				has_owner_religion = no
-				is_reformation_center = no
-				NOT = { religion_group = root }
-				has_missionary = no
-			}
+		event_target:province_target = {
 			change_religion = root
 		}		
 	}
@@ -3089,7 +3129,7 @@ country_event = {
 	picture = FORT_eventPicture
 	
 	is_triggered_only = yes
-	goto = event_target:province_target
+	
 	trigger = {
 		has_idea_group = offensive_ideas	
 		any_owned_province = {
@@ -3109,7 +3149,6 @@ country_event = {
 			random_owned_province = {
 				limit = {
 					fort_level = 1
-		
 					NOT = { has_province_modifier = local_fortress }
 					NOT = { has_province_modifier = fort_in_disrepair }
 				}
@@ -3119,6 +3158,7 @@ country_event = {
 	}
 	option = {
 		name = "EVTOPTA6313"
+		goto = province_target
 		event_target:province_target = {
 			add_province_modifier = {
 				name = "fort_in_disrepair"
@@ -3319,7 +3359,9 @@ country_event = {
 		has_idea_group = defensive_ideas	
 	}
 	
-	goto = province_event_target:province_target
+	mean_time_to_happen = {
+		days = 1
+	}
 	immediate = {
 		hidden_effect = { 
 			random_owned_province = {
@@ -3327,12 +3369,10 @@ country_event = {
 			}
 		}
 	}
-	mean_time_to_happen = {
-		days = 1
-	}
 	
 	option = {
 		name = "EVTOPTB834A"
+		goto = province_target
 		event_target:province_target = {
 			anti_tax_rebels = 1
 		}
@@ -3391,7 +3431,7 @@ country_event = {
 				NOT = { has_province_modifier = improved_fortifications }
 			}
 		}
-		goto = province_event_target:province_target
+		goto = province_target
 		event_target:province_target = {
 			add_province_modifier = {
 				name = "improved_fortifications"
@@ -3611,18 +3651,26 @@ country_event = {
 	mean_time_to_happen = {
 		days = 1
 	}
+	immediate = {
+		hidden_effect = { 
+			random_owned_province = {
+				limit = {
+					fort_level = 1
+					NOT = { has_province_modifier = local_fortress }
+					NOT = { has_province_modifier = fort_in_disrepair }
+					is_colony = no
+					is_core = ROOT
+					controlled_by = ROOT				
+				}
+				save_event_target_as = province_target
+			}
+		}
+	}
 
 	option = {
 		name = "EVTOPTA6319"
-		random_owned_province = {
-			limit = {
-				fort_level = 1
-				NOT = { has_province_modifier = local_fortress }
-				NOT = { has_province_modifier = fort_in_disrepair }
-				is_colony = no
-				is_core = ROOT
-				controlled_by = ROOT				
-			}
+		goto = province_target
+		event_target:province_target = {
 			add_province_modifier = {
 				name = "local_fortress"
 				duration = 3650
@@ -4690,13 +4738,21 @@ country_event = {
 	mean_time_to_happen = {
 		days = 1
 	}
+	immediate = {
+		hidden_effect = { 
+			random_owned_province = {
+				limit = {
+					has_port = yes			
+				}
+				save_event_target_as = province_target
+			}
+		}
+	}
+	goto = province_target
 
 	option = {
 		name = ideagroups.1017.a
-		random_owned_province = {
-			limit = {
-				has_port = yes
-			}
+		event_target:province_target = {
 			add_unit_construction = {
 				amount = 2
 				type = heavy_ship
@@ -4707,10 +4763,7 @@ country_event = {
 	}
 	option = {
 		name = ideagroups.1017.b
-		random_owned_province = {
-			limit = {
-				has_port = yes
-			}
+		event_target:province_target = {
 			add_unit_construction = {
 				type = light_ship
 				amount = 3
@@ -5072,13 +5125,21 @@ country_event = {
 	mean_time_to_happen = {
 		days = 1
 	}
+	immediate = {
+		hidden_effect = { 
+			random_owned_province = {
+				limit = {
+					is_overseas = no		
+				}
+				save_event_target_as = province_target
+			}
+		}
+	}
+	goto = province_target
 	
 	option = {
 		name = "EVTOPTB809A"
-		random_owned_province = {
-			limit = {
-				is_overseas = no
-			}
+		event_target:province_target = {
 			add_base_tax = 1
 		}		
 	}
@@ -5100,13 +5161,21 @@ country_event = {
 	mean_time_to_happen = {
 		days = 1
 	}
+	immediate = {
+		hidden_effect = { 
+			random_owned_province = {
+				limit = {
+					is_overseas = no
+				}
+				save_event_target_as = province_target
+			}
+		}
+	}
+	goto = province_target
 	
 	option = {
 		name = "EVTOPTB810A"
-		random_owned_province = {
-			limit = {
-				is_overseas = no
-			}
+		event_target:province_target = {
 			add_base_manpower = 1
 		}		
 	}
@@ -5186,13 +5255,21 @@ country_event = {
 	mean_time_to_happen = {
 		days = 1
 	}
+	immediate = {
+		hidden_effect = { 
+			random_owned_province = {
+				limit = {
+					is_colony = yes
+				}
+				save_event_target_as = province_target
+			}
+		}
+	}
 
 	option = {
 		name = "EVTOPTA6137"
-		random_owned_province = {
-			limit = { 
-				is_colony = yes 
-			}
+		goto = province_target
+		event_target:province_target = {
 			add_colonysize = 300
 		}	
 		add_dip_power = -25
@@ -5220,15 +5297,23 @@ country_event = {
 	mean_time_to_happen = {
 		days = 1
 	}
+	immediate = {
+		hidden_effect = { 
+			random_owned_province = {
+				limit = {
+					is_colony = yes
+				}
+				save_event_target_as = province_target
+			}
+		}
+	}
 
 	option = {
 		name = "EVTOPTA6139"
-		random_owned_province = {
-			limit = { 
-				is_colony = yes 
-			}
+		goto = province_target
+		event_target:province_target = {
 			multiply_colonysize = 0.5
-		}			
+		}
 	}
 
 	option = {
@@ -5336,14 +5421,21 @@ country_event = {
 	mean_time_to_happen = {
 		days = 1
 	}
-
+	immediate = {
+		hidden_effect = { 
+			random_owned_province = {
+				limit = {
+					is_colony = yes
+					native_size = 1
+				}
+				save_event_target_as = province_target
+			}
+		}
+	}
+	goto = province_target
 	option = {
 		name = ideagroups.1205.a
-		random_owned_province = {
-			limit = { 
-				is_colony = yes 
-				native_size = 1
-			}
+		event_target:province_target = {
 			change_native_ferocity = -1
 			change_native_hostileness = -1
 		}	
@@ -5372,15 +5464,23 @@ country_event = {
 	mean_time_to_happen = {
 		days = 1
 	}
+	immediate = {
+		hidden_effect = { 
+			random_owned_province = {
+				limit = {
+					is_colony = yes 
+					colonysize = 200
+					has_colonist = yes	
+				}
+				save_event_target_as = province_target
+			}
+		}
+	}
+	goto = province_target
 
 	option = {
 		name = ideagroups.1206.a
-		random_owned_province = {
-			limit = {
-				is_colony = yes 
-				colonysize = 200
-				has_colonist = yes			
-			}
+		event_target:province_target = {
 			add_colonysize = 200
 			add_base_manpower = 1
 		}
@@ -5411,16 +5511,23 @@ country_event = {
 	mean_time_to_happen = {
 		days = 1
 	}
-
+	immediate = {
+		hidden_effect = { 
+			random_owned_province = {
+				limit = {
+					is_colony = yes 
+					native_size = 1
+					NOT = { trade_goods = unknown }
+				}
+				save_event_target_as = province_target
+			}
+		}
+	}
+	goto = province_target
 		
 	option = {
 		name = ideagroups.1207.a
-		random_owned_province = {
-			limit = { 
-				is_colony = yes 
-				native_size = 1
-				NOT = { trade_goods = unknown }
-			}
+		event_target:province_target = {
 			change_native_hostileness = -5
 			add_province_modifier = {
 				name = encomienda_system
@@ -5454,14 +5561,22 @@ country_event = {
 	mean_time_to_happen = {
 		days = 1
 	}
+	immediate = {
+		hidden_effect = { 
+			random_owned_province = {
+				limit = {
+					is_overseas = yes
+					religion_group = pagan
+				}
+				save_event_target_as = province_target
+			}
+		}
+	}
+	goto = province_target
 		
 	option = {
 		name = ideagroups.1208.a
-		random_owned_province = {
-			limit = { 
-				is_overseas = yes
-				religion_group = pagan
-			}
+		event_target:province_target = {
 			add_province_modifier = {
 				name = evangelical_system
 				duration = 3650
@@ -5491,14 +5606,22 @@ country_event = {
 	mean_time_to_happen = {
 		days = 1
 	}
+	immediate = {
+		hidden_effect = { 
+			random_owned_province = {
+				limit = {
+					is_colony = yes 
+					has_colonist = no
+				}
+				save_event_target_as = province_target
+			}
+		}
+	}
 
 	option = {
 		name = ideagroups.1209.a
-		random_owned_province = {
-			limit = { 
-				is_colony = yes 
-				has_colonist = no
-			}
+		goto = province_target
+		event_target:province_target = {
 			add_colonysize = -1000
 		}	
 	}
@@ -5978,10 +6101,18 @@ country_event = {
 	mean_time_to_happen = {
 		days = 1
 	}
+	immediate = {
+		hidden_effect = { 
+			random_owned_province = {
+				save_event_target_as = province_target
+			}
+		}
+	}
+	goto = province_target
 
 	option = {
 		name = "EVTOPTA6304"
-		random_owned_province = {
+		event_target:province_target = {
 			add_base_manpower = 1
 		}
 		add_manpower = 5
@@ -6212,13 +6343,21 @@ country_event = {
 	mean_time_to_happen = {
 		days = 1
 	}
+	immediate = {
+		hidden_effect = { 
+			random_owned_province = {
+				limit = {
+					is_colony = yes
+				}
+				save_event_target_as = province_target
+			}
+		}
+	}
+	goto = province_target
 	
 	option = {
 		name = ideagroups.1500.a
-		random_owned_province = {
-			limit = {
-				is_colony = yes
-			}
+		event_target:province_target = {
 			add_colonysize = 200
 		}
 	}
@@ -6411,13 +6550,21 @@ country_event = {
 	mean_time_to_happen = {
 		days = 1
 	}
+	immediate = {
+		hidden_effect = { 
+			random_owned_province = {
+				limit = {
+					is_colony = yes
+				}
+				save_event_target_as = province_target
+			}
+		}
+	}
 
 	option = {
 		name = ideagroups.1507.a
-		random_owned_province = {
-			limit = {
-				is_colony = yes
-			}
+		goto = province_target
+		event_target:province_target = {
 			add_colonysize = -200
 		}
 	}
@@ -6594,14 +6741,22 @@ country_event = {
 	mean_time_to_happen = {
 		days = 1
 	}
+	immediate = {
+		hidden_effect = { 
+			random_owned_province = {
+				limit = {
+					is_capital = no
+					is_in_capital_area = yes
+				}
+				save_event_target_as = province_target
+			}
+		}
+	}
 
 	option = {
 		name = "EVTOPTA6335"
-		random_owned_province = {
-			limit = { 
-				is_capital = no
-				is_in_capital_area = yes
-			}
+		goto = province_target
+		event_target:province_target = {
 			add_unrest = 10
 		}
 
@@ -6642,14 +6797,22 @@ country_event = {
 	mean_time_to_happen = {
 		days = 1
 	}
+	immediate = {
+		hidden_effect = { 
+			random_owned_province = {
+				limit = {
+					is_capital = no
+					is_in_capital_area = yes
+				}
+				save_event_target_as = province_target
+			}
+		}
+	}
 
 	option = {
 		name = "EVTOPTA6337"
-		random_owned_province = {
-			limit = { 
-				is_capital = no
-				is_in_capital_area = yes
-			}
+		goto = province_target
+		event_target:province_target = {
 			add_local_autonomy = 25
 		}		
 	}
@@ -7109,11 +7272,19 @@ country_event = {
 	mean_time_to_happen = {
 		days = 1
 	}
+	immediate = {
+		hidden_effect = { 
+			random_owned_province = {
+				limit = { has_port = yes }
+				save_event_target_as = province_target
+			}
+		}
+	}
+	goto = province_target
 
 	option = {
 		name = ideagroups.1706.a
-		random_owned_province = {
-			limit = { has_port = yes }
+		event_target:province_target = {
 			heavy_ship = ROOT
 			heavy_ship = ROOT
 			heavy_ship = ROOT
@@ -7235,11 +7406,19 @@ country_event = {
 	mean_time_to_happen = {
 		days = 1
 	}
+	immediate = {
+		hidden_effect = { 
+			random_owned_province = {
+				limit = { has_port = yes }
+				save_event_target_as = province_target
+			}
+		}
+	}
+	goto = province_target
 
 	option = {
 		name = ideagroups.1710.a
-		random_owned_province = {
-			limit = { has_port = yes }
+		event_target:province_target = {
 			add_province_modifier = {
 				name = "shipyard_fire"
 				duration = 3650
@@ -7755,12 +7934,20 @@ country_event = {
 	mean_time_to_happen = {
 		days = 1
 	}
+	immediate = {
+		hidden_effect = { 
+			random_owned_province = {
+				limit = { has_owner_accepted_culture = yes }
+				save_event_target_as = province_target
+			}
+		}
+	}
+	goto = province_target
 
 	option = {
 		name = ideagroups.1904.a
 		add_piety = -0.05
-		random_owned_province = {
-			limit = { has_owner_accepted_culture = yes }
+		event_target:province_target = {
 			add_base_tax = 1
 		}
 	}
@@ -7788,16 +7975,24 @@ country_event = {
 	mean_time_to_happen = {
 		days = 1
 	}
+	immediate = {
+		hidden_effect = { 
+			random_owned_province = {
+				limit = {
+					has_owner_religion = no
+					is_reformation_center = no
+					religion_group = root
+					has_missionary = no
+				}
+				save_event_target_as = province_target
+			}
+		}
+	}
+	goto = province_target
 
 	option = {
 		name = ideagroups.1905.a
-		random_owned_province = {
-			limit = {
-				has_owner_religion = no
-				is_reformation_center = no
-				religion_group = root
-				has_missionary = no
-			}
+		event_target:province_target = {
 			change_religion = ROOT
 		}
 	}
@@ -7825,18 +8020,26 @@ country_event = {
 	mean_time_to_happen = {
 		days = 1
 	}
+	immediate = {
+		hidden_effect = { 
+			random_owned_province = {
+				limit = {
+					has_owner_religion = no
+					is_reformation_center = no
+					NOT = { religion_group = root }
+					has_missionary = no
+				}
+				save_event_target_as = province_target
+			}
+		}
+	}
+	goto = province_target
 
 	option = {
 		name = ideagroups.1906.a
 		add_piety = 0.05
 		add_estate_dhimmi_loyalty_effect = yes
-		random_owned_province = {
-			limit = {
-				has_owner_religion = no
-				is_reformation_center = no
-				NOT = { religion_group = root }
-				has_missionary = no
-			}
+		event_target:province_target = {
 			change_religion = ROOT
 		}
 	}
@@ -7861,11 +8064,19 @@ country_event = {
 	mean_time_to_happen = {
 		days = 1
 	}
+	immediate = {
+		hidden_effect = { 
+			random_owned_province = {
+				limit = { nationalism = 1 }
+				save_event_target_as = province_target
+			}
+		}
+	}
 
 	option = {
 		name = ideagroups.1907.a
-		random_owned_province = {
-			limit = { nationalism = 1 }
+		goto = province_target
+		event_target:province_target = {
 			add_nationalism = 5
 		}
 	}
@@ -8013,8 +8224,24 @@ country_event = {
 				}
 				set_country_flag = catholic_heresy
 			}
+			random_owned_province = {
+				limit = {
+					has_owner_religion = yes
+					NOT = { has_province_modifier = heresy }
+				}
+				save_event_target_as = province_target
+			}
+			random_owned_province = {
+				limit = {
+					has_owner_religion = yes
+					is_reformation_center = no
+					NOT = { has_province_modifier = heresy }
+				}
+				save_event_target_as = province_target
+			}
 		}
 	}
+	goto = province_target
 	
 	option = {
 		name = "ideagroups.1908.a"
@@ -8024,12 +8251,7 @@ country_event = {
 			limit = {
 				has_country_flag = protestant_heresy
 			}
-			random_owned_province = {
-				limit = {
-					has_owner_religion = yes
-					is_reformation_center = no
-					NOT = { has_province_modifier = heresy }
-				}
+			event_target:province_target = {
 				change_religion = protestant
 			}
 			clr_country_flag = protestant_heresy
@@ -8038,12 +8260,7 @@ country_event = {
 			limit = {
 				has_country_flag = reformed_heresy
 			}
-			random_owned_province = {
-				limit = {
-					has_owner_religion = yes
-					is_reformation_center = no
-					NOT = { has_province_modifier = heresy }
-				}
+			event_target:province_target = {
 				change_religion = reformed
 			}
 			clr_country_flag = reformed_heresy
@@ -8052,12 +8269,7 @@ country_event = {
 			limit = {
 				has_country_flag = catholic_heresy
 			}
-			random_owned_province = {
-				limit = {
-					has_owner_religion = yes
-					is_reformation_center = no
-					NOT = { has_province_modifier = heresy }
-				}
+			event_target:province_target = {
 				change_religion = catholic
 			}
 			clr_country_flag = catholic_heresy
@@ -8067,11 +8279,7 @@ country_event = {
 			limit = {
 				religion_group = muslim
 			}
-			random_owned_province = {
-				limit = {
-					has_owner_religion = yes
-					NOT = { has_province_modifier = heresy }
-				}
+			event_target:province_target = {
 				change_religion = heretic
 			}
 		}
@@ -8081,11 +8289,7 @@ country_event = {
 				NOT = { religion_group = christian }
 				NOT = { religion_group = muslim }
 			}
-			random_owned_province = {
-				limit = {
-					has_owner_religion = yes
-					NOT = { has_province_modifier = heresy }
-				}
+			event_target:province_target = {
 				add_province_modifier = {
 					name = "heresy"
 					duration = 730
@@ -8115,15 +8319,23 @@ country_event = {
 	mean_time_to_happen = {
 		days = 1
 	}
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					has_owner_religion = no
+					has_missionary = yes
+				}
+				save_event_target_as = province_target
+			}
+		}
+	}
+	goto = province_target
 
 	option = {
 		name = ideagroups.1909.a
 		add_piety = -0.05
-		random_owned_province = {
-			limit = {
-				has_owner_religion = no
-				has_missionary = yes
-			}
+		event_target:province_target = {
 			add_province_modifier = {
 				name = "ineffective_missionary"
 				duration = 3650
@@ -8201,7 +8413,6 @@ country_event = {
 	desc = ideagroups.1923.d
 	picture = PRAYING_eventPicture
 	is_triggered_only = yes
-	goto = ancestral_temple_province_target
 	
 	trigger = {
 		has_idea_group = horde_gov_ideas
@@ -8209,6 +8420,9 @@ country_event = {
 			religion_group = pagan
 			NOT = { has_province_modifier = "ancestral_temple" }
 		}
+	}
+	mean_time_to_happen = {
+		days = 1
 	}
 	immediate = {
 		hidden_effect = { 
@@ -8222,9 +8436,8 @@ country_event = {
 			}
 		}
 	}
-	mean_time_to_happen = {
-		days = 1
-	}
+	goto = ancestral_temple_province_target
+
 	option = {
 		name = ideagroups.1923.a
 		event_target:ancestral_temple_province_target = { 
@@ -8360,14 +8573,22 @@ country_event = {
 	mean_time_to_happen = {
 		days = 1
 	}
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					fort_level = 1
+					NOT = { has_province_modifier = seat_of_power }
+				}
+				save_event_target_as = province_target
+			}
+		}
+	}
+	goto = province_target
 
 	option = {
 		name = ideagroups.1928.a
-		random_owned_province = {
-			limit = {
-				fort_level = 1
-				NOT = { has_province_modifier = seat_of_power }
-			}
+		event_target:province_target = {
 			add_province_modifier = {
 				name = "seat_of_power"
 				duration = 3650
@@ -8687,9 +8908,17 @@ country_event = {
 	mean_time_to_happen = {
 		days = 1
 	}
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				save_event_target_as = province_target
+			}
+		}
+	}
+	goto = province_target
 	option = {
 		name = ideagroups.1918.a
-		random_owned_province = {
+		event_target:province_target = {
 			add_province_modifier = {
 				name = "promised_land"
 				duration = 3650
@@ -8715,6 +8944,18 @@ country_event = {
 	mean_time_to_happen = {
 		days = 1
 	}
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					NOT = { religion = ROOT }
+				}
+				save_event_target_as = province_target
+			}
+		}
+	}
+	goto = province_target
+
 	option = {
 		name = ideagroups.1919.a
 		if = {
@@ -8744,10 +8985,7 @@ country_event = {
 		else = {
 			add_adm_power = 25
 		}
-		random_owned_province = {
-			limit = {
-				NOT = { religion = ROOT }
-			}
+		event_target:province_target = {
 			change_religion = ROOT
 		}
 	}
@@ -8839,16 +9077,24 @@ country_event = {
 	mean_time_to_happen = {
 		days = 1
 	}
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					NOT = {
+						development = 10
+						has_province_modifier = blessing_of_the_land
+					}
+				}
+				save_event_target_as = province_target
+			}
+		}
+	}
+	goto = province_target
 
 	option = {
 		name = ideagroups.1932.a
-		random_owned_province = {
-			limit = {
-				NOT = {
-					development = 10
-					has_province_modifier = blessing_of_the_land
-				}
-			}
+		event_target:province_target = {
 			add_province_modifier = {
 				name = "blessing_of_the_land"
 				duration = 3650
@@ -9012,10 +9258,18 @@ country_event = {
 	mean_time_to_happen = {
 		days = 1
 	}
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				save_event_target_as = province_target
+			}
+		}
+	}
+	goto = province_target
 
 	option = {
 		name = ideagroups.1938.a
-		random_owned_province = {
+		event_target:province_target = {
 			add_devastation = 25
 		}
 	}
@@ -9071,7 +9325,7 @@ country_event = {
 	desc = ideagroups.1940.d
 	picture = NATIVES_eventPicture
 
-		is_triggered_only = yes
+	is_triggered_only = yes
 	
 	trigger = {
 		has_idea_group = indigenous_ideas
@@ -9089,19 +9343,27 @@ country_event = {
 	mean_time_to_happen = {
 		days = 1
 	}
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					has_owner_culture = no
+					OR = {
+						NOT = {
+							has_province_modifier = traditions_respected
+							has_province_modifier = traditions_disrespected
+						}
+					}	
+				}
+				save_event_target_as = province_target
+			}
+		}
+	}
+	goto = province_target
 
 	option = {
 		name = ideagroups.1940.a
-		random_owned_province = {
-			limit = {
-				has_owner_culture = no
-				OR = {
-					NOT = {
-						has_province_modifier = traditions_respected
-						has_province_modifier = traditions_disrespected
-					}
-				}	
-			}
+		event_target:province_target = {
 			add_province_modifier = {
 				name = "traditions_respected"
 				duration = 3650
@@ -9111,16 +9373,7 @@ country_event = {
 	
 	option = {
 		name = ideagroups.1940.b
-		random_owned_province = {
-			limit = {
-				has_owner_culture = no
-				OR = {
-					NOT = {
-						has_province_modifier = traditions_respected
-						has_province_modifier = traditions_disrespected
-					}
-				}
-			}
+		event_target:province_target = {
 			add_province_modifier = {
 				name = "traditions_disrespected"
 				duration = 3650
