@@ -54,26 +54,23 @@ country_decisions = {
 		potential = {
 			culture_group = kobold
 			normal_or_historical_nations = yes
-			was_never_end_game_tag_trigger = yes
 			NOT = { exists = Z38 } 
 			capital_scope = { continent = europe }
+			NOT = { has_country_flag = formed_kobildzan_flag }
+			NOT = { has_country_flag = bertus_mid_formable_flag }
 		}
 		provinces_to_highlight = {
-			OR = { 
-				AND = {
-					province_id = 189
-					NOT = { owned_by = ROOT }
+			region = dragon_coast_region
+			AND = {
+				NOT = {
+					ROOT = {
+						num_of_owned_provinces_with = {
+							value = 32	#32/64
+							region = dragon_coast_region
+						}
+					}
 				}
-				AND = {
-					province_id = 173
-					NOT = { owned_by = ROOT }
-					NOT = { 197 = { owned_by = ROOT } }
-				}
-				AND = {
-					province_id = 197
-					NOT = { owned_by = ROOT }
-					NOT = { 173 = { owned_by = ROOT } }
-				}
+				NOT = { owned_by = ROOT }
 			}
 		}
 		allow = {
@@ -81,39 +78,10 @@ country_decisions = {
 			is_free_or_tributary_trigger = yes
 			is_nomad = no
 			is_at_war = no
-			OR = {
-				owns = 173
-				owns = 197
-			}
-			owns = 189
-			if = {
-				limit = {
-					tag = A26
-				}
-				NOT = { exists = A27 } 
-				NOT = { exists = A28 } 
-			}
-			else_if = {
-				limit = {
-					tag = A27
-				}
-				NOT = { exists = A26 } 
-				NOT = { exists = A28 } 
-			}
-			else_if = {
-				limit = {
-					tag = A28
-				}
-				NOT = { exists = A26 } 
-				NOT = { exists = A27 } 
-			}
-			else_if = {
-				limit = {
-					culture_group = kobold
-				}
-				NOT = { exists = A26 } 
-				NOT = { exists = A27 } 
-				NOT = { exists = A28 } 
+			
+			num_of_owned_provinces_with = {
+				value = 32	#32/64
+				region = dragon_coast_region
 			}
 		}
 		effect = {
@@ -151,9 +119,9 @@ country_decisions = {
 			remove_non_electors_emperors_from_empire_effect = yes
 			if = {
 				limit = {
-					NOT = { government_rank = 3 }
+					NOT = { government_rank = 2 }
 				}
-				set_government_rank = 3
+				set_government_rank = 2
 			}
 			dragon_coast_region = {
 				limit = {
@@ -172,7 +140,7 @@ country_decisions = {
 				duration = 7300
 			}
 			set_country_flag = formed_kobildzan_flag
-			lock_racial_admin = yes
+			set_country_flag = bertus_mid_formable_flag
 		}
 		
 		ai_will_do = {
@@ -219,7 +187,8 @@ country_decisions = {
 			capital_scope = {continent = serpentspine}
 			normal_or_historical_nations = yes
 			NOT = { exists = Z56 }
-			was_never_end_game_tag_trigger = yes
+			NOT = { has_country_flag = formed_syzirzex_flag }
+			NOT = { has_country_flag = bertus_mid_formable_flag }
 		}
 		provinces_to_highlight = {
 			province_group = hold_province
@@ -296,7 +265,7 @@ country_decisions = {
 				duration = 7300
 			}
 			set_country_flag = formed_syzirzex_flag
-			lock_racial_admin = yes
+			set_country_flag = bertus_mid_formable_flag
 		}
 		
 		ai_will_do = {

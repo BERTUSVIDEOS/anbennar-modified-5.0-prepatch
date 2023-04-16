@@ -320,12 +320,12 @@ ibevar_2 = {
 		effect = {
 			add_years_of_income = -2	#0→-2
 			remove_estate_privilege = estate_elven_recruitment
-			set_country_flag = estate_elven_ibevari_recruitment_flag
-			set_estate_privilege = estate_elven_ibevari_recruitment
-			#add_country_modifier = {
-			#	name = ibevar_the_ibevari_soldier
-			#	duration = -1
-			#}
+			set_country_flag = estate_elven_elite_recruitment_flag
+			set_estate_privilege = estate_elven_elite_recruitment
+			add_country_modifier = {
+				name = ibevar_the_ibevari_soldier
+				duration = -1
+			}
 		}
 	}
 	
@@ -714,20 +714,26 @@ ibevar_3 = {
 			NOT = { development = 25 }
 		}
 		
-		trigger = {
-			all_owned_province = {
-				OR = {
-					custom_trigger_tooltip = {
-						tooltip = province_is_prosperous
-						is_prosperous = yes
-					}
-					development = 25
+		trigger = {	#bertus mod
+			num_of_owned_provinces_with = {
+				value = 50
+				development = 25
+				custom_trigger_tooltip = {
+					tooltip = province_is_prosperous
+					is_prosperous = yes
 				}
 			}
+			NOT = {has_country_flag = bertus_mid_formable_flag}
 		}
 		
 		effect = {
 			country_event = { id = ibevar.10 }
+			set_government_rank = 3
+			add_country_modifier = {
+				name = ibevar_elfrealm_of_greater_ibevar
+				duration = -1
+			}
+			set_country_flag = bertus_mid_formable_flag
 		}
 	}
 }

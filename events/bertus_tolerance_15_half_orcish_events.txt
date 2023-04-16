@@ -1171,17 +1171,16 @@ province_event = {	#enslavement modifier
 	hidden = yes
 	
     trigger = {
-		has_global_flag = enslavement_activated_flag
 		OR = {
 			AND = {
 				NOT = {
-					has_province_flag = has_half_orcish_enslaved_flag	#flag modifier
+					has_province_flag = has_local_half_orcish_enslaved_flag	#flag modifier
 				}
 				owner = {has_estate_privilege = estate_half_orcish_enslavement}
 				has_half_orcish_majority_trigger = yes
 			}
 			AND = {
-				has_province_flag = has_half_orcish_enslaved_flag	#flag modifier
+				has_province_flag = has_local_half_orcish_enslaved_flag	#flag modifier
 				OR = {
 					NOT = {owner = {has_estate_privilege = estate_half_orcish_enslavement}}
 					AND = {
@@ -1197,15 +1196,15 @@ province_event = {	#enslavement modifier
 	
 	option = {
 		name = half_orcish_tolerance_events.5006.a
-		trigger = {NOT = {has_province_flag = has_half_orcish_enslaved_flag}}
-		set_province_flag = has_half_orcish_enslaved_flag
+		trigger = {NOT = {has_province_flag = has_local_half_orcish_enslaved_flag}}
+		set_province_flag = has_local_half_orcish_enslaved_flag
 		add_pop_modifier = {race = half_orcish  class = enslavement amount = 100percent resource = goods_produced onbase = development}
 		add_pop_modifier = {race = all  class = enslavement_malus amount = 100percent resource = goods_produced onbase = base_production}
 	}
 	option = {
 		name = half_orcish_tolerance_events.5006.b
-		trigger = {has_province_flag = has_half_orcish_enslaved_flag}
-		clr_province_flag = has_half_orcish_enslaved_flag
+		trigger = {has_province_flag = has_local_half_orcish_enslaved_flag}
+		clr_province_flag = has_local_half_orcish_enslaved_flag
 		province_event = {id = bertus_pops.1038}
 	}
 }
@@ -1218,7 +1217,6 @@ province_event = {	#enslavement
 	hidden = yes
 
     trigger = {	
-		has_global_flag = enslavement_activated_flag
 		controller = {has_estate_privilege = estate_half_orcish_enslavement}
 		NOT = { controlled_by = owner }
 		has_half_orcish_majority_trigger = yes
@@ -1274,41 +1272,6 @@ province_event = {	#enslavement distribution
 		modifier = {factor = 0.75 development = 30}
 		modifier = {factor = 0.75 development = 40}
 		modifier = {factor = 0.75 development = 50}
-		modifier = {
-			factor = 1.25
-			variable_arithmetic_trigger = {
-				export_to_variable = {which = local_production value = modifier:global_trade_goods_size}
-				check_variable = {which = local_production value = 3}
-			}
-		}
-		modifier = {
-			factor = 1.25
-			variable_arithmetic_trigger = {
-				export_to_variable = {which = local_production value = modifier:global_trade_goods_size}
-				check_variable = {which = local_production value = 5}
-			}
-		}
-		modifier = {
-			factor = 1.25
-			variable_arithmetic_trigger = {
-				export_to_variable = {which = local_production value = modifier:global_trade_goods_size}
-				check_variable = {which = local_production value = 7}
-			}
-		}
-		modifier = {
-			factor = 1.25
-			variable_arithmetic_trigger = {
-				export_to_variable = {which = local_production value = modifier:global_trade_goods_size}
-				check_variable = {which = local_production value = 9}
-			}
-		}
-		modifier = {
-			factor = 1.25
-			variable_arithmetic_trigger = {
-				export_to_variable = {which = local_production value = modifier:global_trade_goods_size}
-				check_variable = {which = local_production value = 11}
-			}
-		}
 	}
 
 	immediate = {
@@ -1324,15 +1287,15 @@ province_event = {	#enslavement distribution
 			increase_slave_amount = {race = half_orcish}
 		}
 		else = {
-			add_province_modifier = { name = half_orcish_enslavement_100percent_goods_produced_1	duration = -1}
+			add_province_modifier = { name = half_orcish_enslavement_100percent_goods_produced_1	duration = -1 hidden = yes}
 			set_province_flag = half_orcish_foreign_slaves_flag
 		}
 		if = {
 			limit = {
-				NOT = {has_province_modifier = foreing_slaves_modifier}
+				NOT = {has_province_modifier = foreign_slaves_modifier}
 			}
 			add_province_modifier = {
-				name = foreing_slaves_modifier
+				name = foreign_slaves_modifier
 				duration = -1
 			}
 		}

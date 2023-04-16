@@ -206,7 +206,7 @@ decrease_slave_amount = {
 		$race$_enslavement_100percent_goods_produced_4	 = 	{add_province_modifier  = { name  = $race$_enslavement_100percent_goods_produced_3	duration = -1 hidden = yes }	remove_province_modifier  = $race$_enslavement_100percent_goods_produced_4	}
 		$race$_enslavement_100percent_goods_produced_3	 = 	{add_province_modifier  = { name  = $race$_enslavement_100percent_goods_produced_2	duration = -1 hidden = yes }	remove_province_modifier  = $race$_enslavement_100percent_goods_produced_3	}
 		$race$_enslavement_100percent_goods_produced_2	 = 	{add_province_modifier  = { name  = $race$_enslavement_100percent_goods_produced_1	duration = -1 hidden = yes }	remove_province_modifier  = $race$_enslavement_100percent_goods_produced_2	}
-		$race$_enslavement_100percent_goods_produced_1	 = 	{remove_province_modifier  = $race$_enslavement_100percent_goods_produced_1	clr_province_flag = has_human_enslaved_flag clr_province_flag = human_foreign_slaves_flag if = {limit = {has_foreign_slaves = no} remove_province_modifier = foreing_slaves_modifier}}
+		$race$_enslavement_100percent_goods_produced_1	 = 	{remove_province_modifier  = $race$_enslavement_100percent_goods_produced_1	clr_province_flag = has_local_$race$_enslaved_flag clr_province_flag = $race$_foreign_slaves_flag if = {limit = {has_foreign_slaves = no} remove_province_modifier = foreign_slaves_modifier}}
 	}
 }
 get_slaves = {
@@ -261,14 +261,9 @@ increase_dominion_wars_support = {
 	}
 }
 get_wars_of_dominion_bonus = {
-	set_variable = {which = dominion_wars_power_boost value = 0}
-	change_variable = {
-		which = dominion_wars_power
-		which = dominion_wars_power_boost
-	}
 	while = {
-		limit = {check_variable = {which = dominion_wars_power_boost value = 1}}
-		change_variable = {which = dominion_wars_power_boost value = -1}
+		limit = {check_variable = {which = dominion_wars_power value = 1}}
+		change_variable = {which = dominion_wars_power value = -1}
 		add_yearly_manpower = 0.1
 		add_years_of_income = 0.1
 	}

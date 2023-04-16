@@ -7,26 +7,30 @@ country_decisions = {
 			culture_group = divenori
 			high_tolerance_human_race_trigger = yes	#bertus mod
 			normal_or_historical_nations = yes
-			was_never_end_game_tag_trigger = yes
 			capital_scope = { continent = africa }
+			NOT = { has_country_flag = formed_kheterata_flag }
+			NOT = { has_country_flag = bertus_major_formable_flag }
 		}
 		provinces_to_highlight = {
 			OR = { 
-				AND = {
-					province_id = 475
-					NOT = { owned_by = ROOT }
-				}
-				AND = {
-					province_id = 473
-					NOT = { owned_by = ROOT }
-					NOT = { 197 = { owned_by = ROOT } }
-				}
-				AND = {
-					province_id = 469
-					NOT = { owned_by = ROOT }
-					NOT = { 173 = { owned_by = ROOT } }
+				province_id = 475
+				province_id = 473
+				province_id = 469
+				region = north_salahad_region
+				region = gol_region
+			}
+			NOT = {
+				ROOT = {
+					num_of_owned_provinces_with = {
+						value = 100
+						OR = {
+							region = north_salahad_region
+							region = gol_region
+						}
+					}
 				}
 			}
+			NOT = { owned_by = ROOT }
 		}
 		allow = {
 			is_free_or_tributary_trigger = yes
@@ -35,6 +39,13 @@ country_decisions = {
 			owns = 475
 			owns = 473 
 			owns = 469
+			num_of_owned_provinces_with = {
+				value = 100
+				OR = {
+					region = north_salahad_region
+					region = gol_region
+				}
+			}
 		}
 		effect = {
 			change_tag = U01
@@ -77,6 +88,8 @@ country_decisions = {
 				name = "centralization_modifier"
 				duration = 7300
 			}
+			set_country_flag = formed_kheterata_flag
+			set_country_flag = bertus_major_formable_flag
 		}
 		
 		ai_will_do = {

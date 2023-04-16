@@ -7,41 +7,23 @@ country_decisions = {
 			religion = the_jadd
 			NOT = { exists = F51 }
 			normal_or_historical_nations = yes
-			was_never_end_game_tag_trigger = yes
+			NOT = { has_country_flag = formed_jadd_empire_flag }
+			NOT = { has_country_flag = bertus_major_formable_flag }
 		}
 		provinces_to_highlight = {
 			OR = {
-				AND = {
-					OR = {
-						superregion = bulwar_superregion
-						superregion = rahen_superregion
-					}
-					NOT = { owned_by = ROOT }
-					NOT = {
-						ROOT = {
-							num_of_owned_provinces_with = {
-								value = 150
-								OR = {
-									superregion = bulwar_superregion
-									superregion = rahen_superregion
-								}
-							}
+				superregion = bulwar_superregion
+				superregion = rahen_superregion
+			}
+			NOT = { owned_by = ROOT }
+			NOT = {
+				ROOT = {
+					num_of_owned_provinces_with = {
+						value = 150
+						OR = {
+							superregion = bulwar_superregion
+							superregion = rahen_superregion
 						}
-					}
-				}
-				AND = {
-					OR = {
-						province_id = 2909
-						province_id = 643
-						province_id = 625
-						province_id = 601
-						province_id = 4411
-						province_id = 4435
-						province_id = 4391
-					}
-					OR = {
-						NOT = { owned_by = ROOT }
-						NOT = { is_core = ROOT }
 					}
 				}
 			}
@@ -49,33 +31,13 @@ country_decisions = {
 		allow = {
 			is_at_war = no
 			is_free_or_tributary_trigger = yes
-			if = {
-				limit = { ai = yes }
-				num_of_owned_provinces_with = {
-					value = 100
-					OR = {
-						superregion = bulwar_superregion
-						superregion = rahen_superregion
-					}
+			num_of_owned_provinces_with = {
+				value = 150
+				OR = {
+					superregion = bulwar_superregion
+					superregion = rahen_superregion
 				}
 			}
-			else = {
-				num_of_owned_provinces_with = {
-					value = 150
-					OR = {
-						superregion = bulwar_superregion
-						superregion = rahen_superregion
-					}
-				}
-				owns_core_province = 2909
-				owns_core_province = 643
-				owns_core_province = 625
-				owns_core_province = 601
-				owns_core_province = 4411
-				owns_core_province = 4435
-				owns_core_province = 4391
-			}
-			
 		}
 		effect = {
 			change_tag = F51
@@ -123,6 +85,7 @@ country_decisions = {
 				}
 			}
 			set_country_flag = formed_jadd_empire_flag
+			set_country_flag = bertus_major_formable_flag
 		}
 		ai_will_do = {
 			factor = 1

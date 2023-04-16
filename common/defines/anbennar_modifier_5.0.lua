@@ -4,19 +4,29 @@
 --
 -- NDefines.NDiplomacy.MAX_CLIENT_STATES = 20
 
-NDefines.NGame.GREAT_PROJECT_WARSCORE_COST_MODIFIER = 0.1	--0.33→-0.1-- How much each great project multiplies a war score cost by (so 1 GP adds 33% 2 add 66% etc)
-NDefines.NGame.AE_SAME_RELIGION = 0.25	--0.5→0.25
-NDefines.NGame.AE_DIFFERENT_RELIGION = -0.75	-- -0.5→-0.75
-NDefines.NGame.AE_HRE_INTERNAL = 0.25	-- 0.5→0.25
-NDefines.NGame.AE_DISTANCE_BASE = 1.0 --0.75→1.0 per 100 distance
-NDefines.NGame.AE_PROVINCE_CAP = 200	--30→200-- Province development above this will not count for AE (also used for warscore cost cap)
-NDefines.NGame.AE_PRIMITIVES = -0.75 -- less AE from primitives
-NDefines.NGame.TRIBUTE_BASE_CASH = 0.25	--0.125→0.25-- Tributary State: Part of yearly income given in tribute
-NDefines.NGame.TRIBUTE_BASE_ADM = 0.02	--0.03→0.02-- Tributary State: Part Adm tribute mulitplied by total development
-NDefines.NGame.TRIBUTE_BASE_DIP = 0.02	--0.03→0.02-- Tributary State: Part Dip tribute mulitplied by total development
-NDefines.NGame.TRIBUTE_BASE_MIL = 0.02	--0.03→0.02-- Tributary State: Base Mil tribute mulitplied by total development
-NDefines.NGame.TRIBUTE_BASE_MANPOWER = 0.50	--0.25→0.5-- Tributary State: Part of yearly manpower given in tribute
-
+NDefines.NDiplomacy.GREAT_PROJECT_WARSCORE_COST_MODIFIER = 0.1	--0.33→-0.1-- How much each great project multiplies a war score cost by (so 1 GP adds 33% 2 add 66% etc)
+NDefines.NDiplomacy.AE_SAME_RELIGION = 0.25	--0.5→0.25
+NDefines.NDiplomacy.AE_DIFFERENT_RELIGION = -0.75	-- -0.5→-0.75
+NDefines.NDiplomacy.AE_ATTACKER_DEVELOPMENT = 0.01	-- +50% cap (at 1000 development)
+NDefines.NDiplomacy.AE_DEFENDER_DEVELOPMENT = 0.01	-- -50% cap (at 1000 development)
+NDefines.NDiplomacy.PO_DEMAND_PROVINCES_AE = 0.3 				--0.6→0.3   -- _DDEF_PO_DEMAND_PROVINCES_AE = 10, (Per development)
+NDefines.NDiplomacy.PO_RETURN_CORES_AE = 0.1 					--0.4→0.1   -- (Per core, only applied if returning cores to vassals of winner)
+NDefines.NDiplomacy.PO_FORM_PU_AE = 0.1 						--0.2→0.1	-- _DDEF_PO_FORM_PU_AE = 10, (Per development)
+NDefines.NDiplomacy.PO_CONCEDE_COLONIAL_AE = 0.1                --0.2→0.1
+NDefines.NDiplomacy.PO_BECOME_VASSAL_AE = 0.2       			--0.5→0.2  -- _DDEF_PO_BECOME_VASSAL_AE = 10, (Per development)
+NDefines.NDiplomacy.PO_FORCE_JOIN_EMPIRE_AE = 0.1 				--0.2→0.1	-- _DDEF_PO_BECOME_VASSAL_AE = 10, (Per development)
+NDefines.NDiplomacy.PO_TRANSFER_VASSAL_AE = 0.1                 --0.3→0.1
+NDefines.NDiplomacy.AE_SAME_CULTURE = 1.0        --0.5→1.0
+NDefines.NDiplomacy.AE_SAME_CULTURE_GROUP = 1.0      --0.25→1.0
+NDefines.NDiplomacy.AE_HRE_INTERNAL = 0.25	-- 0.5→0.25
+NDefines.NDiplomacy.AE_DISTANCE_BASE = 0.5 --0.75→0.5 per 100 distance
+NDefines.NDiplomacy.AE_PROVINCE_CAP = 200	--30→200-- Province development above this will not count for AE (also used for warscore cost cap)
+NDefines.NDiplomacy.AE_PRIMITIVES = -0.75 -- less AE from primitives
+NDefines.NDiplomacy.TRIBUTE_BASE_CASH = 0.25	--0.125→0.25-- Tributary State: Part of yearly income given in tribute
+NDefines.NDiplomacy.TRIBUTE_BASE_ADM = 0.02	--0.03→0.02-- Tributary State: Part Adm tribute mulitplied by total development
+NDefines.NDiplomacy.TRIBUTE_BASE_DIP = 0.02	--0.03→0.02-- Tributary State: Part Dip tribute mulitplied by total development
+NDefines.NDiplomacy.TRIBUTE_BASE_MIL = 0.02	--0.03→0.02-- Tributary State: Base Mil tribute mulitplied by total development
+NDefines.NDiplomacy.TRIBUTE_BASE_MANPOWER = 0.50	--0.25→0.5-- Tributary State: Part of yearly manpower given in tribute
 NDefines.NDiplomacy.MONTHS_BEFORE_TOTAL_OCCUPATION = 12	--60→12-- Before this many months have passed in the war you cannot gain 100% warscore by just occupying the warleader
 NDefines.NDiplomacy.REVANCHISM_MONTHLY_DECAY = 0.277	-- 0.833→0.277 about 30 years
 NDefines.NDiplomacy.EMPEROR_REVOKE_AUTHORITY_COST = 10.0	--50→10
