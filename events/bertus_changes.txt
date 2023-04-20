@@ -2282,6 +2282,9 @@ province_event = {	#underhold
 		random_empty_neighbor_province = {
 			limit = { has_terrain = dwarven_under_hold }
 			cede_province = event_target:hold_owner_target
+			add_base_tax = 1
+			add_base_production = 1
+			add_base_manpower = 1
 			if = {
 				limit = {event_target:hold_owner_target = {tag = A20}}
 				event_target:hold_owner_target = {
@@ -3505,11 +3508,17 @@ province_event = {
 				has_government_attribute = warlock_religion_actions_mechanic
 			}
 		}
+		NOT = {
+			has_province_modifier = dookan_anointed_slave_herd
+		}
 	}
 	immediate = {
 		if = {
 			limit = {owner = {NOT = {has_country_flag = anoint_slave_herd_great_flag}}}
 			add_church_power = -25
+		}
+		if = {
+			limit = {owner = {has_country_flag = anoint_slave_herd_great_flag}}
 			owner = {clr_country_flag = anoint_slave_herd_great_flag}
 		}
 	}
@@ -3518,6 +3527,7 @@ province_event = {
 		months = 60
 		modifier = {factor = 0.90 owner = {church_power = 300}}
 		modifier = {factor = 0.50 owner = {church_power = 400}}
+		modifier = {factor = 0.01 owner = {has_country_flag = anoint_slave_herd_great_flag}}
 		modifier = {factor = 1.1 owner = {NOT = {religious_unity = 0.90}}}
 		modifier = {factor = 1.2 owner = {NOT = {religious_unity = 0.75}}}
 		modifier = {factor = 2.0 owner = {NOT = {religious_unity = 0.50}}}
