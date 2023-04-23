@@ -196,6 +196,86 @@ particularist_rebels = {
  	}
 	siege_won_effect = {
 		add_local_autonomy = 10	
+		owner = {
+			if = {
+				limit = { has_estate = estate_dhimmi }
+				change_estate_land_share = {
+					estate = estate_dhimmi
+					share = 10.0
+					province = ROOT
+				}
+			}
+			if = {
+				limit = { has_estate = estate_adventurers }
+				change_estate_land_share = {
+					estate = estate_adventurers
+					share = 5.0
+					province = ROOT
+				}
+			}
+			if = {
+				limit = { has_estate = estate_mages }
+				change_estate_land_share = {
+					estate = estate_mages
+					share = 5.0
+					province = ROOT
+				}
+			}
+			if = {
+				limit = { has_estate = estate_artificers }
+				change_estate_land_share = {
+					estate = estate_artificers
+					share = 5.0
+					province = ROOT
+				}
+			}
+			
+			
+			if = {
+				limit = { has_estate = estate_burghers }
+				change_estate_land_share = {
+					estate = estate_burghers
+					share = 10.0
+					province = ROOT
+				}
+			}
+			else_if = {
+				limit = { has_estate = estate_castonath_patricians }
+				change_estate_land_share = {
+					estate = estate_castonath_patricians
+					share = 10.0
+					province = ROOT
+				}
+			}
+			else_if = {
+				limit = { has_estate = estate_monstrous_tribes }
+				change_estate_land_share = {
+					estate = estate_monstrous_tribes
+					share = 10.0
+					province = ROOT
+				}
+			}
+			else_if = {
+				limit = { has_estate = estate_vaisyas }
+				change_estate_land_share = {
+					estate = estate_vaisyas
+					share = 10.0
+					province = ROOT
+				}
+				change_estate_land_share = {
+					estate = estate_jains
+					share = 5.0
+					province = ROOT
+				}
+			}
+			else = { # Fallback
+				change_estate_land_share = {
+					estate = all
+					share = 10.0
+					province = ROOT
+				}
+			}
+		}
 	}	
 	
 	# Country scope
@@ -252,6 +332,33 @@ particularist_rebels = {
 			set_country_flag = court_and_country_surrendered_to_rebels
 			hidden_effect = { country_event = { id = court_and_country_events.100 } }
 			end_disaster = court_and_country
+		}
+		if = {
+			limit = { has_estate = estate_dhimmi }
+			change_estate_land_share = {
+				estate = estate_dhimmi
+				share = 10.0
+			}
+		}
+		if = {
+			limit = { has_estate = estate_burghers }
+			change_estate_land_share = {
+				estate = estate_burghers
+				share = 10.0
+			}
+		}
+		else_if = {
+			limit = { has_estate = estate_vaisyas }
+			change_estate_land_share = {
+				estate = estate_vaisyas
+				share = 10.0
+			}
+		}
+		else = { # Fallback
+			change_estate_land_share = {
+				estate = all
+				share = 10.0
+			}
 		}
 		
 		# Anbennar

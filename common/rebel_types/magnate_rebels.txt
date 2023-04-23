@@ -82,6 +82,23 @@ magnate_rebels = {
 	}
 	siege_won_effect = {
 		add_local_autonomy = 10
+		owner = {
+			if = {
+				limit = { has_estate = estate_burghers }
+				change_estate_land_share = {
+					estate = estate_nobles
+					share = 10.0
+					province = ROOT
+				}
+			}
+			else = { # Fallback
+				change_estate_land_share = {
+					estate = all
+					share = 10.0
+					province = ROOT
+				}
+			}
+		}
 	}
 	
 	# Country scope
@@ -108,6 +125,19 @@ magnate_rebels = {
 		add_prestige = -20
 		add_legitimacy = -20
 		add_horde_unity = -20
+		if = {
+			limit = { has_estate = estate_burghers }
+			change_estate_land_share = {
+				estate = estate_nobles
+				share = 10.0
+			}
+		}
+		else = { # Fallback
+			change_estate_land_share = {
+				estate = all
+				share = 10.0
+			}
+		}
 		
 		# Anbennar
 		if = {

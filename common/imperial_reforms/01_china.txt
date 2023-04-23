@@ -1,0 +1,58 @@
+rein_in_the_lords_decision = {
+	empire = celestial_empire
+	emperor = {
+		global_autonomy = -0.05
+	}
+}
+
+reform_caravan_network_decision = {
+	empire = celestial_empire
+	emperor = {
+		caravan_power = 0.1
+		trade_efficiency = 0.05
+	}
+	required_reform = rein_in_the_lords_decision
+}
+
+establish_censorate_decision = {
+	empire = celestial_empire
+	emperor = {
+		yearly_corruption = -0.02
+	}
+	required_reform = reform_caravan_network_decision
+}
+
+centralize_administration_decision = {
+	empire = celestial_empire
+	emperor = {
+		yearly_absolutism = 0.1
+		administrative_efficiency = 0.1
+	}
+	required_reform = establish_censorate_decision
+}
+
+form_construction_ministry_decision = {
+	empire = celestial_empire
+	emperor = {
+		build_cost = -0.1
+		build_time = -0.25
+	}
+	required_reform = centralize_administration_decision
+}
+
+vassalize_tributaries_decision = {
+	empire = celestial_empire
+	emperor = {
+		imperial_mandate = 0.05
+		liberty_desire_from_subject_development = -0.33
+	}
+	on_effect = {
+		custom_tooltip = vassalize_tributaries_decision_tt
+		set_global_flag = eoc_vassalize_tributaries
+	}
+	off_effect = {
+		custom_tooltip = vassalize_tributaries_decision_ct
+		clr_global_flag = eoc_vassalize_tributaries
+	}
+	required_reform = centralizing_top_government_decision
+}
