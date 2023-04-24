@@ -84,7 +84,20 @@
 # tributary_state_action
 # ask_for_tributary_state_action
 # knowledge_sharing
+demand_unlawful_territory_action = {
+	
+	condition = {
+		potential = {
+			NOT = {imperial_influence = 1}
+		}
+		allow = {
+			always = no
+		}
+	}
 
+	effect = {
+	}
+}
 embargoaction = {
 	
 	condition = {  }
@@ -103,24 +116,7 @@ embargoaction = {
 						set_country_flag = silverforge_embargo
 				}
 			}
-			#add_prestige = 100
-		}
-		
-		#Amgremos Embargo
-		if = {
-			limit = {
-				tag = G62
-				2732 = {
-					owner = { trade_embargo_by = G62 }
-				}
-			}
-			2732 = {
-				owner = {
-						clr_country_flag = amgremos_embargo
-						set_country_flag = amgremos_embargo
-				}
-			}
-			add_prestige = 100
+			#add_prestige_or_monarch_power = {amount =  100}
 		}
 
 		##Seghdihr free embargos
@@ -238,61 +234,61 @@ declarewar = {
 			}
 		}
 	}
-
-	condition = {
-		tooltip = FEDERATION_MILITARY
-		potential = {
-			has_country_modifier = lake_federation_member
-			has_country_modifier = federation_fighter
-		}
-		allow = {
-			FROM = {
-				NOT = { has_country_modifier = lake_federation_member }
-			}
-		}
-	}
 	
-	condition = {
-		tooltip = FEDERATION_SUBVENTIONNER
-		potential = {
-			has_country_modifier = lake_federation_member
-			has_country_modifier = federation_subventionner
-		}
-		allow = {
-			FROM = {
-				NOT = { has_country_modifier = federation_fighter }
-			}
-		}
-	}
+#	condition = {	#bertus mod
+#		tooltip = FEDERATION_MILITARY
+#		potential = {
+#			has_country_modifier = lake_federation_member
+#			has_country_modifier = federation_fighter
+#		}
+#		allow = {
+#			FROM = {
+#				NOT = { has_country_modifier = lake_federation_member }
+#			}
+#		}
+#	}
 	
-	condition = {
-		tooltip = FEDERATION_WAR_MANDAT
-		potential = {
-			has_country_modifier = lake_federation_member
-			NOT = { is_lake_federation_leader = yes }
-		}
-		allow = {
-			is_at_war = no
-			OR = {
-				AND = {
-					has_country_modifier = federation_war_mandat
-					FROM = { has_country_modifier = lake_federation_member }
-				}
-				FROM = { NOT = { has_country_modifier = lake_federation_member } }
-			}
-		}
-	}
+#	condition = {
+#		tooltip = FEDERATION_SUBVENTIONNER
+#		potential = {
+#			has_country_modifier = lake_federation_member
+#			has_country_modifier = federation_subventionner
+#		}
+#		allow = {
+#			FROM = {
+#				NOT = { has_country_modifier = federation_fighter }
+#			}
+#		}
+#	}
 	
-	condition = {
-		tooltip = FEDERATION_CRISIS_WAR
-		potential = {
-			has_country_modifier = lake_federation_member
-			has_global_flag = federation_crisis
-		}
-		allow = {
-			FROM = { NOT = { has_country_modifier = lake_federation_member } }
-		}
-	}
+#	condition = {
+#		tooltip = FEDERATION_WAR_MANDAT
+#		potential = {
+#			has_country_modifier = lake_federation_member
+#			NOT = { is_lake_federation_leader = yes }
+#		}
+#		allow = {
+#			is_at_war = no
+#			OR = {
+#				AND = {
+#					has_country_modifier = federation_war_mandat
+#					FROM = { has_country_modifier = lake_federation_member }
+#				}
+#				FROM = { NOT = { has_country_modifier = lake_federation_member } }
+#			}
+#		}
+#	}
+	
+#	condition = {
+#		tooltip = FEDERATION_CRISIS_WAR
+#		potential = {
+#			has_country_modifier = lake_federation_member
+#			has_global_flag = federation_crisis
+#		}
+#		allow = {
+#			FROM = { NOT = { has_country_modifier = lake_federation_member } }
+#		}
+#	}
 	
 	condition = {
 		tooltip = ULTAKAL_DECREE
@@ -616,13 +612,13 @@ declarewar = {
 	effect = {
 		on_war_declaration_effect = yes #1.35
 
-		if = {
-			limit = { 
-				has_country_modifier = federation_war_mandat
-				FROM = { has_country_modifier = lake_federation_member }
-			}
-			remove_country_modifier = federation_war_mandat
-		}
+		#if = {
+		#	limit = { 
+		#		has_country_modifier = federation_war_mandat
+		#		FROM = { has_country_modifier = lake_federation_member }
+		#	}
+		#	remove_country_modifier = federation_war_mandat
+		#}
 		
 		if = {
 			limit = { 
@@ -642,14 +638,14 @@ declarewar = {
 			G93 = { country_event = { id = mykx.33 } }
 		}
 		
-		if = {
-			limit = {
-				NOT = { has_country_modifier = lake_federation_member }
-				FROM = { has_country_modifier = lake_federation_member }
-				has_global_flag = lake_the_place_of_everyone
-			}
-			FROM = { country_event = { id = lake.49 } }
-		}
+		#if = {
+		#	limit = {
+		#		NOT = { has_country_modifier = lake_federation_member }
+		#		FROM = { has_country_modifier = lake_federation_member }
+		#		has_global_flag = lake_the_place_of_everyone
+		#	}
+		#	FROM = { country_event = { id = lake.49 } }
+		#}
 		
 		if = {
 			limit = {
@@ -924,35 +920,35 @@ allianceaction = {
 	}
 
 	# Anbennar
-	condition = {
-		tooltip = ONLY_ADV_ESCANN
-		potential = {
-			has_reform = adventurer_reform
-			NOT = { is_year = 1600 }
-			capital_scope = {
-				OR = {
-					superregion = escann_superregion
-					area = cursewood_area
-					area = whistlevale_area
-				}
-			}
-		}
-		allow = {
-			FROM = {
-				capital_scope = {
-					OR = {
-						superregion = escann_superregion
-						area = cursewood_area
-						area = whistlevale_area
-					}
-					NOT = { # Stop Corvuria allying adventurers, bad Corvuria
-						region = dostanor_region 
-						region = ourdia_region 
-					}
-				}
-			}
-		}
-	}
+	#condition = {	#Bertus mod #lucca ADV can ally outside Escann
+	#	tooltip = ONLY_ADV_ESCANN
+	#	potential = {
+	#		has_reform = adventurer_reform
+	#		NOT = { is_year = 1600 }
+	#		capital_scope = {
+	#			OR = {
+	#				superregion = escann_superregion
+	#				area = cursewood_area
+	#				area = whistlevale_area
+	#			}
+	#		}
+	#	}
+	#	allow = {
+	#		FROM = {
+	#			capital_scope = {
+	#				OR = {
+	#					superregion = escann_superregion
+	#					area = cursewood_area
+	#					area = whistlevale_area
+	#				}
+	#				NOT = { # Stop Corvuria allying adventurers, bad Corvuria
+	#					region = dostanor_region 
+	#					region = ourdia_region 
+	#				}
+	#			}
+	#		}
+	#	}
+	#}
 	
 	condition = {
 		tooltip = ONLY_ADV_SERPENT
@@ -1958,6 +1954,7 @@ request_to_join_trade_league = {
 		potential = {
 		}
 		allow = {
+			always = no	#bertus mod because negative trade buf
 			home_trade_node = {
 				trade_share = {
 					country = from
@@ -1974,6 +1971,7 @@ invite_to_trade_league = {
 		potential = {
 		}
 		allow = {
+			always = no	#bertus mod because negative trade buf
 			from = {
 				home_trade_node = {
 					trade_share = {
@@ -2329,5 +2327,14 @@ requestpeace = {
 break_alliance = {
 	effect = {
 		on_alliance_broken_effect = yes
+	}
+}
+infiltrate_administration = {
+	condition = {  }
+	pre_effect = {
+		FROM = {
+			set_country_flag = infiltrated_administration_flag
+			country_event = { id = bertus_changes.1113}
+		}
 	}
 }

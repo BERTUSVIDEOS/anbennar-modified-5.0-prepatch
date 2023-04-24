@@ -1,94 +1,699 @@
-interaction = { # Empty
-    #key = empty_interaction
+
+interaction = {	#1-1
+    key = empty_interaction
     random_seed = random
-	cooldown_months = 1000
+	cooldown_months = 1
+
+    trigger = {	
+		custom_trigger_tooltip = {
+			tooltip = celebrate_space_tooltip
+			always = no
+		}
+    }
+    effect = {
+    }
+	ai_will_do = {
+		factor = 0
+	}
+}
+interaction = {	#2-1
+    key = empty_interaction
+    random_seed = random
+	cooldown_months = 1
+
+    trigger = {	
+		custom_trigger_tooltip = {
+			tooltip = celebrate_space_tooltip
+			always = no
+		}
+    }
+    effect = {
+    }
+	ai_will_do = {
+		factor = 0
+	}
+}
+interaction = {	#3-1
+    key = empty_interaction
+    random_seed = random
+	cooldown_months = 1
+
+    trigger = {	
+		custom_trigger_tooltip = {
+			tooltip = celebrate_space_tooltip
+			always = no
+		}
+    }
+    effect = {
+    }
+	ai_will_do = {
+		factor = 0
+	}
+}
+interaction = {	#4-1
+    key = empty_interaction
+    random_seed = random
+	cooldown_months = 1
+
+    trigger = {	
+		custom_trigger_tooltip = {
+			tooltip = celebrate_space_tooltip
+			always = no
+		}
+    }
+    effect = {
+    }
+	ai_will_do = {
+		factor = 0
+	}
+}
+interaction = {	#5-1
+    key = empty_interaction
+    random_seed = random
+	cooldown_months = 1
+
+    trigger = {	
+		custom_trigger_tooltip = {
+			tooltip = celebrate_space_tooltip
+			always = no
+		}
+    }
+    effect = {
+    }
+	ai_will_do = {
+		factor = 0
+	}
+}
+interaction = {	#6-1
+    key = empty_interaction
+    random_seed = random
+	cooldown_months = 1
+
+    trigger = {		
+		custom_trigger_tooltip = {
+			tooltip = celebrate_space_tooltip
+			always = no
+		}
+    }
+    effect = {
+    }
+	ai_will_do = {
+		factor = 0
+	}
+}
+interaction = {	#7-1
+    key = country_goods_interaction
+    random_seed = random
+	cooldown_months = 0
+
+    trigger = {
+		custom_trigger_tooltip = {
+			tooltip = trade_goods_variables_localisations_tooltip
+			always = yes
+		}
+    }
+    effect = {	
+		custom_tooltip = spacing_tooltip
+		if = {
+			limit = {
+				NOT = {
+					has_country_flag = bertus_show_food_flag
+					has_country_flag = bertus_show_metals_flag
+					has_country_flag = bertus_show_textiles_flag
+					has_country_flag = bertus_show_animal_flag
+					has_country_flag = bertus_show_spices_flag
+					has_country_flag = bertus_show_precious_flag
+					has_country_flag = bertus_show_special_flag
+					has_country_flag = bertus_show_manufactured_flag
+				}
+			}
+			if = {	#has goods de-activated
+				limit = {NOT = {has_global_flag = stored_goods_activated_flag}}
+				custom_tooltip = bertus_deactivated_goods_tt
+			}
+			custom_tooltip = bertus_open_goods_menu_tt
+			hidden_effect = {
+				country_event = {id = ANEX_event.34}
+				if = {	#has goods activated
+					limit = {has_global_flag = stored_goods_activated_flag}
+					country_event = {id = bertus_goods.1000}
+					set_country_flag = bertus_show_food_flag
+				}
+				country_event = {id = bertus_changes.7000}
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = bertus_show_food_flag
+			}
+			clr_country_flag = bertus_show_food_flag
+			set_country_flag = bertus_show_metals_flag
+			custom_tooltip = bertus_show_food_tt
+			if = {	#has goods activated
+				limit = {has_global_flag = stored_goods_activated_flag}
+				custom_tooltip = food_needed_tooltip
+			}
+			custom_tooltip = trade_goods_variables_tooltip
+			if = {limit = {grain = 1} custom_tooltip = trade_goods_grain_tooltip}
+			if = {limit = {rice = 1} custom_tooltip = trade_goods_rice_tooltip}
+			if = {limit = {fish = 1} custom_tooltip = trade_goods_fish_tooltip}
+			if = {limit = {livestock = 1} custom_tooltip = trade_goods_livestock_tooltip}
+			if = {limit = {maize = 1} custom_tooltip = trade_goods_maize_tooltip}
+			if = {limit = {potato = 1} custom_tooltip = trade_goods_potato_tooltip}
+			if = {limit = {citrus = 1} custom_tooltip = trade_goods_citrus_tooltip}
+			if = {limit = {dates = 1} custom_tooltip = trade_goods_dates_tooltip}
+			if = {limit = {seafood = 1} custom_tooltip = trade_goods_seafood_tooltip}
+			if = {limit = {cheese = 1} custom_tooltip = trade_goods_cheese_tooltip}
+			if = {limit = {maple_syrup = 1} custom_tooltip = trade_goods_maple_syrup_tooltip}
+			if = {limit = {tomato = 1} custom_tooltip = trade_goods_tomato_tooltip}
+			if = {limit = {sea_turtle = 1} custom_tooltip = trade_goods_sea_turtle_tooltip}
+			if = {limit = {apiculture = 1} custom_tooltip = trade_goods_apiculture_tooltip}
+			if = {limit = {fungi = 1} custom_tooltip = trade_goods_fungi_tooltip}
+			if = {limit = {serpentbloom = 1} custom_tooltip = trade_goods_serpentbloom_tooltip}
+			if = {limit = {salt = 1} custom_tooltip = trade_goods_salt_tooltip}
+			if = {limit = {palm_oil = 1} custom_tooltip = trade_goods_palm_oil_tooltip}
+			if = {limit = {olive_oil = 1} custom_tooltip = trade_goods_olive_oil_tooltip}
+			if = {limit = {whaling = 1} custom_tooltip = trade_goods_whaling_tooltip}
+			if = {limit = {wine = 1} custom_tooltip = trade_goods_wine_tooltip}
+			if = {limit = {champagne = 1} custom_tooltip = trade_goods_champagne_tooltip}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = bertus_show_metals_flag
+			}
+			clr_country_flag = bertus_show_metals_flag
+			set_country_flag = bertus_show_textiles_flag
+			custom_tooltip = bertus_show_metals_tt
+			if = {	#has goods activated
+				limit = {has_global_flag = stored_goods_activated_flag}
+				custom_tooltip = iron_needed_tooltip
+				if = {limit = {mil_tech = 7} custom_tooltip = copper_needed_tooltip}
+			}
+			custom_tooltip = spacing_tooltip
+			custom_tooltip = trade_goods_variables_tooltip
+			# Metals
+			if = {limit = {copper = 1} custom_tooltip = trade_goods_copper_tooltip}
+			if = {limit = {iron = 1} custom_tooltip = trade_goods_iron_tooltip}
+			if = {limit = {tin = 1} custom_tooltip = trade_goods_tin_tooltip}
+			if = {limit = {lead = 1} custom_tooltip = trade_goods_lead_tooltip}
+			if = {limit = {zinc = 1} custom_tooltip = trade_goods_zinc_tooltip}
+			if = {limit = {mercury = 1} custom_tooltip = trade_goods_mercury_tooltip}
+			if = {limit = {brass = 1} custom_tooltip = trade_goods_brass_tooltip}
+			if = {limit = {mithril = 1} custom_tooltip = trade_goods_mithril_tooltip}
+			if = {limit = {silver = 1} custom_tooltip = trade_goods_silver_tooltip}
+			if = {limit = {gold = 1} custom_tooltip = trade_goods_gold_tooltip}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = bertus_show_textiles_flag
+			}
+			clr_country_flag = bertus_show_textiles_flag
+			set_country_flag = bertus_show_animal_flag
+			custom_tooltip = bertus_show_textiles_tt
+			custom_tooltip = trade_goods_variables_tooltip
+			# Textiles
+			if = {limit = {wool = 1} custom_tooltip = trade_goods_wool_tooltip}
+			if = {limit = {fur = 1} custom_tooltip = trade_goods_fur_tooltip}
+			if = {limit = {cloth = 1} custom_tooltip = trade_goods_cloth_tooltip}
+			if = {limit = {cotton = 1} custom_tooltip = trade_goods_cotton_tooltip}
+			if = {limit = {silk = 1} custom_tooltip = trade_goods_silk_tooltip}
+			if = {limit = {carpet = 1} custom_tooltip = trade_goods_carpet_tooltip}
+		}	
+		else_if = {
+			limit = {
+				has_country_flag = bertus_show_animal_flag
+			}
+			clr_country_flag = bertus_show_animal_flag
+			set_country_flag = bertus_show_spices_flag
+			custom_tooltip = bertus_show_animal_tt
+			if = {	#has goods activated
+				limit = {has_global_flag = stored_goods_activated_flag}
+				if = {limit = {uses_horses = yes} custom_tooltip = horses_needed_tooltip}
+				if = {limit = {uses_camels = yes} custom_tooltip = camel_needed_tooltip}
+				if = {limit = {uses_elephants = yes} custom_tooltip = elephants_needed_tooltip}
+			}
+			custom_tooltip = trade_goods_variables_tooltip
+			# animal
+			if = {limit = {camel = 1} custom_tooltip = trade_goods_camel_tooltip}
+			if = {limit = {horses = 1} custom_tooltip = trade_goods_horses_tooltip}
+			if = {limit = {elephants = 1} custom_tooltip = trade_goods_elephants_tooltip}
+			if = {limit = {llama = 1} custom_tooltip = trade_goods_llama_tooltip}
+			if = {limit = {exotic_animals = 1} custom_tooltip = trade_goods_exotic_animals_tooltip}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = bertus_show_spices_flag
+			}
+			clr_country_flag = bertus_show_spices_flag
+			set_country_flag = bertus_show_precious_flag
+			custom_tooltip = bertus_show_spices_tt
+			custom_tooltip = trade_goods_variables_tooltip
+			#Spices
+			if = {limit = {tea = 1} custom_tooltip = trade_goods_tea_tooltip}
+			if = {limit = {coffee = 1} custom_tooltip = trade_goods_coffee_tooltip}
+			if = {limit = {sugar = 1} custom_tooltip = trade_goods_sugar_tooltip}
+			if = {limit = {spices = 1} custom_tooltip = trade_goods_spices_tooltip}
+			if = {limit = {tobacco = 1} custom_tooltip = trade_goods_tobacco_tooltip}
+			if = {limit = {vanilla = 1} custom_tooltip = trade_goods_vanilla_tooltip}
+			if = {limit = {cinnamon = 1} custom_tooltip = trade_goods_cinnamon_tooltip}
+			if = {limit = {cocoa = 1} custom_tooltip = trade_goods_cocoa_tooltip}
+			if = {limit = {cloves = 1} custom_tooltip = trade_goods_cloves_tooltip}
+			if = {limit = {nutmeg = 1} custom_tooltip = trade_goods_nutmeg_tooltip}
+			if = {limit = {saffron = 1} custom_tooltip = trade_goods_saffron_tooltip}
+			if = {limit = {opium = 1} custom_tooltip = trade_goods_opium_tooltip}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = bertus_show_precious_flag
+			}
+			clr_country_flag = bertus_show_precious_flag
+			set_country_flag = bertus_show_special_flag
+			custom_tooltip = bertus_show_precious_tt
+			custom_tooltip = trade_goods_variables_tooltip
+			#precious
+			if = {limit = {incense = 1} custom_tooltip = trade_goods_incense_tooltip}
+			if = {limit = {glass = 1} custom_tooltip = trade_goods_glass_tooltip}
+			if = {limit = {paper = 1} custom_tooltip = trade_goods_paper_tooltip}
+			if = {limit = {amber = 1} custom_tooltip = trade_goods_amber_tooltip}
+			if = {limit = {ebony = 1} custom_tooltip = trade_goods_ebony_tooltip}
+			if = {limit = {chinaware = 1} custom_tooltip = trade_goods_chinaware_tooltip}
+			if = {limit = {gems = 1} custom_tooltip = trade_goods_gems_tooltip}
+			if = {limit = {pearls = 1} custom_tooltip = trade_goods_pearls_tooltip}
+			if = {limit = {ivory = 1} custom_tooltip = trade_goods_ivory_tooltip}
+			if = {limit = {dyes = 1} custom_tooltip = trade_goods_dyes_tooltip}
+			if = {limit = {indigo = 1} custom_tooltip = trade_goods_indigo_tooltip}
+			if = {limit = {marble = 1} custom_tooltip = trade_goods_marble_tooltip}
+			if = {limit = {jade = 1} custom_tooltip = trade_goods_jade_tooltip}
+			if = {limit = {damestear = 1} custom_tooltip = trade_goods_damestear_tooltip}
+			if = {limit = {precursor_relics = 1} custom_tooltip = trade_goods_precursor_relics_tooltip}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = bertus_show_special_flag
+			}
+			clr_country_flag = bertus_show_special_flag
+			set_country_flag = bertus_show_manufactured_flag
+			custom_tooltip = bertus_show_special_tt
+			custom_tooltip = trade_goods_variables_tooltip
+			#Trade Goods
+			if = {limit = {slaves = 1} custom_tooltip = trade_goods_slaves_tooltip}
+			if = {limit = {lumber = 1} custom_tooltip = trade_goods_lumber_tooltip}
+			if = {limit = {tropical_wood = 1} custom_tooltip = trade_goods_tropical_wood_tooltip}
+			if = {limit = {naval_supplies = 1} custom_tooltip = trade_goods_naval_supplies_tooltip}
+			if = {limit = {tar = 1} custom_tooltip = trade_goods_tar_tooltip}
+			if = {limit = {sulfur = 1} custom_tooltip = trade_goods_sulfur_tooltip}
+			if = {limit = {gunpowder = 1} custom_tooltip = trade_goods_gunpowder_tooltip}
+			if = {limit = {coal = 1} custom_tooltip = trade_goods_coal_tooltip}
+		}
+		else = {
+			clr_country_flag = bertus_show_manufactured_flag
+			custom_tooltip = bertus_show_manufactured_tt
+			if = {	#has goods activated
+				limit = {has_global_flag = stored_goods_activated_flag}
+				if = {limit = {mil_tech = 7} custom_tooltip = metalworking_needed_tooltip}
+				if = {limit = {mil_tech = 7} custom_tooltip = leather_needed_tooltip}
+				if = {limit = {mil_tech = 15} custom_tooltip = munitions_needed_tooltip}
+				if = {limit = {mil_tech = 16} custom_tooltip = cannon_needed_tooltip}
+				if = {limit = {adm_tech = 15} custom_tooltip = beer_needed_tooltip}
+				if = {limit = {mil_tech = 21} custom_tooltip = uniforms_needed_tooltip}
+				if = {limit = {dip_tech = 9} custom_tooltip = optics_needed_tooltip}
+				if = {limit = {dip_tech = 17} custom_tooltip = rum_needed_tooltip}
+				if = {limit = {adm_tech = 10} custom_tooltip = woodworking_needed_tooltip}
+				if = {limit = {dip_tech = 11} custom_tooltip = jewellery_needed_tooltip}
+				if = {limit = {adm_tech = 24} custom_tooltip = steam_engine_needed_tooltip}
+			}
+			custom_tooltip = spacing_tooltip
+			custom_tooltip = trade_goods_manufactured_tooltip
+			#manufactured		
+			if = {limit = {metalworking = 1} custom_tooltip = trade_goods_metalworking_tooltip}
+			if = {limit = {leather = 1} custom_tooltip = trade_goods_leather_tooltip}
+			if = {limit = {munitions = 1} custom_tooltip = trade_goods_munitions_tooltip}
+			if = {limit = {cannon = 1} custom_tooltip = trade_goods_cannon_tooltip}
+			if = {limit = {beer = 1} custom_tooltip = trade_goods_beer_tooltip}
+			if = {limit = {uniforms = 1} custom_tooltip = trade_goods_uniforms_tooltip}
+			if = {limit = {optics = 1} custom_tooltip = trade_goods_optics_tooltip}
+			if = {limit = {rum = 1} custom_tooltip = trade_goods_rum_tooltip}
+			if = {limit = {woodworking = 1} custom_tooltip = trade_goods_woodworking_tooltip}
+			if = {limit = {jewellery = 1} custom_tooltip = trade_goods_jewellery_tooltip}
+			if = {limit = {steam_engine = 1} custom_tooltip = trade_goods_steam_engine_tooltip}
+		}
+		custom_tooltip = spacing_tooltip
+    }
+	ai_will_do = {
+		factor = 0
+	}
+}
+interaction = {	#8-1
+    key = country_study_magic_interaction
+    random_seed = random
+	cooldown_months = 0
 
     trigger = {
 		hidden_trigger = {
-			always = no
+			ai = no	#bertus mod
+			NOT = { has_ruler_flag = magic_menu_opened }
+		}
+		NOT = { has_ruler_modifier = magic_realm_menu_cooldown }
+		NOT = { has_ruler_modifier = ruler_recently_casted_spell }
+		ruler_has_mage_personality = yes
+		if = { limit = { NOT = {months_of_ruling = 2 }}
+			months_of_ruling = 2
+		}
+		if = { limit = { is_lesser_in_union = yes }
+			is_lesser_in_union = no
+		}
+		if = { limit = { ai = yes }
+			NOT = { has_ruler_modifier = ruler_recently_casted_spell }
+		}
+		if = { limit = { has_ruler_flag = abjuration_3 }
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_abjuration_3 }
+		}
+		else_if = { limit = { has_ruler_flag = abjuration_2 }
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_abjuration_2 }
+		}
+		else_if = { limit = { has_ruler_flag = abjuration_1 }
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_abjuration_1 }
+		}
+		else = {
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_abjuration_0 }
+		}
+		
+		if = { limit = { has_ruler_flag = conjuration_3 }
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_conjuration_3 }
+		}
+		else_if = { limit = { has_ruler_flag = conjuration_2 }
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_conjuration_2 }
+		}
+		else_if = { limit = { has_ruler_flag = conjuration_1 }
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_conjuration_1 }
+		}
+		else = {
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_conjuration_0 }
+		}
+		
+		if = { limit = { has_ruler_flag = divination_3 }
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_divination_3 }
+		}
+		else_if = { limit = { has_ruler_flag = divination_2 }
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_divination_2 }
+		}
+		else_if = { limit = { has_ruler_flag = divination_1 }
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_divination_1 }
+		}
+		else = {
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_divination_0 }
+		}
+		
+		if = { limit = { has_ruler_flag = enchantment_3 }
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_enchantment_3 }
+		}
+		else_if = { limit = { has_ruler_flag = enchantment_2 }
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_enchantment_2 }
+		}
+		else_if = { limit = { has_ruler_flag = enchantment_1 }
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_enchantment_1 }
+		}
+		else = {
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_enchantment_0 }
+		}
+		
+		if = { limit = { has_ruler_flag = evocation_3 }
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_evocation_3 }
+		}
+		else_if = { limit = { has_ruler_flag = evocation_2 }
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_evocation_2 }
+		}
+		else_if = { limit = { has_ruler_flag = evocation_1 }
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_evocation_1 }
+		}
+		else = {
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_evocation_0 }
+		}
+		
+		if = { limit = { has_ruler_flag = illusion_3 }
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_illusion_3 }
+		}
+		else_if = { limit = { has_ruler_flag = illusion_2 }
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_illusion_2 }
+		}
+		else_if = { limit = { has_ruler_flag = illusion_1 }
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_illusion_1 }
+		}
+		else = {
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_illusion_0 }
+		}
+		
+		if = { limit = { has_ruler_flag = necromancy_3 }
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_necromancy_3 }
+		}
+		else_if = { limit = { has_ruler_flag = necromancy_2 }
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_necromancy_2 }
+		}
+		else_if = { limit = { has_ruler_flag = necromancy_1 }
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_necromancy_1 }
+		}
+		else = {
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_necromancy_0 }
+		}
+		
+		if = { limit = { has_ruler_flag = transmutation_3 }
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_transmutation_3 }
+		}
+		else_if = { limit = { has_ruler_flag = transmutation_2 }
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_transmutation_2 }
+		}
+		else_if = { limit = { has_ruler_flag = transmutation_1 }
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_transmutation_1 }
+		}
+		else = {
+			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_transmutation_0 }
 		}
     }
-    effect = { }
-	
+    effect = {
+		custom_tooltip = open_ruler_magic_menu_tt
+		hidden_effect = { country_event = { id = magic_ruler.0 } }
+		open_single_menu = yes	#prevents people from opening the menu multiple times
+		#Allows for vampires that become mages naturally
+		hidden_effect = {
+			if = { 
+				limit = { has_ruler_flag = is_a_vampire }
+				set_country_flag = mage_vampire
+			}
+		}
+    }
 	ai_will_do = {
 		factor = 0
 	}
 }
-
-interaction = { # Empty
-    #key = empty_interaction
+interaction = {	#9-1
+    key = country_administration_interaction
     random_seed = random
-	cooldown_months = 1000
+	cooldown_months = 0
 
     trigger = {
 		hidden_trigger = {
-			always = no
+			OR = {
+				NOT = { has_country_flag = racial_pop_menu_opened }
+				had_country_flag = {	#If something weird happens and the flag wasn't cleared, allow to open after a year
+					flag = racial_military_menu_opened
+					days = 365
+				}
+			}
 		}
     }
-    effect = { }
-	
+    effect = {		
+		country_administration_effect = {
+			type = administration
+		}
+		custom_tooltip = tolerance_of_human_info_tooltip
+		custom_tooltip = tolerance_of_elven_info_tooltip
+		custom_tooltip = tolerance_of_dwarven_info_tooltip
+		custom_tooltip = tolerance_of_halfling_info_tooltip
+		custom_tooltip = tolerance_of_gnomish_info_tooltip
+		custom_tooltip = tolerance_of_harimari_info_tooltip
+		custom_tooltip = tolerance_of_gnollish_info_tooltip
+		custom_tooltip = tolerance_of_ruinborn_info_tooltip
+		custom_tooltip = tolerance_of_goblin_info_tooltip
+		custom_tooltip = tolerance_of_orcish_info_tooltip
+		custom_tooltip = tolerance_of_ogre_info_tooltip
+		custom_tooltip = tolerance_of_centaur_info_tooltip
+		custom_tooltip = tolerance_of_troll_info_tooltip
+		custom_tooltip = tolerance_of_harpy_info_tooltip
+		custom_tooltip = tolerance_of_half_orcish_info_tooltip
+		custom_tooltip = tolerance_of_half_elven_info_tooltip
+		custom_tooltip = tolerance_of_hobgoblin_info_tooltip
+		custom_tooltip = tolerance_of_kobold_info_tooltip
+		custom_tooltip = spacing_tooltip
+		custom_tooltip = pop_menu_access_tt
+		hidden_effect = {
+			if = { limit = { ai = yes }
+				country_event = { id = racial_pop_misc.1 }
+			}
+			else = {	
+				pop_menu_calculations = yes
+				country_event = { id = racial_pop_misc.3 }
+			}
+			set_country_flag = racial_pop_menu_opened
+		}
+    }
 	ai_will_do = {
 		factor = 0
 	}
 }
-
-interaction = { # Empty
-    #key = empty_interaction
+interaction = {	#1-2
+    key = empty_interaction
     random_seed = random
-	cooldown_months = 1000
+	cooldown_months = 1
+
+    trigger = {	
+		custom_trigger_tooltip = {
+			tooltip = celebrate_space_tooltip
+			always = no
+		}
+    }
+    effect = {
+    }
+	ai_will_do = {
+		factor = 0
+	}
+}
+interaction = {	#2-2
+    key = empty_interaction
+    random_seed = random
+	cooldown_months = 1
+
+    trigger = {	
+		custom_trigger_tooltip = {
+			tooltip = celebrate_space_tooltip
+			always = no
+		}
+    }
+    effect = {
+    }
+	ai_will_do = {
+		factor = 0
+	}
+}
+interaction = {	#3-2
+    key = empty_interaction
+    random_seed = random
+	cooldown_months = 1
+
+    trigger = {	
+		custom_trigger_tooltip = {
+			tooltip = celebrate_space_tooltip
+			always = no
+		}
+    }
+    effect = {
+    }
+	ai_will_do = {
+		factor = 0
+	}
+}
+interaction = {	#4-2
+    key = empty_interaction
+    random_seed = random
+	cooldown_months = 1
+
+    trigger = {	
+		custom_trigger_tooltip = {
+			tooltip = celebrate_space_tooltip
+			always = no
+		}
+    }
+    effect = {
+    }
+	ai_will_do = {
+		factor = 0
+	}
+}
+interaction = {	#5-2
+    key = empty_interaction
+    random_seed = random
+	cooldown_months = 1
+
+    trigger = {	
+		custom_trigger_tooltip = {
+			tooltip = celebrate_space_tooltip
+			always = no
+		}
+    }
+    effect = {
+    }
+	ai_will_do = {
+		factor = 0
+	}
+}
+interaction = {	#6-2
+    key = empty_interaction
+    random_seed = random
+	cooldown_months = 1
+
+    trigger = {	
+		custom_trigger_tooltip = {
+			tooltip = celebrate_space_tooltip
+			always = no
+		}
+    }
+    effect = {
+    }
+	ai_will_do = {
+		factor = 0
+	}
+}
+interaction = {	#7-2
+    key = research_artificery
+    random_seed = random
+	cooldown_months = 0
 
     trigger = {
-		hidden_trigger = {
-			always = no
+		custom_trigger_tooltip = {
+			tooltip = has_artificer_estate_tt
+			OR = {
+				has_estate = estate_artificers
+				AND = {
+					has_estate = estate_dragon_command
+					has_institution = manufactories
+				}
+			}
 		}
     }
-    effect = { }
-	
+    effect = {
+		if = {
+			limit = {
+				OR = {
+					has_estate = estate_artificers
+					has_estate = estate_dragon_command
+				}
+			}
+			country_event = {id = bertus_artificers.1}
+		}
+		if = {
+			limit = {
+				has_estate = estate_artificers
+			}
+			custom_tooltip = artifice_breakdown
+			hidden_effect = { country_event = { id = artificers_estate_events.100 } }
+		}
+		else = {
+			custom_tooltip = celebrate_space_tooltip			
+		}
+    }
 	ai_will_do = {
 		factor = 0
 	}
 }
-
-interaction = { # Empty
-    #key = empty_interaction
-    random_seed = random
-	cooldown_months = 1000
-
-    trigger = { # Empty
-		hidden_trigger = {
-			always = no
-		}
-    }
-    effect = { }
-	
-	ai_will_do = {
-		factor = 0
-	}
-}
-
-interaction = { # Empty
-    #key = empty_interaction
-    random_seed = random
-	cooldown_months = 1000
-
-    trigger = {
-		hidden_trigger = {
-			always = no
-		}
-    }
-    effect = { }
-	
-	ai_will_do = {
-		factor = 0
-	}
-}
-
-interaction = { # Cast Spell
+interaction = {	#8-2
     key = cast_spell
     random_seed = random
 	cooldown_months = 0
 
     trigger = {
+		hidden_trigger = {
+			ai = no	#bertus mod
+		}
+		#NOT = {has_country_modifier = cant_cast_magic}
 		custom_trigger_tooltip = {
 			tooltip = has_magic_estate_tt
 			OR = {
@@ -149,6 +754,7 @@ interaction = { # Cast Spell
 		}
     }
     effect = {
+		
 		if = { limit = { has_estate = estate_mages }
 			if = { limit = { tag = Y63 has_country_flag = Y63_unlocked_minor_runes }
 				custom_tooltip = Y63_open_runes_manu_tt
@@ -159,12 +765,11 @@ interaction = { # Cast Spell
 				custom_tooltip = opens_magic_estate_menu_tt
 				custom_tooltip = cast_spell_effect_tt
 				hidden_effect = {
-					if = { limit = { tag = I02 } #krakdhumvror ice smiths
-						set_estate_privilege = estate_mages_perform_icecraft
+					set_estate_privilege = estate_mages_cast_spells
+					if = { limit = { tag = I02 }
 						country_event = { id = flavor_krak.100 }
 					}
 					else = {
-						set_estate_privilege = estate_mages_cast_spells
 						country_event = { id = magic_estate.1 }
 					}
 				}
@@ -197,192 +802,224 @@ interaction = { # Cast Spell
 		clr_country_flag = revoke_mage_estate_spells
     }
 	ai_will_do = {
-		factor = 10
+		factor = 0
 	}
 }
-
-interaction = { # Sale of Titles
-    key = sale_of_titles
-    random_seed = crown_land_share
-	cooldown_months = 60
+interaction = {	#9-2
+    key = country_military_interaction
+    random_seed = random
+	cooldown_months = 0
 
     trigger = {
-        crown_land_share = 10
-        NOT = { num_of_rebel_armies = 1 }
-		NOT = { num_of_rebel_controlled_provinces = 1 }
-		hidden_trigger = { has_any_estates = yes }
-		if = {
-			limit = { any_owned_province = { has_province_modifier = JY_LF_trading } }
-			custom_trigger_tooltip = {
-				tooltip = JY_LF_not_trading
-				NOT = { any_owned_province = { has_province_modifier = JY_LF_trading } }
-			}
+		hidden_trigger = {
+			NOT = { has_country_flag = racial_military_menu_opened }
 		}
     }
     effect = {
-		if = {
-			limit = { 
-				NOT = { has_government_attribute = no_crownland_money_loss_to_age } 
-				NOT = { has_country_flag = enable_full_ducat_gain_from_selling_crownland_flag }
-			}
-			if = {
-				limit = { current_age = age_of_discovery }
-				add_years_of_estate_land_income = 2.5
-			}
-			else_if = {
-				limit = { current_age = age_of_reformation }
-				add_years_of_estate_land_income = 2.0
-			}
-			else_if = {
-				limit = { current_age = age_of_absolutism }
-				add_years_of_estate_land_income = 1.5
-			}
-			else_if = {
-				limit = { current_age = age_of_revolutions }
-				add_years_of_estate_land_income = 1.0
-			}
+		country_administration_effect = {
+			type = military
 		}
-		else = {
-			add_years_of_estate_land_income = 2.5
-		}
-		if = {
-			limit = {
-				NOT = { has_government_attribute = can_sell_crownland_to_single_estates }
-				NOT = { has_country_flag = can_sell_crownland_to_estates_targeted_flag }
-			}
-			custom_tooltip = ESTATES_SALE_OF_TITLES_DESC
-			give_estate_land_share_gigantic = { estate = all }
-			add_estate_loyalty = {
-				estate = all
-				loyalty = 10
-				short = yes
-			}
-			if = {
-				limit = {
-					has_government_attribute = selling_titles_increases_pa
-				}
-				add_patriarch_authority = 0.05
-			}
-		}
-		else = {
-			country_event = {
-				id = estate_privileges_and_agendas_events.6
-			}
-		}
-		if = {
-			limit = {
-				has_country_flag = recent_land_distribution
-			}
-			clr_country_flag = recent_land_distribution
-		}
-		set_country_flag = recent_land_distribution
+		country_event = {id = bertus_racial_military.1001}
     }
 	ai_will_do = {
-		factor = 25
-		modifier = {
-			factor = 0
-			OR = {
-				NOT = { crown_land_share = 25 }
-				AND = {
-					is_absolutism_active = yes
-					NOT = { crown_land_share = 40 }
-				}
-			}
-		}
-		modifier = {
-			factor = 0.8
-			OR = {
-				NOT = { crown_land_share = 35 }
-				AND = {
-					is_absolutism_active = yes
-					NOT = { crown_land_share = 50 }
-				}
-			}
-		}
-		modifier = {
-			factor = 0
-			NOT = { num_of_loans = 1 }
-		}
-		modifier = {
-			factor = 0.5
-			is_in_deficit = no
-		}
-		modifier = {
-			factor = 1.25
-			has_any_disaster = yes
-		}
-		modifier = {
-			factor = 1.5
-			num_of_loans = 2
-			is_in_deficit = yes
-		}
-		modifier = {
-			factor = 1.5
-			num_of_loans = 5
-		}
-		modifier = {
-			factor = 1.5
-			num_of_loans = 10
-		}
-		modifier = {
-			factor = 1.5
-			num_of_loans = 15
-		}
-		modifier = {
-			factor = 1.5
-			num_of_loans = 20
-		}
-		modifier = {
-			factor = 1.2
-			NOT = {
-				estate_loyalty = {
-					estate = all
-					loyalty = 25
-				}
-			}
-		}
-		modifier = {
-			factor = 1.1
-			crown_land_share = 80
-		}
-		modifier = {
-			factor = 0.75
-			num_of_powerful_estates = 1
-		}
-		modifier = {
-			factor = 0.8
-			has_country_flag = recent_land_distribution
-			NOT = {
-				had_country_flag = {
-					flag = recent_land_distribution
-					days = 5475
-				}
-			}
-		}
-		modifier = {
-			factor = 1.2
-			had_country_flag = {
-				flag = recent_land_distribution
-				days = 10950
-			}
-		}
-		modifier = {
-			factor = 0.5
-			has_country_flag = recent_land_seizure
-			NOT = {
-				had_country_flag = {
-					flag = recent_land_seizure
-					days = 5475
-				}
-			}
-		}
+		factor = 0
 	}
 }
-
-interaction = { # Summon Diet
-    key = summon_the_diet
+interaction = {	#1-3
+    key = first_chair_interaction
     random_seed = random
-	cooldown_months = 60
+	cooldown_months = 0
+
+    trigger = {
+    }
+    effect = {
+		country_chairman_effect = {
+			type = first_hand
+		}
+		if = {
+			limit = {
+				OR = {
+					had_country_flag = {
+						flag = first_hand_cooldown_flag
+						days = 3650
+					}
+					NOT = {has_country_flag = first_hand_cooldown_flag}
+				}
+			}
+			country_event = {
+				id = bertus_racial_military.5200
+			}
+		}
+		else = {
+			custom_tooltip = choose_first_hand_chairman_cooldown_tooltip
+		}
+    }
+	ai_will_do = {
+		factor = 0
+	}
+}
+interaction = {	#2-3
+    key = diplomacy_chair_interaction
+    random_seed = random
+	cooldown_months = 0
+
+    trigger = {
+    }
+    effect = {
+		country_chairman_effect = {
+			type = diplomacy
+		}
+		if = {
+			limit = {
+				OR = {
+					had_country_flag = {
+						flag = diplomacy_chairman_cooldown_flag
+						days = 3650
+					}
+					NOT = {has_country_flag = diplomacy_chairman_cooldown_flag}
+				}
+			}
+			country_event = {
+				id = bertus_racial_military.5201
+			}
+		}
+		else = {
+			custom_tooltip = choose_diplomacy_chairman_cooldown_tooltip
+		}
+    }
+	ai_will_do = {
+		factor = 0
+	}
+}
+interaction = {	#3-3
+    key = military_chair_interaction
+    random_seed = random
+	cooldown_months = 0
+
+    trigger = {
+    }
+    effect = {
+		country_chairman_effect = {
+			type = military
+		}
+		if = {
+			limit = {
+				OR = {
+					had_country_flag = {
+						flag = military_chairman_cooldown_flag
+						days = 3650
+					}
+					NOT = {has_country_flag = military_chairman_cooldown_flag}
+				}
+			}
+			country_event = {
+				id = bertus_racial_military.5202
+			}
+		}
+		else = {
+			custom_tooltip = choose_military_chairman_cooldown_tooltip
+		}
+    }
+	ai_will_do = {
+		factor = 0
+	}
+}
+interaction = {	#4-3
+    key = economic_chair_interaction
+    random_seed = random
+	cooldown_months = 0
+
+    trigger = {
+    }
+    effect = {
+		country_chairman_effect = {
+			type = economic
+		}
+		if = {
+			limit = {
+				OR = {
+					had_country_flag = {
+						flag = economic_chairman_cooldown_flag
+						days = 3650
+					}
+					NOT = {has_country_flag = economic_chairman_cooldown_flag}
+				}
+			}
+			country_event = {
+				id = bertus_racial_military.5203
+			}
+		}
+		else = {
+			custom_tooltip = choose_economic_chairman_cooldown_tooltip
+		}
+		if = {
+			limit = {
+				has_country_modifier = estate_halfling_economic_chairman_modifier
+			}
+			custom_tooltip = estate_halfling_economic_chairman_tooltip
+		}
+    }
+	ai_will_do = {
+		factor = 0
+	}
+}
+interaction = {	#5-3
+    key = navy_chair_interaction
+    random_seed = random
+	cooldown_months = 0
+
+    trigger = {
+    }
+    effect = {
+		country_chairman_effect = {
+			type = navy
+		}
+		if = {
+			limit = {
+				any_owned_province = {
+					has_port = yes
+				}
+				OR = {
+					had_country_flag = {
+						flag = navy_chairman_cooldown_flag
+						days = 3650
+					}
+					NOT = {has_country_flag = navy_chairman_cooldown_flag}
+				}
+			}
+			country_event = {
+				id = bertus_racial_military.5204
+			}
+		}
+		else = {
+			custom_tooltip = choose_navy_chairman_cooldown_tooltip
+		}
+    }
+	ai_will_do = {
+		factor = 0
+	}
+}
+interaction = {	#6-3
+    key = empty_interaction
+    random_seed = random
+	cooldown_months = 1
+
+    trigger = {	
+		custom_trigger_tooltip = {
+			tooltip = celebrate_space_tooltip
+			always = no
+		}
+    }
+    effect = {
+    }
+	ai_will_do = {
+		factor = 0
+	}
+}
+interaction = {	#7-3
+    key = bertus_diet
+    random_seed = random
+	cooldown_months = 12
 
     trigger = {
         NOT = { has_any_active_estate_agenda = yes }
@@ -393,42 +1030,10 @@ interaction = { # Summon Diet
     effect = {
         custom_tooltip = ESTATES_SUMMON_THE_DIET_DESC
         hidden_effect = {
-	        country_event = { id = estate_privileges_and_agendas_events.3 }
-			if = {
-				limit = {
-					ai = yes
-				}
-				random_list = {
-					1 = {}
-					9 = { set_country_flag = auto_complete_estate_agenda_all }
-				}
-			}
+	        country_event = { id = bertus_changes.1112 }               
         }
         custom_tooltip = SEPERATOR_TOOLTIP
-        
-		if = {
-			limit = {
-				has_country_flag = recent_estate_agenda
-			}
-			clr_country_flag = recent_estate_agenda
-		}
-		set_country_flag = recent_estate_agenda
 
-        if = {
-			limit = { NOT = { has_government_attribute = diet_increases_not_influence } }
-			add_estate_influence_modifier = {
-				estate = all
-				desc = EST_VAL_DIET_SUMMONED
-				duration = 7300
-				influence = 5
-				short = yes
-			}
-		}
-        add_estate_loyalty = {
-            estate = all
-            loyalty = 5
-            short = yes
-        }
 		if = {
 			limit = {
 				has_government_attribute = republican_tradition_from_diets
@@ -437,650 +1042,6 @@ interaction = { # Summon Diet
 		}
     }
 	ai_will_do = {
-		# Only use if it will bring loyalty above 50 for all estates
-		# AI will most likely fail to complete the task
-		factor = 10
-		modifier = {
-			factor = 10
-			can_use_crown_land_interaction = seize_land
-			
-			estate_loyalty = {
-				estate = all
-				loyalty = 45.5
-			}
-			NOT = {
-				estate_loyalty = {
-					estate = all
-					loyalty = 50
-				}
-			}
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				estate_influence = {
-					estate = all
-					less_than = yes
-					influence = 90
-				}
-			}
-		}
-	}
-}
-
-interaction = { # Seize Land
-    key = seize_land
-    random_seed = random
-	cooldown_months = 60
-
-    trigger = {
-		hidden_trigger = { has_any_estates = yes }
-        NOT = { crown_land_share = 100 }
-        NOT = { num_of_rebel_armies = 1 }
-		NOT = { num_of_rebel_controlled_provinces = 1 }
-		#The following if/else_if-statements match those in estate_privileges_and_agendas_events.2.a. If those change, these should too.
-		if = {
-			limit = {
-				OR = {
-					has_estate_privilege = estate_brahmins_statutory_rights
-					AND = {
-						religion = hinduism
-						has_estate = estate_brahmins
-					}
-				}
-				has_estate = estate_brahmins
-			}
-			NOT = { has_estate_privilege = estate_brahmins_statutory_rights }
-		}
-		else_if = {
-			limit = {
-				OR = {
-					has_estate_privilege = estate_nobles_statutory_rights
-					AND = {
-						has_estate = estate_nobles
-						government = monarchy
-					}
-				}
-			}
-			NOT = { has_estate_privilege = estate_nobles_statutory_rights }
-		}
-		else_if = {
-			limit = {
-				OR = {
-					has_estate_privilege = estate_burghers_statutory_rights
-					AND = {
-						has_estate = estate_burghers
-						government = republic
-					}
-				}
-			}
-			NOT = { has_estate_privilege = estate_burghers_statutory_rights }
-		}
-		else_if = {
-			limit = {
-				OR = {
-					has_estate_privilege = estate_church_statutory_rights
-					AND = {
-						has_estate = estate_church
-						government = theocracy
-					}
-				}
-			}
-			NOT = { has_estate_privilege = estate_church_statutory_rights }
-		}
-        is_at_war = no
-		if = {
-			limit = { has_government_attribute = can_not_seize_land }
-			NOT = { has_government_attribute_short_desc = can_not_seize_land }
-		}
-    }
-    effect = {
-		
-		if = {
-			limit = {
-				has_country_flag = recent_land_seizure
-			}
-			clr_country_flag = recent_land_seizure
-		}
-		set_country_flag = recent_land_seizure
-		if = {
-			limit = {
-				NOT = { has_government_attribute = can_seize_crownland_of_single_estates }
-				NOT = { has_country_flag = can_seize_crownland_to_estates_targeted_flag }
-			}
-			custom_tooltip = ESTATES_SEIZE_LAND_DESC
-			take_estate_land_share_massive = { estate = all }
-			custom_tooltip = SEPERATOR_TOOLTIP
-			if = {
-				limit = {
-					has_government_attribute = seizing_land_loyalty
-				}
-				add_estate_loyalty = {
-					estate = all
-					loyalty = -15
-					short = yes
-				}
-			}
-			else = {
-				add_estate_loyalty = {
-					estate = all
-					loyalty = -20
-					short = yes
-				}
-			}
-			custom_tooltip = ESTATES_SEIZE_LAND_EXCEPTION_DESC
-			re_add_loyalty_from_seized_land = yes
-			if = {
-				limit = { NOT = { has_government_attribute = seizing_land_no_rebels } }
-				custom_tooltip = seize_land_rebels_tt
-			}
-			if = {
-				limit = {
-					NOT = {
-						estate_loyalty = {
-							estate = all
-							loyalty = 50
-						}
-					}
-					estate_loyalty = {
-						estate = all
-						loyalty = 30
-					}
-				}
-			}
-			else_if = { 
-				limit = {
-					NOT = {
-						estate_loyalty = {
-							estate = all
-							loyalty = 30
-						}
-					}
-					estate_influence = {
-						estate = all
-						influence = 1
-					}				
-				}
-				spawn_rebels_seize_land_switch = yes
-			}
-		}
-		else = {
-			country_event = {
-				id = estate_privileges_and_agendas_events.7
-			}
-		}
-		if = {
-			limit = {
-				has_government_attribute = seizing_land_takes_karma
-			}
-			add_karma = -10
-		}
-		if = {
-			limit = { has_government_attribute = theocratic_monarchy_mechanic }
-			change_statists_vs_orangists = 0.05
-		}
-	}
-	ai_will_do = {
-		factor = 50
-		modifier = {
-			factor = 0
-			# This check is needed to prevent collision with day-1 event theocracy.1
-			uses_devotion = yes
-			has_heir = no
-		}
-		# modifier = {
-			# factor = 0
-			# # This is a hack for countries with enclaves that can be hard to get to, to kill the rebels
-			# OR = {
-				# tag = TEU
-				# tag = KOL
-				# # Add more as necessary
-			# }
-			# NOT = {
-				# estate_loyalty = {
-					# estate = all
-					# loyalty = 50
-				# }
-			# }
-		# }
-		modifier = {
-			factor = 0.2
-			NOT = {
-				estate_loyalty = {
-					estate = all
-					loyalty = 50
-				}
-			}
-			NOT = {
-				army_size = 6
-			}
-		}
-		modifier = {
-			factor = 0.2
-
-			# This custom event target is set by code. If ai_will_do is higher when this is set (and >50) than when it isn't,
-			# the AI will raise maintenance and wait until the event target doesn't increase the ai_will_do score
-			NOT = { has_saved_event_target = ai_suppose_full_maintenance }
-
-			NOT = {
-				estate_loyalty = {
-					estate = all
-					loyalty = 50
-				}
-			}
-
-			OR = {
-				NOT = { land_maintenance = 0.9 }
-				num_mothballed_forts = 1
-				NOT = { all_regiments_morale_percent = 90 }
-				any_owned_province = {
-					fort_level = 1
-					NOT = { garrison = 400 }
-				}
-			}
-		}
-		modifier = {
-			factor = 0
-			crown_land_share = 30
-			has_any_disaster = yes
-			NOT = { #sorry, scripted triggers glitched out
-				OR = {
-					# has_disaster = estate_brahmins_disaster
-					has_disaster = estate_burghers_disaster
-					has_disaster = estate_church_disaster
-					has_disaster = estate_cossacks_disaster
-					has_disaster = estate_dhimmi_disaster
-					# has_disaster = estate_jains_disaster
-					# has_disaster = estate_maratha_disaster
-					has_disaster = estate_nobility_disaster
-					has_disaster = estate_nomadic_tribes_disaster
-					# has_disaster = estate_rajput_disaster
-					# has_disaster = estate_vaisyas_disaster
-					
-					#Anbennar
-					has_disaster = estate_monstrous_tribes_disaster
-					has_disaster = estate_mages_disaster
-					has_disaster = estate_artificers_disaster
-					has_disaster = estate_adventurers_disaster
-					has_disaster = estate_castonath_patricians_disaster
-					has_disaster = estate_vampires_broken_masquerade_disaster
-					has_disaster = estate_vampires_install_thrall_disaster
-					has_disaster = estate_vampires_restore_masquerade_disaster
-				}
-			}
-		}
-		# Anbennar - removed this factor due to adventurers
-		# modifier = {
-			# factor = 0.5
-			# crown_land_share = 30
-			# NOT = {
-				# estate_loyalty = {
-					# estate = all
-					# loyalty = 50
-				# }
-			# }
-			# if = {
-				# limit = { num_of_cities = 50 }
-				# NOT = { army_size_percentage = 0.2 }
-			# }
-			# else_if = {
-				# limit = { num_of_cities = 25 }
-				# NOT = { army_size_percentage = 0.3 }
-			# }
-			# else = {
-				# NOT = { army_size_percentage = 0.5 }
-			# }
-			# if = {
-				# limit = { is_emperor = yes }
-				# NOT = { army_size = 50 }
-			# }
-			# NOT = { army_size = 100 }
-			# NOT = { #sorry, scripted triggers glitched out
-				# OR = {
-					# has_disaster = estate_brahmins_disaster
-					# has_disaster = estate_burghers_disaster
-					# has_disaster = estate_church_disaster
-					# has_disaster = estate_cossacks_disaster
-					# has_disaster = estate_dhimmi_disaster
-					# has_disaster = estate_jains_disaster
-					# has_disaster = estate_maratha_disaster
-					# has_disaster = estate_nobility_disaster
-					# has_disaster = estate_nomadic_tribes_disaster
-					# has_disaster = estate_rajput_disaster
-					# has_disaster = estate_vaisyas_disaster
-					# has_disaster_progress = {
-						# disaster = estate_brahmins_disaster
-						# value = 5
-					# }
-					# has_disaster_progress = {
-						# disaster = estate_burghers_disaster
-						# value = 5
-					# }
-					# has_disaster_progress = {
-						# disaster = estate_church_disaster
-						# value = 5
-					# }
-					# has_disaster_progress = {
-						# disaster = estate_cossacks_disaster
-						# value = 5
-					# }
-					# has_disaster_progress = {
-						# disaster = estate_dhimmi_disaster
-						# value = 5
-					# }
-					# has_disaster_progress = {
-						# disaster = estate_jains_disaster
-						# value = 5
-					# }
-					# has_disaster_progress = {
-						# disaster = estate_maratha_disaster
-						# value = 5
-					# }
-					# has_disaster_progress = {
-						# disaster = estate_nobility_disaster
-						# value = 5
-					# }
-					# has_disaster_progress = {
-						# disaster = estate_nomadic_tribes_disaster
-						# value = 5
-					# }
-					# has_disaster_progress = {
-						# disaster = estate_rajput_disaster
-						# value = 5
-					# }
-					# has_disaster_progress = {
-						# disaster = estate_vaisyas_disaster
-						# value = 5
-					# }
-				# }
-			# }
-		# }
-		modifier = {
-			factor = 1.5
-			is_absolutism_active = yes
-			NOT = { num_of_rebel_armies = 1 }
-		}
-		modifier = {
-			factor = 1.5
-			is_absolutism_active = yes
-			NOT = { average_unrest = 1 }
-			NOT = { num_of_rebel_armies = 1 }
-		}
-		modifier = {
-			factor = 2
-			NOT = { crown_land_share = 20 }
-		}
-		modifier = {
-			factor = 1.5
-			NOT = { crown_land_share = 30 }
-		}
-		modifier = {
-			factor = 1.2
-			NOT = { crown_land_share = 35 }
-		}
-		modifier = {
-			factor = 1.2
-			NOT = { crown_land_share = 50 }
-		}
-		modifier = {
-			factor = 1.1
-			stability = 2
-		}
-		modifier = {
-			factor = 1.1
-			stability = 3
-		}
-		modifier = {
-			factor = 0.5
-			average_unrest = 3
-		}
-		modifier = {
-			factor = 1.2
-			estate_loyalty = {
-				estate = all
-				loyalty = 50
-			}
-		}
-		modifier = {
-			factor = 10
-			OR = {
-				# has_disaster = estate_brahmins_disaster
-				has_disaster = estate_burghers_disaster
-				has_disaster = estate_church_disaster
-				has_disaster = estate_cossacks_disaster
-				has_disaster = estate_dhimmi_disaster
-				# has_disaster = estate_jains_disaster
-				# has_disaster = estate_maratha_disaster
-				has_disaster = estate_nobility_disaster
-				has_disaster = estate_nomadic_tribes_disaster
-				# has_disaster = estate_rajput_disaster
-				# has_disaster = estate_vaisyas_disaster
-				
-
-				#Anbennar
-				has_disaster = estate_monstrous_tribes_disaster
-				has_disaster = estate_mages_disaster
-				has_disaster = estate_artificers_disaster
-				has_disaster = estate_adventurers_disaster
-				has_disaster = estate_castonath_patricians_disaster
-				has_disaster = estate_vampires_broken_masquerade_disaster
-				has_disaster = estate_vampires_install_thrall_disaster
-				has_disaster = estate_vampires_restore_masquerade_disaster
-					
-					
-				# has_disaster_progress = {
-					# disaster = estate_brahmins_disaster
-					# value = 5
-				# }
-				has_disaster_progress = {
-					disaster = estate_burghers_disaster
-					value = 5
-				}
-				has_disaster_progress = {
-					disaster = estate_church_disaster
-					value = 5
-				}
-				has_disaster_progress = {
-					disaster = estate_cossacks_disaster
-					value = 5
-				}
-				has_disaster_progress = {
-					disaster = estate_dhimmi_disaster
-					value = 5
-				}
-				# has_disaster_progress = {
-					# disaster = estate_jains_disaster
-					# value = 5
-				# }
-				# has_disaster_progress = {
-					# disaster = estate_maratha_disaster
-					# value = 5
-				# }
-				has_disaster_progress = {
-					disaster = estate_nobility_disaster
-					value = 5
-				}
-				has_disaster_progress = {
-					disaster = estate_nomadic_tribes_disaster
-					value = 5
-				}
-				# has_disaster_progress = {
-					# disaster = estate_rajput_disaster
-					# value = 5
-				# }
-				# has_disaster_progress = {
-					# disaster = estate_vaisyas_disaster
-					# value = 5
-				# }
-				
-				
-				#Anbennar
-				has_disaster_progress = {
-					disaster = estate_monstrous_tribes_disaster
-					value = 5
-				}
-				has_disaster_progress = {
-					disaster = estate_mages_disaster
-					value = 5
-				}
-				has_disaster_progress = {
-					disaster = estate_artificers_disaster
-					value = 5
-				}
-				has_disaster_progress = {
-					disaster = estate_adventurers_disaster
-					value = 5
-				}
-				has_disaster_progress = {
-					disaster = estate_castonath_patricians_disaster
-					value = 5
-				}
-				has_disaster_progress = {
-					disaster = estate_vampires_broken_masquerade_disaster
-					value = 5
-				}
-				has_disaster_progress = {
-					disaster = estate_vampires_install_thrall_disaster
-					value = 5
-				}
-				has_disaster_progress = {
-					disaster = estate_vampires_restore_masquerade_disaster
-					value = 5
-				}
-			}
-		}
-	}
-}
-
-interaction = { # Empty
-    #key = empty_interaction
-    random_seed = random
-	cooldown_months = 1000
-
-    trigger = {
-		hidden_trigger = {
-			always = no
-		}
-    }
-    effect = { }
-	
-	ai_will_do = {
 		factor = 0
-	}
-}
-
-interaction = { # Empty
-    #key = empty_interaction
-    random_seed = random
-	cooldown_months = 1000
-
-    trigger = {
-		hidden_trigger = {
-			always = no
-		}
-    }
-    effect = { }
-	
-	ai_will_do = {
-		factor = 0
-	}
-}
-
-interaction = { # Research Artificery
-    key = research_artificery
-    random_seed = random
-	cooldown_months = 0
-
-    trigger = {
-		custom_trigger_tooltip = {
-			tooltip = has_artificer_estate_tt
-			OR = {
-				has_estate = estate_artificers
-				AND = {
-					has_estate = estate_dragon_command
-					has_institution = manufactories
-				}
-			}
-		}
-		if = {
-			limit = {
-				has_estate = estate_dragon_command
-				NOT = { has_estate_privilege = estate_dragon_command_ninyu_kikun_sunyanin_artificers }
-			}
-			has_estate_privilege = estate_dragon_command_ninyu_kikun_sunyanin_artificers
-		}
-		if = {
-			limit = {
-				OR = {
-					has_estate = estate_artificers
-					has_estate = estate_dragon_command
-				}
-			}
-			adm_power = 30
-			dip_power = 30
-			mil_power = 30
-			custom_trigger_tooltip = {
-				tooltip = is_not_researching_invention_tt
-				NOT = { has_estate_privilege = artifice_invention_research_privilege }
-				NOT = { has_estate_privilege = artifice_invention_directed_research }
-				NOT = { has_estate_privilege = artifice_invention_directed_research_feiten_precursor_secrets }
-			}
-		}
-    }
-    effect = {
-		custom_tooltip = start_artificery_research_tt
-		add_adm_power = -30
-		add_dip_power = -30
-		add_mil_power = -30
-		if = {
-			limit = {
-				OR = {
-					has_estate = estate_artificers
-					has_estate = estate_dragon_command
-				}
-			}
-			if = {
-				limit = {
-					NOT = { has_estate_privilege = estate_artificers_organization_state }
-					NOT = { has_estate_privilege = estate_artificers_organization_feiten_shuimu_cadre }
-					NOT = { has_estate_privilege = estate_dragon_command_ninyu_kikun_sunyanin_artificers }
-					NOT = { has_estate_privilege = estate_artificers_organization_vazhatun_enhanced_astronomy }
-				}
-				custom_tooltip = set_research_privilege_tt
-				hidden_effect = {
-					set_estate_privilege = artifice_invention_research_privilege
-					country_event = { id = artifice_events.1 } # Regular research
-				}
-			}
-			else = {
-				custom_tooltip = set_research_privilege_tt
-				hidden_effect = {
-					set_estate_privilege = artifice_invention_directed_research
-					country_event = { id = artifice_events.4 }	# Directed research
-				}
-			}
-		}
-    }
-	ai_will_do = {
-		# Will always research if able to. Could add RNG cooldown system that takes stuff like estate loyalty, gov type, etc. or something in future if really want to mess around with
-		factor = 50
-		# From before menu change
-		modifier = {
-			factor = 0
-			NOT = { artifice_has_points_for_basic = yes }
-		}
-		# From before menu change
-		modifier = {
-			factor = 0
-			NOT = { is_year = 1445 }
-		}
-		# Won't research if slots filled
-		modifier = {
-			factor = 0
-			num_of_estate_privileges = {
-				estate = estate_artificers
-				value = 5
-			}
-		}
 	}
 }

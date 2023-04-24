@@ -7,6 +7,132 @@
 # General Traits
 ###############################################
 
+god_feaster_personality = {
+	allow = {
+		is_admiral = no
+		adm = 6
+		dip = 6
+		mil = 6
+		is_female = yes
+	}
+	land_morale = 0.1
+	shock_damage = 0.25
+	fire_damage = 0.25
+}
+vampire_personality_trait = {
+	allow = {
+		is_admiral = no
+		has_estate = estate_vampires
+		OR = {
+			has_country_flag = corvurian_embraced_vampires
+			has_estate_privilege = estate_vampires_vampiric_military_command
+		}
+	}
+	land_morale = 0.1
+	reinforce_speed = 0.33
+}
+fire_specialist_personality = {
+	allow = {
+		is_admiral = no
+		OR = {
+			religion = great_dookan
+			has_estate = estate_artificers
+			has_country_modifier = verkalskomdihr_mil_innovations
+			has_country_modifier = verkalskomdihr_mil_innovations
+			has_country_flag = silverforge_fire_flag
+			full_idea_group = fire0			
+			full_idea_group = generalstab0
+		}
+	}
+	fire_damage = 0.1
+	infantry_fire = 0.2
+}
+loot_specialist_personality = {
+	allow = {
+		is_admiral = no
+		OR = {
+			religion = great_dookan
+			has_race_recruitment = {
+				race = gnollish
+			}
+		}
+	}
+	siege_ability = 0.10
+	loot_amount = 1.0
+}
+shock_specialist_personality = {
+	allow = {
+		is_admiral = no
+		OR = {
+			religion = great_dookan
+			full_idea_group = shock0
+			full_idea_group = shock0_ogre
+			full_idea_group = generalstab0
+		}
+	}
+	infantry_power = 0.1
+	shock_damage = 0.1
+}
+big_belly_personality = {
+	allow = {
+		is_admiral = no
+		OR = {
+			religion = feast_of_the_gods
+		}
+	}
+	shock_damage = 0.2
+	movement_speed = -0.1
+}
+Bull_personality = {
+	allow = {
+		is_admiral = no
+		OR = {
+			religion = ik_magthaal
+		}
+	}
+	shock_damage = 0.2
+	cavalry_shock = 0.25
+	movement_speed = -0.4
+}
+winged_general_personality = {
+	allow = {
+		is_admiral = no
+		OR = {
+			has_country_modifier = marrhold_winged_generals
+			has_country_modifier = marrhold_winged_army
+			has_country_modifier = marrhold_sky_lords
+			religion = ik_magthaal
+		}
+	}
+	shock_damage = 0.10 
+	cavalry_power = 0.10
+	siege_ability = 0.10
+	army_tradition_from_battle = 0.50
+}
+griffon_lord_personality = {
+	allow = {
+		is_admiral = no
+		OR = {
+			has_reform = griffon_lords_reform
+			has_reform = griffon_empire_reform
+		}
+	}
+	shock_damage = 0.10 
+	cavalry_shock = 0.5
+	movement_speed = 0.1
+	prestige_from_land = 1.0
+}
+
+griffon_emperor_personality = {
+	allow = {
+		is_admiral = no
+		has_reform = griffon_empire_reform
+	}
+	shock_damage = 0.20 
+	cavalry_shock = 1.0
+	movement_speed = 0.1
+	prestige_from_land = 1.0
+}
 war_wizard_personality = {
 	allow = {
 		# is_admiral = no
@@ -18,21 +144,18 @@ war_wizard_personality = {
 	}
 	siege_ability = 0.1
 	shock_damage = 0.10 # Added this in place of removed modifiers
-	army_tradition_from_battle = -1
+	army_tradition_from_battle = -0.75	#-1.0→-0.75
 }
 
 wyvern_rider_personality = {
 	allow = {
-		# is_admiral = no
-		# has_country_modifier = verne_wyvern_riders
-		# any_owned_province = {
-			# has_province_modifier = "verne_sanctuary"
-		# }
-		always = no # Impossible to get naturally
+		is_admiral = no
+		has_country_modifier = verne_wyvern_riders	#bertus mod is this working?
+		#always = no # Impossible to get naturally
 	}
 	cavalry_flanking = 0.5
-	movement_speed = 0.5
-	shock_damage = 0.2
+	movement_speed = 0.20
+	shock_damage = 0.20
 }
 
 glory_seeker_personality = {
@@ -200,4 +323,48 @@ level_headed_personality = {
 		is_admiral = yes
 	}
 	sunk_ship_morale_hit_recieved = -0.1
+}
+
+naval_strategist_personality = {
+	allow = {
+		is_admiral = yes
+	}
+	disengagement_chance = 0.1
+}
+
+inspirational_captain_personality = {
+	allow = {
+		is_admiral = yes
+	}
+	naval_morale = 0.05
+	recover_navy_morale_speed = 0.1
+}
+
+naval_cannoneer_personality = {
+	allow = {
+		is_admiral = yes
+	}
+	number_of_cannons_modifier = 0.1
+}
+
+wooden_waller_personality = {
+	allow = {
+		is_admiral = yes
+	}
+	hull_size_modifier = 0.1
+}
+
+cunning_navigator_personality = {
+	allow = {
+		is_admiral = yes
+	}
+	movement_speed_in_fleet_modifier = 1
+}
+
+great_explorer_personality = {
+	allow = {
+		always = no 
+	}
+	ship_durability = 0.05
+	naval_attrition = -0.1
 }

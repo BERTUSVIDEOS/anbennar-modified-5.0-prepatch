@@ -3,15 +3,20 @@
 
 estate_mages_organization_magisterium = {
 	icon = privilege_promote_maratha_nobility
-	max_absolutism = -10
+	#max_absolutism = 0	#-10→0
 	#Removed this so AI doesn't sit at negative mages loyalty
 	#loyalty = -0.05
-	land_share = 5
-	influence = 0.2
+	influence = 0.3	#0.2→0.3
 	is_valid = {
 		NOT = { tag = I02 }
 		NOT = { has_country_flag = sleeper_mages }
 		NOT = { has_mages_special_organization_privilege = yes }
+		NOT = {	#bertus mod
+			OR = {
+				is_nomad = yes
+				is_monstrous_horde = yes
+			}
+		}
 	}
 	can_select = {
 		OR = {
@@ -87,19 +92,10 @@ estate_mages_organization_magisterium = {
 		else = {
 			custom_tooltip = estate_mages_magisterium_relations_tooltip
 		}
-		hidden_effect = {
-			if = {
-				limit = {
-					NOT = { is_year = 1445 }
-				}
-				take_estate_land_share_massive = { estate = estate_mages }
-			}
-		}
 	}
-	penalties = {
-	}
+	penalties = {}
 	benefits = {
-		global_tax_modifier = 0.05
+		#global_tax_modifier = -0.05	#-0.05→0
 		imperial_authority = 0.05
 	}
 	#Removed this so AI doesn't sit at negative mages loyalty
@@ -189,12 +185,18 @@ estate_mages_organization_magisterium = {
 estate_mages_organization_state = {
 	icon = privilege_promote_maratha_nobility
 	loyalty = 0.1
-	influence = 0.1
-	land_share = 10
+	influence = 0.2	#0.1→0.2
+	#land_share = 0	#10→0
 	is_valid = {
 		NOT = { tag = A85 }
 		NOT = { tag = I02 }
 		NOT = { has_mages_special_organization_privilege = yes }
+		NOT = {	#bertus mod
+			OR = {
+				is_nomad = yes
+				is_monstrous_horde = yes
+			}
+		}
 	}
 	can_select = {
 		if = {
@@ -253,17 +255,10 @@ estate_mages_organization_state = {
 			custom_tooltip = estate_mages_organization_revoke_tooltip
 			clear_mages_organization_effect = yes
 		}
-		hidden_effect = {
-			if = {
-				limit = { NOT = { is_year = 1445 } }
-				take_estate_land_share_gigantic = { estate = estate_mages }
-			}
-		}
 	}
-	penalties = {
-	}
+	penalties = {}
 	benefits = {
-		global_tax_modifier = -0.05
+		#global_tax_modifier = -0.05	#-0.05→0
 	}
 	ai_will_do = {
 		factor = 5
@@ -280,10 +275,9 @@ estate_mages_organization_state = {
 
 estate_mages_organization_guilds = {
 	icon = privilege_promote_maratha_nobility
-	max_absolutism = -5
 	#Buffed this so it's not just worse than the Magisterium one
 	loyalty = 0.05
-	influence = 0.1
+	influence = 0.2	#0.1→0.2
 	is_valid = {
 		NOT = { tag = A85 }
 		NOT = { tag = I02 }
@@ -348,23 +342,18 @@ estate_mages_organization_guilds = {
 			clear_mages_organization_effect = yes
 		}
 	}
-	penalties = {
-	}
+	penalties = {}
 	benefits = {
 		#global_tax_modifier = 0.05
 	}
-	ai_will_do = {
-		factor = 0
-	}
+	ai_will_do = {factor = 0}
 }
 
 estate_mages_organization_religious = {
 	icon = privilege_promote_maratha_nobility
-	max_absolutism = -5
 	#Removed this so AI doesn't sit at negative mages loyalty
 	#loyalty = -0.05
-	influence = 0.15
-	land_share = 5
+	influence = 0.30	#0.15→0.3
 	is_valid = {
 		NOT = { tag = A85 }
 		NOT = { tag = I02 }
@@ -380,6 +369,12 @@ estate_mages_organization_religious = {
 			has_country_flag = elikhand_magic_khet
 		}
 		NOT = { has_mages_special_organization_privilege = yes }
+		NOT = {	#bertus mod
+			OR = {
+				is_nomad = yes
+				is_monstrous_horde = yes
+			}
+		}
 	}
 	can_select = {
 		if = {
@@ -438,12 +433,6 @@ estate_mages_organization_religious = {
 			custom_tooltip = estate_mages_organization_revoke_tooltip
 			clear_mages_organization_effect = yes
 		}
-		hidden_effect = {
-			if = {
-				limit = { NOT = { is_year = 1445 } }
-				take_estate_land_share_massive = { estate = estate_mages }
-			}
-		}
 	}
 	on_invalid = {
 		custom_tooltip = estate_mages_religious_invalid_tooltip
@@ -454,8 +443,7 @@ estate_mages_organization_religious = {
 			}
 		}
 	}
-	penalties = {
-	}
+	penalties = {}
 	benefits = {
 		global_missionary_strength = 0.02
 		church_loyalty_modifier = 0.05
@@ -465,91 +453,54 @@ estate_mages_organization_religious = {
 		church_power_modifier = 0.5
 		monthly_fervor_increase = 1
 	}
-	ai_will_do = {
-		factor = 5
-		modifier = {
-			factor = 0.8
-			OR = {
-				NOT = { crown_land_share = 40 }
-				AND = {
-					is_absolutism_active = yes
-					NOT = { crown_land_share = 60 }
-				}
-			}
-		}
-		modifier = {
-			factor = 0.8
-			OR = {
-				NOT = { crown_land_share = 30 }
-				AND = {
-					is_absolutism_active = yes
-					NOT = { crown_land_share = 50 }
-				}
-			}
-		}
-		modifier = {
-			factor = 0.8
-			is_absolutism_active = yes
-		}
-	}
+	ai_will_do = {factor = 5}
 }
 
 #Aelnar
 estate_mages_organization_elissa = {
 	icon = privilege_promote_maratha_nobility
-	max_absolutism = 10
 	loyalty = 0.15
-	influence = 0.15
+	influence = 0.30	#0.15→0.3
 	is_valid = {
 		has_estate_privilege = estate_mages_organization_elissa
 	}
-	can_select = {
-	}
+	can_select = {}
 	can_revoke = {
 		always = no
 	}
 	on_granted = {
 		clear_mages_organization_effect = yes
 	}
-	penalties = {
-	}
+	penalties = {}
 	benefits = {
 		yearly_absolutism = 0.1
 	}
-	ai_will_do = {
-		factor = 5
-	}
+	ai_will_do = {factor = 5}
 }
 estate_mages_organization_covenant = {
 	icon = privilege_promote_maratha_nobility
-	max_absolutism = 5
 	loyalty = 0.10
-	influence = -0.10
+	influence = 0	#-0.1→0
 	is_valid = {
 		has_estate_privilege = estate_mages_organization_covenant
 	}
-	can_select = {
-	}
+	can_select = {}
 	can_revoke = {
 		always = no
 	}
 	on_granted = {
 		clear_mages_organization_effect = yes
 	}
-	penalties = {
-	}
+	penalties = {}
 	benefits = {
 		yearly_absolutism = 0.1
 	}
-	ai_will_do = {
-		factor = 5
-	}
+	ai_will_do = {factor = 5}
 }
 
 #Chaingrasper
 estate_mages_organization_constabularies = {
 	icon = privilege_promote_maratha_nobility
-	max_absolutism = 0
 	loyalty = 0.1
 	influence = 0.2
 	is_valid = {
@@ -564,12 +515,13 @@ estate_mages_organization_constabularies = {
 		clear_mages_organization_effect = yes
 	}
 	penalties = {
-		global_tax_modifier = -0.2
+		#global_tax_modifier = -0.2	#-0.2→0
 	}
 	benefits = {
-		stability_cost_modifier = -0.25
-		global_spy_defence = 0.25
+		stability_cost_modifier = -0.1	#-0.25→-0.1
+		global_spy_defence = 0.1	#0.25→0.1
 	}
+	ai_will_do = {factor = 5}
 }
 
 # Verkal Ozovar
@@ -589,9 +541,9 @@ estate_mages_organization_runesmiths = {
 	}
 	penalties = {
 		idea_cost = 0.05
-		build_cost = -0.1
 	}
 	benefits = {
+		build_cost = -0.1
 	}
 }
 
@@ -615,133 +567,65 @@ estate_mages_organization_lihos_maidens = {
 		church_influence_modifier = 0.05
 		church_power_modifier = 0.5
 	}
+	ai_will_do = {factor = 5}
 }
 
-estate_mages_battlemage_academies = {
+estate_mages_battlemage_academies = {	#bertus mod
 	icon = privilege_demand_more_troops
-	max_absolutism = -5
 	influence = 0.05
-	land_share = 10
-	is_valid = {
-		NOT = { tag = I02 }
-		NOT = { has_country_flag = Y26_maidens_of_mists } # Yinquan MT
-		NOT = { has_country_flag = established_zamukaras_flag }
-	}
+	loyalty = 0.05
+	is_valid = {}
 	can_select = {
-		army_tradition = 15
-		if = {
-			limit = {
-				has_estate = estate_acolytes
-			}
-			estate_influence = {
-				estate = estate_acolytes
-				influence = 30
-			}
-		}
-		else = {
-			estate_influence = {
-				estate = estate_mages
-				influence = 30
-			}
-		}
-		NOT = { has_estate_privilege = estate_mages_empowered_mages }
-	}
-	on_granted = {
-		add_army_tradition = -15
-		custom_tooltip = tooltip_estate_mages_battlemage_academies
-	}
-	penalties = {
-		army_tradition_decay = 0.01
-		country_military_power = -1
-	}
-	benefits = {
-		land_morale = 0.05
-	}
-	conditional_modifier = {		#part of xia mission tree
-		trigger = {
-			has_country_modifier = xia_battlemage_mastery
-		}
-		modifier = {
-			army_tradition_decay = -0.01
-		}
-	}
-	conditional_modifier = {
-		trigger = {
-			has_country_flag = battlemage_no_decay #Currently Ameion Archeology
-		}
-		modifier = {
-			army_tradition_decay = -0.01
-		}
-	}
-	ai_will_do = {
-		factor = 5
-		modifier = {
-			factor = 2
-			personality = ai_militarist
-		}
-		modifier = {
-			factor = 1.5
-			is_at_war = yes
-		}
-		modifier = {
-			factor = 0
-			NOT = { army_tradition = 1 }	#if you have hella low army tradition, you're gonna want to turn this off
-		}
-	}
-}
-
-# Yinquan
-estate_mages_maidens_of_mists = {
-	icon = privilege_demand_more_troops
-	max_absolutism = -5
-	influence = 0.05
-	land_share = 10
-	is_valid = {
-		has_country_flag = Y26_maidens_of_mists
-	}
-	can_select = {
-		army_tradition = 15
 		estate_influence = {
 			estate = estate_mages
 			influence = 30
 		}
+		NOT = { has_estate_privilege = estate_mages_empowered_mages }
 	}
 	on_granted = {
-		add_army_tradition = -15
 		custom_tooltip = tooltip_estate_mages_battlemage_academies
+		custom_tooltip = extra_mage_tooltip
+		custom_tooltip = extra_mage_shock_tooltip
+		custom_tooltip = extra_mage_fire_tooltip
+		custom_tooltip = extra_mage_manuever_tooltip
+		custom_tooltip = estate_mages_battlemages_modifiers_tooltip
+		hidden_effect = {setup_battlemages_shock = yes}
 	}
 	penalties = {
-		army_tradition_decay = 0.01
+		army_tradition_from_battle = -0.25
+		yearly_corruption = 0.1
 	}
-	benefits = {
-		land_morale = 0.05
-		movement_speed = 0.1
+	benefits = {}
+	conditional_modifier = {		#part of xia mission tree
+		trigger = {has_country_modifier = xia_battlemage_mastery}
+		modifier = {
+			army_tradition_from_battle = 0.25	#0→0.25
+			#army_tradition_decay = -0.01	#-0.01→0
+		}
+	}
+	conditional_modifier = { #Currently Ameion Archeology
+		trigger = {has_country_flag = battlemage_no_decay}
+		modifier = {
+			army_tradition_from_battle = 0.25
+		}
 	}
 	ai_will_do = {
 		factor = 5
-		modifier = {
-			factor = 2
-			personality = ai_militarist
-		}
-		modifier = {
-			factor = 1.5
-			is_at_war = yes
-		}
-		modifier = {
-			factor = 0
-			NOT = { army_tradition = 1 }	#if you have hella low army tradition, you're gonna want to turn this off
-		}
+		modifier = {factor = 2 personality = ai_militarist}
+		modifier = {factor = 1.5 is_at_war = yes}
 	}
 }
 
 estate_mages_patronage_of_the_magical_arts = {	#magical patronage
 	icon = privilege_give_money
-	max_absolutism = -5
 	loyalty = 0.05
 	influence = 0.05
-	land_share = 5
+	is_valid = {	#bertus mod
+		is_nomad = no
+		is_monstrous_horde = no	
+	}
 	penalties = {
-		global_tax_modifier = -0.05
+		yearly_corruption = 0.1
 	}
 	benefits = {
 		prestige = 0.5
@@ -749,50 +633,40 @@ estate_mages_patronage_of_the_magical_arts = {	#magical patronage
 	on_granted = {
 		if = {
 			limit = { prestige = 50 }
-			add_prestige = 10
+			add_prestige_or_monarch_power = {amount = 10}
 		}
 		else_if = {
 			limit = { prestige = 0 }
-			add_prestige = 15
+			add_prestige_or_monarch_power = {amount = 15}
 		}
 		else_if = {
 			limit = { prestige = -25 }
-			add_prestige = 20
+			add_prestige_or_monarch_power = {amount = 20}
 		}
 		else_if = {
 			limit = { prestige = -50 }
-			add_prestige = 25
+			add_prestige_or_monarch_power = {amount = 25}
 		}
 		else = {
-			add_prestige = 30
+			add_prestige_or_monarch_power = {amount = 30}
 		}
 	}
+	cooldown_years = 10
 	ai_will_do = {
 		factor = 5
-		modifier = {
-			factor = 2
-			NOT = {
-				estate_influence = {
-					estate = estate_mages
-					influence = 10
-				}
-			}
-		}
-		modifier = {
-			factor = 0.5
-			NOT = { years_of_income = 0.5 }
-		}
+		modifier = {factor = 2 NOT = {estate_influence = {estate = estate_mages influence = 10}}}
+		modifier = {factor = 0.5 NOT = { years_of_income = 0.5 }}
 	}
 }
 
-estate_mages_reduced_research_regulations = {
+estate_mages_reduced_research_regulations = {#bertus mod
 	icon = privilege_grant_autonomy
 	loyalty = 0.05
 	influence = 0.1
-	max_absolutism = -10
 	is_valid = {
 		NOT = { tag = I02 }
-		NOT = { has_country_flag = vacyntassi_jaherian_statute_flag }
+		is_nomad = no
+		is_monstrous_horde = no	
 	}
 	on_granted = {
 		custom_tooltip = tooltip_estate_mages_reduced_research_regulations
@@ -810,11 +684,10 @@ estate_mages_reduced_research_regulations = {
 		trigger = { has_country_flag = reduced_dip_from_regulations }
 		modifier = {
 			diplomatic_reputation = -1
-			max_absolutism = 5
+			#max_absolutism = 5	#5→0
 		}
 	}
-	benefits = {
-	}
+	benefits = {}
 	ai_will_do = {
 		factor = 5
 		modifier = {	#witch kings baby
@@ -822,18 +695,9 @@ estate_mages_reduced_research_regulations = {
 			capital_scope = { superregion = escann_superregion }
 			current_age = age_of_absolutism
 		}
-		modifier = {	#witch kings are evil baby
-			factor = 3
-			has_ruler_modifier = witch_king_modifier
-		}
-		modifier = {
-			factor = 0.75
-			NOT = { diplomatic_reputation = 1 }	#dont want to take this if you have low dip rep anyway
-		}
-		modifier = {
-			factor = 1.5
-			ruler_has_mage_personality = yes
-		}
+		modifier = {factor = 3 has_ruler_modifier = witch_king_modifier}
+		modifier = {factor = 0.75 NOT = { diplomatic_reputation = 1 }}
+		modifier = {factor = 1.5 ruler_has_mage_personality = yes}
 		modifier = {
 			factor = 2
 			OR = {
@@ -850,38 +714,13 @@ estate_mages_reduced_research_regulations = {
 				ruler_has_personality = righteous_personality
 			}
 		}
-		modifier = {
-			factor = 0.5
-			has_estate_privilege = estate_mages_organization_magisterium
-		}
-		modifier = {
-			factor = 0
-			has_reform = raja_reform
-		}
+		modifier = {factor = 0.5 has_estate_privilege = estate_mages_organization_magisterium}
+		modifier = {factor = 0 has_reform = raja_reform}
 	}
 }
 
-# estate_mages_loyalty_privilege = {
-	# icon = privilege_royal_authority
-	# max_absolutism = -10
-	# loyalty = 0.1
-	# influence = 0.1
-	# penalties = {
-	# }
-	# benefits = {
-	# }
-	# ai_will_do = {
-		# factor = 10
-		# modifier = {
-			# factor = 0
-			# is_absolutism_active = yes
-		# }
-	# }
-# }
-
 estate_mages_monopoly_of_damestear = {
 	icon = privilege_monopoly_of_goods_damestear
-	max_absolutism = -10
 	loyalty = 0.1
 	is_valid = {
 		has_dlc = "Emperor"
@@ -894,52 +733,43 @@ estate_mages_monopoly_of_damestear = {
 		custom_trigger_tooltip = {
 			tooltip = unavailable_during_revolution_disaster
 			NOT = { has_disaster = revolution }
-			NOT = {
-				has_disaster_progress = {
-					disaster = revolution
-					value = 1
-				}
-			}
+			NOT = {has_disaster_progress = {disaster = revolution value = 1}}
 			tooltip = JY_LF_not_trading #Anbennar
 			NOT = { any_owned_province = { has_province_modifier = JY_LF_trading } }
-			# NOT = { has_disaster = french_revolution }
-			# NOT = {
-				# has_disaster_progress = {
-					# disaster = french_revolution
-					# value = 1
-				# }
-			# }
 		}
 	}
-	on_granted = {
-		add_mercantilism = 1
-		add_years_of_owned_provinces_production_income = {
-			years = 8
-			trigger = {
-				trade_goods = damestear
+	on_granted = {	#bertus mod
+		hidden_effect = {
+			add_country_modifier = {name = estate_monopoly_of_damestear_cooldown_modifier duration = 3600 hidden = yes}
+		}
+		if = {
+			limit = {
+				OR = {
+					has_idea = A85_damestear_trade
+				}
 			}
-			custom_tooltip = MONOPOLY_INCOME_DAMESTEAR_DESC
+			add_years_of_owned_provinces_production_income = {
+				years = 13
+				trigger = {trade_goods = damestear}
+				custom_tooltip = MONOPOLY_INCOME_DAMESTEAR_DESC
+			}
+			custom_tooltip = MONOPOLY_INCOME_PRODUCTION_BOOST_1.3_DESC
+		}
+		else = {
+			custom_tooltip = MONOPOLY_INCOME_PRODUCTION_BOOST_DESC	
+			add_years_of_owned_provinces_production_income = {
+				years = 11
+				trigger = {trade_goods = damestear}
+				custom_tooltip = MONOPOLY_INCOME_DAMESTEAR_DESC
+			}
+			custom_tooltip = MONOPOLY_INCOME_PRODUCTION_BOOST_DESC
 		}
 		custom_tooltip = estate_mages_monopoly_of_damestear_effect_tooltip
-		# hidden_effect = {
-		# 	every_owned_province = {
-		# 		limit = {
-		# 			trade_goods = damestear
-		# 		}
-		# 		add_province_modifier = {
-		# 			name = estate_mages_monopoly_of_damestear_mod
-		# 			duration = -1
-		# 		}
-		# 	}
-		# }
 	}
 	on_granted_province = {
 		if = {
 			limit = { trade_goods = damestear }
-			add_province_modifier = {
-				name = estate_mages_monopoly_of_damestear_mod
-				duration = -1
-			}
+			add_province_modifier = {name = estate_mages_monopoly_of_damestear_mod duration = -1}
 		}
 		else_if = {
 			limit = { has_province_modifier = estate_mages_monopoly_of_damestear_mod }
@@ -964,17 +794,13 @@ estate_mages_monopoly_of_damestear = {
 			remove_province_modifier = estate_mages_monopoly_of_damestear_mod
 		}
 	}
-	penalties = {
-	}
-	benefits = {
-	}
+	penalties = {}
+	benefits = {}
 	cooldown_years = 10
 	on_cooldown_expires = {
 		country_event = { id = monopoly_privileges.12 }
 	}
-	ai_will_do = { #having the AI use these could lead to an unstoppable downwards spiral if it can't work out how to get rid of them
-		factor = 0
-	}
+	ai_will_do = { factor = 0}
 }
 
 estate_mages_cast_spells = {
@@ -988,11 +814,15 @@ estate_mages_cast_spells = {
 		NOT = { has_country_flag = revoke_mage_estate_spells }
 	}
 	on_granted = {
+		hidden_effect = {
+			if = {
+				limit = {has_government_attribute = shorter_cd_for_realm_magic}
+				country_event = {id = bertus_changes.6006 days = 1825}
+			}
+		}
 	}
-	penalties = {
-	}
-	benefits = {
-	}
+	penalties = {}
+	benefits = {}
 	cooldown_years = 10
 	on_cooldown_expires = {
 		set_country_flag = revoke_mage_estate_spells # on_invalid gives a notification, on_revoked does not.
@@ -1000,42 +830,25 @@ estate_mages_cast_spells = {
 	on_invalid = {
 		clr_country_flag = revoke_mage_estate_spells
 	}
-	ai_will_do = {
-		factor = 10 #ai will crash the game on linux. it uses a hidden decision in mages.txt to do this. Was fixed
-	}
+	ai_will_do = {factor = 10 }
 }
 
 #Adventurers
 estate_adventurers_organization_chronicler_grants = {
 	icon = privilege_promote_maratha_nobility
-	max_absolutism = -5
 	loyalty = 0.05
 	influence = 0.05
-	land_share = 5
 	is_valid = {
 		NOT = { has_adventurers_special_organization_privilege = yes }
 	}
 	can_select = {
 		if = {
 			limit = { has_adventurers_organization_privilege = yes }
-			NOT = {
-				estate_influence = {
-					estate = estate_adventurers
-					influence = 25
-				}
-			}
-			estate_loyalty = {
-				estate = estate_adventurers
-				loyalty = 30
-			}
+			NOT = {estate_influence = {estate = estate_adventurers influence = 25}}
+			estate_loyalty = {estate = estate_adventurers loyalty = 30}
 
 			if = {
-				limit = {
-					estate_loyalty = {
-						estate = estate_adventurers
-						loyalty = 60
-					}
-				}
+				limit = {estate_loyalty = {estate = estate_adventurers loyalty = 60}}
 				mil_power = 100
 				stability = 1
 			}
@@ -1056,12 +869,7 @@ estate_adventurers_organization_chronicler_grants = {
 				NOT = { has_estate_privilege = estate_adventurers_organization_chronicler_grants }
 			}
 			if = {
-				limit = {
-					estate_loyalty = {
-						estate = estate_adventurers
-						loyalty = 60
-					}
-				}
+				limit = {estate_loyalty = {estate = estate_adventurers loyalty = 60}}
 				add_mil_power = -100
 				add_stability = -1
 			}
@@ -1073,12 +881,6 @@ estate_adventurers_organization_chronicler_grants = {
 			custom_tooltip = estate_adventurers_organization_revoke_tooltip
 			clear_adventurers_organization_effect = yes
 		}
-		hidden_effect = {
-			if = {
-				limit = { NOT = { is_year = 1445 } }
-				take_estate_land_share_massive = { estate = estate_adventurers }
-			}
-		}
 	}
 	penalties = {
 		mercenary_manpower = -0.2
@@ -1089,15 +891,7 @@ estate_adventurers_organization_chronicler_grants = {
 	}
 	ai_will_do = {
 		factor = 1
-		modifier = {
-			factor = 10
-			any_known_country = {
-				institution_difference = {
-					who = ROOT
-					value = 2
-				}
-			}
-		}
+		modifier = {factor = 10 any_known_country = {institution_difference = {who = ROOT value = 2}}}
 	}
 }
 
@@ -1111,23 +905,10 @@ estate_adventurers_organization_licensed_adventurers = {
 	can_select = {
 		if = {
 			limit = { has_adventurers_organization_privilege = yes }
-			NOT = {
-				estate_influence = {
-					estate = estate_adventurers
-					influence = 25
-				}
-			}
-			estate_loyalty = {
-				estate = estate_adventurers
-				loyalty = 30
-			}
+			NOT = {estate_influence = {estate = estate_adventurers influence = 25}}
+			estate_loyalty = {estate = estate_adventurers loyalty = 30}
 			if = {
-				limit = {
-					estate_loyalty = {
-						estate = estate_adventurers
-						loyalty = 60
-					}
-				}
+				limit = {estate_loyalty = {estate = estate_adventurers loyalty = 60}}
 				mil_power = 100
 				stability = 1
 			}
@@ -1147,12 +928,7 @@ estate_adventurers_organization_licensed_adventurers = {
 				NOT = { has_estate_privilege = estate_adventurers_organization_licensed_adventurers }
 			}
 			if = {
-				limit = {
-					estate_loyalty = {
-						estate = estate_adventurers
-						loyalty = 60
-					}
-				}
+				limit = {estate_loyalty = {estate = estate_adventurers loyalty = 60}}
 				add_mil_power = -100
 				add_stability = -1
 			}
@@ -1165,34 +941,23 @@ estate_adventurers_organization_licensed_adventurers = {
 			clear_adventurers_organization_effect = yes
 		}
 	}
-	penalties = {
-	}
+	penalties = {}
 	benefits = {
 		global_tax_modifier = 0.05
 	}
 	ai_will_do = {
 		factor = 5
-		modifier = {
-			factor = 10
-			current_age = age_of_absolutism
-		}
+		modifier = {factor = 10 current_age = age_of_absolutism}
 		modifier = {
 			factor = 0
 			has_discovered = 8 #Anbenncost
-			any_known_country = {
-				institution_difference = {
-					who = ROOT
-					value = 2
-				}
-			}
+			any_known_country = {institution_difference = {who = ROOT value = 2}}
 		}
 	}
 }
 
 estate_adventurers_organization_land_of_adventure = {
 	icon = privilege_promote_maratha_nobility
-	max_absolutism = -10
-	#loyalty = 0.05
 	influence = 0.1
 	is_valid = {
 		NOT = { has_adventurers_special_organization_privilege = yes }
@@ -1200,23 +965,10 @@ estate_adventurers_organization_land_of_adventure = {
 	can_select = {
 		if = {
 			limit = { has_adventurers_organization_privilege = yes }
-			NOT = {
-				estate_influence = {
-					estate = estate_adventurers
-					influence = 25
-				}
-			}
-			estate_loyalty = {
-				estate = estate_adventurers
-				loyalty = 30
-			}
+			NOT = {estate_influence = {estate = estate_adventurers influence = 25}}
+			estate_loyalty = {estate = estate_adventurers loyalty = 30}
 			if = {
-				limit = {
-					estate_loyalty = {
-						estate = estate_adventurers
-						loyalty = 60
-					}
-				}
+				limit = {estate_loyalty = {estate = estate_adventurers loyalty = 60}}
 				mil_power = 100
 				stability = 1
 			}
@@ -1236,12 +988,7 @@ estate_adventurers_organization_land_of_adventure = {
 				NOT = { has_estate_privilege = estate_adventurers_organization_land_of_adventure }
 			}
 			if = {
-				limit = {
-					estate_loyalty = {
-						estate = estate_adventurers
-						loyalty = 60
-					}
-				}
+				limit = {estate_loyalty = {estate = estate_adventurers loyalty = 60}}
 				add_mil_power = -100
 				add_stability = -1
 			}
@@ -1254,41 +1001,33 @@ estate_adventurers_organization_land_of_adventure = {
 			clear_adventurers_organization_effect = yes
 		}
 	}
-	penalties = {
-	}
+	penalties = {}
 	benefits = {
 		mercenary_manpower = 0.25
 	}
-	ai_will_do = {
-		factor = 0
-	}
+	ai_will_do = {factor = 0}
 }
 
 #Aelnar
 estate_adventurers_organization_covenant = {
 	icon = privilege_promote_maratha_nobility
-	max_absolutism = 5
 	loyalty = 0.10
 	influence = -0.10
 	is_valid = {
 		has_estate_privilege = estate_adventurers_organization_covenant
 	}
-	can_select = {
-	}
+	can_select = {}
 	can_revoke = {
 		always = no
 	}
 	on_granted = {
 		clear_adventurers_organization_effect = yes
 	}
-	penalties = {
-	}
+	penalties = {}
 	benefits = {
 		mercenary_manpower = 0.1
 	}
-	ai_will_do = {
-		factor = 1
-	}
+	ai_will_do = {factor = 1}
 }
 
 #hul-az-krakazol
@@ -1335,7 +1074,6 @@ estate_adventurers_organization_scp_bureau = {
 estate_adventurers_contain_dangerous_artefacts = {
 	icon = privilege_monopoly_of_goods_precursor_relics
 	loyalty = 0.05
-	land_share = 5
 	is_valid = {
 		has_estate_privilege = estate_adventurers_organization_scp_bureau
 		has_country_flag = scp_bureau_containment_unlocked
@@ -1382,10 +1120,8 @@ estate_adventurers_contain_dangerous_artefacts = {
 			remove_province_modifier = H33_containment_mod
 		}
 	}
-	penalties = {
-	}
-	benefits = {
-	}
+	penalties = {}
+	benefits = {}
 	cooldown_years = 10
 	modifier_by_land_ownership = {
 		global_unrest = -4
@@ -1395,48 +1131,45 @@ estate_adventurers_contain_dangerous_artefacts = {
 	# mechanics = {
 	# 	exempt_from_seize_land
 	# }
-	ai_will_do = {
-		factor = 5
-	}
+	ai_will_do = {factor = 5}
 }
 
 estate_adventurers_free_company_rosters = {
 	icon = privilege_demand_more_troops
-	max_absolutism = -5
-	influence = 0.05
-	can_select = {
-		army_tradition = 15
-	}
-	on_granted = {
-		add_army_tradition = -15
-	}
-	penalties = {
-	}
+	loyalty = 0.10
+	influence = 0.10
+	can_select = {}
+	on_granted = {}
+	penalties = {}
 	benefits = {
 		mercenary_discipline = 0.05
+		mercenary_cost = 0.2
+		yearly_army_professionalism = -0.002
+	}
+	conditional_modifier = {		#part of arbaran's mission tree	#bertus mod 
+		trigger = {has_country_flag = arbaran_improved_ennoblement_privilege}
+		modifier = {
+			mercenary_cost = 0.10
+			mercenary_discipline = 0.05
+		}
 	}
 	ai_will_do = {
 		factor = 10
-		modifier = {
-			factor = 0
-			NOT = {
-				num_of_mercenaries = 2
-			}
-		}
+		modifier = {factor = 0 NOT = {num_of_mercenaries = 2}}
 	}
 }
 
-estate_adventurers_ennoblement_of_adventurers = {
+estate_adventurers_ennoblement_of_adventurers = {	#bertus mod
 	icon = privilege_royal_authority
-	max_absolutism = -5
 	loyalty = 0.05
-	land_share = 5
 	influence = 0.05
+	is_valid = {
+		has_estate = estate_nobles
+	}
 	can_select = {
 		has_estate = estate_nobles
 	}
-	on_granted = {
-	}
+	on_granted = {}
 	penalties = {
 		nobles_loyalty_modifier = -0.05
 	}
@@ -1444,156 +1177,64 @@ estate_adventurers_ennoblement_of_adventurers = {
 		governing_capacity = 100
 	}
 	conditional_modifier = {		#part of arbaran's mission tree
-		trigger = {
-			has_country_flag = arbaran_improved_ennoblement_privilege
-		}
+		trigger = {has_country_flag = arbaran_improved_ennoblement_privilege}
 		modifier = {
 			mercenary_cost = -0.20
 			mercenary_discipline = 0.05
 		}
 	}
-	ai_will_do = {
-		factor = 5
-		modifier = {
-			factor = 5
-			tag = A46			#ennoblement of adventurers is a very Arbarani thing to do, it's part of their national ideas, also it will help the AI complete a mission
-		}
-		modifier = {
-			factor = 1.4
-			num_of_territories = 5
-		}
-		modifier = {
-			factor = 1.5
-			num_of_territories = 10
-		}
-		modifier = {
-			factor = 1.5
-			num_of_territories = 15
-		}
-		modifier = {
-			factor = 0
-			OR = {
-				NOT = { crown_land_share = 25 }
-				estate_influence = {
-					estate = estate_adventurers
-					influence = 75
-				}
-			}
-			NOT = { has_estate_privilege = estate_adventurers_ennoblement_of_adventurers }
-		}
-
-		modifier = {
-			factor = 3
-			OR = {
-				AND = {
-					governing_capacity_percentage = 0.9
-					NOT = { has_estate_privilege = estate_adventurers_ennoblement_of_adventurers }
-				}
-				#The trigger below should make sure that the AI actually keeps this privilege when enacting it early game
-				AND = {
-					governing_capacity_percentage = 0.6
-					has_estate_privilege = estate_adventurers_ennoblement_of_adventurers
-				}
-			}
-		}
-		modifier = {
-			factor = 0
-			NOT = { governing_capacity_percentage = 0.5 }
-		}
-		modifier = {
-			factor = 0.8
-			OR = {
-				NOT = { crown_land_share = 40 }
-				AND = {
-					is_absolutism_active = yes
-					NOT = { crown_land_share = 60 }
-				}
-			}
-			NOT = { has_estate_privilege = estate_adventurers_ennoblement_of_adventurers }
-		}
-		modifier = {
-			factor = 0.8
-			OR = {
-				NOT = { crown_land_share = 30 }
-				AND = {
-					is_absolutism_active = yes
-					NOT = { crown_land_share = 50 }
-				}
-			}
-			NOT = { has_estate_privilege = estate_adventurers_ennoblement_of_adventurers }
-		}
-		modifier = {
-			factor = 0.8
-			is_absolutism_active = yes
-		}
-		modifier = {
-			factor = 0.5
-			NOT = {
-				estate_loyalty = {
-					estate = estate_nobles
-					loyalty = 25
-				}
-			}
-		}
-	}
+	ai_will_do = {factor = 5}
 }
 
-estate_adventurers_heroes_in_the_army = {
+estate_adventurers_heroes_in_the_army = {	#bertus mod
 	icon = privilege_recruit_minister
-	max_absolutism = -10
 	influence = 0.2
-	loyalty = -0.1
+	loyalty = 0.1
 	can_select = {
-		army_tradition = 30
 	}
 	on_granted = {
-		add_army_tradition = -30
+		custom_tooltip = heroes_in_the_army_tt
+		custom_tooltip = adventurers_emergency_general_tt
 	}
 	penalties = {
-		yearly_army_professionalism = -0.01 #this is easily offset by hiring a general
-		#drill_decay_modifier = 0.33
+		army_tradition_from_battle = -0.25
 	}
 	benefits = {
-		leader_land_manuever = 1
-		land_morale = 0.1
-		general_cost = 0.25
+		prestige_from_land = 0.25
+	}
+	conditional_modifier = {	#bertus mod
+		trigger = {
+			any_country = {
+				war_with = root
+				has_country_modifier = monstrous_nation
+			}
+		}
+		modifier = {
+			land_morale = 0.05
+			recover_army_morale_speed = 0.05
+			general_cost = -0.10
+		}
 	}
 	conditional_modifier = {		#this is so xia tags that choose the adventurer path in their mt can gain professionalism for the chi path without having to spend ungodly amounts of mil on generals
-		trigger = {
-			has_country_modifier = xia_inviting_wandering_warriors
-		}
+		trigger = {has_country_modifier = xia_inviting_wandering_warriors}
 		modifier = {
 			yearly_army_professionalism = 0.01
 		}
 	}
 	conditional_modifier = {		#part of xia mission tree
-		trigger = {
-			has_country_modifier = xia_adventurer_mastery
-		}
+		trigger = {has_country_modifier = xia_adventurer_mastery}
 		modifier = {
 			infantry_power = 0.1
 		}
 	}
-	ai_will_do = {
-		factor = 5
-		modifier = {
-			factor = 0
-			NOT = { crown_land_share = 25 }
-			estate_influence = {
-				estate = estate_adventurers
-				influence = 60
-			}
-		}
-		modifier = {
-			factor = 0.8
-			is_absolutism_active = yes
-		}
+	on_revoked = {
+		custom_tooltip = heroes_in_the_army_tt	
 	}
+	ai_will_do = {factor = 5}
 }
 
 estate_adventurers_pioneer_initiatives = {
 	icon = privilege_grant_new_world_charter
-	max_absolutism = -5
 	loyalty = 0.05
 	influence = 0.05
 	is_valid = {
@@ -1603,7 +1244,8 @@ estate_adventurers_pioneer_initiatives = {
 		}
 	}
 	penalties = {
-		global_tariffs = -0.10
+		#global_tariffs = -0.10	#-0.1→0
+		yearly_corruption = 0.1	#0→0.1	#dev% cost
 	}
 	benefits = {
 		global_colonial_growth = 10
@@ -1641,23 +1283,21 @@ estate_adventurers_pioneer_initiatives = {
 	}
 }
 
-estate_adventurers_generous_quest_rewards = {
+estate_adventurers_generous_quest_rewards = {	#bertus mod
 	icon = privilege_give_money
-	max_absolutism = -5
-	loyalty = 0.1
-	#influence = 0.1
-	land_share = 5
-	can_select = {
-	}
+	loyalty = 0.10
+	influence = 0.10
+	can_select = {}
 	on_granted = {
 		custom_tooltip = estate_adventurers_generous_quest_rewards_aw_increase_tooltip
 	}
 	penalties = {
-		global_tax_modifier = -0.1
+		yearly_corruption = 0.10
+		mercenary_cost = 0.10
 	}
 	benefits = {
 		global_unrest = -1
-		mercenary_manpower = 0.1
+		mercenary_manpower = 0.25
 	}
 	cooldown_years = 10
 	ai_will_do = {
@@ -1677,16 +1317,16 @@ estate_adventurers_generous_quest_rewards = {
 	}
 }
 
-estate_adventurers_advisors = {
+estate_adventurers_advisors = {	#bertus mod
 	icon = privilege_empty_throne
-	max_absolutism = -10
-	influence = 0.1
-	loyalty = 0.05
+	influence = 0.10
+	loyalty = 0.10
 	penalties = {
-		stability_cost_modifier = 0.25
+		stability_cost_modifier = 0.1
 	}
 	benefits = {
 		advisor_cost = -0.1
+		same_culture_advisor_cost = 0.2
 	}
 	ai_will_do = {
 		factor = 8
@@ -1727,7 +1367,6 @@ estate_adventurers_advisors = {
 
 estate_adventurers_monopoly_of_slaves = {
 	icon = privilege_monopoly_of_goods_slaves
-	max_absolutism = -10
 	loyalty = 0.1
 	is_valid = {
 		has_dlc = "Emperor"
@@ -1800,24 +1439,19 @@ estate_adventurers_monopoly_of_slaves = {
 			remove_province_modifier = estate_adventurers_monopoly_of_slaves_mod
 		}
 	}
-	penalties = {
-	}
-	benefits = {
-	}
+	penalties = {}
+	benefits = {}
 	cooldown_years = 10
 	on_cooldown_expires = {
 		country_event = { id = monopoly_privileges.13 }
 	}
-	ai_will_do = {
-		factor = 0
-	}
+	ai_will_do = {factor = 0}
 }
 
-estate_adventurers_sponsor_monster_hunters = {
+estate_adventurers_sponsor_monster_hunters = {	#bertus mod
 	icon = privilege_demand_more_troops
-	max_absolutism = -5
 	penalties = {
-		global_autonomy = 0.05
+		yearly_corruption = 0.1
 	}
 	benefits = {
 
@@ -1827,7 +1461,7 @@ estate_adventurers_sponsor_monster_hunters = {
 			has_country_flag = monster_hunters_no_penalty
 		}
 		modifier = {
-			global_autonomy = -0.05
+			yearly_corruption = -0.1
 		}
 	}
 	on_granted = {
@@ -1835,16 +1469,11 @@ estate_adventurers_sponsor_monster_hunters = {
 	}
 	ai_will_do = {
 		factor = 5
-		modifier = {
-			factor = 5
-			has_estate_privilege = estate_adventurers_organization_scp_bureau			#since it's the entire flavor of the bureau
-		}
 	}
 }
 
 estate_adventurers_sponsor_sellswords = {
 	icon = privilege_demand_more_troops
-	max_absolutism = -5
 	penalties = {
 		yearly_corruption = 0.1
 	}
@@ -1854,16 +1483,13 @@ estate_adventurers_sponsor_sellswords = {
 	on_granted = {
 		custom_tooltip = estate_adventurers_sponsor_sellswords_tooltip
 	}
-	ai_will_do = {
-		factor = 5
-	}
+	ai_will_do = {factor = 5}
 }
 
-estate_adventurers_sponsor_beast_slayers = {
+estate_adventurers_sponsor_beast_slayers = {	#bertus mod
 	icon = privilege_demand_more_troops
-	max_absolutism = -5
 	penalties = {
-		prestige_decay = 0.01
+		yearly_corruption = 0.1
 	}
 	benefits = {
 
@@ -1871,16 +1497,13 @@ estate_adventurers_sponsor_beast_slayers = {
 	on_granted = {
 		custom_tooltip = estate_adventurers_beast_slayers_tooltip
 	}
-	ai_will_do = {
-		factor = 5
-	}
+	ai_will_do = {factor = 5}
 }
 
-estate_adventurers_sponsor_do_gooders = {
+estate_adventurers_sponsor_do_gooders = {	#bertus mod
 	icon = privilege_demand_more_troops
-	max_absolutism = -5
 	penalties = {
-		stability_cost_modifier = 0.1
+		yearly_corruption = 0.1
 	}
 	benefits = {
 
@@ -1888,16 +1511,13 @@ estate_adventurers_sponsor_do_gooders = {
 	on_granted = {
 		custom_tooltip = estate_adventurers_do_gooders_tooltip
 	}
-	ai_will_do = {
-		factor = 5
-	}
+	ai_will_do = {factor = 5}
 }
 
-estate_adventurers_sponsor_holy_paladins = {
+estate_adventurers_sponsor_holy_paladins = {	#bertus mod
 	icon = privilege_demand_more_troops
-	max_absolutism = -5
 	penalties = {
-		global_missionary_strength = -0.005
+		yearly_corruption = 0.1
 	}
 	benefits = {
 
@@ -1905,16 +1525,13 @@ estate_adventurers_sponsor_holy_paladins = {
 	on_granted = {
 		custom_tooltip = estate_adventurers_holy_paladins_tooltip
 	}
-	ai_will_do = {
-		factor = 5
-	}
+	ai_will_do = {factor = 5}
 }
 
-estate_adventurers_sponsor_rogues = {
+estate_adventurers_sponsor_rogues = {	#bertus mod
 	icon = privilege_demand_more_troops
-	max_absolutism = -5
 	penalties = {
-		global_tax_modifier = -0.05
+		yearly_corruption = 0.1
 	}
 	benefits = {
 
@@ -1922,12 +1539,10 @@ estate_adventurers_sponsor_rogues = {
 	on_granted = {
 		custom_tooltip = estate_adventurers_rogues_tooltip
 	}
-	ai_will_do = {
-		factor = 5
-	}
+	ai_will_do = {factor = 5}
 }
 
-estate_adventurers_in_her_acolytes_service = {
+estate_adventurers_in_her_acolytes_service = {	#bertus mod
 	icon = privilege_dominion_law
 	loyalty = 0.2
 	is_valid = {
@@ -1944,7 +1559,7 @@ estate_adventurers_in_her_acolytes_service = {
 	}
 
 	penalties = {
-		global_tax_modifier = -0.10
+		yearly_corruption = 0.1
 	}
 
 	benefits = {
@@ -1955,14 +1570,12 @@ estate_adventurers_in_her_acolytes_service = {
 		custom_tooltip = estate_adventurers_in_her_acolytes_service_tooltip
 	}
 
-	ai_will_do = {
-		factor = 5
-	}
+	ai_will_do = {factor = 5}
 }
 
 #estate_artificers_siegecraft = {
 #	icon = privilege_comission_merchant_ships_for_war
-#	max_absolutism = -5
+#	#max_absolutism = 0	#-5→0
 #	influence = 0
 #	can_select = {
 #		artifice_has_points_for_basic = yes
@@ -2111,126 +1724,42 @@ estate_adventurers_in_her_acolytes_service = {
 #Monstrous Tribes
 estate_monstrous_tribes_land_rights = {
 	icon = privilege_grant_autonomy
-	land_share = 5
-	max_absolutism = -5
 	loyalty = 0.05
 	influence = 0.05
-	can_select = {
-	}
-	on_granted = {
-	}
-	penalties = {
-	}
+	can_select = {}
+	on_granted = {}
+	penalties = {}
 	benefits = {
 		governing_capacity = 100
 	}
-	ai_will_do = {
+	ai_will_do = {	#bertus mod
 		factor = 5
-		modifier = {
-			factor = 1.4
-			num_of_territories = 5
-		}
-		modifier = {
-			factor = 1.5
-			num_of_territories = 10
-		}
-		modifier = {
-			factor = 1.5
-			num_of_territories = 15
-		}
-		modifier = {
-			factor = 0
-			OR = {
-				NOT = { crown_land_share = 25 }
-				estate_influence = {
-					estate = estate_monstrous_tribes
-					influence = 75
-				}
-			}
-			NOT = { has_estate_privilege = estate_monstrous_tribes_land_rights }
-		}
-		modifier = {
-			factor = 3
-			OR = {
-				AND = {
-					governing_capacity_percentage = 0.9
-					NOT = { has_estate_privilege = estate_monstrous_tribes_land_rights }
-				}
-				#The trigger below should make sure that the AI actually keeps this privilege when enacting it early game
-				AND = {
-					governing_capacity_percentage = 0.6
-					has_estate_privilege = estate_monstrous_tribes_land_rights
-				}
-			}
-		}
-		modifier = {
-			factor = 0
-			NOT = { governing_capacity_percentage = 0.5 }
-		}
-		modifier = {
-			factor = 0.8
-			OR = {
-				NOT = { crown_land_share = 40 }
-				AND = {
-					is_absolutism_active = yes
-					NOT = { crown_land_share = 60 }
-				}
-			}
-			NOT = { has_estate_privilege = estate_monstrous_tribes_land_rights }
-		}
-		modifier = {
-			factor = 0.8
-			OR = {
-				NOT = { crown_land_share = 30 }
-				AND = {
-					is_absolutism_active = yes
-					NOT = { crown_land_share = 50 }
-				}
-			}
-			NOT = { has_estate_privilege = estate_monstrous_tribes_land_rights }
-		}
-		modifier = {
-			factor = 0.8
-			is_absolutism_active = yes
-		}
 	}
 }
 
 estate_monstrous_tribes_share_of_the_spoils = {
 	icon = privilege_supply_arms
-	max_absolutism = -5
 	loyalty = 0.05
 	penalties = {
 		available_province_loot = -0.1
 	}
-	benefits = {
-	}
-	ai_will_do = {
-		factor = 0
-	}
+	benefits = {}
+	ai_will_do = {factor = 0}
 }
 
 estate_monstrous_tribes_chieftains_autonomy = {
 	icon = privilege_grant_autonomy
-	max_absolutism = -10
 	loyalty = 0.1
 	influence = 0.1
-	penalties = {
-	}
-	benefits = {
-	}
-	ai_will_do = {
+	penalties = {}
+	benefits = {}
+	ai_will_do = {	#bertus mod
 		factor = 10
-		modifier = {
-			factor = 0
-			is_absolutism_active = yes
-		}
 	}
 }
 
 estate_monstrous_tribes_guaranteed_leadgership_in_host = {
 	icon = privilege_conscript_cossack_elite
-	max_absolutism = -5
 	influence = 0.05
 	can_select = {
 		army_tradition = 30
@@ -2239,20 +1768,16 @@ estate_monstrous_tribes_guaranteed_leadgership_in_host = {
 	on_granted = {
 		add_army_tradition = -15
 	}
-	penalties = {
-	}
+	penalties = {}
 	benefits = {
 		general_cost = -0.25
 		army_tradition_decay = -0.005
 	}
-	ai_will_do = {
-		factor = 0
-	}
+	ai_will_do = {factor = 0}
 }
 
 estate_monstrous_tribes_tribal_host = {
 	icon = privilege_raise_host
-	max_absolutism = -5
 	loyalty = -0.05
 	influence = 0.1
 	benefits = {
@@ -2271,7 +1796,6 @@ estate_monstrous_tribes_tribal_host = {
 
 estate_church_guaranteed_autonomy = {
 	icon = privilege_grant_autonomy
-	max_absolutism = -5
 	influence = 0.05
 	loyalty = -0.05
 	is_valid = {
@@ -2320,8 +1844,7 @@ estate_church_guaranteed_autonomy = {
 			remove_province_modifier = estate_church_guaranteed_autonomy_mod
 		}
 	}
-	penalties = {
-	}
+	penalties = {}
 	benefits = {
 		tolerance_heathen = 3
 	}
@@ -2353,7 +1876,6 @@ estate_church_guaranteed_autonomy = {
 
 estate_nobles_castanor_upgraded_strong_duchies = {
 	icon = privilege_royal_authority
-	max_absolutism = -10
 	influence = 0.1
 	loyalty = 0.05
 	is_valid = {
@@ -2363,8 +1885,7 @@ estate_nobles_castanor_upgraded_strong_duchies = {
 	can_select = {
 		castanor_dominion = 2
 	}
-	penalties = {
-	}
+	penalties = {}
 	benefits = {
 		diplomatic_upkeep = 2
 		reduced_liberty_desire = 20
@@ -2381,7 +1902,6 @@ estate_nobles_castanor_upgraded_strong_duchies = {
 
 estate_burghers_magnate_council = {
 	icon = privilege_royal_authority
-	max_absolutism = -10
 	influence = 0.1
 	loyalty = 0.05
 	is_valid = {
@@ -2415,8 +1935,7 @@ estate_burghers_magnate_council = {
 	on_revoked = {
 		add_stability = -2
 	}
-	penalties = {
-	}
+	penalties = {}
 	benefits = {
 		global_trade_power = 0.10
 	}
@@ -2438,81 +1957,22 @@ estate_burghers_magnate_council = {
 
 estate_daulophs_land_rights = {
 	icon = privilege_grant_autonomy
-	land_share = 5
-	max_absolutism = -5
 	loyalty = 0.05
 	influence = 0.05
-	can_select = {
-	}
-	on_granted = {
-	}
-	penalties = {
-	}
+	can_select = {}
+	on_granted = {}
+	penalties = {}
 	benefits = {
 		governing_capacity = 100
 	}
-	ai_will_do = {
+	ai_will_do = {	#bertus mod
 		factor = 5
-		modifier = {
-			factor = 1.4
-			num_of_territories = 5
-		}
-		modifier = {
-			factor = 1.5
-			num_of_territories = 10
-		}
-		modifier = {
-			factor = 1.5
-			num_of_territories = 15
-		}
-		modifier = {
-			factor = 0
-			OR = {
-				NOT = { crown_land_share = 25 }
-				estate_influence = {
-					estate = estate_daulophs
-					influence = 75
-				}
-			}
-			NOT = { has_estate_privilege = estate_daulophs_land_rights }
-		}
-		modifier = {
-			factor = 0
-			NOT = { num_of_territories = 1 }
-		}
-		modifier = {
-			factor = 0.8
-			OR = {
-				NOT = { crown_land_share = 40 }
-				AND = {
-					is_absolutism_active = yes
-					NOT = { crown_land_share = 60 }
-				}
-			}
-			NOT = { has_estate_privilege = estate_daulophs_land_rights }
-		}
-		modifier = {
-			factor = 0.8
-			OR = {
-				NOT = { crown_land_share = 30 }
-				AND = {
-					is_absolutism_active = yes
-					NOT = { crown_land_share = 50 }
-				}
-			}
-			NOT = { has_estate_privilege = estate_daulophs_land_rights }
-		}
-		modifier = {
-			factor = 0.8
-			is_absolutism_active = yes
-		}
 	}
 }
 
 estate_daulophs_dauloph_primacy = {
 	icon = privilege_military_power
-	land_share = 10
-	max_absolutism = -5
+	#land_share = 0	#10→0
 	loyalty = -0.05
 	can_select = {
 		custom_trigger_tooltip = {
@@ -2521,55 +1981,18 @@ estate_daulophs_dauloph_primacy = {
 			NOT = { has_estate_privilege = estate_maratha_military }
 		}
 	}
-	on_granted = {
-	}
-	penalties = {
-	}
+	on_granted = {}
+	penalties = {}
 	benefits = {
 		country_military_power = 1
 	}
-	ai_will_do = {
+	ai_will_do = {	#bertus mod
 		factor = 12
-		modifier = {
-			factor = 0
-			OR = {
-				NOT = { crown_land_share = 30 }
-				estate_influence = {
-					estate = estate_nobles
-					influence = 75
-				}
-			}
-			NOT = { has_estate_privilege = estate_daulophs_dauloph_primacy }
-		}
-		modifier = {
-			factor = 0.8
-			OR = {
-				NOT = { crown_land_share = 35 }
-				AND = {
-					is_absolutism_active = yes
-					NOT = { crown_land_share = 55 }
-				}
-			}
-			NOT = { has_estate_privilege = estate_daulophs_dauloph_primacy }
-		}
-		modifier = {
-			factor = 0.8
-			is_absolutism_active = yes
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { mil = 2 }
-		}
-		modifier = {
-			factor = 0.8
-			mil = 5
-		}
 	}
 }
 
 estate_daulophs_police_subjects = {
 	icon = privilege_royal_authority
-	max_absolutism = -10
 	influence = 0.1
 	loyalty = 0.05
 	is_valid = {
@@ -2608,8 +2031,7 @@ estate_daulophs_police_subjects = {
 			vassal = 2
 		}
 	}
-	penalties = {
-	}
+	penalties = {}
 	benefits = {
 		diplomatic_upkeep = 2
 		reduced_liberty_desire = 10
@@ -2625,7 +2047,6 @@ estate_daulophs_police_subjects = {
 
 estate_daulophs_monopoly_of_metals = {
 	icon = privilege_monopoly_of_goods_iron
-	max_absolutism = -10
 	loyalty = 0.1
 	is_valid = {
 		has_dlc = "Emperor"
@@ -2707,23 +2128,18 @@ estate_daulophs_monopoly_of_metals = {
 			remove_province_modifier = estate_nobles_monopoly_of_metals_mod
 		}
 	}
-	penalties = {
-	}
-	benefits = {
-	}
+	penalties = {}
+	benefits = {}
 
 	cooldown_years = 10
 	on_cooldown_expires = {
 		country_event = { id = monopoly_privileges.5 }
 	}
-	ai_will_do = {
-		factor = 0
-	}
+	ai_will_do = {factor = 0}
 }
 
 estate_daulophs_monopoly_of_livestock = {
 	icon = privilege_monopoly_of_goods_livestock
-	max_absolutism = -10
 	loyalty = 0.1
 	is_valid = {
 		has_dlc = "Emperor"
@@ -2796,26 +2212,20 @@ estate_daulophs_monopoly_of_livestock = {
 			remove_province_modifier = estate_nobles_monopoly_of_livestock_mod
 		}
 	}
-	penalties = {
-	}
-	benefits = {
-	}
+	penalties = {}
+	benefits = {}
 	cooldown_years = 10
 	on_cooldown_expires = {
 		country_event = { id = monopoly_privileges.6 }
 	}
-	ai_will_do = {
-		factor = 0
-	}
+	ai_will_do = {factor = 0}
 }
 
 estate_daulophs_daily_matches = {
 	icon = privilege_limited_war_support
-	max_absolutism = 10
 	loyalty = 0.1
 	influence = 0.1
-	can_select = {
-	}
+	can_select = {}
 	can_revoke = {
 		always = no
 	}
@@ -2838,18 +2248,14 @@ estate_daulophs_daily_matches = {
 		global_unrest = -2
 		army_tradition = 2
 	}
-	ai_will_do = {
-		factor = 0
-	}
+	ai_will_do = {factor = 0}
 }
 
 estate_daulophs_weekly_matches = {
 	icon = privilege_limited_war_support
-	max_absolutism = 5
 	loyalty = 0.05
 	influence = 0.05
-	can_select = {
-	}
+	can_select = {}
 	can_revoke = {
 		always = no
 	}
@@ -2872,18 +2278,14 @@ estate_daulophs_weekly_matches = {
 		global_unrest = -1
 		army_tradition = 1
 	}
-	ai_will_do = {
-		factor = 0
-	}
+	ai_will_do = {factor = 0}
 }
 
 estate_daulophs_monthly_matches = {
 	icon = privilege_limited_war_support
-	max_absolutism = -5
 	loyalty = -0.05
 	influence = -0.1
-	can_select = {
-	}
+	can_select = {}
 	can_revoke = {
 		always = no
 	}
@@ -2906,18 +2308,14 @@ estate_daulophs_monthly_matches = {
 		global_unrest = -0.5
 		army_tradition = 0.5
 	}
-	ai_will_do = {
-		factor = 0
-	}
+	ai_will_do = {factor = 0}
 }
 
 estate_daulophs_arena_seats = {
 	icon = privilege_empty_throne
-	max_absolutism = 0
 	loyalty = 0.1
 	influence = 0.1
-	can_select = {
-	}
+	can_select = {}
 	can_revoke = {
 	}
 	on_revoked = {
@@ -2934,14 +2332,11 @@ estate_daulophs_arena_seats = {
 	benefits = {
 		mercenary_cost = -0.05
 	}
-	ai_will_do = {
-		factor = 0
-	}
+	ai_will_do = {factor = 0}
 }
 
 estate_daulophs_statutory_rights = {
 	icon = privilege_grant_autonomy
-	max_absolutism = -5
 	influence = 0.1
 	is_valid = {
 		has_estate_privilege = estate_daulophs_statutory_rights
@@ -2955,18 +2350,14 @@ estate_daulophs_statutory_rights = {
 	penalties = {
 		min_autonomy = 25
 	}
-	benefits = {
-	}
-	ai_will_do = {
-		factor = 0
-	}
+	benefits = {}
+	ai_will_do = {factor = 0}
 
 	cooldown_years = 20
 }
 
 estate_daulophs_grand_mercenary_feast = {
 	icon = privilege_build_jain_temple
-	max_absolutism = 0
 	loyalty = 0.05
 	influence = 0.05
 	can_select = {
@@ -2985,75 +2376,19 @@ estate_daulophs_grand_mercenary_feast = {
 	}
 	mechanics = {
     }
-	penalties = {
-	}
-	benefits = {
-	}
+	penalties = {}
+	benefits = {}
 	# This is too much, adding more crownland through events is more sustainable
 	# mechanics = {
 	# 	exempt_from_seize_land
 	# }
-	ai_will_do = {
+	ai_will_do = {	#bertus mod
 		factor = 5
-		modifier = {
-			factor = 1.4
-			num_of_territories = 5
-		}
-		modifier = {
-			factor = 1.5
-			num_of_territories = 10
-		}
-		modifier = {
-			factor = 1.5
-			num_of_territories = 15
-		}
-		modifier = {
-			factor = 0
-			OR = {
-				NOT = { crown_land_share = 25 }
-				estate_influence = {
-					estate = estate_daulophs
-					influence = 75
-				}
-			}
-			NOT = { has_estate_privilege = estate_daulophs_land_rights }
-		}
-		modifier = {
-			factor = 0
-			NOT = { num_of_territories = 1 }
-		}
-		modifier = {
-			factor = 0.8
-			OR = {
-				NOT = { crown_land_share = 40 }
-				AND = {
-					is_absolutism_active = yes
-					NOT = { crown_land_share = 60 }
-				}
-			}
-			NOT = { has_estate_privilege = estate_daulophs_land_rights }
-		}
-		modifier = {
-			factor = 0.8
-			OR = {
-				NOT = { crown_land_share = 30 }
-				AND = {
-					is_absolutism_active = yes
-					NOT = { crown_land_share = 50 }
-				}
-			}
-			NOT = { has_estate_privilege = estate_daulophs_land_rights }
-		}
-		modifier = {
-			factor = 0.8
-			is_absolutism_active = yes
-		}
 	}
 }
 
 estate_church_independent_clergy = {
 	icon = privilege_build_jain_temple
-	max_absolutism = -10
 	is_valid = {
 		OR = {
 			religion = bulwari_sun_cult
@@ -3330,16 +2665,15 @@ estate_church_tax_on_local_festivals = {
 	penalties = {
 		tolerance_own = -1
 	}
-	benefits = {
-	}
+	benefits = {}
 	ai_will_do = {
 		factor = 10
 	}
 }
 
-# only given via artifice incident
-estate_mages_empowered_mages = {
+estate_mages_empowered_mages = {	#bertus mod
 	icon = privilege_demand_more_troops
+	loyalty = -0.20	#0→-0.20
 	influence = 0.10
 	is_valid = {
 		OR = {
@@ -3347,24 +2681,28 @@ estate_mages_empowered_mages = {
 			has_country_flag = updating_isolationism_window
 		}
 		is_chosen_country = yes
-		has_country_flag = nsc_banned_artificery
-		# so it doesn't appear until you ban artificery
 	}
-	can_select = { always = no }
+	can_select = { }
 
-	can_revoke = { always = no }
-
-	on_granted = { }
+	on_granted = {
+		add_country_modifier = {
+			name = mages_empowered_mages_modifier
+			duration = -1
+		}
+	 }
 
 	penalties = {
-		army_tradition_decay = 0.01
-		country_military_power = -1
+		army_tradition_from_battle = -0.25
 	}
 	benefits = {
-		land_morale = 0.05
 	}
-	conditional_modifier = {
+	on_revoked = {
+		remove_country_modifier = mages_empowered_mages_modifier
 	}
+	on_invalid = {
+		remove_country_modifier = mages_empowered_mages_modifier
+	}
+	cooldown_years = 10
 	ai_will_do = {
 		factor = 10
 	}
@@ -3378,34 +2716,28 @@ estate_mages_organization_bardic_college = {
 	is_valid = {
 		has_estate_privilege = estate_mages_organization_bardic_college
 	}
-	can_select = {
-	}
+	can_select = {}
 	can_revoke = {
 		always = no
 	}
 	on_granted = {
 		clear_mages_organization_effect = yes
 	}
-	penalties = {
-	}
+	penalties = {}
 	benefits = {
 	prestige = 0.5
 	stability_cost_modifier = -0.10
 	}
-	ai_will_do = {
-		factor = 5
-	}
+	ai_will_do = {factor = 5}
 }
 
 estate_mages_bardic_general = {
 	icon = privilege_demand_more_troops
-	max_absolutism = -5
 	loyalty = 0.05
 	influence = 0.05
 	is_valid = {
 		has_estate_privilege = estate_mages_organization_bardic_college
 	}
-	land_share = 5
 	can_select = {
 		army_tradition = 5
 		estate_influence = {
@@ -3442,16 +2774,13 @@ estate_mages_bardic_general = {
 
 estate_mages_peace_songs = {
 	icon = privilege_commission_jain_scripture
-	max_absolutism = 0
 	loyalty = 0.15
 	influence = 0.10
 	is_valid = {
 		has_estate_privilege = estate_mages_organization_bardic_college
 	}
-	can_select = {
-	}
-	on_granted = {
-	}
+	can_select = {}
+	on_granted = {}
 	penalties = {
 		land_morale = -0.10
 	}
@@ -3459,33 +2788,25 @@ estate_mages_peace_songs = {
 		global_tax_modifier = 0.20
 		production_efficiency = 0.20
 	}
-	ai_will_do = {
-		factor = 1
-	}
+	ai_will_do = {factor = 1}
 }
 
 estate_mages_skaldic_teachings = {
 	icon = privilege_loan_interaction
-	max_absolutism = 0
 	loyalty = -0.15
 	influence = 0.10
 	is_valid = {
 		has_estate_privilege = estate_mages_organization_bardic_college
 		has_country_flag = seinathil_skaldic_teachings
 	}
-	can_select = {
-	}
-	on_granted = {
-	}
-	penalties = {
-	}
+	can_select = {}
+	on_granted = {}
+	penalties = {}
 	benefits = {
 		technology_cost  = -0.075
 		all_power_cost  = -0.025
 	}
-	ai_will_do = {
-		factor = 1
-	}
+	ai_will_do = {factor = 1}
 }
 
 #khugdihr
@@ -3544,6 +2865,9 @@ estate_church_khug_ancestral_worshippers = {
 			}
 		}
 	}
+	ai_will_do = {
+		factor = 5
+	}
 }
 
 #krakdhumvror
@@ -3551,7 +2875,7 @@ estate_mages_organization_ice_smiths = {
 	icon = privilege_promote_maratha_nobility
 	loyalty = 0.1
 	influence = 0.2
-	land_share = 10
+	#land_share = 0	#10→0
 	is_valid = {
 		tag = I02
 	}
@@ -3568,11 +2892,8 @@ estate_mages_organization_ice_smiths = {
 	penalties = {
 		production_efficiency = -0.05
 	}
-	benefits = {
-	}
-	ai_will_do = {
-		factor = 1
-	}
+	benefits = {}
+	ai_will_do = {factor = 1}
 }
 
 estate_mages_supply_more_iron = {
@@ -3640,12 +2961,9 @@ estate_mages_perform_icecraft = {
 		has_estate_privilege = estate_mages_perform_icecraft
 		NOT = { has_country_flag = revoke_mage_estate_spells }
 	}
-	on_granted = {
-	}
-	penalties = {
-	}
-	benefits = {
-	}
+	on_granted = {}
+	penalties = {}
+	benefits = {}
 	cooldown_years = 10
 	on_cooldown_expires = {
 		set_country_flag = revoke_mage_estate_spells # on_invalid gives a notification, on_revoked does not.
@@ -3670,10 +2988,8 @@ estate_mages_ice_sculptures = {
 	can_revoke = {
 		always = no
 	}
-	on_granted = {
-	}
-	penalties = {
-	}
+	on_granted = {}
+	penalties = {}
 	benefits = {
 		diplomatic_reputation = 2
 		monthly_splendor = 1
@@ -3685,7 +3001,6 @@ estate_mages_ice_sculptures = {
 #xhazobkult
 xhazobkult_privilege_organised_sacrifices = {
 	icon = privilege_seek_support_of_clergy
-	max_absolutism = -5
 	influence = 0.05
 	loyalty = 0.05
 	is_valid = {
@@ -3706,17 +3021,14 @@ xhazobkult_privilege_organised_sacrifices = {
 	}
 	mechanics = {
 	}
-	ai_will_do = {
-		factor = 5
-	}
+	ai_will_do = {factor = 5}
 }
 
 xhazobkult_privilege_the_weak_serve_the_strong = {
 	icon = privilege_monopoly_of_goods_slaves
-	max_absolutism = -5
 	influence = 0.1
 	loyalty = 0.05
-	land_share = 10
+	#land_share = 0	#10→0
 	is_valid = {
 		religion = xhazobkult
 	}
@@ -3754,10 +3066,8 @@ xhazobkult_privilege_the_weak_serve_the_strong = {
 	on_invalid_province = {
 		remove_province_modifier = xhazobkult_slave_estate
 	}
-	penalties = {
-	}
-	benefits = {
-	}
+	penalties = {}
+	benefits = {}
 	mechanics = {
 	}
 	ai_will_do = {
@@ -3767,7 +3077,6 @@ xhazobkult_privilege_the_weak_serve_the_strong = {
 
 estate_mages_sun_elf_evocation = {
 	icon = privilege_seek_support_of_clergy
-	max_absolutism = 0
 	loyalty = 0
 	influence = 0.05
 	is_valid = {
@@ -3777,8 +3086,7 @@ estate_mages_sun_elf_evocation = {
 	can_revoke = {
 		always = no
 	}
-	penalties = {
-	}
+	penalties = {}
 	benefits = {
 		shock_damage = 0.10
 		defensiveness = 0.05
@@ -3788,7 +3096,6 @@ estate_mages_sun_elf_evocation = {
             has_country_flag = nsc_privilege_burgher_influence
         }
         modifier = {
-            max_absolutism = -5
             burghers_influence_modifier = 0.1
             mages_loyalty_modifier = -0.1
         }
@@ -3798,7 +3105,6 @@ estate_mages_sun_elf_evocation = {
             has_country_flag = nsc_privilege_noble_influence
         }
         modifier = {
-            max_absolutism = -5
             nobles_influence_modifier = 0.1
             mages_loyalty_modifier = -0.1
         }
@@ -3829,7 +3135,6 @@ estate_mages_sun_elf_evocation = {
 
 estate_mages_sun_elf_abjuration = {
 	icon = privilege_seek_support_of_clergy
-	max_absolutism = 0
 	loyalty = 0
 	influence = 0.05
 	is_valid = {
@@ -3839,8 +3144,7 @@ estate_mages_sun_elf_abjuration = {
 	can_revoke = {
 		always = no
 	}
-	penalties = {
-	}
+	penalties = {}
 	benefits = {
 		shock_damage = 0.05
 		defensiveness = 0.1
@@ -3850,7 +3154,6 @@ estate_mages_sun_elf_abjuration = {
             has_country_flag = nsc_privilege_burgher_influence
         }
         modifier = {
-            max_absolutism = -5
             burghers_influence_modifier = 0.1
             mages_loyalty_modifier = -0.1
         }
@@ -3860,7 +3163,6 @@ estate_mages_sun_elf_abjuration = {
             has_country_flag = nsc_privilege_noble_influence
         }
         modifier = {
-            max_absolutism = -5
             nobles_influence_modifier = 0.1
             mages_loyalty_modifier = -0.1
         }
@@ -3891,7 +3193,6 @@ estate_mages_sun_elf_abjuration = {
 
 estate_mages_syncretic_transmutation = {
 	icon = privilege_seek_support_of_clergy
-	max_absolutism = 0
 	loyalty = 0
 	influence = 0.05
 	is_valid = {
@@ -3901,8 +3202,7 @@ estate_mages_syncretic_transmutation = {
 	can_revoke = {
 		always = no
 	}
-	penalties = {
-	}
+	penalties = {}
 	benefits = {
 		production_efficiency = 0.1
 	}
@@ -3911,7 +3211,6 @@ estate_mages_syncretic_transmutation = {
             has_country_flag = nsc_privilege_burgher_influence
         }
         modifier = {
-            max_absolutism = -5
             burghers_influence_modifier = 0.1
             mages_loyalty_modifier = -0.1
         }
@@ -3921,7 +3220,6 @@ estate_mages_syncretic_transmutation = {
             has_country_flag = nsc_privilege_noble_influence
         }
         modifier = {
-            max_absolutism = -5
             nobles_influence_modifier = 0.1
             mages_loyalty_modifier = -0.1
         }
@@ -3952,7 +3250,6 @@ estate_mages_syncretic_transmutation = {
 
 estate_mages_bulwari_divination = {
 	icon = privilege_seek_support_of_clergy
-	max_absolutism = 0
 	loyalty = 0
 	influence = 0.05
 	is_valid = {
@@ -3962,8 +3259,7 @@ estate_mages_bulwari_divination = {
 	can_revoke = {
 		always = no
 	}
-	penalties = {
-	}
+	penalties = {}
 	benefits = {
 		idea_cost = -0.05
 		improve_relation_modifier = 0.1
@@ -3973,7 +3269,6 @@ estate_mages_bulwari_divination = {
             has_country_flag = nsc_privilege_burgher_influence
         }
         modifier = {
-            max_absolutism = -5
             burghers_influence_modifier = 0.1
             mages_loyalty_modifier = -0.1
         }
@@ -3983,7 +3278,6 @@ estate_mages_bulwari_divination = {
             has_country_flag = nsc_privilege_noble_influence
         }
         modifier = {
-            max_absolutism = -5
             nobles_influence_modifier = 0.1
             mages_loyalty_modifier = -0.1
         }
@@ -4014,7 +3308,6 @@ estate_mages_bulwari_divination = {
 
 estate_mages_bulwari_conjuration = {
 	icon = privilege_seek_support_of_clergy
-	max_absolutism = 0
 	loyalty = 0
 	influence = 0.05
 	is_valid = {
@@ -4024,8 +3317,7 @@ estate_mages_bulwari_conjuration = {
 	can_revoke = {
 		always = no
 	}
-	penalties = {
-	}
+	penalties = {}
 	benefits = {
 		idea_cost = -0.025
 		improve_relation_modifier = 0.2
@@ -4035,7 +3327,6 @@ estate_mages_bulwari_conjuration = {
             has_country_flag = nsc_privilege_burgher_influence
         }
         modifier = {
-            max_absolutism = -5
             burghers_influence_modifier = 0.1
             mages_loyalty_modifier = -0.1
         }
@@ -4045,7 +3336,6 @@ estate_mages_bulwari_conjuration = {
             has_country_flag = nsc_privilege_noble_influence
         }
         modifier = {
-            max_absolutism = -5
             nobles_influence_modifier = 0.1
             mages_loyalty_modifier = -0.1
         }
@@ -4076,7 +3366,6 @@ estate_mages_bulwari_conjuration = {
 
 estate_mages_necromancer_death_tax = {
 	icon = privilege_give_money
-	max_absolutism = -5
 	influence = -0.1
 	loyalty = -0.05
 	land_share = 0
@@ -4104,7 +3393,6 @@ estate_mages_necromancer_death_tax = {
 
 estate_church_seelie = {
 	icon = privilege_bloody_rose
-	max_absolutism = 0
 	influence = 0
 	loyalty = -0.05
 	land_share = 0
@@ -4119,11 +3407,11 @@ estate_church_seelie = {
 		global_unrest = 1
 		global_tax_modifier = -0.05
 	}
+	ai_will_do = {factor = 5}
 }
 
 estate_church_unseelie = {
 	icon = privilege_dominion_law
-	max_absolutism = 0
 	influence = 0
 	loyalty = -0.05
 	land_share = 0
@@ -4138,11 +3426,12 @@ estate_church_unseelie = {
 		global_unrest = 1
 		global_tax_modifier = -0.05
 	}
+	ai_will_do = {factor = 5}
 }
 
 # estate_monstrous_tribes_tolerance_heathen_mates = {
 # 	icon = privilege_tolerance_heathen_mates
-# 	max_absolutism = -5
+# 	#max_absolutism = 0	#-5→0
 # 	land_share = 0
 # 	is_valid = {
 # 		religion = the_hunt
@@ -4168,7 +3457,7 @@ estate_church_unseelie = {
 
 # estate_church_tolerance_heathen_mates = {
 # 	icon = privilege_tolerance_heathen_mates
-# 	max_absolutism = -5
+# 	#max_absolutism = 0	#-5→0
 # 	land_share = 0
 # 	is_valid = {
 # 		religion = the_hunt
@@ -4195,7 +3484,6 @@ estate_church_unseelie = {
 
 estate_church_protected_burials = {
 	icon = privilege_build_jain_temple
-	max_absolutism = -5
 	loyalty = 0.05
 	influence = 0.05
 	is_valid = {
@@ -4210,27 +3498,28 @@ estate_church_protected_burials = {
 		custom_tooltip = reduced_aw_ghouls_tt
 		if = {
 			limit = { prestige = 50 }
-			add_prestige = 5
+			add_prestige_or_monarch_power = {amount =  5}
 		}
 		else_if = {
 			limit = { prestige = 0 }
-			add_prestige = 10
+			add_prestige_or_monarch_power = {amount =  10}
 		}
 		else_if = {
 			limit = { prestige = -25 }
-			add_prestige = 15
+			add_prestige_or_monarch_power = {amount =  15}
 		}
 		else_if = {
 			limit = { prestige = -50 }
-			add_prestige = 20
+			add_prestige_or_monarch_power = {amount =  20}
 		}
 		else = {
-			add_prestige = 25
+			add_prestige_or_monarch_power = {amount =  25}
 		}
 	}
 	on_revoked = {
 		custom_tooltip = reduced_aw_ghouls_tt
 	}
+	cooldown_years = 10
 	ai_will_do = {
 		factor = 0
 	}
@@ -4238,10 +3527,9 @@ estate_church_protected_burials = {
 
 estate_mages_reeshi_bonds = {
 	icon = privilege_build_jain_temple
-	max_absolutism = -5
 	loyalty = 0.05
 	influence = 0.1
-	land_share = 10
+	#land_share = 0	#10→0
 	is_valid = {
 		culture = ghavaanaj
 		has_country_flag = ghavaanaj_reeshi_bonds_flag
@@ -4259,18 +3547,14 @@ estate_mages_reeshi_bonds = {
 	on_revoked = {
 		custom_tooltip = estate_mages_reeshi_bonds_tt
 	}
-	ai_will_do = {
-		factor = 0
-	}
+	ai_will_do = {factor = 0}
 }
 
 #Beikdugang Flamekeepers
 estate_mages_flamekeepers = {
 	icon = privilege_grant_new_world_charter
-	max_absolutism = -5
 	loyalty = 0.05
 	influence = 0.1
-	land_share = 5
 	is_valid = {
 		OR = {
 			mission_completed = Y15_northeast_passage
@@ -4343,10 +3627,9 @@ estate_mages_flamekeepers = {
 
 estate_nobility_yangban = {
 	icon = privilege_recruit_minister
-	max_absolutism = -5
 	loyalty = 0.1
 	influence = 0.1
-	land_share = 10
+	#land_share = 0	#10→0
 	is_valid = {
 		culture_group = odheongun
 	}
@@ -4366,17 +3649,14 @@ estate_nobility_yangban = {
 	# }
 	# on_revoked = {
 	# }
-	ai_will_do = {
-		factor = 0
-	}
+	ai_will_do = {factor = 0}
 }
 
 estate_burghers_yangban = {
 	icon = privilege_recruit_minister
-	max_absolutism = -5
 	loyalty = 0.1
 	influence = 0.1
-	land_share = 10
+	#land_share = 0	#10→0
 	is_valid = {
 		culture_group = odheongun
 	}
@@ -4396,9 +3676,7 @@ estate_burghers_yangban = {
 	# }
 	# on_revoked = {
 	# }
-	ai_will_do = {
-		factor = 0
-	}
+	ai_will_do = {factor = 0}
 }
 
 #Spirits and Temples
@@ -4433,8 +3711,7 @@ estate_adventurers_temple_quest_licenses = {
 		}
 		custom_tooltip = will_begin_temple_quest_preparations_tooltip
 	}
-	penalties = {
-	}
+	penalties = {}
 	benefits = {
 		global_tax_modifier = -0.1		#The adventurers are paying you for Temple Quest Licenses
 	}
@@ -4473,15 +3750,13 @@ estate_adventurers_spirit_hunters = {
 	icon = privilege_demand_more_troops
 	loyalty = 0.05
 	influence = 0.05
-	max_absolutism = -5
 	is_valid = {
 		any_owned_province = {
 			continent = asia
 			NOT = { superregion = forbidden_lands_superregion }
 		}
 	}
-	on_granted = {
-	}
+	on_granted = {}
 	penalties = {
 		global_tax_modifier = -0.1
 	}
@@ -4511,7 +3786,6 @@ estate_mages_spirit_speakers = {
 	icon = privilege_seek_support_of_brahmins
 	loyalty = 0.05
 	influence = 0.05
-	max_absolutism = -5
 	is_valid = {
 		religion_group = halessi
 	}
@@ -4566,8 +3840,7 @@ estate_mages_temple_desecrators = {
 	penalties = {
 		global_tax_modifier = -0.1
 	}
-	benefits = {
-	}
+	benefits = {}
 	cooldown_years = 10
 	ai_will_do = {
 		factor = 15
@@ -4577,9 +3850,7 @@ estate_mages_temple_desecrators = {
 #Seghdihr SGC
 estate_burghers_sgc_merchant_training = {
 	icon = privilege_recruit_minister
-	max_absolutism = -5
 	influence = 0.1
-	land_share = 5
 	is_valid = {
 		tag = H78
 		has_country_flag = sgc_created
@@ -4594,14 +3865,11 @@ estate_burghers_sgc_merchant_training = {
 	benefits = {
 		merchants = 2
 	}
-	ai_will_do = {
-		factor = 0
-	}
+	ai_will_do = {factor = 0}
 }
 
 estate_burghers_sgc_foreign_power = {
 	icon = privilege_tolerance_heathen
-	max_absolutism = -5
 	influence = 0.05
 	is_valid = {
 		tag = H78
@@ -4618,14 +3886,11 @@ estate_burghers_sgc_foreign_power = {
 	benefits = {
 		global_foreign_trade_power = 0.3
 	}
-	ai_will_do = {
-		factor = 0
-	}
+	ai_will_do = {factor = 0}
 }
 
 estate_burghers_sgc_advanced_wagons = {
 	icon = privilege_comission_merchant_ships_for_war
-	max_absolutism = -5
 	loyalty = 0.1
 	influence = 0.05
 	is_valid = {
@@ -4642,38 +3907,31 @@ estate_burghers_sgc_advanced_wagons = {
 	benefits = {
 		caravan_power = 0.25
 	}
-	ai_will_do = {
-		factor = 0
-	}
+	ai_will_do = {factor = 0}
 }
 
 #court of officers privileges
 
 estate_nobles_jiangdu_high_investments = {
 	icon = privilege_give_money
-	max_absolutism = 0
 	loyalty = 0.1
 	influence = 0.1
 	land_share = 0
 	is_valid = {
 		has_country_flag = jiangdu_court_of_officer
 	}
-	can_select = {
-	}
+	can_select = {}
 	penalties = {
 		global_tax_modifier = -0.10
 	}
 	benefits = {
 		drill_decay_modifier = -0.25
 	}
-	ai_will_do = {
-		factor = 5
-	}
+	ai_will_do = {factor = 5}
 }
 
 estate_nobles_jiangdu_officer_corp = {
 	icon = privilege_promote_purbias
-	max_absolutism = 0
 	influence = 0.05
 	loyalty = 0.05
 	is_valid = {
@@ -4683,21 +3941,17 @@ estate_nobles_jiangdu_officer_corp = {
 		army_tradition = 30
 		NOT = { has_estate_privilege = estate_eunuchs_anb_generals }
 	}
-	penalties = {
-	}
+	penalties = {}
 	benefits = {
 		general_cost = -0.15
 		army_tradition_decay = -0.01
 	}
-	ai_will_do = {
-		factor = 0
-	}
+	ai_will_do = {factor = 0}
 }
 
 # Balgarsmiths (Z36/Hammerhome)
 estate_church_balgarsmiths_building_oversight = {
 	icon = privilege_build_jain_temple
-	max_absolutism = -5
 	loyalty = 0.05
 	influence = 0.05
 	is_valid = {
@@ -4715,14 +3969,11 @@ estate_church_balgarsmiths_building_oversight = {
 		build_cost = -0.1
 		great_project_upgrade_cost = -0.1
 	}
-	ai_will_do = {
-		factor = 0
-	}
+	ai_will_do = {factor = 0}
 }
 
 estate_church_balgarsmiths_mining = {
 	icon = privilege_build_jain_temple
-	max_absolutism = -5
 	loyalty = 0.05
 	influence = 0.1
 	is_valid = {
@@ -4795,18 +4046,13 @@ estate_church_balgarsmiths_mining = {
 			remove_province_modifier = Z36_balgarsmiths_production_bonus
 		}
 	}
-	penalties = {
-	}
-	benefits = {
-	}
-	ai_will_do = {
-		factor = 0
-	}
+	penalties = {}
+	benefits = {}
+	ai_will_do = {factor = 0}
 }
 
 estate_clergy_osc_centralization_synod = {
 	icon = privilege_seek_support_of_clergy
-	max_absolutism = 0
 	loyalty = 0
 	influence = 0
 	is_valid = {
@@ -4816,8 +4062,7 @@ estate_clergy_osc_centralization_synod = {
 	can_revoke = {
 		always = no
 	}
-	penalties = {
-	}
+	penalties = {}
 	benefits = {
 		manpower_in_true_faith_provinces = 0.10
 	}
@@ -4875,7 +4120,6 @@ estate_clergy_osc_centralization_synod = {
 
 estate_clergy_osc_centralization_high_council = {
 	icon = privilege_seek_support_of_clergy
-	max_absolutism = 0
 	loyalty = 0
 	influence = 0
 	is_valid = {
@@ -4885,8 +4129,7 @@ estate_clergy_osc_centralization_high_council = {
 	can_revoke = {
 		always = no
 	}
-	penalties = {
-	}
+	penalties = {}
 	benefits = {
 		establish_order_cost = -0.5
 	}
@@ -4954,7 +4197,6 @@ estate_clergy_osc_centralization_high_council = {
 
 estate_clergy_osc_centralization_elected_kasra = {
 	icon = privilege_seek_support_of_clergy
-	max_absolutism = 0
 	loyalty = 0
 	influence = 0
 	is_valid = {
@@ -4964,8 +4206,7 @@ estate_clergy_osc_centralization_elected_kasra = {
 	can_revoke = {
 		always = no
 	}
-	penalties = {
-	}
+	penalties = {}
 	benefits = {
 		free_adm_policy = 1
 	}
@@ -5023,7 +4264,6 @@ estate_clergy_osc_centralization_elected_kasra = {
 
 estate_clergy_osc_centralization_nominated_kasra = {
 	icon = privilege_seek_support_of_clergy
-	max_absolutism = 0
 	loyalty = 0
 	influence = 0
 	is_valid = {
@@ -5033,10 +4273,9 @@ estate_clergy_osc_centralization_nominated_kasra = {
 	can_revoke = {
 		always = no
 	}
-	penalties = {
-	}
+	penalties = {}
 	benefits = {
-		max_absolutism = 10
+		#max_absolutism = 10	#10→0
 	}
 	conditional_modifier = {        #First Debate option 1
         trigger = {
@@ -5208,7 +4447,6 @@ estate_adventurers_hydra_trophy = {
 #Orlghelovar
 estate_burghers_merchant_spies = {
 	icon = privilege_seek_support_of_clergy
-	max_absolutism = 0
 	loyalty = -0.05
 	influence = 0.05
 	is_valid = {
@@ -5221,8 +4459,7 @@ estate_burghers_merchant_spies = {
 	can_revoke = {
 		always = no
 	}
-	penalties = {
-	}
+	penalties = {}
 	benefits = {
 		spy_offence = 0.25
 	}
@@ -5231,7 +4468,6 @@ estate_burghers_merchant_spies = {
 
 estate_mages_organization_science_mages = {
 	icon = privilege_seek_support_of_brahmins
-	max_absolutism = 0
 	loyalty = -0.05
 	influence = 0.1
 	is_valid = {
@@ -5250,8 +4486,7 @@ estate_mages_organization_science_mages = {
 		}
 		clear_mages_organization_effect = yes
 	}
-	penalties = {
-	}
+	penalties = {}
 	benefits = {
 		innovativeness_gain = 0.2
 	}
@@ -5335,7 +4570,6 @@ estate_nobility_permanent_embassies = {
 #Truedagger#
 estate_nobles_courtiers_shadow_daggers = {
 	icon = privilege_spawn_rajput_regiments
-	max_absolutism = 0
 	loyalty = 0.1
 	influence = 0.15
 	is_valid = {
@@ -5360,8 +4594,6 @@ estate_nobles_courtiers_shadow_daggers = {
 #Newshire
 estate_mages_experimental_lands = {
 	icon = privilege_bloody_rose
-	max_absolutism = 0
-	land_share = 5
 	is_valid = {
 		has_country_flag = newshire_experimenting_flag
 	}
@@ -5388,10 +4620,8 @@ estate_mages_experimental_lands = {
 			}
 		}
 	}
-	penalties = {
-	}
-	benefits = {
-	}
+	penalties = {}
+	benefits = {}
 	cooldown_years = 5
 	on_cooldown_expires = {
 		every_owned_province = {
@@ -5404,15 +4634,11 @@ estate_mages_experimental_lands = {
 		}
 		remove_estate_privilege = estate_mages_experimental_lands
 	}
-	ai_will_do = {
-		factor = 0
-	}
+	ai_will_do = {factor = 0}
 }
 
 estate_mages_vivomantic_mastery = {
 	icon = privilege_bloody_rose
-	max_absolutism = 0
-	land_share = 5
 	is_valid = {
 		has_country_flag = vivomantic_mastery_flag
 		any_owned_province = {
@@ -5447,10 +4673,8 @@ estate_mages_vivomantic_mastery = {
 			}
 		}
 	}
-	penalties = {
-	}
-	benefits = {
-	}
+	penalties = {}
+	benefits = {}
 	cooldown_years = 5
 	on_cooldown_expires = {
 		every_owned_province = {
@@ -5466,15 +4690,11 @@ estate_mages_vivomantic_mastery = {
 		}
 		remove_estate_privilege = estate_mages_vivomantic_mastery
 	}
-	ai_will_do = {
-		factor = 0
-	}
+	ai_will_do = {factor = 0}
 }
 
 estate_mages_vivomantic_mastery_final = {
 	icon = privilege_bloody_rose
-	max_absolutism = 0
-	land_share = 5
 	is_valid = {
 		has_country_flag = newshire_growing_strong_flag
 		any_owned_province = {
@@ -5509,10 +4729,8 @@ estate_mages_vivomantic_mastery_final = {
 			}
 		}
 	}
-	penalties = {
-	}
-	benefits = {
-	}
+	penalties = {}
+	benefits = {}
 	cooldown_years = 5
 	on_cooldown_expires = {
 		every_owned_province = {
@@ -5528,15 +4746,12 @@ estate_mages_vivomantic_mastery_final = {
 		}
 		remove_estate_privilege = estate_mages_vivomantic_mastery_final
 	}
-	ai_will_do = {
-		factor = 0
-	}
+	ai_will_do = {factor = 0}
 }
 
 #Mulen
 estate_burghers_matriarch_autonomy = {
 	icon = privilege_autonomy
-	max_absolutism = -10
 	influence = 0.1
 	loyalty = 0.1
 	is_valid = {
@@ -5572,13 +4787,9 @@ estate_burghers_matriarch_autonomy = {
 			}
 		}
 	}
-	penalties = {
-	}
-	benefits = {
-	}
-	ai_will_do = {
-		factor = 1
-	}
+	penalties = {}
+	benefits = {}
+	ai_will_do = {factor = 1}
 }
 
 
@@ -5616,6 +4827,8 @@ estate_mages_grand_rune_amekh = {
 	}
 	on_revoked = {
 	}
+	ai_will_do = {factor = 0}
+}
 }
 
 estate_mages_grand_rune_guntir = {
@@ -5646,6 +4859,7 @@ estate_mages_grand_rune_guntir = {
 	}
 	on_revoked = {
 	}
+	ai_will_do = {factor = 0}
 }
 
 estate_mages_grand_rune_jolkin = {
@@ -5684,6 +4898,7 @@ estate_mages_grand_rune_jolkin = {
 	}
 	on_revoked = {
 	}
+	ai_will_do = {factor = 0}
 }
 
 estate_mages_grand_rune_krakdhum = {
@@ -5733,6 +4948,7 @@ estate_mages_grand_rune_krakdhum = {
 	}
 	on_revoked = {
 	}
+	ai_will_do = {factor = 0}
 }
 
 estate_mages_grand_rune_haln = {
@@ -5772,6 +4988,7 @@ estate_mages_grand_rune_haln = {
 	}
 	on_revoked = {
 	}
+	ai_will_do = {factor = 0}
 }
 
 estate_mages_grand_rune_kron = {
@@ -5801,6 +5018,7 @@ estate_mages_grand_rune_kron = {
 			}
 		}
 	}
+	ai_will_do = {factor = 0}
 }
 
 estate_mages_grand_rune_dauth = {
@@ -5825,6 +5043,7 @@ estate_mages_grand_rune_dauth = {
 			remove_estate_privilege = estate_mages_grand_rune_bal
 		}
 	}
+	ai_will_do = {factor = 0}
 }
 
 estate_mages_grand_rune_kanzad = {
@@ -5849,6 +5068,7 @@ estate_mages_grand_rune_kanzad = {
 			remove_estate_privilege = estate_mages_grand_rune_bal
 		}
 	}
+	ai_will_do = {factor = 0}
 }
 
 estate_mages_grand_rune_bal = {
@@ -5873,6 +5093,7 @@ estate_mages_grand_rune_bal = {
 			remove_estate_privilege = estate_mages_grand_rune_kanzad
 		}
 	}
+	ai_will_do = {factor = 0}
 }
 
 estate_nobles_patron_contribution = {
@@ -5885,13 +5106,14 @@ estate_nobles_patron_contribution = {
 	on_granted = {
 		custom_tooltip = patron_contribution_tt
 	}
+	ai_will_do = {factor = 0}
 }
 
 estate_nobles_right_of_embassy = {
 	icon = privilege_promote_maratha_nobility
 	loyalty = 0.05
 	influence = 0.1
-	land_share = 10
+	#land_share = 0	#10→0
 	is_valid = {
 		tag = Y63
 		mission_completed = Y63_king_of_kai
@@ -5907,7 +5129,6 @@ estate_nobles_right_of_embassy = {
 #Freemarches Rudmen
 estate_burghers_rudmen_traders = {
 	icon = privilege_new_world_mission
-	max_absolutism = -5
 	influence = 0.05
 	loyalty = 0.1
 	is_valid = {
@@ -5978,18 +5199,13 @@ estate_burghers_rudmen_traders = {
 			remove_province_modifier = H51_rudmen_traders_production_bonus
 		}
 	}
-	penalties = {
-	}
-	benefits = {
-	}
-	ai_will_do = {
-		factor = 1
-	}
+	penalties = {}
+	benefits = {}
+	ai_will_do = {factor = 1}
 }
 
 estate_adventurers_rudmen_guards = {
 	icon = privilege_dev_cost_forest
-	max_absolutism = -5
 	influence = 0
 	loyalty = 0
 	is_valid = {
@@ -6057,17 +5273,13 @@ estate_adventurers_rudmen_guards = {
 	penalties = {
 		global_tax_modifier = -0.05
 	}
-	benefits = {
-	}
-	ai_will_do = {
-		factor = 1
-	}
+	benefits = {}
+	ai_will_do = {factor = 1}
 }
 
 # Dur-Vazhatun
 estate_mages_vazhatun_study_runes = {
 	icon = privilege_commission_jain_scripture
-	max_absolutism = -5
 	loyalty = 0.10
 	influence = 0.15
 	is_valid = {
@@ -6117,7 +5329,6 @@ estate_mages_vazhatun_study_runes = {
 
 estate_church_vazhatun_veneration = {
 	icon = privilege_seek_support_of_clergy
-	max_absolutism = 0
 	loyalty = 0.10
 	influence = 0
 	is_valid = {
@@ -6142,7 +5353,6 @@ estate_church_vazhatun_veneration = {
 
 estate_church_vazhatun_mental_care = {
 	icon = privilege_build_jain_temple
-	max_absolutism = -5
 	loyalty = 0
 	influence = 0.05
 	is_valid = {
@@ -6163,7 +5373,6 @@ estate_church_vazhatun_mental_care = {
 
 estate_burghers_vazhatun_fund_research = {
 	icon = privilege_give_money
-	max_absolutism = 0
 	loyalty = 0
 	influence = 0.05
 	is_valid = {
@@ -6194,10 +5403,9 @@ estate_burghers_vazhatun_fund_research = {
 
 estate_nobles_tanizu_lodges = {
 	icon = privilege_promote_maratha_nobility
-	max_absolutism = -10
 	loyalty = 0.1
 	influence = 0.15
-	land_share = 10
+	#land_share = 0	#10→0
 	is_valid = {
 		culture_group = tanizu
 	}
@@ -6234,9 +5442,7 @@ estate_nobles_tanizu_lodges = {
 
 estate_mages_organization_jaherian_statute = {
 	icon = privilege_promote_maratha_nobility
-	max_absolutism = -5
 	influence = 0.1
-	land_share = 5
 	is_valid = {
 		or = {
 			religion = the_jadd
@@ -6318,8 +5524,7 @@ estate_mages_organization_jaherian_statute = {
 			}
 		}
 	}
-	penalties = {
-	}
+	penalties = {}
 	benefits = {
 		global_unrest = -1
 		global_missionary_strength = 0.02
@@ -6367,7 +5572,6 @@ estate_mages_organization_jaherian_statute = {
 
 estate_mages_vacyntassi_order = {
 	icon = privilege_seek_support_of_clergy
-	max_absolutism = 0
 	loyalty = 0
 	influence = 0.05
 	is_valid = {
@@ -6376,8 +5580,7 @@ estate_mages_vacyntassi_order = {
 	can_revoke = {
 		always = no
 	}
-	penalties = {
-	}
+	penalties = {}
 	benefits = {
 		development_cost = -0.1
 	}
@@ -6389,7 +5592,6 @@ estate_mages_vacyntassi_order = {
 
 estate_mages_zamukaras_carpet_siege = {
 	icon = privilege_seek_support_of_clergy
-	max_absolutism = 0
 	loyalty = -0.05
 	influence = 0
 	is_valid = {
@@ -6398,8 +5600,7 @@ estate_mages_zamukaras_carpet_siege = {
 	can_revoke = {
 		always = yes
 	}
-	penalties = {
-	}
+	penalties = {}
 	benefits = {
 		siege_ability = 0.1
 	}
@@ -6411,7 +5612,6 @@ estate_mages_zamukaras_carpet_siege = {
 
 estate_mages_zamukaras_focus_carpets = {
 	icon = privilege_seek_support_of_clergy
-	max_absolutism = 0
 	loyalty = -0.05
 	influence = 0
 	is_valid = {
@@ -6433,10 +5633,8 @@ estate_mages_zamukaras_focus_carpets = {
 	on_revoked = {
 		remove_country_modifier = zamukaras_focus_carpets_modifier
 	}
-	penalties = {
-	}
-	benefits = {
-	}
+	penalties = {}
+	benefits = {}
 
 	conditional_modifier = {
 		trigger = { 
@@ -6513,7 +5711,6 @@ estate_mages_zamukaras_focus_carpets = {
 
 estate_mages_zamukaras_focus_platforms = {
 	icon = privilege_seek_support_of_clergy
-	max_absolutism = 0
 	loyalty = -0.05
 	influence = 0
 	is_valid = {
@@ -6535,10 +5732,8 @@ estate_mages_zamukaras_focus_platforms = {
 	on_revoked = {
 		remove_country_modifier = zamukaras_focus_platforms_modifier
 	}
-	penalties = {
-	}
-	benefits = {
-	}
+	penalties = {}
+	benefits = {}
 
 	conditional_modifier = {
 		trigger = { 

@@ -1,0 +1,354 @@
+
+alenic_monarchy = {
+	icon = "king"
+	allow_normal_conversion = yes
+	potential = {
+		culture_group = alenic
+		OR = {
+			has_reform = alenic_monarchy
+			NOT = {government_rank = 3}
+			AND = {
+				government_rank = 3
+				is_emperor = yes
+			}
+		}
+	}
+	legacy_equivalent = tsardom_legacy
+	valid_for_nation_designer = no	#Anbennar
+	nation_designer_cost = 40
+
+	modifiers = {
+		global_autonomy = -0.025
+	}
+	conditional = {
+		allow = { has_dlc = "Lions of the North" }
+		custom_attributes = {
+			get_peasant_levies = yes
+		}
+	}
+}
+
+alenic_empire = {
+	icon = "king"
+	allow_normal_conversion = yes
+	potential = {
+		culture_group = alenic
+		OR = {
+			has_reform = alenic_empire
+			have_had_reform = alenic_empire
+			government_rank = 3
+		}
+		is_emperor = no
+	}
+	fixed_rank = 3
+	legacy_equivalent = tsardom_legacy
+	valid_for_nation_designer = no	#Anbennar
+	nation_designer_cost = 40
+
+	modifiers = {
+		yearly_absolutism = 0.5
+		global_autonomy = -0.025
+		governing_capacity = 100	
+	}
+
+	custom_attributes = {
+		get_peasant_levies = yes
+	}
+}
+
+wine_empire = {
+	icon = "merchant"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	potential = {
+		OR = {
+			culture_group = lencori
+			primary_culture = rosanda
+		}
+		OR = {
+			has_reform = wine_empire
+			have_had_reform = wine_empire
+			government_rank = 3
+		}
+	}
+	trigger = {
+		OR = {
+			culture_group = lencori
+			primary_culture = rosanda
+		}
+		any_owned_province = {
+			trade_goods = wine
+		}
+	}
+	fixed_rank = 3
+	modifiers = {
+		elven_influence_modifier = 0.1
+		elven_loyalty_modifier = 0.1
+		global_autonomy = -0.025
+		governing_capacity = 100
+	}
+	custom_attributes = {
+		winelord_boost = yes
+	}
+	effect = {
+		hidden_effect = {
+			every_owned_province = {
+				limit = { trade_goods = wine }
+				add_province_modifier = {
+					name = wine_lord_wine
+					duration = -1
+					hidden = yes
+				}
+			}
+		}
+	}
+	removed_effect = {
+		hidden_effect = {
+			every_owned_province = {
+				limit = { has_province_modifier = wine_lord_wine }
+				remove_province_modifier = wine_lord_wine
+			}
+		}
+	}
+}
+damerian_empire = {
+	icon = "british_queen"
+	allow_normal_conversion = no
+	potential = {
+		OR = {
+			primary_culture = west_damerian
+			primary_culture = east_damerian
+			primary_culture = rogieran
+			primary_culture = pashainey
+		}
+		OR = {
+			has_reform = damerian_empire
+			have_had_reform = damerian_empire
+			government_rank = 3
+		}
+	}
+	fixed_rank = 3
+	valid_for_nation_designer = yes
+	nation_designer_cost = 15
+	nation_designer_trigger = {
+		has_dlc = "Common Sense"
+	}
+	start_territory_to_estates = 0.3
+	modifiers = {	#bertus mod
+		global_autonomy = -0.025
+		governing_capacity = 50
+		all_estate_influence_modifier = 0.05
+		all_estate_loyalty_equilibrium = 0.05
+	}
+	custom_attributes = {
+		halved_parliament_bribes = yes
+		pariament_debate_bonus = yes
+	}
+	conditional = {
+		allow = { has_dlc = "Common Sense" }
+		has_parliament = yes
+	}
+}
+xenophile_elections_reform = {	#new LotN
+	icon = "royal_court"
+	allow_normal_conversion = yes
+	potential = {
+		OR = {
+			is_revolutionary = no
+			NOT = { has_dlc = "Emperor" }
+		}
+	}
+	trigger = {
+		NOT = { has_reform = damescrown_republic_reform}
+	}
+	modifiers = {
+		all_estate_influence_modifier = 0.05
+		reform_progress_growth = 0.2
+		advisor_pool = 1
+		diplomats = 1	#0→1
+	}
+	conditional = {
+		allow = { has_dlc = "Cradle of Civilization" }
+		foreign_slave_rulers = yes
+	}
+}
+subject_free_city_reform = {	#bertus mod
+	icon = "free_city"
+	allow_normal_conversion = no
+	potential = {
+		has_reform = subject_free_city_reform
+		is_subject_of = emperor
+	}
+	legacy_equivalent = imperial_city
+	valid_for_nation_designer = yes
+	lock_level_when_selected = yes
+	nation_designer_cost = 40
+	nation_designer_trigger = {
+		capital_scope = { is_part_of_hre = yes }
+		NOT = { num_custom_nation_provinces = 2 }
+	}
+
+	free_city = yes
+	modifiers = {
+		trade_efficiency = 0.1
+		development_cost = -0.2
+		diplomats = -2
+		merchants = -1	
+		land_forcelimit = 3
+	}
+	fixed_rank = 1
+
+	custom_attributes = {
+		locked_government_type = yes
+		enables_plutocratic_idea_group = yes
+		enables_aristocratic_idea_group = no
+	}
+	duration = 4
+}
+emerald_theocracy = {
+	icon = "shaman"
+	allow_normal_conversion = no
+	potential = {
+		OR = {
+			has_reform = emerald_theocracy
+			tag = I46
+		}
+	}
+	valid_for_nation_designer = no
+	
+	queen = no
+	
+	maintain_dynasty = yes
+
+	modifiers = {	#the design ethos is 2 improved, 3 new
+		cawa_cost_modifier = -0.20
+		war_exhaustion = -0.01
+		all_power_cost = -0.05
+		mages_influence_modifier = 0.10
+		technology_cost = 0.10
+	}
+	
+	custom_attributes = {
+		locked_government_type = yes
+		is_magocracy = yes
+		increased_magic_ruler_chance = yes
+	}
+}
+
+#tier 8
+machiavellianistic_rule_reform = {	#bertus mod	#new LotN
+	icon = "machiavellianism"
+	allow_normal_conversion = yes
+	#potential = {
+	#	OR = {
+	#		is_revolutionary = no
+	#		NOT = { has_dlc = "Emperor" }
+	#	}
+	#}
+	modifiers = {
+		ignore_coring_distance = yes
+		core_creation = -0.1
+	}
+	custom_attributes = {
+		cb_on_own_race = yes
+	}
+	ai = {
+		factor = 1
+	}
+}
+
+six_livres_reform = {	#bertus mod	#new LotN
+	icon = "six_livres"
+	allow_normal_conversion = yes
+	#potential = {
+	#	OR = {
+	#		is_revolutionary = no
+	#		NOT = { has_dlc = "Emperor" }
+	#	}
+	#}
+	trigger = {
+		has_parliament = yes
+	}
+	modifiers = {
+		global_unrest = -1
+	}
+	conditional = {
+		allow = { has_dlc = "Common Sense" }
+		custom_attributes = {
+			halved_parliament_bribes = yes
+			pariament_debate_bonus = yes
+		}
+	}
+	ai = {
+		factor = 1
+	}
+}
+
+two_treatises_reform = {	#bertus mod	#new LotN
+	icon = "two_treaties"
+	allow_normal_conversion = yes
+	potential = {
+		#OR = {
+		#	is_revolutionary = no
+		#	NOT = { has_dlc = "Emperor" }
+		#}
+	}
+	modifiers = {
+		tolerance_of_heretics_capacity = 1
+		tolerance_of_heathens_capacity = 1
+	}
+	custom_attributes = {
+		cb_on_purguers = yes
+		faster_tolerance_events = yes
+		integrated_races_give_dev_cost = yes
+	}
+	ai = {
+		factor = 1
+	}
+}
+
+the_leviathan_reform = {	#bertus mod	#new LotN
+	icon = "leviathan"
+	allow_normal_conversion = yes
+	#potential = {
+	#	OR = {
+	#		is_revolutionary = no
+	#		NOT = { has_dlc = "Emperor" }
+	#	}
+	#}
+	modifiers = {
+		all_power_cost = -0.05
+		administrative_efficiency = 0.05
+	}
+	ai = {
+		factor = 1
+	}
+}
+
+the_social_contract_reform = {	#bertus mod	#new LotN
+	icon = "the_social_contract"
+	allow_normal_conversion = yes
+	potential = {
+		is_revolutionary = no
+		#OR = {
+		#	is_revolutionary = no
+		#	NOT = { has_dlc = "Emperor" }
+		#}
+	}
+	modifiers = {
+		no_religion_penalty = yes
+		advisor_cost = -0.1
+		all_estate_influence_modifier = 0.1
+		all_estate_loyalty_equilibrium = 0.1
+		adventurers_influence_modifier = -0.1
+		artificers_influence_modifier = -0.1
+		mages_influence_modifier = -0.1
+		adventurers_loyalty_modifier = -0.1
+		artificers_loyalty_modifier = -0.1
+		mages_loyalty_modifier = -0.1
+	}
+	ai = {
+		factor = 1
+	}
+}
