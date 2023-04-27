@@ -1,41 +1,4 @@
-# united_cantons_reform = {
-# 	icon = "united_cantons_reform"
-# 	allow_normal_conversion = yes
-# 	modifiers = {
-# 		governing_capacity = -50
-# 		free_policy = 1
-# 		mercenary_manpower = 0.5
-# 	}
-# 	valid_for_nation_designer = yes
-# 	nation_designer_cost = 40
-# 	legacy_equivalent = united_cantons_legacy
-# 	potential = {
-# 		NOT = { map_setup = map_setup_random }
-# 		OR = {
-# 			primary_culture = swiss
-# 			have_had_reform = united_cantons_reform
-# 		}
-# 	}
-# 	ai = {
-# 		factor = 10 #unique
-		
-# 		modifier = {
-# 			factor = 2
-# 			NOT = {
-# 				num_of_cities = 11
-# 			}
-# 		}
-		
-# 		modifier = {
-# 			factor = 0
-# 			is_subject = yes
-# 		}
-# 	}
 
-# 	custom_attributes = {
-# 		mercs_do_not_cost_army_professionalism = yes
-# 	}
-# }
 
 parliamentary_reform = {
 	icon = "judge"
@@ -62,25 +25,17 @@ parliamentary_reform = {
 		NOT = { has_reform = golden_republic_reform }
 		NOT = { has_reform = ameion_parliamentary_reform }
 		NOT = { have_had_reform = ameion_parliamentary_reform }
+		NOT = { has_reform = damerian_empire }
 	}
 	modifiers = {
 		global_unrest = -1
 	}
 	
-	trigger = {		
+	trigger = {	
 		if = {
-			limit = { has_dlc = "Common Sense" }
-			OR = {
-				NOT = { has_estate = estate_nobles }
-				crown_stronger_than_estate = { estate = estate_nobles }
-				NOT = { has_estate = estate_uppercastes }
-				crown_stronger_than_estate = { estate = estate_uppercastes }
-				has_reform = parliamentary_reform
-			}
-		}	
-		NOT = { has_reform = elective_monarchy }
-		# NOT = { has_reform = polish_great_sejm }
-		NOT = { has_reform = polish_elective_monarchy }
+			limit = { has_dlc = "Res Publica" }
+			NOT = { has_reform = elective_monarchy }
+		}
 		if = {
 			limit = { NOT = { has_dlc = "Mandate of Heaven" } }
 			NOT = { has_reform = celestial_empire }
@@ -107,17 +62,8 @@ parliamentary_reform = {
 	}
 
 	conditional = {
-		allow = {
-			OR = {
-				has_dlc = "Common Sense"
-				has_dlc = "Domination"
-			}
-		}
+		allow = { has_dlc = "Common Sense" }
 		has_parliament = yes
-		custom_attributes = {
-			disables_estate_nobles = yes
-			blocked_call_diet = yes
-		}
 	}
 	ai = {
 		factor = 1
@@ -240,35 +186,6 @@ governmental_purbias_register_reform = {
 	}
 }
 
-# for Spain
-
-# council_of_the_indies_reform = {
-# 	icon = "paper_money_map"
-# 	allow_normal_conversion = yes
-# 	potential = {
-# 		has_dlc = "Golden Century"
-# 		culture_group = iberian
-# 		capital_scope = {
-# 			region = iberia_region
-# 		}
-# 	}
-# 	trigger = {
-# 		num_of_colonists = 1
-# 		culture_group = iberian
-# 		capital_scope = {
-# 			region = iberia_region
-# 		}
-# 	}
-# 	modifiers = {
-# 		reduced_liberty_desire_on_other_continent = 5
-# 		treasure_fleet_income = 0.25
-# 		global_trade_power = 0.05
-# 	}
-# 	ai = {
-# 		factor = 2
-# 	}
-# }
-
 penal_colonies_reform = {
 	icon = "colonial_companies"
 	allow_normal_conversion = yes
@@ -300,221 +217,6 @@ penal_colonies_reform = {
 	}
 }
 
-# # for Russia (and for Ruthenia)
-# tysyatsky_reform = {
-# 	icon = "soldiers_2"
-# 	allow_normal_conversion = yes
-# 	potential = {
-# 		has_dlc = "Domination"
-# 		OR = {
-# 			has_unlocked_government_reform = {
-# 				government_reform = tysyatsky_reform
-# 			}
-# 			AND = {
-# 				NOT = { tag = RUS }
-# 				OR = {
-# 					primary_culture = ruthenian
-# 					primary_culture = ruthenian_new
-# 				}
-# 			}
-# 			AND = {
-# 				OR = {
-# 					culture_group = east_slavic
-# 					culture_group = slavic
-# 				}
-# 				government = republic
-# 			}
-# 		}
-# 	}
-# 	modifiers = {
-# 		republican_tradition = 0.3
-# 		leader_cost = -0.1
-# 		nobles_influence_modifier = 0.05
-# 		nobles_loyalty_modifier = 0.1
-# 	}
-# 	custom_attributes = {
-# 		recruiting_generals_increases_nobles_loyalty = yes
-# 	}
-# 	ai = {
-# 		factor = 1
-# 	}
-# }
-
-# namestnik_reform = {
-# 	icon = "provincial_government"
-# 	allow_normal_conversion = yes
-# 	potential = {
-# 		has_dlc = "Domination"
-# 		has_unlocked_government_reform = {
-# 			government_reform = namestnik_reform
-# 		}
-# 	}
-# 	modifiers = {
-# 		global_autonomy = -0.03
-# 		autonomy_change_time = -0.25
-# 		min_autonomy_in_territories = -0.05
-# 		trade_company_investment_cost = -0.1
-# 	}
-# 	ai = {
-# 		factor = 1
-# 	}
-# }
-
-# oprichnina_reform = {
-# 	icon = "spy"
-# 	allow_normal_conversion = yes
-# 	potential = {
-# 		has_dlc = "Domination"
-# 		has_unlocked_government_reform = {
-# 			government_reform = oprichnina_reform
-# 		}
-# 	}
-# 	modifiers = {
-# 		global_rebel_suppression_efficiency = 1
-# 		years_of_nationalism = -5
-# 		all_estate_influence_modifier = -0.1
-# 		harsh_treatment_cost = -0.25
-# 		monthly_russian_dip_power = 0.15
-# 	}
-# 	custom_attributes = {
-# 		seizing_land_no_rebels = yes
-# 	}
-# 	ai = {
-# 		factor = 1
-# 	}
-# }
-
-# vodka_of_the_crown_reform = {
-# 	icon = vodka_monopoly
-# 	allow_normal_conversion = yes
-# 	potential = {
-# 		has_dlc = "Domination"
-# 		OR = {
-# 			culture_group = east_slavic
-# 			culture_group = slavic
-# 		}
-# 	}
-# 	modifiers = {
-# 		global_unrest = -1
-# 		idea_cost = 0.05
-# 		global_trade_goods_size_modifier = 0.1
-# 	}
-# 	effect = {
-# 		hidden_effect = {
-# 			every_owned_province = {
-# 				if = {
-# 					limit = {
-# 						trade_goods = grain
-# 					}
-# 					add_province_modifier = { 
-# 						name = grain_vodka_bonus_prod
-# 						duration = -1
-# 						hidden = yes
-# 					}
-# 				}
-# 			}
-# 		}
-# 	}
-# 	removed_effect = {
-# 		hidden_effect = {
-# 			every_owned_province = {
-# 				limit = {
-# 					has_province_modifier = grain_vodka_bonus_prod
-# 				}
-# 				remove_province_modifier = grain_vodka_bonus_prod
-# 			}
-# 		}
-# 	}
-# 	custom_attributes = {
-# 		extra_trade_goods_from_grain = yes
-# 	}
-
-# 	ai = {
-# 		factor = 1
-# 	}
-# }
-
-
-# governing_senate_reform = {
-# 	icon = governing_senate
-# 	potential = {
-# 		has_dlc = "Domination"
-# 		is_revolutionary = no
-# 		NOT = { has_government_attribute = is_pirate_republic_reform }
-# 		OR = {
-# 			have_had_reform = governing_senate_reform
-# 			has_unlocked_government_reform = {
-# 				government_reform = governing_senate_reform
-# 			}
-# 			has_reform = ruthenian_tsardom
-# 		}
-# 	}
-	
-# 	trigger = {	
-# 		if = {
-# 			limit = { has_dlc = "Res Publica" }
-# 			NOT = { has_reform = elective_monarchy }
-# 		}
-# 		if = {
-# 			limit = { has_dlc = "Lions of the North" }
-# 			NOT = { has_reform = polish_elective_monarchy }
-# 		}
-# 		if = {
-# 			limit = { NOT = { has_dlc = "Mandate of Heaven" } }
-# 			NOT = { has_reform = celestial_empire }
-# 			NOT = { is_revolutionary_republic_trigger = yes }
-# 		}
-# 	}
-# 	modifiers = {
-# 		all_estate_loyalty_equilibrium = 0.1
-# 		all_estate_influence_modifier = -0.1
-# 		all_estate_possible_privileges = 1
-# 	}
-
-# 	conditional = {
-# 		allow = {
-# 			OR = {
-# 				has_dlc = "Common Sense"
-# 				has_dlc = "Domination"
-# 			}
-# 		}
-# 		has_parliament = yes
-# 	}
-# 	custom_attributes = {
-# 		diet_increases_not_influence = yes
-# 	}
-# 	ai = {
-# 		factor = 1
-# 	}
-# }
-
-# enforced_autocracy_reform = {
-# 	icon = russian_queen
-# 	potential = {
-# 		has_dlc = "Domination"
-# 		is_revolutionary = no
-# 		NOT = { has_government_attribute = is_pirate_republic_reform }
-# 		OR = {
-# 			have_had_reform = enforced_autocracy_reform
-# 			has_unlocked_government_reform = {
-# 				government_reform = enforced_autocracy_reform
-# 			}
-# 			has_reform = ruthenian_tsardom
-# 		}
-# 	}
-# 	modifiers = {
-# 		culture_conversion_time = -0.2
-# 		yearly_government_power = 0.5
-# 	}
-# 	custom_attributes = {
-# 		can_sell_crownland_to_single_estates = yes
-# 		can_seize_crownland_of_single_estates = yes
-# 	}
-# 	ai = {
-# 		factor = 1
-# 	}
-# }
-
 # Holy State for Jerusalem
 holy_state_reform = {
 	allow_normal_conversion = no
@@ -526,20 +228,6 @@ holy_state_reform = {
 	}
 	potential = {
 		always = no	#anbennar
-		#OR = {
-		#	AND = {
-		#		OR = {
-		#			tag = KOJ
-		#			tag = LAE
-		#			has_country_modifier = sisters_takeover
-		#		}
-		#		NOT = { map_setup = map_setup_random }
-		#	}
-		#	AND = {
-		#		is_playing_custom_nation = yes
-		#		have_had_reform = holy_state_reform
-		#	}
-		#}
 	}
 	trigger = {
 		religion = catholic
@@ -595,7 +283,7 @@ dark_lordship = {
 }
 
 #tier 5 - parliament
-dwarovar_assembly_of_holds_reform = {
+dwarovar_assembly_of_holds_reform = {	#bertus mod
 	icon = "assembly_hall"
 	allow_normal_conversion = yes
 	potential = {
@@ -604,11 +292,6 @@ dwarovar_assembly_of_holds_reform = {
 		NOT = { has_reform = amlharaz_reform }
 	}
 	trigger = {
-		OR = {
-			NOT = { has_estate = estate_nobles }
-			crown_stronger_than_estate = { estate = estate_nobles }
-			has_reform = dwarovar_assembly_of_holds_reform
-		}
 		if = {
 			limit = { NOT = { has_dlc = "Mandate of Heaven" } }
 			NOT = { has_reform = celestial_empire }
@@ -622,19 +305,16 @@ dwarovar_assembly_of_holds_reform = {
 	}
 	modifiers = {
 		global_unrest = -1
-		global_autonomy = -0.1
+		global_autonomy = -0.025
 	}
 	conditional = {
 		allow = { has_dlc = "Common Sense" }
 		has_parliament = yes
-		custom_attributes = {
-			blocked_call_diet = yes
-		}
 	}
 }
 
 #tier 5 - parliament
-amlharaz_reform = {
+amlharaz_reform = {	#bertus mod
 	icon = "commander_king_reform"
 	allow_normal_conversion = no
 	lock_level_when_selected = yes
@@ -659,10 +339,6 @@ amlharaz_reform = {
 	conditional = {
 		allow = { has_dlc = "Common Sense" }
 		has_parliament = yes
-		custom_attributes = {
-			blocked_call_diet = yes
-			disables_estate_nobles = yes
-		}
 	}
 }
 
@@ -678,11 +354,11 @@ troll_forebearer_teachings = {
 		}
 	}
 	trigger = {
-	primary_culture = fjord_troll
-		}
+		primary_culture = fjord_troll
+	}
 	modifiers = {
-		same_culture_advisor_cost = -0.15
-		manpower_in_true_faith_provinces= 0.20
+		same_culture_advisor_cost = -0.10
+		manpower_in_true_faith_provinces= 0.10
 	}
 }
 
@@ -891,574 +567,8 @@ rectors_in_the_bureau_reform = {
 	}
 }
 
-# # Sisterhood of Jeanne d'Arc
-# sisterhood_of_jeanne_darc_reform = {
-# 	allow_normal_conversion = no
-# 	icon = "sisterhood"
-# 	valid_for_nation_designer = yes
-# 	nation_designer_trigger = {
-# 		religion_group = christian
-# 	}
-# 	potential = {
-# 		OR = {
-# 			has_reform = sisterhood_of_jeanne_darc_reform
-# 			have_had_reform = sisterhood_of_jeanne_darc_reform
-# 			has_country_modifier = sisters_takeover
-# 		}
-# 	}
-# 	trigger = {
-# 		religion_group = christian
-# 	}
-# 	nation_designer_cost = 100
-# 	modifiers = {
-# 		cb_on_religious_enemies = yes
-# 		monarch_military_power = 1
-# 		may_recruit_female_generals = yes
-# 		female_advisor_chance = 1.0
-# 		fire_damage = 0.1
-# 		discipline = 0.05
-# 	}
-# 	rulers_can_be_generals = yes
-# 	heirs_can_be_generals = yes
-# 	custom_attributes = {
-# 		monastic_order = yes
-# 	}
-# 	ai = {
-# 		factor = 10
-# 	}
-# }
 
-# # State and Religion
-# papal_embassy_reform = {
-# 	icon = "pope"
-# 	allow_normal_conversion = yes
-# 	potential = {
-# 		NOT = { has_government_attribute = is_pirate_republic_reform }
-# 		OR = {
-# 			is_revolutionary = no
-# 			NOT = { has_dlc = "Emperor" }
-# 		}
-# 		religion = catholic
-# 		NOT = { tag = PAP }
-# 	}
-# 	trigger = {
-# 		NOT = {
-# 			has_country_modifier = the_statue_in_restraint_of_appeals
-# 		}
-# 	}
-# 	modifiers = {
-# 		papal_influence_from_cardinals = 0.33
-# 		curia_treasury_contribution = 0.33
-# 		church_influence_modifier = 0.1
-# 		church_loyalty_modifier = 0.05
-# 		curia_powers_cost = -0.1
-# 	}
-# 	effect = {
-# 		hidden_effect = {
-# 			add_opinion = {
-# 				who = PAP
-# 				modifier = papal_embassy
-# 			}
-# 			reverse_add_opinion = {
-# 				who = PAP
-# 				modifier = papal_embassy
-# 			}
-# 		}
-# 	}
-# 	removed_effect = {
-# 		hidden_effect = {
-# 			remove_opinion = {
-# 				who = PAP
-# 				modifier = papal_embassy
-# 			}
-# 			reverse_remove_opinion = {
-# 				who = PAP
-# 				modifier = papal_embassy
-# 			}
-# 		}
-# 	}
-# 	custom_attributes = {
-# 		improved_opinion_of_pope = yes	#Popesman has +25 opinion of you
-# 	}
-	
-# 	ai = {
-# 		factor = 1
-# 	}
-# }
-
-# i_am_the_church_reform = {
-# 	icon = "pope"
-# 	allow_normal_conversion = yes
-# 	potential = {
-# 		NOT = { has_government_attribute = is_pirate_republic_reform }
-# 		OR = {
-# 			is_revolutionary = no
-# 			NOT = { has_dlc = "Emperor" }
-# 		}
-# 		religion = catholic
-# 		tag = PAP
-# 	}
-# 	modifiers = {
-# 		devotion = 0.5
-# 		max_absolutism = 10
-# 		appoint_cardinal_cost = -0.1
-# 	}
-# 	effect = {
-# 		hidden_effect = {
-# 			if = {
-# 				limit = { is_defender_of_faith = yes }
-# 				add_country_modifier = {
-# 					name = gov_improved_defender_of_faith_mod
-# 					duration = -1
-# 				}
-# 			}
-# 		}
-# 	}
-# 	post_removed_effect = {
-# 		remove_country_modifier = gov_improved_defender_of_faith_mod
-# 	}
-# 	custom_attributes = {
-# 		improved_defender_of_faith = yes	#Being Defender of Faith increases Dip Rep, Tolerance and Morale
-# 	}
-	
-# 	ai = {
-# 		factor = 1
-# 	}
-# }
-
-# focus_of_the_patriarchy_reform = {
-# 	icon = "pope"
-# 	allow_normal_conversion = yes
-# 	potential = {
-# 		NOT = { has_government_attribute = is_pirate_republic_reform }
-# 		OR = {
-# 			is_revolutionary = no
-# 			NOT = { has_dlc = "Emperor" }
-# 		}
-# 		religion = coptic
-# 	}
-# 	modifiers = {
-# 		institution_spread_from_true_faith = 0.25
-# 		church_influence_modifier = 0.1
-# 		church_loyalty_modifier = 0.1
-# 	}
-# 	custom_attributes = {
-# 		active_holy_sites_improve_clergy_loyalty = yes
-# 		clerical_ministers_tech_buff = yes
-# 	}
-	
-# 	ai = {
-# 		factor = 1
-# 	}
-# }
-
-# lands_for_the_monasteries_reform = {
-# 	icon = "pope"
-# 	allow_normal_conversion = yes
-# 	potential = {
-# 		NOT = { has_government_attribute = is_pirate_republic_reform }
-# 		OR = {
-# 			is_revolutionary = no
-# 			NOT = { has_dlc = "Emperor" }
-# 		}
-# 		religion = orthodox
-# 	}
-# 	modifiers = {
-# 		church_influence_modifier = 0.1
-# 		church_loyalty_modifier = 0.15
-# 		yearly_patriarch_authority = 0.002
-# 	}
-# 	custom_attributes = {
-# 		free_religious_culture = yes
-# 		on_church_built_clergy_loyalty = yes
-# 	}
-# 	conditional = {
-# 		allow = { has_dlc = "Third Rome" }
-# 		custom_attributes = {
-# 			selling_titles_increases_pa = yes
-# 		}
-# 	}
-	
-# 	ai = {
-# 		factor = 1
-# 	}
-# }
-
-# zoroastrian_focus_reform = {
-# 	icon = "articles_of_agreement"
-# 	allow_normal_conversion = yes
-# 	potential = {
-# 		NOT = { has_government_attribute = is_pirate_republic_reform }
-# 		OR = {
-# 			is_revolutionary = no
-# 			NOT = { has_dlc = "Emperor" }
-# 		}
-# 		religion = zoroastrian
-# 	}
-# 	modifiers = {
-# 		no_religion_penalty = yes
-# 		global_unrest = -1
-# 		church_influence_modifier = 0.1
-# 		church_loyalty_modifier = 0.1
-# 	}
-	
-# 	ai = {
-# 		factor = 1
-# 	}
-# }
-
-# power_to_the_synagogoues_reform = {
-# 	icon = "rabbi"
-# 	allow_normal_conversion = yes
-# 	potential = {
-# 		NOT = { has_government_attribute = is_pirate_republic_reform }
-# 		OR = {
-# 			is_revolutionary = no
-# 			NOT = { has_dlc = "Emperor" }
-# 		}
-# 		religion_group = jewish_group
-# 	}
-# 	modifiers = {
-# 		church_influence_modifier = 0.1
-# 		church_loyalty_modifier = 0.1
-# 		idea_cost = -0.05
-# 		church_power_modifier = 0.1
-# 	}
-# 	conditional = {
-# 		allow = { has_dlc = "Origins" }
-# 		custom_attributes = {
-# 			loyalty_from_celebration = yes	#Celebrating will now give +20 Loyalty
-# 		}
-# 	}
-	
-# 	ai = {
-# 		factor = 1
-# 	}
-# }
-
-# head_of_the_reformed_church_reform = {
-# 	icon = "regionally_elected_commanders"
-# 	allow_normal_conversion = yes
-# 	potential = {
-# 		NOT = { has_government_attribute = is_pirate_republic_reform }
-# 		OR = {
-# 			is_revolutionary = no
-# 			NOT = { has_dlc = "Emperor" }
-# 		}
-# 		NOT = { religion = catholic }
-# 		NOT = { religion = coptic }
-# 		NOT = { religion = orthodox }
-# 		religion_group = christian
-# 	}
-# 	modifiers = {
-# 		church_influence_modifier = -0.05
-# 		global_tax_modifier = 0.15
-# 		church_power_modifier = 0.1
-# 		monthly_fervor_increase = 0.25
-# 	}
-# 	effect = {
-# 		hidden_effect = {
-# 			if = {
-# 				limit = { is_defender_of_faith = yes }
-# 				add_country_modifier = {
-# 					name = gov_improved_defender_of_faith_mod
-# 					duration = -1
-# 				}
-# 			}
-# 		}
-# 	}
-# 	post_removed_effect = {
-# 		remove_country_modifier = gov_improved_defender_of_faith_mod
-# 	}
-# 	custom_attributes = {
-# 		improved_defender_of_faith = yes	#Being Defender of Faith increases Dip Rep, Tolerance and Morale
-# 	}
-	
-# 	ai = {
-# 		factor = 1
-# 	}
-# }
-
-# confucian_governing_reform = {
-# 	icon = "asian_scripture"
-# 	allow_normal_conversion = yes
-# 	potential = {
-# 		NOT = { has_government_attribute = is_pirate_republic_reform }
-# 		OR = {
-# 			is_revolutionary = no
-# 			NOT = { has_dlc = "Emperor" }
-# 		}
-# 		religion = confucianism
-# 	}
-# 	modifiers = {
-# 		church_influence_modifier = 0.1
-# 		church_loyalty_modifier = 0.1
-# 		harmonization_speed = 0.1
-# 		governing_capacity_modifier = 0.05
-# 	}
-# 	conditional = {
-# 		allow = { has_dlc = "Mandate of Heaven" }
-# 		custom_attributes = {
-# 			full_loyalty_on_harmonization = yes	#Add +100 Loyalty when harmonizing something
-# 		}
-# 	}
-	
-# 	ai = {
-# 		factor = 1
-# 	}
-# }
-
-# empower_buddhist_temples_reform = {
-# 	icon = "religious_harmony_reform"
-# 	allow_normal_conversion = yes
-# 	potential = {
-# 		NOT = { has_government_attribute = is_pirate_republic_reform }
-# 		OR = {
-# 			is_revolutionary = no
-# 			NOT = { has_dlc = "Emperor" }
-# 		}
-# 		OR = {
-# 			religion = buddhism
-# 			religion = vajrayana
-# 			religion = mahayana
-# 		}
-# 	}
-# 	modifiers = {
-# 		church_influence_modifier = 0.1
-# 		church_loyalty_modifier = 0.1
-# 		yearly_karma_decay = 0.05
-# 		stability_cost_modifier = -0.1
-# 	}
-# 	conditional = {
-# 		allow = { has_dlc = "Common Sense" }
-# 		custom_attributes = {
-# 			#clergy_estate_agendas_gives_karma = yes	#Adds Karma by 10
-# 			#seizing_land_takes_karma = yes	#Reduces Karma by 10
-# 			buffed_monastic_temples = yes
-# 			enable_karma_decision = yes	#Allows decision every 20 years to add or remove 10 Karma
-# 		}
-# 	}
-	
-# 	ai = {
-# 		factor = 1
-# 	}
-# }
-
-# public_hindu_practices_reform = {
-# 	icon = "indian_crown"
-# 	allow_normal_conversion = yes
-# 	potential = {
-# 		NOT = { has_government_attribute = is_pirate_republic_reform }
-# 		OR = {
-# 			is_revolutionary = no
-# 			NOT = { has_dlc = "Emperor" }
-# 		}
-# 		religion = hinduism
-# 	}
-# 	modifiers = {
-# 		church_influence_modifier = 0.1
-# 		church_loyalty_modifier = 0.1
-# 		brahmins_hindu_influence_modifier = 0.1
-# 		brahmins_hindu_loyalty_modifier = 0.1
-# 		tolerance_own = 1
-# 	}
-# 	conditional = {
-# 		allow = { has_dlc = "Wealth of Nations" }
-# 		custom_attributes = {
-# 			reduce_new_deity_decision_cd = yes	#Reduce it by 15 years
-# 		}
-# 	}
-	
-# 	ai = {
-# 		factor = 1
-# 	}
-# }
-
-# strengthen_shaman_privileges_reform = {
-# 	icon = "tribal_martial_society"
-# 	allow_normal_conversion = yes
-# 	potential = {
-# 		NOT = { has_government_attribute = is_pirate_republic_reform }
-# 		OR = {
-# 			is_revolutionary = no
-# 			NOT = { has_dlc = "Emperor" }
-# 		}
-# 		religion = shamanism
-# 	}
-# 	modifiers = {
-# 		church_loyalty_modifier = 0.1
-# 		global_missionary_strength = 0.01
-# 	}
-# 	conditional = {
-# 		allow = { has_dlc = "Rights of Man" }
-# 		custom_attributes = {
-# 			no_influence_from_fetishist_privileges = yes
-# 		}
-# 	}
-	
-# 	ai = {
-# 		factor = 1
-# 	}
-# }
-
-# abolished_caste_system_reform = {
-# 	icon = "indian_sultanate"
-# 	allow_normal_conversion = yes
-# 	potential = {
-# 		NOT = { has_government_attribute = is_pirate_republic_reform }
-# 		OR = {
-# 			is_revolutionary = no
-# 			NOT = { has_dlc = "Emperor" }
-# 		}
-# 		religion = sikhism
-# 	}
-# 	modifiers = {
-# 		all_estate_influence_modifier = -0.15
-# 		stability_cost_modifier = -0.2
-# 	}
-# 	custom_attributes = {
-# 		seizing_land_no_rebels = yes
-# 	}
-	
-# 	ai = {
-# 		factor = 1
-# 	}
-# }
-
-# strengthen_the_ulema_reform = {
-# 	icon = "mamluk_government"
-# 	allow_normal_conversion = yes
-# 	potential = {
-# 		NOT = { has_government_attribute = is_pirate_republic_reform }
-# 		OR = {
-# 			is_revolutionary = no
-# 			NOT = { has_dlc = "Emperor" }
-# 		}
-# 		religion_group = muslim
-# 	}
-# 	modifiers = {
-# 		church_influence_modifier = 0.1
-# 		church_loyalty_modifier = 0.1
-# 		dhimmi_influence_modifier = -0.1
-# 		dhimmi_loyalty_modifier = -0.1
-# 		global_missionary_strength = 0.015
-# 	}
-# 	conditional = {
-# 		allow = { has_dlc = "Cradle of Civilization" }
-# 		custom_attributes = {
-# 			allow_piety_switch_decision = yes	#Enables a decision which gives 1 stabhit, but turns your piety 180°
-# 		}
-# 	}
-	
-# 	ai = {
-# 		factor = 1
-# 	}
-# }
-
-# strengthen_the_dhimmi_reform = {
-# 	icon = "noble_muslim"
-# 	allow_normal_conversion = yes
-# 	potential = {
-# 		NOT = { has_government_attribute = is_pirate_republic_reform }
-# 		OR = {
-# 			is_revolutionary = no
-# 			NOT = { has_dlc = "Emperor" }
-# 		}
-# 		religion_group = muslim
-# 		has_estate = estate_dhimmi
-# 	}
-# 	modifiers = {
-# 		dhimmi_influence_modifier = 0.1
-# 		dhimmi_loyalty_modifier = 0.1
-# 		church_influence_modifier = -0.1
-# 		church_loyalty_modifier = -0.1
-# 		tolerance_of_heathens_capacity = 1
-# 	}
-# 	custom_attributes = {
-# 		free_guarantee_dhimmi_autonomy = yes
-# 	}
-	
-# 	ai = {
-# 		factor = 1
-# 	}
-# }
-
-# legacy_of_the_steppes_reform = {
-# 	icon = "horde_riding"
-# 	allow_normal_conversion = yes
-# 	potential = {
-# 		NOT = { has_government_attribute = is_pirate_republic_reform }
-# 		OR = {
-# 			is_revolutionary = no
-# 			NOT = { has_dlc = "Emperor" }
-# 		}
-# 		religion = tengri_pagan_reformed
-# 	}
-# 	modifiers = {
-# 		monarch_military_power = 1
-# 		church_influence_modifier = 0.1
-# 		church_loyalty_modifier = 0.1
-# 	}
-# 	custom_attributes = {
-# 		winning_battles_increases_legitimacy = yes	#Every single won battle adds +2 Legitimacy and +0.25 Absolutism
-# 	}
-	
-# 	ai = {
-# 		factor = 1
-# 	}
-# }
-
-# state_and_shrines_intertwined_reform = {
-# 	icon = "shogunate"
-# 	allow_normal_conversion = yes
-# 	potential = {
-# 		NOT = { has_government_attribute = is_pirate_republic_reform }
-# 		OR = {
-# 			is_revolutionary = no
-# 			NOT = { has_dlc = "Emperor" }
-# 		}
-# 		religion = shinto
-# 	}
-# 	modifiers = {
-# 		church_loyalty_modifier = 0.15
-# 		religious_unity = 0.25
-# 	}
-# 	custom_attributes = {
-# 		enables_divine_idea_group = yes
-# 	}
-	
-# 	ai = {
-# 		factor = 1
-# 	}
-# }
-
-# embedded_norse_government_reform = {
-# 	icon = "all_under_tengri_reform"
-# 	allow_normal_conversion = yes
-# 	potential = {
-# 		NOT = { has_government_attribute = is_pirate_republic_reform }
-# 		OR = {
-# 			is_revolutionary = no
-# 			NOT = { has_dlc = "Emperor" }
-# 		}
-# 		religion = norse_pagan_reformed
-# 	}
-# 	modifiers = {
-# 		may_perform_slave_raid = yes
-# 		church_influence_modifier = 0.1
-# 		army_tradition_from_battle = 0.5
-# 		naval_tradition_from_battle = 0.5
-# 	}
-# 	custom_attributes = {
-# 		winning_war_increases_legitimacy = yes
-# 	}
-	
-# 	ai = {
-# 		factor = 1
-# 	}
-# }
-
-strengthen_clergy_reform = {
+strengthen_clergy_reform = {	#bertus mod	#new LotN
 	icon = "church"
 	allow_normal_conversion = yes
 	potential = {
@@ -1472,17 +582,143 @@ strengthen_clergy_reform = {
 		has_no_religion_specific_government_available = yes	#This way modders don't have to change this reform explicitly
 	}
 	modifiers = {
-		church_influence_modifier = 0.1
-		church_loyalty_modifier = 0.1
-		war_exhaustion = -0.03
+		global_missionary_strength = 0.03
+		missionaries = 2
 	}
 	
 	ai = {
 		factor = 1
 	}
 }
+shaman_control_the_military_reform = {	#bertus mod	
+	icon = "church"
+	allow_normal_conversion = yes
+	potential = {
+		OR = {
+			is_revolutionary = no
+			NOT = { has_dlc = "Emperor" }
+		}
+		OR = {
+			religion = great_dookan 
+			religion = old_dookan 
+			religion = ik_magthaal 
+			religion = feast_of_the_gods 
+		}
+	}
+	trigger = {
+		OR = {
+			religion = great_dookan 
+			religion = old_dookan 
+			religion = ik_magthaal 
+			religion = feast_of_the_gods 
+		}
+	}
+	modifiers = {
+		church_power_modifier = 0.25
+		max_absolutism = -20
+		mil_tech_cost_modifier = 0.05
+	}
+	effect = {
+		add_country_modifier = {
+			name = shaman_control_the_military_modifier
+			duration = -1
+		}
+	}
+	
+	custom_attributes = {
+		warlock_religion_actions_mechanic = yes
+	}
+	removed_effect = {
+		remove_country_modifier = shaman_control_the_military_modifier
+	}
+	ai = {
+		factor = 1
+	}
+}
 
-curtail_clergy_power_reform = {
+deity_duality_reform = {	#bertus mod	
+	icon = "church"
+	allow_normal_conversion = yes
+	potential = {
+		OR = {
+			is_revolutionary = no
+			NOT = { has_dlc = "Emperor" }
+		}
+		NOT = { has_adventurer_reform = yes } # Anbennar
+		religion = regent_court
+	}
+	trigger = {
+		religion = regent_court
+	}
+	modifiers = {
+		tolerance_own = -2
+	}
+	effect = {
+	}	
+	custom_attributes = {
+		deity_duality_reform_mechanic = yes
+	}
+	removed_effect = {
+	}
+	ai = {
+		factor = 1
+	}
+}
+
+goblin_empowered_cult_reform = {	#bertus mod	
+	icon = "church"
+	allow_normal_conversion = yes
+	potential = {
+		OR = {
+			is_revolutionary = no
+			NOT = { has_dlc = "Emperor" }
+		}
+		NOT = { has_adventurer_reform = yes } # Anbennar
+		religion = goblinic_shamanism
+	}
+	trigger = {
+		religion = goblinic_shamanism
+	}
+	modifiers = {
+	}
+	effect = {
+	}	
+	custom_attributes = {
+		goblin_boosted_primary_cult_mechanic = yes
+	}
+	removed_effect = {
+	}
+	ai = {
+		factor = 1
+	}
+}
+
+dwarovar_emulate_warriors = {	#bertus mod	
+	icon = "holy_state_reform"
+	potential = { 
+		OR = {
+			is_revolutionary = no
+			NOT = { has_dlc = "Emperor" }
+		}
+		NOT = { has_adventurer_reform = yes } # Anbennar
+		religion = ancestor_worship
+	}
+	trigger = { 
+		religion = ancestor_worship 
+	}
+	modifiers = {
+		shock_damage = 0.1
+		morale_damage = 0.05
+		morale_damage_received = -0.05
+		fire_damage = -0.1
+		prestige_from_land = 0.25
+	}
+	custom_attributes = { dwarovar_emulate_warriors_effect = yes }
+
+	ai = { factor = 1 }
+}
+
+curtail_clergy_power_reform = {	#new LotN
 	icon = "monks"
 	allow_normal_conversion = yes
 	potential = {
@@ -1496,11 +732,8 @@ curtail_clergy_power_reform = {
 	}
 	modifiers = {
 		adm_tech_cost_modifier = -0.1
-		religious_unity = 0.1
-		church_influence_modifier = -0.1
-	}
-	custom_attributes = {
-		seizing_land_no_rebels_from_estate_church = yes
+		adm_advisor_cost = -0.1
+		country_admin_power = 1		
 	}
 	
 	ai = {
@@ -1508,7 +741,7 @@ curtail_clergy_power_reform = {
 	}
 }
 
-secure_clergy_power_reform = {
+secure_clergy_power_reform = {	#bertus mod	#new LotN
 	icon = "warrior_monks_reform"
 	allow_normal_conversion = yes
 	potential = {
@@ -1519,12 +752,12 @@ secure_clergy_power_reform = {
 		}
 		#Anbennar
 		NOT = { has_adventurer_reform = yes }
-		NOT = { culture_group = dwarven }
 		NOT = { has_reform = hobgoblin_stratocracy_reform }
 	}
 	modifiers = {
-		church_influence_modifier = 0.05
-		adm_advisor_cost = -0.1
+		stability_cost_modifier = -0.1
+		mages_influence_modifier = 0.1
+		mages_loyalty_modifier = 0.1
 	}
 	effect = {
 		hidden_effect = {
@@ -1558,7 +791,7 @@ secure_clergy_power_reform = {
 	}
 }
 
-maintain_clergy_balance_of_power_reform = {
+maintain_clergy_balance_of_power_reform = {	#bertus mod	#new LotN
 	icon = "consolidate_power_in_cities_reform"
 	allow_normal_conversion = yes
 	potential = {
@@ -1572,7 +805,7 @@ maintain_clergy_balance_of_power_reform = {
 	}
 	modifiers = {
 		all_estate_loyalty_equilibrium = 0.05
-		diplomats = 1
+		tolerance_own = 2
 	}
 	
 	ai = {
@@ -1584,6 +817,7 @@ separate_clergy_from_state_affairs_reform = {
 	icon = "partial_secularisation_reform"
 	allow_normal_conversion = yes
 	potential = {
+		always = no	#bertus mod
 		NOT = { has_government_attribute = is_pirate_republic_reform }
 		NOT = { has_adventurer_reform = yes } # Anbennar
 		NOT = { has_reform = hobgoblin_stratocracy_reform }
@@ -1625,14 +859,6 @@ cult_of_reason_reform = {
 	}
 	trigger = {
 		has_country_modifier = cult_of_reason
-		if = {
-			limit = {
-				has_government_attribute = enables_estate_church
-			}
-			can_swap_out_of_estate_granting_reform = {
-				estate = estate_church
-			}
-		}
 	}
 	modifiers = {
 		rr_jacobins_influence = 0.1
@@ -1646,7 +872,7 @@ cult_of_reason_reform = {
 	}
 }
 
-conserve_the_religion_reform = {
+conserve_the_religion_reform = {	#bertus mod
 	icon = "cult_of_supreme_being"
 	allow_normal_conversion = yes
 	potential = {
@@ -1655,9 +881,13 @@ conserve_the_religion_reform = {
 	}
 	modifiers = {
 		rr_royalists_influence = 0.1
-		papal_influence = 100
-		tolerance_own = 2
-		idea_cost = -0.05
+		curia_powers_cost = -0.25
+		tolerance_own = 3
+	}
+	custom_attributes = {
+		warlock_religion_actions_mechanic = yes
+		deity_duality_reform_mechanic = yes
+		goblin_boosted_primary_cult_mechanic = yes
 	}
 	effect = {
 		if = {
@@ -1672,24 +902,17 @@ conserve_the_religion_reform = {
 	}
 }
 
-secularization_of_the_state_reform = {
+secularization_of_the_state_reform = {	#bertus mod
 	icon = "partial_secularisation_reform"
 	allow_normal_conversion = yes
 	potential = {
 		is_revolutionary = yes
 		has_dlc = "Emperor"
 	}
-	trigger = {
-		if = {
-			limit = {
-				has_government_attribute = enables_estate_church
-			}
-			can_swap_out_of_estate_granting_reform = {
-				estate = estate_church
-			}
-		}
-	}
 	modifiers = {
+		possible_policy = 1
+		free_policy = 1
+		idea_cost = -0.10
 		rr_girondists_influence = 0.1
 		no_religion_penalty = yes
 	}
@@ -3944,7 +3167,7 @@ maritime_military_reform = {
 
 #Economical Matters
 
-empower_the_burghers_reform = {
+empower_the_burghers_reform = {	#bertus mod	#new LotN
 	icon = "prussian_monarchy_2"
 	allow_normal_conversion = yes
 	potential = {
@@ -3957,27 +3180,32 @@ empower_the_burghers_reform = {
 		}
 	}
 	modifiers = {
-		global_trade_power = 0.05
-		trade_efficiency = 0.05
-		burghers_loyalty_modifier = 0.05
-		burghers_influence_modifier = 0.1
-		# vaisyas_loyalty_modifier = 0.05
-		# vaisyas_influence_modifier = 0.1
-		# jains_influence_modifier = 0.05
-		# jains_influence_modifier = 0.1
-		
-		# Anbennar
-		middlecastes_loyalty_modifier = 0.05
-		middlecastes_influence_modifier = 0.1
-		gerunanin_loyalty_modifier = 0.05
-		gerunanin_influence_modifier = 0.1
+	}
+	custom_attributes = {
+		trade_buildings_boost = yes
+	}
+	effect = {
+		hidden_effect = {
+			every_owned_province = {
+				limit = { has_trade_building_trigger = yes }
+				add_province_modifier = {name = trade_buildings_boost_modifier duration = -1 hidden = yes}
+			}
+		}
+	}
+	removed_effect = {
+		hidden_effect = {
+			every_owned_province = {
+				limit = { has_province_modifier = trade_buildings_boost_modifier }
+				remove_province_modifier = trade_buildings_boost_modifier
+			}
+		}
 	}
 	ai = {
 		factor = 1
 	}
 }
 
-curtail_the_burghers_reform = {
+curtail_the_burghers_reform = {	#bertus mod
 	icon = "assembly_hall"
 	allow_normal_conversion = yes
 	potential = {
@@ -3991,15 +3219,12 @@ curtail_the_burghers_reform = {
 	}
 	modifiers = {
 		trade_company_governing_cost = -0.1
-		trade_steering = 0.15 #1.35
-		burghers_influence_modifier = -0.1
-		
-		# Anbennar
-		middlecastes_influence_modifier = -0.1
-		gerunanin_influence_modifier = -0.1
+		dip_advisor_cost = -0.1
+		country_diplomatic_power = 1
+		trade_company_investment_cost = -0.1
+		global_trade_goods_size_modifier = 0.1
 	}
 	custom_attributes = {
-		seizing_land_no_rebels_from_estate_burghers = yes
 	}
 	ai = {
 		factor = 1
@@ -4026,7 +3251,7 @@ reestablish_the_burgeoisie_reform = {
 	}
 }
 
-new_world_exploitation_reform = {
+new_world_exploitation_reform = {	#bertus mod
 	icon = "compass"
 	allow_normal_conversion = yes
 	potential = {
@@ -4042,33 +3267,30 @@ new_world_exploitation_reform = {
 		}
 	}
 	trigger = {
-		OR = {
-			full_idea_group = expansion_ideas
-			full_idea_group = exploration_ideas
-		}
+		colony = 1
 		if = {
 			limit = {
 				is_revolutionary = yes
 				has_dlc = "Emperor"
 				has_government_attribute = enables_estate_burghers
 			}
-			can_swap_out_of_estate_granting_reform = {
-				estate = estate_burghers
-			}
+			NOT = { has_estate_privilege = estate_burghers_indebted_to_burghers }
 		}
 	}
 	modifiers = {
-		colonists = 1 
+		global_tariffs = 0.10
+		treasure_fleet_income = 0.20
 	}
 	custom_attributes = {
 		extra_trade_goods_for_colonial_subjects = yes
+		extra_dev_on_colonial = yes
 	}
 	ai = {
 		factor = 1
 	}
 }
 
-mercantilistic_approach_reform = {
+mercantilistic_approach_reform = {	#bertus mod
 	icon = "paper_with_seal"
 	allow_normal_conversion = yes
 	potential = {
@@ -4083,14 +3305,13 @@ mercantilistic_approach_reform = {
 				has_dlc = "Emperor"
 				has_government_attribute = enables_estate_burghers
 			}
-			can_swap_out_of_estate_granting_reform = {
-				estate = estate_burghers
-			}
+			NOT = { has_estate_privilege = estate_burghers_indebted_to_burghers }
 		}
 	}
 	modifiers = {
-		mercantilism_cost = -0.1
-		global_own_trade_power = 0.15
+		trade_efficiency = 0.10
+		mercantilism_cost = -0.25
+		global_own_trade_power = 0.20
 		placed_merchant_power = 5
 	}
 	custom_attributes = {
@@ -4101,7 +3322,7 @@ mercantilistic_approach_reform = {
 	}
 }
 
-free_trade_reform = {
+free_trade_reform = {	#bertus mod
 	icon = "merchant"
 	allow_normal_conversion = yes
 	potential = {
@@ -4114,17 +3335,14 @@ free_trade_reform = {
 			limit = {
 				is_revolutionary = yes
 				has_dlc = "Emperor"
-				has_government_attribute = enables_estate_burghers
 			}
-			can_swap_out_of_estate_granting_reform = {
-				estate = estate_burghers
-			}
+			NOT = { has_estate_privilege = estate_burghers_indebted_to_burghers }
 		}
 	}
 	modifiers = {
-		global_institution_spread = 0.25
-		global_foreign_trade_power = 0.2
+		ship_power_propagation = 0.50
 	}
+	boost_income = yes
 	custom_attributes = {
 		monarch_power_on_institutions = yes
 	}
@@ -4135,45 +3353,12 @@ free_trade_reform = {
 		}
 	}
 	ai = {
-		factor = 1
+		factor = 0
 	}
 }
 
-lockean_proviso_reform = {
+lockean_proviso_reform = {	#bertus mod
 	icon = "paper_money_map"
-	allow_normal_conversion = yes
-	potential = {
-		NOT = { has_government_attribute = is_pirate_republic_reform }
-		NOT = { has_adventurer_reform = yes } # Anbennar
-		NOT = { has_reform = hobgoblin_stratocracy_reform }
-	}
-	trigger = {
-		OR = { 
-			full_idea_group = economic_ideas
-			full_idea_group = infrastructure_ideas 
-		}
-		if = {
-			limit = {
-				is_revolutionary = yes
-				has_dlc = "Emperor"
-				has_government_attribute = enables_estate_burghers
-			}
-			can_swap_out_of_estate_granting_reform = {
-				estate = estate_burghers
-			}
-		}
-	}
-	modifiers = {
-		development_cost = -0.05
-		global_trade_goods_size_modifier = 0.05
-	}
-	ai = {
-		factor = 1
-	}
-}
-
-embrace_the_economic_theory_reform = {
-	icon = "dutch_flag"
 	allow_normal_conversion = yes
 	potential = {
 		NOT = { has_government_attribute = is_pirate_republic_reform }
@@ -4187,16 +3372,43 @@ embrace_the_economic_theory_reform = {
 			limit = {
 				is_revolutionary = yes
 				has_dlc = "Emperor"
-				has_government_attribute = enables_estate_burghers
 			}
-			can_swap_out_of_estate_granting_reform = {
-				estate = estate_burghers
-			}
+			NOT = { has_estate_privilege = estate_burghers_indebted_to_burghers }
 		}
 	}
 	modifiers = {
-		interest = -0.5
-		inflation_reduction = 0.2
+		global_allowed_num_of_buildings = 1
+	}
+	custom_attributes = {
+		deving_production_boost = yes
+	}
+	ai = {
+		factor = 1
+	}
+}
+
+embrace_the_economic_theory_reform = {	#bertus mod
+	icon = "dutch_flag"
+	allow_normal_conversion = yes
+	potential = {
+		NOT = { has_government_attribute = is_pirate_republic_reform }
+		NOT = { has_adventurer_reform = yes } # Anbennar
+		NOT = { has_reform = hobgoblin_stratocracy_reform }
+	}
+	trigger = {
+		if = {
+			limit = {
+				is_revolutionary = yes
+				has_dlc = "Emperor"
+			}
+			NOT = { has_estate_privilege = estate_burghers_indebted_to_burghers }
+		}
+	}
+	modifiers = {
+		global_tax_modifier = 0.1
+	}
+	custom_attributes = {
+		tax_deving_bonus = yes
 	}
 	ai = {
 		factor = 1
@@ -4285,210 +3497,10 @@ royal_charters_reform = {
 	}
 }
 
-commercial_trade_empire_reform = {
-	icon = "trading_city"
-	allow_normal_conversion = yes
-	potential = {
-		NOT = { has_government_attribute = is_pirate_republic_reform }
-		NOT = { has_adventurer_reform = yes }
-		NOT = { culture_group = dwarven }
-		NOT = { has_reform = hobgoblin_stratocracy_reform }
-		has_dlc = "Domination"
-		has_unlocked_government_reform = {
-			government_reform = commercial_trade_empire_reform
-		}
-	}
-	trigger = {
-	}
-	modifiers = {
-		trade_company_investment_cost = -0.1
-		global_ship_trade_power = 0.25
-		mercantilism_cost = -0.33
-	}
-	conditional = {
-		allow = {
-			has_dlc = "Domination"
-		}
-		custom_attributes = {
-			can_establish_trade_protectorates = yes
-		}
-	}
-	ai = {
-		factor = 1
-	}
-}
-
-# jap_gokaido_reform = {
-# 	icon = "jap_gokaido_reform"
-# 	allow_normal_conversion = no
-# 	potential = {
-# 		culture_group = japanese 
-# 	}
-# 	trigger = {
-# 		OR = {
-# 			have_had_reform = jap_gokaido_reform
-# 			has_reform = jap_gokaido_reform
-# 			mission_completed = jap_expand_gokaido
-# 		}
-# 	}
-# 	modifiers = {
-# 		merchants = 1 
-# 	}
-# 	effect = {
-# 		every_owned_province = {
-# 			limit = { 
-# 				region = japan_region 
-# 				NOT = { has_province_modifier = jap_gokaido_modifier }
-# 			}
-# 			add_province_modifier = {
-# 				name = jap_gokaido_modifier
-# 				duration = -1 
-# 				hidden = yes
-# 			}
-# 		}
-# 	}
-# 	removed_effect = {
-# 		every_owned_province = {
-# 			limit = { 
-# 				region = japan_region 
-# 				has_province_modifier = jap_gokaido_modifier
-# 			}	
-# 			remove_province_modifier = jap_gokaido_modifier
-# 		}
-# 	}
-# 	custom_attributes = { benefits_for_japan = yes } 
-# 	ai = {
-# 		factor = 100
-# 	}
-# }
-
-# reform_the_samurai_reform = {
-# 	icon = "reform_the_samurai_reform"
-# 	allow_normal_conversion = yes
-# 	potential = {
-# 		culture_group = japanese 
-# 		tag = JAP 
-# 		OR = {
-# 			have_had_reform = reform_the_samurai_reform
-# 			has_reform = reform_the_samurai_reform
-# 		}
-# 		NOT = { has_country_modifier = jap_domineering_naval_focus_modifier }
-# 		NOT = { has_country_modifier = jap_naval_academy_of_japan_modifier }
-# 	}
-# 	modifiers = {
-# 		drill_gain_modifier = 0.5
-# 		army_tradition = 0.5
-# 		allowed_samurai_fraction = 0.05
-# 	}
-# 	effect = {
-# 		custom_tooltip = jap_samurai_get_fire_damage_tt
-# 		hidden_effect = {
-# 			add_country_modifier = {
-# 				name = jap_reformed_samurai_modifier
-# 				duration = -1 
-# 				hidden = yes 
-# 			}
-# 		}
-# 	}
-# 	removed_effect = {
-# 		remove_country_modifier = jap_reformed_samurai_modifier
-# 	}
-# 	ai = {
-# 		factor = 1.5
-# 	}
-# }
-
-# tercios_reform = {
-# 	icon = "tercios_reform"
-# 	allow_normal_conversion = yes
-# 	potential = {
-# 		has_dlc = "Domination" 
-# 		OR = {
-# 			AND = {
-# 				is_or_was_tag = { tag = ARA }
-# 				OR = {
-# 					total_development = 500 
-# 					is_great_power = yes 
-# 				}
-# 			}
-# 			mission_completed = spa_tercios_system
-# 			custom_trigger_tooltip = {
-# 				tooltip = has_unlocked_this_reform_tt
-# 				has_country_flag = enable_tercios_reform_flag
-# 			}
-# 		}
-# 		NOT = { religion_group = muslim } 
-# 	}
-# 	modifiers = {
-# 		has_tercio = yes
-# 		allowed_tercio_fraction = 0.15
-# 		army_tradition = 0.5
-# 		yearly_army_professionalism = 0.0025
-# 	}
-	
-# 	ai = {
-# 		factor = 1
-# 	}
-# }
-
-# consulate_of_the_sea = {
-# 	icon = "consulate_of_the_sea"
-# 	allow_normal_conversion = yes
-# 	potential = {
-# 		has_dlc = "Domination" 
-# 		OR = {
-# 			tag = ARA
-# 			was_tag = ARA 
-# 			has_reform = consulate_of_the_sea 
-# 		}
-# 	}
-# 	trigger = {
-# 		OR = {
-# 			mission_completed = gc_ara_consultate_of_the_sea2
-# 			has_reform = consulate_of_the_sea 
-# 		}
-# 	}
-# 	modifiers = {
-# 		trade_efficiency = 0.1
-# 		global_trade_power = 0.1
-# 		burghers_loyalty_modifier = 0.05
-		
-# 	}
-	
-# 	conditional = {
-# 		allow = {
-# 			has_dlc = "Res Publica"
-# 			has_dlc = "Mare Nostrum"
-# 		}
-# 		can_use_trade_post = yes
-# 	}
-	
-# 	ai = {
-# 		factor = 10
-# 	}
-# }
-dwarovar_emulate_warriors = {
-	icon = "holy_state_reform"
-	potential = { 
-		culture_group = dwarven 
-		NOT = { is_adventurer = yes }
-	}
-	trigger = { religion = ancestor_worship }
-	modifiers = {
-		leader_cost = 0.25
-		leader_land_shock = 1
-		prestige = 0.25
-	}
-
-	custom_attributes = { dwarovar_emulate_warriors_effect = yes }
-	ai = { factor = 1 }
-}
-
-dwarovar_ensure_worker_rights = {
+dwarovar_ensure_worker_rights = {	#bertus mod
 	icon = "self_governing_colony_government"
 	potential = { 
 		culture_group = dwarven 
-		NOT = { is_adventurer = yes }
 	}
 	trigger = { 
 		custom_trigger_tooltip = {
@@ -4496,17 +3508,15 @@ dwarovar_ensure_worker_rights = {
 			has_country_flag = hoardcurse_happened
 		}
 	}
-	lock_level_when_selected = yes
 
 	modifiers = {
 		state_maintenance_modifier = -0.25
-		possible_adm_policy = 1
-		burghers_loyalty_modifier = 0.05
+	}
+	custom_attributes = {
+		ensure_worker_rights = yes
 	}
 
 	effect = {
-		remove_country_modifier = adequate_remuneration
-		remove_country_modifier = adequate_labour
 	}
 	ai = { factor = 1 }
 }
@@ -4558,6 +3568,161 @@ hobgoblin_domestic_practices = {
 	ai = { factor = 5 }
 }
 
+#tier 8
+machiavellianistic_rule_reform = {	#bertus mod	#new LotN
+	icon = "machiavellianism"
+	allow_normal_conversion = yes
+	
+	modifiers = {
+		core_creation = -0.1
+		same_culture_advisor_cost = -0.10
+		stability_cost_to_declare_war = -1
+	}
+	custom_attributes = {
+		faster_purguing_reform = yes
+	}
+	ai = {
+		factor = 1
+	}
+}
+
+six_livres_reform = {	#bertus mod	#new LotN
+	icon = "six_livres"
+	allow_normal_conversion = yes
+	trigger = {
+		has_parliament = yes
+	}
+	modifiers = {
+		global_unrest = -1
+	}
+	conditional = {
+		allow = { has_dlc = "Common Sense" }
+		custom_attributes = {
+			halved_parliament_bribes = yes
+			pariament_debate_bonus = yes
+			parliamnet_seats_boost = yes
+		}
+	}
+	ai = {
+		factor = 1
+	}
+}
+
+two_treatises_reform = {	#bertus mod	#new LotN
+	icon = "two_treaties"
+	allow_normal_conversion = yes
+	potential = {
+	}
+	modifiers = {
+		mages_influence_modifier = 0.1
+		adventurers_influence_modifier = 0.1
+		artificers_influence_modifier = 0.1
+		mages_loyalty_modifier = 0.1
+		adventurers_loyalty_modifier = 0.1
+		artificers_loyalty_modifier = 0.1
+		amount_of_carolean = 0.20
+		amount_of_cawa = 0.20
+		mercenary_manpower = 0.20
+	}
+	effect = {
+		add_country_modifier = {
+			name = three_treatises_artificers_modifier
+			duration = -1
+			hidden = yes
+		}
+		add_country_modifier = {
+			name = three_treatises_battlemages_modifier
+			duration = -1
+			hidden = yes
+		}
+		add_country_modifier = {
+			name = three_treatises_mercenary_modifier
+			duration = -1
+			hidden = yes
+		}
+	}
+	post_removed_effect = {
+		remove_country_modifier = three_treatises_artificers_modifier
+		remove_country_modifier = three_treatises_battlemages_modifier
+		remove_country_modifier = three_treatises_mercenary_modifier
+	}
+	ai = {factor = 1}
+}
+
+the_leviathan_reform = {	#bertus mod	#new LotN
+	icon = "leviathan"
+	allow_normal_conversion = yes
+	modifiers = {
+		all_power_cost = -0.05
+		administrative_efficiency = 0.05
+	}
+	ai = {
+		factor = 1
+	}
+}
+
+the_social_contract_reform = {	#bertus mod	#new LotN
+	icon = "the_social_contract"
+	allow_normal_conversion = yes
+	potential = {
+		is_revolutionary = no
+	}
+	modifiers = {
+		advisor_cost = -0.05
+		all_estate_influence_modifier = 0.1
+		all_estate_loyalty_equilibrium = 0.1
+		adventurers_influence_modifier = -0.1
+		artificers_influence_modifier = -0.1
+		mages_influence_modifier = -0.1
+		adventurers_loyalty_modifier = -0.1
+		artificers_loyalty_modifier = -0.1
+		mages_loyalty_modifier = -0.1
+
+	}
+	custom_attributes = {
+		integrated_races_give_land_morale = yes
+		integrated_races_give_dev_cost = yes
+		faster_tolerance_events = yes
+	}
+	ai = {
+		factor = 1
+	}
+}
+
+commercial_trade_empire_reform = {
+	icon = "trading_city"
+	allow_normal_conversion = yes
+	potential = {
+		NOT = { has_government_attribute = is_pirate_republic_reform }
+		NOT = { has_adventurer_reform = yes }
+		NOT = { culture_group = dwarven }
+		NOT = { has_reform = hobgoblin_stratocracy_reform }
+		has_dlc = "Domination"
+		has_unlocked_government_reform = {
+			government_reform = commercial_trade_empire_reform
+		}
+	}
+	trigger = {
+	}
+	modifiers = {
+		trade_company_investment_cost = -0.1
+		global_ship_trade_power = 0.25
+		mercantilism_cost = -0.33
+	}
+	conditional = {
+		allow = {
+			has_dlc = "Domination"
+		}
+		custom_attributes = {
+			can_establish_trade_protectorates = yes
+		}
+	}
+	ai = {
+		factor = 1
+	}
+}
+
+
 ameion_parliamentary_reform = { #Anbennar
 	icon = "parliament"
 	potential = {
@@ -4599,9 +3764,11 @@ shaz_white_stone_council = { #Shazstundihr's White Stone Council
 	valid_for_nation_designer = no
 
 	modifiers = {
-		build_cost = -0.075
+		build_cost = -0.10	#-0.20→-0.10
+		great_project_upgrade_cost = -0.10	#0→-0.10
+		build_time = -0.05	#0→-0.05
 		global_unrest = -2
-		development_cost = -0.05
+		#development_cost = -0.075	#-0.075→0
 	}
 
 	custom_attributes = {
@@ -4637,4 +3804,153 @@ shaz_the_amlvihte = { #Shazstundihr's Amlvihte Council
 		disabled_purging_elven = yes
 		locked_government_type = yes
 	}
+}
+
+magical_guild_reform = {	#bertus mod
+	icon = "indian_crown"
+	allow_normal_conversion = yes
+	potential = {
+		NOT = { has_adventurer_reform = yes } # Anbennar
+		has_estate = estate_mages
+		is_revolutionary = no
+		NOT = { has_country_flag = banned_magic }
+		NOT = { has_reform = hobgoblin_stratocracy_reform }
+		NOT = { has_reform = great_ogre_horde }
+		NOT = {
+			AND = {
+				religion = bulwari_sun_cult
+				NOT = { primary_culture = sun_elf }
+			}
+		}
+		NOT = { has_government_attribute = increased_magic_ruler_chance }
+		OR = {
+			NOT = {culture_group = dwarven}
+			culture = ruby_dwarf
+		}
+	}
+	modifiers = {
+		mages_loyalty_modifier = 0.10
+		mages_influence_modifier = 0.10
+		artificers_loyalty_modifier = -0.10
+		artificers_influence_modifier = -0.10
+		adventurers_loyalty_modifier = -0.10
+		adventurers_influence_modifier = -0.10
+		yearly_corruption = 0.2
+		army_tradition_from_battle = -0.25
+		free_leader_pool = -1
+	}
+	custom_attributes = {
+		no_mage_rulers = yes
+		shorter_cd_for_realm_magic = yes
+		magic_commander_academy = yes
+	}
+	effect = {
+		if = {
+			limit = {has_estate_privilege = estate_adventurers_emergency_general}
+			remove_estate_privilege = estate_adventurers_emergency_general
+		}
+		if = {
+			limit = {has_estate_privilege = estate_mages_emergency_general}
+			remove_estate_privilege = estate_mages_emergency_general
+		}
+		if = {
+			limit = {has_estate_privilege = estate_artificers_emergency_general}
+			remove_estate_privilege = estate_artificers_emergency_general
+		}
+		country_event = {id = bertus_changes.6010}
+	}
+	ai = {factor = 1}
+}
+
+artificer_guild_reform = {	#bertus mod
+	icon = "indian_crown"
+	allow_normal_conversion = yes
+	potential = {
+		has_estate = estate_artificers
+		is_revolutionary = no
+		NOT = { has_reform = hobgoblin_stratocracy_reform }
+		NOT = { has_reform = great_ogre_horde }
+		NOT = {
+			AND = {
+				religion = bulwari_sun_cult
+				NOT = { primary_culture = sun_elf }
+			}
+		}
+	}
+	modifiers = {
+		artificers_loyalty_modifier = 0.10
+		artificers_influence_modifier = 0.10
+		adventurers_loyalty_modifier = -0.10
+		adventurers_influence_modifier = -0.10
+		mages_loyalty_modifier = -0.10
+		mages_influence_modifier = -0.10
+		yearly_corruption = 0.2
+		army_tradition_from_battle = -0.25
+		free_leader_pool = -1
+	}
+	custom_attributes = {
+		artificer_commander_academy = yes
+	}
+	effect = {
+		if = {
+			limit = {has_estate_privilege = estate_adventurers_emergency_general}
+			remove_estate_privilege = estate_adventurers_emergency_general
+		}
+		if = {
+			limit = {has_estate_privilege = estate_mages_emergency_general}
+			remove_estate_privilege = estate_mages_emergency_general
+		}
+		if = {
+			limit = {has_estate_privilege = estate_artificers_emergency_general}
+			remove_estate_privilege = estate_artificers_emergency_general
+		}
+		country_event = {id = bertus_changes.6010}
+	}
+	ai = {factor = 1}
+}
+adventurer_guild_reform = {	#bertus mod
+	icon = "indian_crown"
+	allow_normal_conversion = yes
+	potential = {
+		has_estate = estate_adventurers
+		is_revolutionary = no
+		NOT = { has_reform = hobgoblin_stratocracy_reform }
+		NOT = { has_reform = great_ogre_horde }
+		NOT = {
+			AND = {
+				religion = bulwari_sun_cult
+				NOT = { primary_culture = sun_elf }
+			}
+		}
+	}
+	modifiers = {
+		adventurers_loyalty_modifier = 0.10
+		adventurers_influence_modifier = 0.10
+		artificers_loyalty_modifier = -0.10
+		artificers_influence_modifier = -0.10
+		mages_loyalty_modifier = -0.10
+		mages_influence_modifier = -0.10
+		yearly_corruption = 0.2
+		army_tradition_from_battle = -0.25
+		free_leader_pool = -1
+	}
+	custom_attributes = {
+		adventurer_commander_academy = yes
+	}
+	effect = {
+		if = {
+			limit = {has_estate_privilege = estate_adventurers_emergency_general}
+			remove_estate_privilege = estate_adventurers_emergency_general
+		}
+		if = {
+			limit = {has_estate_privilege = estate_mages_emergency_general}
+			remove_estate_privilege = estate_mages_emergency_general
+		}
+		if = {
+			limit = {has_estate_privilege = estate_artificers_emergency_general}
+			remove_estate_privilege = estate_artificers_emergency_general
+		}
+		country_event = {id = bertus_changes.6010}
+	}
+	ai = {factor = 1}
 }

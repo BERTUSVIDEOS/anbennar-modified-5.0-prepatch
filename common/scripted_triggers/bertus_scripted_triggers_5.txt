@@ -1,0 +1,834 @@
+
+has_local_slaves = {
+	OR = {
+		has_province_flag = has_local_human_enslaved_flag
+		has_province_flag = has_local_elven_enslaved_flag
+		has_province_flag = has_local_dwarven_enslaved_flag
+		has_province_flag = has_local_halfling_enslaved_flag
+		has_province_flag = has_local_gnomish_enslaved_flag
+		has_province_flag = has_local_harimari_enslaved_flag
+		has_province_flag = has_local_gnollish_enslaved_flag
+		has_province_flag = has_local_ruinborn_enslaved_flag
+		has_province_flag = has_local_orcish_enslaved_flag
+		has_province_flag = has_local_goblin_enslaved_flag
+		has_province_flag = has_local_ogre_enslaved_flag
+		has_province_flag = has_local_centaur_enslaved_flag
+		has_province_flag = has_local_troll_enslaved_flag
+		has_province_flag = has_local_harpy_enslaved_flag
+		has_province_flag = has_local_half_orcish_enslaved_flag
+		has_province_flag = has_local_half_elven_enslaved_flag
+		has_province_flag = has_local_hobgoblin_enslaved_flag
+		has_province_flag = has_local_kobold_enslaved_flag
+	}
+}
+has_foreign_slaves = {
+	OR = {
+		has_province_flag = human_foreign_slaves_flag
+		has_province_flag = elven_foreign_slaves_flag
+		has_province_flag = dwarven_foreign_slaves_flag
+		has_province_flag = halfling_foreign_slaves_flag
+		has_province_flag = gnomish_foreign_slaves_flag
+		has_province_flag = harimari_foreign_slaves_flag
+		has_province_flag = gnollish_foreign_slaves_flag
+		has_province_flag = ruinborn_foreign_slaves_flag
+		has_province_flag = orcish_foreign_slaves_flag
+		has_province_flag = goblin_foreign_slaves_flag
+		has_province_flag = ogre_foreign_slaves_flag
+		has_province_flag = centaur_foreign_slaves_flag
+		has_province_flag = troll_foreign_slaves_flag
+		has_province_flag = harpy_foreign_slaves_flag
+		has_province_flag = half_orcish_foreign_slaves_flag
+		has_province_flag = half_elven_foreign_slaves_flag
+		has_province_flag = hobgoblin_foreign_slaves_flag
+		has_province_flag = kobold_foreign_slaves_flag
+	}
+}
+allowed_to_build_coastal_defense_building = {
+	has_port = yes
+	NOT = {
+		has_great_project = {
+			type = rycastle_canal
+			tier = 0
+		}
+		has_great_project = {
+			type = ovdal_tungr_port_hold
+			tier = 0
+		}
+		has_great_project = {
+			type = beepeck_citadel
+			tier = 0
+		}
+		has_great_project = {
+			type = oddansbay_harbor
+			tier = 0
+		}
+	}
+}
+allowed_to_build_shipyard_building = {
+	has_port = yes
+	NOT = {
+		has_great_project = {
+			type = anbencost_harbor
+			tier = 0
+		}
+		has_great_project = {
+			type = ovdal_tungr_port_hold
+			tier = 0
+		}
+		has_great_project = {
+			type = oddansbay_harbor
+			tier = 0
+		}
+	}
+}
+allowed_to_build_dock_building = {
+	has_port = yes
+	NOT = {
+		has_great_project = {
+			type = deranne_westport_gateway_to_aelantir
+			tier = 0
+		}
+	}
+}
+allowed_to_build_trade_building = {
+	NOT = {
+		has_great_project = {
+			type = damescrown_grand_exchange
+			tier = 0
+		}
+	}
+}
+is_studying_banned_magic = {
+	custom_trigger_tooltip = {
+		tooltip = is_studying_banned_magic_tt
+		OR = {
+			AND = {
+				has_ruler_flag = ruler_studying_abjuration
+				has_global_flag = prohibited_studying_abjuration
+			}
+			AND = {
+				has_ruler_flag = ruler_studying_conjuration
+				has_global_flag = prohibited_studying_conjuration
+			}
+			AND = {
+				has_ruler_flag = ruler_studying_divination
+				has_global_flag = prohibited_studying_divination
+			}
+			AND = {
+				has_ruler_flag = ruler_studying_enchantment
+				has_global_flag = prohibited_studying_enchantment
+			}
+			AND = {
+				has_ruler_flag = ruler_studying_evocation
+				has_global_flag = prohibited_studying_evocation
+			}
+			AND = {
+				has_ruler_flag = ruler_studying_illusion
+				has_global_flag = prohibited_studying_illusion
+			}
+			AND = {
+				has_ruler_flag = ruler_studying_necromancy
+				has_global_flag = prohibited_studying_necromancy
+			}
+			AND = {
+				has_ruler_flag = ruler_studying_transmutation
+				has_global_flag = prohibited_studying_transmutation
+			}
+		}
+	}
+}
+magisterium_can_investigate = {
+	custom_trigger_tooltip = {
+		tooltip = magisterium_can_investigatec_tt
+		always = yes
+	}	
+}
+uses_horses = {
+	OR = {
+		technology_group = tech_cannorian
+		technology_group = tech_gerudian
+		technology_group = tech_islanders
+		technology_group = tech_bulwari
+		technology_group = tech_elven
+		technology_group = tech_east_elven
+		technology_group = tech_wood_elf
+		technology_group = tech_gnomish
+		technology_group = tech_hobgoblin
+		technology_group = tech_orcish
+		technology_group = tech_black_orcish
+		technology_group = tech_east_orcish
+		technology_group = tech_half_orcish
+		technology_group = tech_halessi
+	}
+}
+uses_camels = {
+	OR = {
+		technology_group = tech_gnollish
+		technology_group = tech_east_elven
+		technology_group = tech_hobgoblin
+		technology_group = tech_east_orcish
+		technology_group = tech_salahadesi
+		technology_group = tech_halessi
+	}
+}
+uses_elephants = {
+	OR = {		
+		technology_group = tech_harimari
+		technology_group = tech_east_harimari
+		technology_group = tech_raheni
+	}
+}
+is_purguing_our_race = {
+	if = {
+		limit = {
+			ROOT = {
+				culture_is_human = yes
+			}
+		}
+		OR = {
+			has_country_modifier = racial_pop_human_expulsion
+			has_country_modifier = racial_pop_human_purge
+		}
+	}
+	if = {
+		limit = {
+			ROOT = {
+				culture_is_elven = yes
+			}
+		}
+		OR = {
+			has_country_modifier = racial_pop_elven_expulsion
+			has_country_modifier = racial_pop_elven_purge
+		}
+	}
+	if = {
+		limit = {
+			ROOT = {
+				culture_is_dwarven= yes
+			}
+		}
+		OR = {
+			has_country_modifier = racial_pop_dwarven_expulsion
+			has_country_modifier = racial_pop_dwarven_purge
+		}
+	}
+	if = {
+		limit = {
+			ROOT = {
+				culture_is_halfling = yes
+			}
+		}
+		OR = {
+			has_country_modifier = racial_pop_halfling_expulsion
+			has_country_modifier = racial_pop_halfling_purge
+		}
+	}
+	if = {
+		limit = {
+			ROOT = {
+				culture_is_gnomish = yes
+			}
+		}
+		OR = {
+			has_country_modifier = racial_pop_gnomish_expulsion
+			has_country_modifier = racial_pop_gnomish_purge
+		}
+	}
+	if = {
+		limit = {
+			ROOT = {
+				culture_is_harimari = yes
+			}
+		}
+		OR = {
+			has_country_modifier = racial_pop_harimari_expulsion
+			has_country_modifier = racial_pop_harimari_purge
+		}
+	}
+	if = {
+		limit = {
+			ROOT = {
+				culture_is_gnollish = yes
+			}
+		}
+		OR = {
+			has_country_modifier = racial_pop_gnollish_expulsion
+			has_country_modifier = racial_pop_gnollish_purge
+		}
+	}
+	if = {
+		limit = {
+			ROOT = {
+				culture_is_ruinborn = yes
+			}
+		}
+		OR = {
+			has_country_modifier = racial_pop_ruinborn_expulsion
+			has_country_modifier = racial_pop_ruinborn_purge
+		}
+	}
+	if = {
+		limit = {
+			ROOT = {
+				culture_is_orcish = yes
+			}
+		}
+		OR = {
+			has_country_modifier = racial_pop_orcish_expulsion
+			has_country_modifier = racial_pop_orcish_purge
+		}
+	}
+	if = {
+		limit = {
+			ROOT = {
+				culture_is_goblin = yes
+			}
+		}
+		OR = {
+			has_country_modifier = racial_pop_goblin_expulsion
+			has_country_modifier = racial_pop_goblin_purge
+		}
+	}
+	if = {
+		limit = {
+			ROOT = {
+				culture_is_ogre = yes
+			}
+		}
+		OR = {
+			has_country_modifier = racial_pop_ogre_expulsion
+			has_country_modifier = racial_pop_ogre_purge
+		}
+	}
+	if = {
+		limit = {
+			ROOT = {
+				culture_is_centaur = yes
+			}
+		}
+		OR = {
+			has_country_modifier = racial_pop_centaur_expulsion
+			has_country_modifier = racial_pop_centaur_purge
+		}
+	}
+	if = {
+		limit = {
+			ROOT = {
+				culture_is_troll = yes
+			}
+		}
+		OR = {
+			has_country_modifier = racial_pop_troll_expulsion
+			has_country_modifier = racial_pop_troll_purge
+		}
+	}
+	if = {
+		limit = {
+			ROOT = {
+				culture_is_harpy= yes
+			}
+		}
+		OR = {
+			has_country_modifier = racial_pop_harpy_expulsion
+			has_country_modifier = racial_pop_harpy_purge
+		}
+	}
+	if = {
+		limit = {
+			ROOT = {
+				culture_is_half_orcish = yes
+			}
+		}
+		OR = {
+			has_country_modifier = racial_pop_half_orcish_expulsion
+			has_country_modifier = racial_pop_half_orcish_purge
+		}
+	}
+	if = {
+		limit = {
+			ROOT = {
+				culture_is_half_elven = yes
+			}
+		}
+		OR = {
+			has_country_modifier = racial_pop_half_elven_expulsion
+			has_country_modifier = racial_pop_half_elven_purge
+		}
+	}
+	if = {
+		limit = {
+			ROOT = {
+				culture_is_hobgoblin = yes
+			}
+		}
+		OR = {
+			has_country_modifier = racial_pop_hobgoblin_expulsion
+			has_country_modifier = racial_pop_hobgoblin_purge
+		}
+	}
+	if = {
+		limit = {
+			ROOT = {
+				culture_is_kobold = yes
+			}
+		}
+		OR = {
+			has_country_modifier = racial_pop_kobold_expulsion
+			has_country_modifier = racial_pop_kobold_purge
+		}
+	}
+}
+all_races_represented = {
+	AND = {
+		OR = {
+			AND = {
+				any_country = {
+					is_part_of_hre = yes
+					culture_is_human = yes
+				}
+				OR = {
+					any_elector = {
+						culture_is_human = yes
+					}
+					emperor = {
+						culture_is_human = yes
+					}
+				}
+			}
+			NOT = {
+				calc_true_if = {				
+					all_country = {
+						is_part_of_hre = yes
+						culture_is_human = yes
+					}
+					amount = 1
+				}
+			}
+		}
+		OR = {
+			AND = {
+				any_country = {
+					is_part_of_hre = yes
+					culture_is_elven = yes
+				}
+				OR = {
+					any_elector = {
+						culture_is_elven = yes
+					}
+					emperor = {
+						culture_is_elven = yes
+					}
+				}
+			}
+			NOT = {
+				calc_true_if = {				
+					all_country = {
+						is_part_of_hre = yes
+						culture_is_elven = yes
+					}
+					amount = 1
+				}
+			}
+		}
+		OR = {
+			AND = {
+				any_country = {
+					is_part_of_hre = yes
+					culture_is_dwarven = yes
+				}
+				OR = {
+					any_elector = {
+						culture_is_dwarven = yes
+					}
+					emperor = {
+						culture_is_dwarven = yes
+					}
+				}
+			}
+			NOT = {
+				calc_true_if = {				
+					all_country = {
+						is_part_of_hre = yes
+						culture_is_dwarven = yes
+					}
+					amount = 1
+				}
+			}
+		}
+		OR = {
+			AND = {
+				any_country = {
+					is_part_of_hre = yes
+					culture_is_halfling = yes
+				}
+				OR = {
+					any_elector = {
+						culture_is_halfling = yes
+					}
+					emperor = {
+						culture_is_halfling = yes
+					}
+				}
+			}
+			NOT = {
+				calc_true_if = {				
+					all_country = {
+						is_part_of_hre = yes
+						culture_is_halfling = yes
+					}
+					amount = 1
+				}
+			}
+		}
+		OR = {
+			AND = {
+				any_country = {
+					is_part_of_hre = yes
+					culture_is_gnomish = yes
+				}
+				OR = {
+					any_elector = {
+						culture_is_gnomish = yes
+					}
+					emperor = {
+						culture_is_gnomish = yes
+					}
+				}
+			}
+			NOT = {
+				calc_true_if = {				
+					all_country = {
+						is_part_of_hre = yes
+						culture_is_gnomish = yes
+					}
+					amount = 1
+				}
+			}
+		}
+		OR = {
+			AND = {
+				any_country = {
+					is_part_of_hre = yes
+					culture_is_harimari = yes
+					}
+				OR = {
+					any_elector = {
+						culture_is_harimari = yes
+					}
+					emperor = {
+						culture_is_harimari = yes
+					}
+				}
+			}
+			NOT = {
+				calc_true_if = {				
+					all_country = {
+						is_part_of_hre = yes
+						culture_is_harimari = yes
+					}
+					amount = 1
+				}
+			}
+		}
+		OR = {
+			AND = {
+				any_country = {
+					is_part_of_hre = yes
+					culture_is_gnollish = yes
+				}
+				OR = {
+					any_elector = {
+						culture_is_gnollish = yes
+					}
+					emperor = {
+						culture_is_gnollish = yes
+					}
+				}
+			}
+			NOT = {
+				calc_true_if = {				
+					all_country = {
+						is_part_of_hre = yes
+						culture_is_gnollish = yes
+					}
+					amount = 1
+				}
+			}
+		}
+		OR = {
+			AND = {
+				any_country = {
+					is_part_of_hre = yes
+					culture_is_ruinborn = yes
+				}
+				OR = {
+					any_elector = {
+						culture_is_ruinborn = yes
+					}
+					emperor = {
+						culture_is_ruinborn = yes
+					}
+				}
+			}
+			NOT = {
+				calc_true_if = {				
+					all_country = {
+						is_part_of_hre = yes
+						culture_is_ruinborn = yes
+					}
+					amount = 1
+				}
+			}
+		}
+		OR = {
+			AND = {			
+				any_country = {
+					is_part_of_hre = yes
+					culture_is_orcish = yes
+				}
+				OR = {
+					any_elector = {
+						culture_is_orcish = yes
+					}
+					emperor = {
+						culture_is_orcish = yes
+					}
+				}
+			}
+			NOT = {
+				calc_true_if = {				
+					all_country = {
+						is_part_of_hre = yes
+						culture_is_orcish = yes
+					}
+					amount = 1
+				}
+			}
+		}
+		OR = {
+			AND = {
+				any_country = {
+					is_part_of_hre = yes
+					culture_is_goblin = yes
+				}
+				OR = {
+					any_elector = {
+						culture_is_goblin = yes
+					}
+					emperor = {
+						culture_is_goblin = yes
+					}
+				}
+			}
+			NOT = {
+				calc_true_if = {				
+					all_country = {
+						is_part_of_hre = yes
+						culture_is_goblin = yes
+					}
+					amount = 1
+				}
+			}
+		}
+		OR = {
+			AND = {
+				any_country = {
+					is_part_of_hre = yes
+					culture_is_ogre = yes
+				}
+				OR = {
+					any_elector = {
+						culture_is_ogre = yes
+					}
+					emperor = {
+						culture_is_ogre = yes
+					}
+				}
+			}
+			NOT = {
+				calc_true_if = {				
+					all_country = {
+						is_part_of_hre = yes
+						culture_is_ogre = yes
+					}
+					amount = 1
+				}
+			}
+		}
+		OR = {
+			AND = {
+				any_country = {
+					is_part_of_hre = yes
+					culture_is_centaur = yes
+				}
+				OR = {
+					any_elector = {
+						culture_is_centaur = yes
+					}
+					emperor = {
+						culture_is_centaur = yes
+					}
+				}
+			}
+			NOT = {
+				calc_true_if = {				
+					all_country = {
+						is_part_of_hre = yes
+						culture_is_centaur = yes
+					}
+					amount = 1
+				}
+			}
+		}
+		OR = {
+			AND = {
+				any_country = {
+					is_part_of_hre = yes
+					culture_is_troll = yes
+				}
+				OR = {
+					any_elector = {
+						culture_is_troll = yes
+					}
+					emperor = {
+						culture_is_troll = yes
+					}
+				}
+			}
+			NOT = {
+				calc_true_if = {				
+					all_country = {
+						is_part_of_hre = yes
+						culture_is_troll = yes
+					}
+					amount = 1
+				}
+			}
+		}
+		OR = {
+			AND = {
+				any_country = {
+					is_part_of_hre = yes
+					culture_is_harpy = yes
+				}
+				OR = {
+					any_elector = {
+						culture_is_harpy = yes
+					}
+					emperor = {
+						culture_is_harpy = yes
+					}
+				}
+			}
+			NOT = {
+				calc_true_if = {				
+					all_country = {
+						is_part_of_hre = yes
+						culture_is_harpy = yes
+					}
+					amount = 1
+				}
+			}
+		}
+		if = {
+			limit = {
+				any_country = {
+					is_part_of_hre = yes
+					culture_is_half_orcish = yes
+				}
+				OR = {
+					any_elector = {
+						culture_is_half_orcish = yes
+					}
+					emperor = {
+						culture_is_half_orcish = yes
+					}
+				}
+			}
+			NOT = {
+				calc_true_if = {				
+					all_country = {
+						is_part_of_hre = yes
+						culture_is_half_orcish = yes
+					}
+					amount = 1
+				}
+			}
+		}
+		OR = {
+			AND = {
+				any_country = {
+					is_part_of_hre = yes
+					culture_is_half_elven = yes
+				}
+				OR = {
+					any_elector = {
+						culture_is_half_elven = yes
+					}
+					emperor = {
+						culture_is_half_elven = yes
+					}
+				}
+			}
+			NOT = {
+				calc_true_if = {				
+					all_country = {
+						is_part_of_hre = yes
+						culture_is_half_elven = yes
+					}
+					amount = 1
+				}
+			}
+		}
+		OR = {
+			AND = {
+				any_country = {
+					is_part_of_hre = yes
+					culture_is_hobgoblin = yes
+				}
+				OR = {
+					any_elector = {
+						culture_is_hobgoblin = yes
+					}
+					emperor = {
+						culture_is_hobgoblin = yes
+					}
+				}
+			}
+			NOT = {
+				calc_true_if = {				
+					all_country = {
+						is_part_of_hre = yes
+						culture_is_hobgoblin = yes
+					}
+					amount = 1
+				}
+			}
+		}
+		OR = {
+			AND = {
+				any_country = {
+					is_part_of_hre = yes
+					culture_is_kobold = yes
+				}
+				OR = {
+					any_elector = {
+						culture_is_kobold = yes
+					}
+					emperor = {
+						culture_is_kobold = yes
+					}
+				}
+			}
+			NOT = {
+				calc_true_if = {				
+					all_country = {
+						is_part_of_hre = yes
+						culture_is_kobold = yes
+					}
+					amount = 1
+				}
+			}
+		}
+	}
+}

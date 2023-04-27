@@ -1,0 +1,148 @@
+# Province Triggered modifiers are here.
+# These are added to provinces through the add_province_triggered_modifier effect
+#
+# Effects are fully scriptable here.
+
+
+###########################################
+# Just random test modifier
+###########################################
+
+
+silverforge_developed_mine = {
+	potential = {
+		culture_is_dwarven = yes
+	}
+	trigger = {
+		culture_is_dwarven = yes
+		owner = { high_tolerance_dwarven_race_trigger = yes}
+	}
+	local_development_cost = -0.15
+	local_gold_depletion_chance_modifier = -1.0
+	trade_goods_size_modifier = 0.25
+	allowed_num_of_buildings = 1
+}
+ibevar_the_elven_vale = {
+	potential = {
+		owner = { culture_group = elven}
+	}
+	trigger = {
+		owner = { 
+			culture_group = elven
+			owns_all_provinces = {
+				region = forlorn_vale_region
+			}
+		}
+	}
+	prestige = 0.5 	#1→0.5
+	global_unrest = -1
+	embargo_efficiency = 0.20
+	global_tax_modifier = 0.1
+	production_efficiency = 0.1
+}
+ibevar_securing_the_south = {
+	potential = {
+		owner = { culture_group = elven}
+	}
+	trigger = {
+		owner = { 
+			culture_group = elven
+			owns = 352
+		}
+	}
+	local_defensiveness = 0.2
+	local_garrison_size = 0.2
+	local_defender_dice_roll_bonus = 1
+}
+
+eborthil_trade_monopoly = {
+	potential = {
+		owner = { culture = tefori }
+	}
+	trigger = {
+		owner = { 
+			culture = tefori
+			OR = {
+				has_reform = plutocratic_reform
+				has_reform = free_trade_reform
+			}
+		}
+	}
+	local_development_cost_modifier = -0.1
+	trade_efficiency = 0.05
+	province_trade_power_value = 25
+}
+busilar_busilari_stone_lion = {
+	potential = {
+		owner = { culture = busilari }
+	}
+	trigger = {
+		owner = { culture = busilari }
+		culture_group = businori
+	}
+	
+	local_development_cost = -0.30
+	local_defender_dice_roll_bonus = 2
+	prestige = 0.2
+	legitimacy = 0.2
+	yearly_absolutism = 0.5
+	land_morale = 0.05
+}
+silverforge_glass_production = {
+	potential = {
+		owner = { has_country_modifier = dwarven_administration }
+	}
+
+	trigger = {
+		owner = {owns = 266}
+		OR = {			
+			266 = {
+				NOT = {has_global_flag = stored_goods_activated_flag}
+				trade_goods = glass
+			}
+			266 = {trade_goods = optics}
+		}
+	}
+	local_development_cost_modifier = -0.05
+	leader_land_manuever = 1
+	artificers_influence_modifier = 0.1
+}
+CLSTC = {
+	potential = {
+		owner = { has_reform = damescrown_republic_reform }
+	}
+
+	trigger = {
+		owner = {
+			faction_in_power = mr_traders
+		}
+	}
+	picture = "hold_has_parliament"
+	
+	province_trade_power_modifier = 0.5
+	province_trade_power_value = 25
+	trade_value_modifier = 0.5
+	local_development_cost = -0.2
+	prestige = 0.5
+	
+	#Province scope
+	on_activation = {
+		owner = {
+			add_mercantilism = 1
+			add_republican_tradition = -5
+			add_faction_influence = {
+				faction = mr_traders
+				influence = 10
+			}
+		}
+	}
+	
+	on_deactivation = {
+		owner = {
+			add_faction_influence = {
+				faction = mr_traders
+				influence = -10
+			}
+		}
+	}
+}

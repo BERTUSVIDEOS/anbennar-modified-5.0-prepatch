@@ -10,7 +10,7 @@
 # ###########################################
 monstrous_nation = {
 	potential = { #Cleans up the triggered modifier list, so it isn't filled with irrelevant modifiers.
-		always = yes
+		monstrous_culture = yes
 	}
 
 	trigger = {
@@ -20,8 +20,29 @@ monstrous_nation = {
 			NOT = { has_country_flag = no_longer_monstrous }
 		}
 	}
+	mages_loyalty_modifier = 0.1	#0→0.1
+	mages_influence_modifier = 0.1	#0→0.1
+	state_maintenance_modifier = -0.25	#0→-0.25
 	diplomatic_reputation = -1
 	unjustified_demands = -0.5
+	vassal_income = 0.20	#0→0.20
+	yearly_army_professionalism = -0.005	#0→-0.005
+	war_exhaustion = -0.05	#0→-0.05
+	development_cost = 0.1	#0→0.1
+	build_cost = 0.1	#0→0.1
+	global_institution_spread = -0.25	#0→-0.25
+	land_morale = 0.1	#0→0.1
+	global_manpower_modifier = 0.2	#0→0.2
+	army_tradition_from_battle = 0.25	#0→0.25
+	prestige_from_land = 0.25	#0→0.25
+	recover_army_morale_speed = 0.05	#0→0.05
+	reinforce_speed = 0.2	#0→0.2
+	loot_amount = 0.50	#0→0.5
+	available_province_loot = 0.50	#0→0.5
+	production_efficiency = -0.1	#0→-0.10
+	global_trade_power = -0.1	#0→-0.1
+	global_tax_modifier = -0.1	#→-0.1
+	trade_efficiency = -0.10	#0→-0.10
 }
 
 ###########################################
@@ -37,6 +58,8 @@ hre_dominant_regent_court = {
 			religion = corinite
 			religion = ravelian
 		}
+		hre_religion = regent_court
+		hre_religion_locked = yes
 	}
 
 	trigger = {
@@ -61,6 +84,8 @@ hre_dominant_corinite = {
 			religion = corinite
 			religion = ravelian
 		}
+		hre_religion = corinite
+		hre_religion_locked = yes
 	}
 
 	trigger = {
@@ -85,6 +110,8 @@ hre_dominant_ravelian = {
 			religion = corinite
 			religion = ravelian
 		}
+		hre_religion = ravelian
+		hre_religion_locked = yes
 	}
 
 	trigger = {
@@ -109,18 +136,26 @@ corinite_during_active_league_war = {
 			religion = corinite
 			religion = ravelian
 		}
+		OR = {
+			in_league = corinite
+			is_emperor = yes
+		}
 	}
 
 	trigger = {
 		religion = corinite
 		is_in_league_war = yes
-		in_or_leading_corinite_league = yes
+		OR = {
+			in_league = corinite
+			is_emperor = yes
+		}
 	}
 	
-	land_morale = 0.1
-	manpower_recovery_speed = 0.25
-	war_exhaustion = -0.2
-	land_maintenance_modifier = -0.25
+	morale_damage = 0.05
+	shock_damage = 0.05
+	manpower_recovery_speed = 0.10	#0.25→0.1
+	war_exhaustion = -0.05	#-0.2→-0.05
+	land_maintenance_modifier = -0.1	#-0.25→-0.1
 }
 
 
@@ -134,9 +169,9 @@ reclaiming_dwarovar = {
 	trigger = {
 		always = yes
 	}
-	colonists = 1
-	native_uprising_chance = 0.5
-	native_assimilation = -1.5
+	colonists = 2	#1→2
+	#native_uprising_chance = 0.5	#bertus mod
+	#native_assimilation = -1.5	#bertus mod
 }
 
 ###########################################
@@ -179,10 +214,9 @@ elven_military_cradle = {
 
 crimson_deluge_country_modifier = {
 	potential = {
-		#has_global_flag = crimson_deluge_is_actively_happening
+		has_global_flag = crimson_deluge_is_actively_happening
 	}
 	trigger = {
-		has_global_flag = crimson_deluge_is_actively_happening
 		num_of_owned_provinces_with = {
 			value = 5
 			OR = {

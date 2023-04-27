@@ -15,20 +15,23 @@ update_artifice_points = {
 				which = MaxArtificePoints
 				value = 0
 			}
-			# If you're adding a modifier here make sure to also add it to the artifice localization (in artifice_l_english and anb_custom_artifice_localization) otherwise it will not show up in game
-
-			#5 points for having a university, nothing more from universities please.
-			if = {
-				limit = {
-					any_owned_province = {
-						has_building = university
-					}
-				}
-				change_variable = {
-					which = MaxArtificePoints
-					value = 5
-				}
+			set_variable = {
+				which = CoalArtificePoints
+				value = 0
 			}
+			set_variable = {
+				which = DamestearArtificePoints
+				value = 0
+			}
+			set_variable = {
+				which = RelicsArtificePoints
+				value = 0
+			}
+			set_variable = {
+				which = UniversityArtificePoints
+				value = 0
+			}
+			# If you're adding a modifier here make sure to also add it to the artifice localization (in artifice_l_english and anb_custom_artifice_localization) otherwise it will not show up in game
 
 			#unique hold wonder
 			if = {
@@ -65,325 +68,6 @@ update_artifice_points = {
 					value = 5
 				}
 			}
-
-			#artificer admin/mil/religion
-			if = {
-				limit = {
-					OR = {
-						has_country_modifier = gnomish_administration
-						has_country_modifier = goblin_administration
-						has_country_modifier = kobold_administration
-					}
-				}
-				change_variable = {
-					which = MaxArtificePoints
-					value = 5
-				}
-			}
-			else_if = {
-				limit = {
-					has_country_modifier = dwarven_administration
-				}
-				change_variable = {
-					which = MaxArtificePoints
-					value = 2
-				}
-			}
-			if = {
-				limit = {
-					OR = {
-						has_country_modifier = gnomish_military
-						has_country_modifier = goblin_military
-						has_country_modifier = kobold_military
-					}
-				}
-				change_variable = {
-					which = MaxArtificePoints
-					value = 5
-				}
-			}
-			if = {
-				limit = {
-					OR = {
-						religion = ravelian
-						religion = the_thought
-						religion = kvangahga
-					}
-				}
-				change_variable = {
-					which = MaxArtificePoints
-					value = 3
-				}
-			}
-
-			#trolls get a penalty because they are stupid. elves, harimari get a penalty because they are traditionalist. Emerald orcs because they hate technology
-			if = {
-				limit = {
-					OR = {
-						has_country_modifier = troll_administration
-						has_country_modifier = elven_administration
-						has_country_modifier = harimari_administration
-						#culture = emerald_orc
-					}
-				}
-				subtract_variable = {
-					which = MaxArtificePoints
-					value = 2
-				}
-			}
-
-			if = {
-				limit = {
-					OR = {
-						has_country_modifier = troll_military
-						has_country_modifier = elven_military
-						has_country_modifier = harimari_military
-						#culture = emerald_orc
-					}
-				}
-				subtract_variable = {
-					which = MaxArtificePoints
-					value = 2
-				}
-			}
-
-			#deepwoods fey hate tech
-			if = {
-				limit = {
-					OR = {
-						religion = fey_court
-						religion = ashentree_pact
-					}
-				}
-				subtract_variable = {
-					which = MaxArtificePoints
-					value = 2
-				}
-			}
-
-			# School of Starry Eye somewhat more supportive of artificery
-			if = {
-				limit = {
-					religious_school = {
-						group = raheni
-						school = starry_eye_school
-					}
-				}
-				change_variable = {
-					which = MaxArtificePoints
-					value = 1
-				}
-			}
-
-			#liches and witch kings have no need for artifice and are distrustful of the threat it represents to them
-			if = {
-				limit = {
-					has_ruler_flag = is_a_lich
-				}
-				subtract_variable = {
-					which = MaxArtificePoints
-					value = 10
-				}
-			}
-			if = {
-				limit = {
-					OR = {
-						has_ruler_modifier = witch_king_modifier
-						has_country_flag = witch_king_flag
-					}
-				}
-				subtract_variable = {
-					which = MaxArtificePoints
-					value = 5
-				}
-			}
-
-			#institutions
-			if = {
-				limit = {
-					has_institution = manufactories
-				}
-				change_variable = {
-					which = MaxArtificePoints
-					value = 10
-				}
-			}
-			else = {
-				subtract_variable = {
-					which = MaxArtificePoints
-					value = 10
-				}
-			}
-			if = {
-				limit = {
-					has_institution = industrialization
-				}
-				change_variable = {
-					which = MaxArtificePoints
-					value = 5
-				}
-			}
-
-			#buildings
-
-			#a gnome/goblin/kobold technocracy with industrialization embraced that follows the thought would have 16 points before anything else. Enough for a full set of basic inventions
-
-			#estates
-			#+4 for every tier of artificer influence, -4 for every tier of mage influence.
-			# mages influence will reduce artificers influence and vice versa
-			#If you want both artifice and magic, you need to have a lot of other sources of points
-			if = {
-				limit = {
-					estate_influence = {
-						estate = estate_mages
-						influence = 60
-					}
-				}
-				subtract_variable = {
-					which = MaxArtificePoints
-					value = 12
-				}
-			}
-			else_if = {
-				limit = {
-					estate_influence = {
-						estate = estate_mages
-						influence = 40
-					}
-				}
-				subtract_variable = {
-					which = MaxArtificePoints
-					value = 8
-				}
-			}
-			else_if = {
-				limit = {
-					estate_influence = {
-						estate = estate_mages
-						influence = 20
-					}
-				}
-				subtract_variable = {
-					which = MaxArtificePoints
-					value = 4
-				}
-			}
-			else_if = {
-				limit = {
-					has_estate = estate_mages
-				}
-				subtract_variable = {
-					which = MaxArtificePoints
-					value = 2
-				}
-			}
-
-			if = {
-				limit = {
-					estate_influence = {
-						estate = estate_artificers
-						influence = 60
-					}
-				}
-				change_variable = {
-					which = MaxArtificePoints
-					value = 12
-				}
-			}
-			else_if = {
-				limit = {
-					estate_influence = {
-						estate = estate_artificers
-						influence = 40
-					}
-				}
-				change_variable = {
-					which = MaxArtificePoints
-					value = 8
-				}
-			}
-			else_if = {
-				limit = {
-					estate_influence = {
-						estate = estate_artificers
-						influence = 20
-					}
-				}
-				change_variable = {
-					which = MaxArtificePoints
-					value = 4
-				}
-			}
-			else_if = {
-				limit = {
-					has_estate = estate_artificers
-				}
-				change_variable = {
-					which = MaxArtificePoints
-					value = 2
-				}
-			}
-
-			#innovativeness
-			if = {
-				limit = {
-					innovativeness = 100
-				}
-				change_variable = {
-					which = MaxArtificePoints
-					value = 5
-				}
-			}
-			else_if = {
-				limit = {
-					innovativeness = 80
-				}
-				change_variable = {
-					which = MaxArtificePoints
-					value = 4
-				}
-			}
-			else_if = {
-				limit = {
-					innovativeness = 60
-				}
-				change_variable = {
-					which = MaxArtificePoints
-					value = 3
-				}
-			}
-			else_if = {
-				limit = {
-					innovativeness = 40
-				}
-				change_variable = {
-					which = MaxArtificePoints
-					value = 2
-				}
-			}
-			else_if = {
-				limit = {
-					innovativeness = 20
-				}
-				change_variable = {
-					which = MaxArtificePoints
-					value = 1
-				}
-			}
-
-			#damestear/coal/precursor relics. CNs don't get points from resources they own
-			set_variable = {
-				which = CoalArtificePoints
-				value = 0
-			}
-			set_variable = {
-				which = DamestearArtificePoints
-				value = 0
-			}
-			set_variable = {
-				which = RelicsArtificePoints
-				value = 0
-			}
 			if = {
 				limit = {
 					damestear = 1
@@ -391,20 +75,13 @@ update_artifice_points = {
 						is_colonial_nation = yes
 					}
 				}
-				every_owned_province = {
-					limit = {
-						trade_goods = damestear
-					}
-					owner = {
-						change_variable = {
-							which = MaxArtificePoints
-							value = 3
-						}
-						change_variable = {
-							which = DamestearArtificePoints
-							value = 3
-						}
-					}
+				change_variable = {
+					which = MaxArtificePoints
+					which = damestear_total
+				}
+				change_variable = {
+					which = DamestearArtificePoints
+					which = damestear_total
 				}
 			}
 			if = {
@@ -414,20 +91,13 @@ update_artifice_points = {
 						is_colonial_nation = yes
 					}
 				}
-				every_owned_province = {
-					limit = {
-						trade_goods = precursor_relics
-					}
-					owner = {
-						change_variable = {
-							which = MaxArtificePoints
-							value = 5
-						}
-						change_variable = {
-							which = RelicsArtificePoints
-							value = 5
-						}
-					}
+				change_variable = {
+					which = MaxArtificePoints
+					which = precursor_relics_total
+				}
+				change_variable = {
+					which = RelicsArtificePoints
+					which = precursor_relics_total
 				}
 			}
 			if = {
@@ -437,117 +107,60 @@ update_artifice_points = {
 						is_colonial_nation = yes
 					}
 				}
+				change_variable = {
+					which = MaxArtificePoints
+					which = coal_total
+				}
+				change_variable = {
+					which = CoalArtificePoints
+					which = coal_total
+				}
+			}
+					
+			#0.01 point per dev on universities.
+			if = {
+				limit = {university = 1}
 				every_owned_province = {
 					limit = {
-						trade_goods = coal
+						has_building = university
+					}					
+					set_variable = {
+						which = university_artifice_development
+						value = 0.00
+					}
+					export_to_variable = {
+						which = university_artifice_development
+						value = development
+					}
+					multiply_variable = {
+						which = university_artifice_development
+						value = 0.01					
 					}
 					owner = {
 						change_variable = {
-							which = MaxArtificePoints
-							value = 1  #coal is already valuable as fuck. And it isn't really magical
+							which = university_artifice_development
+							which = PREV
 						}
 						change_variable = {
-							which = CoalArtificePoints
-							value = 1
+							which = UniversityArtificePoints
+							which = university_artifice_development
+						}
+						change_variable = {
+							which = MaxArtificePoints
+							which = university_artifice_development
+						}
+						set_variable = {
+							which = university_artifice_development
+							value = 0
 						}
 					}
 				}
 			}
-
-			#resources owned by CNs
-			if = {
-				limit = {
-					any_subject_country = {
-						damestear = 1
-					}
-				}
-				every_subject_country = {
-					limit = {
-						is_colonial_nation = yes
-					}
-					every_owned_province = {
-						limit = {
-							trade_goods = damestear
-						}
-						owner = {
-							overlord = {
-								change_variable = {
-									which = MaxArtificePoints
-									value = 3
-								}
-								change_variable = {
-									which = DamestearArtificePoints
-									value = 3
-								}
-							}
-						}
-					}
-				}
+			if = {	#bertus mod
+				limit = {has_estate_privilege = estate_gnomish_first_hand_chairman}
+				change_variable = {which = MaxArtificePoints value = 5}
 			}
-			if = {
-				limit = {
-					any_subject_country = {
-						precursor_relics = 1
-					}
-				}
-				every_subject_country = {
-					limit = {
-						is_colonial_nation = yes
-					}
-					every_owned_province = {
-						limit = {
-							trade_goods = precursor_relics
-						}
-						owner = {
-							overlord = {
-								change_variable = {
-									which = MaxArtificePoints
-									value = 5
-								}
-								change_variable = {
-									which = RelicsArtificePoints
-									value = 5
-								}
-							}
-						}
-					}
-				}
-			}
-			if = {
-				limit = {
-					any_subject_country = {
-						coal = 1
-					}
-				}
-				every_subject_country = {
-					limit = {
-						is_colonial_nation = yes
-					}
-					every_owned_province = {
-						limit = {
-							trade_goods = coal
-						}
-						owner = {
-							overlord = {
-								change_variable = {
-									which = MaxArtificePoints
-									value = 1
-								}
-								change_variable = {
-									which = CoalArtificePoints
-									value = 1
-								}
-							}
-						}
-					}
-				}
-			}
-
-			#static sources from things like missions and upkeep
-			change_variable = {
-				which = MaxArtificePoints
-				which = StaticArtificePoints
-			}
+			change_variable = {which = MaxArtificePoints which = artifice_investment_var}	#bertus mod
 
 			# Feiten's mercs cost artificer cap
 			if = {
@@ -699,7 +312,263 @@ update_artifice_points = {
 					}
 				}
 			}
-
+			#artificer admin/mil/religion
+			if = {
+				limit = {
+					OR = {
+						has_country_modifier = gnomish_administration
+						has_country_modifier = goblin_administration
+						has_country_modifier = kobold_administration
+					}
+				}
+				multiply_variable = {
+					which = MaxArtificePoints
+					value = 1.25
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						has_country_modifier = gnomish_military
+						has_country_modifier = goblin_military
+						has_country_modifier = kobold_military
+					}
+				}
+				multiply_variable = {
+					which = MaxArtificePoints
+					value = 1.25
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						religion = ravelian
+						religion = the_thought
+					}
+				}
+				multiply_variable = {
+					which = MaxArtificePoints
+					value = 1.25
+				}
+			}
+		
+			# School of Starry Eye somewhat more supportive of artificery
+			if = {
+				limit = {
+					religious_school = {
+						group = raheni
+						school = starry_eye_school
+					}
+				}
+				multiply_variable = {	#bertus mod
+					which = MaxArtificePoints
+					value = 1.1
+				}
+			}
+			#trolls get a penalty because they are stupid. elves, harimari get a penalty because they are traditionalist. Emerald orcs because they hate technology
+			if = {
+				limit = {
+					OR = {
+						has_country_modifier = troll_administration
+						has_country_modifier = elven_administration
+						has_country_modifier = harimari_administration
+						has_country_modifier = dwarven_administration
+						#culture = emerald_orc
+					}
+				}
+				multiply_variable = {
+					which = MaxArtificePoints
+					value = 0.9
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						has_country_modifier = troll_military
+						has_country_modifier = elven_military
+						has_country_modifier = harimari_military
+						#culture = emerald_orc
+					}
+				}
+				multiply_variable = {
+					which = MaxArtificePoints
+					value = 0.9
+				}
+			}
+		
+			#deepwoods fey hate tech
+			if = {
+				limit = {
+					OR = {
+						religion = fey_court
+						religion = ashentree_pact
+					}
+				}
+				multiply_variable = {
+					which = MaxArtificePoints
+					value = 0.9
+				}
+			}
+		
+			#liches and witch kings have no need for artifice and are distrustful of the threat it represents to them
+			if = {
+				limit = {has_ruler_flag = lich_ruler}
+				multiply_variable = {which = MaxArtificePoints value = 0.5}
+			}
+			if = {
+				limit = {
+					OR = {
+						has_ruler_modifier = witch_king_modifier
+						has_country_flag = witch_king_flag
+					}
+				}
+				multiply_variable = {which = MaxArtificePoints value = 0.75}
+			}
+			
+			#a gnome/goblin/kobold technocracy with industrialization embraced that follows the thought would have 16 points before anything else. Enough for a full set of basic inventions
+		
+			#estates
+			#+4→x1.2 for every tier of artificer influence, -4→/1.2 for every tier of mage influence.
+			# mages influence will reduce artificers influence and vice versa
+			#If you want both artifice and magic, you need to have a lot of other sources of points
+			
+			set_variable = { which = estate_mage_influence_var value = 0}
+			if = {
+				limit = {estate_influence = {estate = estate_mages influence = 100}}
+				multiply_variable = {which = MaxArtificePoints value = 0.50}
+			}
+			else_if = {
+				limit = {estate_influence = {estate = estate_mages influence = 90}}
+				multiply_variable = {which = MaxArtificePoints value = 0.55}
+			}
+			else_if = {
+				limit = {estate_influence = {estate = estate_mages influence = 80}}
+				multiply_variable = {which = MaxArtificePoints value = 0.60}
+			}
+			else_if = {
+				limit = {estate_influence = {estate = estate_mages influence = 70}}
+				multiply_variable = {which = MaxArtificePoints value = 0.65}
+			}
+			else_if = {
+				limit = {estate_influence = {estate = estate_mages influence = 60}}
+				multiply_variable = {which = MaxArtificePoints value = 0.70}
+			}
+			else_if = {
+				limit = {estate_influence = {estate = estate_mages influence = 50}}
+				multiply_variable = {which = MaxArtificePoints value = 0.75}
+			}
+			else_if = {
+				limit = {estate_influence = {estate = estate_mages influence = 40}}
+				multiply_variable = {which = MaxArtificePoints value = 0.80}
+			}
+			else_if = {
+				limit = {estate_influence = {estate = estate_mages influence = 30}}
+				multiply_variable = {which = MaxArtificePoints value = 0.85}
+			}
+			else_if = {
+				limit = {estate_influence = {estate = estate_mages influence = 20}}
+				multiply_variable = {which = MaxArtificePoints value = 0.90}
+			}
+			else_if = {
+				limit = {estate_influence = {estate = estate_mages influence = 10}}
+				multiply_variable = {which = MaxArtificePoints value = 0.95}
+			}
+			
+			set_variable = { which = estate_artificers_influence_var value = 0}
+			if = {
+				limit = {estate_influence = {estate = estate_artificers influence = 100}}
+				multiply_variable = {which = MaxArtificePoints value = 1.250}
+			}
+			else_if = {
+				limit = {estate_influence = {estate = estate_artificers influence = 90}}
+				multiply_variable = {which = MaxArtificePoints value = 1.225}
+			}
+			else_if = {
+				limit = {estate_influence = {estate = estate_artificers influence = 80}}
+				multiply_variable = {which = MaxArtificePoints value = 1.200}
+			}
+			else_if = {
+				limit = {estate_influence = {estate = estate_artificers influence = 70}}
+				multiply_variable = {which = MaxArtificePoints value = 1.175}
+			}
+			else_if = {
+				limit = {estate_influence = {estate = estate_artificers influence = 60}}
+				multiply_variable = {which = MaxArtificePoints value = 1.150}
+			}
+			else_if = {
+				limit = {estate_influence = {estate = estate_artificers influence = 50}}
+				multiply_variable = {which = MaxArtificePoints value = 1.125}
+			}
+			else_if = {
+				limit = {estate_influence = {estate = estate_artificers influence = 40}}
+				multiply_variable = {which = MaxArtificePoints value = 1.100}
+			}
+			else_if = {
+				limit = {estate_influence = {estate = estate_artificers influence = 30}}
+				multiply_variable = {which = MaxArtificePoints value = 1.075}
+			}
+			else_if = {
+				limit = {estate_influence = {estate = estate_artificers influence = 20}}
+				multiply_variable = {which = MaxArtificePoints value = 1.050}
+			}
+			else_if = {
+				limit = {estate_influence = {estate = estate_artificers influence = 10}}
+				multiply_variable = {which = MaxArtificePoints value = 1.025}
+			}
+			if = {
+				limit = {innovativeness = 100}
+				multiply_variable = {which = MaxArtificePoints value = 1.250}
+			}
+			else_if = {
+				limit = {innovativeness = 90}
+				multiply_variable = {which = MaxArtificePoints value = 1.225}
+			}
+			else_if = {
+				limit = {innovativeness = 80}
+				multiply_variable = {which = MaxArtificePoints value = 1.200}
+			}
+			else_if = {
+				limit = {innovativeness = 70}
+				multiply_variable = {which = MaxArtificePoints value = 1.175}
+			}
+			else_if = {
+				limit = {innovativeness = 60}
+				multiply_variable = {which = MaxArtificePoints value = 1.150}
+			}
+			else_if = {
+				limit = {innovativeness = 50}
+				multiply_variable = {which = MaxArtificePoints value = 1.125}
+			}
+			else_if = {
+				limit = {innovativeness = 40}
+				multiply_variable = {which = MaxArtificePoints value = 1.100}
+			}
+			else_if = {
+				limit = {innovativeness = 30}
+				multiply_variable = {which = MaxArtificePoints value = 1.075}
+			}
+			else_if = {
+				limit = {innovativeness = 20}
+				multiply_variable = {which = MaxArtificePoints value = 1.050}
+			}
+			else_if = {
+				limit = {innovativeness = 10}
+				multiply_variable = {which = MaxArtificePoints value = 1.025}
+			}
+			
+			
+			#institutions
+			if = {
+				limit = {has_institution = manufactories}
+				multiply_variable = {which = MaxArtificePoints value = 1.25}
+			}
+			else = {
+				multiply_variable = {which = MaxArtificePoints value = 0.5}
+			}
+			if = {
+				limit = {has_institution = industrialization}
+				multiply_variable = {which = MaxArtificePoints value = 1.25}
+			}
 			# Points Multiplier
 			set_variable = {
 				which = ArtificePointsMultiplier
@@ -715,7 +584,7 @@ update_artifice_points = {
 				}
 				change_variable = {
 					which = ArtificePointsMultiplier
-					value = 0.5
+					value = 0.25
 				}
 			}
 			else_if = {
@@ -724,7 +593,7 @@ update_artifice_points = {
 				}
 				subtract_variable = {
 					which = ArtificePointsMultiplier
-					value = 0.5
+					value = 0.25
 				}
 			}
 			else_if = {
@@ -737,6 +606,11 @@ update_artifice_points = {
 				}
 			}
 			
+			#static sources from things like missions and upkeep
+			change_variable = {
+				which = MaxArtificePoints
+				which = StaticArtificePoints
+			}
 			# Floor at 0
 			if = {
 				limit = {
@@ -828,6 +702,10 @@ set_up_artifice_system = {
 			which = ArtificeUpkeep
 			value = 0
 		}
+		set_variable = {	#bertus mod
+			which = artifice_investment_var
+			value = 0
+		}
 		set_country_flag = artifice_set_up
 	}
 	update_artifice_points = yes
@@ -839,7 +717,7 @@ artifice_granted_basic = {
 	hidden_effect = {
 		change_variable = {
 			which = ArtificeUpkeep
-			value = 10
+			value = 5	#10→5
 		}
 	}
 	update_artifice_points = yes
@@ -851,7 +729,7 @@ artifice_remove_basic = {
 	hidden_effect = {
 		subtract_variable = {
 			which = ArtificeUpkeep
-			value = 10
+			value = 5	#10→5
 		}
 	}
 	update_artifice_points = yes
@@ -863,7 +741,7 @@ artifice_granted_expert = {
 	hidden_effect = {
 		change_variable = {
 			which = ArtificeUpkeep
-			value = 20
+			value = 10	#20→10
 		}
 	}
 	update_artifice_points = yes
@@ -875,7 +753,7 @@ artifice_remove_expert = {
 	hidden_effect = {
 		subtract_variable = {
 			which = ArtificeUpkeep
-			value = 20
+			value = 10	#20→10
 		}
 	}
 	update_artifice_points = yes
@@ -887,7 +765,7 @@ artifice_granted_advanced = {
 	hidden_effect = {
 		change_variable = {
 			which = ArtificeUpkeep
-			value = 30
+			value = 15	#30→15
 		}
 	}
 	update_artifice_points = yes
@@ -899,7 +777,7 @@ artifice_remove_advanced = {
 	hidden_effect = {
 		subtract_variable = {
 			which = ArtificeUpkeep
-			value = 30
+			value = 15	#30→15
 		}
 	}
 	update_artifice_points = yes
@@ -912,7 +790,7 @@ artifice_granted_masterwork = {
 	hidden_effect = {
 		change_variable = {
 			which = ArtificeUpkeep
-			value = 40
+			value = 20	#40→20
 		}
 	}
 	update_artifice_points = yes
@@ -924,7 +802,7 @@ artifice_remove_masterwork = {
 	hidden_effect = {
 		subtract_variable = {
 			which = ArtificeUpkeep
-			value = 40
+			value = 20	#40→20
 		}
 	}
 	update_artifice_points = yes
@@ -1241,23 +1119,6 @@ artifice_research_rewards = {
 			}
 		}
 		10 = {
-			set_country_flag = unlocked_artifice_invention_artificer_exo_arms
-			# custom_tooltip = invention_artificer_exo_arms_tt
-			ROOT = { country_event = { id = artifice_inventions.201 } }
-			modifier = {
-				factor = 2
-				has_country_flag = artifice_research_brilliance
-			}
-			modifier = {
-				factor = 0
-				NOT = { has_country_flag = artifice_research_industry }
-			}
-			modifier = {
-				factor = 0
-				has_country_flag = unlocked_artifice_invention_artificer_exo_arms
-			}
-		}
-		10 = {
 			set_country_flag = unlocked_artifice_invention_t_wave_transceivers
 			# custom_tooltip = invention_t_wave_transceivers_tt
 			ROOT = { country_event = { id = artifice_inventions.202 } }
@@ -1274,7 +1135,7 @@ artifice_research_rewards = {
 				has_country_flag = unlocked_artifice_invention_t_wave_transceivers
 			}
 		}
-		10 = {
+		10 = {	#workforce lvl 2
 			set_country_flag = unlocked_artifice_invention_mechanim_workforce
 			ROOT = { country_event = { id = artifice_inventions.203 } }
 			modifier = {
@@ -1289,27 +1150,31 @@ artifice_research_rewards = {
 				factor = 0
 				has_country_flag = unlocked_artifice_invention_mechanim_workforce
 			}
-		}
-		10 = {
-			set_country_flag = unlocked_artifice_invention_artificial_egg_surrogates
-			ROOT = { country_event = { id = artifice_inventions.204 } }
-			modifier = {
-				factor = 2
-				has_country_flag = artifice_research_brilliance
-			}
 			modifier = {
 				factor = 0
-				NOT = { has_country_flag = artifice_research_industry }
-			}
-			modifier = {
-				factor = 0
-				has_country_flag = unlocked_artifice_invention_artificial_egg_surrogates
-			}
-			modifier = {
-				factor = 0
-				NOT = { culture_group = harpy }
+				NOT = { has_country_flag = unlocked_artifice_invention_spirit_proof_exoskeleton }
 			}
 		}
+	#	10 = {
+	#		set_country_flag = unlocked_artifice_invention_artificial_egg_surrogates
+	#		ROOT = { country_event = { id = artifice_inventions.204 } }
+	#		modifier = {
+	#			factor = 2
+	#			has_country_flag = artifice_research_brilliance
+	#		}
+	#		modifier = {
+	#			factor = 0
+	#			NOT = { has_country_flag = artifice_research_industry }
+	#		}
+	#		modifier = {
+	#			factor = 0
+	#			has_country_flag = unlocked_artifice_invention_artificial_egg_surrogates
+	#		}
+	#		modifier = {
+	#			factor = 0
+	#			NOT = { culture_group = harpy }
+	#		}
+	#	}
 		10 = {
 			set_country_flag = unlocked_artifice_invention_automated_translator
 			ROOT = { country_event = { id = artifice_inventions.205 } }
@@ -1319,63 +1184,53 @@ artifice_research_rewards = {
 			}
 			modifier = {
 				factor = 0
-				NOT = { has_country_flag = artifice_research_industry }
+				NOT = { has_country_flag = artifice_research_society }
 			}
 			modifier = {
 				factor = 0
 				has_country_flag = unlocked_artifice_invention_automated_translator
 			}
-			modifier = {
-				factor = 0
-				NOT = { primary_culture = west_damerian }
-				NOT = { primary_culture = east_damerian }
-				NOT = { primary_culture = rogieran }
-				NOT = { primary_culture = nurcestiran }
-				NOT = { primary_culture = ancardian }
-				NOT = { primary_culture = anbenncoster }
-				NOT = { primary_culture = anbenlander }
-			}
 		}
-		10 = {
-			set_country_flag = unlocked_artifice_invention_great_processor
-			ROOT = { country_event = { id = artifice_inventions.206 } }
-			modifier = {
-				factor = 2
-				has_country_flag = artifice_research_brilliance
-			}
-			modifier = {
-				factor = 0
-				NOT = { has_country_flag = artifice_research_industry }
-			}
-			modifier = {
-				factor = 0
-				has_country_flag = unlocked_artifice_invention_great_processor
-			}
-			modifier = {
-				factor = 0
-				NOT = { religion = feast_of_the_gods }
-			}
-		}
-		10 = {
-			set_country_flag = unlocked_artifice_invention_prehensile_tail_attachments
-			ROOT = { country_event = { id = artifice_inventions.207 } }
-			modifier = {
-				factor = 2
-				has_country_flag = artifice_research_brilliance
-			}
-			modifier = {
-				factor = 0
-				NOT = { has_country_flag = artifice_research_industry }
-			}
-			modifier = {
-				factor = 0
-				has_country_flag = unlocked_artifice_invention_prehensile_tail_attachments
-			}
-			modifier = {
-				factor = 0
-				NOT = { culture_group = kobold }
-			}
-		}
+		#10 = {
+		#	set_country_flag = unlocked_artifice_invention_great_processor
+		#	ROOT = { country_event = { id = artifice_inventions.206 } }
+		#	modifier = {
+		#		factor = 2
+		#		has_country_flag = artifice_research_brilliance
+		#	}
+		#	modifier = {
+		#		factor = 0
+		#		NOT = { has_country_flag = artifice_research_industry }
+		#	}
+		#	modifier = {
+		#		factor = 0
+		#		has_country_flag = unlocked_artifice_invention_great_processor
+		#	}
+		#	modifier = {
+		#		factor = 0
+		#		NOT = { religion = feast_of_the_gods }
+		#	}
+		#}
+		#10 = {
+		#	set_country_flag = unlocked_artifice_invention_prehensile_tail_attachments
+		#	ROOT = { country_event = { id = artifice_inventions.207 } }
+		#	modifier = {
+		#		factor = 2
+		#		has_country_flag = artifice_research_brilliance
+		#	}
+		#	modifier = {
+		#		factor = 0
+		#		NOT = { has_country_flag = artifice_research_industry }
+		#	}
+		#	modifier = {
+		#		factor = 0
+		#		has_country_flag = unlocked_artifice_invention_prehensile_tail_attachments
+		#	}
+		#	modifier = {
+		#		factor = 0
+		#		NOT = { culture_group = kobold }
+		#	}
+		#}
 		# 10 = {
 		# 	set_country_flag = unlocked_artifice_invention_soarwing_grafts
 		# 	ROOT = { country_event = { id = artifice_inventions.208 } }
@@ -1415,6 +1270,44 @@ artifice_research_rewards = {
 				has_country_flag = unlocked_artifice_invention_balloonboost_packs
 			}
 		}
+		10 = {	#bertus mod
+			set_country_flag = unlocked_artifice_invention_elemental_rifles
+			# custom_tooltip = invention_sparkdrive_rifles_tt
+			ROOT = { country_event = { id = artifice_inventions.301 } }
+			modifier = {
+				factor = 2
+				has_country_flag = artifice_research_brilliance
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_country_flag = artifice_research_military }
+			}
+			modifier = {
+				factor = 0
+				has_country_flag = unlocked_artifice_invention_elemental_rifles
+			}
+		}
+		10 = {	#bertus mod
+			set_country_flag = unlocked_artifice_invention_vorpal_rifles
+			# custom_tooltip = invention_sparkdrive_rifles_tt
+			ROOT = { country_event = { id = artifice_inventions.301 } }
+			modifier = {
+				factor = 2
+				has_country_flag = artifice_research_brilliance
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_country_flag = artifice_research_military }
+			}
+			modifier = {
+				factor = 0
+				has_country_flag = unlocked_artifice_invention_vorpal_rifles
+			}
+			modifier = {
+				factor = 0
+				NOT = {has_country_flag = unlocked_artifice_invention_elemental_rifles}
+			}
+		}
 		10 = {
 			set_country_flag = unlocked_artifice_invention_sparkdrive_rifles
 			# custom_tooltip = invention_sparkdrive_rifles_tt
@@ -1431,42 +1324,9 @@ artifice_research_rewards = {
 				factor = 0
 				has_country_flag = unlocked_artifice_invention_sparkdrive_rifles
 			}
-		}
-		10 = {
-			set_country_flag = unlocked_artifice_invention_mechanim_soldiers
-			# custom_tooltip = invention_mechanim_soldiers_tt
-			ROOT = { country_event = { id = artifice_inventions.302 } }
-			modifier = {
-				factor = 2
-				has_country_flag = artifice_research_brilliance
-			}
 			modifier = {
 				factor = 0
-				NOT = { has_country_flag = artifice_research_military }
-			}
-			modifier = {
-				factor = 0
-				has_country_flag = unlocked_artifice_invention_mechanim_soldiers
-			}
-		}
-		10 = {
-			set_country_flag = unlocked_artifice_invention_believable_ruin_2_bomb
-			ROOT = { country_event = { id = artifice_inventions.303 } }
-			modifier = {
-				factor = 2
-				has_country_flag = artifice_research_brilliance
-			}
-			modifier = {
-				factor = 0
-				NOT = { has_country_flag = artifice_research_military }
-			}
-			modifier = {
-				factor = 0
-				has_country_flag = unlocked_artifice_invention_believable_ruin_2_bomb
-			}
-			modifier = {
-				factor = 0
-				NOT = { culture_group = goblin }
+				NOT = {has_country_flag = unlocked_artifice_invention_vorpal_rifles}
 			}
 		}
 		10 = {
@@ -1513,6 +1373,42 @@ artifice_research_rewards = {
 		# 		NOT = { religion = kalun_masks }
 		# 	}
 		# }
+		10 = {	#bertus mod
+			set_country_flag = unlocked_artifice_invention_elemental_serum
+			ROOT = { country_event = { id = artifice_inventions.306 } }
+			modifier = {
+				factor = 2
+				has_country_flag = artifice_research_brilliance
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_country_flag = artifice_research_military }
+			}
+			modifier = {
+				factor = 0
+				has_country_flag = unlocked_artifice_invention_elemental_serum
+			}
+		}
+		10 = {	#bertus mod
+			set_country_flag = unlocked_artifice_invention_soldier_serum
+			ROOT = { country_event = { id = artifice_inventions.306 } }
+			modifier = {
+				factor = 2
+				has_country_flag = artifice_research_brilliance
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_country_flag = artifice_research_military }
+			}
+			modifier = {
+				factor = 0
+				has_country_flag = unlocked_artifice_invention_soldier_serum
+			}
+			modifier = {
+				factor = 0
+				NOT = {has_country_flag = unlocked_artifice_invention_elemental_serum}
+			}
+		}
 		10 = {
 			set_country_flag = unlocked_artifice_invention_avatar_supersoldier_serum
 			ROOT = { country_event = { id = artifice_inventions.306 } }
@@ -1530,27 +1426,7 @@ artifice_research_rewards = {
 			}
 			modifier = {
 				factor = 0
-				NOT = { religion_group = cannorian }
-			}
-		}
-		10 = {
-			set_country_flag = unlocked_artifice_invention_codorran_powered_exosuit
-			ROOT = { country_event = { id = artifice_inventions.307 } }
-			modifier = {
-				factor = 2
-				has_country_flag = artifice_research_brilliance
-			}
-			modifier = {
-				factor = 0
-				NOT = { has_country_flag = artifice_research_military }
-			}
-			modifier = {
-				factor = 0
-				has_country_flag = unlocked_artifice_invention_codorran_powered_exosuit
-			}
-			modifier = {
-				factor = 0
-				NOT = { culture_group = gnomish }
+				NOT = {has_country_flag = unlocked_artifice_invention_soldier_serum}
 			}
 		}
 		10 = {
@@ -1590,10 +1466,26 @@ artifice_research_rewards = {
 			}
 			modifier = {
 				factor = 0
-				NOT = { culture_group = kobold }
+				NOT = {has_country_flag = unlocked_artifice_invention_soldier_serum}
 			}
 		}
-		10 = {
+		10 = {	#bertus mod
+			set_country_flag = unlocked_artifice_invention_scale_plating
+			ROOT = { country_event = { id = artifice_inventions.310 } }
+			modifier = {
+				factor = 2
+				has_country_flag = artifice_research_brilliance
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_country_flag = artifice_research_military }
+			}
+			modifier = {
+				factor = 0
+				has_country_flag = unlocked_artifice_invention_scale_plating
+			}
+		}
+		10 = {	#bertus mod
 			set_country_flag = unlocked_artifice_invention_dragonscale_plating
 			ROOT = { country_event = { id = artifice_inventions.310 } }
 			modifier = {
@@ -1610,7 +1502,7 @@ artifice_research_rewards = {
 			}
 			modifier = {
 				factor = 0
-				NOT = { culture_group = kobold }
+				NOT = {has_country_flag = unlocked_artifice_invention_scale_plating}
 			}
 		}
 		10 = {
@@ -1673,26 +1565,64 @@ artifice_research_rewards = {
 				NOT = { religion = skaldhyrric_faith }
 			}
 		}
-		# 10 = {
-		# 	set_country_flag = unlocked_artifice_invention_power_fists
-		# 	ROOT = { country_event = { id = artifice_inventions.314 } }
-		# 	modifier = {
-		# 		factor = 2
-		# 		has_country_flag = artifice_research_brilliance
-		# 	}
-		# 	modifier = {
-		# 		factor = 0
-		# 		NOT = { has_country_flag = artifice_research_military }
-		# 	}
-		# 	modifier = {
-		# 		factor = 0
-		# 		has_country_flag = unlocked_artifice_invention_power_fists
-		# 	}
-		# 	modifier = {
-		# 		factor = 0
-		# 		NOT = { religion = righteous_path }
-		# 	}
-		# }
+		10 = {
+			set_country_flag = unlocked_artifice_invention_power_fists
+			ROOT = { country_event = { id = artifice_inventions.314 } }
+			modifier = {
+				factor = 2
+				has_country_flag = artifice_research_brilliance
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_country_flag = artifice_research_military }
+			}
+			modifier = {
+				factor = 0
+				has_country_flag = unlocked_artifice_invention_power_fists
+			}
+		}
+		10 = {
+			set_country_flag = unlocked_artifice_invention_mechanic_fists
+			# custom_tooltip = invention_mechanim_soldiers_tt
+			ROOT = { country_event = { id = artifice_inventions.314 } }
+			modifier = {
+				factor = 2
+				has_country_flag = artifice_research_brilliance
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_country_flag = artifice_research_military }
+			}
+			modifier = {
+				factor = 0
+				has_country_flag = unlocked_artifice_invention_mechanic_fists
+			}
+			modifier = {
+				factor = 0
+				NOT = {has_country_flag = unlocked_artifice_invention_power_fists}
+			}
+		}
+		10 = {
+			set_country_flag = unlocked_artifice_invention_mechanim_power_fists
+			# custom_tooltip = invention_mechanim_soldiers_tt
+			ROOT = { country_event = { id = artifice_inventions.314 } }
+			modifier = {
+				factor = 2
+				has_country_flag = artifice_research_brilliance
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_country_flag = artifice_research_military }
+			}
+			modifier = {
+				factor = 0
+				has_country_flag = unlocked_artifice_invention_mechanim_power_fists
+			}
+			modifier = {
+				factor = 0
+				NOT = {has_country_flag = unlocked_artifice_invention_mechanic_fists}
+			}
+		}
 		10 = {
 			set_country_flag = unlocked_artifice_invention_sunbeam_armaments
 			ROOT = { country_event = { id = artifice_inventions.315 } }
@@ -1748,6 +1678,10 @@ artifice_research_rewards = {
 				factor = 0
 				has_country_flag = unlocked_artifice_invention_arcane_blaster
 			}
+			modifier = {
+				factor = 0
+				NOT = {has_country_flag = unlocked_artifice_invention_vorpal_rifles}
+			}
 		}
 
 
@@ -1802,28 +1736,6 @@ artifice_research_rewards = {
 			modifier = {
 				factor = 0
 				has_country_flag = unlocked_artifice_invention_living_mirrors
-			}
-		}
-		10 = {
-			set_country_flag = unlocked_artifice_invention_game_of_khet
-			ROOT = { country_event = { id = artifice_inventions.404 } }
-			modifier = {
-				factor = 2
-				has_country_flag = artifice_research_technomancy
-			}
-			modifier = {
-				factor = 0
-				NOT = { has_country_flag = artifice_research_society }
-			}
-			modifier = {
-				factor = 0
-				has_country_flag = unlocked_artifice_invention_game_of_khet
-			}
-			modifier = {
-				factor = 0
-				NOT = { religion = khetist }
-				NOT = { religion = dalcabba }
-				NOT = { has_harmonized_with = kheteratan }
 			}
 		}
 		# 10 = {
@@ -1940,6 +1852,10 @@ artifice_research_rewards = {
 				factor = 0
 				has_country_flag = unlocked_artifice_invention_vorpal_bullets
 			}
+			modifier = {
+				factor = 0
+				NOT = {has_country_flag = unlocked_artifice_invention_elemental_gunpowder}
+			}
 		}
 		10 = {
 			set_country_flag = unlocked_artifice_invention_war_golems
@@ -1957,9 +1873,26 @@ artifice_research_rewards = {
 				factor = 0
 				has_country_flag = unlocked_artifice_invention_war_golems
 			}
+		}
+		10 = {	#bertus mod
+			set_country_flag = unlocked_artifice_invention_vorpal_rune_protection
+			# custom_tooltip = invention_war_golems_tt
+			ROOT = { country_event = { id = artifice_inventions.601 } }
+			modifier = {
+				factor = 2
+				has_country_flag = artifice_research_technomancy
+			}
 			modifier = {
 				factor = 0
-				has_country_flag = asra_model_golems_unlocked
+				NOT = { has_country_flag = artifice_research_military }
+			}
+			modifier = {
+				factor = 0
+				has_country_flag = unlocked_artifice_invention_vorpal_rune_protection
+			}
+			modifier = {
+				factor = 0
+				NOT = {has_country_flag = unlocked_artifice_invention_war_golems}
 			}
 		}
 		10 = {
@@ -1995,6 +1928,10 @@ artifice_research_rewards = {
 				factor = 0
 				has_country_flag = unlocked_artifice_invention_personal_mageshields
 			}
+			modifier = {
+				factor = 0
+				NOT = {has_country_flag = unlocked_artifice_invention_dragonscale_plating}
+			}
 		}
 		# 10 = {
 		# 	set_country_flag = unlocked_artifice_invention_antimagic_field_generator
@@ -2029,11 +1966,11 @@ artifice_research_rewards = {
 			}
 			modifier = {
 				factor = 0
-				has_country_flag = unlocked_artifice_invention_controlled_rage_serum
+				NOT = {has_country_flag = unlocked_artifice_invention_controlled_rage_serum}
 			}
 			modifier = {
 				factor = 0
-				NOT = { culture_group = orcish }
+				NOT = {has_country_flag = unlocked_artifice_invention_soldier_serum}
 			}
 		}
 		10 = {
@@ -2044,16 +1981,16 @@ artifice_research_rewards = {
 				has_country_flag = artifice_research_technomancy
 			}
 			modifier = {
+				factor = 2
+				culture_group = goblin
+			}
+			modifier = {
 				factor = 0
 				NOT = { has_country_flag = artifice_research_military }
 			}
 			modifier = {
 				factor = 0
 				has_country_flag = unlocked_artifice_invention_elemental_gunpowder
-			}
-			modifier = {
-				factor = 0
-				NOT = { culture_group = goblin }
 			}
 		}
 		10 = {
@@ -2069,13 +2006,11 @@ artifice_research_rewards = {
 			}
 			modifier = {
 				factor = 0
-				has_country_flag = unlocked_artifice_invention_vernman_hero_tonic
+				NOT = {has_country_flag = unlocked_artifice_invention_vernman_hero_tonic}
 			}
 			modifier = {
 				factor = 0
-				NOT = { primary_culture = vernman }
-				NOT = { primary_culture = valorman }
-				NOT = { primary_culture = heartman }
+				NOT = {has_country_flag = unlocked_artifice_invention_soldier_serum}
 			}
 		}
 		# 10 = {
@@ -2099,8 +2034,8 @@ artifice_research_rewards = {
 		# 	}
 		# }
 		10 = {
-			set_country_flag = unlocked_artifice_invention_box_of_holding
-			ROOT = { country_event = { id = artifice_inventions.609 } }
+			set_country_flag = unlocked_artifice_invention_veykoda_rune_protections
+			ROOT = { country_event = { id = artifice_inventions.608 } }
 			modifier = {
 				factor = 2
 				has_country_flag = artifice_research_technomancy
@@ -2111,12 +2046,16 @@ artifice_research_rewards = {
 			}
 			modifier = {
 				factor = 0
-				has_country_flag = unlocked_artifice_invention_box_of_holding
+				has_country_flag = unlocked_artifice_invention_veykoda_rune_protections
+			}
+			modifier = {
+				factor = 0
+				NOT = {has_country_flag = unlocked_artifice_invention_vorpal_rune_protection}
 			}
 		}
 		10 = {
-			set_country_flag = unlocked_artifice_invention_growth_beans
-			ROOT = { country_event = { id = artifice_inventions.610 } }
+			set_country_flag = unlocked_artifice_invention_box_of_holding
+			ROOT = { country_event = { id = artifice_inventions.609 } }
 			modifier = {
 				factor = 2
 				has_country_flag = artifice_research_technomancy
@@ -2144,11 +2083,11 @@ artifice_research_rewards = {
 			}
 			modifier = {
 				factor = 0
-				NOT = { has_country_flag = artifice_research_society }
+				NOT = { has_country_flag = artifice_research_military }
 			}
 			modifier = {
 				factor = 0
-				has_country_flag = unlocked_artifice_invention_growth_beans
+				has_country_flag = unlocked_artifice_invention_box_of_holding
 			}
 		}
 		10 = {
@@ -2260,7 +2199,7 @@ artifice_research_rewards = {
 			}
 			modifier = {
 				factor = 0
-				NOT = { OR = { culture_group = businori tag = A33 } }
+				NOT = { OR = { culture_group = businori tag = A33 any_known_country = {has_country_flag = unlocked_artifice_invention_divendancer_speedboat}} }
 			}
 		}
 		10 = {
@@ -2287,7 +2226,7 @@ artifice_research_rewards = {
 
 
 		# Mechanists - Industry & State
-		10 = {
+		10 = {	#workforce lvl 3
 			set_country_flag = unlocked_artifice_invention_artifice_powered_magnate_factories
 			# custom_tooltip = invention_remedial_tinctures_tt
 			ROOT = { country_event = { id = artifice_inventions.800 } }
@@ -2305,7 +2244,7 @@ artifice_research_rewards = {
 			}
 			modifier = {
 				factor = 0
-				NOT = { culture_group = alenic }
+				NOT = { has_country_flag = unlocked_artifice_invention_mechanim_workforce }
 			}
 		}
 		10 = {
@@ -2324,10 +2263,6 @@ artifice_research_rewards = {
 				factor = 0
 				has_country_flag = unlocked_artifice_invention_city_maintenance_bots
 			}
-			modifier = {
-				factor = 0
-				NOT = { culture_group = triunic }
-			}
 		}
 		10 = {
 			set_country_flag = unlocked_artifice_invention_fine_print_obfuscator
@@ -2339,16 +2274,11 @@ artifice_research_rewards = {
 			}
 			modifier = {
 				factor = 0
-				NOT = { has_country_flag = artifice_research_industry }
+				NOT = { has_country_flag = artifice_research_society }
 			}
 			modifier = {
 				factor = 0
 				has_country_flag = unlocked_artifice_invention_fine_print_obfuscator
-			}
-			modifier = {
-				factor = 0
-				NOT = { primary_culture = crownsman }
-				NOT = { primary_culture = ionnic }
 			}
 		}
 		10 = {
@@ -2434,13 +2364,12 @@ artifice_research_rewards = {
 				has_country_flag = unlocked_artifice_invention_wine_ageifier
 			}
 			modifier = {
-				factor = 0
+				factor = 0.5
 				NOT = { culture_group = lencori }
 				NOT = { primary_culture = rosanda }
 			}
 		}
 		10 = {
-			trigger = { has_institution = industrialization }
 			set_country_flag = unlocked_artifice_invention_commercial_sky_galleons
 			# custom_tooltip = invention_commercial_sky_galleons_tt
 			ROOT = { country_event = { id = artifice_inventions.808 } }
@@ -2450,7 +2379,7 @@ artifice_research_rewards = {
 			}
 			modifier = {
 				factor = 0
-				NOT = { has_country_flag = artifice_research_industry }
+				NOT = { has_country_flag = artifice_research_society }
 			}
 			modifier = {
 				factor = 0
@@ -2495,7 +2424,44 @@ artifice_research_rewards = {
 		# 		NOT = { culture_group = bulwari }
 		# 	}
 		# }
-		10 = {
+		10 = {	#Artificer Food boost I
+			set_country_flag = unlocked_artifice_invention_growth_beans
+			ROOT = { country_event = { id = artifice_inventions.610 } }
+			modifier = {
+				factor = 2
+				has_country_flag = artifice_research_technomancy
+			}
+			modifier = {
+				factor = 10
+				tag = Y65
+				any_owned_province = {
+					has_province_modifier = arawkelin_soil_erosion
+				}
+			}
+			modifier = {
+				factor = 20
+				num_of_owned_provinces_with = {
+					value = 10
+					has_province_modifier = arawkelin_soil_erosion
+				}
+			}
+			modifier = {
+				factor = 50
+				num_of_owned_provinces_with = {
+					value = 20
+					has_province_modifier = arawkelin_soil_erosion
+				}
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_country_flag = artifice_research_industry }
+			}
+			modifier = {
+				factor = 0
+				has_country_flag = unlocked_artifice_invention_growth_beans
+			}
+		}
+		10 = {	#Artificer Food boost II
 			set_country_flag = unlocked_artifice_invention_gene_food_cultivation
 			ROOT = { country_event = { id = artifice_inventions.914 } }
 			modifier = {
@@ -2509,6 +2475,10 @@ artifice_research_rewards = {
 			modifier = {
 				factor = 0
 				has_country_flag = unlocked_artifice_invention_gene_food_cultivation
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_country_flag = unlocked_artifice_invention_growth_beans }
 			}
 		}
 
@@ -2530,9 +2500,22 @@ artifice_research_rewards = {
 				factor = 0
 				has_country_flag = unlocked_artifice_invention_chase_em_rockets
 			}
+		}
+		10 = {	#bertus mod
+			set_country_flag = unlocked_artifice_invention_warframe
+			# custom_tooltip = invention_giantshape_warframe_tt
+			ROOT = { country_event = { id = artifice_inventions.901 } }
+			modifier = {
+				factor = 2
+				has_country_flag = artifice_research_machinery
+			}
 			modifier = {
 				factor = 0
-				NOT = { culture_group = goblin }
+				NOT = { has_country_flag = artifice_research_military }
+			}
+			modifier = {
+				factor = 0
+				has_country_flag = unlocked_artifice_invention_warframe
 			}
 		}
 		10 = {
@@ -2553,7 +2536,7 @@ artifice_research_rewards = {
 			}
 			modifier = {
 				factor = 0
-				NOT = { culture_group = giantkind }
+				NOT = {has_country_flag = unlocked_artifice_invention_warframe}
 			}
 		}
 		10 = {
@@ -2598,27 +2581,27 @@ artifice_research_rewards = {
 				NOT = { culture_group = dwarven }
 			}
 		}
-		# 10 = {
-		# 	set_country_flag = unlocked_artifice_invention_platinum_warsuit
-		# 	# custom_tooltip = invention_platinum_warsuit_tt
-		# 	ROOT = { country_event = { id = artifice_inventions.904 } }
-		# 	modifier = {
-		# 		factor = 2
-		# 		has_country_flag = artifice_research_machinery
-		# 	}
-		# 	modifier = {
-		# 		factor = 0
-		# 		NOT = { has_country_flag = artifice_research_military }
-		# 	}
-		# 	modifier = {
-		# 		factor = 0
-		# 		has_country_flag = unlocked_artifice_invention_platinum_warsuit
-		# 	}
-		# 	modifier = {
-		# 		factor = 0
-		# 		NOT = { culture_group = dwarven }
-		# 	}
-		# }
+		10 = {
+			set_country_flag = unlocked_artifice_invention_kronium_battlesuit
+			# custom_tooltip = invention_kronium_battlesuit_tt
+			ROOT = { country_event = { id = artifice_inventions.904 } }
+			modifier = {
+				factor = 2
+				has_country_flag = artifice_research_machinery
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_country_flag = artifice_research_military }
+			}
+			modifier = {
+				factor = 0
+				has_country_flag = unlocked_artifice_invention_kronium_battlesuit
+			}
+			modifier = {
+				factor = 0
+				NOT = {has_country_flag = unlocked_artifice_invention_giantshape_warframe }
+			}
+		}
 		10 = {
 			set_country_flag = unlocked_artifice_invention_predator_exoskeleton
 			# custom_tooltip = invention_predator_exoskeleton_tt
@@ -2638,6 +2621,48 @@ artifice_research_rewards = {
 			modifier = {
 				factor = 0
 				NOT = { culture_group = harimari }
+			}
+		}
+		10 = {
+			set_country_flag = unlocked_artifice_invention_artificer_exo_arms
+			# custom_tooltip = invention_artificer_exo_arms_tt
+			ROOT = { country_event = { id = artifice_inventions.201 } }
+			modifier = {
+				factor = 2
+				has_country_flag = artifice_research_brilliance
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_country_flag = artifice_research_industry }
+			}
+			modifier = {
+				factor = 0
+				has_country_flag = unlocked_artifice_invention_artificer_exo_arms
+			}
+			modifier = {
+				factor = 0
+				NOT = {has_country_flag = unlocked_artifice_invention_predator_exoskeleton}
+			}
+		}
+		10 = {
+			set_country_flag = unlocked_artifice_invention_mechanim_soldiers
+			# custom_tooltip = invention_mechanim_soldiers_tt
+			ROOT = { country_event = { id = artifice_inventions.302 } }
+			modifier = {
+				factor = 2
+				has_country_flag = artifice_research_brilliance
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_country_flag = artifice_research_military }
+			}
+			modifier = {
+				factor = 0
+				has_country_flag = unlocked_artifice_invention_mechanim_soldiers
+			}
+			modifier = {
+				factor = 0
+				NOT = {has_country_flag = unlocked_artifice_invention_artificer_exo_arms}
 			}
 		}
 		10 = {
@@ -2721,6 +2746,47 @@ artifice_research_rewards = {
 			}
 		}
 		10 = {
+			set_country_flag = unlocked_artifice_invention_codorran_powered_exosuit
+			ROOT = { country_event = { id = artifice_inventions.307 } }
+			modifier = {
+				factor = 2
+				has_country_flag = artifice_research_brilliance
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_country_flag = artifice_research_military }
+			}
+			modifier = {
+				factor = 0
+				has_country_flag = unlocked_artifice_invention_codorran_powered_exosuit
+			}
+			modifier = {
+				factor = 0
+				NOT = {has_country_flag = unlocked_artifice_invention_portable_turrets}
+			}
+		}
+		10 = {
+			set_country_flag = unlocked_artifice_invention_mechanim_auto_rifle
+			# custom_tooltip = invention_mechanim_soldiers_tt
+			ROOT = { country_event = { id = artifice_inventions.302 } }
+			modifier = {
+				factor = 2
+				has_country_flag = artifice_research_brilliance
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_country_flag = artifice_research_military }
+			}
+			modifier = {
+				factor = 0
+				has_country_flag = unlocked_artifice_invention_mechanim_auto_rifle
+			}
+			modifier = {
+				factor = 0
+				NOT = {has_country_flag = unlocked_artifice_invention_codorran_powered_exosuit}
+			}
+		}
+		10 = {
 			set_country_flag = unlocked_artifice_invention_black_damestear_bullets
 			# custom_tooltip = invention_black_damestear_bullets_tt
 			ROOT = { country_event = { id = artifice_inventions.910 } }
@@ -2735,6 +2801,10 @@ artifice_research_rewards = {
 			modifier = {
 				factor = 0
 				has_country_flag = unlocked_artifice_invention_black_damestear_bullets
+			}
+			modifier = {
+				factor = 0
+				NOT = {has_country_flag = unlocked_artifice_invention_vorpal_bullets}
 			}
 		}
 		10 = {
@@ -2754,25 +2824,28 @@ artifice_research_rewards = {
 				has_country_flag = unlocked_artifice_invention_artillery_autoloader
 			}
 		}
-		# 10 = {
-		# 	set_country_flag = unlocked_artifice_invention_prototype_tanks
-		# 	# custom_tooltip = invention_prototype_tanks_tt
-		# 	ROOT = { country_event = { id = artifice_inventions.912 } }
-		# 	modifier = {
-		# 		factor = 2
-		# 		has_country_flag = artifice_research_machinery
-		# 	}
-		# 	modifier = {
-		# 		factor = 0
-		# 		NOT = { has_country_flag = artifice_research_military }
-		# 	}
-		# 	modifier = {
-		# 		factor = 0
-		# 		has_country_flag = unlocked_artifice_invention_prototype_tanks
-		# 	}
-		# }
 		10 = {
-			trigger = { has_institution = industrialization }
+			set_country_flag = unlocked_artifice_invention_prototype_tanks
+			# custom_tooltip = invention_prototype_tanks_tt
+			ROOT = { country_event = { id = artifice_inventions.912 } }
+			modifier = {
+				factor = 2
+				has_country_flag = artifice_research_machinery
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_country_modifier = gnomish_military }
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_country_flag = artifice_research_military }
+			}
+			modifier = {
+				factor = 0
+				has_country_flag = unlocked_artifice_invention_prototype_tanks
+			}
+		}
+		10 = {
 			set_country_flag = unlocked_artifice_invention_military_sky_galleons
 			# custom_tooltip = invention_military_sky_galleons_tt
 			ROOT = { country_event = { id = artifice_inventions.913 } }
@@ -2789,17 +2862,21 @@ artifice_research_rewards = {
 				has_country_flag = unlocked_artifice_invention_military_sky_galleons
 			}
 		}
-		10 = {
+		10 = {	#workforce lvl 1
 			set_country_flag = unlocked_artifice_invention_spirit_proof_exoskeleton
 			# custom_tooltip = invention_spirit_proof_exoskeleton
 			ROOT = { country_event = { id = artifice_inventions.916 }}
 			modifier = {
 				factor = 2
-				tag = Y65
+				has_country_flag = artifice_research_machinery
 			}
 			modifier = {
 				factor = 0
-				NOT = { tag = Y65 }
+				NOT = { has_country_flag = artifice_research_industry }
+			}
+			modifier = {
+				factor = 0
+				has_country_flag = unlocked_artifice_invention_spirit_proof_exoskeleton
 			}
 		}
 

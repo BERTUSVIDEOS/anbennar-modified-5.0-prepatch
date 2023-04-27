@@ -1,0 +1,49 @@
+# Triggered modifiers are here.
+# these are checked for each countries once/month and then applied.
+#
+# Effects are fully scriptable here.
+
+
+# ###########################################
+# # Venail
+# ###########################################
+
+
+venail_raids = {
+	potential = {
+		tag = A21
+	}
+	trigger = {
+		not = { is_vassal = yes }
+		not = { num_of_colonists = 1 }
+		not = { total_development = 150 }
+	}
+	may_perform_slave_raid = yes
+}
+
+# ###########################################
+# # Lorent
+# ###########################################
+
+integration_of_the_halflings = {
+	potential = {
+		tag = A01
+		NOT = { has_global_flag = peace_under_lorent_flag_off }
+		not = { is_year = 1500 }
+		AI = yes
+	}
+	trigger = {
+		lorent_sphere_subject = 5 
+		any_country = { 
+			and = { 
+				is_subject_of_type_with_overlord = { who = A01 type = lorent_sphere_subject }
+				total_development = 300
+			} 
+		}
+		crown_protectorate = 2
+		not = { num_of_subjects = 2 }
+		not = { is_year = 1500 } 
+		AI = yes
+	}
+	years_to_integrate_personal_union = -25
+}

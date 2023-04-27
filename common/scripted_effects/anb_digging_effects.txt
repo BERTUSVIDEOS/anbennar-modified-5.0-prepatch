@@ -99,6 +99,11 @@ adventurer_hold_formation = {
 	hidden_effect = { restore_country_name = yes }
 	remove_non_electors_emperors_from_empire_effect = yes
 
+	$capital$ = {
+		set_capital = yes
+		change_culture = $culture$_dwarf
+	}
+
 	#legacy buff and gov reforms
 	add_country_modifier = { name = legacy_of_adventurers_modifier duration = 14600 }
 	custom_tooltip = adventurer_hold_formation_tooltip
@@ -146,7 +151,7 @@ adventurer_hold_formation = {
 	}
 
 	#other stuff
-	add_prestige = 25
+	add_prestige_or_monarch_power = {amount =  25}
 	set_country_flag = adventurer_derived_government
 	set_country_flag = formed_diggy_formable
 	country_event = { id = marcher.1 days = 1 }
@@ -241,6 +246,8 @@ dwarovar_republic_generic_election_effect = {
 }
 save_yearly_income = { #Saves income for 0.5 1 1.5 2 3 5 7 9 years of income
 
+	set_variable = { eighthYearOfIncome = 0}
+	set_variable = { quarterYearOfIncome = 0}
 	set_variable = { HalfYearOfIncome = 0}
 	set_variable = { YearOfIncome = 0}
 	set_variable = { OneAndHalfYearOfIncome = 0}
@@ -341,6 +348,24 @@ save_yearly_income = { #Saves income for 0.5 1 1.5 2 3 5 7 9 years of income
 	divide_variable  = {
 		which = HalfYearOfIncome
 		value = 2
+	}
+	export_to_variable = {
+		which = quarterYearOfIncome
+		value = years_of_income
+		who = ROOT
+	}
+	divide_variable  = {
+		which = quarterYearOfIncome
+		value = 4
+	}
+	export_to_variable = {
+		which = eighthYearOfIncome
+		value = years_of_income
+		who = ROOT
+	}
+	divide_variable  = {
+		which = eighthYearOfIncome
+		value = 8
 	}
 }
 set_province_historical_culture = {
@@ -1140,56 +1165,56 @@ repair_hold = {
 	hidden_effect = { cancel_construction = yes }
 	if = {
 		limit = { has_province_modifier = ruined_hold }
-		trigger_switch = {
+		trigger_switch = {	#bertus mod
 			on_trigger = development
 			
-			100 = { owner = { add_mil_power = -500 add_dip_power = -500 add_adm_power = -500 } }
-			90 = { owner = { add_mil_power = -450 add_dip_power = -450 add_adm_power = -450 } }
-			80 = { owner = { add_mil_power = -400 add_dip_power = -400 add_adm_power = -400 } }
-			70 = { owner = { add_mil_power = -350 add_dip_power = -350 add_adm_power = -350 } }
-			60 = { owner = { add_mil_power = -300 add_dip_power = -300 add_adm_power = -300 } }
-			50 = { owner = { add_mil_power = -250 add_dip_power = -250 add_adm_power = -250 } }
-			40 = { owner = { add_mil_power = -200 add_dip_power = -200 add_adm_power = -200 } }
-			30 = { owner = { add_mil_power = -150 add_dip_power = -150 add_adm_power = -150 } }
-			20 = { owner = { add_mil_power = -100 add_dip_power = -100 add_adm_power = -100 } }
-			10 = { owner = { add_mil_power = -50 add_dip_power = -50 add_adm_power = -50 } }
-			3 = { owner = { add_mil_power = -50 add_dip_power = -50 add_adm_power = -50 } }
+			100 = { owner = { add_treasury = -3770 } }
+			90 = { owner = { add_treasury = -2330 } }
+			80 = { owner = { add_treasury = -1440 } }
+			70 = { owner = { add_treasury = -890 } }
+			60 = { owner = { add_treasury = -550 } }
+			50 = { owner = { add_treasury = -340 } }
+			40 = { owner = { add_treasury = -210 } }
+			30 = { owner = { add_treasury = -130 } }
+			20 = { owner = { add_treasury = -80 } }
+			10 = { owner = { add_treasury = -50 } }
+			3 = { owner = { add_treasury = -30 } }
 		}
 	}
 	else_if = {
 		limit = { has_province_modifier = partially_ruined_hold }
-		trigger_switch = {
+		trigger_switch = {	#bertus mod
 			on_trigger = development
 			
-			100 = { owner = { add_mil_power = -400 add_dip_power = -400 add_adm_power = -400 } }
-			90 = { owner = { add_mil_power = -350 add_dip_power = -350 add_adm_power = -350 } }
-			80 = { owner = { add_mil_power = -325 add_dip_power = -325 add_adm_power = -325 } }
-			70 = { owner = { add_mil_power = -300 add_dip_power = -300 add_adm_power = -300 } }
-			60 = { owner = { add_mil_power = -250 add_dip_power = -250 add_adm_power = -250 } }
-			50 = { owner = { add_mil_power = -200 add_dip_power = -200 add_adm_power = -200 } }
-			40 = { owner = { add_mil_power = -175 add_dip_power = -175 add_adm_power = -175 } }
-			30 = { owner = { add_mil_power = -150 add_dip_power = -150 add_adm_power = -150 } }
-			20 = { owner = { add_mil_power = -100 add_dip_power = -100 add_adm_power = -100 } }
-			10 = { owner = { add_mil_power = -50 add_dip_power = -50 add_adm_power = -50 } }
-			3 = { owner = { add_mil_power = -50 add_dip_power = -50 add_adm_power = -50 } }
+			100 = { owner = { add_treasury = -2330 } }
+			90 = { owner = { add_treasury = -1440 } }
+			80 = { owner = { add_treasury = -890 } }
+			70 = { owner = { add_treasury = -550 } }
+			60 = { owner = { add_treasury = -340 } }
+			50 = { owner = { add_treasury = -210 } }
+			40 = { owner = { add_treasury = -130 } }
+			30 = { owner = { add_treasury = -80 } }
+			20 = { owner = { add_treasury = -50 } }
+			10 = { owner = { add_treasury = -30 } }
+			3 = { owner = { add_treasury = -20 } }
 		}
 	}
 	else_if = {
 		limit = { has_province_modifier = damaged_hold }
-		trigger_switch = {
+		trigger_switch = {	#bertus mod
 			on_trigger = development
 			
-			100 = { owner = { add_mil_power = -300 add_dip_power = -300 add_adm_power = -300 } }
-			90 = { owner = { add_mil_power = -275 add_dip_power = -275 add_adm_power = -275 } }
-			80 = { owner = { add_mil_power = -250 add_dip_power = -250 add_adm_power = -250 } }
-			70 = { owner = { add_mil_power = -225 add_dip_power = -225 add_adm_power = -225 } }
-			60 = { owner = { add_mil_power = -175 add_dip_power = -175 add_adm_power = -175 } }
-			50 = { owner = { add_mil_power = -125 add_dip_power = -125 add_adm_power = -125 } }
-			40 = { owner = { add_mil_power = -100 add_dip_power = -100 add_adm_power = -100 } }
-			30 = { owner = { add_mil_power = -75 add_dip_power = -75 add_adm_power = -75 } }
-			20 = { owner = { add_mil_power = -50 add_dip_power = -50 add_adm_power = -50 } }
-			10 = { owner = { add_mil_power = -50 add_dip_power = -50 add_adm_power = -50 } }
-			3 = { owner = { add_mil_power = -50 add_dip_power = -50 add_adm_power = -50 } }
+			100 = { owner = { add_treasury = -1440 } }
+			90 = { owner = { add_treasury = -890 } }
+			80 = { owner = { add_treasury = -550 } }
+			70 = { owner = { add_treasury = -340 } }
+			60 = { owner = { add_treasury = -210 } }
+			50 = { owner = { add_treasury = -130 } }
+			40 = { owner = { add_treasury = -80 } }
+			30 = { owner = { add_treasury = -50 } }
+			20 = { owner = { add_treasury = -30 } }
+			10 = { owner = { add_treasury = -20 } }
+			3 = { owner = { add_treasury = -10 } }
 		}
 	}
 	# custom_tooltip = see_speed_value
@@ -1660,6 +1685,7 @@ upgrade_hold_capital = {
 		limit = { province_id = 5424 owner = { has_estate_privilege = estate_mages_grand_rune_haln } }
 		hidden_effect = { add_grand_rune_haln_effect = yes }
 	}
+	colonize_next_level_effect = yes	#bertus mod
 }
 
 #non-capital
@@ -2173,6 +2199,7 @@ upgrade_hold = {
 			}
 		}
 	}
+	colonize_next_level_effect = yes	#bertus mod
 }
 
 clr_hold_advanced_infrastructure = {

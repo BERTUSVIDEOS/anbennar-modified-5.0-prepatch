@@ -1,0 +1,912 @@
+
+bertus_power_calculator = {
+	set_variable = {
+		which = country_power_var
+		value = 0
+	}
+	set_base_discipline = yes
+	set_base_morale = yes
+	set_fire_shock_modifiers = yes
+	set_forcelimit_power = yes
+	set_infantry_power = yes
+	set_cavalry_power = yes
+	set_artillery_power = yes
+	set_manpower_power = yes
+	set_income_power = yes
+	
+	set_quality_power = yes
+	set_quantity_power = yes	
+	
+	
+	#FORMULA final: quality*quantity*15%income
+	change_variable = {
+		which = country_power_var
+		which = quantity_power_var
+	}	
+	multiply_variable = {
+		which = country_power_var
+		which = quality_power_var
+	}
+	multiply_variable = {
+		which = country_power_var
+		which = monthly_income_power_var
+	}
+	divide_variable = {
+		which = country_power_var
+		value = 1000
+	}
+}
+set_base_discipline = {
+	set_variable = {
+		which = discipline_var
+		value = 0
+	}
+	set_variable = {
+		which = discipline_power_var
+		value = 0
+	}
+	export_to_variable = {
+		which = discipline_var
+		value = modifier:discipline
+	}
+	change_variable = {
+		which = discipline_var
+		value = 1
+	}
+	change_variable = {
+		which = discipline_power_var
+		which = discipline_var
+	}
+	multiply_variable = {
+		which = discipline_power_var
+		which = discipline_k_var
+	}
+	multiply_variable = {
+		which = discipline_var
+		value = 100
+	}
+}
+set_base_morale = {
+	set_variable = {
+		which = morale_var
+		value = 0
+	}
+	set_variable = {
+		which = base_morale_var
+		value = 0
+	}	
+	if = {limit = {mil_tech = 30} change_variable = { which = base_morale_var value = 1.0}}
+	if = {limit = {mil_tech = 26} change_variable = { which = base_morale_var value = 1.0}}
+	if = {limit = {mil_tech = 15} change_variable = { which = base_morale_var value = 1.0}}
+	if = {limit = {mil_tech = 4} change_variable = { which = base_morale_var value = 0.5}}
+	if = {limit = {mil_tech = 3} change_variable = { which = base_morale_var value = 0.5}}
+	if = {limit = {mil_tech = 0} change_variable = { which = base_morale_var value = 2.0}}
+	
+	export_to_variable = {
+		which = morale_var
+		value = modifier:land_morale
+	}
+	change_variable = {
+		which = morale_var
+		value = 1
+	}
+	multiply_variable = {
+		which = morale_var
+		which = base_morale_var
+	}
+	multiply_variable = {
+		which = morale_var
+		which = morale_k_var
+	}
+}
+set_infantry_power = {
+	set_variable = {
+		which = infantry_power_var
+		value = 0
+	}
+	set_variable = {
+		which = infantry_ca_var
+		value = 0
+	}
+	set_variable = {
+		which = infantry_base_damage_var
+		value = 0
+	}
+	export_to_variable = {
+		which = infantry_ca_var
+		value = modifier:infantry_power
+	}
+	change_variable = {
+		which = infantry_ca_var
+		value = 1
+	}
+	set_variable = {
+		which = infantry_fire_var
+		value = 0
+	}
+	export_to_variable = {
+		which = infantry_fire_var
+		value = modifier:infantry_fire
+	}
+	if = {limit = {mil_tech = 31} change_variable = { which = infantry_fire_var value = 1.0}}
+	if = {limit = {mil_tech = 27} change_variable = { which = infantry_fire_var value = 0.5}}
+	if = {limit = {mil_tech = 20} change_variable = { which = infantry_fire_var value = 0.5}}
+	if = {limit = {mil_tech = 14} change_variable = { which = infantry_fire_var value = 0.3}}
+	if = {limit = {mil_tech = 8} change_variable = { which = infantry_fire_var value = 0.25}}
+	if = {limit = {mil_tech = 6} change_variable = { which = infantry_fire_var value = 0.20}}
+	if = {limit = {mil_tech = 1} change_variable = { which = infantry_fire_var value = 0.10}}
+	if = {limit = {mil_tech = 0} change_variable = { which = infantry_fire_var value = 0.25}}
+	set_variable = {
+		which = infantry_shock_var
+		value = 0
+	}
+	export_to_variable = {
+		which = infantry_shock_var
+		value = modifier:infantry_shock
+	}
+	if = {limit = {mil_tech = 28} change_variable = { which = infantry_shock_var value = 0.5}}
+	if = {limit = {mil_tech = 21} change_variable = { which = infantry_shock_var value = 0.5}}
+	if = {limit = {mil_tech = 11} change_variable = { which = infantry_shock_var value = 0.2}}
+	if = {limit = {mil_tech = 6} change_variable = { which = infantry_shock_var value = 0.30}}
+	if = {limit = {mil_tech = 5} change_variable = { which = infantry_shock_var value = 0.15}}
+	if = {limit = {mil_tech = 2} change_variable = { which = infantry_shock_var value = 0.20}}
+	if = {limit = {mil_tech = 1} change_variable = { which = infantry_shock_var value = 0.10}}
+	if = {limit = {mil_tech = 0} change_variable = { which = infantry_shock_var value = 0.20}}
+	
+	change_variable = {
+		which = infantry_base_damage_var
+		which = infantry_fire_var
+	}
+	change_variable = {
+		which = infantry_base_damage_var
+		which = infantry_shock_var
+	}
+	change_variable = {
+		which = infantry_power_var
+		which = infantry_base_damage_var
+	}
+	multiply_variable = {
+		which = infantry_power_var
+		which = infantry_ca_var
+	}
+	multiply_variable = {
+		which = infantry_power_var
+		which = infantry_fraction_var
+	}
+	multiply_variable = {
+		which = infantry_power_var
+		which = infantry_power_k_var
+	}
+	multiply_variable = {
+		which = infantry_fraction_var
+		value = 100
+	}
+	multiply_variable = {
+		which = infantry_ca_var
+		value = 100
+	}
+}
+set_cavalry_power = {
+	set_variable = {
+		which = cavalry_power_var
+		value = 0
+	}
+	set_variable = {
+		which = cavalry_ca_var
+		value = 0
+	}
+	set_variable = {
+		which = cavalry_base_damage_var
+		value = 0
+	}
+	export_to_variable = {
+		which = cavalry_ca_var
+		value = modifier:cavalry_power
+	}
+	change_variable = {
+		which = cavalry_ca_var
+		value = 1
+	}
+	set_variable = {
+		which = cavalry_fire_var
+		value = 0
+	}
+	export_to_variable = {
+		which = cavalry_fire_var
+		value = modifier:cavalry_fire
+	}
+	if = {limit = {mil_tech = 22} change_variable = { which = cavalry_fire_var value = 0.5}}
+	if = {limit = {mil_tech = 11} change_variable = { which = cavalry_fire_var value = 0.5}}
+	set_variable = {
+		which = cavalry_shock_var
+		value = 0
+	}
+	export_to_variable = {
+		which = cavalry_shock_var
+		value = modifier:cavalry_shock
+	}
+	if = {limit = {mil_tech = 32} change_variable = { which = cavalry_shock_var value = 0.5}}
+	if = {limit = {mil_tech = 30} change_variable = { which = cavalry_shock_var value = 0.5}}
+	if = {limit = {mil_tech = 26} change_variable = { which = cavalry_shock_var value = 0.5}}
+	if = {limit = {mil_tech = 22} change_variable = { which = cavalry_shock_var value = 0.5}}
+	if = {limit = {mil_tech = 18} change_variable = { which = cavalry_shock_var value = 0.5}}
+	if = {limit = {mil_tech = 14} change_variable = { which = cavalry_shock_var value = 0.5}}
+	if = {limit = {mil_tech = 10} change_variable = { which = cavalry_shock_var value = 0.5}}
+	if = {limit = {mil_tech = 6} change_variable = { which = cavalry_shock_var value = 0.5}}
+	if = {limit = {mil_tech = 2} change_variable = { which = cavalry_shock_var value = 0.5}}
+	if = {limit = {mil_tech = 0} change_variable = { which = cavalry_shock_var value = 0.5}}
+	
+	change_variable = {
+		which = cavalry_base_damage_var
+		which = cavalry_fire_var
+	}
+	change_variable = {
+		which = cavalry_base_damage_var
+		which = cavalry_shock_var
+	}
+	change_variable = {
+		which = cavalry_power_var
+		which = cavalry_base_damage_var
+	}
+	multiply_variable = {
+		which = cavalry_power_var
+		which = cavalry_ca_var
+	}
+	multiply_variable = {
+		which = cavalry_power_var
+		which = cavalry_fraction_var
+	}
+	multiply_variable = {
+		which = cavalry_power_var
+		which = cavalry_power_k_var
+	}
+	multiply_variable = {
+		which = cavalry_fraction_var
+		value = 100
+	}
+	multiply_variable = {
+		which = cavalry_ca_var
+		value = 100
+	}
+}
+set_artillery_power = {
+	set_variable = {
+		which = artillery_power_var
+		value = 0
+	}
+	set_variable = {
+		which = artillery_ca_var
+		value = 0
+	}
+	set_variable = {
+		which = artillery_backrow_var
+		value = 0
+	}
+	set_variable = {
+		which = artillery_base_damage_var
+		value = 0
+	}
+	export_to_variable = {
+		which = artillery_ca_var
+		value = modifier:artillery_power
+	}
+	export_to_variable = {
+		which = artillery_backrow_var
+		value = modifier:backrow_artillery_damage
+	}
+	change_variable = {
+		which = artillery_ca_var
+		value = 1
+	}
+	change_variable = {
+		which = artillery_backrow_var
+		value = 1
+	}
+	set_variable = {
+		which = artillery_fire_var
+		value = 0
+	}
+	export_to_variable = {
+		which = artillery_fire_var
+		value = modifier:artillery_fire
+	}
+	if = {limit = {mil_tech = 32} change_variable = { which = artillery_fire_var value = 1.0}}
+	if = {limit = {mil_tech = 25} change_variable = { which = artillery_fire_var value = 1.0}}
+	if = {limit = {mil_tech = 22} change_variable = { which = artillery_fire_var value = 1.0}}
+	if = {limit = {mil_tech = 16} change_variable = { which = artillery_fire_var value = 1.0}}
+	if = {limit = {mil_tech = 13} change_variable = { which = artillery_fire_var value = 0.5}}
+	if = {limit = {mil_tech = 7} change_variable = { which = artillery_fire_var value = 0.5}}
+	set_variable = {
+		which = artillery_shock_var
+		value = 0
+	}
+	export_to_variable = {
+		which = artillery_shock_var
+		value = modifier:artillery_shock
+	}
+	if = {limit = {mil_tech = 32} change_variable = { which = artillery_shock value = 0.10}}
+	if = {limit = {mil_tech = 25} change_variable = { which = artillery_shock value = 0.10}}
+	if = {limit = {mil_tech = 22} change_variable = { which = artillery_shock value = 0.10}}
+	if = {limit = {mil_tech = 16} change_variable = { which = artillery_shock value = 0.10}}
+	if = {limit = {mil_tech = 13} change_variable = { which = artillery_shock value = 0.10}}
+	if = {limit = {mil_tech = 7} change_variable = { which = artillery_shock value = 0.10}}
+	
+	change_variable = {
+		which = artillery_base_damage_var
+		which = artillery_fire_var
+	}
+	change_variable = {
+		which = artillery_base_damage_var
+		which = artillery_shock_var
+	}
+	change_variable = {
+		which = artillery_power_var
+		which = artillery_base_damage_var
+	}
+	multiply_variable = {
+		which = artillery_power_var
+		which = artillery_ca_var
+	}
+	multiply_variable = {
+		which = artillery_power_var
+		which = artillery_backrow_var
+	}
+	multiply_variable = {
+		which = artillery_power_var
+		which = artillery_fraction_var
+	}
+	multiply_variable = {
+		which = artillery_power_var
+		which = artillery_power_k_var
+	}
+	multiply_variable = {
+		which = artillery_fraction_var
+		value = 100
+	}
+	multiply_variable = {
+		which = artillery_ca_var
+		value = 100
+	}
+	multiply_variable = {
+		which = artillery_backrow_var
+		value = 100
+	}
+}
+set_fire_shock_modifiers = {
+	set_variable = {
+		which = fire_damage_power_var
+		value = 0
+	}
+	set_variable = {
+		which = fire_damage_var
+		value = 0
+	}
+	set_variable = {
+		which = shock_damage_power_var
+		value = 0
+	}
+	set_variable = {
+		which = shock_damage_var
+		value = 0
+	}
+	set_variable = {
+		which = fire_damage_received_var
+		value = 0
+	}
+	set_variable = {
+		which = fire_damage_received_power_var
+		value = 0
+	}
+	set_variable = {
+		which = shock_damage_received_var
+		value = 0
+	}
+	set_variable = {
+		which = shock_damage_received_power_var
+		value = 0
+	}
+	set_variable = {
+		which = damage_bonus_power_var
+		value = 0
+	}
+	set_variable = {
+		which = damage_reduction_power_var
+		value = 0
+	}
+	export_to_variable = {
+		which = fire_damage_var
+		value = modifier:fire_damage
+	}
+	export_to_variable = {
+		which = shock_damage_var
+		value = modifier:shock_damage
+	}
+	change_variable = {
+		which = fire_damage_power_var
+		which = fire_damage_var
+	}
+	multiply_variable = {
+		which = fire_damage_power_var
+		which = fire_damage_power_k_var
+	}
+	change_variable = {
+		which = fire_damage_power_var
+		value = 1
+	}
+	change_variable = {
+		which = shock_damage_power_var
+		which = shock_damage_var
+	}
+	multiply_variable = {
+		which = shock_damage_power_var
+		which = shock_damage_power_k_var
+	}
+	change_variable = {
+		which = shock_damage_power_var
+		value = 1
+	}
+	change_variable = {
+		which = damage_bonus_power_var
+		which = fire_damage_power_var
+	}
+	change_variable = {
+		which = damage_bonus_power_var
+		which = shock_damage_power_var
+	}
+	export_to_variable = {
+		which = fire_damage_received_var
+		value = modifier:fire_damage_received
+	}
+	export_to_variable = {
+		which = shock_damage_received_var
+		value = modifier:shock_damage_received
+	}
+	change_variable = {
+		which = fire_damage_received_power_var
+		which = fire_damage_received_var
+	}
+	change_variable = {
+		which = shock_damage_received_power_var
+		which = shock_damage_received_var
+	}
+	multiply_variable = {
+		which = fire_damage_received_power_var
+		value = -1
+	}
+	multiply_variable = {
+		which = shock_damage_received_power_var
+		value = -1
+	}
+	multiply_variable = {
+		which = fire_damage_received_power_var
+		which = fire_damage_received_power_k_var
+	}
+	multiply_variable = {
+		which = shock_damage_received_power_var
+		which = shock_damage_received_power_k_var
+	}
+	change_variable = {
+		which = damage_reduction_power_var
+		which = fire_damage_received_power_var
+	}
+	change_variable = {
+		which = damage_reduction_power_var
+		which = shock_damage_received_power_var
+	}
+	change_variable = {
+		which = damage_reduction_power_var
+		value = 1
+	}
+	multiply_variable = {
+		which = fire_damage_var
+		value = 100
+	}
+	multiply_variable = {
+		which = shock_damage_var
+		value = 100
+	}
+	multiply_variable = {
+		which = fire_damage_received_var
+		value = 100
+	}
+	multiply_variable = {
+		which = shock_damage_received_var
+		value = 100
+	}
+	
+}
+set_manpower_power = {
+	set_variable = {
+		which = manpower_power_var
+		value = 0
+	}
+	set_variable = {
+		which = manpower_var
+		value = 0
+	}
+	export_to_variable = {
+		which = manpower_var
+		value = trigger_value:max_manpower
+	}
+	set_variable = {
+		which = manpower_recovery_var
+		value = 0
+	}
+	set_variable = {
+		which = manpower_recovery_power_var
+		value = 0
+	}
+	export_to_variable = {
+		which = manpower_recovery_var
+		value = modifier:manpower_recovery_speed
+	}
+	change_variable = {
+		which = manpower_recovery_var
+		value = 1
+	}
+	change_variable = {
+		which = manpower_recovery_power_var
+		which = manpower_recovery_var
+	}
+	multiply_variable = {
+		which = manpower_recovery_var
+		which = manpower_var
+	}
+	divide_variable = {
+		which = manpower_recovery_var
+		value = 120
+	}
+	multiply_variable = {
+		which = manpower_recovery_power_var
+		which = manpower_var
+	}
+	divide_variable = {
+		which = manpower_recovery_power_var
+		value = 120
+	}
+	multiply_variable = {
+		which = manpower_recovery_power_var
+		which = manpower_recovery_k_var
+	}
+	change_variable = {
+		which = manpower_power_var
+		which = manpower_var
+	}
+	multiply_variable = {
+		which = manpower_power_var
+		which = manpower_k_var
+	}
+	change_variable = {
+		which = manpower_power_var
+		which = manpower_recovery_power_var
+	}
+	multiply_variable = {
+		which = manpower_power_var
+		which = damage_reduction_power_var
+	}
+}
+set_forcelimit_power = {
+	set_variable = {
+		which = land_forcelimit_var
+		value = 0
+	}
+	set_variable = {
+		which = land_forcelimit_power_var
+		value = 0
+	}
+	set_variable = {
+		which = land_forcelimit_modifier_var
+		value = 0
+	}
+	set_variable = {
+		which = infantry_fraction_var
+		value = 0
+	}
+	set_variable = {
+		which = cavalry_fraction_var
+		value = 0
+	}
+	set_variable = {
+		which = artillery_fraction_var
+		value = 0
+	}
+	set_variable = {
+		which = total_army_var
+		value = 0
+	}
+	export_to_variable = {
+		which = infantry_fraction_var
+		value = trigger_value:num_of_infantry
+	}
+	export_to_variable = {
+		which = cavalry_fraction_var
+		value = trigger_value:num_of_cavalry
+	}
+	export_to_variable = {
+		which = artillery_fraction_var
+		value = trigger_value:num_of_artillery
+	}
+	change_variable = {
+		which = total_army_var
+		which = infantry_fraction_var
+	}
+	change_variable = {
+		which = total_army_var
+		which = cavalry_fraction_var
+	}
+	change_variable = {
+		which = total_army_var
+		which = artillery_fraction_var
+	}
+	divide_variable = {
+		which = infantry_fraction_var
+		which = total_army_var
+	}
+	divide_variable = {
+		which = cavalry_fraction_var
+		which = total_army_var
+	}
+	divide_variable = {
+		which = artillery_fraction_var
+		which = total_army_var
+	}
+	export_to_variable = {
+		which = land_forcelimit_var
+		value = modifier:land_forcelimit
+	}
+	export_to_variable = {
+		which = land_forcelimit_modifier_var
+		value = modifier:land_forcelimit_modifier
+	}
+	change_variable = {
+		which = land_forcelimit_modifier_var
+		value = 1
+	}
+	change_variable = {
+		which = land_forcelimit_power_var
+		which = land_forcelimit_var
+	}
+	multiply_variable = {
+		which = land_forcelimit_power_var
+		which = land_forcelimit_modifier_var
+	}
+	multiply_variable = {
+		which = land_forcelimit_power_var
+		which = land_forcelimit_k_var
+	}
+}
+set_quality_power = {
+	#FORMULA quality: 
+	#K*discipline*K*morale*(K*I/C/A CA*fire/shock base dmg*fraction of each unit)
+	set_variable = {
+		which = quality_power_var
+		value = 0
+	}
+	set_variable = {
+		which = regiment_power_var
+		value = 0
+	}
+	change_variable = {
+		which = quality_power_var
+		which = morale_var
+	}
+	multiply_variable = {
+		which = quality_power_var
+		which = discipline_power_var
+	}
+	change_variable = {
+		which = regiment_power_var
+		which = infantry_power_var
+	}
+	change_variable = {
+		which = regiment_power_var
+		which = cavalry_power_var
+	}
+	change_variable = {
+		which = regiment_power_var
+		which = artillery_power_var
+	}
+	multiply_variable = {
+		which = quality_power_var
+		which = regiment_power_var
+	}
+	multiply_variable = {
+		which = quality_power_var
+		which = damage_bonus_power_var
+	}
+}
+set_quantity_power = {
+	#FORMULA quantity: 
+	#K*FL+50%max manpower+5yearly manpower
+	set_variable = {
+		which = quantity_power_var
+		value = 0
+	}
+	change_variable = {
+		which = quantity_power_var
+		which = land_forcelimit_power_var
+	}
+	change_variable = {
+		which = quantity_power_var
+		which = manpower_power_var
+	}
+}
+set_income_power = {
+	set_variable = {
+		which = monthly_income_var
+		value = 0
+	}
+	set_variable = {
+		which = monthly_income_power_var
+		value = 0
+	}
+	export_to_variable = {
+		which = monthly_income_var
+		value = trigger_value:monthly_income
+	}
+	change_variable = {
+		which = monthly_income_power_var
+		which = monthly_income_var
+	}
+	multiply_variable = {
+		which = monthly_income_power_var
+		which = monthly_income_k_var
+	}
+}
+set_constants = {
+	set_variable = {
+		which = morale_k_var
+		value = 1
+	}
+	set_variable = {
+		which = discipline_k_var
+		value = 1
+	}
+	set_variable = {
+		which = infantry_power_k_var
+		value = 1
+	}
+	set_variable = {
+		which = cavalry_power_k_var
+		value = 1
+	}
+	set_variable = {
+		which = artillery_power_k_var
+		value = 1
+	}
+	set_variable = {
+		which = fire_damage_power_k_var
+		value = 0.25
+	}
+	set_variable = {
+		which = shock_damage_power_k_var
+		value = 0.25
+	}
+	set_variable = {
+		which = fire_damage_received_power_k_var
+		value = 0.5
+	}
+	set_variable = {
+		which = shock_damage_received_power_k_var
+		value = 0.5
+	}
+	set_variable = {
+		which = manpower_k_var
+		value = 0.5
+	}
+	set_variable = {
+		which = manpower_recovery_k_var
+		value = 60.0
+	}
+	set_variable = {
+		which = land_forcelimit_k_var
+		value = 1
+	}
+	set_variable = {
+		which = monthly_income_k_var
+		value = 0.33
+	}
+}
+assign_tag_to_players = {
+	if = {limit = {check_variable = {which = tag_counter_var value = 50 }} set_country_flag = is_player_50_flag save_global_event_target_as = is_player_50_target}
+	else_if = {limit = {check_variable = {which = tag_counter_var value = 49 }} set_country_flag = is_player_49_flag save_global_event_target_as = is_player_49_target}
+	else_if = {limit = {check_variable = {which = tag_counter_var value = 48 }} set_country_flag = is_player_48_flag save_global_event_target_as = is_player_48_target}
+	else_if = {limit = {check_variable = {which = tag_counter_var value = 47 }} set_country_flag = is_player_47_flag save_global_event_target_as = is_player_47_target}
+	else_if = {limit = {check_variable = {which = tag_counter_var value = 46 }} set_country_flag = is_player_46_flag save_global_event_target_as = is_player_46_target}
+	else_if = {limit = {check_variable = {which = tag_counter_var value = 45 }} set_country_flag = is_player_45_flag save_global_event_target_as = is_player_45_target}
+	else_if = {limit = {check_variable = {which = tag_counter_var value = 44 }} set_country_flag = is_player_44_flag save_global_event_target_as = is_player_44_target}
+	else_if = {limit = {check_variable = {which = tag_counter_var value = 43 }} set_country_flag = is_player_43_flag save_global_event_target_as = is_player_43_target}
+	else_if = {limit = {check_variable = {which = tag_counter_var value = 42 }} set_country_flag = is_player_42_flag save_global_event_target_as = is_player_42_target}
+	else_if = {limit = {check_variable = {which = tag_counter_var value = 41 }} set_country_flag = is_player_41_flag save_global_event_target_as = is_player_41_target}
+	else_if = {limit = {check_variable = {which = tag_counter_var value = 40 }} set_country_flag = is_player_40_flag save_global_event_target_as = is_player_40_target}
+	else_if = {limit = {check_variable = {which = tag_counter_var value = 39 }} set_country_flag = is_player_39_flag save_global_event_target_as = is_player_39_target}
+	else_if = {limit = {check_variable = {which = tag_counter_var value = 38 }} set_country_flag = is_player_38_flag save_global_event_target_as = is_player_38_target}
+	else_if = {limit = {check_variable = {which = tag_counter_var value = 37 }} set_country_flag = is_player_37_flag save_global_event_target_as = is_player_37_target}
+	else_if = {limit = {check_variable = {which = tag_counter_var value = 36 }} set_country_flag = is_player_36_flag save_global_event_target_as = is_player_36_target}
+	else_if = {limit = {check_variable = {which = tag_counter_var value = 35 }} set_country_flag = is_player_35_flag save_global_event_target_as = is_player_35_target}
+	else_if = {limit = {check_variable = {which = tag_counter_var value = 34 }} set_country_flag = is_player_34_flag save_global_event_target_as = is_player_34_target}
+	else_if = {limit = {check_variable = {which = tag_counter_var value = 33 }} set_country_flag = is_player_33_flag save_global_event_target_as = is_player_33_target}
+	else_if = {limit = {check_variable = {which = tag_counter_var value = 32 }} set_country_flag = is_player_32_flag save_global_event_target_as = is_player_32_target}
+	else_if = {limit = {check_variable = {which = tag_counter_var value = 31 }} set_country_flag = is_player_31_flag save_global_event_target_as = is_player_31_target}
+	else_if = {limit = {check_variable = {which = tag_counter_var value = 30 }} set_country_flag = is_player_30_flag save_global_event_target_as = is_player_30_target}
+	else_if = {limit = {check_variable = {which = tag_counter_var value = 29 }} set_country_flag = is_player_29_flag save_global_event_target_as = is_player_29_target}
+	else_if = {limit = {check_variable = {which = tag_counter_var value = 28 }} set_country_flag = is_player_28_flag save_global_event_target_as = is_player_28_target}
+	else_if = {limit = {check_variable = {which = tag_counter_var value = 27 }} set_country_flag = is_player_27_flag save_global_event_target_as = is_player_27_target}
+	else_if = {limit = {check_variable = {which = tag_counter_var value = 26 }} set_country_flag = is_player_26_flag save_global_event_target_as = is_player_26_target}
+	else_if = {limit = {check_variable = {which = tag_counter_var value = 25 }} set_country_flag = is_player_25_flag save_global_event_target_as = is_player_25_target}
+	else_if = {limit = {check_variable = {which = tag_counter_var value = 24 }} set_country_flag = is_player_24_flag save_global_event_target_as = is_player_24_target}
+	else_if = {limit = {check_variable = {which = tag_counter_var value = 23 }} set_country_flag = is_player_23_flag save_global_event_target_as = is_player_23_target}
+	else_if = {limit = {check_variable = {which = tag_counter_var value = 22 }} set_country_flag = is_player_22_flag save_global_event_target_as = is_player_22_target}
+	else_if = {limit = {check_variable = {which = tag_counter_var value = 21 }} set_country_flag = is_player_21_flag save_global_event_target_as = is_player_21_target}
+	else_if = {limit = {check_variable = {which = tag_counter_var value = 20 }} set_country_flag = is_player_20_flag save_global_event_target_as = is_player_20_target}
+	else_if = {limit = {check_variable = {which = tag_counter_var value = 19 }} set_country_flag = is_player_19_flag save_global_event_target_as = is_player_19_target}
+	else_if = {limit = {check_variable = {which = tag_counter_var value = 18 }} set_country_flag = is_player_18_flag save_global_event_target_as = is_player_18_target}
+	else_if = {limit = {check_variable = {which = tag_counter_var value = 17 }} set_country_flag = is_player_17_flag save_global_event_target_as = is_player_17_target}
+	else_if = {limit = {check_variable = {which = tag_counter_var value = 16 }} set_country_flag = is_player_16_flag save_global_event_target_as = is_player_16_target}
+	else_if = {limit = {check_variable = {which = tag_counter_var value = 15 }} set_country_flag = is_player_15_flag save_global_event_target_as = is_player_15_target}
+	else_if = {limit = {check_variable = {which = tag_counter_var value = 14 }} set_country_flag = is_player_14_flag save_global_event_target_as = is_player_14_target}
+	else_if = {limit = {check_variable = {which = tag_counter_var value = 13 }} set_country_flag = is_player_13_flag save_global_event_target_as = is_player_13_target}
+	else_if = {limit = {check_variable = {which = tag_counter_var value = 12 }} set_country_flag = is_player_12_flag save_global_event_target_as = is_player_12_target}
+	else_if = {limit = {check_variable = {which = tag_counter_var value = 11 }} set_country_flag = is_player_11_flag save_global_event_target_as = is_player_11_target}
+	else_if = {limit = {check_variable = {which = tag_counter_var value = 10 }} set_country_flag = is_player_10_flag save_global_event_target_as = is_player_10_target}
+	else_if = {limit = {check_variable = {which = tag_counter_var value = 9 }} set_country_flag = is_player_9_flag save_global_event_target_as = is_player_9_target}
+	else_if = {limit = {check_variable = {which = tag_counter_var value = 8 }} set_country_flag = is_player_8_flag save_global_event_target_as = is_player_8_target}
+	else_if = {limit = {check_variable = {which = tag_counter_var value = 7 }} set_country_flag = is_player_7_flag save_global_event_target_as = is_player_7_target}
+	else_if = {limit = {check_variable = {which = tag_counter_var value = 6 }} set_country_flag = is_player_6_flag save_global_event_target_as = is_player_6_target}
+	else_if = {limit = {check_variable = {which = tag_counter_var value = 5 }} set_country_flag = is_player_5_flag save_global_event_target_as = is_player_5_target}
+	else_if = {limit = {check_variable = {which = tag_counter_var value = 4 }} set_country_flag = is_player_4_flag save_global_event_target_as = is_player_4_target}
+	else_if = {limit = {check_variable = {which = tag_counter_var value = 3 }} set_country_flag = is_player_3_flag save_global_event_target_as = is_player_3_target}
+	else_if = {limit = {check_variable = {which = tag_counter_var value = 2 }} set_country_flag = is_player_2_flag save_global_event_target_as = is_player_2_target}
+	else_if = {limit = {check_variable = {which = tag_counter_var value = 1 }} set_country_flag = is_player_1_flag save_global_event_target_as = is_player_1_target}
+}
+set_tops = {
+	if = { limit = { any_country = { check_variable = { which = tag_counter_var value = 50 }}} event_target:is_player_49_target = { if = {limit = {event_target:is_player_50_target = { check_variable = { which = country_power_var which = event_target:is_player_49_target}}} clear_global_event_target = is_player_49_target event_target:is_player_50_target = { clear_global_event_target = is_player_50_target save_global_event_target_as = is_player_49_target} save_global_event_target_as = is_player_50_target}}}
+	if = { limit = { any_country = { check_variable = { which = tag_counter_var value = 49 }}} event_target:is_player_48_target = { if = {limit = {event_target:is_player_49_target = { check_variable = { which = country_power_var which = event_target:is_player_48_target}}} clear_global_event_target = is_player_48_target event_target:is_player_49_target = { clear_global_event_target = is_player_49_target save_global_event_target_as = is_player_48_target} save_global_event_target_as = is_player_49_target}}}
+	if = { limit = { any_country = { check_variable = { which = tag_counter_var value = 48 }}} event_target:is_player_47_target = { if = {limit = {event_target:is_player_48_target = { check_variable = { which = country_power_var which = event_target:is_player_47_target}}} clear_global_event_target = is_player_47_target event_target:is_player_48_target = { clear_global_event_target = is_player_48_target save_global_event_target_as = is_player_47_target} save_global_event_target_as = is_player_48_target}}}
+	if = { limit = { any_country = { check_variable = { which = tag_counter_var value = 47 }}} event_target:is_player_46_target = { if = {limit = {event_target:is_player_47_target = { check_variable = { which = country_power_var which = event_target:is_player_46_target}}} clear_global_event_target = is_player_46_target event_target:is_player_47_target = { clear_global_event_target = is_player_47_target save_global_event_target_as = is_player_46_target} save_global_event_target_as = is_player_47_target}}}
+	if = { limit = { any_country = { check_variable = { which = tag_counter_var value = 46 }}} event_target:is_player_45_target = { if = {limit = {event_target:is_player_46_target = { check_variable = { which = country_power_var which = event_target:is_player_45_target}}} clear_global_event_target = is_player_45_target event_target:is_player_46_target = { clear_global_event_target = is_player_46_target save_global_event_target_as = is_player_45_target} save_global_event_target_as = is_player_46_target}}}
+	if = { limit = { any_country = { check_variable = { which = tag_counter_var value = 45 }}} event_target:is_player_44_target = { if = {limit = {event_target:is_player_45_target = { check_variable = { which = country_power_var which = event_target:is_player_44_target}}} clear_global_event_target = is_player_44_target event_target:is_player_45_target = { clear_global_event_target = is_player_45_target save_global_event_target_as = is_player_44_target} save_global_event_target_as = is_player_45_target}}}
+	if = { limit = { any_country = { check_variable = { which = tag_counter_var value = 44 }}} event_target:is_player_43_target = { if = {limit = {event_target:is_player_44_target = { check_variable = { which = country_power_var which = event_target:is_player_43_target}}} clear_global_event_target = is_player_43_target event_target:is_player_44_target = { clear_global_event_target = is_player_44_target save_global_event_target_as = is_player_43_target} save_global_event_target_as = is_player_44_target}}}
+	if = { limit = { any_country = { check_variable = { which = tag_counter_var value = 43 }}} event_target:is_player_42_target = { if = {limit = {event_target:is_player_43_target = { check_variable = { which = country_power_var which = event_target:is_player_42_target}}} clear_global_event_target = is_player_42_target event_target:is_player_43_target = { clear_global_event_target = is_player_43_target save_global_event_target_as = is_player_42_target} save_global_event_target_as = is_player_43_target}}}
+	if = { limit = { any_country = { check_variable = { which = tag_counter_var value = 42 }}} event_target:is_player_41_target = { if = {limit = {event_target:is_player_42_target = { check_variable = { which = country_power_var which = event_target:is_player_41_target}}} clear_global_event_target = is_player_41_target event_target:is_player_42_target = { clear_global_event_target = is_player_42_target save_global_event_target_as = is_player_41_target} save_global_event_target_as = is_player_42_target}}}
+	if = { limit = { any_country = { check_variable = { which = tag_counter_var value = 41 }}} event_target:is_player_40_target = { if = {limit = {event_target:is_player_41_target = { check_variable = { which = country_power_var which = event_target:is_player_40_target}}} clear_global_event_target = is_player_40_target event_target:is_player_41_target = { clear_global_event_target = is_player_41_target save_global_event_target_as = is_player_40_target} save_global_event_target_as = is_player_41_target}}}
+	if = { limit = { any_country = { check_variable = { which = tag_counter_var value = 40 }}} event_target:is_player_39_target = { if = {limit = {event_target:is_player_40_target = { check_variable = { which = country_power_var which = event_target:is_player_39_target}}} clear_global_event_target = is_player_39_target event_target:is_player_40_target = { clear_global_event_target = is_player_40_target save_global_event_target_as = is_player_39_target} save_global_event_target_as = is_player_40_target}}}
+	if = { limit = { any_country = { check_variable = { which = tag_counter_var value = 39 }}} event_target:is_player_38_target = { if = {limit = {event_target:is_player_39_target = { check_variable = { which = country_power_var which = event_target:is_player_38_target}}} clear_global_event_target = is_player_38_target event_target:is_player_39_target = { clear_global_event_target = is_player_39_target save_global_event_target_as = is_player_38_target} save_global_event_target_as = is_player_39_target}}}
+	if = { limit = { any_country = { check_variable = { which = tag_counter_var value = 38 }}} event_target:is_player_37_target = { if = {limit = {event_target:is_player_38_target = { check_variable = { which = country_power_var which = event_target:is_player_37_target}}} clear_global_event_target = is_player_37_target event_target:is_player_38_target = { clear_global_event_target = is_player_38_target save_global_event_target_as = is_player_37_target} save_global_event_target_as = is_player_38_target}}}
+	if = { limit = { any_country = { check_variable = { which = tag_counter_var value = 37 }}} event_target:is_player_36_target = { if = {limit = {event_target:is_player_37_target = { check_variable = { which = country_power_var which = event_target:is_player_36_target}}} clear_global_event_target = is_player_36_target event_target:is_player_37_target = { clear_global_event_target = is_player_37_target save_global_event_target_as = is_player_36_target} save_global_event_target_as = is_player_37_target}}}
+	if = { limit = { any_country = { check_variable = { which = tag_counter_var value = 36 }}} event_target:is_player_35_target = { if = {limit = {event_target:is_player_36_target = { check_variable = { which = country_power_var which = event_target:is_player_35_target}}} clear_global_event_target = is_player_35_target event_target:is_player_36_target = { clear_global_event_target = is_player_36_target save_global_event_target_as = is_player_35_target} save_global_event_target_as = is_player_36_target}}}
+	if = { limit = { any_country = { check_variable = { which = tag_counter_var value = 35 }}} event_target:is_player_34_target = { if = {limit = {event_target:is_player_35_target = { check_variable = { which = country_power_var which = event_target:is_player_34_target}}} clear_global_event_target = is_player_34_target event_target:is_player_35_target = { clear_global_event_target = is_player_35_target save_global_event_target_as = is_player_34_target} save_global_event_target_as = is_player_35_target}}}
+	if = { limit = { any_country = { check_variable = { which = tag_counter_var value = 34 }}} event_target:is_player_33_target = { if = {limit = {event_target:is_player_34_target = { check_variable = { which = country_power_var which = event_target:is_player_33_target}}} clear_global_event_target = is_player_33_target event_target:is_player_34_target = { clear_global_event_target = is_player_34_target save_global_event_target_as = is_player_33_target} save_global_event_target_as = is_player_34_target}}}
+	if = { limit = { any_country = { check_variable = { which = tag_counter_var value = 33 }}} event_target:is_player_32_target = { if = {limit = {event_target:is_player_33_target = { check_variable = { which = country_power_var which = event_target:is_player_32_target}}} clear_global_event_target = is_player_32_target event_target:is_player_33_target = { clear_global_event_target = is_player_33_target save_global_event_target_as = is_player_32_target} save_global_event_target_as = is_player_33_target}}}
+	if = { limit = { any_country = { check_variable = { which = tag_counter_var value = 32 }}} event_target:is_player_31_target = { if = {limit = {event_target:is_player_32_target = { check_variable = { which = country_power_var which = event_target:is_player_31_target}}} clear_global_event_target = is_player_31_target event_target:is_player_32_target = { clear_global_event_target = is_player_32_target save_global_event_target_as = is_player_31_target} save_global_event_target_as = is_player_32_target}}}
+	if = { limit = { any_country = { check_variable = { which = tag_counter_var value = 31 }}} event_target:is_player_30_target = { if = {limit = {event_target:is_player_31_target = { check_variable = { which = country_power_var which = event_target:is_player_30_target}}} clear_global_event_target = is_player_30_target event_target:is_player_31_target = { clear_global_event_target = is_player_31_target save_global_event_target_as = is_player_30_target} save_global_event_target_as = is_player_31_target}}}
+	if = { limit = { any_country = { check_variable = { which = tag_counter_var value = 30 }}} event_target:is_player_29_target = { if = {limit = {event_target:is_player_30_target = { check_variable = { which = country_power_var which = event_target:is_player_29_target}}} clear_global_event_target = is_player_29_target event_target:is_player_30_target = { clear_global_event_target = is_player_30_target save_global_event_target_as = is_player_29_target} save_global_event_target_as = is_player_30_target}}}
+	if = { limit = { any_country = { check_variable = { which = tag_counter_var value = 29 }}} event_target:is_player_28_target = { if = {limit = {event_target:is_player_29_target = { check_variable = { which = country_power_var which = event_target:is_player_28_target}}} clear_global_event_target = is_player_28_target event_target:is_player_29_target = { clear_global_event_target = is_player_29_target save_global_event_target_as = is_player_28_target} save_global_event_target_as = is_player_29_target}}}
+	if = { limit = { any_country = { check_variable = { which = tag_counter_var value = 28 }}} event_target:is_player_27_target = { if = {limit = {event_target:is_player_28_target = { check_variable = { which = country_power_var which = event_target:is_player_27_target}}} clear_global_event_target = is_player_27_target event_target:is_player_28_target = { clear_global_event_target = is_player_28_target save_global_event_target_as = is_player_27_target} save_global_event_target_as = is_player_28_target}}}
+	if = { limit = { any_country = { check_variable = { which = tag_counter_var value = 27 }}} event_target:is_player_26_target = { if = {limit = {event_target:is_player_27_target = { check_variable = { which = country_power_var which = event_target:is_player_26_target}}} clear_global_event_target = is_player_26_target event_target:is_player_27_target = { clear_global_event_target = is_player_27_target save_global_event_target_as = is_player_26_target} save_global_event_target_as = is_player_27_target}}}
+	if = { limit = { any_country = { check_variable = { which = tag_counter_var value = 26 }}} event_target:is_player_25_target = { if = {limit = {event_target:is_player_26_target = { check_variable = { which = country_power_var which = event_target:is_player_25_target}}} clear_global_event_target = is_player_25_target event_target:is_player_26_target = { clear_global_event_target = is_player_26_target save_global_event_target_as = is_player_25_target} save_global_event_target_as = is_player_26_target}}}
+	if = { limit = { any_country = { check_variable = { which = tag_counter_var value = 25 }}} event_target:is_player_24_target = { if = {limit = {event_target:is_player_25_target = { check_variable = { which = country_power_var which = event_target:is_player_24_target}}} clear_global_event_target = is_player_24_target event_target:is_player_25_target = { clear_global_event_target = is_player_25_target save_global_event_target_as = is_player_24_target} save_global_event_target_as = is_player_25_target}}}
+	if = { limit = { any_country = { check_variable = { which = tag_counter_var value = 24 }}} event_target:is_player_23_target = { if = {limit = {event_target:is_player_24_target = { check_variable = { which = country_power_var which = event_target:is_player_23_target}}} clear_global_event_target = is_player_23_target event_target:is_player_24_target = { clear_global_event_target = is_player_24_target save_global_event_target_as = is_player_23_target} save_global_event_target_as = is_player_24_target}}}
+	if = { limit = { any_country = { check_variable = { which = tag_counter_var value = 23 }}} event_target:is_player_22_target = { if = {limit = {event_target:is_player_23_target = { check_variable = { which = country_power_var which = event_target:is_player_22_target}}} clear_global_event_target = is_player_22_target event_target:is_player_23_target = { clear_global_event_target = is_player_23_target save_global_event_target_as = is_player_22_target} save_global_event_target_as = is_player_23_target}}}
+	if = { limit = { any_country = { check_variable = { which = tag_counter_var value = 22 }}} event_target:is_player_21_target = { if = {limit = {event_target:is_player_22_target = { check_variable = { which = country_power_var which = event_target:is_player_21_target}}} clear_global_event_target = is_player_21_target event_target:is_player_22_target = { clear_global_event_target = is_player_22_target save_global_event_target_as = is_player_21_target} save_global_event_target_as = is_player_22_target}}}
+	if = { limit = { any_country = { check_variable = { which = tag_counter_var value = 21 }}} event_target:is_player_20_target = { if = {limit = {event_target:is_player_21_target = { check_variable = { which = country_power_var which = event_target:is_player_20_target}}} clear_global_event_target = is_player_20_target event_target:is_player_21_target = { clear_global_event_target = is_player_21_target save_global_event_target_as = is_player_20_target} save_global_event_target_as = is_player_21_target}}}
+	if = { limit = { any_country = { check_variable = { which = tag_counter_var value = 20 }}} event_target:is_player_19_target = { if = {limit = {event_target:is_player_20_target = { check_variable = { which = country_power_var which = event_target:is_player_19_target}}} clear_global_event_target = is_player_19_target event_target:is_player_20_target = { clear_global_event_target = is_player_20_target save_global_event_target_as = is_player_19_target} save_global_event_target_as = is_player_20_target}}}
+	if = { limit = { any_country = { check_variable = { which = tag_counter_var value = 19 }}} event_target:is_player_18_target = { if = {limit = {event_target:is_player_19_target = { check_variable = { which = country_power_var which = event_target:is_player_18_target}}} clear_global_event_target = is_player_18_target event_target:is_player_19_target = { clear_global_event_target = is_player_19_target save_global_event_target_as = is_player_18_target} save_global_event_target_as = is_player_19_target}}}
+	if = { limit = { any_country = { check_variable = { which = tag_counter_var value = 18 }}} event_target:is_player_17_target = { if = {limit = {event_target:is_player_18_target = { check_variable = { which = country_power_var which = event_target:is_player_17_target}}} clear_global_event_target = is_player_17_target event_target:is_player_18_target = { clear_global_event_target = is_player_18_target save_global_event_target_as = is_player_17_target} save_global_event_target_as = is_player_18_target}}}
+	if = { limit = { any_country = { check_variable = { which = tag_counter_var value = 17 }}} event_target:is_player_16_target = { if = {limit = {event_target:is_player_17_target = { check_variable = { which = country_power_var which = event_target:is_player_16_target}}} clear_global_event_target = is_player_16_target event_target:is_player_17_target = { clear_global_event_target = is_player_17_target save_global_event_target_as = is_player_16_target} save_global_event_target_as = is_player_17_target}}}
+	if = { limit = { any_country = { check_variable = { which = tag_counter_var value = 16 }}} event_target:is_player_15_target = { if = {limit = {event_target:is_player_16_target = { check_variable = { which = country_power_var which = event_target:is_player_15_target}}} clear_global_event_target = is_player_15_target event_target:is_player_16_target = { clear_global_event_target = is_player_16_target save_global_event_target_as = is_player_15_target} save_global_event_target_as = is_player_16_target}}}
+	if = { limit = { any_country = { check_variable = { which = tag_counter_var value = 15 }}} event_target:is_player_14_target = { if = {limit = {event_target:is_player_15_target = { check_variable = { which = country_power_var which = event_target:is_player_14_target}}} clear_global_event_target = is_player_14_target event_target:is_player_15_target = { clear_global_event_target = is_player_15_target save_global_event_target_as = is_player_14_target} save_global_event_target_as = is_player_15_target}}}
+	if = { limit = { any_country = { check_variable = { which = tag_counter_var value = 14 }}} event_target:is_player_13_target = { if = {limit = {event_target:is_player_14_target = { check_variable = { which = country_power_var which = event_target:is_player_13_target}}} clear_global_event_target = is_player_13_target event_target:is_player_14_target = { clear_global_event_target = is_player_14_target save_global_event_target_as = is_player_13_target} save_global_event_target_as = is_player_14_target}}}
+	if = { limit = { any_country = { check_variable = { which = tag_counter_var value = 13 }}} event_target:is_player_12_target = { if = {limit = {event_target:is_player_13_target = { check_variable = { which = country_power_var which = event_target:is_player_12_target}}} clear_global_event_target = is_player_12_target event_target:is_player_13_target = { clear_global_event_target = is_player_13_target save_global_event_target_as = is_player_12_target} save_global_event_target_as = is_player_13_target}}}
+	if = { limit = { any_country = { check_variable = { which = tag_counter_var value = 12 }}} event_target:is_player_11_target = { if = {limit = {event_target:is_player_12_target = { check_variable = { which = country_power_var which = event_target:is_player_11_target}}} clear_global_event_target = is_player_11_target event_target:is_player_12_target = { clear_global_event_target = is_player_12_target save_global_event_target_as = is_player_11_target} save_global_event_target_as = is_player_12_target}}}
+	if = { limit = { any_country = { check_variable = { which = tag_counter_var value = 11 }}} event_target:is_player_10_target = { if = {limit = {event_target:is_player_11_target = { check_variable = { which = country_power_var which = event_target:is_player_10_target}}} clear_global_event_target = is_player_10_target event_target:is_player_11_target = { clear_global_event_target = is_player_11_target save_global_event_target_as = is_player_10_target} save_global_event_target_as = is_player_11_target}}}
+	if = { limit = { any_country = { check_variable = { which = tag_counter_var value = 10 }}} event_target:is_player_9_target = { if = {limit = {event_target:is_player_10_target = { check_variable = { which = country_power_var which = event_target:is_player_9_target}}} clear_global_event_target = is_player_9_target event_target:is_player_10_target = { clear_global_event_target = is_player_10_target save_global_event_target_as = is_player_9_target} save_global_event_target_as = is_player_10_target}}}
+	if = { limit = { any_country = { check_variable = { which = tag_counter_var value = 9 }}} event_target:is_player_8_target = { if = {limit = {event_target:is_player_9_target = { check_variable = { which = country_power_var which = event_target:is_player_8_target}}} clear_global_event_target = is_player_8_target event_target:is_player_9_target = { clear_global_event_target = is_player_9_target save_global_event_target_as = is_player_8_target} save_global_event_target_as = is_player_9_target}}}
+	if = { limit = { any_country = { check_variable = { which = tag_counter_var value = 8 }}} event_target:is_player_7_target = { if = {limit = {event_target:is_player_8_target = { check_variable = { which = country_power_var which = event_target:is_player_7_target}}} clear_global_event_target = is_player_7_target event_target:is_player_8_target = { clear_global_event_target = is_player_8_target save_global_event_target_as = is_player_7_target} save_global_event_target_as = is_player_8_target}}}
+	if = { limit = { any_country = { check_variable = { which = tag_counter_var value = 7 }}} event_target:is_player_6_target = { if = {limit = {event_target:is_player_7_target = { check_variable = { which = country_power_var which = event_target:is_player_6_target}}} clear_global_event_target = is_player_6_target event_target:is_player_7_target = { clear_global_event_target = is_player_7_target save_global_event_target_as = is_player_6_target} save_global_event_target_as = is_player_7_target}}}
+	if = { limit = { any_country = { check_variable = { which = tag_counter_var value = 6 }}} event_target:is_player_5_target = { if = {limit = {event_target:is_player_6_target = { check_variable = { which = country_power_var which = event_target:is_player_5_target}}} clear_global_event_target = is_player_5_target event_target:is_player_6_target = { clear_global_event_target = is_player_6_target save_global_event_target_as = is_player_5_target} save_global_event_target_as = is_player_6_target}}}
+	if = { limit = { any_country = { check_variable = { which = tag_counter_var value = 5 }}} event_target:is_player_4_target = { if = {limit = {event_target:is_player_5_target = { check_variable = { which = country_power_var which = event_target:is_player_4_target}}} clear_global_event_target = is_player_4_target event_target:is_player_5_target = { clear_global_event_target = is_player_5_target save_global_event_target_as = is_player_4_target} save_global_event_target_as = is_player_5_target}}}
+	if = { limit = { any_country = { check_variable = { which = tag_counter_var value = 4 }}} event_target:is_player_3_target = { if = {limit = {event_target:is_player_4_target = { check_variable = { which = country_power_var which = event_target:is_player_3_target}}} clear_global_event_target = is_player_3_target event_target:is_player_4_target = { clear_global_event_target = is_player_4_target save_global_event_target_as = is_player_3_target} save_global_event_target_as = is_player_4_target}}}
+	if = { limit = { any_country = { check_variable = { which = tag_counter_var value = 3 }}} event_target:is_player_2_target = { if = {limit = {event_target:is_player_3_target = { check_variable = { which = country_power_var which = event_target:is_player_2_target}}} clear_global_event_target = is_player_2_target event_target:is_player_3_target = { clear_global_event_target = is_player_3_target save_global_event_target_as = is_player_2_target} save_global_event_target_as = is_player_3_target}}}
+	if = { limit = { any_country = { check_variable = { which = tag_counter_var value = 2 }}} event_target:is_player_1_target = { if = {limit = {event_target:is_player_2_target = { check_variable = { which = country_power_var which = event_target:is_player_1_target}}} clear_global_event_target = is_player_1_target event_target:is_player_2_target = { clear_global_event_target = is_player_2_target save_global_event_target_as = is_player_1_target} save_global_event_target_as = is_player_2_target}}}
+}

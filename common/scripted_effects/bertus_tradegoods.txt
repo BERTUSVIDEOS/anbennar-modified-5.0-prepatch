@@ -1,0 +1,585 @@
+
+resources_ratio = {
+	get_resources_ratio = {RESOURCES = food}
+	get_resources_ratio = {RESOURCES = iron}
+	get_resources_ratio = {RESOURCES = horses}
+	get_resources_ratio = {RESOURCES = camel}
+	get_resources_ratio = {RESOURCES = elephant}
+	get_resources_ratio = {RESOURCES = copper}
+	get_resources_ratio = {RESOURCES = cannon}
+	get_resources_ratio = {RESOURCES = metalworking}
+	get_resources_ratio = {RESOURCES = munitions}
+	get_resources_ratio = {RESOURCES = leather}
+	get_resources_ratio = {RESOURCES = woodworking}
+	get_resources_ratio = {RESOURCES = jewellery}
+	get_resources_ratio = {RESOURCES = steam_engine}
+	get_resources_ratio = {RESOURCES = optics}
+	get_resources_ratio = {RESOURCES = uniforms}
+	get_resources_ratio = {RESOURCES = beer}
+	get_resources_ratio = {RESOURCES = rum}
+}
+get_resources_ratio = {
+	set_variable = {
+		which = $RESOURCES$_ratio
+		value = 0
+	}
+	change_variable = {	#ratio
+		which = $RESOURCES$_ratio
+		which = $RESOURCES$
+	}
+	divide_variable = {	#ratio
+		which = $RESOURCES$_ratio
+		which = $RESOURCES$_needed
+	}
+	multiply_variable = {	#make %
+		which = $RESOURCES$_ratio
+		value = 100
+	}
+	set_variable = {	#balance
+		which = $RESOURCES$_balance
+		which = $RESOURCES$
+	}	
+	subtract_variable = {
+		which = $RESOURCES$_balance
+		which = $RESOURCES$_needed
+	}
+}
+food_generated = {
+	set_variable = {which = food value = 0}
+	change_variable = {which = food which = livestock}
+	change_variable = {which = food which = grain}
+	change_variable = {which = food which = rice}
+	change_variable = {which = food which = fish}
+	change_variable = {which = food which = maize}
+	change_variable = {which = food which = potato}
+	change_variable = {which = food which = citrus}
+	change_variable = {which = food which = dates}
+	change_variable = {which = food which = seafood}
+	change_variable = {which = food which = cheese}
+	change_variable = {which = food which = palm_oil}
+	change_variable = {which = food which = maple_syrup}
+	change_variable = {which = food which = tomato}
+	change_variable = {which = food which = sea_turtle}
+	change_variable = {which = food which = apiculture}
+	change_variable = {which = food which = olive_oil}
+	change_variable = {which = food which = fungi}
+	change_variable = {which = food which = serpentbloom}
+}
+get_stored_food = {
+	get_stored_food_by_type = {GOODS = livestock}
+	get_stored_food_by_type = {GOODS = grain}
+	get_stored_food_by_type = {GOODS = rice}
+	get_stored_food_by_type = {GOODS = fish}
+	get_stored_food_by_type = {GOODS = maize}
+	get_stored_food_by_type = {GOODS = potato}
+	get_stored_food_by_type = {GOODS = citrus}
+	get_stored_food_by_type = {GOODS = dates}
+	get_stored_food_by_type = {GOODS = seafood}
+	get_stored_food_by_type = {GOODS = cheese}
+	get_stored_food_by_type = {GOODS = palm_oil}
+	get_stored_food_by_type = {GOODS = maple_syrup}
+	get_stored_food_by_type = {GOODS = tomato}
+	get_stored_food_by_type = {GOODS = sea_turtle}
+	get_stored_food_by_type = {GOODS = apiculture}
+	get_stored_food_by_type = {GOODS = olive_oil}
+	get_stored_food_by_type = {GOODS = fungi}
+	get_stored_food_by_type = {GOODS = serpentbloom}
+}
+get_stored_food_by_type = {
+	while = {
+		limit = {
+			check_variable = {which = food_needed which = food}			
+			check_variable = {which = $GOODS$_stored value = 0.1}
+		}
+		change_variable = {which = food value = 0.1}
+		change_variable = {which = $GOODS$_stored value = -0.1}
+	}
+}
+buy_resources_needed_tooltip = {
+	set_variable = {which = $RESOURCES$_bought_tooltip value = 0}
+	set_variable = {which = $RESOURCES$_tooltip value = 0}
+	change_variable = {which = $RESOURCES$_tooltip which = $RESOURCES$}
+	while = {
+		limit = {check_variable = {which = $RESOURCES$_needed which = $RESOURCES$_tooltip}}
+		change_variable = {which = $RESOURCES$_tooltip value = 0.1}
+		change_variable = {which = $RESOURCES$_bought_tooltip value = 0.1}
+		if = {
+			limit = {
+				check_variable = {which = $RESOURCES$_value value = 3}
+			}
+			change_variable = {
+				which = total_resources_bought_cost
+				value = 3
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = {which = $RESOURCES$_value value = 2}
+			}
+			change_variable = {
+				which = total_resources_bought_cost
+				value = 2
+			}
+		}
+		else = {
+			change_variable = {
+				which = total_resources_bought_cost
+				value = 1
+			}
+		}
+	}
+}
+buy_resources_needed = {
+	set_variable = {which = $RESOURCES$_bought value = 0}
+	while = {
+		limit = {check_variable = {which = $RESOURCES$_needed which = $RESOURCES$}}
+		change_variable = {which = $RESOURCES$ value = 0.1}
+		change_variable = {which = $RESOURCES$_bought value = 0.1}
+		if = {
+			limit = {
+				check_variable = {which = $RESOURCES$_value value = 3}
+			}
+			add_treasury = -3
+			change_variable = {
+				which = total_resources_bought_cost
+				value = 3
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = {which = $RESOURCES$_value value = 2}
+			}
+			add_treasury = -2
+			change_variable = {
+				which = total_resources_bought_cost
+				value = 2
+			}
+		}
+		else = {
+			add_treasury = -1
+			change_variable = {
+				which = total_resources_bought_cost
+				value = 1
+			}
+		}
+	}
+}
+get_resources_from_storage = {
+	while = {
+		limit = {
+			check_variable = {which = $RESOURCES$_needed which = $RESOURCES$}			
+			check_variable = {which = $RESOURCES$_stored value = 0.1}
+		}
+		change_variable = {which = $RESOURCES$ value = 0.1}
+		change_variable = {which = $RESOURCES$_stored value = -0.1}
+	}
+}
+get_resources_needed = {
+	set_variable = {
+		which = $RESOURCES$_needed
+		value = 0
+	}	
+	set_variable = {
+		which = $RESOURCES$_bought
+		value = 0
+	}	
+	#unit formula
+	set_variable = {which = unit_cost_variable value = 0}
+	set_variable = {which = land_maintenance_modifier_variable value = 0}
+	set_variable = {which = land_maintenance_variable value = 0}
+	set_variable = {which = infantry_amount_variable value = 0}
+	set_variable = {which = cavalry_amount_variable value = 0}
+	set_variable = {which = artillery_amount_variable value = 0}
+	export_to_variable  = {which = infantry_amount_variable value = trigger_value:num_of_infantry}
+	multiply_variable = {which = infantry_amount_variable which = infantry_$RESOURCES$_cost}
+	export_to_variable  = {which = cavalry_amount_variable value = trigger_value:num_of_cavalry}
+	multiply_variable = {which = cavalry_amount_variable which = cavalry_$RESOURCES$_cost}
+	export_to_variable  = {which = artillery_amount_variable value = trigger_value:num_of_artillery}
+	multiply_variable = {which = artillery_amount_variable which = artillery_$RESOURCES$_cost}
+	export_to_variable  = {which = land_maintenance_modifier_variable value = modifier:land_maintenance_modifier}
+	change_variable = {which = land_maintenance_modifier_variable value = 1}
+	export_to_variable  = {which = land_maintenance_variable value = trigger_value:land_maintenance}
+	change_variable = {which = land_maintenance_variable value = 1}
+	multiply_variable = {which = land_maintenance_variable value = 0.5}	
+	change_variable = {which = unit_cost_variable which = infantry_amount_variable}
+	change_variable = {which = unit_cost_variable which = cavalry_amount_variable}
+	change_variable = {which = unit_cost_variable which = artillery_amount_variable}
+	multiply_variable = {which = unit_cost_variable which = land_maintenance_modifier_variable}
+	multiply_variable = {which = unit_cost_variable which = land_maintenance_variable}
+	#development formula	
+	set_variable = {which = development_cost_variable value = 0}
+	export_to_variable  = {which = total_development_variable value = total_development}	
+	multiply_variable = {which = total_development_variable which = development_$RESOURCES$_cost}
+	change_variable = {which = development_cost_variable which = total_development_variable}
+	#final
+	change_variable = {which = $RESOURCES$_needed which = unit_cost_variable}
+	change_variable = {which = $RESOURCES$_needed which = development_cost_variable}
+}
+set_base_resources_need_costs = {
+	set_variable = {which = infantry_food_cost value = 0.1}
+	set_variable = {which = cavalry_food_cost value = 0.3}
+	set_variable = {which = artillery_food_cost value = 0.1}
+	set_variable = {which = development_food_cost value = 0}
+	set_variable = {which = food_value value = 1}
+	set_variable = {which = infantry_iron_cost value = 0.05}
+	set_variable = {which = cavalry_iron_cost value = 0}
+	set_variable = {which = artillery_iron_cost value = 0}
+	set_variable = {which = development_iron_cost value = 0}
+	set_variable = {which = iron_value value = 1}
+	set_variable = {which = infantry_copper_cost value = 0}
+	set_variable = {which = cavalry_copper_cost value = 0}
+	set_variable = {which = artillery_copper_cost value = 0.2}
+	set_variable = {which = development_copper_cost value = 0}
+	set_variable = {which = copper_value value = 1}
+	set_variable = {which = infantry_horses_cost value = 0}
+	set_variable = {which = cavalry_horses_cost value = 0.2}
+	set_variable = {which = artillery_horses_cost value = 0}
+	set_variable = {which = development_horses_cost value = 0}
+	set_variable = {which = horses_value value = 1}
+	set_variable = {which = infantry_camel_cost value = 0}
+	set_variable = {which = cavalry_camel_cost value = 0.2}
+	set_variable = {which = artillery_camel_cost value = 0}
+	set_variable = {which = development_camel_cost value = 0}
+	set_variable = {which = camel_value value = 1}
+	set_variable = {which = infantry_elephants_cost value = 0}
+	set_variable = {which = cavalry_elephants_cost value = 0.2}
+	set_variable = {which = artillery_elephants_cost value = 0}
+	set_variable = {which = development_elephants_cost value = 0}
+	set_variable = {which = elephants_value value = 1}
+	set_variable = {which = infantry_leather_cost value = 0.02}
+	set_variable = {which = cavalry_leather_cost value = 0.05}
+	set_variable = {which = artillery_leather_cost value = 0}
+	set_variable = {which = development_leather_cost value = 0}
+	set_variable = {which = leather_value value = 2}
+	set_variable = {which = infantry_metalworking_cost value = 0.02}
+	set_variable = {which = cavalry_metalworking_cost value = 0.05}
+	set_variable = {which = artillery_metalworking_cost value = 0}
+	set_variable = {which = development_metalworking_cost value = 0}
+	set_variable = {which = metalworking_value value = 2}
+	set_variable = {which = infantry_munitions_cost value = 0.02}
+	set_variable = {which = cavalry_munitions_cost value = 0.01}
+	set_variable = {which = artillery_munitions_cost value = 0.05}
+	set_variable = {which = development_munitions_cost value = 0}
+	set_variable = {which = munitions_value value = 2}
+	set_variable = {which = infantry_cannon_cost value = 0}
+	set_variable = {which = cavalry_cannon_cost value = 0}
+	set_variable = {which = artillery_cannon_cost value = 0.2}
+	set_variable = {which = development_cannon_cost value = 0}
+	set_variable = {which = cannon_value value = 2}
+	set_variable = {which = infantry_beer_cost value = 0.02}
+	set_variable = {which = cavalry_beer_cost value = 0.02}
+	set_variable = {which = artillery_beer_cost value = 0}
+	set_variable = {which = development_beer_cost value = 0}
+	set_variable = {which = beer_value value = 2}
+	set_variable = {which = infantry_uniforms_cost value = 0.01}
+	set_variable = {which = cavalry_uniforms_cost value = 0.02}
+	set_variable = {which = artillery_uniforms_cost value = 0.02}
+	set_variable = {which = development_uniforms_cost value = 0}
+	set_variable = {which = uniforms_value value = 2}
+	set_variable = {which = infantry_rum_cost value = 0.02}
+	set_variable = {which = cavalry_rum_cost value = 0}
+	set_variable = {which = artillery_rum_cost value = 0}
+	set_variable = {which = development_rum_cost value = 0}
+	set_variable = {which = rum_value value = 2}
+	set_variable = {which = infantry_optics_cost value = 0.02}
+	set_variable = {which = cavalry_optics_cost value = 0}
+	set_variable = {which = artillery_optics_cost value = 0}
+	set_variable = {which = development_optics_cost value = 0}
+	set_variable = {which = optics_value value = 2}
+	set_variable = {which = infantry_jewellery_cost value = 0}
+	set_variable = {which = cavalry_jewellery_cost value = 0}
+	set_variable = {which = artillery_jewellery_cost value = 0}
+	set_variable = {which = development_jewellery_cost value = 0.002}
+	set_variable = {which = jewellery_value value = 2}
+	set_variable = {which = infantry_woodworking_cost value = 0}
+	set_variable = {which = cavalry_woodworking_cost value = 0}
+	set_variable = {which = artillery_woodworking_cost value = 0}
+	set_variable = {which = development_woodworking_cost value = 0.002}
+	set_variable = {which = woodworking_value value = 2}
+	set_variable = {which = infantry_steam_engine_cost value = 0}
+	set_variable = {which = cavalry_steam_engine_cost value = 0}
+	set_variable = {which = artillery_steam_engine_cost value = 0}
+	set_variable = {which = development_steam_engine_cost value = 0.002}
+	set_variable = {which = steam_engine_value value = 2}
+}
+store_goods = {
+	set_variable = {
+		which = tradegood_modifier
+		value = 0
+	}
+	if = {
+		limit = {			
+			check_variable = {which = $GOODS$ which = $GOODS$_needed}
+		}
+		set_variable = {
+			which = $GOODS$
+			value = 0.00
+		}
+		every_owned_province = {
+			limit = {
+				trade_goods = $GOODS$
+				controlled_by = ROOT
+			}
+			export_to_variable = {
+				variable_name = $GOODS$
+				value = modifier:trade_goods_size
+			}
+			export_to_variable = {
+				variable_name = tradegood_modifier
+				value = modifier:trade_goods_size_modifier
+			}		
+			owner = {
+				export_to_variable = {
+					variable_name = tradegood_modifier
+					value = modifier:global_trade_goods_size_modifier 
+				}
+				PREV = {
+					change_variable = {
+						which = tradegood_modifier
+						which = PREV
+					}
+					change_variable = {
+						which = tradegood_modifier
+						value = 1
+					}
+					multiply_variable = {
+						which = $GOODS$
+						which = tradegood_modifier
+					}
+				}
+				change_variable = {
+					which = $GOODS$
+					which = PREV
+				}
+				set_variable = {
+					which = tradegood_modifier
+					value = 0
+				}
+				set_variable = {
+					which = tradegood_modifier
+					value = 0
+				}
+			}
+		}
+		change_variable = {
+			which = $GOODS$_stored
+			which = $GOODS$
+		}
+		if = {
+			limit = {
+				check_variable = {
+					which = $GOODS$_stored
+					which = $GOODS$_maximum_stored
+				}
+			}
+			set_variable = {
+				which = $GOODS$_stored
+				which = $GOODS$_maximum_stored
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					check_variable = {
+						which = $GOODS$_stored
+						value = 0
+					}
+				}
+			}
+			set_variable = {
+				which = $GOODS$_stored
+				value = 0
+			}
+		}
+	}
+}
+update_goods = {
+	set_variable = {
+		which = $GOODS$_provinces
+		value = 0.00
+	}
+	set_variable = {
+		which = $GOODS$
+		value = 0.00
+	}
+	set_variable = {
+		which = $GOODS$_total
+		value = 0.00
+	}
+	set_variable = {
+		which = $GOODS$_used
+		value = 0.00
+	}
+	set_variable = {
+		which = $GOODS$_maximum_stored
+		value = 0.00
+	}
+
+	every_owned_province = {
+		limit = {
+			trade_goods = $GOODS$
+			controlled_by = ROOT
+		}
+		export_to_variable = {
+			variable_name = $GOODS$
+			value = modifier:trade_goods_size
+		}
+		export_to_variable = {
+			variable_name = tradegood_modifier
+			value = modifier:trade_goods_size_modifier
+		}		
+		owner = {
+			export_to_variable = {
+				variable_name = tradegood_modifier
+				value = modifier:global_trade_goods_size_modifier 
+			}
+			PREV = {
+				change_variable = {
+					which = tradegood_modifier
+					which = PREV
+				}
+				change_variable = {
+					which = tradegood_modifier
+					value = 1
+				}
+				multiply_variable = {
+					which = $GOODS$
+					which = tradegood_modifier
+				}
+			}
+			change_variable = {
+				which = $GOODS$
+				which = PREV
+			}
+			set_variable = {
+				which = tradegood_modifier
+				value = 0
+			}
+			change_variable = {
+				which = $GOODS$_provinces
+				value = 1
+			}	
+		}
+	}
+	change_variable = {
+		which = $GOODS$_total
+		which = $GOODS$
+	}
+	set_variable = {
+		which = $GOODS$_maximum_stored
+		value = 0
+	}
+	export_to_variable = {
+		which = $GOODS$_maximum_stored
+		value = total_development
+	}
+	multiply_variable = {
+		which = $GOODS$_maximum_stored
+		value = 0.5
+	}
+	if = {
+		limit = { has_country_modifier = dwarven_administration}
+		multiply_variable = {
+			which = $GOODS$_maximum_stored
+			value = 2
+		}
+	}
+	if = {
+		limit = {has_institution = industrialization}
+		multiply_variable = {
+			which = $GOODS$_maximum_stored
+			value = 3.0
+		}
+	}
+	else_if = {
+		limit = {has_institution = enlightenment}
+		multiply_variable = {
+			which = $GOODS$_maximum_stored
+			value = 2.5
+		}
+	}
+	else_if = {
+		limit = {has_institution = manufactories}
+		multiply_variable = {
+			which = $GOODS$_maximum_stored
+			value = 2.0
+		}
+	}
+	else_if = {
+		limit = {	has_institution = global_trade}
+		multiply_variable = {
+			which = $GOODS$_maximum_stored
+			value = 1.5
+		}
+	}
+	else_if = {
+		limit = {	has_institution = printing_press}
+		multiply_variable = {
+			which = $GOODS$_maximum_stored
+			value = 1.25
+		}
+	}
+	else_if = {
+		limit = {	has_institution = renaissance}
+		multiply_variable = {
+			which = $GOODS$_maximum_stored
+			value = 0.75
+		}
+	}
+	else = {
+		multiply_variable = {
+			which = $GOODS$_maximum_stored
+			value = 0.5
+		}
+	}
+	if = {
+		limit = {		
+			check_variable = {
+				which = $GOODS$_stored
+				which = $GOODS$_maximum_stored
+			}
+		}
+		set_variable = {
+			which = $GOODS$_stored
+			which = $GOODS$_maximum_stored
+		}
+	}
+}
+update_goods_prov = {
+	export_to_variable = {
+		variable_name = $GOODS$
+		value = modifier:trade_goods_size
+	}
+	export_to_variable = {
+		variable_name = tradegood_modifier
+		value = modifier:trade_goods_size_modifier
+	}
+	owner = {
+		export_to_variable = {
+			variable_name = tradegood_modifier
+			value = modifier:global_trade_goods_size_modifier 
+		}
+		PREV = {
+			change_variable = {
+				which = tradegood_modifier
+				which = PREV
+			}
+			change_variable = {
+				which = tradegood_modifier
+				value = 1
+			}
+			multiply_variable = {
+				which = $GOODS$
+				which = tradegood_modifier
+			}
+		}
+		change_variable = {
+			which = $GOODS$
+			which = PREV
+		}
+		set_variable = {
+			which = tradegood_modifier
+			value = 0
+		}
+	}
+}

@@ -4,7 +4,7 @@ estate_gnomish_hire_advisor = {
 	can_select = {
 		high_tolerance_gnomish_race_trigger = no
 		any_owned_province = {
-			culture_is_gnomish = yes
+			has_gnomish_majority_trigger = yes
 			ROOT = {
 				NOT = {employed_advisor = {category = DIP culture = PREV}}
 			}
@@ -12,7 +12,7 @@ estate_gnomish_hire_advisor = {
 	}
 	pre_effect = {
 		random_owned_province = {
-			limit = {culture_is_gnomish = yes }
+			limit = {has_gnomish_majority_trigger = yes }
 			save_event_target_as = agenda_province
 			save_event_target_as = agenda_province_gnomish
 		}
@@ -61,10 +61,10 @@ estate_gnomish_hire_advisor = {
 # Fire advisor
 estate_gnomish_fire_advisor = {
 	can_select = {
-		employed_advisor = {type = DIP}
+		employed_advisor = {category = DIP}
 		NOT = {
 			employed_advisor = {
-				type = DIP
+				category = DIP
 				religion = ROOT
 			}
 		}
@@ -74,7 +74,7 @@ estate_gnomish_fire_advisor = {
 	}
 	pre_effect = {
 		random_owned_province = {
-			limit = {culture_is_gnomish = yes}
+			limit = {has_gnomish_majority_trigger = yes}
 			save_event_target_as = province_event_target
 		}
 	}
@@ -91,7 +91,7 @@ estate_gnomish_fire_advisor = {
 		}
 	}
     task_completed_effect = {
-		get_racial_advisor = {race = gnomish}
+		get_racial_advisor = {race = gnomish class = adm}
 		clr_country_flag = just_fired_dip_advisor
 		clr_country_flag = need_to_fire_dip_advisor
 		
@@ -255,9 +255,9 @@ estate_gnomish_get_cash = {
 	task_completed_effect = {
 		add_estate_loyalty = {estate = estate_gnomish loyalty = 10}
 		if = {
-			limit = {any_owned_province = {culture_is_gnomish = yes}}
+			limit = {any_owned_province = {has_gnomish_majority_trigger = yes}}
 			random_owned_province = {
-				limit = {culture_is_gnomish = yes}
+				limit = {has_gnomish_majority_trigger = yes}
 				owner = {
 					define_advisor = {
 						type = master_of_mint
@@ -271,9 +271,9 @@ estate_gnomish_get_cash = {
 			}
 		}
 		else_if = {
-			limit = {any_province = {has_discovered = ROOT culture_is_gnomish = yes}}
+			limit = {any_province = {has_discovered = ROOT has_gnomish_majority_trigger = yes}}
 			random_province = {
-				limit = {has_discovered = ROOT culture_is_gnomish = yes}
+				limit = {has_discovered = ROOT has_gnomish_majority_trigger = yes}
 				owner = {
 					define_advisor = {
 						type = master_of_mint
@@ -288,7 +288,7 @@ estate_gnomish_get_cash = {
 		}
 		else = {
 			random_province = {
-				limit = {culture_is_gnomish = yes}
+				limit = {has_gnomish_majority_trigger = yes}
 				owner = {
 					define_advisor = {
 						type = master_of_mint
@@ -380,18 +380,18 @@ estate_gnomish_reduce_corruption = {
 estate_gnomish_three_privileges = {
 	can_select = {
 		high_tolerance_gnomish_race_trigger = no
-		any_owned_province = {culture_is_gnomish = yes}
+		any_owned_province = {has_gnomish_majority_trigger = yes}
 		NOT = {has_estate_privilege = estate_gnomish_autonomy}
 	}
 	selection_weight = {
 		factor = 10		
-		modifier = {factor = 1.6 num_of_owned_provinces_with = {value = 5 culture_is_gnomish = yes}}
-		modifier = {factor = 1.4 num_of_owned_provinces_with = {value = 10 culture_is_gnomish = yes}}
-		modifier = {factor = 1.2 num_of_owned_provinces_with = {value = 20 culture_is_gnomish = yes}}
+		modifier = {factor = 1.6 num_of_owned_provinces_with = {value = 5 has_gnomish_majority_trigger = yes}}
+		modifier = {factor = 1.4 num_of_owned_provinces_with = {value = 10 has_gnomish_majority_trigger = yes}}
+		modifier = {factor = 1.2 num_of_owned_provinces_with = {value = 20 has_gnomish_majority_trigger = yes}}
 	}
 	pre_effect = {
 		every_owned_province = {
-			limit = {culture_is_gnomish = yes owned_by = ROOT }
+			limit = {has_gnomish_majority_trigger = yes owned_by = ROOT }
 			save_event_target_as = agenda_province
 		}
 	}
@@ -399,21 +399,22 @@ estate_gnomish_three_privileges = {
 		has_estate_privilege = estate_gnomish_autonomy
 	}
 	provinces_to_highlight = {
-		culture_is_gnomish = yes
+		has_gnomish_majority_trigger = yes
 	}
     task_completed_effect = {
-		medium_increase_of_gnomish_tolerance_effect = yes
 		add_estate_loyalty = {estate = estate_gnomish loyalty = 20}
 		event_target:agenda_province = {
 			add_unrest = -10
 			add_scaled_local_adm_power = 1
 			add_scaled_local_dip_power = 1
 			add_scaled_local_mil_power = 1
+			get_tolerance_from_provinces = {race = gnomish}
 		}
 		hidden_effect = {
 			every_owned_province = {
-				limit = {culture_is_gnomish = yes}
+				limit = {has_gnomish_majority_trigger = yes}
 				hidden_effect = {add_unrest = -10}
+				get_tolerance_from_provinces = {race = gnomish}
 				add_scaled_local_adm_power = 1
 				add_scaled_local_dip_power = 1
 				add_scaled_local_mil_power = 1
@@ -544,7 +545,7 @@ estate_gnomish_increase_trade_power_in_x = {
 estate_gnomish_build_university_in_x = {
 	can_select = {
 		any_owned_province = {
-			culture_is_gnomish = yes
+			has_gnomish_majority_trigger = yes
 			is_state_core = root
 			OR = {
 				development = 10
@@ -562,7 +563,7 @@ estate_gnomish_build_university_in_x = {
 				is_state_core = root
 				has_university_building_trigger = no
 				development = 10
-				culture_is_gnomish = yes 
+				has_gnomish_majority_trigger = yes 
 			}
 			save_event_target_as = agenda_province
 			save_event_target_as = agenda_province_gnomish
@@ -574,7 +575,7 @@ estate_gnomish_build_university_in_x = {
 				is_state_core = root
 				has_university_building_trigger = no
 				development = 15
-				culture_is_gnomish = yes 
+				has_gnomish_majority_trigger = yes 
 			}
 			save_event_target_as = agenda_province
 			save_event_target_as = agenda_province_gnomish
@@ -586,7 +587,7 @@ estate_gnomish_build_university_in_x = {
 				is_state_core = root
 				has_university_building_trigger = no
 				development = 20
-				culture_is_gnomish = yes 
+				has_gnomish_majority_trigger = yes 
 			}
 			save_event_target_as = agenda_province
 			save_event_target_as = agenda_province_gnomish
@@ -598,7 +599,7 @@ estate_gnomish_build_university_in_x = {
 				is_state_core = root
 				has_university_building_trigger = no
 				is_capital = yes
-				culture_is_gnomish = yes 
+				has_gnomish_majority_trigger = yes 
 			}
 			save_event_target_as = agenda_province
 			save_event_target_as = agenda_province_gnomish
@@ -629,23 +630,9 @@ estate_gnomish_build_university_in_x = {
 		}
 		event_target:agenda_province = {
 			add_base_production = 1
-			if = {
-				limit = {has_building = university}
-				add_scaled_local_adm_power = 3
-				add_scaled_local_dip_power = 3
-				add_scaled_local_mil_power = 3
-			}
-			if = {
-				limit = {has_building = education_lvl_2}
-				add_scaled_local_adm_power = 2
-				add_scaled_local_dip_power = 2
-				add_scaled_local_mil_power = 2
-			}
-			else = {				
-				add_scaled_local_adm_power = 1
-				add_scaled_local_dip_power = 1
-				add_scaled_local_mil_power = 1
-			}
+			add_scaled_local_adm_power = 5
+			add_scaled_local_dip_power = 5
+			add_scaled_local_mil_power = 5
 			get_tolerance_from_provinces = {race = gnomish}
 		}
     }
@@ -670,7 +657,7 @@ estate_gnomish_build_manufactory_in_x = {
 	can_select = {
 		any_owned_province = {
 			is_state_core = root
-			culture_is_gnomish = yes 
+			has_gnomish_majority_trigger = yes 
 			root_can_build_manufactory_here_trigger = yes
 		}
 	}
@@ -682,7 +669,7 @@ estate_gnomish_build_manufactory_in_x = {
 			limit = {
 				is_state_core = root
 				root_can_build_manufactory_here_trigger = yes
-				culture_is_gnomish = yes 
+				has_gnomish_majority_trigger = yes 
 			}
 			save_event_target_as = agenda_province
 			save_event_target_as = agenda_province_gnomish
@@ -694,7 +681,7 @@ estate_gnomish_build_manufactory_in_x = {
 				is_state_core = root
 				base_production = 5
 				root_can_build_manufactory_here_trigger = yes
-				culture_is_gnomish = yes 
+				has_gnomish_majority_trigger = yes 
 			}
 			save_event_target_as = agenda_province
 			save_event_target_as = agenda_province_gnomish
@@ -706,7 +693,7 @@ estate_gnomish_build_manufactory_in_x = {
 				is_state_core = root
 				base_production = 10
 				root_can_build_manufactory_here_trigger = yes
-				culture_is_gnomish = yes 
+				has_gnomish_majority_trigger = yes 
 			}
 			save_event_target_as = agenda_province
 			save_event_target_as = agenda_province_gnomish
@@ -769,7 +756,7 @@ estate_gnomish_build_production_building_in_x = {
 	can_select = {
 		adm_tech = 6
 		any_owned_province = {
-			culture_is_gnomish = yes 
+			has_gnomish_majority_trigger = yes 
 			is_state_core = root
 			has_production_building_trigger = no
 			NOT = { trade_goods = gold }
@@ -782,7 +769,7 @@ estate_gnomish_build_production_building_in_x = {
 	pre_effect = {
 		random_owned_province = {
 			limit = {
-				culture_is_gnomish = yes 
+				has_gnomish_majority_trigger = yes 
 				is_state_core = root
 				has_production_building_trigger = no
 				NOT = { trade_goods = gold }
@@ -795,7 +782,7 @@ estate_gnomish_build_production_building_in_x = {
 		}
 		random_owned_province = {
 			limit = {
-				culture_is_gnomish = yes 
+				has_gnomish_majority_trigger = yes 
 				is_state_core = root
 				base_production = 4
 				has_production_building_trigger = no
@@ -809,7 +796,7 @@ estate_gnomish_build_production_building_in_x = {
 		}
 		random_owned_province = {
 			limit = {
-				culture_is_gnomish = yes 
+				has_gnomish_majority_trigger = yes 
 				is_state_core = root
 				OR = {
 					base_production = 7
@@ -837,7 +824,10 @@ estate_gnomish_build_production_building_in_x = {
 	}
 	fail_if = {
 		event_target:agenda_province = {
-			NOT = { owned_by = root culture_is_gnomish = no }
+			OR = {
+				NOT = { owned_by = root }
+				NOT = { has_gnomish_majority_trigger = yes}
+			}
 		}
 	}
     task_requirements = {
@@ -888,7 +878,7 @@ estate_gnomish_build_trade_building_in_x = {
 	can_select = {
 		dip_tech = 4
 		any_owned_province = {
-			culture_is_gnomish = yes 
+			has_gnomish_majority_trigger = yes 
 			has_trade_building_trigger = no
 			is_state_core = root
 			allowed_to_build_trade_building = yes
@@ -900,7 +890,7 @@ estate_gnomish_build_trade_building_in_x = {
 	pre_effect = {
 		random_owned_province = {
 			limit = {
-				culture_is_gnomish = yes 
+				has_gnomish_majority_trigger = yes 
 				has_trade_building_trigger = no
 				is_state_core = root
 				allowed_to_build_trade_building = yes
@@ -912,7 +902,7 @@ estate_gnomish_build_trade_building_in_x = {
 		}
 		random_owned_province = {
 			limit = {
-				culture_is_gnomish = yes 
+				has_gnomish_majority_trigger = yes 
 				has_trade_building_trigger = no
 				is_state_core = root
 				allowed_to_build_trade_building = yes
@@ -928,7 +918,7 @@ estate_gnomish_build_trade_building_in_x = {
 		}
 		random_owned_province = {
 			limit = {
-				culture_is_gnomish = yes 
+				has_gnomish_majority_trigger = yes 
 				has_trade_building_trigger = no
 				is_state_core = root
 				allowed_to_build_trade_building = yes
@@ -948,7 +938,10 @@ estate_gnomish_build_trade_building_in_x = {
 	}
 	fail_if = {
 		event_target:agenda_province = {
-			NOT = { owned_by = root culture_is_gnomish = no}
+			OR = {
+				NOT = { owned_by = root }
+				NOT = { has_gnomish_majority_trigger = yes}
+			}
 		}
 	}
     task_requirements = {
@@ -997,7 +990,7 @@ estate_gnomish_increase_autonomy_in_x = {
 	can_select = {
 		high_tolerance_gnomish_race_trigger = no
 		any_owned_province = {
-			culture_is_gnomish = yes 
+			has_gnomish_majority_trigger = yes 
 			is_state_core = root
 			NOT = { local_autonomy = 75 }
 			is_capital = no
@@ -1013,7 +1006,7 @@ estate_gnomish_increase_autonomy_in_x = {
 		random_owned_province = {
 			limit = {
 				NOT = { local_autonomy = 75 }
-				culture_is_gnomish = yes 
+				has_gnomish_majority_trigger = yes 
 				is_state_core = root
 				is_capital = no
 				NOT = { has_province_modifier = autonomy_increased }
@@ -1062,7 +1055,7 @@ estate_gnomish_increase_autonomy_in_x = {
 					limit = {check_variable = {which = estate_gnomish_increase_autonomy_in_province_x_var value = 5}}
 					event_target:agenda_province = {
 						OR = {
-							culture_is_gnomish = no
+							NOT = { has_gnomish_majority_trigger = yes}
 							NOT = { local_autonomy = 50 }
 						}
 					}
@@ -1071,7 +1064,7 @@ estate_gnomish_increase_autonomy_in_x = {
 					limit = {check_variable = {which = estate_gnomish_increase_autonomy_in_province_x_var value = 4}}
 					event_target:agenda_province = {
 						OR = {
-							culture_is_gnomish = no
+							NOT = { has_gnomish_majority_trigger = yes}
 							NOT = { local_autonomy = 35 }
 						}
 					}
@@ -1080,7 +1073,7 @@ estate_gnomish_increase_autonomy_in_x = {
 					limit = {check_variable = {which = estate_gnomish_increase_autonomy_in_province_x_var value = 3}}
 					event_target:agenda_province = {
 						OR = {
-							culture_is_gnomish = no
+							NOT = { has_gnomish_majority_trigger = yes}
 							NOT = { local_autonomy = 20 }
 						}
 					}
@@ -1088,9 +1081,8 @@ estate_gnomish_increase_autonomy_in_x = {
 				else_if = {
 					limit = {check_variable = {which = estate_gnomish_increase_autonomy_in_province_x_var value = 2}}
 					event_target:agenda_province = {
-						culture_is_gnomish = no
 						OR = {
-							culture_is_gnomish = no
+							NOT = { has_gnomish_majority_trigger = yes}
 							NOT = { local_autonomy = 5 }
 						}
 					}
@@ -1168,7 +1160,7 @@ estate_gnomish_build_temple_in_x = {
 	can_select = {
 		adm_tech = 5
 		any_owned_province = {
-			culture_is_gnomish = yes
+			has_gnomish_majority_trigger = yes
 			has_tax_building_trigger = no
 			is_state_core = root
 		}
@@ -1180,7 +1172,7 @@ estate_gnomish_build_temple_in_x = {
 		set_variable = {which = estate_gnomish_build_temple_in_x_var value = 0}
 		random_owned_province = {
 			limit = {
-				culture_is_gnomish = yes
+				has_gnomish_majority_trigger = yes
 				has_tax_building_trigger = no
 				is_state_core = root
 			}
@@ -1191,7 +1183,7 @@ estate_gnomish_build_temple_in_x = {
 		}
 		random_owned_province = {
 			limit = {
-				culture_is_gnomish = yes
+				has_gnomish_majority_trigger = yes
 				has_tax_building_trigger = no
 				is_state_core = root
 				base_tax = 4
@@ -1203,7 +1195,7 @@ estate_gnomish_build_temple_in_x = {
 		}
 		random_owned_province = {
 			limit = {
-				culture_is_gnomish = yes
+				has_gnomish_majority_trigger = yes
 				has_tax_building_trigger = no
 				is_state_core = root
 				base_tax = 7
@@ -1219,7 +1211,10 @@ estate_gnomish_build_temple_in_x = {
 	}
 	fail_if = {
 		event_target:agenda_province = {
-			NOT = { owned_by = root culture_is_gnomish = no}
+			OR = {
+				NOT = { owned_by = root }
+				NOT = { has_gnomish_majority_trigger = yes}
+			}
 		}
 	}
     task_requirements = {
@@ -1268,7 +1263,7 @@ estate_gnomish_familial_connections = {
 		high_tolerance_gnomish_race_trigger = no
 		any_known_country = {
 			is_subject = no
-			culture_is_gnomish = yes
+			has_gnomish_majority_trigger = yes
 			has_opinion	= { who = ROOT value = -50}
 			NOT = { has_opinion = { who = ROOT value = 50 } }
 		}
@@ -1279,7 +1274,7 @@ estate_gnomish_familial_connections = {
 	pre_effect = {
 		random_known_country = {
 			limit = {
-				culture_is_gnomish = yes
+				has_gnomish_majority_trigger = yes
 				has_opinion	= { who = ROOT value = -50}
 				NOT = { has_opinion = { who = ROOT value = 50 } }
 			}
@@ -1408,13 +1403,13 @@ estate_gnomish_develop_production_x = {
 			limit = {				
 				any_owned_province = {
 					is_state_core = root
-					culture_is_gnomish = yes
+					has_gnomish_majority_trigger = yes
 				}
 			}
 			random_owned_province = {
 				limit = {
 					is_state_core = root
-					culture_is_gnomish = yes
+					has_gnomish_majority_trigger = yes
 				}
 				save_event_target_as = agenda_province
 				save_event_target_as = agenda_province_gnomish
@@ -1449,9 +1444,9 @@ estate_gnomish_develop_production_x = {
 	}
 	fail_if = {
 		event_target:agenda_province = {
-			OR = {			
+			OR = {
 				NOT = { owned_by = root }
-				hidden_trigger = {has_any_gnomish_pop_trigger = no}
+				NOT = {has_any_gnomish_pop_trigger = yes}
 			}
 		}
 	}
@@ -1510,13 +1505,13 @@ estate_gnomish_develop_tax_x = {
 			limit = {				
 				any_owned_province = {
 					is_state_core = root
-					culture_is_gnomish = yes
+					has_gnomish_majority_trigger = yes
 				}
 			}
 			random_owned_province = {
 				limit = {
 					is_state_core = root
-					culture_is_gnomish = yes
+					has_gnomish_majority_trigger = yes
 				}
 				save_event_target_as = agenda_province
 				save_event_target_as = agenda_province_gnomish
@@ -1545,9 +1540,9 @@ estate_gnomish_develop_tax_x = {
 	}
 	fail_if = {
 		event_target:agenda_province = {
-			OR = {			
+			OR = {
 				NOT = { owned_by = root }
-				hidden_trigger = {has_any_gnomish_pop_trigger = no}
+				NOT = {has_any_gnomish_pop_trigger = yes}
 			}
 		}
 	}
@@ -1606,14 +1601,14 @@ estate_gnomish_develop_manpower_x = {
 			limit = {				
 				any_owned_province = {
 					is_state_core = root
-					culture_is_gnomish = yes
+					has_gnomish_majority_trigger = yes
 					NOT = {has_province_modifier = non_military_pop}
 				}
 			}
 			random_owned_province = {
 				limit = {
 					is_state_core = root
-					culture_is_gnomish = yes
+					has_gnomish_majority_trigger = yes
 					NOT = {has_province_modifier = non_military_pop}
 				}
 				save_event_target_as = agenda_province
@@ -1652,7 +1647,7 @@ estate_gnomish_develop_manpower_x = {
 		event_target:agenda_province = {
 			OR = {
 				NOT = { owned_by = root }
-				hidden_trigger = {has_any_gnomish_pop_trigger = no}
+				NOT = {has_any_gnomish_pop_trigger = yes}
 			}
 		}
 	}
@@ -1758,12 +1753,12 @@ estate_gnomish_recruitment_agenda = {
 		high_tolerance_gnomish_race_trigger = yes
 		NOT = {has_race_recruitment = {race = gnomish}}
 		any_owned_province = {
-			culture_is_gnomish = yes
+			has_gnomish_majority_trigger = yes
 		}
 	}
 	pre_effect = {
 		every_owned_province = {
-			limit = {culture_is_gnomish = yes}
+			limit = {has_gnomish_majority_trigger = yes}
 			set_variable = {which = manpower_per_dev_tooltip value = 0}
 			change_variable = {which = manpower_per_dev_tooltip value = 0.1}
 			set_variable = {which = manpower_per_dev_tooltip value = 0}
@@ -1778,9 +1773,12 @@ estate_gnomish_recruitment_agenda = {
 	}
     task_completed_effect = {
 		add_estate_loyalty = {estate = estate_gnomish loyalty = 10}
-		every_owned_province = {
-			limit = {culture_is_gnomish = yes}			
-			gain_manpower_from_provinces = {manpower_per_dev = 0.100}
+		custom_tooltip = estate_gnomish_recruitment_agenda_tt
+		hidden_effect = {
+			every_owned_province = {
+				limit = {has_gnomish_majority_trigger = yes}			
+				gain_manpower_from_provinces = {manpower_per_dev = 0.100}
+			}
 		}
 		add_estate_influence_modifier = {
 			estate = estate_gnomish

@@ -60,16 +60,199 @@ cannorian = {
 
 		country = {
 			leader_land_shock = 1
-			land_morale = 0.1
+			#land_morale = 0.1	#0.1→0
+			manpower_in_true_faith_provinces = 0.10	#0→0.10
 		}
 		country_as_secondary = {
 			land_morale = 0.05
 		}
 
 		hre_heretic_religion = yes
-		uses_karma = yes
+		uses_judaism_power = yes
+		aspects_name = CORIN_ASPECTS
 		allow_female_defenders_of_the_faith = yes
 
+		aspects = {
+			corinite_rosh_hashanah_aspect
+			corinite_simchat_torah_aspect
+			corinite_sukkot_aspect
+			corinite_communities_aspect
+			corinite_diplomatic_rabbi_aspect
+			corinite_abrahamic_aspect
+			corinite_yom_kippur_aspect
+			corinite_remember_passover_aspect
+			corinite_purim_teachings_aspect
+		}
+		celebrate = {
+			cost = 200
+			potential = {
+			}
+			allow = {
+				custom_trigger_tooltip = {
+					tooltip = CORINITE_HAS_ASPECT
+					AND = {
+						OR = {
+							has_church_aspect = corinite_rosh_hashanah_aspect
+							has_church_aspect = corinite_simchat_torah_aspect
+							has_church_aspect = corinite_sukkot_aspect
+						}
+						OR = {
+							has_church_aspect = corinite_communities_aspect
+							has_church_aspect = corinite_abrahamic_aspect
+							has_church_aspect = corinite_diplomatic_rabbi_aspect
+						}
+						OR = {
+							has_church_aspect = corinite_yom_kippur_aspect
+							has_church_aspect = corinite_remember_passover_aspect
+							has_church_aspect = corinite_purim_teachings_aspect
+						}
+					}
+				}
+			}
+			effect = {
+				if = {
+					limit = {
+						has_church_aspect = corinite_rosh_hashanah_aspect
+					}
+					custom_tooltip = celebrate_has_adm_aspect_tooltip
+					change_government_reform_progress = 15
+					add_legitimacy = 10
+					add_republican_tradition = 3
+					add_devotion = 5
+					if = {
+						limit = {
+							has_heir = yes
+						}
+						add_heir_claim = 5
+					}
+					custom_tooltip = SEPERATOR_TOOLTIP
+				}
+				if = {
+					limit = {
+						has_church_aspect = corinite_simchat_torah_aspect
+					}
+					custom_tooltip = celebrate_has_adm_aspect_tooltip
+					tooltip = {
+						random = {
+							chance = 25 						
+							country_event = {	#long lived advisor
+								id = bertus_changes.1011
+							}
+						}
+					}
+					hidden_effect = {
+						country_event = {	#long lived advisor via randomizer
+							id = bertus_changes.1010
+						}
+					}
+				}
+				if = {
+					limit = {
+						has_church_aspect = corinite_sukkot_aspect
+					}
+					custom_tooltip = celebrate_has_adm_aspect_tooltip
+					add_years_of_income = 0.2
+					add_inflation = -1
+				}
+				if = {
+					limit = {
+						has_church_aspect = corinite_communities_aspect
+					}					
+					custom_tooltip = celebrate_has_dip_aspect_tooltip
+					custom_tooltip = corinite_communities_aspect_tooltip
+					hidden_effect = {
+						random_owned_province = {
+							limit = {
+								area_for_scope_province = {
+									type = all
+									religion = ROOT
+									is_state_core = ROOT
+									controlled_by = ROOT
+									NOT = {has_province_modifier = corinite_communities_aspect_modifier}
+								}
+							}
+							province_event = {id = bertus_changes.1109}
+						}
+					}
+				}
+				if = {
+					limit = {
+						has_church_aspect = corinite_diplomatic_rabbi_aspect
+					}					
+					custom_tooltip = celebrate_has_dip_aspect_tooltip
+					custom_tooltip = corinite_diplomatic_rabbi_aspect_tooltip
+					hidden_effect = {
+						random_owned_province = {
+							limit = {
+								area_for_scope_province = {
+									type = all
+									religion = ROOT
+									is_state_core = ROOT
+									controlled_by = ROOT
+									NOT = {has_province_modifier = corinite_diplomatic_rabbi_aspect_modifier}
+								}
+							}
+							province_event = {id = bertus_changes.1110}
+						}
+					}
+				}
+				if = {
+					limit = {
+						has_church_aspect = corinite_abrahamic_aspect
+					}						
+					custom_tooltip = celebrate_has_dip_aspect_tooltip			
+					custom_tooltip = corinite_abrahamic_aspect_tooltip
+					hidden_effect = {
+						random_owned_province = {
+							limit = {
+								area_for_scope_province = {
+									NOT = {religion = ROOT}
+									is_state_core = ROOT
+									controlled_by = ROOT
+									NOT = {has_province_modifier = corinite_abrahamic_aspect_modifier}
+								}
+							}
+							province_event = {id = bertus_changes.1111}
+						}
+					}
+				}
+				if = {
+					limit = {
+						has_church_aspect = corinite_yom_kippur_aspect
+					}				
+					custom_tooltip = celebrate_has_mil_aspect_tooltip	
+					add_yearly_manpower = 1
+				}
+				if = {
+					limit = {
+						has_church_aspect = corinite_remember_passover_aspect
+					}				
+					custom_tooltip = celebrate_has_mil_aspect_tooltip	
+					create_general = {
+						tradition = 50
+						add_shock = 1
+						add_manuever = 1
+						culture = ROOT
+					}
+				}
+				if = {
+					limit = {
+						has_church_aspect = corinite_purim_teachings_aspect
+					}				
+					custom_tooltip = celebrate_has_mil_aspect_tooltip	
+					add_country_modifier = {
+						name = corinite_purim_teachings_aspect_modifier
+						duration = 730
+					}
+				}
+				hidden_effect = {
+					if = {
+						limit = { NOT = { has_country_flag = has_celebrated_festival } }
+						set_country_flag = has_celebrated_festival
+					}
+				}
+			}
+		}
 		will_get_center = { #Refered to even for initial CoR Spawn
 			any_owned_province = {
 				can_have_center_of_reformation_trigger = {
@@ -468,7 +651,7 @@ cannorian = {
 				effect = {
 					if = {
 						limit = {
-							NOT = { owns = 157 }
+							NOT = { innovativeness = 100 }
 							has_dlc = "Rule Britannia"
 						}
 						change_innovativeness = 2
@@ -1143,6 +1326,7 @@ kheteratan = {
 gnollish = {
 
 	# can_form_personal_unions = no
+	defender_of_faith = yes	#no→yes
 	flags_with_emblem_percentage = 33 # default == 0
 	flag_emblem_index_range = { 1 57 }
 
@@ -1153,9 +1337,10 @@ gnollish = {
 			kvangahga
 		}
 		country = {
-			land_morale = 0.1
+			#land_morale = 0.1	#0.1→0
+			#artificers_influence_modifier = -0.05	#-0.05→0
+			morale_damage = 0.1	#0→0.1
 			available_province_loot = 0.25
-			artificers_influence_modifier = -0.05
 		}
 		country_as_secondary = {
 			land_morale = 0.1
@@ -1296,6 +1481,7 @@ gnollish = {
 dwarven = {
 
 	# can_form_personal_unions = no
+	defender_of_faith = yes	#no→yes
 	flags_with_emblem_percentage = 33 # default == 0
 	flag_emblem_index_range = { 1 57 }
 
@@ -1913,6 +2099,7 @@ gerudian = {
 orcish = {
 
 	# can_form_personal_unions = no
+	defender_of_faith = yes	#no→yes
 	flags_with_emblem_percentage = 33 # default == 0
 	flag_emblem_index_range = { 1 57 }
 
@@ -1967,7 +2154,8 @@ orcish = {
 		}
 		country = {
 			army_tradition = 0.5
-			global_unrest = -1
+			#global_unrest = -1	#-1→0
+			tolerance_own = 4	#0→4
 			tolerance_heretic = -2
 		}
 		country_as_secondary = {
@@ -2049,6 +2237,7 @@ orcish = {
 dragon_cult = {
 
 	# can_form_personal_unions = no
+	defender_of_faith = yes	#no→yes
 	flags_with_emblem_percentage = 33 # default == 0
 	flag_emblem_index_range = { 1 57 }
 
@@ -2209,6 +2398,7 @@ dragon_cult = {
 goblin = {
 
 	# can_form_personal_unions = no
+	defender_of_faith = yes	#no→yes
 	flags_with_emblem_percentage = 33 # default == 0
 	flag_emblem_index_range = { 1 57 }
 
@@ -2236,6 +2426,7 @@ goblin = {
 harpy_cults = {
 
 	# can_form_personal_unions = no
+	defender_of_faith = yes	#no→yes
 	flags_with_emblem_percentage = 33 # default == 0
 	flag_emblem_index_range = { 1 57 }
 
@@ -2536,6 +2727,7 @@ aelantiri = {
 cheshoshi_religion = {
 
 	# can_form_personal_unions = no
+	defender_of_faith = yes	#no→yes
 	flags_with_emblem_percentage = 33 # default == 0
 	flag_emblem_index_range = { 1 57 }
 
@@ -2576,6 +2768,7 @@ cheshoshi_religion = {
 }
 
 harafic = {
+	defender_of_faith = yes	#no→yes
 	kalun_masks = {
 		color = { 210 20 60 }
 		icon = 62
@@ -2686,6 +2879,7 @@ harafic = {
 }
 
 effelai = {
+	defender_of_faith = yes	#no→yes
 	tswohvwohii = {
 		color = { 32 86 26 }
 		icon = 87
@@ -2857,6 +3051,7 @@ effelai = {
 taychendi = {
 
 	# can_form_personal_unions = no
+	defender_of_faith = yes	#no→yes
 	flags_with_emblem_percentage = 33 # default == 0
 	flag_emblem_index_range = { 1 57 }
 
@@ -2896,6 +3091,7 @@ taychendi = {
 ynnic = {
 
 	can_form_personal_unions = yes
+	defender_of_faith = yes	#no→yes
 	flags_with_emblem_percentage = 33 # default == 0
 	flag_emblem_index_range = { 1 57 }
 
@@ -3011,6 +3207,7 @@ ynnic = {
 devandi = {
 
 	# can_form_personal_unions = no
+	defender_of_faith = yes	#no→yes
 	flags_with_emblem_percentage = 33 # default == 0
 	flag_emblem_index_range = { 1 57 }
 
@@ -3079,6 +3276,7 @@ devandi = {
 
 fey_religion = {
 	# can_form_personal_unions = no
+	defender_of_faith = yes	#no→yes
 	flags_with_emblem_percentage = 33 # default == 0
 	flag_emblem_index_range = { 1 57 }
 
@@ -3357,6 +3555,7 @@ fey_religion = {
 
 raheni = {
 	# can_form_personal_unions = no
+	defender_of_faith = yes	#no→yes
 	flags_with_emblem_percentage = 33 # default == 0
 	flag_emblem_index_range = { 1 57 }
 
@@ -3835,6 +4034,7 @@ raheni = {
 halessi = {
 
 	# can_form_personal_unions = no
+	defender_of_faith = yes	#no→yes
 	flags_with_emblem_percentage = 33 # default == 0
 	flag_emblem_index_range = { 1 57 }
 
@@ -4565,6 +4765,7 @@ halessi = {
 
 triunic_lake = {
 	# can_form_personal_unions = no
+	defender_of_faith = yes	#no→yes
 	flags_with_emblem_percentage = 33 # default == 0
 	flag_emblem_index_range = { 1 57 }
 
@@ -4721,6 +4922,7 @@ triunic_lake = {
 giantkin = {
 
 	# can_form_personal_unions = no
+	defender_of_faith = yes	#no→yes
 	flags_with_emblem_percentage = 33 # default == 0
 	flag_emblem_index_range = { 1 57 }
 
@@ -4735,6 +4937,15 @@ giantkin = {
 		}
 		country_as_secondary = {
 			prestige_from_land = 0.25
+		}
+		uses_anglican_power = yes					# Uses church power/aspect mechanics
+		aspects = {
+			find_reincarnated_warrior_aspect
+			eat_the_strong_aspect
+			invoke_warrior_heritage_aspect
+			look_for_omens
+			anoint_slave_herd
+			assemble_shamans_aspect
 		}
 
 		province = {
@@ -4799,6 +5010,7 @@ giantkin = {
 
 centaur_religion = {
 	# can_form_personal_unions = no
+	defender_of_faith = yes	#no→yes
 	flags_with_emblem_percentage = 33 # default == 0
 	flag_emblem_index_range = { 1 57 }
 
@@ -4806,11 +5018,22 @@ centaur_religion = {
 		color = { 60 40 20 }
 		icon = 54
 		country = {
-			cavalry_shock = 0.25
-			horde_unity = 1
+			#cavalry_shock = 0.25	#0.25→0
+			#horde_unity = 1	#1→0
+			army_tradition_from_battle = 0.5	#0→0.5
+			prestige_from_land = 0.5	#0→0.5
 		}
 		country_as_secondary = {
 			cavalry_shock = 0.25
+		}
+		uses_anglican_power = yes					# Uses church power/aspect mechanics
+		aspects = {
+			find_reincarnated_warrior_aspect
+			invoke_warrior_heritage_aspect
+			gather_great_host_aspect
+			look_for_omens
+			anoint_slave_herd
+			assemble_shamans_aspect
 		}
 
 		on_convert = {
@@ -4832,6 +5055,7 @@ centaur_religion = {
 }
 
 infernal_religion = {
+	defender_of_faith = yes	#no→yes
 	flags_with_emblem_percentage = 33 # default == 0
 	flag_emblem_index_range = { 1 57 }
 

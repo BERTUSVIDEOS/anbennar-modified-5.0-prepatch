@@ -1,4 +1,3 @@
-
 namespace = centaur_tolerance_events
 
 province_event = {	# Racial Minister
@@ -10,12 +9,12 @@ province_event = {	# Racial Minister
 
 	trigger = {
 		owner = {NOT = {has_country_modifier = centaur_administration}}
-		culture_is_centaur = yes
+		has_centaur_majority_trigger = yes
 	}
 	mean_time_to_happen = {
-		days = 73000
+		months = 2400
 		modifier = {factor = 3.00 owner = {NOT = {had_country_flag = { flag = centaur_tolerance_events_1001_flag days = 1825}}}}
-		modifier = {factor = 2.0 owner = {any_owned_province = {culture_is_centaur = yes owner = {employed_advisor = {culture = PREV}}}}}
+		modifier = {factor = 2.0 owner = {any_owned_province = {has_centaur_majority_trigger = yes owner = {employed_advisor = {culture = PREV}}}}}
 		modifier = {factor = 0.75 owner = {has_country_modifier = racial_focus_centaur}}
 		modifier = {factor = 0.75 owner = {has_idea = tolerance_idea_2}}
 		modifier = {factor = 0.90 owner = {medium_tolerance_centaur_race_trigger = yes}}
@@ -48,8 +47,8 @@ province_event = {	# Racial Minister
 	option = {	# Recruit
 		name = centaur_tolerance_events.1001.b
 		owner = {
-			get_racial_advisor = { race = centaur }
-			add_estate_loyalty = { estate = estate_centaur loyalty = 10 }
+			get_racial_advisor = { race = centaur class = adm }
+			add_estate_loyalty = { estate = estate_centaur loyalty = 5 }
 		}
 		get_tolerance_from_provinces = { race = centaur }
 		lose_treasury_from_provinces = { cash_per_dev = 2 }
@@ -77,7 +76,7 @@ province_event = {	# Minor landholders demand autonomy
 	}
 
 	mean_time_to_happen = {
-		days = 73000
+		months = 2400
 		modifier = {factor = 2.00 owner = {has_estate_influence_modifier = {estate = estate_centaur modifier = EST_VAL_CENTAUR_LANDHOLDERS_DEMANDS}}}
 		modifier = {factor = 2.00 owner = {stability = 2}}
 		modifier = {factor = 2.00 owner = {legitimacy_equivalent = 80}}
@@ -169,7 +168,7 @@ province_event = {	# Ambitious centaurs in government
 	}
 
 	mean_time_to_happen = {
-		days = 73000
+		months = 2400
 		modifier = {factor = 3.00 owner = {NOT = {had_country_flag = { flag = centaur_tolerance_events_1003_flag days = 1825}}}}
 		modifier = {factor = 0.75 owner = {has_country_modifier = racial_focus_centaur}}
 		modifier = {factor = 0.75 owner = {has_idea = tolerance_idea_2}}
@@ -254,14 +253,14 @@ country_event = {	# Centaur dominance undermining us
 				amount = 2
 			}
 			any_owned_province = {
-				culture_is_centaur = yes
+				has_centaur_majority_trigger = yes
 				ROOT = { employed_advisor = { culture = PREV } }
 			}
 		}
 	}
 
 	mean_time_to_happen = {
-		days = 73000
+		months = 2400
 		modifier = {factor = 3.00 NOT = {had_country_flag = { flag = centaur_tolerance_events_1004_flag days = 1825}}}
 		modifier = {
 			factor = 0.9
@@ -357,7 +356,7 @@ province_event = {	# Rapid growth due to centaur minority
 	}
 
 	mean_time_to_happen = {
-		days = 73000
+		months = 2400
 		modifier = {factor = 0.75 owner = {has_country_modifier = racial_focus_centaur}}
 		modifier = {factor = 3.00 owner = {NOT = {had_country_flag = { flag = centaur_tolerance_events_1005_flag days = 1825}}}}
 		modifier = {factor = 0.75 owner = {has_idea = tolerance_idea_2}}
@@ -436,7 +435,7 @@ province_event = {	# Angry centaur mob forms
 	}
 
 	mean_time_to_happen = {
-		days = 73000
+		months = 2400
 		modifier = {factor = 3.00 owner = {NOT = {had_country_flag = { flag = centaur_tolerance_events_1006_flag days = 1825}}}}
 		modifier = {factor = 0.75 owner = {has_country_modifier = racial_focus_centaur}}
 		modifier = {factor = 0.75 owner = {has_idea = tolerance_idea_2}}
@@ -519,7 +518,7 @@ province_event = {	# Centaur highwaymen
 	}
 
 	mean_time_to_happen = {
-		days = 73000
+		months = 2400
 		modifier = {factor = 3.00 owner = {NOT = {had_country_flag = { flag = centaur_tolerance_events_1007_flag days = 1825}}}}
 		modifier = {factor = 0.75 owner = {has_country_modifier = racial_focus_centaur}}
 		modifier = {factor = 2.00 owner = {high_tolerance_centaur_race_trigger = yes}}
@@ -607,7 +606,7 @@ province_event = {	# minority arrives
 	}
 
 	mean_time_to_happen = {
-		days = 73000
+		months = 2400
 		modifier = {factor = 3.00 owner = {NOT = {had_country_flag = { flag = centaur_tolerance_events_1008_flag days = 1825}}}}
 		modifier = {factor = 5.00 owner = {is_at_war = yes}}
 		modifier = {factor = 5.00 owner = {high_tolerance_centaur_race_trigger = no}}
@@ -663,7 +662,7 @@ province_event = {	# minority arrives
 		name = centaur_tolerance_events.1008.b
 		
 		owner = {
-			add_estate_loyalty = { estate = estate_centaur loyalty = 10 }
+			add_estate_loyalty = { estate = estate_centaur loyalty = 5 }
 			small_increase_of_centaur_tolerance_effect = yes
 		}
 		add_centaur_minority_size_effect = yes
@@ -731,6 +730,9 @@ country_event = {	# centaur taxation
 
 	option = {
 		name = centaur_tolerance_events.5003.a
+		trigger = {
+			any_owned_province = { has_centaur_majority_trigger = yes }
+		}
 
 		reapply_estate_privilege = { privilege = estate_centaur_taxation_policy }
 	}
@@ -745,7 +747,7 @@ country_event = {	# centaur tolerance update
 	id = centaur_tolerance_events.5004
 	title = centaur_tolerance_events.5004.t
 	desc = centaur_tolerance_events.5004.desc
-	picture = TRADE_GOODS_PLANTATION_GOODS_IN_WAREHOUSE_eventPicture
+	picture = DIPLOMACY_eventPicture
 
 	is_triggered_only = yes
 	hidden = yes
@@ -762,7 +764,7 @@ country_event = {	# centaur tolerance update
 	id = centaur_tolerance_events.5005
 	title = centaur_tolerance_events.5005.t
 	desc = centaur_tolerance_events.5005.desc
-	picture = TRADE_GOODS_PLANTATION_GOODS_IN_WAREHOUSE_eventPicture
+	picture = DIPLOMACY_eventPicture
 
 	is_triggered_only = yes
 	hidden = yes
@@ -772,4 +774,581 @@ country_event = {	# centaur tolerance update
 
 		update_centaur_tolerance = yes
 	}
+}
+country_event = {	#Expulsion/Purge - Minority 
+	id = racial_pop_events_centaur.17
+	title = racial_pop_events_centaur.17.t
+	picture = REFUGEES_ESCAPING_eventPicture
+	goto = racial_pop_province_origin
+	
+	desc = {
+		trigger = { has_country_modifier = racial_pop_centaur_expulsion }
+		desc = racial_pop_events_centaur.17.d
+	}
+	desc = {
+		trigger = { has_country_modifier = racial_pop_centaur_purge }
+		desc = racial_pop_events_centaur.17.dpurge
+	}
+
+	trigger = {
+		OR = {
+			has_country_modifier = racial_pop_centaur_expulsion
+			has_country_modifier = racial_pop_centaur_purge
+		}
+		any_owned_province = {
+			has_centaur_minority_trigger = yes
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1825
+		modifier = {factor = 0.90 has_country_modifier = monstrous_nation }
+		modifier = {factor = 0.50 has_country_modifier = racial_focus_centaur}
+		modifier = {factor = 0.75 has_country_modifier = racial_pop_centaur_purge}
+		modifier = {factor = 0.75 has_idea = supremacy_inquisition}
+		modifier = {factor = 0.75 has_government_attribute = faster_purguing_reform}
+		modifier = {factor = 0.75 has_government_attribute = expulsion_purge_give_cash_and_power}
+		modifier = {
+			factor = 0.1
+			calc_true_if = {
+				all_owned_province = {
+					has_centaur_minority_trigger = yes
+				}
+				amount = 100
+			}
+		}
+		modifier = {
+			factor = 0.5
+			calc_true_if = {
+				all_owned_province = {
+					has_centaur_minority_trigger = yes
+				}
+				amount = 50
+			}
+		}
+		modifier = {
+			factor = 0.75
+			calc_true_if = {
+				all_owned_province = {
+					has_centaur_minority_trigger = yes
+				}
+				amount = 25
+			}
+		}
+	}
+	
+	immediate = {
+		hidden_effect = {	#Make this the monstrous purge thing
+			random_owned_province = {
+				limit = {
+					has_centaur_minority_trigger = yes
+				}
+				save_event_target_as = racial_pop_province_origin
+			}
+			random_owned_province = {
+				limit = {
+					has_centaur_minority_trigger = yes
+					development = 10
+				}
+				save_event_target_as = racial_pop_province_origin
+			}
+			random_owned_province = {
+				limit = {
+					has_centaur_minority_trigger = yes
+					development = 20
+				}
+				save_event_target_as = racial_pop_province_origin
+			}
+			random_owned_province = {
+				limit = {
+					has_centaur_minority_trigger = yes
+					development = 30
+				}
+				save_event_target_as = racial_pop_province_origin
+			}
+			random_owned_province = {
+				limit = {
+					has_centaur_minority_trigger = yes
+					units_in_province = 1
+				}
+				save_event_target_as = racial_pop_province_origin
+			}
+		}
+		hidden_effect = {	#Which country to migrate to
+			random_neighbor_country = {
+				limit = {
+					NOT = { has_country_modifier = racial_pop_centaur_purge }
+					NOT = { has_country_modifier = racial_pop_centaur_expulsion }
+				}
+				save_event_target_as = racial_pop_migration_country
+			}
+			random_neighbor_country = {
+				limit = {
+					NOT = { has_country_modifier = racial_pop_centaur_purge }
+					NOT = { has_country_modifier = racial_pop_centaur_expulsion }
+					any_owned_province = {
+						development = 20
+					}
+				}
+				save_event_target_as = racial_pop_migration_country
+			}
+			random_neighbor_country = {
+				limit = {
+					NOT = { has_country_modifier = racial_pop_centaur_purge }
+					NOT = { has_country_modifier = racial_pop_centaur_expulsion }
+					medium_tolerance_centaur_race_trigger = yes
+				}
+				save_event_target_as = racial_pop_migration_country
+			}
+			random_neighbor_country = {
+				limit = {
+					NOT = { has_country_modifier = racial_pop_centaur_purge }
+					NOT = { has_country_modifier = racial_pop_centaur_expulsion }
+					medium_tolerance_centaur_race_trigger = yes
+					any_owned_province = {
+						development = 20
+					}
+				}
+				save_event_target_as = racial_pop_migration_country
+			}
+			random_neighbor_country = {
+				limit = {
+					NOT = { has_country_modifier = racial_pop_centaur_purge }
+					NOT = { has_country_modifier = racial_pop_centaur_expulsion }
+					high_tolerance_centaur_race_trigger = yes
+				}
+				save_event_target_as = racial_pop_migration_country
+			}
+			random_neighbor_country = {
+				limit = {
+					NOT = { has_country_modifier = racial_pop_centaur_purge }
+					NOT = { has_country_modifier = racial_pop_centaur_expulsion }
+					OR = {
+						medium_tolerance_centaur_race_trigger = yes
+						high_tolerance_centaur_race_trigger = yes
+					}
+					any_owned_province = {
+						development = 20
+						NOT = { has_centaur_minority_trigger = yes }
+						NOT = { has_centaur_majority_trigger = yes }
+					}
+				}
+				save_event_target_as = racial_pop_migration_country
+			}
+		}
+	}
+	option = {			#Expel!
+		name = racial_pop_events_centaur.17.a
+		trigger = {has_country_modifier = racial_pop_centaur_expulsion}
+		ai_chance = {factor = 50}
+		event_target:racial_pop_province_origin = {	#Remove Minority from Origin Province
+			remove_centaur_minority_size_effect = yes
+			add_devastation = 10
+		}
+		if = {	#only does this if they have an adjacent country
+			limit = {
+				any_neighbor_country = { 
+					NOT = { low_tolerance_centaur_race_trigger = yes }
+				}
+			}
+			event_target:racial_pop_migration_country  = {	#Calls Migrants Arrive to Migration Country
+				country_event = {
+					id = racial_pop_events_centaur.10
+					days = 14
+					random = 31
+				}
+			}
+		}
+		if = {
+			limit = { ruler_has_personality = greedy_personality }
+			if = {
+				limit = {
+					event_target:racial_pop_province_origin = {
+						development = 20
+					}
+				}
+				add_treasury = 50
+			}
+			else = {
+				add_treasury = 10
+			}
+		}
+		medium_decrease_of_centaur_tolerance_effect = yes
+	}
+	option = {			#Purge!
+		name = racial_pop_events_centaur.19.a
+		ai_chance = {factor = 50}
+		trigger = {has_country_modifier = racial_pop_centaur_purge}
+		if = {
+			limit = { 
+				ruler_has_personality = cruel_personality 
+				event_target:racial_pop_province_origin = {
+					has_large_centaur_minority_trigger = yes
+				}
+			}
+			event_target:racial_pop_province_origin = {	#Remove Minority from Origin Province
+				remove_centaur_minority_size_effect = yes
+				remove_centaur_minority_size_effect = yes
+				add_devastation = 20
+			}
+			large_decrease_of_centaur_tolerance_effect = yes
+		}
+		else = {
+			event_target:racial_pop_province_origin = {	#Remove Minority from Origin Province
+				remove_centaur_minority_size_effect = yes
+				add_devastation = 20
+			}
+			large_decrease_of_centaur_tolerance_effect = yes
+		}
+	}
+}
+
+province_event = {	#Expulsion/Purge - Majority 
+	id = racial_pop_events_centaur.18
+	title = racial_pop_events_centaur.18.t
+	picture = REFUGEES_ESCAPING_eventPicture
+	goto = ROOT
+	
+	desc = {
+		trigger = { owner = {has_country_modifier = racial_pop_centaur_expulsion }}
+		desc = racial_pop_events_centaur.18.d
+	}
+	desc = {
+		trigger = { owner = {has_country_modifier = racial_pop_centaur_purge }}
+		desc = racial_pop_events_centaur.18.dpurge
+	}
+	trigger = {
+		has_global_flag = enslavement_activated_flag
+		culture_is_centaur = yes
+		NOT = {has_construction = culture}
+		owner = {
+			OR = {
+				has_country_modifier = racial_pop_centaur_expulsion
+				has_country_modifier = racial_pop_centaur_purge
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 240
+		modifier = {factor = 1.1 unrest = 1}
+		modifier = {factor = 1.1 unrest = 5}
+		modifier = {factor = 1.1 unrest = 10}
+		modifier = {factor = 1.1 unrest = 15}
+		modifier = {factor = 1.1 unrest = 20}
+		modifier = {factor = 0.90 owner = {has_country_modifier = monstrous_nation }}
+		modifier = {factor = 0.50 owner = {has_country_modifier = racial_focus_centaur}}
+		modifier = {factor = 0.75 owner = {has_country_modifier = racial_pop_centaur_purge}}
+		modifier = {factor = 0.75 owner = {has_idea = supremacy_inquisition}}
+		modifier = {factor = 0.75 owner = {has_government_attribute = faster_purguing_reform}}
+		modifier = {factor = 0.75 owner = {has_government_attribute = expulsion_purge_give_cash_and_power}}
+		modifier = {factor = 0.90 units_in_province = owner}
+		modifier = {factor = 0.90 NOT = {development = 5}}
+		modifier = {factor = 0.90 NOT = {development = 10}}
+		modifier = {factor = 0.90 NOT = {development = 20}}
+		modifier = {factor = 0.90 NOT = {development = 30}}
+	}
+	
+	immediate = {
+		hidden_effect = {	#Which country to migrate to
+			owner = {
+				save_event_target_as = owner_target
+				random_neighbor_country = {
+					limit = {
+						NOT = { has_country_modifier = racial_pop_centaur_purge }
+						NOT = { has_country_modifier = racial_pop_centaur_expulsion }
+					}
+					save_event_target_as = racial_pop_migration_country
+				}
+				random_neighbor_country = {
+					limit = {
+						NOT = { has_country_modifier = racial_pop_centaur_purge }
+						NOT = { has_country_modifier = racial_pop_centaur_expulsion }
+						any_owned_province = {
+							development = 20
+						}
+					}
+					save_event_target_as = racial_pop_migration_country
+				}
+				random_neighbor_country = {
+					limit = {
+						NOT = { has_country_modifier = racial_pop_centaur_purge }
+						NOT = { has_country_modifier = racial_pop_centaur_expulsion }
+						medium_tolerance_centaur_race_trigger = yes
+					}
+					save_event_target_as = racial_pop_migration_country
+				}
+				random_neighbor_country = {
+					limit = {
+						NOT = { has_country_modifier = racial_pop_centaur_purge }
+						NOT = { has_country_modifier = racial_pop_centaur_expulsion }
+						medium_tolerance_centaur_race_trigger = yes
+						any_owned_province = {
+							development = 20
+						}
+					}
+					save_event_target_as = racial_pop_migration_country
+				}
+				random_neighbor_country = {
+					limit = {
+						NOT = { has_country_modifier = racial_pop_centaur_purge }
+						NOT = { has_country_modifier = racial_pop_centaur_expulsion }
+						high_tolerance_centaur_race_trigger = yes
+					}
+					save_event_target_as = racial_pop_migration_country
+				}
+				random_neighbor_country = {
+					limit = {
+						NOT = { has_country_modifier = racial_pop_centaur_purge }
+						NOT = { has_country_modifier = racial_pop_centaur_expulsion }
+						OR = {
+							medium_tolerance_centaur_race_trigger = yes
+							high_tolerance_centaur_race_trigger = yes
+						}
+						any_owned_province = {
+							development = 20
+							NOT = { has_centaur_minority_trigger = yes }
+							NOT = { has_centaur_majority_trigger = yes }
+						}
+					}
+					save_event_target_as = racial_pop_migration_country
+				}
+			}
+		}
+	}
+	option = {			#Expel!
+		name = racial_pop_events_centaur.18.a
+		ai_chance = {factor = 50}
+		trigger = {owner = {has_country_modifier = racial_pop_centaur_expulsion}}
+		change_culture = owner
+		change_religion = owner
+		add_devastation = 30
+		bertus_dev_reduction = {value = 0.5}
+		add_permanent_province_modifier = { name = expulsion_unrest_modifier duration = 1825 }
+		owner = {
+			if = {	#only does this if they have an adjacent country
+				limit = {
+					any_neighbor_country = { 
+						NOT = { low_tolerance_centaur_race_trigger = yes }
+					}
+				}
+				event_target:racial_pop_migration_country  = {	#Calls Migrants Arrive to Migration Country
+					country_event = {
+						id = racial_pop_events_centaur.10
+						days = 14
+						random = 31
+					}
+				}
+			}
+			medium_decrease_of_centaur_tolerance_effect = yes
+		}
+	}
+	option = {		#Purge!	
+		name = racial_pop_events_centaur.20.a
+		ai_chance = {factor = 50}
+		trigger = {owner = {has_country_modifier = racial_pop_centaur_purge}}
+		
+		add_devastation = 50
+		change_culture = owner
+		change_religion = owner
+		bertus_dev_reduction = {value = 0.5}
+		add_permanent_province_modifier = { name = purge_unrest_modifier duration = 1825 }
+		hidden_effect = {
+			remove_province_modifier = centaur_majority_oppressed
+			remove_province_modifier = centaur_majority_coexisting
+			remove_province_modifier = centaur_majority_integrated
+		}
+		owner = {large_decrease_of_centaur_tolerance_effect = yes}
+	}	
+}
+
+province_event = {	#enslavement modifier
+	id = centaur_tolerance_events.5006
+	title = centaur_tolerance_events.5006.t
+	desc = centaur_tolerance_events.5006.desc
+	picture = DIPLOMACY_eventPicture
+	
+	hidden = yes
+	
+    trigger = {
+		OR = {
+			AND = {
+				NOT = {
+					has_province_flag = has_local_centaur_enslaved_flag	#flag modifier
+				}
+				owner = {has_estate_privilege = estate_centaur_enslavement}
+				has_centaur_majority_trigger = yes
+			}
+			AND = {
+				has_province_flag = has_local_centaur_enslaved_flag	#flag modifier
+				OR = {
+					NOT = {owner = {has_estate_privilege = estate_centaur_enslavement}}
+					AND = {
+						NOT = {has_centaur_majority_trigger = yes}
+						NOT = {has_province_flag = foreign_slaves_flag}
+					}
+				}
+			}
+		}
+    }
+	
+	mean_time_to_happen = { days = 1}
+	
+	option = {
+		name = centaur_tolerance_events.5006.a
+		trigger = {NOT = {has_province_flag = has_local_centaur_enslaved_flag}}
+		set_province_flag = has_local_centaur_enslaved_flag
+		add_pop_modifier = {race = centaur  class = enslavement amount = 100percent resource = goods_produced onbase = development}
+		add_pop_modifier = {race = all  class = enslavement_malus amount = 100percent resource = goods_produced onbase = base_production}
+	}
+	option = {
+		name = centaur_tolerance_events.5006.b
+		trigger = {has_province_flag = has_local_centaur_enslaved_flag}
+		clr_province_flag = has_local_centaur_enslaved_flag
+		province_event = {id = bertus_pops.1038}
+	}
+}
+province_event = {	#enslavement
+    id = centaur_tolerance_events.5007
+    title = centaur_tolerance_events.5007.title
+    desc = centaur_tolerance_events.5007.desc
+	picture = DIPLOMACY_eventPicture
+
+	hidden = yes
+
+    trigger = {	
+		controller = {has_estate_privilege = estate_centaur_enslavement}
+		NOT = { controlled_by = owner }
+		has_centaur_majority_trigger = yes
+		devastation = 20
+		NOT = {has_province_modifier = already_enslaved_modifier}
+	}
+
+	immediate = {}
+    option = {
+        name = centaur_tolerance_events.5007.a #
+		ai_chance = {
+			factor = 10
+		}
+		get_slaves = {race = centaur}
+    }
+    option = {
+        name = centaur_tolerance_events.5007.a #
+		ai_chance = {	#in cse it has to be decreased
+			factor = 0
+		}
+    }
+	after = {
+		add_province_modifier = {
+			name = already_enslaved_modifier
+			duration = 1825
+			hidden = yes
+		}
+	}
+}
+province_event = {	#enslavement distribution
+	id = centaur_tolerance_events.5008
+	title = centaur_tolerance_events.5008.title
+	desc = centaur_tolerance_events.5008.desc
+	picture = DIPLOMACY_eventPicture
+				
+	trigger = {
+		owner = {
+			check_variable = {which = centaur_current_slaves value = 1}
+			has_estate_privilege = estate_centaur_enslavement
+		}
+		has_any_integrated_pop_trigger = yes
+	}
+	hidden = yes
+	mean_time_to_happen = {
+		months = 240
+		
+		modifier = {factor = 0.75 owner = {capital_scope = {NOT = {province_distance  = {who = ROOT distance = 25}}}}}
+		modifier = {factor = 0.75 owner = {capital_scope = {NOT = {province_distance  = {who = ROOT distance = 50}}}}}
+		modifier = {factor = 0.75 owner = {capital_scope = {NOT = {province_distance  = {who = ROOT distance = 75}}}}}
+		modifier = {factor = 0.75 owner = {capital_scope = {NOT = {province_distance  = {who = ROOT distance = 100}}}}}
+		modifier = {factor = 0.75 development = 10}
+		modifier = {factor = 0.75 development = 20}
+		modifier = {factor = 0.75 development = 30}
+		modifier = {factor = 0.75 development = 40}
+		modifier = {factor = 0.75 development = 50}
+	}
+
+	immediate = {
+	}
+	option = {	#
+		name = centaur_tolerance_events.5008.a
+		set_province_flag = foreign_slaves_flag
+		owner = {change_variable = {which = centaur_current_slaves value = -1}}
+		if = {
+			limit = {
+				has_province_flag = centaur_foreign_slaves_flag
+			}
+			increase_slave_amount = {race = centaur}
+		}
+		else = {
+			add_province_modifier = { name = centaur_enslavement_100percent_goods_produced_1	duration = -1 hidden = yes}
+			set_province_flag = centaur_foreign_slaves_flag
+		}
+		if = {
+			limit = {
+				NOT = {has_province_modifier = foreign_slaves_modifier}
+			}
+			add_province_modifier = {
+				name = foreign_slaves_modifier
+				duration = -1
+			}
+		}
+	}
+}
+province_event = {	#enslavement decay on occupation
+    id = centaur_tolerance_events.5009
+    title = centaur_tolerance_events.5009.title
+    desc = centaur_tolerance_events.5009.desc
+	picture = DIPLOMACY_eventPicture
+
+	hidden = yes
+
+    trigger = {	
+		NOT = {controlled_by = owner}
+		has_province_flag = centaur_foreign_slaves_flag
+	}
+
+	mean_time_to_happen = {
+		months = 240
+		modifier = {factor = 0.90 development = 15}
+		modifier = {factor = 0.75 development = 20}
+		modifier = {factor = 0.75 development = 25}
+		modifier = {factor = 0.50 development = 30}
+		modifier = {factor = 0.50 development = 35}
+		modifier = {factor = 0.33 development = 40}
+		modifier = {factor = 0.33 development = 45}
+		modifier = {factor = 0.25 development = 50}
+		modifier = {factor = 0.1 NOT = {controlled_by = owner}}
+	}
+
+	immediate = {}
+		
+    option = {
+        name = centaur_tolerance_events.5009.a #
+		if = {
+			limit = {
+				controller = {NOT = {has_estate_privilege = estate_centaur_enslavement}}
+			}
+			controller = {
+				country_event = {
+					id = racial_pop_events_centaur.10
+					days = 14
+					random = 31
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				controller = {has_estate_privilege = estate_centaur_enslavement}
+			}
+			controller = {change_variable = {which = centaur_current_slaves value = 1}}
+		}
+		decrease_slave_amount = {race = centaur}
+    }
 }

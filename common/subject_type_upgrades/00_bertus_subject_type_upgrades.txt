@@ -1,0 +1,55 @@
+# Triggers will be evaluated in the scope of the Subject, with the Overlord as its FROM scope.
+
+
+#Self-Governing Colony Upgrades
+change_subject_governorship = {
+	can_upgrade_trigger = {
+		OR = {
+			is_subject_of_type = vassal
+			is_subject_of_type = autonomous_vassal
+		}
+		FROM = {dip_power = 25}
+		NOT = {culture_group = FROM}
+	}
+	
+	cost = 0
+
+	effect = {
+		FROM = {add_dip_power = -25}
+		change_primary_culture = FROM
+	}
+	
+	modifier_subject = {
+	}
+}
+change_local_culture = {
+	can_upgrade_trigger = {
+		OR = {
+			is_subject_of_type = vassal
+			is_subject_of_type = autonomous_vassal
+		}
+		FROM = {dip_power = 25}
+		culture_group = FROM
+	}
+	
+	cost = 0
+
+	effect = {
+		FROM = {
+			add_dip_power = -25			
+		}
+		random_owned_province = {
+			limit = {
+				NOT = {culture_group = FROM}
+				NOT = { has_construction = any }
+			}
+			add_culture_construction = {
+				speed = 0.5
+				cost = 0
+			}
+		}
+	}
+	
+	modifier_subject = {
+	}
+}

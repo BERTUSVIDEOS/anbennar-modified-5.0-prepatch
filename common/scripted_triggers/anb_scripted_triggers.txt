@@ -2109,7 +2109,7 @@ has_any_building_trigger = {
 		has_forcelimit_building_trigger = yes
 		has_manufactory_trigger = yes
 		has_courthouse_building_trigger = yes
-		has_building = university
+		has_university_building_trigger = yes
 	}
 }
 
@@ -2145,6 +2145,13 @@ has_multiple_manufactory_trigger = {
 	}
 }
 
+#how to use: has_expanded_infrastructure_level = { level = x }, this assumes players never decrease the level because there are no proper triggers for this.
+has_expanded_infrastructure_level = {
+	custom_trigger_tooltip = {
+		tooltip = has_expanded_infrastructure_level_tooltip_$level$
+		check_variable = { infrastructure_level = $level$ }
+	}
+}
 
 #################################
 #######Governments and Tags######
@@ -2430,6 +2437,14 @@ has_subterranean_race = {
 			has_province_modifier = goblin_majority_coexisting
 			has_province_modifier = goblin_majority_integrated
 			has_province_modifier = goblin_majority_primary
+			AND = {	#bertus mod
+				culture = black_orc
+				OR = {
+					has_province_modifier = orcish_majority_coexisting
+					has_province_modifier = orcish_majority_integrated
+					has_province_modifier = orcish_majority_primary
+				}
+			}
 		}
 	}
 }

@@ -3,16 +3,16 @@ estate_mages = {
 
 	# If true, country will get estate
 	trigger = {	
-		NOT = { government = native }
+		#is_nomad = no	#bertus mod
+		#NOT = { government = native }	#bertus mod
 		NOT = { has_reform = cossacks_reform }
 		NOT = { has_reform = siberian_tribe }
-		is_nomad = no
 		
 		#Anbennar
+		#NOT = { has_adventurer_reform = yes }	#bertus mod
+		#is_monstrous_horde = no	#bertus mod
 		NOT = { has_reform = hobgoblin_stratocracy_reform }
-		NOT = { has_adventurer_reform = yes }
 		NOT = { has_country_flag = banned_magic }
-		is_monstrous_horde = no
 		NOT = { has_estate = estate_acolytes }
 		NOT = { AND = { religion = bulwari_sun_cult has_country_flag = nsc_human_country_magic_prohibition } }
 		NOT = { has_reform = tagharoghi_reform }
@@ -22,18 +22,20 @@ estate_mages = {
 	# These scale with loyalty & power
 	country_modifier_happy = {
 		all_power_cost = -0.1
-		imperial_authority = 0.05
-		technology_cost = 0.2
+		amount_of_cawa = 0.5	#0→0.5
+		#imperial_authority = 0.05	#0.05→0
+		#technology_cost = 0.2	#0.2→0
 	}
 	country_modifier_neutral = {
 		#all_power_cost = 0.05
+		amount_of_cawa = 0.5	#0→0.5
 	}	
 	country_modifier_angry = {
 		all_power_cost = 0.1
-		technology_cost = 0.2
+		#technology_cost = 0.2	#0.2→0
 	}
 	land_ownership_modifier = {
-		mages_loyalty_modifier = 0.2
+		#mages_loyalty_modifier = 0.2	#0.2→0
 	}
 	
 	province_independence_weight = {
@@ -82,6 +84,48 @@ estate_mages = {
 		}
 		influence = 5
 	}
+	influence_modifier = {	
+		desc = EST_HIGH_ARTIFICER
+		trigger = {
+			has_global_flag = high_artificer_hre_flag
+			is_part_of_hre = yes
+		}
+		influence = -10
+	}
+	influence_modifier = {	
+		desc = EST_HIGH_MAGE
+		trigger = {
+			has_global_flag = high_mage_hre_flag
+			is_part_of_hre = yes
+		}
+		influence = 10
+	}
+	loyalty_modifier = {	
+		desc = EST_HIGH_ARTIFICER
+		trigger = {
+			has_global_flag = high_artificer_hre_flag
+			is_part_of_hre = yes
+		}
+		loyalty = -10
+	}
+	loyalty_modifier = {	
+		desc = EST_HIGH_MAGE
+		trigger = {
+			has_global_flag = high_mage_hre_flag
+			is_part_of_hre = yes
+		}
+		loyalty = 10
+	}
+	loyalty_modifier = { desc = EST_VAL_MAGE_ORG_MAGISTERIUM trigger = { has_estate_privilege = estate_mages_organization_magisterium reverse_has_opinion = {who = A85 value = 200} } loyalty = 10}
+	loyalty_modifier = { desc = EST_VAL_MAGE_ORG_MAGISTERIUM trigger = { has_estate_privilege = estate_mages_organization_magisterium reverse_has_opinion = {who = A85 value = 180} NOT = {reverse_has_opinion = {who = A85 value = 200}} } loyalty = 9}
+	loyalty_modifier = { desc = EST_VAL_MAGE_ORG_MAGISTERIUM trigger = { has_estate_privilege = estate_mages_organization_magisterium reverse_has_opinion = {who = A85 value = 160} NOT = {reverse_has_opinion = {who = A85 value = 180}} } loyalty = 8}
+	loyalty_modifier = { desc = EST_VAL_MAGE_ORG_MAGISTERIUM trigger = { has_estate_privilege = estate_mages_organization_magisterium reverse_has_opinion = {who = A85 value = 140} NOT = {reverse_has_opinion = {who = A85 value = 160}} } loyalty = 7}
+	loyalty_modifier = { desc = EST_VAL_MAGE_ORG_MAGISTERIUM trigger = { has_estate_privilege = estate_mages_organization_magisterium reverse_has_opinion = {who = A85 value = 120} NOT = {reverse_has_opinion = {who = A85 value = 140}} } loyalty = 6}
+	loyalty_modifier = { desc = EST_VAL_MAGE_ORG_MAGISTERIUM trigger = { has_estate_privilege = estate_mages_organization_magisterium reverse_has_opinion = {who = A85 value = 100} NOT = {reverse_has_opinion = {who = A85 value = 120}} } loyalty = 5}
+	loyalty_modifier = { desc = EST_VAL_MAGE_ORG_MAGISTERIUM trigger = { has_estate_privilege = estate_mages_organization_magisterium reverse_has_opinion = {who = A85 value = 80} NOT = {reverse_has_opinion = {who = A85 value = 100}} } loyalty = 4}
+	loyalty_modifier = { desc = EST_VAL_MAGE_ORG_MAGISTERIUM trigger = { has_estate_privilege = estate_mages_organization_magisterium reverse_has_opinion = {who = A85 value = 60} NOT = {reverse_has_opinion = {who = A85 value = 80}} } loyalty = 3}
+	loyalty_modifier = { desc = EST_VAL_MAGE_ORG_MAGISTERIUM trigger = { has_estate_privilege = estate_mages_organization_magisterium reverse_has_opinion = {who = A85 value = 40} NOT = {reverse_has_opinion = {who = A85 value = 60}} } loyalty = 2}
+	loyalty_modifier = { desc = EST_VAL_MAGE_ORG_MAGISTERIUM trigger = { has_estate_privilege = estate_mages_organization_magisterium reverse_has_opinion = {who = A85 value = 20} NOT = {reverse_has_opinion = {who = A85 value = 40}} } loyalty = 1}
 	
 	# #Country size
 	# influence_modifier = {	
@@ -143,9 +187,19 @@ estate_mages = {
 		}	
 		influence = -10
 	}
+	influence_modifier = {
+		desc = EST_VAL_MAGISTER_SPHERE_DENOUNCED
+		trigger = {has_ruler_flag = magister_denounced_flag}
+		influence = -20
+	}
 	
 	#Loyalty
 	
+	loyalty_modifier = {
+		desc = EST_VAL_MAGISTER_SPHERE_DENOUNCED
+		trigger = {has_ruler_flag = magister_denounced_flag}
+		loyalty = -20
+	}
 	loyalty_modifier = {
 		desc = EST_VAL_OTHER_ESTATE_IN_POWER_LOY
 		trigger = {
@@ -259,6 +313,16 @@ estate_mages = {
 			culture_group = tanizu
 		}
 	}
+	custom_name = {
+		desc = estate_warlocks
+		trigger = {
+			OR = {
+				is_nomad = yes
+				is_monstrous_horde = yes
+				uses_church_aspects = yes
+			}
+		}
+	}
 
 
 	color = { 153 217 234 }
@@ -286,6 +350,17 @@ estate_mages = {
 		estate_mages_organization_runesmiths # Verkal Ozovar MT
 		estate_mages_organization_lihos_maidens # Yinquan MT
 		estate_mages_organization_jaherian_statute #Bulwar
+		estate_undead_recruitment	#bertus mod
+		estate_magister_education	#bertus mod
+		estate_mages_battlemage_academies
+		estate_mages_train_battlemages	#bertus mod
+		estate_mages_air_academy	#bertus mod
+		estate_mages_earth_academy	#bertus mod
+		estate_mages_water_academy	#bertus mod
+		estate_mages_fire_academy	#bertus mod
+		estate_mages_emergency_general	#bertus mod
+		estate_magisterium_battlemages	#bertus mod
+		estate_goblin_fire_shamans	#bertus mod
 
 		estate_mages_bardic_general
 		estate_mages_peace_songs

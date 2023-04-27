@@ -2995,15 +2995,23 @@ add_years_of_trade_income = {
 
 #Country effect
 select_primary_cult = {
-	change_cult = $cult$
-	custom_tooltip = select_primary_cult_$cult$_tt
-	custom_tooltip = tooltip_$cult$
-	hidden_effect = {
-		set_country_flag = has_$cult$_as_primary_cult
+	if = {
+		limit = {
+			has_government_attribute = goblin_boosted_primary_cult_mechanic
+		}
+		add_country_modifier = {
+			name = primary_$cult$_boosted
+			duration = -1
+		}
+	}
+	else = {
 		add_country_modifier = {
 			name = primary_$cult$
 			duration = -1
 		}
+	}
+	hidden_effect = {
+		set_country_flag = has_$cult$_as_primary_cult
 		if = {
 			limit = { has_country_flag = enabled_cult_for_heirs }
 			add_country_modifier = {
@@ -3109,136 +3117,163 @@ clear_previous_primary_cults = {
 				clr_country_flag = has_kroozmuta_zemna_cult_as_primary_cult
 				remove_country_modifier = junior_kroozmuta_zemna_cult
 				remove_country_modifier = primary_kroozmuta_zemna_cult
+				remove_country_modifier = primary_kroozmuta_zemna_cult_boosted
 			}
 			has_kroozbuto_nubo_cult_as_primary_cult = {
 				clr_country_flag = has_kroozbuto_nubo_cult_as_primary_cult
 				remove_country_modifier = junior_kroozbuto_nubo_cult
 				remove_country_modifier = primary_kroozbuto_nubo_cult
+				remove_country_modifier = primary_kroozbuto_nubo_cult_boosted
 			}
 			has_tewaka_sunka_cult_as_primary_cult = {
 				clr_country_flag = has_tewaka_sunka_cult_as_primary_cult
 				remove_country_modifier = junior_tewaka_sunka_cult
 				remove_country_modifier = primary_tewaka_sunka_cult
+				remove_country_modifier = primary_tewaka_sunka_cult_boosted
 			}
 			has_muta_mestika_cult_as_primary_cult = {
 				clr_country_flag = has_muta_mestika_cult_as_primary_cult
 				remove_country_modifier = junior_muta_mestika_cult
 				remove_country_modifier = primary_muta_mestika_cult
+				remove_country_modifier = primary_muta_mestika_cult_boosted
 			}
 			has_apzarko_hrom_cult_as_primary_cult = {
 				clr_country_flag = has_apzarko_hrom_cult_as_primary_cult
 				remove_country_modifier = junior_apzarko_hrom_cult
 				remove_country_modifier = primary_apzarko_hrom_cult
+				remove_country_modifier = primary_apzarko_hrom_cult_boosted
 			}
 			has_vortza_lesa_cult_as_primary_cult = {
 				clr_country_flag = has_vortza_lesa_cult_as_primary_cult
 				remove_country_modifier = junior_vortza_lesa_cult
 				remove_country_modifier = primary_vortza_lesa_cult
+				remove_country_modifier = primary_vortza_lesa_cult_boosted
 			}
 			has_vortzo_laukuno_cult_as_primary_cult = {
 				clr_country_flag = has_vortzo_laukuno_cult_as_primary_cult
 				remove_country_modifier = junior_vortzo_laukuno_cult
 				remove_country_modifier = primary_vortzo_laukuno_cult
+				remove_country_modifier = primary_vortzo_laukuno_cult_boosted
 			}
 			has_vortza_krpa_cult_as_primary_cult = {
 				clr_country_flag = has_vortza_krpa_cult_as_primary_cult
 				remove_country_modifier = junior_vortza_krpa_cult
 				remove_country_modifier = primary_vortza_krpa_cult
+				remove_country_modifier = primary_vortza_krpa_cult_boosted
 			}
 			has_zvaiko_udenzo_cult_as_primary_cult = {
 				clr_country_flag = has_zvaiko_udenzo_cult_as_primary_cult
 				remove_country_modifier = junior_zvaiko_udenzo_cult
 				remove_country_modifier = primary_zvaiko_udenzo_cult
+				remove_country_modifier = primary_zvaiko_udenzo_cult_boosted
 			}
 			has_zvaika_kirba_cult_as_primary_cult = {
 				clr_country_flag = has_zvaika_kirba_cult_as_primary_cult
 				remove_country_modifier = junior_zvaika_kirba_cult
 				remove_country_modifier = primary_zvaika_kirba_cult
+				remove_country_modifier = primary_zvaika_kirba_cult_boosted
 			}
 			has_vortzo_liezmo_cult_as_primary_cult = {
 				clr_country_flag = has_vortzo_liezmo_cult_as_primary_cult
 				remove_country_modifier = junior_vortzo_liezmo_cult
 				remove_country_modifier = primary_vortzo_liezmo_cult
+				remove_country_modifier = primary_vortzo_liezmo_cult_boosted
 			}
 			has_cannorian_cult_as_primary_cult = {
 				clr_country_flag = has_cannorian_cult_as_primary_cult
 				remove_country_modifier = junior_cannorian_cult
 				remove_country_modifier = primary_cannorian_cult
+				remove_country_modifier = primary_cannorian_cult_boosted
 			}
 			has_ancestor_worship_cult_as_primary_cult = {
 				clr_country_flag = has_ancestor_worship_cult_as_primary_cult
 				remove_country_modifier = junior_ancestor_worship_cult
 				remove_country_modifier = primary_ancestor_worship_cult
+				remove_country_modifier = primary_ancestor_worship_cult_boosted
 			}
 			has_gnomish_cult_as_primary_cult = {
 				clr_country_flag = has_gnomish_cult_as_primary_cult
 				remove_country_modifier = junior_gnomish_cult
 				remove_country_modifier = primary_gnomish_cult
+				remove_country_modifier = primary_gnomish_cult_boosted
 			}
 			has_godlost_cult_as_primary_cult = {
 				clr_country_flag = has_godlost_cult_as_primary_cult
 				remove_country_modifier = junior_godlost_cult
 				remove_country_modifier = primary_godlost_cult
+				remove_country_modifier = primary_godlost_cult_boosted
 			}
 			has_kheteratan_cult_as_primary_cult = {
 				clr_country_flag = has_kheteratan_cult_as_primary_cult
 				remove_country_modifier = junior_kheteratan_cult
 				remove_country_modifier = primary_kheteratan_cult
+				remove_country_modifier = primary_kheteratan_cult_boosted
 			}
 			has_gnollish_cult_as_primary_cult = {
 				clr_country_flag = has_gnollish_cult_as_primary_cult
 				remove_country_modifier = junior_gnollish_cult
 				remove_country_modifier = primary_gnollish_cult
+				remove_country_modifier = primary_gnollish_cult_boosted
 			}
 			has_elven_cult_as_primary_cult = {
 				clr_country_flag = has_elven_cult_as_primary_cult
 				remove_country_modifier = junior_elven_cult
 				remove_country_modifier = primary_elven_cult
+				remove_country_modifier = primary_elven_cult_boosted
 			}
 			has_bulwari_cult_as_primary_cult = {
 				clr_country_flag = has_bulwari_cult_as_primary_cult
 				remove_country_modifier = junior_bulwari_cult
 				remove_country_modifier = primary_bulwari_cult
+				remove_country_modifier = primary_bulwari_cult_boosted
 			}
 			has_gerudian_cult_as_primary_cult = {
 				clr_country_flag = has_gerudian_cult_as_primary_cult
 				remove_country_modifier = junior_gerudian_cult
 				remove_country_modifier = primary_gerudian_cult
+				remove_country_modifier = primary_gerudian_cult_boosted
 			}
 			has_orcish_cult_as_primary_cult = {
 				clr_country_flag = has_orcish_cult_as_primary_cult
 				remove_country_modifier = junior_orcish_cult
 				remove_country_modifier = primary_orcish_cult
+				remove_country_modifier = primary_orcish_cult_boosted
 			}
 			has_harpy_cult_as_primary_cult = {
 				clr_country_flag = has_harpy_cult_as_primary_cult
 				remove_country_modifier = junior_harpy_cult
 				remove_country_modifier = primary_harpy_cult
+				remove_country_modifier = primary_harpy_cult_boosted
 			}
 			has_fey_cult_as_primary_cult = {
 				clr_country_flag = has_fey_cult_as_primary_cult
 				remove_country_modifier = junior_fey_cult
 				remove_country_modifier = primary_fey_cult
+				remove_country_modifier = primary_fey_cult_boosted
 			}
 			has_raheni_cult_as_primary_cult = {
 				clr_country_flag = has_raheni_cult_as_primary_cult
 				remove_country_modifier = junior_raheni_cult
 				remove_country_modifier = primary_raheni_cult
+				remove_country_modifier = primary_raheni_cult_boosted
 			}
 			has_giantkin_cult_as_primary_cult = {
 				clr_country_flag = has_giantkin_cult_as_primary_cult
 				remove_country_modifier = junior_giantkin_cult
 				remove_country_modifier = primary_giantkin_cult
+				remove_country_modifier = primary_giantkin_cult_boosted
 			}
 			has_centaur_cult_as_primary_cult = {
 				clr_country_flag = has_centaur_cult_as_primary_cult
 				remove_country_modifier = junior_centaur_cult
 				remove_country_modifier = primary_centaur_cult
+				remove_country_modifier = primary_centaur_cult_boosted
 			}
 			has_kobold_cult_as_primary_cult = {
 				clr_country_flag = has_kobold_cult_as_primary_cult
 				remove_country_modifier = junior_kobold_cult
 				remove_country_modifier = primary_kobold_cult
+				remove_country_modifier = primary_kobold_cult_boosted
 			}
 		}
 	}

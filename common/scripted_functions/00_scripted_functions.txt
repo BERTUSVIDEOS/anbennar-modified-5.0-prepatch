@@ -40,25 +40,7 @@ can_release_colonial_nation = {
 	}
 }
 
-can_claim_defender_of_faith = {
-	condition = {
-		tooltip = "regent_court_defender_tooltip"
-		potential = {
-			religion = regent_court
-		}
-		allow = {
-			always = no
-		}
-	}
-	condition = {
-		tooltip = "khetist_defender_tooltip"
-		potential = {
-			religion = khetist
-		}
-		allow = {
-			always = no
-		}
-	}
+can_claim_defender_of_faith = {	#bertus mod
 }
 
 can_change_national_focus = {
@@ -75,6 +57,35 @@ can_add_province_to_hre = {
 		}
 		allow = {
 			always = no
+		}
+	}
+	condition = {	#bertus mod
+		potential = {
+			has_global_flag = emperor_college_hre_flag
+		}
+		allow = {	#bertus mod
+			FROM = {
+				OR = {
+					culture_is_human = yes
+					culture_is_elven = yes
+					culture_is_dwarven= yes
+					culture_is_halfling= yes
+					culture_is_gnomish = yes
+					culture_is_half_elven = yes
+					culture_is_harimari = yes
+				}
+			}
+			ROOT = {
+				OR = {
+					culture_is_human = yes
+					culture_is_elven = yes
+					culture_is_dwarven= yes
+					culture_is_halfling= yes
+					culture_is_gnomish = yes
+					culture_is_half_elven = yes
+					culture_is_harimari = yes
+				}
+			}
 		}
 	}
 }
@@ -107,6 +118,32 @@ can_make_core = {
 }
 
 can_make_state = {
+	condition = {
+		tooltip = "gecko_state"
+		potential = {
+			FROM = { ai = no}
+		}
+		allow = {
+			OR = {
+				has_terrain = dwarven_hold
+				has_terrain = dwarven_hold_surface
+				area_for_scope_province = { is_capital_of = FROM }
+				area_for_scope_province = {
+					type = all
+					OR = {
+						has_terrain = dwarven_hold
+						has_terrain = dwarven_hold_surface
+						owned_by = ROOT
+						owner = {is_subject_of = ROOT}
+						owner = { has_reform = free_city}
+						owner = { has_reform = subject_free_city_reform}
+						NOT = {is_city = yes}
+						has_terrain = city_terrain
+					}			
+				}
+			}
+		}
+	}
 }
 
 can_abandon_state = {
@@ -307,6 +344,14 @@ can_burn_colony = {
 }
 
 can_colonize_province = {
+	condition = { # 
+		potential = {
+			has_terrain = dwarven_under_hold
+		}
+		allow = {
+			always = no
+		}
+	}
 	condition = { # Venail AI is a lil bitch
 		potential = {
 			FROM = {
@@ -336,7 +381,16 @@ can_colonize_province = {
 					NOT = { OR = { superregion = escann_superregion region = the_borders_region superregion = deepwoods_superregion } }
 				}
 			}
-			superregion = escann_superregion
+			OR = {
+				AND = {
+					superregion = escann_superregion
+					NOT = {is_year = 1500}
+				}
+				AND = {
+					superregion = deepwoods_superregion
+					NOT = {is_year = 1500}
+				}
+			}
 		}
 		allow = {
 			always = no
@@ -410,7 +464,16 @@ can_colonize_province = {
 	
 	condition = { # Cant colonize those province
 		potential = {
-			has_province_modifier = cant_colonize
+			has_province_flag = cant_colonize
+			FROM = { ai = yes }
+		}
+		allow = {
+			always = no
+		}
+	}
+	condition = { # Cant colonize those province
+		potential = {
+			has_province_flag = cant_colonize_bertus_flag
 		}
 		allow = {
 			always = no
@@ -577,6 +640,21 @@ can_colonize_province = {
 			always = no
 		}
 	}
+	condition = { # cant colonize outside your colonial region
+		potential = {
+			FROM = {
+				is_colonial_nation = yes				
+				capital_scope = {
+					ROOT = {
+						NOT = {colonial_region = PREV}
+					}
+				}
+			}
+		}
+		allow = {
+			always = no
+		}
+	}
 }
 
 can_colonize_province_siberian_frontier = {
@@ -675,7 +753,7 @@ is_possible_hre_province = {
 		potential = {
 		}
 		allow = {
-			continent = europe
+			#continent = europe	#bertus mod
 		}
 	}
 }
