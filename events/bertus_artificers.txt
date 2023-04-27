@@ -108,7 +108,7 @@ country_event = {	#
 		name = bertus_artificers.50000.b
 		trigger = {
 			OR = {
-				has_country_flag = invention_elemental_gunpowder
+				has_country_flag = unlocked_artifice_invention_elemental_gunpowder
 				has_country_flag = unlocked_artifice_invention_vorpal_bullets
 				has_country_flag = unlocked_artifice_invention_black_damestear_bullets				
 			}
@@ -497,7 +497,7 @@ country_event = {	#Projectiles
 		name = bertus_artificers.52000.a
 		trigger = {
 			OR = {
-				has_country_flag = invention_elemental_gunpowder			
+				has_country_flag = unlocked_artifice_invention_elemental_gunpowder			
 			}
 		}
 		
@@ -552,7 +552,7 @@ country_event = {	#Bullet lvl 1
 				artifice_has_points_for_basic = yes
 				has_country_modifier = elemental_bullets_modifier
 			}
-			has_country_flag = invention_elemental_gunpowder
+			has_country_flag = unlocked_artifice_invention_elemental_gunpowder
 			NOT = {has_country_modifier = vorpal_bullets_modifier}
 			NOT = {has_country_modifier = black_damestear_bullets_modifier}
 		}
@@ -574,7 +574,7 @@ country_event = {	#Bullet lvl 1
 	option = {	#option A unable
 		name = bertus_artificers.52100.a.unable
 		trigger = {
-			has_country_flag = invention_elemental_gunpowder
+			has_country_flag = unlocked_artifice_invention_elemental_gunpowder
 			OR = {
 				AND = {					
 					artifice_has_points_for_basic = no
@@ -2345,5 +2345,91 @@ country_event = {	#Enhancement lvl 3
 		hidden_effect = {country_event = {id = bertus_artificers.55000}}		
 	}
 	after = {
+	}
+}
+
+country_event = {	#baloon exploration
+	id = bertus_artificers.1001
+	title = bertus_artificers.1001.t
+	desc = bertus_artificers.1001.desc
+	picture = INVENTION_eventPicture
+	
+	trigger = {
+		has_estate_privilege = artifice_invention_balloonboost_packs
+	}
+	
+	hidden = yes
+	mean_time_to_happen = {
+		months = 12
+	}
+
+	immediate = {
+	}
+
+	option = {	#
+		name = bertus_artificers.1001.z
+		#event_target:baloon_exploration_target = { remove_fow = 1}
+		every_war_enemy_country = {
+			every_owned_province = {
+				limit = {
+					NOT = {units_in_province = PREV}
+					NOT = {units_in_province = ROOT}
+					NOT = {	fort_level = 1}
+					owned_by = PREV
+					controlled_by = PREV
+					any_province =  {
+						owned_by = ROOT 
+						controlled_by = ROOT
+						NOT = {
+							province_distance = {
+								who = PREV
+								distance = 50
+							}
+						}
+					}
+				}
+				#save_event_target_as = baloon_exploration_target
+				set_province_flag = baloon_exploration_target_flag
+				change_controller = ROOT
+			}
+		}
+	}
+	after = {
+		country_event = { id = bertus_artificers.1002 days = 1 }
+	}
+}
+country_event = {	#baloon exploration
+	id = bertus_artificers.1002
+	title = bertus_artificers.1002.t
+	desc = bertus_artificers.1002.desc
+	picture = INVENTION_eventPicture
+	
+	is_triggered_only = yes
+	hidden = yes
+
+	immediate = {}
+
+	option = {	#
+		name = bertus_artificers.1001.z
+		every_province = {
+			limit = {has_province_flag = baloon_exploration_target_flag}
+			clr_province_flag = baloon_exploration_target_flag
+			change_controller = owner
+		}
+	}
+	after = {
+		if = {
+			limit = {NOT = {has_country_flag = sent_baloons_flag}}
+			set_variable = {which = temp value = 5}
+			set_country_flag = sent_baloons_flag
+		}
+		if = {
+			limit = {check_variable = {which = temp value = 0}}
+			change_variable = {which = temp value = -1}
+			country_event = { id = bertus_artificers.1001 days = 1}
+		}
+		else = {
+			clr_country_flag = sent_baloons_flag
+		}
 	}
 }
