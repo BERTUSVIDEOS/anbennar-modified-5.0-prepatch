@@ -4811,17 +4811,42 @@ oak_monarchy_reform = {
 
 	}
 	modifiers = {
-		diplomatic_reputation = 1
-		yearly_absolutism = 0.5
-		advisor_cost = 0.1
+		governing_capacity = 50
+		max_terms = 1
 	}
 	custom_attributes = {
-		locked_government_type = yes
 		heir = no
 		queen = no
 		rulers_can_be_generals = no
 		cyranvar_special_election = yes
 	}
+	conditional = {
+		allow = { has_dlc = "Domination" }
+		custom_attributes = {
+			has_limited_terms = yes
+		}
+	}
+	effect = {
+		hidden_effect = {
+			set_variable = {
+				which = election_term
+				value = 1
+			}
+		}
+	}
+	removed_effect = {
+		hidden_effect = {
+			set_variable = {
+				which = election_term
+				value = 1
+			}
+		}
+		clr_ruler_focus_modifiers = yes
+	}
+	post_removed_effect = {
+		clr_ruler_focus_modifiers = yes
+	}
+	duration = 20
 }
 
 cyranvar_parliament_reform = {
@@ -9733,7 +9758,7 @@ political_absolutism_reform = {	#bertus mod
 	}
 	modifiers = {
 		yearly_absolutism = 2
-		max_absolutism = 20
+		max_absolutism_effect = 0.20
 	}
 	custom_attributes = {
 		boosted_absolutism = yes

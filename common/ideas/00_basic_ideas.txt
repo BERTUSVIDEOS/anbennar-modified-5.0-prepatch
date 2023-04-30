@@ -9,6 +9,22 @@
 # groups set to colonial=yes will be higher prioritized by the AI when spending power
 
 
+naval_ideas = {
+	category = MIL
+	trigger = {
+		always = no
+	}
+	1 = {}
+	2 = {}
+	3 = {}
+	4 = {}
+	5 = {}
+	6 = {}
+	7 = {}
+
+	bonus = {}
+	ai_will_do = {factor = 0}
+}
 aristocracy_ideas = {
 	category = ADM
 	trigger = {
@@ -168,7 +184,6 @@ innovativeness_ideas = {
 		}
 	}
 }
-
 religious_ideas = {
 	category = ADM
 
@@ -176,19 +191,22 @@ religious_ideas = {
 		NOT = {has_idea_group = humanist_ideas}
 	}
 	bonus = {
-		culture_conversion_cost = -0.25
+		yearly_absolutism = 0.5
 	}
 
-	missionary_schools = {
+	supremacy_schools = {
+		same_culture_advisor_cost = -0.05
+		#different culture group advisor chance -100%
+	}
+	supremacy_duty = {
+		stability_cost_modifier = -0.10
 		missionaries = 1
 	}
-	church_attendance_duty = {
-		stability_cost_modifier = -0.25
-	}
-	divine_supremacy = {
+	total_supremacy = {
 		global_missionary_strength = 0.03
+		#racial supremacy +100% bonuses
 	}
-	devoutness = {
+	supremacy_devoutness = {
 		tolerance_own = 2
 		papal_influence = 2
 		devotion = 0.5
@@ -200,15 +218,17 @@ religious_ideas = {
 		yearly_authority = 0.15
 		yearly_patriarch_authority = 0.005
 	}
-	religious_tradition = {
-		prestige = 0.25	#1→0.25
-		prestige_per_development_from_conversion = 0.2	#0→0.2
+	supremacy_tradition = {
+		prestige = 0.25
+		prestige_per_development_from_conversion = 0.2
 	}
-	inquisition = {
-		missionary_maintenance_cost = -0.5
+	supremacy_inquisition = {
+		culture_conversion_cost = -0.25
+		#purge/expell speed 25%
 	}
-	deus_vult = {
-		cb_on_religious_enemies = yes
+	supremacy_deus_vult = {
+		global_rebel_suppression_efficiency = 0.05
+		#cb_on_different_race = yes
 	}
 
 	ai_will_do = {
@@ -247,7 +267,7 @@ economic_ideas = {
 		global_autonomy = -0.025	#-0.05→-0.025
 	}
 	nationalistic_enthusiasm = {
-		land_maintenance_modifier = -0.10
+		land_maintenance_modifier = -0.05	#-0.1→-0.05
 	}
 	smithian_economics = {
 		production_efficiency = 0.1
@@ -293,12 +313,9 @@ entwicklung0 = {
 		defensiveness = 0.05	#0→0.05	
 	}
 
-	entwicklung5 = {
-		global_autonomy = -0.025	#-0.05→-0.025
-	}
 	entwicklung6 = {
 		#build_cost = -0.05	#-0.1→-0
-		build_time = -0.05	#0→-0.05
+		build_time = -0.10	#0→-0.10
 		# <<WIKI>> build_cost_in_subject_nation = -0.25	#-0.25→-0.5
 	}
 	entwicklung7 = {
@@ -306,16 +323,23 @@ entwicklung0 = {
 		gold_depletion_chance_modifier = -0.25	#0→-0.25
 	}
 	entwicklung1 = {
-		local_development_cost_modifier = -0.10	#bertus mod
+		local_development_cost_modifier = -0.05	#bertus mod
 	}
 	entwicklung2 = {
 		production_efficiency = 0.05
+		#10% chance to get extra production
 	}
 	entwicklung3 = {
 		global_tax_modifier = 0.05
+		#10% chance to get extra tax
+	}
+	entwicklung5 = {
+		global_autonomy = -0.025	#-0.05→-0.025
+		#10% chance to get extra manpower
 	}
 	entwicklung4 = {
 		trade_efficiency = 0.05
+		#10% chance to get mercantilism
 	}
 
 	ai_will_do = {
@@ -392,13 +416,13 @@ zentra0 = {
 		garrison_size = 0.20	#0→0.20
 	}
 	zentra1 = {
-		build_time = -0.20	#-0.33→-0.2
+		build_time = -0.10	#-0.33→-0.1
 	}
 	zentra2 = {
 		global_trade_goods_size_modifier = 0.1
 	}
 	zentra3 = {
-		local_development_cost_modifier = -0.10	#bertus mod
+		local_development_cost_modifier = -0.05	#bertus mod
 		# <<WIKI>> development_cost_over_25 = yes
 	}
 	zentra4 = {
@@ -465,6 +489,7 @@ dezentra0 = {
 	category = ADM
 
 	trigger = {
+		government_rank = 2
 		NOT = {
 			has_idea_group = zentra0
 		}
@@ -488,7 +513,8 @@ dezentra0 = {
 		global_institution_spread = 0.25	#0.15→0.25
 	}
 	dezentra5 = {
-		governing_capacity_modifier = 0.2	#0.33→0.2
+		#governing_capacity_modifier = 0.2	#0.33→0
+		governing_capacity = 100	#0→100
 	}
 	dezentra6 = {
 		global_manpower_modifier = 0.05	#0.1→0.05
@@ -538,7 +564,8 @@ administrative_ideas = {
 	category = ADM
 
 	bonus = {
-		governing_capacity_modifier = 0.20	#0.25→0.2
+		#governing_capacity_modifier = 0.20	#0.25→0
+		governing_capacity = 100	#0→100
 	}
 
 	organised_mercenary_payment = {
@@ -646,7 +673,7 @@ expansion_ideas = {
 	important = yes
 
 	bonus = {
-		trade_company_investment_cost = -0.1	#0→-0.1
+		trade_company_investment_cost = -0.2	#0→-0.2
 	}
 	
 	expan7 = {
@@ -678,8 +705,8 @@ expansion_ideas = {
 	}
 	
 	expan6 = {
-		governing_capacity_modifier = 0.10	#0.15→0.1
-		trade_company_governing_cost = -0.10	#-0.15→-0.1
+		#governing_capacity_modifier = 0.10	#0.15→0
+		trade_company_governing_cost = -0.20	#-0.15→-0.2
 	}
 	
 
@@ -796,7 +823,7 @@ expansion_ideas = {
 				technology_group = tech_salahadesi
 				technology_group = tech_elven
 				technology_group = tech_bulwari
-				technology_group = tech_islanders
+				technology_group = tech_triunic
 			}
 		}
 	}
@@ -1305,7 +1332,7 @@ spy_ideas = {
 	}	
 	
 	agent_training = {
-		diplomats = 1		
+		diplomats = 2		
 	}
 
 	vetting = {
@@ -1327,7 +1354,7 @@ spy_ideas = {
 		privateer_efficiency = 0.33
 	}
 	audit_checks = {
-		yearly_corruption = -0.1
+		yearly_corruption = -0.20
 	}
 
 	ai_will_do = {
@@ -1343,7 +1370,7 @@ influence_ideas = {
 	}
 
 	tribute_system = {
-		vassal_income = 0.25
+		vassal_income = 0.20
 	}
 	additional_loyalist_recruitment = {
 		reduced_liberty_desire = 15
@@ -1383,15 +1410,17 @@ influence_ideas = {
 
 dynasty0 = {
 	category = DIP
+	trigger = {
+		has_government_attribute = enables_aristocratic_idea_group
+	}
 	bonus = {
 		reduced_stab_impacts = yes
 		heir_chance = 0.5
 	}
-
 	
 	establish_cadet_branches = {
-		legitimacy = 0.5	#1.0→0.5
-		prestige = 1
+		legitimacy = 0.5
+		monarch_admin_power = 1
 	}
 	cabinet = {
 		diplomatic_upkeep = 2
@@ -1399,20 +1428,20 @@ dynasty0 = {
 	foreign_embassies_2 = {
 		diplomats = 1
 		# <<WIKI>> decision = dynastie_promoten
-		# <<WIKI>> elective_monarchy_dip_buff = yes
 	}
 	diplomatic_corps_2 = {
-		dip_tech_cost_modifier = -0.1
+		monarch_diplomatic_power = 1
 		# <<WIKI>> add_cb = cb_dynastie
 	}	
 	benign_diplomats = {
-		improve_relation_modifier = 0.2
+		improve_relation_modifier = 0.33
 	}
 	experienced_diplomats  = {
 		diplomatic_reputation = 2
 	}
 	dynastie4 = {
-		shock_damage = 0.05
+		dip_tech_cost_modifier = -0.1
+		# <<WIKI>> elective_monarchy_buff = yes
 	}
 	ai_will_do = {
 		factor = 10
@@ -2073,7 +2102,8 @@ assimilation0 = {
 		culture_conversion_cost = -0.20	#-0.5→-0.20
 	}
 	assimilation7 = {
-		global_manpower_modifier = 0.10	#0.15→0.1
+		#global_manpower_modifier = 0.10	#0.15→0
+		army_tradition_from_battle = 0.25	#0→0.25
 	}
 	assimilation3 = {
 		#religious_unity = 0.2	#0.2→0
@@ -2145,7 +2175,8 @@ gesellschaft0 = {
 		global_unrest = -1
 	}
 	gesellschaft7 = {
-		land_morale = 0.05
+		#land_morale = 0.05	#0.05→0
+		morale_damage_received = -0.05	#0→-0.05
 	}
 
 	ai_will_do = {
@@ -3157,12 +3188,11 @@ militarismus0 = {	#bertus mod
 	militarismus4 = {
 		war_exhaustion = -0.020
 		regiment_manpower_usage = -0.05	#0→-0.05
-		manpower_recovery_speed = 0.10	#until manpower usage is fixed
 		#global_manpower = 5.0	#5→0
 		# <<WIKI>> add_age_manpower = 5.0	#5→0
 	}
 	militarismus6 = {
-		yearly_government_power = 0.05
+		monthly_militarized_society = 0.05
 		land_attrition = -0.1		
 	}
 	militarismus7 = {
@@ -3409,6 +3439,8 @@ generalstab0 = {
 	generalstab7 = {
 		free_leader_pool = 1
 		special_unit_forcelimit = 0.05	#0→0.05
+		amount_of_carolean = 0.10	#0→0.10
+		amount_of_cawa = 0.10	#0→0.10
 	}
 	generalstab6 = {
 		yearly_army_professionalism = 0.002	#0.025→0.002
@@ -3649,7 +3681,6 @@ wehrpflicht0 = {
 	wehrpflicht1 = {
 		#global_manpower = 10.0	#5→0
 		regiment_manpower_usage = -0.10	#0→-0.10
-		manpower_recovery_speed = 0.20	#until manpower usage is fixed
 	}
 	wehrpflicht4 = {
 		army_tradition = 0.5	#1→0.5

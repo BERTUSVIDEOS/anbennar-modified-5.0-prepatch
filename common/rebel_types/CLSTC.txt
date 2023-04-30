@@ -1,0 +1,124 @@
+
+######################################################################
+# Corinite rebels. Disgruntled fanatics.
+######################################################################
+CLSTC_damescrown_rebels = {
+
+	color = { 230 175 175 }
+
+	area = nation 					# Sticks to provinces of their nation
+	government = republic 			# Desires Republic
+	religion = ROOT
+	defection = none				# Will not defect
+	defect_delay = 120				# Held provinces will auto-defect after 18 months, regardless of accept/enforce demands.
+	independence = none				# Does not strive for independence
+	unit_transfer = yes
+	gfx_type = culture_province
+	will_relocate = yes	
+	
+	resilient = no
+	reinforcing = yes
+	general = yes
+	smart = yes
+	
+	artillery = 0.0
+	infantry = 0.9
+	cavalry = 0.1
+	
+	morale = 1.2
+
+	# Possible handle actions
+	handle_action_negotiate = yes
+	handle_action_stability = yes
+	handle_action_build_core = no
+	handle_action_send_missionary = no	
+	
+	# The rebel type with the highest modifier for this province gets picked
+	spawn_chance = {
+		factor = 1	
+		modifier = {
+			factor = 2000
+			NOT = {
+				has_government_power = { 
+					mechanic_type = republicans_vs_CLSTC_mechanic
+					power_type = governmental_power
+					value = -80
+				}
+			}
+		}
+	}
+ 
+ 	# This is checked for EACH province in the Area of Operations
+	movement_evaluation = {
+		factor = 1
+		modifier = {
+			factor = 0.5
+			units_in_province = 1
+		}
+		modifier = {
+			factor = 0.001
+			controlled_by = REB
+		}
+		modifier = {
+			factor = 1.5
+			unrest = 2
+		}
+		modifier = {
+			factor = 1.5
+			unrest = 4
+		}
+		modifier = {
+			factor = 1.5
+			unrest = 6
+		}
+	}
+ 
+ 	# Province Scope
+ 	siege_won_trigger = {
+		# NOT = {
+			# AND = {
+				# owned_by = PAP
+				# is_capital = yes
+			# }
+		# }
+ 	}
+	siege_won_effect = {
+		owner = {			
+			add_government_power = { 
+				mechanic_type = republicans_vs_CLSTC_mechanic
+				power_type = governmental_power
+				value = 5
+			}
+		}
+	}
+	
+	# Country scope
+	can_negotiate_trigger = {
+	}
+	
+	# Country scope
+	can_enforce_trigger = {
+		always = yes
+	}
+	
+	# Localisation for their demands
+	demands_description = "CLSTC_damescrown_rebels_demand"
+	
+	# Country Scope	
+	demands_enforced_effect = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = just_lost_to_rebels
+				duration = 10
+				hidden = yes
+			}
+		}
+		add_government_power = { 
+			mechanic_type = republicans_vs_CLSTC_mechanic
+			power_type = governmental_power
+			value = 50
+		}
+		add_prestige = -20
+		add_republican_tradition = -20
+	}
+}

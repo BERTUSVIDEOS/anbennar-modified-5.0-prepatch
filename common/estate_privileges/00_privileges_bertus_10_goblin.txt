@@ -29,8 +29,6 @@ estate_goblin_first_hand_chairman = {
 			}
 		}
 	}
-	modifier = {
-	}
 	benefits = {
 		monthly_heir_claim_increase = 0.1
 		global_institution_spread = 0.25
@@ -48,109 +46,13 @@ estate_goblin_first_hand_chairman = {
 	conditional_modifier = {
 		trigger = {		
 			is_part_of_hre = no
-			has_country_modifier = human_administration
+			NOT = {has_country_modifier = goblin_administration}
+			NOT = {has_country_modifier = hobgoblin_administration}
+			NOT = {has_country_modifier = orcish_administration}
 		}
 		modifier = {
 			legitimacy = -0.5
-			devotion = -0.25			
-			reelection_cost = 0.1
-			human_loyalty_modifier = -0.1
-		}
-	}
-	conditional_modifier = {
-		trigger = {		
-			is_part_of_hre = no
-			has_country_modifier = elven_administration
-		}
-		modifier = {
-			legitimacy = -2.0
-			devotion = -1.0		
-			reelection_cost = 1.0
-			elven_loyalty_modifier = -0.5
-		}
-	}
-	conditional_modifier = {
-		trigger = {		
-			is_part_of_hre = no
-			has_country_modifier = orcish_administration
-		}
-		modifier = {
-			legitimacy = -0.5
-			devotion = -0.25	
-			reelection_cost = 0.1
-			orcish_loyalty_modifier = -0.1
-		}
-	}
-	conditional_modifier = {
-		trigger = {		
-			is_part_of_hre = no
-			has_country_modifier = dwarven_administration
-		}
-		modifier = {
-			legitimacy = -2.0
-			devotion = -1.0			
-			reelection_cost = 1.0
-			dwarven_loyalty_modifier = -0.5
-		}
-	}
-	conditional_modifier = {
-		trigger = {		
-			is_part_of_hre = no
-			has_country_modifier = gnollish_administration
-		}
-		modifier = {
-			legitimacy = -0.5
-			devotion = -0.25			
-			reelection_cost = 0.1
-			gnollish_loyalty_modifier = -0.1
-		}
-	}
-	conditional_modifier = {
-		trigger = {		
-			is_part_of_hre = no
-			has_country_modifier = harimari_administration
-		}
-		modifier = {
-			legitimacy = -0.5
-			devotion = -0.25		
-			reelection_cost = 0.1
-			harimari_loyalty_modifier = -0.1
-		}
-	}
-	conditional_modifier = {
-		trigger = {		
-			is_part_of_hre = no
-			has_country_modifier = ruinborn_administration
-		}
-		modifier = {
-			legitimacy = -0.5
-			devotion = -0.25		
-			reelection_cost = 0.1
-			ruinborn_loyalty_modifier = -0.1
-		}
-	}
-	conditional_modifier = {
-		trigger = {		
-			is_part_of_hre = no
-			has_country_modifier = centaur_administration
-		}
-		modifier = {
-			legitimacy = -1.0
-			devotion = -0.5			
-			reelection_cost = 0.25
-			centaur_loyalty_modifier = -0.2
-		}
-	}
-	conditional_modifier = {
-		trigger = {		
-			is_part_of_hre = no
-			has_country_modifier = ogre_administration
-		}
-		modifier = {
-			legitimacy = -2.0
-			devotion = -1.0	
-			reelection_cost = 1.0
-			ogre_loyalty_modifier = -0.5
+			devotion = -0.2
 		}
 	}
 	on_revoked = {
@@ -2132,7 +2034,6 @@ estate_goblin_intolerance_policy = {
 			}
 			always = no
 		}
-		OR = {AND = {uses_isolationism = yes NOT = {isolationism = 1}} uses_isolationism = no}
 		has_country_modifier = goblin_military
 		has_country_modifier = goblin_administration
 		NOT = { has_estate_privilege = estate_orcish_green_supremacy_policy }
@@ -2141,7 +2042,7 @@ estate_goblin_intolerance_policy = {
 	can_select = {
 		estate_territory = {
 			estate = estate_goblin
-			territory = 70
+			territory = 50
 		}
 	}
 	on_granted = {
@@ -2174,10 +2075,64 @@ estate_goblin_intolerance_policy = {
 		tolerance_heathen = -2
 		tolerance_heretic = -2
 		relation_with_other_culture = -50
+		promote_culture_cost = 10.0
 	}
 	benefits = {
-		global_missionary_strength = 0.01
-		administrative_efficiency = 0.05
+	}
+	conditional_modifier = {
+		trigger = {
+			NOT = {
+				calc_true_if = {
+					has_government_attribute = faster_purguing_reform
+					has_idea = total_supremacy
+					amount = 1
+				}
+			}
+		}
+		modifier = {
+			global_missionary_strength = 0.01
+			administrative_efficiency = 0.05		
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			calc_true_if = {
+				has_government_attribute = faster_purguing_reform
+				has_idea = total_supremacy
+				amount = 1
+			}
+			NOT = {
+				calc_true_if = {
+					has_government_attribute = faster_purguing_reform
+					has_idea = total_supremacy
+					amount = 2
+				}
+			}
+		}
+		modifier = {
+			global_missionary_strength = 0.02
+			administrative_efficiency = 0.10
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			calc_true_if = {
+				has_government_attribute = faster_purguing_reform
+				has_idea = total_supremacy
+				amount = 2
+			}
+			NOT = {
+				calc_true_if = {
+					has_government_attribute = faster_purguing_reform
+					has_idea = total_supremacy
+					amount = 3
+				}
+			}
+		}
+		modifier = {
+			global_missionary_strength = 0.03
+			administrative_efficiency = 0.15
+		}
 	}
 	conditional_modifier = {
 		trigger = {
@@ -2185,7 +2140,13 @@ estate_goblin_intolerance_policy = {
 				NOT = { culture_is_goblin = yes }
 				war_with = root
 			}
-			NOT = {has_government_attribute = faster_purguing_reform}
+			NOT = {
+				calc_true_if = {
+					has_government_attribute = faster_purguing_reform
+					has_idea = total_supremacy
+					amount = 1
+				}
+			}
 		}
 		modifier = {
 			morale_damage = 0.05
@@ -2202,15 +2163,54 @@ estate_goblin_intolerance_policy = {
 				NOT = { culture_is_goblin = yes }
 				war_with = root
 			}
-			has_government_attribute = faster_purguing_reform
+			calc_true_if = {
+				has_government_attribute = faster_purguing_reform
+				has_idea = total_supremacy
+				amount = 1
+			}
+			NOT = {
+				calc_true_if = {
+					has_government_attribute = faster_purguing_reform
+					has_idea = total_supremacy
+					amount = 2
+				}
+			}
 		}
 		modifier = {
 			morale_damage = 0.10
 			shock_damage = 0.10
 			fire_damage = 0.10
-			manpower_recovery_speed = 0.2
-			reinforce_speed = 0.2
-			recover_army_morale_speed = 0.05			
+			manpower_recovery_speed = 0.20
+			reinforce_speed = 0.20
+			recover_army_morale_speed = 0.05
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			any_known_country = {
+				NOT = { culture_is_goblin = yes }
+				war_with = root
+			}
+			calc_true_if = {
+				has_government_attribute = faster_purguing_reform
+				has_idea = total_supremacy
+				amount = 2
+			}
+			NOT = {
+				calc_true_if = {
+					has_government_attribute = faster_purguing_reform
+					has_idea = total_supremacy
+					amount = 3
+				}
+			}
+		}
+		modifier = {
+			morale_damage = 0.15
+			shock_damage = 0.15
+			fire_damage = 0.15
+			manpower_recovery_speed = 0.30
+			reinforce_speed = 0.30
+			recover_army_morale_speed = 0.075
 		}
 	}
 	conditional_modifier = {
@@ -2260,7 +2260,6 @@ estate_goblin_green_supremacy_policy = {
 			}
 			always = no
 		}
-		OR = {AND = {uses_isolationism = yes NOT = {isolationism = 1}} uses_isolationism = no}
 		OR = {
 			has_estate_privilege = estate_goblin_first_hand_chairman
 			has_estate_privilege = estate_orcish_first_hand_chairman
@@ -2294,24 +2293,11 @@ estate_goblin_green_supremacy_policy = {
 		remove_racial_culture = { race = kobold }
 	}
 	on_granted_province = {
-		if = {
-			limit = {
-				OR = {culture_is_goblin = yes culture_is_orcish = yes culture_is_half_orcish = yes}
-				has_owner_accepted_culture = yes
-			}
-			add_province_modifier = {name = racial_superiority duration = -1}
-		}
-		else_if = {
-			limit = {has_province_modifier = racial_superiority}
-			remove_province_modifier = racial_superiority
-		}
-		if = {
-			limit = {culture_is_goblin = no culture_is_orcish = no culture_is_half_orcish = no}
-			add_province_modifier = {name = inferior_race duration = -1}
-		}
-		else_if = {
-			limit = {has_province_modifier = inferior_race}
-			remove_province_modifier = inferior_race
+		add_racial_superiority_modifier = {
+			race = half_orcish
+			multiple_races = yes
+			race2 = orcish
+			race3 = goblin
 		}
 	}
 	penalties = {
@@ -2320,8 +2306,61 @@ estate_goblin_green_supremacy_policy = {
 		relation_with_other_culture = -25
 	}
 	benefits = {
-		global_missionary_strength = 0.01
-		administrative_efficiency = 0.05
+	}
+	conditional_modifier = {
+		trigger = {
+			NOT = {
+				calc_true_if = {
+					has_government_attribute = faster_purguing_reform
+					has_idea = total_supremacy
+					amount = 1
+				}
+			}
+		}
+		modifier = {
+			global_missionary_strength = 0.01
+			administrative_efficiency = 0.05		
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			calc_true_if = {
+				has_government_attribute = faster_purguing_reform
+				has_idea = total_supremacy
+				amount = 1
+			}
+			NOT = {
+				calc_true_if = {
+					has_government_attribute = faster_purguing_reform
+					has_idea = total_supremacy
+					amount = 2
+				}
+			}
+		}
+		modifier = {
+			global_missionary_strength = 0.02
+			administrative_efficiency = 0.10
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			calc_true_if = {
+				has_government_attribute = faster_purguing_reform
+				has_idea = total_supremacy
+				amount = 2
+			}
+			NOT = {
+				calc_true_if = {
+					has_government_attribute = faster_purguing_reform
+					has_idea = total_supremacy
+					amount = 3
+				}
+			}
+		}
+		modifier = {
+			global_missionary_strength = 0.03
+			administrative_efficiency = 0.15
+		}
 	}
 	conditional_modifier = {
 		trigger = {
@@ -2331,14 +2370,81 @@ estate_goblin_green_supremacy_policy = {
 				NOT = { culture_is_half_orcish = yes }
 				war_with = root
 			}
+			NOT = {
+				calc_true_if = {
+					has_government_attribute = faster_purguing_reform
+					has_idea = total_supremacy
+					amount = 1
+				}
+			}
 		}
 		modifier = {
-			land_morale = 0.05
-			shock_damage_received = -0.05
-			fire_damage_received = -0.05
+			morale_damage = 0.05
+			shock_damage = 0.05
+			fire_damage = 0.05
 			manpower_recovery_speed = 0.1
 			reinforce_speed = 0.1
 			recover_army_morale_speed = 0.025			
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			any_known_country = {
+				NOT = { culture_is_orcish = yes }
+				NOT = { culture_is_goblin = yes }
+				NOT = { culture_is_half_orcish = yes }
+				war_with = root
+			}
+			calc_true_if = {
+				has_government_attribute = faster_purguing_reform
+				has_idea = total_supremacy
+				amount = 1
+			}
+			NOT = {
+				calc_true_if = {
+					has_government_attribute = faster_purguing_reform
+					has_idea = total_supremacy
+					amount = 2
+				}
+			}
+		}
+		modifier = {
+			morale_damage = 0.10
+			shock_damage = 0.10
+			fire_damage = 0.10
+			manpower_recovery_speed = 0.20
+			reinforce_speed = 0.20
+			recover_army_morale_speed = 0.05
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			any_known_country = {
+				NOT = { culture_is_orcish = yes }
+				NOT = { culture_is_goblin = yes }
+				NOT = { culture_is_half_orcish = yes }
+				war_with = root
+			}
+			calc_true_if = {
+				has_government_attribute = faster_purguing_reform
+				has_idea = total_supremacy
+				amount = 2
+			}
+			NOT = {
+				calc_true_if = {
+					has_government_attribute = faster_purguing_reform
+					has_idea = total_supremacy
+					amount = 3
+				}
+			}
+		}
+		modifier = {
+			morale_damage = 0.15
+			shock_damage = 0.15
+			fire_damage = 0.15
+			manpower_recovery_speed = 0.3
+			reinforce_speed = 0.3
+			recover_army_morale_speed = 0.075
 		}
 	}
 	conditional_modifier = {
@@ -2380,12 +2486,16 @@ estate_goblin_green_supremacy_policy = {
 	}
 }
 estate_goblin_autonomy = {
-	icon = privilege_grant_autonomy
+	icon = privilege_goblin_autonomy
 	loyalty = 0.2
 	influence = 0.10
 	is_valid = {
 		OR = {AND = {uses_isolationism = yes NOT = {isolationism = 3}} uses_isolationism = no}
 		NOT = { has_country_modifier = goblin_administration }
+		NOT = { has_country_modifier = racial_pop_goblin_enslavement }
+		NOT = { has_country_modifier = racial_pop_goblin_purge }
+		NOT = { has_country_modifier = racial_pop_goblin_expulsion }
+		NOT = { has_estate_privilege = estate_goblin_taxation_policy }
 	}
 	can_select = {
 		any_owned_province = {
@@ -2436,17 +2546,14 @@ estate_goblin_autonomy = {
 	}
 }
 estate_goblin_taxation_policy = {
-	icon = privilege_grant_autonomy
+	icon = privilege_goblin_taxation
 	loyalty = -0.1
 	is_valid = {
-		OR = {
-			AND = {
-				uses_isolationism = yes
-				isolationism = 3
-			}
-			uses_isolationism = no
-		}
 		NOT = { has_country_modifier = goblin_administration }
+		NOT = { has_country_modifier = racial_focus_goblin }
+		NOT = { has_country_modifier = racial_pop_goblin_expulsion }
+		NOT = { has_country_modifier = racial_pop_goblin_enslavement }
+		NOT = { has_country_modifier = racial_pop_goblin_purge }
 	}
 	can_select = {
 		any_owned_province = { culture_is_goblin = yes }
@@ -2489,19 +2596,17 @@ estate_goblin_taxation_policy = {
 	}
 }
 estate_goblin_purge = {
-	icon = privilege_grant_autonomy
+	icon = privilege_goblin_purge
 	loyalty = -0.2
 	influence = -0.20
 	is_valid = {
-		if = {
-			limit = {uses_isolationism = yes}
-			isolationism = 3
-		}
+		NOT = { has_country_modifier = racial_pop_goblin_enslavement }
+		NOT = { has_country_modifier = racial_pop_goblin_expulsion }
+		NOT = { has_country_modifier = racial_focus_goblin }
+		NOT = { has_estate_privilege = estate_goblin_taxation_policy }
 	}
 	can_select = {
-		can_purge_race = {
-			RACE = goblin
-		}
+		can_purge_race = {RACE = goblin}
 	}
 	on_granted = {		
 		largest_decrease_of_goblin_tolerance_effect = yes
@@ -2512,9 +2617,7 @@ estate_goblin_purge = {
 		custom_tooltip = pop_menu_purge_effect_unrest_tt
 		
 		hidden_effect = {
-			add_purguing_unrest = {
-				race = goblin
-			}
+			add_purguing_unrest = {race = goblin}
 		}
 	}
 	penalties = {
@@ -2528,22 +2631,36 @@ estate_goblin_purge = {
 		remove_country_modifier = racial_pop_goblin_purge
 	}
 	ai_will_do = {
-		factor = 0
+		factor = 1
+		modifier = {
+			factor = 0
+			medium_tolerance_goblin_race_trigger = yes
+		}
+		modifier = {
+			factor = 1000
+			NOT = {liberty_desire = 50}
+			culture_is_goblin = no
+			overlord = {
+				has_country_modifier = racial_pop_goblin_purge
+			}
+		}
 	}
 	cooldown_years = 10
 	on_cooldown_expires = {
 	}
 }
 estate_goblin_expulsion = {
-	icon = privilege_grant_autonomy
+	icon = privilege_goblin_expulsion
 	loyalty = -0.1
 	influence = -0.1
-	is_valid = {			
+	is_valid = {
+		NOT = { has_country_modifier = racial_pop_goblin_enslavement }
+		NOT = { has_country_modifier = racial_pop_goblin_purge }
+		NOT = { has_country_modifier = racial_focus_goblin }
+		NOT = { has_estate_privilege = estate_goblin_taxation_policy }
 	}
 	can_select = {
-		can_expel_race = {
-			RACE = goblin
-		}
+		can_expel_race = {RACE = goblin}
 	}
 	on_granted = {				
 		large_decrease_of_goblin_tolerance_effect = yes
@@ -2590,7 +2707,10 @@ estate_goblin_focus = {
 			is_part_of_hre = no
 		}		
 		NOT = { has_country_modifier = goblin_administration }
-		NOT = { has_country_modifier = goblin_military }		
+		NOT = { has_country_modifier = goblin_military }
+		NOT = { has_country_modifier = racial_pop_goblin_enslavement }
+		NOT = { has_country_modifier = racial_pop_goblin_purge }
+		NOT = { has_country_modifier = racial_pop_goblin_expulsion }
 	}
 	can_select = {
 		NOT = {
@@ -2622,6 +2742,58 @@ estate_goblin_focus = {
 	cooldown_years = 10
 	on_cooldown_expires = {
 	}
+}
+estate_goblin_enslavement = {
+	icon = privilege_goblin_enslavement
+	loyalty = -0.2
+	influence = -0.20
+	is_valid = {
+		NOT = {
+			has_estate_privilege = estate_goblin_intolerance_policy
+			has_estate_privilege = estate_orcish_green_supremacy_policy
+			has_estate_privilege = estate_goblin_green_supremacy_policy
+		}
+		can_enslave_race = {RACE = goblin}	
+	}
+	can_select = {
+		NOT = {has_race_recruitment = {race = goblin}}
+	}
+	on_granted = {		
+		largest_decrease_of_goblin_tolerance_effect = yes
+		add_country_modifier = { name = racial_pop_goblin_enslavement duration = -1 }
+		custom_tooltip = goblin_enslave_global_effect_tt
+		custom_tooltip = goblin_enslave_effect_unrest_tt
+		hidden_effect = {add_expulsion_unrest = {race = goblin}}
+	}
+	penalties = {}
+	benefits = {}
+	on_revoked = {		
+		remove_country_modifier = racial_pop_goblin_enslavement
+	}
+	on_invalid = {
+		remove_country_modifier = racial_pop_goblin_enslavement
+	}
+	ai_will_do = {
+		factor = 1
+		modifier = {
+			factor = 0
+			medium_tolerance_goblin_race_trigger = yes
+		}
+		modifier = {
+			factor = 1000
+			NOT = {liberty_desire = 50}
+			culture_is_goblin = no
+			overlord = {
+				has_country_modifier = racial_pop_goblin_enslavement
+			}
+		}
+		modifier = {
+			factor = 10
+			has_country_modifier = monstrous_nation
+		}
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {}
 }
 estate_goblin_non_military_swap = {
 	icon = privilege_grant_autonomy
@@ -2755,12 +2927,12 @@ estate_goblin_colonizers = {
 	}
 	on_granted = {
 	}
-	modifier = {
+	benefits = {
 		global_colonial_growth = 20
 		colonists = 1
-		yearly_corruption = 0.2
 	}
 	penalties = {
+		yearly_corruption = 0.2
 	}
 	on_revoked = {
 	}

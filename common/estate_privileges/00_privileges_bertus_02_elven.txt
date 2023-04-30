@@ -4,25 +4,11 @@ estate_elven_first_hand_chairman = {
 	influence = 0.10
 	loyalty = 0.10
 	is_valid = {
-		OR = {
-			AND = {
-				uses_isolationism = yes
-				isolationism = 1
-			}
-			uses_isolationism = no			
-		}
 	}
 	can_select = {	
 		estate_influence = {
 			estate = estate_elven
 			influence = 40
-		}
-		OR = {
-			AND = {
-				uses_isolationism = yes
-				isolationism = 2
-			}
-			uses_isolationism = no			
 		}
 		high_tolerance_elven_race_trigger = yes	
 		NOT = {has_race_councelor = {type = first_hand}}
@@ -45,8 +31,6 @@ estate_elven_first_hand_chairman = {
 			id = bertus_changes.1011
 		}
 	}
-	modifier = {			
-	}
 	benefits = {
 		free_policy = 1
 		prestige_decay = -0.02
@@ -61,85 +45,12 @@ estate_elven_first_hand_chairman = {
 	conditional_modifier = {
 		trigger = {		
 			is_part_of_hre = no
-			has_country_modifier = dwarven_administration
-		}
-		modifier = {
-			legitimacy = -1.0
-			devotion = -0.5			
-			reelection_cost = 0.25
-			dwarven_loyalty_modifier = -0.2
-		}
-	}
-	conditional_modifier = {
-		trigger = {		
-			is_part_of_hre = no
-			has_country_modifier = gnollish_administration
-		}
-		modifier = {
-			legitimacy = -1.0
-			devotion = -0.5		
-			reelection_cost = 0.25
-			gnollish_loyalty_modifier = -0.2
-		}
-	}
-	conditional_modifier = {
-		trigger = {		
-			is_part_of_hre = no
-			has_country_modifier = ruinborn_administration
-		}
-		modifier = {
-			legitimacy = -1.0
-			devotion = -0.5		
-			reelection_cost = 0.25
-			ruinborn_loyalty_modifier = -0.2
-		}
-	}
-	conditional_modifier = {
-		trigger = {		
-			is_part_of_hre = no
-			has_country_modifier = orcish_administration
-		}
-		modifier = {
-			legitimacy = -1.0
-			devotion = -0.5		
-			reelection_cost = 0.25
-			orcish_loyalty_modifier = -0.2
-		}
-	}
-	conditional_modifier = {
-		trigger = {		
-			is_part_of_hre = no
-			has_country_modifier = goblin_administration
-		}
-		modifier = {
-			legitimacy = -1.0
-			devotion = -0.5			
-			reelection_cost = 0.25
-			goblin_loyalty_modifier = -0.2
-		}
-	}
-	conditional_modifier = {
-		trigger = {		
-			is_part_of_hre = no
-			has_country_modifier = centaur_administration
+			NOT = {has_country_modifier = half_elven_administration}
+			NOT = {has_country_modifier = elven_administration}
 		}
 		modifier = {
 			legitimacy = -0.5
-			devotion = -0.2			
-			reelection_cost = 0.1
-			centaur_loyalty_modifier = -0.1
-		}
-	}
-	conditional_modifier = {
-		trigger = {		
-			is_part_of_hre = no
-			has_country_modifier = ogre_administration
-		}
-		modifier = {
-			legitimacy = -1.0
-			devotion = -0.5		
-			reelection_cost = 0.25
-			ogre_loyalty_modifier = -0.2
+			devotion = -0.2
 		}
 	}
 	on_revoked = {
@@ -160,20 +71,12 @@ estate_elven_diplomacy_chairman = {
 	influence = 0.05
 	is_valid = {
 		always = no	#via estate interactions
-		OR = {AND = { uses_isolationism = yes isolationism = 1 } uses_isolationism = no}
 		NOT = {has_race_councelor = {type = diplomacy}}
 	}
 	can_select = {
 		estate_influence = {
 			estate = estate_elven
 			influence = 40
-		}
-		OR = {
-			AND = {
-				uses_isolationism = yes
-				isolationism = 2
-			}
-			uses_isolationism = no			
 		}
 		high_tolerance_elven_race_trigger = yes		
 		NOT = {has_race_councelor = {type = diplomacy}}
@@ -217,20 +120,12 @@ estate_elven_military_chairman = {
 	loyalty = 0.05
 	is_valid = {
 		always = no	#via estate interactions
-		OR = {AND = { uses_isolationism = yes isolationism = 1 } uses_isolationism = no}
 		NOT = {has_race_councelor = {type = military}}
 	}
 	can_select = {
 		estate_influence = {
 			estate = estate_elven
 			influence = 40
-		}
-		OR = {
-			AND = {
-				uses_isolationism = yes
-				isolationism = 2
-			}
-			uses_isolationism = no			
 		}
 		high_tolerance_elven_race_trigger = yes		
 		NOT = {has_race_councelor = {type = military}}
@@ -280,20 +175,12 @@ estate_elven_economic_chairman = {
 	icon = privilege_empty_throne_yellow
 	is_valid = {
 		always = no	#via estate interactions
-		OR = {AND = { uses_isolationism = yes isolationism = 1 } uses_isolationism = no}
 		NOT = {has_race_councelor = {type = economic}}
 	}
 	can_select = {
 		estate_influence = {
 			estate = estate_elven
 			influence = 40
-		}
-		OR = {
-			AND = {
-				uses_isolationism = yes
-				isolationism = 2
-			}
-			uses_isolationism = no			
 		}
 		high_tolerance_elven_race_trigger = yes		
 		NOT = {has_race_councelor = {type = economic}}
@@ -311,8 +198,6 @@ estate_elven_economic_chairman = {
 				hidden = yes
 			}
 		}
-	}
-	modifier = {
 	}
 	benefits = {
 		global_tax_modifier = 0.1
@@ -336,7 +221,6 @@ estate_elven_navy_chairman = {
 	loyalty = 0.05
 	is_valid = {	
 		always = no	#via estate interactions
-		OR = {AND = { uses_isolationism = yes isolationism = 1 } uses_isolationism = no}
 		NOT = {has_race_councelor = {type = navy}}
 		any_owned_province = {
 			has_port = yes
@@ -346,13 +230,6 @@ estate_elven_navy_chairman = {
 		estate_influence = {
 			estate = estate_elven
 			influence = 40
-		}
-		OR = {
-			AND = {
-				uses_isolationism = yes
-				isolationism = 2
-			}
-			uses_isolationism = no			
 		}
 		high_tolerance_elven_race_trigger = yes		
 		NOT = {has_race_councelor = {type = navy}}
@@ -394,19 +271,12 @@ estate_elven_recruitment = {
 		any_owned_province = {
 			culture_is_elven = yes
 		}
-		OR = {
-			AND = {
-				uses_isolationism = yes
-				isolationism = 2
-			}
-			uses_isolationism = no			
-		}
-		NOT = {has_estate_privilege = estate_elven_ibevari_recruitment}
+		NOT = {has_estate_privilege = estate_elven_elite_recruitment}
 	}
 	can_select = {		
 		high_tolerance_elven_race_trigger = yes	
 		any_owned_province = {
-			culture_is_elven = yes
+			has_elven_majority_trigger = yes
 		}
 	}
 	on_granted = {
@@ -421,7 +291,8 @@ estate_elven_recruitment = {
 		custom_tooltip = malus_if_dwarven_mechanic_tooltip
 		custom_tooltip = elven_bonus_against_dwarves_mechanic_tooltip
 	}
-	modifier_by_land_ownership = {	}
+	modifier_by_land_ownership = {
+	}
 	penalties = {}
 	benefits = {}
 	mechanics = {
@@ -454,6 +325,14 @@ estate_elven_recruitment = {
 		}
 		modifier = {
 			drill_decay_modifier = -0.2
+			max_general_shock = 1
+			max_general_fire = 1
+			max_general_maneuver = 1
+			max_general_siege = 1
+			max_admiral_shock = 1
+			max_admiral_fire = 1
+			max_admiral_maneuver = 1
+			max_admiral_siege = 1
 		}
 	}
 	conditional_modifier = {
@@ -480,7 +359,7 @@ estate_elven_recruitment = {
 	}
 	on_invalid = {
 		hidden_effect = {
-			remove_estate_privilege = estate_elven_ibevari_recruitment
+			remove_estate_privilege = estate_elven_elite_recruitment
 			clr_country_flag = estate_elven_recruitment_flag
 			country_event = {
 				id = bertus_racial_military.1001
@@ -491,21 +370,15 @@ estate_elven_recruitment = {
 		factor = 1000
 	}
 }
-estate_elven_ibevari_recruitment = {
+estate_elven_elite_recruitment = {
 	icon = privilege_demand_more_troops
 	loyalty = -0.10
 	influence = 0.10
 	is_valid = {
 		high_tolerance_elven_race_trigger = yes	
+		has_estate_privilege = estate_elven_elite_recruitment
 		any_owned_province = {
-			culture_is_elven = yes
-		}
-		OR = {
-			AND = {
-				uses_isolationism = yes
-				isolationism = 2
-			}
-			uses_isolationism = no
+			has_elven_majority_trigger = yes
 		}
 		NOT = {
 			has_race_recruitment = { race = human }
@@ -528,7 +401,7 @@ estate_elven_ibevari_recruitment = {
 	can_select = {
 		high_tolerance_elven_race_trigger = yes	
 		any_owned_province = {
-			culture_is_elven = yes
+			has_elven_majority_trigger = yes
 		}
 	}
 	on_granted = {
@@ -715,7 +588,7 @@ estate_elven_sunblessed_troops = {
 	}
 }
 estate_elven_intolerance_policy = {
-	icon = privilege_elven_supremacy	
+	icon = privilege_elven_supremacy
 	influence = 0.10
 	is_valid = {
 		if = {
@@ -725,20 +598,13 @@ estate_elven_intolerance_policy = {
 			}
 			always = no
 		}
-		OR = {
-			AND = {
-				uses_isolationism = yes
-				isolationism = 2
-			}
-			uses_isolationism = no			
-		}
 		has_country_modifier = elven_military
 		has_country_modifier = elven_administration
 	}
 	can_select = {
 		estate_territory = {
 			estate = estate_elven
-			territory = 70
+			territory = 50
 		}
 	}
 	on_granted = {
@@ -771,18 +637,78 @@ estate_elven_intolerance_policy = {
 		tolerance_heathen = -2
 		tolerance_heretic = -2
 		relation_with_other_culture = -50
+		promote_culture_cost = 10.0
 	}
 	benefits = {
-		global_missionary_strength = 0.01
-		administrative_efficiency = 0.05
+	}
+	conditional_modifier = {
+		trigger = {
+			NOT = {
+				calc_true_if = {
+					has_government_attribute = faster_purguing_reform
+					has_idea = total_supremacy
+					amount = 1
+				}
+			}
+		}
+		modifier = {
+			global_missionary_strength = 0.01
+			administrative_efficiency = 0.05		
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			calc_true_if = {
+				has_government_attribute = faster_purguing_reform
+				has_idea = total_supremacy
+				amount = 1
+			}
+			NOT = {
+				calc_true_if = {
+					has_government_attribute = faster_purguing_reform
+					has_idea = total_supremacy
+					amount = 2
+				}
+			}
+		}
+		modifier = {
+			global_missionary_strength = 0.02
+			administrative_efficiency = 0.10
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			calc_true_if = {
+				has_government_attribute = faster_purguing_reform
+				has_idea = total_supremacy
+				amount = 2
+			}
+			NOT = {
+				calc_true_if = {
+					has_government_attribute = faster_purguing_reform
+					has_idea = total_supremacy
+					amount = 3
+				}
+			}
+		}
+		modifier = {
+			global_missionary_strength = 0.03
+			administrative_efficiency = 0.15
+		}
 	}
 	conditional_modifier = {
 		trigger = {
 			any_known_country = {
-				NOT = { culture_is_elven = yes }
+				NOT = { has_country_modifier = elven_military }
 				war_with = root
 			}
-			NOT = {has_government_attribute = faster_purguing_reform}
+			NOT = {
+				calc_true_if = {
+					has_government_attribute = faster_purguing_reform
+					has_idea = total_supremacy
+					amount = 1
+				}
+			}
 		}
 		modifier = {
 			morale_damage = 0.05
@@ -796,28 +722,66 @@ estate_elven_intolerance_policy = {
 	conditional_modifier = {
 		trigger = {
 			any_known_country = {
-				NOT = { culture_is_elven = yes }
+				NOT = { has_country_modifier = elven_military }
 				war_with = root
 			}
-			has_government_attribute = faster_purguing_reform
+			calc_true_if = {
+				has_government_attribute = faster_purguing_reform
+				has_idea = total_supremacy
+				amount = 1
+			}
+			NOT = {
+				calc_true_if = {
+					has_government_attribute = faster_purguing_reform
+					has_idea = total_supremacy
+					amount = 2
+				}
+			}
 		}
 		modifier = {
 			morale_damage = 0.10
 			shock_damage = 0.10
 			fire_damage = 0.10
-			manpower_recovery_speed = 0.2
-			reinforce_speed = 0.2
-			recover_army_morale_speed = 0.05			
+			manpower_recovery_speed = 0.20
+			reinforce_speed = 0.20
+			recover_army_morale_speed = 0.05
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			any_known_country = {
+				NOT = { has_country_modifier = elven_military }
+				war_with = root
+			}
+			calc_true_if = {
+				has_government_attribute = faster_purguing_reform
+				has_idea = total_supremacy
+				amount = 2
+			}
+			NOT = {
+				calc_true_if = {
+					has_government_attribute = faster_purguing_reform
+					has_idea = total_supremacy
+					amount = 3
+				}
+			}
+		}
+		modifier = {
+			morale_damage = 0.15
+			shock_damage = 0.15
+			fire_damage = 0.15
+			manpower_recovery_speed = 0.30
+			reinforce_speed = 0.30
+			recover_army_morale_speed = 0.075
 		}
 	}
 	conditional_modifier = {
 		trigger = {
 			any_ally = {
-				NOT = { culture_is_elven = yes }
+				NOT = { has_country_modifier = elven_administration }
 			}
 		}
 		modifier = {
-			land_morale = -0.05
 			stability_cost_modifier = 0.2
 			legitimacy = -1
 			republican_tradition = -0.25
@@ -847,15 +811,19 @@ estate_elven_intolerance_policy = {
 	}
 }
 estate_elven_autonomy = {
-	icon = privilege_grant_autonomy
+	icon = privilege_elven_autonomy
 	loyalty = 0.2
 	influence = 0.10
 	is_valid = {
 		NOT = { has_country_modifier = elven_administration }
+		NOT = { has_country_modifier = racial_pop_elven_enslavement }
+		NOT = { has_country_modifier = racial_pop_elven_purge }
+		NOT = { has_country_modifier = racial_pop_elven_expulsion }
+		NOT = { has_estate_privilege = estate_elven_taxation_policy }
 	}
 	can_select = {
 		any_owned_province = {
-			culture_is_elven = yes
+			has_elven_majority_trigger = yes
 		}
 	}
 	on_granted = {
@@ -864,7 +832,7 @@ estate_elven_autonomy = {
 	}
 	on_granted_province = {
 		if = {
-			limit = {culture_is_elven = yes}
+			limit = {has_elven_majority_trigger = yes}
 			add_province_modifier = {
 				name = estate_guaranteed_autonomy_mod
 				duration = -1
@@ -902,20 +870,17 @@ estate_elven_autonomy = {
 	}
 }
 estate_elven_taxation_policy = {
-	icon = privilege_grant_autonomy
+	icon = privilege_elven_taxation
 	loyalty = -0.1
 	is_valid = {
-		OR = {
-			AND = {
-				uses_isolationism = yes
-				isolationism = 3
-			}
-			uses_isolationism = no
-		}
 		NOT = { has_country_modifier = elven_administration }
+		NOT = { has_country_modifier = racial_focus_elven }
+		NOT = { has_country_modifier = racial_pop_elven_expulsion }
+		NOT = { has_country_modifier = racial_pop_elven_enslavement }
+		NOT = { has_country_modifier = racial_pop_elven_purge }
 	}
 	can_select = {
-		any_owned_province = { culture_is_elven = yes }
+		any_owned_province = { has_elven_majority_trigger = yes }
 	}
 	on_granted = {
 		small_decrease_of_elven_tolerance_effect = yes
@@ -923,7 +888,7 @@ estate_elven_taxation_policy = {
 	}
 	on_granted_province = {
 		if = {
-			limit = {culture_is_elven = yes}
+			limit = {has_elven_majority_trigger = yes}
 			add_province_modifier = { name = estate_racial_taxation_mod duration = -1 }
 			province_event = {id = bertus_pops.1075 days = 1 random = 5}
 		}
@@ -955,22 +920,17 @@ estate_elven_taxation_policy = {
 	}
 }
 estate_elven_purge = {
-	icon = privilege_grant_autonomy
+	icon = privilege_elven_purge
 	loyalty = -0.2
 	influence = -0.20
 	is_valid = {
-		OR = {
-			AND = {
-				uses_isolationism = yes
-				isolationism = 1
-			}
-			uses_isolationism = no			
-		}
+		NOT = { has_country_modifier = racial_pop_elven_enslavement }
+		NOT = { has_country_modifier = racial_pop_elven_expulsion }
+		NOT = { has_country_modifier = racial_focus_elven }
+		NOT = { has_estate_privilege = estate_elven_taxation_policy }
 	}
 	can_select = {
-		can_purge_race = {
-			RACE = elven
-		}
+		can_purge_race = {RACE = elven}
 	}
 	on_granted = {		
 		largest_decrease_of_elven_tolerance_effect = yes
@@ -981,9 +941,7 @@ estate_elven_purge = {
 		custom_tooltip = pop_menu_purge_effect_unrest_tt
 		
 		hidden_effect = {
-			add_purguing_unrest = {
-				race = elven
-			}
+			add_purguing_unrest = {race = elven}
 		}
 	}
 	penalties = {
@@ -997,29 +955,36 @@ estate_elven_purge = {
 		remove_country_modifier = racial_pop_elven_purge
 	}
 	ai_will_do = {
-		factor = 0
+		factor = 1
+		modifier = {
+			factor = 0
+			medium_tolerance_elven_race_trigger = yes
+		}
+		modifier = {
+			factor = 1000
+			NOT = {liberty_desire = 50}
+			NOT = {has_country_modifier = elven_administration}
+			overlord = {
+				has_country_modifier = racial_pop_elven_purge
+			}
+		}
 	}
 	cooldown_years = 10
 	on_cooldown_expires = {
 	}
 }
 estate_elven_expulsion = {
-	icon = privilege_grant_autonomy
+	icon = privilege_elven_expulsion
 	loyalty = -0.1
 	influence = -0.1
-	is_valid = {		
-		OR = {
-			AND = {
-				uses_isolationism = yes
-				isolationism = 1
-			}
-			uses_isolationism = no			
-		}
+	is_valid = {
+		NOT = { has_country_modifier = racial_pop_elven_enslavement }
+		NOT = { has_country_modifier = racial_pop_elven_purge }
+		NOT = { has_country_modifier = racial_focus_elven }
+		NOT = { has_estate_privilege = estate_elven_taxation_policy }
 	}
 	can_select = {
-		can_expel_race = {
-			RACE = elven
-		}
+		can_expel_race = {RACE = elven}
 	}
 	on_granted = {				
 		large_decrease_of_elven_tolerance_effect = yes
@@ -1067,6 +1032,9 @@ estate_elven_focus = {
 		}		
 		NOT = { has_country_modifier = elven_administration }
 		NOT = { has_country_modifier = elven_military }		
+		NOT = { has_country_modifier = racial_pop_elven_enslavement }
+		NOT = { has_country_modifier = racial_pop_elven_purge }
+		NOT = { has_country_modifier = racial_pop_elven_expulsion }
 	}
 	can_select = {
 		NOT = {
@@ -1099,21 +1067,65 @@ estate_elven_focus = {
 	on_cooldown_expires = {
 	}
 }
-estate_elven_increase_isolationism = {
+estate_elven_enslavement = {
+	icon = privilege_elven_enslavement
+	loyalty = -0.2
+	influence = -0.20
+	is_valid = {
+		NOT = {has_estate_privilege = estate_half_elven_intolerance_policy}
+		can_enslave_race = {RACE = elven}
+	}
+	can_select = {
+		NOT = {has_race_recruitment = {race = elven}}
+	}
+	on_granted = {		
+		largest_decrease_of_elven_tolerance_effect = yes
+		add_country_modifier = { name = racial_pop_elven_enslavement duration = -1 }
+		custom_tooltip = elven_enslave_global_effect_tt
+		custom_tooltip = elven_enslave_effect_unrest_tt
+		hidden_effect = {add_expulsion_unrest = {race = elven}}
+	}
+	penalties = {}
+	benefits = {}
+	on_revoked = {		
+		remove_country_modifier = racial_pop_elven_enslavement
+	}
+	on_invalid = {
+		remove_country_modifier = racial_pop_elven_enslavement
+	}
+	ai_will_do = {
+		factor = 1
+		modifier = {
+			factor = 0
+			medium_tolerance_elven_race_trigger = yes
+		}
+		modifier = {
+			factor = 1000
+			NOT = {liberty_desire = 50}
+			NOT = {has_country_modifier = elven_administration}
+			overlord = {
+				has_country_modifier = racial_pop_elven_enslavement
+			}
+		}
+		modifier = {
+			factor = 10
+			has_country_modifier = monstrous_nation
+		}
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {}
+}
+estate_elven_change_surael_praise = {
 	icon = privilege_grant_autonomy
 	loyalty = 0.1
 	influence = 0.1
 	is_valid = {
 		uses_isolationism = yes
-		NOT = {isolationism = 5}
 	}
 	can_select = {
-		NOT = {
-			has_estate_privilege = estate_human_decrease_isolationism
-		}
 	}
 	on_granted = {	
-		custom_tooltip = estate_elven_increase_isolationism_tooltip
+		country_event = {id = bertus_changes.6033}
 	}
 	benefits = {
 	}
@@ -1124,10 +1136,9 @@ estate_elven_increase_isolationism = {
 	ai_will_do = {
 		factor = 0
 	}
-	cooldown_years = 25
+	cooldown_years = 10
 	on_cooldown_expires = {
-		add_isolationism = 1
-		remove_estate_privilege = estate_elven_increase_isolationism
+		remove_estate_privilege = estate_elven_change_surael_praise
 	}
 }
 estate_elven_non_military_swap = {
@@ -1135,7 +1146,7 @@ estate_elven_non_military_swap = {
 	loyalty = 0.1
 	is_valid = {	
 		any_owned_province = {
-			culture_is_elven = yes
+			has_elven_majority_trigger = yes
 			has_province_modifier = non_military_pop
 		}
 	}
@@ -1206,13 +1217,6 @@ estate_elven_diplomatic_education = {
 			estate = estate_elven
 			influence = 40
 		}
-		OR = {
-			AND = {
-				uses_isolationism = yes
-				isolationism = 2
-			}
-			uses_isolationism = no			
-		}
 		high_tolerance_elven_race_trigger = yes
 		NOT = {has_estate_privilege = estate_elven_diplomatic_education}
 	}
@@ -1280,13 +1284,6 @@ estate_elven_colonizers = {
 	icon = privilege_new_world_mission
 	is_valid = {
 		OR = {
-			AND = {
-				uses_isolationism = yes
-				not = {isolationism = 2}
-			}
-			uses_isolationism = no			
-		}
-		OR = {
 			num_of_colonists = 1
 			any_owned_province = {
 				has_empty_adjacent_province = yes
@@ -1306,12 +1303,12 @@ estate_elven_colonizers = {
 	}
 	on_granted = {
 	}
-	modifier = {
+	benefits = {
 		global_colonial_growth = 20
 		colonists = 1
-		yearly_corruption = 0.2
 	}
 	penalties = {
+		yearly_corruption = 0.2
 	}
 	on_revoked = {
 	}
@@ -1323,13 +1320,6 @@ estate_elven_colonizers = {
 estate_elven_wood_working = {
 	icon = privilege_new_world_mission
 	is_valid = {
-		OR = {
-			AND = {
-				uses_isolationism = yes
-				NOT = {isolationism = 2}
-			}
-			uses_isolationism = no			
-		}
 	}
 	can_select = {
 		estate_influence = {
@@ -1375,7 +1365,7 @@ estate_elven_wood_working = {
 			remove_province_modifier = elven_wood_working_modifier
 		}
 	}
-	modifier = {
+	benefits  = {
 		build_cost = -0.05			
 	}
 	penalties = {
@@ -1410,7 +1400,7 @@ estate_elven_monopoly_of_incense = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = incense
-			culture_is_elven = yes
+			has_elven_majority_trigger = yes
 		}
 	}
 	can_select = {
@@ -1439,7 +1429,7 @@ estate_elven_monopoly_of_incense = {
 			years = 13
 			trigger = {
 				trade_goods = incense
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			custom_tooltip = ELVEN_MONOPOLY_INCOME_INCENSE_DESC
 		}
@@ -1450,7 +1440,7 @@ estate_elven_monopoly_of_incense = {
 		if = {
 			limit = {
 				trade_goods = incense
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_brahmins_monopoly_of_incense_mod
@@ -1487,7 +1477,7 @@ estate_elven_monopoly_of_wine = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = wine
-			culture_is_elven = yes
+			has_elven_majority_trigger = yes
 		}
 	}
 	can_select = {
@@ -1516,7 +1506,7 @@ estate_elven_monopoly_of_wine = {
 			years = 13
 			trigger = {
 				trade_goods = wine
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			custom_tooltip = ELVEN_MONOPOLY_INCOME_WINE_DESC
 		}
@@ -1527,7 +1517,7 @@ estate_elven_monopoly_of_wine = {
 		if = {
 			limit = {
 				trade_goods = wine
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_wine_mod
@@ -1564,7 +1554,7 @@ estate_elven_monopoly_of_cloth = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = cloth
-			culture_is_elven = yes
+			has_elven_majority_trigger = yes
 		}
 	}
 	can_select = {
@@ -1593,7 +1583,7 @@ estate_elven_monopoly_of_cloth = {
 			years = 13
 			trigger = {
 				trade_goods = cloth
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			custom_tooltip = ELVEN_MONOPOLY_INCOME_CLOTH_DESC
 		}
@@ -1604,7 +1594,7 @@ estate_elven_monopoly_of_cloth = {
 		if = {
 			limit = {
 				trade_goods = cloth
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_cloth_mod
@@ -1641,7 +1631,7 @@ estate_elven_monopoly_of_glass = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = glass
-			culture_is_elven = yes
+			has_elven_majority_trigger = yes
 		}
 	}
 	can_select = {
@@ -1670,7 +1660,7 @@ estate_elven_monopoly_of_glass = {
 			years = 13
 			trigger = {
 				trade_goods = glass
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			custom_tooltip = ELVEN_MONOPOLY_INCOME_GLASS_DESC
 		}
@@ -1681,7 +1671,7 @@ estate_elven_monopoly_of_glass = {
 		if = {
 			limit = {
 				trade_goods = glass
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_glass_mod
@@ -1718,7 +1708,7 @@ estate_elven_monopoly_of_paper = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = paper
-			culture_is_elven = yes
+			has_elven_majority_trigger = yes
 		}
 	}
 	can_select = {
@@ -1747,7 +1737,7 @@ estate_elven_monopoly_of_paper = {
 			years = 13
 			trigger = {
 				trade_goods = paper
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			custom_tooltip = ELVEN_MONOPOLY_INCOME_PAPER_DESC
 		}
@@ -1758,7 +1748,7 @@ estate_elven_monopoly_of_paper = {
 		if = {
 			limit = {
 				trade_goods = paper
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_paper_mod
@@ -1795,7 +1785,7 @@ estate_elven_monopoly_of_silk = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = silk
-			culture_is_elven = yes
+			has_elven_majority_trigger = yes
 		}
 	}
 	can_select = {
@@ -1824,7 +1814,7 @@ estate_elven_monopoly_of_silk = {
 			years = 13
 			trigger = {
 				trade_goods = silk
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			custom_tooltip = ELVEN_MONOPOLY_INCOME_SILK_DESC
 		}
@@ -1835,7 +1825,7 @@ estate_elven_monopoly_of_silk = {
 		if = {
 			limit = {
 				trade_goods = silk
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_silk_mod
@@ -1872,7 +1862,7 @@ estate_elven_monopoly_of_tea = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = tea
-			culture_is_elven = yes
+			has_elven_majority_trigger = yes
 		}
 	}
 	can_select = {
@@ -1901,7 +1891,7 @@ estate_elven_monopoly_of_tea = {
 			years = 13
 			trigger = {
 				trade_goods = tea
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			custom_tooltip = ELVEN_MONOPOLY_INCOME_TEA_DESC
 		}
@@ -1912,7 +1902,7 @@ estate_elven_monopoly_of_tea = {
 		if = {
 			limit = {
 				trade_goods = tea
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_tea_mod
@@ -1949,7 +1939,7 @@ estate_elven_monopoly_of_chinaware = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = chinaware
-			culture_is_elven = yes
+			has_elven_majority_trigger = yes
 		}
 	}
 	can_select = {
@@ -1978,7 +1968,7 @@ estate_elven_monopoly_of_chinaware = {
 			years = 13
 			trigger = {
 				trade_goods = chinaware
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			custom_tooltip = ELVEN_MONOPOLY_INCOME_CHINAWARE_DESC
 		}
@@ -1989,7 +1979,7 @@ estate_elven_monopoly_of_chinaware = {
 		if = {
 			limit = {
 				trade_goods = chinaware
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_chinaware_mod
@@ -2026,7 +2016,7 @@ estate_elven_monopoly_of_sugar = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = sugar
-			culture_is_elven = yes
+			has_elven_majority_trigger = yes
 		}
 	}
 	can_select = {
@@ -2055,7 +2045,7 @@ estate_elven_monopoly_of_sugar = {
 			years = 13
 			trigger = {
 				trade_goods = sugar
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			custom_tooltip = ELVEN_MONOPOLY_INCOME_SUGAR_DESC
 		}
@@ -2066,7 +2056,7 @@ estate_elven_monopoly_of_sugar = {
 		if = {
 			limit = {
 				trade_goods = sugar
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_sugar_mod
@@ -2103,7 +2093,7 @@ estate_elven_monopoly_of_tropical_wood = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = tropical_wood
-			culture_is_elven = yes
+			has_elven_majority_trigger = yes
 		}
 	}
 	can_select = {
@@ -2132,7 +2122,7 @@ estate_elven_monopoly_of_tropical_wood = {
 			years = 13
 			trigger = {
 				trade_goods = tropical_wood
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			custom_tooltip = ELVEN_MONOPOLY_INCOME_TROPICAL_WOOD_DESC
 		}
@@ -2143,7 +2133,7 @@ estate_elven_monopoly_of_tropical_wood = {
 		if = {
 			limit = {
 				trade_goods = tropical_wood
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_tropical_wood_mod
@@ -2180,7 +2170,7 @@ estate_elven_monopoly_of_precursor_relics = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = precursor_relics
-			culture_is_elven = yes
+			has_elven_majority_trigger = yes
 		}
 	}
 	can_select = {
@@ -2209,7 +2199,7 @@ estate_elven_monopoly_of_precursor_relics = {
 			years = 13
 			trigger = {
 				trade_goods = precursor_relics
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			custom_tooltip = ELVEN_MONOPOLY_INCOME_PRECURSOR_RELICS_DESC
 		}
@@ -2220,7 +2210,7 @@ estate_elven_monopoly_of_precursor_relics = {
 		if = {
 			limit = {
 				trade_goods = precursor_relics
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_precursor_relics_mod
@@ -2257,7 +2247,7 @@ estate_elven_monopoly_of_amber = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = amber
-			culture_is_elven = yes
+			has_elven_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -2289,7 +2279,7 @@ estate_elven_monopoly_of_amber = {
 			years = 13
 			trigger = {
 				trade_goods = amber
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			custom_tooltip = ELVEN_MONOPOLY_INCOME_AMBER_DESC
 		}
@@ -2300,7 +2290,7 @@ estate_elven_monopoly_of_amber = {
 		if = {
 			limit = {
 				trade_goods = amber
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_amber_mod
@@ -2337,7 +2327,7 @@ estate_elven_monopoly_of_apiculture = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = apiculture
-			culture_is_elven = yes
+			has_elven_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -2369,7 +2359,7 @@ estate_elven_monopoly_of_apiculture = {
 			years = 13
 			trigger = {
 				trade_goods = apiculture
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			custom_tooltip = ELVEN_MONOPOLY_INCOME_APICULTURE_DESC
 		}
@@ -2380,7 +2370,7 @@ estate_elven_monopoly_of_apiculture = {
 		if = {
 			limit = {
 				trade_goods = apiculture
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_apiculture_mod
@@ -2417,7 +2407,7 @@ estate_elven_monopoly_of_camel = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = camel
-			culture_is_elven = yes
+			has_elven_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -2449,7 +2439,7 @@ estate_elven_monopoly_of_camel = {
 			years = 11
 			trigger = {
 				trade_goods = camel
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			custom_tooltip = ELVEN_MONOPOLY_INCOME_CAMEL_DESC
 		}
@@ -2460,7 +2450,7 @@ estate_elven_monopoly_of_camel = {
 		if = {
 			limit = {
 				trade_goods = camel
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_camel_mod
@@ -2498,7 +2488,7 @@ estate_elven_monopoly_of_cannon = {
 		always = no
 		any_owned_province = {
 			trade_goods = cannon
-			culture_is_elven = yes
+			has_elven_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -2530,7 +2520,7 @@ estate_elven_monopoly_of_cannon = {
 			years = 11
 			trigger = {
 				trade_goods = cannon
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			custom_tooltip = ELVEN_MONOPOLY_INCOME_CANNON_DESC
 		}
@@ -2541,7 +2531,7 @@ estate_elven_monopoly_of_cannon = {
 		if = {
 			limit = {
 				trade_goods = cannon
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_cannon_mod
@@ -2578,7 +2568,7 @@ estate_elven_monopoly_of_carpet = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = carpet
-			culture_is_elven = yes
+			has_elven_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -2610,7 +2600,7 @@ estate_elven_monopoly_of_carpet = {
 			years = 13
 			trigger = {
 				trade_goods = carpet
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			custom_tooltip = ELVEN_MONOPOLY_INCOME_CARPET_DESC
 		}
@@ -2621,7 +2611,7 @@ estate_elven_monopoly_of_carpet = {
 		if = {
 			limit = {
 				trade_goods = carpet
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_carpet_mod
@@ -2658,7 +2648,7 @@ estate_elven_monopoly_of_champagne = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = champagne
-			culture_is_elven = yes
+			has_elven_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -2690,7 +2680,7 @@ estate_elven_monopoly_of_champagne = {
 			years = 13
 			trigger = {
 				trade_goods = champagne
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			custom_tooltip = ELVEN_MONOPOLY_INCOME_CHAMPAGNE_DESC
 		}
@@ -2701,7 +2691,7 @@ estate_elven_monopoly_of_champagne = {
 		if = {
 			limit = {
 				trade_goods = champagne
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_champagne_mod
@@ -2738,7 +2728,7 @@ estate_elven_monopoly_of_citrus = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = citrus
-			culture_is_elven = yes
+			has_elven_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -2770,7 +2760,7 @@ estate_elven_monopoly_of_citrus = {
 			years = 13
 			trigger = {
 				trade_goods = citrus
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			custom_tooltip = ELVEN_MONOPOLY_INCOME_CITRUS_DESC
 		}
@@ -2781,7 +2771,7 @@ estate_elven_monopoly_of_citrus = {
 		if = {
 			limit = {
 				trade_goods = citrus
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_citrus_mod
@@ -2818,7 +2808,7 @@ estate_elven_monopoly_of_dates = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = dates
-			culture_is_elven = yes
+			has_elven_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -2850,7 +2840,7 @@ estate_elven_monopoly_of_dates = {
 			years = 11
 			trigger = {
 				trade_goods = dates
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			custom_tooltip = ELVEN_MONOPOLY_INCOME_DATES_DESC
 		}
@@ -2861,7 +2851,7 @@ estate_elven_monopoly_of_dates = {
 		if = {
 			limit = {
 				trade_goods = dates
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_dates_mod
@@ -2898,7 +2888,7 @@ estate_elven_monopoly_of_ebony = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = ebony
-			culture_is_elven = yes
+			has_elven_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -2930,7 +2920,7 @@ estate_elven_monopoly_of_ebony = {
 			years = 13
 			trigger = {
 				trade_goods = ebony
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			custom_tooltip = ELVEN_MONOPOLY_INCOME_EBONY_DESC
 		}
@@ -2941,7 +2931,7 @@ estate_elven_monopoly_of_ebony = {
 		if = {
 			limit = {
 				trade_goods = ebony
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_ebony_mod
@@ -2978,7 +2968,7 @@ estate_elven_monopoly_of_elephants = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = elephants
-			culture_is_elven = yes
+			has_elven_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -3010,7 +3000,7 @@ estate_elven_monopoly_of_elephants = {
 			years = 13
 			trigger = {
 				trade_goods = elephants
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			custom_tooltip = ELVEN_MONOPOLY_INCOME_ELEPHANTS_DESC
 		}
@@ -3021,7 +3011,7 @@ estate_elven_monopoly_of_elephants = {
 		if = {
 			limit = {
 				trade_goods = elephants
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_elephants_mod
@@ -3058,7 +3048,7 @@ estate_elven_monopoly_of_exotic_animals = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = exotic_animals
-			culture_is_elven = yes
+			has_elven_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -3090,7 +3080,7 @@ estate_elven_monopoly_of_exotic_animals = {
 			years = 13
 			trigger = {
 				trade_goods = exotic_animals
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			custom_tooltip = ELVEN_MONOPOLY_INCOME_EXOTIC_ANIMALS_DESC
 		}
@@ -3101,7 +3091,7 @@ estate_elven_monopoly_of_exotic_animals = {
 		if = {
 			limit = {
 				trade_goods = exotic_animals
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_exotic_animals_mod
@@ -3138,7 +3128,7 @@ estate_elven_monopoly_of_gunpowder = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = gunpowder
-			culture_is_elven = yes
+			has_elven_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -3170,7 +3160,7 @@ estate_elven_monopoly_of_gunpowder = {
 			years = 13
 			trigger = {
 				trade_goods = gunpowder
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			custom_tooltip = ELVEN_MONOPOLY_INCOME_GUNPOWDER_DESC
 		}
@@ -3181,7 +3171,7 @@ estate_elven_monopoly_of_gunpowder = {
 		if = {
 			limit = {
 				trade_goods = gunpowder
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_gunpowder_mod
@@ -3218,7 +3208,7 @@ estate_elven_monopoly_of_horses = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = horses
-			culture_is_elven = yes
+			has_elven_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -3250,7 +3240,7 @@ estate_elven_monopoly_of_horses = {
 			years = 11
 			trigger = {
 				trade_goods = horses
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			custom_tooltip = ELVEN_MONOPOLY_INCOME_HORSES_DESC
 		}
@@ -3261,7 +3251,7 @@ estate_elven_monopoly_of_horses = {
 		if = {
 			limit = {
 				trade_goods = horses
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_horses_mod
@@ -3299,7 +3289,7 @@ estate_elven_monopoly_of_jewellery = {
 		always = no
 		any_owned_province = {
 			trade_goods = jewellery
-			culture_is_elven = yes
+			has_elven_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -3331,7 +3321,7 @@ estate_elven_monopoly_of_jewellery = {
 			years = 13
 			trigger = {
 				trade_goods = jewellery
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			custom_tooltip = ELVEN_MONOPOLY_INCOME_JEWELLERY_DESC
 		}
@@ -3342,7 +3332,7 @@ estate_elven_monopoly_of_jewellery = {
 		if = {
 			limit = {
 				trade_goods = jewellery
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_jewellery_mod
@@ -3380,7 +3370,7 @@ estate_elven_monopoly_of_leather = {
 		always = no
 		any_owned_province = {
 			trade_goods = leather
-			culture_is_elven = yes
+			has_elven_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -3412,7 +3402,7 @@ estate_elven_monopoly_of_leather = {
 			years = 11
 			trigger = {
 				trade_goods = leather
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			custom_tooltip = ELVEN_MONOPOLY_INCOME_LEATHER_DESC
 		}
@@ -3423,7 +3413,7 @@ estate_elven_monopoly_of_leather = {
 		if = {
 			limit = {
 				trade_goods = leather
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_leather_mod
@@ -3460,7 +3450,7 @@ estate_elven_monopoly_of_llama = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = llama
-			culture_is_elven = yes
+			has_elven_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -3492,7 +3482,7 @@ estate_elven_monopoly_of_llama = {
 			years = 13
 			trigger = {
 				trade_goods = llama
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			custom_tooltip = ELVEN_MONOPOLY_INCOME_LLAMA_DESC
 		}
@@ -3503,7 +3493,7 @@ estate_elven_monopoly_of_llama = {
 		if = {
 			limit = {
 				trade_goods = llama
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_llama_mod
@@ -3540,7 +3530,7 @@ estate_elven_monopoly_of_lumber = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = lumber
-			culture_is_elven = yes
+			has_elven_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -3572,7 +3562,7 @@ estate_elven_monopoly_of_lumber = {
 			years = 13
 			trigger = {
 				trade_goods = lumber
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			custom_tooltip = ELVEN_MONOPOLY_INCOME_LUMBER_DESC
 		}
@@ -3583,7 +3573,7 @@ estate_elven_monopoly_of_lumber = {
 		if = {
 			limit = {
 				trade_goods = lumber
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_lumber_mod
@@ -3620,7 +3610,7 @@ estate_elven_monopoly_of_maple_syrup = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = maple_syrup
-			culture_is_elven = yes
+			has_elven_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -3652,7 +3642,7 @@ estate_elven_monopoly_of_maple_syrup = {
 			years = 13
 			trigger = {
 				trade_goods = maple_syrup
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			custom_tooltip = ELVEN_MONOPOLY_INCOME_MAPLE_SYRUP_DESC
 		}
@@ -3663,7 +3653,7 @@ estate_elven_monopoly_of_maple_syrup = {
 		if = {
 			limit = {
 				trade_goods = maple_syrup
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_maple_syrup_mod
@@ -3701,7 +3691,7 @@ estate_elven_monopoly_of_metalworking = {
 		always = no
 		any_owned_province = {
 			trade_goods = metalworking
-			culture_is_elven = yes
+			has_elven_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -3733,7 +3723,7 @@ estate_elven_monopoly_of_metalworking = {
 			years = 11
 			trigger = {
 				trade_goods = metalworking
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			custom_tooltip = ELVEN_MONOPOLY_INCOME_METALWORKING_DESC
 		}
@@ -3744,7 +3734,7 @@ estate_elven_monopoly_of_metalworking = {
 		if = {
 			limit = {
 				trade_goods = metalworking
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_metalworking_mod
@@ -3782,7 +3772,7 @@ estate_elven_monopoly_of_munitions = {
 		always = no
 		any_owned_province = {
 			trade_goods = munitions
-			culture_is_elven = yes
+			has_elven_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -3814,7 +3804,7 @@ estate_elven_monopoly_of_munitions = {
 			years = 13
 			trigger = {
 				trade_goods = munitions
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			custom_tooltip = ELVEN_MONOPOLY_INCOME_MUNITIONS_DESC
 		}
@@ -3825,7 +3815,7 @@ estate_elven_monopoly_of_munitions = {
 		if = {
 			limit = {
 				trade_goods = munitions
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_munitions_mod
@@ -3862,7 +3852,7 @@ estate_elven_monopoly_of_olives = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = olive_oil
-			culture_is_elven = yes
+			has_elven_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -3894,7 +3884,7 @@ estate_elven_monopoly_of_olives = {
 			years = 13
 			trigger = {
 				trade_goods = olive_oil
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			custom_tooltip = ELVEN_MONOPOLY_INCOME_OLIVES_DESC
 		}
@@ -3905,7 +3895,7 @@ estate_elven_monopoly_of_olives = {
 		if = {
 			limit = {
 				trade_goods = olive_oil
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_olives_mod
@@ -3942,7 +3932,7 @@ estate_elven_monopoly_of_opium = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = opium
-			culture_is_elven = yes
+			has_elven_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -3974,7 +3964,7 @@ estate_elven_monopoly_of_opium = {
 			years = 13
 			trigger = {
 				trade_goods = opium
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			custom_tooltip = ELVEN_MONOPOLY_INCOME_OPIUM_DESC
 		}
@@ -3985,7 +3975,7 @@ estate_elven_monopoly_of_opium = {
 		if = {
 			limit = {
 				trade_goods = opium
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_opium_mod
@@ -4023,7 +4013,7 @@ estate_elven_monopoly_of_optics = {
 		always = no
 		any_owned_province = {
 			trade_goods = optics
-			culture_is_elven = yes
+			has_elven_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -4055,7 +4045,7 @@ estate_elven_monopoly_of_optics = {
 			years = 11
 			trigger = {
 				trade_goods = optics
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			custom_tooltip = ELVEN_MONOPOLY_INCOME_OPTICS_DESC
 		}
@@ -4066,7 +4056,7 @@ estate_elven_monopoly_of_optics = {
 		if = {
 			limit = {
 				trade_goods = optics
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_optics_mod
@@ -4103,7 +4093,7 @@ estate_elven_monopoly_of_palm_oil = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = palm_oil
-			culture_is_elven = yes
+			has_elven_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -4135,7 +4125,7 @@ estate_elven_monopoly_of_palm_oil = {
 			years = 11
 			trigger = {
 				trade_goods = palm_oil
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			custom_tooltip = ELVEN_MONOPOLY_INCOME_PALM_OIL_DESC
 		}
@@ -4146,7 +4136,7 @@ estate_elven_monopoly_of_palm_oil = {
 		if = {
 			limit = {
 				trade_goods = palm_oil
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_palm_oil_mod
@@ -4183,7 +4173,7 @@ estate_elven_monopoly_of_saffron = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = saffron
-			culture_is_elven = yes
+			has_elven_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -4215,7 +4205,7 @@ estate_elven_monopoly_of_saffron = {
 			years = 13
 			trigger = {
 				trade_goods = saffron
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			custom_tooltip = ELVEN_MONOPOLY_INCOME_SAFFRON_DESC
 		}
@@ -4226,7 +4216,7 @@ estate_elven_monopoly_of_saffron = {
 		if = {
 			limit = {
 				trade_goods = saffron
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_saffron_mod
@@ -4264,7 +4254,7 @@ estate_elven_monopoly_of_steam_engine = {
 		always = no
 		any_owned_province = {
 			trade_goods = steam_engine
-			culture_is_elven = yes
+			has_elven_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -4296,7 +4286,7 @@ estate_elven_monopoly_of_steam_engine = {
 			years = 11
 			trigger = {
 				trade_goods = steam_engine
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			custom_tooltip = ELVEN_MONOPOLY_INCOME_STEAM_ENGINE_DESC
 		}
@@ -4307,7 +4297,7 @@ estate_elven_monopoly_of_steam_engine = {
 		if = {
 			limit = {
 				trade_goods = steam_engine
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_steam_engine_mod
@@ -4345,7 +4335,7 @@ estate_elven_monopoly_of_uniforms = {
 		always = no
 		any_owned_province = {
 			trade_goods = uniforms
-			culture_is_elven = yes
+			has_elven_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -4377,7 +4367,7 @@ estate_elven_monopoly_of_uniforms = {
 			years = 13
 			trigger = {
 				trade_goods = uniforms
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			custom_tooltip = ELVEN_MONOPOLY_INCOME_UNIFORMS_DESC
 		}
@@ -4388,7 +4378,7 @@ estate_elven_monopoly_of_uniforms = {
 		if = {
 			limit = {
 				trade_goods = uniforms
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_uniforms_mod
@@ -4426,7 +4416,7 @@ estate_elven_monopoly_of_woodworking = {
 		always = no
 		any_owned_province = {
 			trade_goods = woodworking
-			culture_is_elven = yes
+			has_elven_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -4458,7 +4448,7 @@ estate_elven_monopoly_of_woodworking = {
 			years = 13
 			trigger = {
 				trade_goods = woodworking
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			custom_tooltip = ELVEN_MONOPOLY_INCOME_WOODWORKING_DESC
 		}
@@ -4469,7 +4459,7 @@ estate_elven_monopoly_of_woodworking = {
 		if = {
 			limit = {
 				trade_goods = woodworking
-				culture_is_elven = yes
+				has_elven_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_woodworking_mod

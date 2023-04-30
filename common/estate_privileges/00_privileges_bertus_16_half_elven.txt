@@ -34,88 +34,14 @@ estate_half_elven_first_hand_chairman = {
 	conditional_modifier = {
 		trigger = {		
 			is_part_of_hre = no
-			has_country_modifier = dwarven_administration
-		}
-		modifier = {
-			legitimacy = -1.0
-			devotion = -0.5			
-			reelection_cost = 0.25
-			dwarven_loyalty_modifier = -0.2
-		}
-	}
-	conditional_modifier = {
-		trigger = {		
-			is_part_of_hre = no
-			has_country_modifier = gnollish_administration
-		}
-		modifier = {
-			legitimacy = -1.0
-			devotion = -0.5		
-			reelection_cost = 0.25
-			gnollish_loyalty_modifier = -0.2
-		}
-	}
-	conditional_modifier = {
-		trigger = {		
-			is_part_of_hre = no
-			has_country_modifier = ruinborn_administration
-		}
-		modifier = {
-			legitimacy = -1.0
-			devotion = -0.5		
-			reelection_cost = 0.25
-			ruinborn_loyalty_modifier = -0.2
-		}
-	}
-	conditional_modifier = {
-		trigger = {		
-			is_part_of_hre = no
-			has_country_modifier = orcish_administration
-		}
-		modifier = {
-			legitimacy = -1.0
-			devotion = -0.5		
-			reelection_cost = 0.25
-			orcish_loyalty_modifier = -0.2
-		}
-	}
-	conditional_modifier = {
-		trigger = {		
-			is_part_of_hre = no
-			has_country_modifier = goblin_administration
-		}
-		modifier = {
-			legitimacy = -1.0
-			devotion = -0.5			
-			reelection_cost = 0.25
-			goblin_loyalty_modifier = -0.2
-		}
-	}
-	conditional_modifier = {
-		trigger = {		
-			is_part_of_hre = no
-			has_country_modifier = centaur_administration
+			NOT = {has_country_modifier = half_elven_administration}
+			NOT = {has_country_modifier = human_administration}
+			NOT = {has_country_modifier = elven_administration}
 		}
 		modifier = {
 			legitimacy = -0.5
-			devotion = -0.2			
-			reelection_cost = 0.1
-			centaur_loyalty_modifier = -0.1
+			devotion = -0.2
 		}
-	}
-	conditional_modifier = {
-		trigger = {		
-			is_part_of_hre = no
-			has_country_modifier = ogre_administration
-		}
-		modifier = {
-			legitimacy = -1.0
-			devotion = -0.5		
-			reelection_cost = 0.25
-			ogre_loyalty_modifier = -0.2
-		}
-	}
-	modifier = {			
 	}
 	penalties = {
 	}
@@ -264,8 +190,6 @@ estate_half_elven_economic_chairman = {
 				hidden = yes
 			}
 		}
-	}
-	modifier = {
 	}
 	benefits = {
 		global_tax_modifier = 0.1
@@ -452,38 +376,40 @@ estate_half_elven_elite_regiments = {
 	}
 }
 estate_half_elven_intolerance_policy = {
-	icon = privilege_royal_authority	
+	icon = privilege_human_supremacy	
 	influence = 0.10
 	is_valid = {
-		OR = {
-			AND = {
-				uses_isolationism = yes
-				NOT = {isolationism = 1}
+		if = {
+			limit = {
+				has_global_flag = call_to_reaction_hre_flag
+				is_part_of_hre = no
 			}
-			uses_isolationism = no			
+			always = no
 		}
-		has_country_modifier = half_elven_military
-		has_country_modifier = half_elven_administration
+		OR = {
+			has_estate_privilege = estate_elven_first_hand_chairman
+			has_estate_privilege = estate_human_first_hand_chairman
+			has_estate_privilege = estate_half_elven_first_hand_chairman
+		}
 	}
 	can_select = {
-		estate_territory = {
-			estate = estate_half_elven
-			territory = 70
-		}
+		high_tolerance_human_race_trigger = yes
+		high_tolerance_elven_race_trigger = yes
+		high_tolerance_half_elven_race_trigger = yes
+		NOT = { has_estate_privilege = estate_human_intolerance_policy }
+		NOT = { has_estate_privilege = estate_elven_intolerance_policy }
 	}
 	on_granted = {
 		custom_tooltip = estate_half_elven_one_culture_gta
 		custom_tooltip = estate_half_elven_one_culture_gtb
-		remove_racial_culture = { race = human }
-		remove_racial_culture = { race = elven }
+		remove_racial_culture = { race = orcish }
+		remove_racial_culture = { race = goblin }
 		remove_racial_culture = { race = dwarven }
 		remove_racial_culture = { race = halfling }
 		remove_racial_culture = { race = gnomish }
 		remove_racial_culture = { race = harimari }
 		remove_racial_culture = { race = gnollish }
 		remove_racial_culture = { race = ruinborn }
-		remove_racial_culture = { race = orcish }
-		remove_racial_culture = { race = goblin }
 		remove_racial_culture = { race = ogre }
 		remove_racial_culture = { race = centaur }
 		remove_racial_culture = { race = troll }
@@ -494,55 +420,164 @@ estate_half_elven_intolerance_policy = {
 	}
 	on_granted_province = {
 		add_racial_superiority_modifier = {
-			race = half_elven
+			race = half_orcish
+			multiple_races = yes
+			race2 = elven
+			race3 = human
 		}
 	}
 	penalties = {
 		tolerance_heathen = -2
 		tolerance_heretic = -2
-		relation_with_other_culture = -50
+		relation_with_other_culture = -25
 	}
 	benefits = {
-		global_missionary_strength = 0.01
-		administrative_efficiency = 0.05
+	}
+	conditional_modifier = {
+		trigger = {
+			NOT = {
+				calc_true_if = {
+					has_government_attribute = faster_purguing_reform
+					has_idea = total_supremacy
+					amount = 1
+				}
+			}
+		}
+		modifier = {
+			global_missionary_strength = 0.01
+			administrative_efficiency = 0.05		
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			calc_true_if = {
+				has_government_attribute = faster_purguing_reform
+				has_idea = total_supremacy
+				amount = 1
+			}
+			NOT = {
+				calc_true_if = {
+					has_government_attribute = faster_purguing_reform
+					has_idea = total_supremacy
+					amount = 2
+				}
+			}
+		}
+		modifier = {
+			global_missionary_strength = 0.02
+			administrative_efficiency = 0.10
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			calc_true_if = {
+				has_government_attribute = faster_purguing_reform
+				has_idea = total_supremacy
+				amount = 2
+			}
+			NOT = {
+				calc_true_if = {
+					has_government_attribute = faster_purguing_reform
+					has_idea = total_supremacy
+					amount = 3
+				}
+			}
+		}
+		modifier = {
+			global_missionary_strength = 0.03
+			administrative_efficiency = 0.15
+		}
 	}
 	conditional_modifier = {
 		trigger = {
 			any_known_country = {
+				NOT = { culture_is_elven = yes }
+				NOT = { culture_is_human = yes }
 				NOT = { culture_is_half_elven = yes }
 				war_with = root
 			}
-			NOT = {has_government_attribute = faster_purguing_reform}
+			NOT = {
+				calc_true_if = {
+					has_government_attribute = faster_purguing_reform
+					has_idea = total_supremacy
+					amount = 1
+				}
+			}
 		}
 		modifier = {
 			morale_damage = 0.05
 			shock_damage = 0.05
 			fire_damage = 0.05
-			manpower_recovery_speed = 0.1
-			reinforce_speed = 0.1
+			manpower_recovery_speed = 0.10
+			reinforce_speed = 0.10
 			recover_army_morale_speed = 0.025			
 		}
 	}
 	conditional_modifier = {
 		trigger = {
 			any_known_country = {
+				NOT = { culture_is_elven = yes }
+				NOT = { culture_is_human = yes }
 				NOT = { culture_is_half_elven = yes }
 				war_with = root
 			}
-			has_government_attribute = faster_purguing_reform
+			calc_true_if = {
+				has_government_attribute = faster_purguing_reform
+				has_idea = total_supremacy
+				amount = 1
+			}
+			NOT = {
+				calc_true_if = {
+					has_government_attribute = faster_purguing_reform
+					has_idea = total_supremacy
+					amount = 2
+				}
+			}
 		}
 		modifier = {
 			morale_damage = 0.10
 			shock_damage = 0.10
 			fire_damage = 0.10
-			manpower_recovery_speed = 0.2
-			reinforce_speed = 0.2
-			recover_army_morale_speed = 0.05			
+			manpower_recovery_speed = 0.20
+			reinforce_speed = 0.20
+			recover_army_morale_speed = 0.05
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			any_known_country = {
+				NOT = { culture_is_elven = yes }
+				NOT = { culture_is_human = yes }
+				NOT = { culture_is_half_elven = yes }
+				war_with = root
+			}
+			calc_true_if = {
+				has_government_attribute = faster_purguing_reform
+				has_idea = total_supremacy
+				amount = 2
+			}
+			NOT = {
+				calc_true_if = {
+					has_government_attribute = faster_purguing_reform
+					has_idea = total_supremacy
+					amount = 3
+				}
+			}
+		}
+		modifier = {
+			morale_damage = 0.15
+			shock_damage = 0.15
+			fire_damage = 0.15
+			manpower_recovery_speed = 0.30
+			reinforce_speed = 0.30
+			recover_army_morale_speed = 0.075
 		}
 	}
 	conditional_modifier = {
 		trigger = {
 			any_ally = {
+				NOT = { culture_is_elven = yes }
+				NOT = { culture_is_human = yes }
 				NOT = { culture_is_half_elven = yes }
 			}
 		}
@@ -577,11 +612,15 @@ estate_half_elven_intolerance_policy = {
 	}
 }
 estate_half_elven_autonomy = {
-	icon = privilege_grant_autonomy
+	icon = privilege_half_elven_autonomy
 	loyalty = 0.2
 	influence = 0.10
 	is_valid = {
 		NOT = { has_country_modifier = half_elven_administration }
+		NOT = { has_country_modifier = racial_pop_half_elven_enslavement }
+		NOT = { has_country_modifier = racial_pop_half_elven_purge }
+		NOT = { has_country_modifier = racial_pop_half_elven_expulsion }
+		NOT = { has_estate_privilege = estate_half_elven_taxation_policy }
 	}
 	can_select = {
 		any_owned_province = {
@@ -632,17 +671,14 @@ estate_half_elven_autonomy = {
 	}
 }
 estate_half_elven_taxation_policy = {
-	icon = privilege_grant_autonomy
+	icon = privilege_half_elven_taxation
 	loyalty = -0.1
 	is_valid = {
-		OR = {
-			AND = {
-				uses_isolationism = yes
-				isolationism = 3
-			}
-			uses_isolationism = no
-		}
 		NOT = { has_country_modifier = half_elven_administration }
+		NOT = { has_country_modifier = racial_focus_half_elven }
+		NOT = { has_country_modifier = racial_pop_half_elven_expulsion }
+		NOT = { has_country_modifier = racial_pop_half_elven_enslavement }
+		NOT = { has_country_modifier = racial_pop_half_elven_purge }
 	}
 	can_select = {
 		any_owned_province = { culture_is_half_elven = yes }
@@ -685,15 +721,17 @@ estate_half_elven_taxation_policy = {
 	}
 }
 estate_half_elven_purge = {
-	icon = privilege_grant_autonomy
+	icon = privilege_half_elven_purge
 	loyalty = -0.2
 	influence = -0.20
 	is_valid = {
+		NOT = { has_country_modifier = racial_pop_half_elven_enslavement }
+		NOT = { has_country_modifier = racial_pop_half_elven_expulsion }
+		NOT = { has_country_modifier = racial_focus_half_elven }
+		NOT = { has_estate_privilege = estate_half_elven_taxation_policy }
 	}
 	can_select = {
-		can_purge_race = {
-			RACE = half_elven
-		}	
+		can_purge_race = {RACE = half_elven}	
 	}
 	on_granted = {		
 		largest_decrease_of_half_elven_tolerance_effect = yes
@@ -704,9 +742,7 @@ estate_half_elven_purge = {
 		custom_tooltip = pop_menu_purge_effect_unrest_tt
 		
 		hidden_effect = {
-			add_purguing_unrest = {
-				race = half_elven
-			}
+			add_purguing_unrest = {race = half_elven}
 		}
 	}
 	penalties = {
@@ -720,22 +756,36 @@ estate_half_elven_purge = {
 		remove_country_modifier = racial_pop_half_elven_purge
 	}
 	ai_will_do = {
-		factor = 0
+		factor = 1
+		modifier = {
+			factor = 0
+			medium_tolerance_half_elven_race_trigger = yes
+		}
+		modifier = {
+			factor = 1000
+			NOT = {liberty_desire = 50}
+			culture_is_half_elven = no
+			overlord = {
+				has_country_modifier = racial_pop_half_elven_purge
+			}
+		}
 	}
 	cooldown_years = 10
 	on_cooldown_expires = {
 	}
 }
 estate_half_elven_expulsion = {
-	icon = privilege_grant_autonomy
+	icon = privilege_half_elven_expulsion
 	loyalty = -0.1
 	influence = -0.1
 	is_valid = {
+		NOT = { has_country_modifier = racial_pop_half_elven_enslavement }
+		NOT = { has_country_modifier = racial_pop_half_elven_purge }
+		NOT = { has_country_modifier = racial_focus_half_elven }
+		NOT = { has_estate_privilege = estate_half_elven_taxation_policy }
 	}
 	can_select = {
-		can_expel_race = {
-			RACE = half_elven
-		}
+		can_expel_race = {RACE = half_elven}
 	}
 	on_granted = {				
 		large_decrease_of_half_elven_tolerance_effect = yes
@@ -782,7 +832,10 @@ estate_half_elven_focus = {
 			is_part_of_hre = no
 		}		
 		NOT = { has_country_modifier = half_elven_administration }
-		NOT = { has_country_modifier = half_elven_military }		
+		NOT = { has_country_modifier = half_elven_military }
+		NOT = { has_country_modifier = racial_pop_half_elven_enslavement }
+		NOT = { has_country_modifier = racial_pop_half_elven_purge }
+		NOT = { has_country_modifier = racial_pop_half_elven_expulsion }
 	}
 	can_select = {
 		NOT = {
@@ -813,6 +866,75 @@ estate_half_elven_focus = {
 	}
 	cooldown_years = 10
 	on_cooldown_expires = {
+	}
+}
+estate_half_elven_enslavement = {
+	icon = privilege_half_elven_enslavement
+	loyalty = -0.2
+	influence = -0.20
+	is_valid = {
+		NOT = {has_estate_privilege = estate_half_elven_intolerance_policy}
+		can_enslave_race = {RACE = half_elven}	
+	}
+	can_select = {
+		NOT = {has_race_recruitment = {race = half_elven}}	
+	}
+	on_granted = {		
+		largest_decrease_of_half_elven_tolerance_effect = yes
+		add_country_modifier = { name = racial_pop_half_elven_enslavement duration = -1 }
+		custom_tooltip = half_elven_enslave_global_effect_tt
+		custom_tooltip = half_elven_enslave_effect_unrest_tt
+		hidden_effect = {add_expulsion_unrest = {race = half_elven}}
+	}
+	penalties = {}
+	benefits = {}
+	on_revoked = {		
+		remove_country_modifier = racial_pop_half_elven_enslavement
+	}
+	on_invalid = {
+		remove_country_modifier = racial_pop_half_elven_enslavement
+	}
+	ai_will_do = {
+		factor = 1
+		modifier = {
+			factor = 0
+			medium_tolerance_half_elven_race_trigger = yes
+		}
+		modifier = {
+			factor = 1000
+			NOT = {liberty_desire = 50}
+			culture_is_half_elven = no
+			overlord = {
+				has_country_modifier = racial_pop_half_elven_enslavement
+			}
+		}
+		modifier = {
+			factor = 10
+			has_country_modifier = monstrous_nation
+		}
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {}
+}
+estate_half_elven_change_surael_praise = {
+	icon = privilege_grant_autonomy
+	loyalty = 0.1
+	influence = 0.1
+	is_valid = {
+		uses_isolationism = yes
+	}
+	can_select = {
+	}
+	on_granted = {
+		country_event = {id = bertus_changes.6033}
+	}
+	benefits = {}
+	on_revoked = {}
+	on_invalid = {}
+	ai_will_do = {factor = 0}
+	cooldown_years = 10
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_half_elven_change_surael_praise
 	}
 }
 estate_half_elven_non_military_swap = {
@@ -983,12 +1105,12 @@ estate_half_elven_colonizers = {
 	}
 	on_granted = {
 	}
-	modifier = {
+	benefits = {
 		global_colonial_growth = 20
 		colonists = 1
-		yearly_corruption = 0.2
 	}
 	penalties = {
+		yearly_corruption = 0.2
 	}
 	on_revoked = {
 	}

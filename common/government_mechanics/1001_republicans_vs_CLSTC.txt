@@ -1,0 +1,64 @@
+republicans_vs_CLSTC_mechanic = {
+	available = {
+		has_dlc = "Domination"
+	}
+
+	powers = {
+		republicans_vs_CLSTC_power = {
+			gui = republicans_vs_CLSTC_gov_mech
+			max = 100	#CLSTC direction
+			min = -100	#republicans direction
+			base_monthly_growth = 0.1
+			scaled_modifier = {
+				trigger = {
+					has_government_power = { 
+						mechanic_type = republicans_vs_CLSTC_mechanic
+						power_type = republicans_vs_CLSTC_power
+						value = 0
+					}
+				}
+				modifier = {
+					global_ship_trade_power = 0.50
+					ship_power_propagation = 0.50
+					election_cycle = 10
+					merchants = 2.5
+				}
+			}
+			reverse_scaled_modifier = {
+				trigger = {
+					NOT = {
+						has_government_power = { 
+							mechanic_type = republicans_vs_CLSTC_mechanic
+							power_type = republicans_vs_CLSTC_power
+							value = 0
+						}
+					}
+				}
+				modifier = {
+					development_cost_modifier = -0.05
+					advisor_cost = -0.10
+					republican_tradition = 0.10
+					production_efficiency = 0.20
+				}
+			}
+			on_max_reached = {
+				custom_tooltip = republicans_vs_CLSTC_mechanic_at
+				hidden_effect = {
+					#set_country_flag = eng_monarchy_in_absolute_power
+					country_event = {
+						id = damescrown.1
+					}
+				}
+			}
+			on_min_reached = {
+				custom_tooltip = republicans_vs_CLSTC_mechanic_bt
+				hidden_effect = {
+					#set_country_flag = eng_parliament_in_absolute_power
+					country_event = {
+						id = damescrown.1
+					}
+				}
+			}
+		}
+	}
+}

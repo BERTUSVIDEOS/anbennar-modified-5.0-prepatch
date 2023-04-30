@@ -2953,29 +2953,30 @@ country_event = {	#set up enslavement efficiency
 	desc = bertus_changes.1121.desc
 				
 	hidden = yes
+	is_triggered_only = yes
 	trigger = {
-		NOT = {
-			check_variable = {
-				which = enslavement_efficiency_var
-				value = 0.1
-			}
-		}
 	}
 
 	option = {	#
 		name = bertus_changes.1121.a
 		ai_chance = {factor = 10}
+		set_variable = {
+			which = enslavement_efficiency_var
+			value = 0
+		}
+		export_to_variable = {
+			which = enslavement_efficiency_var
+			value = modifier:available_province_loot
+		}
+		change_variable = {
+			which = enslavement_efficiency_var
+			value = 1
+		}
 		if = {
 			limit = {
 				has_country_modifier = monstrous_nation
 			}
-			set_variable = {
-				which = enslavement_efficiency_var
-				value = 2
-			}
-		}
-		else = {
-			set_variable = {
+			change_variable = {
 				which = enslavement_efficiency_var
 				value = 1
 			}
@@ -2986,7 +2987,6 @@ country_event = {	#Imperial guard
 	id = bertus_changes.2023
 	title = bertus_changes.2023.t
 	desc = bertus_changes.2023.desc
-	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	
@@ -5907,12 +5907,14 @@ province_event = {	#get emperor population
 	desc = bertus_changes.6014.desc
 	picture = DHIMMI_ESTATE_eventPicture
 	
-	is_triggered_only = yes
 	hidden = yes
 	
 	trigger = {
 		has_global_flag = emperors_will_flag
 		is_part_of_hre = yes
+	}
+	mean_time_to_happen = {
+		days = 3650
 	}
 	
 	option = {
@@ -5935,6 +5937,7 @@ province_event = {	#get emperor population
 		if = { limit = {emperor = {culture_is_half_elven = yes}} add_half_elven_minority_size_effect = yes }
 		if = { limit = {emperor = {culture_is_hobgoblin = yes}} add_hobgoblin_minority_size_effect = yes }
 		if = { limit = {emperor = {culture_is_kobold = yes}} add_kobold_minority_size_effect = yes }
+		if = { limit = {emperor = {culture_is_lizardfolk = yes}} add_lizardfolk_minority_size_effect = yes }
 		add_1_dev_to_provinces = yes
 	}
 }
@@ -5944,7 +5947,6 @@ province_event = {	#remove non emperor population
 	desc = bertus_changes.6015.desc
 	picture = DHIMMI_ESTATE_eventPicture
 	
-	is_triggered_only = yes
 	hidden = yes
 	
 	trigger = {
@@ -5952,6 +5954,10 @@ province_event = {	#remove non emperor population
 		is_part_of_hre = yes
 	}
 	
+	mean_time_to_happen = {
+		days = 3650
+	}
+
 	option = {
 		name = bertus_changes.6015.a
 		if = { limit = {emperor = {culture_is_human = no} culture_is_human = yes} remove_human_minority_size_effect = yes }
@@ -5972,6 +5978,7 @@ province_event = {	#remove non emperor population
 		if = { limit = {emperor = {culture_is_half_elven = no} culture_is_half_elven = yes} remove_half_elven_minority_size_effect = yes }
 		if = { limit = {emperor = {culture_is_hobgoblin = no} culture_is_hobgoblin = yes} remove_hobgoblin_minority_size_effect = yes }
 		if = { limit = {emperor = {culture_is_kobold = no} culture_is_kobold = yes} remove_kobold_minority_size_effect = yes }
+		if = { limit = {emperor = {culture_is_lizardfolk = no} culture_is_lizardfolk = yes} remove_lizardfolk_minority_size_effect = yes }
 		remove_1_dev_to_provinces = yes
 	}
 }
@@ -6008,6 +6015,7 @@ province_event = {	#emperors race boost
 					AND = {emperor = {culture_is_half_elven = yes} culture_is_half_elven = yes}
 					AND = {emperor = {culture_is_hobgoblin = yes} culture_is_hobgoblin = yes}
 					AND = {emperor = {culture_is_kobold = yes} culture_is_kobold = yes}
+					AND = {emperor = {culture_is_lizardfolk = yes} culture_is_lizardfolk = yes}
 				}
 			}
 			AND = {
@@ -6033,6 +6041,7 @@ province_event = {	#emperors race boost
 					AND = {emperor = {culture_is_half_elven = yes} NOT = { culture_is_half_elven = yes}}
 					AND = {emperor = {culture_is_hobgoblin = yes} NOT = { culture_is_hobgoblin = yes}}
 					AND = {emperor = {culture_is_kobold = yes} NOT = { culture_is_kobold = yes}}
+					AND = {emperor = {culture_is_lizardfolk = yes} NOT = { culture_is_lizardfolk = yes}}
 				}
 			}
 		}
@@ -6085,6 +6094,7 @@ province_event = {	#emperors race malus
 					AND = {emperor = {culture_is_half_elven = yes} NOT = { culture_is_half_elven = yes}}
 					AND = {emperor = {culture_is_hobgoblin = yes} NOT = { culture_is_hobgoblin = yes}}
 					AND = {emperor = {culture_is_kobold = yes} NOT = { culture_is_kobold = yes}}
+					AND = {emperor = {culture_is_lizardfolk = yes} NOT = { culture_is_lizardfolk = yes}}
 				}
 			}
 			AND = {
@@ -6110,6 +6120,7 @@ province_event = {	#emperors race malus
 					AND = {emperor = {culture_is_half_elven = yes} culture_is_half_elven = yes}
 					AND = {emperor = {culture_is_hobgoblin = yes} culture_is_hobgoblin = yes}
 					AND = {emperor = {culture_is_kobold = yes} culture_is_kobold = yes}
+					AND = {emperor = {culture_is_lizardfolk = yes} NOT = { culture_is_lizardfolk = yes}}
 				}
 			}
 		}
@@ -6947,9 +6958,10 @@ country_event = {
 	}
 }
 country_event = {	#enslavement decay
-    id = human_tolerance_events.6034
-    title = human_tolerance_events.6034.title
-    desc = human_tolerance_events.6034.desc
+    id = bertus_changes.6034
+    title = bertus_changes.6034.title
+    desc = bertus_changes.6034.desc
+    picture = DHIMMI_ESTATE_eventPicture
 
     trigger = {
 		any_owned_province = {
@@ -6982,7 +6994,7 @@ country_event = {	#enslavement decay
 	}
 		
     option = {
-        name = human_tolerance_events.6034.a #
+        name = bertus_changes.6034.a #
     }
 }
 country_event = {	#goods menu

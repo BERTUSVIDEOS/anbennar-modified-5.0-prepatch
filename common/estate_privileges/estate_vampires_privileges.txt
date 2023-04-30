@@ -790,51 +790,46 @@ estate_vampires_vampires_in_the_administration = {
 
 estate_vampires_vampiric_military_command = {
 	icon = privilege_bloody_gauntlet
-	influence = 0.1
-	max_absolutism = -5
+	influence = 0
+	#max_absolutism = -5	#-5→0
 	is_valid = {
-		NOT = {
-			has_country_flag = cassiers_command_flag
-		}
+		always = yes
 	}
 	can_select = {
+		NOT = {
+			has_estate_privilege = estate_mages_emergency_general
+			has_leader = "Lord Alfonso"
+		}
 	}
-	can_revoke = {
-	}
-	on_granted = {
+	can_revoke = {}
+	on_granted = {	#bertus mod
+		custom_tooltip = estate_vampires_vampiric_military_command_tooltip
+		set_country_flag = get_lord_alfonso_flag
+		custom_tooltip = get_lord_alfonso_general_tt
+		hidden_effect = {
+			set_saved_name = {key = special_general_name type = simple name = "Lord Alfonso"}
+			country_event = {id = bertus_changes.6030}
+		}
 	}
 	
 	penalties = {
 		general_cost = 0.2
-		land_morale = -0.05
+		nationalist_loyalty_modifier = -0.1
+		#land_morale = -0.05	#-0.05→0
 	}
 	
 	benefits = {
-		leader_land_fire = 1
-		leader_land_shock = 1
+		#leader_land_fire = 1	#1→0
+		#leader_land_shock = 1	#1→0
 	}
 	
+	cooldown_years = 10
 	on_cooldown_expires = {
+		remove_estate_privilege = estate_vampires_vampiric_military_command
 	}
 	
 	ai_will_do = {
 		factor = 10
-		
-		modifier = {
-			factor = 0.5
-			#want_to_reduce_vampire_influence = yes
-			estate_influence = {
-				estate = estate_vampires
-				influence = 90
-			}
-			has_estate_privilege = estate_vampires_organization_vampires_lord
-			NOT = { has_ruler_flag = is_a_vampire }
-		}
-		
-		modifier = {
-			factor = 10
-			a_vampire_rules_the_country = yes
-		}
 	}
 }
 

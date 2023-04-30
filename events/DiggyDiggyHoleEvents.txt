@@ -16,7 +16,18 @@ province_event = {
 	}
 	
 	immediate = {
-		# hidden_effect = { remove_province_triggered_modifier = random_diggy_loca }
+		hidden_effect = {
+			if = {
+				limit = {
+					province_id = 4020
+					owner = {
+						tag = I03
+						has_country_flag = vazhatun_enable_knowledge_from_digging
+					}
+				}
+				vazhatun_calculate_digging_knowledge = yes
+			}
+		}
 	}
 	
 	after = {
@@ -63,7 +74,29 @@ province_event = {
 			clr_province_flag = swear_19
 			clr_province_flag = swear_20
 		}
-		# hidden_effect = { remove_province_triggered_modifier = random_diggy_loca }
+		if = {
+			limit = {
+				is_capital = yes
+				has_province_modifier = dig_10
+			}
+			if = {
+				limit = {
+					OR = {
+						province_id = 4119 #amldihr
+						province_id = 4311 #gronstunad
+					} 
+				}
+				hidden_effect = { owner = { country_event = { id = diggy.514 days = 1 } } }
+			}
+			else = { hidden_effect = { owner = { country_event = { id = diggy.513 days = 1 } } } }
+		} 
+		else_if = {
+			limit = {
+				is_capital = yes
+				has_province_modifier = dig_11
+			}
+			hidden_effect = { owner = { country_event = { id = diggy.515 days = 1 } } }
+		} 
 	}
 	
 	option = {
@@ -72,11 +105,20 @@ province_event = {
 		goto = root
 		if = {
 			limit = { is_capital = yes }
-			owner = { add_prestige_or_monarch_power = {amount =  10} }
+			owner = { add_prestige = 10 }
 		}
-		else = {
-			owner = { add_prestige_or_monarch_power = {amount =  5} }
+		else = { owner = { add_prestige = 5 } }
+		if = {
+			limit = {
+				province_id = 4020
+				owner = {
+					tag = I03
+					has_country_flag = vazhatun_enable_knowledge_from_digging
+				}
+			}
+			owner = { vazhatun_realize_digging_knowledge = yes }
 		}
+		dwarven_pantheon_unlock_deity_digging = yes
 	}
 }
 
@@ -151,7 +193,7 @@ country_event = {
 		add_adm_power = -80
 		add_dip_power = -35
 		add_mil_power = -25
-		add_prestige_or_monarch_power = {amount =  20}
+		add_prestige = 20
 		random = {
 			chance = 30
 			add_stability_or_adm_power = yes
@@ -467,7 +509,7 @@ country_event = {
 				has_global_flag = dd_grumhardhum
 				any_owned_province = { has_great_project = { type = dd_grumhardhum tier = 3 } } 
 			}
-			add_treasury = 1875
+			add_treasury = -1875
 		}
 		else_if = {
 			limit = { ai = no }
@@ -532,7 +574,7 @@ country_event = {
 				has_global_flag = dd_grumhardhum
 				any_owned_province = { has_great_project = { type = dd_grumhardhum tier = 3 } } 
 			}
-			add_treasury = 2625
+			add_treasury = -2625
 		}
 		else_if = {
 			limit = { ai = no }
@@ -597,7 +639,7 @@ country_event = {
 				has_global_flag = dd_grumhardhum
 				any_owned_province = { has_great_project = { type = dd_grumhardhum tier = 3 } } 
 			}
-			add_treasury = 2750
+			add_treasury = -2750
 		}
 		else_if = {
 			limit = { ai = no }
@@ -691,7 +733,7 @@ province_event = {
 		goto = ROOT
 		if = {
 			limit = { is_capital = yes }
-			owner = { add_prestige_or_monarch_power = {amount =  5} }
+			owner = { add_prestige = 5 }
 		}
 		else = {
 			owner = { add_prestige = 2.5 }
@@ -852,7 +894,7 @@ country_event = {
 	option = {
         name = diggy.15.b
         ai_chance = { factor = 30 }
-		add_prestige_or_monarch_power = {amount =  30}
+		add_prestige = 30
 		hidden_effect = {
 			random = { chance = 30 set_country_flag = fallen_treasure }
 		}
@@ -862,7 +904,7 @@ country_event = {
         name = diggy.15.c
         ai_chance = { factor = 15 }
 		add_years_of_income = 0.5
-		add_prestige_or_monarch_power = {amount =  15}
+		add_prestige = 15
 		hidden_effect = { set_country_flag = fallen_treasure }
 	}
 	#Do nothing
@@ -907,7 +949,7 @@ country_event = {
 	option = {
         name = diggy.16.a
         ai_chance = { factor = 90 }
-		add_prestige_or_monarch_power = {amount =  50}
+		add_prestige = 50
 		increase_legitimacy_medium_effect = yes
 		capital_scope = {
 			add_permanent_province_modifier = {
@@ -946,21 +988,13 @@ province_event = {
 	}
 	
 	trigger = {
-		OR = {
-			has_terrain = dwarven_hold
-			has_terrain = dwarven_hold_surface
+		province_group = hold_province
+		has_dwarven_hold_4 = yes
+		NOT = { 
+			has_province_flag = specialized_hold 
+			has_province_modifier = incomplete_hold
+			has_province_modifier = incomplete_hold_0
 		}
-		OR = {
-			has_province_modifier = dig_4
-			has_province_modifier = dig_5
-			has_province_modifier = dig_6
-			has_province_modifier = dig_7
-			has_province_modifier = dig_8
-			has_province_modifier = dig_9
-			has_province_modifier = dig_10
-			has_province_modifier = dig_11
-		}
-		NOT = { has_province_flag = specialized_hold }
 		NOT = { trade_goods = unknown }
 		is_city = yes
 	}
@@ -969,16 +1003,6 @@ province_event = {
 		hidden_effect = { set_province_flag = specialized_hold }
 	}
 	
-	#city hub
-	option = {
-        name = diggy.27.b
-        ai_chance = { factor = 100 }
-		goto = ROOT
-		add_permanent_province_modifier = {
-			name = hold_city
-			duration = -1
-		}
-	}
 	#Foundry
 	option = {
         name = diggy.27.a
@@ -989,10 +1013,6 @@ province_event = {
 				trade_goods = damestear
 				trade_goods = mithril
 				trade_goods = copper
-				trade_goods = brass
-				trade_goods = zinc
-				trade_goods = tin
-				trade_goods = cannon
 				trade_goods = coal
 			}
 		}
@@ -1002,17 +1022,48 @@ province_event = {
 			duration = -1
 		}
 	}
+	#city hub
+	option = {
+        name = diggy.27.b
+        ai_chance = { factor = 100 }
+		trigger = {
+			OR = {
+				trade_goods = dyes
+				trade_goods = silk
+				trade_goods = chinaware
+				trade_goods = ivory
+				trade_goods = glass
+				trade_goods = cloth
+				trade_goods = mithril
+				trade_goods = gold
+				trade_goods = paper
+				trade_goods = wine
+				trade_goods = precursor_relics
+				trade_goods = gems
+				trade_goods = incense
+				trade_goods = salt
+				base_tax = 30
+			}
+		}
+		goto = ROOT
+		add_permanent_province_modifier = {
+			name = hold_city
+			duration = -1
+		}
+	}
 	#Artisan District
 	option = {
         name = diggy.27.c
         ai_chance = { factor = 100 }
 		trigger = {
 			OR = {
+				trade_goods = silk
+				trade_goods = chinaware
+				trade_goods = fur
+				trade_goods = wool
 				trade_goods = gems
 				trade_goods = glass
 				trade_goods = wine
-				trade_goods = champagne
-				trade_goods = cheese
 				trade_goods = gold
 				trade_goods = mithril
 				trade_goods = precursor_relics
@@ -1032,11 +1083,21 @@ province_event = {
         ai_chance = { factor = 100 }
 		trigger = {
 			OR = {
+				trade_goods = spices
+				trade_goods = grain
+				trade_goods = fish
 				trade_goods = fungi
 				trade_goods = serpentbloom
 				trade_goods = livestock
 				trade_goods = salt
 				trade_goods = slaves
+				trade_goods = tea
+				trade_goods = coffee
+				trade_goods = cotton
+				trade_goods = sugar
+				trade_goods = tobacco
+				trade_goods = cocoa
+				trade_goods = cloves
 			}
 		}
 		goto = ROOT
@@ -1051,15 +1112,12 @@ province_event = {
         ai_chance = { factor = 100 }
 		trigger = {
 			OR = {
+				trade_goods = dyes
 				trade_goods = iron
 				trade_goods = copper
 				trade_goods = paper
 				trade_goods = mithril
-				trade_goods = brass
-				trade_goods = zinc
-				trade_goods = tin
-				trade_goods = cannon
-				trade_goods = uniforms
+				trade_goods = naval_supplies
 			}
 		}
 		goto = ROOT
@@ -1081,19 +1139,68 @@ province_event = {
 	mean_time_to_happen = {
 		years = 40
 		
-		modifier = {factor = 0.9 superregion = west_serpentspine_superregion}
-		modifier = {factor = 0.9 has_integrated_dwarven_pop_trigger = yes}
-		modifier = {factor = 1.5 owner = { NOT = { has_country_modifier = dwarven_administration } }}
-		modifier = {factor = 0.8 owner = { owns = 676 } 676 = { has_province_modifier = the_harpylen_dam }}
-		modifier = {factor = 0.9 owner = { tag = I24 } }
-		modifier = {factor = 0.85 owner = { has_country_modifier = dadv_childrens_of_the_dwarovar }}
-		modifier = {factor = 0.99 owner = { has_ruler_modifier = krakazol_drinking_digging_1 }}
-		modifier = {factor = 0.98 owner = { has_ruler_modifier = krakazol_drinking_digging_2 }}
-		modifier = {factor = 0.96 owner = { has_ruler_modifier = krakazol_drinking_digging_3 }}
-		modifier = {factor = 0.94 owner = { has_ruler_modifier = krakazol_drinking_digging_4 }}
-		modifier = {factor = 0.92 owner = { has_ruler_modifier = krakazol_drinking_digging_5 }}
-		modifier = {factor = 0.9 owner = { OR = { has_ruler_modifier = krakazol_drinking_digging_6 has_ruler_modifier = krakazol_drinking_digging_7 has_country_modifier = krakazol_drinking_digging_perm } }}
-		modifier = {factor = 0.9 owner = { has_country_modifier = orlghelovar_laser_cutter }}
+		modifier = {
+			factor = 0.9
+			superregion = west_serpentspine_superregion
+		}
+		modifier = {
+			factor = 0.9
+			has_integrated_dwarven_pop_trigger = yes
+		}
+		modifier = {
+			factor = 1.5
+			owner = { NOT = { has_country_modifier = dwarven_administration } }
+		}
+		
+		modifier = {
+			factor = 0.8
+			owner = { owns = 676 }
+			676 = { has_province_modifier = the_harpylen_dam }
+		}
+
+		modifier = {
+			factor = 0.9
+			owner = { tag = I24 } #Aul-Dwarov
+		}
+		
+		modifier = {
+			factor = 0.85
+			owner = { has_country_modifier = dadv_childrens_of_the_dwarovar }
+		}
+
+		modifier = {
+			factor = 0.99
+			owner = { has_ruler_modifier = krakazol_drinking_digging_1 }
+		}
+		modifier = {
+			factor = 0.98
+			owner = { has_ruler_modifier = krakazol_drinking_digging_2 }
+		}
+		modifier = {
+			factor = 0.96
+			owner = { has_ruler_modifier = krakazol_drinking_digging_3 }
+		}
+		modifier = {
+			factor = 0.94
+			owner = { has_ruler_modifier = krakazol_drinking_digging_4 }
+		}
+		modifier = {
+			factor = 0.92
+			owner = { has_ruler_modifier = krakazol_drinking_digging_5 }
+		}
+		modifier = {
+			factor = 0.9
+			owner = { OR = { has_ruler_modifier = krakazol_drinking_digging_6 has_ruler_modifier = krakazol_drinking_digging_7 has_country_modifier = krakazol_drinking_digging_perm } }
+		}
+		modifier = {
+			factor = 0.9
+			owner = { has_country_modifier = orlghelovar_laser_cutter }
+		}
+		modifier = {
+			factor = 0.9
+			owner = { has_estate_privilege = artifice_invention_snotfinger_stimulant }
+		}
+		
 		modifier = {
 			factor = 100
 			OR = {
@@ -1105,10 +1212,7 @@ province_event = {
 	}
 	
 	trigger = {
-		OR = {
-			has_terrain = dwarven_hold
-			has_terrain = dwarven_hold_surface
-		}
+		province_group = hold_province
 		has_subterranean_race = yes
 		is_capital = no
 		OR = {
@@ -1122,10 +1226,13 @@ province_event = {
 			AND = { development = 110  has_province_modifier = dig_8 }
 			AND = { development = 120  has_province_modifier = dig_9 }
 		}
-		# owner = { ai = yes }
 		owner = { NOT = { has_country_flag = hold_operation } }
 		is_state_core = owner
 		hold_condition = { Repaired = yes }
+		NOT = {
+			has_province_modifier = incomplete_hold
+			has_province_modifier = incomplete_hold_0
+		}
 	}
 	
 	#Developing Hold
@@ -1133,7 +1240,7 @@ province_event = {
         name = diggy.31.a
         ai_chance = { factor = 100 }
 		goto = ROOT
-		owner = { add_prestige_or_monarch_power = {amount =  10} }
+		owner = { add_prestige = 10 }
 		if = {
 			limit = { has_province_modifier = dig_1 }
 			add_permanent_province_modifier = {
@@ -1141,6 +1248,7 @@ province_event = {
 				duration = -1
 			}
 			hidden_effect = { remove_province_modifier = dig_1 }
+			dwarven_pantheon_unlock_deity_digging = yes
 		}
 		else_if = {
 			limit = { has_province_modifier = dig_2 }
@@ -1149,6 +1257,7 @@ province_event = {
 				duration = -1
 			}
 			hidden_effect = { remove_province_modifier = dig_2 }
+			dwarven_pantheon_unlock_deity_digging = yes
 		}
 		else_if = {
 			limit = { has_province_modifier = dig_3 }
@@ -1157,6 +1266,7 @@ province_event = {
 				duration = -1
 			}
 			hidden_effect = { remove_province_modifier = dig_3 }
+			dwarven_pantheon_unlock_deity_digging = yes
 		}
 		else_if = {
 			limit = { has_province_modifier = dig_4 }
@@ -1206,7 +1316,6 @@ province_event = {
 			}
 			hidden_effect = { remove_province_modifier = dig_9 }
 		}
-		colonize_next_level_effect = yes
 	}
 }
 
@@ -1220,12 +1329,18 @@ province_event = {
 	
 	mean_time_to_happen = {
 		years = 3
-		modifier = {factor = 10 owner = { ai = yes }}
-		modifier = {factor = 1.5 owner = { has_country_modifier = remnant_army }}
+		modifier = {
+			factor = 10
+			
+			owner = { ai = yes }
+		}
+		modifier = {
+			factor = 1.5
+			owner = { has_country_modifier = remnant_army }
+		}
 	}
 	
 	trigger = {
-		always = no	#bertus
 		continent = serpentspine
 		is_colony = yes
 		NOT = { has_construction = siberian }
@@ -1577,7 +1692,7 @@ country_event = {
 				hidden_effect = { set_global_flag = gramgir_tomb }
 			}
 		}
-		add_prestige_or_monarch_power = {amount =  10}
+		add_prestige = 10
 		add_dip_power = 25
 	}
 	
@@ -1625,7 +1740,7 @@ country_event = {
 				duration = -1
 			}
 		}
-		add_prestige_or_monarch_power = {amount =  5}
+		add_prestige = 5
 	}
 	
 	option = {
@@ -1656,7 +1771,7 @@ country_event = {
 			remove_province_modifier = special_cave
 			remove_province_modifier = exploring_cave
 		}
-		add_prestige_or_monarch_power = {amount =  25}
+		add_prestige = 25
 		add_mil_power = 50
 	}
 	
@@ -1682,7 +1797,7 @@ country_event = {
 			remove_province_modifier = special_cave
 			remove_province_modifier = exploring_cave
 		}
-		add_prestige_or_monarch_power = {amount =  5}
+		add_prestige = 5
 	}
 	
 	option = {
@@ -1702,7 +1817,7 @@ country_event = {
 			}
 			custom_tooltip = how_to_dig_tooltip
 		}
-		add_prestige_or_monarch_power = {amount =  5}
+		add_prestige = 5
 	}
 	
 	option = {
@@ -1718,7 +1833,7 @@ country_event = {
 			name = kiling_an_orc
 			duration = 43800
 		}
-		add_prestige_or_monarch_power = {amount =  5}
+		add_prestige = 5
 	}
 	
 	option = {
@@ -1798,7 +1913,7 @@ country_event = {
 			}
 			hidden_effect = { set_global_flag = hehodovar_codex }
 		}
-		add_prestige_or_monarch_power = {amount =  20}
+		add_prestige = 20
 		random = {
 			chance = 50
 			add_stability_or_adm_power = yes
@@ -1824,7 +1939,7 @@ province_event = {
         name = diggy.36.a
         ai_chance = { factor = 100 }
 		goto = ROOT
-		owner = { add_prestige_or_monarch_power = {amount =  1} }
+		owner = { add_prestige = 1 }
 	}
 }
 
@@ -1994,7 +2109,7 @@ country_event = {
 		if = {
 			limit = { ai = no }
 			add_treasury = -1500
-			#add_adm_power = -200	#-200→0
+			add_adm_power = -200
 		}
 		else = {
 			add_treasury = -500
@@ -2010,7 +2125,7 @@ country_event = {
 		if = {
 			limit = { ai = no }
 			add_treasury = -1500
-			#add_adm_power = -200	#-200→0
+			add_adm_power = -200
 		}
 		else = {
 			add_treasury = -500
@@ -2026,7 +2141,7 @@ country_event = {
 		if = {
 			limit = { ai = no }
 			add_treasury = -1500
-			#add_adm_power = -200	#-200→0
+			add_adm_power = -200
 		}
 
 		else = {
@@ -2043,7 +2158,7 @@ country_event = {
 		if = {
 			limit = { ai = no }
 			add_treasury = -1500
-			#add_adm_power = -200	#-200→0
+			add_adm_power = -200
 		}
 		else = {
 			add_treasury = -500
@@ -2087,7 +2202,7 @@ country_event = {
 					add_base_manpower = 1
 					add_base_tax = 1
 					add_base_production = 1
-					remove_province_modifier = flooded_province
+					remove_province_triggered_modifier = flooded_province
 					add_province_triggered_modifier = efficient_irrigation
 					change_trade_goods = grain
 				}
@@ -2105,7 +2220,7 @@ country_event = {
 					add_base_manpower = 1
 					add_base_tax = 1
 					add_base_production = 1
-					remove_province_modifier = flooded_province
+					remove_province_triggered_modifier = flooded_province
 					add_province_triggered_modifier = efficient_irrigation
 					change_trade_goods = grain
 				}
@@ -2121,7 +2236,7 @@ country_event = {
 				add_base_manpower = 1
 				add_base_tax = 1
 				add_base_production = 1
-				remove_province_modifier = flooded_province
+				remove_province_triggered_modifier = flooded_province
 				add_province_triggered_modifier = efficient_irrigation
 				change_trade_goods = grain
 			}
@@ -2136,7 +2251,7 @@ country_event = {
 				add_base_manpower = 1
 				add_base_tax = 1
 				add_base_production = 1
-				remove_province_modifier = flooded_province
+				remove_province_triggered_modifier = flooded_province
 				add_province_triggered_modifier = efficient_irrigation
 				change_trade_goods = grain
 			}
@@ -2199,30 +2314,17 @@ country_event = {
 	desc = diggy.46.d
 	picture = ARTWORK_eventPicture
 	
-	mean_time_to_happen = {
-		years = 1
-	}
+	is_triggered_only = yes
 	
 	trigger = {
 		has_country_modifier = dwarven_administration
-		NOT = { religion = ancestor_worship }
+		NOT = { religion_group = dwarven }
 		is_subject = no
-		capital_scope = {
-			continent = serpentspine
-			OR = {
-				has_terrain = dwarven_hold
-				has_terrain = dwarven_hold_surface
-			}
-		}
 		NOT = { has_country_flag = diggy_proposed_conversion }
-		NOT = { tag = H94 } #Obsidian Invasion
-		NOT = { tag = I23 } #Haraz Dhumankon
 		NOT = { capital = 2863 } #Khugdihr
 	}
 	
-	immediate = {
-		hidden_effect = { set_country_flag = diggy_proposed_conversion }
-	}
+	immediate = { hidden_effect = { set_country_flag = diggy_proposed_conversion } }
 	
 	option = {
         name = diggy.46.a
@@ -2243,11 +2345,11 @@ country_event = {
 				}
 			}
 		}
-		add_prestige_or_monarch_power = {amount =  5}
+		add_prestige = 5
 		every_owned_province = { change_religion = ancestor_worship }
 		change_religion = ancestor_worship
 		hidden_effect = {
-			add_prestige_or_monarch_power = {amount =  100}
+			add_prestige = 100
 		}
 	}
 }
@@ -2803,7 +2905,7 @@ country_event = {
     #Let them join our army
     option = {
         name = diggy.50.a
-        add_prestige_or_monarch_power = {amount =  25}
+        add_prestige = 25
         add_splendor = 250
         define_general = {
             name = "Goblinsbane"
@@ -2822,14 +2924,14 @@ country_event = {
     #They should advise us instead
     option = {
         name = diggy.50.b
-        add_prestige_or_monarch_power = {amount =  25}
+        add_prestige = 25
         add_splendor = 250
         define_advisor = {
 			type = commandant
 			name = "Goblinsbane"
 			skill = 3
 			culture = granite_dwarf
-			cost_multiplier = 0.66	#bertus mod
+			discount = yes
 		}
             
         add_country_modifier = {
@@ -2856,23 +2958,13 @@ country_event = {
 		hidden_effect = { capital_scope = { setup_digging_deeper_capital = yes } }
 	}
 	
-	after = {
-		hidden_effect = { clr_country_flag = debug_digging_flag }
-	}
-	
     #Let's dig
     option = {
         name = diggy.51.a
 		if = {
 			limit = {
 				capital_scope = {
-					NOT = { has_construction = building }
-					NOT = { has_construction = great_project }
-					NOT = { has_construction = canal }
-					NOT = { has_construction = culture }
-					NOT = { has_construction = missionary }
-					NOT = { has_construction = army }
-					NOT = { has_construction = navy } 
+					NOT = { has_construction = any }
 				}
 			}
 			capital_scope = { start_digging_deeper = yes }
@@ -3103,9 +3195,9 @@ country_event = {
 				add_republican_tradition = 100
 				if = {
 					limit = { NOT = { prestige = 0 } }
-					add_prestige_or_monarch_power = {amount =  100}
+					add_prestige = 100
 				}
-				else = { add_prestige_or_monarch_power = {amount =  40} }
+				else = { add_prestige = 40 }
 				add_country_modifier = {
 					name = amlharaz_liberty_desire_10
 					duration = -1
@@ -3982,7 +4074,7 @@ province_event = {
 		}
 		
 		modifier = {
-			factor = 0.75 #nerfing other sources of hold dev gain. Making it care about build time
+			factor = 0.8 #nerfing other sources of hold dev gain. Making it care about build time
 			owner = { has_age_ability = ab_dwarven_reclamation }
 		}
 		
@@ -4166,102 +4258,6 @@ province_event = {
 	}
 }
 
-###Marrhold setup
-country_event = {
-	id = diggy.104
-	title = diggy.100.t
-	desc = diggy.100.d
-	picture = ARTWORK_eventPicture
-	
-	mean_time_to_happen = {
-		months = 1
-	}
-	
-	hidden = yes
-	
-	trigger = {
-		2931 = {
-			trade_share = {
-				country = ROOT
-				share = 1
-			}
-		}
-		NOT = {
-			2931 = {
-				has_trade_modifier = {
-					who = ROOT
-					key = MARRHOLD_CLOSED
-				}
-			}
-		}
-		NOT = { any_owned_province = { superregion = west_serpentspine_superregion } }
-		NOT = { has_global_flag = marrhold_canal }
-	}
-	
-	option = {
-        name = diggy.100.a
-        ai_chance = { factor = 100 }
-		2931 = {
-			add_trade_modifier = {
-				who = ROOT
-				duration = -1
-				power = -1000
-				key = MARRHOLD_CLOSED
-			}
-		}
-	}
-}
-
-##Marrhold open
-country_event = {
-	id = diggy.105
-	title = diggy.105.t
-	desc = diggy.105.d
-	picture = ARTWORK_eventPicture
-	
-	major = yes
-	
-	mean_time_to_happen = {
-		months = 1
-	}
-	
-	fire_only_once = yes
-	
-	trigger = {
-		4097 = { has_great_project = { type = marrhold_tunnel tier = 2} }
-		owns = 4097
-	}
-	
-	option = {
-        name = diggy.105.a
-        ai_chance = { factor = 100 }
-		4097 = {
-			add_permanent_province_modifier = {
-				name = marrhold_door
-				duration = -1
-			}
-			center_of_trade = 1
-		}
-		hidden_effect = { set_global_flag = marrhold_canal }
-		every_country = {
-			limit = {
-				2931 = {
-					has_trade_modifier = {
-						who = PREV
-						key = MARRHOLD_CLOSED
-					}
-				}
-			}
-			2931 = {
-				remove_trade_modifier = {
-					who = PREV
-					key = MARRHOLD_CLOSED
-				}
-			}
-		}
-	}
-}
-
 ##Random setup for special cave
 # country_event = {
 	# id = diggy.106
@@ -4320,11 +4316,10 @@ country_event = {
 	trigger = {
 		OR = {
 			has_country_modifier = dwarven_administration
-			primary_culture = cave_goblin
-			primary_culture = undergrowth_goblin
+			dwarovar_goblin_culture_primary = yes
 			primary_culture = black_orc
 			tag = Z55 #darkscale
-			tag = Z56 #syz
+			tag = Z56 #kux
 		}
 		capital_scope = {
 			NOT = { has_terrain = dwarven_hold }
@@ -4457,32 +4452,6 @@ country_event = {
 	option = {
         name = diggy.111.a
         ai_chance = { factor = 100 }
-		# every_country = {
-			# limit = { 
-				# capital_scope = { continent = serpentspine }
-				# has_reform = dwarovar_adventurer_reform
-			# }
-			# add_country_modifier = {
-				# name = dwarovar_colonial_nerf_big
-				# duration = 20440
-			# }
-		# }
-		
-		# every_country = {
-			# limit = {
-				# capital_scope = { continent = serpentspine }
-				# OR = {
-					# has_reform = dwarovar_warband
-					# has_reform = roaming_horde
-					# has_country_flag = dwarovar_remnant
-				# }
-			# }
-			# add_country_modifier = {
-				# name = dwarovar_colonial_nerf_small
-				# duration = 20440
-			# }
-		# }
-		
 		hold_province = {
 			add_province_triggered_modifier = hold_has_parliament
 			add_province_triggered_modifier = gold_hold
@@ -5340,26 +5309,6 @@ country_event = {
 	}
 }
 
-#Random loca #Hehodas -> Need to properly fix that can't rn
-# province_event = {
-	# id = diggy.123
-	# title = diggy.123.t
-	# desc = diggy.123.d
-	# picture = FORT_eventPicture
-	
-	# is_triggered_only = yes
-	# hidden = yes
-	
-	# trigger = {
-		# always = yes
-	# }
-	
-	# option = {
-        # name = diggy.123.a
-        # ai_chance = { factor = 10 }
-		# add_province_triggered_modifier = random_diggy_loca
-	# }
-# }
 
 
 #####################################################################
@@ -5962,6 +5911,635 @@ country_event = {
 	}
 }
 
+#####################################################################
+##### Marrhold Tunnel .400-499
+#####################################################################
+
+###Marrhold tunnel setup
+country_event = {
+	id = diggy.400
+	title = diggy.100.t
+	desc = diggy.100.d
+	picture = ARTWORK_eventPicture
+	
+	mean_time_to_happen = { months = 1 }
+	
+	hidden = yes
+	
+	trigger = {
+		2931 = {
+			trade_share = {
+				country = ROOT
+				share = 1
+			}
+		}
+		NOT = {
+			2931 = {
+				has_trade_modifier = {
+					who = ROOT
+					key = MARRHOLD_CLOSED
+				}
+			}
+		}
+		NOT = { any_owned_province = { superregion = west_serpentspine_superregion } }
+		NOT = { has_global_flag = marrhold_tunnel_opened }
+	}
+	
+	option = {
+        name = diggy.100.a
+        ai_chance = { factor = 100 }
+		2931 = {
+			add_trade_modifier = {
+				who = ROOT
+				duration = -1
+				power = -1000
+				key = MARRHOLD_CLOSED
+			}
+		}
+	}
+}
+
+##Marrhold-Dwarovar open
+country_event = {
+	id = diggy.401
+	title = diggy.401.t
+	desc = diggy.401.d
+	picture = ARTWORK_eventPicture
+	
+	major = yes
+	is_triggered_only = yes
+	trigger = { 4097 = { has_great_project = { type = marrhold_dwarovar_tunnel } } }
+	
+	option = {
+        name = diggy.401.a
+        ai_chance = { factor = 100 }
+		4097 = {
+			add_permanent_province_modifier = {
+				name = marrhold_door
+				duration = -1
+			}
+			center_of_trade = 1
+		}
+		hidden_effect = { set_global_flag = marrhold_tunnel_opened }
+		every_country = {
+			limit = {
+				2931 = {
+					has_trade_modifier = {
+						who = PREV
+						key = MARRHOLD_CLOSED
+					}
+				}
+			}
+			2931 = {
+				remove_trade_modifier = {
+					who = PREV
+					key = MARRHOLD_CLOSED
+				}
+			}
+		}
+	}
+}
+
+##Dwarovar-Marrhold open
+country_event = {
+	id = diggy.402
+	title = diggy.402.t
+	desc = diggy.402.d
+	picture = ARTWORK_eventPicture
+	
+	major = yes
+	is_triggered_only = yes
+	trigger = { 4065 = { has_great_project = { type = marrhold_dwarovar_tunnel } } }
+	
+	option = {
+        name = diggy.402.a
+        ai_chance = { factor = 100 }
+		4065 = {
+			add_permanent_province_modifier = {
+				name = marrhold_door
+				duration = -1
+			}
+			center_of_trade = 1
+		}
+		custom_tooltip = diggy.402.tooltip
+		every_country = {
+			limit = {
+				2931 = {
+					has_trade_modifier = {
+						who = PREV
+						key = MARRHOLD_CLOSED
+					}
+				}
+			}
+			2931 = {
+				remove_trade_modifier = {
+					who = PREV
+					key = MARRHOLD_CLOSED
+				}
+			}
+		}
+		hidden_effect = { 
+			set_global_flag = marrhold_tunnel_opened
+			country_event = { id = diggy.403 days = 3650 } #10 years
+		}
+	}
+}
+
+##Marrhold trade lvl 2 upgrade
+country_event = {
+	id = diggy.403
+	title = diggy.403.t
+	desc = diggy.403.d
+	picture = ARTWORK_eventPicture
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = { has_global_flag = marrhold_tunnel_1 }
+	
+	option = {
+        name = diggy.403.a
+        ai_chance = { factor = 100 }
+		custom_tooltip = diggy.403.tooltip
+		clr_global_flag = marrhold_tunnel_1
+		set_global_flag = marrhold_tunnel_2
+		add_prestige_excess_to_splendour_effect = { VAL = 10 }
+		hidden_effect = { country_event = { id = diggy.404 days = 7300 } } #20 years
+	}
+}
+
+##Marrhold trade lvl 3 upgrade
+country_event = {
+	id = diggy.404
+	title = diggy.404.t
+	desc = diggy.404.d
+	picture = ARTWORK_eventPicture
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = { has_global_flag = marrhold_tunnel_2 }
+	
+	option = {
+        name = diggy.404.a
+        ai_chance = { factor = 100 }
+		custom_tooltip = diggy.404.tooltip
+		clr_global_flag = marrhold_tunnel_2
+		set_global_flag = marrhold_tunnel_3
+		add_prestige_excess_to_splendour_effect = { VAL = 15 }
+		hidden_effect = { country_event = { id = diggy.405 days = 10950 } } #30 years
+	}
+}
+
+##Marrhold trade lvl 4 upgrade
+country_event = {
+	id = diggy.405
+	title = diggy.405.t
+	desc = diggy.405.d
+	picture = ARTWORK_eventPicture
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = { has_global_flag = marrhold_tunnel_2 }
+	
+	option = {
+        name = diggy.405.a
+        ai_chance = { factor = 100 }
+		custom_tooltip = diggy.405.tooltip
+		clr_global_flag = marrhold_tunnel_3
+		set_global_flag = marrhold_tunnel_4
+		add_prestige_excess_to_splendour_effect = { VAL = 20 }
+	}
+}
+
+
+##Amldihr reverse trade value thingy
+country_event = {
+	id = diggy.406
+	title = diggy.406.t
+	desc = diggy.406.d
+	picture = ARTWORK_eventPicture
+	
+	is_triggered_only = yes
+	hidden = yes
+	trigger = { 
+		has_global_flag = marrhold_tunnel_opened
+		4065 = { owned_by = ROOT has_great_project = { type = marrhold_dwarovar_tunnel } }
+		owns = 4119
+	}
+	
+	immediate = {
+		4119 = {
+			set_variable = { node_value = 0 }
+			set_variable = { node_traders = 0 }
+			remove_province_modifier = tunnel_reverse_trade_1
+			remove_province_modifier = tunnel_reverse_trade_2
+			remove_province_modifier = tunnel_reverse_trade_3
+			remove_province_modifier = tunnel_reverse_trade_4
+			remove_province_modifier = tunnel_reverse_trade_5
+			remove_province_modifier = tunnel_reverse_trade_6
+			remove_province_modifier = tunnel_reverse_trade_7
+			remove_province_modifier = tunnel_reverse_trade_8
+			remove_province_modifier = tunnel_reverse_trade_9
+			remove_province_modifier = tunnel_reverse_trade_10
+		}
+
+		every_known_country = {
+			limit = {
+				2931 = { has_merchant = PREV }
+				NOT = {
+					is_subject_of = ROOT
+					capital_scope = { continent = serpentspine }
+				}
+			}
+			4119 = { change_variable = { node_traders = 2.5 } }
+		}
+
+		4119 = {
+			export_to_variable = { variable_name = node_value value = trigger_value:trade_node_value }
+
+			trigger_switch = {
+				on_trigger = has_global_flag
+
+				marrhold_tunnel_1 = { multiply_variable = { node_value = 0.2 } }
+				marrhold_tunnel_2 = { multiply_variable = { node_value = 0.3 } }
+				marrhold_tunnel_3 = { multiply_variable = { node_value = 0.4 } }
+				marrhold_tunnel_4 = { multiply_variable = { node_value = 0.5 } }
+			}
+
+			change_variable = { which = node_value which = node_traders }
+		}
+	}
+
+	option = {
+        name = diggy.406.a
+        ai_chance = { factor = 100 }
+		if = {
+			limit = { 888 = { has_merchant = ROOT } }
+			country_event = { id = diggy.407 }
+		}
+		else = {
+			4119 = {
+				if = {
+					limit = { check_variable = { node_value = 200 } }
+					add_permanent_province_modifier = { name = tunnel_reverse_trade_10 duration = -1 }
+				}
+				else_if = {
+					limit = { check_variable = { node_value = 180 } }
+					add_permanent_province_modifier = { name = tunnel_reverse_trade_9 duration = -1 }
+				}
+				else_if = {
+					limit = { check_variable = { node_value = 160 } }
+					add_permanent_province_modifier = { name = tunnel_reverse_trade_8 duration = -1 }
+				}
+				else_if = {
+					limit = { check_variable = { node_value = 140 } }
+					add_permanent_province_modifier = { name = tunnel_reverse_trade_7 duration = -1 }
+				}
+				else_if = {
+					limit = { check_variable = { node_value = 120 } }
+					add_permanent_province_modifier = { name = tunnel_reverse_trade_6 duration = -1 }
+				}
+				else_if = {
+					limit = { check_variable = { node_value = 100 } }
+					add_permanent_province_modifier = { name = tunnel_reverse_trade_5 duration = -1 }
+				}
+				else_if = {
+					limit = { check_variable = { node_value = 80 } }
+					add_permanent_province_modifier = { name = tunnel_reverse_trade_4 duration = -1 }
+				}
+				else_if = {
+					limit = { check_variable = { node_value = 60 } }
+					add_permanent_province_modifier = { name = tunnel_reverse_trade_3 duration = -1 }
+				}
+				else_if = {
+					limit = { check_variable = { node_value = 40 } }
+					add_permanent_province_modifier = { name = tunnel_reverse_trade_2 duration = -1 }
+				}
+				else = { add_permanent_province_modifier = { name = tunnel_reverse_trade_1 duration = -1 } }
+			}
+		}
+	}
+}
+
+##don't collect in marrhold bro
+country_event = {
+	id = diggy.407
+	title = diggy.407.t
+	desc = diggy.407.d
+	picture = ARTWORK_eventPicture
+	
+	is_triggered_only = yes
+	trigger = { 888 = { has_merchant = ROOT } }
+	
+	option = {
+        name = diggy.407.a
+        ai_chance = { factor = 100 }
+		custom_tooltip = diggy.407.tooltip
+		hidden_effect = { country_event = { id = diggy.406 days = 60 } }
+	}
+}
+
+#flavor event manager
+country_event = {
+	id = diggy.410
+	title = diggy.410.t
+	desc = diggy.410.d
+	picture = CAVE_eventPicture
+
+	hidden = yes
+
+	trigger = {
+		has_global_flag = marrhold_tunnel_opened
+		owns = 4065
+		4065 = { has_great_project = { type = dwarovar_marrhold_tunnel } }
+	}
+
+	mean_time_to_happen = {
+		years = 20
+		modifier = {
+			factor = 0.75
+			full_idea_group = trade_ideas
+		}
+	}
+
+	option = {
+		name = diggy.410.a
+		
+		random_list = {
+			#fallback
+			1 = {}
+
+			#trade brings prosperity
+			100 = { country_event = { id = diggy.411 } }
+
+			#er-natvir benefits
+			100 = {
+				trigger = {
+					owns = 2931
+					2931 = { NOT = { has_province_modifier = tunnel_natvir_trade_5 } }
+					NOT = { has_country_modifier = monstrous_nation }
+				}
+				country_event = { id = diggy.412 }
+			}
+		
+			#human minorities set up shops
+			100 = {
+				trigger = {
+					NOT = {
+						has_country_modifier = monstrous_nation
+						culture_group = orcish
+					}
+					any_known_country = {
+						capital_scope = {
+							OR = {
+								region = south_castanor_region
+								region = inner_castanor_region
+								region = west_castanor_region
+							}
+						}
+						culture_is_human = yes
+					}
+				}
+				country_event = { id = diggy.413 }
+			}
+
+			#Ravelianism
+			300 = {
+				trigger = {
+					is_religion_enabled = ravelian
+					NOT = {
+						has_global_flag = dwarovar_ravelianism_event 
+						has_country_modifier = monstrous_nation
+					}
+				}
+				set_global_flag = dwarovar_ravelianism_event
+				country_event = { id = diggy.414 }
+			}
+
+			#Escann wants orc slaves
+			100 = {
+				trigger = { 
+					NOT = { has_global_flag = orcish_slave_trade_banned_in_cannor culture_group = orcish }
+					any_known_country = {
+						capital_scope = { superregion = escann_superregion }
+						NOT = { culture_group = orcish culture_group = goblin }
+					}
+				}
+				country_event = { id = diggy.415 }
+			}
+		}
+		ai_chance = { factor = 5 }
+	}
+}
+
+#trade brings prosperity
+country_event = {
+	id = diggy.411
+	title = diggy.411.t
+	desc = diggy.411.d
+	picture = CAVE_eventPicture
+
+	trigger = { has_global_flag = marrhold_tunnel_opened }
+	
+	is_triggered_only = yes
+
+	immediate = { hidden_effect = { 2931 = { random_trade_node_member_province = { limit = { owned_by = ROOT NOT = { province_id = 2931 } } save_event_target_as = event_province } } } }
+	goto = event_province
+
+	option = {
+		name = diggy.411.a
+		4119 = { add_trade_node_income = 0.1 }
+		event_target:event_province = { 
+			add_base_tax = 1
+			add_base_production = 1
+			add_base_manpower = 1
+			add_prosperity = 25
+		}
+		ai_chance = { factor = 5 }
+	}
+}
+
+#Er-Natvir benefits
+country_event = {
+	id = diggy.412
+	title = diggy.412.t
+	desc = diggy.412.d
+	picture = CAVE_eventPicture
+
+	trigger = { has_global_flag = marrhold_tunnel_opened }
+
+	is_triggered_only = yes
+
+	option = {
+		name = diggy.412.a
+		2931 = { 
+			add_base_tax = 2
+			if = {
+				limit = { 
+					NOT = { 
+						has_province_modifier = tunnel_natvir_trade_1 
+						has_province_modifier = tunnel_natvir_trade_2
+						has_province_modifier = tunnel_natvir_trade_3
+						has_province_modifier = tunnel_natvir_trade_4
+						has_province_modifier = tunnel_natvir_trade_5
+					}
+				}
+				add_permanent_province_modifier = { name = tunnel_natvir_trade_1 duration = -1 }
+			}
+			else = {
+				trigger_switch = {
+					on_trigger = has_province_modifier
+
+					tunnel_natvir_trade_1 = { hidden_effect = { remove_province_modifier = tunnel_natvir_trade_1 } add_permanent_province_modifier = { name = tunnel_natvir_trade_2 duration = -1 } }
+					tunnel_natvir_trade_2 = { hidden_effect = { remove_province_modifier = tunnel_natvir_trade_2 } add_permanent_province_modifier = { name = tunnel_natvir_trade_3 duration = -1 } }
+					tunnel_natvir_trade_3 = { hidden_effect = { remove_province_modifier = tunnel_natvir_trade_3 } add_permanent_province_modifier = { name = tunnel_natvir_trade_4 duration = -1 } }
+					tunnel_natvir_trade_4 = { hidden_effect = { remove_province_modifier = tunnel_natvir_trade_4 } add_permanent_province_modifier = { name = tunnel_natvir_trade_5 duration = -1 } }
+				}
+			}
+		}
+		ai_chance = { factor = 5 }
+	}
+}
+
+#human minorities set up shops
+country_event = {
+	id = diggy.413
+	title = diggy.413.t
+	desc = diggy.413.d
+	picture = CAVE_eventPicture
+
+	trigger = { has_global_flag = marrhold_tunnel_opened }
+
+	is_triggered_only = yes
+
+	immediate = { hidden_effect = { 2931 = { random_trade_node_member_province = { limit = { owned_by = ROOT has_terrain = dwarven_road } save_event_target_as = event_province } } } }
+	goto = event_province
+	
+	#welcome
+	option = {
+		name = diggy.413.a
+		small_increase_of_human_tolerance_effect = yes
+		event_target:event_province = {
+			if = {
+				limit = { has_large_human_minority_trigger = yes }
+				add_base_production = 2
+			}
+			else = { add_base_tax = 1 add_human_minority_size_effect = yes }
+		}
+		ai_chance = { factor = 50 }
+	}
+
+	#lol no
+	option = {
+		name = diggy.413.b
+		small_decrease_of_human_tolerance_effect = yes
+		4119 = { add_trade_node_income = 0.25 }
+		ai_chance = { factor = 5 }
+	}
+}
+
+#Rise of Ravelianism
+country_event = {
+	id = diggy.414
+	title = diggy.414.t
+	desc = diggy.414.d
+	picture = CAVE_eventPicture
+
+	trigger = { has_global_flag = marrhold_tunnel_opened }
+
+	is_triggered_only = yes
+
+	#lol its a cube
+	option = {
+		name = diggy.414.a
+		add_stability_or_adm_power = yes
+		mission_reward_artifice_points_3 = yes
+		custom_tooltip = diggy.414.tooltip
+		hidden_effect = {
+			every_known_country = {
+				limit = { religion = ravelian }
+				add_opinion = { who = ROOT modifier = insulted }
+			}
+		}
+		ai_chance = { factor = 30 }
+	}
+
+	#we hate the precursors too!
+	option = {
+		name = diggy.414.b
+		trigger = { culture_group = dwarven }
+		highlight = yes
+		add_prestige_excess_to_splendour_effect = { VAL = 15 }
+		mission_reward_artifice_points_3 = yes
+		add_country_modifier = { name = tunnel_precursor_hate duration = 9125 }
+		ai_chance = { factor = 50 }
+	}
+
+	#let's be friends! not really i just want capacity
+	option = {
+		name = diggy.414.c
+		mission_reward_artifice_points_5 = yes
+		reduce_stability_or_adm_power = yes
+		if = {
+			limit = { has_estate = estate_church }
+			add_estate_loyalty = { estate = estate_church loyalty = -10 }
+		}
+		ai_chance = { factor = 25 }
+	}
+}
+
+#Escann wants orc slaves
+country_event = {
+	id = diggy.415
+	title = diggy.415.t
+	desc = diggy.415.d
+	picture = CAVE_eventPicture
+
+	trigger = { has_global_flag = marrhold_tunnel_opened }
+
+	is_triggered_only = yes
+
+	immediate = { 
+		hidden_effect = { 
+			random_owned_province = { limit = { OR = { culture_group = orcish has_orcish_minority_trigger = yes } } save_event_target_as = event_province }
+			random_known_country = { limit = { capital_scope = { superregion = escann_superregion } NOT = { culture_group = orcish culture_group = goblin } } save_event_target_as = event_country } 
+		} 
+	}
+	goto = event_province
+	
+	#take them
+	option = {
+		name = diggy.415.a
+		trigger = { has_saved_event_target = event_province }
+		large_decrease_of_orcish_tolerance_effect = yes
+		event_target:event_province = {
+			if = {
+				limit = { culture_group = orcish }
+				change_culture = ROOT
+				change_religion = ROOT 
+			}
+			else = { remove_orcish_minority_size_effect = yes }
+		}
+		event_target:event_country = {
+			random_owned_province = {
+				limit = { superregion = escann_superregion NOT = { culture_group = orcish } }
+				add_orcish_minority_size_effect = yes
+			}
+		}
+		4119 = { add_trade_node_income = 0.2 }
+		ai_chance = { factor = 5 }
+	}
+
+	#no slaves
+	option = {
+		name = diggy.415.b
+		add_prestige_excess_to_splendour_effect = { VAL = 5 }
+		if = {
+			limit = { has_estate = estate_church }
+			add_estate_loyalty = { estate = estate_church loyalty = 10 }
+		}
+		ai_chance = { factor = 5 }
+	}
+}
 
 #####################################################################
 ##### Flavor Events .500+
@@ -6018,6 +6596,7 @@ country_event = {
 				add_base_tax = -1
 			}
 		}
+		remove_country_modifier = dig_explosive
 		hidden_effect = { capital_scope = { change_variable = { cons_prog = -0.1 } } }
 		tooltip = { capital_scope = { change_variable = { cons_prog = -0.2 } } }
 	}
@@ -6198,43 +6777,11 @@ country_event = {
 	option = {
         name = diggy.504.a
         ai_chance = { factor = 50 }
-		add_prestige_or_monarch_power = {amount =  15}
+		add_prestige = 15
 		capital_scope = {
 			#hidden_effect = { set_province_flag = permanent_damestear } #no perma damestear in the dwarovar
 			save_trade_goods = yes
 			change_trade_goods = damestear
-			if = {
-				limit = {
-					OR = {
-						has_province_modifier = hold_city
-						has_province_modifier = hold_artisan
-						has_province_modifier = hold_farm
-						has_province_modifier = hold_military
-						has_province_modifier = hold_artisan_2
-						has_province_modifier = hold_city_2
-						has_province_modifier = hold_farm_2
-						has_province_modifier = hold_military_2
-					}
-				}
-				remove_province_modifier = hold_city
-				remove_province_modifier = hold_artisan
-				remove_province_modifier = hold_farm
-				remove_province_modifier = hold_military
-				remove_province_modifier = hold_city_2
-				remove_province_modifier = hold_artisan_2
-				remove_province_modifier = hold_farm_2
-				remove_province_modifier = hold_military_2
-				remove_province_modifier = developing_advanced_infrastructure
-				hidden_effect = { clr_province_flag = specialized_hold }
-				
-				owner = {
-					hidden_effect = { clr_country_flag = building_diggy }
-					hidden_effect = { clr_country_flag = building_artificier_hall }
-					hidden_effect = { clr_country_flag = building_engineer_manufactory }
-					hidden_effect = { clr_country_flag = building_high_gardens }
-					hidden_effect = { clr_country_flag = building_military_academy }
-				}
-			}
 			random = {
 				chance = 50
 				add_permanent_province_modifier = {
@@ -6485,7 +7032,7 @@ country_event = {
 	option = {
         name = diggy.508.b
         ai_chance = { factor = 90 }
-		add_prestige_or_monarch_power = {amount =  5}
+		add_prestige = 5
 		capital_scope = {
 			add_permanent_province_modifier = {
 				name = beautiful_cave
@@ -6517,7 +7064,7 @@ country_event = {
 	option = {
         name = diggy.509.a
         ai_chance = { factor = 1 }
-		add_prestige_or_monarch_power = {amount =  5}
+		add_prestige = 5
 		increase_legitimacy_small_effect = yes
 		add_years_of_income = 0.2
 	}
@@ -6725,35 +7272,9 @@ country_event = {
 						province_id = 2914 #verkal gulan
 						province_id = 4236 #mithradhum
 					}
-					OR = {
-						has_province_modifier = hold_city
-						has_province_modifier = hold_artisan
-						has_province_modifier = hold_farm
-						has_province_modifier = hold_military
-						has_province_modifier = hold_artisan_2
-						has_province_modifier = hold_city_2
-						has_province_modifier = hold_farm_2
-						has_province_modifier = hold_military_2
-					}
+					has_advanced_hold_infrastructure = yes
 				}
-				remove_province_modifier = hold_city
-				remove_province_modifier = hold_artisan
-				remove_province_modifier = hold_farm
-				remove_province_modifier = hold_military
-				remove_province_modifier = hold_city_2
-				remove_province_modifier = hold_artisan_2
-				remove_province_modifier = hold_farm_2
-				remove_province_modifier = hold_military_2
-				remove_province_modifier = developing_advanced_infrastructure
-				hidden_effect = { clr_province_flag = specialized_hold }
-				
-				owner = {
-					hidden_effect = { clr_country_flag = building_diggy }
-					hidden_effect = { clr_country_flag = building_artificier_hall }
-					hidden_effect = { clr_country_flag = building_engineer_manufactory }
-					hidden_effect = { clr_country_flag = building_high_gardens }
-					hidden_effect = { clr_country_flag = building_military_academy }
-				}
+				clr_hold_advanced_infrastructure = yes
 			}
 			hidden_effect = { change_variable = { cons_prog = -0.125 } }
 			tooltip = { change_variable = { cons_prog = -0.25 } }
@@ -6763,7 +7284,8 @@ country_event = {
 	option = {
         name = diggy.511.b
         ai_chance = { factor = 10 }
-		add_stability = 2
+		add_stability_or_adm_power = yes
+		add_stability_or_adm_power = yes
 		capital_scope = {
 			hidden_effect = { change_variable = { cons_prog = -0.125 } }
 			tooltip = { change_variable = { cons_prog = -0.25 } }
@@ -6837,7 +7359,167 @@ country_event = {
 	}
 }
 
+# Reaching level 10 on level 10 hold
+country_event = {
+	id = diggy.513
+	title = diggy.513.t
+	picture = DARK_EXPEDITION_eventPicture
+	major = yes
+	major_trigger = { capital_scope = { province_group = hold_province } }
+	is_triggered_only = yes
+	
+	desc = { # first dwarf
+		trigger = {
+			ROOT = { culture_group = dwarven }
+			NOT = { has_global_flag = global_flag_hold_level_10_hit }
+		}
+		desc = diggy.513.d1
+	}
+	desc = { # not first dwarf
+		trigger = {
+			ROOT = { culture_group = dwarven }
+			has_global_flag = global_flag_hold_level_10_hit
+		}
+		desc = diggy.513.d2
+	}
+	desc = { # other race
+		trigger = {
+			NOT = { ROOT = { culture_group = dwarven } }
+		}
+		desc = diggy.513.d3
+	}
+	
+	option = { #we are the first!
+		name = diggy.513.a
+		trigger = {
+			ROOT = { culture_group = dwarven }
+			NOT = { has_global_flag = global_flag_hold_level_10_hit }
+		}
+		add_stability_or_adm_power = yes
+		add_prestige_excess_to_splendour_effect = { VAL = 50 }
+		set_global_flag = global_flag_hold_level_10_hit
+	}
+	option = { #we are not the first.
+		name = diggy.513.b
+		trigger = {
+			ROOT = { culture_group = dwarven }
+			has_global_flag = global_flag_hold_level_10_hit
+		}
+		add_stability_or_adm_power = yes
+		add_prestige_excess_to_splendour_effect = { VAL = 10 }
+	}
+	option = { #we are goblins or kobolds or something
+		name = diggy.513.c
+		trigger = {
+			NOT = { ROOT = { culture_group = dwarven } }
+		}
+		add_stability_or_adm_power = yes
+		add_prestige_excess_to_splendour_effect = { VAL = 10 }
+		set_global_flag = global_flag_hold_level_10_hit
+	}
+}
 
+# Reaching level 10 on level 11 hold
+country_event = {
+	id = diggy.514
+	title = diggy.514.t
+	picture = DARK_EXPEDITION_eventPicture
+	is_triggered_only = yes
+	
+	desc = { # dwarf
+		trigger = {
+			ROOT = { culture_group = dwarven }
+		}
+		desc = diggy.514.d1
+	}
+	desc = { # other race
+		trigger = {
+			NOT = { ROOT = { culture_group = dwarven } }
+		}
+		desc = diggy.514.d2
+	}
+	
+	option = { #we need to go deeper as dwarves
+		name = diggy.514.a
+		trigger = {
+			ROOT = { culture_group = dwarven }
+		}
+		add_prestige_excess_to_splendour_effect = { VAL = 20 }
+		set_global_flag = global_flag_hold_level_10_hit
+	}
+	option = { #we need to go deeper anyway
+		name = diggy.514.b
+		trigger = {
+			NOT = { ROOT = { culture_group = dwarven } }
+		}
+		add_prestige_excess_to_splendour_effect = { VAL = 20 }
+		set_global_flag = global_flag_hold_level_10_hit
+	}
+}
+
+# Reaching level 11
+country_event = {
+	id = diggy.515
+	title = diggy.515.t
+	picture = DARK_EXPEDITION_eventPicture
+	major = yes
+	major_trigger = { capital_scope = { province_group = hold_province } }
+	is_triggered_only = yes
+	
+	desc = { # first dwarf
+		trigger = {
+			ROOT = { culture_group = dwarven }
+			NOT = { has_global_flag = global_flag_hold_level_11_hit }
+		}
+		desc = diggy.515.d1
+	}
+	desc = { # not first dwarf
+		trigger = {
+			ROOT = { culture_group = dwarven }
+			has_global_flag = global_flag_hold_level_11_hit
+		}
+		desc = diggy.515.d2
+	}
+	desc = { # other race
+		trigger = {
+			NOT = { ROOT = { culture_group = dwarven } }
+		}
+		desc = diggy.515.d3
+	}
+	
+	option = { #we are the first!
+		name = diggy.515.a
+		trigger = {
+			ROOT = { culture_group = dwarven }
+			NOT = { has_global_flag = global_flag_hold_level_11_hit }
+		}
+		add_stability_or_adm_power = yes
+		add_prestige_excess_to_splendour_effect = { VAL = 50 }
+		set_global_flag = global_flag_hold_level_11_hit
+	}
+	option = { #we are not the first.
+		name = diggy.515.b
+		trigger = {
+			ROOT = { culture_group = dwarven }
+			has_global_flag = global_flag_hold_level_11_hit
+		}
+		add_stability_or_adm_power = yes
+		add_prestige_excess_to_splendour_effect = { VAL = 10 }
+	}
+	option = { #we are goblins or kobolds or something
+		name = diggy.515.c
+		trigger = {
+			NOT = { ROOT = { culture_group = dwarven } }
+		}
+		add_stability_or_adm_power = yes
+		add_prestige_excess_to_splendour_effect = { VAL = 10 }
+		set_global_flag = global_flag_hold_level_11_hit
+	}
+}
+
+
+
+####Other events
 #Orc Warband
 country_event = {
 	id = diggy.550
@@ -7079,7 +7761,7 @@ country_event = {
 		days = 1
 	}
 
-	goto = province
+	goto = event_province
 	immediate = {
 		hidden_effect = {
 			random_owned_province = {
@@ -7087,7 +7769,7 @@ country_event = {
 					has_terrain = dwarven_road
 					NOT = { has_province_modifier = dwarovar_rail }
 				}
-				save_event_target_as = province
+				save_event_target_as = event_province
 			}
 		}
 	}
@@ -7108,7 +7790,7 @@ country_event = {
 	#can't spare resources
 	option = {
 		name = diggy.554.b
-		event_target:province = { add_province_modifier = { name = dwarovar_bad_maintenance duration = 3650 } }
+		event_target:event_province = { add_province_modifier = { name = dwarovar_bad_maintenance duration = 3650 } }
 		ai_chance = { factor = 25 }
 	}
 }
@@ -7134,9 +7816,13 @@ country_event = {
 
 	mean_time_to_happen = {
 		days = 1
+		modifier = {
+			factor = 0.5
+			NOT = { num_of_cities = 2 }
+		}
 	}
 
-	goto = province
+	goto = event_province
 	immediate = {
 		hidden_effect = {
 			random_owned_province = {
@@ -7146,7 +7832,7 @@ country_event = {
 						region = west_dwarovar_region
 					}
 				}
-				save_event_target_as = province
+				save_event_target_as = event_province
 			}
 		}
 	}
@@ -7156,7 +7842,7 @@ country_event = {
 		name = diggy.555.a
 		add_yearly_manpower = -0.2
 		add_mil_power = -25
-		event_target:province = { add_devastation = 25 }
+		event_target:event_province = { add_devastation = 25 }
 		ai_chance = { 
 			factor = 75
 			modifier = {
@@ -7169,7 +7855,7 @@ country_event = {
 	#can't spare resources
 	option = {
 		name = diggy.555.b
-		event_target:province = { 
+		event_target:event_province = { 
 			add_devastation = 25
 			add_unrest = 3
 			add_province_modifier = {
@@ -7200,6 +7886,10 @@ country_event = {
 
 	mean_time_to_happen = {
 		days = 1
+		modifier = {
+			factor = 0.5
+			NOT = { num_of_cities = 2 }
+		}
 	}
 
 	#sell it
@@ -7268,9 +7958,13 @@ country_event = {
 
 	mean_time_to_happen = {
 		days = 1
+		modifier = {
+			factor = 0.5
+			NOT = { num_of_cities = 2 }
+		}
 	}
 
-	goto = province
+	goto = event_province
 	immediate = {
 		hidden_effect = {
 			random_owned_province = {
@@ -7280,7 +7974,7 @@ country_event = {
 						trade_goods = fungi
 					}
 				}
-				save_event_target_as = province
+				save_event_target_as = event_province
 			}
 		}
 	}
@@ -7288,7 +7982,7 @@ country_event = {
 	#woah
 	option = {
 		name = diggy.557.a
-		event_target:province = {
+		event_target:event_province = {
 			add_base_production = 1
 			add_province_modifier = { name = dwarovar_halannas_breath duration = 3650 }
 		}
@@ -7326,9 +8020,13 @@ country_event = {
 
 	mean_time_to_happen = {
 		days = 1
+		modifier = {
+			factor = 0.5
+			NOT = { num_of_cities = 2 }
+		}
 	}
 
-	goto = province
+	goto = event_province
 	immediate = {
 		hidden_effect = {
 			random_owned_province = {
@@ -7339,7 +8037,7 @@ country_event = {
 						area = travelers_refuge_area
 					}
 				}
-				save_event_target_as = province
+				save_event_target_as = event_province
 			}
 		}
 	}
@@ -7348,7 +8046,7 @@ country_event = {
 	option = {
 		name = diggy.558.a
 		trigger = { NOT = { culture_group = goblin} }
-		event_target:province = {
+		event_target:event_province = {
 			add_unrest = 3
 			add_devastation = 25
 		}
@@ -7359,7 +8057,7 @@ country_event = {
 	option = {
 		name = diggy.558.b
 		trigger = { culture_group = goblin }
-		event_target:province = {
+		event_target:event_province = {
 			random_list = {
 				50 = { add_base_manpower = 1 }
 				30 = { add_base_manpower = 2 }
@@ -7374,8 +8072,8 @@ country_event = {
 		name = diggy.558.c
 		trigger = { tag = H90 } #spiderwretch
 		highlight = yes
-		add_prestige_or_monarch_power = {amount =  10}
-		event_target:province = { add_base_manpower = 2 }
+		add_prestige = 10
+		event_target:event_province = { add_base_manpower = 2 }
 		ai_chance = { factor = 50 }
 	}
 }
@@ -7411,7 +8109,7 @@ country_event = {
 		}
 	}
 
-	goto = province
+	goto = event_province
 	immediate = {
 		hidden_effect = {
 			random_owned_province = {
@@ -7420,7 +8118,7 @@ country_event = {
 					colonysize = 400
 					native_size = 2
 				}
-				save_event_target_as = province
+				save_event_target_as = event_province
 			}
 		}
 	}
@@ -7428,7 +8126,7 @@ country_event = {
 	#nice
 	option = {
 		name = diggy.559.a
-		event_target:province = {
+		event_target:event_province = {
 			change_native_size = -2
 			add_colonysize = 400
 		}
@@ -7458,7 +8156,7 @@ country_event = {
 		days = 1
 	}
 
-	goto = province
+	goto = event_province
 	immediate = {
 		hidden_effect = {
 			random_owned_province = {
@@ -7467,7 +8165,7 @@ country_event = {
 					colonysize = 400
 					native_size = 2
 				}
-				save_event_target_as = province
+				save_event_target_as = event_province
 			}
 		}
 	}
@@ -7476,7 +8174,7 @@ country_event = {
 	option = {
 		name = diggy.560.a
 		add_treasury = 30
-		event_target:province = { change_native_size = -2 }
+		event_target:event_province = { change_native_size = -2 }
 		ai_chance = { factor = 5 }
 	}
 }
@@ -7497,14 +8195,18 @@ country_event = {
 
 	mean_time_to_happen = {
 		days = 1
+		modifier = {
+			factor = 0.5
+			NOT = { num_of_cities = 2 }
+		}
 	}
 
-	goto = province
+	goto = event_province
 	immediate = {
 		hidden_effect = {
 			random_owned_province = {
 				limit = { has_terrain = cavern }
-				save_event_target_as = province
+				save_event_target_as = event_province
 			}
 		}
 	}
@@ -7538,6 +8240,10 @@ country_event = {
 
 	mean_time_to_happen = {
 		days = 1
+		modifier = {
+			factor = 0.5
+			NOT = { num_of_cities = 2 }
+		}
 	}
 
 	#restore it
@@ -7557,8 +8263,8 @@ country_event = {
 	#scrap it
 	option = {
 		name = diggy.562.b
-		add_years_of_income = 0.3
-		add_adm_power = 50
+		add_years_of_income = 0.2
+		add_adm_power = 25
 		add_mil_power = 50
 		ai_chance = { 
 			factor = 10 
@@ -7574,12 +8280,8 @@ country_event = {
 		name = diggy.562.c
 		add_prestige_excess_to_splendour_effect = { VAL = 15 }
 		if = {
-			limit = { has_dlc = "Mandate of Heaven" }
-			add_splendor = 50
-		}
-		if = {
 			limit = { has_dlc = "Rule Britannia" }
-			change_innovativeness = 3
+			change_innovativeness = 2
 		}
 		ai_chance = { factor = 10 }
 	}
@@ -7603,12 +8305,12 @@ country_event = {
 		days = 1
 	}
 
-	goto = province
+	goto = event_province
 	immediate = {
 		hidden_effect = {
 			random_owned_province = {
 				limit = { is_city = no }
-				save_event_target_as = province
+				save_event_target_as = event_province
 			}
 		}
 	}
@@ -7624,7 +8326,7 @@ country_event = {
 	#venerate it
 	option = {
 		name = diggy.563.b
-		trigger = { culture_group = dwarven }
+		trigger = { religion = ancestor_worship }
 		add_country_modifier = { name = dwarovar_venerated_statue duration = 3650 }
 		ai_chance = { factor = 25 }
 	}
@@ -7669,7 +8371,11 @@ country_event = {
 		add_mil_power = 30
 		if = {
 			limit = { has_reform = dwarovar_adventurer_reform }
-			add_militarised_society = 5
+			add_government_power = {
+				mechanic_type = militarization_mechanic
+				power_type = militarized_society
+				value = 5
+			}
 			add_faction_influence = { faction = adv_fortune_seekers influence = 3 }
 		}
 		else_if = {
@@ -7711,18 +8417,9 @@ country_event = {
 
 	mean_time_to_happen = {
 		days = 1
-		modifier = {
-			factor = 2
-			num_of_owned_provinces_with = {
-				value = 4
-				has_province_modifier = expedition_target
-				NOT = { has_province_flag = sent_expedition_@owner }
-				NOT = { has_province_modifier = dwarovar_unwanted_guests }
-			}
-		}
 	}
 
-	goto = province
+	goto = event_province
 	immediate = {
 		hidden_effect = {
 			random_owned_province = {
@@ -7731,7 +8428,7 @@ country_event = {
 					NOT = { has_province_flag = sent_expedition_@owner }
 					NOT = { has_province_modifier = dwarovar_unwanted_guests }
 				}
-				save_event_target_as = province
+				save_event_target_as = event_province
 			}
 		}
 	}
@@ -7739,7 +8436,7 @@ country_event = {
 	#oh shit
 	option = {
 		name = diggy.565.a
-		event_target:province = { add_permanent_province_modifier = { name = dwarovar_unwanted_guests duration = -1 desc = until_expedition_done } }
+		event_target:event_province = { add_permanent_province_modifier = { name = dwarovar_unwanted_guests duration = -1 desc = until_expedition_done } }
 		ai_chance = { factor = 5 }
 	}
 }
@@ -7764,9 +8461,13 @@ country_event = {
 
 	mean_time_to_happen = {
 		days = 1
+		modifier = {
+			factor = 0.5
+			NOT = { num_of_cities = 2 }
+		}
 	}
 
-	goto = province
+	goto = event_province
 	immediate = {
 		hidden_effect = {
 			random_owned_province = {
@@ -7774,7 +8475,7 @@ country_event = {
 					has_terrain = cavern 
 					NOT = { has_province_modifier = dwarovar_cave_bats }
 				}
-				save_event_target_as = province
+				save_event_target_as = event_province
 			}
 		}
 	}
@@ -7783,7 +8484,7 @@ country_event = {
 	option = {
 		name = diggy.566.a
 		add_years_of_income = -0.25
-		event_target:province = { 
+		event_target:event_province = { 
 			random_list = {
 				50 = { 
 					modifier = { 
@@ -7824,7 +8525,7 @@ country_event = {
 	option = {
 		name = diggy.566.b
 		add_adm_power = -25
-		event_target:province = {
+		event_target:event_province = {
 			add_devastation = 30
 			add_permanent_province_modifier = { name = dwarovar_cave_bats duration = 3650 }
 		}
@@ -7838,7 +8539,7 @@ country_event = {
 		highlight = yes
 		add_years_of_income = -0.4
 		add_mil_power = -25
-		event_target:province = { add_permanent_province_modifier = { name = dwarovar_cave_bats duration = 5475 } }
+		event_target:event_province = { add_permanent_province_modifier = { name = dwarovar_cave_bats duration = 5475 } }
 		add_country_modifier = { name = dwarovar_bat_guano_explosives duration = 5475 }
 		ai_chance = { factor = 50 }
 	}
@@ -7866,7 +8567,7 @@ country_event = {
 		days = 1
 	}
 
-	goto = province
+	goto = event_province
 	immediate = {
 		hidden_effect = {
 			random_owned_province = {
@@ -7875,7 +8576,7 @@ country_event = {
 					is_city = no
 					native_size = 2
 				}
-				save_event_target_as = province
+				save_event_target_as = event_province
 			}
 		}
 	}
@@ -7904,7 +8605,7 @@ country_event = {
 	option = {
 		name = diggy.567.b
 		add_dip_power = -25
-		event_target:province = {
+		event_target:event_province = {
 			random_list = {
 				60 = {
 					modifier = { 
@@ -7948,7 +8649,7 @@ country_event = {
 		days = 1
 	}
 
-	goto = province
+	goto = event_province
 	immediate = {
 		hidden_effect = {
 			random_owned_province = {
@@ -7958,7 +8659,7 @@ country_event = {
 					colonysize = 600
 					NOT = { has_province_modifier = dwarovar_blocked_road }
 				}
-				save_event_target_as = province
+				save_event_target_as = event_province
 			}
 		}
 	}
@@ -7966,7 +8667,7 @@ country_event = {
 	#clear it out
 	option = {
 		name = diggy.568.a
-		event_target:province = {
+		event_target:event_province = {
 			add_colonysize = -100
 		}
 		add_years_of_income = 0.15
@@ -7977,7 +8678,7 @@ country_event = {
 	option = {
 		name = diggy.568.b
 		add_dip_power = -25
-		event_target:province = { add_permanent_province_modifier = { name = dwarovar_blocked_road duration = 5475 } }
+		event_target:event_province = { add_permanent_province_modifier = { name = dwarovar_blocked_road duration = 5475 } }
 		ai_chance = { factor = 5 }
 	}
 }
@@ -8003,9 +8704,13 @@ country_event = {
 
 	mean_time_to_happen = {
 		days = 1
+		modifier = {
+			factor = 0.5
+			NOT = { num_of_cities = 2 }
+		}
 	}
 
-	goto = province
+	goto = event_province
 	immediate = {
 		hidden_effect = {
 			random_owned_province = {
@@ -8014,7 +8719,7 @@ country_event = {
 					NOT = { province_group = hold_province }
 					is_city = yes
 				}
-				save_event_target_as = province
+				save_event_target_as = event_province
 			}
 		}
 	}
@@ -8031,7 +8736,7 @@ country_event = {
 		name = diggy.569.b
 		add_years_of_income = -0.3
 		add_adm_power = -15
-		event_target:province = { 
+		event_target:event_province = { 
 			random = { chance = 50 add_base_production = 1 }
 			random = { chance = 25 add_base_production = 1 }
 		}
@@ -8041,7 +8746,7 @@ country_event = {
 	#fuck who cares
 	option = {
 		name = diggy.569.c
-		event_target:province = { 
+		event_target:event_province = { 
 			add_local_autonomy = 25
 			random = {
 				chance = 50
@@ -8078,7 +8783,7 @@ country_event = {
 		days = 1
 	}
 
-	goto = province
+	goto = event_province
 	immediate = {
 		hidden_effect = {
 			random_owned_province = {
@@ -8088,7 +8793,7 @@ country_event = {
 					NOT = { has_province_flag = old_battlefield }
 				}
 				set_province_flag = old_battlefield
-				save_event_target_as = province
+				save_event_target_as = event_province
 			}
 		}
 	}
@@ -8150,14 +8855,20 @@ country_event = {
 	trigger = {
 		capital_scope = { continent = serpentspine }
 		culture_group = dwarven
+		NOT = { has_country_flag = dwarovar_ancient_text_found }
 	}
 
 	mean_time_to_happen = {
 		days = 1
+		modifier = {
+			factor = 0.5
+			NOT = { num_of_cities = 2 }
+		}
 	}
 
 	immediate = {
 		hidden_effect = {
+			set_country_flag = dwarovar_ancient_text_found
 			random_list = {
 				20 = { set_country_flag = dwarovar_text_1 }
 				20 = { set_country_flag = dwarovar_text_2 }
@@ -8173,35 +8884,35 @@ country_event = {
 		}
 	}
 
-	#Aurius
+	#Aurikus
 	option = {
 		name = diggy.571.a
 		trigger = { has_country_flag = dwarovar_text_1 }
 		ai_chance = { factor = 5 }
 	}
 
-	#Auiris
+	#Auirukis
 	option = {
 		name = diggy.571.b
 		trigger = { has_country_flag = dwarovar_text_2 }
 		ai_chance = { factor = 5 }
 	}
 
-	#Auirus
+	#Auirikus
 	option = {
 		name = diggy.571.c
 		hidden_effect = { set_country_flag = dwarovar_text_correct }
 		ai_chance = { factor = 5 }
 	}
 
-	#Auruis
+	#Aiurikus
 	option = {
 		name = diggy.571.e
 		trigger = { has_country_flag = dwarovar_text_3 }
 		ai_chance = { factor = 5 }
 	}
 
-	#Aiurus
+	#Auirukus
 	option = {
 		name = diggy.571.f
 		trigger = { has_country_flag = dwarovar_text_4 }
@@ -8242,7 +8953,7 @@ country_event = {
 	option = {
 		name = diggy.572.a
 		trigger = { has_country_flag = dwarovar_text_correct }
-		add_prestige_or_monarch_power = {amount =  10}
+		add_prestige = 10
 		add_stability_or_adm_power = yes
 		clr_country_flag = dwarovar_text_correct
 		ai_chance = { factor = 5 }
@@ -8277,9 +8988,13 @@ country_event = {
 
 	mean_time_to_happen = {
 		days = 1
+		modifier = {
+			factor = 0.5
+			NOT = { num_of_cities = 2 }
+		}
 	}
 
-	goto = province
+	goto = event_province
 	immediate = {
 		hidden_effect = {
 			random_owned_province = {
@@ -8287,7 +9002,7 @@ country_event = {
 					culture_group = dwarven
 					is_city = yes
 				}
-				save_event_target_as = province
+				save_event_target_as = event_province
 			}
 		}
 	}
@@ -8304,8 +9019,8 @@ country_event = {
 			define_advisor = {
 				type = master_of_mint
 				skill = 2
-				location = event_target:province
-				cost_multiplier = 0.75	#bertus mod
+				location = event_target:event_province
+				discount = yes
 			}
 		}
 		else = {
@@ -8313,8 +9028,8 @@ country_event = {
 			define_advisor = {
 				type = master_of_mint
 				skill = 2
-				location = event_target:province
-				cost_multiplier = 0.75	#bertus mod
+				location = event_target:event_province
+				discount = yes
 			}
 		}
 		ai_chance = { factor = 10 }
@@ -8326,23 +9041,14 @@ country_event = {
 		if = {
 			limit = { culture_group = dwarven }
 			add_prestige = -10
-			if = {
-				limit = { has_dlc = "Mandate of Heaven" }
-				add_splendor = 50
-			}
-			else = { add_adm_power = 35 }
 			add_stability_or_adm_power = yes
-			event_target:province = { add_unrest = 10 }
+			event_target:event_province = { add_unrest = 5 }
 		}
 		else = {
 			medium_decrease_of_dwarven_tolerance_effect = yes
-			if = {
-				limit = { has_dlc = "Mandate of Heaven" }
-				add_splendor = 50
-			}
 			else = { add_adm_power = 35 }
 			add_stability_or_adm_power = yes
-			event_target:province = { add_unrest = 5 }
+			event_target:event_province = { add_unrest = 5 }
 		}
 		ai_chance = { factor = 5 }
 	}
@@ -8361,37 +9067,29 @@ country_event = {
 		capital_scope = { continent = serpentspine }
 		any_owned_province = { 
 			is_city = yes
-			continent = serpentspine
-			NOT = {
-				region = serpents_vale_region
-				region = northern_pass_region
-				province_group = hold_province
-				has_province_modifier = expedition_target
-				has_dwarovar_dungeon = yes
-			}
+			NOT = { province_group = hold_province }
+			can_spawn_expedition = yes
 		}
 	}
 
 	mean_time_to_happen = {
 		days = 1
+		modifier = {
+			factor = 0.5
+			NOT = { num_of_cities = 2 }
+		}
 	}
 
-	goto = province
+	goto = event_province
 	immediate = {
 		hidden_effect = {
 			random_owned_province = {
 				limit = { 
+					can_spawn_expedition = yes
 					is_city = yes
-					continent = serpentspine
-					NOT = {
-						region = serpents_vale_region
-						region = northern_pass_region
-						province_group = hold_province
-						has_province_modifier = expedition_target
-						has_dwarovar_dungeon = yes
-					}
+					NOT = { province_group = hold_province }
 				}
-				save_event_target_as = province
+				save_event_target_as = event_province
 			}
 		}
 	}
@@ -8400,7 +9098,7 @@ country_event = {
 	option = {
 		name = diggy.574.a
 		add_years_of_income = -1
-		event_target:province = {
+		event_target:event_province = {
 			random_list = {
 				30 = {
 					modifier = {
@@ -8415,8 +9113,8 @@ country_event = {
 						factor = 1.2
 						ROOT = { num_of_cities = 60 }
 					}
-					add_permanent_province_modifier = { name = expedition_target duration = -1 }
-					hidden_effect = { REB = { change_variable = { nbExpedition = 1 } } }
+					spawn_expedition = yes
+					hidden_effect = { generate_expedition = { base_floor = 1 base_danger = 2 } }
 				}
 				70 = {}
 			}
@@ -8453,9 +9151,13 @@ country_event = {
 
 	mean_time_to_happen = {
 		days = 1
+		modifier = {
+			factor = 0.5
+			NOT = { num_of_cities = 2 }
+		}
 	}
 
-	goto = province
+	goto = event_province
 	immediate = {
 		hidden_effect = {
 			random_owned_province = {
@@ -8464,7 +9166,7 @@ country_event = {
 					is_city = yes
 					NOT = { province_group = hold_province }
 				}
-				save_event_target_as = province
+				save_event_target_as = event_province
 			}
 		}
 	}
@@ -8472,7 +9174,7 @@ country_event = {
 	#digging a hole
 	option = {
 		name = diggy.575.a
-		event_target:province = {
+		event_target:event_province = {
 			add_base_tax = 1
 			add_base_production = 1
 			add_base_manpower = 1
@@ -8504,9 +9206,13 @@ country_event = {
 
 	mean_time_to_happen = {
 		days = 1
+		modifier = {
+			factor = 0.5
+			NOT = { num_of_cities = 2 }
+		}
 	}
 
-	goto = province
+	goto = event_province
 	immediate = {
 		hidden_effect = {
 			random_owned_province = {
@@ -8514,7 +9220,7 @@ country_event = {
 					has_terrain = cavern
 					province_with_mineable_goods = yes
 				}
-				save_event_target_as = province
+				save_event_target_as = event_province
 			}
 		}
 	}
@@ -8550,6 +9256,7 @@ country_event = {
 			}
 			hidden_trigger = { NOT = { has_country_flag = dwarovar_cavern_oil } }
 		}
+		highlight = yes
 		add_years_of_income = -0.8
 		custom_tooltip = diggy.576.tooltip
 		set_country_flag = dwarovar_cavern_oil
@@ -8675,7 +9382,7 @@ country_event = {
 	#repair it nowwwwwww
 	option = {
 		name = diggy.578.a
-		add_years_of_income = -5 #probably needs to be higher
+		add_years_of_income = -2
 		ai_chance = { factor = 5 }
 	}
 
@@ -8712,6 +9419,7 @@ country_event = {
 		}
 		any_owned_province = {
 			is_city = yes
+			continent = serpentspine
 			OR = {
 				has_dwarven_minority_trigger = yes
 				has_goblin_minority_trigger = yes
@@ -8721,23 +9429,28 @@ country_event = {
 	}
 
 	mean_time_to_happen = {
-		years = 15
+		years = 30
 		modifier = {
 			factor = 1.5
-			full_idea_group = humanist_ideas
+			OR = {
+				full_idea_group = humanist_ideas
+				ruler_has_personality = tolerant_personality
+				ruler_has_personality = free_thinker_personality
+			}
 		}
 	}
 
 	option = {
 		name = diggy.750.a
 		random_list = {
-			#nothing happens?
-			25 = {}
+			#fallback
+			1 = {}
 
 			#minorities fight
 			50 = {
 				random_owned_province = {
 					limit = {
+						continent = serpentspine
 						is_city = yes
 						OR = {
 							has_dwarven_minority_trigger = yes
@@ -8745,7 +9458,7 @@ country_event = {
 							has_orcish_minority_trigger = yes
 						}
 					}
-					save_event_target_as = province
+					save_event_target_as = event_province
 				}
 				country_event = { id = diggy.751 }
 			}
@@ -8773,6 +9486,7 @@ country_event = {
 				}
 				random_owned_province = {
 					limit = {
+						continent = serpentspine
 						is_city = yes
 						OR = {
 							AND = {
@@ -8789,7 +9503,7 @@ country_event = {
 							}
 						}
 					}
-					save_event_target_as = province
+					save_event_target_as = event_province
 				}
 				country_event = { id = diggy.752 }
 			}
@@ -8800,6 +9514,7 @@ country_event = {
 					culture_group = dwarven
 					any_owned_province = {
 						is_city = yes
+						continent = serpentspine
 						OR = {
 							AND = {
 								has_goblin_minority_trigger = yes
@@ -8815,21 +9530,20 @@ country_event = {
 				random_owned_province = {
 					limit = {
 						culture_group = dwarven
-						any_owned_province = {
-							is_city = yes
-							OR = {
-								AND = {
-									has_goblin_minority_trigger = yes
-									ROOT = { NOT = { has_country_modifier = racial_pop_goblin_purge } }
-								}
-								AND = {
-									has_orcish_minority_trigger = yes
-									ROOT = { NOT = { has_country_modifier = racial_pop_orcish_purge } }
-								}
+						is_city = yes
+						continent = serpentspine
+						OR = {
+							AND = {
+								has_goblin_minority_trigger = yes
+								ROOT = { NOT = { has_country_modifier = racial_pop_goblin_purge } }
+							}
+							AND = {
+								has_orcish_minority_trigger = yes
+								ROOT = { NOT = { has_country_modifier = racial_pop_orcish_purge } }
 							}
 						}
 					}
-					save_event_target_as = province
+					save_event_target_as = event_province
 				}
 				country_event = { id = diggy.753 }
 			}
@@ -8841,6 +9555,7 @@ country_event = {
 					has_estate = estate_burghers
 					any_owned_province = {
 						is_city = yes
+						continent = serpentspine
 						OR = {
 							culture_group = dwarven
 							culture_group = goblin	
@@ -8864,6 +9579,7 @@ country_event = {
 				random_owned_province = {
 					limit = {
 						is_city = yes
+						continent = serpentspine
 						OR = {
 							culture_group = dwarven
 							culture_group = goblin	
@@ -8883,7 +9599,7 @@ country_event = {
 							}
 						}
 					}
-					save_event_target_as = province
+					save_event_target_as = event_province
 				}
 				country_event = { id = diggy.754 }
 			}
@@ -8892,6 +9608,7 @@ country_event = {
 			50 = {
 				trigger = { 
 					any_owned_province = {
+						continent = serpentspine
 						OR = {
 							culture_group = dwarven
 							culture_group = goblin
@@ -8915,6 +9632,7 @@ country_event = {
 				}
 				random_owned_province = {
 					limit = {
+						continent = serpentspine
 						OR = {
 							culture_group = dwarven
 							culture_group = goblin
@@ -8935,7 +9653,7 @@ country_event = {
 							}
 						}
 					}
-					save_event_target_as = province
+					save_event_target_as = event_province
 				}
 				country_event = { id = diggy.755 }
 			}
@@ -8944,6 +9662,7 @@ country_event = {
 			50 = {
 				trigger = { 
 					any_owned_province = {
+						continent = serpentspine
 						OR = {
 							culture_group = dwarven
 							culture_group = goblin
@@ -8967,6 +9686,7 @@ country_event = {
 				}
 				random_owned_province = {
 					limit = {
+						continent = serpentspine
 						OR = {
 							culture_group = dwarven
 							culture_group = goblin
@@ -8987,7 +9707,7 @@ country_event = {
 							}
 						}
 					}
-					save_event_target_as = province
+					save_event_target_as = event_province
 				}
 				country_event = { id = diggy.756 }
 			}
@@ -8996,6 +9716,7 @@ country_event = {
 			50 = {
 				trigger = { 
 					any_owned_province = {
+						continent = serpentspine
 						OR = {
 							culture_group = dwarven
 							culture_group = goblin
@@ -9020,6 +9741,7 @@ country_event = {
 				}
 				random_owned_province = {
 					limit = {
+						continent = serpentspine
 						OR = {
 							culture_group = dwarven
 							culture_group = goblin
@@ -9041,7 +9763,7 @@ country_event = {
 						}
 						province_with_mineable_goods = yes
 					}
-					save_event_target_as = province
+					save_event_target_as = event_province
 				}
 				country_event = { id = diggy.757 }
 			}
@@ -9052,6 +9774,8 @@ country_event = {
 					culture_group = dwarven
 					any_owned_province = {
 						culture_group = dwarven
+						continent = serpentspine
+						is_city = yes
 						OR = {
 							AND = {
 								has_goblin_minority_trigger = yes
@@ -9067,6 +9791,8 @@ country_event = {
 				random_owned_province = {
 					limit = {
 						culture_group = dwarven
+						continent = serpentspine
+						is_city = yes
 						OR = {
 							AND = {
 								has_goblin_minority_trigger = yes
@@ -9078,7 +9804,7 @@ country_event = {
 							}
 						}
 					}
-					save_event_target_as = province
+					save_event_target_as = event_province
 				}
 				country_event = { id = diggy.758 }
 			}
@@ -9096,12 +9822,12 @@ country_event = {
 
 	is_triggered_only = yes
 	trigger = { always = yes }
-	goto = province
+	goto = event_province
 
 	#ohno
 	option = {
 		name = diggy.751.a
-		event_target:province = {
+		event_target:event_province = {
 			add_devastation = 15
 			if = {
 				limit = { has_dwarven_minority_trigger = yes }
@@ -9129,12 +9855,12 @@ country_event = {
 
 	is_triggered_only = yes
 	trigger = { always = yes }
-	goto = province
+	goto = event_province
 
 	#this is fine
 	option = {
 		name = diggy.752.a
-		event_target:province = { 
+		event_target:event_province = { 
 			add_province_modifier = { name = dwarovar_restricted_output duration = 5475 } 
 			if = {
 				limit = { has_dwarven_minority_trigger = yes }
@@ -9178,18 +9904,13 @@ country_event = {
 
 	is_triggered_only = yes
 	trigger = { always = yes }
-	goto = province
+	goto = event_province
 
 	#well ok
 	option = {
 		name = diggy.753.a
-		event_target:province = {
+		event_target:event_province = {
 			add_unrest = -3
-			random_list = {
-				25 = { add_base_tax = 1 }
-				25 = { add_base_production = 1 }
-				50 = {}
-			}
 			if = {
 				limit = { has_goblin_minority_trigger = yes }
 				ROOT = { small_decrease_of_goblin_tolerance_effect = yes }
@@ -9199,6 +9920,11 @@ country_event = {
 				limit = { has_orcish_minority_trigger = yes }
 				ROOT = { small_decrease_of_orcish_tolerance_effect = yes }
 				remove_orcish_minority_size_effect = yes
+			}
+			random_list = {
+				25 = { add_base_tax = 1 }
+				25 = { add_base_production = 1 }
+				50 = {}
 			}
 		}
 		ai_chance = { factor = 50 }
@@ -9210,7 +9936,7 @@ country_event = {
 		add_legitimacy = -10
 		add_republican_tradition = -4
 		add_devotion = -10
-		event_target:province = {
+		event_target:event_province = {
 			add_unrest = 5
 			add_local_autonomy = 25
 		}
@@ -9227,12 +9953,12 @@ country_event = {
 
 	is_triggered_only = yes
 	trigger = { always = yes }
-	goto = province
+	goto = event_province
 
 	#well ok
 	option = {
 		name = diggy.754.a
-		event_target:province = {
+		event_target:event_province = {
 			if = {
 				limit = { has_dwarven_minority_trigger = yes }
 				ROOT = { largest_decrease_of_dwarven_tolerance_effect = yes }
@@ -9266,12 +9992,12 @@ country_event = {
 
 	is_triggered_only = yes
 	trigger = { always = yes }
-	goto = province
+	goto = event_province
 
 	#you deal with this crap
 	option = {
 		name = diggy.755.a
-		event_target:province = {
+		event_target:event_province = {
 			add_unrest = 4
 			random_list = {
 				25 = {
@@ -9318,12 +10044,12 @@ country_event = {
 
 	is_triggered_only = yes
 	trigger = { always = yes }
-	goto = province
+	goto = event_province
 
 	#so what?
 	option = {
 		name = diggy.756.a
-		event_target:province = {
+		event_target:event_province = {
 			add_unrest = 2
 			add_local_autonomy = 25
 			add_province_modifier = { name = dwarovar_minority_districts duration = 3650 }
@@ -9337,7 +10063,7 @@ country_event = {
 		add_legitimacy = -10
 		add_republican_tradition = -4
 		add_devotion = -10
-		event_target:province = { add_unrest = 6 }
+		event_target:event_province = { add_unrest = 6 }
 		ai_chance = { factor = 0 }
 	}
 }
@@ -9351,12 +10077,12 @@ country_event = {
 
 	is_triggered_only = yes
 	trigger = { always = yes }
-	goto = province
+	goto = event_province
 
 	#blame the minority yeah
 	option = {
 		name = diggy.757.a
-		event_target:province = {
+		event_target:event_province = {
 			add_unrest = 2
 			if = {
 				limit = { has_dwarven_minority_trigger = yes }
@@ -9393,7 +10119,7 @@ country_event = {
 
 	is_triggered_only = yes
 	trigger = { always = yes }
-	goto = province
+	goto = event_province
 
 	#yeah ok
 	option = {
@@ -9406,8 +10132,8 @@ country_event = {
 			limit = { has_estate = estate_burghers }
 			add_estate_loyalty = { estate = estate_burghers loyalty = 10 }
 		}
-		else = { add_prestige_or_monarch_power = {amount =  10} }
-		event_target:province = {
+		else = { add_prestige = 10 }
+		event_target:event_province = {
 			add_unrest = 5
 			if = {
 				limit = { has_goblin_minority_trigger = yes }

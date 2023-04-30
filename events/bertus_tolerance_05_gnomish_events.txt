@@ -1215,12 +1215,12 @@ province_event = {	#enslavement
 	picture = DIPLOMACY_eventPicture
 
 	hidden = yes
+	is_triggered_only = yes
 
     trigger = {	
 		controller = {has_estate_privilege = estate_gnomish_enslavement}
 		NOT = { controlled_by = owner }
 		has_gnomish_majority_trigger = yes
-		devastation = 20
 		NOT = {has_province_modifier = already_enslaved_modifier}
 	}
 
@@ -1231,12 +1231,6 @@ province_event = {	#enslavement
 			factor = 10
 		}
 		get_slaves = {race = gnomish}
-    }
-    option = {
-        name = gnomish_tolerance_events.5007.a #
-		ai_chance = {	#in cse it has to be decreased
-			factor = 0
-		}
     }
 	after = {
 		add_province_modifier = {
@@ -1251,7 +1245,7 @@ province_event = {	#enslavement distribution
 	title = gnomish_tolerance_events.5008.title
 	desc = gnomish_tolerance_events.5008.desc
 	picture = DIPLOMACY_eventPicture
-				
+			
 	trigger = {
 		owner = {
 			check_variable = {which = gnomish_current_slaves value = 1}
@@ -1284,6 +1278,7 @@ province_event = {	#enslavement distribution
 			limit = {
 				has_province_flag = gnomish_foreign_slaves_flag
 			}
+
 			increase_slave_amount = {race = gnomish}
 		}
 		else = {

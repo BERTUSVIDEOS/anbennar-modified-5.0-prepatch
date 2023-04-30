@@ -46,97 +46,11 @@ estate_gnomish_first_hand_chairman = {
 	conditional_modifier = {
 		trigger = {		
 			is_part_of_hre = no
-			has_country_modifier = elven_administration
+			NOT = {has_country_modifier = gnomish_administration}
 		}
 		modifier = {
 			legitimacy = -0.5
-			devotion = -0.25		
-			reelection_cost = 0.1
-			elven_loyalty_modifier = -0.1
-		}
-	}
-	conditional_modifier = {
-		trigger = {		
-			is_part_of_hre = no
-			has_country_modifier = dwarven_administration
-		}
-		modifier = {
-			legitimacy = -0.5
-			devotion = -0.25		
-			reelection_cost = 0.1
-			dwarven_loyalty_modifier = -0.1
-		}
-	}
-	conditional_modifier = {
-		trigger = {		
-			is_part_of_hre = no
-			has_country_modifier = gnollish_administration
-		}
-		modifier = {
-			legitimacy = -0.5
-			devotion = -0.25	
-			reelection_cost = 0.1
-			gnollish_loyalty_modifier = -0.1
-		}
-	}
-	conditional_modifier = {
-		trigger = {		
-			is_part_of_hre = no
-			has_country_modifier = ruinborn_administration
-		}
-		modifier = {
-			legitimacy = -0.5
-			devotion = -0.25	
-			reelection_cost = 0.1
-			ruinborn_loyalty_modifier = -0.1
-		}
-	}
-	conditional_modifier = {
-		trigger = {		
-			is_part_of_hre = no
-			has_country_modifier = orcish_administration
-		}
-		modifier = {
-			legitimacy = -0.5
-			devotion = -0.25	
-			reelection_cost = 0.1
-			orcish_loyalty_modifier = -0.1
-		}
-	}
-	conditional_modifier = {
-		trigger = {		
-			is_part_of_hre = no
-			has_country_modifier = goblin_administration
-		}
-		modifier = {
-			legitimacy = -0.5
-			devotion = -0.25		
-			reelection_cost = 0.1
-			goblin_loyalty_modifier = -0.1
-		}
-	}
-	conditional_modifier = {
-		trigger = {		
-			is_part_of_hre = no
-			has_country_modifier = centaur_administration
-		}
-		modifier = {
-			legitimacy = -1.0
-			devotion = -0.5		
-			reelection_cost = 0.25
-			centaur_loyalty_modifier = -0.2
-		}
-	}
-	conditional_modifier = {
-		trigger = {		
-			is_part_of_hre = no
-			has_country_modifier = ogre_administration
-		}
-		modifier = {
-			legitimacy = -2.0
-			devotion = -1.0		
-			reelection_cost = 1.0
-			ogre_loyalty_modifier = -0.5
+			devotion = -0.2
 		}
 	}
 	on_revoked = {
@@ -279,8 +193,6 @@ estate_gnomish_economic_chairman = {
 				hidden = yes
 			}
 		}	
-	}
-	modifier = {	
 	}
 	on_revoked_province = {
 	}
@@ -439,8 +351,10 @@ estate_gnomish_recruitment_2 = {
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
+		cavalry_fire = 0.4
+		cavalry_cost = 0.1
 		infantry_fire = 0.07
-		infantry_shock = -0.1	
+		infantry_shock = -0.1
 	}
 	penalties = {
 	}
@@ -500,8 +414,10 @@ estate_gnomish_recruitment_5 = {
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
+		cavalry_fire = 0.8
+		cavalry_cost = 0.2
 		infantry_fire = 0.07
-		infantry_shock = -0.13	
+		infantry_shock = -0.13
 	}
 	penalties = {
 	}
@@ -561,9 +477,10 @@ estate_gnomish_recruitment_6 = {
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
-		cavalry_fire = 0.25
+		cavalry_fire = 0.8
+		cavalry_cost = 0.2
 		infantry_fire = 0.11
-		infantry_shock = -0.19	
+		infantry_shock = -0.19
 	}
 	penalties = {
 	}
@@ -623,7 +540,8 @@ estate_gnomish_recruitment_7 = {
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
-		cavalry_fire = 0.25
+		cavalry_fire = 0.8
+		cavalry_cost = 0.2
 		infantry_fire = 0.11
 		infantry_shock = -0.19	
 		artillery_fire = 0.10
@@ -668,6 +586,70 @@ estate_gnomish_recruitment_8 = {
 			uses_isolationism = no
 		}
 		mil_tech = 8
+		NOT = {mil_tech = 9}
+	}
+	can_select = {		
+		high_tolerance_gnomish_race_trigger = yes
+		any_owned_province = {
+			culture_is_gnomish = yes
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			set_country_flag = estate_gnomish_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+		custom_tooltip = malus_if_monstrous_mechanic_tooltip
+	}
+	modifier_by_land_ownership = {
+		cavalry_fire = 0.8
+		cavalry_cost = 0.2
+		infantry_fire = 0.2
+		infantry_shock = -0.19
+		artillery_fire = 0.10	
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	mechanics = {
+		enables_cossack_regiments
+	}
+	can_revoke = {
+	}
+	on_revoked = {
+		hidden_effect = {
+			clr_country_flag = estate_gnomish_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+		add_mil_power = -100
+	}
+	on_invalid = {
+		clr_country_flag = estate_gnomish_recruitment_flag
+		update_gnomish_recruitment = yes
+		set_estate_privilege = estate_gnomish_recruitment_9
+	}
+	ai_will_do = {
+		factor = 1000
+	}
+}
+estate_gnomish_recruitment_9 = {
+	icon = privilege_demand_more_troops
+	loyalty = -0.10
+	influence = 0.10	
+	is_valid = {
+		OR = {
+			AND = {
+				uses_isolationism = yes
+				NOT = {isolationism = 4}
+			}
+			uses_isolationism = no
+		}
+		mil_tech = 9
 		NOT = {mil_tech = 11}
 	}
 	can_select = {		
@@ -686,7 +668,8 @@ estate_gnomish_recruitment_8 = {
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
-		cavalry_fire = 0.25
+		cavalry_fire = 1.2
+		cavalry_cost = 0.3
 		infantry_fire = 0.2
 		infantry_shock = -0.19
 		artillery_fire = 0.10	
@@ -749,7 +732,8 @@ estate_gnomish_recruitment_11 = {
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
-		cavalry_fire = 0.25
+		cavalry_fire = 1.2
+		cavalry_cost = 0.3
 		infantry_fire = 0.2
 		infantry_shock = -0.23	
 		artillery_fire = 0.10
@@ -812,7 +796,8 @@ estate_gnomish_recruitment_13 = {
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
-		cavalry_fire = 0.5
+		cavalry_fire = 1.6
+		cavalry_cost = 0.4
 		infantry_fire = 0.2
 		infantry_shock = -0.23	
 		artillery_fire = 0.20
@@ -875,7 +860,8 @@ estate_gnomish_recruitment_14 = {
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
-		cavalry_fire = 0.5
+		cavalry_fire = 1.6
+		cavalry_cost = 0.4
 		infantry_fire = 0.22
 		infantry_shock = -0.23	
 		artillery_fire = 0.20
@@ -920,6 +906,70 @@ estate_gnomish_recruitment_16 = {
 			uses_isolationism = no
 		}
 		mil_tech = 16
+		NOT = {mil_tech = 17}
+	}
+	can_select = {		
+		high_tolerance_gnomish_race_trigger = yes
+		any_owned_province = {
+			culture_is_gnomish = yes
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			set_country_flag = estate_gnomish_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+		custom_tooltip = malus_if_monstrous_mechanic_tooltip
+	}
+	modifier_by_land_ownership = {
+		cavalry_fire = 1.6
+		cavalry_cost = 0.4
+		infantry_fire = 0.22
+		infantry_shock = -0.23	
+		artillery_fire = 0.40
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	mechanics = {
+		enables_cossack_regiments
+	}
+	can_revoke = {
+	}
+	on_revoked = {
+		hidden_effect = {
+			clr_country_flag = estate_gnomish_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+		add_mil_power = -100
+	}
+	on_invalid = {
+		clr_country_flag = estate_gnomish_recruitment_flag
+		update_gnomish_recruitment = yes
+		set_estate_privilege = estate_gnomish_recruitment_17
+	}
+	ai_will_do = {
+		factor = 1000
+	}
+}
+estate_gnomish_recruitment_17 = {
+	icon = privilege_demand_more_troops
+	loyalty = -0.10
+	influence = 0.10
+	is_valid = {
+		OR = {
+			AND = {
+				uses_isolationism = yes
+				NOT = {isolationism = 4}
+			}
+			uses_isolationism = no
+		}
+		mil_tech = 17
 		NOT = {mil_tech = 20}
 	}
 	can_select = {		
@@ -938,7 +988,8 @@ estate_gnomish_recruitment_16 = {
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
-		cavalry_fire = 0.75
+		cavalry_fire = 2.0
+		cavalry_cost = 0.5
 		infantry_fire = 0.22
 		infantry_shock = -0.23	
 		artillery_fire = 0.40
@@ -1001,7 +1052,8 @@ estate_gnomish_recruitment_20 = {
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
-		cavalry_fire = 0.75
+		cavalry_fire = 2.0
+		cavalry_cost = 0.5
 		infantry_fire = 0.32
 		infantry_shock = -0.23	
 		artillery_fire = 0.40
@@ -1064,7 +1116,8 @@ estate_gnomish_recruitment_21 = {
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
-		cavalry_fire = 0.75
+		cavalry_fire = 2.4
+		cavalry_cost = 0.6
 		infantry_fire = 0.32
 		infantry_shock = -0.33	
 		artillery_fire = 0.40
@@ -1127,7 +1180,8 @@ estate_gnomish_recruitment_22 = {
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
-		cavalry_fire = 0.75
+		cavalry_fire = 2.4
+		cavalry_cost = 0.6
 		infantry_fire = 0.32
 		infantry_shock = -0.33	
 		artillery_fire = 0.60
@@ -1190,7 +1244,8 @@ estate_gnomish_recruitment_25 = {
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
-		cavalry_fire = 1.0
+		cavalry_fire = 2.8
+		cavalry_cost = 0.7
 		infantry_fire = 0.32
 		infantry_shock = -0.33	
 		artillery_fire = 0.80
@@ -1253,7 +1308,8 @@ estate_gnomish_recruitment_27 = {
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
-		cavalry_fire = 1.0
+		cavalry_fire = 2.8
+		cavalry_cost = 0.7
 		infantry_fire = 0.42
 		infantry_shock = -0.33	
 		artillery_fire = 0.80
@@ -1298,6 +1354,70 @@ estate_gnomish_recruitment_28 = {
 			uses_isolationism = no
 		}
 		mil_tech = 28
+		NOT = {mil_tech = 29}
+	}
+	can_select = {		
+		high_tolerance_gnomish_race_trigger = yes
+		any_owned_province = {
+			culture_is_gnomish = yes
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			set_country_flag = estate_gnomish_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+		custom_tooltip = malus_if_monstrous_mechanic_tooltip
+	}
+	modifier_by_land_ownership = {
+		cavalry_fire = 2.8
+		cavalry_cost = 0.7
+		infantry_fire = 0.42
+		infantry_shock = -0.43
+		artillery_fire = 0.80
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	mechanics = {
+		enables_cossack_regiments
+	}
+	can_revoke = {
+	}
+	on_revoked = {
+		hidden_effect = {
+			clr_country_flag = estate_gnomish_recruitment_flag
+			country_event = {
+				id = bertus_racial_military.1001
+			}
+		}
+		add_mil_power = -100
+	}
+	on_invalid = {
+		clr_country_flag = estate_gnomish_recruitment_flag
+		update_gnomish_recruitment = yes
+		set_estate_privilege = estate_gnomish_recruitment_29
+	}
+	ai_will_do = {
+		factor = 1000
+	}
+}
+estate_gnomish_recruitment_29 = {
+	icon = privilege_demand_more_troops
+	loyalty = -0.10
+	influence = 0.10
+	is_valid = {
+		OR = {
+			AND = {
+				uses_isolationism = yes
+				NOT = {isolationism = 4}
+			}
+			uses_isolationism = no
+		}
+		mil_tech = 29
 		NOT = {mil_tech = 31}
 	}
 	can_select = {		
@@ -1316,7 +1436,8 @@ estate_gnomish_recruitment_28 = {
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
-		cavalry_fire = 1.0
+		cavalry_fire = 3.2
+		cavalry_cost = 0.8
 		infantry_fire = 0.42
 		infantry_shock = -0.43
 		artillery_fire = 0.80
@@ -1379,7 +1500,8 @@ estate_gnomish_recruitment_31 = {
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
-		cavalry_fire = 1.0
+		cavalry_fire = 3.2
+		cavalry_cost = 0.8
 		infantry_fire = 0.62
 		infantry_shock = -0.43
 		artillery_fire = 0.80
@@ -1441,7 +1563,8 @@ estate_gnomish_recruitment_32 = {
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
-		cavalry_fire = 1.5
+		cavalry_fire = 3.6
+		cavalry_cost = 0.9
 		infantry_fire = 0.62
 		infantry_shock = -0.43
 		artillery_fire = 1.0
@@ -1549,13 +1672,6 @@ estate_gnomish_intolerance_policy = {
 			}
 			always = no
 		}
-		OR = {
-			AND = {
-				uses_isolationism = yes
-				NOT = {isolationism = 1}
-			}
-			uses_isolationism = no
-		}
 		has_country_modifier = gnomish_military
 		has_country_modifier = gnomish_administration
 	}
@@ -1595,10 +1711,65 @@ estate_gnomish_intolerance_policy = {
 		tolerance_heathen = -2
 		tolerance_heretic = -2
 		relation_with_other_culture = -50
+		promote_culture_cost = 10.0
+		promote_culture_cost = 10.0
 	}
 	benefits = {
-		global_missionary_strength = 0.01
-		administrative_efficiency = 0.05
+	}
+	conditional_modifier = {
+		trigger = {
+			NOT = {
+				calc_true_if = {
+					has_government_attribute = faster_purguing_reform
+					has_idea = total_supremacy
+					amount = 1
+				}
+			}
+		}
+		modifier = {
+			global_missionary_strength = 0.01
+			administrative_efficiency = 0.05		
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			calc_true_if = {
+				has_government_attribute = faster_purguing_reform
+				has_idea = total_supremacy
+				amount = 1
+			}
+			NOT = {
+				calc_true_if = {
+					has_government_attribute = faster_purguing_reform
+					has_idea = total_supremacy
+					amount = 2
+				}
+			}
+		}
+		modifier = {
+			global_missionary_strength = 0.02
+			administrative_efficiency = 0.10
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			calc_true_if = {
+				has_government_attribute = faster_purguing_reform
+				has_idea = total_supremacy
+				amount = 2
+			}
+			NOT = {
+				calc_true_if = {
+					has_government_attribute = faster_purguing_reform
+					has_idea = total_supremacy
+					amount = 3
+				}
+			}
+		}
+		modifier = {
+			global_missionary_strength = 0.03
+			administrative_efficiency = 0.15
+		}
 	}
 	conditional_modifier = {
 		trigger = {
@@ -1606,7 +1777,13 @@ estate_gnomish_intolerance_policy = {
 				NOT = { culture_is_gnomish = yes }
 				war_with = root
 			}
-			NOT = {has_government_attribute = faster_purguing_reform}
+			NOT = {
+				calc_true_if = {
+					has_government_attribute = faster_purguing_reform
+					has_idea = total_supremacy
+					amount = 1
+				}
+			}
 		}
 		modifier = {
 			morale_damage = 0.05
@@ -1623,15 +1800,54 @@ estate_gnomish_intolerance_policy = {
 				NOT = { culture_is_gnomish = yes }
 				war_with = root
 			}
-			has_government_attribute = faster_purguing_reform
+			calc_true_if = {
+				has_government_attribute = faster_purguing_reform
+				has_idea = total_supremacy
+				amount = 1
+			}
+			NOT = {
+				calc_true_if = {
+					has_government_attribute = faster_purguing_reform
+					has_idea = total_supremacy
+					amount = 2
+				}
+			}
 		}
 		modifier = {
 			morale_damage = 0.10
 			shock_damage = 0.10
 			fire_damage = 0.10
-			manpower_recovery_speed = 0.2
-			reinforce_speed = 0.2
-			recover_army_morale_speed = 0.05			
+			manpower_recovery_speed = 0.20
+			reinforce_speed = 0.20
+			recover_army_morale_speed = 0.05
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			any_known_country = {
+				NOT = { culture_is_gnomish = yes }
+				war_with = root
+			}
+			calc_true_if = {
+				has_government_attribute = faster_purguing_reform
+				has_idea = total_supremacy
+				amount = 2
+			}
+			NOT = {
+				calc_true_if = {
+					has_government_attribute = faster_purguing_reform
+					has_idea = total_supremacy
+					amount = 3
+				}
+			}
+		}
+		modifier = {
+			morale_damage = 0.15
+			shock_damage = 0.15
+			fire_damage = 0.15
+			manpower_recovery_speed = 0.30
+			reinforce_speed = 0.30
+			recover_army_morale_speed = 0.075
 		}
 	}
 	conditional_modifier = {
@@ -1671,18 +1887,16 @@ estate_gnomish_intolerance_policy = {
 	}
 }
 estate_gnomish_autonomy = {
-	icon = privilege_grant_autonomy
+	icon = privilege_gnomish_autonomy
 	loyalty = 0.2
 	influence = 0.10
 	is_valid = {
-		OR = {
-			AND = {
-				uses_isolationism = yes
-				NOT = {isolationism = 3}
-			}
-			uses_isolationism = no
-		}
+		OR = {AND = {uses_isolationism = yes NOT = {isolationism = 3}} uses_isolationism = no}
 		NOT = { has_country_modifier = gnomish_administration }
+		NOT = { has_country_modifier = racial_pop_gnomish_enslavement }
+		NOT = { has_country_modifier = racial_pop_gnomish_purge }
+		NOT = { has_country_modifier = racial_pop_gnomish_expulsion }
+		NOT = { has_estate_privilege = estate_gnomish_taxation_policy }
 	}
 	can_select = {
 		any_owned_province = {
@@ -1733,17 +1947,14 @@ estate_gnomish_autonomy = {
 	}
 }
 estate_gnomish_taxation_policy = {
-	icon = privilege_grant_autonomy
+	icon = privilege_gnomish_taxation
 	loyalty = -0.1
 	is_valid = {
-		OR = {
-			AND = {
-				uses_isolationism = yes
-				isolationism = 3
-			}
-			uses_isolationism = no
-		}
 		NOT = { has_country_modifier = gnomish_administration }
+		NOT = { has_country_modifier = racial_focus_gnomish }
+		NOT = { has_country_modifier = racial_pop_gnomish_expulsion }
+		NOT = { has_country_modifier = racial_pop_gnomish_enslavement }
+		NOT = { has_country_modifier = racial_pop_gnomish_purge }
 	}
 	can_select = {
 		any_owned_province = { culture_is_gnomish = yes }
@@ -1786,19 +1997,17 @@ estate_gnomish_taxation_policy = {
 	}
 }
 estate_gnomish_purge = {
-	icon = privilege_grant_autonomy
+	icon = privilege_gnomish_purge
 	loyalty = -0.2
 	influence = -0.20
 	is_valid = {
-		if = {
-			limit = {uses_isolationism = yes}
-			isolationism = 3
-		}
+		NOT = { has_country_modifier = racial_pop_gnomish_enslavement }
+		NOT = { has_country_modifier = racial_pop_gnomish_expulsion }
+		NOT = { has_country_modifier = racial_focus_gnomish }
+		NOT = { has_estate_privilege = estate_gnomish_taxation_policy }
 	}
 	can_select = {
-		can_purge_race = {
-			RACE = gnomish
-		}
+		can_purge_race = {RACE = gnomish}
 	}
 	on_granted = {		
 		largest_decrease_of_gnomish_tolerance_effect = yes
@@ -1809,9 +2018,7 @@ estate_gnomish_purge = {
 		custom_tooltip = pop_menu_purge_effect_unrest_tt
 		
 		hidden_effect = {
-			add_purguing_unrest = {
-				race = gnomish
-			}
+			add_purguing_unrest = {race = gnomish}
 		}
 	}
 	penalties = {
@@ -1825,26 +2032,36 @@ estate_gnomish_purge = {
 		remove_country_modifier = racial_pop_gnomish_purge
 	}
 	ai_will_do = {
-		factor = 0
+		factor = 1
+		modifier = {
+			factor = 0
+			medium_tolerance_gnomish_race_trigger = yes
+		}
+		modifier = {
+			factor = 1000
+			NOT = {liberty_desire = 50}
+			culture_is_gnomish = no
+			overlord = {
+				has_country_modifier = racial_pop_gnomish_purge
+			}
+		}
 	}
 	cooldown_years = 10
 	on_cooldown_expires = {
 	}
 }
 estate_gnomish_expulsion = {
-	icon = privilege_grant_autonomy
+	icon = privilege_gnomish_expulsion
 	loyalty = -0.1
 	influence = -0.1
-	is_valid = {	
-		if = {
-			limit = {uses_isolationism = yes}
-			isolationism = 3
-		}
+	is_valid = {
+		NOT = { has_country_modifier = racial_pop_gnomish_enslavement }
+		NOT = { has_country_modifier = racial_pop_gnomish_purge }
+		NOT = { has_country_modifier = racial_focus_gnomish }
+		NOT = { has_estate_privilege = estate_gnomish_taxation_policy }
 	}
 	can_select = {
-		can_expel_race = {
-			RACE = gnomish
-		}
+		can_expel_race = {RACE = gnomish}
 	}
 	on_granted = {				
 		large_decrease_of_gnomish_tolerance_effect = yes
@@ -1889,16 +2106,12 @@ estate_gnomish_focus = {
 				has_global_flag = call_to_action_hre_flag
 			}
 			is_part_of_hre = no
-		}		
-		OR = {
-			AND = {
-				uses_isolationism = yes
-				NOT = {isolationism = 3}
-			}
-			uses_isolationism = no
-		}		
+		}	
 		NOT = { has_country_modifier = gnomish_administration }
-		NOT = { has_country_modifier = gnomish_military }		
+		NOT = { has_country_modifier = gnomish_military }	
+		NOT = { has_country_modifier = racial_pop_gnomish_enslavement }
+		NOT = { has_country_modifier = racial_pop_gnomish_purge }
+		NOT = { has_country_modifier = racial_pop_gnomish_expulsion }	
 	}
 	can_select = {
 		NOT = {
@@ -1930,6 +2143,54 @@ estate_gnomish_focus = {
 	cooldown_years = 10
 	on_cooldown_expires = {
 	}
+}
+estate_gnomish_enslavement = {
+	icon = privilege_gnomish_enslavement
+	loyalty = -0.2
+	influence = -0.20
+	is_valid = {
+		NOT = {has_estate_privilege = estate_gnomish_intolerance_policy}
+		can_enslave_race = {RACE = gnomish}	
+	}
+	can_select = {
+		NOT = {has_race_recruitment = {race = gnomish}}
+	}
+	on_granted = {		
+		largest_decrease_of_gnomish_tolerance_effect = yes
+		add_country_modifier = { name = racial_pop_gnomish_enslavement duration = -1 }
+		custom_tooltip = gnomish_enslave_global_effect_tt
+		custom_tooltip = gnomish_enslave_effect_unrest_tt
+		hidden_effect = {add_expulsion_unrest = {race = gnomish}}
+	}
+	penalties = {}
+	benefits = {}
+	on_revoked = {		
+		remove_country_modifier = racial_pop_gnomish_enslavement
+	}
+	on_invalid = {
+		remove_country_modifier = racial_pop_gnomish_enslavement
+	}
+	ai_will_do = {
+		factor = 1
+		modifier = {
+			factor = 0
+			medium_tolerance_gnomish_race_trigger = yes
+		}
+		modifier = {
+			factor = 1000
+			NOT = {liberty_desire = 50}
+			culture_is_gnomish = no
+			overlord = {
+				has_country_modifier = racial_pop_gnomish_enslavement
+			}
+		}
+		modifier = {
+			factor = 10
+			has_country_modifier = monstrous_nation
+		}
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {}
 }
 estate_gnomish_non_military_swap = {
 	icon = privilege_grant_autonomy
@@ -2071,12 +2332,12 @@ estate_gnomish_colonizers = {
 	}
 	on_granted = {
 	}
-	modifier = {
+	benefits = {
 		global_colonial_growth = 20
 		colonists = 1
-		yearly_corruption = 0.2
 	}
 	penalties = {
+		yearly_corruption = 0.2
 	}
 	on_revoked = {
 	}
@@ -2184,8 +2445,6 @@ estate_gnomish_loans = {
 				}
 			}
 		}
-	}
-	modifier = {	
 	}
 	on_revoked = {
 	}

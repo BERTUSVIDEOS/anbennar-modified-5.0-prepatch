@@ -29,8 +29,6 @@ estate_harimari_first_hand_chairman = {
 			}
 		}
 	}
-	modifier = {		
-	}
 	penalties = {
 		yearly_corruption = 0.1
 	}
@@ -42,97 +40,12 @@ estate_harimari_first_hand_chairman = {
 	conditional_modifier = {
 		trigger = {		
 			is_part_of_hre = no
-			has_country_modifier = elven_administration
+			NOT = {has_country_modifier = harimari_administration}
+			NOT = {has_country_modifier = human_administration}
 		}
 		modifier = {
 			legitimacy = -0.5
-			devotion = -0.25			
-			reelection_cost = 0.1
-			elven_loyalty_modifier = -0.1
-		}
-	}
-	conditional_modifier = {
-		trigger = {		
-			is_part_of_hre = no
-			has_country_modifier = dwarven_administration
-		}
-		modifier = {
-			legitimacy = -0.5
-			devotion = -0.25			
-			reelection_cost = 0.1
-			dwarven_loyalty_modifier = -0.1
-		}
-	}
-	conditional_modifier = {
-		trigger = {		
-			is_part_of_hre = no
-			has_country_modifier = gnollish_administration
-		}
-		modifier = {
-			legitimacy = -2.0
-			devotion = -1.0		
-			reelection_cost = 1.0
-			gnollish_loyalty_modifier = -0.5
-		}
-	}
-	conditional_modifier = {
-		trigger = {		
-			is_part_of_hre = no
-			has_country_modifier = ruinborn_administration
-		}
-		modifier = {
-			legitimacy = -0.5
-			devotion = -0.25		
-			reelection_cost = 0.1
-			ruinborn_loyalty_modifier = -0.1
-		}
-	}
-	conditional_modifier = {
-		trigger = {		
-			is_part_of_hre = no
-			has_country_modifier = orcish_administration
-		}
-		modifier = {
-			legitimacy = -0.5
-			devotion = -0.25	
-			reelection_cost = 0.1
-			orcish_loyalty_modifier = -0.1
-		}
-	}
-	conditional_modifier = {
-		trigger = {		
-			is_part_of_hre = no
-			has_country_modifier = goblin_administration
-		}
-		modifier = {
-			legitimacy = -0.5
-			devotion = -0.25		
-			reelection_cost = 0.1
-			goblin_loyalty_modifier = -0.1
-		}
-	}
-	conditional_modifier = {
-		trigger = {		
-			is_part_of_hre = no
-			has_country_modifier = centaur_administration
-		}
-		modifier = {
-			legitimacy = -0.5
-			devotion = -0.2			
-			reelection_cost = 0.1
-			centaur_loyalty_modifier = -0.1
-		}
-	}
-	conditional_modifier = {
-		trigger = {		
-			is_part_of_hre = no
-			has_country_modifier = ogre_administration
-		}
-		modifier = {
-			legitimacy = -1.0
-			devotion = -0.5		
-			reelection_cost = 0.25
-			ogre_loyalty_modifier = -0.2
+			devotion = -0.2
 		}
 	}
 	on_revoked_province = {
@@ -1365,18 +1278,13 @@ estate_harimari_intolerance_policy = {
 			}
 			always = no
 		}
-		has_dlc = "Emperor"
-		if = {
-			limit = {uses_isolationism = yes}
-			NOT = {isolationism = 1}
-		}
 		has_country_modifier = harimari_military
 		has_country_modifier = harimari_administration
 	}
 	can_select = {
 		estate_territory = {
 			estate = estate_harimari
-			territory = 70
+			territory = 50
 		}
 	}
 	on_granted = {
@@ -1409,10 +1317,64 @@ estate_harimari_intolerance_policy = {
 		tolerance_heathen = -2
 		tolerance_heretic = -2
 		relation_with_other_culture = -50
+		promote_culture_cost = 10.0
 	}
 	benefits = {
-		global_missionary_strength = 0.01
-		administrative_efficiency = 0.05
+	}
+	conditional_modifier = {
+		trigger = {
+			NOT = {
+				calc_true_if = {
+					has_government_attribute = faster_purguing_reform
+					has_idea = total_supremacy
+					amount = 1
+				}
+			}
+		}
+		modifier = {
+			global_missionary_strength = 0.01
+			administrative_efficiency = 0.05		
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			calc_true_if = {
+				has_government_attribute = faster_purguing_reform
+				has_idea = total_supremacy
+				amount = 1
+			}
+			NOT = {
+				calc_true_if = {
+					has_government_attribute = faster_purguing_reform
+					has_idea = total_supremacy
+					amount = 2
+				}
+			}
+		}
+		modifier = {
+			global_missionary_strength = 0.02
+			administrative_efficiency = 0.10
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			calc_true_if = {
+				has_government_attribute = faster_purguing_reform
+				has_idea = total_supremacy
+				amount = 2
+			}
+			NOT = {
+				calc_true_if = {
+					has_government_attribute = faster_purguing_reform
+					has_idea = total_supremacy
+					amount = 3
+				}
+			}
+		}
+		modifier = {
+			global_missionary_strength = 0.03
+			administrative_efficiency = 0.15
+		}
 	}
 	conditional_modifier = {
 		trigger = {
@@ -1420,7 +1382,13 @@ estate_harimari_intolerance_policy = {
 				NOT = { culture_is_harimari = yes }
 				war_with = root
 			}
-			NOT = {has_government_attribute = faster_purguing_reform}
+			NOT = {
+				calc_true_if = {
+					has_government_attribute = faster_purguing_reform
+					has_idea = total_supremacy
+					amount = 1
+				}
+			}
 		}
 		modifier = {
 			morale_damage = 0.05
@@ -1437,15 +1405,54 @@ estate_harimari_intolerance_policy = {
 				NOT = { culture_is_harimari = yes }
 				war_with = root
 			}
-			has_government_attribute = faster_purguing_reform
+			calc_true_if = {
+				has_government_attribute = faster_purguing_reform
+				has_idea = total_supremacy
+				amount = 1
+			}
+			NOT = {
+				calc_true_if = {
+					has_government_attribute = faster_purguing_reform
+					has_idea = total_supremacy
+					amount = 2
+				}
+			}
 		}
 		modifier = {
 			morale_damage = 0.10
 			shock_damage = 0.10
 			fire_damage = 0.10
-			manpower_recovery_speed = 0.2
-			reinforce_speed = 0.2
-			recover_army_morale_speed = 0.05			
+			manpower_recovery_speed = 0.20
+			reinforce_speed = 0.20
+			recover_army_morale_speed = 0.05
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			any_known_country = {
+				NOT = { culture_is_harimari = yes }
+				war_with = root
+			}
+			calc_true_if = {
+				has_government_attribute = faster_purguing_reform
+				has_idea = total_supremacy
+				amount = 2
+			}
+			NOT = {
+				calc_true_if = {
+					has_government_attribute = faster_purguing_reform
+					has_idea = total_supremacy
+					amount = 3
+				}
+			}
+		}
+		modifier = {
+			morale_damage = 0.15
+			shock_damage = 0.15
+			fire_damage = 0.15
+			manpower_recovery_speed = 0.30
+			reinforce_speed = 0.30
+			recover_army_morale_speed = 0.075
 		}
 	}
 	conditional_modifier = {
@@ -1455,13 +1462,12 @@ estate_harimari_intolerance_policy = {
 			}
 		}
 		modifier = {
-			land_morale = -0.05
 			stability_cost_modifier = 0.2
 			legitimacy = -1
 			republican_tradition = -0.25
 			devotion = -0.5
 			global_unrest = 2
-			administrative_efficiency = -0.05
+			administrative_efficiency = -0.05		
 		}
 	}
 	on_revoked = {
@@ -1485,12 +1491,16 @@ estate_harimari_intolerance_policy = {
 	}
 }
 estate_harimari_autonomy = {
-	icon = privilege_grant_autonomy
+	icon = privilege_harimari_autonomy
 	loyalty = 0.2
 	influence = 0.10
 	is_valid = {
 		OR = {AND = {uses_isolationism = yes NOT = {isolationism = 3}} uses_isolationism = no}
 		NOT = { has_country_modifier = harimari_administration }
+		NOT = { has_country_modifier = racial_pop_harimari_enslavement }
+		NOT = { has_country_modifier = racial_pop_harimari_purge }
+		NOT = { has_country_modifier = racial_pop_harimari_expulsion }
+		NOT = { has_estate_privilege = estate_harimari_taxation_policy }
 	}
 	can_select = {
 		any_owned_province = {
@@ -1541,17 +1551,14 @@ estate_harimari_autonomy = {
 	}
 }
 estate_harimari_taxation_policy = {
-	icon = privilege_grant_autonomy
+	icon = privilege_harimari_taxation
 	loyalty = -0.1
 	is_valid = {
-		OR = {
-			AND = {
-				uses_isolationism = yes
-				isolationism = 3
-			}
-			uses_isolationism = no
-		}
 		NOT = { has_country_modifier = harimari_administration }
+		NOT = { has_country_modifier = racial_focus_harimari }
+		NOT = { has_country_modifier = racial_pop_harimari_expulsion }
+		NOT = { has_country_modifier = racial_pop_harimari_enslavement }
+		NOT = { has_country_modifier = racial_pop_harimari_purge }
 	}
 	can_select = {
 		any_owned_province = { culture_is_harimari = yes }
@@ -1594,19 +1601,17 @@ estate_harimari_taxation_policy = {
 	}
 }
 estate_harimari_purge = {
-	icon = privilege_grant_autonomy
+	icon = privilege_harimari_purge
 	loyalty = -0.2
 	influence = -0.20
 	is_valid = {
-		if = {
-			limit = {uses_isolationism = yes}
-			isolationism = 3
-		}
+		NOT = { has_country_modifier = racial_pop_harimari_enslavement }
+		NOT = { has_country_modifier = racial_pop_harimari_expulsion }
+		NOT = { has_country_modifier = racial_focus_harimari }
+		NOT = { has_estate_privilege = estate_harimari_taxation_policy }
 	}
 	can_select = {
-		can_purge_race = {
-			RACE = harimari
-		}
+		can_purge_race = {RACE = harimari}
 	}
 	on_granted = {		
 		largest_decrease_of_harimari_tolerance_effect = yes
@@ -1633,26 +1638,36 @@ estate_harimari_purge = {
 		remove_country_modifier = racial_pop_harimari_purge
 	}
 	ai_will_do = {
-		factor = 0
+		factor = 1
+		modifier = {
+			factor = 0
+			medium_tolerance_harimari_race_trigger = yes
+		}
+		modifier = {
+			factor = 1000
+			NOT = {liberty_desire = 50}
+			culture_is_harimari = no
+			overlord = {
+				has_country_modifier = racial_pop_harimari_purge
+			}
+		}
 	}
 	cooldown_years = 10
 	on_cooldown_expires = {
 	}
 }
 estate_harimari_expulsion = {
-	icon = privilege_grant_autonomy
+	icon = privilege_harimari_expulsion
 	loyalty = -0.1
 	influence = -0.1
 	is_valid = {
-		if = {
-			limit = {uses_isolationism = yes}
-			isolationism = 3
-		}
+		NOT = { has_country_modifier = racial_pop_harimari_enslavement }
+		NOT = { has_country_modifier = racial_pop_harimari_purge }
+		NOT = { has_country_modifier = racial_focus_harimari }
+		NOT = { has_estate_privilege = estate_harimari_taxation_policy }
 	}
 	can_select = {
-		can_expel_race = {
-			RACE = harimari
-		}
+		can_expel_race = {RACE = harimari}
 	}
 	on_granted = {				
 		large_decrease_of_harimari_tolerance_effect = yes
@@ -1697,10 +1712,12 @@ estate_harimari_focus = {
 				has_global_flag = call_to_action_hre_flag
 			}
 			is_part_of_hre = no
-		}		
-		OR = {AND = {uses_isolationism = yes NOT = {isolationism = 3}} uses_isolationism = no}			
+		}				
 		NOT = { has_country_modifier = harimari_administration }
-		NOT = { has_country_modifier = harimari_military }		
+		NOT = { has_country_modifier = harimari_military }
+		NOT = { has_country_modifier = racial_pop_harimari_enslavement }
+		NOT = { has_country_modifier = racial_pop_harimari_purge }
+		NOT = { has_country_modifier = racial_pop_harimari_expulsion }		
 	}
 	can_select = {
 		NOT = {
@@ -1732,6 +1749,54 @@ estate_harimari_focus = {
 	cooldown_years = 10
 	on_cooldown_expires = {
 	}
+}
+estate_harimari_enslavement = {
+	icon = privilege_harimari_enslavement
+	loyalty = -0.2
+	influence = -0.20
+	is_valid = {
+		NOT = {has_estate_privilege = estate_harimari_intolerance_policy}
+		can_enslave_race = {RACE = harimari}
+	}
+	can_select = {
+		NOT = {has_race_recruitment = {race = harimari}}
+	}
+	on_granted = {		
+		largest_decrease_of_harimari_tolerance_effect = yes
+		add_country_modifier = { name = racial_pop_harimari_enslavement duration = -1 }
+		custom_tooltip = harimari_enslave_global_effect_tt
+		custom_tooltip = harimari_enslave_effect_unrest_tt
+		hidden_effect = {add_expulsion_unrest = {race = harimari}}
+	}
+	penalties = {}
+	benefits = {}
+	on_revoked = {		
+		remove_country_modifier = racial_pop_harimari_enslavement
+	}
+	on_invalid = {
+		remove_country_modifier = racial_pop_harimari_enslavement
+	}
+	ai_will_do = {
+		factor = 1
+		modifier = {
+			factor = 0
+			medium_tolerance_harimari_race_trigger = yes
+		}
+		modifier = {
+			factor = 1000
+			NOT = {liberty_desire = 50}
+			culture_is_harimari = no
+			overlord = {
+				has_country_modifier = racial_pop_harimari_enslavement
+			}
+		}
+		modifier = {
+			factor = 10
+			has_country_modifier = monstrous_nation
+		}
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {}
 }
 estate_harimari_non_military_swap = {
 	icon = privilege_grant_autonomy
@@ -1865,12 +1930,12 @@ estate_harimari_colonizers = {
 	}
 	on_granted = {
 	}
-	modifier = {
+	benefits = {
 		global_colonial_growth = 20
 		colonists = 1
-		yearly_corruption = 0.2
 	}
 	penalties = {
+		yearly_corruption = 0.2
 	}
 	on_revoked = {
 	}

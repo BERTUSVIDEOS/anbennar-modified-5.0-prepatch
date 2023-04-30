@@ -1,0 +1,277 @@
+namespace = damescrown
+
+#max power reached
+country_event = {
+	id = damescrown.1
+	title = damescrown.1.title
+	desc = damescrown.1.desc
+	picture = TRADEGOODS_eventPicture
+	
+	
+	trigger = {
+		has_government_attribute = republicans_vs_CLSTC_mechanic
+		OR = {
+			has_government_power = { 
+				mechanic_type = republicans_vs_CLSTC_mechanic
+				power_type = republicans_vs_CLSTC_power
+				value = 80
+			}
+			NOT = {
+				has_government_power = { 
+					mechanic_type = republicans_vs_CLSTC_mechanic
+					power_type = republicans_vs_CLSTC_power
+					value = -80
+				}
+			}
+		}
+	}
+	mean_time_to_happen = {
+		months = 24
+		modifier = {
+			factor = 2.0
+			has_country_modifier = CLSTC_mechanic_revolted_modifier
+		}
+		modifier = {
+			factor = 2.0
+			has_country_modifier = republicans_mechanic_revolted_modifier
+		}
+	}
+	immediate = {
+		if = {
+			limit = {
+				NOT = {has_ruler_modifier = republicans_mechanic_revolted_modifier}
+				has_government_power = { 
+					mechanic_type = republicans_vs_CLSTC_mechanic
+					power_type = republicans_vs_CLSTC_power
+					value = 80
+				}
+			}
+			add_ruler_modifier = {
+				name = republicans_mechanic_revolted_modifier
+				duration = 3650
+			}
+		}
+		if = {
+			limit = {
+				NOT = {has_ruler_modifier = CLSTC_mechanic_revolted_modifier}
+				NOT = {
+					has_government_power = { 
+						mechanic_type = republicans_vs_CLSTC_mechanic
+						power_type = republicans_vs_CLSTC_power
+						value = -80
+					}
+				}
+			}
+			add_ruler_modifier = {
+				name = CLSTC_mechanic_revolted_modifier
+				duration = 3650
+			}
+		}
+	}
+	# 
+	option = {
+		name = damescrown.1.a
+		trigger = {
+			OR ={
+				has_government_power = { 
+					mechanic_type = republicans_vs_CLSTC_mechanic
+					power_type = republicans_vs_CLSTC_power
+					value = 80
+				}
+				has_country_modifier = republicans_mechanic_revolted_modifier
+			}
+		}
+		capital_scope = {
+			if = {
+				limit = {
+					development = 50
+					NOT = {has_province_modifier = republicans_vs_CLSTC_mechanic_revolted}
+				}
+				spawn_rebels = {
+					size = 5
+					type = republicans_damescrown_rebels
+				}
+			}
+			else_if = {
+				limit = {
+					development = 40
+					NOT = {has_province_modifier = republicans_vs_CLSTC_mechanic_revolted}
+				}
+				spawn_rebels = {
+					size = 4
+					type = republicans_damescrown_rebels
+				}
+			}
+			else_if = {
+				limit = {
+					development = 30
+					NOT = {has_province_modifier = republicans_vs_CLSTC_mechanic_revolted}
+				}
+				spawn_rebels = {
+					size = 3
+					type = republicans_damescrown_rebels
+				}
+			}
+			else_if = {
+				limit = {
+					development = 20
+					NOT = {has_province_modifier = republicans_vs_CLSTC_mechanic_revolted}
+				}
+				spawn_rebels = {
+					size = 2
+					type = republicans_damescrown_rebels
+				}
+			}
+			else = {
+				spawn_rebels = {
+					size = 1
+					type = republicans_damescrown_rebels
+				}
+			}
+			hidden_effect = {
+				add_province_modifier = {
+					name = republicans_vs_CLSTC_mechanic_revolted
+					duration = 730
+				}
+			}
+		}
+		random_owned_province = {
+			limit = {
+				development = 20
+				is_capital = no
+				NOT = {has_province_modifier = republicans_vs_CLSTC_mechanic_revolted}
+			}
+			spawn_rebels = {
+				size = 1
+				type = republicans_damescrown_rebels
+			}
+			hidden_effect = {
+				add_province_modifier = {
+					name = republicans_vs_CLSTC_mechanic_revolted
+					duration = 730
+				}
+			}
+		}
+		random_owned_province = {
+			limit = {
+				development = 20
+				is_capital = no
+				NOT = {has_province_modifier = republicans_vs_CLSTC_mechanic_revolted}
+			}
+			spawn_rebels = {
+				size = 1
+				type = republicans_damescrown_rebels
+			}
+			hidden_effect = {
+				add_province_modifier = {
+					name = republicans_vs_CLSTC_mechanic_revolted
+					duration = 730
+				}
+			}
+		}
+	}
+	# 
+	option = {
+		name = damescrown.1.b
+		trigger = {
+			OR = {
+				NOT = {
+					has_government_power = { 
+						mechanic_type = republicans_vs_CLSTC_mechanic
+						power_type = republicans_vs_CLSTC_power
+						value = -80
+					}
+				}
+				has_country_modifier = CLSTC_mechanic_revolted_modifier
+			}
+		}
+		capital_scope = {
+			if = {
+				limit = {
+					development = 50
+					NOT = {has_province_modifier = republicans_vs_CLSTC_mechanic_revolted}
+				}
+				spawn_rebels = {
+					size = 5
+					type = CLSTC_damescrown_rebels
+				}
+			}
+			else_if = {
+				limit = {
+					development = 40
+					NOT = {has_province_modifier = republicans_vs_CLSTC_mechanic_revolted}
+				}
+				spawn_rebels = {
+					size = 4
+					type = CLSTC_damescrown_rebels
+				}
+			}
+			else_if = {
+				limit = {
+					development = 30
+					NOT = {has_province_modifier = republicans_vs_CLSTC_mechanic_revolted}
+				}
+				spawn_rebels = {
+					size = 3
+					type = CLSTC_damescrown_rebels
+				}
+			}
+			else_if = {
+				limit = {
+					development = 20
+					NOT = {has_province_modifier = republicans_vs_CLSTC_mechanic_revolted}
+				}
+				spawn_rebels = {
+					size = 2
+					type = CLSTC_damescrown_rebels
+				}
+			}
+			else = {
+				spawn_rebels = {
+					size = 1
+					type = CLSTC_damescrown_rebels
+				}
+			}
+			hidden_effect = {
+				add_province_modifier = {
+					name = republicans_vs_CLSTC_mechanic_revolted
+					duration = 730
+				}
+			}
+		}
+		random_owned_province = {
+			limit = {
+				development = 20
+				is_capital = no
+				NOT = {has_province_modifier = republicans_vs_CLSTC_mechanic_revolted}
+			}
+			spawn_rebels = {
+				size = 1
+				type = CLSTC_damescrown_rebels
+			}
+			hidden_effect = {
+				add_province_modifier = {
+					name = republicans_vs_CLSTC_mechanic_revolted
+					duration = 730
+				}
+			}
+		}
+		random_owned_province = {
+			limit = {
+				development = 20
+				is_capital = no
+				NOT = {has_province_modifier = republicans_vs_CLSTC_mechanic_revolted}
+			}
+			spawn_rebels = {
+				size = 1
+				type = CLSTC_damescrown_rebels
+			}
+			hidden_effect = {
+				add_province_modifier = {
+					name = republicans_vs_CLSTC_mechanic_revolted
+					duration = 730
+				}
+			}
+		}
+	}
+}

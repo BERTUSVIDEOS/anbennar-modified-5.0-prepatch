@@ -30,8 +30,6 @@ estate_halfling_first_hand_chairman = {
 			}
 		}
 	}
-	modifier = {
-	}
 	penalties = {
 		years_of_nationalism = 5
 		administrative_efficiency = 0.05
@@ -44,85 +42,14 @@ estate_halfling_first_hand_chairman = {
 	conditional_modifier = {
 		trigger = {		
 			is_part_of_hre = no
-			has_country_modifier = dwarven_administration
+			NOT = {has_country_modifier = halfling_administration}
+			NOT = {has_country_modifier = human_administration}
+			NOT = {has_country_modifier = elven_administration}
+			NOT = {has_country_modifier = gnomish_administration}
 		}
 		modifier = {
 			legitimacy = -0.5
-			devotion = -0.25			
-			reelection_cost = 0.1
-			dwarven_loyalty_modifier = -0.1
-		}
-	}
-	conditional_modifier = {
-		trigger = {		
-			is_part_of_hre = no
-			has_country_modifier = gnollish_administration
-		}
-		modifier = {
-			legitimacy = -1.0
-			devotion = -0.5		
-			reelection_cost = 0.25
-			gnollish_loyalty_modifier = -0.2
-		}
-	}
-	conditional_modifier = {
-		trigger = {		
-			is_part_of_hre = no
-			has_country_modifier = ruinborn_administration
-		}
-		modifier = {
-			legitimacy = -1.0
-			devotion = -0.5		
-			reelection_cost = 0.25
-			ruinborn_loyalty_modifier = -0.2
-		}
-	}
-	conditional_modifier = {
-		trigger = {		
-			is_part_of_hre = no
-			has_country_modifier = orcish_administration
-		}
-		modifier = {
-			legitimacy = -1.0
-			devotion = -0.5		
-			reelection_cost = 0.25
-			orcish_loyalty_modifier = -0.2
-		}
-	}
-	conditional_modifier = {
-		trigger = {		
-			is_part_of_hre = no
-			has_country_modifier = goblin_administration
-		}
-		modifier = {
-			legitimacy = -1.0
-			devotion = -0.5			
-			reelection_cost = 0.25
-			goblin_loyalty_modifier = -0.2
-		}
-	}
-	conditional_modifier = {
-		trigger = {		
-			is_part_of_hre = no
-			has_country_modifier = centaur_administration
-		}
-		modifier = {
-			legitimacy = -1.0
-			devotion = -0.5		
-			reelection_cost = 0.25
-			centaur_loyalty_modifier = -0.2
-		}
-	}
-	conditional_modifier = {
-		trigger = {		
-			is_part_of_hre = no
-			has_country_modifier = ogre_administration
-		}
-		modifier = {
-			legitimacy = -2.0
-			devotion = -1.0	
-			reelection_cost = 1.0
-			ogre_loyalty_modifier = -0.5
+			devotion = -0.2
 		}
 	}
 	on_revoked = {
@@ -449,7 +376,6 @@ estate_halfling_recruitment = {
 				id = bertus_racial_military.1001
 			}
 		}
-		custom_tooltip = halfling_attitude_mechanic_tooltip
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {		
@@ -460,33 +386,6 @@ estate_halfling_recruitment = {
 	}
 	mechanics = {
 		enables_cossack_regiments
-	}
-	conditional_modifier = {
-		trigger = {
-			estate_territory = {
-				estate = estate_halfling
-				territory = 60
-			}
-			any_country = {
-				offensive_war_with = ROOT
-				NOT = {
-					estate_territory = {
-						estate = estate_halfling
-						territory = 30
-					}
-				}
-			}
-		}
-		modifier = {
-			morale_damage_received = -0.10		#defend homeland
-			shock_damage_received = -0.10		#barricades and spikes
-			fire_damage_received = -0.10		#barricades and spikes
-			hostile_attrition = 1				#double army composition
-			recover_army_morale_speed = 0.05	#double army composition
-			defensiveness = 0.1					#double army composition
-			garrison_size = 0.15				#double army composition
-			global_garrison_growth = 0.05		#double army composition
-		}
 	}
 	can_revoke = {
 	}
@@ -520,7 +419,7 @@ estate_halfling_recruitment_2 = {
 	can_select = {		
 		high_tolerance_halfling_race_trigger = yes
 		any_owned_province = {
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 	}
 	on_granted = {
@@ -530,7 +429,6 @@ estate_halfling_recruitment_2 = {
 				id = bertus_racial_military.1001
 			}
 		}
-		custom_tooltip = halfling_attitude_mechanic_tooltip
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
@@ -544,33 +442,6 @@ estate_halfling_recruitment_2 = {
 	}
 	mechanics = {
 		enables_cossack_regiments
-	}
-	conditional_modifier = {
-		trigger = {
-			estate_territory = {
-				estate = estate_halfling
-				territory = 60
-			}
-			any_country = {
-				offensive_war_with = ROOT
-				NOT = {
-					estate_territory = {
-						estate = estate_halfling
-						territory = 30
-					}
-				}
-			}
-		}
-		modifier = {
-			morale_damage_received = -0.10		#defend homeland
-			shock_damage_received = -0.10		#barricades and spikes
-			fire_damage_received = -0.10		#barricades and spikes
-			hostile_attrition = 1				#double army composition
-			recover_army_morale_speed = 0.05	#double army composition
-			defensiveness = 0.1					#double army composition
-			garrison_size = 0.15				#double army composition
-			global_garrison_growth = 0.05		#double army composition
-		}
 	}
 	can_revoke = {
 	}
@@ -604,7 +475,7 @@ estate_halfling_recruitment_5 = {
 	can_select = {		
 		high_tolerance_halfling_race_trigger = yes
 		any_owned_province = {
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 	}
 	on_granted = {
@@ -614,7 +485,6 @@ estate_halfling_recruitment_5 = {
 				id = bertus_racial_military.1001
 			}
 		}
-		custom_tooltip = halfling_attitude_mechanic_tooltip
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
@@ -629,33 +499,6 @@ estate_halfling_recruitment_5 = {
 	}
 	mechanics = {
 		enables_cossack_regiments
-	}
-	conditional_modifier = {
-		trigger = {
-			estate_territory = {
-				estate = estate_halfling
-				territory = 60
-			}
-			any_country = {
-				offensive_war_with = ROOT
-				NOT = {
-					estate_territory = {
-						estate = estate_halfling
-						territory = 30
-					}
-				}
-			}
-		}
-		modifier = {
-			morale_damage_received = -0.10		#defend homeland
-			shock_damage_received = -0.10		#barricades and spikes
-			fire_damage_received = -0.10		#barricades and spikes
-			hostile_attrition = 1				#double army composition
-			recover_army_morale_speed = 0.05	#double army composition
-			defensiveness = 0.1					#double army composition
-			garrison_size = 0.15				#double army composition
-			global_garrison_growth = 0.05		#double army composition
-		}
 	}
 	can_revoke = {
 	}
@@ -689,7 +532,7 @@ estate_halfling_recruitment_6 = {
 	can_select = {		
 		high_tolerance_halfling_race_trigger = yes
 		any_owned_province = {
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 	}
 	on_granted = {
@@ -699,7 +542,6 @@ estate_halfling_recruitment_6 = {
 				id = bertus_racial_military.1001
 			}
 		}
-		custom_tooltip = halfling_attitude_mechanic_tooltip
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
@@ -714,33 +556,6 @@ estate_halfling_recruitment_6 = {
 	}
 	mechanics = {
 		enables_cossack_regiments
-	}
-	conditional_modifier = {
-		trigger = {
-			estate_territory = {
-				estate = estate_halfling
-				territory = 60
-			}
-			any_country = {
-				offensive_war_with = ROOT
-				NOT = {
-					estate_territory = {
-						estate = estate_halfling
-						territory = 30
-					}
-				}
-			}
-		}
-		modifier = {
-			morale_damage_received = -0.10		#defend homeland
-			shock_damage_received = -0.10		#barricades and spikes
-			fire_damage_received = -0.10		#barricades and spikes
-			hostile_attrition = 1				#double army composition
-			recover_army_morale_speed = 0.05	#double army composition
-			defensiveness = 0.1					#double army composition
-			garrison_size = 0.15				#double army composition
-			global_garrison_growth = 0.05		#double army composition
-		}
 	}
 	can_revoke = {
 	}
@@ -774,7 +589,7 @@ estate_halfling_recruitment_7 = {
 	can_select = {		
 		high_tolerance_halfling_race_trigger = yes
 		any_owned_province = {
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 	}
 	on_granted = {
@@ -784,7 +599,6 @@ estate_halfling_recruitment_7 = {
 				id = bertus_racial_military.1001
 			}
 		}
-		custom_tooltip = halfling_attitude_mechanic_tooltip
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
@@ -800,33 +614,6 @@ estate_halfling_recruitment_7 = {
 	}
 	mechanics = {
 		enables_cossack_regiments
-	}
-	conditional_modifier = {
-		trigger = {
-			estate_territory = {
-				estate = estate_halfling
-				territory = 60
-			}
-			any_country = {
-				offensive_war_with = ROOT
-				NOT = {
-					estate_territory = {
-						estate = estate_halfling
-						territory = 30
-					}
-				}
-			}
-		}
-		modifier = {
-			morale_damage_received = -0.10		#defend homeland
-			shock_damage_received = -0.10		#barricades and spikes
-			fire_damage_received = -0.10		#barricades and spikes
-			hostile_attrition = 1				#double army composition
-			recover_army_morale_speed = 0.05	#double army composition
-			defensiveness = 0.1					#double army composition
-			garrison_size = 0.15				#double army composition
-			global_garrison_growth = 0.05		#double army composition
-		}
 	}
 	can_revoke = {
 	}
@@ -860,7 +647,7 @@ estate_halfling_recruitment_8 = {
 	can_select = {		
 		high_tolerance_halfling_race_trigger = yes
 		any_owned_province = {
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 	}
 	on_granted = {
@@ -870,7 +657,6 @@ estate_halfling_recruitment_8 = {
 				id = bertus_racial_military.1001
 			}
 		}
-		custom_tooltip = halfling_attitude_mechanic_tooltip
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
@@ -886,33 +672,6 @@ estate_halfling_recruitment_8 = {
 	}
 	mechanics = {
 		enables_cossack_regiments
-	}
-	conditional_modifier = {
-		trigger = {
-			estate_territory = {
-				estate = estate_halfling
-				territory = 60
-			}
-			any_country = {
-				offensive_war_with = ROOT
-				NOT = {
-					estate_territory = {
-						estate = estate_halfling
-						territory = 30
-					}
-				}
-			}
-		}
-		modifier = {
-			morale_damage_received = -0.10		#defend homeland
-			shock_damage_received = -0.10		#barricades and spikes
-			fire_damage_received = -0.10		#barricades and spikes
-			hostile_attrition = 1				#double army composition
-			recover_army_morale_speed = 0.05	#double army composition
-			defensiveness = 0.1					#double army composition
-			garrison_size = 0.15				#double army composition
-			global_garrison_growth = 0.05		#double army composition
-		}
 	}
 	can_revoke = {
 	}
@@ -946,7 +705,7 @@ estate_halfling_recruitment_11 = {
 	can_select = {		
 		high_tolerance_halfling_race_trigger = yes
 		any_owned_province = {
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 	}
 	on_granted = {
@@ -956,7 +715,6 @@ estate_halfling_recruitment_11 = {
 				id = bertus_racial_military.1001
 			}
 		}
-		custom_tooltip = halfling_attitude_mechanic_tooltip
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
@@ -972,33 +730,6 @@ estate_halfling_recruitment_11 = {
 	}
 	mechanics = {
 		enables_cossack_regiments
-	}
-	conditional_modifier = {
-		trigger = {
-			estate_territory = {
-				estate = estate_halfling
-				territory = 60
-			}
-			any_country = {
-				offensive_war_with = ROOT
-				NOT = {
-					estate_territory = {
-						estate = estate_halfling
-						territory = 30
-					}
-				}
-			}
-		}
-		modifier = {
-			morale_damage_received = -0.10		#defend homeland
-			shock_damage_received = -0.10		#barricades and spikes
-			fire_damage_received = -0.10		#barricades and spikes
-			hostile_attrition = 1				#double army composition
-			recover_army_morale_speed = 0.05	#double army composition
-			defensiveness = 0.1					#double army composition
-			garrison_size = 0.15				#double army composition
-			global_garrison_growth = 0.05		#double army composition
-		}
 	}
 	can_revoke = {
 	}
@@ -1032,7 +763,7 @@ estate_halfling_recruitment_13 = {
 	can_select = {		
 		high_tolerance_halfling_race_trigger = yes
 		any_owned_province = {
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 	}
 	on_granted = {
@@ -1042,7 +773,6 @@ estate_halfling_recruitment_13 = {
 				id = bertus_racial_military.1001
 			}
 		}
-		custom_tooltip = halfling_attitude_mechanic_tooltip
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
@@ -1058,33 +788,6 @@ estate_halfling_recruitment_13 = {
 	}
 	mechanics = {
 		enables_cossack_regiments
-	}
-	conditional_modifier = {
-		trigger = {
-			estate_territory = {
-				estate = estate_halfling
-				territory = 60
-			}
-			any_country = {
-				offensive_war_with = ROOT
-				NOT = {
-					estate_territory = {
-						estate = estate_halfling
-						territory = 30
-					}
-				}
-			}
-		}
-		modifier = {
-			morale_damage_received = -0.10		#defend homeland
-			shock_damage_received = -0.10		#barricades and spikes
-			fire_damage_received = -0.10		#barricades and spikes
-			hostile_attrition = 1				#double army composition
-			recover_army_morale_speed = 0.05	#double army composition
-			defensiveness = 0.1					#double army composition
-			garrison_size = 0.15				#double army composition
-			global_garrison_growth = 0.05		#double army composition
-		}
 	}
 	can_revoke = {
 	}
@@ -1118,7 +821,7 @@ estate_halfling_recruitment_14 = {
 	can_select = {		
 		high_tolerance_halfling_race_trigger = yes
 		any_owned_province = {
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 	}
 	on_granted = {
@@ -1128,7 +831,6 @@ estate_halfling_recruitment_14 = {
 				id = bertus_racial_military.1001
 			}
 		}
-		custom_tooltip = halfling_attitude_mechanic_tooltip
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
@@ -1144,33 +846,6 @@ estate_halfling_recruitment_14 = {
 	}
 	mechanics = {
 		enables_cossack_regiments
-	}
-	conditional_modifier = {
-		trigger = {
-			estate_territory = {
-				estate = estate_halfling
-				territory = 60
-			}
-			any_country = {
-				offensive_war_with = ROOT
-				NOT = {
-					estate_territory = {
-						estate = estate_halfling
-						territory = 30
-					}
-				}
-			}
-		}
-		modifier = {
-			morale_damage_received = -0.10		#defend homeland
-			shock_damage_received = -0.10		#barricades and spikes
-			fire_damage_received = -0.10		#barricades and spikes
-			hostile_attrition = 1				#double army composition
-			recover_army_morale_speed = 0.05	#double army composition
-			defensiveness = 0.1					#double army composition
-			garrison_size = 0.15				#double army composition
-			global_garrison_growth = 0.05		#double army composition
-		}
 	}
 	can_revoke = {
 	}
@@ -1204,7 +879,7 @@ estate_halfling_recruitment_16 = {
 	can_select = {		
 		high_tolerance_halfling_race_trigger = yes
 		any_owned_province = {
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 	}
 	on_granted = {
@@ -1214,7 +889,6 @@ estate_halfling_recruitment_16 = {
 				id = bertus_racial_military.1001
 			}
 		}
-		custom_tooltip = halfling_attitude_mechanic_tooltip
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
@@ -1230,33 +904,6 @@ estate_halfling_recruitment_16 = {
 	}
 	mechanics = {
 		enables_cossack_regiments
-	}
-	conditional_modifier = {
-		trigger = {
-			estate_territory = {
-				estate = estate_halfling
-				territory = 60
-			}
-			any_country = {
-				offensive_war_with = ROOT
-				NOT = {
-					estate_territory = {
-						estate = estate_halfling
-						territory = 30
-					}
-				}
-			}
-		}
-		modifier = {
-			morale_damage_received = -0.10		#defend homeland
-			shock_damage_received = -0.10		#barricades and spikes
-			fire_damage_received = -0.10		#barricades and spikes
-			hostile_attrition = 1				#double army composition
-			recover_army_morale_speed = 0.05	#double army composition
-			defensiveness = 0.1					#double army composition
-			garrison_size = 0.15				#double army composition
-			global_garrison_growth = 0.05		#double army composition
-		}
 	}
 	can_revoke = {
 	}
@@ -1290,7 +937,7 @@ estate_halfling_recruitment_17 = {
 	can_select = {		
 		high_tolerance_halfling_race_trigger = yes
 		any_owned_province = {
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 	}
 	on_granted = {
@@ -1300,7 +947,6 @@ estate_halfling_recruitment_17 = {
 				id = bertus_racial_military.1001
 			}
 		}
-		custom_tooltip = halfling_attitude_mechanic_tooltip
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
@@ -1316,33 +962,6 @@ estate_halfling_recruitment_17 = {
 	}
 	mechanics = {
 		enables_cossack_regiments
-	}
-	conditional_modifier = {
-		trigger = {
-			estate_territory = {
-				estate = estate_halfling
-				territory = 60
-			}
-			any_country = {
-				offensive_war_with = ROOT
-				NOT = {
-					estate_territory = {
-						estate = estate_halfling
-						territory = 30
-					}
-				}
-			}
-		}
-		modifier = {
-			morale_damage_received = -0.10		#defend homeland
-			shock_damage_received = -0.10		#barricades and spikes
-			fire_damage_received = -0.10		#barricades and spikes
-			hostile_attrition = 1				#double army composition
-			recover_army_morale_speed = 0.05	#double army composition
-			defensiveness = 0.1					#double army composition
-			garrison_size = 0.15				#double army composition
-			global_garrison_growth = 0.05		#double army composition
-		}
 	}
 	can_revoke = {
 	}
@@ -1376,7 +995,7 @@ estate_halfling_recruitment_20 = {
 	can_select = {		
 		high_tolerance_halfling_race_trigger = yes
 		any_owned_province = {
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 	}
 	on_granted = {
@@ -1386,7 +1005,6 @@ estate_halfling_recruitment_20 = {
 				id = bertus_racial_military.1001
 			}
 		}
-		custom_tooltip = halfling_attitude_mechanic_tooltip
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
@@ -1402,33 +1020,6 @@ estate_halfling_recruitment_20 = {
 	}
 	mechanics = {
 		enables_cossack_regiments
-	}
-	conditional_modifier = {
-		trigger = {
-			estate_territory = {
-				estate = estate_halfling
-				territory = 60
-			}
-			any_country = {
-				offensive_war_with = ROOT
-				NOT = {
-					estate_territory = {
-						estate = estate_halfling
-						territory = 30
-					}
-				}
-			}
-		}
-		modifier = {
-			morale_damage_received = -0.10		#defend homeland
-			shock_damage_received = -0.10		#barricades and spikes
-			fire_damage_received = -0.10		#barricades and spikes
-			hostile_attrition = 1				#double army composition
-			recover_army_morale_speed = 0.05	#double army composition
-			defensiveness = 0.1					#double army composition
-			garrison_size = 0.15				#double army composition
-			global_garrison_growth = 0.05		#double army composition
-		}
 	}
 	can_revoke = {
 	}
@@ -1462,7 +1053,7 @@ estate_halfling_recruitment_21 = {
 	can_select = {		
 		high_tolerance_halfling_race_trigger = yes
 		any_owned_province = {
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 	}
 	on_granted = {
@@ -1472,7 +1063,6 @@ estate_halfling_recruitment_21 = {
 				id = bertus_racial_military.1001
 			}
 		}
-		custom_tooltip = halfling_attitude_mechanic_tooltip
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
@@ -1488,33 +1078,6 @@ estate_halfling_recruitment_21 = {
 	}
 	mechanics = {
 		enables_cossack_regiments
-	}
-	conditional_modifier = {
-		trigger = {
-			estate_territory = {
-				estate = estate_halfling
-				territory = 60
-			}
-			any_country = {
-				offensive_war_with = ROOT
-				NOT = {
-					estate_territory = {
-						estate = estate_halfling
-						territory = 30
-					}
-				}
-			}
-		}
-		modifier = {
-			morale_damage_received = -0.10		#defend homeland
-			shock_damage_received = -0.10		#barricades and spikes
-			fire_damage_received = -0.10		#barricades and spikes
-			hostile_attrition = 1				#double army composition
-			recover_army_morale_speed = 0.05	#double army composition
-			defensiveness = 0.1					#double army composition
-			garrison_size = 0.15				#double army composition
-			global_garrison_growth = 0.05		#double army composition
-		}
 	}
 	can_revoke = {
 	}
@@ -1548,7 +1111,7 @@ estate_halfling_recruitment_22 = {
 	can_select = {		
 		high_tolerance_halfling_race_trigger = yes
 		any_owned_province = {
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 	}
 	on_granted = {
@@ -1558,7 +1121,6 @@ estate_halfling_recruitment_22 = {
 				id = bertus_racial_military.1001
 			}
 		}
-		custom_tooltip = halfling_attitude_mechanic_tooltip
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
@@ -1574,33 +1136,6 @@ estate_halfling_recruitment_22 = {
 	}
 	mechanics = {
 		enables_cossack_regiments
-	}
-	conditional_modifier = {
-		trigger = {
-			estate_territory = {
-				estate = estate_halfling
-				territory = 60
-			}
-			any_country = {
-				offensive_war_with = ROOT
-				NOT = {
-					estate_territory = {
-						estate = estate_halfling
-						territory = 30
-					}
-				}
-			}
-		}
-		modifier = {
-			morale_damage_received = -0.10		#defend homeland
-			shock_damage_received = -0.10		#barricades and spikes
-			fire_damage_received = -0.10		#barricades and spikes
-			hostile_attrition = 1				#double army composition
-			recover_army_morale_speed = 0.05	#double army composition
-			defensiveness = 0.1					#double army composition
-			garrison_size = 0.15				#double army composition
-			global_garrison_growth = 0.05		#double army composition
-		}
 	}
 	can_revoke = {
 	}
@@ -1634,7 +1169,7 @@ estate_halfling_recruitment_23 = {
 	can_select = {		
 		high_tolerance_halfling_race_trigger = yes
 		any_owned_province = {
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 	}
 	on_granted = {
@@ -1644,7 +1179,6 @@ estate_halfling_recruitment_23 = {
 				id = bertus_racial_military.1001
 			}
 		}
-		custom_tooltip = halfling_attitude_mechanic_tooltip
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
@@ -1660,33 +1194,6 @@ estate_halfling_recruitment_23 = {
 	}
 	mechanics = {
 		enables_cossack_regiments
-	}
-	conditional_modifier = {
-		trigger = {
-			estate_territory = {
-				estate = estate_halfling
-				territory = 60
-			}
-			any_country = {
-				offensive_war_with = ROOT
-				NOT = {
-					estate_territory = {
-						estate = estate_halfling
-						territory = 30
-					}
-				}
-			}
-		}
-		modifier = {
-			morale_damage_received = -0.10		#defend homeland
-			shock_damage_received = -0.10		#barricades and spikes
-			fire_damage_received = -0.10		#barricades and spikes
-			hostile_attrition = 1				#double army composition
-			recover_army_morale_speed = 0.05	#double army composition
-			defensiveness = 0.1					#double army composition
-			garrison_size = 0.15				#double army composition
-			global_garrison_growth = 0.05		#double army composition
-		}
 	}
 	can_revoke = {
 	}
@@ -1720,7 +1227,7 @@ estate_halfling_recruitment_25 = {
 	can_select = {		
 		high_tolerance_halfling_race_trigger = yes
 		any_owned_province = {
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 	}
 	on_granted = {
@@ -1730,7 +1237,6 @@ estate_halfling_recruitment_25 = {
 				id = bertus_racial_military.1001
 			}
 		}
-		custom_tooltip = halfling_attitude_mechanic_tooltip
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
@@ -1746,33 +1252,6 @@ estate_halfling_recruitment_25 = {
 	}
 	mechanics = {
 		enables_cossack_regiments
-	}
-	conditional_modifier = {
-		trigger = {
-			estate_territory = {
-				estate = estate_halfling
-				territory = 60
-			}
-			any_country = {
-				offensive_war_with = ROOT
-				NOT = {
-					estate_territory = {
-						estate = estate_halfling
-						territory = 30
-					}
-				}
-			}
-		}
-		modifier = {
-			morale_damage_received = -0.10		#defend homeland
-			shock_damage_received = -0.10		#barricades and spikes
-			fire_damage_received = -0.10		#barricades and spikes
-			hostile_attrition = 1				#double army composition
-			recover_army_morale_speed = 0.05	#double army composition
-			defensiveness = 0.1					#double army composition
-			garrison_size = 0.15				#double army composition
-			global_garrison_growth = 0.05		#double army composition
-		}
 	}
 	can_revoke = {
 	}
@@ -1806,7 +1285,7 @@ estate_halfling_recruitment_27 = {
 	can_select = {		
 		high_tolerance_halfling_race_trigger = yes
 		any_owned_province = {
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 	}
 	on_granted = {
@@ -1816,7 +1295,6 @@ estate_halfling_recruitment_27 = {
 				id = bertus_racial_military.1001
 			}
 		}
-		custom_tooltip = halfling_attitude_mechanic_tooltip
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
@@ -1832,33 +1310,6 @@ estate_halfling_recruitment_27 = {
 	}
 	mechanics = {
 		enables_cossack_regiments
-	}
-	conditional_modifier = {
-		trigger = {
-			estate_territory = {
-				estate = estate_halfling
-				territory = 60
-			}
-			any_country = {
-				offensive_war_with = ROOT
-				NOT = {
-					estate_territory = {
-						estate = estate_halfling
-						territory = 30
-					}
-				}
-			}
-		}
-		modifier = {
-			morale_damage_received = -0.10		#defend homeland
-			shock_damage_received = -0.10		#barricades and spikes
-			fire_damage_received = -0.10		#barricades and spikes
-			hostile_attrition = 1				#double army composition
-			recover_army_morale_speed = 0.05	#double army composition
-			defensiveness = 0.1					#double army composition
-			garrison_size = 0.15				#double army composition
-			global_garrison_growth = 0.05		#double army composition
-		}
 	}
 	can_revoke = {
 	}
@@ -1892,7 +1343,7 @@ estate_halfling_recruitment_28 = {
 	can_select = {		
 		high_tolerance_halfling_race_trigger = yes
 		any_owned_province = {
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 	}
 	on_granted = {
@@ -1902,7 +1353,6 @@ estate_halfling_recruitment_28 = {
 				id = bertus_racial_military.1001
 			}
 		}
-		custom_tooltip = halfling_attitude_mechanic_tooltip
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
@@ -1918,33 +1368,6 @@ estate_halfling_recruitment_28 = {
 	}
 	mechanics = {
 		enables_cossack_regiments
-	}
-	conditional_modifier = {
-		trigger = {
-			estate_territory = {
-				estate = estate_halfling
-				territory = 60
-			}
-			any_country = {
-				offensive_war_with = ROOT
-				NOT = {
-					estate_territory = {
-						estate = estate_halfling
-						territory = 30
-					}
-				}
-			}
-		}
-		modifier = {
-			morale_damage_received = -0.10		#defend homeland
-			shock_damage_received = -0.10		#barricades and spikes
-			fire_damage_received = -0.10		#barricades and spikes
-			hostile_attrition = 1				#double army composition
-			recover_army_morale_speed = 0.05	#double army composition
-			defensiveness = 0.1					#double army composition
-			garrison_size = 0.15				#double army composition
-			global_garrison_growth = 0.05		#double army composition
-		}
 	}
 	can_revoke = {
 	}
@@ -1978,7 +1401,7 @@ estate_halfling_recruitment_31 = {
 	can_select = {		
 		high_tolerance_halfling_race_trigger = yes
 		any_owned_province = {
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 	}
 	on_granted = {
@@ -1988,7 +1411,6 @@ estate_halfling_recruitment_31 = {
 				id = bertus_racial_military.1001
 			}
 		}
-		custom_tooltip = halfling_attitude_mechanic_tooltip
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
@@ -2004,33 +1426,6 @@ estate_halfling_recruitment_31 = {
 	}
 	mechanics = {
 		enables_cossack_regiments
-	}
-	conditional_modifier = {
-		trigger = {
-			estate_territory = {
-				estate = estate_halfling
-				territory = 60
-			}
-			any_country = {
-				offensive_war_with = ROOT
-				NOT = {
-					estate_territory = {
-						estate = estate_halfling
-						territory = 30
-					}
-				}
-			}
-		}
-		modifier = {
-			morale_damage_received = -0.10		#defend homeland
-			shock_damage_received = -0.10		#barricades and spikes
-			fire_damage_received = -0.10		#barricades and spikes
-			hostile_attrition = 1				#double army composition
-			recover_army_morale_speed = 0.05	#double army composition
-			defensiveness = 0.1					#double army composition
-			garrison_size = 0.15				#double army composition
-			global_garrison_growth = 0.05		#double army composition
-		}
 	}
 	can_revoke = {
 	}
@@ -2063,7 +1458,7 @@ estate_halfling_recruitment_32 = {
 	can_select = {		
 		high_tolerance_halfling_race_trigger = yes
 		any_owned_province = {
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 	}
 	on_granted = {
@@ -2073,7 +1468,6 @@ estate_halfling_recruitment_32 = {
 				id = bertus_racial_military.1001
 			}
 		}
-		custom_tooltip = halfling_attitude_mechanic_tooltip
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
@@ -2089,33 +1483,6 @@ estate_halfling_recruitment_32 = {
 	}
 	mechanics = {
 		enables_cossack_regiments
-	}
-	conditional_modifier = {
-		trigger = {
-			estate_territory = {
-				estate = estate_halfling
-				territory = 60
-			}
-			any_country = {
-				offensive_war_with = ROOT
-				NOT = {
-					estate_territory = {
-						estate = estate_halfling
-						territory = 30
-					}
-				}
-			}
-		}
-		modifier = {
-			morale_damage_received = -0.10		#defend homeland
-			shock_damage_received = -0.10		#barricades and spikes
-			fire_damage_received = -0.10		#barricades and spikes
-			hostile_attrition = 1				#double army composition
-			recover_army_morale_speed = 0.05	#double army composition
-			defensiveness = 0.1					#double army composition
-			garrison_size = 0.15				#double army composition
-			global_garrison_growth = 0.05		#double army composition
-		}
 	}
 	can_revoke = {
 	}
@@ -2141,26 +1508,48 @@ estate_halfling_raiding_parties = {
 		high_tolerance_halfling_race_trigger = yes
 	}
 	can_select = {
-		OR = {
-			estate_territory = {estate = estate_halfling territory = 30}
-			has_estate_privilege = estate_non_military_country
-		}
+		estate_territory = {estate = estate_halfling territory = 60}
 	}
-	on_granted = {	
+	on_granted = {
+		custom_tooltip = halfling_attitude_mechanic_tooltip
 		custom_tooltip = estate_halfling_raiding_parties_tooltip
+		add_army_tradition = -20
 	}
 	on_granted_province = {}
-	penalties = {}
-	benefits = {}
-	modifier_by_land_ownership = {
-		global_attacker_dice_roll_bonus = -3
-		global_defender_dice_roll_bonus = 3
-		shock_damage_received = -0.30
+	penalties = {
 		movement_speed = -0.20
 	}
-	on_revoked = {}
+	benefits = {}
+	modifier_by_land_ownership = {
+		global_attacker_dice_roll_bonus = -3.34
+		global_defender_dice_roll_bonus = 3.34
+		shock_damage_received = -0.15
+	}
+	conditional_modifier = {
+		trigger = {
+			estate_territory = {estate = estate_halfling territory = 60}
+			any_country = {
+				offensive_war_with = ROOT
+				NOT = {estate_territory = {estate = estate_halfling territory = 30}}
+			}
+		}
+		modifier = {
+			morale_damage_received = -0.10		#defend homeland
+			shock_damage_received = -0.10		#barricades and spikes
+			fire_damage_received = -0.10		#barricades and spikes
+			hostile_attrition = 1				#double army composition
+			recover_army_morale_speed = 0.05	#double army composition
+			defensiveness = 0.1					#double army composition
+			garrison_size = 0.15				#double army composition
+			global_garrison_growth = 0.05		#double army composition
+		}
+	}
+	on_revoked = {
+		add_army_tradition = -20
+	}
 	on_revoked_province = {}
 	on_invalid_province = {}
+	cooldown_years = 1
 	ai_will_do = {
 		factor = 0
 	}
@@ -2236,14 +1625,20 @@ estate_halfling_intolerance_policy = {
 	icon = privilege_royal_authority	
 	influence = 0.10
 	is_valid = {
-		OR = {AND = {uses_isolationism = yes NOT = {isolationism = 1}} uses_isolationism = no}
+		if = {
+			limit = {
+				has_global_flag = call_to_reaction_hre_flag
+				is_part_of_hre = yes
+			}
+			always = no
+		}
 		has_country_modifier = halfling_military
 		has_country_modifier = halfling_administration
 	}
 	can_select = {
 		estate_territory = {
 			estate = estate_halfling
-			territory = 70
+			territory = 50
 		}
 	}
 	on_granted = {
@@ -2276,10 +1671,64 @@ estate_halfling_intolerance_policy = {
 		tolerance_heathen = -2
 		tolerance_heretic = -2
 		relation_with_other_culture = -50
+		promote_culture_cost = 10.0
 	}
 	benefits = {
-		global_missionary_strength = 0.01
-		administrative_efficiency = 0.05
+	}
+	conditional_modifier = {
+		trigger = {
+			NOT = {
+				calc_true_if = {
+					has_government_attribute = faster_purguing_reform
+					has_idea = total_supremacy
+					amount = 1
+				}
+			}
+		}
+		modifier = {
+			global_missionary_strength = 0.01
+			administrative_efficiency = 0.05		
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			calc_true_if = {
+				has_government_attribute = faster_purguing_reform
+				has_idea = total_supremacy
+				amount = 1
+			}
+			NOT = {
+				calc_true_if = {
+					has_government_attribute = faster_purguing_reform
+					has_idea = total_supremacy
+					amount = 2
+				}
+			}
+		}
+		modifier = {
+			global_missionary_strength = 0.02
+			administrative_efficiency = 0.10
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			calc_true_if = {
+				has_government_attribute = faster_purguing_reform
+				has_idea = total_supremacy
+				amount = 2
+			}
+			NOT = {
+				calc_true_if = {
+					has_government_attribute = faster_purguing_reform
+					has_idea = total_supremacy
+					amount = 3
+				}
+			}
+		}
+		modifier = {
+			global_missionary_strength = 0.03
+			administrative_efficiency = 0.15
+		}
 	}
 	conditional_modifier = {
 		trigger = {
@@ -2287,7 +1736,13 @@ estate_halfling_intolerance_policy = {
 				NOT = { culture_is_halfling = yes }
 				war_with = root
 			}
-			NOT = {has_government_attribute = faster_purguing_reform}
+			NOT = {
+				calc_true_if = {
+					has_government_attribute = faster_purguing_reform
+					has_idea = total_supremacy
+					amount = 1
+				}
+			}
 		}
 		modifier = {
 			morale_damage = 0.05
@@ -2304,15 +1759,54 @@ estate_halfling_intolerance_policy = {
 				NOT = { culture_is_halfling = yes }
 				war_with = root
 			}
-			has_government_attribute = faster_purguing_reform
+			calc_true_if = {
+				has_government_attribute = faster_purguing_reform
+				has_idea = total_supremacy
+				amount = 1
+			}
+			NOT = {
+				calc_true_if = {
+					has_government_attribute = faster_purguing_reform
+					has_idea = total_supremacy
+					amount = 2
+				}
+			}
 		}
 		modifier = {
 			morale_damage = 0.10
 			shock_damage = 0.10
 			fire_damage = 0.10
-			manpower_recovery_speed = 0.2
-			reinforce_speed = 0.2
-			recover_army_morale_speed = 0.05			
+			manpower_recovery_speed = 0.20
+			reinforce_speed = 0.20
+			recover_army_morale_speed = 0.05
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			any_known_country = {
+				NOT = { culture_is_halfling = yes }
+				war_with = root
+			}
+			calc_true_if = {
+				has_government_attribute = faster_purguing_reform
+				has_idea = total_supremacy
+				amount = 2
+			}
+			NOT = {
+				calc_true_if = {
+					has_government_attribute = faster_purguing_reform
+					has_idea = total_supremacy
+					amount = 3
+				}
+			}
+		}
+		modifier = {
+			morale_damage = 0.15
+			shock_damage = 0.15
+			fire_damage = 0.15
+			manpower_recovery_speed = 0.30
+			reinforce_speed = 0.30
+			recover_army_morale_speed = 0.075
 		}
 	}
 	conditional_modifier = {
@@ -2352,16 +1846,20 @@ estate_halfling_intolerance_policy = {
 	}
 }
 estate_halfling_autonomy = {
-	icon = privilege_grant_autonomy
+	icon = privilege_halfling_autonomy
 	loyalty = 0.2
 	influence = 0.10
 	is_valid = {
 		OR = {AND = {uses_isolationism = yes NOT = {isolationism = 3}} uses_isolationism = no}
 		NOT = { has_country_modifier = halfling_administration }
+		NOT = { has_country_modifier = racial_pop_halfling_enslavement }
+		NOT = { has_country_modifier = racial_pop_halfling_purge }
+		NOT = { has_country_modifier = racial_pop_halfling_expulsion }
+		NOT = { has_estate_privilege = estate_halfling_taxation_policy }
 	}
 	can_select = {
 		any_owned_province = {
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 	}
 	on_granted = {
@@ -2370,7 +1868,7 @@ estate_halfling_autonomy = {
 	}
 	on_granted_province = {
 		if = {
-			limit = {culture_is_halfling = yes}
+			limit = {has_halfling_majority_trigger = yes}
 			add_province_modifier = {
 				name = estate_guaranteed_autonomy_mod
 				duration = -1
@@ -2408,20 +1906,17 @@ estate_halfling_autonomy = {
 	}
 }
 estate_halfling_taxation_policy = {
-	icon = privilege_grant_autonomy
+	icon = privilege_halfling_taxation
 	loyalty = -0.1
 	is_valid = {
-		OR = {
-			AND = {
-				uses_isolationism = yes
-				isolationism = 3
-			}
-			uses_isolationism = no
-		}
 		NOT = { has_country_modifier = halfling_administration }
+		NOT = { has_country_modifier = racial_focus_halfling }
+		NOT = { has_country_modifier = racial_pop_halfling_expulsion }
+		NOT = { has_country_modifier = racial_pop_halfling_enslavement }
+		NOT = { has_country_modifier = racial_pop_halfling_purge }
 	}
 	can_select = {
-		any_owned_province = { culture_is_halfling = yes }
+		any_owned_province = { has_halfling_majority_trigger = yes }
 	}
 	on_granted = {
 		small_decrease_of_halfling_tolerance_effect = yes
@@ -2429,7 +1924,7 @@ estate_halfling_taxation_policy = {
 	}
 	on_granted_province = {
 		if = {
-			limit = {culture_is_halfling = yes}
+			limit = {has_halfling_majority_trigger = yes}
 			add_province_modifier = { name = estate_racial_taxation_mod duration = -1 }
 			province_event = {id = bertus_pops.1075 days = 1 random = 5}
 		}
@@ -2461,14 +1956,14 @@ estate_halfling_taxation_policy = {
 	}
 }
 estate_halfling_purge = {
-	icon = privilege_grant_autonomy
+	icon = privilege_halfling_purge
 	loyalty = -0.2
 	influence = -0.20
 	is_valid = {
-		if = {
-			limit = {uses_isolationism = yes}
-			isolationism = 3
-		}
+		NOT = { has_country_modifier = racial_pop_halfling_enslavement }
+		NOT = { has_country_modifier = racial_pop_halfling_expulsion }
+		NOT = { has_country_modifier = racial_focus_halfling }
+		NOT = { has_estate_privilege = estate_halfling_taxation_policy }
 	}
 	can_select = {
 		can_purge_race = {
@@ -2500,26 +1995,36 @@ estate_halfling_purge = {
 		remove_country_modifier = racial_pop_halfling_purge
 	}
 	ai_will_do = {
-		factor = 0
+		factor = 1
+		modifier = {
+			factor = 0
+			medium_tolerance_halfling_race_trigger = yes
+		}
+		modifier = {
+			factor = 1000
+			NOT = {liberty_desire = 50}
+			culture_is_halfling = no
+			overlord = {
+				has_country_modifier = racial_pop_halfling_purge
+			}
+		}
 	}
 	cooldown_years = 10
 	on_cooldown_expires = {
 	}
 }
 estate_halfling_expulsion = {
-	icon = privilege_grant_autonomy
+	icon = privilege_halfling_expulsion
 	loyalty = -0.1
 	influence = -0.1
 	is_valid = {
-		if = {
-			limit = {uses_isolationism = yes}
-			isolationism = 3
-		}
+		NOT = { has_country_modifier = racial_pop_halfling_enslavement }
+		NOT = { has_country_modifier = racial_pop_halfling_purge }
+		NOT = { has_country_modifier = racial_focus_halfling }
+		NOT = { has_estate_privilege = estate_halfling_taxation_policy }
 	}
 	can_select = {
-		can_expel_race = {
-			RACE = halfling
-		}
+		can_expel_race = {RACE = halfling}
 	}
 	on_granted = {				
 		large_decrease_of_halfling_tolerance_effect = yes
@@ -2534,9 +2039,7 @@ estate_halfling_expulsion = {
 		custom_tooltip = pop_menu_expel_effect_unrest_tt
 		
 		hidden_effect = {
-			add_expulsion_unrest = {
-				race = halfling
-			}
+			add_expulsion_unrest = {race = halfling}
 		}
 	}
 	benefits = {
@@ -2565,9 +2068,11 @@ estate_halfling_focus = {
 			}
 			is_part_of_hre = no
 		}		
-		OR = {AND = {uses_isolationism = yes NOT = {isolationism = 3}} uses_isolationism = no}			
 		NOT = { has_country_modifier = halfling_administration }
-		NOT = { has_country_modifier = halfling_military }		
+		NOT = { has_country_modifier = halfling_military }
+		NOT = { has_country_modifier = racial_pop_halfling_enslavement }
+		NOT = { has_country_modifier = racial_pop_halfling_purge }
+		NOT = { has_country_modifier = racial_pop_halfling_expulsion }
 	}
 	can_select = {
 		NOT = {
@@ -2600,12 +2105,60 @@ estate_halfling_focus = {
 	on_cooldown_expires = {
 	}
 }
+estate_halfling_enslavement = {
+	icon = privilege_halfling_enslavement
+	loyalty = -0.2
+	influence = -0.20
+	is_valid = {
+		NOT = {has_estate_privilege = estate_halfling_intolerance_policy}
+		can_enslave_race = {RACE = halfling}
+	}
+	can_select = {
+		NOT = {has_race_recruitment = {race = halfling}}
+	}
+	on_granted = {		
+		largest_decrease_of_halfling_tolerance_effect = yes
+		add_country_modifier = { name = racial_pop_halfling_enslavement duration = -1 }
+		custom_tooltip = halfling_enslave_global_effect_tt
+		custom_tooltip = halfling_enslave_effect_unrest_tt
+		hidden_effect = {add_expulsion_unrest = {race = halfling}}
+	}
+	penalties = {}
+	benefits = {}
+	on_revoked = {		
+		remove_country_modifier = racial_pop_halfling_enslavement
+	}
+	on_invalid = {
+		remove_country_modifier = racial_pop_halfling_enslavement
+	}
+	ai_will_do = {
+		factor = 1
+		modifier = {
+			factor = 0
+			medium_tolerance_halfling_race_trigger = yes
+		}
+		modifier = {
+			factor = 1000
+			NOT = {liberty_desire = 50}
+			culture_is_halfling = no
+			overlord = {
+				has_country_modifier = racial_pop_halfling_enslavement
+			}
+		}
+		modifier = {
+			factor = 10
+			has_country_modifier = monstrous_nation
+		}
+	}
+	cooldown_years = 10
+	on_cooldown_expires = {}
+}
 estate_halfling_non_military_swap = {
 	icon = privilege_grant_autonomy
 	loyalty = 0.1
 	is_valid = {	
 		any_owned_province = {
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 			has_province_modifier = non_military_pop
 		}
 	}
@@ -2734,12 +2287,12 @@ estate_halfling_colonizers = {
 	}
 	on_granted = {
 	}
-	modifier = {
+	benefits = {
 		global_colonial_growth = 20
 		colonists = 1
-		yearly_corruption = 0.2
 	}
 	penalties = {
+		yearly_corruption = 0.2
 	}
 	on_revoked = {
 	}
@@ -2917,8 +2470,6 @@ estate_halfling_loans = {
 			}
 		}
 	}
-	modifier = {	
-	}
 	on_revoked = {
 	}
 	cooldown_years = 10
@@ -2933,7 +2484,7 @@ estate_halfling_monopoly_of_grain = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = grain
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -2965,7 +2516,7 @@ estate_halfling_monopoly_of_grain = {
 			years = 13
 			trigger = {
 				trade_goods = grain
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			custom_tooltip = HALFLING_MONOPOLY_INCOME_GRAIN_DESC
 		}
@@ -2976,7 +2527,7 @@ estate_halfling_monopoly_of_grain = {
 		if = {
 			limit = {
 				trade_goods = grain
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_grain_mod
@@ -3013,7 +2564,7 @@ estate_halfling_monopoly_of_wine = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = wine
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 	}
 	can_select = {
@@ -3042,7 +2593,7 @@ estate_halfling_monopoly_of_wine = {
 			years = 13
 			trigger = {
 				trade_goods = wine				
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			custom_tooltip = HALFLING_MONOPOLY_INCOME_WINE_DESC
 		}
@@ -3053,7 +2604,7 @@ estate_halfling_monopoly_of_wine = {
 		if = {
 			limit = {
 				trade_goods = wine
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_wine_mod
@@ -3090,7 +2641,7 @@ estate_halfling_monopoly_of_tobacco = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = tobacco
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 	}
 	can_select = {
@@ -3119,7 +2670,7 @@ estate_halfling_monopoly_of_tobacco = {
 			years = 13
 			trigger = {
 				trade_goods = tobacco
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			custom_tooltip = HALFLING_MONOPOLY_INCOME_TOBACCO_DESC
 		}
@@ -3130,7 +2681,7 @@ estate_halfling_monopoly_of_tobacco = {
 		if = {
 			limit = {
 				trade_goods = tobacco
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_tobacco_mod
@@ -3167,7 +2718,7 @@ estate_halfling_monopoly_of_fish = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = fish
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 	}
 	can_select = {
@@ -3196,7 +2747,7 @@ estate_halfling_monopoly_of_fish = {
 			years = 13
 			trigger = {
 				trade_goods = fish
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			custom_tooltip = HALFLING_MONOPOLY_INCOME_FISH_DESC
 		}
@@ -3207,7 +2758,7 @@ estate_halfling_monopoly_of_fish = {
 		if = {
 			limit = {
 				trade_goods = fish
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_fish_mod
@@ -3244,7 +2795,7 @@ estate_halfling_monopoly_of_naval_supplies = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = naval_supplies
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 	}
 	can_select = {
@@ -3273,7 +2824,7 @@ estate_halfling_monopoly_of_naval_supplies = {
 			years = 11
 			trigger = {
 				trade_goods = naval_supplies
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			custom_tooltip = HALFLING_MONOPOLY_INCOME_NAVAL_SUPPLIES_DESC
 		}
@@ -3284,7 +2835,7 @@ estate_halfling_monopoly_of_naval_supplies = {
 		if = {
 			limit = {
 				trade_goods = naval_supplies
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_naval_supplies_mod
@@ -3321,7 +2872,7 @@ estate_halfling_monopoly_of_wool = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = wool
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_textile
@@ -3353,7 +2904,7 @@ estate_halfling_monopoly_of_wool = {
 			years = 11
 			trigger = {
 				trade_goods = wool
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			custom_tooltip = HALFLING_MONOPOLY_INCOME_WOOL_DESC
 		}
@@ -3364,7 +2915,7 @@ estate_halfling_monopoly_of_wool = {
 		if = {
 			limit = {
 				trade_goods = wool
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_wool_mod
@@ -3401,7 +2952,7 @@ estate_halfling_monopoly_of_dyes = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = dyes
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 	}
 	can_select = {
@@ -3430,7 +2981,7 @@ estate_halfling_monopoly_of_dyes = {
 			years = 13
 			trigger = {
 				trade_goods = dyes
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			custom_tooltip = HALFLING_MONOPOLY_INCOME_DYES_DESC
 		}
@@ -3441,7 +2992,7 @@ estate_halfling_monopoly_of_dyes = {
 		if = {
 			limit = {
 				trade_goods = dyes
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_dyes_mod
@@ -3478,7 +3029,7 @@ estate_halfling_monopoly_of_cloth = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = cloth
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 	}
 	can_select = {
@@ -3507,7 +3058,7 @@ estate_halfling_monopoly_of_cloth = {
 			years = 11
 			trigger = {
 				trade_goods = cloth
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			custom_tooltip = HALFLING_MONOPOLY_INCOME_CLOTH_DESC
 		}
@@ -3518,7 +3069,7 @@ estate_halfling_monopoly_of_cloth = {
 		if = {
 			limit = {
 				trade_goods = cloth
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_cloth_mod
@@ -3555,7 +3106,7 @@ estate_halfling_monopoly_of_salt = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = salt
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -3587,7 +3138,7 @@ estate_halfling_monopoly_of_salt = {
 			years = 11
 			trigger = {
 				trade_goods = salt
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			custom_tooltip = HALFLING_MONOPOLY_INCOME_SALT_DESC
 		}
@@ -3598,7 +3149,7 @@ estate_halfling_monopoly_of_salt = {
 		if = {
 			limit = {
 				trade_goods = salt
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_salt_mod
@@ -3635,7 +3186,7 @@ estate_halfling_monopoly_of_glass = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = glass
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 	}
 	can_select = {
@@ -3664,7 +3215,7 @@ estate_halfling_monopoly_of_glass = {
 			years = 11
 			trigger = {
 				trade_goods = glass
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			custom_tooltip = HALFLING_MONOPOLY_INCOME_GLASS_DESC
 		}
@@ -3675,7 +3226,7 @@ estate_halfling_monopoly_of_glass = {
 		if = {
 			limit = {
 				trade_goods = glass
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_glass_mod
@@ -3712,7 +3263,7 @@ estate_halfling_monopoly_of_paper = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = paper
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 	}
 	can_select = {
@@ -3741,7 +3292,7 @@ estate_halfling_monopoly_of_paper = {
 			years = 11
 			trigger = {
 				trade_goods = paper
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			custom_tooltip = HALFLING_MONOPOLY_INCOME_PAPER_DESC
 		}
@@ -3752,7 +3303,7 @@ estate_halfling_monopoly_of_paper = {
 		if = {
 			limit = {
 				trade_goods = paper
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_paper_mod
@@ -3789,7 +3340,7 @@ estate_halfling_monopoly_of_silk = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = silk
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 	}
 	can_select = {
@@ -3818,7 +3369,7 @@ estate_halfling_monopoly_of_silk = {
 			years = 11
 			trigger = {
 				trade_goods = silk
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			custom_tooltip = HALFLING_MONOPOLY_INCOME_SILK_DESC
 		}
@@ -3829,7 +3380,7 @@ estate_halfling_monopoly_of_silk = {
 		if = {
 			limit = {
 				trade_goods = silk
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_silk_mod
@@ -3866,7 +3417,7 @@ estate_halfling_monopoly_of_spices = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = spices
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 	}
 	can_select = {
@@ -3895,7 +3446,7 @@ estate_halfling_monopoly_of_spices = {
 			years = 13
 			trigger = {
 				trade_goods = spices
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			custom_tooltip = HALFLING_MONOPOLY_INCOME_SPICES_DESC
 		}
@@ -3906,7 +3457,7 @@ estate_halfling_monopoly_of_spices = {
 		if = {
 			limit = {
 				trade_goods = spices
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_spices_mod
@@ -3943,7 +3494,7 @@ estate_halfling_monopoly_of_coffee = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = coffee
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 	}
 	can_select = {
@@ -3972,7 +3523,7 @@ estate_halfling_monopoly_of_coffee = {
 			years = 11
 			trigger = {
 				trade_goods = coffee
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			custom_tooltip = HALFLING_MONOPOLY_INCOME_COFFEE_DESC
 		}
@@ -3983,7 +3534,7 @@ estate_halfling_monopoly_of_coffee = {
 		if = {
 			limit = {
 				trade_goods = coffee
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_coffee_mod
@@ -4020,7 +3571,7 @@ estate_halfling_monopoly_of_cotton = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = cotton
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 	}
 	can_select = {
@@ -4049,7 +3600,7 @@ estate_halfling_monopoly_of_cotton = {
 			years = 11
 			trigger = {
 				trade_goods = cotton
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			custom_tooltip = HALFLING_MONOPOLY_INCOME_COTTON_DESC
 		}
@@ -4060,7 +3611,7 @@ estate_halfling_monopoly_of_cotton = {
 		if = {
 			limit = {
 				trade_goods = cotton
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_cotton_mod
@@ -4097,7 +3648,7 @@ estate_halfling_monopoly_of_sugar = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = sugar
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 	}
 	can_select = {
@@ -4126,7 +3677,7 @@ estate_halfling_monopoly_of_sugar = {
 			years = 13
 			trigger = {
 				trade_goods = sugar
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			custom_tooltip = HALFLING_MONOPOLY_INCOME_SUGAR_DESC
 		}
@@ -4137,7 +3688,7 @@ estate_halfling_monopoly_of_sugar = {
 		if = {
 			limit = {
 				trade_goods = sugar
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_sugar_mod
@@ -4174,7 +3725,7 @@ estate_halfling_monopoly_of_cocoa = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = cocoa
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 	}
 	can_select = {
@@ -4203,7 +3754,7 @@ estate_halfling_monopoly_of_cocoa = {
 			years = 13
 			trigger = {
 				trade_goods = cocoa
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			custom_tooltip = HALFLING_MONOPOLY_INCOME_COCOA_DESC
 		}
@@ -4214,7 +3765,7 @@ estate_halfling_monopoly_of_cocoa = {
 		if = {
 			limit = {
 				trade_goods = cocoa
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_cocoa_mod
@@ -4251,7 +3802,7 @@ estate_halfling_monopoly_of_cloves = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = cloves
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 	}
 	can_select = {
@@ -4280,7 +3831,7 @@ estate_halfling_monopoly_of_cloves = {
 			years = 13
 			trigger = {
 				trade_goods = cloves
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			custom_tooltip = HALFLING_MONOPOLY_INCOME_CLOVES_DESC
 		}
@@ -4291,7 +3842,7 @@ estate_halfling_monopoly_of_cloves = {
 		if = {
 			limit = {
 				trade_goods = cloves
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_cloves_mod
@@ -4328,7 +3879,7 @@ estate_halfling_monopoly_of_apiculture = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = apiculture
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -4360,7 +3911,7 @@ estate_halfling_monopoly_of_apiculture = {
 			years = 13
 			trigger = {
 				trade_goods = apiculture
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			custom_tooltip = HALFLING_MONOPOLY_INCOME_APICULTURE_DESC
 		}
@@ -4371,7 +3922,7 @@ estate_halfling_monopoly_of_apiculture = {
 		if = {
 			limit = {
 				trade_goods = apiculture
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_apiculture_mod
@@ -4408,7 +3959,7 @@ estate_halfling_monopoly_of_beer = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = beer
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -4440,7 +3991,7 @@ estate_halfling_monopoly_of_beer = {
 			years = 13
 			trigger = {
 				trade_goods = beer
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			custom_tooltip = HALFLING_MONOPOLY_INCOME_BEER_DESC
 		}
@@ -4451,7 +4002,7 @@ estate_halfling_monopoly_of_beer = {
 		if = {
 			limit = {
 				trade_goods = beer
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_beer_mod
@@ -4489,7 +4040,7 @@ estate_halfling_monopoly_of_cannon = {
 		always = no
 		any_owned_province = {
 			trade_goods = cannon
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -4521,7 +4072,7 @@ estate_halfling_monopoly_of_cannon = {
 			years = 11
 			trigger = {
 				trade_goods = cannon
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			custom_tooltip = HALFLING_MONOPOLY_INCOME_CANNON_DESC
 		}
@@ -4532,7 +4083,7 @@ estate_halfling_monopoly_of_cannon = {
 		if = {
 			limit = {
 				trade_goods = cannon
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_cannon_mod
@@ -4569,7 +4120,7 @@ estate_halfling_monopoly_of_carpet = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = carpet
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -4601,7 +4152,7 @@ estate_halfling_monopoly_of_carpet = {
 			years = 13
 			trigger = {
 				trade_goods = carpet
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			custom_tooltip = HALFLING_MONOPOLY_INCOME_CARPET_DESC
 		}
@@ -4612,7 +4163,7 @@ estate_halfling_monopoly_of_carpet = {
 		if = {
 			limit = {
 				trade_goods = carpet
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_carpet_mod
@@ -4649,7 +4200,7 @@ estate_halfling_monopoly_of_champagne = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = champagne
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -4681,7 +4232,7 @@ estate_halfling_monopoly_of_champagne = {
 			years = 13
 			trigger = {
 				trade_goods = champagne
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			custom_tooltip = HALFLING_MONOPOLY_INCOME_CHAMPAGNE_DESC
 		}
@@ -4692,7 +4243,7 @@ estate_halfling_monopoly_of_champagne = {
 		if = {
 			limit = {
 				trade_goods = champagne
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_champagne_mod
@@ -4729,7 +4280,7 @@ estate_halfling_monopoly_of_cheese = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = cheese
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -4761,7 +4312,7 @@ estate_halfling_monopoly_of_cheese = {
 			years = 13
 			trigger = {
 				trade_goods = cheese
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			custom_tooltip = HALFLING_MONOPOLY_INCOME_CHEESE_DESC
 		}
@@ -4772,7 +4323,7 @@ estate_halfling_monopoly_of_cheese = {
 		if = {
 			limit = {
 				trade_goods = cheese
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_cheese_mod
@@ -4809,7 +4360,7 @@ estate_halfling_monopoly_of_cinnamon = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = cinnamon
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -4841,7 +4392,7 @@ estate_halfling_monopoly_of_cinnamon = {
 			years = 13
 			trigger = {
 				trade_goods = cinnamon
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			custom_tooltip = HALFLING_MONOPOLY_INCOME_CHINNAMON_DESC
 		}
@@ -4852,7 +4403,7 @@ estate_halfling_monopoly_of_cinnamon = {
 		if = {
 			limit = {
 				trade_goods = cinnamon
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_cinnamon_mod
@@ -4889,7 +4440,7 @@ estate_halfling_monopoly_of_citrus = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = citrus
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -4921,7 +4472,7 @@ estate_halfling_monopoly_of_citrus = {
 			years = 13
 			trigger = {
 				trade_goods = citrus
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			custom_tooltip = HALFLING_MONOPOLY_INCOME_CITRUS_DESC
 		}
@@ -4932,7 +4483,7 @@ estate_halfling_monopoly_of_citrus = {
 		if = {
 			limit = {
 				trade_goods = citrus
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_citrus_mod
@@ -4969,7 +4520,7 @@ estate_halfling_monopoly_of_dates = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = dates
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -5001,7 +4552,7 @@ estate_halfling_monopoly_of_dates = {
 			years = 11
 			trigger = {
 				trade_goods = dates
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			custom_tooltip = HALFLING_MONOPOLY_INCOME_DATES_DESC
 		}
@@ -5012,7 +4563,7 @@ estate_halfling_monopoly_of_dates = {
 		if = {
 			limit = {
 				trade_goods = dates
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_dates_mod
@@ -5049,7 +4600,7 @@ estate_halfling_monopoly_of_gunpowder = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = gunpowder
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -5081,7 +4632,7 @@ estate_halfling_monopoly_of_gunpowder = {
 			years = 13
 			trigger = {
 				trade_goods = gunpowder
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			custom_tooltip = HALFLING_MONOPOLY_INCOME_GUNPOWDER_DESC
 		}
@@ -5092,7 +4643,7 @@ estate_halfling_monopoly_of_gunpowder = {
 		if = {
 			limit = {
 				trade_goods = gunpowder
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_gunpowder_mod
@@ -5129,7 +4680,7 @@ estate_halfling_monopoly_of_indigo = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = indigo
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -5161,7 +4712,7 @@ estate_halfling_monopoly_of_indigo = {
 			years = 13
 			trigger = {
 				trade_goods = indigo
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			custom_tooltip = HALFLING_MONOPOLY_INCOME_INDIGO_DESC
 		}
@@ -5172,7 +4723,7 @@ estate_halfling_monopoly_of_indigo = {
 		if = {
 			limit = {
 				trade_goods = indigo
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_indigo_mod
@@ -5210,7 +4761,7 @@ estate_halfling_monopoly_of_jewellery = {
 		always = no
 		any_owned_province = {
 			trade_goods = jewellery
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -5242,7 +4793,7 @@ estate_halfling_monopoly_of_jewellery = {
 			years = 11
 			trigger = {
 				trade_goods = jewellery
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			custom_tooltip = HALFLING_MONOPOLY_INCOME_JEWELLERY_DESC
 		}
@@ -5253,7 +4804,7 @@ estate_halfling_monopoly_of_jewellery = {
 		if = {
 			limit = {
 				trade_goods = jewellery
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_jewellery_mod
@@ -5291,7 +4842,7 @@ estate_halfling_monopoly_of_leather = {
 		always = no
 		any_owned_province = {
 			trade_goods = leather
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -5323,7 +4874,7 @@ estate_halfling_monopoly_of_leather = {
 			years = 11
 			trigger = {
 				trade_goods = leather
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			custom_tooltip = HALFLING_MONOPOLY_INCOME_LEATHER_DESC
 		}
@@ -5334,7 +4885,7 @@ estate_halfling_monopoly_of_leather = {
 		if = {
 			limit = {
 				trade_goods = leather
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_leather_mod
@@ -5371,7 +4922,7 @@ estate_halfling_monopoly_of_maize = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = maize
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -5404,7 +4955,7 @@ estate_halfling_monopoly_of_maize = {
 			years = 13
 			trigger = {
 				trade_goods = maize
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			custom_tooltip = HALFLING_MONOPOLY_INCOME_MAIZE_DESC
 		}
@@ -5415,7 +4966,7 @@ estate_halfling_monopoly_of_maize = {
 		if = {
 			limit = {
 				trade_goods = maize
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_maize_mod
@@ -5452,7 +5003,7 @@ estate_halfling_monopoly_of_maple_syrup = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = maple_syrup
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -5484,7 +5035,7 @@ estate_halfling_monopoly_of_maple_syrup = {
 			years = 13
 			trigger = {
 				trade_goods = maple_syrup
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			custom_tooltip = HALFLING_MONOPOLY_INCOME_MAPLE_SYRUP_DESC
 		}
@@ -5495,7 +5046,7 @@ estate_halfling_monopoly_of_maple_syrup = {
 		if = {
 			limit = {
 				trade_goods = maple_syrup
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_maple_syrup_mod
@@ -5533,7 +5084,7 @@ estate_halfling_monopoly_of_metalworking = {
 		always = no
 		any_owned_province = {
 			trade_goods = metalworking
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -5575,7 +5126,7 @@ estate_halfling_monopoly_of_metalworking = {
 		if = {
 			limit = {
 				trade_goods = metalworking
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_metalworking_mod
@@ -5613,7 +5164,7 @@ estate_halfling_monopoly_of_munitions = {
 		always = no
 		any_owned_province = {
 			trade_goods = munitions
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -5645,7 +5196,7 @@ estate_halfling_monopoly_of_munitions = {
 			years = 13
 			trigger = {
 				trade_goods = munitions
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			custom_tooltip = HALFLING_MONOPOLY_INCOME_MUNITIONS_DESC
 		}
@@ -5656,7 +5207,7 @@ estate_halfling_monopoly_of_munitions = {
 		if = {
 			limit = {
 				trade_goods = munitions
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_munitions_mod
@@ -5693,7 +5244,7 @@ estate_halfling_monopoly_of_olives = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = olive_oil
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -5725,7 +5276,7 @@ estate_halfling_monopoly_of_olives = {
 			years = 13
 			trigger = {
 				trade_goods = olive_oil
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			custom_tooltip = HALFLING_MONOPOLY_INCOME_OLIVES_DESC
 		}
@@ -5736,7 +5287,7 @@ estate_halfling_monopoly_of_olives = {
 		if = {
 			limit = {
 				trade_goods = olive_oil
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_olives_mod
@@ -5773,7 +5324,7 @@ estate_halfling_monopoly_of_opium = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = opium
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -5805,7 +5356,7 @@ estate_halfling_monopoly_of_opium = {
 			years = 13
 			trigger = {
 				trade_goods = opium
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			custom_tooltip = HALFLING_MONOPOLY_INCOME_OPIUM_DESC
 		}
@@ -5816,7 +5367,7 @@ estate_halfling_monopoly_of_opium = {
 		if = {
 			limit = {
 				trade_goods = opium
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_opium_mod
@@ -5854,7 +5405,7 @@ estate_halfling_monopoly_of_optics = {
 		always = no
 		any_owned_province = {
 			trade_goods = optics
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -5886,7 +5437,7 @@ estate_halfling_monopoly_of_optics = {
 			years = 11
 			trigger = {
 				trade_goods = optics
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			custom_tooltip = HALFLING_MONOPOLY_INCOME_OPTICS_DESC
 		}
@@ -5897,7 +5448,7 @@ estate_halfling_monopoly_of_optics = {
 		if = {
 			limit = {
 				trade_goods = optics
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_optics_mod
@@ -5934,7 +5485,7 @@ estate_halfling_monopoly_of_palm_oil = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = palm_oil
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -5966,7 +5517,7 @@ estate_halfling_monopoly_of_palm_oil = {
 			years = 11
 			trigger = {
 				trade_goods = palm_oil
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			custom_tooltip = HALFLING_MONOPOLY_INCOME_PALM_OIL_DESC
 		}
@@ -5977,7 +5528,7 @@ estate_halfling_monopoly_of_palm_oil = {
 		if = {
 			limit = {
 				trade_goods = palm_oil
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_palm_oil_mod
@@ -6014,7 +5565,7 @@ estate_halfling_monopoly_of_pearls = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = pearls
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -6046,7 +5597,7 @@ estate_halfling_monopoly_of_pearls = {
 			years = 13
 			trigger = {
 				trade_goods = pearls
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			custom_tooltip = HALFLING_MONOPOLY_INCOME_PEARLS_DESC
 		}
@@ -6057,7 +5608,7 @@ estate_halfling_monopoly_of_pearls = {
 		if = {
 			limit = {
 				trade_goods = pearls
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_pearls_mod
@@ -6094,7 +5645,7 @@ estate_halfling_monopoly_of_potato = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = potato
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -6126,7 +5677,7 @@ estate_halfling_monopoly_of_potato = {
 			years = 13
 			trigger = {
 				trade_goods = potato
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			custom_tooltip = HALFLING_MONOPOLY_INCOME_POTATO_DESC
 		}
@@ -6137,7 +5688,7 @@ estate_halfling_monopoly_of_potato = {
 		if = {
 			limit = {
 				trade_goods = potato
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_potato_mod
@@ -6174,7 +5725,7 @@ estate_halfling_monopoly_of_rice = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = rice
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -6206,7 +5757,7 @@ estate_halfling_monopoly_of_rice = {
 			years = 13
 			trigger = {
 				trade_goods = rice
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			custom_tooltip =HALFLING_MONOPOLY_INCOME_RICE_DESC
 		}
@@ -6217,7 +5768,7 @@ estate_halfling_monopoly_of_rice = {
 		if = {
 			limit = {
 				trade_goods = rice
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_rice_mod
@@ -6254,7 +5805,7 @@ estate_halfling_monopoly_of_rum = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = rum
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -6286,7 +5837,7 @@ estate_halfling_monopoly_of_rum = {
 			years = 13
 			trigger = {
 				trade_goods = rum
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			custom_tooltip = HALFLING_MONOPOLY_INCOME_RUM_DESC
 		}
@@ -6297,7 +5848,7 @@ estate_halfling_monopoly_of_rum = {
 		if = {
 			limit = {
 				trade_goods = rum
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_rum_mod
@@ -6334,7 +5885,7 @@ estate_halfling_monopoly_of_saffron = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = saffron
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -6366,7 +5917,7 @@ estate_halfling_monopoly_of_saffron = {
 			years = 13
 			trigger = {
 				trade_goods = saffron
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			custom_tooltip = HALFLING_MONOPOLY_INCOME_SAFFRON_DESC
 		}
@@ -6377,7 +5928,7 @@ estate_halfling_monopoly_of_saffron = {
 		if = {
 			limit = {
 				trade_goods = saffron
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_saffron_mod
@@ -6414,7 +5965,7 @@ estate_halfling_monopoly_of_sea_turtle = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = sea_turtle
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -6446,7 +5997,7 @@ estate_halfling_monopoly_of_sea_turtle = {
 			years = 11
 			trigger = {
 				trade_goods = sea_turtle
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			custom_tooltip = HALFLING_MONOPOLY_INCOME_SEA_TURTLE_DESC
 		}
@@ -6457,7 +6008,7 @@ estate_halfling_monopoly_of_sea_turtle = {
 		if = {
 			limit = {
 				trade_goods = sea_turtle
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_sea_turtle_mod
@@ -6494,7 +6045,7 @@ estate_halfling_monopoly_of_seafood = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = seafood
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -6526,7 +6077,7 @@ estate_halfling_monopoly_of_seafood = {
 			years = 11
 			trigger = {
 				trade_goods = seafood
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			custom_tooltip = HALFLING_MONOPOLY_INCOME_SEAFOOD_DESC
 		}
@@ -6537,7 +6088,7 @@ estate_halfling_monopoly_of_seafood = {
 		if = {
 			limit = {
 				trade_goods = seafood
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_seafood_mod
@@ -6575,7 +6126,7 @@ estate_halfling_monopoly_of_steam_engine = {
 		always = no
 		any_owned_province = {
 			trade_goods = steam_engine
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -6607,7 +6158,7 @@ estate_halfling_monopoly_of_steam_engine = {
 			years = 11
 			trigger = {
 				trade_goods = steam_engine
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			custom_tooltip = HALFLING_MONOPOLY_INCOME_STEAM_ENGINE_DESC
 		}
@@ -6618,7 +6169,7 @@ estate_halfling_monopoly_of_steam_engine = {
 		if = {
 			limit = {
 				trade_goods = steam_engine
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_steam_engine_mod
@@ -6655,7 +6206,7 @@ estate_halfling_monopoly_of_tomato = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = tomato
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -6687,7 +6238,7 @@ estate_halfling_monopoly_of_tomato = {
 			years = 13
 			trigger = {
 				trade_goods = tomato
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			custom_tooltip = HALFLING_MONOPOLY_INCOME_TOMATO_DESC
 		}
@@ -6698,7 +6249,7 @@ estate_halfling_monopoly_of_tomato = {
 		if = {
 			limit = {
 				trade_goods = tomato
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_tomato_mod
@@ -6736,7 +6287,7 @@ estate_halfling_monopoly_of_uniforms = {
 		always = no
 		any_owned_province = {
 			trade_goods = uniforms
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -6768,7 +6319,7 @@ estate_halfling_monopoly_of_uniforms = {
 			years = 11
 			trigger = {
 				trade_goods = uniforms
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			custom_tooltip = HALFLING_MONOPOLY_INCOME_UNIFORMS_DESC
 		}
@@ -6779,7 +6330,7 @@ estate_halfling_monopoly_of_uniforms = {
 		if = {
 			limit = {
 				trade_goods = uniforms
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_uniforms_mod
@@ -6816,7 +6367,7 @@ estate_halfling_monopoly_of_vanilla = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = vanilla
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -6848,7 +6399,7 @@ estate_halfling_monopoly_of_vanilla = {
 			years = 13
 			trigger = {
 				trade_goods = vanilla
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			custom_tooltip = HALFLING_MONOPOLY_INCOME_VANILLA_DESC
 		}
@@ -6859,7 +6410,7 @@ estate_halfling_monopoly_of_vanilla = {
 		if = {
 			limit = {
 				trade_goods = vanilla
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_vanilla_mod
@@ -6897,7 +6448,7 @@ estate_halfling_monopoly_of_woodworking = {
 		always = no
 		any_owned_province = {
 			trade_goods = woodworking
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -6929,7 +6480,7 @@ estate_halfling_monopoly_of_woodworking = {
 			years = 13
 			trigger = {
 				trade_goods = woodworking
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			custom_tooltip = HALFLING_MONOPOLY_INCOME_WOODWORKING_DESC
 		}
@@ -6940,7 +6491,7 @@ estate_halfling_monopoly_of_woodworking = {
 		if = {
 			limit = {
 				trade_goods = woodworking
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_woodworking_mod
@@ -6977,7 +6528,7 @@ estate_halfling_monopoly_of_nutmeg = {
 		has_dlc = "Emperor"
 		any_owned_province = {
 			trade_goods = nutmeg
-			culture_is_halfling = yes
+			has_halfling_majority_trigger = yes
 		}
 		NOT = {
 			has_country_flag = hoard_monopolies_food
@@ -7009,7 +6560,7 @@ estate_halfling_monopoly_of_nutmeg = {
 			years = 13
 			trigger = {
 				trade_goods = nutmeg
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			custom_tooltip = HALFLING_MONOPOLY_INCOME_NUTMEG_DESC
 		}
@@ -7020,7 +6571,7 @@ estate_halfling_monopoly_of_nutmeg = {
 		if = {
 			limit = {
 				trade_goods = nutmeg
-				culture_is_halfling = yes
+				has_halfling_majority_trigger = yes
 			}
 			add_province_modifier = {
 				name = estate_monopoly_of_nutmeg_mod
