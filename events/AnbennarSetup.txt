@@ -23,7 +23,7 @@ country_event = {
 		name = anbennar_setup.1.a
 
 		every_country = {
-			limit = { has_country_modifier = monstrous_nation NOT = { has_country_flag = semi_monstrous } }
+			limit = { has_country_modifier = monstrous_nation NOT = { has_country_flag = semi_monstrous } NOT = {tag = ROOT}}
 			set_country_flag = setup_monstrous_opinion
 			every_country = {
 				limit = { has_country_modifier = monstrous_nation }
@@ -37,7 +37,7 @@ country_event = {
 			}
 		}
 		every_country = {
-			limit = { has_country_modifier = monstrous_nation has_country_flag = semi_monstrous }
+			limit = { has_country_modifier = monstrous_nation has_country_flag = semi_monstrous NOT = {tag = ROOT}}
 			set_country_flag = setup_monstrous_opinion
 			every_country = {
 				limit = { has_country_modifier = monstrous_nation }
@@ -95,6 +95,7 @@ country_event = {
 				}
 				every_country = {	# Rose Party members like each other
 					limit = {
+						NOT = {tag = PREV}
 						has_country_flag = lilac_wars_rose_party
 						NOT = {
 							has_opinion_modifier = { who = PREV modifier = lilac_wars_rose_party_member }
@@ -104,6 +105,7 @@ country_event = {
 				}
 				every_country = {	# Rose Party members dislike Moon Party
 					limit = {
+						NOT = {tag = PREV}
 						has_country_flag = lilac_wars_moon_party
 						NOT = {
 							has_opinion_modifier = { who = PREV modifier = lilac_wars_rose_party_enemy }
@@ -120,6 +122,7 @@ country_event = {
 				}
 				every_country = {	# Rose Party members like each other
 					limit = {
+						NOT = {tag = PREV}
 						has_country_flag = lilac_wars_moon_party
 						NOT = {
 							has_opinion_modifier = { who = PREV modifier = lilac_wars_moon_party_member }
@@ -129,6 +132,7 @@ country_event = {
 				}
 				every_country = {	# Rose Party members dislike Moon Party
 					limit = {
+						NOT = {tag = PREV}
 						has_country_flag = lilac_wars_rose_party
 						NOT = {
 							has_opinion_modifier = { who = PREV modifier = lilac_wars_moon_party_enemy }
@@ -830,10 +834,9 @@ country_event = {
 					tag = B36
 				}
 			}
-			
-			# If you're a adventurer
-			if = {
+			every_country = {	# Adventurer likes each other more
 				limit = {
+					NOT = {tag = PREV}
 					OR = {
 						AND = {
 							has_reform = adventurer_reform
@@ -843,19 +846,7 @@ country_event = {
 						tag = B36
 					}
 				}
-				every_country = {	# Adventurer likes each other more
-					limit = {
-						OR = {
-							AND = {
-								has_reform = adventurer_reform
-								capital_scope = { continent = europe }
-							}
-							tag = B55
-							tag = B36
-						}
-					}
-					add_opinion = { who = PREV modifier = opinion_fought_alongside_corin }
-				}
+				add_opinion = { who = PREV modifier = opinion_fought_alongside_corin }
 			}
 		}
 	}

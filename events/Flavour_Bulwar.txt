@@ -16,16 +16,12 @@ country_event = {
     trigger = {
         owns = 601    #province id doesn't matter, it just to make is so the event fire only once per yearly pulse
         NOT = { is_year = 1500 }
-		calc_true_if = {
-			all_province = {
-				superregion = bulwar_superregion
-				or = {
-					has_province_modifier = surani_refugee_large
-					has_province_modifier = surani_refugee_medium
-					has_province_modifier = surani_refugee_small
-				}
+		bulwar_superregion = {
+			OR = {
+				has_province_modifier = surani_refugee_large
+				has_province_modifier = surani_refugee_medium
+				has_province_modifier = surani_refugee_small
 			}
-			amount = 1
 		}
     }
     
@@ -38,6 +34,7 @@ country_event = {
                     area = sareyand_area
                     area = garpix_zokka_area
                     area = avamezan_area
+					area = eastern_krahway_area
                 }
                 OR = { 
 					culture_group = gnollish
@@ -1090,24 +1087,24 @@ country_event = {
 
     mean_time_to_happen = { 
         days = 300
-        }
+     }
     trigger = {
         601 = { 
             has_province_modifier = old_bulwari_canals 
             has_construction = bulwari_canals
         }
         owns = 601
-        }
+    }
     option = {
         name = bulwar_flavour.17.a
         # sell if for gold
         add_treasury = 300
-        }
+    }
     option = {
         name = bulwar_flavour.17.b
         # donate to museum
         add_prestige_or_monarch_power = {amount =  20}
-        }
+    }
 }
 
 # flavour events for dredging
@@ -2672,7 +2669,7 @@ country_event = {
 				type = artist
 				name = half_elf_advisor
 				skill = 2
-				culture = cannor_half_elf
+				culture = bulwari_half_elf
 				religion = old_bulwari_sun_cult
 				cost_multiplier = 0.70	#bertus mod
 			}
@@ -2682,7 +2679,7 @@ country_event = {
 				type = statesman
 				name = half_elf_advisor
 				skill = 2
-				culture = cannor_half_elf
+				culture = bulwari_half_elf
 				religion = old_bulwari_sun_cult
 				cost_multiplier = 0.70	#bertus mod
 			}
@@ -2692,7 +2689,7 @@ country_event = {
 				type = army_reformer
 				name = half_elf_advisor
 				skill = 2
-				culture = cannor_half_elf
+				culture = bulwari_half_elf
 				religion = old_bulwari_sun_cult
 				cost_multiplier = 0.70	#bertus mod
 			}
@@ -3019,6 +3016,29 @@ country_event = {
 			set_country_flag = osc_centralization_completed
 			clr_country_flag = osc_centralization_started
 		}
+	}
+}
+
+###########
+#Zamukaras#
+###########
+
+#Enable Zamukaras
+country_event = {
+	id = bulwar_flavour.49
+    title = bulwar_flavour.49.t
+    desc = bulwar_flavour.49.d
+    picture = RELIGIOUS_CONVERSION_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = bulwar_flavour.49.a
+		
+		custom_tooltip = enable_zamukaras_tooltip
+		enable_mythical_cavalry = { mount = zamukaras }
+		set_country_flag = established_zamukaras_flag
+		clr_country_flag = established_zamukaras_start
 	}
 }
 
@@ -3376,6 +3396,9 @@ country_event = {
 	
 	option = {
 		name = bulwar_flavour.106.a #Accept the warriors
+		trigger = {
+			NOT = { has_country_modifier = harpy_military }
+		}
 		ai_chance = { factor = 50 }
 		2909 = {
 			add_unit_construction = {

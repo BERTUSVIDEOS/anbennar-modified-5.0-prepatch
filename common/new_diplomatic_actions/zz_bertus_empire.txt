@@ -1,0 +1,85 @@
+
+empire_call_action = {
+	category = emperor
+	require_acceptance = yes
+	
+	is_visible = {
+		hre_reform_passed = imperial_call
+		FROM = {
+			is_part_of_hre = yes
+		}
+    }
+	
+	is_allowed = {
+		is_emperor = yes
+		FROM = {NOT = {has_country_modifier = sent_manpower_imperial_call}}NOT = {war_with = FROM}
+		imperial_influence = 5
+	}
+
+    on_accept = {
+		FROM = {
+			add_country_modifier = {
+				name = sent_manpower_imperial_call
+				duration = 3650
+			}
+		}
+		ROOT = {
+			get_manpower_fraction = { fraction = 0.1 }
+			add_imperial_influence = -1
+		}	
+    }
+    
+    # Which effects to execute on decline (if declinable). Optional.
+    on_decline = {
+		FROM = {add_prestige = -10}
+		ROOT = {
+			add_opinion = {
+				who = ROOT
+				modifier = insulted
+			}
+			add_imperial_influence = -5
+		}	
+    }
+}
+empire_dove_tax_action = {
+	category = emperor
+	require_acceptance = yes
+	
+	is_visible = {
+		hre_reform_passed = emperor_gemeinerpfennig
+		FROM = {
+			is_part_of_hre = yes
+		}
+    }
+	
+	is_allowed = {
+		is_emperor = yes
+		FROM = {NOT = {has_country_modifier = sent_imperial_dove_tax}}NOT = {war_with = FROM}
+		imperial_influence = 5
+	}
+
+    on_accept = {
+		FROM = {
+			add_country_modifier = {
+				name = sent_imperial_dove_tax
+				duration = 3650
+			}
+		}
+		ROOT = {
+			get_treasury_fraction = { fraction = 0.10 }
+			add_imperial_influence = -1
+		}	
+    }
+    
+    # Which effects to execute on decline (if declinable). Optional.
+    on_decline = {
+		FROM = {add_prestige = -10}
+		ROOT = {
+			add_opinion = {
+				who = ROOT
+				modifier = insulted
+			}
+			add_imperial_influence = -5
+		}	
+    }
+}

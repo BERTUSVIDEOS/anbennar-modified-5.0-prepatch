@@ -31,14 +31,17 @@ country_event = {
 			primary_culture = iron_dwarf
 			primary_culture = newfoot_halfling
 		}
-		capital_scope = {
-			OR  = {
-				region = south_castanor_region
-				region = west_castanor_region
-				region = inner_castanor_region
-				area = cursewood_area
-				area = whistlevale_area
+		OR = {
+			capital_scope = {
+				OR  = {
+					region = south_castanor_region
+					region = west_castanor_region
+					region = inner_castanor_region
+					area = cursewood_area
+					area = whistlevale_area
+				}
 			}
+			has_country_flag = luciande_escanni_wars_flag
 		}
 		total_development = 150
 		is_subject = no
@@ -83,14 +86,17 @@ country_event = {
 						primary_culture = iron_dwarf
 						primary_culture = newfoot_halfling
 					}
-					capital_scope = {
-						OR  = {
-							region = south_castanor_region
-							region = west_castanor_region
-							region = inner_castanor_region
-							area = cursewood_area
-							area = whistlevale_area
+					OR = {
+						capital_scope = {
+							OR  = {
+								region = south_castanor_region
+								region = west_castanor_region
+								region = inner_castanor_region
+								area = cursewood_area
+								area = whistlevale_area
+							}
 						}
+						has_country_flag = luciande_escanni_wars_flag
 					}
 				}
 				country_event = { id = escanni_wars.100 }
@@ -172,14 +178,17 @@ country_event = {
 			primary_culture = iron_dwarf
 			primary_culture = newfoot_halfling
 		}
-		capital_scope = {
-			OR  = {
-				region = south_castanor_region
-				region = west_castanor_region
-				region = inner_castanor_region
-				area = cursewood_area
-				area = whistlevale_area
+		OR = {
+			capital_scope = {
+				OR  = {
+					region = south_castanor_region
+					region = west_castanor_region
+					region = inner_castanor_region
+					area = cursewood_area
+					area = whistlevale_area
+				}
 			}
+			has_country_flag = luciande_escanni_wars_flag
 		}
 	}
 	
@@ -246,14 +255,17 @@ country_event = {
 							primary_culture = iron_dwarf
 							primary_culture = newfoot_halfling
 						}
-						capital_scope = {
-							OR  = {
-								region = south_castanor_region
-								region = west_castanor_region
-								region = inner_castanor_region
-								area = cursewood_area
-								area = whistlevale_area
+						OR = {
+							capital_scope = {
+								OR  = {
+									region = south_castanor_region
+									region = west_castanor_region
+									region = inner_castanor_region
+									area = cursewood_area
+									area = whistlevale_area
+								}
 							}
+							has_country_flag = luciande_escanni_wars_flag
 						}
 						is_subject = no
 						num_of_owned_provinces_with = {
@@ -352,14 +364,17 @@ country_event = {
 			primary_culture = iron_dwarf
 			primary_culture = newfoot_halfling
 		}
-		capital_scope = {
-			OR  = {
-				region = south_castanor_region
-				region = west_castanor_region
-				region = inner_castanor_region
-				area = cursewood_area
-				area = whistlevale_area
+		OR = {
+			capital_scope = {
+				OR  = {
+					region = south_castanor_region
+					region = west_castanor_region
+					region = inner_castanor_region
+					area = cursewood_area
+					area = whistlevale_area
+				}
 			}
+			has_country_flag = luciande_escanni_wars_flag
 		}
 		is_subject = no
 		num_of_owned_provinces_with = {
@@ -389,6 +404,59 @@ country_event = {
 		set_global_flag = escanni_wars_bypass
 		country_event = { id = escanni_wars.10 days = 1 }
 	}
+}
+
+#AI free cores
+country_event = {
+    id = escanni_wars.4
+    title = escanni_wars.4.t
+    desc = escanni_wars.4.d
+    picture = NAVAL_MILITARY_eventPicture
+
+	is_triggered_only = yes
+	hidden = yes
+    
+    trigger = {
+		has_global_flag = escanni_wars_global_flag
+        capital_scope = {
+            OR = {
+                region = south_castanor_region
+                region = west_castanor_region
+                region = inner_castanor_region
+                area = cursewood_area
+                area = whistlevale_area
+            }
+        }
+        any_owned_province = {
+            OR = {
+                region = south_castanor_region
+                region = west_castanor_region
+                region = inner_castanor_region
+                area = cursewood_area
+                area = whistlevale_area
+            }
+            NOT = { is_core = ROOT }
+        }
+		ai = yes
+    }
+    
+    option = {
+        name = escanni_wars.4.a
+		ai_chance = { factor = 100 }
+        every_owned_province = {
+            limit = {
+                OR = {
+                    region = south_castanor_region
+                    region = west_castanor_region
+                    region = inner_castanor_region
+                    area = cursewood_area
+                    area = whistlevale_area
+                }
+                NOT = { is_core = ROOT }
+            }
+            ROOT = { add_core = PREV }
+        }
+    }
 }
 
 # Escanni Wars winner reward
@@ -503,7 +571,7 @@ country_event = {
 			OR = {
 				tag = B54 #Esthil
 				tag = Z37 #Covenblad
-				tag = B48 #Ravenmarch
+				tag = B53 #Nurcestir
 				has_ruler_modifier = witch_king_modifier
 			}
 			NOT = { exists = Z99 }
@@ -628,7 +696,7 @@ country_event = {
 		name = escanni_wars.12.a
 		ai_chance = { factor = 100 }
 		
-		add_prestige_or_monarch_power = {amount =  25}
+		add_prestige = 25
 		join_all_defensive_wars_of = Emperor
 	}
 	
@@ -833,5 +901,25 @@ country_event = {
 		name = escanni_wars.1.a
 		
 		custom_tooltip = escanni_wars_tt
+		hidden_effect = {
+			every_known_country = {
+				limit = {
+					any_owned_province = {
+						OR = {
+							region = south_castanor_region
+							region = west_castanor_region
+							region = inner_castanor_region
+							area = cursewood_area
+							area = whistlevale_area
+						}
+					}
+				}
+				reverse_add_opinion = {
+					who = ROOT
+					modifier = opinion_warhawks # -100 opinion
+					years = 50
+				}
+			}
+		}
 	}
 }

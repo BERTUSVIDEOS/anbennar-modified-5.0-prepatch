@@ -2743,7 +2743,7 @@ country_event = {	#Spell Show resourcess
 		set_variable = {which = current_undead value = 0}
 		export_to_variable = {which = current_undead value = trigger_value:num_of_streltsy}
 		set_variable = {which = current_artificers value = 0}
-		export_to_variable = {which = current_artificers value = trigger_value:amount_of_carolean}
+		export_to_variable = {which = current_artificers value = modifier:amount_of_carolean}
 		set_variable = {which = current_peasants value = 0}
 		export_to_variable = {which = current_peasants value = trigger_value:num_of_rajput}
 		set_variable = {which = current_mercs value = 0}
@@ -3499,6 +3499,9 @@ province_event = {
 	
 	goto = ROOT
 	trigger = {
+		accepted_culture = ROOT
+		religion = ROOT
+		NOT = {has_province_modifier = dookan_anointed_slave_herd}
 		owner = {
 			OR = {
 				has_country_flag = anoint_slave_herd_great_flag
@@ -3509,13 +3512,14 @@ province_event = {
 	immediate = {
 		if = {
 			limit = {owner = {NOT = {has_country_flag = anoint_slave_herd_great_flag}}}
-			add_church_power = -25
-			owner = {clr_country_flag = anoint_slave_herd_great_flag}
+			owner = {add_church_power = -25}
 		}
+		owner = {clr_country_flag = anoint_slave_herd_great_flag}
 	}
-	is_mtth_scaled_to_size = 1
+
 	mean_time_to_happen = {
-		months = 60
+		months = 600
+		modifier = {factor = 0.1 owner = {has_country_flag = anoint_slave_herd_great_flag}}
 		modifier = {factor = 0.90 owner = {church_power = 300}}
 		modifier = {factor = 0.50 owner = {church_power = 400}}
 		modifier = {factor = 1.1 owner = {NOT = {religious_unity = 0.90}}}
