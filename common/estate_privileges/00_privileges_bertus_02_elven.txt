@@ -816,7 +816,6 @@ estate_elven_autonomy = {
 	influence = 0.10
 	is_valid = {
 		NOT = { has_country_modifier = elven_administration }
-		NOT = { has_country_modifier = racial_pop_elven_enslavement }
 		NOT = { has_country_modifier = racial_pop_elven_purge }
 		NOT = { has_country_modifier = racial_pop_elven_expulsion }
 		NOT = { has_estate_privilege = estate_elven_taxation_policy }
@@ -876,7 +875,6 @@ estate_elven_taxation_policy = {
 		NOT = { has_country_modifier = elven_administration }
 		NOT = { has_country_modifier = racial_focus_elven }
 		NOT = { has_country_modifier = racial_pop_elven_expulsion }
-		NOT = { has_country_modifier = racial_pop_elven_enslavement }
 		NOT = { has_country_modifier = racial_pop_elven_purge }
 	}
 	can_select = {
@@ -924,7 +922,6 @@ estate_elven_purge = {
 	loyalty = -0.2
 	influence = -0.20
 	is_valid = {
-		NOT = { has_country_modifier = racial_pop_elven_enslavement }
 		NOT = { has_country_modifier = racial_pop_elven_expulsion }
 		NOT = { has_country_modifier = racial_focus_elven }
 		NOT = { has_estate_privilege = estate_elven_taxation_policy }
@@ -978,7 +975,6 @@ estate_elven_expulsion = {
 	loyalty = -0.1
 	influence = -0.1
 	is_valid = {
-		NOT = { has_country_modifier = racial_pop_elven_enslavement }
 		NOT = { has_country_modifier = racial_pop_elven_purge }
 		NOT = { has_country_modifier = racial_focus_elven }
 		NOT = { has_estate_privilege = estate_elven_taxation_policy }
@@ -1032,7 +1028,6 @@ estate_elven_focus = {
 		}		
 		NOT = { has_country_modifier = elven_administration }
 		NOT = { has_country_modifier = elven_military }		
-		NOT = { has_country_modifier = racial_pop_elven_enslavement }
 		NOT = { has_country_modifier = racial_pop_elven_purge }
 		NOT = { has_country_modifier = racial_pop_elven_expulsion }
 	}
@@ -1066,54 +1061,6 @@ estate_elven_focus = {
 	cooldown_years = 10
 	on_cooldown_expires = {
 	}
-}
-estate_elven_enslavement = {
-	icon = privilege_elven_enslavement
-	loyalty = -0.2
-	influence = -0.20
-	is_valid = {
-		NOT = {has_estate_privilege = estate_half_elven_intolerance_policy}
-		can_enslave_race = {RACE = elven}
-	}
-	can_select = {
-		NOT = {has_race_recruitment = {race = elven}}
-	}
-	on_granted = {		
-		largest_decrease_of_elven_tolerance_effect = yes
-		add_country_modifier = { name = racial_pop_elven_enslavement duration = -1 }
-		custom_tooltip = elven_enslave_global_effect_tt
-		custom_tooltip = elven_enslave_effect_unrest_tt
-		hidden_effect = {add_expulsion_unrest = {race = elven}}
-	}
-	penalties = {}
-	benefits = {}
-	on_revoked = {		
-		remove_country_modifier = racial_pop_elven_enslavement
-	}
-	on_invalid = {
-		remove_country_modifier = racial_pop_elven_enslavement
-	}
-	ai_will_do = {
-		factor = 1
-		modifier = {
-			factor = 0
-			medium_tolerance_elven_race_trigger = yes
-		}
-		modifier = {
-			factor = 1000
-			NOT = {liberty_desire = 50}
-			NOT = {has_country_modifier = elven_administration}
-			overlord = {
-				has_country_modifier = racial_pop_elven_enslavement
-			}
-		}
-		modifier = {
-			factor = 10
-			has_country_modifier = monstrous_nation
-		}
-	}
-	cooldown_years = 10
-	on_cooldown_expires = {}
 }
 estate_elven_change_surael_praise = {
 	icon = privilege_grant_autonomy

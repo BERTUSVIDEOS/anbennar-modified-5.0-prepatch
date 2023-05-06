@@ -1768,7 +1768,6 @@ estate_troll_autonomy = {
 	is_valid = {
 		OR = {AND = {uses_isolationism = yes NOT = {isolationism = 3}} uses_isolationism = no}
 		NOT = { has_country_modifier = troll_administration }
-		NOT = { has_country_modifier = racial_pop_troll_enslavement }
 		NOT = { has_country_modifier = racial_pop_troll_purge }
 		NOT = { has_country_modifier = racial_pop_troll_expulsion }
 		NOT = { has_estate_privilege = estate_troll_taxation_policy }
@@ -1829,7 +1828,6 @@ estate_troll_taxation_policy = {
 		NOT = { has_country_modifier = troll_administration }
 		NOT = { has_country_modifier = racial_focus_troll }
 		NOT = { has_country_modifier = racial_pop_troll_expulsion }
-		NOT = { has_country_modifier = racial_pop_troll_enslavement }
 		NOT = { has_country_modifier = racial_pop_troll_purge }
 	}
 	can_select = {
@@ -1877,7 +1875,6 @@ estate_troll_purge = {
 	loyalty = -0.2
 	influence = -0.20
 	is_valid = {
-		NOT = { has_country_modifier = racial_pop_troll_enslavement }
 		NOT = { has_country_modifier = racial_pop_troll_expulsion }
 		NOT = { has_country_modifier = racial_focus_troll }
 		NOT = { has_estate_privilege = estate_troll_taxation_policy }
@@ -1932,7 +1929,6 @@ estate_troll_expulsion = {
 	loyalty = -0.1
 	influence = -0.1
 	is_valid = {
-		NOT = { has_country_modifier = racial_pop_troll_enslavement }
 		NOT = { has_country_modifier = racial_pop_troll_purge }
 		NOT = { has_country_modifier = racial_focus_troll }
 		NOT = { has_estate_privilege = estate_troll_taxation_policy }
@@ -1986,7 +1982,6 @@ estate_troll_focus = {
 		}		
 		NOT = { has_country_modifier = troll_administration }
 		NOT = { has_country_modifier = troll_military }
-		NOT = { has_country_modifier = racial_pop_troll_enslavement }
 		NOT = { has_country_modifier = racial_pop_troll_purge }
 		NOT = { has_country_modifier = racial_pop_troll_expulsion }
 	}
@@ -2020,54 +2015,6 @@ estate_troll_focus = {
 	cooldown_years = 10
 	on_cooldown_expires = {
 	}
-}
-estate_troll_enslavement = {
-	icon = privilege_troll_enslavement
-	loyalty = -0.2
-	influence = -0.20
-	is_valid = {
-		NOT = {has_estate_privilege = estate_troll_intolerance_policy}
-		can_enslave_race = {RACE = troll}	
-	}
-	can_select = {
-		NOT = {has_race_recruitment = {race = troll}}
-	}
-	on_granted = {		
-		largest_decrease_of_troll_tolerance_effect = yes
-		add_country_modifier = { name = racial_pop_troll_enslavement duration = -1 }
-		custom_tooltip = troll_enslave_global_effect_tt
-		custom_tooltip = troll_enslave_effect_unrest_tt
-		hidden_effect = {add_expulsion_unrest = {race = troll}}
-	}
-	penalties = {}
-	benefits = {}
-	on_revoked = {		
-		remove_country_modifier = racial_pop_troll_enslavement
-	}
-	on_invalid = {
-		remove_country_modifier = racial_pop_troll_enslavement
-	}
-	ai_will_do = {
-		factor = 1
-		modifier = {
-			factor = 0
-			medium_tolerance_troll_race_trigger = yes
-		}
-		modifier = {
-			factor = 1000
-			NOT = {liberty_desire = 50}
-			culture_is_troll = no
-			overlord = {
-				has_country_modifier = racial_pop_troll_enslavement
-			}
-		}
-		modifier = {
-			factor = 10
-			has_country_modifier = monstrous_nation
-		}
-	}
-	cooldown_years = 10
-	on_cooldown_expires = {}
 }
 estate_troll_non_military_swap = {
 	icon = privilege_grant_autonomy

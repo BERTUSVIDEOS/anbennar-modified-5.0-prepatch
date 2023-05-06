@@ -1893,7 +1893,6 @@ estate_gnomish_autonomy = {
 	is_valid = {
 		OR = {AND = {uses_isolationism = yes NOT = {isolationism = 3}} uses_isolationism = no}
 		NOT = { has_country_modifier = gnomish_administration }
-		NOT = { has_country_modifier = racial_pop_gnomish_enslavement }
 		NOT = { has_country_modifier = racial_pop_gnomish_purge }
 		NOT = { has_country_modifier = racial_pop_gnomish_expulsion }
 		NOT = { has_estate_privilege = estate_gnomish_taxation_policy }
@@ -1953,7 +1952,6 @@ estate_gnomish_taxation_policy = {
 		NOT = { has_country_modifier = gnomish_administration }
 		NOT = { has_country_modifier = racial_focus_gnomish }
 		NOT = { has_country_modifier = racial_pop_gnomish_expulsion }
-		NOT = { has_country_modifier = racial_pop_gnomish_enslavement }
 		NOT = { has_country_modifier = racial_pop_gnomish_purge }
 	}
 	can_select = {
@@ -2001,7 +1999,6 @@ estate_gnomish_purge = {
 	loyalty = -0.2
 	influence = -0.20
 	is_valid = {
-		NOT = { has_country_modifier = racial_pop_gnomish_enslavement }
 		NOT = { has_country_modifier = racial_pop_gnomish_expulsion }
 		NOT = { has_country_modifier = racial_focus_gnomish }
 		NOT = { has_estate_privilege = estate_gnomish_taxation_policy }
@@ -2055,7 +2052,6 @@ estate_gnomish_expulsion = {
 	loyalty = -0.1
 	influence = -0.1
 	is_valid = {
-		NOT = { has_country_modifier = racial_pop_gnomish_enslavement }
 		NOT = { has_country_modifier = racial_pop_gnomish_purge }
 		NOT = { has_country_modifier = racial_focus_gnomish }
 		NOT = { has_estate_privilege = estate_gnomish_taxation_policy }
@@ -2109,7 +2105,6 @@ estate_gnomish_focus = {
 		}	
 		NOT = { has_country_modifier = gnomish_administration }
 		NOT = { has_country_modifier = gnomish_military }	
-		NOT = { has_country_modifier = racial_pop_gnomish_enslavement }
 		NOT = { has_country_modifier = racial_pop_gnomish_purge }
 		NOT = { has_country_modifier = racial_pop_gnomish_expulsion }	
 	}
@@ -2143,54 +2138,6 @@ estate_gnomish_focus = {
 	cooldown_years = 10
 	on_cooldown_expires = {
 	}
-}
-estate_gnomish_enslavement = {
-	icon = privilege_gnomish_enslavement
-	loyalty = -0.2
-	influence = -0.20
-	is_valid = {
-		NOT = {has_estate_privilege = estate_gnomish_intolerance_policy}
-		can_enslave_race = {RACE = gnomish}	
-	}
-	can_select = {
-		NOT = {has_race_recruitment = {race = gnomish}}
-	}
-	on_granted = {		
-		largest_decrease_of_gnomish_tolerance_effect = yes
-		add_country_modifier = { name = racial_pop_gnomish_enslavement duration = -1 }
-		custom_tooltip = gnomish_enslave_global_effect_tt
-		custom_tooltip = gnomish_enslave_effect_unrest_tt
-		hidden_effect = {add_expulsion_unrest = {race = gnomish}}
-	}
-	penalties = {}
-	benefits = {}
-	on_revoked = {		
-		remove_country_modifier = racial_pop_gnomish_enslavement
-	}
-	on_invalid = {
-		remove_country_modifier = racial_pop_gnomish_enslavement
-	}
-	ai_will_do = {
-		factor = 1
-		modifier = {
-			factor = 0
-			medium_tolerance_gnomish_race_trigger = yes
-		}
-		modifier = {
-			factor = 1000
-			NOT = {liberty_desire = 50}
-			culture_is_gnomish = no
-			overlord = {
-				has_country_modifier = racial_pop_gnomish_enslavement
-			}
-		}
-		modifier = {
-			factor = 10
-			has_country_modifier = monstrous_nation
-		}
-	}
-	cooldown_years = 10
-	on_cooldown_expires = {}
 }
 estate_gnomish_non_military_swap = {
 	icon = privilege_grant_autonomy

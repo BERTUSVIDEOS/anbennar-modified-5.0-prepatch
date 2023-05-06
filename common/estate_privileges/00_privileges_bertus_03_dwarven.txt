@@ -672,7 +672,6 @@ estate_dwarven_autonomy = {
 	is_valid = {
 		OR = {AND = {uses_isolationism = yes NOT = {isolationism = 3}} uses_isolationism = no}
 		NOT = { has_country_modifier = dwarven_administration }
-		NOT = { has_country_modifier = racial_pop_dwarven_enslavement }
 		NOT = { has_country_modifier = racial_pop_dwarven_purge }
 		NOT = { has_country_modifier = racial_pop_dwarven_expulsion }
 		NOT = { has_estate_privilege = estate_dwarven_taxation_policy }
@@ -732,7 +731,6 @@ estate_dwarven_taxation_policy = {
 		NOT = { has_country_modifier = dwarven_administration }
 		NOT = { has_country_modifier = racial_focus_dwarven }
 		NOT = { has_country_modifier = racial_pop_dwarven_expulsion }
-		NOT = { has_country_modifier = racial_pop_dwarven_enslavement }
 		NOT = { has_country_modifier = racial_pop_dwarven_purge }
 	}
 	can_select = {
@@ -780,7 +778,6 @@ estate_dwarven_purge = {
 	loyalty = -0.2
 	influence = -0.20
 	is_valid = {
-		NOT = { has_country_modifier = racial_pop_dwarven_enslavement }
 		NOT = { has_country_modifier = racial_pop_dwarven_expulsion }
 		NOT = { has_country_modifier = racial_focus_dwarven }
 		NOT = { has_estate_privilege = estate_dwarven_taxation_policy }
@@ -834,7 +831,6 @@ estate_dwarven_expulsion = {
 	loyalty = -0.1
 	influence = -0.1
 	is_valid = {
-		NOT = { has_country_modifier = racial_pop_dwarven_enslavement }
 		NOT = { has_country_modifier = racial_pop_dwarven_purge }
 		NOT = { has_country_modifier = racial_focus_dwarven }
 		NOT = { has_estate_privilege = estate_dwarven_taxation_policy }
@@ -888,7 +884,6 @@ estate_dwarven_focus = {
 		}
 		NOT = { has_country_modifier = dwarven_administration }
 		NOT = { has_country_modifier = dwarven_military }
-		NOT = { has_country_modifier = racial_pop_dwarven_enslavement }
 		NOT = { has_country_modifier = racial_pop_dwarven_purge }
 		NOT = { has_country_modifier = racial_pop_dwarven_expulsion }	
 	}
@@ -922,54 +917,6 @@ estate_dwarven_focus = {
 	cooldown_years = 10
 	on_cooldown_expires = {
 	}
-}
-estate_dwarven_enslavement = {
-	icon = privilege_dwarven_enslavement
-	loyalty = -0.2
-	influence = -0.20
-	is_valid = {
-		NOT = {has_estate_privilege = estate_dwarven_intolerance_policy}
-		can_enslave_race = {RACE = dwarven}
-	}
-	can_select = {
-		NOT = {has_race_recruitment = {race = dwarven}}	
-	}
-	on_granted = {		
-		largest_decrease_of_dwarven_tolerance_effect = yes
-		add_country_modifier = { name = racial_pop_dwarven_enslavement duration = -1 }
-		custom_tooltip = dwarven_enslave_global_effect_tt
-		custom_tooltip = dwarven_enslave_effect_unrest_tt
-		hidden_effect = {add_expulsion_unrest = {race = dwarven}}
-	}
-	penalties = {}
-	benefits = {}
-	on_revoked = {		
-		remove_country_modifier = racial_pop_dwarven_enslavement
-	}
-	on_invalid = {
-		remove_country_modifier = racial_pop_dwarven_enslavement
-	}
-	ai_will_do = {
-		factor = 1
-		modifier = {
-			factor = 0
-			medium_tolerance_dwarven_race_trigger = yes
-		}
-		modifier = {
-			factor = 1000
-			NOT = {liberty_desire = 50}
-			NOT = {has_country_modifier = dwarven_administration}
-			overlord = {
-				has_country_modifier = racial_pop_dwarven_enslavement
-			}
-		}
-		modifier = {
-			factor = 10
-			has_country_modifier = monstrous_nation
-		}
-	}
-	cooldown_years = 10
-	on_cooldown_expires = {}
 }
 estate_dwarven_non_military_swap = {
 	icon = privilege_grant_autonomy

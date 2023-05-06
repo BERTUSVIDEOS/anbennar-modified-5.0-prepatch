@@ -1,0 +1,124 @@
+enslavement_mechanic = {
+	alert_icon_gfx = GFX_alerticons_government_mechanics
+	alert_icon_index = 16
+	available = {
+		has_dlc = "Rights of Man"
+		OR = {
+			has_country_modifier = monstrous_nation
+			AND = {
+				monstrous_culture = yes
+				NOT = {is_year = 1445}
+			}
+		}
+	}
+
+	powers = {
+		slaves_amount = {
+			is_good = yes
+			max = 100
+			base_monthly_growth = 0
+			scaled_modifier = {
+				modifier = {
+					global_trade_goods_size = 1.0
+					global_trade_goods_size_modifier = 0.50
+					global_unrest = 10
+					development_cost = -0.20
+					build_cost = -0.20
+					monthly_slaves_amount = -0.41666	#5% every year
+				}
+			}
+		}
+	}
+	
+	interactions = {
+		sell_slaves = {
+			icon = GFX_sell_slaves_button
+			cost_type = slaves_amount
+			trigger = {
+				has_government_power = {
+					mechanic_type = enslavement_mechanic
+					power_type = slaves_amount
+					value = 10
+				}
+			}
+			effect = { 
+				adm_power_cost = 50
+				add_government_power = {
+					mechanic_type = enslavement_mechanic
+					power_type = slaves_amount
+					value = -10
+				}
+				add_years_of_income = 0.5
+			}
+			cooldown_years = 0
+			ai_chance = {
+				factor = 10
+			}
+		}
+		buy_slaves = {
+			icon = GFX_buy_slaves_button
+			cost_type = slaves_amount
+			trigger = {
+				dip_power_cost = 50
+				not = {
+					has_government_power = {
+						mechanic_type = enslavement_mechanic
+						power_type = slaves_amount
+						value = 100
+					}
+				}
+			}
+			effect = { 
+				dip_power_cost = 50
+				add_government_power = {
+					mechanic_type = enslavement_mechanic
+					power_type = slaves_amount
+					value = 10
+				}
+			}
+			cooldown_years = 0
+			ai_chance = {
+				factor = 10
+				modifier = {
+					factor = 10
+					not = {
+						has_government_power = {
+							mechanic_type = enslavement_mechanic
+							power_type = slaves_amount
+							value = 90
+						}
+					}
+					dip_power_cost = 500
+					is_at_war = yes
+				}
+			}
+		}
+		sacrifice_slaves = {
+			icon = GFX_sacrifice_slaves_button
+			cost_type = slaves_amount
+			trigger = {
+				has_government_power = {
+					mechanic_type = enslavement_mechanic
+					power_type = slaves_amount
+					value = 10
+				}
+			}
+			effect = { 
+				add_government_power = {
+					mechanic_type = enslavement_mechanic
+					power_type = slaves_amount
+					value = -10
+				}
+				add_stability = 1
+				add_legitimacy = 10
+				add_horde_unity = 10
+				add_devotion = 5
+				add_republican_tradition = 2
+			}
+			cooldown_years = 0
+			ai_chance = {
+				factor = 10
+			}
+		}
+	}
+}

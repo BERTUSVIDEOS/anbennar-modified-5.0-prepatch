@@ -558,7 +558,6 @@ estate_ruinborn_autonomy = {
 	is_valid = {
 		OR = {AND = {uses_isolationism = yes NOT = {isolationism = 3}} uses_isolationism = no}
 		NOT = { has_country_modifier = ruinborn_administration }
-		NOT = { has_country_modifier = racial_pop_ruinborn_enslavement }
 		NOT = { has_country_modifier = racial_pop_ruinborn_purge }
 		NOT = { has_country_modifier = racial_pop_ruinborn_expulsion }
 		NOT = { has_estate_privilege = estate_ruinborn_taxation_policy }
@@ -618,7 +617,6 @@ estate_ruinborn_taxation_policy = {
 		NOT = { has_country_modifier = ruinborn_administration }
 		NOT = { has_country_modifier = racial_focus_ruinborn }
 		NOT = { has_country_modifier = racial_pop_ruinborn_expulsion }
-		NOT = { has_country_modifier = racial_pop_ruinborn_enslavement }
 		NOT = { has_country_modifier = racial_pop_ruinborn_purge }
 	}
 	can_select = {
@@ -666,7 +664,6 @@ estate_ruinborn_purge = {
 	loyalty = -0.2
 	influence = -0.20
 	is_valid = {
-		NOT = { has_country_modifier = racial_pop_ruinborn_enslavement }
 		NOT = { has_country_modifier = racial_pop_ruinborn_expulsion }
 		NOT = { has_country_modifier = racial_focus_ruinborn }
 		NOT = { has_estate_privilege = estate_ruinborn_taxation_policy }
@@ -720,7 +717,6 @@ estate_ruinborn_expulsion = {
 	loyalty = -0.1
 	influence = -0.1
 	is_valid = {
-		NOT = { has_country_modifier = racial_pop_ruinborn_enslavement }
 		NOT = { has_country_modifier = racial_pop_ruinborn_purge }
 		NOT = { has_country_modifier = racial_focus_ruinborn }
 		NOT = { has_estate_privilege = estate_ruinborn_taxation_policy }
@@ -774,7 +770,6 @@ estate_ruinborn_focus = {
 		}
 		NOT = { has_country_modifier = ruinborn_administration }
 		NOT = { has_country_modifier = ruinborn_military }
-		NOT = { has_country_modifier = racial_pop_ruinborn_enslavement }
 		NOT = { has_country_modifier = racial_pop_ruinborn_purge }
 		NOT = { has_country_modifier = racial_pop_ruinborn_expulsion }
 	}
@@ -808,54 +803,6 @@ estate_ruinborn_focus = {
 	cooldown_years = 10
 	on_cooldown_expires = {
 	}
-}
-estate_ruinborn_enslavement = {
-	icon = privilege_ruinborn_enslavement
-	loyalty = -0.2
-	influence = -0.20
-	is_valid = {
-		NOT = {has_estate_privilege = estate_ruinborn_intolerance_policy}
-		can_enslave_race = {RACE = ruinborn}
-	}
-	can_select = {
-		NOT = {has_race_recruitment = {race = ruinborn}}
-	}
-	on_granted = {		
-		largest_decrease_of_ruinborn_tolerance_effect = yes
-		add_country_modifier = { name = racial_pop_ruinborn_enslavement duration = -1 }
-		custom_tooltip = ruinborn_enslave_global_effect_tt
-		custom_tooltip = ruinborn_enslave_effect_unrest_tt
-		hidden_effect = {add_expulsion_unrest = {race = ruinborn}}
-	}
-	penalties = {}
-	benefits = {}
-	on_revoked = {		
-		remove_country_modifier = racial_pop_ruinborn_enslavement
-	}
-	on_invalid = {
-		remove_country_modifier = racial_pop_ruinborn_enslavement
-	}
-	ai_will_do = {
-		factor = 1
-		modifier = {
-			factor = 0
-			medium_tolerance_ruinborn_race_trigger = yes
-		}
-		modifier = {
-			factor = 1000
-			NOT = {liberty_desire = 50}
-			culture_is_ruinborn = no
-			overlord = {
-				has_country_modifier = racial_pop_ruinborn_enslavement
-			}
-		}
-		modifier = {
-			factor = 10
-			has_country_modifier = monstrous_nation
-		}
-	}
-	cooldown_years = 10
-	on_cooldown_expires = {}
 }
 estate_ruinborn_non_military_swap = {
 	icon = privilege_grant_autonomy

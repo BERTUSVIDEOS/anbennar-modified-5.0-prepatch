@@ -558,7 +558,6 @@ estate_human_autonomy = {
 	influence = 0.10
 	is_valid = {
 		NOT = { has_country_modifier = human_administration }
-		NOT = { has_country_modifier = racial_pop_human_enslavement }
 		NOT = { has_country_modifier = racial_pop_human_purge }
 		NOT = { has_country_modifier = racial_pop_human_expulsion }
 		NOT = { has_estate_privilege = estate_human_taxation_policy }
@@ -612,7 +611,6 @@ estate_human_taxation_policy = {
 		NOT = { has_country_modifier = human_administration }
 		NOT = { has_country_modifier = racial_focus_human }
 		NOT = { has_country_modifier = racial_pop_human_expulsion }
-		NOT = { has_country_modifier = racial_pop_human_enslavement }
 		NOT = { has_country_modifier = racial_pop_human_purge }
 	}
 	can_select = {
@@ -660,7 +658,6 @@ estate_human_purge = {
 	loyalty = -0.2
 	influence = -0.20
 	is_valid = {
-		NOT = { has_country_modifier = racial_pop_human_enslavement }
 		NOT = { has_country_modifier = racial_pop_human_expulsion }
 		NOT = { has_country_modifier = racial_focus_human }
 		NOT = { has_estate_privilege = estate_human_taxation_policy }
@@ -710,7 +707,6 @@ estate_human_expulsion = {
 	loyalty = -0.1
 	influence = -0.1
 	is_valid = {
-		NOT = { has_country_modifier = racial_pop_human_enslavement }
 		NOT = { has_country_modifier = racial_pop_human_purge }
 		NOT = { has_country_modifier = racial_focus_human }
 		NOT = { has_estate_privilege = estate_human_taxation_policy }
@@ -750,7 +746,6 @@ estate_human_focus = {
 		}
 		NOT = { has_country_modifier = human_administration }
 		NOT = { has_country_modifier = human_military }
-		NOT = { has_country_modifier = racial_pop_human_enslavement }
 		NOT = { has_country_modifier = racial_pop_human_purge }
 		NOT = { has_country_modifier = racial_pop_human_expulsion }
 	}
@@ -775,55 +770,6 @@ estate_human_focus = {
 		remove_country_modifier = racial_focus_human
 	}
 	ai_will_do = {factor = 0}
-	cooldown_years = 10
-	on_cooldown_expires = {}
-}
-estate_human_enslavement = {
-	icon = privilege_human_enslavement
-	loyalty = -0.2
-	influence = -0.20
-	is_valid = {
-		NOT = {has_estate_privilege = estate_half_orcish_intolerance_policy}
-		NOT = {has_estate_privilege = estate_half_elven_intolerance_policy}
-		can_enslave_race = {RACE = human}
-	}
-	can_select = {
-		NOT = {has_race_recruitment = {race = human}}
-	}
-	on_granted = {		
-		largest_decrease_of_human_tolerance_effect = yes
-		add_country_modifier = { name = racial_pop_human_enslavement duration = -1 }
-		custom_tooltip = human_enslave_global_effect_tt
-		custom_tooltip = human_enslave_effect_unrest_tt
-		hidden_effect = {add_expulsion_unrest = {race = human}}
-	}
-	penalties = {}
-	benefits = {}
-	on_revoked = {		
-		remove_country_modifier = racial_pop_human_enslavement
-	}
-	on_invalid = {
-		remove_country_modifier = racial_pop_human_enslavement
-	}
-	ai_will_do = {
-		factor = 1
-		modifier = {
-			factor = 0
-			medium_tolerance_human_race_trigger = yes
-		}
-		modifier = {
-			factor = 1000
-			NOT = {liberty_desire = 50}
-			NOT = {has_country_modifier = human_administration}
-			overlord = {
-				has_country_modifier = racial_pop_human_enslavement
-			}
-		}
-		modifier = {
-			factor = 10
-			has_country_modifier = monstrous_nation
-		}
-	}
 	cooldown_years = 10
 	on_cooldown_expires = {}
 }

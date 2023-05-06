@@ -1497,7 +1497,6 @@ estate_harimari_autonomy = {
 	is_valid = {
 		OR = {AND = {uses_isolationism = yes NOT = {isolationism = 3}} uses_isolationism = no}
 		NOT = { has_country_modifier = harimari_administration }
-		NOT = { has_country_modifier = racial_pop_harimari_enslavement }
 		NOT = { has_country_modifier = racial_pop_harimari_purge }
 		NOT = { has_country_modifier = racial_pop_harimari_expulsion }
 		NOT = { has_estate_privilege = estate_harimari_taxation_policy }
@@ -1557,7 +1556,6 @@ estate_harimari_taxation_policy = {
 		NOT = { has_country_modifier = harimari_administration }
 		NOT = { has_country_modifier = racial_focus_harimari }
 		NOT = { has_country_modifier = racial_pop_harimari_expulsion }
-		NOT = { has_country_modifier = racial_pop_harimari_enslavement }
 		NOT = { has_country_modifier = racial_pop_harimari_purge }
 	}
 	can_select = {
@@ -1605,7 +1603,6 @@ estate_harimari_purge = {
 	loyalty = -0.2
 	influence = -0.20
 	is_valid = {
-		NOT = { has_country_modifier = racial_pop_harimari_enslavement }
 		NOT = { has_country_modifier = racial_pop_harimari_expulsion }
 		NOT = { has_country_modifier = racial_focus_harimari }
 		NOT = { has_estate_privilege = estate_harimari_taxation_policy }
@@ -1661,7 +1658,6 @@ estate_harimari_expulsion = {
 	loyalty = -0.1
 	influence = -0.1
 	is_valid = {
-		NOT = { has_country_modifier = racial_pop_harimari_enslavement }
 		NOT = { has_country_modifier = racial_pop_harimari_purge }
 		NOT = { has_country_modifier = racial_focus_harimari }
 		NOT = { has_estate_privilege = estate_harimari_taxation_policy }
@@ -1715,7 +1711,6 @@ estate_harimari_focus = {
 		}				
 		NOT = { has_country_modifier = harimari_administration }
 		NOT = { has_country_modifier = harimari_military }
-		NOT = { has_country_modifier = racial_pop_harimari_enslavement }
 		NOT = { has_country_modifier = racial_pop_harimari_purge }
 		NOT = { has_country_modifier = racial_pop_harimari_expulsion }		
 	}
@@ -1749,54 +1744,6 @@ estate_harimari_focus = {
 	cooldown_years = 10
 	on_cooldown_expires = {
 	}
-}
-estate_harimari_enslavement = {
-	icon = privilege_harimari_enslavement
-	loyalty = -0.2
-	influence = -0.20
-	is_valid = {
-		NOT = {has_estate_privilege = estate_harimari_intolerance_policy}
-		can_enslave_race = {RACE = harimari}
-	}
-	can_select = {
-		NOT = {has_race_recruitment = {race = harimari}}
-	}
-	on_granted = {		
-		largest_decrease_of_harimari_tolerance_effect = yes
-		add_country_modifier = { name = racial_pop_harimari_enslavement duration = -1 }
-		custom_tooltip = harimari_enslave_global_effect_tt
-		custom_tooltip = harimari_enslave_effect_unrest_tt
-		hidden_effect = {add_expulsion_unrest = {race = harimari}}
-	}
-	penalties = {}
-	benefits = {}
-	on_revoked = {		
-		remove_country_modifier = racial_pop_harimari_enslavement
-	}
-	on_invalid = {
-		remove_country_modifier = racial_pop_harimari_enslavement
-	}
-	ai_will_do = {
-		factor = 1
-		modifier = {
-			factor = 0
-			medium_tolerance_harimari_race_trigger = yes
-		}
-		modifier = {
-			factor = 1000
-			NOT = {liberty_desire = 50}
-			culture_is_harimari = no
-			overlord = {
-				has_country_modifier = racial_pop_harimari_enslavement
-			}
-		}
-		modifier = {
-			factor = 10
-			has_country_modifier = monstrous_nation
-		}
-	}
-	cooldown_years = 10
-	on_cooldown_expires = {}
 }
 estate_harimari_non_military_swap = {
 	icon = privilege_grant_autonomy

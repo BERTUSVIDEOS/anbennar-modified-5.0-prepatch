@@ -1161,52 +1161,6 @@ province_event = {	#Expulsion/Purge - Majority
 	}	
 }
 
-province_event = {	#enslavement modifier
-	id = troll_tolerance_events.5006
-	title = troll_tolerance_events.5006.t
-	desc = troll_tolerance_events.5006.desc
-	picture = DIPLOMACY_eventPicture
-	
-	hidden = yes
-	
-    trigger = {
-		OR = {
-			AND = {
-				NOT = {
-					has_province_flag = has_local_troll_enslaved_flag	#flag modifier
-				}
-				owner = {has_estate_privilege = estate_troll_enslavement}
-				has_troll_majority_trigger = yes
-			}
-			AND = {
-				has_province_flag = has_local_troll_enslaved_flag	#flag modifier
-				OR = {
-					NOT = {owner = {has_estate_privilege = estate_troll_enslavement}}
-					AND = {
-						NOT = {has_troll_majority_trigger = yes}
-						NOT = {has_province_flag = foreign_slaves_flag}
-					}
-				}
-			}
-		}
-    }
-	
-	mean_time_to_happen = { days = 1}
-	
-	option = {
-		name = troll_tolerance_events.5006.a
-		trigger = {NOT = {has_province_flag = has_local_troll_enslaved_flag}}
-		set_province_flag = has_local_troll_enslaved_flag
-		add_pop_modifier = {race = troll  class = enslavement amount = 100percent resource = goods_produced onbase = development}
-		add_pop_modifier = {race = all  class = enslavement_malus amount = 100percent resource = goods_produced onbase = base_production}
-	}
-	option = {
-		name = troll_tolerance_events.5006.b
-		trigger = {has_province_flag = has_local_troll_enslaved_flag}
-		clr_province_flag = has_local_troll_enslaved_flag
-		province_event = {id = bertus_pops.1038}
-	}
-}
 province_event = {	#enslavement
     id = troll_tolerance_events.5007
     title = troll_tolerance_events.5007.title
@@ -1217,7 +1171,10 @@ province_event = {	#enslavement
 	is_triggered_only = yes
 
     trigger = {	
-		controller = {has_estate_privilege = estate_troll_enslavement}
+		controller = {
+			has_government_mechanic = enslavement_mechanic
+			low_tolerance_troll_race_trigger = yes
+		}
 		NOT = { controlled_by = owner }
 		has_troll_majority_trigger = yes
 		NOT = {has_province_modifier = already_enslaved_modifier}
@@ -1229,7 +1186,7 @@ province_event = {	#enslavement
 		ai_chance = {
 			factor = 10
 		}
-		get_slaves = {race = troll}
+		get_slaves = yes
     }
 	after = {
 		add_province_modifier = {
@@ -1238,111 +1195,4 @@ province_event = {	#enslavement
 			hidden = yes
 		}
 	}
-}
-province_event = {	#enslavement distribution
-	id = troll_tolerance_events.5008
-	title = troll_tolerance_events.5008.title
-	desc = troll_tolerance_events.5008.desc
-	picture = DIPLOMACY_eventPicture
-			
-	trigger = {
-		owner = {
-			check_variable = {which = troll_current_slaves value = 1}
-			has_estate_privilege = estate_troll_enslavement
-		}
-		has_any_integrated_pop_trigger = yes
-	}
-	hidden = yes
-	mean_time_to_happen = {
-		months = 240
-		
-		modifier = {factor = 0.75 owner = {capital_scope = {NOT = {province_distance  = {who = ROOT distance = 25}}}}}
-		modifier = {factor = 0.75 owner = {capital_scope = {NOT = {province_distance  = {who = ROOT distance = 50}}}}}
-		modifier = {factor = 0.75 owner = {capital_scope = {NOT = {province_distance  = {who = ROOT distance = 75}}}}}
-		modifier = {factor = 0.75 owner = {capital_scope = {NOT = {province_distance  = {who = ROOT distance = 100}}}}}
-		modifier = {factor = 0.75 development = 10}
-		modifier = {factor = 0.75 development = 20}
-		modifier = {factor = 0.75 development = 30}
-		modifier = {factor = 0.75 development = 40}
-		modifier = {factor = 0.75 development = 50}
-	}
-
-	immediate = {
-	}
-	option = {	#
-		name = troll_tolerance_events.5008.a
-		set_province_flag = foreign_slaves_flag
-		owner = {change_variable = {which = troll_current_slaves value = -1}}
-		if = {
-			limit = {
-				has_province_flag = troll_foreign_slaves_flag
-			}
-
-			increase_slave_amount = {race = troll}
-		}
-		else = {
-			add_province_modifier = { name = troll_enslavement_100percent_goods_produced_1	duration = -1 hidden = yes}
-			set_province_flag = troll_foreign_slaves_flag
-		}
-		if = {
-			limit = {
-				NOT = {has_province_modifier = foreign_slaves_modifier}
-			}
-			add_province_modifier = {
-				name = foreign_slaves_modifier
-				duration = -1
-			}
-		}
-	}
-}
-province_event = {	#enslavement decay on occupation
-    id = troll_tolerance_events.5009
-    title = troll_tolerance_events.5009.title
-    desc = troll_tolerance_events.5009.desc
-	picture = DIPLOMACY_eventPicture
-
-	hidden = yes
-
-    trigger = {	
-		NOT = {controlled_by = owner}
-		has_province_flag = troll_foreign_slaves_flag
-	}
-
-	mean_time_to_happen = {
-		months = 240
-		modifier = {factor = 0.90 development = 15}
-		modifier = {factor = 0.75 development = 20}
-		modifier = {factor = 0.75 development = 25}
-		modifier = {factor = 0.50 development = 30}
-		modifier = {factor = 0.50 development = 35}
-		modifier = {factor = 0.33 development = 40}
-		modifier = {factor = 0.33 development = 45}
-		modifier = {factor = 0.25 development = 50}
-		modifier = {factor = 0.1 NOT = {controlled_by = owner}}
-	}
-
-	immediate = {}
-		
-    option = {
-        name = troll_tolerance_events.5009.a #
-		if = {
-			limit = {
-				controller = {NOT = {has_estate_privilege = estate_troll_enslavement}}
-			}
-			controller = {
-				country_event = {
-					id = racial_pop_events_troll.10
-					days = 14
-					random = 31
-				}
-			}
-		}
-		else_if = {
-			limit = {
-				controller = {has_estate_privilege = estate_troll_enslavement}
-			}
-			controller = {change_variable = {which = troll_current_slaves value = 1}}
-		}
-		decrease_slave_amount = {race = troll}
-    }
 }

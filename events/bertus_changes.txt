@@ -2955,6 +2955,7 @@ country_event = {	#set up enslavement efficiency
 	hidden = yes
 	is_triggered_only = yes
 	trigger = {
+		has_government_mechanic = enslavement_mechanic
 	}
 
 	option = {	#
@@ -6960,46 +6961,6 @@ country_event = {
 	after = {
 		get_isolationsim_bonus = yes
 	}
-}
-country_event = {	#enslavement decay
-    id = bertus_changes.6034
-    title = bertus_changes.6034.title
-    desc = bertus_changes.6034.desc
-    picture = DHIMMI_ESTATE_eventPicture
-
-    trigger = {
-		any_owned_province = {
-			has_local_slaves = yes
-		}
-	}
-
-	mean_time_to_happen = {
-		months = 120
-	}
-
-	immediate = {
-		hidden_effect = {
-			every_owned_province = {
-				limit = {
-					has_local_slaves = yes
-				}
-				set_variable = {which = total_salves_development_lost_var value = 0}
-				set_variable = {which = province_development value = 0}
-				export_to_variable = {which = province_development value = development}
-				while = {
-					limit = {check_variable = {which = province_development value = 0}}
-					subtract_variable = {which = province_development value = 10}
-					ROOT = {change_variable = {which = total_salves_development_lost_var value = 1}}
-					remove_1_dev_to_provinces = yes
-				}
-				hidden_effect = {province_event = {id = bertus_pops.1038}}	#update bertus pops
-			}
-		}
-	}
-		
-    option = {
-        name = bertus_changes.6034.a #
-    }
 }
 country_event = {	#goods menu
 	id = bertus_changes.7000

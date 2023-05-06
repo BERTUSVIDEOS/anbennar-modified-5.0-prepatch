@@ -1852,7 +1852,6 @@ estate_halfling_autonomy = {
 	is_valid = {
 		OR = {AND = {uses_isolationism = yes NOT = {isolationism = 3}} uses_isolationism = no}
 		NOT = { has_country_modifier = halfling_administration }
-		NOT = { has_country_modifier = racial_pop_halfling_enslavement }
 		NOT = { has_country_modifier = racial_pop_halfling_purge }
 		NOT = { has_country_modifier = racial_pop_halfling_expulsion }
 		NOT = { has_estate_privilege = estate_halfling_taxation_policy }
@@ -1912,7 +1911,6 @@ estate_halfling_taxation_policy = {
 		NOT = { has_country_modifier = halfling_administration }
 		NOT = { has_country_modifier = racial_focus_halfling }
 		NOT = { has_country_modifier = racial_pop_halfling_expulsion }
-		NOT = { has_country_modifier = racial_pop_halfling_enslavement }
 		NOT = { has_country_modifier = racial_pop_halfling_purge }
 	}
 	can_select = {
@@ -1960,7 +1958,6 @@ estate_halfling_purge = {
 	loyalty = -0.2
 	influence = -0.20
 	is_valid = {
-		NOT = { has_country_modifier = racial_pop_halfling_enslavement }
 		NOT = { has_country_modifier = racial_pop_halfling_expulsion }
 		NOT = { has_country_modifier = racial_focus_halfling }
 		NOT = { has_estate_privilege = estate_halfling_taxation_policy }
@@ -2018,7 +2015,6 @@ estate_halfling_expulsion = {
 	loyalty = -0.1
 	influence = -0.1
 	is_valid = {
-		NOT = { has_country_modifier = racial_pop_halfling_enslavement }
 		NOT = { has_country_modifier = racial_pop_halfling_purge }
 		NOT = { has_country_modifier = racial_focus_halfling }
 		NOT = { has_estate_privilege = estate_halfling_taxation_policy }
@@ -2070,7 +2066,6 @@ estate_halfling_focus = {
 		}		
 		NOT = { has_country_modifier = halfling_administration }
 		NOT = { has_country_modifier = halfling_military }
-		NOT = { has_country_modifier = racial_pop_halfling_enslavement }
 		NOT = { has_country_modifier = racial_pop_halfling_purge }
 		NOT = { has_country_modifier = racial_pop_halfling_expulsion }
 	}
@@ -2104,54 +2099,6 @@ estate_halfling_focus = {
 	cooldown_years = 10
 	on_cooldown_expires = {
 	}
-}
-estate_halfling_enslavement = {
-	icon = privilege_halfling_enslavement
-	loyalty = -0.2
-	influence = -0.20
-	is_valid = {
-		NOT = {has_estate_privilege = estate_halfling_intolerance_policy}
-		can_enslave_race = {RACE = halfling}
-	}
-	can_select = {
-		NOT = {has_race_recruitment = {race = halfling}}
-	}
-	on_granted = {		
-		largest_decrease_of_halfling_tolerance_effect = yes
-		add_country_modifier = { name = racial_pop_halfling_enslavement duration = -1 }
-		custom_tooltip = halfling_enslave_global_effect_tt
-		custom_tooltip = halfling_enslave_effect_unrest_tt
-		hidden_effect = {add_expulsion_unrest = {race = halfling}}
-	}
-	penalties = {}
-	benefits = {}
-	on_revoked = {		
-		remove_country_modifier = racial_pop_halfling_enslavement
-	}
-	on_invalid = {
-		remove_country_modifier = racial_pop_halfling_enslavement
-	}
-	ai_will_do = {
-		factor = 1
-		modifier = {
-			factor = 0
-			medium_tolerance_halfling_race_trigger = yes
-		}
-		modifier = {
-			factor = 1000
-			NOT = {liberty_desire = 50}
-			culture_is_halfling = no
-			overlord = {
-				has_country_modifier = racial_pop_halfling_enslavement
-			}
-		}
-		modifier = {
-			factor = 10
-			has_country_modifier = monstrous_nation
-		}
-	}
-	cooldown_years = 10
-	on_cooldown_expires = {}
 }
 estate_halfling_non_military_swap = {
 	icon = privilege_grant_autonomy
