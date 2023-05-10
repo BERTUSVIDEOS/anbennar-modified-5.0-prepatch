@@ -1480,6 +1480,7 @@ country_event = {	#long lived advisors
 	}
     trigger = {
 		OR = {
+			has_country_flag = get_elder_advisor_flag
 			is_papal_controller = yes
 			has_harmonized_with = elven
 			has_estate_privilege = estate_raj_ministries_ceremonial_ruler_act
@@ -1632,10 +1633,17 @@ country_event = {	#long lived advisors
 	
 	immediate = {
 		hidden_effect = {
-			random_list = {
-				1 = {set_country_flag = elf_admin_adm_advisor_flag}
-				1 = {set_country_flag = elf_admin_dip_advisor_flag}
-				1 = {set_country_flag = elf_admin_mil_advisor_flag}
+			if = {
+				limit = {
+					NOT = {has_country_flag = elder_adm_advisor_flag}
+					NOT = {has_country_flag = elder_dip_advisor_flag}
+					NOT = {has_country_flag = elder_mil_advisor_flag}
+				}
+				random_list = {
+					1 = {set_country_flag = elder_adm_advisor_flag}
+					1 = {set_country_flag = elder_dip_advisor_flag}
+					1 = {set_country_flag = elder_mil_advisor_flag}
+				}
 			}
 			if = {
 				limit = {has_country_modifier = elven_administration}
@@ -1760,37 +1768,38 @@ country_event = {	#long lived advisors
 		trigger = {
 			OR = {
 				has_country_modifier = elven_administration
-				has_country_flag = elf_admin_adm_advisor_flag
+				has_country_flag = elder_adm_advisor_flag
 			}
 		}
 		
-		get_racial_advisor = {race = elven class = adm}
+		get_racial_advisor = {class = adm}
 	}
 	option = {
 		name = bertus_changes.1011.b
 		trigger = {
 			OR = {
 				has_country_modifier = elven_administration
-				has_country_flag = elf_admin_dip_advisor_flag
+				has_country_flag = elder_dip_advisor_flag
 			}
 		}
-		get_racial_advisor = {race = elven class = dip}
+		get_racial_advisor = {class = dip}
 	}
 	option = {
 		name = bertus_changes.1011.c
 		trigger = {
 			OR = {
 				has_country_modifier = elven_administration
-				has_country_flag = elf_admin_mil_advisor_flag
+				has_country_flag = elder_mil_advisor_flag
 			}
 		}
-		get_racial_advisor = {race = elven class = mil}
+		get_racial_advisor = {class = mil}
 	}
 	after = {
 		hidden_effect = {
-			clr_country_flag = elf_admin_adm_advisor_flag
-			clr_country_flag = elf_admin_dip_advisor_flag
-			clr_country_flag = elf_admin_mil_advisor_flag
+			clr_country_flag = elder_adm_advisor_flag
+			clr_country_flag = elder_dip_advisor_flag
+			clr_country_flag = elder_mil_advisor_flag
+			clr_country_flag = get_elder_advisor_flag
 		}
 	}
 }
@@ -2988,6 +2997,7 @@ country_event = {	#Imperial guard
 	id = bertus_changes.2023
 	title = bertus_changes.2023.t
 	desc = bertus_changes.2023.desc
+	picture = DIPLOMACY_eventPicture
 	
 	hidden = yes
 	

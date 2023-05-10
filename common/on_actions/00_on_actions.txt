@@ -5077,6 +5077,23 @@ on_dip_development = {
 			add_base_production = 1
 		}
 	}
+	if = {	#bertus mod
+		limit = {has_province_modifier = zentra_dev owner = {has_idea = entwicklung7} OR = {trade_goods = gold trade_goods = silver}}
+		#set_province_flag = get_entwicklung7_gold
+		random = {
+			chance = 20 
+			owner = {
+				add_years_of_owned_provinces_manpower = {
+					years = 1
+					trigger = {
+						province_id = THIS
+						#has_province_flag = get_entwicklung7_gold
+					}
+				}
+			}
+		}
+		#clr_province_flag = get_entwicklung7_gold
+	}
 	if = {	#bertus mod 
 		limit = { owner = {has_estate_privilege = artifice_invention_city_bots}}
 		random = {
@@ -5141,7 +5158,7 @@ on_mil_development = {
 		}
 	}
 	if = {	#bertus mod
-		limit = {has_province_modifier = zentra_dev owner = {has_idea = entwicklung5}}
+		limit = {has_province_modifier = zentra_dev owner = {has_idea = zentra5}}
 		random = {
 			chance = 20 
 			add_base_manpower = 1
@@ -11886,36 +11903,17 @@ on_expanded_infrastructure = {
 #ROOT = province that was centralized in
 on_centralized_state = {
 	if = {
-		limit = {
-			owner = { has_government_attribute = centralize_state_no_reform_cost }
-		}
-		owner = {
-			add_adm_power = 100	#50→100
-			change_government_reform_progress = 20	#50→20
-		}
-	}
-	else_if = {
-		limit = {
-			owner = { has_government_attribute = centralize_state_half_refund }
-		}
-		owner = {
-			add_adm_power = 50	#25→50
-			change_government_reform_progress = 10	#25→10
+		limit = { owner = { has_government_attribute = centralize_state_development }}
+		area = {
+			limit = {owned_by = ROOT}
+			add_1_dev_to_provinces = yes
 		}
 	}
 	if = {
-		limit = {
-			owner = { has_government_attribute = centralize_state_development }
-		}
+		limit = {owner = { has_idea = zentra6 }}
 		area = {
-			limit = {
-				owned_by = ROOT
-			}
-			random_list = {
-				1 = { add_base_tax = 1 }
-				1 = { add_base_production = 1 }
-				1 = { add_base_manpower = 1 }
-			}
+			limit = {owned_by = ROOT}
+			add_1_dev_to_provinces = yes
 		}
 	}
 }

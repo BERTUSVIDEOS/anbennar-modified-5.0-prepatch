@@ -182,7 +182,21 @@ get_random_cost_dependant_racial_advisor = {
 }
 
 get_racial_advisor = {
-	custom_tooltip = get_$race$_advisor_tt
+	if = {
+		limit = {event_target:province_event_target = {culture_is_elven = yes}}
+		custom_tooltip = get_elven_advisor_tt
+	}
+	else_if = {
+		limit = {event_target:province_event_target = {culture_is_dwarven = yes}}
+		custom_tooltip = get_dwarven_advisor_tt
+	}
+	else_if = {
+		limit = {event_target:province_event_target = {culture_is_gnomish = yes}}
+		custom_tooltip = get_gnomish_advisor_tt
+	}
+	else = {
+		custom_tooltip = "Get Discounted Advisor"
+	}
 	hidden_effect = {
 		event_target:province_event_target = {
 			get_random_cost_dependant_racial_advisor = {class = $class$}
