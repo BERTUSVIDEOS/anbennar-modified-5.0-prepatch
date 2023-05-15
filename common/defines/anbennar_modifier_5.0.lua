@@ -138,6 +138,7 @@ NDefines.NMilitary.MERCENARY_COMPANY_BUILDING_TIME = 0.50	--0.25→0.50
 NDefines.NMilitary.SIEGE_MEMORY = 19	--11→19
 NDefines.NMilitary.RAJPUT_BASE_COST_MODIFIER = 1.0  --5.0→1.0
 NDefines.NMilitary.LEADER_MAX_PIPS = 8 --6→8
+NDefines.NMilitary.SLAVE_RAIDS_SAILOR_FACTOR = -0.10
 
 NDefines.NAI.MAX_CAV_PERCENTAGE = 20 --50→20 -- For modding actual ratio is dynamically computed but will be no higher than this.
 
