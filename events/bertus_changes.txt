@@ -3517,6 +3517,7 @@ province_event = {
 		has_owner_accepted_culture = yes
 		religion = ROOT
 		NOT = {has_province_modifier = dookan_anointed_slave_herd}
+		is_city = yes
 		owner = {
 			OR = {
 				has_country_flag = anoint_slave_herd_great_flag
@@ -3525,11 +3526,13 @@ province_event = {
 		}
 	}
 	immediate = {
-		if = {
-			limit = {owner = {NOT = {has_country_flag = anoint_slave_herd_great_flag}}}
-			owner = {add_church_power = -25}
+		owner = {
+			if = {
+				limit = {NOT = {has_country_flag = anoint_slave_herd_great_flag}}
+				add_church_power = -25
+			}
+			clr_country_flag = anoint_slave_herd_great_flag
 		}
-		owner = {clr_country_flag = anoint_slave_herd_great_flag}
 	}
 
 	mean_time_to_happen = {
