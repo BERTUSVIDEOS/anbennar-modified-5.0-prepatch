@@ -1633,6 +1633,7 @@ country_event = {	#long lived advisors
 	
 	immediate = {
 		hidden_effect = {
+			save_event_target_as = country_elder_advisor_target
 			if = {
 				limit = {
 					NOT = {has_country_flag = elder_adm_advisor_flag}
@@ -3467,11 +3468,14 @@ country_event = {	#religion general
     trigger = {
 		OR = {
 			has_country_flag = find_reincarnated_warrior_aspect_flag
-			has_government_attribute = warlock_religion_actions_mechanic
+			AND = {
+				has_government_attribute = warlock_religion_actions_mechanic
+				church_power = 100
+			}
 		}
     }
 	mean_time_to_happen = {
-		months = 120
+		months = 240
 		modifier = {factor = 0.90 church_power = 300}
 		modifier = {factor = 0.50 church_power = 400}
 		modifier = {factor = 1.1 NOT = {religious_unity = 0.90}}
@@ -3521,7 +3525,10 @@ province_event = {
 		owner = {
 			OR = {
 				has_country_flag = anoint_slave_herd_great_flag
-				has_government_attribute = warlock_religion_actions_mechanic
+				AND = {
+					has_government_attribute = warlock_religion_actions_mechanic
+					church_power = 50
+				}
 			}
 		}
 	}
@@ -3536,13 +3543,15 @@ province_event = {
 	}
 
 	mean_time_to_happen = {
-		months = 600
+		months = 1200
 		modifier = {factor = 0.1 owner = {has_country_flag = anoint_slave_herd_great_flag}}
 		modifier = {factor = 0.90 owner = {church_power = 300}}
 		modifier = {factor = 0.50 owner = {church_power = 400}}
+		modifier = {factor = 2.0 owner = {NOT = {church_power = 100}}}
 		modifier = {factor = 1.1 owner = {NOT = {religious_unity = 0.90}}}
 		modifier = {factor = 1.2 owner = {NOT = {religious_unity = 0.75}}}
 		modifier = {factor = 2.0 owner = {NOT = {religious_unity = 0.50}}}
+		modifier = {factor = 2.0 is_state = no}
 	}
 	option = {
 		name = bertus_changes.3002.a
