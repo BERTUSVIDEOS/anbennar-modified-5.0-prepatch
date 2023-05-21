@@ -1,4 +1,132 @@
 
+buy_slaves_effect = {
+	add_government_power = {
+		mechanic_type = enslavement_mechanic
+		power_type = slaves_amount
+		value = 10
+	}
+	hidden_effect = {
+		set_variable = {
+			which = slave_value_var
+			value = 1
+		}
+		multiply_variable = {
+			which = slave_value_var
+			which = global_slave_cost_var
+		}
+		multiply_variable = {
+			which = slave_value_var
+			value = 1.1
+		}
+		while = {
+			limit = {
+				check_variable = {
+					which = slave_value_var
+					value = 0.1
+				}
+			}
+			change_variable = {
+				which = slave_value_var
+				value = -0.1
+			}
+			add_treasury = -1
+		}
+		increase_slave_cost = yes
+	}
+}
+sell_slaves_effect = {
+	add_government_power = {
+		mechanic_type = enslavement_mechanic
+		power_type = slaves_amount
+		value = -10
+	}
+	hidden_effect = {
+		set_variable = {
+			which = slave_value_var
+			value = 1
+		}
+		multiply_variable = {
+			which = slave_value_var
+			which = global_slave_cost_var
+		}
+		multiply_variable = {
+			which = slave_value_var
+			value = 0.9
+		}
+		while = {
+			limit = {
+				check_variable = {
+					which = slave_value_var
+					value = 0.1
+				}
+			}
+			change_variable = {
+				which = slave_value_var
+				value = -0.1
+			}
+			add_treasury = 1
+		}
+		decrease_slave_cost = yes
+	}
+}
+decrease_slave_cost = {
+	every_country = {
+		limit = {ai = no}
+		multiply_variable = {
+			which = global_slave_cost_var
+			value = 0.95
+		}
+		if = {
+			limit = {
+				NOT = {
+					check_variable = {
+						which = global_slave_cost_var
+						value = 10.0
+					}
+				}
+			}
+			set_variable = {
+				which = global_slave_cost_var
+				value = 10.0
+			}
+		}
+	}
+}
+increase_slave_cost = {
+	every_country = {
+		limit = {ai = no}
+		multiply_variable = {
+			which = global_slave_cost_var
+			value = 1.05
+		}
+	}
+	if = {
+		limit = {
+			any_country = {
+				NOT = {
+					check_variable = {
+						which = global_slave_cost_var
+						which = ROOT
+					}
+				}
+			}
+		}
+		random_country = {
+			limit = {
+				NOT = {
+					check_variable = {
+						which = global_slave_cost_var
+						which = ROOT
+					}
+				}
+			}
+			change_variable = {
+				which = global_slave_cost_var
+				which = ROOT
+			}
+		}
+	}
+}
 get_slaves = {
 	controller = {
 		set_variable = {
