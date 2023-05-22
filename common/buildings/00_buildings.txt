@@ -1826,6 +1826,9 @@ state_house = {
 	}
 
 	bonus_manufactory = { # Will apply an extra modifier if these goods
+		coal	#bertus mod
+		damestear	#bertus mod
+		precursor_relics	#bertus mod
 		paper
 		glass
 		gems
@@ -1836,44 +1839,21 @@ state_house = {
 	}
 
 	build_trigger = {
-		AND = {
-			development = 10
-			NOT = {
-				area_for_scope_province = {
-					owner = {
-						tag = ROOT
-					}
-					OR = {
-						has_building = state_house
-						has_construction = state_house
-					}
-				}
-			}
-		}		
+		development = 10
+		NOT = {has_building = mage_tower }
 	}
 
 	keep_trigger = {
-		NOT = {
-			area_for_scope_province = {
-				NOT = { province_id = root }
-				owner = {
-					tag = ROOT
-				}
-				OR = {
-					has_building = state_house
-					has_construction = state_house
-				}
-			}
-		}
+		NOT = {has_building = mage_tower }
 	}
 
 	modifier = {	#bertus mod
-		statewide_governing_cost = -0.10
-		min_local_autonomy = -5
+		local_development_cost_modifier = -0.05
+		local_amount_of_carolean = 1.0
 	}
-	bonus_modifier = {
-		statewide_governing_cost = -0.1
-		min_local_autonomy = -5
+	bonus_modifier = {	#bertus mod
+		local_development_cost_modifier = -0.05
+		local_amount_of_carolean = 1.0
 	}
 	on_built = {
 		if = {
@@ -1952,7 +1932,8 @@ mage_tower = {
 	manufactory = {
 		all
 	}
-	build_trigger = {		
+	build_trigger = {	
+		NOT = {has_building = state_house }	
 		NOT = {
 			has_great_project = {
 				type = lorentaine_mage_academy
@@ -1964,6 +1945,9 @@ mage_tower = {
 			FROM = { has_country_modifier = command_the_korashi_secret }
 		}
 		development = 10
+	}
+	keep_trigger = {
+		NOT = {has_building = state_house }
 	}
 
 	bonus_manufactory = { # Will apply an extra modifier if these goods
@@ -2017,12 +2001,10 @@ mage_tower = {
 	modifier = {	#bertus mod
 		local_amount_of_cawa = 1
 		local_development_cost_modifier = -0.05
-		local_hostile_attrition = 1
 	}
 	bonus_modifier = {	#bertus mod
 		local_amount_of_cawa = 1
 		local_development_cost_modifier = -0.05
-		local_hostile_attrition = 1
 	}
 	onmap = no
 	show_separate = yes # Means as a manufactory it will be shown according to the old way

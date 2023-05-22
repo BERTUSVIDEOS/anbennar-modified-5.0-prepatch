@@ -2242,6 +2242,25 @@ country_event = {	#setup players electors & other stuff
 			limit = {OR = {culture_group = dwarven technology_group = tech_cave_goblin	technology_group = tech_black_orcish}}
 			serpentspine = {discover_country = PREV}
 		}
+		every_country = {
+			limit = {
+				has_government_mechanic = enslavement_mechanic
+			}
+			if = {
+				limit = {
+					NOT = {
+						check_variable = {
+							which = global_slave_cost_var
+							value = 10.0
+						}
+					}
+				}
+				set_variable = {
+					which = global_slave_cost_var
+					value = 10.0
+				}
+			}
+		}
 	}
 }
 country_event = {	#electors rank 2?
@@ -6987,6 +7006,56 @@ country_event = {
 	after = {
 		get_isolationsim_bonus = yes
 	}
+}
+province_event = {
+    id = bertus_changes.6034
+    title = bertus_changes.6034.title
+    desc = bertus_changes.6034.desc
+    picture = DHIMMI_ESTATE_eventPicture
+
+	hidden = yes
+	trigger = {
+		OR = {
+			NOT = {has_province_flag = had_raiding_parties_flag}
+			had_province_flag = {
+				flag = had_raiding_parties_flag
+				days = 1825
+			}
+		}
+		owner = {
+			has_estate_privilege = estate_halfling_raiding_parties
+			any_country = {
+				war_with = PREV
+			}
+		}
+		has_siege = no
+		unit_in_battle = no
+		NOT = {controlled_by = owner}
+		NOT = {controlled_by = REB}
+	}
+	mean_time_to_happen = {
+		days = 1825
+	}
+	immediate = {
+		set_province_flag = had_raiding_parties_flag
+	}
+    option = {
+        name = bertus_changes.6033.a #
+		trigger_switch = {
+			on_trigger = development
+			60 = {spawn_rebels = {size = 6.0 type = halfling_raiding_parties}}
+			55 = {spawn_rebels = {size = 5.5 type = halfling_raiding_parties}}
+			50 = {spawn_rebels = {size = 5.0 type = halfling_raiding_parties}}
+			45 = {spawn_rebels = {size = 4.5 type = halfling_raiding_parties}}
+			40 = {spawn_rebels = {size = 4.0 type = halfling_raiding_parties}}
+			35 = {spawn_rebels = {size = 3.5 type = halfling_raiding_parties}}
+			30 = {spawn_rebels = {size = 3.0 type = halfling_raiding_parties}}
+			25 = {spawn_rebels = {size = 2.5 type = halfling_raiding_parties}}
+			20 = {spawn_rebels = {size = 2.0 type = halfling_raiding_parties}}
+			15 = {spawn_rebels = {size = 1.5 type = halfling_raiding_parties}}
+			10 = {spawn_rebels = {size = 1.0 type = halfling_raiding_parties}}
+		}
+    }
 }
 country_event = {	#goods menu
 	id = bertus_changes.7000
