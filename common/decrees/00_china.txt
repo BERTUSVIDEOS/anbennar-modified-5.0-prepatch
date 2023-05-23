@@ -5,15 +5,16 @@
 #bertus mod#
 
 expand_bureaucracy_decree = {
-	cost = 20
-	duration = 3650
+	cost = 5
+	duration = 365
 	potential = {
 	}
 	trigger = {
+		NOT = {has_country_modifier = expand_bureaucracy_decree_modifier}
 	}
 	modifier = {
-		global_tax_modifier = 0.25
-		state_governing_cost = -0.1
+		global_tax_modifier = 0.20
+		state_governing_cost = -0.20
 	}
 	effect = {
 		hidden_effect = {
@@ -35,17 +36,22 @@ expand_bureaucracy_decree = {
 				}
 			}
 		}
+		add_country_modifier = {
+			name = expand_bureaucracy_decree_modifier
+			duration = 3650			
+		}
 	}
 	removed_effect = {}
 	ai_will_do = {factor = 100}
 }
 
 conduct_census_decree = {
-	cost = 20
-	duration = 3650
+	cost = 5
+	duration = 365
 	potential = {
 	}
 	trigger = {
+		NOT = {has_country_modifier = conduct_census_decree_modifier}
 	}
 	modifier = {
 		manpower_in_own_culture_provinces = 0.20
@@ -57,6 +63,10 @@ conduct_census_decree = {
 				culture = ROOT
 			}
 			custom_tooltip = "Gain §Y6§! months of [Root.Culture.GetName] Manpower"
+		}
+		add_country_modifier = {
+			name = conduct_census_decree_modifier
+			duration = 3650			
 		}
 	}
 	removed_effect = {}
@@ -98,11 +108,12 @@ conduct_census_decree = {
 }
 
 promote_naval_officers_decree = {
-	cost = 20
-	duration = 3650
+	cost = 5
+	duration = 365
 	potential = {
 	}
 	trigger = {
+		NOT = {has_country_modifier = promote_naval_officers_decree_modifier}
 	}
 	modifier = {
 		ship_durability = 0.1
@@ -116,6 +127,10 @@ promote_naval_officers_decree = {
 			}
 			custom_tooltip = "Gain §Y6§! months of [Root.Culture.GetGroupName] Sailors"
 		}
+		add_country_modifier = {
+			name = promote_naval_officers_decree_modifier
+			duration = 3650			
+		}
 	}
 	removed_effect = {}
 	ai_will_do = {
@@ -128,16 +143,17 @@ promote_naval_officers_decree = {
 }
 
 increase_tariff_control_decree = {
-	cost = 20
-	duration = 3650
+	cost = 5
+	duration = 365
 	potential = {
 	}
 	trigger = {
+		NOT = {has_country_modifier = increase_tariff_control_decree_modifier}
 	}
 	modifier = {
-		global_prov_trade_power_modifier = 0.25
-		global_own_trade_power = 0.25
-		embargo_efficiency = 0.25
+		global_prov_trade_power_modifier = 0.20
+		global_own_trade_power = 0.20
+		embargo_efficiency = 0.20
 	}
 	effect = {
 		every_owned_province = {
@@ -145,6 +161,10 @@ increase_tariff_control_decree = {
 				culture_group = ROOT
 			}
 			add_prosperity = 50
+		}
+		add_country_modifier = {
+			name = increase_tariff_control_decree_modifier
+			duration = 3650			
 		}
 	}
 	removed_effect = {}
@@ -186,11 +206,12 @@ increase_tariff_control_decree = {
 }
 
 improve_defence_effort_decree = {
-	cost = 20
-	duration = 3650
+	cost = 5
+	duration = 365
 	potential = {
 	}
 	trigger = {
+		NOT = {has_country_modifier = improve_defence_effort_decree_modifier}
 	}
 	modifier = { 
 		own_territory_dice_roll_bonus = 2
@@ -203,6 +224,10 @@ improve_defence_effort_decree = {
 				has_fort_building_trigger = yes
 			}
 			add_building = fortress_towers
+		}
+		add_country_modifier = {
+			name = improve_defence_effort_decree_modifier
+			duration = 3650			
 		}
 	}
 	removed_effect = {
@@ -226,22 +251,27 @@ improve_defence_effort_decree = {
 }
 
 boost_officer_corps_decree = {
-	cost = 20
-	duration = 3650
+	cost = 5
+	duration = 365
 	potential = {
 	}
 	trigger = {
+		NOT = {has_country_modifier = boost_officer_corps_decree_modifier}
 	}
 	modifier = {
 		infantry_power = 0.1
-		drill_gain_modifier = 0.25
-		drill_decay_modifier = -0.25
+		drill_gain_modifier = 0.30
+		drill_decay_modifier = -0.30
 	}
 	effect = {
 		set_country_flag = get_elder_advisor_flag
 		set_country_flag = elder_mil_advisor_flag
 		country_event = {
 			id = bertus_changes.1011
+		}
+		add_country_modifier = {
+			name = boost_officer_corps_decree_modifier
+			duration = 3650			
 		}
 	}
 	removed_effect = {}
@@ -264,11 +294,12 @@ boost_officer_corps_decree = {
 ####################################
 
 fund_new_centers_of_education_decree = {
-	cost = 20
-	duration = 3650
+	cost = 5
+	duration = 365
 	potential = {
 	}
 	trigger = {
+		NOT = {has_country_modifier = fund_new_centers_of_education_decree_modifier}
 	}
 	modifier = {
 		technology_cost = -0.1
@@ -276,17 +307,25 @@ fund_new_centers_of_education_decree = {
 	}
 	effect = {
 		change_innovativeness = 1
+		add_country_modifier = {
+			name = fund_new_centers_of_education_decree_modifier
+			duration = 3650			
+		}
+		set_country_flag = fund_new_centers_of_education_decree_flag
 	}
-	removed_effect = {}
+	removed_effect = {
+		clr_country_flag = fund_new_centers_of_education_decree_flag
+	}
 	ai_will_do = {factor = 100}
 }
 
 proclaim_dynastic_name_decree = { 
-	cost = 20
-	duration = 3650
+	cost = 5
+	duration = 365
 	potential = {
 	}
 	trigger = {
+		NOT = {has_country_modifier = proclaim_dynastic_name_decree_modifier}
 	}
 	modifier = {
 		imperial_mandate = 0.10
@@ -294,17 +333,22 @@ proclaim_dynastic_name_decree = {
 	}
 	effect = {
 		add_stability = 1
+		add_country_modifier = {
+			name = proclaim_dynastic_name_decree_modifier
+			duration = 3650			
+		}
 	}
 	removed_effect = {}
 	ai_will_do = {factor = 100}
 }
 
 issue_the_great_warnings_decree = {
-	cost = 20
-	duration = 3650
+	cost = 5
+	duration = 365
 	potential = {
 	}
 	trigger = {
+		NOT = {has_country_modifier = issue_the_great_warnings_decree_modifier}
 	}
 	modifier = {
 		all_estate_loyalty_equilibrium = 0.1
@@ -316,6 +360,10 @@ issue_the_great_warnings_decree = {
 		add_estate_loyalty = {
 			estate = all
 			loyalty = 10
+		}
+		add_country_modifier = {
+			name = issue_the_great_warnings_decree_modifier
+			duration = 3650			
 		}
 	}
 	removed_effect = {}
@@ -335,11 +383,12 @@ issue_the_great_warnings_decree = {
 # }
 
 six_ordinances_decree = {
-	cost = 20
-	duration = 3650
+	cost = 5
+	duration = 365
 	potential = {
 	}
 	trigger = {
+		NOT = {has_country_modifier = six_ordinances_decree_modifier}
 	}
 	modifier = {
 		reduced_liberty_desire = 10
@@ -352,21 +401,26 @@ six_ordinances_decree = {
 		country_event = {
 			id = bertus_changes.1011
 		}
+		add_country_modifier = {
+			name = six_ordinances_decree_modifier
+			duration = 3650			
+		}
 	}
 	removed_effect = {}
 	ai_will_do = {factor = 100}
 }
 
 sacred_edict_of_confucianism_decree = {
-	cost = 20
-	duration = 3650
+	cost = 5
+	duration = 365
 	potential = {
 	}
 	trigger = {
+		NOT = {has_country_modifier = sacred_edict_of_confucianism_decree_modifier}
 	}
 	modifier = {
 		tolerance_own = 4
-		global_missionary_strength = 0.03
+		global_missionary_strength = 0.04
 	}
 	effect = {
 		set_country_flag = get_elder_advisor_flag
@@ -374,17 +428,22 @@ sacred_edict_of_confucianism_decree = {
 		country_event = {
 			id = bertus_changes.1011
 		}
+		add_country_modifier = {
+			name = sacred_edict_of_confucianism_decree_modifier
+			duration = 3650			
+		}
 	}
 	removed_effect = {}
 	ai_will_do = {factor = 100}
 }
 
 promote_taoist_studies_decree = {
-	cost = 20
-	duration = 3650
+	cost = 5
+	duration = 365
 	potential = {
 	}
 	trigger = {
+		NOT = {has_country_modifier = promote_taoist_studies_decree_modifier}
 	}
 	modifier = {
 		monarch_lifespan = 0.50 
@@ -392,49 +451,30 @@ promote_taoist_studies_decree = {
 	effect = {
 		random_list = {
 			33 = {
-				modifier = {
-					factor = 0
-					adm = 6
-				}
-				modifier = {
-					factor = 0.5
-					adm = 5
-				}
+				modifier = {factor = 0 adm = 6}
+				modifier = {factor = 0.5 adm = 5}
 				change_adm = 1
 			}
 			33 = {
-				modifier = {
-					factor = 0
-					dip = 6
-				}
-				modifier = {
-					factor = 0.5
-					dip = 5
-				}
+				modifier = {factor = 0 dip = 6}
+				modifier = {factor = 0.5 dip = 5}
 				change_dip = 1
 			}
 			33 = {
-				modifier = {
-					factor = 0
-					mil = 6
-				}
-				modifier = {
-					factor = 0.5
-					mil = 5
-				}
+				modifier = {factor = 0 mil = 6}
+				modifier = {factor = 0.5 mil = 5}
 				change_mil = 1
 			}
 			1 = {
-				modifier = {
-					factor = 0
-					mil = 6
-					dip = 6
-					adm = 6
-				}
+				modifier = {factor = 0 mil = 6 dip = 6 adm = 6}
 				add_adm_power = 100
 				add_dip_power = 100
 				add_mil_power = 100
 			}
+		}
+		add_country_modifier = {
+			name = promote_taoist_studies_decree_modifier
+			duration = 3650			
 		}
 	}
 	removed_effect = {}
@@ -442,15 +482,16 @@ promote_taoist_studies_decree = {
 }
 
 appoint_entrusted_eunuchs_decree = {
-	cost = 20
-	duration = 3650
+	cost = 5
+	duration = 365
 	potential = {
 	}
 	trigger = {
+		NOT = {has_country_modifier = appoint_entrusted_eunuchs_decree_modifier}
 	}
 	modifier = {
-		advisor_cost = -0.15
-		advisor_pool = 3
+		advisor_cost = -0.20
+		advisor_pool = 2
 	}
 	effect = {
 		set_country_flag = get_elder_advisor_flag
@@ -459,6 +500,10 @@ appoint_entrusted_eunuchs_decree = {
 		set_country_flag = elder_mil_advisor_flag
 		country_event = {	#long lived advisor
 			id = bertus_changes.1011
+		}
+		add_country_modifier = {
+			name = appoint_entrusted_eunuchs_decree_modifier
+			duration = 3650			
 		}
 	}
 	removed_effect = {}
@@ -478,32 +523,38 @@ appoint_entrusted_eunuchs_decree = {
 # }
 
 increase_trade_cooperation_decree = { 
-	cost = 20
-	duration = 3650
+	cost = 5
+	duration = 365
 	potential = {
 	}
 	trigger = {
+		NOT = {has_country_modifier = increase_trade_cooperation_decree_modifier}
 	}
 	modifier = {
-		reduced_trade_penalty_on_non_main_tradenode = 0.25
+		reduced_trade_penalty_on_non_main_tradenode = 0.30
 		trade_efficiency = 0.20
 	}
 	effect = {
 		add_mercantilism = 2
+		add_country_modifier = {
+			name = increase_trade_cooperation_decree_modifier
+			duration = 3650			
+		}
 	}
 	removed_effect = {}
 	ai_will_do = {factor = 100}
 }
 
 reinforce_the_inner_guard_decree = {
-	cost = 20
-	duration = 3650
+	cost = 5
+	duration = 365
 	potential = {
 	}
 	trigger = {
+		NOT = {has_country_modifier = reinforce_the_inner_guard_decree_modifier}
 	}
 	modifier = {
-		global_spy_defence = 0.33
+		global_spy_defence = 0.30
 	}
 	effect = {
 		every_neighbor_country = {
@@ -511,6 +562,10 @@ reinforce_the_inner_guard_decree = {
 				who = ROOT
 				value = -50
 			}
+		}
+		add_country_modifier = {
+			name = reinforce_the_inner_guard_decree_modifier
+			duration = 3650			
 		}
 	}
 	removed_effect = {}
@@ -542,20 +597,25 @@ reinforce_the_inner_guard_decree = {
 # }
 
 issue_bureaucratic_imperial_seal = { 
-	cost = 20
-	duration = 3650
+	cost = 5
+	duration = 365
 	potential = {
 	}
 	trigger = {
+		NOT = {has_country_modifier = issue_bureaucratic_imperial_seal}
 	}
 	modifier = {
-		min_autonomy = -5
-		global_autonomy = -0.05
+		min_autonomy = -10
+		global_autonomy = -0.10
 	}
 	effect = {
 		every_owned_province = {
 			limit = {local_autonomy = 1}
 			add_local_autonomy = -10
+		}
+		add_country_modifier = {
+			name = issue_bureaucratic_imperial_seal
+			duration = 3650			
 		}
 	}
 	removed_effect = {}

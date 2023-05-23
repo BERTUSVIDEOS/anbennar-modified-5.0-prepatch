@@ -1,50 +1,101 @@
+
+centralizing_top_government_decision = {	#bertus mod
+	empire = celestial_empire
+	emperor = {
+		country_admin_power = 1
+		adm_advisor_cost = -0.10
+	}
+	member = {
+		adm_advisor_cost = -0.10
+	}
+}
+centralizing_top_diplomacy_decision = {	#bertus mod
+	empire = celestial_empire
+	emperor = {
+		country_diplomatic_power = 1
+		dip_advisor_cost = -0.10
+	}
+	member = {
+		dip_advisor_cost = -0.10
+	}
+}
+centralizing_top_military_decision = {	#bertus mod
+	empire = celestial_empire
+	emperor = {
+		country_military_power = 1
+		mil_advisor_cost = -0.10
+	}
+	member = {
+		mil_advisor_cost = -0.10
+	}
+}
 rein_in_the_lords_decision = {
 	empire = celestial_empire
 	emperor = {
-		global_autonomy = -0.05
+		global_autonomy = -0.10
+		governing_cost = -0.10
+	}
+	member = {
+		governing_cost = -0.10
+		global_autonomy = -0.10
 	}
 }
-
-reform_caravan_network_decision = {
+establish_censorate_decision = {	#bertus mod
 	empire = celestial_empire
 	emperor = {
-		caravan_power = 0.1
-		trade_efficiency = 0.05
+		yearly_corruption = -0.20
+		same_culture_advisor_cost = -0.05
 	}
-	required_reform = rein_in_the_lords_decision
+	member = {
+		yearly_corruption = -0.20
+	}
 }
-
-establish_censorate_decision = {
+establish_gaituguiliu_decision = {
 	empire = celestial_empire
 	emperor = {
-		yearly_corruption = -0.02
+		meritocracy = 1.0
+		same_religion_advisor_cost = -0.05
 	}
-	required_reform = reform_caravan_network_decision
+	member = {
+		legitimacy = 1
+		devotion = 0.5
+		republican_tradition = 0.20
+		horde_unity = 0.5
+	}
 }
-
 centralize_administration_decision = {
 	empire = celestial_empire
 	emperor = {
-		yearly_absolutism = 0.1
-		administrative_efficiency = 0.1
+		imperial_mandate = 0.05
+		yearly_absolutism = 0.5
+		administrative_efficiency = 0.05
 	}
-	required_reform = establish_censorate_decision
+	member = {
+		stability_cost_modifier = -0.10
+		yearly_absolutism = 0.5
+	}
 }
-
 form_construction_ministry_decision = {
 	empire = celestial_empire
 	emperor = {
-		build_cost = -0.1
-		build_time = -0.25
+		great_project_upgrade_cost = -0.20
+		monthly_splendor = 2
 	}
-	required_reform = centralize_administration_decision
+	member = {
+		monthly_splendor = 1
+		build_cost = -0.10
+	}
 }
-
 vassalize_tributaries_decision = {
 	empire = celestial_empire
 	emperor = {
-		imperial_mandate = 0.05
 		liberty_desire_from_subject_development = -0.33
+		vassal_forcelimit_bonus = 0.50
+		monarch_power_tribute = 2
+	}
+	member = {
+		land_maintenance_modifier = -0.05
+		global_unrest = -1
 	}
 	on_effect = {
 		custom_tooltip = vassalize_tributaries_decision_tt
@@ -54,5 +105,92 @@ vassalize_tributaries_decision = {
 		custom_tooltip = vassalize_tributaries_decision_ct
 		clr_global_flag = eoc_vassalize_tributaries
 	}
-	required_reform = centralizing_top_government_decision
+}
+
+great_works_of_kheterata_decision = {
+	empire = celestial_empire
+	trigger = {
+		has_idea = U01_great_works_of_kheterata
+	}
+	emperor = {
+		build_cost = -0.10
+		development_cost = -0.05
+	}
+}
+khetarch_appointed_mnonarch_decision = {
+	empire = celestial_empire
+	trigger = {
+		has_idea = U01_khetarch_appointed_monarchs
+		empire_of_china_reform_passed = great_works_of_kheterata_decision
+	}
+	emperor = {
+		monarch_admin_power = 1
+		monarch_diplomatic_power = 1
+		monarch_military_power = 1
+		monarch_lifespan = 0.25
+	}
+}
+cannor_breadbasket_decision = {
+	empire = celestial_empire
+	trigger = {
+		has_idea = U01_cannors_breadbasket
+		empire_of_china_reform_passed = khetarch_appointed_mnonarch_decision
+	}
+	emperor = {
+		global_trade_goods_size_modifier = 0.10
+	}
+}
+crodamos_camel_cavalry_decision = {
+	empire = celestial_empire
+	trigger = {
+		has_idea = U01_crodamos_camel_cavalry
+		empire_of_china_reform_passed = cannor_breadbasket_decision
+	}
+	emperor = {
+	}
+	on_effect = {
+		add_country_modifier = {
+			name = crodamos_elite_camel_modifier
+			duration = -1
+		}
+	}
+	on_effect = {
+		remove_country_modifier =crodamos_elite_camel_modifier
+	}
+}
+the_khet_harem_decision = {
+	empire = celestial_empire
+	trigger = {
+		has_idea = U01_khet_harem
+		empire_of_china_reform_passed = crodamos_camel_cavalry_decision
+	}
+	emperor = {
+		advisor_pool = 3
+		meritocracy = 1.0
+		heir_chance = 0.50
+	}
+}
+reform_caravan_network_decision = {	#bertus mod#
+	empire = celestial_empire
+	trigger = {
+		has_idea = U01_anti_piracy_software
+		empire_of_china_reform_passed = the_khet_harem_decision
+	}
+	emperor = {
+		trade_efficiency = 0.10
+	}
+}
+military_governors_decision = {
+	empire = celestial_empire
+	trigger = {
+		has_idea = U01_elikhets_legacy
+		empire_of_china_reform_passed = reform_caravan_network_decision
+	}
+	emperor = {
+		leader_land_fire = 1
+		leader_land_shock = 1
+		leader_land_manuever = 1
+		prestige_from_land = 0.25
+		army_tradition_from_battle = 0.25
+	}
 }
