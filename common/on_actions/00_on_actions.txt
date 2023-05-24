@@ -5241,8 +5241,18 @@ on_yearly_pulse = {
 		limit = {
 			has_government_mechanic = enslavement_mechanic
 		}
-		every_owned_province = {
-			limit = {trade_goods = slaves}
+		decrease_slave_cost = yes
+	}
+	if = {
+		limit = {
+			has_government_mechanic = enslavement_mechanic
+			is_subject = no
+		}
+		every_province = {
+			limit = {
+				trade_goods = slaves
+				owns_or_subject_of = THIS
+			}
 			export_to_variable = {
 				which = base_slave_production_var
 				value = base_production
@@ -5251,18 +5261,30 @@ on_yearly_pulse = {
 				limit = {
 					check_variable = {
 						which = base_slave_production_var
-						value = 0.20
+						value = 1
 					}
 				}
 				change_variable = {
 					which = base_slave_production_var
-					value = -0.2
+					value = -1
 				}
 				owner = {
 					add_government_power = {
 						mechanic_type = enslavement_mechanic
 						power_type = slaves_amount
-						value = 0.1
+						value = 0.10
+					}
+				}
+			}
+			if = {
+				limit = {
+					has_building = trade_station
+				}
+				owner = {
+					add_government_power = {
+						mechanic_type = enslavement_mechanic
+						power_type = slaves_amount
+						value = 1
 					}
 				}
 			}
@@ -9821,39 +9843,6 @@ on_leader_recruited = {
 # country
 on_general_recruited = {
 	on_general_recruited_effect = yes #1.35
-
-	#Anbennar
-	if = {	#bertus mod
-		limit = {
-			has_government_attribute = recruiting_generals_give_yearly_manpower
-		}
-		add_yearly_manpower = 0.10
-	}
-	if = {	#bertus mod
-		limit = {
-			has_government_attribute = recruiting_generals_increases_professionalism
-		}
-		add_army_professionalism = 0.002
-	}
-	if = {
-		limit = { has_government_attribute = dwarovar_emulate_warriors_effect }
-		change_estate_land_share = {
-			estate = estate_church
-			share = -1
-		}
-	}
-
-	if = {
-		limit = { has_estate_privilege = estate_lion_command_war_room_rights }
-		add_legitimacy = 1
-	}
-	
-	if = {
-		limit = {
-			has_church_aspect = blue_dragon_1
-		}
-		add_church_power = 15
-	}
 }
 
 # country

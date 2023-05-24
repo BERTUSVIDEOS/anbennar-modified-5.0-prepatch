@@ -1478,9 +1478,21 @@ cb_force_tributary = {
 	}
 
 	prerequisites = {
-		FROM = { is_subject = no }
-		is_neighbor_of = FROM
 		OR = {
+			FROM = { is_subject = no }
+			has_country_modifier = monstrous_nation
+		}
+		OR = {
+			is_neighbor_of = FROM
+			AND = {
+				has_country_modifier = monstrous_nation
+				any_subject_country = {
+					is_neighbor_of = FROM
+				}
+			}
+		}
+		OR = {
+			has_country_modifier = monstrous_nation
 			AND = {
 				OR = {
 					is_emperor_of_china = yes
