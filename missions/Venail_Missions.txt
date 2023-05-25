@@ -58,7 +58,7 @@ venail_2 = {
 				limit = { ai = no }
 				add_country_modifier = {
 					name = venail_immigration_first_step
-					duration = 3650
+					duration = 7300
 				}
 			}
 			
@@ -91,7 +91,7 @@ venail_2 = {
 				limit = { ai = no }
 				add_country_modifier = {
 					name = venail_immigration_second_step
-					duration = 3650
+					duration = 7300
 				}
 			}
 		}
@@ -121,54 +121,19 @@ venail_2 = {
 				limit = { ai = no }
 				add_country_modifier = {
 					name = venail_immigration_third_step
-					duration = 3650
+					duration = 7300
 				}
 			}
 		}
-	}
-	
-	A21_revitalize_economy = {
-		icon = mission_war_chest
-		ai = yes
-		position = 9
-		
-		required_missions = {
-			A21_new_beginning
-		}
-		
-		trigger = {
-			adm_power = 100
-			if = {
-				limit = {
-					ai = yes
-					was_player = no
-				}
-				treasury = 150
-			}
-			else = {
-				treasury = 500
-			}
-		}
-		
-		effect = {
-			add_adm_power = -100
-			add_treasury = -500
-			add_country_modifier = {
-				name = venail_economic_boom
-				duration = 14600
-			}
-			remove_country_modifier = sold_venail_rights
-			country_event = { id = venail.10 }
-		}
-	}
+	}	
 	
 	A21_trading_hub = {
 		icon = mission_high_income
 		ai = yes
-		position = 10
+		position = 8
 		
 		required_missions = {
-			A21_revitalize_economy
+			A21_new_beginning
 		}
 		
 		trigger = {
@@ -177,11 +142,11 @@ venail_2 = {
 				treasury = 150
 			}
 			else = {
-				treasury = 500
+				treasury = 5000
 			}
 			if = {
 				limit = { has_dlc = "Dharma" }
-				dip_power = 100
+				dip_power = 200
 				any_owned_province = {
 					province_has_center_of_trade_of_level = 3
 				}
@@ -192,25 +157,46 @@ venail_2 = {
 		}
 		
 		effect = {
-			if = {
-				limit = { ai = yes }
-				add_treasury = -150
-			}
-			else = {
-				add_treasury = -500
-			}
-			if = {
-				limit = { NOT = { has_dlc = "Dharma" } }
-				add_dip_power = -200
-			}
-			else = {
-				add_dip_power = -100
-			}
+			add_dip_power = -200
 			add_country_modifier = {
 				name = venail_trading_boom
 				duration = 14600
 			}
 			country_event = { id = venail.11 }
+		}
+	}
+
+	A21_revitalize_economy = {
+		icon = mission_war_chest
+		ai = yes
+		position = 10
+		
+		required_missions = {
+			A21_trading_hub
+		}
+		
+		trigger = {
+			adm_power = 200
+			if = {
+				limit = {
+					ai = yes
+					was_player = no
+				}
+				treasury = 150
+			}
+			else = {
+				treasury = 10000
+			}
+		}
+		
+		effect = {
+			add_adm_power = -200
+			add_country_modifier = {
+				name = venail_economic_boom
+				duration = 14600
+			}
+			remove_country_modifier = sold_venail_rights
+			country_event = { id = venail.10 }
 		}
 	}
 }
@@ -487,7 +473,7 @@ venail_3 = {
 		}
 	}
 	
-	A21_new_beginning = {
+	A21_new_beginning = {	#bertus mod
 		icon = mission_settlers_north_america
 		ai = yes
 		position = 8
@@ -518,107 +504,27 @@ venail_3 = {
 		effect = {
 			add_country_modifier = {
 				name = venail_immigration_complete
-				duration = 1825
+				duration = 7300
 			}
-			if = {	#bertus mod
-				limit = {
-					NOT = {
-						ai = no
-						overlord = {
-							ai = no
-						}
+			hidden_effect = {
+				every_owned_province = {
+					limit = { continent = europe }
+					export_to_variable = {
+						which = TotalDev
+						value = development
 					}
+					ROOT = { change_variable = { which = TotalDev which = PREV } }
 				}
-				hidden_effect = {
-					every_owned_province = {
-						limit = { continent = europe }
-						export_to_variable = {
-							which = TotalDev
-							value = development
-						}
-						ROOT = { change_variable = { which = TotalDev which = PREV } }
-					}
-				}
-				every_subject_country = {
-					limit = { is_colonial_nation_of = A21 }
-					hidden_effect = {
-						export_to_variable = {
-							which = treasuryAvailable
-							value = treasury
-							who = THIS
-						}
-						export_to_variable = {
-							which = manpowerAvailable
-							value = manpower
-							who = THIS
-						}
-						currency_effect = { currency=treasury takeFrom=THIS addTo=ROOT which=treasuryAvailable }
-						currency_effect = { currency=manpower takeFrom=THIS addTo=ROOT which=manpowerAvailable }
-					}
-					ROOT = { inherit = PREV }
-				}
-				reduce_stability_or_adm_power = yes
-				if = {
-					limit = {
-						OR = {
-							any_owned_province = { has_province_flag = venail_capital }
-							any_subject_country = {
-								any_owned_province = {
-									has_province_flag = venail_capital
-								}
-							}
-						}
-					}
-					random_province = {
-						limit = { has_province_flag = venail_capital }
-						move_capital_effect = yes
-						if = {
-							limit = {
-								NOT = {
-									trade_goods = gems
-									trade_goods = gold
-									trade_goods = damestear
-									trade_goods = precursor_relics
-									trade_goods = dyes
-								}
-							}
-							change_trade_goods = paper
-						}
-						add_center_of_trade_level = 1
-						rename_capital = "Aelnar"
-						change_province_name = "Aelnar"
-					}
-				}
-				else = {
-					random_province = {
-						limit = { colonial_region = colonial_noruin }
-						move_capital_effect = yes
-						if = {
-							limit = {
-								NOT = {
-									trade_goods = gems
-									trade_goods = gold
-									trade_goods = damestear
-									trade_goods = precursor_relics
-									trade_goods = dyes
-								}
-							}
-							change_trade_goods = paper
-						}
-						add_center_of_trade_level = 1
-						rename_capital = "Aelnar"
-						change_province_name = "Aelnar"
-					}
-				}
-				# Country with rights settles island, must happen before decolonization
-				hidden_effect = { 88 = { owner = { country_event = { id = venail.20 } } } }
-				hidden_effect = { country_event = { id = venail.105 } }
-				custom_tooltip = venail_new_beginning_tooltip
 			}
+			#reduce_stability_or_adm_power = yes
+			# Country with rights settles island, must happen before decolonization
+			#hidden_effect = { 88 = { owner = { country_event = { id = venail.20 } } } }
+			#hidden_effect = { country_event = { id = venail.105 } }
+			#custom_tooltip = venail_new_beginning_tooltip
 		}
 	}
 	
-	A21_stabilize = {
+	A21_stabilize = {	#bertus mod
 		icon = mission_alliances
 		ai = yes
 		position = 9
@@ -628,13 +534,7 @@ venail_3 = {
 		}
 		
 		trigger = {
-			if = {
-				limit = {ai = no}
-				stability = 3
-			}
-			else = {
-				always = yes
-			}
+			stability = 2
 		}
 		
 		effect = {
@@ -667,6 +567,7 @@ venail_3 = {
 			add_mil_power = -100
 			add_dip_power = -100
 			change_government = monarchy
+			add_government_reform = venail_monarchy_reform
 			country_event = { id = venail.13 }
 		}
 	}
@@ -678,7 +579,7 @@ venail_3 = {
 		
 		required_missions = {
 			A21_renovate_political_system
-			A21_trading_hub
+			A21_revitalize_economy
 			A21_the_teal_armada
 		}
 		
@@ -713,18 +614,18 @@ venail_4 = {
 		}
 		
 		trigger = {
-			mil_power = 100
+			mil_power = 200
 			if = {
 				limit = {ai = no}
 				army_size = 40
 			}
 			else = {
-				army_size = 20
+				army_size = 100
 			}
 		}
 		
 		effect = {
-			add_mil_power = -100
+			add_mil_power = -200
 			add_country_modifier = {
 				name = venail_legion
 				duration = 14600
@@ -743,11 +644,11 @@ venail_4 = {
 		}
 		
 		trigger = {
-			dip_power = 100
+			dip_power = 200
 			if = {
 				limit = {ai = no}
 				OR = {
-					num_of_heavy_ship = 10
+					num_of_heavy_ship = 40
 					navy_size_percentage = 0.95
 				}
 			}
@@ -757,7 +658,7 @@ venail_4 = {
 		}
 		
 		effect = {
-			add_dip_power = -100
+			add_dip_power = -200
 			add_country_modifier = {
 				name = venail_new_fleet
 				duration = 14600

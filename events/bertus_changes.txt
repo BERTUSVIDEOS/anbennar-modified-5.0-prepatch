@@ -1449,12 +1449,14 @@ country_event = {	#long lived advisors
 	
 	option = {
 		name = bertus_changes.1010.a
-		random = {
-			chance = 25
-			country_event = {	#long lived advisor
-				id = bertus_changes.1011
-			}
+		ai_chance = {factor = 25}
+		country_event = {	#long lived advisor
+			id = bertus_changes.1011
 		}
+	}
+	option = {
+		name = bertus_changes.1010.a
+		ai_chance = {factor = 75}		
 	}
 }
 country_event = {	#long lived advisors
@@ -7444,9 +7446,28 @@ country_event = {	#DOMINION WAR!
 	picture = DIPLOMACY_eventPicture
 	
 	trigger = {
-		NOT = {has_global_flag = wars_of_dominion_happened_flag}
-		check_variable = {which = dominion_wars_progress value = 100}
+		ai = yes
+		is_subject = no
+		OR = {
+			is_year = 1460
+			check_variable = {which = dominion_wars_progress value = 100}
+		}
 		NOT = {war_with = A01}
+		truce_with = A01
+		any_neighbor_country = {
+			OR = {
+				is_subject_of = A01
+				tag = A01
+			}
+		}
+		any_subject_country = {
+			OR = {
+				any_neighbor_country = {
+					is_subject_of = A01
+				}
+				is_neighbor_of = A01
+			}
+		}
 	}
 	major = yes
 	mean_time_to_happen = {
@@ -7454,7 +7475,7 @@ country_event = {	#DOMINION WAR!
 	}
 
 	immediate = {
-		set_global_flag = wars_of_dominion_happened_flag
+		#set_global_flag = wars_of_dominion_happened_flag
 	}
 	option = {	#WAR!
 		name = bertus_changes.8100.a
@@ -7472,7 +7493,7 @@ country_event = {	#DOMINION WAR!
 	}
 }
 country_event = {	#END DOMINION WAR!
-	id = bertus_changes.8101
+	id = bertus_changes.8101	#on_actions on war won (deactivated)
 	title = bertus_changes.8101.t
 	desc = bertus_changes.8101.desc
 	picture = DIPLOMACY_eventPicture
