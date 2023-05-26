@@ -29,6 +29,8 @@ country_event = {
 				corin = {add_ruler_modifier = {name = corin_deity duration = -1}}
 				adean = {add_ruler_modifier = {name = adean_deity duration = -1}}
 				munas_moonsinger = {add_ruler_modifier = {name = munas_moonsinger_deity duration = -1}}
+				munas_seinathil_muse = {add_ruler_modifier = {name = munas_moonsinger_deity duration = -1}}
+				munas_moonsinger_ibevar = {add_ruler_modifier = {name = munas_moonsinger_ibevar_deity duration = -1}}
 				ara = {add_ruler_modifier = {name = ara_deity duration = -1}}
 				balgar = {add_ruler_modifier = {name = balgar_deity duration = -1}}
 				esmaryal = {add_ruler_modifier = {name = esmaryal_deity duration = -1}}
@@ -89,8 +91,24 @@ country_event = {
 		name = "bertus_changes.1001.e"
 		trigger = {
 			NOT = {has_ruler_modifier = munas_moonsinger_deity}
+			NOT = {has_ruler_modifier = munas_moonsinger_ibevar_deity}
 		}
-		change_personal_deity = munas_moonsinger
+		if = {
+			limit = {
+				has_country_flag = upgraded_munas_muse
+			}
+			change_personal_deity = munas_seinathil_muse
+		}
+		else_if = {
+			limit = {
+				has_country_flag = ibevar_new_faith
+			}
+			change_personal_deity = munas_moonsinger_ibevar
+		}
+		else = {
+			change_personal_deity = munas_moonsinger
+		}
+		
 	}
 	# 
 	option = {
@@ -2275,6 +2293,7 @@ country_event = {	#electors rank 2?
     trigger = { 
 		is_elector = yes
 		NOT = {government_rank  = 2}
+		NOT = {has_government_attribute = magisterium_election}
     }
 			
 	option = {
@@ -5787,24 +5806,26 @@ country_event = {
 		name = bertus_changes.6010.a #Ok
 		ai_chance = {factor = 1 modifier = {factor = 0 NOT = {mil_power = 800}}}
 		if = {
+			limit = {has_country_flag = hero_free_general_flag}
+			set_country_flag = get_adventurer_flag
+		}
+		else_if = {
+			limit = {has_country_flag = magisterium_free_general_flag}
+			set_country_flag = get_mage_flag
+		}
+		else_if = {
 			limit = {
-				OR = {
-					has_government_attribute = adventurer_commander_academy
-					has_country_flag = hero_free_general_flag
-				}
+				has_government_attribute = adventurer_commander_academy
 			}
 			set_country_flag = get_adventurer_flag
 		}
-		if = {
+		else_if = {
 			limit = {
-				OR = {
-					has_government_attribute = magic_commander_academy
-					has_country_flag = magisterium_free_general_flag
-				}
+				has_government_attribute = magic_commander_academy
 			}
 			set_country_flag = get_mage_flag
 		}
-		if = {
+		else_if = {
 			limit = {has_government_attribute = artificer_commander_academy}
 			set_country_flag = get_artificer_flag
 		}

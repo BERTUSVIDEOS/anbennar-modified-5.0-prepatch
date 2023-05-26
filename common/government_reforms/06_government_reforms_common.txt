@@ -1274,9 +1274,11 @@ organized_military_staff_reform = {
 		}
 	}
 	modifiers = {
-		reinforce_cost_modifier = -0.2
+		reinforce_cost_modifier = -0.1	#-0.2→-0.10
 		reinforce_speed = 0.25
-		global_supply_limit_modifier = 0.2
+		yearly_army_tradition = 0.01	#0→0.01
+		general_cost = -0.10	#0→-0.10
+		global_supply_limit_modifier = 1.0	#0.20→1.0
 	}
 	
 	ai = {
@@ -1300,8 +1302,10 @@ military_engineering_reform = {
 		}
 	}
 	modifiers = {
+		#artillery_cost = -0.1	#-0.10→0
 		artillery_barrage_cost = -0.25
-		artillery_cost = -0.1
+		siege_ability = 0.10	#0→0.10
+		artillery_power = 0.10	#0→0.10
 	}
 	
 	ai = {
@@ -1353,9 +1357,18 @@ sustained_discipline_reform = {
 		}
 	}
 	modifiers = {
-		land_attrition = -0.15
-		drill_decay_modifier = -0.33
-		#drill_gain_modifier = 0.33	#0.33→0
+		#land_attrition = -0.15	#-0.15→0
+		#drill_decay_modifier = -0.33	#-0.33→0
+		drill_gain_modifier = 0.20	#0.33→0.20
+	}
+	effect = {
+		add_country_modifier = {
+			name = sustained_discipline_elite
+			duration = -1
+		}
+	}
+	removed_effect = {
+		remove_country_modifier = sustained_discipline_elite
 	}
 	
 	ai = {
@@ -1413,8 +1426,10 @@ amphibious_specialization_reform = {
 	modifiers = {
 		regiment_disembark_speed = 0.25
 		transport_attrition = -0.25
+		movement_speed_in_fleet_modifier = 1	#0→1
 		allowed_marine_fraction = 0.1
 		coast_raid_range = 1	#0→1
+		admiral_cost = -0.1	#0→-0.10
 	}
 	effect = {
 		hidden_effect = {
@@ -1472,6 +1487,8 @@ mercenary_leadership_reform = {
 	modifiers = {
 		mercenary_cost = -0.25
 		possible_condottieri = 0.5
+		mercenary_discipline = 0.05	#0→0.05
+		merc_leader_army_tradition = 0.25	#0→0.25
 	}
 	
 	ai = {
@@ -2171,9 +2188,12 @@ magical_guild_reform = {	#bertus mod
 	icon = "indian_crown"
 	allow_normal_conversion = yes
 	potential = {
-		NOT = { has_adventurer_reform = yes } # Anbennar
 		has_estate = estate_mages
 		is_revolutionary = no
+		NOT = { has_adventurer_reform = yes } # Anbennar
+		NOT = { has_reform = magisterium_reform}
+		NOT = { has_reform = magisterium_reformed_reform}
+		NOT = { has_reform = magisterium_empire_reform}
 		NOT = { has_country_flag = banned_magic }
 		NOT = { has_reform = hobgoblin_stratocracy_reform }
 		NOT = { has_reform = great_ogre_horde }
@@ -2229,6 +2249,9 @@ artificer_guild_reform = {	#bertus mod
 	potential = {
 		has_estate = estate_artificers
 		is_revolutionary = no
+		NOT = { has_reform = magisterium_reform}
+		NOT = { has_reform = magisterium_reformed_reform}
+		NOT = { has_reform = magisterium_empire_reform}
 		NOT = { has_reform = hobgoblin_stratocracy_reform }
 		NOT = { has_reform = great_ogre_horde }
 		NOT = {
@@ -2275,6 +2298,9 @@ adventurer_guild_reform = {	#bertus mod
 	potential = {
 		has_estate = estate_adventurers
 		is_revolutionary = no
+		NOT = { has_reform = magisterium_reform}
+		NOT = { has_reform = magisterium_reformed_reform}
+		NOT = { has_reform = magisterium_empire_reform}
 		NOT = { has_reform = hobgoblin_stratocracy_reform }
 		NOT = { has_reform = great_ogre_horde }
 		NOT = {

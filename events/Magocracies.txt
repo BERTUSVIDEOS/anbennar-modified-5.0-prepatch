@@ -89,7 +89,6 @@ country_event = {
 	trigger = {
 		OR = {
 			has_reform = magocracy_reform
-			has_reform = magisterium_reform
 			has_reform = tehanek_magocracy_reform
 		}
 		NOT = { has_country_flag = in_magocracy_heir_selection }
@@ -394,5 +393,186 @@ country_event = {
 		clr_country_flag = in_magocracy_heir_selection
 		custom_tooltip = theocracy.1.tt
 		set_heir_mage_effect = yes
+	}
+}
+country_event = {
+	id = magocracy.2
+	title = magocracy.2.title
+	desc = magocracy.2.desc
+	picture = RELIGION_eventPicture
+
+	is_triggered_only = yes
+
+	trigger = {
+		OR = {
+			has_reform = magisterium_reform
+			has_reform = magisterium_reformed_reform
+			has_reform = magisterium_empire_reform
+		}
+	}
+
+	immediate = {
+		hidden_effect = {
+			set_country_flag = in_magocracy_heir_selection
+			
+			clr_country_flag = mago_divination_flag
+			clr_country_flag = mago_enchantment_flag
+			clr_country_flag = mago_abjuration_flag
+			clr_country_flag = mago_transmutation_flag
+			clr_country_flag = mago_evocation_flag
+			clr_country_flag = mago_illusion_flag
+			clr_country_flag = mago_necromancy_flag
+			clr_country_flag = mago_conjuration_flag
+			clr_country_flag = mago_young_mage_flag
+			random_core_province = {
+				limit = { has_building = mage_tower }
+				save_event_target_as = estate_ruler_province
+			}
+		}
+	}
+
+	option = {
+		name = magocracy.2.i		# A Promising Young Mage
+
+		define_ruler = {age = 30 }
+		custom_tooltip = talented_in_all_schools_tt
+		hidden_effect = {
+			set_ruler_flag = divination_1
+			set_ruler_flag = enchantment_1
+			set_ruler_flag = abjuration_1
+			set_ruler_flag = transmutation_1
+			set_ruler_flag = evocation_1
+			set_ruler_flag = illusion_1
+			set_ruler_flag = necromancy_1
+			set_ruler_flag = conjuration_1
+			add_ruler_personality = mage_personality
+		}
+
+		add_devotion = -5
+	}
+
+	option = {
+		name = magocracy.2.a		# A divination master
+				
+		define_ruler = {age = 55 }
+		custom_tooltip = legendary_in_divination_tt
+		hidden_effect = {
+			set_ruler_flag = divination_1
+			set_ruler_flag = divination_2
+			set_ruler_flag = divination_3
+			# Then gives talented in three others
+			give_talented_in_3_other = yes
+			add_ruler_personality = mage_personality
+		}
+	}
+	
+	option = {
+		name = magocracy.2.b		# A enchantment master
+				
+		define_ruler = {age = 55 }
+		custom_tooltip = legendary_in_enchantment_tt
+		hidden_effect = {
+			set_ruler_flag = enchantment_1
+			set_ruler_flag = enchantment_2
+			set_ruler_flag = enchantment_3
+			# Then gives talented in three others
+			give_talented_in_3_other = yes
+			add_ruler_personality = mage_personality
+		}
+	}
+	option = {
+		name = magocracy.2.c		# A abjuration master
+				
+		define_ruler = {age = 55 }
+		custom_tooltip = legendary_in_abjuration_tt
+		hidden_effect = {
+			set_ruler_flag = abjuration_1
+			set_ruler_flag = abjuration_2
+			set_ruler_flag = abjuration_3
+			# Then gives talented in three others
+			give_talented_in_3_other = yes
+			add_ruler_personality = mage_personality
+		}
+	}
+	option = {
+		name = magocracy.2.d		# A transmutation master
+				
+		define_ruler = {age = 55 }
+		custom_tooltip = legendary_in_transmutation_tt
+		hidden_effect = {
+			set_ruler_flag = transmutation_1
+			set_ruler_flag = transmutation_2
+			set_ruler_flag = transmutation_3
+			# Then gives talented in three others
+			give_talented_in_3_other = yes
+			add_ruler_personality = mage_personality
+		}
+	}
+	option = {
+		name = magocracy.2.e		# A evocation master
+				
+		define_ruler = {age = 55 }
+		custom_tooltip = legendary_in_evocation_tt
+		hidden_effect = {
+			set_ruler_flag = evocation_1
+			set_ruler_flag = evocation_2
+			set_ruler_flag = evocation_3
+			# Then gives talented in three others
+			give_talented_in_3_other = yes
+			add_ruler_personality = mage_personality
+		}
+	}
+	option = {
+		name = magocracy.2.f		# A illusion master
+				
+		define_ruler = {age = 55 }
+		custom_tooltip = legendary_in_illusion_tt
+		hidden_effect = {
+			set_ruler_flag = illusion_1
+			set_ruler_flag = illusion_2
+			set_ruler_flag = illusion_3
+			# Then gives talented in three others
+			give_talented_in_3_other = yes
+			add_ruler_personality = mage_personality
+		}
+	}
+	option = {
+		name = magocracy.2.h		# A conjuration master
+			
+		define_ruler = {age = 55 }
+		custom_tooltip = legendary_in_conjuration_tt
+		hidden_effect = {
+			set_ruler_flag = conjuration_1
+			set_ruler_flag = conjuration_2
+			set_ruler_flag = conjuration_3
+			# Then gives talented in three others
+			give_talented_in_3_other = yes
+			add_ruler_personality = mage_personality
+		}
+	}
+	option = {
+		name = magocracy.2.g		# A necromancy master
+				
+		define_ruler = {age = 55 }
+		custom_tooltip = legendary_in_necromancy_tt
+		hidden_effect = {
+			set_ruler_flag = necromancy_1
+			set_ruler_flag = necromancy_2
+			set_ruler_flag = necromancy_3
+			# Then gives talented in three others
+			give_talented_in_3_other = yes
+			add_ruler_personality = mage_personality
+		}
+		
+		add_devotion = -25
+		every_country = {
+			limit = {
+				has_estate_privilege = estate_mages_organization_magisterium 
+			}
+			add_opinion = {
+				who = ROOT
+				modifier = magister_necromancer_modifier
+			}
+		}
 	}
 }
