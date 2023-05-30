@@ -79,26 +79,64 @@ country_event = {
 		ai_chance = {factor = 50}
 		
 		#Effect
-		if = { limit = { estate_influence = { estate = estate_mages influence = 66 } }
-			add_years_of_income = -0.6
+		if = { 
+			limit = { 
+				estate_influence = { estate = estate_mages influence = 66 }
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 30
+				}
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -30
+			}
 			add_country_modifier = {
 				name = magic_estate_magnificent_feast_3
 				duration = 3650
 			}
 		}
-		else_if = { limit = { estate_influence = { estate = estate_mages influence = 33 } }
-			add_years_of_income = -0.6
+		else_if = { 
+			limit = { 
+				estate_influence = { estate = estate_mages influence = 33 }
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 20
+				}
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -20
+			}
 			add_country_modifier = {
 				name = magic_estate_magnificent_feast_2
 				duration = 3650
 			}
 		}
-		else = {
-			add_years_of_income = -0.6
+		else_if = { 
+			limit = { 
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 10
+				}
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -10
+			}
 			add_country_modifier = {
 				name = magic_estate_magnificent_feast_1
 				duration = 3650
 			}
+		}
+		else = {
+			custom_tooltip = "Magisters need at least 10/20/30 Mana"
 		}
 		
 		custom_tooltip = magic_feast_desc_tt
@@ -110,6 +148,11 @@ country_event = {
 		trigger = {
 			ai = no
 			any_owned_province = { plant_growth_target = yes }
+			has_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = 30
+			}
 		}
 		ai_chance = {
 			factor = 50
@@ -119,8 +162,20 @@ country_event = {
 			}
 		}
 				
-		if = { limit = { estate_influence = { estate = estate_mages influence = 66 } }
-			add_adm_power = -100
+		if = { 
+			limit = { 
+				estate_influence = { estate = estate_mages influence = 66 }
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 50
+				}
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -50
+			}
 			custom_tooltip = plant_growth_3_tt
 			hidden_effect = {
 				every_owned_province = {
@@ -132,8 +187,20 @@ country_event = {
 				}
 			}
 		}
-		else_if = { limit = { estate_influence = { estate = estate_mages influence = 33 } }
-			add_adm_power = -66
+		else_if = { 
+			limit = { 
+				estate_influence = { estate = estate_mages influence = 33 }
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 40
+				}
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -40
+			}
 			custom_tooltip = plant_growth_2_tt
 			hidden_effect = {
 				every_owned_province = {
@@ -146,7 +213,11 @@ country_event = {
 			}
 		}
 		else = {
-			add_adm_power = -33
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -30
+			}
 			custom_tooltip = plant_growth_1_tt
 			hidden_effect = {
 				every_owned_province = {
@@ -168,10 +239,20 @@ country_event = {
 		name = magic_estate.1.cx
 		trigger = {
 			ai = no
-			NOT = { any_owned_province = { plant_growth_target = yes } }
+			OR = {
+				NOT = { any_owned_province = { plant_growth_target = yes } }
+				NOT = {
+					has_government_power = { 
+						mechanic_type = magisterium_mechanic
+						power_type = magisterium_mana
+						value = 30
+					}
+				}
+			}
 		}
 		
 		custom_tooltip = magic_need_valid_target_tt
+		custom_tooltip = "Magisters need at least 30/40/50 Mana"
 		hidden_effect = { country_event = { id = magic_estate.2 } }
 		custom_tooltip = magic_effect_separator_tt
 		
@@ -235,12 +316,28 @@ country_event = {
 				has_country_modifier = magic_estate_scrying_neighbours_2
 				has_country_modifier = magic_estate_scrying_neighbours_3
 			}
+			has_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = 10
+			}
 		}
 		ai_chance = {factor = 50}
 		
-		if = { limit = { estate_influence = { estate = estate_mages influence = 66 } }
-			add_years_of_income = -0.6
-			add_mil_power = -60
+		if = { 
+			limit = { 
+				estate_influence = { estate = estate_mages influence = 66 }
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 30
+				}
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -30
+			}
 			add_country_modifier = {
 				name = magic_estate_scrying_rivals_3
 				duration = 3650	#10 years
@@ -251,9 +348,20 @@ country_event = {
 				add_spy_network_in = { who = ROOT value = -30 } 
 			}
 		}
-		else_if = { limit = { estate_influence = { estate = estate_mages influence = 33 } }
-			add_years_of_income = -0.4
-			add_mil_power = -40
+		else_if = { 
+			limit = { 
+				estate_influence = { estate = estate_mages influence = 33 }
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 20
+				}
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -20
+			}
 			add_country_modifier = {
 				name = magic_estate_scrying_rivals_2
 				duration = 3650	#10 years
@@ -265,8 +373,11 @@ country_event = {
 			}
 		}
 		else = {
-			add_years_of_income = -0.2
-			add_mil_power = -20
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -10
+			}
 			add_country_modifier = {
 				name = magic_estate_scrying_rivals_1
 				duration = 3650	#10 years
@@ -282,18 +393,26 @@ country_event = {
 		name = magic_estate.1.ddx
 		trigger = {
 			ai = no
-			NOT = { any_rival_country  = { exists = yes } }
 			OR = {
+				NOT = { any_rival_country  = { exists = yes } }
 				has_country_modifier = magic_estate_scrying_rivals_1
 				has_country_modifier = magic_estate_scrying_rivals_2
 				has_country_modifier = magic_estate_scrying_rivals_3
 				has_country_modifier = magic_estate_scrying_neighbours_1
 				has_country_modifier = magic_estate_scrying_neighbours_2
 				has_country_modifier = magic_estate_scrying_neighbours_3
+				NOT = {
+					has_government_power = { 
+						mechanic_type = magisterium_mechanic
+						power_type = magisterium_mana
+						value = 10
+					}
+				}
 			}
 		}
 		
 		custom_tooltip = magic_need_valid_target_tt
+		custom_tooltip = "Magisters need at least 10/20/30 Mana"
 		hidden_effect = { country_event = { id = magic_estate.2 } }
 		custom_tooltip = magic_effect_separator_tt
 		
@@ -356,9 +475,13 @@ country_event = {
 				has_country_modifier = magic_estate_scrying_neighbours_2
 				has_country_modifier = magic_estate_scrying_neighbours_3
 			}
+			has_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = 10
+			}
 		}
 		ai_chance = {factor = 50}
-		add_years_of_income = -0.5
 		
 		hidden_effect = {
 			every_country = { 
@@ -366,7 +489,20 @@ country_event = {
 				country_event = {id = bertus_changes.1113}
 			}
 		}	
-		if = { limit = { estate_influence = { estate = estate_mages influence = 66 } }
+		if = { 
+			limit = { 
+				estate_influence = { estate = estate_mages influence = 66 } 
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 30
+				}
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -30
+			}
 			add_country_modifier = {
 				name = magic_estate_scrying_neighbours_3
 				duration = 3650	#10 years
@@ -389,7 +525,20 @@ country_event = {
 				}
 			}
 		}
-		else_if = { limit = { estate_influence = { estate = estate_mages influence = 33 } }
+		else_if = { 
+			limit = { 
+				estate_influence = { estate = estate_mages influence = 33 } 
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 20
+				}
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -20
+			}
 			add_country_modifier = {
 				name = magic_estate_scrying_neighbours_2
 				duration = 3650	#10 years
@@ -413,6 +562,11 @@ country_event = {
 			}
 		}
 		else = {
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -10
+			}
 			add_country_modifier = {
 				name = magic_estate_scrying_neighbours_1
 				duration = 3650
@@ -443,19 +597,27 @@ country_event = {
 		name = magic_ruler.3.cx
 		trigger = {
 			ai = no
-			any_country = { is_neighbor_of = ROOT }
 			OR = {
+				NOT = {any_country = { is_neighbor_of = ROOT }}
 				has_country_modifier = magic_estate_scrying_rivals_1
 				has_country_modifier = magic_estate_scrying_rivals_2
 				has_country_modifier = magic_estate_scrying_rivals_3
 				has_country_modifier = magic_estate_scrying_neighbours_1
 				has_country_modifier = magic_estate_scrying_neighbours_2
 				has_country_modifier = magic_estate_scrying_neighbours_3
+				NOT = {
+					has_government_power = { 
+						mechanic_type = magisterium_mechanic
+						power_type = magisterium_mana
+						value = 10
+					}
+				}
 			}
 		}
 		ai_chance = {factor = 50}
 		
 		custom_tooltip = magic_need_valid_target_tt
+		custom_tooltip = "Magisters need at least 10/20/30 Mana"
 		hidden_effect = { country_event = { id = magic_estate.2 } }
 		custom_tooltip = magic_effect_separator_tt
 		
@@ -525,28 +687,65 @@ country_event = {
 		}
 		ai_chance = {factor = 50}
 		
-		if = { limit = { estate_influence = { estate = estate_mages influence = 66 } }
-			add_years_of_income = -0.6
+		if = { 
+			limit = { 
+				estate_influence = { estate = estate_mages influence = 66 }
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 40
+				}
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -40
+			}
 			add_country_modifier = {
 				name = magic_estate_scrying_internal_dissidents_3
 				duration = 3650	#10 years
 			}
 		}
-		else_if = { limit = { estate_influence = { estate = estate_mages influence = 33 } }
-			add_years_of_income = -0.4
+		else_if = { 
+			limit = { 
+				estate_influence = { estate = estate_mages influence = 33 } 
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 30
+				}
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -30
+			}
 			add_country_modifier = {
 				name = magic_estate_scrying_internal_dissidents_2
 				duration = 3650	#10 years
 			}
 		}
-		else = {
-			add_years_of_income = -0.2
+		else_if = {
+			limit = {
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 20
+				}
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -20
+			}
 			add_country_modifier = {
 				name = magic_estate_scrying_internal_dissidents_1
 				duration = 3650
 			}
 		}
-		
+		else = {
+			custom_tooltip = "Magisters need at least 20/30/40 Mana"
+		}
 		custom_tooltip = magic_scrying_desc_tt
 	}
 	
@@ -556,12 +755,28 @@ country_event = {
 		trigger = {
 			ai = no
 			is_at_war = yes
+			has_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = 30
+			}
 		}
 		ai_chance = {factor = 50}
 			
-		if = { limit = { estate_influence = { estate = estate_mages influence = 66 } }
-				add_years_of_income = -0.60
-				add_mil_power = -100
+		if = { 
+			limit = { 
+				estate_influence = { estate = estate_mages influence = 66 }
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 90
+				}
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -90
+			}
 			add_country_modifier = {
 				name = magic_estate_scrying_military_intelligence_3
 				duration = 1825	#5 years
@@ -571,9 +786,20 @@ country_event = {
 				remove_fow = 4
 			}
 		}
-		else_if = { limit = { OR = { estate_influence = { estate = estate_mages influence = 33 } has_country_flag = command_enslaved_the_oracle_flag } }
-				add_years_of_income = -0.40
-				add_mil_power = -66
+		else_if = { 
+			limit = { 
+				OR = { estate_influence = { estate = estate_mages influence = 33 } has_country_flag = command_enslaved_the_oracle_flag } 
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 60
+				}
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -60
+			}
 			add_country_modifier = {
 				name = magic_estate_scrying_military_intelligence_2
 				duration = 1825	#5 years
@@ -583,9 +809,12 @@ country_event = {
 				remove_fow = 3
 			}
 		}
-		else = {
-				add_years_of_income = -0.20
-				add_mil_power = -33
+		else = { 
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = 30
+			}
 			add_country_modifier = {
 				name = magic_estate_scrying_military_intelligence_1
 				duration = 1825	#5 years
@@ -603,9 +832,17 @@ country_event = {
 		trigger = {
 			ai = no
 			is_at_war = no
+			NOT = {
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 30
+				}
+			}
 		}
 		
 		custom_tooltip = magic_need_valid_target_tt
+		custom_tooltip = "Magisters need at least 30/60/90 Mana"
 		hidden_effect = { country_event = { id = magic_estate.2 } }
 		custom_tooltip = magic_effect_separator_tt
 		
@@ -659,23 +896,64 @@ country_event = {
 		}
 		ai_chance = {factor = 50}
 		
-		if = { limit = { estate_influence = { estate = estate_mages influence = 66 } }
+		if = { 
+			limit = { 
+				estate_influence = { estate = estate_mages influence = 66 } 
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 90
+				}
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -90
+			}
 			add_country_modifier = {
 				name = magic_estate_aiding_construction_3
 				duration = 3650
 			}
 		}
-		else_if = { limit = { estate_influence = { estate = estate_mages influence = 33 } }
+		else_if = {
+			limit = { 
+				estate_influence = { estate = estate_mages influence = 33 } 
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 70
+				}
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -70
+			}
 			add_country_modifier = {
 				name = magic_estate_aiding_construction_2
 				duration = 3650
 			}
 		}
-		else = {
+		else_if = {
+			limit = {
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 50
+				}
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -50
+			}
 			add_country_modifier = {
 				name = magic_estate_aiding_construction_1
 				duration = 3650
 			}
+		}
+		else = {
+			custom_tooltip = "Magisters need at least 50/70/90 Mana"
 		}
 		
 		custom_tooltip = magic_construction_desc_tt
@@ -688,8 +966,20 @@ country_event = {
 			ai = no
 		}
 		ai_chance = {factor = 50}
-		if = { limit = { estate_influence = { estate = estate_mages influence = 66 } }
-			add_years_of_income = -0.6
+		if = { 
+			limit = { 
+				estate_influence = { estate = estate_mages influence = 66 }
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 40
+				}
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -40
+			}
 			custom_tooltip = estate_ward_3_tt
 			hidden_effect = {
 				every_owned_province = {
@@ -708,8 +998,20 @@ country_event = {
 				}
 			}
 		}
-		else_if = { limit = { estate_influence = { estate = estate_mages influence = 33 } }
-			add_years_of_income = -0.40
+		else_if = { 
+			limit = { 
+				estate_influence = { estate = estate_mages influence = 33 }
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 30
+				}
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -30
+			}
 			custom_tooltip = estate_ward_2_tt
 			hidden_effect = {
 				every_owned_province = {
@@ -728,8 +1030,19 @@ country_event = {
 				}
 			}
 		}
-		else = {
-			add_years_of_income = -0.20
+		else_if = { 
+			limit = { 
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 20
+				}
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -20
+			}
 			custom_tooltip = estate_ward_1_tt
 			hidden_effect = {
 				every_owned_province = {
@@ -748,6 +1061,9 @@ country_event = {
 				}
 			}
 		}
+		else = {
+			custom_tooltip = "Magisters need at least 20/30/40 Mana"
+		}
 		
 		custom_tooltip = magic_ward_desc_tt
 	}
@@ -760,9 +1076,21 @@ country_event = {
 		}
 		ai_chance = {factor = 50}	
 		
-		if = { limit = { estate_influence = { estate = estate_mages influence = 66 } }
-			add_years_of_income = -0.60
-			
+		if = { 
+			limit = {
+				estate_influence = { estate = estate_mages influence = 66 }
+				has_government_power = {
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 50
+				}
+			}
+
+			add_government_power = {
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -50
+			}
 			capital_scope = {
 				every_province = {
 					limit = {
@@ -787,8 +1115,21 @@ country_event = {
 				}
 			}
 		}
-		else_if = { limit = { estate_influence = { estate = estate_mages influence = 33 } }
-			add_years_of_income = -0.40
+		else_if = { 
+			limit = { 
+				estate_influence = { estate = estate_mages influence = 33 }
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 40
+				}
+			}
+
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -40
+			}
 			capital_scope = {
 				every_province = {
 					limit = {
@@ -813,9 +1154,19 @@ country_event = {
 				}
 			}
 		}
-		else = {
-			add_years_of_income = -0.20
-			
+		else_if = {
+			limit = { 
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 30
+				}
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -30
+			}
 			capital_scope = {
 				every_province = {
 					limit = {
@@ -840,7 +1191,9 @@ country_event = {
 				}
 			}
 		}
-		
+		else = {
+			custom_tooltip = "Magisters need at least 30/40/50 Mana"
+		}
 		custom_tooltip = magic_ward_desc_tt
 	}
 	
@@ -853,11 +1206,21 @@ country_event = {
 			has_government_attribute = heir
 			is_lesser_in_union = no
 			NOT = { ruler_is_immortal = yes } # No lich babies	
+			has_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = 75
+			}
 		}
 		ai_chance = {factor = 50}
 		add_years_of_income = -0.5
 		if = { limit = { has_heir = yes }
 			add_legitimacy = -25
+		}
+		add_government_power = { 
+			mechanic_type = magisterium_mechanic
+			power_type = magisterium_mana
+			value = -75
 		}
 		custom_tooltip = magic_estate_rite_of_conception_tooltip
 		hidden_effect = {
@@ -875,6 +1238,13 @@ country_event = {
 				NOT = { has_government_attribute = heir }
 				is_lesser_in_union = yes
 				ruler_is_immortal = yes # No lich babies
+				NOT = {
+					has_government_power = { 
+						mechanic_type = magisterium_mechanic
+						power_type = magisterium_mana
+						value = 75
+					}
+				}
 			}
 		}
 		
@@ -890,12 +1260,20 @@ country_event = {
 		if = { limit = { ruler_is_immortal = yes }
 			custom_tooltip = magic_ruler_is_mortal_tt
 		}
+		if = { 
+			limit = { NOT = {has_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 75}}}
+			custom_tooltip = "Magisters need at least 75 Mana"
+		}
 		hidden_effect = { country_event = { id = magic_estate.2 } }
 		
 		custom_tooltip = magic_effect_separator_tt
 		
 		tooltip = {
-			add_years_of_income = -0.5
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -75
+			}
 			if = { limit = { has_heir = yes }
 				add_legitimacy = -25
 			}
@@ -903,6 +1281,271 @@ country_event = {
 		custom_tooltip = magic_estate_rite_of_conception_tooltip
 		
 		custom_tooltip = magic_conception_desc_tt
+	}
+	#3 - Foresight
+	option = {	#available
+		name = magic_ruler.3.g
+		trigger = {
+			A85 = {has_country_flag = divination_school_reform_flag}
+			has_estate_privilege = estate_mages_organization_magisterium
+			NOT = {
+				has_country_modifier = divination_school_reform_modifier
+			}
+		}
+		ai_chance = {factor = 0}
+		if = {
+			limit = {
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 50
+				}
+			}
+			add_country_modifier = {
+				name = divination_school_reform_modifier
+				duration = 730
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -50
+			}
+		}
+		else = {
+			custom_tooltip = "Magisters need at least 50 Mana"
+			hidden_effect = { country_event = { id = magic_estate.2 } }
+		}
+	}
+	#2 - Modify Memories - Atrocities
+	option = {	#available
+		name = magic_ruler.4.l
+		trigger = {
+			A85 = {has_country_flag = enchantment_school_reform_flag}
+			has_estate_privilege = estate_mages_organization_magisterium
+			NOT = {
+				has_country_modifier = enchantment_school_reform_modifier
+			}
+		}
+		ai_chance = {factor = 0}
+		if = {
+			limit = {
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 50
+				}
+			}
+			hidden_effect = {
+				add_country_modifier = {
+					name = enchantment_school_reform_modifier_flag
+					duration = 730
+				}
+			}
+			tooltip = {
+				custom_tooltip = "Every War Enemy get:"
+				add_country_modifier = {
+					name = enchantment_school_reform_modifier
+					duration = 730
+				}
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -50
+			}
+		}
+		else = {
+			custom_tooltip = "Magisters need at least 50 Mana"
+			hidden_effect = { country_event = { id = magic_estate.2 } }
+		}
+	}
+	#1 - Ward
+	option = {	#available	#bertus mod
+		name = magic_ruler.1.b
+		trigger = {
+			A85 = {has_country_flag = abjuration_school_reform_flag}
+			has_estate_privilege = estate_mages_organization_magisterium
+			NOT = {
+				has_country_modifier = abjuration_school_reform_modifier
+			}
+		}
+		ai_chance = {factor = 0}
+		if = {
+			limit = {
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 50
+				}
+			}
+			add_country_modifier = {
+				name = abjuration_school_reform_modifier
+				duration = 730
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -50
+			}
+		}
+		else = {
+			custom_tooltip = "Magisters need at least 50 Mana"
+			hidden_effect = { country_event = { id = magic_estate.2 } }
+		}
+	}
+	#2 - Enhance Ability I
+	option = {	#available
+		name = magic_ruler.8.dd
+		trigger = {
+			A85 = {has_country_flag = transmutation_school_reform_flag}
+			has_estate_privilege = estate_mages_organization_magisterium
+			NOT = {
+				has_country_modifier = transmutation_school_reform_modifier
+			}
+		}
+		ai_chance = {factor = 0}
+		if = {
+			limit = {
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 50
+				}
+			}
+			add_country_modifier = {
+				name = transmutation_school_reform_modifier
+				duration = 730
+			}
+			hidden_effect = {
+				add_country_modifier = {
+					name = transmutation_school_reform_marine_modifier
+					duration = 730
+					hidden = yes
+				}
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -50
+			}
+		}
+		else = {
+			custom_tooltip = "Magisters need at least 50 Mana"
+			hidden_effect = { country_event = { id = magic_estate.2 } }
+		}
+	}
+	#1 - War magic I
+	option = {	#available
+		name = magic_ruler.5.b
+		trigger = {
+			A85 = {has_country_flag = evocation_school_reform_flag}
+			has_estate_privilege = estate_mages_organization_magisterium
+			NOT = {
+				has_country_modifier = evocation_school_reform_modifier
+			}
+		}
+		ai_chance = {factor = 0}
+		if = {
+			limit = {
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 50
+				}
+			}
+			add_country_modifier = {
+				name = evocation_school_reform_modifier
+				duration = 730
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -50
+			}
+		}
+		else = {
+			custom_tooltip = "Magisters need at least 50 Mana"
+			hidden_effect = { country_event = { id = magic_estate.2 } }
+		}
+	}
+	#3 - illusion Army
+	option = {	#available 
+		name = magic_ruler.6.i
+		trigger = {
+			A85 = {has_country_flag = illusion_school_reform_flag}
+			has_estate_privilege = estate_mages_organization_magisterium
+			NOT = {
+				has_country_modifier = illusion_school_reform_modifier
+			}
+		}
+		ai_chance = {factor = 0}
+		if = {
+			limit = {
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 50
+				}
+			}
+			tooltip = {
+				custom_tooltip = "Every owned province get:"
+				add_province_modifier = {
+					name = illusion_school_reform_modifier
+					duration = 730
+				}
+			}
+			hidden_effect = {
+				every_owned_province = {
+					add_province_modifier = {
+						name = illusion_school_reform_modifier
+						duration = 730
+					}
+				}
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -50
+			}
+		}
+		else = {
+			custom_tooltip = "Magisters need at least 50 Mana"
+			hidden_effect = { country_event = { id = magic_estate.2 } }
+		}
+	}
+	#1 - Summon Siege Elemental
+	option = {
+		name = magic_ruler.2.c	#available
+		trigger = {
+			A85 = {has_country_flag = conjuration_school_reform_flag}
+			has_estate_privilege = estate_mages_organization_magisterium
+			NOT = {
+				has_country_modifier = conjuration_school_reform_modifier
+			}
+		}
+		ai_chance = {factor = 0}
+		if = {
+			limit = {
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 50
+				}
+			}
+			add_country_modifier = {
+				name = conjuration_school_reform_modifier
+				duration = 730
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -50
+			}
+		}
+		else = {
+			custom_tooltip = "Magisters need at least 50 Mana"
+			hidden_effect = { country_event = { id = magic_estate.2 } }
+		}
 	}
 }
 
