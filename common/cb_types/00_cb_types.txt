@@ -522,7 +522,18 @@ cb_colonial_independence_war = {
 cb_nationalist = {
 
 	prerequisites_self = {
-		dip_tech = 23
+		OR = {
+			dip_tech = 23
+			has_government_attribute = regional_nationalism	#bertus mod
+			AND = {
+				is_neighbor_of = FROM
+				has_idea = nationalismus6
+			}
+			AND = {
+				has_government_attribute = cb_on_own_race
+				FROM = {is_purguing_our_race = yes}
+			}
+		}
 		is_free_or_tributary_trigger = yes
 		is_revolutionary = no
 	}
@@ -542,6 +553,7 @@ cb_imperial = {
 		OR = {
 			dip_tech = 23
 			invasion_nation = yes
+			has_government_attribute = absolute_imperialism	#bertus mod
 		}
 		is_free_or_tributary_trigger = yes
 		is_revolutionary = no
@@ -1604,6 +1616,7 @@ cb_world_crusade = {
 					any_known_country = { mission_completed = B38_khetist_enlightenment }
 				}
 			}
+			has_government_attribute = divine_right	#bertus mod
 		}
 	}
 

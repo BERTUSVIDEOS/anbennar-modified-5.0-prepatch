@@ -7141,7 +7141,7 @@ country_event = {
 			}
 		}
 		else = {
-			custom_tooltip = "Magisters need at least 75 Mana"
+			custom_tooltip = magisters_need_75_mana_tt
 		}
     }
     option = {
@@ -7167,7 +7167,7 @@ country_event = {
 			}
 		}
 		else = {
-			custom_tooltip = "Magisters need at least 75 Mana"
+			custom_tooltip = magisters_need_75_mana_tt
 		}
     }
     option = {
@@ -7193,7 +7193,7 @@ country_event = {
 			}
 		}
 		else = {
-			custom_tooltip = "Magisters need at least 75 Mana"
+			custom_tooltip = magisters_need_75_mana_tt
 		}
     }
     option = {
@@ -7219,7 +7219,7 @@ country_event = {
 			}
 		}
 		else = {
-			custom_tooltip = "Magisters need at least 75 Mana"
+			custom_tooltip = magisters_need_75_mana_tt
 		}
     }
     option = {
@@ -7245,7 +7245,7 @@ country_event = {
 			}
 		}
 		else = {
-			custom_tooltip = "Magisters need at least 75 Mana"
+			custom_tooltip = magisters_need_75_mana_tt
 		}
     }
     option = {
@@ -7271,7 +7271,7 @@ country_event = {
 			}
 		}
 		else = {
-			custom_tooltip = "Magisters need at least 75 Mana"
+			custom_tooltip = magisters_need_75_mana_tt
 		}
     }
     option = {
@@ -7297,7 +7297,7 @@ country_event = {
 			}
 		}
 		else = {
-			custom_tooltip = "Magisters need at least 75 Mana"
+			custom_tooltip = magisters_need_75_mana_tt
 		}
     }
     option = {
@@ -7323,7 +7323,7 @@ country_event = {
 			}
 		}
 		else = {
-			custom_tooltip = "Magisters need at least 75 Mana"
+			custom_tooltip = magisters_need_75_mana_tt
 		}
     }
 }
@@ -7344,17 +7344,30 @@ country_event = {
     }
     option = {
         name = bertus_changes.6037.high_court_mages # High Court Mages
-		custom_tooltip = high_court_mages_decree_tt
-		add_years_of_income = -0.5
-		hidden_effect = {
-			every_country = {
-				limit = {has_estate_privilege = estate_mages_organization_magisterium}
-				remove_country_modifier = high_court_mages_modifier
+		if = {
+			limit = {NOT = {has_country_modifier = high_court_mages_modifier}}
+			add_years_of_income = -1.0
+			custom_tooltip = every_magister_sphere_member_tt
+			tooltip = {
 				add_country_modifier = {
 					name = high_court_mages_modifier
-					duration = 730
+					duration = 3650
 				}
 			}
+			hidden_effect = {
+				every_country = {
+					limit = {has_estate_privilege = estate_mages_organization_magisterium}
+					remove_country_modifier = high_court_mages_modifier
+					add_country_modifier = {
+						name = high_court_mages_modifier
+						duration = 3650
+					}
+				}
+			}
+			custom_tooltip = high_court_mages_decree_tt
+		}
+		else = {
+			custom_tooltip = "Already Enacted 'High Court Mages'"
 		}
     }
     option = {
@@ -7395,10 +7408,10 @@ country_event = {
 			}
 		}
 		else = {
-			custom_tooltip = "Magisters need at least 10 Mana"
+			custom_tooltip = magisters_need_10_mana_tt
 			if = {
 				limit = {has_country_modifier = magic_vacuum_decree_modifier}
-				custom_tooltip = "10 years CD"
+				custom_tooltip = "Already Enacted 'Magic Vacuum' this decade"
 			}
 		}
     }
@@ -7415,8 +7428,13 @@ country_event = {
 					value = 50
 				}
 			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -50
+			}
 			tooltip = {
-				custom_tooltip = "Every Magister Sphere Member get:"
+				custom_tooltip = every_magister_sphere_member_tt
 				add_country_modifier = {
 					name = divination_school_reform_modifier
 					duration = 730
@@ -7432,14 +7450,9 @@ country_event = {
 					}
 				}
 			}
-			add_government_power = { 
-				mechanic_type = magisterium_mechanic
-				power_type = magisterium_mana
-				value = -50
-			}
 		}
 		else = {
-			custom_tooltip = "Magisters need at least 50 Mana"
+			custom_tooltip = magisters_need_50_mana_tt
 		}
     }
     option = {
@@ -7455,8 +7468,13 @@ country_event = {
 					value = 50
 				}
 			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -50
+			}
 			tooltip = {
-				custom_tooltip = "Every Magister Sphere Member get:"
+				custom_tooltip = every_magister_sphere_member_tt
 				small_increase_of_human_tolerance_effect = yes
 				small_increase_of_elven_tolerance_effect = yes
 				small_increase_of_dwarven_tolerance_effect = yes
@@ -7523,14 +7541,9 @@ country_event = {
 				small_increase_of_kobold_tolerance_effect = yes
 				small_increase_of_lizardfolk_tolerance_effect = yes
 			}
-			add_government_power = { 
-				mechanic_type = magisterium_mechanic
-				power_type = magisterium_mana
-				value = -50
-			}
 		}
 		else = {
-			custom_tooltip = "Magisters need at least 50 Mana"
+			custom_tooltip = magisters_need_50_mana_tt
 		}
     }
     option = {
@@ -7546,8 +7559,13 @@ country_event = {
 					value = 50
 				}
 			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -50
+			}
 			tooltip = {
-				custom_tooltip = "Every Magister Sphere Member get:"
+				custom_tooltip = every_magister_sphere_member_tt
 				add_country_modifier = {
 					name = abjuration_school_reform_modifier
 					duration = 730
@@ -7563,14 +7581,9 @@ country_event = {
 					}
 				}
 			}
-			add_government_power = { 
-				mechanic_type = magisterium_mechanic
-				power_type = magisterium_mana
-				value = -50
-			}
 		}
 		else = {
-			custom_tooltip = "Magisters need at least 50 Mana"
+			custom_tooltip = magisters_need_50_mana_tt
 		}
     }
     option = {
@@ -7586,8 +7599,13 @@ country_event = {
 					value = 50
 				}
 			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic 
+				power_type = magisterium_mana
+				value = -50
+			}
 			tooltip = {
-				custom_tooltip = "Every Magister Sphere Member get:"
+				custom_tooltip = every_magister_sphere_member_tt
 				add_country_modifier = {
 					name = transmutation_school_reform_modifier
 					duration = 730
@@ -7603,14 +7621,9 @@ country_event = {
 					}
 				}
 			}
-			add_government_power = { 
-				mechanic_type = magisterium_mechanic 
-				power_type = magisterium_mana
-				value = -50
-			}
 		}
 		else = {
-			custom_tooltip = "Magisters need at least 50 Mana"
+			custom_tooltip = magisters_need_50_mana_tt
 		}
     }
 	option = {
@@ -7626,8 +7639,13 @@ country_event = {
 					value = 50
 				}
 			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -50
+			}
 			tooltip = {
-				custom_tooltip = "Every Magister Sphere Member get:"
+				custom_tooltip = every_magister_sphere_member_tt
 				add_country_modifier = {
 					name = evocation_school_reform_modifier
 					duration = 730
@@ -7643,14 +7661,9 @@ country_event = {
 					}
 				}
 			}
-			add_government_power = { 
-				mechanic_type = magisterium_mechanic
-				power_type = magisterium_mana
-				value = -50
-			}
 		}
 		else = {
-			custom_tooltip = "Magisters need at least 50 Mana"
+			custom_tooltip = magisters_need_50_mana_tt
 		}
 	}
     option = {
@@ -7666,8 +7679,13 @@ country_event = {
 					value = 50
 				}
 			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -50
+			}
 			tooltip = {
-				custom_tooltip = "Every Magister Sphere Member province get:"
+				custom_tooltip = every_magister_sphere_member_province_tt
 				add_province_modifier = {
 					name = illusion_school_reform_magisterium_modifier
 					duration = 3650
@@ -7683,14 +7701,9 @@ country_event = {
 					}
 				}
 			}
-			add_government_power = { 
-				mechanic_type = magisterium_mechanic
-				power_type = magisterium_mana
-				value = -50
-			}
 		}
 		else = {
-			custom_tooltip = "Magisters need at least 50 Mana"
+			custom_tooltip = magisters_need_50_mana_tt
 		}
     }
     option = {
@@ -7706,8 +7719,13 @@ country_event = {
 					value = 50
 				}
 			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -50
+			}
 			tooltip = {
-				custom_tooltip = "Every Magister Sphere Member get:"
+				custom_tooltip = every_magister_sphere_member_tt
 				add_country_modifier = {
 					name = conjuration_school_reform_elemental_construction_modifier
 					duration = 1825
@@ -7723,14 +7741,9 @@ country_event = {
 					}
 				}
 			}
-			add_government_power = { 
-				mechanic_type = magisterium_mechanic
-				power_type = magisterium_mana
-				value = -50
-			}
 		}
 		else = {
-			custom_tooltip = "Magisters need at least 50 Mana"
+			custom_tooltip = magisters_need_50_mana_tt
 		}
     }
     option = {
@@ -7746,8 +7759,13 @@ country_event = {
 					value = 50
 				}
 			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -50
+			}
 			tooltip = {
-				custom_tooltip = "Every Magister Sphere Member province get:"
+				custom_tooltip = every_magister_sphere_member_province_tt
 				add_province_modifier = {
 					name = conjuration_school_reform_elemental_extraction_modifier
 					duration = 3650
@@ -7763,14 +7781,9 @@ country_event = {
 					}
 				}
 			}
-			add_government_power = { 
-				mechanic_type = magisterium_mechanic
-				power_type = magisterium_mana
-				value = -50
-			}
 		}
 		else = {
-			custom_tooltip = "Magisters need at least 50 Mana"
+			custom_tooltip = magisters_need_50_mana_tt
 		}
     }
     option = {
@@ -7786,8 +7799,13 @@ country_event = {
 					value = 50
 				}
 			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -50
+			}
 			tooltip = {
-				custom_tooltip = "Every Magister Sphere Member province get:"
+				custom_tooltip = every_magister_sphere_member_province_tt
 				add_province_modifier = {
 					name = transmutation_school_reform_elemental_climate_control_modifier
 					duration = 3650
@@ -7803,14 +7821,9 @@ country_event = {
 					}
 				}
 			}
-			add_government_power = { 
-				mechanic_type = magisterium_mechanic
-				power_type = magisterium_mana
-				value = -50
-			}
 		}
 		else = {
-			custom_tooltip = "Magisters need at least 50 Mana"
+			custom_tooltip = magisters_need_50_mana_tt
 		}
     }
 }
