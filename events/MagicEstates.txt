@@ -454,10 +454,13 @@ country_event = {
 		hidden_effect = { country_event = { id = magic_estate.2 } }
 		custom_tooltip = magic_effect_separator_tt
 		
-		tooltip = {			
+		tooltip = {
 			if = { limit = { estate_influence = { estate = estate_mages influence = 66 } }
-				add_years_of_income = -0.6
-				add_mil_power = -60
+				add_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -30
+				}
 				add_country_modifier = {
 					name = magic_estate_scrying_rivals_3
 					duration = 3650	#10 years
@@ -469,8 +472,11 @@ country_event = {
 				}
 			}
 			else_if = { limit = { estate_influence = { estate = estate_mages influence = 33 } }
-				add_years_of_income = -0.4
-				add_mil_power = -40
+				add_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -20
+				}
 				add_country_modifier = {
 					name = magic_estate_scrying_rivals_2
 					duration = 3650	#10 years
@@ -482,8 +488,11 @@ country_event = {
 				}
 			}
 			else = {
-				add_years_of_income = -0.2
-				add_mil_power = -20
+				add_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -10
+				}
 				add_country_modifier = {
 					name = magic_estate_scrying_rivals_1
 					duration = 3650
@@ -673,8 +682,12 @@ country_event = {
 		custom_tooltip = magic_effect_separator_tt
 		
 		tooltip = {
-			add_years_of_income = -0.5
 			if = { limit = { estate_influence = { estate = estate_mages influence = 66 } }
+				add_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -30
+				}
 				add_country_modifier = {
 					name = magic_estate_scrying_neighbours_3
 					duration = 3650	#10 years
@@ -692,6 +705,11 @@ country_event = {
 				}
 			}
 			else_if = { limit = { estate_influence = { estate = estate_mages influence = 33 } }
+				add_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -20
+				}
 				add_country_modifier = {
 					name = magic_estate_scrying_neighbours_2
 					duration = 3650	#10 years
@@ -709,6 +727,11 @@ country_event = {
 				}
 			}
 			else = {
+				add_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -10
+				}
 				add_country_modifier = {
 					name = magic_estate_scrying_neighbours_1
 					duration = 3650
@@ -877,7 +900,7 @@ country_event = {
 			add_government_power = { 
 				mechanic_type = magisterium_mechanic
 				power_type = magisterium_mana
-				value = 30
+				value = -30
 			}
 			add_country_modifier = {
 				name = magic_estate_scrying_military_intelligence_1
@@ -1031,6 +1054,48 @@ country_event = {
 		}
 		else = {
 			custom_tooltip = magisters_need_50_70_90_mana_tt
+			tooltip = {
+				custom_tooltip = "Would give:"
+				if = { 
+					limit = { 
+						estate_influence = { estate = estate_mages influence = 66 } 
+					}
+					add_government_power = { 
+						mechanic_type = magisterium_mechanic
+						power_type = magisterium_mana
+						value = -90
+					}
+					add_country_modifier = {
+						name = magic_estate_aiding_construction_3
+						duration = 3650
+					}
+				}
+				else_if = {
+					limit = { 
+						estate_influence = { estate = estate_mages influence = 33 } 
+					}
+					add_government_power = { 
+						mechanic_type = magisterium_mechanic
+						power_type = magisterium_mana
+						value = -70
+					}
+					add_country_modifier = {
+						name = magic_estate_aiding_construction_2
+						duration = 3650
+					}
+				}
+				else = {
+					add_government_power = { 
+						mechanic_type = magisterium_mechanic
+						power_type = magisterium_mana
+						value = -50
+					}
+					add_country_modifier = {
+						name = magic_estate_aiding_construction_1
+						duration = 3650
+					}
+				}
+			}
 		}
 		
 		custom_tooltip = magic_construction_desc_tt
@@ -1429,18 +1494,30 @@ country_event = {
 					value = 50
 				}
 			}
-			add_country_modifier = {
-				name = divination_school_reform_modifier
-				duration = 730
-			}
 			add_government_power = { 
 				mechanic_type = magisterium_mechanic
 				power_type = magisterium_mana
 				value = -50
 			}
+			add_country_modifier = {
+				name = divination_school_reform_modifier
+				duration = 730
+			}
 		}
 		else = {
 			custom_tooltip = magisters_need_50_mana_tt
+			tooltip = {
+				custom_tooltip = "Would give:"
+				add_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -50
+				}
+				add_country_modifier = {
+					name = divination_school_reform_modifier
+					duration = 730
+				}
+			}
 			hidden_effect = { country_event = { id = magic_estate.2 } }
 		}
 		hidden_effect = {
@@ -1476,6 +1553,11 @@ country_event = {
 					value = 50
 				}
 			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -50
+			}
 			hidden_effect = {
 				add_country_modifier = {
 					name = enchantment_school_reform_modifier_flag
@@ -1489,14 +1571,22 @@ country_event = {
 					duration = 730
 				}
 			}
-			add_government_power = { 
-				mechanic_type = magisterium_mechanic
-				power_type = magisterium_mana
-				value = -50
-			}
 		}
 		else = {
 			custom_tooltip = magisters_need_50_mana_tt
+			tooltip = {
+				custom_tooltip = "Would give:"
+				add_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -50
+				}
+				custom_tooltip = every_war_enemy_tt
+				add_country_modifier = {
+					name = enchantment_school_reform_modifier
+					duration = 730
+				}
+			}
 			hidden_effect = { country_event = { id = magic_estate.2 } }
 		}
 		hidden_effect = {
@@ -1532,18 +1622,30 @@ country_event = {
 					value = 50
 				}
 			}
-			add_country_modifier = {
-				name = abjuration_school_reform_modifier
-				duration = 730
-			}
 			add_government_power = { 
 				mechanic_type = magisterium_mechanic
 				power_type = magisterium_mana
 				value = -50
 			}
+			add_country_modifier = {
+				name = abjuration_school_reform_modifier
+				duration = 730
+			}
 		}
 		else = {
 			custom_tooltip = magisters_need_50_mana_tt
+			tooltip = {
+				custom_tooltip = "Would give:"
+				add_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -50
+				}
+				add_country_modifier = {
+					name = abjuration_school_reform_modifier
+					duration = 730
+				}
+			}
 			hidden_effect = { country_event = { id = magic_estate.2 } }
 		}
 		hidden_effect = {
@@ -1579,6 +1681,11 @@ country_event = {
 					value = 50
 				}
 			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -50
+			}
 			add_country_modifier = {
 				name = transmutation_school_reform_modifier
 				duration = 730
@@ -1590,14 +1697,21 @@ country_event = {
 					hidden = yes
 				}
 			}
-			add_government_power = { 
-				mechanic_type = magisterium_mechanic
-				power_type = magisterium_mana
-				value = -50
-			}
 		}
 		else = {
 			custom_tooltip = magisters_need_50_mana_tt
+			tooltip = {
+				custom_tooltip = "Would give:"
+				add_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -50
+				}
+				add_country_modifier = {
+					name = transmutation_school_reform_modifier
+					duration = 730
+				}
+			}
 			hidden_effect = { country_event = { id = magic_estate.2 } }
 		}
 		hidden_effect = {
@@ -1633,18 +1747,30 @@ country_event = {
 					value = 50
 				}
 			}
-			add_country_modifier = {
-				name = evocation_school_reform_modifier
-				duration = 730
-			}
 			add_government_power = { 
 				mechanic_type = magisterium_mechanic
 				power_type = magisterium_mana
 				value = -50
 			}
+			add_country_modifier = {
+				name = evocation_school_reform_modifier
+				duration = 730
+			}
 		}
 		else = {
 			custom_tooltip = magisters_need_50_mana_tt
+			tooltip = {
+				custom_tooltip = "Would give:"
+				add_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -50
+				}
+				add_country_modifier = {
+					name = evocation_school_reform_modifier
+					duration = 730
+				}
+			}
 			hidden_effect = { country_event = { id = magic_estate.2 } }
 		}
 		hidden_effect = {
@@ -1680,6 +1806,11 @@ country_event = {
 					value = 50
 				}
 			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -50
+			}
 			tooltip = {
 				custom_tooltip = "Every owned province get:"
 				add_province_modifier = {
@@ -1695,14 +1826,22 @@ country_event = {
 					}
 				}
 			}
-			add_government_power = { 
-				mechanic_type = magisterium_mechanic
-				power_type = magisterium_mana
-				value = -50
-			}
 		}
 		else = {
 			custom_tooltip = magisters_need_50_mana_tt
+			tooltip = {
+				custom_tooltip = "Would give:"
+				add_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -50
+				}
+				custom_tooltip = "Every owned province get:"
+				add_province_modifier = {
+					name = illusion_school_reform_modifier
+					duration = 730
+				}
+			}
 			hidden_effect = { country_event = { id = magic_estate.2 } }
 		}
 		hidden_effect = {
@@ -1738,18 +1877,30 @@ country_event = {
 					value = 50
 				}
 			}
-			add_country_modifier = {
-				name = conjuration_school_reform_modifier
-				duration = 730
-			}
 			add_government_power = { 
 				mechanic_type = magisterium_mechanic
 				power_type = magisterium_mana
 				value = -50
 			}
+			add_country_modifier = {
+				name = conjuration_school_reform_modifier
+				duration = 730
+			}
 		}
 		else = {
 			custom_tooltip = magisters_need_50_mana_tt
+			tooltip = {
+				custom_tooltip = "Would give:"
+				add_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -50
+				}
+				add_country_modifier = {
+					name = conjuration_school_reform_modifier
+					duration = 730
+				}
+			}
 			hidden_effect = { country_event = { id = magic_estate.2 } }
 		}
 		hidden_effect = {

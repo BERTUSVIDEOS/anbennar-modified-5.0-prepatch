@@ -283,7 +283,7 @@ magisterium_3 = {
 			has_government_power = { 
 				mechanic_type = magisterium_mechanic 
 				power_type = magisterium_mana
-				value = 50
+				value = 20
 			}
 		}
 		
@@ -293,11 +293,30 @@ magisterium_3 = {
 					name = mag_tower_base
 					duration = -1
 				}
+				if = {
+					limit = {
+						NOT = {has_building = mage_tower }
+						NOT = {has_construction = any }
+					}
+					add_building_construction = {
+						building = mage_tower
+						speed = 2.0
+						cost = 0
+					}
+				}
+				else = {
+					owner = {
+						add_country_modifier = {
+							name = magic_upsurge
+							duration = 3650
+						}
+					}
+				}
 			}
 			add_government_power = { 
 				mechanic_type = magisterium_mechanic 
 				power_type = magisterium_mana
-				value = -50
+				value = -20
 			}
 		}
 	}
@@ -601,7 +620,7 @@ magisterium_3 = {
 			has_government_power = { 
 				mechanic_type = magisterium_mechanic 
 				power_type = magisterium_mana
-				value = -80
+				value = 80
 			}
 			years_of_income = 0.5
 			adm = 4
@@ -719,6 +738,7 @@ magisterium_3 = {
 				value = -100
 			}
 			add_years_of_income = -0.5
+			change_government = monarchy
 			set_country_flag = magisterium_reformed_flag
 			remove_government_reform = magisterium_reform
 			add_government_reform = magisterium_reformed_reform
@@ -990,7 +1010,7 @@ magisterium_5 = {
 							A38 = {
 								exists = yes
 								owns = 8
-								NOT = {num_of_cities = 1}
+								NOT = {num_of_cities = 2}
 							}
 						}
 						A38 = {exists = no}
@@ -1010,11 +1030,11 @@ magisterium_5 = {
 				limit = {
 					A38 = {
 						owns = 8
-						NOT = {num_of_cities = 1}
+						NOT = {num_of_cities = 2}
 					}
 				}
 				country_event = {id = flavor_magisterium.16}
-				custom_tooltip = "If we own Anbenncóst our Capital will be changed there"
+				custom_tooltip = "If we own Anbenncost our Capital will be changed there"
 			}
 			else_if = {
 				limit = {owns = 8}

@@ -4175,3 +4175,47 @@ province_event = {	#non principal military pop
 		owner = {country_event = {id = bertus_racial_military.1001}}
 	}
 }
+province_event = {	#non principal military pop
+	id = bertus_pops.2003
+	title = bertus_pops.2003.t
+	desc = bertus_pops.2003.desc
+	picture = DIPLOMACY_eventPicture
+	
+	hidden = yes
+	
+    trigger = {
+		OR = {
+			AND = {
+				NOT = {has_province_modifier = magisgerium_damesear_claim_modifier}
+				owner = {has_reform = magisterium_reform}
+				OR = {area = west_damesear_area area = east_damesear_area}
+			}
+			AND = {
+				has_province_modifier = magisgerium_damesear_claim_modifier
+				owner = {NOT = {has_reform = magisterium_reform}}
+			}
+		}
+    }
+	
+	mean_time_to_happen = {days = 1}
+	
+	option = {
+		name = bertus_pops.2003.a
+		trigger = {
+			NOT = {has_province_modifier = magisgerium_damesear_claim_modifier}
+		}
+		add_province_modifier = {
+			name = magisgerium_damesear_claim_modifier
+			duration = -1
+		}
+	}
+	option = {
+		name = bertus_pops.2003.b
+		trigger = {
+			has_province_modifier = magisgerium_damesear_claim_modifier
+		}
+		remove_province_modifier = magisgerium_damesear_claim_modifier
+	}
+	after = {
+	}
+}

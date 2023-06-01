@@ -461,10 +461,6 @@ ibevar_3 = {
 		}
 		
 		effect = {
-			add_country_modifier = {
-				name = ibevar_prosperous_ibevar
-				duration = 10950	#100→30 years
-			}
 			
 			forlorn_vale_region = {
 				limit = {
@@ -473,6 +469,7 @@ ibevar_3 = {
 				}
 				add_permanent_claim = ROOT
 			}
+			add_stability_or_adm_power = yes
 		}
 	}	
 	A32_protecting_the_pass = {
@@ -530,12 +527,21 @@ ibevar_3 = {
 				type = all
 				owned_by = ROOT
 			}
+			352 = {
+				owned_by = ROOT
+				is_capital = yes
+			}
 		}
 		
 		effect = {
-			add_stability_or_adm_power = yes
 			
-			add_province_triggered_modifier = ibevar_the_elven_vale
+			352 = {
+				add_province_triggered_modifier = ibevar_the_elven_vale
+			}
+			add_country_modifier = {
+				name = ibevar_prosperous_ibevar
+				duration = 10950	#100→30 years
+			}
 		}
 	}
 	
@@ -784,22 +790,77 @@ ibevar_4 = {
 		}
 		
 		provinces_to_highlight = {
-			area = rotwall_area
+			OR = {
+				354 = {
+					has_fort_building_trigger = no
+					NOT = {has_building = ramparts}
+				}
+				2530 = {
+					has_fort_building_trigger = no
+					NOT = {has_building = ramparts}
+				}
+				361 = {
+					has_fort_building_trigger = no
+					NOT = {has_building = ramparts}
+				}
+			}
 			NOT = { owned_by = ROOT }
 		}
 		
 		trigger = {
-			rotwall_area = {
-				type = all
-				owned_by = ROOT
+			calc_true_if = {
+				354 = {
+					has_fort_building_trigger = yes
+					has_building = ramparts
+				}
+				2530 = {
+					has_fort_building_trigger = yes
+					has_building = ramparts
+				}
+				361 = {
+					has_fort_building_trigger = yes
+					has_building = ramparts
+				}
+				amount = 2
 			}
 		}
 		
 		effect = {
 			add_adm_power = 50
 			add_dip_power = 50
-			2530 = {
-				add_province_triggered_modifier = ibevar_securing_the_south
+			
+			if = {
+				limit = {
+					354 = {
+						has_fort_building_trigger = yes
+						has_building = ramparts
+					}
+				}
+				354 = {
+					add_province_triggered_modifier = province_ibevar_securing_the_south
+				}
+			}
+			if = {
+				limit = {
+					2530 = {
+						has_fort_building_trigger = yes
+						has_building = ramparts
+					}
+				}
+				2530 = {
+					add_province_triggered_modifier = province_ibevar_securing_the_south
+				}
+			}
+			if = {
+				limit = {
+					361 = {
+						has_fort_building_trigger = yes
+						has_building = ramparts
+					}
+				}
+				361 = {
+					add_province_triggered_modifier = province_ibevar_securing_the_south
+				}
 			}
 		}
 	}

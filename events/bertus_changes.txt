@@ -2201,8 +2201,9 @@ country_event = {	#setup players electors & other stuff
 	
 	hidden = yes
 	is_triggered_only = yes
+	fire_only_once = yes
 	
-    trigger = { 
+    trigger = {
 		NOT = {has_global_flag = bertus_electors_selected_flag}
     }
 	
@@ -2263,9 +2264,7 @@ country_event = {	#setup players electors & other stuff
 			serpentspine = {discover_country = PREV}
 		}
 		every_country = {
-			limit = {
-				has_government_mechanic = enslavement_mechanic
-			}
+			limit = {has_government_mechanic = enslavement_mechanic}
 			if = {
 				limit = {
 					NOT = {
@@ -2279,6 +2278,14 @@ country_event = {	#setup players electors & other stuff
 					which = global_slave_cost_var
 					value = 10.0
 				}
+			}
+		}
+		every_country = {
+			limit = {has_government_mechanic = magisterium_mechanic}
+			add_government_power = {
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = 50
 			}
 		}
 	}
@@ -7367,51 +7374,28 @@ country_event = {
 			custom_tooltip = high_court_mages_decree_tt
 		}
 		else = {
-			custom_tooltip = "Already Enacted 'High Court Mages'"
-		}
-    }
-    option = {
-        name = bertus_changes.6037.magic_vacuum # Magic Vacuum
-		if = {
-			limit = {
-				has_government_power = { 
-					mechanic_type = magisterium_mechanic
-					power_type = magisterium_mana
-					value = 10
+			custom_tooltip = high_court_mages_unavailable_tt
+			tooltip = {
+				custom_tooltip = "Would give:"
+				add_years_of_income = -1.0
+				custom_tooltip = every_magister_sphere_member_tt
+				tooltip = {
+					add_country_modifier = {
+						name = high_court_mages_modifier
+						duration = 3650
+					}
 				}
-				NOT = {has_country_modifier = magic_vacuum_decree_modifier}
-			}
-			add_government_power = { 
-				mechanic_type = magisterium_mechanic 
-				power_type = magisterium_mana
-				value = -10
-			}
-			custom_tooltip = magic_vacuum_decree_tt
-			hidden_effect = {
-				add_country_modifier = {
-					name = magic_vacuum_decree_modifier
-					duration = 3650
+				hidden_effect = {
+					every_country = {
+						limit = {has_estate_privilege = estate_mages_organization_magisterium}
+						remove_country_modifier = high_court_mages_modifier
+						add_country_modifier = {
+							name = high_court_mages_modifier
+							duration = 3650
+						}
+					}
 				}
-				every_country = {
-					limit = {has_estate_privilege = estate_mages_organization_magisterium NOT = {tag  =A85}}
-					if = {limit = {has_government_power = {mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 100}} A85 = {add_government_power = {mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 5}} add_government_power = {mechanic_type = magisterium_mechanic power_type = magisterium_mana value = -50}}
-					else_if = {limit = {has_government_power = {mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 90}} A85 = {add_government_power = {mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 4.5}} add_government_power = {mechanic_type = magisterium_mechanic power_type = magisterium_mana value = -45}}
-					else_if = {limit = {has_government_power = {mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 80}} A85 = {add_government_power = {mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 4.0}} add_government_power = {mechanic_type = magisterium_mechanic power_type = magisterium_mana value = -4}}
-					else_if = {limit = {has_government_power = {mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 70}} A85 = {add_government_power = {mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 3.5}} add_government_power = {mechanic_type = magisterium_mechanic power_type = magisterium_mana value = -35}}
-					else_if = {limit = {has_government_power = {mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 60}} A85 = {add_government_power = {mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 3.0}} add_government_power = {mechanic_type = magisterium_mechanic power_type = magisterium_mana value = -30}}
-					else_if = {limit = {has_government_power = {mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 50}} A85 = {add_government_power = {mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 2.5}} add_government_power = {mechanic_type = magisterium_mechanic power_type = magisterium_mana value = -25}}
-					else_if = {limit = {has_government_power = {mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 40}} A85 = {add_government_power = {mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 2.0}} add_government_power = {mechanic_type = magisterium_mechanic power_type = magisterium_mana value = -20}}
-					else_if = {limit = {has_government_power = {mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 30}} A85 = {add_government_power = {mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 1.5}} add_government_power = {mechanic_type = magisterium_mechanic power_type = magisterium_mana value = -15}}
-					else_if = {limit = {has_government_power = {mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 20}} A85 = {add_government_power = {mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 1.0}} add_government_power = {mechanic_type = magisterium_mechanic power_type = magisterium_mana value = -10}}
-					else_if = {limit = {has_government_power = {mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 10}} A85 = {add_government_power = {mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 0.5}} add_government_power = {mechanic_type = magisterium_mechanic power_type = magisterium_mana value = -5}}
-				}
-			}
-		}
-		else = {
-			custom_tooltip = magisters_need_10_mana_tt
-			if = {
-				limit = {has_country_modifier = magic_vacuum_decree_modifier}
-				custom_tooltip = "Already Enacted 'Magic Vacuum' this decade"
+				custom_tooltip = high_court_mages_decree_tt
 			}
 		}
     }
@@ -7453,6 +7437,19 @@ country_event = {
 		}
 		else = {
 			custom_tooltip = magisters_need_50_mana_tt
+			tooltip = {
+				custom_tooltip = "Would give:"
+				add_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -50
+				}
+				custom_tooltip = every_magister_sphere_member_tt
+				add_country_modifier = {
+					name = divination_school_reform_modifier
+					duration = 730
+				}
+			}
 		}
     }
     option = {
@@ -7544,6 +7541,35 @@ country_event = {
 		}
 		else = {
 			custom_tooltip = magisters_need_50_mana_tt
+			tooltip = {
+				custom_tooltip = "Would give:"
+				add_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -50
+				}
+				custom_tooltip = every_magister_sphere_member_tt
+				small_increase_of_human_tolerance_effect = yes
+				small_increase_of_elven_tolerance_effect = yes
+				small_increase_of_dwarven_tolerance_effect = yes
+				small_increase_of_halfling_tolerance_effect = yes
+				small_increase_of_gnomish_tolerance_effect = yes
+				small_increase_of_harimari_tolerance_effect = yes
+				small_increase_of_gnollish_tolerance_effect = yes
+				small_increase_of_ruinborn_tolerance_effect = yes
+				small_increase_of_orcish_tolerance_effect = yes
+				small_increase_of_goblin_tolerance_effect = yes
+				small_increase_of_ogre_tolerance_effect = yes
+				small_increase_of_centaur_tolerance_effect = yes
+				small_increase_of_troll_tolerance_effect = yes
+				small_increase_of_harpy_tolerance_effect = yes
+				small_increase_of_half_elven_tolerance_effect = yes
+				small_increase_of_half_orcish_tolerance_effect = yes
+				small_increase_of_hobgoblin_tolerance_effect = yes
+				small_increase_of_kobold_tolerance_effect = yes
+				small_increase_of_lizardfolk_tolerance_effect = yes
+				custom_tooltip = "\nWe get the effects doubled"
+			}
 		}
     }
     option = {
@@ -7584,6 +7610,19 @@ country_event = {
 		}
 		else = {
 			custom_tooltip = magisters_need_50_mana_tt
+			tooltip = {
+				custom_tooltip = "Would give:"
+				add_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -50
+				}
+				custom_tooltip = every_magister_sphere_member_tt
+				add_country_modifier = {
+					name = abjuration_school_reform_modifier
+					duration = 730
+				}
+			}
 		}
     }
     option = {
@@ -7624,6 +7663,19 @@ country_event = {
 		}
 		else = {
 			custom_tooltip = magisters_need_50_mana_tt
+			tooltip = {
+				custom_tooltip = "Would give:"
+				add_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -50
+				}
+				custom_tooltip = every_magister_sphere_member_tt
+				add_country_modifier = {
+					name = transmutation_school_reform_modifier
+					duration = 730
+				}
+			}
 		}
     }
 	option = {
@@ -7664,6 +7716,19 @@ country_event = {
 		}
 		else = {
 			custom_tooltip = magisters_need_50_mana_tt
+			tooltip = {
+				custom_tooltip = "Would give:"
+				add_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -50
+				}
+				custom_tooltip = every_magister_sphere_member_tt
+				add_country_modifier = {
+					name = evocation_school_reform_modifier
+					duration = 730
+				}
+			}
 		}
 	}
     option = {
@@ -7704,6 +7769,19 @@ country_event = {
 		}
 		else = {
 			custom_tooltip = magisters_need_50_mana_tt
+			tooltip = {
+				custom_tooltip = "Would give:"
+				add_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -50
+				}
+				custom_tooltip = every_magister_sphere_member_province_tt
+				add_province_modifier = {
+					name = illusion_school_reform_magisterium_modifier
+					duration = 3650
+				}
+			}
 		}
     }
     option = {
@@ -7744,6 +7822,19 @@ country_event = {
 		}
 		else = {
 			custom_tooltip = magisters_need_50_mana_tt
+			tooltip = {
+				custom_tooltip = "Would give:"
+				add_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -50
+				}
+				custom_tooltip = every_magister_sphere_member_tt
+				add_country_modifier = {
+					name = conjuration_school_reform_elemental_construction_modifier
+					duration = 1825
+				}
+			}
 		}
     }
     option = {
@@ -7756,16 +7847,16 @@ country_event = {
 				has_government_power = { 
 					mechanic_type = magisterium_mechanic
 					power_type = magisterium_mana
-					value = 50
+					value = 75
 				}
 			}
 			add_government_power = { 
 				mechanic_type = magisterium_mechanic
 				power_type = magisterium_mana
-				value = -50
+				value = -75
 			}
 			tooltip = {
-				custom_tooltip = every_magister_sphere_member_province_tt
+				custom_tooltip = every_magister_sphere_member_damestear_province_tt
 				add_province_modifier = {
 					name = conjuration_school_reform_elemental_extraction_modifier
 					duration = 3650
@@ -7783,7 +7874,20 @@ country_event = {
 			}
 		}
 		else = {
-			custom_tooltip = magisters_need_50_mana_tt
+			custom_tooltip = magisters_need_75_mana_tt
+			tooltip = {
+				custom_tooltip = "Would give:"
+				add_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -50
+				}
+				custom_tooltip = every_magister_sphere_member_damestear_province_tt
+				add_province_modifier = {
+					name = conjuration_school_reform_elemental_extraction_modifier
+					duration = 3650
+				}
+			}
 		}
     }
     option = {
@@ -7796,16 +7900,16 @@ country_event = {
 				has_government_power = { 
 					mechanic_type = magisterium_mechanic
 					power_type = magisterium_mana
-					value = 50
+					value = 75
 				}
 			}
 			add_government_power = { 
 				mechanic_type = magisterium_mechanic
 				power_type = magisterium_mana
-				value = -50
+				value = -75
 			}
 			tooltip = {
-				custom_tooltip = every_magister_sphere_member_province_tt
+				custom_tooltip = every_magister_sphere_member_farm_province_tt
 				add_province_modifier = {
 					name = transmutation_school_reform_elemental_climate_control_modifier
 					duration = 3650
@@ -7823,9 +7927,34 @@ country_event = {
 			}
 		}
 		else = {
-			custom_tooltip = magisters_need_50_mana_tt
+			custom_tooltip = magisters_need_75_mana_tt
+			tooltip = {
+				custom_tooltip = "Would give:"
+				add_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -75
+				}
+				custom_tooltip = every_magister_sphere_member_farm_province_tt
+				add_province_modifier = {
+					name = transmutation_school_reform_elemental_climate_control_modifier
+					duration = 3650
+				}
+			}
 		}
     }
+}
+country_event = {	#
+	id = bertus_changes.6038
+	title = bertus_changes.6038.title
+	picture = DIPLOMACY_eventPicture
+	desc = bertus_changes.6038.desc
+	
+	is_triggered_only= yes
+		
+	option = {
+		name = bertus_changes.6038.a
+	}
 }
 country_event = {	#goods menu
 	id = bertus_changes.7000
