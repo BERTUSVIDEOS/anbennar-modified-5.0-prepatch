@@ -229,7 +229,7 @@ cancel_magisterium_investigate_action = {
 	
 	ai_will_do = {always = no}
 }
-magisterium_get_mage_general_action = {
+magisterium_send_mage_general_action = {
 	category = mages_influence_modifier
 	require_acceptance = yes
 	alert_index = 21
@@ -254,6 +254,7 @@ magisterium_get_mage_general_action = {
 
     on_accept = {
 		FROM = {
+			set_saved_name = {key = special_general_name type = advisor scope = ROOT}
 			save_event_target_as = get_general_event_targer
 			add_treasury = -50
 		}
@@ -270,7 +271,7 @@ magisterium_get_mage_general_action = {
 	}
 	ai_will_do = {always = no}
 }
-magisterium_ask_for_mage_general_action = {
+magisterium_request_mage_general_action = {
 	category = mages_influence_modifier
 	require_acceptance = yes
 	alert_index = 21
@@ -300,15 +301,17 @@ magisterium_ask_for_mage_general_action = {
 				loyalty = -20
 			}
 			add_treasury = 50
+			set_country_flag = get_mage_flag
+			set_country_flag = magisterium_free_general_flag
+			country_event = {id = bertus_changes.6030}
 		}
-		set_country_flag = get_mage_flag
-		set_country_flag = magisterium_free_general_flag
+		set_saved_name = {key = special_general_name type = advisor scope = FROM}
+		save_event_target_as = get_general_event_targer
 		add_treasury = -50
-		country_event = {id = bertus_changes.6010}
 	}
 	ai_will_do = {always = no}
 }
-magisterium_get_mage_advisor_action = {
+magisterium_send_mage_advisor_action = {
 	category = mages_influence_modifier
 	require_acceptance = yes
 	alert_index = 21
@@ -339,23 +342,74 @@ magisterium_get_mage_advisor_action = {
 			}
 			add_treasury = 50
 		}
-		random_province = {
-			limit = {is_part_of_hre = yes}
-			FROM = {
-				add_treasury = -50
-				define_advisor = {
-					type = court_mage
-					skill = 2
-					culture = PREV
-					religion = PREV
-					cost_multiplier = 0.5
+		set_saved_name = {key = special_general_name type = advisor scope = FROM}
+		if = {
+			limit = {
+				any_owned_province = {
+					is_part_of_hre = yes
+					owned_by = ROOT
+				}
+				random_province = {
+					limit = {
+						is_part_of_hre = yes
+						owned_by = ROOT
+					}
+					FROM = {
+						add_treasury = -50
+						define_advisor = {
+							type = court_mage
+							name = special_general_name
+							skill = 3
+							culture = PREV
+							religion = PREV
+							cost_multiplier = 0.5
+						}
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				any_owned_province = {
+					is_part_of_hre = yes
+				}
+				random_province = {
+					limit = {
+						is_part_of_hre = yes
+					}
+					FROM = {
+						add_treasury = -50
+						define_advisor = {
+							type = court_mage
+							name = special_general_name
+							skill = 3
+							culture = PREV
+							religion = PREV
+							cost_multiplier = 0.5
+						}
+					}
+				}
+			}
+		}
+		else = {
+			random_owned_province = {
+				FROM = {
+					add_treasury = -50
+					define_advisor = {
+						type = court_mage
+						name = special_general_name
+						skill = 3
+						culture = PREV
+						religion = PREV
+						cost_multiplier = 0.5
+					}
 				}
 			}
 		}
 	}
 	ai_will_do = {always = no}
 }
-magisterium_ask_mage_advisor_action = {
+magisterium_request_mage_advisor_action = {
 	category = mages_influence_modifier
 	require_acceptance = yes
 	alert_index = 21
@@ -385,17 +439,68 @@ magisterium_ask_mage_advisor_action = {
 				loyalty = -20
 			}
 			add_treasury = 50
+			set_saved_name = {key = special_general_name type = advisor scope = FROM}
 		}
-		random_province = {
-			limit = {is_part_of_hre = yes}
-			ROOT = {
-				add_treasury = -50
-				define_advisor = {
-					type = court_mage
-					skill = 2
-					culture = PREV
-					religion = PREV
-					cost_multiplier = 0.5
+		if = {
+			limit = {
+				any_owned_province = {
+					is_part_of_hre = yes
+					owned_by = FROM
+				}
+				random_province = {
+					limit = {
+						is_part_of_hre = yes
+						owned_by = FROM
+					}
+					ROOT = {
+						add_treasury = -50
+						define_advisor = {
+							type = court_mage
+							name = special_general_name
+							skill = 3
+							culture = PREV
+							religion = PREV
+							cost_multiplier = 0.5
+						}
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				any_owned_province = {
+					is_part_of_hre = yes
+				}
+				random_province = {
+					limit = {
+						is_part_of_hre = yes
+					}
+					ROOT = {
+						add_treasury = -50
+						define_advisor = {
+							type = court_mage
+							name = special_general_name
+							skill = 3
+							culture = PREV
+							religion = PREV
+							cost_multiplier = 0.5
+						}
+					}
+				}
+			}
+		}
+		else = {
+			random_owned_province = {
+				ROOT = {
+					add_treasury = -50
+					define_advisor = {
+						type = court_mage
+						name = special_general_name
+						skill = 3
+						culture = PREV
+						religion = PREV
+						cost_multiplier = 0.5
+					}
 				}
 			}
 		}
@@ -454,7 +559,7 @@ magisterium_organize_magical_council_action = {
 	}
 	ai_will_do = {always = no}
 }
-magisterium_organize_magical_council_action = {
+magisterium_request_organize_magical_council_action = {
 	category = mages_influence_modifier
 	require_acceptance = yes
 	alert_index = 21

@@ -79,7 +79,7 @@ ibevar_1 = {
 		}
 	}
 	
-	A32_by_the_bottom = {
+	A32_by_the_bottom = {	#bertus mod
 		icon = mission_rb_control_electors
 		position = 11
 		
@@ -91,16 +91,14 @@ ibevar_1 = {
 			is_at_war = no
 			mil_power = 250
 			NOT = { has_country_modifier = ibevar_modernizing_the_army }
-			years_of_income = 2
 			stability = 3
-			army_professionalism = 0.80	#0→0.8
+			army_professionalism = 0.80
 		}
 		
 		effect = {
-			add_years_of_income = -2
 			add_mil_power = -250
-			add_army_professionalism = 0.05
-			add_army_tradition = -10
+			add_army_tradition = -50
+			add_army_professionalism = -0.50
 			add_country_modifier = {
 				name = ibevar_by_the_bottom
 				duration = -1
@@ -184,7 +182,7 @@ ibevar_2 = {
 		
 		effect = {
 			add_treasury = -350
-			add_prestige_or_monarch_power = {amount =  10}
+			add_prestige_or_monarch_power = {amount =  25}
 			add_country_modifier = {
 				name = ibevar_taking_care_of_elders
 				duration = 5475	#18250→5475
@@ -282,16 +280,14 @@ ibevar_2 = {
 		trigger = {
 			mil_power = 250
 			NOT = { has_country_modifier = ibevar_modernizing_the_army }
-			years_of_income = 2
 			stability = 3
 			army_professionalism = 0.80	#0→0.8
 		}
 		
 		effect = {
 			add_mil_power = -250
-			add_army_professionalism = 0.05
-			add_army_tradition = -10
-			add_years_of_income = -2
+			add_army_tradition = -50
+			add_army_professionalism = -0.50
 			add_country_modifier = {
 				name = ibevar_by_the_top
 				duration = -1
@@ -314,11 +310,11 @@ ibevar_2 = {
 		
 		trigger = {
 			army_professionalism = 0.90	#0.8→0.9
-			years_of_income = 2	#0→2
 		}
 		
 		effect = {
-			add_years_of_income = -2	#0→-2
+			add_army_tradition = -50
+			add_army_professionalism = -0.50
 			remove_estate_privilege = estate_elven_recruitment
 			set_estate_privilege = estate_elven_elite_recruitment
 			#add_country_modifier = {
@@ -328,8 +324,8 @@ ibevar_2 = {
 		}
 	}
 	
-	A32_elfrealm_of_the_north = {
-		icon = the_london_steelyard
+	A32_elfrealm_of_the_west = {
+		icon = develop_our_capital
 		position = 14
 		
 		required_missions = {
@@ -338,33 +334,46 @@ ibevar_2 = {
 		
 		provinces_to_highlight = {
 			OR = {
-				area = arbaran_area
-				area = golden_plains_area
-				area = cestir_area
+				province_id = 216	# vertest
+				AND = {
+					region = alenic_frontier_region
+					root = {
+						NOT = {
+							num_of_owned_provinces_with = {
+								is_core = ROOT
+								owned_by = ROOT
+								region = damescrown_region
+								value = 19	#50%
+							}
+						}
+					}
+				}
 			}
-			NOT = { owned_by = ROOT }
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
 		}
 		
 		trigger = {
-			arbaran_area  = {
-				type = all
+			num_of_owned_provinces_with = {
+				is_core = ROOT
 				owned_by = ROOT
-			}
-			golden_plains_area  = {
-				type = all
-				owned_by = ROOT
-			}
-			cestir_area  = {
-				type = all
-				owned_by = ROOT
+				region = damescrown_region
+				value = 19	#50%
 			}
 		}
 		
 		effect = {
 			add_stability_or_adm_power = yes
-			add_prestige_or_monarch_power = {amount =  10}
-			add_dip_power = 100
-			add_mil_power = 100
+			add_prestige_or_monarch_power = {amount =  50}
+			add_adm_power = 200
+			add_dip_power = 200
+			add_mil_power = 200
+			add_country_modifier = {
+				name = ibevar_elfrealm_of_greater_ibevar
+				duration = 7300
+			}
 		}
 	}
 }
@@ -593,7 +602,7 @@ ibevar_3 = {
 		}
 	}
 	
-	A32_ibevari_expansion = {
+	A32_ibevari_expansion = {	#bertus mod
 		icon = establish_a_standing_army
 		position = 13
 		
@@ -605,68 +614,85 @@ ibevar_3 = {
 		
 		trigger = {
 			is_at_war = no
-			dip_power = 100
-			mil_power = 100
-			adm_power = 100
-			army_size_percentage = 0.75
+			army_size_percentage = 0.90
+			manpower_percentage = 0.90
 		}
 		
 		effect = {
-			add_dip_power = -100
-			add_mil_power = -100
-			add_adm_power = -100
-			
-			arbaran_area = {
+			west_castanor_region = {
 				limit = {
 					NOT = { is_core = ROOT }
 					NOT = { is_permanent_claim = ROOT }
 				}
 				add_permanent_claim = ROOT
 			}
-			cestir_area = {
+			alenic_frontier_region = {
 				limit = {
 					NOT = { is_core = ROOT }
 					NOT = { is_permanent_claim = ROOT }
 				}
 				add_permanent_claim = ROOT
 			}
-			golden_plains_area = {
+			damescrown_region = {
 				limit = {
 					NOT = { is_core = ROOT }
 					NOT = { is_permanent_claim = ROOT }
 				}
 				add_permanent_claim = ROOT
 			}
-			
-			rohibon_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { is_permanent_claim = ROOT }
+		}
+	}
+	
+	A32_elfrealm_of_the_north = {
+		icon = the_london_steelyard
+		position = 14
+		
+		required_missions = {
+			A32_ibevari_expansion
+		}
+		
+		provinces_to_highlight = {
+			OR = {
+				province_id = 221	# Gaweton
+				AND = {
+					region = alenic_frontier_region
+					root = {
+						NOT = {
+							num_of_owned_provinces_with = {
+								is_core = ROOT
+								owned_by = ROOT
+								region = alenic_frontier_region
+								value = 30	#50%
+							}
+						}
+					}
 				}
-				add_permanent_claim = ROOT
 			}
-			valefort_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { is_permanent_claim = ROOT }
-				}
-				add_permanent_claim = ROOT
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
 			}
-			verteben_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { is_permanent_claim = ROOT }
-				}
-				add_permanent_claim = ROOT
+		}
+		
+		trigger = {
+			num_of_owned_provinces_with = {
+				is_core = ROOT
+				owned_by = ROOT
+				region = alenic_frontier_region
+				value = 30	#50%
 			}
-			taran_plains_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { is_permanent_claim = ROOT }
-				}
-				add_permanent_claim = ROOT
+		}
+		
+		effect = {
+			add_stability_or_adm_power = yes
+			add_prestige_or_monarch_power = {amount =  50}
+			add_adm_power = 200
+			add_dip_power = 200
+			add_mil_power = 200
+			add_country_modifier = {
+				name = ibevar_elfrealm_of_greater_ibevar
+				duration = 7300
 			}
-			
 		}
 	}
 	
@@ -677,6 +703,7 @@ ibevar_3 = {
 		required_missions = {
 			A32_elfrealm_of_the_north
 			A32_elfrealm_of_the_east
+			A32_elfrealm_of_the_west
 		}
 		
 		provinces_to_highlight = {
@@ -688,10 +715,10 @@ ibevar_3 = {
 		trigger = {
 			all_owned_province = {
 				OR = {
-					custom_trigger_tooltip = {
-						tooltip = province_is_prosperous
+					#custom_trigger_tooltip = {
+					#	tooltip = province_is_prosperous
 						is_prosperous = yes
-					}
+					#}
 					development = 25
 				}
 			}
@@ -791,20 +818,15 @@ ibevar_4 = {
 		
 		provinces_to_highlight = {
 			OR = {
-				354 = {
-					has_fort_building_trigger = no
-					NOT = {has_building = ramparts}
-				}
-				2530 = {
-					has_fort_building_trigger = no
-					NOT = {has_building = ramparts}
-				}
-				361 = {
-					has_fort_building_trigger = no
-					NOT = {has_building = ramparts}
-				}
+				province_id = 354
+				province_id = 2530
+				province_id = 361
 			}
-			NOT = { owned_by = ROOT }
+			OR = {
+				has_fort_building_trigger = no
+				NOT = {has_building = ramparts}
+				NOT = { owned_by = ROOT }
+			}
 		}
 		
 		trigger = {
@@ -875,28 +897,23 @@ ibevar_4 = {
 		
 		trigger = {
 			is_at_war = no
-			if = {
-				limit = { emperor = { exists = yes NOT = { is_rival = ROOT } NOT = { tag = A32 } } }
+			OR = {
 				emperor = {
-					OR = {
-						alliance_with = ROOT
-						has_opinion = {
-							who = ROOT
-							value = 150
-						}
+					alliance_with = ROOT
+					has_opinion = {
+						who = ROOT
+						value = 150
 					}
 				}
-			}
-			else = {
-				OR = {
-					AND = {
-						num_of_allies = 3
-						all_owned_province = {
-							NOT = { is_part_of_hre = yes }
-						}
+				AND = {
+					is_rival = emperor
+					has_won_war_against = {
+						who = emperor
+						max_years_since = 20
 					}
-					emperor = { tag = A32 }
 				}
+				emperor = { exists = no}
+				is_emperor = yes
 			}
 		}
 		
@@ -950,6 +967,7 @@ ibevar_4 = {
 		
 		trigger = {
 			diplomatic_reputation = 6
+			monthly_dip = 18	#0→18
 		}
 		
 		effect = {
@@ -960,7 +978,7 @@ ibevar_4 = {
 		}
 	}
 	
-	A32_elfrealm_of_the_east = {
+	A32_elfrealm_of_the_east = {	#bertus mod
 		icon = mission_great_wall
 		position = 14
 		
@@ -970,38 +988,46 @@ ibevar_4 = {
 		
 		provinces_to_highlight = {
 			OR = {
-				area = verteben_area
-				area = valefort_area
-				area = rohibon_area
-				area = taran_plains_area
+				province_id = 774	# Taranton
+				AND = {
+					region = west_castanor_region
+					root = {
+						NOT = {
+							num_of_owned_provinces_with = {
+								is_core = ROOT
+								owned_by = ROOT
+								region = west_castanor_region
+								value = 28	#50%
+							}
+						}
+					}
+				}
 			}
-			NOT = { owned_by = ROOT }
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
 		}
 		
 		trigger = {
-			verteben_area  = {
-				type = all
+			num_of_owned_provinces_with = {
+				is_core = ROOT
 				owned_by = ROOT
-			}
-			valefort_area  = {
-				type = all
-				owned_by = ROOT
-			}
-			rohibon_area  = {
-				type = all
-				owned_by = ROOT
-			}
-			taran_plains_area  = {
-				type = all
-				owned_by = ROOT
+				region = west_castanor_region
+				value = 28	#50%
 			}
 		}
 		
 		effect = {
 			add_stability_or_adm_power = yes
-			add_prestige_or_monarch_power = {amount =  10}
-			add_dip_power = 100
-			add_mil_power = 100
+			add_prestige_or_monarch_power = {amount =  50}
+			add_adm_power = 200
+			add_dip_power = 200
+			add_mil_power = 200
+			add_country_modifier = {
+				name = ibevar_elfrealm_of_greater_ibevar
+				duration = 7300
+			}
 		}
 	}
 }
@@ -1100,7 +1126,7 @@ ibevar_5 = {
 		trigger = {
 			is_at_war = no
 			stability = 2
-			diplomat = 3
+			diplomat = 7
 			dip_power = 100
 		}
 		
