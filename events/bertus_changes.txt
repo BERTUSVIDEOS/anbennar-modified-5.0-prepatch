@@ -6776,6 +6776,14 @@ country_event = {
 
 	immediate = {
 		get_special_general_stats = yes
+		if = {
+			limit = {
+				has_saved_event_target = get_general_event_targer
+			}
+		}
+		else = {
+			save_event_target_as = get_general_event_targer
+		}
 	}
     option = {
         name = bertus_changes.6030.a #
@@ -7866,7 +7874,7 @@ country_event = {
 				every_province = {
 					limit = {owner = {has_estate_privilege = estate_mages_organization_magisterium} trade_goods = damestear}
 					remove_province_modifier = conjuration_school_reform_elemental_extraction_modifier
-					add_province_modifier = {
+					add_province_modifier =	 {
 						name = conjuration_school_reform_elemental_extraction_modifier
 						duration = 3650
 					}
@@ -7880,7 +7888,7 @@ country_event = {
 				add_government_power = { 
 					mechanic_type = magisterium_mechanic
 					power_type = magisterium_mana
-					value = -50
+					value = -75
 				}
 				custom_tooltip = every_magister_sphere_member_damestear_province_tt
 				add_province_modifier = {
@@ -7952,6 +7960,19 @@ country_event = {	#
 	
 	is_triggered_only= yes
 		
+	trigger = {
+		OR = {
+			NOT = {has_country_flag = max_mana_hint_cd_flag}
+			had_country_flag = {
+				flag = max_mana_hint_cd_flag
+				days = 365
+			}
+		}
+	}
+	immediate = {
+		clr_country_flag = max_mana_hint_cd_flag
+		set_country_flag = max_mana_hint_cd_flag
+	}
 	option = {
 		name = bertus_changes.6038.a
 	}

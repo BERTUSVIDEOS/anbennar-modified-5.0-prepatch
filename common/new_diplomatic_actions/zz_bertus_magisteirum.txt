@@ -253,23 +253,24 @@ magisterium_get_mage_general_action = {
 	}
 
     on_accept = {
+		FROM = {
+			save_event_target_as = get_general_event_targer
+			add_treasury = -50
+		}
 		ROOT = {
 			add_estate_loyalty = {
 				estate = estate_mages
 				loyalty = -20
 			}
 			add_treasury = 50
-		}
-		FROM = {
 			set_country_flag = get_mage_flag
 			set_country_flag = magisterium_free_general_flag
-			add_treasury = -50
-			country_event = {id = bertus_changes.6010}
+			country_event = {id = bertus_changes.6030}
 		}
 	}
 	ai_will_do = {always = no}
 }
-magisterium_get_mage_general_action = {
+magisterium_ask_for_mage_general_action = {
 	category = mages_influence_modifier
 	require_acceptance = yes
 	alert_index = 21
@@ -300,12 +301,10 @@ magisterium_get_mage_general_action = {
 			}
 			add_treasury = 50
 		}
-		ROOT = {
-			set_country_flag = get_mage_flag
-			set_country_flag = magisterium_free_general_flag
-			add_treasury = -50
-			country_event = {id = bertus_changes.6010}
-		}
+		set_country_flag = get_mage_flag
+		set_country_flag = magisterium_free_general_flag
+		add_treasury = -50
+		country_event = {id = bertus_changes.6010}
 	}
 	ai_will_do = {always = no}
 }
@@ -356,7 +355,7 @@ magisterium_get_mage_advisor_action = {
 	}
 	ai_will_do = {always = no}
 }
-magisterium_get_mage_advisor_action = {
+magisterium_ask_mage_advisor_action = {
 	category = mages_influence_modifier
 	require_acceptance = yes
 	alert_index = 21
@@ -540,7 +539,7 @@ magisterium_vacuum_mana_action = {
 		}
 		add_estate_loyalty = {
 			estate = estate_mages
-			loyalty = -20
+			loyalty = -10
 		}
 		add_spy_network_in = {
 			who = FROM
@@ -583,6 +582,10 @@ give_magisterium_mana_action = {
 			mechanic_type = magisterium_mechanic 
 			power_type = magisterium_mana
 			value = -10
+		}
+		add_estate_loyalty = {
+			estate = estate_mages
+			loyalty = 10
 		}
 		FROM = {
 			add_government_power = { 

@@ -24,6 +24,25 @@ magisterium_mechanic = {
 			}
 			on_max_reached = {
 				hidden_effect = {
+					if = {
+						limit = {has_country_flag = contribute_mana_flag}
+						add_government_power = { 
+							mechanic_type = magisterium_mechanic 
+							power_type = magisterium_mana
+							value = -1
+						}
+						add_estate_loyalty = {
+							estate = estate_mages
+							loyalty = 0.5
+						}
+						A85 = {
+							add_government_power = { 
+								mechanic_type = magisterium_mechanic 
+								power_type = magisterium_mana
+								value = 0.5
+							}
+						}
+					}
 					country_event = {
 						id = bertus_changes.6038
 					}
@@ -33,9 +52,31 @@ magisterium_mechanic = {
 	}
 	
 	interactions = {
+		contribute_mana = {
+			icon = GFX_magic_schools_of_magic
+			gui = magisterium_gov_mech_interaction
+			cost_type = magisterium_mana
+			trigger = {
+				has_estate_privilege = estate_mages_organization_magisterium
+				NOT = {tag = A85}
+			}
+			effect = {
+				if = {
+					limit = {NOT = {has_country_flag = contribute_mana_flag}}
+					set_country_flag = contribute_mana_flag
+					custom_tooltip = activate_contribute_mana_tt
+				}
+				else = {
+					clr_country_flag = contribute_mana_flag
+					custom_tooltip = deactivate_contribute_mana_tt
+				}
+			}
+			cooldown_years = 0
+			ai_chance = {factor = 0}
+		}
 		schools_of_magic = {
 			icon = GFX_magic_schools_of_magic
-			gui = magisterium_gov_mech
+			gui = magisterium_gov_mech_interaction
 			cost_type = magisterium_mana
 			trigger = {
 				if = {
