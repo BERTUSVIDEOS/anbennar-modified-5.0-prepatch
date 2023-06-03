@@ -37,7 +37,7 @@ country_event = {
 	}
 }
 
-country_event = {
+country_event = {	#bertus mod
 	id = flavor_wex.2
 	title = flavor_wex.2.t
 	desc = flavor_wex.2.d
@@ -49,6 +49,11 @@ country_event = {
 	
 	trigger = {
 		always = yes
+	}
+	immediate = {
+		hidden_effect = {
+			remove_ruler_personality = conqueror_personality
+		}
 	}
 	
 	option = {
@@ -63,79 +68,52 @@ country_event = {
 			subject = Z40
 		}
 		Z40 = { 
-			remove_opinion = {
-				who = A30
-				modifier = released_vassal
-				}
-			add_opinion = {
-				who = A30
-				modifier = wex_loyalist_rule
-				}
-			}
+			remove_opinion = {who = A30 modifier = released_vassal}
+			add_opinion = {who = A30 modifier = wex_loyalist_rule}
+			add_liberty_desire = -25
+		}
 		create_vassal = Z41
-		create_subject = {
-			subject_type = autonomous_vassal
-			subject = Z41
-		}
+		create_subject = {subject_type = autonomous_vassal subject = Z41}
 		Z41 = { 
-			remove_opinion = {
-				who = A30
-				modifier = released_vassal
-				}
-			add_opinion = {
-				who = A30
-				modifier = wex_loyalist_rule
-				}
-			}
-		create_vassal = Z42
-		create_subject = {
-			subject_type = autonomous_vassal
-			subject = Z42
+			add_liberty_desire = -25
+			remove_opinion = {who = A30 modifier = released_vassal}
+			add_opinion = {who = A30 modifier = wex_loyalist_rule}
 		}
-		Z42 = { 
-			remove_opinion = {
-				who = A30
-				modifier = released_vassal
-				}
-			add_opinion = {
-				who = A30
-				modifier = wex_loyalist_rule
-				}
-			}
+		add_ruler_personality = careful_personality
+
 		set_country_flag = lothane_benevolent
 	}
 	option = {
 		name = flavor_wex.2.b
 		
-		ai_chance = {
-			factor = 100
-		}
-		
-		every_owned_province = {
-			limit = {
-				OR = {
-					province_id = 2
-					province_id = 5
-					province_id = 276
-					province_id = 281
-					province_id = 330
-					province_id = 910
+		ai_chance = {factor = 100}
+		damerian_dales_area = {add_claim = ROOT}
+		the_commons_area = {add_claim = ROOT}
+		custom_tooltip = wex_rebellion_tt
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					OR = {
+						owned_by = Z40
+						owned_by = Z41
+						province_id = 299
+					}
 				}
-				NOT = { is_core = A30 }
-			}
-			add_devastation = 50
-			add_core = A30
-			custom_tooltip = wex_rebellion_tt
-			hidden_effect = {
-				add_province_modifier = {
-					name = wex_rebellious_damerians
-					duration = -1
-					desc = desc_wex_rebellious_damerians
+				add_core = ROOT
+				hidden_effect = {
+					add_permanent_province_modifier = {
+						name = wex_rebellious_damerians
+						duration = -1
+						desc = desc_wex_rebellious_damerians
+					}
 				}
 			}
 		}
-		
-		add_stability = 1
+		inherit = Z40
+		inherit = Z41
+		add_stability = -1
+		add_ruler_personality = cruel_personality
+
 		set_country_flag = lothane_conqueror
 		
 	}

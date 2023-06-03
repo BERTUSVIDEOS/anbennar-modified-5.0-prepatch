@@ -18,18 +18,23 @@ wex_slot_1 = {
 				tooltip = wex_bene_tt
 				has_country_flag = lothane_benevolent
 			}
-			adm_power = 100
 			Z41 = {
-				has_opinion = {
-					who = A30
-					value = 200
+				OR = {
+					AND = {
+						is_subject_of = ROOT
+						has_opinion = {
+							who = A30
+							value = 200
+						}
+					}
+					exists = yes
 				}
 			}
 		}
 		
 		effect = {
-			add_adm_power = -100
-			inherit = Z41
+			add_ruler_modifier = {name = castellos_deity duration = -1}
+			add_prestige_or_monarch_power = {amount =  25}
 			country_event = { id = flavor_wex.9 }
 		}
 	}
@@ -40,22 +45,28 @@ wex_slot_1 = {
 		position = 3
 		
 		trigger = {
-			custom_trigger_tooltip = {
-				tooltip = wex_bene_tt
-				has_country_flag = lothane_benevolent
-			}
-			mil_power = 100
 			Z40 = {
-				has_opinion = {
-					who = A30
-					value = 200
+				OR = {
+					AND = {
+						is_subject_of = ROOT
+						has_opinion = {
+							who = A30
+							value = 200
+						}
+					}
+					exists = yes
 				}
 			}
 		}
 		
 		effect = {
-			inherit = Z40
-			add_mil_power = -100
+			add_ruler_modifier = {name = ryala_deity duration = -1}
+			east_damesear_area = {
+				add_permanent_claim = ROOT
+			}
+			west_damesear_area = {
+				add_permanent_claim = ROOT
+			}
 			country_event = { id = flavor_wex.11 }
 		}
 	}
@@ -66,22 +77,19 @@ wex_slot_1 = {
 		position = 4
 		
 		trigger = {
-			custom_trigger_tooltip = {
-				tooltip = wex_bene_tt
-				has_country_flag = lothane_benevolent
-				}
-			dip_power = 100
-			Z42 = {
-				has_opinion = {
-					who = A30
-					value = 200
-				}
+			east_damesear_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			west_damesear_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
 			}
 		}
 		
 		effect = {
-			add_dip_power = -100
-			inherit = Z42
+			add_ruler_modifier = {name = falah_deity duration = -1}
+			add_prestige_or_monarch_power = {amount =  25}
 			country_event = { id = flavor_wex.10 }
 		}
 	}
@@ -952,8 +960,9 @@ wex_slot_5 = {
 			OR = {
 				province_id = 281
 				province_id = 910
+				province_id = 299
 			}
-			devastation = 10
+			development = 20
 		}
 		
 		trigger = {
@@ -963,8 +972,9 @@ wex_slot_5 = {
 			}
 			if = {
 				limit = { ai = no }
-				281 = { NOT = { devastation = 10 } }
-				910 = { NOT = { devastation = 10 } }
+				281 = { NOT = { development = 20 } }
+				910 = { NOT = { development = 20 } }
+				299 = { NOT = { development = 20 } }
 			}
 		}
 		
@@ -972,6 +982,7 @@ wex_slot_5 = {
 			custom_tooltip = wex_unrest1_tt
 			281 = { remove_province_modifier = wex_rebellious_damerians }
 			910 = { remove_province_modifier = wex_rebellious_damerians }
+			299 = { remove_province_modifier = wex_rebellious_damerians }
 		}
 	}
 	
@@ -985,7 +996,7 @@ wex_slot_5 = {
 				province_id = 276
 				province_id = 330
 			}
-			devastation = 10
+			development = 20
 		}
 		
 		trigger = {
@@ -995,8 +1006,8 @@ wex_slot_5 = {
 			}
 			if = {
 				limit = { ai = no }
-				330 = { NOT = { devastation = 10 } }
-				276 = { NOT = { devastation = 10 } }
+				330 = { NOT = { development = 20 } }
+				276 = { NOT = { development = 20 } }
 			}
 		}
 		
@@ -1007,34 +1018,23 @@ wex_slot_5 = {
 		}
 	}
 	
-	A30_secure_eargate = {
+	A30_secure_eargate = {	#bertus mod
 		icon = mission_murder
 		required_missions = { A30_mines_of_damecross }
 		position = 4
 		
 		provinces_to_highlight = {
-			OR = {
-				province_id = 2
-				province_id = 5
-			}
-			devastation = 10
 		}
 		
 		trigger = {
-			custom_trigger_tooltip = {
-				tooltip = wex_conq_tt
-				has_country_flag = lothane_conqueror
-			}
-			if = {
-				limit = { ai = no }
-				2 = { NOT = { devastation = 10 } }
-				5 = { NOT = { devastation = 10 } }
-			}
+			manpower_percentage = 0.90
+			army_size_percentage = 0.90
 		}
 		effect = {
-			custom_tooltip = wex_unrest3_tt
-			2 = { remove_province_modifier = wex_rebellious_damerians }
-			5 = { remove_province_modifier = wex_rebellious_damerians }
+			add_prestige_or_monarch_power = {amount =  50}
+			east_dameshead_region = {
+				add_permanent_claim = ROOT
+			}
 		}
 	}
 	
