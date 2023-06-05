@@ -81,7 +81,10 @@ magisterium_mechanic = {
 			trigger = {
 				if = {
 					limit = {
-						tag = A85
+						OR = {
+							NOT = {has_estate_privilege = estate_mages_organization_magisterium}
+							tag = A85
+						}
 					}
 					custom_trigger_tooltip = {
 						tooltip = "Magisters Menu Closed"
@@ -103,8 +106,14 @@ magisterium_mechanic = {
 					set_country_flag = magisters_mechanic_menu_flag
 					country_event = {id = bertus_changes.6035}
 				}
+				else_if = {
+					limit = {
+						NOT = {has_estate_privilege = estate_mages_organization_magisterium}
+					}
+					set_country_flag = magisters_mechanic_menu_flag
+					country_event = {id = bertus_changes.6040}
+				}
 				else = {
-
 				}
 			}
 			cooldown_years = 0

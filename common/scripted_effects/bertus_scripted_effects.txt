@@ -1023,36 +1023,39 @@ get_isolationsim_bonus = {
 kobold_celebrate_effect = {
 	if = {	#red
 		limit = {has_dragon_aspect = {color = red amount = 3}}
-		add_yearly_manpower = 3
-	}
-	else_if = {	#red
-		limit = {has_dragon_aspect = {color = red amount = 2}}
 		add_yearly_manpower = 2
 	}
 	else_if = {	#red
-		limit = {has_dragon_aspect = {color = red amount = 1}}
+		limit = {has_dragon_aspect = {color = red amount = 2}}
 		add_yearly_manpower = 1
+	}
+	else_if = {	#red
+		limit = {has_dragon_aspect = {color = red amount = 1}}
+		add_yearly_manpower = 0.5
 	}
 	if = {	#blue
 		limit = {has_dragon_aspect = {color = blue amount = 3}}
-		add_yearly_sailors = 3
-	}
-	else_if = {	#blue
-		limit = {has_dragon_aspect = {color = blue amount = 2}}
 		add_yearly_sailors = 2
 	}
 	else_if = {	#blue
-		limit = {has_dragon_aspect = {color = blue amount = 1}}
+		limit = {has_dragon_aspect = {color = blue amount = 2}}
 		add_yearly_sailors = 1
+	}
+	else_if = {	#blue
+		limit = {has_dragon_aspect = {color = blue amount = 1}}
+		add_yearly_sailors = 0.5
 	}
 	if = {	#green
 		limit = {has_dragon_aspect = {color = green amount = 3}}
+		add_prestige_or_monarch_power = {amount =  40}
 	}
 	else_if = {	#green
 		limit = {has_dragon_aspect = {color = green amount = 2}}
+		add_prestige_or_monarch_power = {amount =  20}
 	}
 	else_if = {	#green
 		limit = {has_dragon_aspect = {color = green amount = 1}}
+		add_prestige_or_monarch_power = {amount =  10}
 	}
 	if = {	#black
 		limit = {has_dragon_aspect = {color = black amount = 3}}
@@ -1078,15 +1081,16 @@ kobold_celebrate_effect = {
 		country_event = {	#long lived advisor
 			id = bertus_changes.1011
 		}
+		add_adm_power = 50
 	}
 	else_if = {	#white
 		limit = {has_dragon_aspect = {color = white amount = 2}}
 		get_racial_advisor = {class = adm}
-		add_adm_power = 100
+		add_adm_power = 50
 	}
 	else_if = {	#white
 		limit = {has_dragon_aspect = {color = white amount = 1}}
-		add_adm_power = 100
+		add_adm_power = 50
 	}
 	if = {	#brown
 		limit = {has_dragon_aspect = {color = brownd amount = 3}}
@@ -1095,15 +1099,16 @@ kobold_celebrate_effect = {
 		country_event = {	#long lived advisor
 			id = bertus_changes.1011
 		}
+		add_dip_power = 50
 	}
 	else_if = {	#brown
 		limit = {has_dragon_aspect = {color = brown amount = 2}}
 		get_racial_advisor = {class = dip}
-		add_dip_power = 100
+		add_dip_power = 50
 	}
 	else_if = {	#brown
 		limit = {has_dragon_aspect = {color = brown amount = 1}}
-		add_dip_power = 100
+		add_dip_power = 50
 	}
 	if = {	#brass
 		limit = {has_dragon_aspect = {color = brass amount = 3}}
@@ -1124,15 +1129,15 @@ kobold_celebrate_effect = {
 	}
 	if = {	#copper
 		limit = {has_dragon_aspect = {color = copper amount = 3}}
-		adopt_reform_progress  = 100
+		change_government_reform_progress = 100
 	}
 	else_if = {	#copper
 		limit = {has_dragon_aspect = {color = copper amount = 2}}
-		adopt_reform_progress  = 50
+		change_government_reform_progress  = 50
 	}
 	else_if = {	#copper
 		limit = {has_dragon_aspect = {color = copper amount = 1}}
-		adopt_reform_progress  = 25
+		change_government_reform_progress  = 25
 	}
 	if = {	#bronze
 		limit = {has_dragon_aspect = {color = bronze amount = 3}}
@@ -1148,11 +1153,11 @@ kobold_celebrate_effect = {
 	}
 	if = {	#silver
 		limit = {has_dragon_aspect = {color = silver amount = 3}}
-		add_mercantilism  = 5
+		add_mercantilism  = 4
 	}
 	else_if = {	#silver
 		limit = {has_dragon_aspect = {color = silver amount = 2}}
-		add_mercantilism  = 3
+		add_mercantilism  = 2
 	}
 	else_if = {	#silver
 		limit = {has_dragon_aspect = {color = silver amount = 1}}
@@ -1160,15 +1165,15 @@ kobold_celebrate_effect = {
 	}
 	if = {	#gold
 		limit = {has_dragon_aspect = {color = gold amount = 3}}
-		add_years_of_income = 2.0
-	}
-	else_if = {	#gold
-		limit = {has_dragon_aspect = {color = gold amount = 2}}
 		add_years_of_income = 1.0
 	}
 	else_if = {	#gold
+		limit = {has_dragon_aspect = {color = gold amount = 2}}
+		add_years_of_income = 0.5
+	}
+	else_if = {	#gold
 		limit = {has_dragon_aspect = {color = gold amount = 1}}
-		add_years_of_income = 0.33
+		add_years_of_income = 0.25
 	}
 	if = {	#rainbow
 		limit = {has_dragon_aspect = {color = rainbow amount = 1}}
@@ -1185,6 +1190,175 @@ kobold_celebrate_effect = {
 				modifier = {factor = 0 mil = 6}
 				change_mil = 1
 			}
+		}
+	}
+}
+dwarven_celebrate_effect = {
+	if = {
+		limit = {has_church_aspect = dagrin_adm_aspect}
+		add_adm_power = 200
+	}
+	if = {
+		limit = {has_church_aspect = dagrin_dip_aspect}
+		change_government_reform_progress = 100
+	}
+	if = {
+		limit = {has_church_aspect = anvelind_dip_aspect}
+		country_event = {id = bertus_changes.1011}
+	}
+	if = {
+		limit = {has_church_aspect = anvelind_mil_aspect}
+		add_mil_power = 200
+	}
+	if = {
+		limit = {has_church_aspect = durvorazir_adm_aspect}
+		random_owned_province = {
+			area = {
+				add_base_production = 1
+			}
+		}
+	}
+	if = {
+		limit = {has_church_aspect = durvorazir_mil_aspect}
+		random_owned_province = {
+			limit = {has_fort_building_trigger = yes}
+			improve_fortifications_effect = yes
+		}
+	}
+	if = {
+		limit = {has_church_aspect = margurz_dip_aspect}
+		add_war_exhaustion = -5
+		custom_tooltip = margurz_dip_aspect_effect_tt
+		hidden_effect = {
+			every_owned_province = {
+				add_devastation = -20
+			}
+		}
+	}
+	if = {
+		limit = {has_church_aspect = margurz_mil_aspect}
+		add_yearly_manpower = 2
+	}
+	if = {
+		limit = {has_church_aspect = miradeth_dip_aspect}
+		get_cash_from_mercantilism = yes
+	}
+	if = {
+		limit = {
+			has_church_aspect = miradeth_mil_aspect
+		}
+		get_racial_advisor = {class = mil}
+	}
+	if = {
+		limit = {has_church_aspect = azmirethazin_adm_aspect}
+		custom_tooltip = azmirethazin_adm_aspect_effect_tt
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					has_manufactory_trigger = yes
+					development = 30
+				}
+				add_base_production = 1
+			}
+		}
+	}
+	if = {
+		limit = {has_church_aspect = azmirethazin_dip_aspect}
+		custom_tooltip = azmirethazin_dip_aspect_effect_tt
+		hidden_effect = {
+			every_owned_province = {
+				add_unrest = -5
+			}
+		}
+	}
+	if = {
+		limit = {has_church_aspect = argezenna_adm_aspect}
+		custom_tooltip = argezenna_adm_aspect_effect_tt
+		hidden_effect = {
+			every_owned_province = {
+				add_local_autonomy = -10
+			}
+		}
+	}
+	if = {
+		limit = {has_church_aspect = argezenna_mil_aspect}
+		set_country_flag = get_adventurer_flag
+		custom_tooltip = get_great_hero_general_tt
+		hidden_effect = {
+			set_saved_name = {key = special_general_name type = advisor scope = ROOT}
+			country_event = {id = bertus_changes.6030}
+		}
+	}
+	if = {
+		limit = {has_church_aspect = auirikus_adm_aspect}
+		add_stability = 1
+		add_legitimacy = 20
+		add_devotion = 10
+		add_republican_tradition = 5
+	}
+	if = {
+		limit = {has_church_aspect = auirikus_dip_aspect}
+		add_dip_power = 200
+	}
+	if = {
+		limit = {has_church_aspect = urisazirn_adm_aspect}
+		add_adm_power = 50
+		add_dip_power = 50
+		add_mil_power = 50
+	}
+	if = {
+		limit = {has_church_aspect = urisazirn_mil_aspect}
+		add_army_tradition = 25
+	}
+}
+improve_fortifications_effect = {
+	trigger_switch = {
+		on_trigger = has_building
+		fortress_supply = {add_base_manpower = 5}
+		fortress_wall = {add_building = fortress_supply}
+		fortress_artillery = {add_building = fortress_wall}
+		fortress_towers = {add_building = fortress_artillery}
+		fortress_barracks = {add_building = fortress_towers}
+		fortress_keep = {add_building = fortress_barracks}
+	}
+	if = {
+		limit = {
+			NOT = {
+				has_building = fortress_keep
+				has_building = fortress_supply
+				has_building = fortress_wall
+				has_building = fortress_artillery
+				has_building = fortress_towers
+				has_building = fortress_barracks
+				has_building = fortress_keep
+			}
+		}
+		add_building = fortress_keep
+	}
+}
+get_cash_from_mercantilism = {
+	custom_tooltip = get_cash_from_mercantilism
+	hidden_effect = {
+		set_variable = {
+			which = mercantilism_var
+			value = 0
+		}
+		export_to_variable = {
+			which = mercantilism_var
+			value = mercantilism
+		}
+		while = {
+			limit = {
+				check_variable = {
+					which = mercantilism_var
+					value = mercantilism
+				}
+			}
+			change_variable = {
+				which = mercantilism_var
+				value = -1
+			}
+			add_years_of_income = 0.03
 		}
 	}
 }

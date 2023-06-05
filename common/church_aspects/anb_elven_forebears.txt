@@ -1,6 +1,6 @@
-### Generic Elves
+### Generic Elves	#bertus mod
 ivrandir_1 = {
-	cost = 120
+	cost = 100
 	potential = {
 		has_country_modifier = elven_administration
 		NOT = { 
@@ -10,15 +10,10 @@ ivrandir_1 = {
 		}
 	}
 	effect = {
-		hidden_effect = {
-			remove_church_aspect = random
-			remove_church_aspect = random
-			remove_church_aspect = random
-			add_church_aspect = ivrandir_1
-		}
+		add_mercantilism = 1
 	}
 	modifier = {
-		global_trade_power = 0.10	#0.05→0.10
+		global_trade_power = 0.10
 	}
 	ai_will_do = {factor = 15}
 }
@@ -29,45 +24,42 @@ ivrandir_2 = {
 		has_church_aspect = ivrandir_1
 		NOT = { has_church_aspect = ivrandir_2 }
 	}
+	effect = {
+		hidden_effect = {remove_church_aspect = ivrandir_1}
+		add_mercantilism = 1
+	}
 	modifier = {
-		#development_cost = -0.05	#0→-0.05
-		development_cost_efficiency = -0.05	#0→-0.05
+		global_trade_power = 0.20
 	}
 	ai_will_do = {factor = 15}
 }
 
 ivrandir_3 = {
-	cost = 180
+	cost = 200
 	potential = {
 		has_church_aspect = ivrandir_2
 		NOT = { has_church_aspect = ivrandir_3 }
 	}
+	effect = {
+		hidden_effect = {remove_church_aspect = ivrandir_2}
+		add_mercantilism = 1
+	}
 	modifier = {
-		colonists = 1
+		global_trade_power = 0.40
 	}
 	ai_will_do = {factor = 15}
 }
 
 oloris_1 = {
-	cost = 120
+	cost = 100
 	potential = {
 		has_country_modifier = elven_administration
-		NOT = { 
-			has_church_aspect = oloris_1
-			has_church_aspect = oloris_2
-			has_church_aspect = oloris_3
-		}
 	}
 	effect = {
-		hidden_effect = {
-			remove_church_aspect = random
-			remove_church_aspect = random
-			remove_church_aspect = random
-			add_church_aspect = oloris_1
-		}
+		add_years_of_income = 0.25
 	}
 	modifier = {
-		prestige = 1
+		trade_efficiency = 0.05
 	}
 	ai_will_do = {factor = 15}
 }
@@ -78,26 +70,34 @@ oloris_2 = {
 		has_church_aspect = oloris_1
 		NOT = { has_church_aspect = oloris_2 }
 	}
+	effect = {
+		hidden_effect = {remove_church_aspect = oloris_2}
+		add_years_of_income = 0.25
+	}
 	modifier = {
-		trade_efficiency = 0.10	#0.05→0.10
+		trade_efficiency = 0.10
 	}
 	ai_will_do = {factor = 15}
 }
 
 oloris_3 = {
-	cost = 180
+	cost = 200
 	potential = {
 		has_church_aspect = oloris_2
 		NOT = { has_church_aspect = oloris_3 }
 	}
+	effect = {
+		hidden_effect = {remove_church_aspect = oloris_3}
+		add_years_of_income = 0.25
+	}
 	modifier = {
-		administrative_efficiency = 0.05	#0.02→0.05
+		trade_efficiency = 0.20
 	}
 	ai_will_do = {factor = 15}
 }
 
 arfil_1 = {
-	cost = 120
+	cost = 100
 	potential = {
 		has_country_modifier = elven_administration
 		NOT = { 
@@ -107,15 +107,10 @@ arfil_1 = {
 		}
 	}
 	effect = {
-		hidden_effect = {
-			remove_church_aspect = random
-			remove_church_aspect = random
-			remove_church_aspect = random
-			add_church_aspect = arfil_1
-		}
+		add_yearly_manpower = 0.5
 	}
 	modifier = {
-		adm_tech_cost_modifier = -0.10	#-0.05→-0.10
+		infantry_power = 0.05
 	}
 	ai_will_do = {factor = 15}
 }
@@ -126,41 +121,63 @@ arfil_2 = {
 		has_church_aspect = arfil_1
 		NOT = { has_church_aspect = arfil_2 }
 	}
+	effect = {
+		hidden_effect = {remove_church_aspect = arfil_1}
+		add_yearly_manpower = 0.5
+	}
 	modifier = {
-		manpower_recovery_speed = 0.10	#0.05→0.10
+		infantry_power = 0.10
 	}
 	ai_will_do = {factor = 15}
 }
 
 arfil_3 = {
-	cost = 180
+	cost = 200
 	potential = {
 		has_church_aspect = arfil_2
 		NOT = { has_church_aspect = arfil_3 }
 	}
+	effect = {
+		hidden_effect = {remove_church_aspect = arfil_2}
+		custom_tooltip = arfil_3_tt
+		add_yearly_manpower = 0.5
+	}
 	modifier = {
-		infantry_shock = 0.02	#0.05→10%
+		infantry_power = 0.10
+		#infantry_shock = 0.05→10%
 	}
 	ai_will_do = {factor = 15}
 }
 
 #Ibevar
 ibenion_1 = {
-	cost = 120
+	cost = 100
 	potential = {
-		tag = A32
+		352 = {
+			owner = {
+				has_country_modifier = elven_administration
+				OR = {
+					tag = ROOT
+					alliance_with = ROOT
+					has_opinion = {
+						who = ROOT
+						value = 150
+					}
+				}
+			}
+		}
 		NOT = { has_church_aspect = ibenion_1 }
 	}
 	effect = {
+		set_country_flag = get_adventurer_flag
+		custom_tooltip = get_great_hero_general_tt
 		hidden_effect = {
-			remove_church_aspect = random
-			remove_church_aspect = random
-			remove_church_aspect = random
-			add_church_aspect = ibenion_1
+			set_saved_name = {key = special_general_name type = advisor scope = ROOT}
+			country_event = {id = bertus_changes.6030}
 		}
 	}
 	modifier = {
-		leader_cost = -0.10
+		army_tradition = 1 
 	}
 	ai_will_do = {factor = 15}
 }
@@ -171,40 +188,67 @@ ibenion_2 = {
 		has_church_aspect = ibenion_1
 		NOT = { has_church_aspect = ibenion_2 }
 	}
+	effect = {
+		set_country_flag = get_adventurer_flag
+		custom_tooltip = get_great_hero_general_tt
+		hidden_effect = {
+			remove_church_aspect = ibenion_2
+			set_saved_name = {key = special_general_name type = advisor scope = ROOT}
+			country_event = {id = bertus_changes.6030}
+		}
+	}
 	modifier = {
-		build_cost = -0.10	#-0.05→-0.10
+		army_tradition = 2
 	}
 	ai_will_do = {factor = 15}
 }
 
 ibenion_3 = {
-	cost = 180
+	cost = 200
 	potential = {
 		has_church_aspect = ibenion_2
 		NOT = { has_church_aspect = ibenion_3 }
 	}
+	effect = {
+		set_country_flag = get_adventurer_flag
+		custom_tooltip = get_great_hero_general_tt
+		hidden_effect = {
+		remove_church_aspect = ibenion_2
+			set_saved_name = {key = special_general_name type = advisor scope = ROOT}
+			country_event = {id = bertus_changes.6030}
+		}
+	}
 	modifier = {
-		core_creation = -0.10	#-0.05→-0.10
+		army_tradition = 4
 	}
 	ai_will_do = {factor = 15}
 }
 
 tanelia_1 = {
-	cost = 120
+	cost = 100
 	potential = {
-		tag = A32
+		115 = {
+			owner = {
+				has_country_modifier = elven_administration
+				OR = {
+					tag = ROOT
+					alliance_with = ROOT
+					has_opinion = {
+						who = ROOT
+						value = 150
+					}
+				}
+			}
+		}
 		NOT = { has_church_aspect = tanelia_1 }
 	}
 	effect = {
-		hidden_effect = {
-			remove_church_aspect = random
-			remove_church_aspect = random
-			remove_church_aspect = random
-			add_church_aspect = tanelia_1
+		random_owned_area = {
+			add_prosperity = 100
 		}
 	}
 	modifier = {
-		global_unrest = -1	#-0.5→-1
+		development_cost_modifier = -0.025
 	}
 	ai_will_do = {factor = 15}
 }
@@ -215,40 +259,62 @@ tanelia_2 = {
 		has_church_aspect = tanelia_1
 		NOT = { has_church_aspect = tanelia_2 }
 	}
+	effect = {
+		hidden_effect = {remove_church_aspect = tanelia_1}
+		random_owned_area = {
+			add_prosperity = 100
+		}
+	}
 	modifier = {
-		war_exhaustion = -0.05	#-0.02→-0.05
+		development_cost_modifier = -0.05
 	}
 	ai_will_do = {factor = 15}
 }
 
 tanelia_3 = {
-	cost = 180
+	cost = 200
 	potential = {
 		has_church_aspect = tanelia_2
 		NOT = { has_church_aspect = tanelia_3 }
 	}
+	effect = {
+		hidden_effect = {remove_church_aspect = tanelia_2}
+		random_owned_area = {
+			add_prosperity = 100
+		}
+	}
 	modifier = {
-		global_missionary_strength = 0.02	#0.01→0.02
+		development_cost_modifier = -0.10
 	}
 	ai_will_do = {factor = 15}
 }
 
 varamel_1 = {
-	cost = 120
+	cost = 100
 	potential = {
-		tag = A32
+		696 = {
+			owner = {
+				has_country_modifier = elven_administration
+				OR = {
+					tag = ROOT
+					alliance_with = ROOT
+					has_opinion = {
+						who = ROOT
+						value = 150
+					}
+				}
+			}
+		}
 		NOT = { has_church_aspect = varamel_1 }
 	}
 	effect = {
-		hidden_effect = {
-			remove_church_aspect = random
-			remove_church_aspect = random
-			remove_church_aspect = random
-			add_church_aspect = varamel_1
-		}
+		country_event = {id = bertus_changes.1011}
 	}
 	modifier = {
-		dip_advisor_cost = -0.15	#-0.10→-0.15
+		legitimacy = 0.5
+		devotion = 0.25
+		republican_tradition = 0.10
+		horde_unity = 0.25
 	}
 	ai_will_do = {factor = 15}
 }
@@ -259,44 +325,66 @@ varamel_2 = {
 		has_church_aspect = varamel_1
 		NOT = { has_church_aspect = varamel_2 }
 	}
+	effect = {
+		hidden_effect = {remove_church_aspect = varamel_1 }
+		country_event = {id = bertus_changes.1011}
+	}
 	modifier = {
-		adm_tech_cost_modifier = -0.10	#-0.05→-0.10
+		legitimacy = 1.0
+		devotion = 0.5
+		republican_tradition = 0.20
+		horde_unity = 0.50
 	}
 	ai_will_do = {factor = 15}
 }
 
 varamel_3 = {
-	cost = 180
+	cost = 200
 	potential = {
 		has_church_aspect = varamel_2
 		NOT = { has_church_aspect = varamel_3 }
 	}
+	effect = {
+		hidden_effect = {remove_church_aspect = varamel_2}
+		country_event = {id = bertus_changes.1011}
+	}
 	modifier = {
-		legitimacy = 1
-		devotion = 0.5
-		republican_tradition = 0.2
-		horde_unity = 0.50
+		legitimacy = 2.0
+		devotion = 1.0
+		republican_tradition = 0.40
+		horde_unity = 1.0
 	}
 	ai_will_do = {factor = 15}
 }
 
 #Silent Repose
 arda_1 = {
-	cost = 120
+	cost = 100
 	potential = {
-		tag = A83
+		350 = {
+			owner = {
+				has_country_modifier = elven_administration
+				OR = {
+					tag = ROOT
+					alliance_with = ROOT
+					has_opinion = {
+						who = ROOT
+						value = 150
+					}
+				}
+			}
+		}
 		NOT = { has_church_aspect = arda_1 }
 	}
 	effect = {
-		hidden_effect = {
-			remove_church_aspect = random
-			remove_church_aspect = random
-			remove_church_aspect = random
-			add_church_aspect = arda_1
+		add_government_power = { 
+			mechanic_type = magisterium_mechanic
+			power_type = magisterium_mana
+			value = 10
 		}
 	}
 	modifier = {
-		land_attrition = -0.20	#-0.10→-0.20
+		all_power_cost = -0.025
 	}
 	ai_will_do = {factor = 15}
 }
@@ -307,40 +395,66 @@ arda_2 = {
 		has_church_aspect = arda_1
 		NOT = { has_church_aspect = arda_2 }
 	}
+	effect = {
+		hidden_effect = {remove_church_aspect = arda_1}
+		add_government_power = { 
+			mechanic_type = magisterium_mechanic
+			power_type = magisterium_mana
+			value = 10
+		}
+	}
 	modifier = {
-		defensiveness = 0.15	#0.10→0.15
+		all_power_cost = -0.05
 	}
 	ai_will_do = {factor = 15}
 }
 
 arda_3 = {
-	cost = 180
+	cost = 200
 	potential = {
 		has_church_aspect = arda_2
 		NOT = { has_church_aspect = arda_3 }
 	}
+	effect = {
+		hidden_effect = {remove_church_aspect = arda_2}
+		add_government_power = { 
+			mechanic_type = magisterium_mechanic
+			power_type = magisterium_mana
+			value = 10
+		}
+	}
 	modifier = {
-		development_cost = -0.05
+		all_power_cost = -0.075
 	}
 	ai_will_do = {factor = 15}
 }
 
 jahelor_1 = {
-	cost = 120
+	cost = 100
 	potential = {
-		tag = A83
 		NOT = { has_church_aspect = jahelor_1 }
 	}
 	effect = {
+		custom_tooltip = jahelor_effect_tt
 		hidden_effect = {
-			remove_church_aspect = random
-			remove_church_aspect = random
-			remove_church_aspect = random
-			add_church_aspect = jahelor_1
+			random_list = {
+				33 = {
+					random_rival_country = {limit = { war_with = ROOT } remove_fow = 3}
+					modifier = {factor = 1000 any_rival_country = {war_with = ROOT}}
+				}
+				33 = {
+					random_rival_country = {remove_fow = 3}
+						modifier = {factor = 0 any_rival_country = {war_with = ROOT}}
+				}
+				33 = {
+					random_neighbor_country = {limit = { is_subject = no alliance_with = ROOT } remove_fow = 3}
+					modifier = {factor = 0 any_rival_country = {war_with = ROOT}}
+				}
+			}
 		}
 	}
 	modifier = {
-		global_spy_defence = 0.1
+		spy_offence = 0.25
 	}
 	ai_will_do = {factor = 15}
 }
@@ -351,40 +465,74 @@ jahelor_2 = {
 		has_church_aspect = jahelor_1
 		NOT = { has_church_aspect = jahelor_2 }
 	}
+	effect = {
+		custom_tooltip = jahelor_effect_tt
+		hidden_effect = {
+			remove_church_aspect = jahelor_1
+			random_list = {
+				33 = {
+					random_rival_country = {limit = { war_with = ROOT } remove_fow = 3}
+					modifier = {factor = 1000 any_rival_country = {war_with = ROOT}}
+				}
+				33 = {
+					random_rival_country = {remove_fow = 3}
+						modifier = {factor = 0 any_rival_country = {war_with = ROOT}}
+				}
+				33 = {
+					random_neighbor_country = {limit = { is_subject = no alliance_with = ROOT } remove_fow = 3}
+					modifier = {factor = 0 any_rival_country = {war_with = ROOT}}
+				}
+			}
+		}
+	}
 	modifier = {
-		hostile_attrition = 1
+		spy_offence = 0.50
 	}
 	ai_will_do = {factor = 15}
 }
 
 jahelor_3 = {
-	cost = 180
+	cost = 200
 	potential = {
 		has_church_aspect = jahelor_2
 		NOT = { has_church_aspect = jahelor_3 }
 	}
+	effect = {
+		custom_tooltip = jahelor_effect_tt
+		hidden_effect = {
+			remove_church_aspect = jahelor_2
+			random_list = {
+				33 = {
+					random_rival_country = {limit = { war_with = ROOT } remove_fow = 3}
+					modifier = {factor = 1000 any_rival_country = {war_with = ROOT}}
+				}
+				33 = {
+					random_rival_country = {remove_fow = 3}
+						modifier = {factor = 0 any_rival_country = {war_with = ROOT}}
+				}
+				33 = {
+					random_neighbor_country = {limit = { is_subject = no alliance_with = ROOT } remove_fow = 3}
+					modifier = {factor = 0 any_rival_country = {war_with = ROOT}}
+				}
+			}
+		}
+	}
 	modifier = {
-		diplomats = 1
+		spy_offence = 1.0
 	}
 	ai_will_do = {factor = 15}
 }
 
 elethen_1 = {
-	cost = 120
+	cost = 100
 	potential = {
-		tag = A83
 		NOT = { has_church_aspect = elethen_1 }
 	}
 	effect = {
-		hidden_effect = {
-			remove_church_aspect = random
-			remove_church_aspect = random
-			remove_church_aspect = random
-			add_church_aspect = elethen_1
-		}
+		add_stability = 1
 	}
 	modifier = {
-		stability_cost_modifier = -0.1
+		reform_progress_growth = 0.15
 	}
 	ai_will_do = {factor = 15}
 }
@@ -395,44 +543,56 @@ elethen_2 = {
 		has_church_aspect = elethen_1
 		NOT = { has_church_aspect = elethen_2 }
 	}
+	effect = {
+		hidden_effect = {remove_church_aspect = jahelor_1}
+		add_stability = 1
+	}
 	modifier = {
-		advisor_cost = -0.075	#-0.05→-0.075
+		reform_progress_growth = 0.30
 	}
 	ai_will_do = {factor = 15}
 }
 
 elethen_3 = {
-	cost = 180
+	cost = 200
 	potential = {
 		has_church_aspect = elethen_2
 		NOT = { has_church_aspect = elethen_3 }
 	}
+	effect = {
+		hidden_effect = {remove_church_aspect = jahelor_3}
+		add_stability = 1
+	}
 	modifier = {
-		trade_efficiency = 0.10	#0.05→0.10
+		reform_progress_growth = 0.45
 	}
 	ai_will_do = {factor = 15}
 }
 
 #Pelodaire
 rulership_1 = {
-	cost = 120
+	cost = 100
 	potential = {
-		OR = {
-			tag = H52
-			tag = H53
+		496 = {
+			owner = {
+				has_country_modifier = elven_administration
+				OR = {
+					tag = ROOT
+					alliance_with = ROOT
+					has_opinion = {
+						who = ROOT
+						value = 150
+					}
+				}
+			}
 		}
 		NOT = { has_church_aspect = rulership_1 }
 	}
 	effect = {
-		hidden_effect = {
-			remove_church_aspect = random
-			remove_church_aspect = random
-			remove_church_aspect = random
-			add_church_aspect = rulership_1
-		}
+		add_navy_tradition = 10
 	}
 	modifier = {
-		global_missionary_strength = 0.02	#0.01→0.02
+		global_ship_trade_power = 0.25
 	}
 	ai_will_do = {factor = 15}
 }
@@ -441,45 +601,57 @@ rulership_2 = {
 	cost = 150
 	potential = {
 		has_church_aspect = rulership_1
-		NOT = { has_church_aspect = rulership_2 }
+		NOT = { has_church_aspect = rulership_1 }
+	}
+	effect = {
+		hidden_effect = {remove_church_aspect = jahelor_1}
+		add_navy_tradition = 10
 	}
 	modifier = {
-		war_exhaustion_cost = -0.15
+		global_ship_trade_power = 0.50
 	}
 	ai_will_do = {factor = 15}
 }
 
 rulership_3 = {
-	cost = 180
+	cost = 200
 	potential = {
 		has_church_aspect = rulership_2
 		NOT = { has_church_aspect = rulership_3 }
 	}
+	effect = {
+		NOT = { has_church_aspect = rulership_1 }
+		add_navy_tradition = 10
+	}
 	modifier = {
-		diplomatic_upkeep = 1
+		global_ship_trade_power = 1.0
 	}
 	ai_will_do = {factor = 15}
 }
 
 warfare_1 = {
-	cost = 120
+	cost = 100
 	potential = {
-		OR = {
-			tag = H52
-			tag = H53
+		3020 = {
+			owner = {
+				has_country_modifier = elven_administration
+				OR = {
+					tag = ROOT
+					alliance_with = ROOT
+					has_opinion = {
+						who = ROOT
+						value = 150
+					}
+				}
+			}
 		}
 		NOT = { has_church_aspect = warfare_1 }
 	}
 	effect = {
-		hidden_effect = {
-			remove_church_aspect = random
-			remove_church_aspect = random
-			remove_church_aspect = random
-			add_church_aspect = warfare_1
-		}
+		add_army_tradition = 10
 	}
 	modifier = {
-		general_cost = -0.10
+		land_morale = 0.025
 	}
 	ai_will_do = {factor = 15}
 }
@@ -490,43 +662,55 @@ warfare_2 = {
 		has_church_aspect = warfare_1
 		NOT = { has_church_aspect = warfare_2 }
 	}
+	effect = {
+		NOT = { has_church_aspect = warfare_1 }
+		add_army_tradition = 10
+	}
 	modifier = {
-		unjustified_demands = -0.25	#-0.10→-0.25
+		land_morale = 0.05
 	}
 	ai_will_do = {factor = 15}
 }
 
 warfare_3 = {
-	cost = 180
+	cost = 200
 	potential = {
 		has_church_aspect = warfare_2
 		NOT = { has_church_aspect = warfare_3 }
 	}
+	effect = {
+		NOT = { has_church_aspect = warfare_2 }
+		add_army_tradition = 10
+	}
 	modifier = {
-		movement_speed = 0.20	#0.05→0.20
+		land_morale = 0.10
 	}
 	ai_will_do = {factor = 15}
 }
 
 wealth_1 = {
-	cost = 120
+	cost = 100
 	potential = {
-		OR = {
-			tag = H52
-			tag = H53
+		52 = {
+			owner = {
+				has_country_modifier = elven_administration
+				OR = {
+					tag = ROOT
+					alliance_with = ROOT
+					has_opinion = {
+						who = ROOT
+						value = 150
+					}
+				}
+			}
 		}
 		NOT = { has_church_aspect = wealth_1 }
 	}
 	effect = {
-		hidden_effect = {
-			remove_church_aspect = random
-			remove_church_aspect = random
-			remove_church_aspect = random
-			add_church_aspect = wealth_1
-		}
+		add_inflation = -2
 	}
 	modifier = {
-		trade_steering = 0.30	#0.15→0.30
+		interest = -0.50
 	}
 	ai_will_do = {factor = 15}
 }
@@ -537,49 +721,62 @@ wealth_2 = {
 		has_church_aspect = wealth_1
 		NOT = { has_church_aspect = wealth_2 }
 	}
+	effect = {
+		NOT = { has_church_aspect = wealth_2 }
+		add_inflation = -2
+	}
 	modifier = {
-		idea_cost = -0.075	#-0.05→-0.075
+		interest = -1.0
 	}
 	ai_will_do = {factor = 15}
 }
 
 wealth_3 = {
-	cost = 180
+	cost = 200
 	potential = {
 		has_church_aspect = wealth_2
 		NOT = { has_church_aspect = wealth_3 }
 	}
+	effect = {
+		NOT = { has_church_aspect = wealth_3 }
+		add_inflation = -2
+	}
 	modifier = {
-		interest = -0.5
+		interest = -2.0
 	}
 	ai_will_do = {factor = 15}
 }
 
 #Venail
 camnaril_1 = {
-	cost = 120
+	cost = 100
 	potential = {
-		OR = {
-			tag = A21
-			tag = Z43
-			tag = Z69
-			tag = Z70
-			tag = Z71
-			tag = Z72
-			tag = Z73
+		93 = {
+			owner = {
+				has_country_modifier = elven_administration
+				OR = {
+					tag = ROOT
+					alliance_with = ROOT
+					has_opinion = {
+						who = ROOT
+						value = 150
+					}
+				}
+			}
 		}
 		NOT = { has_church_aspect = camnaril_1 }
 	}
 	effect = {
-		hidden_effect = {
-			remove_church_aspect = random
-			remove_church_aspect = random
-			remove_church_aspect = random
-			add_church_aspect = camnaril_1
+		if = {
+			limit = {any_owned_province = {has_colonist = yes}}
+			random_owned_province = {
+				limit = {has_colonist = yes}
+				add_colonysize = 333
+			}
 		}
 	}
 	modifier = {
-		improve_relation_modifier = 0.30	#0.15→0.30
+		colonists = 1
 	}
 	ai_will_do = {factor = 15}
 }
@@ -590,48 +787,67 @@ camnaril_2 = {
 		has_church_aspect = camnaril_1
 		NOT = { has_church_aspect = camnaril_2 }
 	}
+	effect = {
+		hidden_effect = {remove_church_aspect = camnaril_1}
+		if = {
+			limit = {any_owned_province = {has_colonist = yes}}
+			random_owned_province = {
+				limit = {has_colonist = yes}
+				add_colonysize = 333
+			}
+		}
+	}
 	modifier = {
-		leader_cost = -0.10
+		colonists = 2
 	}
 	ai_will_do = {factor = 15}
 }
 
 camnaril_3 = {
-	cost = 180
+	cost = 200
 	potential = {
 		has_church_aspect = camnaril_2
 		NOT = { has_church_aspect = camnaril_3 }
 	}
+	effect = {
+		hidden_effect = {remove_church_aspect = camnaril_2}
+		if = {
+			limit = {any_owned_province = {has_colonist = yes}}
+			random_owned_province = {
+				limit = {has_colonist = yes}
+				add_colonysize = 333
+			}
+		}
+	}
 	modifier = {
-		development_cost = -0.05
+		colonists = 3
 	}
 	ai_will_do = {factor = 15}
 }
 
 boats_1 = {
-	cost = 120
+	cost = 100
 	potential = {
-		OR = {
-			tag = A21
-			tag = Z43
-			tag = Z69
-			tag = Z70
-			tag = Z71
-			tag = Z72
-			tag = Z73
+		93 = {
+			owner = {
+				has_country_modifier = elven_administration
+				OR = {
+					tag = ROOT
+					alliance_with = ROOT
+					has_opinion = {
+						who = ROOT
+						value = 150
+					}
+				}
+			}
 		}
 		NOT = { has_church_aspect = boats_1 }
 	}
 	effect = {
-		hidden_effect = {
-			remove_church_aspect = random
-			remove_church_aspect = random
-			remove_church_aspect = random
-			add_church_aspect = boats_1
-		}
+		add_yearly_sailors = 0.50
 	}
 	modifier = {
-		navy_tradition_decay = -0.02	#-0.01→-0.02
+		global_naval_engagement_modifier = 0.05
 	}
 	ai_will_do = {factor = 15}
 }
@@ -642,48 +858,42 @@ boats_2 = {
 		has_church_aspect = boats_1
 		NOT = { has_church_aspect = boats_2 }
 	}
+	effect = {
+		hidden_effect = {remove_church_aspect = boats_1}
+		add_yearly_sailors = 0.50
+	}
 	modifier = {
-		naval_maintenance_modifier = -0.05
+		global_naval_engagement_modifier = 0.10
 	}
 	ai_will_do = {factor = 15}
 }
 
 boats_3 = {
-	cost = 180
+	cost = 200
 	potential = {
 		has_church_aspect = boats_2
 		NOT = { has_church_aspect = boats_3 }
 	}
+	effect = {
+		hidden_effect = {remove_church_aspect = boats_2}
+		add_yearly_sailors = 0.50
+	}
 	modifier = {
-		global_ship_cost = -0.05
+		global_naval_engagement_modifier = 0.20
 	}
 	ai_will_do = {factor = 15}
 }
 
 tech_1 = {
-	cost = 120
+	cost = 100
 	potential = {
-		OR = {
-			tag = A21
-			tag = Z43
-			tag = Z69
-			tag = Z70
-			tag = Z71
-			tag = Z72
-			tag = Z73
-		}
 		NOT = { has_church_aspect = tech_1 }
 	}
 	effect = {
-		hidden_effect = {
-			remove_church_aspect = random
-			remove_church_aspect = random
-			remove_church_aspect = random
-			add_church_aspect = tech_1
-		}
+		change_innovativeness = 1
 	}
 	modifier = {
-		embracement_cost = -0.075	#-0.05→-0.075
+		technology_cost = -0.05
 	}
 	ai_will_do = {factor = 15}
 }
@@ -694,20 +904,28 @@ tech_2 = {
 		has_church_aspect = tech_1
 		NOT = { has_church_aspect = tech_2 }
 	}
+	effect = {
+		hidden_effect = {remove_church_aspect = tech_1}
+		change_innovativeness = 1
+	}
 	modifier = {
-		technology_cost = -0.05
+		technology_cost = -0.10
 	}
 	ai_will_do = {factor = 15}
 }
 
 tech_3 = {
-	cost = 180
+	cost = 200
 	potential = {
 		has_church_aspect = tech_2
 		NOT = { has_church_aspect = tech_3 }
 	}
+	effect = {
+		hidden_effect = {remove_church_aspect = tech_2}
+		change_innovativeness = 1
+	}
 	modifier = {
-		inflation_reduction = 0.05
+		technology_cost = -0.20
 	}
 	ai_will_do = {factor = 15}
 }
