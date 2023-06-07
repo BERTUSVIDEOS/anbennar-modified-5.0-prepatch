@@ -1,0 +1,301 @@
+
+Z22_celmador_west_expansion = {
+	slot = 1
+	generic = no
+	ai = yes 
+	potential = { tag = Z22 }
+	has_country_shield = yes
+		
+	Z22_expel_kobolds = {
+		icon = mission_spoils_of_war
+		required_missions = {	}
+		position = 4
+		
+		provinces_to_highlight = {
+			owned_by = A28
+		}
+		trigger = {
+			OR = {
+				any_province = {
+					owned_by = A28
+					is_claim  = ROOT
+				}
+				is_rival = A28
+			}
+		}
+		effect = {
+			cosan_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			coddorran_heights_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	Z22_expel_kobolds = {
+		icon = mission_spoils_of_war
+		required_missions = { Z22_expel_kobolds }
+		position = 5
+		
+		provinces_to_highlight = {
+			OR = {
+				area = cosan_area
+				area = coddorran_heights_area
+			}
+			NOT = {owned_by = ROOT}
+		}
+		trigger = {
+			cosan_area = {
+				type = all
+				owned_by = ROOT
+			}
+			coddorran_heights_area = {	
+				type = all
+				owned_by = ROOT
+			}
+		}
+		
+		effect = {
+			add_prestige_or_monarch_power = {amount =  25}
+			westmoor_proper_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			storm_isles_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	Z22_consolidate_marshlands = {
+		icon = mission_spoils_of_war
+		required_missions = { Z22_expel_kobolds }
+		position = 6
+		
+		provinces_to_highlight = {
+			OR = {
+				area = westmoor_proper_area
+				area = storm_isles_area
+			}
+			NOT = {owned_by = ROOT}
+		}
+		trigger = {
+			westmoor_proper_area = {	
+				type = all
+				owned_by = ROOT
+			}
+			storm_isles_area = {	
+				type = all
+				owned_by = ROOT
+			}
+		}
+		effect = {
+			add_yearly_sailors = 1
+			add_prestige_or_monarch_power = {amount =  25}
+			add_country_modifier = {
+				name = redglades_portal_ritual_modifier
+				duration = 1825
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic 
+				power_type = magisterium_mana
+				value = -50
+			}
+		}
+	}
+}
+Z22_celmador_east_expansion = {
+	slot = 5
+	generic = no
+	ai = yes 
+	potential = { tag = Z22 }
+	has_country_shield = yes
+	
+	Z22_eastern_offensive = {
+		icon = mission_spoils_of_war
+		required_missions = {	}
+		position = 4
+		
+		provinces_to_highlight = {
+			owned_by = A28
+		}
+		trigger = {
+			army_size_percentage = 0.9
+			OR = {
+				adderwood_area = {
+					is_claim  = ROOT
+				}
+				is_rival = Z26
+			}
+		}
+		effect = {
+			adderwood_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			northern_greatwoods_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	Z22_northern_woods_conquest = {
+		icon = mission_conquer_5_states
+		required_missions = { Z22_eastern_offensive }
+		position = 5
+		
+		provinces_to_highlight = {
+			OR = {
+				area = adderwood_area
+				area = northern_greatwoods_area
+			}
+			NOT = {owned_by = ROOT}
+		}
+		trigger = {
+			adderwood_area = {	
+				type = all
+				owned_by = ROOT
+			}
+			northern_greatwoods_area = {	
+				type = all
+				owned_by = ROOT
+			}
+		}
+		
+		effect = {
+			add_stability_or_adm_power = yes
+			dinesck_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	Z22_bayvic_city = {
+		icon = mission_rb_trinity_college_dublin
+		required_missions = { Z22_northern_woods_conquest }
+		position = 6
+		
+		provinces_to_highlight = {
+			OR = {
+				province_id = 723
+			}
+		}
+		
+		trigger = {
+			723 = {
+				is_core = ROOT
+				owned_by = ROOT
+			}
+		}
+		effect = {
+			723 = {
+				add_center_of_trade_level = 1
+			}
+			west_chillsbay_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			drowned_giant_isles_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			east_chillsbay_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+}
+Z22_redglades_finisher = {
+	slot = 3
+	generic = no
+	ai = yes 
+	potential = { tag = Z22 }
+	has_country_shield = yes
+	Z22_redglades_archery = { 
+		icon = mission_rb_unite_the_clans
+		required_missions = { Z22_redglades_culture Z22_redglades_professionalism }
+		position = 7
+		
+		trigger = {
+			OR = {
+				any_ally = {
+					culture = wood_elf
+					capital_scope = {
+						superregion = deepwoods_superregion
+					}
+					num_of_owned_provinces_with = {
+						value = 20
+						superregion = deepwoods_superregion
+						owned_by = PREV
+					}
+				}
+				num_of_owned_provinces_with = {
+					value = 20
+					superregion = deepwoods_superregion
+					owned_by = ROOT
+				}
+			}
+			mil_power = 200
+			dip_power = 200
+		}
+		effect = {
+			add_dip_power = -200
+			add_mil_power = -200
+			random_ally = {
+				limit = {	
+					culture = wood_elf
+					capital_scope = {
+						superregion = deepwoods_superregion
+					}
+				}
+				add_dip_power = 200
+				add_mil_power = 200
+			}
+			change_primary_culture = wood_elf
+			change_technology_group = tech_wood_elf
+			change_unit_type = tech_wood_elf
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						culture_group = elven
+						NOT = {culture = wood_elf}
+					}
+					change_culture = wood_elf
+				}
+			}
+		}
+	}	
+}

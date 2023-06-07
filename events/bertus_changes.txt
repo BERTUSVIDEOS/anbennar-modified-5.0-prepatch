@@ -1990,6 +1990,7 @@ province_event = {	#
 	
 	hidden = yes
     trigger = {
+		is_city = yes
 		OR = {
 			owner = {is_state_core = ROOT}
 			is_node_in_trade_company_region = yes
@@ -2201,28 +2202,28 @@ country_event = {	#setup players electors & other stuff
 	
 	hidden = yes
 	is_triggered_only = yes
-	fire_only_once = yes
 	
     trigger = {
+		NOT = {has_country_flag = bertus_electors_selected_flag}
 		NOT = {has_global_flag = bertus_electors_selected_flag}
+		ai = no
     }
 	
 	immediate = {
-		set_global_flag = bertus_electors_selected_flag
+		set_country_flag = bertus_electors_selected_flag
 		update_tech_flag = yes
 	}
 	option = {
 		name = bertus_changes.1100.a
-		every_country = {
-			limit = {ai = no}
-			if = {
-				limit = {OR = {culture_is_human = yes technology_group = tech_bulwari}}
-				set_estate_privilege = estate_human_recruitment
-			}
-			if = {
-				limit = {OR = {culture_is_ruinborn = yes}}
-				set_estate_privilege = estate_ruinborn_recruitment
-			}
+		if = {
+			limit = {OR = {culture_is_human = yes technology_group = tech_bulwari}}
+			set_estate_privilege = estate_human_recruitment
+		}
+		else_if = {
+			limit = {OR = {culture_is_ruinborn = yes}}
+			set_estate_privilege = estate_ruinborn_recruitment
+		}
+		else = {
 			trigger_switch = {
 				on_trigger = culture_group
 				elven = {set_estate_privilege = estate_elven_recruitment}
@@ -2242,29 +2243,29 @@ country_event = {	#setup players electors & other stuff
 				hobgoblin = {set_estate_privilege = estate_hobgoblin_recruitment}
 				kobold = {set_estate_privilege = estate_kobold_recruitment}
 			}
-			country_event = {id = bertus_racial_military.1001}
-			country_event = {id = ANEX_event.35 days = 10}
-			country_event = {id = bertus_goods.1001 days = 20}
-			country_event = {id = bertus_goods.1002 days = 60}
-			country_event = {id = bertus_goods.1002 days = 10}
 		}
-		every_country = {
-			limit = {is_part_of_hre = yes ai = no is_elector = no}
+		country_event = {id = bertus_racial_military.1001}
+		country_event = {id = ANEX_event.35 days = 10}
+		country_event = {id = bertus_goods.1001 days = 20}
+		country_event = {id = bertus_goods.1002 days = 60}
+		country_event = {id = bertus_goods.1002 days = 10}
+		if = {
+			limit = {is_part_of_hre = yes is_elector = no}
 			elector = yes
 		}
-		every_country = {
+		if = {
 			limit = {capital_scope = {continent = europe}}
 			europe = { limit = {NOT = {has_terrain = dwarven_under_hold}} discover_country = PREV}
 			divenhal_sea_region = {discover_country = PREV}
 			dameshead_sea_region = {discover_country = PREV}
 			giants_grave_sea_region = {discover_country = PREV}
 		}
-		every_country = {
+		if = {
 			limit = {OR = {culture_group = dwarven technology_group = tech_cave_goblin	technology_group = tech_black_orcish}}
 			serpentspine = {discover_country = PREV}
 		}
-		every_country = {
-			limit = {has_government_mechanic = enslavement_mechanic}
+		if = {
+			limit = { has_government_mechanic = enslavement_mechanic}
 			if = {
 				limit = {
 					NOT = {
@@ -2280,7 +2281,7 @@ country_event = {	#setup players electors & other stuff
 				}
 			}
 		}
-		every_country = {
+		if = {
 			limit = {has_government_mechanic = magisterium_mechanic}
 			add_government_power = {
 				mechanic_type = magisterium_mechanic
@@ -3654,6 +3655,7 @@ province_event = {	#spawn the thought
 	picture = STREET_SPEECH_eventPicture
 
 	trigger = {
+		is_city = yes
 		is_year = 1500
 		owner = {
 			has_reform = technocracy_republic_reform
@@ -3711,23 +3713,31 @@ province_event = {	#
 	hidden = yes
 	
     trigger = {	
+		is_city = yes
 		OR = {
 			AND = {
-				trade_goods = slaves
 				has_boost_pop_goods_produced = no
+				trade_goods = slaves
 				OR = {
 					province_id = 216
 					province_id = 451
 					province_id = 5028
 					has_province_modifier = empowered_slavers
+					has_province_modifier = slave_boost_modifier
 				}
 			}
 			AND = {
 				has_boost_pop_goods_produced = yes
 				OR = {
-					has_province_modifier = slave_boost_modifier
+					NOT = {trade_goods = slaves}
+					NOT = {
+						province_id = 216
+						province_id = 451
+						province_id = 5028
+						has_province_modifier = empowered_slavers
+						has_province_modifier = slave_boost_modifier
+					}
 				}
-				NOT = {trade_goods = slaves}
 			}
 		}
     }
@@ -3756,25 +3766,32 @@ province_event = {	#
 	hidden = yes
 	
     trigger = {	
+		is_city = yes
 		OR = {
 			AND = {
-				trade_goods = silk
 				has_boost_pop_goods_produced = no
+				trade_goods = silk
 				OR = {
 					province_id = 115
 					province_id = 116
 					province_id = 117
 					has_province_flag = estalleni_silks_flag
+					has_province_modifier = estalleni_silks
 					has_province_modifier = silk_forest_modifier
 				}
 			}
 			AND = {
 				has_boost_pop_goods_produced = yes
 				OR = {
-					has_province_modifier = silk_forest_modifier
-					has_province_modifier = estalleni_silks
+					NOT = {trade_goods = silk}
+					NOT = {
+						province_id = 115
+						province_id = 116
+						province_id = 117
+						has_province_modifier = silk_forest_modifier
+						has_province_modifier = estalleni_silks
+					}
 				}
-				NOT = {trade_goods = silk}
 			}
 		}
     }
@@ -3817,6 +3834,7 @@ province_event = {	#
 	hidden = yes
 	
     trigger = {	
+		is_city = yes
 		OR = {
 			AND = {
 				trade_goods = cheese
@@ -3828,12 +3846,23 @@ province_event = {	#
 					province_id = 419
 					province_id = 235
 					has_province_modifier = adv_cheese_production
+					has_province_modifier = cheese_trade_modifier
 				}
 			}
 			AND = {
 				has_boost_pop_goods_produced = yes
-				has_province_modifier = cheese_trade_modifier
-				NOT = {trade_goods = cheese}
+				OR = {
+					NOT = {trade_goods = cheese}
+					NOT = {
+						province_id = 132
+						province_id = 6
+						province_id = 333
+						province_id = 419
+						province_id = 235
+						has_province_modifier = cheese_trade_modifier
+						has_province_modifier = adv_cheese_production
+					}
+				}
 			}
 		}
     }
@@ -3870,12 +3899,20 @@ province_event = {	#
 					province_id = 451
 					province_id = 402
 					province_id = 172
+					has_province_modifier = rum_trade_modifier
 				}
 			}
 			AND = {
 				has_boost_pop_goods_produced = yes
-				has_province_modifier = rum_trade_modifier
-				NOT = {trade_goods = rum}
+				OR = {
+					NOT = {trade_goods = rum}
+					NOT = {
+						province_id = 451
+						province_id = 402
+						province_id = 172
+						has_province_modifier = rum_trade_modifier
+					}
+				}
 			}
 		}
     }
@@ -3903,6 +3940,7 @@ province_event = {	#
 	hidden = yes
 	
     trigger = {	
+		is_city = yes
 		OR = {
 			AND = {
 				trade_goods = maple_syrup
@@ -3917,8 +3955,16 @@ province_event = {	#
 			}
 			AND = {
 				has_boost_pop_goods_produced = yes
-				has_province_modifier = maple_syrup_trade_modifier
-				NOT = {trade_goods = maple_syrup}
+				OR = {
+					NOT = {trade_goods = maple_syrup}
+					NOT = {
+						province_id = 139
+						province_id = 418
+						province_id = 118
+						province_id = 1879
+						has_province_modifier = maple_syrup_trade_modifier
+					}
+				}
 			}
 		}
     }
@@ -3946,6 +3992,7 @@ province_event = {	#
 	hidden = yes
 	
     trigger = {	
+		is_city = yes
 		OR = {
 			AND = {
 				trade_goods = olive_oil
@@ -3954,8 +4001,13 @@ province_event = {	#
 			}
 			AND = {
 				has_boost_pop_goods_produced = yes
-				has_province_modifier = olive_trade_modifier
-				NOT = {trade_goods = olive_oil}
+				OR = {
+					NOT = {trade_goods = olive_oil}
+					NOT = {
+						province_id = 374
+						has_province_modifier = olive_trade_modifier
+					}
+				}
 			}
 		}
     }
@@ -3983,6 +4035,7 @@ province_event = {	#special oak
 	hidden = yes
 	
     trigger = {	
+		is_city = yes
 		OR = {
 			AND = {
 				trade_goods = lumber
@@ -4000,8 +4053,20 @@ province_event = {	#special oak
 			}
 			AND = {
 				has_boost_pop_goods_produced = yes
-				has_province_modifier = lumber_trade_modifier
-				NOT = {trade_goods = lumber}
+				OR = {
+					NOT = {trade_goods = lumber}
+					NOT = {
+						province_id = 134
+						province_id = 435
+						province_id = 434
+						province_id = 361
+						province_id = 360
+						has_province_modifier = lumber_trade_modifier
+						has_province_modifier = deranne_aelvar_wood
+						has_province_modifier = small_country_hardwood
+						has_province_modifier = silver_good_lumber_modifier
+					}
+				}
 			}
 		}
     }
@@ -4032,6 +4097,7 @@ province_event = {	#red oak
 	hidden = yes
 	
     trigger = {	
+		is_city = yes
 		OR = {
 			AND = {
 				trade_goods = lumber
@@ -4044,8 +4110,14 @@ province_event = {	#red oak
 			}
 			AND = {
 				has_boost_pop_goods_produced = yes
-				has_province_modifier = lumber_red_oak_trade_modifier
-				NOT = {trade_goods = lumber}
+				OR = {
+					NOT = {trade_goods = lumber}
+					NOT = {
+						province_id = 1931
+						province_id = 120
+						has_province_modifier = lumber_red_oak_trade_modifier
+					}
+				}
 			}
 		}
     }
@@ -4073,6 +4145,7 @@ province_event = {	#grey oak
 	hidden = yes
 	
     trigger = {	
+		is_city = yes
 		OR = {
 			AND = {
 				trade_goods = lumber
@@ -4085,12 +4158,24 @@ province_event = {	#grey oak
 					province_id = 2835
 					province_id = 971
 					province_id = 970
+					has_province_modifier = lumber_grey_oak_trade_modifier
 				}
 			}
 			AND = {
 				has_boost_pop_goods_produced = yes
-				has_province_modifier = lumber_grey_oak_trade_modifier
-				NOT = {trade_goods = lumber}
+				OR = {
+					NOT = {trade_goods = lumber}
+					NOT = {
+						province_id = 716
+						province_id = 706
+						province_id = 702
+						province_id = 742
+						province_id = 2835
+						province_id = 971
+						province_id = 970
+						has_province_modifier = lumber_grey_oak_trade_modifier
+					}
+				}
 			}
 		}
     }
@@ -4118,6 +4203,7 @@ province_event = {	#
 	hidden = yes
 	
     trigger = {	
+		is_city = yes
 		OR = {
 			AND = {
 				trade_goods = marble
@@ -4127,12 +4213,21 @@ province_event = {	#
 					province_id = 393
 					province_id = 200
 					province_id = 424
+					has_province_modifier = blue_marble_trade_modifier
 				}
 			}
 			AND = {
 				has_boost_pop_goods_produced = yes
-				has_province_modifier = blue_marble_trade_modifier
-				NOT = {trade_goods = marble}
+				OR = {
+					NOT = {trade_goods = marble}
+					NOT = {
+						province_id = 409
+						province_id = 393
+						province_id = 200
+						province_id = 424
+						has_province_modifier = blue_marble_trade_modifier
+					}
+				}
 			}
 		}
     }
@@ -4160,6 +4255,7 @@ province_event = {	#
 	hidden = yes
 	
     trigger = {	
+		is_city = yes
 		OR = {
 			AND = {
 				trade_goods = citrus
@@ -4169,12 +4265,21 @@ province_event = {	#
 					province_id = 385
 					province_id = 629
 					province_id = 293
+					has_province_modifier = citrus_trade_modifier
 				}
 			}
 			AND = {
 				has_boost_pop_goods_produced = yes
-				has_province_modifier = citrus_trade_modifier
-				NOT = {trade_goods = citrus}
+				OR = {
+					NOT = {trade_goods = citrus}
+					NOT = {
+						province_id = 372
+						province_id = 385
+						province_id = 629
+						province_id = 293
+						has_province_modifier = citrus_trade_modifier
+					}
+				}
 			}
 		}
     }
@@ -4202,6 +4307,7 @@ province_event = {	#
 	hidden = yes
 	
     trigger = {	
+		is_city = yes
 		OR = {
 			AND = {
 				trade_goods = dyes
@@ -4209,12 +4315,19 @@ province_event = {	#
 				OR = {
 					province_id = 66
 					province_id = 63
+					has_province_modifier = viswall_dyes_modifier
 				}
 			}
 			AND = {
 				has_boost_pop_goods_produced = yes
-				has_province_modifier = viswall_dyes_modifier
-				NOT = {trade_goods = dyes}
+				OR = {
+					NOT = {trade_goods = dyes}
+					NOT = {
+						province_id = 66
+						province_id = 63
+						has_province_modifier = viswall_dyes_modifier
+					}
+				}
 			}
 		}
     }
@@ -4242,6 +4355,7 @@ province_event = {	#
 	hidden = yes
 	
     trigger = {	
+		is_city = yes
 		OR = {
 			AND = {
 				trade_goods = champagne
@@ -4249,12 +4363,19 @@ province_event = {	#
 				OR = {
 					province_id = 911
 					has_province_modifier = small_country_brandy
+					has_province_modifier = telgeir_champagne_modifier
 				}
 			}
 			AND = {
 				has_boost_pop_goods_produced = yes
-				has_province_modifier = telgeir_champagne_modifier
-				NOT = {trade_goods = champagne}
+				OR = {
+					NOT = {trade_goods = champagne}
+					NOT = {
+						province_id = 911
+						has_province_modifier = small_country_brandy
+						has_province_modifier = telgeir_champagne_modifier
+					}
+				}
 			}
 		}
     }
@@ -4283,16 +4404,27 @@ province_event = {	#
 	hidden = yes
 	
     trigger = {	
+		is_city = yes
 		OR = {
 			AND = {
 				trade_goods = jewellery
 				has_boost_pop_goods_produced = no
-				province_id = 46
+				OR = {
+					province_id = 46
+					has_province_modifier = jewel_trade_modifier
+					has_province_modifier = jewelpoint_modifier
+				}
 			}
 			AND = {
 				has_boost_pop_goods_produced = yes
-				has_province_modifier = jewel_trade_modifier
-				NOT = {trade_goods = jewellery}
+				OR = {
+					NOT = {trade_goods = jewellery}
+					NOT = {
+						province_id = 46
+						has_province_modifier = jewel_trade_modifier
+						has_province_modifier = jewelpoint_modifier
+					}
+				}
 			}
 		}
     }
@@ -4325,6 +4457,7 @@ province_event = {	#
 	hidden = yes
 	
     trigger = {
+		is_city = yes
 		OR = {
 			AND = {
 				trade_goods = pearls
@@ -4332,15 +4465,21 @@ province_event = {	#
 				OR = {
 					province_id = 14
 					province_id = 736
+					has_province_modifier = the_pearls_modifier
+					has_province_modifier = soulstones_of_isle_vroren
 				}
 			}
 			AND = {
 				has_super_boost_goods_produced = yes
 				OR = {
-					has_province_modifier = the_pearls_modifier
-					has_province_modifier = soulstones_of_isle_vroren
+					NOT = {trade_goods = pearls}
+					NOT = {
+						province_id = 14
+						province_id = 736
+						has_province_modifier = the_pearls_modifier
+						has_province_modifier = soulstones_of_isle_vroren
+					}
 				}
-				NOT = {trade_goods = pearls}
 			}
 		}
     }
@@ -4376,6 +4515,7 @@ province_event = {	#copper bonus
 	hidden = yes
 	
     trigger = {	
+		is_city = yes
 		OR = {
 			AND = {
 				trade_goods = copper
@@ -4388,12 +4528,24 @@ province_event = {	#copper bonus
 					has_province_modifier = busilar_busilari_copper_mines
 					has_province_modifier = small_country_coppertown_industry
 					has_province_modifier = sildnamm_industry
+					has_province_modifier = copper_trade_modifier
 				}
 			}
 			AND = {
 				has_boost_pop_goods_produced = yes
-				has_province_modifier = copper_trade_modifier
-				NOT = {trade_goods = copper}
+				OR = {
+					NOT = {trade_goods = copper}
+					NOT = {
+						province_id = 260
+						province_id = 733
+						province_id = 1848
+						has_province_modifier = vanbury_steel_foundry
+						has_province_modifier = busilar_busilari_copper_mines
+						has_province_modifier = small_country_coppertown_industry
+						has_province_modifier = sildnamm_industry
+						has_province_modifier = copper_trade_modifier
+					}
+				}
 			}
 		}
     }
@@ -4431,6 +4583,7 @@ province_event = {	#
 	hidden = yes
 	
     trigger = {	
+		is_city = yes
 		OR = {
 			AND = {
 				trade_goods = horses
@@ -4439,12 +4592,20 @@ province_event = {	#
 					province_id = 105
 					province_id = 357
 					has_province_modifier = adv_horses_production
+					has_province_modifier = horse_garden_modifier
 				}
 			}
 			AND = {
 				has_boost_pop_goods_produced = yes
-				has_province_modifier = horse_garden_modifier
-				NOT = {trade_goods = horses}
+				OR = {
+					NOT = {trade_goods = horses}
+					NOT = {
+						province_id = 105
+						province_id = 357
+						has_province_modifier = adv_horses_production
+						has_province_modifier = horse_garden_modifier
+					}
+				}
 			}
 		}
     }
@@ -4473,6 +4634,7 @@ province_event = {	#
 	hidden = yes
 	
     trigger = {	
+		is_city = yes
 		OR = {
 			AND = {
 				trade_goods = fur
@@ -4481,12 +4643,20 @@ province_event = {	#
 					region = dalr_region
 					region = gerudian_coast_region
 					region = northern_pass_region
+					has_province_modifier = northern_fur_modifier
 				}
 			}
 			AND = {
 				has_boost_pop_goods_produced = yes
-				has_province_modifier = northern_fur_modifier
-				NOT = {trade_goods = fur}
+				OR = {
+					NOT = {trade_goods = fur}
+					NOT = {
+						region = dalr_region
+						region = gerudian_coast_region
+						region = northern_pass_region
+						has_province_modifier = northern_fur_modifier
+					}
+				}
 			}
 		}
     }
@@ -4514,6 +4684,7 @@ province_event = {	#
 	hidden = yes
 	
     trigger = {	
+		is_city = yes
 		OR = {
 			AND = {
 				trade_goods = tar
@@ -4522,12 +4693,20 @@ province_event = {	#
 					province_id = 203
 					province_id = 195
 					province_id = 194
+					has_province_modifier = tar_bonus_modifier
 				}
 			}
 			AND = {
 				has_boost_pop_goods_produced = yes
-				has_province_modifier = tar_bonus_modifier
-				NOT = {trade_goods = tar}
+				OR = {
+					NOT = {trade_goods = tar}
+					NOT = {
+						province_id = 203
+						province_id = 195
+						province_id = 194
+						has_province_modifier = tar_bonus_modifier
+					}
+				}
 			}
 		}
     }
@@ -4555,22 +4734,33 @@ province_event = {	#
 	hidden = yes
 	
     trigger = {	
+		is_city = yes
 		OR = {
 			AND = {
-				trade_goods = whaling
 				has_boost_pop_goods_produced = no
+				trade_goods = whaling
 				OR = {
 					province_id = 1000
 					province_id = 996
 					province_id = 999
 					province_id = 993
 					province_id = 190
+					has_province_modifier = whaling_thaw_modifier
 				}
 			}
 			AND = {
 				has_boost_pop_goods_produced = yes
-				has_province_modifier = whaling_thaw_modifier
-				NOT = {trade_goods = whaling}
+				OR = {
+					NOT = {trade_goods = whaling}
+					NOT = {
+						province_id = 1000
+						province_id = 996
+						province_id = 999
+						province_id = 993
+						province_id = 190
+						has_province_modifier = whaling_thaw_modifier
+					}
+				}
 			}
 		}
     }
@@ -4598,22 +4788,33 @@ province_event = {	#
 	hidden = yes
 	
     trigger = {	
+		is_city = yes
 		OR = {
 			AND = {
-				trade_goods = beer
 				has_boost_pop_goods_produced = no
+				trade_goods = beer
 				OR = {
 					province_id = 253
 					province_id = 300
 					province_id = 298
 					province_id = 709
 					province_id = 163
+					has_province_modifier = beer_boost_modifier
 				}
 			}
 			AND = {
 				has_boost_pop_goods_produced = yes
-				has_province_modifier = beer_boost_modifier
-				NOT = {trade_goods = beer}
+				OR = {
+					NOT = {trade_goods = beer}
+					NOT = {
+						province_id = 253
+						province_id = 300
+						province_id = 298
+						province_id = 709
+						province_id = 163
+						has_province_modifier = beer_boost_modifier
+					}
+				}
 			}
 		}
     }
@@ -4641,6 +4842,7 @@ province_event = {	#
 	hidden = yes
 	
     trigger = {	
+		is_city = yes
 		OR = {
 			AND = {
 				trade_goods = incense
@@ -4651,12 +4853,22 @@ province_event = {	#
 					province_id = 298
 					province_id = 350
 					has_province_modifier = great_ording_unsung_heroes
+					has_province_modifier = incense_boost_modifier
 				}
 			}
 			AND = {
 				has_boost_pop_goods_produced = yes
-				has_province_modifier = incense_boost_modifier
-				NOT = {trade_goods = incense}
+				OR = {
+					NOT = {trade_goods = incense}
+					NOT = {
+						province_id = 253
+						province_id = 300
+						province_id = 298
+						province_id = 350
+						has_province_modifier = great_ording_unsung_heroes
+						has_province_modifier = incense_boost_modifier
+					}
+				}
 			}
 		}
     }
@@ -4684,6 +4896,7 @@ province_event = {	#
 	hidden = yes
 	
     trigger = {
+		is_city = yes
 		OR = {
 			AND = {
 				trade_goods = fish
@@ -4694,12 +4907,22 @@ province_event = {	#
 					region = south_castanor_region
 					region = alenic_reach_region
 					has_province_modifier = adv_fish_production
+					has_province_modifier = fish_boost_modifier
 				}
 			}
 			AND = {
 				has_boost_pop_goods_produced = yes
-				has_province_modifier = fish_boost_modifier
-				NOT = {trade_goods = fish}
+				OR = {
+					NOT = {trade_goods = fish}
+					NOT = {
+						region = west_castanor_region
+						region = inner_castanor_region
+						region = south_castanor_region
+						region = alenic_reach_region
+						has_province_modifier = adv_fish_production
+						has_province_modifier = fish_boost_modifier
+					}
+				}
 			}
 		}
     }
@@ -4728,6 +4951,7 @@ province_event = {	#
 	hidden = yes
 	
     trigger = {	
+		is_city = yes
 		OR = {
 			AND = {
 				trade_goods = naval_supplies
@@ -4737,12 +4961,21 @@ province_event = {	#
 					province_id = 713
 					province_id = 717
 					province_id = 542
+					has_province_modifier = naval_supplies_boost_modifier
 				}
 			}
 			AND = {
 				has_boost_pop_goods_produced = yes
-				has_province_modifier = naval_supplies_boost_modifier
-				NOT = {trade_goods = naval_supplies}
+				OR = {
+					NOT = {trade_goods = naval_supplies}
+					NOT = {
+						province_id = 704
+						province_id = 713
+						province_id = 717
+						province_id = 542
+						has_province_modifier = naval_supplies_boost_modifier
+					}
+				}
 			}
 		}
     }
@@ -4770,6 +5003,7 @@ province_event = {	#
 	hidden = yes
 	
     trigger = {
+		is_city = yes
 		OR = {
 			AND = {
 				trade_goods = glass
@@ -4777,20 +5011,32 @@ province_event = {	#
 				OR = {
 					has_province_flag = lorent_bottlemaking_monopoly_flag
 					has_province_flag = giberd_artificer_manufactories_flag
+					has_province_flag = glass_boost_flag
 					province_id = 536
 					province_id = 256
 					province_id = 169
-					has_province_flag = glass_boost_flag
 					has_province_modifier = lorent_bottlemaking_monopoly
 					has_province_modifier = giberd_artificer_manufactories
 					has_province_modifier = arbaran_elvenaire_workshops
 					has_province_modifier = grombar_glass_production_centre
+					has_province_modifier = glass_trade_modifier
 				}
 			}
 			AND = {
 				has_boost_pop_goods_produced = yes
-				has_province_modifier = glass_trade_modifier
-				NOT = {trade_goods = glass}
+				OR = {
+					NOT = {trade_goods = glass}
+					NOT = {
+						province_id = 536
+						province_id = 256
+						province_id = 169
+						has_province_modifier = lorent_bottlemaking_monopoly
+						has_province_modifier = giberd_artificer_manufactories
+						has_province_modifier = arbaran_elvenaire_workshops
+						has_province_modifier = grombar_glass_production_centre
+						has_province_modifier = glass_trade_modifier
+					}
+				}
 			}
 		}
     }
@@ -4830,6 +5076,7 @@ province_event = {	#
 	hidden = yes
 	
     trigger = {	
+		is_city = yes
 		OR = {
 			AND = {
 				OR = {
@@ -4841,11 +5088,11 @@ province_event = {	#
 					owner = {current_icon = invocation_of_gold}
 					has_province_modifier = eborthil_expansion_of_mines
 					has_province_modifier = tluukt_new_veins
+					has_province_modifier = gnollish_gold_boost_modifier
 				}
 			}
 			AND = {
 				has_super_boost_goods_produced = yes
-				has_province_modifier = gnollish_gold_boost_modifier
 				OR = {
 					NOT = {
 						trade_goods = gold
@@ -4866,7 +5113,7 @@ province_event = {	#
 		name = bertus_changes.5026.a
 		trigger = {has_super_boost_goods_produced = no}
 		add_super_boost_goods_produced = yes
-		add_province_modifier = { name = gnollish_gold_boost_modifier	 duration = -1	}
+		add_province_modifier = { name = gnollish_gold_boost_modifier duration = -1	}
 	}
 	option = {
 		name = bertus_changes.5026.b
@@ -4886,20 +5133,24 @@ province_event = {	#
 	hidden = yes
 	
     trigger = {
+		is_city = yes
 		OR = {
 			AND = {
 				trade_goods = slaves
 				has_super_boost_goods_produced = no
-				owner = {current_icon = invocation_of_chains}
+				OR = {
+					owner = {current_icon = invocation_of_chains}
+					has_province_modifier = slave_super_boost_modifier
+				}
 			}
 			AND = {
 				has_super_boost_goods_produced = yes
 				OR = {
-					has_province_modifier = slave_super_boost_modifier
-				}
-				OR = {
 					NOT = {trade_goods = slaves}
-					NOT = {owner = { current_icon = invocation_of_chains } }
+					NOT = {
+						owner = {current_icon = invocation_of_chains}
+						has_province_modifier = slave_super_boost_modifier
+					}
 				}
 			}
 		}
@@ -4928,6 +5179,7 @@ province_event = {	#
 	hidden = yes
 	
     trigger = {
+		is_city = yes
 		OR = {
 			AND = {
 				province_group = bulwar_canals_goods_provinces
@@ -5012,6 +5264,7 @@ province_event = {	#iron bonus
 	hidden = yes
 	
     trigger = {	
+		is_city = yes
 		OR = {
 			AND = {
 				trade_goods = iron
@@ -5026,12 +5279,26 @@ province_event = {	#iron bonus
 					has_province_modifier = obrtrol_giant_forge
 					has_province_modifier = ogrish_steel
 					has_province_modifier = silverforge_iron_deposits
+					has_province_modifier = iron_trade_modifier
 				}
 			}
 			AND = {
 				has_boost_pop_goods_produced = yes
-				has_province_modifier = iron_trade_modifier
-				NOT = {trade_goods = iron}
+				OR = {
+					NOT = {trade_goods = iron}
+					NOT = {
+						province_id = 441 
+						has_province_modifier = adv_big_forge
+						has_province_modifier = wex_ironhill_1
+						has_province_modifier = grombar_frozen_forge
+						has_province_flag = iron_boost_flag
+						has_province_modifier = obrtrol_slave_mine
+						has_province_modifier = obrtrol_giant_forge
+						has_province_modifier = ogrish_steel
+						has_province_modifier = silverforge_iron_deposits
+						has_province_modifier = iron_trade_modifier
+					}
+				}
 			}
 		}
     }
@@ -5065,13 +5332,12 @@ province_event = {	#grain bonus
 	hidden = yes
 	
     trigger = {	
+		is_city = yes
 		OR = {
 			AND = {
 				trade_goods = grain
 				has_boost_pop_goods_produced = no
 				OR = {
-					has_province_modifier = adv_grain_production
-					has_province_modifier = land_of_plenty
 					province_id = 462
 					province_id = 466
 					province_id = 464
@@ -5079,12 +5345,28 @@ province_event = {	#grain bonus
 					province_id = 463
 					province_id = 546
 					province_id = 467
+					has_province_modifier = adv_grain_production
+					has_province_modifier = land_of_plenty
+					has_province_modifier = grain_trade_modifier
 				}
 			}
 			AND = {
 				has_boost_pop_goods_produced = yes
-				has_province_modifier = grain_trade_modifier
-				NOT = {trade_goods = grain}
+				OR = {
+					NOT = {trade_goods = grain}
+					NOT = {
+						province_id = 462
+						province_id = 466
+						province_id = 464
+						province_id = 503
+						province_id = 463
+						province_id = 546
+						province_id = 467
+						has_province_modifier = adv_grain_production
+						has_province_modifier = land_of_plenty
+						has_province_modifier = grain_trade_modifier
+					}
+				}
 			}
 		}
     }
@@ -5114,23 +5396,35 @@ province_event = {	#faceting bonus
 	hidden = yes
 	
     trigger = {	
+		is_city = yes
 		OR = {
 			AND = {
 				trade_goods = gems
 				has_boost_pop_goods_produced = no
 				OR = {
-					has_province_modifier = diamond_district
-					has_province_modifier = rubyhold_gemstone_deposits
 					province_id = 734
 					province_id = 186
 					province_id = 3020
 					province_id = 452
+					has_province_modifier = diamond_district
+					has_province_modifier = rubyhold_gemstone_deposits
+					has_province_modifier = gems_trade_modifier
 				}
 			}
 			AND = {
 				has_boost_pop_goods_produced = yes
-				has_province_modifier = gems_trade_modifier
-				NOT = {trade_goods = gems}
+				OR = {
+					NOT = {trade_goods = gems}
+					NOT = {
+						province_id = 734
+						province_id = 186
+						province_id = 3020
+						province_id = 452
+						has_province_modifier = diamond_district
+						has_province_modifier = rubyhold_gemstone_deposits
+						has_province_modifier = gems_trade_modifier
+					}
+				}
 			}
 		}
     }
@@ -5160,16 +5454,25 @@ province_event = {	#lead bonus
 	hidden = yes
 	
     trigger = {	
+		is_city = yes
 		OR = {
 			AND = {
 				trade_goods = lead
 				has_boost_pop_goods_produced = no
-				province_id = 438
+				OR = {
+					province_id = 438
+					has_province_modifier = lead_trade_modifier
+				}
 			}
 			AND = {
 				has_boost_pop_goods_produced = yes
-				has_province_modifier = lead_trade_modifier
-				NOT = {trade_goods = lead}
+				OR = {
+					NOT = {trade_goods = lead}
+					NOT = {
+						province_id = 438
+						has_province_modifier = lead_trade_modifier
+					}
+				}
 			}
 		}
     }
@@ -5197,6 +5500,7 @@ province_event = {	#wine bonus
 	hidden = yes
 	
     trigger = {	
+		is_city = yes
 		OR = {
 			AND = {
 				trade_goods = wine
@@ -5209,12 +5513,24 @@ province_event = {	#wine bonus
 					has_province_modifier = rubenaire_red_4
 					has_province_modifier = rubenaire_red_5
 					has_province_modifier = deranne_reaver_wine_mod
+					has_province_modifier = wine_trade_modifier
 				}
 			}
 			AND = {
 				has_boost_pop_goods_produced = yes
-				has_province_modifier = wine_trade_modifier
-				NOT = {trade_goods = wine}
+				OR = {
+					NOT = {trade_goods = wine}
+					NOT = {
+						province_id = 425
+						has_province_modifier = rubenaire_red_1
+						has_province_modifier = rubenaire_red_2
+						has_province_modifier = rubenaire_red_3
+						has_province_modifier = rubenaire_red_4
+						has_province_modifier = rubenaire_red_5
+						has_province_modifier = deranne_reaver_wine_mod
+						has_province_modifier = wine_trade_modifier
+					}
+				}
 			}
 		}
     }
@@ -5242,6 +5558,7 @@ province_event = {	#centralization bonus
 	hidden = yes
 	
     trigger = {	
+		is_city = yes
 		OR = {
 			AND = {
 				NOT = {has_province_modifier = empire_centralization_modifier}
@@ -5280,16 +5597,25 @@ province_event = {	#coal bonus
 	hidden = yes
 	
     trigger = {	
+		is_city = yes
 		OR = {
 			AND = {
 				trade_goods = coal
 				has_boost_pop_goods_produced = no
-				has_province_modifier = wex_ironhill_2
+				OR = {
+					has_province_modifier = wex_ironhill_2
+					has_province_modifier = coal_trade_modifier
+				}
 			}
 			AND = {
 				has_boost_pop_goods_produced = yes
-				has_province_modifier = coal_trade_modifier
-				NOT = {trade_goods = coal}
+				OR = {
+					NOT = {trade_goods = coal}
+					NOT = {
+						has_province_modifier = wex_ironhill_2
+						has_province_modifier = coal_trade_modifier
+					}
+				}
 			}
 		}
     }
@@ -5317,6 +5643,7 @@ province_event = {	#
 	hidden = yes
 	
     trigger = {
+		is_city = yes
 		has_province_modifier = non_military_pop
 		base_manpower = 2
 		OR = {
@@ -5994,7 +6321,7 @@ province_event = {	#get emperor population
 		is_part_of_hre = yes
 	}
 	mean_time_to_happen = {
-		days = 3650
+		days = 7300
 	}
 	
 	option = {
@@ -6035,7 +6362,7 @@ province_event = {	#remove non emperor population
 	}
 	
 	mean_time_to_happen = {
-		days = 3650
+		days = 7300
 	}
 
 	option = {
@@ -6307,6 +6634,7 @@ country_event = {	#empire centralization
 	}
 	option = {
 		name = bertus_changes.6018.a	#back
+		ai_chance = {factor = 10}
 	}
 	option = {
 		name = bertus_changes.6018.b
@@ -6886,6 +7214,7 @@ province_event = {
     picture = DHIMMI_ESTATE_eventPicture
 
 	trigger = {
+		is_city = yes
 		OR = {
 			AND = {
 				owner = {
@@ -7108,6 +7437,7 @@ country_event = {
 	after = {}
     option = {
         name = bertus_changes.6035.back # back
+		ai_chance = {factor = 10}
 		clr_country_flag = magisters_mechanic_menu_flag
     }
     option = {
@@ -7133,6 +7463,7 @@ country_event = {
 	}
     option = {
         name = bertus_changes.6036.back # back
+		ai_chance = {factor = 10}
     }
     option = {
         name = bertus_changes.6036.schools_of_magic # Schools of Magic
@@ -7356,6 +7687,7 @@ country_event = {
 	}
     option = {
         name = bertus_changes.6037.back # back
+		ai_chance = {factor = 10}
     }
     option = {
         name = bertus_changes.6037.high_court_mages # High Court Mages
@@ -8007,6 +8339,7 @@ country_event = {
 	}
     option = {
         name = bertus_changes.6040.back # back
+		ai_chance = {factor = 10}
     }
     option = {
         name = bertus_changes.6040.schools_of_magic # Schools of Magic
@@ -8214,6 +8547,277 @@ country_event = {
 		else = {
 			custom_tooltip = magisters_need_50_mana_tt
 		}
+    }
+}
+country_event = {	#no first hand
+    id = bertus_changes.6041
+    title = bertus_changes.6041.title
+    desc = bertus_changes.6041.desc
+    picture = DHIMMI_ESTATE_eventPicture
+
+	hidden = yes
+	trigger = {
+		OR ={
+			AND = {
+				NOT = {has_country_modifier = not_has_first_chair_chairman}
+				ai = no
+				NOT = {has_race_councelor = {type = first_hand}}
+			}
+			AND = {
+				has_country_modifier = not_has_first_chair_chairman
+				OR = {
+					ai = yes
+					has_race_councelor = {type = first_hand}
+				}
+			}
+		}
+	}
+	immediate = {}
+	after = {
+	}
+    option = {
+        name = bertus_changes.6041.a # 
+		trigger ={
+			has_country_modifier = not_has_first_chair_chairman
+		}
+		add_country_modifier = {
+			name = not_has_first_chair_chairman
+			duration = -1
+			hidden = yes
+		}
+    }
+    option = {
+        name = bertus_changes.6041.b # 
+		trigger ={
+			NOT = {has_country_modifier = not_has_first_chair_chairman}
+		}
+		remove_country_modifier = not_has_first_chair_chairman
+    }
+}
+country_event = {	#no diplo chairman
+    id = bertus_changes.6042
+    title = bertus_changes.6042.title
+    desc = bertus_changes.6042.desc
+    picture = DHIMMI_ESTATE_eventPicture
+
+	hidden = yes
+	trigger = {
+		OR ={
+			AND = {
+				NOT = {has_country_modifier = not_has_first_chair_chairman}
+				ai = no
+				NOT = {has_race_councelor = {type = diplomacy}}
+			}
+			AND = {
+				has_country_modifier = not_has_first_chair_chairman
+				OR = {
+					ai = yes
+					has_race_councelor = {type = diplomacy}
+				}
+			}
+		}
+	}
+	immediate = {}
+	after = {
+	}
+    option = {
+        name = bertus_changes.6042.a # 
+		trigger ={
+			has_country_modifier = not_has_diplomacy_chairman
+		}
+		add_country_modifier = {
+			name = not_has_diplomacy_chairman
+			duration = -1
+			hidden = yes
+		}
+    }
+    option = {
+        name = bertus_changes.6042.b # 
+		trigger ={
+			NOT = {has_country_modifier = not_has_diplomacy_chairman}
+		}
+		remove_country_modifier = not_has_diplomacy_chairman
+    }
+}
+country_event = {	#no mil chairman
+    id = bertus_changes.6043
+    title = bertus_changes.6043.title
+    desc = bertus_changes.6043.desc
+    picture = DHIMMI_ESTATE_eventPicture
+
+	hidden = yes
+	trigger = {
+		OR ={
+			AND = {
+				NOT = {has_country_modifier = not_has_military_chairman}
+				ai = no
+				NOT = {has_race_councelor = {type = military}}
+			}
+			AND = {
+				has_country_modifier = not_has_military_chairman
+				OR = {
+					ai = yes
+					has_race_councelor = {type = military}
+				}
+			}
+		}
+	}
+	immediate = {}
+	after = {
+	}
+    option = {
+        name = bertus_changes.6043.a # 
+		trigger ={
+			has_country_modifier = not_has_military_chairman
+		}
+		add_country_modifier = {
+			name = not_has_military_chairman
+			duration = -1
+			hidden = yes
+		}
+    }
+    option = {
+        name = bertus_changes.6043.b # 
+		trigger ={
+			NOT = {has_country_modifier = not_has_military_chairman}
+		}
+		remove_country_modifier = not_has_military_chairman
+    }
+}
+country_event = {	#no eco chairman
+    id = bertus_changes.6044
+    title = bertus_changes.6044.title
+    desc = bertus_changes.6044.desc
+    picture = DHIMMI_ESTATE_eventPicture
+
+	hidden = yes
+	trigger = {
+		OR ={
+			AND = {
+				NOT = {has_country_modifier = not_has_economic_chairman}
+				ai = no
+				NOT = {has_race_councelor = {type = economic}}
+			}
+			AND = {
+				has_country_modifier = not_has_economic_chairman
+				OR = {
+					ai = yes
+					has_race_councelor = {type = economic}
+				}
+			}
+		}
+	}
+	immediate = {}
+	after = {
+	}
+    option = {
+        name = bertus_changes.6044.a # 
+		trigger ={
+			has_country_modifier = not_has_economic_chairman
+		}
+		add_country_modifier = {
+			name = not_has_economic_chairman
+			duration = -1
+			hidden = yes
+		}
+    }
+    option = {
+        name = bertus_changes.6044.b # 
+		trigger ={
+			NOT = {has_country_modifier = not_has_economic_chairman}
+		}
+		remove_country_modifier = not_has_economic_chairman
+    }
+}
+country_event = {	#no navy chairman
+    id = bertus_changes.6045
+    title = bertus_changes.6045.title
+    desc = bertus_changes.6045.desc
+    picture = DHIMMI_ESTATE_eventPicture
+
+	hidden = yes
+	trigger = {
+		OR ={
+			AND = {
+				NOT = {has_country_modifier = not_has_navy_chairman}
+				ai = no
+				NOT = {has_race_councelor = {type = navy}}
+			}
+			AND = {
+				has_country_modifier = not_has_navy_chairman
+				OR = {
+					ai = yes
+					has_race_councelor = {type = navy}
+				}
+			}
+		}
+	}
+	immediate = {}
+	after = {
+	}
+    option = {
+        name = bertus_changes.6045.a # 
+		trigger ={
+			has_country_modifier = not_has_navy_chairman
+		}
+		add_country_modifier = {
+			name = not_has_navy_chairman
+			duration = -1
+			hidden = yes
+		}
+    }
+    option = {
+        name = bertus_changes.6045.b # 
+		trigger ={
+			NOT = {has_country_modifier = not_has_navy_chairman}
+		}
+		remove_country_modifier = not_has_navy_chairman
+    }
+}
+country_event = {	#no onger undead
+    id = bertus_changes.6046
+    title = bertus_changes.6046.title
+    desc = bertus_changes.6046.desc
+    picture = DHIMMI_ESTATE_eventPicture
+
+	hidden = yes
+	trigger = {
+		OR ={
+			AND = {
+				NOT = {has_country_modifier = no_longer_undead}
+				ai = no
+				num_of_streltsy = 1
+				NOT = {has_country_modifier = undead_military}
+			}
+			AND = {
+				has_country_modifier = no_longer_undead
+				OR = {
+					ai = yes
+					has_country_modifier = undead_military
+				}
+			}
+		}
+	}
+	immediate = {}
+	after = {
+	}
+    option = {
+        name = bertus_changes.6046.a # 
+		trigger ={
+			has_country_modifier = no_longer_undead
+		}
+		add_country_modifier = {
+			name = no_longer_undead
+			duration = -1
+			hidden = yes
+		}
+    }
+    option = {
+        name = bertus_changes.6046.b # 
+		trigger ={
+			NOT = {has_country_modifier = no_longer_undead}
+		}
+		remove_country_modifier = no_longer_undead
     }
 }
 country_event = {	#goods menu

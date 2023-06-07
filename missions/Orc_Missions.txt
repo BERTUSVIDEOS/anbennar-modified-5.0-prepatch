@@ -1067,7 +1067,10 @@ orc_development = {
 			num_of_provinces_in_states = 5
 			calc_true_if = {	#bertus mod 
 				any_owned_province = {
-					trade_goods = livestock
+					OR = {
+						trade_goods = livestock
+						trade_goods = horses
+					}
 					base_production = 5
 				}
 				amount = 3
@@ -1082,7 +1085,10 @@ orc_development = {
 			}
 			every_owned_province = {
 				limit = {
-					trade_goods = horses
+					OR = {
+						trade_goods = livestock
+						trade_goods = horses
+					}
 				}
 				add_base_tax = 1
 				add_base_production = 2
@@ -1191,47 +1197,36 @@ orc_development = {
 		}
 	}
 	
-	orc_gold_rush = {
+	orc_gold_rush = {	#bertus mod
 		icon = mission_african_gold
 		ai = yes
 		position = 6
 		trigger = {
-			#adm_power = 75	#75→0
-			#dip_power = 75	#75→0
-			#mil_power = 75	#75→0
-			any_owned_province = {	#bertus mod
+			any_owned_province = {
 				trade_goods = gold
 				base_production = 5
 			}
-			manpower = 5	#0→5
-			#years_of_income = 2.0	#2.0→0
+			manpower = 5
 		}
 		effect = {
-			#add_years_of_income = -2.0	#-2.0→0
-			#add_adm_power = -75	#-75→0
-			#add_dip_power = -75	#-75→0
-			#add_mil_power = -75	#-75→0
-			
 			random_owned_province = {
 				limit = {
 					trade_goods = gold
 				}
 				add_base_tax = 2
-				add_base_production = 5	#3→5				
+				add_base_production = 5				
 			}
-			add_manpower = -5	#0→-5
-			change_government_reform_progress = 25	#10→25
+			add_manpower = -5
+			change_government_reform_progress = 25
 		}
 	}
 	
-	orc_advanced_good_production = {
+	orc_advanced_good_production = {	#bertus mod 
 		icon = mission_asian_trader
 		ai = yes
 		position = 7
 		trigger = {
-			#adm_power = 75	#75→0
-			#dip_power = 75	#75→0
-			any_owned_province = {	#bertus mod 
+			any_owned_province = {
 				OR = {
 					trade_goods = cloth
 					trade_goods = glass
@@ -1239,12 +1234,8 @@ orc_development = {
 				}
 				base_production = 5
 			}
-			#years_of_income = 2.0	#2.0→0
 		}
 		effect = {
-			#add_years_of_income = -2.0	#-2.0→0
-			#add_adm_power = -75	#-75→0
-			#add_dip_power = -75	#-75→0
 			every_owned_province = {
 				limit = {
 					OR = {
@@ -1254,12 +1245,11 @@ orc_development = {
 					}
 				}
 				add_base_tax = 2
-				add_base_production = 5	#3→5
+				add_base_production = 5
 				owner = {
-					change_government_reform_progress = 5	#0→5
+					change_government_reform_progress = 5
 				}
 			}
-			#change_government_reform_progress = 10	#10→0
 		}
 	}
 }
