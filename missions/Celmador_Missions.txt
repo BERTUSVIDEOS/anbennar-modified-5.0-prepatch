@@ -1,26 +1,266 @@
 
-Z22_celmador_west_expansion = {
+Z22_celmador_dalr_expansion = {
 	slot = 1
 	generic = no
 	ai = yes 
 	potential = { tag = Z22 }
 	has_country_shield = yes
+
+	Z22_naval_domination = {
+		icon = mission_rb_a_mighty_fleet
+		required_missions = {  }
+		position = 6
 		
-	Z22_expel_kobolds = {
+		provinces_to_highlight = {
+		}
+		
+		trigger = {
+			if = {
+				limit = {
+					956 = {
+						owner = {
+							NOT = {tag = ROOT}
+							is_subject = no
+						}
+					}
+				}
+				956 = {
+					owner = {
+						NOT = {navy_size = ROOT}
+						ROOT = {
+							naval_strength = {
+								who = PREV
+								value = 1.5
+							}
+						}
+					}
+				}
+			}
+			else = {
+				navy_size = 50
+			}
+		}
+		effect = {
+			add_navy_tradition = 20
+			frostbridges_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			add_country_modifier = {
+				name = navy_enthusiasm
+				duration = 3650
+			}
+		}
+	}
+	Z22_dalr_invasion = {
+		icon = take_the_littoral
+		required_missions = { Z22_naval_domination }
+		position = 7
+		
+		provinces_to_highlight = {
+			OR = {
+				province_id = 956
+				province_id = 954
+				province_id = 997
+			}
+			NOT = {controlled_by = ROOT}
+		}
+		
+		trigger = {
+			OR = {
+				controls = 956
+				controls = 954
+				controls = 997
+			}
+		}
+		effect = {
+			define_general = {
+				shock = 5
+				fire = 5
+				manuever = 8
+				siege = 0
+				name = "Oilime 'The Frozen'"
+			}
+			add_country_modifier = {
+				name = thriving_army_industry
+				duration = 3650
+			}
+			dalr_region = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	Z22_gerudian_coast = {
+		icon = anatolian_frontier
+		required_missions = { Z22_dalr_invasion }
+		position = 10
+		
+		provinces_to_highlight = {
+			OR = {
+				region = dalr_region
+			}
+			NOT = {controlled_by = ROOT}
+		}
+		
+		trigger = {
+			dalr_region = {	
+				type = all
+				owned_by = ROOT
+			}
+		}
+		effect = {
+			elkaesals_slumber_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			olavslund_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			nyrford_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			naugsvol_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			esfjall_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	Z22_gerudian_coast_conquered = {
+		icon = the_alpine_wall
+		required_missions = { Z22_gerudian_coast }
+		position = 11
+		
+		provinces_to_highlight = {
+			OR = {
+				area = elkaesals_slumber_area
+				area = olavslund_area
+				area = nyrford_area
+				area = naugsvol_area
+				area = esfjall_area
+			}
+			NOT = {controlled_by = ROOT}
+		}
+		
+		trigger = {
+			elkaesals_slumber_area = {	
+				type = all
+				owned_by = ROOT
+			}
+			olavslund_area = {	
+				type = all
+				owned_by = ROOT
+			}
+			nyrford_area = {	
+				type = all
+				owned_by = ROOT
+			}
+			naugsvol_area = {	
+				type = all
+				owned_by = ROOT
+			}
+			esfjall_area = {	
+				type = all
+				owned_by = ROOT
+			}
+		}
+		effect = {
+			define_general = {
+				shock = 8
+				fire = 8
+				manuever = 8
+				siege = 0
+				name = "Maelnar White Mammoth"
+			}
+		}
+	}
+}
+
+Z22_celmador_west_expansion = {
+	slot = 2
+	generic = no
+	ai = yes 
+	potential = { tag = Z22 }
+	has_country_shield = yes
+		
+	Z22_bay_of_chills = {
+		icon = mission_african_gold
+		required_missions = { Z22_bayvic_control }
+		position = 8
+		
+		provinces_to_highlight = {
+			OR = {
+				province_id = 1256
+			}
+		}
+		
+		trigger = {
+			1256 = {
+				is_strongest_trade_power = ROOT
+			}
+			prestige = 90
+		}
+		effect = {
+			723 = {
+				add_province_modifier = {
+					name = dominant_trade_hub
+					duration = -1
+				}
+				add_base_production = 2
+				add_base_tax = 2
+				add_base_manpower = 2
+			}
+			696 = {
+				add_province_modifier = {
+					name = dominant_trade_hub
+					duration = -1
+				}
+			}
+		}
+	}
+	Z22_kobold_issue = {
 		icon = mission_spoils_of_war
 		required_missions = {	}
-		position = 4
+		position = 9
 		
 		provinces_to_highlight = {
 			owned_by = A28
 		}
 		trigger = {
-			OR = {
-				any_province = {
-					owned_by = A28
-					is_claim  = ROOT
+			A28 = {
+				OR = {
+					is_enemy = ROOT
+					any_owned_province = {
+						is_claim = ROOT
+					}
 				}
-				is_rival = A28
 			}
 		}
 		effect = {
@@ -42,8 +282,8 @@ Z22_celmador_west_expansion = {
 	}
 	Z22_expel_kobolds = {
 		icon = mission_spoils_of_war
-		required_missions = { Z22_expel_kobolds }
-		position = 5
+		required_missions = { Z22_kobold_issue }
+		position = 10
 		
 		provinces_to_highlight = {
 			OR = {
@@ -82,9 +322,9 @@ Z22_celmador_west_expansion = {
 		}
 	}
 	Z22_consolidate_marshlands = {
-		icon = mission_spoils_of_war
+		icon = mission_rb_unite_the_clans
 		required_missions = { Z22_expel_kobolds }
-		position = 6
+		position = 11
 		
 		provinces_to_highlight = {
 			OR = {
@@ -106,18 +346,312 @@ Z22_celmador_west_expansion = {
 		effect = {
 			add_yearly_sailors = 1
 			add_prestige_or_monarch_power = {amount =  25}
-			add_country_modifier = {
-				name = redglades_portal_ritual_modifier
-				duration = 1825
+		}
+	}
+}
+
+
+Z22_celmador_chillsbay_reconomy = {
+	slot = 3
+	generic = no
+	ai = yes 
+	potential = { tag = Z22 }
+	has_country_shield = yes
+
+	Z22_bayvic_control = {
+		icon = mission_valencian_silk
+		required_missions = { Z22_bayvic_city }
+		position = 7
+		
+		provinces_to_highlight = {
+			province_id = 723
+		}
+		
+		trigger = {
+			723 = {
+				owned_by = ROOT
+				development = 25
+				has_great_project = {
+					type = bayvic_grandest_city_of_the_reach
+					tier = 1
+				}
 			}
-			add_government_power = { 
-				mechanic_type = magisterium_mechanic 
-				power_type = magisterium_mana
-				value = -50
+		}
+		effect = {
+			add_prestige_or_monarch_power = {amount =  20}
+			add_stability_or_adm_power = yes
+			add_navy_tradition = 20
+			723 = {
+				if = {
+					limit = {culture_is_elven = no}
+					change_culture = moon_elf
+				}
+				if = {
+					limit = {
+						NOT = {
+							has_great_project = {
+								type = bayvic_grandest_city_of_the_reach
+								tier = 2
+							}
+						}
+						owner = {manpower = 25}
+					}
+					owner = {add_manpower = -25}
+					add_great_project_tier = {
+						type = bayvic_grandest_city_of_the_reach
+						tier = 1
+					}
+				}
+				else = {
+					owner = {add_prestige_or_monarch_power = {amount =  25}}
+					custom_tooltip = "If the Monument is not tier 3 and we have 25k manpower, it will be upgraded 1 tier expending the 50k manpower"
+				}
+			}
+		}
+	}
+	Z22_elven_reach = {
+		icon = develop_the_south
+		required_missions = { Z22_bayvic_control Z22_celmador_port }
+		position = 10
+		
+		provinces_to_highlight = {
+			OR = {
+				region = alenic_reach_region
+			}
+			culture_is_elven = yes
+			owned_by = ROOT
+			region = alenic_reach_region
+		}
+		
+		trigger = {
+			development_in_provinces = {
+				value = 200
+				region = alenic_reach_region
+				culture_is_elven = yes
+			}
+			legitimacy_equivalent = 90
+		}
+		effect = {
+			alenic_reach_region = {
+				limit = {
+					culture_is_elven = yes
+					owned_by = ROOT
+				}
+				custom_tooltip = "Owned Elven provinces get:"
+				add_base_tax = 1
+				add_base_production = 1
+			}
+		}
+	}
+	Z22_elven_manpower = {
+		icon = swiss_mercenaries
+		required_missions = { Z22_elven_reach Z22_gerudian_coast Z22_expel_kobolds }
+		position = 11
+		
+		provinces_to_highlight = {
+			culture_is_elven = yes
+			has_manpower_building_trigger = no
+			owned_by = ROOT
+		}
+		
+		trigger = {
+			army_professionalism = 0.70
+			army_tradition = 70
+			
+			development_in_provinces = {
+				value = 200
+				culture_is_elven = yes
+				has_manpower_building_trigger = yes
+			}
+		}
+		effect = {
+			add_army_tradition = -50
+			add_army_professionalism = -0.50
+			remove_estate_privilege = estate_elven_recruitment
+			set_estate_privilege = estate_elven_elite_recruitment
+		}
+	}
+}
+Z22_celmador_colonization = {
+	slot = 4
+	generic = no
+	ai = yes 
+	potential = { tag = Z22 }
+	has_country_shield = yes
+
+	Z22_rycastle_canal = {
+		icon = mission_novgorod_the_great
+		required_missions = { Z22_northern_woods_conquest }
+		position = 6
+		
+		provinces_to_highlight = {
+			province_id = 731
+		}
+		
+		trigger = {
+			731 = {
+				owned_by = ROOT
+				culture_is_elven = yes
+				development = 25
+				has_great_project = {
+					type = rycastle_canal
+					tier = 2
+				}
+				has_great_project = {
+					type = rycastle
+					tier = 2
+				}
+			}
+		}
+		effect = {
+			add_prestige_or_monarch_power = {amount =  50}
+			add_army_tradition = 50
+			add_mil_power = 200
+		}
+	}
+	Z22_celmador_port = {
+		icon = mission_seize_north_sea_trade
+		required_missions = {  }
+		position = 9
+		
+		provinces_to_highlight = {
+			province_id = 696
+		}
+		
+		trigger = {
+			696 = {
+				owned_by = ROOT
+				development = 25
+				has_great_project = {
+					type = celmaldor_icewind_palace_of_commerce
+					tier = 1
+				}
+			}
+			prestige = 50
+		}
+		effect = {
+			add_stability_or_adm_power = yes
+			add_navy_tradition = 20
+			696 = {
+				if = {
+					limit = {culture_is_elven = no}
+					change_culture = moon_elf
+				}
+				if = {
+					limit = {
+						NOT = {
+							has_great_project = {
+								type = celmaldor_icewind_palace_of_commerce
+								tier = 2
+							}
+						}
+						owner = {manpower = 20}
+					}
+					owner = {add_manpower = -20}
+					add_great_project_tier = {
+						type = celmaldor_icewind_palace_of_commerce
+						tier = 1
+					}
+				}
+				else = {
+					owner = {add_prestige_or_monarch_power = {amount =  20}}
+					custom_tooltip = "If the Monument is not tier 2 and we have 20k manpower, it will be upgraded 1 tier expending the 20k manpower"
+				}
+			}
+		}
+	}
+	Z22_first_expedition = {
+		icon = explore_caribbean
+		required_missions = { Z22_celmador_port }
+		position = 10
+		
+		provinces_to_highlight = {
+		}
+		
+		trigger = {
+			num_of_colonists = 1
+		}
+		effect = {
+			define_explorer = {
+				shock = 3
+				fire = 3
+				manuever = 7
+				siege = 0
+				female = yes
+				name = "Emilia Moonlight"
+			}
+			add_country_modifier = {
+				name = "colonial_enthusiasm"
+				duration = 7300
+			}
+		}
+	}
+	Z22_celmador_great_port = {
+		icon = mission_early_modern_university
+		required_missions = { Z22_first_expedition }
+		position = 11
+		
+		provinces_to_highlight = {
+			colonial_region = colonial_dalaire
+			OR = {
+				NOT = { country_or_non_sovereign_subject_holds = ROOT }
+				NOT = { is_city = yes }
+			}
+			has_discovered = ROOT
+		}
+		
+		trigger = {
+			any_subject_country = {
+				is_colonial_nation_of = ROOT
+				capital_scope = { colonial_region = colonial_dalaire }
+				num_of_cities = 20
+			}
+			696 = {
+				owned_by = ROOT
+				development = 25
+				has_great_project = {
+					type = celmaldor_icewind_palace_of_commerce
+					tier = 2
+				}
+			}
+		}
+		effect = {
+			add_prestige_or_monarch_power = {amount =  25}
+			add_navy_tradition = 25
+			696 = {
+				if = {
+					limit = {culture_is_elven = no}
+					change_culture = moon_elf
+				}
+				if = {
+					limit = {
+						NOT = {
+							has_great_project = {
+								type = celmaldor_icewind_palace_of_commerce
+								tier = 3
+							}
+						}
+						owner = {manpower = 50}
+					}
+					owner = {add_manpower = -50}
+					add_great_project_tier = {
+						type = celmaldor_icewind_palace_of_commerce
+						tier = 1
+					}
+				}
+				else = {
+					owner = {add_prestige_or_monarch_power = {amount =  25}}
+					custom_tooltip = "If the Monument is not tier 3 and we have 50k manpower, it will be upgraded 1 tier expending the 50k manpower"
+				}
+			}
+			add_country_modifier = {
+				name = "colonial_enthusiasm"
+				duration = 7300
 			}
 		}
 	}
 }
+
 Z22_celmador_east_expansion = {
 	slot = 5
 	generic = no
@@ -126,12 +660,12 @@ Z22_celmador_east_expansion = {
 	has_country_shield = yes
 	
 	Z22_eastern_offensive = {
-		icon = mission_spoils_of_war
+		icon = qng_ten_grand_campaigns
 		required_missions = {	}
 		position = 4
 		
 		provinces_to_highlight = {
-			owned_by = A28
+			owned_by = Z26
 		}
 		trigger = {
 			army_size_percentage = 0.9
@@ -160,7 +694,7 @@ Z22_celmador_east_expansion = {
 		}
 	}
 	Z22_northern_woods_conquest = {
-		icon = mission_conquer_5_states
+		icon = mng_nomadic_frontier
 		required_missions = { Z22_eastern_offensive }
 		position = 5
 		
@@ -194,7 +728,7 @@ Z22_celmador_east_expansion = {
 		}
 	}
 	Z22_bayvic_city = {
-		icon = mission_rb_trinity_college_dublin
+		icon = mission_dominate_home_trade_node
 		required_missions = { Z22_northern_woods_conquest }
 		position = 6
 		
@@ -235,66 +769,164 @@ Z22_celmador_east_expansion = {
 				}
 				add_permanent_claim = ROOT
 			}
+			740 = {
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	Z22_bal_vroren_citadel = {
+		icon = mission_italian_condottiere
+		required_missions = { Z22_bayvic_city }
+		position = 7
+		
+		provinces_to_highlight = {
+			OR = {
+				province_id = 740
+			}
+		}
+		
+		trigger = {
+			740 = {
+				is_core = ROOT
+				owned_by = ROOT
+			}
+		}
+		effect = {
+			740 = {
+				add_center_of_trade_level = 1
+			}
+			northern_giants_tears_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			southern_giants_tears_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			vrorenmarch_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			vrorenwall_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			gulletpeak_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			cedesck_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			sondaar_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	Z22_vroren_citadel_reconstruction = {
+		icon = mission_invade_island
+		required_missions = { Z22_bal_vroren_citadel }
+		position = 11
+		
+		provinces_to_highlight = {
+			province_id = 740
+		}
+		
+		trigger = {
+			740 = {
+				owned_by = ROOT
+				development = 25
+				has_great_project = {
+					type = bayvic_grandest_city_of_the_reach
+					tier = 1
+				}
+			}
+		}
+		effect = {
+			add_prestige_or_monarch_power = {amount =  20}
+			add_stability_or_adm_power = yes
+			add_army_tradition = 25
+			740 = {
+				if = {
+					limit = {culture_is_elven = no}
+					change_culture = moon_elf
+				}
+				if = {
+					limit = {
+						NOT = {
+							has_great_project = {
+								type = bal_vroren
+								tier = 2
+							}
+						}
+						owner = {manpower = 20}
+					}
+					owner = {add_manpower = -20}
+					add_great_project_tier = {
+						type = bal_vroren
+						tier = 1
+					}
+				}
+				else = {
+					owner = {add_prestige_or_monarch_power = {amount =  20}}
+					custom_tooltip = "If the Monument is not tier 2 and we have 20k manpower, it will be upgraded 1 tier expending the 50k manpower"
+				}
+			}
+			
+			696 = {
+				add_province_modifier = {
+					name = growth_of_capital
+					duration = -1
+				}
+			}
 		}
 	}
 }
-Z22_redglades_finisher = {
+Z22_celmador_finisher = {
 	slot = 3
 	generic = no
 	ai = yes 
 	potential = { tag = Z22 }
 	has_country_shield = yes
+	
 	Z22_redglades_archery = { 
-		icon = mission_rb_unite_the_clans
-		required_missions = { Z22_redglades_culture Z22_redglades_professionalism }
-		position = 7
+		icon = mission_monarch_in_throne_room
+		required_missions = { Z22_consolidate_marshlands Z22_elven_manpower Z22_vroren_citadel_reconstruction Z22_gerudian_coast_conquered}
+		position = 12
 		
 		trigger = {
-			OR = {
-				any_ally = {
-					culture = wood_elf
-					capital_scope = {
-						superregion = deepwoods_superregion
-					}
-					num_of_owned_provinces_with = {
-						value = 20
-						superregion = deepwoods_superregion
-						owned_by = PREV
-					}
-				}
-				num_of_owned_provinces_with = {
-					value = 20
-					superregion = deepwoods_superregion
-					owned_by = ROOT
-				}
-			}
-			mil_power = 200
-			dip_power = 200
+			legitimacy_equivalent = 90
+			prestige = 90
+			stability = 3
 		}
 		effect = {
-			add_dip_power = -200
-			add_mil_power = -200
-			random_ally = {
-				limit = {	
-					culture = wood_elf
-					capital_scope = {
-						superregion = deepwoods_superregion
-					}
-				}
-				add_dip_power = 200
-				add_mil_power = 200
-			}
-			change_primary_culture = wood_elf
-			change_technology_group = tech_wood_elf
-			change_unit_type = tech_wood_elf
-			hidden_effect = {
-				every_owned_province = {
-					limit = {
-						culture_group = elven
-						NOT = {culture = wood_elf}
-					}
-					change_culture = wood_elf
-				}
+			add_prestige_or_monarch_power = {amount = 100}
+			add_country_modifier = {
+				name = celmador_empire_modifier
+				duration = -1
 			}
 		}
 	}	
