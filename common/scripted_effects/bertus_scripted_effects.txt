@@ -1392,6 +1392,12 @@ get_cash_from_mercantilism = {
 		}
 	}
 }
+remove_province_modifier_effect = {
+	if = {
+		limit = {has_province_modifier = $MODIFIER$}
+		remove_province_modifier = $MODIFIER$
+	}
+}
 on_trade_good_changed_bertus_effect = {
 
 	remove_boost_pop_goods_produced = yes
@@ -1451,6 +1457,14 @@ on_trade_good_changed_bertus_effect = {
 	remove_province_modifier_effect = { MODIFIER = gems_trade_modifier}
 	remove_province_modifier_effect = { MODIFIER = lead_trade_modifier}
 	remove_province_modifier_effect = { MODIFIER = wine_trade_modifier}
+	remove_province_modifier_effect = { MODIFIER = coal_trade_modifier}
+	remove_province_modifier_effect = { MODIFIER = adv_big_forge}
+	remove_province_modifier_effect = { MODIFIER = grombar_frozen_forge}
+	remove_province_modifier_effect = { MODIFIER = obrtrol_slave_mine}
+	remove_province_modifier_effect = { MODIFIER = obrtrol_giant_forge}
+	remove_province_modifier_effect = { MODIFIER = ogrish_steel}
+	remove_province_modifier_effect = { MODIFIER = silverforge_iron_deposits}
+	remove_province_modifier_effect = { MODIFIER = ogrish_steel}
 	
 	hidden_effect = {
 		if = {
@@ -1625,4 +1639,740 @@ on_trade_good_changed_bertus_effect = {
 			remove_province_modifier = newshire_stewardship_boost
 		}
     }
+}
+update_race_modifiers = {
+	remove_country_modifier = human_resilience_modifier
+	remove_country_modifier = dwarven_elven_hate_modifier
+	remove_country_modifier = elves_hate_war_modifier
+	remove_country_modifier = elves_pure_training_modifier
+	remove_country_modifier = dwarven_hate_greenskins_modifier
+	remove_country_modifier = halflin_attitude_modifier
+	remove_country_modifier = monstrous_love_war_modifier
+	remove_country_modifier = orcs_hate_dwarven_modifier
+	remove_country_modifier = goblins_hate_dwarfs_modifier
+	remove_country_modifier = goblins_hate_elfs_modifier
+	remove_country_modifier = integrated_races_give_dev_cost_18
+	remove_country_modifier = integrated_races_give_dev_cost_17
+	remove_country_modifier = integrated_races_give_dev_cost_16
+	remove_country_modifier = integrated_races_give_dev_cost_15
+	remove_country_modifier = integrated_races_give_dev_cost_14
+	remove_country_modifier = integrated_races_give_dev_cost_13
+	remove_country_modifier = integrated_races_give_dev_cost_12
+	remove_country_modifier = integrated_races_give_dev_cost_11
+	remove_country_modifier = integrated_races_give_dev_cost_10
+	remove_country_modifier = integrated_races_give_dev_cost_9
+	remove_country_modifier = integrated_races_give_dev_cost_8
+	remove_country_modifier = integrated_races_give_dev_cost_7
+	remove_country_modifier = integrated_races_give_dev_cost_6
+	remove_country_modifier = integrated_races_give_dev_cost_5
+	remove_country_modifier = integrated_races_give_dev_cost_4
+	remove_country_modifier = integrated_races_give_dev_cost_3
+	remove_country_modifier = integrated_races_give_dev_cost_2
+	remove_country_modifier = integrated_races_give_dev_cost_1
+	remove_country_modifier = boosted_stability_1
+	remove_country_modifier = boosted_stability_2
+	remove_country_modifier = boosted_stability_3
+	if = {
+		limit = {
+			is_at_war = yes
+		}
+		if = {
+			limit = {
+				estate_territory = {estate = estate_human territory = 60}
+				any_country = {
+					NOT = {estate_territory = {estate = estate_human territory = 40}}
+					war_with = ROOT
+				}
+				NOT = {has_country_modifier = human_resilience_modifier}
+			}
+			add_country_modifier = {name = human_resilience_modifier duration = -1 hidden=  yes}
+		}
+		if = {
+			limit = {
+				estate_territory = {estate = estate_elven territory = 60}
+				any_country = {
+					estate_territory = {estate = estate_dwarven territory = 40}
+					war_with = ROOT
+				}
+				NOT = {has_country_modifier = dwarven_elven_hate_modifier}
+			}
+			add_country_modifier = {name = dwarven_elven_hate_modifier duration = -1 hidden=  yes}
+		}
+		if = {
+			limit = {
+				estate_territory = {estate = estate_elven territory = 60}
+				is_at_war = yes
+				NOT = {has_country_modifier = elves_hate_war_modifier}
+			}
+			add_country_modifier = {name = elves_hate_war_modifier duration = -1 hidden=  yes}
+		}
+		if = {
+			limit = {
+				estate_territory = {estate = estate_dwarven territory = 60}
+				any_country = {
+					estate_territory = {estate = estate_elven territory = 40}
+					war_with = ROOT
+				}
+				NOT = {has_country_modifier = dwarven_elven_hate_modifier}
+			}
+			add_country_modifier = {name = dwarven_elven_hate_modifier duration = -1 hidden=  yes}
+		}
+		if = {
+			limit = {
+				estate_territory = {estate = estate_dwarven territory = 60}
+				any_country = {
+					OR = {
+						estate_territory = {estate = estate_goblin territory = 40}
+						estate_territory = {estate = estate_orcish territory = 40}
+					}
+					war_with = ROOT
+				}
+				NOT = {has_country_modifier = dwarven_hate_greenskins_modifier}
+			}
+			add_country_modifier = {name = dwarven_hate_greenskins_modifier duration = -1 hidden=  yes}
+		}
+		if = {
+			limit = {
+				estate_territory = {estate = estate_halfling territory = 60}
+				any_country = {
+					offensive_war_with = ROOT
+					NOT = {estate_territory = {estate = estate_halfling territory = 30}}
+				}
+				NOT = {has_country_modifier = halflin_attitude_modifier}
+			}
+			add_country_modifier = {name = halflin_attitude_modifier duration = -1 hidden=  yes}
+		}
+		if = {
+			limit = {
+				is_at_war = yes
+				OR = {
+					has_estate_privilege = estate_orcish_first_hand_chairman
+					has_estate_privilege = estate_ogre_first_hand_chairman
+					has_estate_privilege = estate_centaur_first_hand_chairman
+					has_estate_privilege = estate_troll_first_hand_chairman
+					has_estate_privilege = estate_half_orcish_first_hand_chairman
+					has_estate_privilege = estate_hobgoblin_first_hand_chairman
+				}
+				add_country_modifier = {name = monstrous_love_war_modifier duration = -1 hidden=  yes}
+			}
+			add_country_modifier = {name = monstrous_love_war_modifier duration = -1 hidden=  yes}
+		}
+		if = {
+			limit = {
+				estate_territory = {estate = estate_orcish territory = 60}
+				any_country = {
+					estate_territory = {estate = estate_dwarven territory = 40}
+					war_with = ROOT
+				}
+				add_country_modifier = {name = orcs_hate_dwarven_modifier duration = -1 hidden=  yes}
+			}
+			add_country_modifier = {name = orcs_hate_dwarven_modifier duration = -1 hidden=  yes}
+		}
+		if = {
+			limit = {
+				estate_territory = {estate = estate_goblin territory = 60}
+				any_country = {
+					estate_territory = {estate = estate_dwarven territory = 40}
+					war_with = ROOT
+				}
+				add_country_modifier = {name = goblins_hate_dwarfs_modifier duration = -1 hidden=  yes}
+			}
+			add_country_modifier = {name = goblins_hate_dwarfs_modifier duration = -1 hidden=  yes}
+		}
+		if = {
+			limit = {
+				estate_territory = {estate = estate_goblin territory = 60}
+				any_country = {
+					estate_territory = {estate = estate_elven territory = 40}
+					war_with = ROOT
+				}
+				add_country_modifier = {name = goblins_hate_elfs_modifier duration = -1 hidden=  yes}
+			}
+			add_country_modifier = {name = goblins_hate_elfs_modifier duration = -1 hidden=  yes}
+		}
+	}
+	if = {
+		limit = {
+			estate_territory = {
+				estate = estate_elven
+				territory = 90
+			}
+			NOT = {has_country_modifier = elves_pure_training_modifier}
+		}
+		add_country_modifier = {
+			name = elves_pure_training_modifier
+			duration = -1
+			hidden=  yes
+		}
+	}
+	if = {
+		limit = {
+			has_government_attribute = integrated_races_give_dev_cost
+		}
+		get_integrated_races_modifier = yes
+	}
+	if = {
+		limit = {
+			has_government_attribute = boosted_stability
+		}
+		trigger_switch = {
+			on_trigger = stability
+			3 = {add_country_modifier = {name = boosted_stability_3 duration = -1}}
+			2 = {add_country_modifier = {name = boosted_stability_2 duration = -1}}
+			1 = {add_country_modifier = {name = boosted_stability_1 duration = -1}}
+		}
+	}
+}
+get_integrated_races_modifier = {
+	if = {
+		limit = {
+			calc_true_if = {
+				high_tolerance_human_race_trigger = yes
+				high_tolerance_elven_race_trigger = yes
+				high_tolerance_dwarven_race_trigger = yes
+				high_tolerance_halfling_race_trigger = yes
+				high_tolerance_gnomish_race_trigger = yes
+				high_tolerance_harimari_race_trigger = yes
+				high_tolerance_gnollish_race_trigger = yes
+				high_tolerance_ruinborn_race_trigger = yes
+				high_tolerance_orcish_race_trigger = yes
+				high_tolerance_goblin_race_trigger = yes
+				high_tolerance_troll_race_trigger = yes
+				high_tolerance_harpy_race_trigger = yes
+				high_tolerance_half_orcish_race_trigger = yes
+				high_tolerance_half_elven_race_trigger = yes
+				high_tolerance_ogre_race_trigger = yes
+				high_tolerance_centaur_race_trigger = yes
+				high_tolerance_hobgoblin_race_trigger = yes
+				high_tolerance_kobold_race_trigger = yes
+				amount = 18
+			}
+		}
+		add_country_modifier = {
+			name = integrated_races_give_dev_cost_18
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = {
+			calc_true_if = {
+				high_tolerance_human_race_trigger = yes
+				high_tolerance_elven_race_trigger = yes
+				high_tolerance_dwarven_race_trigger = yes
+				high_tolerance_halfling_race_trigger = yes
+				high_tolerance_gnomish_race_trigger = yes
+				high_tolerance_harimari_race_trigger = yes
+				high_tolerance_gnollish_race_trigger = yes
+				high_tolerance_ruinborn_race_trigger = yes
+				high_tolerance_orcish_race_trigger = yes
+				high_tolerance_goblin_race_trigger = yes
+				high_tolerance_troll_race_trigger = yes
+				high_tolerance_harpy_race_trigger = yes
+				high_tolerance_half_orcish_race_trigger = yes
+				high_tolerance_half_elven_race_trigger = yes
+				high_tolerance_ogre_race_trigger = yes
+				high_tolerance_centaur_race_trigger = yes
+				high_tolerance_hobgoblin_race_trigger = yes
+				high_tolerance_kobold_race_trigger = yes
+				amount = 17
+			}
+		}
+		add_country_modifier = {
+			name = integrated_races_give_dev_cost_17
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = {
+			calc_true_if = {
+				high_tolerance_human_race_trigger = yes
+				high_tolerance_elven_race_trigger = yes
+				high_tolerance_dwarven_race_trigger = yes
+				high_tolerance_halfling_race_trigger = yes
+				high_tolerance_gnomish_race_trigger = yes
+				high_tolerance_harimari_race_trigger = yes
+				high_tolerance_gnollish_race_trigger = yes
+				high_tolerance_ruinborn_race_trigger = yes
+				high_tolerance_orcish_race_trigger = yes
+				high_tolerance_goblin_race_trigger = yes
+				high_tolerance_troll_race_trigger = yes
+				high_tolerance_harpy_race_trigger = yes
+				high_tolerance_half_orcish_race_trigger = yes
+				high_tolerance_half_elven_race_trigger = yes
+				high_tolerance_ogre_race_trigger = yes
+				high_tolerance_centaur_race_trigger = yes
+				high_tolerance_hobgoblin_race_trigger = yes
+				high_tolerance_kobold_race_trigger = yes
+				amount = 16
+			}
+		}
+		add_country_modifier = {
+			name = integrated_races_give_dev_cost_16
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = {
+			calc_true_if = {
+				high_tolerance_human_race_trigger = yes
+				high_tolerance_elven_race_trigger = yes
+				high_tolerance_dwarven_race_trigger = yes
+				high_tolerance_halfling_race_trigger = yes
+				high_tolerance_gnomish_race_trigger = yes
+				high_tolerance_harimari_race_trigger = yes
+				high_tolerance_gnollish_race_trigger = yes
+				high_tolerance_ruinborn_race_trigger = yes
+				high_tolerance_orcish_race_trigger = yes
+				high_tolerance_goblin_race_trigger = yes
+				high_tolerance_troll_race_trigger = yes
+				high_tolerance_harpy_race_trigger = yes
+				high_tolerance_half_orcish_race_trigger = yes
+				high_tolerance_half_elven_race_trigger = yes
+				high_tolerance_ogre_race_trigger = yes
+				high_tolerance_centaur_race_trigger = yes
+				high_tolerance_hobgoblin_race_trigger = yes
+				high_tolerance_kobold_race_trigger = yes
+				amount = 15
+			}
+		}
+		add_country_modifier = {
+			name = integrated_races_give_dev_cost_15
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = {
+			calc_true_if = {
+				high_tolerance_human_race_trigger = yes
+				high_tolerance_elven_race_trigger = yes
+				high_tolerance_dwarven_race_trigger = yes
+				high_tolerance_halfling_race_trigger = yes
+				high_tolerance_gnomish_race_trigger = yes
+				high_tolerance_harimari_race_trigger = yes
+				high_tolerance_gnollish_race_trigger = yes
+				high_tolerance_ruinborn_race_trigger = yes
+				high_tolerance_orcish_race_trigger = yes
+				high_tolerance_goblin_race_trigger = yes
+				high_tolerance_troll_race_trigger = yes
+				high_tolerance_harpy_race_trigger = yes
+				high_tolerance_half_orcish_race_trigger = yes
+				high_tolerance_half_elven_race_trigger = yes
+				high_tolerance_ogre_race_trigger = yes
+				high_tolerance_centaur_race_trigger = yes
+				high_tolerance_hobgoblin_race_trigger = yes
+				high_tolerance_kobold_race_trigger = yes
+				amount = 14
+			}
+		}
+		add_country_modifier = {
+			name = integrated_races_give_dev_cost_14
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = {
+			calc_true_if = {
+				high_tolerance_human_race_trigger = yes
+				high_tolerance_elven_race_trigger = yes
+				high_tolerance_dwarven_race_trigger = yes
+				high_tolerance_halfling_race_trigger = yes
+				high_tolerance_gnomish_race_trigger = yes
+				high_tolerance_harimari_race_trigger = yes
+				high_tolerance_gnollish_race_trigger = yes
+				high_tolerance_ruinborn_race_trigger = yes
+				high_tolerance_orcish_race_trigger = yes
+				high_tolerance_goblin_race_trigger = yes
+				high_tolerance_troll_race_trigger = yes
+				high_tolerance_harpy_race_trigger = yes
+				high_tolerance_half_orcish_race_trigger = yes
+				high_tolerance_half_elven_race_trigger = yes
+				high_tolerance_ogre_race_trigger = yes
+				high_tolerance_centaur_race_trigger = yes
+				high_tolerance_hobgoblin_race_trigger = yes
+				high_tolerance_kobold_race_trigger = yes
+				amount = 13
+			}
+		}
+		add_country_modifier = {
+			name = integrated_races_give_dev_cost_13
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = {
+			calc_true_if = {
+				high_tolerance_human_race_trigger = yes
+				high_tolerance_elven_race_trigger = yes
+				high_tolerance_dwarven_race_trigger = yes
+				high_tolerance_halfling_race_trigger = yes
+				high_tolerance_gnomish_race_trigger = yes
+				high_tolerance_harimari_race_trigger = yes
+				high_tolerance_gnollish_race_trigger = yes
+				high_tolerance_ruinborn_race_trigger = yes
+				high_tolerance_orcish_race_trigger = yes
+				high_tolerance_goblin_race_trigger = yes
+				high_tolerance_troll_race_trigger = yes
+				high_tolerance_harpy_race_trigger = yes
+				high_tolerance_half_orcish_race_trigger = yes
+				high_tolerance_half_elven_race_trigger = yes
+				high_tolerance_ogre_race_trigger = yes
+				high_tolerance_centaur_race_trigger = yes
+				high_tolerance_hobgoblin_race_trigger = yes
+				high_tolerance_kobold_race_trigger = yes
+				amount = 12
+			}
+		}
+		add_country_modifier = {
+			name = integrated_races_give_dev_cost_12
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = {
+			calc_true_if = {
+				high_tolerance_human_race_trigger = yes
+				high_tolerance_elven_race_trigger = yes
+				high_tolerance_dwarven_race_trigger = yes
+				high_tolerance_halfling_race_trigger = yes
+				high_tolerance_gnomish_race_trigger = yes
+				high_tolerance_harimari_race_trigger = yes
+				high_tolerance_gnollish_race_trigger = yes
+				high_tolerance_ruinborn_race_trigger = yes
+				high_tolerance_orcish_race_trigger = yes
+				high_tolerance_goblin_race_trigger = yes
+				high_tolerance_troll_race_trigger = yes
+				high_tolerance_harpy_race_trigger = yes
+				high_tolerance_half_orcish_race_trigger = yes
+				high_tolerance_half_elven_race_trigger = yes
+				high_tolerance_ogre_race_trigger = yes
+				high_tolerance_centaur_race_trigger = yes
+				high_tolerance_hobgoblin_race_trigger = yes
+				high_tolerance_kobold_race_trigger = yes
+				amount = 11
+			}
+		}
+		add_country_modifier = {
+			name = integrated_races_give_dev_cost_11
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = {
+			calc_true_if = {
+				high_tolerance_human_race_trigger = yes
+				high_tolerance_elven_race_trigger = yes
+				high_tolerance_dwarven_race_trigger = yes
+				high_tolerance_halfling_race_trigger = yes
+				high_tolerance_gnomish_race_trigger = yes
+				high_tolerance_harimari_race_trigger = yes
+				high_tolerance_gnollish_race_trigger = yes
+				high_tolerance_ruinborn_race_trigger = yes
+				high_tolerance_orcish_race_trigger = yes
+				high_tolerance_goblin_race_trigger = yes
+				high_tolerance_troll_race_trigger = yes
+				high_tolerance_harpy_race_trigger = yes
+				high_tolerance_half_orcish_race_trigger = yes
+				high_tolerance_half_elven_race_trigger = yes
+				high_tolerance_ogre_race_trigger = yes
+				high_tolerance_centaur_race_trigger = yes
+				high_tolerance_hobgoblin_race_trigger = yes
+				high_tolerance_kobold_race_trigger = yes
+				amount = 10
+			}
+		}
+		add_country_modifier = {
+			name = integrated_races_give_dev_cost_10
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = {
+			calc_true_if = {
+				high_tolerance_human_race_trigger = yes
+				high_tolerance_elven_race_trigger = yes
+				high_tolerance_dwarven_race_trigger = yes
+				high_tolerance_halfling_race_trigger = yes
+				high_tolerance_gnomish_race_trigger = yes
+				high_tolerance_harimari_race_trigger = yes
+				high_tolerance_gnollish_race_trigger = yes
+				high_tolerance_ruinborn_race_trigger = yes
+				high_tolerance_orcish_race_trigger = yes
+				high_tolerance_goblin_race_trigger = yes
+				high_tolerance_troll_race_trigger = yes
+				high_tolerance_harpy_race_trigger = yes
+				high_tolerance_half_orcish_race_trigger = yes
+				high_tolerance_half_elven_race_trigger = yes
+				high_tolerance_ogre_race_trigger = yes
+				high_tolerance_centaur_race_trigger = yes
+				high_tolerance_hobgoblin_race_trigger = yes
+				high_tolerance_kobold_race_trigger = yes
+				amount = 9
+			}
+		}
+		add_country_modifier = {
+			name = integrated_races_give_dev_cost_9
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = {
+			calc_true_if = {
+				high_tolerance_human_race_trigger = yes
+				high_tolerance_elven_race_trigger = yes
+				high_tolerance_dwarven_race_trigger = yes
+				high_tolerance_halfling_race_trigger = yes
+				high_tolerance_gnomish_race_trigger = yes
+				high_tolerance_harimari_race_trigger = yes
+				high_tolerance_gnollish_race_trigger = yes
+				high_tolerance_ruinborn_race_trigger = yes
+				high_tolerance_orcish_race_trigger = yes
+				high_tolerance_goblin_race_trigger = yes
+				high_tolerance_troll_race_trigger = yes
+				high_tolerance_harpy_race_trigger = yes
+				high_tolerance_half_orcish_race_trigger = yes
+				high_tolerance_half_elven_race_trigger = yes
+				high_tolerance_ogre_race_trigger = yes
+				high_tolerance_centaur_race_trigger = yes
+				high_tolerance_hobgoblin_race_trigger = yes
+				high_tolerance_kobold_race_trigger = yes
+				amount = 8
+			}
+		}
+		add_country_modifier = {
+			name = integrated_races_give_dev_cost_8
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = {
+			calc_true_if = {
+				high_tolerance_human_race_trigger = yes
+				high_tolerance_elven_race_trigger = yes
+				high_tolerance_dwarven_race_trigger = yes
+				high_tolerance_halfling_race_trigger = yes
+				high_tolerance_gnomish_race_trigger = yes
+				high_tolerance_harimari_race_trigger = yes
+				high_tolerance_gnollish_race_trigger = yes
+				high_tolerance_ruinborn_race_trigger = yes
+				high_tolerance_orcish_race_trigger = yes
+				high_tolerance_goblin_race_trigger = yes
+				high_tolerance_troll_race_trigger = yes
+				high_tolerance_harpy_race_trigger = yes
+				high_tolerance_half_orcish_race_trigger = yes
+				high_tolerance_half_elven_race_trigger = yes
+				high_tolerance_ogre_race_trigger = yes
+				high_tolerance_centaur_race_trigger = yes
+				high_tolerance_hobgoblin_race_trigger = yes
+				high_tolerance_kobold_race_trigger = yes
+				amount = 7
+			}
+		}
+		add_country_modifier = {
+			name = integrated_races_give_dev_cost_7
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = {
+			calc_true_if = {
+				high_tolerance_human_race_trigger = yes
+				high_tolerance_elven_race_trigger = yes
+				high_tolerance_dwarven_race_trigger = yes
+				high_tolerance_halfling_race_trigger = yes
+				high_tolerance_gnomish_race_trigger = yes
+				high_tolerance_harimari_race_trigger = yes
+				high_tolerance_gnollish_race_trigger = yes
+				high_tolerance_ruinborn_race_trigger = yes
+				high_tolerance_orcish_race_trigger = yes
+				high_tolerance_goblin_race_trigger = yes
+				high_tolerance_troll_race_trigger = yes
+				high_tolerance_harpy_race_trigger = yes
+				high_tolerance_half_orcish_race_trigger = yes
+				high_tolerance_half_elven_race_trigger = yes
+				high_tolerance_ogre_race_trigger = yes
+				high_tolerance_centaur_race_trigger = yes
+				high_tolerance_hobgoblin_race_trigger = yes
+				high_tolerance_kobold_race_trigger = yes
+				amount = 6
+			}
+		}
+		add_country_modifier = {
+			name = integrated_races_give_dev_cost_6
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = {
+			calc_true_if = {
+				high_tolerance_human_race_trigger = yes
+				high_tolerance_elven_race_trigger = yes
+				high_tolerance_dwarven_race_trigger = yes
+				high_tolerance_halfling_race_trigger = yes
+				high_tolerance_gnomish_race_trigger = yes
+				high_tolerance_harimari_race_trigger = yes
+				high_tolerance_gnollish_race_trigger = yes
+				high_tolerance_ruinborn_race_trigger = yes
+				high_tolerance_orcish_race_trigger = yes
+				high_tolerance_goblin_race_trigger = yes
+				high_tolerance_troll_race_trigger = yes
+				high_tolerance_harpy_race_trigger = yes
+				high_tolerance_half_orcish_race_trigger = yes
+				high_tolerance_half_elven_race_trigger = yes
+				high_tolerance_ogre_race_trigger = yes
+				high_tolerance_centaur_race_trigger = yes
+				high_tolerance_hobgoblin_race_trigger = yes
+				high_tolerance_kobold_race_trigger = yes
+				amount = 6
+			}
+		}
+		add_country_modifier = {
+			name = integrated_races_give_dev_cost_6
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = {
+			calc_true_if = {
+				high_tolerance_human_race_trigger = yes
+				high_tolerance_elven_race_trigger = yes
+				high_tolerance_dwarven_race_trigger = yes
+				high_tolerance_halfling_race_trigger = yes
+				high_tolerance_gnomish_race_trigger = yes
+				high_tolerance_harimari_race_trigger = yes
+				high_tolerance_gnollish_race_trigger = yes
+				high_tolerance_ruinborn_race_trigger = yes
+				high_tolerance_orcish_race_trigger = yes
+				high_tolerance_goblin_race_trigger = yes
+				high_tolerance_troll_race_trigger = yes
+				high_tolerance_harpy_race_trigger = yes
+				high_tolerance_half_orcish_race_trigger = yes
+				high_tolerance_half_elven_race_trigger = yes
+				high_tolerance_ogre_race_trigger = yes
+				high_tolerance_centaur_race_trigger = yes
+				high_tolerance_hobgoblin_race_trigger = yes
+				high_tolerance_kobold_race_trigger = yes
+				amount = 5
+			}
+		}
+		add_country_modifier = {
+			name = integrated_races_give_dev_cost_5
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = {
+			calc_true_if = {
+				high_tolerance_human_race_trigger = yes
+				high_tolerance_elven_race_trigger = yes
+				high_tolerance_dwarven_race_trigger = yes
+				high_tolerance_halfling_race_trigger = yes
+				high_tolerance_gnomish_race_trigger = yes
+				high_tolerance_harimari_race_trigger = yes
+				high_tolerance_gnollish_race_trigger = yes
+				high_tolerance_ruinborn_race_trigger = yes
+				high_tolerance_orcish_race_trigger = yes
+				high_tolerance_goblin_race_trigger = yes
+				high_tolerance_troll_race_trigger = yes
+				high_tolerance_harpy_race_trigger = yes
+				high_tolerance_half_orcish_race_trigger = yes
+				high_tolerance_half_elven_race_trigger = yes
+				high_tolerance_ogre_race_trigger = yes
+				high_tolerance_centaur_race_trigger = yes
+				high_tolerance_hobgoblin_race_trigger = yes
+				high_tolerance_kobold_race_trigger = yes
+				amount = 4
+			}
+		}
+		add_country_modifier = {
+			name = integrated_races_give_dev_cost_4
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = {
+			calc_true_if = {
+				high_tolerance_human_race_trigger = yes
+				high_tolerance_elven_race_trigger = yes
+				high_tolerance_dwarven_race_trigger = yes
+				high_tolerance_halfling_race_trigger = yes
+				high_tolerance_gnomish_race_trigger = yes
+				high_tolerance_harimari_race_trigger = yes
+				high_tolerance_gnollish_race_trigger = yes
+				high_tolerance_ruinborn_race_trigger = yes
+				high_tolerance_orcish_race_trigger = yes
+				high_tolerance_goblin_race_trigger = yes
+				high_tolerance_troll_race_trigger = yes
+				high_tolerance_harpy_race_trigger = yes
+				high_tolerance_half_orcish_race_trigger = yes
+				high_tolerance_half_elven_race_trigger = yes
+				high_tolerance_ogre_race_trigger = yes
+				high_tolerance_centaur_race_trigger = yes
+				high_tolerance_hobgoblin_race_trigger = yes
+				high_tolerance_kobold_race_trigger = yes
+				amount = 3
+			}
+		}
+		add_country_modifier = {
+			name = integrated_races_give_dev_cost_3
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = {
+			calc_true_if = {
+				high_tolerance_human_race_trigger = yes
+				high_tolerance_elven_race_trigger = yes
+				high_tolerance_dwarven_race_trigger = yes
+				high_tolerance_halfling_race_trigger = yes
+				high_tolerance_gnomish_race_trigger = yes
+				high_tolerance_harimari_race_trigger = yes
+				high_tolerance_gnollish_race_trigger = yes
+				high_tolerance_ruinborn_race_trigger = yes
+				high_tolerance_orcish_race_trigger = yes
+				high_tolerance_goblin_race_trigger = yes
+				high_tolerance_troll_race_trigger = yes
+				high_tolerance_harpy_race_trigger = yes
+				high_tolerance_half_orcish_race_trigger = yes
+				high_tolerance_half_elven_race_trigger = yes
+				high_tolerance_ogre_race_trigger = yes
+				high_tolerance_centaur_race_trigger = yes
+				high_tolerance_hobgoblin_race_trigger = yes
+				high_tolerance_kobold_race_trigger = yes
+				amount = 2
+			}
+		}
+		add_country_modifier = {
+			name = integrated_races_give_dev_cost_2
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = {
+			calc_true_if = {
+				high_tolerance_human_race_trigger = yes
+				high_tolerance_elven_race_trigger = yes
+				high_tolerance_dwarven_race_trigger = yes
+				high_tolerance_halfling_race_trigger = yes
+				high_tolerance_gnomish_race_trigger = yes
+				high_tolerance_harimari_race_trigger = yes
+				high_tolerance_gnollish_race_trigger = yes
+				high_tolerance_ruinborn_race_trigger = yes
+				high_tolerance_orcish_race_trigger = yes
+				high_tolerance_goblin_race_trigger = yes
+				high_tolerance_troll_race_trigger = yes
+				high_tolerance_harpy_race_trigger = yes
+				high_tolerance_half_orcish_race_trigger = yes
+				high_tolerance_half_elven_race_trigger = yes
+				high_tolerance_ogre_race_trigger = yes
+				high_tolerance_centaur_race_trigger = yes
+				high_tolerance_hobgoblin_race_trigger = yes
+				high_tolerance_kobold_race_trigger = yes
+				amount = 1
+			}
+		}
+		add_country_modifier = {
+			name = integrated_races_give_dev_cost_1
+			duration = -1
+		}
+	}
 }
