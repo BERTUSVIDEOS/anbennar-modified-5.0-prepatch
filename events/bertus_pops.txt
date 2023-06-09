@@ -48,6 +48,7 @@ province_event = {
 			AND = {
 				OR = {
 					has_orcish_majority_trigger = yes
+					has_kobold_majority_trigger = yes
 				}
 				NOT = {
 					has_pop_race_modifier = {race = all  class = bonus  amount = 40percent  resource = manpower }
@@ -56,6 +57,7 @@ province_event = {
 			AND = {
 				has_pop_race_modifier = {race = all  class = bonus  amount = 40percent  resource = manpower }
 				has_orcish_majority_trigger = no
+				has_kobold_majority_trigger = no
 			}
 		}
     }
@@ -93,6 +95,7 @@ province_event = {
 					has_goblin_majority_trigger = yes
 					has_dwarven_majority_trigger = yes
 					has_gnollish_majority_trigger = yes
+					has_kobold_majority_trigger = yes
 				}
 				NOT = {
 					has_pop_race_modifier = {race = all  class = malus  amount = 25percent  resource = trade_power}
@@ -104,6 +107,7 @@ province_event = {
 				has_goblin_majority_trigger = no
 				has_dwarven_majority_trigger = no
 				has_gnollish_majority_trigger = no
+				has_kobold_majority_trigger = no
 			}
 		}
     }
@@ -224,7 +228,7 @@ province_event = {
 		remove_pop_modifier = {race = all  class = bonus  amount = 50percent  resource = tax}
 	}
 }
-province_event = {	#dwarven mining
+province_event = {	#dwarven farming
 	id = bertus_pops.1005
 	title = bertus_pops.1005.t
 	desc = bertus_pops.1005.desc
@@ -237,22 +241,7 @@ province_event = {	#dwarven mining
 		OR = {
 			AND = {
 				OR = {
-					trade_goods = iron
-					trade_goods = copper
-					trade_goods = gold
-					trade_goods = damestear
-					trade_goods = mithril
-					trade_goods = coal
-					trade_goods = gems
-					trade_goods = salt
-					trade_goods = brass
-					trade_goods = zinc
-					trade_goods = silver
-					trade_goods = metalworking
-					trade_goods = tin
-					trade_goods = lead
-					trade_goods = marble
-					trade_goods = jade
+					trade_goods = tobacco
 					trade_goods = beer
 				}
 				has_dwarven_majority_trigger = yes
@@ -262,22 +251,7 @@ province_event = {	#dwarven mining
 			}
 			AND = {
 				OR = {
-					trade_goods = iron
-					trade_goods = copper
-					trade_goods = gold
-					trade_goods = damestear
-					trade_goods = mithril
-					trade_goods = coal
-					trade_goods = gems
-					trade_goods = salt
-					trade_goods = brass
-					trade_goods = zinc
-					trade_goods = silver
-					trade_goods = metalworking
-					trade_goods = tin
-					trade_goods = lead
-					trade_goods = marble
-					trade_goods = jade
+					trade_goods = tobacco
 					trade_goods = beer
 				}
 				has_pop_race_modifier = {race = dwarven class = bonus  amount = 25percent  resource = goods_produced }
@@ -1530,7 +1504,6 @@ province_event = {	#racial sailors malus
 			}
 		}
     }
-	
 
 	option = {
 		name = bertus_pops.1033.a
@@ -1788,7 +1761,7 @@ province_event = {	#harimari tropical manpower
 		remove_pop_modifier = {race = harimari class = tropical_bonus amount = 20percent  resource = manpower }
 	}
 }
-province_event = {	#goblin mining
+province_event = {	#mining
 	id = bertus_pops.1039
 	title = bertus_pops.1039.t
 	desc = bertus_pops.1039.desc
@@ -1801,9 +1774,11 @@ province_event = {	#goblin mining
 		OR = {
 			AND = {
 				NOT = {
-					has_pop_race_modifier = {race = goblin class = bonus  amount = 25percent  resource = goods_produced }
+					has_pop_race_modifier = {race = all class = bonus  amount = 25percent  resource = goods_produced }
 				}
 				OR = {
+					trade_goods = salt
+					trade_goods = marble
 					trade_goods = iron
 					trade_goods = copper
 					trade_goods = gold
@@ -1822,11 +1797,17 @@ province_event = {	#goblin mining
 					trade_goods = munitions
 					trade_goods = cannon
 				}
-				has_goblin_majority_trigger = yes
+				OR = {
+					has_dwarven_majority_trigger = yes
+					has_goblin_majority_trigger = yes
+					has_kobold_majority_trigger = yes
+				}
 			}
 			AND = {
-				has_pop_race_modifier = {race = goblin class = bonus  amount = 25percent  resource = goods_produced }
+				has_pop_race_modifier = {race = all class = bonus  amount = 25percent  resource = goods_produced }
 				OR = {
+					trade_goods = salt
+					trade_goods = marble
 					trade_goods = iron
 					trade_goods = copper
 					trade_goods = gold
@@ -1845,7 +1826,9 @@ province_event = {	#goblin mining
 					trade_goods = munitions
 					trade_goods = cannon
 				}
+				has_dwarven_majority_trigger = no
 				has_goblin_majority_trigger = no
+				has_kobold_majority_trigger = no
 			}
 		}
     }
@@ -1855,17 +1838,17 @@ province_event = {	#goblin mining
 		name = bertus_pops.1039.a
 		trigger = {
 			NOT = {
-				has_pop_race_modifier = {race = goblin class = bonus  amount = 25percent  resource = goods_produced }
+				has_pop_race_modifier = {race = all class = bonus  amount = 25percent  resource = goods_produced }
 			}
 		}
-		add_pop_modifier = {race = goblin class = bonus  amount = 25percent  resource = goods_produced  onbase = base_production}
+		add_pop_modifier = {race = all class = bonus  amount = 25percent  resource = goods_produced  onbase = base_production}
 	}
 	option = {
 		name = bertus_pops.1039.b
 		trigger = {
-			has_pop_race_modifier = {race = goblin class = bonus  amount = 25percent  resource = goods_produced }
+			has_pop_race_modifier = {race = all class = bonus  amount = 25percent  resource = goods_produced }
 		}
-		remove_pop_modifier = {race = goblin class = bonus  amount = 25percent  resource = goods_produced }
+		remove_pop_modifier = {race = all class = bonus  amount = 25percent  resource = goods_produced }
 	}
 }
 province_event = {	#goblin farming
@@ -1881,7 +1864,7 @@ province_event = {	#goblin farming
 		OR = {
 			AND = {
 				NOT = {
-					has_pop_race_modifier = {race = goblin class = malus  amount = 25percent  resource = goods_produced }
+					has_pop_race_modifier = {race = goblin class = bonus  amount = 25percent  resource = goods_produced }
 				}
 				OR = {
 					trade_goods = fungi
@@ -1894,7 +1877,7 @@ province_event = {	#goblin farming
 				has_goblin_majority_trigger = yes
 			}
 			AND = {
-				has_pop_race_modifier = {race = goblin class = malus  amount = 25percent  resource = goods_produced }
+				has_pop_race_modifier = {race = goblin class = bonus  amount = 25percent  resource = goods_produced }
 				OR = {
 					trade_goods = fungi
 					trade_goods = tobacco
@@ -1907,23 +1890,22 @@ province_event = {	#goblin farming
 			}
 		}
     }
-	
 
 	option = {
 		name = bertus_pops.1040.a
 		trigger = {
 			NOT = {
-				has_pop_race_modifier = {race = goblin class = malus  amount = 25percent  resource = goods_produced }
+				has_pop_race_modifier = {race = goblin class = bonus  amount = 25percent  resource = goods_produced }
 			}
 		}
-		add_pop_modifier = {race = goblin class = malus  amount = 25percent  resource = goods_produced  onbase = base_production}
+		add_pop_modifier = {race = goblin class = bonus  amount = 25percent  resource = goods_produced  onbase = base_production}
 	}
 	option = {
 		name = bertus_pops.1040.b
 		trigger = {
-			has_pop_race_modifier = {race = goblin class = malus  amount = 25percent  resource = goods_produced }
+			has_pop_race_modifier = {race = goblin class = bonus  amount = 25percent  resource = goods_produced }
 		}
-		remove_pop_modifier = {race = goblin class = malus  amount = 25percent  resource = goods_produced }
+		remove_pop_modifier = {race = goblin class = bonus  amount = 25percent  resource = goods_produced }
 	}
 }
 province_event = {	#goblin manpower
@@ -2059,24 +2041,14 @@ province_event = {	#winter preference
 	option = {
 		name = bertus_pops.1046.a
 		trigger = {
-			OR = {
-				culture = gray_orc
-				culture = grombar_orc
-				culture = grombar_half_orc
-				has_troll_majority_trigger = yes
-			}
+			NOT = {has_province_modifier = severe_winter_preference}
 		}
 		add_permanent_province_modifier = {name = severe_winter_preference duration = -1}
 	}
 	option = {
 		name = bertus_pops.1046.b
 		trigger = {
-			NOT = {
-				culture = gray_orc
-				culture = grombar_orc
-				culture = grombar_half_orc
-				has_troll_majority_trigger = yes
-			}
+			has_province_modifier = severe_winter_preference
 		}
 		remove_province_modifier = severe_winter_preference
 	}
@@ -2117,22 +2089,14 @@ province_event = {	#arctic preference
 	option = {
 		name = bertus_pops.1047.a
 		trigger = {
-			OR = {
-				has_troll_majority_trigger = yes
-				culture = gray_orc
-				culture = grombar_orc
-			}
+			NOT = {has_province_modifier = arctic_preference}
 		}
 		add_permanent_province_modifier = {name = arctic_preference duration = -1}
 	}
 	option = {
 		name = bertus_pops.1047.b
 		trigger = {
-			NOT = {
-				has_troll_majority_trigger = yes
-				culture = gray_orc
-				culture = grombar_orc
-			}
+			has_province_modifier = arctic_preference
 		}
 		remove_province_modifier = arctic_preference
 	}
@@ -2187,34 +2151,14 @@ province_event = {	#woods preference
 	option = {
 		name = bertus_pops.1048.a
 		trigger = {
-			OR = {
-				has_gnomish_majority_trigger = yes
-				has_ruinborn_majority_trigger = yes
-				has_goblin_majority_trigger = yes
-				has_orcish_majority_trigger = yes
-				has_half_orcish_majority_trigger = yes
-				has_half_elven_majority_trigger = yes
-				has_elven_majority_trigger = yes
-				has_hobgoblin_majority_trigger = yes
-				culture = forest_troll
-			}
+			NOT = {has_province_modifier = woods_preference}
 		}
 		add_permanent_province_modifier = {name = woods_preference duration = -1}
 	}
 	option = {
 		name = bertus_pops.1048.b
 		trigger = {
-			NOT = {
-				has_gnomish_majority_trigger = yes
-				has_ruinborn_majority_trigger = yes
-				has_goblin_majority_trigger = yes
-				has_orcish_majority_trigger = yes
-				has_half_orcish_majority_trigger = yes
-				has_half_elven_majority_trigger = yes
-				has_elven_majority_trigger = yes
-				has_hobgoblin_majority_trigger = yes
-				culture = forest_troll
-			}
+			has_province_modifier = woods_preference
 		}
 		remove_province_modifier = woods_preference
 	}
@@ -2269,34 +2213,14 @@ province_event = {	#forest preference
 	option = {
 		name = bertus_pops.1049.a
 		trigger = {
-			OR = {
-				has_gnomish_majority_trigger = yes
-				has_ruinborn_majority_trigger = yes
-				has_goblin_majority_trigger = yes
-				has_troll_majority_trigger = yes
-				has_orcish_majority_trigger = yes
-				has_half_orcish_majority_trigger = yes
-				has_half_elven_majority_trigger = yes
-				has_elven_majority_trigger = yes
-				has_hobgoblin_majority_trigger = yes
-			}
+			NOT = {has_province_modifier = forest_preference}
 		}
 		add_permanent_province_modifier = {name = forest_preference duration = -1}
 	}
 	option = {
 		name = bertus_pops.1049.b
 		trigger = {
-			NOT = {
-				has_gnomish_majority_trigger = yes
-				has_ruinborn_majority_trigger = yes
-				has_goblin_majority_trigger = yes
-				has_troll_majority_trigger = yes
-				has_orcish_majority_trigger = yes
-				has_half_orcish_majority_trigger = yes
-				has_half_elven_majority_trigger = yes
-				has_elven_majority_trigger = yes
-				has_hobgoblin_majority_trigger = yes
-			}
+			has_province_modifier = forest_preference
 		}
 		remove_province_modifier = forest_preference
 	}
@@ -2343,26 +2267,14 @@ province_event = {	#elven forest preference
 	option = {
 		name = bertus_pops.1050.a
 		trigger = {
-			OR = {
-				has_elven_majority_trigger = yes
-				has_half_elven_majority_trigger = yes
-				culture = emerald_orc
-				culture = green_orc
-				culture = forest_goblin
-			}
+			NOT = {has_province_modifier = elven_forest_preference}
 		}
 		add_permanent_province_modifier = {name = elven_forest_preference duration = -1}
 	}
 	option = {
 		name = bertus_pops.1050.b
 		trigger = {
-			NOT = {
-				has_elven_majority_trigger = yes
-				has_half_elven_majority_trigger = yes
-				culture = emerald_orc
-				culture = green_orc
-				culture = forest_goblin
-			}
+			has_province_modifier = elven_forest_preference
 		}
 		remove_province_modifier = elven_forest_preference
 	}
@@ -2408,26 +2320,14 @@ province_event = {	#jungle preference
 	option = {
 		name = bertus_pops.1051.a
 		trigger = {
-			OR = {
-				has_harimari_majority_trigger = yes
-				has_hobgoblin_majority_trigger = yes
-				has_orcish_majority_trigger = yes
-				has_half_orcish_majority_trigger = yes
-				culture = forest_goblin
-			}
+			NOT = {has_province_modifier = jungle_preference}
 		}
 		add_permanent_province_modifier = {name = jungle_preference duration = -1}
 	}
 	option = {
 		name = bertus_pops.1051.b
 		trigger = {
-			NOT = {
-				has_harimari_majority_trigger = yes
-				has_hobgoblin_majority_trigger = yes
-				has_orcish_majority_trigger = yes
-				has_half_orcish_majority_trigger = yes
-				culture = forest_goblin
-			}
+			has_province_modifier = jungle_preference
 		}
 		remove_province_modifier = jungle_preference
 	}
@@ -2480,32 +2380,14 @@ province_event = {	#hills preference
 	option = {
 		name = bertus_pops.1052.a
 		trigger = {
-			OR = {
-				has_dwarven_majority_trigger = yes
-				has_gnomish_majority_trigger = yes
-				has_ogre_majority_trigger = yes
-				has_kobold_majority_trigger = yes
-				has_harpy_majority_trigger = yes
-				has_troll_majority_trigger = yes
-				has_hobgoblin_majority_trigger = yes
-				culture = cave_goblin
-			}
+			NOT = {has_province_modifier = hills_preference}
 		}
 		add_permanent_province_modifier = {name = hills_preference duration = -1}
 	}
 	option = {
 		name = bertus_pops.1052.b
 		trigger = {
-			NOT = {
-				has_dwarven_majority_trigger = yes
-				has_gnomish_majority_trigger = yes
-				has_ogre_majority_trigger = yes
-				has_kobold_majority_trigger = yes
-				has_harpy_majority_trigger = yes
-				has_troll_majority_trigger = yes
-				has_hobgoblin_majority_trigger = yes
-				culture = cave_goblin
-			}
+			has_province_modifier = hills_preference
 		}
 		remove_province_modifier = hills_preference
 	}
@@ -2558,32 +2440,14 @@ province_event = {	#highlands preference
 	option = {
 		name = bertus_pops.1053.a
 		trigger = {
-			OR = {
-				has_dwarven_majority_trigger = yes
-				has_gnomish_majority_trigger = yes
-				has_ogre_majority_trigger = yes
-				has_kobold_majority_trigger = yes
-				has_harpy_majority_trigger = yes
-				has_troll_majority_trigger = yes
-				has_hobgoblin_majority_trigger = yes
-				culture = cave_goblin
-			}
+			NOT = {has_province_modifier = highlands_preference}
 		}
 		add_permanent_province_modifier = {name = highlands_preference duration = -1}
 	}
 	option = {
 		name = bertus_pops.1053.b
 		trigger = {
-			NOT = {
-				has_dwarven_majority_trigger = yes
-				has_gnomish_majority_trigger = yes
-				has_ogre_majority_trigger = yes
-				has_kobold_majority_trigger = yes
-				has_harpy_majority_trigger = yes
-				has_troll_majority_trigger = yes
-				has_hobgoblin_majority_trigger = yes
-				culture = cave_goblin
-			}
+			has_province_modifier = highlands_preference
 		}
 		remove_province_modifier = highlands_preference
 	}
@@ -2632,28 +2496,14 @@ province_event = {	#mountain preference
 	option = {
 		name = bertus_pops.1054.a
 		trigger = {
-			OR = {
-				has_dwarven_majority_trigger = yes
-				has_kobold_majority_trigger = yes
-				has_harpy_majority_trigger = yes
-				culture = cave_goblin
-				culture = undergrowth_goblin
-				culture = forest_troll
-			}
+			NOT = {has_province_modifier = mountain_preference}
 		}
 		add_permanent_province_modifier = {name = mountain_preference duration = -1}
 	}
 	option = {
 		name = bertus_pops.1054.b
 		trigger = {
-			NOT = {
-				has_dwarven_majority_trigger = yes
-				has_kobold_majority_trigger = yes
-				has_harpy_majority_trigger = yes
-				culture = cave_goblin
-				culture = undergrowth_goblin
-				culture = forest_troll
-			}
+			has_province_modifier = mountain_preference
 		}
 		remove_province_modifier = mountain_preference
 	}
@@ -2700,26 +2550,14 @@ province_event = {	#cavern preference
 	option = {
 		name = bertus_pops.1055.a
 		trigger = {
-			OR = {
-				has_kobold_majority_trigger = yes
-				has_troll_majority_trigger = yes
-				culture = cave_goblin
-				culture = undergrowth_goblin
-				culture = black_orc
-			}
+			NOT = {has_province_modifier = cavern_preference}
 		}
 		add_permanent_province_modifier = {name = cavern_preference duration = -1}
 	}
 	option = {
 		name = bertus_pops.1055.b
 		trigger = {
-			NOT = {
-				has_kobold_majority_trigger = yes
-				has_troll_majority_trigger = yes
-				culture = cave_goblin
-				culture = undergrowth_goblin
-				culture = black_orc
-			}
+			has_province_modifier = cavern_preference
 		}
 		remove_province_modifier = cavern_preference
 	}
@@ -2773,28 +2611,14 @@ province_event = {	#tunnel preference
 	option = {
 		name = bertus_pops.1056.a
 		trigger = {
-			OR = {
-				has_kobold_majority_trigger = yes
-				has_troll_majority_trigger = yes
-				has_dwarven_majority_trigger = yes
-				culture = cave_goblin
-				culture = undergrowth_goblin
-				culture = black_orc
-			}
+			NOT = {has_province_modifier = tunnel_preference}
 		}
 		add_permanent_province_modifier = {name = tunnel_preference duration = -1}
 	}
 	option = {
 		name = bertus_pops.1056.b
 		trigger = {
-			NOT = {
-				has_kobold_majority_trigger = yes
-				has_troll_majority_trigger = yes
-				has_dwarven_majority_trigger = yes
-				culture = cave_goblin
-				culture = undergrowth_goblin
-				culture = black_orc
-			}
+			has_province_modifier = tunnel_preference
 		}
 		remove_province_modifier = tunnel_preference
 	}
@@ -2837,20 +2661,14 @@ province_event = {	#marsh preference
 	option = {
 		name = bertus_pops.1057.a
 		trigger = {
-			OR = {
-				has_ruinborn_majority_trigger = yes
-				has_gnollish_majority_trigger = yes
-			}
+			NOT = {has_province_modifier = marsh_preference}
 		}
 		add_permanent_province_modifier = {name = marsh_preference duration = -1}
 	}
 	option = {
 		name = bertus_pops.1057.b
 		trigger = {
-			NOT = {
-				has_ruinborn_majority_trigger = yes
-				has_gnollish_majority_trigger = yes
-			}
+			has_province_modifier = marsh_preference
 		}
 		remove_province_modifier = marsh_preference
 	}
@@ -2897,24 +2715,14 @@ province_event = {	#coastal preference
 	option = {
 		name = bertus_pops.1058.a
 		trigger = {
-			OR = {
-				has_ruinborn_majority_trigger = yes
-				has_kobold_majority_trigger = yes
-				culture = fjord_troll
-				culture = west_sandfang_gnoll
-			}
+			NOT = {has_province_modifier = coastal_preference}
 		}
 		add_permanent_province_modifier = {name = coastal_preference duration = -1}
 	}
 	option = {
 		name = bertus_pops.1058.b
 		trigger = {
-			NOT = {
-				has_ruinborn_majority_trigger = yes
-				has_kobold_majority_trigger = yes
-				culture = fjord_troll
-				culture = west_sandfang_gnoll
-			}
+			has_province_modifier = coastal_preference
 		}
 		remove_province_modifier = coastal_preference
 	}
@@ -2959,24 +2767,14 @@ province_event = {	#desert preference
 	option = {
 		name = bertus_pops.1059.a
 		trigger = {
-			OR = {
-				culture = desert_elf
-				has_gnollish_majority_trigger = yes
-				culture = brown_orc
-				culture_group = divenori
-			}
+			NOT = {has_province_modifier = desert_preference}
 		}
 		add_permanent_province_modifier = {name = desert_preference duration = -1}
 	}
 	option = {
 		name = bertus_pops.1059.b
 		trigger = {
-			NOT = {
-				culture = desert_elf
-				has_gnollish_majority_trigger = yes
-				culture = brown_orc
-				culture_group = divenori
-			}
+			has_province_modifier = desert_preference
 		}
 		remove_province_modifier = desert_preference
 	}
@@ -3021,24 +2819,14 @@ province_event = {	#coastal_desert preference
 	option = {
 		name = bertus_pops.1060.a
 		trigger = {
-			OR = {
-				culture = desert_elf
-				has_gnollish_majority_trigger = yes
-				culture = brown_orc
-				culture_group = divenori
-			}
+			NOT = {has_province_modifier = coastal_desert_preference}
 		}
 		add_permanent_province_modifier = {name = coastal_desert_preference duration = -1}
 	}
 	option = {
 		name = bertus_pops.1060.b
 		trigger = {
-			NOT = {
-				culture = desert_elf
-				has_gnollish_majority_trigger = yes
-				culture = brown_orc
-				culture_group = divenori
-			}
+			has_province_modifier = coastal_desert_preference
 		}
 		remove_province_modifier = coastal_desert_preference
 	}
@@ -3081,20 +2869,14 @@ province_event = {	#steppe preference
 	option = {
 		name = bertus_pops.1061.a
 		trigger = {
-			OR = {
-				has_centaur_majority_trigger = yes
-				has_gnollish_majority_trigger = yes
-			}
+			NOT = {has_province_modifier = steppe_preference}
 		}
 		add_permanent_province_modifier = {name = steppe_preference duration = -1}
 	}
 	option = {
 		name = bertus_pops.1061.b
 		trigger = {
-			NOT = {
-				has_centaur_majority_trigger = yes
-				has_gnollish_majority_trigger = yes
-			}
+			has_province_modifier = steppe_preference
 		}
 		remove_province_modifier = steppe_preference
 	}
@@ -3135,20 +2917,14 @@ province_event = {	#savannah preference
 	option = {
 		name = bertus_pops.1062.a
 		trigger = {
-			OR = {
-				has_centaur_majority_trigger = yes
-				has_gnollish_majority_trigger = yes
-			}
+			NOT = {has_province_modifier = savannah_preference}
 		}
 		add_permanent_province_modifier = {name = savannah_preference duration = -1}
 	}
 	option = {
 		name = bertus_pops.1062.b
 		trigger = {
-			NOT = {
-				has_centaur_majority_trigger = yes
-				has_gnollish_majority_trigger = yes
-			}
+			has_province_modifier = savannah_preference
 		}
 		remove_province_modifier = savannah_preference
 	}
@@ -3193,24 +2969,14 @@ province_event = {	#drylands preference
 	option = {
 		name = bertus_pops.1063.a
 		trigger = {
-			OR = {
-				has_centaur_majority_trigger = yes
-				has_gnollish_majority_trigger = yes
-				culture = desert_elf
-				culture = brown_orc
-			}
+			NOT = {has_province_modifier = drylands_preference}
 		}
 		add_permanent_province_modifier = {name = drylands_preference duration = -1}
 	}
 	option = {
 		name = bertus_pops.1063.b
 		trigger = {
-			NOT = {
-				has_centaur_majority_trigger = yes
-				has_gnollish_majority_trigger = yes
-				culture = desert_elf
-				culture = brown_orc
-			}
+			has_province_modifier = drylands_preference
 		}
 		remove_province_modifier = drylands_preference
 	}
@@ -3253,22 +3019,14 @@ province_event = {	#grasslands preference
 	option = {
 		name = bertus_pops.1064.a
 		trigger = {
-			OR = {
-				has_halfling_majority_trigger = yes
-				has_centaur_majority_trigger = yes
-				culture = common_goblin
-			}
+			NOT = {has_province_modifier = grasslands_preference}
 		}
 		add_permanent_province_modifier = {name = grasslands_preference duration = -1}
 	}
 	option = {
 		name = bertus_pops.1064.b
 		trigger = {
-			NOT = {
-				has_halfling_majority_trigger = yes
-				has_centaur_majority_trigger = yes
-				culture = common_goblin
-			}
+			has_province_modifier = grasslands_preference
 		}
 		remove_province_modifier = grasslands_preference
 	}
@@ -3311,22 +3069,14 @@ province_event = {	#farmlands preference
 	option = {
 		name = bertus_pops.1065.a
 		trigger = {
-			OR = {
-				has_halfling_majority_trigger = yes
-				has_centaur_majority_trigger = yes
-				culture = common_goblin
-			}
+			NOT = {has_province_modifier = farmlands_preference}
 		}
 		add_permanent_province_modifier = {name = farmlands_preference duration = -1}
 	}
 	option = {
 		name = bertus_pops.1065.b
 		trigger = {
-			NOT = {
-				has_halfling_majority_trigger = yes
-				has_centaur_majority_trigger = yes
-				culture = common_goblin
-			}
+			has_province_modifier = farmlands_preference
 		}
 		remove_province_modifier = farmlands_preference
 	}
@@ -3369,22 +3119,14 @@ province_event = {	#city preference
 	option = {
 		name = bertus_pops.1066.a
 		trigger = {
-			OR = {
-				has_halfling_majority_trigger = yes
-				has_gnomish_majority_trigger = yes
-				culture = city_goblin
-			}
+			NOT = {has_province_modifier = city_preference}
 		}
 		add_permanent_province_modifier = {name = city_preference duration = -1}
 	}
 	option = {
 		name = bertus_pops.1066.b
 		trigger = {
-			NOT = {
-				has_halfling_majority_trigger = yes
-				has_gnomish_majority_trigger = yes
-				culture = city_goblin
-			}
+			has_province_modifier = city_preference
 		}
 		remove_province_modifier = city_preference
 	}
@@ -3428,24 +3170,14 @@ province_event = {	#arid preference
 	option = {
 		name = bertus_pops.1067.a
 		trigger = {
-			OR = {
-				has_gnollish_majority_trigger = yes
-				culture = desert_elf
-				culture = brown_orc
-				culture_group = divenori
-			}
+			NOT = {has_province_modifier = arid_preference}
 		}
 		add_permanent_province_modifier = {name = arid_preference duration = -1}
 	}
 	option = {
 		name = bertus_pops.1067.b
 		trigger = {
-			NOT = {
-				has_gnollish_majority_trigger = yes
-				culture = desert_elf
-				culture = brown_orc
-				culture_group = divenori
-			}
+			has_province_modifier = arid_preference
 		}
 		remove_province_modifier = arid_preference
 	}
@@ -3525,20 +3257,14 @@ province_event = {	#farmlands dispreference preference
 	option = {
 		name = bertus_pops.1069.a
 		trigger = {
-			OR = {
-				has_gnollish_majority_trigger = yes
-				has_kobold_majority_trigger = yes
-			}
+			NOT = {has_province_modifier = farmlands_dispreference}
 		}
 		add_permanent_province_modifier = {name = farmlands_dispreference duration = -1}
 	}
 	option = {
 		name = bertus_pops.1069.b
 		trigger = {
-			NOT = {
-				has_gnollish_majority_trigger = yes
-				has_kobold_majority_trigger = yes
-			}
+			has_province_modifier = farmlands_dispreference
 		}
 		remove_province_modifier = farmlands_dispreference
 	}
@@ -3585,26 +3311,14 @@ province_event = {	#marsh dispreference preference
 	option = {
 		name = bertus_pops.1070.a
 		trigger = {
-			OR = {
-				has_dwarven_majority_trigger = yes
-				has_goblin_majority_trigger = yes
-				has_gnomish_majority_trigger = yes
-				has_halfling_majority_trigger = yes
-				has_harimari_majority_trigger = yes
-			}
+			NOT = {has_province_modifier = marsh_dispreference}
 		}
 		add_permanent_province_modifier = {name = marsh_dispreference duration = -1}
 	}
 	option = {
 		name = bertus_pops.1070.b
 		trigger = {
-			NOT = {
-				has_dwarven_majority_trigger = yes
-				has_goblin_majority_trigger = yes
-				has_gnomish_majority_trigger = yes
-				has_halfling_majority_trigger = yes
-				has_harimari_majority_trigger = yes
-			}
+			has_province_modifier = marsh_dispreference
 		}
 		remove_province_modifier = marsh_dispreference
 	}
@@ -3653,21 +3367,14 @@ province_event = {	#woods dispreference preference
 	option = {
 		name = bertus_pops.1071.a
 		trigger = {
-			OR = {
-				has_ogre_majority_trigger = yes
-				has_centaur_majority_trigger = yes
-			}
+			NOT = {has_province_modifier = woods_dispreference}
 		}
 		add_permanent_province_modifier = {name = woods_dispreference duration = -1}
 	}
 	option = {
 		name = bertus_pops.1071.b
 		trigger = {
-		
-			NOT = {
-				has_ogre_majority_trigger = yes
-				has_centaur_majority_trigger = yes
-			}
+			has_province_modifier = woods_dispreference
 		}
 		remove_province_modifier = woods_dispreference
 	}
@@ -3993,6 +3700,175 @@ province_event = {
 			has_pop_race_modifier = {race = all class = parliament amount = 20percent resource = manpower}
 		}
 		remove_pop_modifier = {race = all class = parliament amount = 20percent resource = manpower}
+	}
+}
+province_event = {	#racial sailors bonus 
+	id = bertus_pops.1079
+	title = bertus_pops.1079.t
+	desc = bertus_pops.1079.desc
+	picture = DIPLOMACY_eventPicture
+	
+	hidden = yes
+	
+    trigger = {
+		is_city = yes
+		has_port = yes
+		OR = {
+			AND = {
+				NOT = {
+					has_pop_race_modifier = {race = all  class = bonus  amount = 20percent resource = sailors }
+				}
+				OR = {
+					has_kobold_majority_trigger = yes
+				}
+			}
+			AND = {
+				has_pop_race_modifier = {race = all  class = bonus  amount = 20percent resource = sailors }
+				has_kobold_majority_trigger = no
+			}
+		}
+    }
+	
+
+	option = {
+		name = bertus_pops.1079.a
+		trigger = {
+			NOT = {
+				has_pop_race_modifier = {race = all  class = bonus  amount = 20percent resource = sailors }
+			}
+		}
+		add_pop_modifier = {race = all  class = bonus  amount = 20percent  resource = sailors  onbase = development}
+	}
+	option = {
+		name = bertus_pops.1079.b
+		trigger = {
+			has_pop_race_modifier = {race = all  class = bonus  amount = 20percent  resource = sailors }
+		}
+		remove_pop_modifier = {race = all  class = bonus  amount = 20percent  resource = sailors }
+	}
+}
+province_event = {	#goblin farming and crafting malus 
+	id = bertus_pops.1080
+	title = bertus_pops.1080.t
+	desc = bertus_pops.1080.desc
+	picture = DIPLOMACY_eventPicture
+	
+	hidden = yes
+	
+    trigger = {
+		is_city = yes
+		OR = {
+			AND = {
+				NOT = {
+					has_pop_race_modifier = {race = goblin class = malus  amount = 25percent  resource = goods_produced }
+				}
+				OR = {
+					trade_goods = cloth
+					trade_goods = silk
+					trade_goods = naval_supplies
+					trade_goods = incense
+					trade_goods = tea
+					trade_goods = coffee
+					trade_goods = cotton
+					trade_goods = ivory 
+					trade_goods = sugar
+				}
+				has_goblin_majority_trigger = yes
+			}
+			AND = {
+				has_pop_race_modifier = {race = goblin class = malus  amount = 25percent  resource = goods_produced }
+				OR = {
+					trade_goods = cloth
+					trade_goods = silk
+					trade_goods = naval_supplies
+					trade_goods = incense
+					trade_goods = tea
+					trade_goods = coffee
+					trade_goods = cotton
+					trade_goods = ivory 
+					trade_goods = sugar
+				}
+				has_goblin_majority_trigger = no
+			}
+		}
+    }
+
+	option = {
+		name = bertus_pops.1080.a
+		trigger = {
+			NOT = {
+				has_pop_race_modifier = {race = goblin class = malus  amount = 25percent  resource = goods_produced }
+			}
+		}
+		add_pop_modifier = {race = goblin class = malus  amount = 25percent  resource = goods_produced  onbase = base_production}
+	}
+	option = {
+		name = bertus_pops.1080.b
+		trigger = {
+			has_pop_race_modifier = {race = goblin class = malus  amount = 25percent  resource = goods_produced }
+		}
+		remove_pop_modifier = {race = goblin class = malus  amount = 25percent  resource = goods_produced }
+	}
+}
+province_event = {	#kobold farming and crafting malus 
+	id = bertus_pops.1081
+	title = bertus_pops.1081.t
+	desc = bertus_pops.1081.desc
+	picture = DIPLOMACY_eventPicture
+	
+	hidden = yes
+	
+    trigger = {
+		is_city = yes
+		OR = {
+			AND = {
+				NOT = {
+					has_pop_race_modifier = {race = kobold class = malus  amount = 25percent  resource = goods_produced }
+				}
+				OR = {
+					trade_goods = cloth
+					trade_goods = silk
+					trade_goods = incense
+					trade_goods = tea
+					trade_goods = coffee
+					trade_goods = cotton
+					trade_goods = ivory
+					trade_goods = sugar
+				}
+				has_kobold_majority_trigger = yes
+			}
+			AND = {
+				has_pop_race_modifier = {race = kobold class = malus  amount = 25percent  resource = goods_produced }
+				OR = {
+					trade_goods = cloth
+					trade_goods = silk
+					trade_goods = incense
+					trade_goods = tea
+					trade_goods = coffee
+					trade_goods = cotton
+					trade_goods = ivory 
+					trade_goods = sugar
+				}
+				has_kobold_majority_trigger = no
+			}
+		}
+    }
+
+	option = {
+		name = bertus_pops.1081.a
+		trigger = {
+			NOT = {
+				has_pop_race_modifier = {race = kobold class = malus  amount = 25percent  resource = goods_produced }
+			}
+		}
+		add_pop_modifier = {race = kobold class = malus  amount = 25percent  resource = goods_produced  onbase = base_production}
+	}
+	option = {
+		name = bertus_pops.1081.b
+		trigger = {
+			has_pop_race_modifier = {race = kobold class = malus  amount = 25percent  resource = goods_produced }
+		}
+		remove_pop_modifier = {race = kobold class = malus  amount = 25percent  resource = goods_produced }
 	}
 }
 province_event = {	#orc+human into half-orc

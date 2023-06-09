@@ -4934,6 +4934,13 @@ on_adm_development = {
 			add_base_tax = 1 
 		}
 	}
+	if = {	#bertus mod
+		limit = {has_terrain = cavern owner = {has_idea = Z38_dragonheight_undercities}}
+		random = {
+			chance = 20 
+			add_base_tax = 1
+		}
+	}
 
 	#Anbennar
 	events = {
@@ -5060,6 +5067,13 @@ on_dip_development = {
 			add_base_production = 1
 		}
 	}
+	if = {	#bertus mod
+		limit = {has_terrain = cavern owner = {has_idea = Z38_dragonheight_undercities}}
+		random = {
+			chance = 20 
+			add_base_production = 1
+		}
+	}
 	if = {
 		limit = { owner = { has_country_flag = enable_supplemental_development_flag } }
 		random = {
@@ -5134,6 +5148,13 @@ on_mil_development = {
 		limit = { owner = {has_estate_privilege = artifice_invention_city_bots}}
 		random = {
 			chance = 10 
+			add_base_manpower = 1
+		}
+	}
+	if = {	#bertus mod
+		limit = {has_terrain = cavern owner = {has_idea = Z38_dragonheight_undercities}}
+		random = {
+			chance = 20 
 			add_base_manpower = 1
 		}
 	}
@@ -5276,7 +5297,7 @@ on_yearly_pulse = {
 			}
 			if = {
 				limit = {
-					has_building = trade_station
+					has_building = tradecompany
 				}
 				owner = {
 					add_government_power = {
@@ -5290,7 +5311,7 @@ on_yearly_pulse = {
 	}
 	if = {
 		limit = {tag = A13 NOT = {has_global_flag = wars_of_dominion_happened_flag}}
-		increase_dominion_wars_tension = {amount = 1}
+		increase_dominion_wars_tension = {amount = 5}
 	}
 	if = { limit = { tag = I03 } country_event = { id = flavor_vazhatun.100 } }
 }
@@ -7595,6 +7616,7 @@ on_five_year_pulse = {
 	if = {
 		limit = {
 			has_government_mechanic = enslavement_mechanic
+			ai = no
 		}
 		decrease_slave_cost = yes
 	}
@@ -8574,9 +8596,12 @@ on_province_culture_changed = {
 	#judaism_on_province_culture_converted_effect = yes
 	#imperial_modifiers_on_province_change_culture_or_change_owner_effect = yes
 	on_province_culture_change_effect = yes
-	add_province_modifier = {	#bertus mod
-		name = non_military_pop
-		duration = -1
+	if = {
+		limit = {has_non_military_pop = yes}
+		add_province_modifier = {	#bertus mod
+			name = non_military_pop
+			duration = -1
+		}
 	}
 }
 
@@ -8600,10 +8625,12 @@ on_province_owner_change = {
 	on_province_owner_change_estate_privileges_effect = yes
 
 	#Anbennar
-	#Krakazol/Rahen initial friendship, formerly rahen.1
-	add_province_modifier = {	#bertus mod
-		name = non_military_pop
-		duration = -1
+	if = {
+		limit = {NOT = {owner = {is_core = PREV}}}
+		add_province_modifier = {	#bertus mod
+			name = non_military_pop
+			duration = -1
+		}
 	}
 	if = {	#bertus mod
 		limit = {
@@ -8612,6 +8639,7 @@ on_province_owner_change = {
 		add_elven_minority_size_effect = yes
 	}
 
+	#Krakazol/Rahen initial friendship, formerly rahen.1
 	if = {
 		limit = {
 			province_id = 4266
@@ -10936,52 +10964,7 @@ on_country_released = {
 on_trade_good_changed = {
 	on_trade_good_changed_estate_privileges_effect = yes
 	on_trade_good_changed_government_effect = yes
-	if = {
-		limit = {
-			OR = {
-				has_province_modifier = wine_bonus_prod
-				has_province_modifier = grain_bonus_prod
-				has_province_modifier = artifice_ageifier_bonus
-				has_province_modifier = artifice_growthbeans_bonus
-				has_province_modifier = artifice_gene_food_cultivation_bonus
-				has_province_modifier = artifice_pearl_cultivator_bonus
-				has_province_modifier = wine_lord_wine
-				has_province_modifier = phoenix_empire_bulwar_gov_cost_modifier
-				has_province_modifier = oak_lord_province_modifier
-				has_province_modifier = eordan_expedition_site
-				has_province_modifier = damestear_rich_deposit
-				has_province_modifier = huge_damestear
-				has_province_modifier = big_fungi
-				has_province_modifier = dwindling_resources
-				has_province_modifier = orlghelovar_glasslord_glass
-				has_province_modifier = orlghelovar_reformed_glassworkers
-				has_province_modifier = orlghelovar_glass_value
-				has_province_modifier = B34_board_of_chains_boost
-				has_province_modifier = B34_board_of_chains_boost_upgraded
-				has_province_modifier = B34_board_of_chains_boost_upgraded_2
-			}
-		}
-		remove_province_modifier = wine_bonus_prod
-		remove_province_modifier = grain_bonus_prod
-		remove_province_modifier = artifice_ageifier_bonus
-		remove_province_modifier = artifice_growthbeans_bonus
-		remove_province_modifier = artifice_gene_food_cultivation_bonus
-		remove_province_modifier = artifice_pearl_cultivator_bonus
-		remove_province_modifier = wine_lord_wine
-		remove_province_modifier = phoenix_empire_bulwar_gov_cost_modifier
-		remove_province_modifier = oak_lord_province_modifier
-		remove_province_modifier = eordan_expedition_site
-		remove_province_modifier = damestear_rich_deposit
-		remove_province_modifier = huge_damestear
-		remove_province_modifier = big_fungi
-		remove_province_modifier = dwindling_resources
-		remove_province_modifier = orlghelovar_glasslord_glass
-		remove_province_modifier = orlghelovar_reformed_glassworkers
-		remove_province_modifier = orlghelovar_glass_value
-		remove_province_modifier = B34_board_of_chains_boost
-		remove_province_modifier = B34_board_of_chains_boost_upgraded
-		remove_province_modifier = B34_board_of_chains_boost_upgraded_2
-	}
+	on_trade_good_changed_bertus_effect = yes
 	if = {
 		limit = { 
 			has_advanced_hold_infrastructure = yes
@@ -10992,215 +10975,6 @@ on_trade_good_changed = {
 		}
 		clr_hold_advanced_infrastructure = yes
 	}
-	hidden_effect = {
-		if = {
-			limit = {
-				trade_goods = wine
-				FROM = { has_reform = monastic_breweries_reform }
-			}
-			remove_province_modifier = grain_bonus_prod
-			add_province_modifier = {
-				name = wine_bonus_prod
-				duration = -1
-				hidden = yes
-			}
-		}
-		if = {
-			limit = {
-				trade_goods = wine
-				FROM = { has_government_attribute = winelord_boost}
-			}
-			add_province_modifier = {
-				name = wine_lord_wine
-				duration = -1
-				hidden = yes
-			}
-		}
-		if = {
-			limit = {
-				superregion = bulwar_superregion
-				FROM = { has_government_attribute = bulwar_reduced_governing_cost}
-			}
-			add_province_modifier = {
-				name = phoenix_empire_bulwar_gov_cost_modifier
-				duration = -1
-				hidden = yes
-			}
-		}
-		if = {
-			limit = {
-				OR = {
-					trade_goods = wine
-					trade_goods = champagne
-				}
-				owner = {
-					has_estate_privilege = artifice_invention_wine_ageifier
-				}
-			}
-			add_province_modifier = {
-				name = artifice_ageifier_bonus
-				duration = -1
-				hidden = yes
-			}
-		}
-		if = {
-			limit = {
-				owner = {
-					has_estate_privilege = artifice_invention_growth_beans
-				}
-				province_with_farm_goods = yes
-			}
-			add_province_modifier = {
-				name = artifice_growthbeans_bonus
-				duration = -1
-				hidden = yes
-			}
-		}
-		if = {
-			limit = {
-				owner = {
-					has_estate_privilege = artifice_invention_gene_food_cultivation
-				}
-				province_with_farm_goods = yes
-			}
-			add_province_modifier = {
-				name = artifice_gene_food_cultivation_bonus
-				duration = -1
-				hidden = yes
-			}
-		}
-		if = {
-			limit = {
-				trade_goods = gems
-				owner = {
-					has_estate_privilege = artifice_invention_pearl_cultivators
-				}
-			}
-			add_province_modifier = {
-				name = artifice_pearl_cultivator_bonus
-				duration = -1
-				hidden = yes
-			}
-		}
-		if = {
-			limit = {
-				trade_goods = grain
-				OR = {
-					FROM = { has_reform = monastic_breweries_reform }
-				}
-			}
-			remove_province_modifier = wine_bonus_prod
-			add_province_modifier = {
-				name = grain_bonus_prod
-				duration = -1
-				hidden = yes
-			}
-		}
-		
-		#honderaak incident gnoll minorities for colonies
-		if = {
-			limit = {
-				is_city = no
-				owner = { is_part_of_hre = yes has_country_modifier = honderaak_incident_colonization NOT = { culture_group = gnollish } }
-			}
-			random = {
-				chance = 50
-				province_event = { id = flavor_honderaak.6 days = 30 random = 60 }
-			}
-		}
-		#Orlghelovar
-		if = {
-			limit = {
-				trade_goods = glass
-				owner = { tag = I12 }
-			}
-			if = {
-				limit = {
-					owner = {
-						OR = {
-							has_reform = orlghelovar_glasslords
-							has_reform = orlghelovar_science
-						}
-					}
-					NOT = { has_province_modifier = orlghelovar_glasslord_glass }
-				}
-				add_province_modifier = { name = orlghelovar_glasslord_glass duration = -1 hidden = yes }
-			}
-			if = {
-				limit = {
-					owner = { has_reform = orlghelovar_glass_worker_reform }
-					NOT = { has_province_modifier = orlghelovar_reformed_glassworkers }
-				}
-				add_province_modifier = { name = orlghelovar_reformed_glassworkers duration = -1 hidden = yes }
-			}
-			if = {
-				limit = {
-					owner = { has_country_modifier = orlghelovar_sapphire_glass }
-					NOT = { has_province_modifier = orlghelovar_glass_value }
-				}
-				add_province_modifier = { name = orlghelovar_glass_value duration = -1 hidden = yes }
-			}
-		}
-		#luciande
-		if = {
-			limit = { 
-				owner = { tag = B34 }
-				trade_goods = slaves
-			}
-			if = {
-				limit = {
-					owner = { has_country_flag = luciande_tier3_slaves_flag }
-				}
-				add_province_modifier = { name = B34_board_of_chains_boost_upgraded_2 duration = -1 hidden = yes }
-			}
-			else_if = {
-				limit = {
-					owner = { has_country_flag = luciande_tier2_slaves_flag }
-				}
-				add_province_modifier = { name = B34_board_of_chains_boost_upgraded duration = -1 hidden = yes }
-			}
-			else_if = {
-				limit = {
-					owner = { has_country_flag = luciande_tier1_slaves_flag }
-				}
-				add_province_modifier = { name = B34_board_of_chains_boost duration = -1 hidden = yes }
-			}
-		}
-		#newshire
-		if = {
-			limit = {
-				OR = {
-					trade_goods = grain
-					trade_goods = livestock
-				}
-				FROM = { 
-					OR = {
-						has_reform = newshire_stewardship
-						has_reform = newshire_high_stewardship
-					}
-				}
-			}
-			add_province_modifier = {
-				name = newshire_stewardship_boost
-				duration = -1
-				hidden = yes
-			}
-		}
-		else_if = {
-			limit = {
-				NOT = { 
-					FROM = { 
-						OR = {
-							has_reform = newshire_stewardship
-							has_reform = newshire_high_stewardship
-						}
-					} 
-				}
-				has_province_modifier = newshire_stewardship_boost
-			}
-			remove_province_modifier = newshire_stewardship_boost
-		}
-    }
 }
 
 # this = country
@@ -11950,6 +11724,13 @@ on_adm_exploited = {
 	}
 	if = {
 		limit = { owner = { has_government_attribute = may_not_reduce_tax_on_foreign_exploitation NOT = { culture_group = ROOT } } }
+		random = {
+			chance = 50
+			add_base_tax = 1
+		}
+	}
+	if = {	#bertus mod
+		limit = {has_terrain = cavern owner = {has_idea = Z38_dragonheight_undercities}}
 		random = {
 			chance = 50
 			add_base_tax = 1

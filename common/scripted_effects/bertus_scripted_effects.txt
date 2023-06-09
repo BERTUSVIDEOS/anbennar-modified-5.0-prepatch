@@ -1092,6 +1092,36 @@ kobold_celebrate_effect = {
 		limit = {has_dragon_aspect = {color = white amount = 1}}
 		add_adm_power = 50
 	}
+	if = {	#purple
+		limit = {has_dragon_aspect = {color = purple amount = 3}}
+		custom_tooltip = purple_dragon_effect_20_tt
+		hidden_effect = {
+			every_owned_province = {
+				limit = {culture_is_kobold = yes}
+				add_local_autonomy = -20
+			}
+		}
+	}
+	else_if = {	#purple
+		limit = {has_dragon_aspect = {color = purple amount = 2}}
+		custom_tooltip = purple_dragon_effect_10_tt
+		hidden_effect = {
+			every_owned_province = {
+				limit = {culture_is_kobold = yes}
+				add_local_autonomy = -10
+			}
+		}
+	}
+	else_if = {	#purple
+		limit = {has_dragon_aspect = {color = purple amount = 1}}
+		custom_tooltip = purple_dragon_effect_5_tt
+		hidden_effect = {
+			every_owned_province = {
+				limit = {culture_is_kobold = yes}
+				add_local_autonomy = -5
+			}
+		}
+	}
 	if = {	#brown
 		limit = {has_dragon_aspect = {color = brownd amount = 3}}
 		set_country_flag = get_elder_advisor_flag
@@ -1361,4 +1391,238 @@ get_cash_from_mercantilism = {
 			add_years_of_income = 0.03
 		}
 	}
+}
+on_trade_good_changed_bertus_effect = {
+
+	remove_boost_pop_goods_produced = yes
+	remove_province_modifier_effect = { MODIFIER = wine_bonus_prod}
+	remove_province_modifier_effect = { MODIFIER = grain_bonus_prod}
+	remove_province_modifier_effect = { MODIFIER = artifice_ageifier_bonus}
+	remove_province_modifier_effect = { MODIFIER = artifice_growthbeans_bonus}
+	remove_province_modifier_effect = { MODIFIER = artifice_gene_food_cultivation_bonus}
+	remove_province_modifier_effect = { MODIFIER = artifice_pearl_cultivator_bonus}
+	remove_province_modifier_effect = { MODIFIER = wine_lord_wine}
+	remove_province_modifier_effect = { MODIFIER = phoenix_empire_bulwar_gov_cost_modifier}
+	remove_province_modifier_effect = { MODIFIER = oak_lord_province_modifier}
+	remove_province_modifier_effect = { MODIFIER = eordan_expedition_site}
+	remove_province_modifier_effect = { MODIFIER = damestear_rich_deposit}
+	remove_province_modifier_effect = { MODIFIER = huge_damestear}
+	remove_province_modifier_effect = { MODIFIER = big_fungi}
+	remove_province_modifier_effect = { MODIFIER = dwindling_resources}
+	remove_province_modifier_effect = { MODIFIER = orlghelovar_glasslord_glass}
+	remove_province_modifier_effect = { MODIFIER = orlghelovar_reformed_glassworkers}
+	remove_province_modifier_effect = { MODIFIER = orlghelovar_glass_value}
+	remove_province_modifier_effect = { MODIFIER = B34_board_of_chains_boost}
+	remove_province_modifier_effect = { MODIFIER = B34_board_of_chains_boost_upgraded}
+	remove_province_modifier_effect = { MODIFIER = B34_board_of_chains_boost_upgraded_2}
+	remove_province_modifier_effect = { MODIFIER = slave_boost_modifier}
+	remove_province_modifier_effect = { MODIFIER = silk_forest_modifier}
+	remove_province_modifier_effect = { MODIFIER = estalleni_silks}
+	remove_province_modifier_effect = { MODIFIER = cheese_trade_modifier}
+	remove_province_modifier_effect = { MODIFIER = rum_trade_modifier}
+	remove_province_modifier_effect = { MODIFIER = maple_syrup_trade_modifier}
+	remove_province_modifier_effect = { MODIFIER = olive_trade_modifier}
+	remove_province_modifier_effect = { MODIFIER = lumber_trade_modifier}
+	remove_province_modifier_effect = { MODIFIER = lumber_red_oak_trade_modifier}
+	remove_province_modifier_effect = { MODIFIER = lumber_grey_oak_trade_modifier}
+	remove_province_modifier_effect = { MODIFIER = blue_marble_trade_modifier}
+	remove_province_modifier_effect = { MODIFIER = citrus_trade_modifier}
+	remove_province_modifier_effect = { MODIFIER = viswall_dyes_modifier}
+	remove_province_modifier_effect = { MODIFIER = telgeir_champagne_modifier}
+	remove_province_modifier_effect = { MODIFIER = jewel_trade_modifier}
+	remove_province_modifier_effect = { MODIFIER = jewelpoint_modifier}
+	remove_province_modifier_effect = { MODIFIER = the_pearls_modifier}
+	remove_province_modifier_effect = { MODIFIER = soulstones_of_isle_vroren}
+	remove_province_modifier_effect = { MODIFIER = vanbury_steel_foundry}
+	remove_province_modifier_effect = { MODIFIER = copper_trade_modifier}
+	remove_province_modifier_effect = { MODIFIER = horse_garden_modifier}
+	remove_province_modifier_effect = { MODIFIER = northern_fur_modifier}
+	remove_province_modifier_effect = { MODIFIER = tar_bonus_modifier}
+	remove_province_modifier_effect = { MODIFIER = whaling_thaw_modifier}
+	remove_province_modifier_effect = { MODIFIER = beer_boost_modifier}
+	remove_province_modifier_effect = { MODIFIER = incense_boost_modifier}
+	remove_province_modifier_effect = { MODIFIER = fish_boost_modifier}
+	remove_province_modifier_effect = { MODIFIER = naval_supplies_boost_modifier}
+	remove_province_modifier_effect = { MODIFIER = lorent_bottlemaking_monopoly}
+	remove_province_modifier_effect = { MODIFIER = giberd_artificer_manufactories}
+	remove_province_modifier_effect = { MODIFIER = glass_trade_modifier}
+	remove_province_modifier_effect = { MODIFIER = iron_trade_modifier}
+	remove_province_modifier_effect = { MODIFIER = grain_trade_modifier}
+	remove_province_modifier_effect = { MODIFIER = gems_trade_modifier}
+	remove_province_modifier_effect = { MODIFIER = lead_trade_modifier}
+	remove_province_modifier_effect = { MODIFIER = wine_trade_modifier}
+	
+	hidden_effect = {
+		if = {
+			limit = {
+				trade_goods = wine
+				FROM = { has_reform = monastic_breweries_reform }
+			}
+			remove_province_modifier = grain_bonus_prod
+			add_province_modifier = {name = wine_bonus_prod duration = -1 hidden = yes}
+		}
+		if = {
+			limit = {
+				trade_goods = wine
+				FROM = { has_government_attribute = winelord_boost}
+			}
+			add_province_modifier = {name = wine_lord_wine duration = -1 hidden = yes}
+		}
+		if = {
+			limit = {
+				superregion = bulwar_superregion
+				FROM = { has_government_attribute = bulwar_reduced_governing_cost}
+			}
+			add_province_modifier = {name = phoenix_empire_bulwar_gov_cost_modifier duration = -1 hidden = yes}
+		}
+		if = {
+			limit = {
+				OR = {
+					trade_goods = wine
+					trade_goods = champagne
+				}
+				owner = {
+					has_estate_privilege = artifice_invention_wine_ageifier
+				}
+			}
+			add_province_modifier = {name = artifice_ageifier_bonus duration = -1 hidden = yes}
+		}
+		if = {
+			limit = {
+				owner = {
+					has_estate_privilege = artifice_invention_growth_beans
+				}
+				province_with_farm_goods = yes
+			}
+			add_province_modifier = { name = artifice_growthbeans_bonus duration = -1 hidden = yes}
+		}
+		if = {
+			limit = {
+				owner = {
+					has_estate_privilege = artifice_invention_gene_food_cultivation
+				}
+				province_with_farm_goods = yes
+			}
+			add_province_modifier = {name = artifice_gene_food_cultivation_bonus duration = -1 hidden = yes}
+		}
+		if = {
+			limit = {
+				trade_goods = gems
+				owner = {
+					has_estate_privilege = artifice_invention_pearl_cultivators
+				}
+			}
+			add_province_modifier = {name = artifice_pearl_cultivator_bonus duration = -1 hidden = yes}
+		}
+		if = {
+			limit = {
+				trade_goods = grain
+				OR = {
+					FROM = { has_reform = monastic_breweries_reform }
+				}
+			}
+			remove_province_modifier = wine_bonus_prod
+			add_province_modifier = {name = grain_bonus_prod duration = -1 hidden = yes}
+		}
+		
+		#honderaak incident gnoll minorities for colonies
+		if = {
+			limit = {
+				is_city = no
+				owner = { is_part_of_hre = yes has_country_modifier = honderaak_incident_colonization NOT = { culture_group = gnollish } }
+			}
+			random = {
+				chance = 50
+				province_event = { id = flavor_honderaak.6 days = 30 random = 60 }
+			}
+		}
+		#Orlghelovar
+		if = {
+			limit = {
+				trade_goods = glass
+				owner = { tag = I12 }
+			}
+			if = {
+				limit = {
+					owner = {
+						OR = {
+							has_reform = orlghelovar_glasslords
+							has_reform = orlghelovar_science
+						}
+					}
+					NOT = { has_province_modifier = orlghelovar_glasslord_glass }
+				}
+				add_province_modifier = { name = orlghelovar_glasslord_glass duration = -1 hidden = yes }
+			}
+			if = {
+				limit = {
+					owner = { has_reform = orlghelovar_glass_worker_reform }
+					NOT = { has_province_modifier = orlghelovar_reformed_glassworkers }
+				}
+				add_province_modifier = { name = orlghelovar_reformed_glassworkers duration = -1 hidden = yes }
+			}
+			if = {
+				limit = {
+					owner = { has_country_modifier = orlghelovar_sapphire_glass }
+					NOT = { has_province_modifier = orlghelovar_glass_value }
+				}
+				add_province_modifier = { name = orlghelovar_glass_value duration = -1 hidden = yes }
+			}
+		}
+		#luciande
+		if = {
+			limit = { 
+				owner = { tag = B34 }
+				trade_goods = slaves
+			}
+			if = {
+				limit = {
+					owner = { has_country_flag = luciande_tier3_slaves_flag }
+				}
+				add_province_modifier = { name = B34_board_of_chains_boost_upgraded_2 duration = -1 hidden = yes }
+			}
+			else_if = {
+				limit = {
+					owner = { has_country_flag = luciande_tier2_slaves_flag }
+				}
+				add_province_modifier = { name = B34_board_of_chains_boost_upgraded duration = -1 hidden = yes }
+			}
+			else_if = {
+				limit = {
+					owner = { has_country_flag = luciande_tier1_slaves_flag }
+				}
+				add_province_modifier = { name = B34_board_of_chains_boost duration = -1 hidden = yes }
+			}
+		}
+		#newshire
+		if = {
+			limit = {
+				OR = {
+					trade_goods = grain
+					trade_goods = livestock
+				}
+				FROM = { 
+					OR = {
+						has_reform = newshire_stewardship
+						has_reform = newshire_high_stewardship
+					}
+				}
+			}
+			add_province_modifier = {name = newshire_stewardship_boost duration = -1 hidden = yes}
+		}
+		else_if = {
+			limit = {
+				NOT = { 
+					FROM = { 
+						OR = {
+							has_reform = newshire_stewardship
+							has_reform = newshire_high_stewardship
+						}
+					} 
+				}
+				has_province_modifier = newshire_stewardship_boost
+			}
+			remove_province_modifier = newshire_stewardship_boost
+		}
+    }
 }
