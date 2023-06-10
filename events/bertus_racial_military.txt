@@ -50,8 +50,6 @@ country_event = {
 	
 	option = {
 		name = "bertus_racial_military.1001.a"	
-		setup_artificers_academies = yes
-		setup_battlemages_shock = yes
 	}
 	
 	after = {
@@ -148,7 +146,29 @@ country_event = {
 				share = -0.1
 			}
 		}
-		update_tech_group = yes
+		if = {
+			limit = {
+				any_country = {
+					war_with = ROOT
+					any_province = {
+						units_in_province = PREV
+						OR = {
+							units_in_province = ROOT
+							any_neighbor_province = { 
+								units_in_province = ROOT
+							}
+						}
+					}
+				}
+			}
+			country_event = {
+				id = bertus_racial_military.1001
+				days = 30
+			}
+		}
+		else = {
+			update_tech_group = yes
+		}
 		update_race_modifiers = yes
 	}
 }

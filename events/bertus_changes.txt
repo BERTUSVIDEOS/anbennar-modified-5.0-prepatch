@@ -14,7 +14,7 @@ country_event = {
 	is_triggered_only = yes
 	
 	mean_time_to_happen = {
-		months = 1
+		days = 1
 	}
 	# 
 	immediate = {
@@ -37,6 +37,7 @@ country_event = {
 				ryala = {add_ruler_modifier = {name = ryala_deity duration = -1}}
 				minara = {add_ruler_modifier = {name = minara_deity duration = -1}}
 				falah = {add_ruler_modifier = {name = falah_deity duration = -1}}
+				falah_freemarches = {add_ruler_modifier = {name = falah_freemarches_deity duration = -1}}
 				nerat = {add_ruler_modifier = {name = nerat_deity duration = -1}}
 				nathalyne = {add_ruler_modifier = {name = nathalyne_deity duration = -1}}
 				adean_adenica_admin = {add_ruler_modifier = {name = adean_adenica_admin_deity duration = -1}}
@@ -85,6 +86,7 @@ country_event = {
 			NOT = {has_ruler_modifier = adean_deity}
 		}
 		change_personal_deity = adean
+		custom_tooltip = cavalry_shock_075_tt
 	}
 	# 
 	option = {
@@ -153,8 +155,17 @@ country_event = {
 		name = "bertus_changes.1001.k"
 		trigger = {
 			NOT = {has_ruler_modifier = falah_deity}
+			NOT = {has_ruler_modifier = falah_freemarches_deity}
 		}
-		change_personal_deity = falah
+		if = {
+			limit = {has_country_flag = H51_improved_falah }
+			change_personal_deity = falah_freemarches
+			custom_tooltip = infantry_shock_20_tt
+		}
+		else = {
+			change_personal_deity = falah
+			custom_tooltip = infantry_shock_10_tt
+		}
 	}
 	option = {
 		name = "bertus_changes.1001.l"
@@ -185,6 +196,7 @@ country_event = {
 			NOT = {has_ruler_modifier = adean_adenica_war_deity}
 		}
 		change_personal_deity = adean_adenica_war
+		custom_tooltip = cavalry_shock_15_tt
 	}
 	option = {
 		name = "bertus_changes.1001.p"
@@ -239,7 +251,7 @@ province_event = {	#theatre/opera cultural change
 			}
 			had_province_flag = {
 				flag = theatre_lvl_2_flag
-				months = 1825
+				days = 1825
 			}
 		}
 	}
@@ -2245,10 +2257,10 @@ country_event = {	#setup players electors & other stuff
 			}
 		}
 		country_event = {id = bertus_racial_military.1001}
-		country_event = {id = ANEX_event.35 months = 10}
+		country_event = {id = ANEX_event.35 days = 10}
 		country_event = {id = bertus_goods.1001 days = 20}
 		country_event = {id = bertus_goods.1002 days = 60}
-		country_event = {id = bertus_goods.1002 months = 10}
+		country_event = {id = bertus_goods.1002 days = 10}
 		if = {
 			limit = {is_part_of_hre = yes is_elector = no}
 			elector = yes
@@ -6535,7 +6547,7 @@ province_event = {
 			NOT = {has_province_flag = had_raiding_parties_flag}
 			had_province_flag = {
 				flag = had_raiding_parties_flag
-				months = 1825
+				days = 1825
 			}
 		}
 		owner = {
