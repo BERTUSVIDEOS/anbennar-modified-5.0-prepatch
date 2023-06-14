@@ -6,6 +6,50 @@ Z22_celmador_dalr_expansion = {
 	potential = { tag = Z22 }
 	has_country_shield = yes
 
+	Z22_frozenmaw_plan = {
+		icon = swiss_mercenaries
+		required_missions = {  }
+		position = 1
+		
+		provinces_to_highlight = {
+		}
+		
+		trigger = {
+			war_with = Z18
+		}
+		effect = {
+			add_country_modifier = {
+				name = temporary_slacken_modifier
+				duration = 1825
+			}
+			add_country_modifier = {
+				name = redglades_nuclear_modifier
+				duration = 1825
+			}
+		}
+	}
+	Z22_gawed_plan = {
+		icon = spa_reform_tercios
+		required_missions = {  }
+		position = 1
+		
+		provinces_to_highlight = {
+		}
+		
+		trigger = {
+			war_with = Z18
+		}
+		effect = {
+			add_country_modifier = {
+				name = temporary_slacken_modifier
+				duration = 1825
+			}
+			add_country_modifier = {
+				name = mission_nuclear_modifier
+				duration = 1825
+			}
+		}
+	}
 	Z22_naval_domination = {
 		icon = mission_rb_a_mighty_fleet
 		required_missions = {  }
@@ -110,9 +154,9 @@ Z22_celmador_dalr_expansion = {
 		}
 		
 		trigger = {
-			dalr_region = {	
-				type = all
-				owned_by = ROOT
+			num_of_owned_provinces_with = {
+				region = dalr_region
+				value = 20
 			}
 		}
 		effect = {
@@ -210,6 +254,64 @@ Z22_celmador_west_expansion = {
 	potential = { tag = Z22 }
 	has_country_shield = yes
 		
+	Z22_taelar_militarization = {
+		icon = league_of_the_public_weal
+		required_missions = {  }
+		position = 6
+		
+		provinces_to_highlight = {
+		}
+		
+		trigger = {
+			has_ruler = "Taelar Icewind"
+			any_neighbor_country = {
+				OR = {
+					naval_strength = {
+						who = Z22
+						value = 3.0
+					}
+					army_strength = {
+						who = Z22
+						value = 3.0
+					}
+				}
+			}
+		}
+		effect = {
+			add_ruler_personality = inspiring_leader_personality
+			change_mil = 2
+		}
+	}
+	Z22_taelar_illumination = {
+		icon = mission_monarch_in_throne_room
+		required_missions = { Z22_taelar_militarization Z22_taelar_new_wind }
+		position = 7
+		
+		provinces_to_highlight = {
+		}
+		
+		trigger = {
+			has_ruler = "Taelar Icewind"
+			any_neighbor_country = {
+				NOT = {
+					naval_strength = {
+						who = Z22
+						value = 1.0
+					}
+					army_strength = {
+						who = Z22
+						value = 1.0
+					}
+				}
+			}
+		}
+		effect = {
+			add_prestige_or_monarch_power = {amount =  25}
+			change_adm = 1
+			change_dip = 1
+			change_mil = 1
+		}
+	}
 	Z22_bay_of_chills = {
 		icon = mission_african_gold
 		required_missions = { Z22_bayvic_control }
@@ -257,29 +359,53 @@ Z22_celmador_west_expansion = {
 			owned_by = A28
 		}
 		trigger = {
-			A28 = {
-				OR = {
+			OR = {
+				A28 = {
 					is_enemy = ROOT
-					any_owned_province = {
-						is_claim = ROOT
+				}
+				any_province = {
+					owned_by = A28
+					is_claim = ROOT
+				}
+				AND = {
+					cosan_area = {
+						owned_by = ROOT
+					}
+					coddorran_heights_area = {
+						owned_by = ROOT
 					}
 				}
 			}
 		}
 		effect = {
-			cosan_area = {
+			if = {
 				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_permanent_claim = ROOT }
+					cosan_area = {
+						type = all
+						owned_by = ROOT
+					}
+					coddorran_heights_area = {	
+						type = all
+						owned_by = ROOT
+					}
 				}
-				add_permanent_claim = ROOT
+				add_prestige_or_monarch_power = {amount =  25}
 			}
-			coddorran_heights_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_permanent_claim = ROOT }
+			else = {
+				cosan_area = {
+					limit = {
+						NOT = { owned_by = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_permanent_claim = ROOT
 				}
-				add_permanent_claim = ROOT
+				coddorran_heights_area = {
+					limit = {
+						NOT = { owned_by = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
 			}
 		}
 	}
@@ -308,6 +434,7 @@ Z22_celmador_west_expansion = {
 		
 		effect = {
 			add_prestige_or_monarch_power = {amount =  25}
+			add_treasury = 200
 			westmoor_proper_area = {
 				limit = {
 					NOT = { owned_by = ROOT }
@@ -361,6 +488,25 @@ Z22_celmador_chillsbay_reconomy = {
 	potential = { tag = Z22 }
 	has_country_shield = yes
 
+	Z22_taelar_new_wind = {
+		icon = invest_in_the_provinces
+		required_missions = {  }
+		position = 6
+		
+		provinces_to_highlight = {
+		}
+		
+		trigger = {
+			stability = 2
+			has_ruler = "Taelar Icewind"
+			share_of_starting_income = 1.5
+		}
+		effect = {
+			remove_ruler_personality = craven_personality
+			add_ruler_personality = well_advised_personality
+			change_adm = 2
+		}
+	}
 	Z22_bayvic_control = {
 		icon = mission_valencian_silk
 		required_missions = { Z22_bayvic_city }
@@ -407,7 +553,7 @@ Z22_celmador_chillsbay_reconomy = {
 				}
 				else = {
 					owner = {add_prestige_or_monarch_power = {amount =  25}}
-					custom_tooltip = "If the Monument is not tier 3 and we have 25k manpower, it will be upgraded 1 tier expending the 50k manpower"
+					custom_tooltip = manpower_to_upgrade_monument_50_tt
 				}
 			}
 		}
@@ -559,7 +705,7 @@ Z22_celmador_colonization = {
 				}
 				else = {
 					owner = {add_prestige_or_monarch_power = {amount =  20}}
-					custom_tooltip = "If the Monument is not tier 2 and we have 20k manpower, it will be upgraded 1 tier expending the 20k manpower"
+					custom_tooltip = manpower_to_upgrade_monument_20_tt 
 				}
 			}
 		}
@@ -646,7 +792,7 @@ Z22_celmador_colonization = {
 				}
 				else = {
 					owner = {add_prestige_or_monarch_power = {amount =  25}}
-					custom_tooltip = "If the Monument is not tier 3 and we have 50k manpower, it will be upgraded 1 tier expending the 50k manpower"
+					custom_tooltip = manpower_to_upgrade_monument_50_tt 
 				}
 			}
 			add_country_modifier = {
@@ -676,25 +822,43 @@ Z22_celmador_east_expansion = {
 			army_size_percentage = 0.9
 			OR = {
 				adderwood_area = {
+					owned_by  = ROOT
+				}
+				adderwood_area = {
 					is_claim  = ROOT
 				}
 				is_rival = Z26
 			}
 		}
 		effect = {
-			adderwood_area = {
+			if = {
 				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_permanent_claim = ROOT }
+					adderwood_area = {
+						type = all
+						owned_by = ROOT
+					}
+					northern_greatwoods_area = {	
+						type = all
+						owned_by = ROOT
+					}
 				}
-				add_permanent_claim = ROOT
+				add_prestige_or_monarch_power = {amount =  25}
 			}
-			northern_greatwoods_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_permanent_claim = ROOT }
+			else = {
+				adderwood_area = {
+					limit = {
+						NOT = { owned_by = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_permanent_claim = ROOT
 				}
-				add_permanent_claim = ROOT
+				northern_greatwoods_area = {
+					limit = {
+						NOT = { owned_by = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
 			}
 		}
 	}
@@ -723,6 +887,7 @@ Z22_celmador_east_expansion = {
 		
 		effect = {
 			add_stability_or_adm_power = yes
+			add_treasury = 200
 			dinesck_area = {
 				limit = {
 					NOT = { owned_by = ROOT }
@@ -753,6 +918,7 @@ Z22_celmador_east_expansion = {
 			723 = {
 				add_center_of_trade_level = 1
 			}
+			add_treasury = 200
 			west_chillsbay_area = {
 				limit = {
 					NOT = { owned_by = ROOT }
@@ -900,7 +1066,7 @@ Z22_celmador_east_expansion = {
 				}
 				else = {
 					owner = {add_prestige_or_monarch_power = {amount =  20}}
-					custom_tooltip = "If the Monument is not tier 2 and we have 20k manpower, it will be upgraded 1 tier expending the 50k manpower"
+					custom_tooltip = manpower_to_upgrade_monument_20_tt 
 				}
 			}
 			
@@ -921,7 +1087,7 @@ Z22_celmador_finisher = {
 	has_country_shield = yes
 	
 	Z22_redglades_archery = { 
-		icon = mission_monarch_in_throne_room
+		icon = mission_empire
 		required_missions = { Z22_consolidate_marshlands Z22_elven_manpower Z22_vroren_citadel_reconstruction Z22_gerudian_coast_conquered}
 		position = 12
 		
@@ -936,6 +1102,8 @@ Z22_celmador_finisher = {
 				name = celmador_empire_modifier
 				duration = -1
 			}
+			remove_government_reform = celmador_plutocracy_reform
+			add_government_reform = celmador_grand_plutocracy_reform
 		}
 	}	
 }

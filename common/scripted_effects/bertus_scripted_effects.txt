@@ -1242,17 +1242,22 @@ dwarven_celebrate_effect = {
 	}
 	if = {
 		limit = {has_church_aspect = durvorazir_adm_aspect}
-		random_owned_province = {
-			area = {
+		custom_tooltip = durvorazir_adm_aspect_tt
+		hidden_effect = {
+			every_owned_province = {
+				limit = {development = 40 has_owner_religion = yes province_with_mine_goods = yes}
 				add_base_production = 1
 			}
 		}
 	}
 	if = {
 		limit = {has_church_aspect = durvorazir_mil_aspect}
-		random_owned_province = {
-			limit = {has_fort_building_trigger = yes}
-			improve_fortifications_effect = yes
+		custom_tooltip = durvorazir_mil_aspect_tt
+		hidden_effect = {
+			every_owned_province = {
+				limit = {development = 40 has_owner_religion = yes has_manpower_building_trigger = yes}
+				add_base_manpower = 1
+			}
 		}
 	}
 	if = {
@@ -1261,6 +1266,7 @@ dwarven_celebrate_effect = {
 		custom_tooltip = margurz_dip_aspect_effect_tt
 		hidden_effect = {
 			every_owned_province = {
+				limit = {development = 40 has_owner_religion = yes }
 				add_devastation = -20
 			}
 		}
@@ -1287,6 +1293,7 @@ dwarven_celebrate_effect = {
 				limit = {
 					has_manufactory_trigger = yes
 					development = 30
+					limit = {has_owner_religion = yes }
 				}
 				add_base_production = 1
 			}
@@ -1297,6 +1304,7 @@ dwarven_celebrate_effect = {
 		custom_tooltip = azmirethazin_dip_aspect_effect_tt
 		hidden_effect = {
 			every_owned_province = {
+				limit = {has_owner_religion = yes }
 				add_unrest = -5
 			}
 		}
@@ -1306,6 +1314,7 @@ dwarven_celebrate_effect = {
 		custom_tooltip = argezenna_adm_aspect_effect_tt
 		hidden_effect = {
 			every_owned_province = {
+				limit = {has_owner_religion = yes }
 				add_local_autonomy = -10
 			}
 		}
@@ -1339,31 +1348,6 @@ dwarven_celebrate_effect = {
 	if = {
 		limit = {has_church_aspect = urisazirn_mil_aspect}
 		add_army_tradition = 25
-	}
-}
-improve_fortifications_effect = {
-	trigger_switch = {
-		on_trigger = has_building
-		fortress_supply = {add_base_manpower = 5}
-		fortress_wall = {add_building = fortress_supply}
-		fortress_artillery = {add_building = fortress_wall}
-		fortress_towers = {add_building = fortress_artillery}
-		fortress_barracks = {add_building = fortress_towers}
-		fortress_keep = {add_building = fortress_barracks}
-	}
-	if = {
-		limit = {
-			NOT = {
-				has_building = fortress_keep
-				has_building = fortress_supply
-				has_building = fortress_wall
-				has_building = fortress_artillery
-				has_building = fortress_towers
-				has_building = fortress_barracks
-				has_building = fortress_keep
-			}
-		}
-		add_building = fortress_keep
 	}
 }
 get_cash_from_mercantilism = {

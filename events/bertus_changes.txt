@@ -4457,6 +4457,7 @@ province_event = {	#
 			}
 			AND = {
 				has_super_boost_goods_produced = yes
+				has_province_modifier = gnollish_gold_boost_modifier
 				NOT = {has_province_modifier = tluukt_new_veins}
 				NOT = {has_province_modifier = eborthil_expansion_of_mines}
 				OR = {
@@ -4464,10 +4465,7 @@ province_event = {	#
 						trade_goods = gold
 						trade_goods = silver
 					}
-					AND = {
-						has_province_modifier = gnollish_gold_boost_modifier
-						NOT = {owner = {current_icon = invocation_of_gold}}
-					}
+					NOT = {owner = {current_icon = invocation_of_gold}}
 				}
 			}
 		}
@@ -4555,6 +4553,7 @@ province_event = {	#
 			}
 			AND = {
 				has_bulwar_canals_boost_pop_goods_produced = yes
+				has_province_modifier = bulwar_canals_boost_modifier
 				OR = {
 					province_with_farm_goods = no	
 					owner = {NOT = {owns = 676}}		
@@ -4597,6 +4596,7 @@ province_event = {	#
 			}
 			AND = {
 				has_great_dam_boost_pop_goods_produced = yes
+				has_province_modifier = great_dam_boost_modifier
 				OR = {
 					province_with_mine_goods = no		
 					owner = {not = {owns = 676}}	
@@ -5181,11 +5181,6 @@ province_event = {	#noble castles
 		name = bertus_changes.6005.a
 		trigger = {NOT = {has_province_modifier = noble_castles_boost_modifier}}
 		add_province_modifier = {name = noble_castles_boost_modifier duration = -1}
-	}
-	option = {
-		name = bertus_changes.6005.b
-		trigger = {has_province_modifier = noble_castles_boost_modifier}
-		remove_province_modifier = noble_castles_boost_modifier
 	}
 }
 country_event = {	#remove casted magic
@@ -6900,6 +6895,123 @@ country_event = {
 			}
 		}
     }
+	#Host Magical Feast		#bertus mod
+	option = {
+		name = bertus_changes.6037.host_magical_feast
+		trigger = {
+		}
+		ai_chance = {factor = 50}
+		
+		if = {
+			limit = {
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 50
+				}
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -50
+			}
+			tooltip = {
+				custom_tooltip = every_magister_sphere_member_tt
+				add_country_modifier = {
+					name = magic_estate_magnificent_feast_2
+					duration = 730
+				}
+			}
+			hidden_effect = {
+				every_country = {
+					limit = {has_estate_privilege = estate_mages_organization_magisterium}
+					remove_country_modifier = magic_estate_magnificent_feast_2
+					add_country_modifier = {
+						name = magic_estate_magnificent_feast_2
+						duration = 730
+					}
+				}
+			}
+		}
+		else = {
+			custom_tooltip = magisters_need_50_mana_tt
+			tooltip = {
+				custom_tooltip = "Would give:"
+				add_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -50
+				}
+				custom_tooltip = every_magister_sphere_member_tt
+				add_country_modifier = {
+					name = magic_estate_magnificent_feast_2
+					duration = 730
+				}
+			}
+		}
+	}
+	#Narrow Ward		#bertus mod
+	option = {	
+		name = magic_estate.1.i
+		trigger = {
+		}
+		ai_chance = {factor = 50}
+		if = {
+			limit = {
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 50
+				}
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -50
+			}
+			tooltip = {
+				custom_tooltip = every_magister_sphere_member_fort_province_tt
+				add_province_modifier = {
+					name = magic_estate_broad_ward_2
+					duration = 730
+				}
+			}
+			hidden_effect = {
+				every_province = {
+					limit = { 
+						has_no_ward_province_modifiers = yes
+						is_city = yes
+						OR = {
+							fort_level = 2
+							is_capital = yes
+						}
+						owner = {has_estate_privilege = estate_mages_organization_magisterium}
+					}
+					remove_province_modifier = magic_estate_broad_ward_2
+					add_province_modifier = {
+						name = magic_estate_broad_ward_2
+						duration = 730
+					}
+				}
+			}
+		}
+		else = {
+			custom_tooltip = magisters_need_50_mana_tt
+			tooltip = {
+				custom_tooltip = "Would give:"
+				add_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -50
+				}
+				custom_tooltip = every_magister_sphere_member_fort_province_tt
+				add_province_modifier = {
+					name = magic_estate_broad_ward_2
+					duration = 730
+				}
+			}
+		}
+	}
     option = {
         name = bertus_changes.6037.divination_school # School Divination
 		trigger = {

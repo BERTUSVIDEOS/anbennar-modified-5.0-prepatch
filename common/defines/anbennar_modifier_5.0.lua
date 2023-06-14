@@ -73,7 +73,6 @@ NDefines.NCountry.GALLEY_INLAND_SEA_COAST_RATIO = 0	--0.75→0
 NDefines.NCountry.AUTONOMY_AT_CONQUEST = 25	--50→25
 NDefines.NCountry.AUTONOMY_AT_CONQUEST_CLAIM = 20	--40→20
 NDefines.NCountry.SLACKEN_AP_DROP = 1.00   --0.05→1.00
-NDefines.NCountry.SLACKEN_MANPOWER_INCREASE = 0 --1.0→0
 NDefines.NCountry.REVOLUTION_EMBRACE_MIN_SPREAD = 0.50
 	
 NDefines.NEconomy.COLONIAL_MAINTENANCE_FACTOR = 2.0	--8→2-- _EDEF_COLONIAL_MAINTENANCE_FACTOR_
@@ -100,6 +99,7 @@ NDefines.NMilitary.BANNER_STARTING_STRENGTH = 0.001	--0.1→0.001-- Starting str
 NDefines.NMilitary.CAWA_STARTING_MORALE = 0.1	--0.5→0.1-- Starting morale of a cawa regiment 1.0 being full strength
 NDefines.NMilitary.CAROLEAN_BASE_COST_MODIFIER = 0.5	--1.0→0.5
 NDefines.NMilitary.CAROLEAN_USES_CONSTRUCTION = 0	--1→0
+NDefines.NMilitary.CAROLEAN_STARTING_STRENGTH = 0.1 --1.0→0.1
 NDefines.NMilitary.FORT_DEVASTATION_IMPACT = -5	-- -10→-5-- multiplied by fortlevel/max fortlevel in area per year.
 NDefines.NMilitary.CONTROL_DEVASTATION_IMPACT = -5	-- -1→-5-- devastation recovery given by control
 NDefines.NMilitary.ARMY_ATTRITION_AT_SEA = 5	--10→5-- How many percent attrition units take while loaded onto ships traveling open sea
@@ -148,6 +148,7 @@ NDefines.NMilitary.SIEGE_MEMORY = 19	--11→19
 NDefines.NMilitary.RAJPUT_BASE_COST_MODIFIER = 1.0  --5.0→1.0
 NDefines.NMilitary.LEADER_MAX_PIPS = 8 --6→8
 NDefines.NMilitary.SLAVE_RAIDS_SAILOR_FACTOR = -0.10
+NDefines.NMilitary.SLACKEN_MIN_AP = 0.40      --0→0.40
 
 NDefines.NAI.MAX_CAV_PERCENTAGE = 20 --50→20 -- For modding actual ratio is dynamically computed but will be no higher than this.
 

@@ -525,14 +525,7 @@ cb_nationalist = {
 		OR = {
 			dip_tech = 23
 			has_government_attribute = regional_nationalism	#bertus mod
-			AND = {
-				is_neighbor_of = FROM
-				has_idea = nationalismus6
-			}
-			AND = {
-				has_government_attribute = cb_on_own_race
-				FROM = {is_purguing_our_race = yes}
-			}
+			has_idea = nationalismus6
 		}
 		is_free_or_tributary_trigger = yes
 		is_revolutionary = no
@@ -540,6 +533,14 @@ cb_nationalist = {
 
 	prerequisites = {
 		culture_group_claim = FROM
+		OR = {
+			dip_tech = 23
+			has_government_attribute = regional_nationalism	#bertus mod
+			AND = {
+				is_neighbor_of = FROM
+				has_idea = nationalismus6
+			}
+		}
 	}
 
 	war_goal = take_province_nationalist
@@ -2032,11 +2033,7 @@ cb_civ_vs_monster = {
 		FROM = { 
 			has_country_modifier = monstrous_nation 
 		} 
-		NOT = { has_country_modifier = monstrous_nation } 
-		OR = {
-			NOT = { has_reform = adventurer_reform }
-			has_reform = found_our_nation # So you can take provinces
-		}
+		NOT = { has_country_modifier = monstrous_nation }
 	} 
 
 	war_goal = superiority_anti_monster 
