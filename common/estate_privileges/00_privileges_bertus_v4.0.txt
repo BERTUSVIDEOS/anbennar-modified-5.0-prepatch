@@ -617,7 +617,7 @@ estate_mages_train_battlemages = {
 	}
 	ai_will_do = {factor = 5}
 }
-estate_mages_fire_academy = {
+estate_mages_fire_academy = {	#Evocation
 	icon = privilege_estate_mages_fire_school
 	loyalty = 0.05
 	influence = 0.05
@@ -630,6 +630,10 @@ estate_mages_fire_academy = {
 			has_estate_privilege = estate_mages_water_academy
 			has_estate_privilege = estate_mages_air_academy
 			has_estate_privilege = estate_mages_earth_academy
+			has_estate_privilege = estate_mages_divination_academy
+			has_estate_privilege = estate_mages_necromancy_academy
+			has_estate_privilege = estate_mages_conjuration_academy
+			has_estate_privilege = estate_mages_enchantment_academy
 		}
 	}
 	on_granted = {
@@ -683,7 +687,7 @@ estate_mages_fire_academy = {
 	}
 	ai_will_do = {factor = 5}
 }
-estate_mages_water_academy = {
+estate_mages_water_academy = {	#illusion
 	icon = privilege_estate_mages_water_school
 	loyalty = 0.05
 	influence = 0.05
@@ -696,6 +700,10 @@ estate_mages_water_academy = {
 			has_estate_privilege = estate_mages_fire_academy
 			has_estate_privilege = estate_mages_air_academy
 			has_estate_privilege = estate_mages_earth_academy
+			has_estate_privilege = estate_mages_divination_academy
+			has_estate_privilege = estate_mages_necromancy_academy
+			has_estate_privilege = estate_mages_conjuration_academy
+			has_estate_privilege = estate_mages_enchantment_academy
 		}
 	}
 	on_granted = {
@@ -745,7 +753,7 @@ estate_mages_water_academy = {
 	}
 	ai_will_do = {factor = 5}
 }
-estate_mages_air_academy = {
+estate_mages_air_academy = {	#Transmutation
 	icon = privilege_estate_mages_air_school
 	loyalty = 0.05
 	influence = 0.05
@@ -758,6 +766,10 @@ estate_mages_air_academy = {
 			has_estate_privilege = estate_mages_water_academy
 			has_estate_privilege = estate_mages_fire_academy
 			has_estate_privilege = estate_mages_earth_academy
+			has_estate_privilege = estate_mages_divination_academy
+			has_estate_privilege = estate_mages_necromancy_academy
+			has_estate_privilege = estate_mages_conjuration_academy
+			has_estate_privilege = estate_mages_enchantment_academy
 		}
 	}
 	on_granted = {
@@ -808,7 +820,7 @@ estate_mages_air_academy = {
 	}
 	ai_will_do = {factor = 5}
 }
-estate_mages_earth_academy = {
+estate_mages_earth_academy = {	#	#abjuration
 	icon = privilege_estate_mages_earth_school
 	loyalty = 0.05
 	influence = 0.05
@@ -821,6 +833,10 @@ estate_mages_earth_academy = {
 			has_estate_privilege = estate_mages_water_academy
 			has_estate_privilege = estate_mages_air_academy
 			has_estate_privilege = estate_mages_fire_academy
+			has_estate_privilege = estate_mages_divination_academy
+			has_estate_privilege = estate_mages_necromancy_academy
+			has_estate_privilege = estate_mages_conjuration_academy
+			has_estate_privilege = estate_mages_enchantment_academy
 		}
 	}
 	on_granted = {
@@ -867,6 +883,178 @@ estate_mages_earth_academy = {
 		else = {
 			add_country_modifier = {name = earth_academy_training duration = -1}
 		}
+		hidden_effect = {setup_battlemages_shock = yes}
+	}
+	ai_will_do = {factor = 5}
+}
+estate_mages_divination_academy = {	#	#divination
+	icon = privilege_estate_mages_earth_school
+	loyalty = 0.05
+	influence = 0.05
+	is_valid = {
+		NOT = { tag = I02 }
+		has_estate_privilege = estate_mages_battlemage_academies
+	}
+	can_select = {
+		NOT = {
+			has_estate_privilege = estate_mages_water_academy
+			has_estate_privilege = estate_mages_air_academy
+			has_estate_privilege = estate_mages_fire_academy
+			has_estate_privilege = estate_mages_earth_academy
+			has_estate_privilege = estate_mages_necromancy_academy
+			has_estate_privilege = estate_mages_conjuration_academy
+			has_estate_privilege = estate_mages_enchantment_academy
+		}
+	}
+	on_granted = {
+		custom_tooltip = extra_mage_tooltip
+		custom_tooltip = extra_mage_manuever_tooltip
+		custom_tooltip = estate_mages_academy_bonus_tooltip
+		tooltip = {add_country_modifier = {name = divination_academy_training duration = -1}}
+	}
+	penalties = {
+		yearly_corruption = 0.05
+	}
+	benefits = {
+	}
+	on_revoked = {
+		remove_country_modifier = divination_academy_training
+	}
+	on_invalid = {
+		remove_country_modifier = divination_academy_training
+	}
+	cooldown_years = 5
+	on_cooldown_expires = {
+		add_country_modifier = {name = divination_academy_training duration = -1}
+		hidden_effect = {setup_battlemages_shock = yes}
+	}
+	ai_will_do = {factor = 5}
+}
+estate_mages_necromancy_academy = {	#	#necromancy
+	icon = privilege_estate_mages_earth_school
+	loyalty = 0.05
+	influence = 0.05
+	is_valid = {
+		NOT = { tag = I02 }
+		has_estate_privilege = estate_mages_battlemage_academies
+	}
+	can_select = {
+		NOT = {
+			has_estate_privilege = estate_mages_water_academy
+			has_estate_privilege = estate_mages_air_academy
+			has_estate_privilege = estate_mages_fire_academy
+			has_estate_privilege = estate_mages_divination_academy
+			has_estate_privilege = estate_mages_earth_academy
+			has_estate_privilege = estate_mages_conjuration_academy
+			has_estate_privilege = estate_mages_enchantment_academy
+		}
+	}
+	on_granted = {
+		custom_tooltip = extra_mage_tooltip
+		custom_tooltip = extra_mage_manuever_tooltip
+		custom_tooltip = estate_mages_academy_bonus_tooltip
+		tooltip = {add_country_modifier = {name = necromancy_academy_training duration = -1}}
+	}
+	penalties = {
+		yearly_corruption = 0.05
+	}
+	benefits = {
+	}
+	on_revoked = {
+		remove_country_modifier = necromancy_academy_training
+	}
+	on_invalid = {
+		remove_country_modifier = necromancy_academy_training
+	}
+	cooldown_years = 5
+	on_cooldown_expires = {
+		add_country_modifier = {name = necromancy_academy_training duration = -1}
+		hidden_effect = {setup_battlemages_shock = yes}
+	}
+	ai_will_do = {factor = 5}
+}
+estate_mages_conjuration_academy = {	#	#conjuration
+	icon = privilege_estate_mages_earth_school
+	loyalty = 0.05
+	influence = 0.05
+	is_valid = {
+		NOT = { tag = I02 }
+		has_estate_privilege = estate_mages_battlemage_academies
+	}
+	can_select = {
+		NOT = {
+			has_estate_privilege = estate_mages_water_academy
+			has_estate_privilege = estate_mages_air_academy
+			has_estate_privilege = estate_mages_fire_academy
+			has_estate_privilege = estate_mages_divination_academy
+			has_estate_privilege = estate_mages_earth_academy
+			has_estate_privilege = estate_mages_necromancy_academy
+			has_estate_privilege = estate_mages_enchantment_academy
+		}
+	}
+	on_granted = {
+		custom_tooltip = extra_mage_tooltip
+		custom_tooltip = extra_mage_manuever_tooltip
+		custom_tooltip = estate_mages_academy_bonus_tooltip
+		tooltip = {add_country_modifier = {name = conjuration_academy_training duration = -1}}
+	}
+	penalties = {
+		yearly_corruption = 0.05
+	}
+	benefits = {
+	}
+	on_revoked = {
+		remove_country_modifier = conjuration_academy_training
+	}
+	on_invalid = {
+		remove_country_modifier = conjuration_academy_training
+	}
+	cooldown_years = 5
+	on_cooldown_expires = {
+		add_country_modifier = {name = conjuration_academy_training duration = -1}
+		hidden_effect = {setup_battlemages_shock = yes}
+	}
+	ai_will_do = {factor = 5}
+}
+estate_mages_enchantment_academy = {	#	#enchantment
+	icon = privilege_estate_mages_earth_school
+	loyalty = 0.05
+	influence = 0.05
+	is_valid = {
+		NOT = { tag = I02 }
+		has_estate_privilege = estate_mages_battlemage_academies
+	}
+	can_select = {
+		NOT = {
+			has_estate_privilege = estate_mages_water_academy
+			has_estate_privilege = estate_mages_air_academy
+			has_estate_privilege = estate_mages_fire_academy
+			has_estate_privilege = estate_mages_divination_academy
+			has_estate_privilege = estate_mages_earth_academy
+			has_estate_privilege = estate_mages_necromancy_academy
+			has_estate_privilege = estate_mages_conjuration_academy
+		}
+	}
+	on_granted = {
+		custom_tooltip = extra_mage_tooltip
+		custom_tooltip = extra_mage_manuever_tooltip
+		custom_tooltip = estate_mages_academy_bonus_tooltip
+		tooltip = {add_country_modifier = {name = enchantment_academy_training duration = -1}}
+	}
+	penalties = {
+		yearly_corruption = 0.05
+	}
+	benefits = {
+	}
+	on_revoked = {
+		remove_country_modifier = enchantment_academy_training
+	}
+	on_invalid = {
+		remove_country_modifier = enchantment_academy_training
+	}
+	cooldown_years = 5
+	on_cooldown_expires = {
+		add_country_modifier = {name = enchantment_academy_training duration = -1}
 		hidden_effect = {setup_battlemages_shock = yes}
 	}
 	ai_will_do = {factor = 5}
@@ -1001,11 +1189,12 @@ estate_magisterium_battlemages = {
 		custom_tooltip = extra_mage_siege_tooltip
 	}
 	penalties = {
-		yearly_corruption = 0.05
+		yearly_corruption = 0.10
 	}
-	benefits = {		
-		amount_of_cawa = 0.5
-		amount_of_banners = 0.50
+	benefits = {
+		monthly_magisterium_mana = 0.41666	#0→0.4166	#5 yearly
+		amount_of_cawa = 0.25
+		amount_of_banners = 0.25
 	}
 	on_revoked = {
 		remove_country_modifier = magisterium_battlemages_modifier

@@ -679,6 +679,13 @@ vertesk_1_missions = {
 				}
 				add_permanent_claim = ROOT
 			}
+			dalr_region = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
 		}
 	}
 	
@@ -725,8 +732,7 @@ vertesk_1_missions = {
 		
 		provinces_to_highlight = {
 			OR = {
-				province_id = 216
-				province_id = 696
+				is_capital_of = ROOT	#bertus mod
 			}
 			NOT = { is_strongest_trade_power = ROOT }
 		}
@@ -734,14 +740,16 @@ vertesk_1_missions = {
 		trigger = {
 			mercantilism = 65
 			num_of_light_ship = 50
-			216 = { is_strongest_trade_power = ROOT }
-			696 = { is_strongest_trade_power = ROOT }
+			home_trade_node = {	#bertus mod
+				highest_value_trade_node = yes
+				is_strongest_trade_power = ROOT
+			}
 		}
 		
 		effect = {
 			add_country_modifier = {
 				name = A23_head_crown_mod
-				duration = 12775
+				duration = -1	#bertus mod
 			}
 		}
 	}
@@ -980,18 +988,6 @@ vertesk_2_missions = {
 			treasury = 300
 			if = {
 				limit = {
-					exists = A12
-				}
-				A12 = { 
-					has_spy_network_from = {
-						who = ROOT
-						value = 80
-					}
-				}
-			}
-			else_if = {
-				limit = {
-					NOT = {exists = A12}
 					NOT = {owns = 151}
 				}
 				151 = {
@@ -1013,33 +1009,6 @@ vertesk_2_missions = {
 			
 			if = {
 				limit = {
-					exists = A12
-				}
-				add_casus_belli = {
-					target = A12
-					type = cb_trade_war_triggered
-					months = 360
-				}
-				hidden_effect = { 
-					add_spy_network_in = {
-						who = A12
-						value = -80
-					}
-				}
-				A12 = { 
-					add_country_modifier = {
-						name = A23_debuff_3
-						duration = 3650
-					}
-					add_opinion = {
-						who = A23
-							modifier = vertesker_sabotage
-					}
-				}
-			}
-			else_if = {
-				limit = {
-					NOT = {exists = A12}
 					NOT = {owns = 151}
 				}
 				151 = {
@@ -1086,19 +1055,26 @@ vertesk_2_missions = {
 		}
 		
 		trigger = {
-			OR = { 
-				is_in_war = {
-					attacker_leader = A23
-					defender_leader = A12
-					casus_belli = cb_trade_war_triggered
+			OR = {
+				151 = {
+					owner = {
+						is_in_war = {
+							attacker_leader = ROOT
+							defender_leader = THIS
+							casus_belli = cb_trade_war
+						}
+					}
 				}
-				is_in_war = {
-					attacker_leader = A23
-					defender_leader = A12
-					casus_belli = cb_trade_war
+				151 = {
+					owner = {
+						is_in_war = {
+							attacker_leader = THIS
+							defender_leader = ROOT
+							casus_belli = cb_trade_war_triggered
+						}
+					}
 				}
-				151 = { 
-					owned_by = A12
+				151 = {
 					controlled_by = A23
 				}
 			}
@@ -1108,7 +1084,10 @@ vertesk_2_missions = {
 			add_dip_power = 200
 			if ={
 				limit = {
-					NOT = {owns = 151}
+					OR = {
+						NOT = {owns = 151}
+						NOT = {is_core = 151}
+					}
 				}
 				151 = { 
 					add_base_tax = -1
@@ -1197,8 +1176,8 @@ vertesk_2_missions = {
 			}
 		}
 		
-		trigger = {
-			total_development = 300
+		trigger = {	#bertus mod
+			total_development = 500
 			custom_trigger_tooltip = {
 				tooltip = A23_full_black_tower
 				OR = { 
@@ -1214,25 +1193,25 @@ vertesk_2_missions = {
 					}
 				}
 			}
+			beepeck_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
 			floodmarches_area = {
 				type = all
-				owned_by = ROOT
-				is_core = ROOT
+				country_or_non_sovereign_subject_holds = ROOT
 			}
 			vertesk_area = {
 				type = all
-				owned_by = ROOT
-				is_core = ROOT
+				country_or_non_sovereign_subject_holds = ROOT
 			}
 			dames_forehead_area = {
 				type = all
-				owned_by = ROOT
-				is_core = ROOT
+				country_or_non_sovereign_subject_holds = ROOT
 			}
 			derwing_area = {
 				type = all
-				owned_by = ROOT
-				is_core = ROOT
+				country_or_non_sovereign_subject_holds = ROOT
 			}
 			damescrown_area = {
 				type = all
@@ -1346,6 +1325,11 @@ vertesk_2_missions = {
 				owned_by = ROOT
 				is_core = ROOT
 			}
+			alenic_reach_region = {
+				type = all
+				owned_by = ROOT
+				is_core = ROOT
+			}
 		}
 		
 		effect = {
@@ -1405,7 +1389,8 @@ vertesk_2_missions = {
 				add_unit_construction = {
 					type = heavy_ship
 					amount = 10
-					speed = 0.5
+					speed = 0.1
+					cost = 0
 				}
 			}
 		}
@@ -1470,7 +1455,7 @@ vertesk_2_missions = {
 	}
 }
 
-vertesk_3_missions = { 
+vertesk_3_missions = {
 	slot = 3
 	generic = no
 	ai = yes 
@@ -1487,7 +1472,8 @@ vertesk_3_missions = {
 			navy_size_percentage = 1
 		}
 		
-		effect = {add_country_modifier = {
+		effect = {
+			add_country_modifier = {
 				name = "thriving_arms_industry"
 				duration = 7300 #20 years
 			}
@@ -1950,19 +1936,7 @@ vertesk_3_missions = {
 			add_stability = -3
 			#add_adm_power = -200	#bertus mod#
 			A23 = { set_in_empire = no }
-			#europe = {
-			#	limit = {
-			#		is_part_of_hre = yes
-			#		owner = {
-			#			is_part_of_hre = no
-			#		}
-			#	}
-			#}
-			#if = {
-			#	limit = { has_estate_privilege = estate_mages_organization_magisterium }
-			#	remove_estate_privilege = estate_mages_organization_magisterium
-			#}
-			country_event = { id = flavor_vertesk.4 }
+			country_event = { id = flavor_vertesk.4 }	#government reform
 			override_country_name = VERTESK_DOMINION
 		}
 	}
@@ -2006,12 +1980,8 @@ vertesk_3_missions = {
 		provinces_to_highlight = {
 			OR = { 	
 				region = alenic_frontier_region
-				area = serpentshead_area
-				area = northern_greatwoods_area
-				area = mawriver_area
-				area = dinesck_area
-				area = drowned_giant_isles_area
-				area = west_chillsbay_area
+				region = alenic_reach_region
+				region = damescrown_region
 			}
 			OR = {
 				NOT = { owned_by = ROOT }
@@ -2025,32 +1995,12 @@ vertesk_3_missions = {
 				owned_by = ROOT
 				is_core = ROOT
 			}
-			serpentshead_area = {
+			alenic_reach_region = {
 				type = all
 				owned_by = ROOT
 				is_core = ROOT
 			}
-			northern_greatwoods_area = {
-				type = all
-				owned_by = ROOT
-				is_core = ROOT
-			}
-			mawriver_area = {
-				type = all
-				owned_by = ROOT
-				is_core = ROOT
-			}
-			dinesck_area = {
-				type = all
-				owned_by = ROOT
-				is_core = ROOT
-			}
-			drowned_giant_isles_area = {
-				type = all
-				owned_by = ROOT
-				is_core = ROOT
-			}
-			west_chillsbay_area = {
+			damescrown_region = {
 				type = all
 				owned_by = ROOT
 				is_core = ROOT
@@ -2064,16 +2014,23 @@ vertesk_3_missions = {
 		
 		effect = {
 			add_splendor = 500
-			add_prestige_or_monarch_power = {amount =  20}
+			add_prestige_or_monarch_power = {amount =  100}
 			add_power_projection = {
 				type = mission_rewards_power_projection
-				amount = 15
+				amount = 25	#15→25
 			}
 			remove_country_modifier = A23_consolidation_period
-			add_country_modifier = {
-				name = "centralization_modifier"
-				duration = 7300
+			add_country_modifier = {	#bertus mod
+				name = "vertesk_centralization_modifier"
+				duration = -1
 			}
+			custom_tooltip = "All owned provinces gets autonomy decreased by 10%"
+			hidden_effect = {
+				every_owned_province = {
+					add_local_autonomy = -10
+				}
+			}
+
 		}
 	}
 	
@@ -2096,7 +2053,6 @@ vertesk_3_missions = {
 		}
 		
 		trigger = {
-			treasury = 4000
 			estate_loyalty = {
 				estate = estate_artificers
 				loyalty = 60
@@ -2128,12 +2084,12 @@ vertesk_3_missions = {
 		}
 		
 		effect = {
-			add_treasury = -4000
 			alen_river_cities = { add_base_production = 2 }
 			217 = { add_base_production = 5 }
 			337 = { add_base_production = 5 }
 			222 = { add_base_production = 5 }
 			344 = { add_base_production = 5 }
+			337 = {change_trade_goods = coal}
 		}
 	}
 	
@@ -2150,9 +2106,8 @@ vertesk_3_missions = {
 		trigger = {
 			is_at_war = no
 			religious_unity = 1
-			total_development = 2000
 			development_in_provinces = {
-				value = 1500
+				value = 2000
 				culture_group = alenic
 			}
 			216 = { development = 75 }
@@ -2273,6 +2228,18 @@ vertesk_4_missions = {
 		
 		effect = {
 			add_treasury = -300
+			add_estate_influence_modifier = {	#bertus mod
+				estate = estate_adventurers
+				desc = EST_VAL_VERTEST_ADVENTURERS_REWARD
+				influence = 20
+				duration = 18250
+			}
+			add_estate_loyalty = {	#bertus mod
+				estate = estate_adventurers
+				desc = EST_VAL_VERTEST_ADVENTURERS_REWARD
+				loyalty = 20
+				duration = 18250
+			}
 			216 = { add_base_production = 2 }
 		}
 	}
@@ -2283,31 +2250,49 @@ vertesk_4_missions = {
 		position = 6
 		
 		trigger = {
-			treasury = 500
-			any_country = {
-				NOT = { has_country_modifier = monstrous_nation }
-				capital_scope = { region = west_castanor_region }
-				has_opinion = {
-					who = A23
-					value = 150
+			OR = {
+				castonath_area = {
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+				AND = {
+					treasury = 500
+					any_country = {
+						NOT = { has_country_modifier = monstrous_nation }
+						capital_scope = { region = west_castanor_region }
+						has_opinion = {
+							who = A23
+							value = 150
+						}
+					}
 				}
 			}
 		}
 		
 		effect = {
-			random_country = {
+			if = {
 				limit = {
-					NOT = { has_country_modifier = monstrous_nation }
-					capital_scope = { region = west_castanor_region }
-					has_opinion = {
-						who = A23
-						value = 150
+					castonath_area = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
 					}
 				}
-				add_treasury = 500
+				216 = { add_base_production = 4 }
 			}
-			add_treasury = -500
-			216 = { add_base_production = 4 }
+			else = {
+				random_country = {
+					limit = {
+						NOT = { has_country_modifier = monstrous_nation }
+						capital_scope = { region = west_castanor_region }
+						has_opinion = {
+							who = A23
+							value = 150
+						}
+					}
+					add_treasury = 500
+				}
+				add_treasury = -500
+				216 = { add_base_production = 2 }
+			}
 			hidden_effect = {
 				country_event = {
 					id = racial_pop_events_half_orcish.4
@@ -2315,10 +2300,11 @@ vertesk_4_missions = {
 				}
 			}
 			define_admiral = {
-				shock = 4
-				fire = 4
-				manuever = 4
+				shock = 5
+				fire = 5
+				manuever = 5
 				siege = 0
+				name = "Hubenson Alflow"
 			}
 		}
 	}
@@ -2361,32 +2347,85 @@ vertesk_4_missions = {
 		}
 		
 		trigger = {
-			treasury = 750
 			251 = { development = 30 }
-			any_country = {
-				capital_scope = { superregion = escann_superregion }
-					NOT = { has_country_modifier = monstrous_nation }
-					has_opinion = {
-						who = A23
-						value = 150
+			OR = {
+				AND = {
+					castonath_area = {
+						country_or_non_sovereign_subject_holds = ROOT
 					}
-				num_of_owned_provinces_with = {
-					value = 3 
-					OR = { 
-						culture = green_orc
-						trade_goods = slaves
+					num_of_owned_provinces_with = {
+						value = 3 
+						OR = { 
+							culture = green_orc
+							trade_goods = slaves
+						}
 					}
-				}	
+				}
+				AND = {
+					treasury = 750
+					any_country = {
+						capital_scope = { superregion = escann_superregion }
+						NOT = { has_country_modifier = monstrous_nation }
+						has_opinion = {
+							who = A23
+							value = 150
+						}
+						num_of_owned_provinces_with = {
+							value = 3 
+							OR = { 
+								culture = green_orc
+								trade_goods = slaves
+							}
+						}
+					}
+				}
 			}
 		}
 		
 		effect = {
-			add_treasury = -750
-			251 = { 
-				add_base_production = 3
-				add_orcish_minority_size_effect = yes
+			if = {
+				limit = {
+					castonath_area = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+					num_of_owned_provinces_with = {
+						value = 3 
+						OR = { 
+							culture = green_orc
+							trade_goods = slaves
+						}
+					}
+				}
+				251 = { 
+					add_base_production = 2
+					add_base_manpower = 2
+					add_orcish_minority_size_effect = yes
+				}
+				216 = { 
+					add_orcish_minority_size_effect = yes
+					add_base_manpower = 2
+				}
 			}
-			216 = { add_orcish_minority_size_effect = yes }
+			else = {
+				random_country = {
+					limit = {
+						NOT = { has_country_modifier = monstrous_nation }
+						capital_scope = { region = west_castanor_region }
+						has_opinion = {
+							who = A23
+							value = 150
+						}
+					}
+					add_treasury = 750
+				}
+				add_treasury = -750
+				251 = { 
+					add_base_production = 2
+					add_orcish_minority_size_effect = yes
+				}
+				216 = { add_orcish_minority_size_effect = yes }
+			}
 		}
 	}
 	
@@ -2402,22 +2441,36 @@ vertesk_4_missions = {
 		
 		trigger = {
 			216 = { base_production = 20 }
-			any_known_country = {
-				colony = 2
-				has_opinion = {
-					who = A23
-					value = 150
-				}
+			calc_true_if = {
+				1256 = {is_strongest_trade_power = ROOT}
+				1322 = {is_strongest_trade_power = ROOT}
+				1286 = {is_strongest_trade_power = ROOT}
+				229 = {is_strongest_trade_power = ROOT}
+				833 = {is_strongest_trade_power = ROOT}
+				865 = {is_strongest_trade_power = ROOT}
+				774 = {is_strongest_trade_power = ROOT}
+				809 = {is_strongest_trade_power = ROOT}
+				4097 = {is_strongest_trade_power = ROOT}
+				4202 = {is_strongest_trade_power = ROOT}
+				value = 5
 			}
 		}
 		
-		effect = {
-			add_years_of_income = 1
+		effect = {	#bertus mod
+			#add_years_of_income = 1	#1→0
+			#add_dip_power = 100	#100→0
+			add_years_of_owned_provinces_production_income = {
+				years = 20
+				trigger = {
+					trade_goods = slaves
+				}
+				custom_tooltip = "Get 20 years of slave production"
+			}
 			216 = { 
 				add_base_tax = 2
 				add_orcish_minority_size_effect = yes 
 			}
-			add_dip_power = 100
+			add_mercantilism = 2	#0→2
 		}
 	}
 	
@@ -2557,6 +2610,13 @@ vertesk_4_missions = {
 				limit = { government = monarchy }
 				add_legitimacy = 30
 			}
+			forlorn_vale_region = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
 		}
 	}
 	
@@ -2579,11 +2639,11 @@ vertesk_4_missions = {
 		}
 		
 		trigger = {
-			treasury = 3500
 			#adm_power = 200	#bertus mod#
 			#dip_power = 200	#bertus mod#
 			owns_core_province = 723
 			723 = { 
+				development = 40
 				OR = { 
 					has_building = trade_depot
 					has_building = stock_exchange
@@ -2593,7 +2653,6 @@ vertesk_4_missions = {
 		}
 		
 		effect = {
-			add_treasury = -3500
 			#add_adm_power = -200	#bertus mod#
 			#add_mil_power = -200	#bertus mod#
 			#add_dip_power = -200	#bertus mod#
@@ -2640,14 +2699,15 @@ vertesk_4_missions = {
 		}
 		
 		trigger = {
-			treasury = 2000
 			num_of_owned_provinces_with = {
 				value = 15
 				OR = { 
 					trade_goods = fish
 					trade_goods = fur
 				}
+				development = 20
 				has_building = counting_house
+				has_manufactory_trigger = yes
 			}
 		}
 		
@@ -2660,8 +2720,8 @@ vertesk_4_missions = {
 						trade_goods = fur
 					}
 				}
-				add_base_production = 1
-				add_base_tax = 1
+				add_base_production = 2	#1→2
+				#add_base_tax = 1	#1→0
 			}
 		}
 	}
@@ -2848,9 +2908,10 @@ vertesk_5_missions = {
 			216 = { add_base_production = 2 }
 			define_general = {
 				shock = 8
-				fire = 3
+				fire = 8
 				manuever = 2
 				siege = 0
+				name = "Robb 'The Chainmaster'"
 			}
 		}
 	}
@@ -3084,6 +3145,13 @@ vertesk_5_missions = {
 				}
 				add_permanent_claim = ROOT
 			}
+			gerudian_coast_region = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
 		}
 	}
 	
@@ -3134,8 +3202,8 @@ vertesk_5_missions = {
 					province_id = 221
 					NOT = {
 						trade_share = {
-							country = A23
-							share = 75
+							country = ROOT
+							share = 90
 						}
 					}
 				}
@@ -3143,8 +3211,8 @@ vertesk_5_missions = {
 					province_id = 723
 					NOT = {
 						trade_share = {
-							country = A23
-							share = 35
+							country = ROOT
+							share = 90
 						}
 					}
 				}
@@ -3152,8 +3220,8 @@ vertesk_5_missions = {
 					province_id = 229
 					NOT = {
 						trade_share = {
-							country = A23
-							share = 25
+							country = ROOT
+							share = 90
 						}
 					}
 				}
@@ -3186,20 +3254,20 @@ vertesk_5_missions = {
 		trigger = {
 			221 = {
 				trade_share = {
-					country = A23
-					share = 75
+					country = ROOT
+					share = 90
 				}
 			}
 			723 = {
 				trade_share = {
-					country = A23
-					share = 35
+					country = ROOT
+					share = 90
 				}
 			}
 			229 = {
 				trade_share = {
-					country = A23
-					share = 25
+					country = ROOT
+					share = 90
 				}
 			}
 			alen_river_cities = {
@@ -3210,7 +3278,7 @@ vertesk_5_missions = {
 				}
 				has_production_building_trigger = yes
 			}
-			343 = { 
+			242 = { 
 				OR = { 
 					has_building = fort_17th
 					has_building = fort_18th
@@ -3227,7 +3295,10 @@ vertesk_5_missions = {
 		}
 		
 		effect = {
-			add_mercantilism = 10
+			add_mercantilism = 2	#10→2
+			alen_river_cities = {
+				add_base_production = 2	#0→2
+			}
 			add_country_modifier = {
 				name = more_merchants
 				duration = -1

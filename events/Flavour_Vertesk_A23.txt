@@ -70,8 +70,37 @@ country_event = { #Eternal Vertesk
 
 	}
 	option = { #Just one option, purely narrative
-			name = "flavor_vertesk.3.a"
-			
+		name = "flavor_vertesk.3.a"
+		west_castanor_region = {
+			limit = {
+				NOT = { is_core = ROOT }
+				NOT = { owned_by = ROOT }
+			}
+			add_permanent_claim = ROOT
+		}
+		inner_castanor_region = {
+			limit = {
+				NOT = { is_core = ROOT }
+				NOT = { owned_by = ROOT }
+			}
+			add_permanent_claim = ROOT
+		}
+		south_castanor_region = {
+			limit = {
+				NOT = { is_core = ROOT }
+				NOT = { owned_by = ROOT }
+			}
+			add_permanent_claim = ROOT
+		}
+		hidden_effect = {
+			marrhold_underhold_region = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
 	}
 }
 
@@ -88,28 +117,37 @@ country_event = { #New government
 		#mission
 
 	}
-	option = { #Establish military dictatorship
-		name = "flavor_vertesk.4.a"
-		add_government_reform = military_dictatorship
-		add_mil_power = 200
-	}
 	option = { #Keep merchant republic, why would you do it though, it sucks
 		name = "flavor_vertesk.4.b"
 		add_government_reform = merchants_reform
 		add_stability_or_adm_power = yes
+		add_mercantilism = 10	#0→10
+		add_republican_tradition = 25	#0→25
+		add_dip_power = 200	#0→200
 	}
-	option = { #Blacktower dynasty returns
+	option = { #Establish military dictatorship
+		name = "flavor_vertesk.4.a"
+		add_government_reform = military_dictatorship
+		add_mil_power = 200
+		216 = {
+			spawn_rebels = {
+				type = pretender_rebels
+				size = 3
+			}
+		}
+	}
+	option = { #Blacktower dynasty returns	#bertus mod
 		name = "flavor_vertesk.4.c"
 		change_government = monarchy
-		add_government_reform = black_tower_empire	#bertus mod
+		add_government_reform = black_tower_empire_reform	#bertus mod
 		add_government_reform = magical_elite_reform
 		add_stability = -2
 		define_ruler = {
 			name = "Dalya I"
 			dynasty = "Blacktower"
 			adm = 6
-			dip = 2
-			mil = 4
+			dip = 4
+			mil = 5
 			female = yes
 			age = 28
 			claim = 30
@@ -117,22 +155,69 @@ country_event = { #New government
 		add_ruler_personality = mage_personality
 		add_ruler_personality = cruel_personality
 		add_ruler_personality = well_connected_personality
-		216 = {
-			spawn_rebels = {
-				type = revolutionary_rebels
-				size = 3
-			}
-		}
-		if = {	#bertus mod, from missions
+		
+		if = {
 			limit = { has_estate_privilege = estate_mages_organization_magisterium }
 			remove_estate_privilege = estate_mages_organization_magisterium
-		}	#bertus mod, from missions
-		europe = {
-			limit = {
-				is_part_of_hre = yes
-				owner = {
-					is_part_of_hre = no
-				}
+		}
+		custom_tooltip = "Several parties wont like that"
+		hidden_effect = {
+			216 = {
+				spawn_rebels = {type = pretender_rebels size = 3}
+			}
+			221 = {
+				spawn_rebels = {type = pretender_rebels size = 2}
+			}
+			249 = {
+				spawn_rebels = {type = pretender_rebels size = 2}
+			}
+			random_owned_province = {
+				limit = {has_terrain = grasslands}
+				spawn_rebels = {type = peasants_rebels size = 1}
+			}
+			random_owned_province = {
+				limit = {has_terrain = grasslands}
+				spawn_rebels = {type = peasants_rebels size = 1}
+			}
+			random_owned_province = {
+				limit = {has_terrain = grasslands}
+				spawn_rebels = {type = peasants_rebels size = 1}
+			}
+			random_owned_province = {
+				limit = {has_terrain = grasslands}
+				spawn_rebels = {type = peasants_rebels size = 1}
+			}
+			random_owned_province = {
+				limit = {has_terrain = grasslands}
+				spawn_rebels = {type = peasants_rebels size = 1}
+			}
+			random_owned_province = {
+				limit = {has_terrain = grasslands}
+				spawn_rebels = {type = peasants_rebels size = 1}
+			}
+			random_owned_province = {
+				limit = {has_terrain = farmlands}
+				spawn_rebels = {type = noble_rebels size = 2}
+			}
+			random_owned_province = {
+				limit = {has_terrain = farmlands}
+				spawn_rebels = {type = noble_rebels size = 2}
+			}
+			random_owned_province = {
+				limit = {has_terrain = farmlands}
+				spawn_rebels = {type = noble_rebels size = 2}
+			}
+			random_owned_province = {
+				limit = {has_terrain = forest}
+				spawn_rebels = {type = magnate_rebels size = 2}
+			}
+			random_owned_province = {
+				limit = {has_terrain = forest}
+				spawn_rebels = {type = magnate_rebels size = 2}
+			}
+			random_owned_province = {
+				limit = {has_terrain = forest}
+				spawn_rebels = {type = magnate_rebels size = 2}
 			}
 		}
 	}
