@@ -57,46 +57,7 @@ fort_15th = {
 	}
 	keep_trigger = {
 		can_build_fort = yes
-	}
-	on_built = {
-		if = {
-			limit = {region = alecand_region}
-			hidden_effect = {province_event = { id = kheionai.2 }}
-		}
-		if = {
-			limit = { FROM = { has_estate_privilege = estate_elephant_command_war_room_rights } }
-			FROM = { add_legitimacy = 1 }
-		}
-		if = {
-			limit = {
-				owner = {has_government_attribute = noble_castles_boost}
-				culture = owner
-				NOT = {has_province_modifier = noble_castles_boost_modifier}
-				has_fort_trigger = yes
-			}
-			add_province_modifier = {name = noble_castles_boost_modifier duration = -1}
-		}
-	}
-
-	on_destroyed = {
-		province_event = {
-			id = kheionai.2
-		}
-		if = {
-			limit = {
-				region = alecand_region
-			}
-			hidden_effect = {
-				province_event = { id = kheionai.2 }
-			}
-		}
-		if = {
-			limit = {
-				has_province_modifier = noble_castles_boost_modifier
-			}
-			remove_province_modifier = noble_castles_boost_modifier
-		}
-	}
+	}c
 
 	modifier = {
 		fort_level = 2
@@ -1909,11 +1870,11 @@ state_house = {
 
 	modifier = {	#bertus mod
 		local_development_cost_modifier = -0.05
-		local_amount_of_carolean = 1.0
+		local_amount_of_carolean = 0.25
 	}
 	bonus_modifier = {	#bertus mod
 		local_development_cost_modifier = -0.05
-		local_amount_of_carolean = 1.0
+		local_amount_of_carolean = 0.25
 	}
 	on_built = {
 		if = {
@@ -2059,11 +2020,11 @@ mage_tower = {
 		}
 	}
 	modifier = {	#bertus mod
-		local_amount_of_cawa = 1
+		local_amount_of_cawa = 0.25
 		local_development_cost_modifier = -0.05
 	}
 	bonus_modifier = {	#bertus mod
-		local_amount_of_cawa = 1
+		local_amount_of_cawa = 0.25
 		local_development_cost_modifier = -0.05
 	}
 	onmap = no
@@ -3942,6 +3903,35 @@ dock = {
 		local_sailors_modifier = 0.5
 	}
 
+	on_built = {
+		if = {
+			limit = {owner = {has_idea = flottenbasis1}}
+			add_province_modifier = {
+				name = flottenbasis1_dock_bonus_1
+				duration = -1
+				hidden = yes
+			}
+		}
+		if = {
+			limit = {owner = {has_idea = flottenbasis4}}
+			add_province_modifier = {
+				name = flottenbasis4_dock_bonus_1
+				duration = -1
+				hidden = yes
+			}
+		}
+	}
+
+	on_destroyed = {
+		if = {
+			limit = {has_province_modifier = flottenbasis1_dock_bonus_1}
+			remove_province_modifier = flottenbasis1_dock_bonus_1
+		}
+		if = {
+			limit = {has_province_modifier = flottenbasis4_dock_bonus_1}
+			remove_province_modifier = flottenbasis4_dock_bonus_1
+		}
+	}
 	ai_will_do = {factor = 1}
 }
 
@@ -3957,6 +3947,37 @@ drydock = {
 		local_ship_repair = 0.5
 		local_sailors_modifier = 1.0
 	}
+	on_built = {
+		if = {
+			limit = {owner = {has_idea = flottenbasis1}}
+			remove_province_modifier = flottenbasis1_dock_bonus_1
+			add_province_modifier = {
+				name = flottenbasis1_dock_bonus_2
+				duration = -1
+				hidden = yes
+			}
+		}
+		if = {
+			limit = {owner = {has_idea = flottenbasis4}}
+			remove_province_modifier = flottenbasis4_dock_bonus_1
+			add_province_modifier = {
+				name = flottenbasis4_dock_bonus_2
+				duration = -1
+				hidden = yes
+			}
+		}
+	}
+
+	on_destroyed = {
+		if = {
+			limit = {has_province_modifier = flottenbasis1_dock_bonus_2}
+			remove_province_modifier = flottenbasis1_dock_bonus_2
+		}
+		if = {
+			limit = {has_province_modifier = flottenbasis4_dock_bonus_2}
+			remove_province_modifier = flottenbasis4_dock_bonus_2
+		}
+	}
 	ai_will_do = {factor = 1}
 }
 
@@ -3971,6 +3992,39 @@ navymanpower_lvl_3 = {
 	modifier = {	#bertus mod
 		local_ship_repair = 0.75
 		local_sailors_modifier = 1.5
+	}
+	on_built = {
+		if = {
+			limit = {owner = {has_idea = flottenbasis1}}
+			remove_province_modifier = flottenbasis1_dock_bonus_1
+			remove_province_modifier = flottenbasis1_dock_bonus_2
+			add_province_modifier = {
+				name = flottenbasis1_dock_bonus_3
+				duration = -1
+				hidden = yes
+			}
+		}
+		if = {
+			limit = {owner = {has_idea = flottenbasis4}}
+			remove_province_modifier = flottenbasis4_dock_bonus_1
+			remove_province_modifier = flottenbasis4_dock_bonus_2
+			add_province_modifier = {
+				name = flottenbasis4_dock_bonus_3
+				duration = -1
+				hidden = yes
+			}
+		}
+	}
+
+	on_destroyed = {
+		if = {
+			limit = {has_province_modifier = flottenbasis1_dock_bonus_3}
+			remove_province_modifier = flottenbasis1_dock_bonus_3
+		}
+		if = {
+			limit = {has_province_modifier = flottenbasis4_dock_bonus_3}
+			remove_province_modifier = flottenbasis4_dock_bonus_3
+		}
 	}
 	ai_will_do = {factor = 1}
 }

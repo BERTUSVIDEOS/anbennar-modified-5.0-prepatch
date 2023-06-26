@@ -358,6 +358,8 @@ wine_empire = {
 	modifiers = {
 		elven_influence_modifier = 0.1
 		elven_loyalty_modifier = 0.1
+		half_elven_influence_modifier = 0.10
+		half_elven_loyalty_modifier = 0.10
 		global_autonomy = -0.025
 		governing_capacity = 100
 	}
@@ -431,9 +433,14 @@ xenophile_elections_reform = {	#new LotN
 			is_revolutionary = no
 			NOT = { has_dlc = "Emperor" }
 		}
+		NOT = {has_reform = roilsard_elective}
+		NOT = {has_reform = damescrown_republic_reform}
 	}
 	trigger = {
-		NOT = { has_reform = damescrown_republic_reform}
+		custom_trigger_tooltip = {
+			tooltip = "NEEDS_REGULAR_ELECTIONS"
+			has_government_attribute = has_term_election
+		}
 	}
 	modifiers = {
 		all_estate_influence_modifier = 0.05
@@ -441,9 +448,8 @@ xenophile_elections_reform = {	#new LotN
 		advisor_pool = 1
 		diplomats = 1	#0→1
 	}
-	conditional = {
-		allow = { has_dlc = "Cradle of Civilization" }
-		foreign_slave_rulers = yes
+	custom_attributes = {
+		xenophile_election_mechanic = yes
 	}
 }
 subject_free_city_reform = {	#bertus mod

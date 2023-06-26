@@ -3800,27 +3800,18 @@ on_extend_regency = {
 
 # country
 on_new_term_election = {
-	if = {
-		limit = {has_reform = xenophile_elections_reform}
-		country_event = { id = slave_ruler_election.1}
-	}
-	else_if = {
-		limit = {has_government_attribute = cyranvar_special_election}
-		country_event = { id = cyranvar.1001}
-	}
-	else = {
-		country_event = { id = 700}		# Election event
-	}
 
 	events = {
 		elections.720		# Dutch Republic
 		elections.800	# Lottery election
 		pirates.1
-
+		700	# Election event
+		flavor_roilsard.12	# Roilsard Special
+		cyranvar.1001	#bertus mod
+		slave_ruler_election.1	#bertus mod
 		#Anbennar
 		# elections.900		#Allclan Nezkaru Council
 		diggy_fallen.9
-		flavor_roilsard.12	# Roilsard Special
 		marlliande.1
 		flavour_reuyel.1
 		flavor_krak.200 #krakdhumvror clan council
@@ -3861,35 +3852,18 @@ on_death_election = {
 	if = { limit = { has_reform = bulwari_temple_reform }
 		country_event = { id = flavor_vacyn.100 }
 	}
-	if = {
-		limit = {has_reform = xenophile_elections_reform}
-		country_event = { id = slave_ruler_election.1}
-	}
-	else_if = {
-		limit = {has_government_attribute = cyranvar_special_election}
-		country_event = { id = cyranvar.1001}
-	}
-	else_if = {
-		limit = {
-			has_government_attribute = magisterium_election
-		}
-		country_event = { id = magocracy.2}		# Election event
-	}
-	else_if = {
-		limit = {
-			NOT = { has_government_attribute = generals_become_rulers }
-			NOT = { has_government_attribute = admirals_become_rulers }
-		}
-		country_event = { id = 701}		# Election event
-	}
 
 	events = {
 		elections.721		# Dutch Republic
 		elections.800		# Lottery election
+		701
 
 		#Anbennar
 		diggy_fallen.9
 		flavor_roilsard.13	# Roilsard Special
+		cyranvar.1001	#bertus mod
+		slave_ruler_election.1	#bertus mod
+		magocracy.2	#bertus mod
 		ynn_barges.102
 		marlliande.2
 		# elections.901
@@ -3923,7 +3897,6 @@ on_death_foreign_slave_ruler = {
 
 		#Anbennar
 		slave_ruler_election.0
-		slave_ruler_election.1	#bertus mod
 	}
 }
 
@@ -8420,6 +8393,24 @@ on_province_owner_change = {
 	on_province_owner_change_government_effect = yes
 	on_province_owner_change_estate_privileges_effect = yes
 	
+	if = {
+		limit = {owner = {has_idea = flottenbasis1}}
+		trigger_switch = {
+			on_trigger = has_building
+			navymanpower_lvl_3 = {add_province_modifier = {name = flottenbasis1_dock_bonus_3 duration = -1 hidden = yes}}
+			drydock = {add_province_modifier = {name = flottenbasis1_dock_bonus_2 duration = -1 hidden = yes}}
+			dock = {add_province_modifier = {name = flottenbasis1_dock_bonus_1 duration = -1 hidden = yes}}
+		}
+	}
+	if = {
+		limit = {owner = {has_idea = flottenbasis4}}
+		trigger_switch = {
+			on_trigger = has_building
+			navymanpower_lvl_3 = {add_province_modifier = {name = flottenbasis4_dock_bonus_3 duration = -1 hidden = yes}}
+			drydock = {add_province_modifier = {name = flottenbasis4_dock_bonus_2 duration = -1 hidden = yes}}
+			dock = {add_province_modifier = {name = flottenbasis4_dock_bonus_1 duration = -1 hidden = yes}}
+		}
+	}
 	if = {
 		limit = {has_province_modifier = noble_castles_boost_modifier}
 		remove_province_modifier = noble_castles_boost_modifier

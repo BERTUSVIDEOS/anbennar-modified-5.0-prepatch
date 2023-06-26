@@ -2,12 +2,25 @@ country_decisions = {
     glade_colonisation = {
         potential = {
 			capital_scope = { superregion = deepwoods_superregion }
-            deepwoods_outward_gladeway = {
-                is_empty = yes
-                NOT = { has_province_modifier = cant_colonize }
-                NOT = { has_province_modifier = krak_frozen_wasteland }
-                any_neighbor_province = {
-                    owned_by = ROOT
+            OR = {
+                deepwoods_outward_gladeway = {
+                    is_empty = yes
+                    NOT = { has_province_modifier = cant_colonize }
+                    NOT = { has_province_modifier = krak_frozen_wasteland }
+                    any_neighbor_province = {
+                        owned_by = ROOT
+                    }
+                }
+                AND = {
+                    domandrod_region = {
+                        is_empty = yes
+                        NOT = { has_province_modifier = cant_colonize }
+                        NOT = { has_province_modifier = krak_frozen_wasteland }
+                        any_neighbor_province = {
+                            owned_by = ROOT
+                        }
+                    }
+                    owns = 6258
                 }
             }
 		}
@@ -17,11 +30,14 @@ country_decisions = {
             treasury = 100
         }
 
-        effect = {       
+        effect = {
             add_treasury = -100
             random_province = {
                 limit = {
-                    province_group = deepwoods_outward_gladeway
+                    OR = {
+                        province_group = deepwoods_outward_gladeway
+                        region = domandrod_region
+                    }
                     NOT = { has_province_modifier = cant_colonize }
                     NOT = { has_province_modifier = krak_frozen_wasteland }
                     is_empty = yes

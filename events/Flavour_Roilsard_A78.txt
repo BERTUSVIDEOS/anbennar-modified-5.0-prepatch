@@ -388,6 +388,66 @@ country_event = {
     immediate = {
         hidden_effect = {
             set_country_flag = in_roilsard_election
+			random_owned_province = {
+				save_event_target_as = sil_saloren_ruler_alternative_province
+				owner = {
+					if = {
+						limit = { republic_with_female_rulers_trigger = yes }
+						define_exiled_ruler = {exiled_as = sil_saloren_ruler_alternative_province@ROOT max_random_adm = 3 max_random_dip = 3 max_random_mil = 3 change_adm = 1 change_dip = 1 change_mil = 1 dynasty = "síl Saloren" culture = roilsardi random_gender = yes option = 0}
+					}
+					else = {
+						define_exiled_ruler = {exiled_as = sil_saloren_ruler_alternative_province@ROOT max_random_adm = 3 max_random_dip = 3 max_random_mil = 3 change_adm = 1 change_dip = 1 change_mil = 1 dynasty = "síl Saloren" culture = roilsardi option = 0}
+					}
+				}
+			}
+			random_owned_province = {
+				limit = {
+					NOT = {province_id = event_target:sil_saloren_ruler_alternative_province}
+				}
+				save_event_target_as = sil_vivin_ruler_alternative_province
+				owner = {
+					if = {
+						limit = { republic_with_female_rulers_trigger = yes }
+						define_exiled_ruler = {exiled_as = sil_vivin_ruler_alternative_province@ROOT max_random_adm = 2 max_random_dip = 2 max_random_mil = 3 change_adm = 1 change_dip = 1 change_mil = 2 dynasty = "síl Vivin" culture = roilsardi random_gender = yes option = 1}
+					}
+					else = {
+						define_exiled_ruler = {exiled_as = sil_vivin_ruler_alternative_province@ROOT max_random_adm = 2 max_random_dip = 2 max_random_mil = 3 change_adm = 1 change_dip = 1 change_mil = 2 dynasty = "síl Vivin" culture = roilsardi option = 1}
+					}
+				}
+			}
+			random_owned_province = {
+				limit = {
+					NOT = {province_id = event_target:sil_saloren_ruler_alternative_province}
+					NOT = {province_id = event_target:sil_vivin_ruler_alternative_province}
+				}
+				save_event_target_as = sil_roilsard_ruler_alternative_province
+				owner = {
+					if = {
+						limit = { republic_with_female_rulers_trigger = yes }
+						define_exiled_ruler = {exiled_as = sil_roilsard_ruler_alternative_province@ROOT max_random_adm = 3 max_random_dip = 2 max_random_mil = 2 change_adm = 2 change_dip = 1 change_mil = 1 dynasty = "síl Roilsard" culture = roilsardi random_gender = yes option = 2}
+					}
+					else = {
+						define_exiled_ruler = {exiled_as = sil_roilsard_ruler_alternative_province@ROOT max_random_adm = 3 max_random_dip = 2 max_random_mil = 2 change_adm = 2 change_dip = 1 change_mil = 1 dynasty = "síl Roilsard" culture = roilsardi option = 2}
+					}
+				}
+			}
+			random_owned_province = {
+				limit = {
+					NOT = {province_id = event_target:sil_saloren_ruler_alternative_province}
+					NOT = {province_id = event_target:sil_vivin_ruler_alternative_province}
+					NOT = {province_id = event_target:sil_na_loop_ruler_alternative_province}
+				}
+				save_event_target_as = sil_na_loop_ruler_alternative_province
+				owner = {
+					if = {
+						limit = { republic_with_female_rulers_trigger = yes }
+						define_exiled_ruler = {exiled_as = sil_na_loop_ruler_alternative_province@ROOT max_random_adm = 2 max_random_dip = 3 max_random_mil = 2 change_adm = 1 change_dip = 2 change_mil = 1 dynasty = "síl na Loop" culture = roilsardi random_gender = yes option = 3}
+					}
+					else = {
+						define_exiled_ruler = {exiled_as = sil_na_loop_ruler_alternative_province@ROOT max_random_adm = 2 max_random_dip = 3 max_random_mil = 2 change_adm = 1 change_dip = 2 change_mil = 1 dynasty = "síl na Loop" culture = roilsardi option = 3}
+					}
+				}
+			}
         }
     }
 	
@@ -453,36 +513,55 @@ country_event = {
 		}
 	}
 	
+	option = {	#random
+		name = "slave_ruler_election.1.z"
+		ai_chance = {factor = 25}
+		random_list = {
+			10 = {	trigger = {	has_saved_event_target = sil_saloren_ruler_alternative_province	}
+				set_ruler = sil_saloren_ruler_alternative_province@ROOT 
+				hidden_effect = {
+					clr_ruler_flag = roilsard_sil_loop
+					clr_ruler_flag = roilsard_sil_vivin
+					clr_ruler_flag = roilsard_sil_roilsard
+					set_ruler_flag = roilsard_sil_saloren
+				}
+			}
+			10 = {	trigger = {	has_saved_event_target = sil_vivin_ruler_alternative_province	}
+				set_ruler = sil_vivin_ruler_alternative_province@ROOT 
+				hidden_effect = {
+					clr_ruler_flag = roilsard_sil_loop
+					set_ruler_flag = roilsard_sil_vivin
+					clr_ruler_flag = roilsard_sil_roilsard
+					clr_ruler_flag = roilsard_sil_saloren
+				}
+			}
+			10 = {	trigger = {	has_saved_event_target = sil_roilsard_ruler_alternative_province	}
+				set_ruler = sil_roilsard_ruler_alternative_province@ROOT 
+				hidden_effect = {
+					clr_ruler_flag = roilsard_sil_loop
+					clr_ruler_flag = roilsard_sil_vivin
+					set_ruler_flag = roilsard_sil_roilsard
+					clr_ruler_flag = roilsard_sil_saloren
+				}
+			}
+			10 = {	trigger = {	has_saved_event_target = sil_na_loop_ruler_alternative_province	}
+				set_ruler = sil_na_loop_ruler_alternative_province@ROOT 
+				hidden_effect = {
+					set_ruler_flag = roilsard_sil_loop
+					clr_ruler_flag = roilsard_sil_vivin
+					clr_ruler_flag = roilsard_sil_roilsard
+					clr_ruler_flag = roilsard_sil_saloren
+				}
+			}
+		}
+	}
+
 	#Saloren - Mixed Candidate
 	option = {
 		trigger = { NOT = { has_ruler_flag = roilsard_sil_saloren } }
 		name = flavor_roilsard.12.b
-		if = {
-			limit = { republic_with_female_rulers_trigger = yes }
-			define_ruler = {
-				max_random_mil = 3
-				max_random_adm = 3
-				max_random_dip = 3
-				change_adm = 1
-				change_dip = 1
-				change_mil = 1
-				dynasty = "síl Saloren"
-				culture = roilsardi
-				random_gender = yes # Allows random gender for republics
-			}
-		}
-		else = {
-			define_ruler = {
-				max_random_mil = 3
-				max_random_adm = 3
-				max_random_dip = 3
-				change_adm = 1
-				change_dip = 1
-				change_mil = 1
-				dynasty = "síl Saloren"
-				culture = roilsardi
-			}
-		}
+		set_ruler = sil_saloren_ruler_alternative_province@ROOT
+		add_scaled_republican_tradition = -5
 		hidden_effect = {
 			clr_ruler_flag = roilsard_sil_loop
 			clr_ruler_flag = roilsard_sil_vivin
@@ -495,32 +574,8 @@ country_event = {
 	option = {
 		trigger = { NOT = { has_ruler_flag = roilsard_sil_vivin } }
 		name = flavor_roilsard.12.c
-		if = {
-			limit = { republic_with_female_rulers_trigger = yes }
-			define_ruler = {
-				max_random_mil = 3
-				max_random_adm = 2
-				max_random_dip = 1
-				change_adm = 2
-				change_dip = 1
-				change_mil = 2
-				dynasty = "síl Vivin"
-				culture = roilsardi
-				random_gender = yes # Allows random gender for republics
-			}
-		}
-		else = {
-			define_ruler = {
-				max_random_mil = 3
-				max_random_adm = 2
-				max_random_dip = 1
-				change_adm = 2
-				change_dip = 1
-				change_mil = 2
-				dynasty = "síl Vivin"
-				culture = roilsardi
-			}
-		}
+		set_ruler = sil_vivin_ruler_alternative_province@ROOT
+		add_scaled_republican_tradition = -5
 		hidden_effect = {
 			clr_ruler_flag = roilsard_sil_loop
 			set_ruler_flag = roilsard_sil_vivin
@@ -533,32 +588,8 @@ country_event = {
 	option = {
 		trigger = { NOT = { has_ruler_flag = roilsard_sil_roilsard } }
 		name = flavor_roilsard.12.e
-		if = {
-			limit = { republic_with_female_rulers_trigger = yes }
-			define_ruler = {
-				max_random_mil = 1
-				max_random_adm = 3
-				max_random_dip = 2
-				change_adm = 2
-				change_dip = 2
-				change_mil = 1
-				dynasty = "síl Roilsard"
-				culture = roilsardi
-				random_gender = yes # Allows random gender for republics
-			}
-		}
-		else = {
-			define_ruler = {
-				max_random_mil = 1
-				max_random_adm = 3
-				max_random_dip = 2
-				change_adm = 2
-				change_dip = 2
-				change_mil = 1
-				dynasty = "síl Roilsard"
-				culture = roilsardi
-			}
-		}
+		set_ruler = sil_roilsard_ruler_alternative_province@ROOT
+		add_scaled_republican_tradition = -5
 		hidden_effect = {
 			clr_ruler_flag = roilsard_sil_loop
 			clr_ruler_flag = roilsard_sil_vivin
@@ -571,32 +602,8 @@ country_event = {
 	option = {
 		trigger = { NOT = { has_ruler_flag = roilsard_sil_loop } }
 		name = flavor_roilsard.12.f
-		if = {
-			limit = { republic_with_female_rulers_trigger = yes }
-			define_ruler = {
-				max_random_mil = 2
-				max_random_adm = 1
-				max_random_dip = 3
-				change_adm = 1
-				change_dip = 2
-				change_mil = 2
-				dynasty = "síl na Loop"
-				culture = roilsardi
-				random_gender = yes # Allows random gender for republics
-			}
-		}
-		else = {
-			define_ruler = {
-				max_random_mil = 2
-				max_random_adm = 1
-				max_random_dip = 3
-				change_adm = 1
-				change_dip = 2
-				change_mil = 2
-				dynasty = "síl na Loop"
-				culture = roilsardi
-			}
-		}
+		set_ruler = sil_na_loop_ruler_alternative_province@ROOT
+		add_scaled_republican_tradition = -5
 		hidden_effect = {
 			set_ruler_flag = roilsard_sil_loop
 			clr_ruler_flag = roilsard_sil_vivin
@@ -623,6 +630,66 @@ country_event = {
     immediate = {
         hidden_effect = {
             set_country_flag = in_roilsard_election
+			random_owned_province = {
+				save_event_target_as = sil_saloren_ruler_alternative_province
+				owner = {
+					if = {
+						limit = { republic_with_female_rulers_trigger = yes }
+						define_exiled_ruler = {exiled_as = sil_saloren_ruler_alternative_province@ROOT max_random_adm = 3 max_random_dip = 3 max_random_mil = 3 change_adm = 1 change_dip = 1 change_mil = 1 dynasty = "síl Saloren" culture = roilsardi random_gender = yes option = 0}
+					}
+					else = {
+						define_exiled_ruler = {exiled_as = sil_saloren_ruler_alternative_province@ROOT max_random_adm = 3 max_random_dip = 3 max_random_mil = 3 change_adm = 1 change_dip = 1 change_mil = 1 dynasty = "síl Saloren" culture = roilsardi option = 0}
+					}
+				}
+			}
+			random_owned_province = {
+				limit = {
+					NOT = {province_id = event_target:sil_saloren_ruler_alternative_province}
+				}
+				save_event_target_as = sil_vivin_ruler_alternative_province
+				owner = {
+					if = {
+						limit = { republic_with_female_rulers_trigger = yes }
+						define_exiled_ruler = {exiled_as = sil_vivin_ruler_alternative_province@ROOT max_random_adm = 2 max_random_dip = 2 max_random_mil = 3 change_adm = 1 change_dip = 1 change_mil = 2 dynasty = "síl Vivin" culture = roilsardi random_gender = yes option = 1}
+					}
+					else = {
+						define_exiled_ruler = {exiled_as = sil_vivin_ruler_alternative_province@ROOT max_random_adm = 2 max_random_dip = 2 max_random_mil = 3 change_adm = 1 change_dip = 1 change_mil = 2 dynasty = "síl Vivin" culture = roilsardi option = 1}
+					}
+				}
+			}
+			random_owned_province = {
+				limit = {
+					NOT = {province_id = event_target:sil_saloren_ruler_alternative_province}
+					NOT = {province_id = event_target:sil_vivin_ruler_alternative_province}
+				}
+				save_event_target_as = sil_roilsard_ruler_alternative_province
+				owner = {
+					if = {
+						limit = { republic_with_female_rulers_trigger = yes }
+						define_exiled_ruler = {exiled_as = sil_roilsard_ruler_alternative_province@ROOT max_random_adm = 3 max_random_dip = 2 max_random_mil = 2 change_adm = 2 change_dip = 1 change_mil = 1 dynasty = "síl Roilsard" culture = roilsardi random_gender = yes option = 2}
+					}
+					else = {
+						define_exiled_ruler = {exiled_as = sil_roilsard_ruler_alternative_province@ROOT max_random_adm = 3 max_random_dip = 2 max_random_mil = 2 change_adm = 2 change_dip = 1 change_mil = 1 dynasty = "síl Roilsard" culture = roilsardi option = 2}
+					}
+				}
+			}
+			random_owned_province = {
+				limit = {
+					NOT = {province_id = event_target:sil_saloren_ruler_alternative_province}
+					NOT = {province_id = event_target:sil_vivin_ruler_alternative_province}
+					NOT = {province_id = event_target:sil_na_loop_ruler_alternative_province}
+				}
+				save_event_target_as = sil_na_loop_ruler_alternative_province
+				owner = {
+					if = {
+						limit = { republic_with_female_rulers_trigger = yes }
+						define_exiled_ruler = {exiled_as = sil_na_loop_ruler_alternative_province@ROOT max_random_adm = 2 max_random_dip = 3 max_random_mil = 2 change_adm = 1 change_dip = 2 change_mil = 1 dynasty = "síl na Loop" culture = roilsardi random_gender = yes option = 3}
+					}
+					else = {
+						define_exiled_ruler = {exiled_as = sil_na_loop_ruler_alternative_province@ROOT max_random_adm = 2 max_random_dip = 3 max_random_mil = 2 change_adm = 1 change_dip = 2 change_mil = 1 dynasty = "síl na Loop" culture = roilsardi option = 3}
+					}
+				}
+			}
         }
     }
 	
@@ -632,35 +699,53 @@ country_event = {
         }
 	}
 	
+	option = {	#random
+		name = "slave_ruler_election.1.z"
+		ai_chance = {factor = 25}
+		random_list = {
+			10 = {	trigger = {	has_saved_event_target = sil_saloren_ruler_alternative_province	}
+				set_ruler = sil_saloren_ruler_alternative_province@ROOT 
+				hidden_effect = {
+					clr_ruler_flag = roilsard_sil_loop
+					clr_ruler_flag = roilsard_sil_vivin
+					clr_ruler_flag = roilsard_sil_roilsard
+					set_ruler_flag = roilsard_sil_saloren
+				}
+			}
+			10 = {	trigger = {	has_saved_event_target = sil_vivin_ruler_alternative_province	}
+				set_ruler = sil_vivin_ruler_alternative_province@ROOT 
+				hidden_effect = {
+					clr_ruler_flag = roilsard_sil_loop
+					set_ruler_flag = roilsard_sil_vivin
+					clr_ruler_flag = roilsard_sil_roilsard
+					clr_ruler_flag = roilsard_sil_saloren
+				}
+			}
+			10 = {	trigger = {	has_saved_event_target = sil_roilsard_ruler_alternative_province	}
+				set_ruler = sil_roilsard_ruler_alternative_province@ROOT 
+				hidden_effect = {
+					clr_ruler_flag = roilsard_sil_loop
+					clr_ruler_flag = roilsard_sil_vivin
+					set_ruler_flag = roilsard_sil_roilsard
+					clr_ruler_flag = roilsard_sil_saloren
+				}
+			}
+			10 = {	trigger = {	has_saved_event_target = sil_na_loop_ruler_alternative_province	}
+				set_ruler = sil_na_loop_ruler_alternative_province@ROOT 
+				hidden_effect = {
+					set_ruler_flag = roilsard_sil_loop
+					clr_ruler_flag = roilsard_sil_vivin
+					clr_ruler_flag = roilsard_sil_roilsard
+					clr_ruler_flag = roilsard_sil_saloren
+				}
+			}
+		}
+	}
 	#Saloren - Mixed Candidate
 	option = {
 		name = flavor_roilsard.13.a
-		if = {
-			limit = { republic_with_female_rulers_trigger = yes }
-			define_ruler = {
-				max_random_mil = 3
-				max_random_adm = 3
-				max_random_dip = 3
-				change_adm = 1
-				change_dip = 1
-				change_mil = 1
-				dynasty = "síl Saloren"
-				culture = roilsardi
-				random_gender = yes # Allows random gender for republics
-			}
-		}
-		else = {
-			define_ruler = {
-				max_random_mil = 3
-				max_random_adm = 3
-				max_random_dip = 3
-				change_adm = 1
-				change_dip = 1
-				change_mil = 1
-				dynasty = "síl Saloren"
-				culture = roilsardi
-			}
-		}
+		set_ruler = sil_saloren_ruler_alternative_province@ROOT
+		add_scaled_republican_tradition = -5
 		hidden_effect = {
 			clr_ruler_flag = roilsard_sil_loop
 			clr_ruler_flag = roilsard_sil_vivin
@@ -672,32 +757,8 @@ country_event = {
 	#Vivin - Military Candidate
 	option = {
 		name = flavor_roilsard.13.b
-		if = {
-			limit = { republic_with_female_rulers_trigger = yes }
-			define_ruler = {
-				max_random_mil = 3
-				max_random_adm = 2
-				max_random_dip = 1
-				change_adm = 2
-				change_dip = 1
-				change_mil = 2
-				dynasty = "síl Vivin"
-				culture = roilsardi
-				random_gender = yes # Allows random gender for republics
-			}
-		}
-		else = {
-			define_ruler = {
-				max_random_mil = 3
-				max_random_adm = 2
-				max_random_dip = 1
-				change_adm = 2
-				change_dip = 1
-				change_mil = 2
-				dynasty = "síl Vivin"
-				culture = roilsardi
-			}
-		}
+		set_ruler = sil_vivin_ruler_alternative_province@ROOT
+		add_scaled_republican_tradition = -5
 		hidden_effect = {
 			clr_ruler_flag = roilsard_sil_loop
 			set_ruler_flag = roilsard_sil_vivin
@@ -709,32 +770,8 @@ country_event = {
 	#Roilsard - Administrative Candidate
 	option = {
 		name = flavor_roilsard.13.c
-		if = {
-			limit = { republic_with_female_rulers_trigger = yes }
-			define_ruler = {
-				max_random_mil = 1
-				max_random_adm = 3
-				max_random_dip = 2
-				change_adm = 2
-				change_dip = 2
-				change_mil = 1
-				dynasty = "síl Roilsard"
-				culture = roilsardi
-				random_gender = yes # Allows random gender for republics
-			}
-		}
-		else = {
-			define_ruler = {
-				max_random_mil = 1
-				max_random_adm = 3
-				max_random_dip = 2
-				change_adm = 2
-				change_dip = 2
-				change_mil = 1
-				dynasty = "síl Roilsard"
-				culture = roilsardi
-			}
-		}
+		set_ruler = sil_roilsard_ruler_alternative_province@ROOT
+		add_scaled_republican_tradition = -5
 		hidden_effect = {
 			clr_ruler_flag = roilsard_sil_loop
 			clr_ruler_flag = roilsard_sil_vivin
@@ -746,32 +783,8 @@ country_event = {
 	#na Loop - Diplomatic Candidate
 	option = {
 		name = flavor_roilsard.13.e
-		if = {
-			limit = { republic_with_female_rulers_trigger = yes }
-			define_ruler = {
-				max_random_mil = 2
-				max_random_adm = 1
-				max_random_dip = 3
-				change_adm = 1
-				change_dip = 2
-				change_mil = 2
-				dynasty = "síl na Loop"
-				culture = roilsardi
-				random_gender = yes # Allows random gender for republics
-			}
-		}
-		else = {
-			define_ruler = {
-				max_random_mil = 2
-				max_random_adm = 1
-				max_random_dip = 3
-				change_adm = 1
-				change_dip = 2
-				change_mil = 2
-				dynasty = "síl na Loop"
-				culture = roilsardi
-			}
-		}
+		set_ruler = sil_na_loop_ruler_alternative_province@ROOT
+		add_scaled_republican_tradition = -5
 		hidden_effect = {
 			set_ruler_flag = roilsard_sil_loop
 			clr_ruler_flag = roilsard_sil_vivin
