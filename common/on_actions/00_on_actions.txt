@@ -4278,6 +4278,20 @@ on_emperor_elected = {
 	emperor = {
 		save_global_event_target_as = Emperor
 		country_event = { id = long_lived_emperor.1 }
+		add_ruler_modifier = {name = emperor_guard_modifier duration = -1}	#bertus mod
+		add_ruler_modifier = {name = emperor_battlemages_modifier duration = -1}	#bertus mod
+	}
+	if = {
+		limit = {hre_reform_passed = imperial_cities}
+		every_country = {
+			limit = {
+				OR = {
+					has_reform = free_city
+					is_subject_of_type = subject_free_city
+				}
+			}
+			country_event = {id = bertus_changes.6029}
+		}
 	}
 	if = {
 		limit = {
@@ -4875,9 +4889,7 @@ on_dip_development = {
 	on_dip_development_effect = yes
 	on_dip_development_extra_dev_effect = yes
 	if = {	#bertus mod
-		limit = {
-			NOT = {has_province_modifier = updating_pop_modifier}
-		}
+		limit = {NOT = {has_province_modifier = updating_pop_modifier}}
 		add_province_modifier = {
 			name = updating_pop_modifier
 			duration = 60
@@ -4911,9 +4923,7 @@ on_mil_development = {
 	on_mil_development_effect = yes
 	on_mil_development_extra_dev_effect = yes
 	if = {	#bertus mod
-		limit = {
-			NOT = {has_province_modifier = updating_pop_modifier}
-		}
+		limit = {NOT = {has_province_modifier = updating_pop_modifier}}
 		add_province_modifier = {
 			name = updating_pop_modifier
 			duration = 60
@@ -8182,9 +8192,7 @@ on_province_religion_changed = {
 # province
 on_province_culture_converted = {
 	if = {	#bertus mod
-		limit = {
-			NOT = {has_province_modifier = updating_pop_modifier}
-		}
+		limit = {NOT = {has_province_modifier = updating_pop_modifier}}
 		add_province_modifier = {
 			name = updating_pop_modifier
 			duration = 60
@@ -8199,10 +8207,7 @@ on_province_culture_converted = {
 		limit = {
 			owner = {has_government_attribute = noble_castles_boost}
 		}
-		if = {
-			limit = {has_province_modifier = noble_castles_boost_modifier}
-			remove_province_modifier = noble_castles_boost_modifier
-		}
+		remove_province_modifier_effect = {MODIFIER = noble_castles_boost_modifier}
 		if = {
 			limit = {
 				culture = owner
@@ -8213,6 +8218,7 @@ on_province_culture_converted = {
 		}
 	}
 	bertus_dev_reduction = {value = 0.5}	#bertus mod 
+	remove_province_modifier_effect = {MODIFIER = centralized_provinces_modifier}
 	on_province_culture_converted_estate_privilges_effect = yes
 	on_province_culture_change_effect = yes #1.35
 
@@ -8392,6 +8398,17 @@ on_province_owner_change = {
 	}
 	on_province_owner_change_government_effect = yes
 	on_province_owner_change_estate_privileges_effect = yes
+	if = {
+		limit = {is_part_of_hre = yes}
+		every_owned_province = {
+			limit = {
+				is_part_of_hre = yes
+				NOT = {has_province_modifier = empire_centralization_modifier}
+				has_province_flag = empire_centralization_province_flag
+			}
+			add_province_modifier = {name = empire_centralization_modifier duration = -1}
+		}
+	}
 	
 	if = {
 		limit = {owner = {has_idea = flottenbasis1}}
@@ -8411,14 +8428,9 @@ on_province_owner_change = {
 			dock = {add_province_modifier = {name = flottenbasis4_dock_bonus_1 duration = -1 hidden = yes}}
 		}
 	}
+	remove_province_modifier_effect = {MODIFIER = noble_castles_boost_modifier}
 	if = {
-		limit = {has_province_modifier = noble_castles_boost_modifier}
-		remove_province_modifier = noble_castles_boost_modifier
-	}
-	if = {
-		limit = {
-			owner = {has_government_attribute = noble_castles_boost}
-		}
+		limit = {owner = {has_government_attribute = noble_castles_boost}}
 		if = {
 			limit = {
 				culture = owner
@@ -8426,6 +8438,16 @@ on_province_owner_change = {
 				has_fort_trigger = yes
 			}
 			add_province_modifier = {name = noble_castles_boost_modifier duration = -1}
+		}
+	}
+	if = {
+		limit = {owner = {has_government_attribute = boost_30_dev_provinces}}
+		if = {
+			limit = {
+				development = 30
+				NOT = {has_province_modifier = centralized_provinces_modifier}
+			}
+			add_province_modifier = {name = centralized_provinces_modifier duration = -1}
 		}
 	}
 
@@ -10079,6 +10101,13 @@ on_culture_promoted = {
 			1 = {add_country_modifier = {name = cultural_bureaucracy_1 duration = -1 hidden = yes}}
 		}
 	}
+	if = {
+		limit = {
+			has_idea = kolonialimperium3
+			num_accepted_cultures = 5
+		}
+		add_country_modifier = {name = humanist_bonus duration = -1 hidden = yes}
+	}
 	if = { #1.35
 		limit = { has_country_flag = reduce_ae_from_prom_cultures_flag }
 		every_country = {
@@ -10097,6 +10126,41 @@ on_culture_demoted = {
 	# judaism_on_culture_country_effect = yes #Anbennar
 	# imperial_modifiers_on_culture_country_effect = yes #Anbennar
 	on_culture_demoted_effect = yes
+	remove_country_modifier = cultural_bureaucracy_10
+	remove_country_modifier = cultural_bureaucracy_9
+	remove_country_modifier = cultural_bureaucracy_8
+	remove_country_modifier = cultural_bureaucracy_7
+	remove_country_modifier = cultural_bureaucracy_6
+	remove_country_modifier = cultural_bureaucracy_5
+	remove_country_modifier = cultural_bureaucracy_4
+	remove_country_modifier = cultural_bureaucracy_3
+	remove_country_modifier = cultural_bureaucracy_2
+	remove_country_modifier = cultural_bureaucracy_1
+	if = {	#bertus mod
+		limit = {
+			has_government_attribute = cultural_bureaucracy
+		}
+		trigger_switch = {
+			on_trigger = num_accepted_cultures
+			10 = {add_country_modifier = {name = cultural_bureaucracy_10 duration = -1 hidden = yes}}
+			9 = {add_country_modifier = {name = cultural_bureaucracy_9 duration = -1 hidden = yes}}
+			8 = {add_country_modifier = {name = cultural_bureaucracy_8 duration = -1 hidden = yes}}
+			7 = {add_country_modifier = {name = cultural_bureaucracy_7 duration = -1 hidden = yes}}
+			6 = {add_country_modifier = {name = cultural_bureaucracy_6 duration = -1 hidden = yes}}
+			5 = {add_country_modifier = {name = cultural_bureaucracy_5 duration = -1 hidden = yes}}
+			4 = {add_country_modifier = {name = cultural_bureaucracy_4 duration = -1 hidden = yes}}
+			3 = {add_country_modifier = {name = cultural_bureaucracy_3 duration = -1 hidden = yes}}
+			2 = {add_country_modifier = {name = cultural_bureaucracy_2 duration = -1 hidden = yes}}
+			1 = {add_country_modifier = {name = cultural_bureaucracy_1 duration = -1 hidden = yes}}
+		}
+	}
+	if = {
+		limit = {
+			NOT = {num_accepted_cultures = 5}
+			has_country_modifier = humanist_bonus
+		}
+		remove_country_modifier = humanist_bonus
+	}
 }
 
 # ROOT = country
@@ -10110,9 +10174,7 @@ on_primary_culture_changed = {
 			has_government_attribute = noble_castles_boost
 		}
 		every_owned_province = {	#bertus
-			limit = {
-				has_province_modifier = noble_castles_boost_modifier
-			}
+			limit = {has_province_modifier = noble_castles_boost_modifier}
 			remove_province_modifier = noble_castles_boost_modifier
 		}
 		every_owned_province = {	#bertus
@@ -11538,6 +11600,12 @@ on_defender_of_faith_claim = {
 }
 
 on_hre_dismantled = {
+	every_province = {
+		limit = {
+			has_province_modifier = empire_centralization_modifier
+		}
+		remove_province_modifier = empire_centralization_modifier
+	}
 }
 
 on_new_age = {
@@ -11574,12 +11642,15 @@ on_adm_exploited = {
 			add_base_tax = 1
 		}
 	}
+	remove_province_modifier_effect = {MODIFIER = centralized_provinces_modifier}
 }
 
 on_dip_exploited = {
+	remove_province_modifier_effect = {MODIFIER = centralized_provinces_modifier}
 }
 
 on_mil_exploited = {
+	remove_province_modifier_effect = {MODIFIER = centralized_provinces_modifier}
 }
 
 on_raze = {
@@ -11684,3 +11755,7 @@ on_alliance_created = { #ROOT - Alliance sender, FROM - Alliance accepter
 on_royal_marriage = { #ROOT - Marraige sender, FROM - marriage accepter
 
 }		
+
+on_heir_disinherited = {
+	on_heir_disinherited_or_death_effect = yes
+}

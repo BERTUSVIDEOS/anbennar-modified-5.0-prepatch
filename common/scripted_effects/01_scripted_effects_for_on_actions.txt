@@ -811,6 +811,16 @@ on_adm_development_effect = {
 			loyalty = 1 
 		}
 	}
+	if = {
+		limit = {owner = {has_government_attribute = boost_30_dev_provinces}}
+		if = {
+			limit = {
+				development = 30
+				NOT = {has_province_modifier = centralized_provinces_modifier}
+			}
+			add_province_modifier = {name = centralized_provinces_modifier duration = -1}
+		}
+	}
 }
 on_dip_development_effect = {
 	if = {
@@ -835,6 +845,16 @@ on_dip_development_effect = {
 			70 = {  } 
 		}
 	}
+	if = {
+		limit = {owner = {has_government_attribute = boost_30_dev_provinces}}
+		if = {
+			limit = {
+				development = 30
+				NOT = {has_province_modifier = centralized_provinces_modifier}
+			}
+			add_province_modifier = {name = centralized_provinces_modifier duration = -1}
+		}
+	}
 }
 on_mil_development_effect = {
 	if = {
@@ -857,6 +877,16 @@ on_mil_development_effect = {
 			10 = { add_prosperity = 1 } 
 			10 = { add_province_modifier = { name = qng_center_of_industrialization_modifier duration = 3650 } }
 			70 = {  } 
+		}
+	}
+	if = {
+		limit = {owner = {has_government_attribute = boost_30_dev_provinces}}
+		if = {
+			limit = {
+				development = 30
+				NOT = {has_province_modifier = centralized_provinces_modifier}
+			}
+			add_province_modifier = {name = centralized_provinces_modifier duration = -1}
 		}
 	}
 }
@@ -1126,5 +1156,67 @@ on_general_recruited_effect = {
 			has_church_aspect = blue_dragon_1
 		}
 		add_church_power = 15
+	}
+}
+on_sale_of_titles_effect = {
+	hidden_effect = {
+		change_variable = {
+			which = sale_of_titles_counter
+			value = 1
+		}
+	}
+}
+on_summon_the_diet_effect = {
+	hidden_effect = {
+		change_variable = {
+			which = summon_the_diet_counter
+			value = 1
+		}
+	}
+}
+on_seize_land_effect = {
+}
+on_heir_disinherited_or_death_effect = {
+	if = {
+		limit = { has_country_flag = heir_dip_education }
+		clr_country_flag = heir_dip_education
+	}
+	if = {
+		limit = { has_country_flag = heir_mil_education }
+		clr_country_flag = heir_mil_education
+	}
+	if = {
+		limit = { has_country_flag = heir_adm_education }
+		clr_country_flag = heir_adm_education
+	}
+	if = {
+		limit = { has_ruler_flag = well_advised_tutored_heir }
+		clr_ruler_flag = well_advised_tutored_heir
+	}
+	if = {
+		limit = { has_ruler_flag = heir_went_on_grand_tour }
+		clr_ruler_flag = heir_went_on_grand_tour
+	}
+	if = {
+		limit = { has_country_flag = albrecht_achilles_flag }
+		clr_country_flag = albrecht_achilles_flag #Death of original Albrecht Achilles
+	}
+	if = {
+		limit = { has_ruler_flag = sancaga_cikma }
+		clr_ruler_flag = sancaga_cikma
+		every_owned_province = {
+			limit = {
+				has_province_modifier = heir_in_training
+			}
+			remove_province_modifier = heir_in_training
+		}
+	}
+	if = {
+		limit = { has_ruler_flag = returned_from_sancaga_sikma_province }
+		clr_ruler_flag = returned_from_sancaga_sikma_province
+	}
+	if = {
+		limit = { has_any_heir_cult_active = yes }
+		remove_heir_cult = yes
 	}
 }
