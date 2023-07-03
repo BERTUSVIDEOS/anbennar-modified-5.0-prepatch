@@ -893,29 +893,6 @@ on_mil_development_effect = {
 
 # THIS = Province, FROM = Country, ROOT = Merc Unit
 on_mercenary_recruited_effect = {
-	if = {
-		limit = {
-			FROM = { has_not_free_mercs_trait = yes }
-			is_not_free_merc_company = yes
-			OR = {
-				FROM = { NOT = { has_country_flag = oyo_cavalry_do_not_consume_ap } }
-				ROOT = { NOT = { mercenary_company = merc_oyo_cavalry } }
-			}
-		}
-		if = {
-			limit = {
-				FROM = { 
-					OR = {
-						has_country_flag = fifty_percent_merc_army_professionalism_cost 
-						has_country_modifier = pol_cheap_ap_mercs_modifier
-					}
-				}
-			}
-			FROM = { add_army_professionalism = -0.025 }
-		}
-		else = { 
-			FROM = { add_army_professionalism = -0.05 } 
-		}
 	}
 }
 
@@ -1149,13 +1126,6 @@ on_general_recruited_effect = {
 	if = {
 		limit = { has_estate_privilege = estate_lion_command_war_room_rights }
 		add_legitimacy = 1
-	}
-	
-	if = {
-		limit = {
-			has_church_aspect = blue_dragon_1
-		}
-		add_church_power = 15
 	}
 }
 on_sale_of_titles_effect = {

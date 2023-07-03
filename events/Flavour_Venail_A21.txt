@@ -920,77 +920,21 @@ country_event = {
 	is_triggered_only = yes
 	
 	#We won't surrender
-	option = {
+	option = {	#bertus mod
         name = venail.22.a
         ai_chance = { factor = 100 }
-		if = {
-			limit = { owns = 93 }
-			event_target:venail_purchaser = { 
-				declare_war_with_cb = {
-					who = A21
-					casus_belli = cb_conquest
-					war_goal_province = 93
-				}
-			}
-		}
-		else_if = {
-			limit = { owns = 94 }
-			event_target:venail_purchaser = { 
-				declare_war_with_cb = {
-					who = A21
-					casus_belli = cb_conquest
-					war_goal_province = 94
-				}
-			}
-		}
-		else_if = {
-			limit = { owns = 127 }
-			event_target:venail_purchaser = { 
-				declare_war_with_cb = {
-					who = A21
-					casus_belli = cb_conquest
-					war_goal_province = 127
-				}
-			}
-		}
 		add_country_modifier = {
 			name = population_leaving_for_aelantir
 			duration = 3650
 		}
-		custom_tooltip = colonies_declare_independence
-		hidden_effect = {
-			every_subject_country = {
-				limit = { is_colonial_nation = yes capital_scope = { colonial_region = colonial_noruin } }
-				declare_war_with_cb = {
-					who = A21
-					casus_belli = cb_independence_war
-				}
-			}
-			every_subject_country = {
-				limit = { is_colonial_nation = yes }
-				random_list = {
-					30 = {
-						declare_war_with_cb = {
-							who = A21
-							casus_belli = cb_independence_war
-						}
-					}
-					70 = {
-						add_liberty_desire = 60
-					}
-				}
-			}
-		}
 	}
 	
-	#Give up the island
-	option = {
+	#Give remuneration
+	option = {	#bertus mod
         name = venail.22.b
         ai_chance = { factor = 10 }
-		venail_area = {
-			limit = { owner = { OR = { tag = A21 was_tag = A21 } } }
-			cede_province = event_target:venail_purchaser
-		}
+		add_treasury = -5000
+		event_target:venail_purchaser = {add_treasury = 5000}
 	}
 }
 

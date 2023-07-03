@@ -1421,15 +1421,10 @@ on_war_won = {
 	}
 	if = {	#bertus mod
 		limit = {
-			has_leader = "Lord Alfonso"
 			FROM = {ai = no}
+			has_leader = "Lord Alfonso"
 		}
-		if = {
-			limit = {has_estate_privilege = estate_vampires_vampiric_military_command}		
-			remove_estate_privilege = estate_vampires_vampiric_military_command
-			set_estate_privilege = estate_vampires_vampiric_military_command
-		}
-		else = {set_estate_privilege = estate_vampires_vampiric_military_command}
+		change_variable = {which = lord_alfonso value = 2}
 	}
 	if = {
 		limit = {
@@ -1818,15 +1813,6 @@ on_war_won = {
 
 	if = {
 		limit = {
-			tag = F46 #Jaddari
-			has_country_flag = jaddari_hasr_fight
-			F45 = { vassal_of = F46 } #Jaddari
-		}
-		country_event = { id = zokka_jaddari_war.13 }
-	}
-
-	if = {
-		limit = {
 			ai = no
 			tag = Y00 #Sunrise Empire
 			any_owned_province = {
@@ -1892,29 +1878,8 @@ on_war_lost = {
 		limit = {
 			FROM = {ai = no}
 			has_leader = "Lord Alfonso"
-			full_idea_group = generalstab0
 		}
-		change_variable = {which = lord_alfonso value = -4}	#-3 extra for reaplication of privilege which gives +3
-		if = {
-			limit = {has_estate_privilege = estate_vampires_vampiric_military_command}		
-			remove_estate_privilege = estate_vampires_vampiric_military_command
-			set_estate_privilege = estate_vampires_vampiric_military_command
-		}
-		else = {set_estate_privilege = estate_vampires_vampiric_military_command}
-	}
-	else_if = {	#bertus mod
-		limit = {
-			FROM = {ai = no}
-			has_leader = "Lord Alfonso"
-			NOT = {full_idea_group = generalstab0}
-		}
-		change_variable = {which = lord_alfonso value = -3}	#-2 extra for reaplication of privilege which gives +1		
-		if = {
-			limit = {has_estate_privilege = estate_vampires_vampiric_military_command}		
-			remove_estate_privilege = estate_vampires_vampiric_military_command
-			set_estate_privilege = estate_vampires_vampiric_military_command
-		}
-		else = {set_estate_privilege = estate_vampires_vampiric_military_command}
+		change_variable = {which = lord_alfonso value = -1}
 	}
 	#ROOT = { country_event = { id = flavor_cri.6 } }
 	ROOT = { country_event = { id = tributary_events.32 } }
@@ -4280,6 +4245,10 @@ on_emperor_elected = {
 		country_event = { id = long_lived_emperor.1 }
 		add_ruler_modifier = {name = emperor_guard_modifier duration = -1}	#bertus mod
 		add_ruler_modifier = {name = emperor_battlemages_modifier duration = -1}	#bertus mod
+	}
+	FROM = {
+		remove_country_modifier = emperor_guard_modifier
+		remove_country_modifier = emperor_battlemages_modifier
 	}
 	if = {
 		limit = {hre_reform_passed = imperial_cities}
