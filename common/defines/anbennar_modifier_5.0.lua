@@ -149,6 +149,7 @@ NDefines.NMilitary.RAJPUT_BASE_COST_MODIFIER = 1.0  --5.0→1.0
 NDefines.NMilitary.LEADER_MAX_PIPS = 8 --6→8
 NDefines.NMilitary.SLAVE_RAIDS_SAILOR_FACTOR = -0.10
 NDefines.NMilitary.SLACKEN_MIN_AP = 0.40      --0→0.40
+NDefines.NMilitary.STRELTSY_MANPOWER_COST_MODIFIER = 0  --1.0→0
 
 NDefines.NAI.MAX_CAV_PERCENTAGE = 20 --50→20 -- For modding actual ratio is dynamically computed but will be no higher than this.
 

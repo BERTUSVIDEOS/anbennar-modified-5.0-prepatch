@@ -96,7 +96,7 @@ country_event = {
 	}
 	
 	mean_time_to_happen = {
-		months = 30
+		months = 12
 		modifier = {
 			factor = 0.5
 			has_ruler_flag = magic_project_lichdom_1_adventurers
@@ -160,7 +160,7 @@ country_event = {
 	}
 	
 	mean_time_to_happen = {
-		months = 30
+		months = 12
 		modifier = {
 			factor = 0.05
 			had_ruler_flag = {
@@ -220,7 +220,7 @@ country_event = {
 	}
 	
 	mean_time_to_happen = {
-		months = 20
+		months = 12
 		modifier = {
 			factor = 0.05
 			had_ruler_flag = {
@@ -259,7 +259,7 @@ country_event = {
 	}
 	
 	mean_time_to_happen = {
-		months = 20
+		months = 12
 		modifier = {
 			factor = 0.05
 			had_ruler_flag = {
@@ -321,7 +321,7 @@ country_event = {
 	}
 	
 	mean_time_to_happen = {
-		months = 24
+		months = 12
 		modifier = {
 			factor = 0.05
 			had_ruler_flag = {
@@ -383,7 +383,7 @@ country_event = {
 	}
 	
 	mean_time_to_happen = {
-		months = 24
+		months = 12
 		modifier = {
 			factor = 0.05
 			had_ruler_flag = {
@@ -522,12 +522,12 @@ country_event = {
 		
 		add_ruler_modifier = {
 			name = magic_project_necromancy_ruler_cleansing
-			duration = 1095
+			duration = 365
 		}
 		
 		set_ruler_flag = magic_project_lichdom_9
 		
-		hidden_effect = { country_event = { id = magic_project_lichdom.10 days = 1095} }
+		hidden_effect = { country_event = { id = magic_project_lichdom.10 days = 365} }
 		
 		custom_tooltip = tooltip_magic_project_advance
 	}
@@ -548,10 +548,10 @@ country_event = {
 		
 		add_ruler_modifier = {
 			name = magic_project_necromancy_ruler_cleansing
-			duration = 365
+			duration = 30
 		}
 		
-		hidden_effect = { country_event = { id = magic_project_lichdom.10 days = 365} }
+		hidden_effect = { country_event = { id = magic_project_lichdom.10 days = 30} }
 		
 		set_ruler_flag = magic_project_lichdom_9
 		
@@ -591,98 +591,25 @@ country_event = {
 	option = {	#Drink
 		name = magic_project_lichdom.10.a
 		trigger = {
-			NOT = {
-				OR = {
-					has_country_flag = canrecs_research #Esthil
-					has_ruler_flag = chaingrasper_lichdom_quest #Chaingrasper
-				}
-			}
+			NOT = {has_country_flag = canrecs_research} #Esthil
+			NOT = {has_ruler_flag = chaingrasper_lichdom_quest} #Chaingrasper
 		}
 		ai_chance = {factor = 50}
 		
 		#Some calculations depending on previous shit
 		if = {
 			limit = {
-				check_variable = { which = lichChance value = 1 }
-				NOT = { check_variable = { which = lichChance value = 2 } }
+				check_variable = { which = lichChance value = 7 }
 			}
 			random_list = {
-				60 = {
+				90 = {
 					country_event  = { id = magic_project_lichdom.11 days = 10 }
 				}
-				40 = {
+				10 = {
 					country_event  = { id = magic_project_lichdom.11 days = 10 }
-					add_adm_power = -500
-					add_dip_power = -500
-					add_mil_power = -500
-				}
-			}
-		}
-		else_if = {
-			limit = {
-				check_variable = { which = lichChance value = 2 }
-				NOT = { check_variable = { which = lichChance value = 3 } }
-			}
-			random_list = {
-				65 = {
-					country_event  = { id = magic_project_lichdom.11 days = 10 }
-				}
-				35 = {
-					country_event  = { id = magic_project_lichdom.11 days = 10 }
-					add_adm_power = -400
-					add_dip_power = -400
-					add_mil_power = -400
-				}
-			}
-		}
-		else_if = {
-			limit = {
-				check_variable = { which = lichChance value = 3 }
-				NOT = { check_variable = { which = lichChance value = 4 } }
-			}
-			random_list = {
-				70 = {
-					country_event  = { id = magic_project_lichdom.11 days = 10 }
-				}
-				30 = {
-					country_event  = { id = magic_project_lichdom.11 days = 10 }
-					add_adm_power = -300
-					add_dip_power = -300
-					add_mil_power = -300
-				}
-			}
-		}
-		else_if = {
-			limit = {
-				check_variable = { which = lichChance value = 4 }
-				NOT = { check_variable = { which = lichChance value = 5 } }
-			}
-			random_list = {
-				75 = {
-					country_event  = { id = magic_project_lichdom.11 days = 10 }
-				}
-				25 = {
-					country_event  = { id = magic_project_lichdom.11 days = 10 }
-					add_adm_power = -200
-					add_dip_power = -200
-					add_mil_power = -200
-				}
-			}
-		}
-		else_if = {
-			limit = {
-				check_variable = { which = lichChance value = 5 }
-				NOT = { check_variable = { which = lichChance value = 6 } }
-			}
-			random_list = {
-				80 = {
-					country_event  = { id = magic_project_lichdom.11 days = 10 }
-				}
-				20 = {
-					country_event  = { id = magic_project_lichdom.11 days = 10 }
-					add_adm_power = -100
-					add_dip_power = -100
-					add_mil_power = -100
+					add_adm_power = -25
+					add_dip_power = -25
+					add_mil_power = -25
 				}
 			}
 		}
@@ -705,18 +632,86 @@ country_event = {
 		}
 		else_if = {
 			limit = {
-				check_variable = { which = lichChance value = 7 }
-				#NOT = { check_variable = { which = lichChance value = 8 } }
+				check_variable = { which = lichChance value = 5 }
+				NOT = { check_variable = { which = lichChance value = 6 } }
 			}
 			random_list = {
-				90 = {
+				80 = {
 					country_event  = { id = magic_project_lichdom.11 days = 10 }
 				}
-				10 = {
+				20 = {
 					country_event  = { id = magic_project_lichdom.11 days = 10 }
-					add_adm_power = -25
-					add_dip_power = -25
-					add_mil_power = -25
+					add_adm_power = -100
+					add_dip_power = -100
+					add_mil_power = -100
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { which = lichChance value = 4 }
+				NOT = { check_variable = { which = lichChance value = 5 } }
+			}
+			random_list = {
+				75 = {
+					country_event  = { id = magic_project_lichdom.11 days = 10 }
+				}
+				25 = {
+					country_event  = { id = magic_project_lichdom.11 days = 10 }
+					add_adm_power = -200
+					add_dip_power = -200
+					add_mil_power = -200
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { which = lichChance value = 3 }
+				NOT = { check_variable = { which = lichChance value = 4 } }
+			}
+			random_list = {
+				70 = {
+					country_event  = { id = magic_project_lichdom.11 days = 10 }
+				}
+				30 = {
+					country_event  = { id = magic_project_lichdom.11 days = 10 }
+					add_adm_power = -300
+					add_dip_power = -300
+					add_mil_power = -300
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { which = lichChance value = 2 }
+				NOT = { check_variable = { which = lichChance value = 3 } }
+			}
+			random_list = {
+				65 = {
+					country_event  = { id = magic_project_lichdom.11 days = 10 }
+				}
+				35 = {
+					country_event  = { id = magic_project_lichdom.11 days = 10 }
+					add_adm_power = -400
+					add_dip_power = -400
+					add_mil_power = -400
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { which = lichChance value = 1 }
+				NOT = { check_variable = { which = lichChance value = 2 } }
+			}
+			random_list = {
+				60 = {
+					country_event  = { id = magic_project_lichdom.11 days = 10 }
+				}
+				40 = {
+					country_event  = { id = magic_project_lichdom.11 days = 10 }
+					add_adm_power = -500
+					add_dip_power = -500
+					add_mil_power = -500
 				}
 			}
 		}
@@ -750,43 +745,41 @@ country_event = {
 		#Some calculations depending on previous shit
 		if = {
 			limit = {
-				check_variable = { which = lichChance value = 1 }
-				NOT = { check_variable = { which = lichChance value = 2 } }
+				check_variable = { which = lichChance value = 7 }
+			}
+			country_event  = { id = magic_project_lichdom.11 days = 10 }
+		}
+		else_if = {
+			limit = {
+				check_variable = { which = lichChance value = 6 }
+				NOT = { check_variable = { which = lichChance value = 7 } }
 			}
 			random_list = {
-				60 = {
+				95 = {
 					country_event  = { id = magic_project_lichdom.11 days = 10 }
 				}
-				40 = {
-					kill_ruler = yes
+				5 = {
+					country_event  = { id = magic_project_lichdom.11 days = 10 }
+					add_adm_power = -25
+					add_dip_power = -25
+					add_mil_power = -25
 				}
 			}
 		}
 		else_if = {
 			limit = {
-				check_variable = { which = lichChance value = 2 }
-				NOT = { check_variable = { which = lichChance value = 3 } }
+				check_variable = { which = lichChance value = 5 }
+				NOT = { check_variable = { which = lichChance value = 6 } }
 			}
 			random_list = {
-				65 = {
+				90 = {
 					country_event  = { id = magic_project_lichdom.11 days = 10 }
 				}
-				35 = {
-					kill_ruler = yes
-				}
-			}
-		}
-		else_if = {
-			limit = {
-				check_variable = { which = lichChance value = 3 }
-				NOT = { check_variable = { which = lichChance value = 4 } }
-			}
-			random_list = {
-				70 = {
+				10 = {
 					country_event  = { id = magic_project_lichdom.11 days = 10 }
-				}
-				30 = {
-					kill_ruler = yes
+					add_adm_power = -50
+					add_dip_power = -50
+					add_mil_power = -50
 				}
 			}
 		}
@@ -796,49 +789,78 @@ country_event = {
 				NOT = { check_variable = { which = lichChance value = 5 } }
 			}
 			random_list = {
+				85 = {
+					country_event  = { id = magic_project_lichdom.11 days = 10 }
+				}
+				15 = {
+					country_event  = { id = magic_project_lichdom.11 days = 10 }
+					add_adm_power = -100
+					add_dip_power = -100
+					add_mil_power = -100
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { which = lichChance value = 3 }
+				NOT = { check_variable = { which = lichChance value = 4 } }
+			}
+			random_list = {
+				80 = {
+					country_event  = { id = magic_project_lichdom.11 days = 10 }
+				}
+				20 = {
+					country_event  = { id = magic_project_lichdom.11 days = 10 }
+					add_adm_power = -200
+					add_dip_power = -200
+					add_mil_power = -200
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { which = lichChance value = 2 }
+				NOT = { check_variable = { which = lichChance value = 3 } }
+			}
+			random_list = {
 				75 = {
 					country_event  = { id = magic_project_lichdom.11 days = 10 }
 				}
 				25 = {
-					kill_ruler = yes
+					country_event  = { id = magic_project_lichdom.11 days = 10 }
+					add_adm_power = -300
+					add_dip_power = -300
+					add_mil_power = -300
 				}
 			}
 		}
-        else_if = {
-            limit = {
-            	check_variable = { which = lichChance value = 5 }
-            	NOT = { check_variable = { which = lichChance value = 6 } }
-            }
-		    random_list = {
-                80 = {
-                    country_event  = { id = magic_project_lichdom.11 days = 10 }
-                }
-                20 = {
-                    kill_ruler = yes
-                }
-          	}
-        }
-        else_if = {
-            limit = {
-                check_variable = { which = lichChance value = 6 }
-                NOT = { check_variable = { which = lichChance value = 7 } }
-        	}
-            country_event  = { id = magic_project_lichdom.11 days = 10 }
-        }
-    	else_if = {
-            limit = {
-           		check_variable = { which = lichChance value = 7 }
-                NOT = { check_variable = { which = lichChance value = 8 } }
-            }
-            country_event  = { id = magic_project_lichdom.11 days = 10 }
-        }
-		else = {
+		else_if = {
+			limit = {
+				check_variable = { which = lichChance value = 1 }
+				NOT = { check_variable = { which = lichChance value = 2 } }
+			}
 			random_list = {
-				50 = {
+				70 = {
 					country_event  = { id = magic_project_lichdom.11 days = 10 }
 				}
-				50 = {
-					kill_ruler = yes
+				30 = {
+					country_event  = { id = magic_project_lichdom.11 days = 10 }
+					add_adm_power = -400
+					add_dip_power = -400
+					add_mil_power = -400
+				}
+			}
+		}
+		else = {
+			random_list = {
+				60 = {
+					country_event  = { id = magic_project_lichdom.11 days = 10 }
+				}
+				40 = {
+					country_event  = { id = magic_project_lichdom.11 days = 10 }
+					add_adm_power = -500
+					add_dip_power = -500
+					add_mil_power = -500
 				}
 			}
 		}

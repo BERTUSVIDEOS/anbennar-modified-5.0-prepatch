@@ -1610,7 +1610,7 @@ aelnar_2_1 = {
 	
 	Z43_marine_academy = {
 		icon = mission_cannons_firing
-		position = 2
+		position = 3
 		
 		trigger = {
 			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
@@ -1631,7 +1631,7 @@ aelnar_2_1 = {
 	}
 	Z43_drill_academy = {
 		icon = mission_cannons_firing
-		position = 3
+		position = 4
 		
 		trigger = {
 			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
@@ -1651,212 +1651,126 @@ aelnar_2_1 = {
 		}
 	}
 	
-	Z43_prepare_ynn_excursion = {
-		icon = mission_asian_trader
-		position = 4
+	Z43_the_empire_granary = {
+		icon = mission_collect_yasak
+		position = 5
 		required_missions = {
 			Z43_trollsbay_expansion
 		}
 		
-		provinces_to_highlight = {
-			OR = {
-				province_id = 1901
-				province_id = 1031
-			}
-			NOT = { owned_by = ROOT }
-		}
-		
 		trigger = {
-			OR = {
-				owns = 1901
-				owns = 1031
-			}
-			army_size = 70
-		}
-		
-		effect = {
-			sarda_region = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { is_permanent_claim = ROOT }
+			variable_arithmetic_trigger = {
+				custom_tooltip = food_at_least_50_tt
+				multiply_variable   = {
+					which = food_var value = 0
 				}
-				add_permanent_claim = ROOT
-			}
-			veykoda_region = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { is_permanent_claim = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-			add_country_modifier = {
-				name = thriving_arms_industry
-				duration = 18250
-			}
-			add_faction_influence = {
-				faction = aelnar_blaiddtar
-				influence = 25
-			}
-		}
-	}
-	
-	Z43_sarda_conquest = {
-		icon = mission_crusade_for_varna
-		position = 5
-		required_missions = {
-			Z43_prepare_ynn_excursion
-		}
-		
-		provinces_to_highlight = {
-			region = sarda_region
-			NOT = { country_or_non_sovereign_subject_holds = ROOT }
-		}
-		
-		trigger = {
-			sarda_region = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
+				change_variable = {which = food_var which = grain}
+				check_variable = {which = food_var which = rice}
+				check_variable = {which = food_var which = fish}
+				check_variable = {which = food_var which = maize}
+				check_variable = {which = food_var which = potato}
+				check_variable = {which = food_var which = citrus}
+				check_variable = {which = food_var which = dates}
+				check_variable = {which = food_var which = seafood}
+				check_variable = {which = food_var which = cheese}
+				check_variable = { which = food_var value = 50 }
 			}
 		}
 		
 		effect = {
-			dolindha_region = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { is_permanent_claim = ROOT }
+			custom_tooltip = "Every province owned by [Root.GetName] or its Colonies with farm trade goods gets:"
+			tooltip = {
+				add_province_modifier = {
+					name = aelnar_food_influx
+					duration = 7300
 				}
-				add_permanent_claim = ROOT
 			}
-			epednan_expanse_region = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { is_permanent_claim = ROOT }
+			hidden_effect = {
+				every_province = {
+					limit = { province_with_farm_goods = yes }
+					add_province_modifier = {
+						name = aelnar_food_influx
+						duration = 7300
+					}
 				}
-				add_permanent_claim = ROOT
+				every_province = {
+					limit = {owner = {has_colonial_parent = ROOT} province_with_farm_goods = yes}
+					add_province_modifier = {
+						name = aelnar_food_influx
+						duration = 7300
+					}
+				}
 			}
 		}
 	}
-	
-	Z43_the_empire_granary = {
-		icon = mission_collect_yasak
+		
+	Z43_racial_superiority = {
+		icon = mission_racial
 		position = 6
-		required_missions = {
-			Z43_sarda_conquest
-		}
-		
-		provinces_to_highlight = {
-			region = dolindha_region
-			NOT = { country_or_non_sovereign_subject_holds = ROOT }
-		}
-		
-		trigger = {
-			dolindha_region = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-		}
-		
-		effect = {
-			ynn_superregion = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { is_permanent_claim = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-			add_country_modifier = {
-				name = aelnar_food_influx
-				duration = 18250
-			}
-		}
-	}
-	
-	Z43_control_the_flow = {
-		icon = mission_reconquer_vologda
-		position = 7
 		required_missions = {
 			Z43_the_empire_granary
 		}
 		
 		provinces_to_highlight = {
-			superregion = ynn_superregion
-			NOT = { country_or_non_sovereign_subject_holds = ROOT }
-		}
-		
-		trigger = {
-			ynn_superregion = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-		}
-		
-		effect = {
-			add_prestige_or_monarch_power = {amount =  15}
-			add_stability_or_adm_power = yes
-			add_country_modifier = {
-				name = aelnar_purity_effort
-				duration = 7300
-			}
-		}
-	}
-	
-	Z43_racial_superiority = {
-		icon = mission_racial
-		position = 8
-		required_missions = {
-			Z43_control_the_flow
-		}
-		
-		provinces_to_highlight = {
 			owned_by = ROOT
 			OR = {
-				region = sarda_region
-				region = dolindha_region
+				country_or_non_sovereign_subject_holds = THIS
 			}
-			OR = {
-				AND = {
-					ROOT = { has_country_flag = lithiel_ideas }
-					NOT = {
-						culture = star_elf
-						culture = starborn
-						culture = duskers
-					}
-				}
-				AND = {
-					NOT = { ROOT = { has_country_flag = lithiel_ideas } }
-					NOT = { culture = star_elf }
-				}
-			}
+			culture_is_elven = no
 		}
 		
 		trigger = {
 			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
-				value = 50
-				if = {
-					limit = { ROOT = { has_country_flag = lithiel_ideas } }
-					OR = {
-						culture = star_elf
-						culture = starborn
-						culture = duskers
-					}
-				}
-				else = {
-					culture = star_elf
-				}
-				OR = {
-					region = sarda_region
-					region = dolindha_region
-				}
+				value = 100
+				culture_is_elven = yes
+				country_or_non_sovereign_subject_holds = THIS
 			}
 		}
 		
 		effect = {
-			add_prestige_or_monarch_power = {amount =  20}
+			add_prestige_or_monarch_power = {amount =  25}
 			add_stability_or_adm_power = yes
-			add_country_modifier = {
-				name = aelnar_ynn_purity_done
-				duration = -1
+			custom_tooltip = "Every province owned by [Root.GetName] or its Colonies with farm trade goods gets:"
+			tooltip = {
+				add_province_modifier = {
+					name = aelnar_ynn_purity_done
+					duration = 7300
+				}
 			}
+			hidden_effect = {
+				every_province = {
+					limit = { province_with_farm_goods = yes }
+					add_province_modifier = {
+						name = aelnar_ynn_purity_done
+						duration = 7300
+					}
+				}
+				every_province = {
+					limit = {owner = {has_colonial_parent = ROOT} province_with_farm_goods = yes}
+					add_province_modifier = {
+						name = aelnar_ynn_purity_done
+						duration = 7300
+					}
+				}
+			}
+		}
+	}
+	
+	Z43_prepare_aelnar_army = {	#bertus mod
+		icon = mission_asian_trader
+		position = 7
+		required_missions = {Z43_racial_superiority}
+		
+		trigger = {
+			army_size = 500
+		}
+		
+		effect = {
+			add_country_modifier = {
+				name = thriving_arms_industry
+				duration = 7300
+			}
+			add_army_tradition = 25
 		}
 	}
 	
@@ -2814,27 +2728,7 @@ aelnar_3 = {
 		}
 		
 		trigger = {
-			variable_arithmetic_trigger = {
-				custom_tooltip = country_and_subject_development_2000_tt
-				export_to_variable = {
-					which = our_total_development
-					value = trigger_value:total_development
-				}
-				every_subject_country = {
-					export_to_variable = {
-						which = our_total_development
-						value = trigger_value:total_development
-					}
-					ROOT = {
-						change_variable = {
-							which = our_total_development
-							who = PREV
-						}
-					}
-				}
-				
-				check_variable = { which = our_total_development value = 2000 }
-			}
+			total_own_and_non_tributary_subject_development = 2000
 		}
 		
 		effect = {
@@ -5089,27 +4983,7 @@ aelnar_3_calasandur_1 = {
 		}
 		
 		trigger = {
-			variable_arithmetic_trigger = {
-				custom_tooltip = country_and_subject_development_5000_tt
-				export_to_variable = {
-					which = our_total_development
-					value = trigger_value:total_development
-				}
-				every_subject_country = {
-					export_to_variable = {
-						which = our_total_development
-						value = trigger_value:total_development
-					}
-					ROOT = {
-						change_variable = {
-							which = our_total_development
-							who = PREV
-						}
-					}
-				}
-				
-				check_variable = { which = our_total_development value = 5000 }
-			}
+			total_own_and_non_tributary_subject_development = 5000
 		}
 		
 		effect = {
