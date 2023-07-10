@@ -139,7 +139,7 @@ country_decisions = {
 			set_country_flag = magisterium_empire_flag
 			clr_country_flag = magisterium_reformed_flag
 			add_government_reform = magisterium_empire_reform
-			custom_tooltip = "§Y[Root.GetName]§! gains permanent claim on §YEmpire of Anbennar§! provinces"
+			custom_tooltip = get_claims_on_hre_tt
 			hidden_effect = {
 				every_province = {
 					limit = {
@@ -149,11 +149,27 @@ country_decisions = {
 					add_permanent_claim = A85
 				}
 			}
+			add_prestige_or_monarch_power = {amount =  25}
+			if = { 
+				limit = { has_dlc = "Mandate of Heaven" }
+				custom_tooltip = if_used_ge_rest_else_50_years_extension_tt 
+				if = {
+					limit = { has_had_golden_age = yes } 
+					reset_golden_age = yes 
+				}
+				else_if = {
+					limit = { in_golden_age = yes } 
+					extend_golden_age = 600 
+				}
+			}
+			if = {
+				limit = {is_emperor = no}
+				set_emperor = yes
+			}
 			add_country_modifier = {
 				name = "centralization_modifier"
 				duration = 7300
 			}
-			add_prestige_or_monarch_power = {amount =  25}
 			set_country_flag = formed_magisterium_empire_flag
 		}
 		ai_will_do = {factor = 1}

@@ -415,11 +415,10 @@ update_goods = {
 		value = 0.00
 	}
 
-	every_province = {
+	every_owned_province = {
 		limit = {
 			trade_goods = $GOODS$
 			controlled_by = owner
-			country_or_non_sovereign_subject_holds = ROOT
 		}
 		export_to_variable = {
 			variable_name = $GOODS$
@@ -459,15 +458,73 @@ update_goods = {
 			change_variable = {
 				which = $GOODS$_provinces
 				value = 1
-			}	
+			}
 		}
 	}
-	if = {
-		limit = {is_subject = yes}
-		overlord = {
+	every_province = {
+		limit = {
+			trade_goods = $GOODS$
+			controlled_by = owner
+			country_or_non_sovereign_subject_holds = PREV
+			NOT = {owned_by = ROOT}
+		}
+		limit = {
+			trade_goods = $GOODS$
+			controlled_by = owner
+		}
+		export_to_variable = {
+			variable_name = $GOODS$
+			value = modifier:trade_goods_size
+		}
+		export_to_variable = {
+			variable_name = tradegood_modifier
+			value = modifier:trade_goods_size_modifier
+		}		
+		owner = {
+			export_to_variable = {
+				variable_name = tradegood_modifier
+				value = modifier:global_trade_goods_size_modifier 
+			}
+			PREV = {
+				change_variable = {
+					which = tradegood_modifier
+					which = PREV
+				}
+				change_variable = {
+					which = tradegood_modifier
+					value = 1
+				}
+				multiply_variable = {
+					which = $GOODS$
+					which = tradegood_modifier
+				}
+			}
+			if = {
+				limit = {
+					is_subject = yes
+				}
+				change_variable = {
+					which = $GOODS$
+					which = PREV
+				}
+				change_variable = {
+					which = $GOODS$_provinces
+					value = 1
+				}
+			}
+			set_variable = {
+				which = tradegood_modifier
+				value = 0
+			}
+		}
+		ROOT = {
 			change_variable = {
 				which = $GOODS$
 				which = PREV
+			}
+			change_variable = {
+				which = $GOODS$_provinces
+				value = 1
 			}
 		}
 	}
