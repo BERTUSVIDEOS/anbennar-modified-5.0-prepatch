@@ -15,62 +15,234 @@ country_event = {
 
 	immediate = {
 		hidden_effect = {
-			set_country_flag = artifice_research_society
-			set_country_flag = artifice_research_industry
-			set_country_flag = artifice_research_military
+			if = {
+				limit = {
+					OR = {
+						has_estate_privilege = estate_artificers_organization_international_gommo
+						has_estate_privilege = estate_artificers_organization_independent_unions
+					}
+				}
+				set_country_flag = artifice_research_society
+				set_country_flag = artifice_research_industry
+				set_country_flag = artifice_research_military
+			}
+			if = {
+				limit = {
+					OR = {
+						has_estate_privilege = estate_artificers_organization_international_gommo
+						has_estate_privilege = estate_artificers_organization_state
+						has_estate_privilege = estate_artificers_organization_ravelian_control
+						has_estate_privilege = estate_artificers_organization_sun_elf
+						has_estate_privilege = estate_artificers_organization_covenant
+						has_estate_privilege = estate_artificers_organization_feiten_shuimu_cadre
+						has_estate_privilege = estate_artificers_organization_vazhatun_enhanced_astronomy
+					}
+				}
+				set_country_flag = artifice_research_weapons
+				set_country_flag = artifice_research_armor
+				set_country_flag = artifice_research_gadget
+				set_country_flag = artifice_research_projectile
+				set_country_flag = artifice_research_enchantment
+			}
+			if = {
+				limit = {
+					OR = {
+						has_estate_privilege = estate_artificers_organization_independent_unions
+						has_estate_privilege = estate_artificers_organization_state
+						has_estate_privilege = estate_artificers_organization_ravelian_control
+						has_estate_privilege = estate_artificers_organization_sun_elf
+						has_estate_privilege = estate_artificers_organization_covenant
+						has_estate_privilege = estate_artificers_organization_feiten_shuimu_cadre
+						has_estate_privilege = estate_artificers_organization_vazhatun_enhanced_astronomy
+					}
+				}
+				set_country_flag = artifice_research_brilliance
+				set_country_flag = artifice_research_technomancy
+				set_country_flag = artifice_research_machinery
+			}
 		}
 	}
 
 	option = {
-		name = artifice_events.1.a
+		name = artifice_events.1.bertus_a
+		trigger = {has_estate_privilege = estate_artificers_organization_independent_unions}
 		ai_chance = { factor = 1 }
+
+		set_country_flag = artifice_research_weapons
+		custom_tooltip = begin_invention_research_5_years_tt
+		hidden_effect = { country_event = { id = artifice_events.2 days = 1825 } }
+	}
+	option = {
+		name = artifice_events.1.bertus_b
+		trigger = {has_estate_privilege = estate_artificers_organization_independent_unions}
+		ai_chance = { factor = 1 }
+		
+		set_country_flag = artifice_research_armor
+		custom_tooltip = begin_invention_research_5_years_tt
+		hidden_effect = { country_event = { id = artifice_events.2 days = 1825 } }
+	}
+	option = {
+		name = artifice_events.1.bertus_c
+		trigger = {has_estate_privilege = estate_artificers_organization_independent_unions}
+		ai_chance = { factor = 1 }
+		
+		set_country_flag = artifice_research_gadget
+		custom_tooltip = begin_invention_research_5_years_tt
+		hidden_effect = { country_event = { id = artifice_events.2 days = 1825 } }
+	}
+	option = {
+		name = artifice_events.1.bertus_d
+		trigger = {has_estate_privilege = estate_artificers_organization_independent_unions}
+		ai_chance = { factor = 1 }
+		
+		set_country_flag = artifice_research_projectile
+		custom_tooltip = begin_invention_research_5_years_tt
+		hidden_effect = { country_event = { id = artifice_events.2 days = 1825 } }
+	}
+	option = {
+		name = artifice_events.1.bertus_e
+		trigger = {has_estate_privilege = estate_artificers_organization_independent_unions}
+		ai_chance = { factor = 1 }
+		
+		set_country_flag = artifice_research_enhancement
+		custom_tooltip = begin_invention_research_5_years_tt
+		hidden_effect = { country_event = { id = artifice_events.2 days = 1825 } }
+	}
+	option = {
+		name = artifice_events.1.a
+		trigger = {
+			has_estate_privilege = estate_artificers_organization_international_gommo
+		}
+		ai_chance = { factor = 1 }
+
 		set_country_flag = artifice_research_brilliance
 		add_faction_influence = {	#will need to make this into an effect later
 			faction = tec_brilliance
 			influence = 10
 		}
-		if = { limit = { has_estate_privilege = estate_artificers_organization_international_gommo }
-			custom_tooltip = begin_invention_research_brilliance_5_years_tt
-			hidden_effect = { country_event = { id = artifice_events.2 days = 1825 } }
-		}
-		else = {
-			custom_tooltip = begin_invention_research_brilliance_10_years_tt
-			hidden_effect = { country_event = { id = artifice_events.2 days = 3650 } }	 #needs to be faster than the privilge expires
-		}
+		custom_tooltip = begin_invention_research_brilliance_5_years_tt
+		hidden_effect = { country_event = { id = artifice_events.2 days = 1825 } }
 	}
 	option = {
 		name = artifice_events.1.b
+		trigger = {has_estate_privilege = estate_artificers_organization_international_gommo}
 		ai_chance = { factor = 1 }
+		
 		set_country_flag = artifice_research_technomancy
 		add_faction_influence = {	#will need to make this into an effect later
 			faction = tec_technomancy
 			influence = 10
 		}
-		if = { limit = { has_estate_privilege = estate_artificers_organization_international_gommo }
-			custom_tooltip = begin_invention_research_technomancy_5_years_tt
-			hidden_effect = { country_event = { id = artifice_events.2 days = 1825 } }
-		}
-		else = {
-			custom_tooltip = begin_invention_research_technomancy_10_years_tt
-			hidden_effect = { country_event = { id = artifice_events.2 days = 3650 } }	 #needs to be faster than the privilge expires
-		}
+		custom_tooltip = begin_invention_research_technomancy_5_years_tt
+		hidden_effect = { country_event = { id = artifice_events.2 days = 1825 } }
 	}
 	option = {
 		name = artifice_events.1.c
+		trigger = {has_estate_privilege = estate_artificers_organization_international_gommo}
 		ai_chance = { factor = 1 }
+		
 		set_country_flag = artifice_research_machinery
 		add_faction_influence = {	#will need to make this into an effect later
 			faction = tec_mechanists
 			influence = 10
 		}
-		if = { limit = { has_estate_privilege = estate_artificers_organization_international_gommo }
-			custom_tooltip = begin_invention_research_machinery_5_years_tt
-			hidden_effect = { country_event = { id = artifice_events.2 days = 1825 } }
+		custom_tooltip = begin_invention_research_machinery_5_years_tt
+		hidden_effect = { country_event = { id = artifice_events.2 days = 1825 } }
+	}
+	option = {
+		name = artifice_events.4.a
+		trigger = {
+			OR = {
+				has_estate_privilege = estate_artificers_organization_state
+				has_estate_privilege = estate_artificers_organization_ravelian_control
+				has_estate_privilege = estate_artificers_organization_sun_elf
+				has_estate_privilege = estate_artificers_organization_covenant
+				has_estate_privilege = estate_artificers_organization_feiten_shuimu_cadre
+				has_estate_privilege = estate_artificers_organization_vazhatun_enhanced_astronomy
+			}
 		}
-		else = {
-			custom_tooltip = begin_invention_research_machinery_10_years_tt
-			hidden_effect = { country_event = { id = artifice_events.2 days = 3650 } }	 #needs to be faster than the privilge expires
+		ai_chance = { factor = 1 }
+		
+		set_country_flag = artifice_research_society
+		custom_tooltip = begin_invention_research_5_years_tt
+		hidden_effect = { country_event = { id = artifice_events.3 days = 1825 } }
+	}
+	option = {
+		name = artifice_events.4.b
+		trigger = {
+			OR = {
+				has_estate_privilege = estate_artificers_organization_state
+				has_estate_privilege = estate_artificers_organization_ravelian_control
+				has_estate_privilege = estate_artificers_organization_sun_elf
+				has_estate_privilege = estate_artificers_organization_covenant
+				has_estate_privilege = estate_artificers_organization_feiten_shuimu_cadre
+				has_estate_privilege = estate_artificers_organization_vazhatun_enhanced_astronomy
+			}
 		}
+		ai_chance = { factor = 1 }
+		
+		set_country_flag = artifice_research_industry
+		custom_tooltip = begin_invention_research_5_years_tt
+		hidden_effect = { country_event = { id = artifice_events.3 days = 1825 } }
+	}
+	option = {
+		name = artifice_events.4.c
+		trigger = {
+			OR = {
+				has_estate_privilege = estate_artificers_organization_state
+				has_estate_privilege = estate_artificers_organization_ravelian_control
+				has_estate_privilege = estate_artificers_organization_sun_elf
+				has_estate_privilege = estate_artificers_organization_covenant
+				has_estate_privilege = estate_artificers_organization_feiten_shuimu_cadre
+				has_estate_privilege = estate_artificers_organization_vazhatun_enhanced_astronomy
+			}
+		}
+		ai_chance = { factor = 1 }
+		
+		set_country_flag = artifice_research_military
+		custom_tooltip = begin_invention_research_5_years_tt
+		hidden_effect = { country_event = { id = artifice_events.3 days = 1825 } }
+	}
+	# Feiten specific - focus on an airfleet invention
+	option = {
+		name = artifice_events.4.f
+		highlight = yes
+		trigger = {
+			has_estate_privilege = estate_artificers_organization_feiten_shuimu_cadre 
+			OR = {
+				tag = Y20
+				was_tag = Y20
+			}
+			mission_completed = feiten_whale_oil_experiments
+			custom_trigger_tooltip = {
+				tooltip = feiten_airfleet_inventions_left
+				OR = {
+					NOT = { has_country_flag = feiten_invention_farsight_telescopes }
+					NOT = { has_country_flag = feiten_invention_porcelain_caged_firebirds }
+					NOT = { has_country_flag = feiten_invention_specialized_construction_arms }
+					NOT = { has_country_flag = feiten_invention_expanding_storage_holds }
+					NOT = { has_country_flag = feiten_invention_skywriting }
+					NOT = { has_country_flag = feiten_invention_electroplated_armor }
+					NOT = { has_country_flag = feiten_invention_ivory_conduits }
+					NOT = { has_country_flag = feiten_invention_silken_cladding }
+					NOT = { has_country_flag = feiten_invention_damestear_ribbing }
+					NOT = { has_country_flag = feiten_invention_long_rockets }
+					NOT = { has_country_flag = feiten_invention_lightning_amplifier }
+					NOT = { has_country_flag = feiten_invention_steel_rudders }
+				}
+			}
+		}
+		ai_chance = { factor = 0 }
+		set_country_flag = artifice_research_society
+		set_country_flag = artifice_research_industry
+		set_country_flag = artifice_research_military
+		set_country_flag = feiten_directed_airfleet_research
+		add_treasury = -1000
+		add_adm_power = -50
+		add_dip_power = -50
+		add_mil_power = -50
+		custom_tooltip = begin_invention_research_5_years_tt
+		hidden_effect = { country_event = { id = artifice_events.3 days = 1825 } }
 	}
 	option = {
 		name = artifice_events.1.z #escape
@@ -187,40 +359,22 @@ country_event = { #directed
 		name = artifice_events.4.a
 		ai_chance = { factor = 1 }
 		set_country_flag = artifice_research_society
-		if = { limit = { has_estate_privilege = estate_artificers_organization_international_gommo }
-			custom_tooltip = begin_invention_research_5_years_tt
-			hidden_effect = { country_event = { id = artifice_events.3 days = 1825 } }
-		}
-		else = {
-			custom_tooltip = begin_invention_research_10_years_tt
-			hidden_effect = { country_event = { id = artifice_events.3 days = 3650 } }	 #needs to be faster than the privilge expires
-		}
+		custom_tooltip = begin_invention_research_5_years_tt
+		hidden_effect = { country_event = { id = artifice_events.3 days = 1825 } }
 	}
 	option = {
 		name = artifice_events.4.b
 		ai_chance = { factor = 5 }
 		set_country_flag = artifice_research_industry
-		if = { limit = { has_estate_privilege = estate_artificers_organization_international_gommo }
-			custom_tooltip = begin_invention_research_5_years_tt
-			hidden_effect = { country_event = { id = artifice_events.3 days = 1825 } }
-		}
-		else = {
-			custom_tooltip = begin_invention_research_10_years_tt
-			hidden_effect = { country_event = { id = artifice_events.3 days = 3650 } }	 #needs to be faster than the privilge expires
-		}
+		custom_tooltip = begin_invention_research_5_years_tt
+		hidden_effect = { country_event = { id = artifice_events.3 days = 1825 } }
 	}
 	option = {
 		name = artifice_events.4.c
 		ai_chance = { factor = 25 }
 		set_country_flag = artifice_research_military
-		if = { limit = { has_estate_privilege = estate_artificers_organization_international_gommo }
-			custom_tooltip = begin_invention_research_5_years_tt
-			hidden_effect = { country_event = { id = artifice_events.3 days = 1825 } }
-		}
-		else = {
-			custom_tooltip = begin_invention_research_10_years_tt
-			hidden_effect = { country_event = { id = artifice_events.3 days = 3650 } }	 #needs to be faster than the privilge expires
-		}
+		custom_tooltip = begin_invention_research_5_years_tt
+		hidden_effect = { country_event = { id = artifice_events.3 days = 1825 } }
 	}
 	# Feiten specific - focus on an airfleet invention
 	option = {
@@ -259,14 +413,8 @@ country_event = { #directed
 		add_adm_power = -50
 		add_dip_power = -50
 		add_mil_power = -50
-		if = { limit = { has_estate_privilege = estate_artificers_organization_international_gommo }
-			custom_tooltip = begin_invention_research_5_years_tt
-			hidden_effect = { country_event = { id = artifice_events.3 days = 1825 } }
-		}
-		else = {
-			custom_tooltip = begin_invention_research_10_years_tt
-			hidden_effect = { country_event = { id = artifice_events.3 days = 3650 } }	 #needs to be faster than the privilge expires
-		}
+		custom_tooltip = begin_invention_research_5_years_tt
+		hidden_effect = { country_event = { id = artifice_events.3 days = 1825 } }
 	}
 
 	option = {

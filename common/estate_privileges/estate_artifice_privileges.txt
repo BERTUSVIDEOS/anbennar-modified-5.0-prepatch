@@ -3,7 +3,7 @@
 estate_artificers_organization_international_gommo = {
 	icon = privilege_promote_maratha_nobility
 	#max_absolutism = -10	#-10→0
-	loyalty = -0.1
+	loyalty = 0.1
 	influence = 0.2
 	is_valid = {
 		NOT = {
@@ -24,92 +24,37 @@ estate_artificers_organization_international_gommo = {
 		NOT = { has_artificers_special_organization_privilege = yes }
 	}
 	can_select = {
-		if = {
-			limit = { has_artificers_organization_privilege = yes }
-			
-			NOT = {
-				estate_influence = {
-					estate = estate_artificers
-					influence = 25
-				}
-			}
-			estate_loyalty = {
-				estate = estate_artificers
-				loyalty = 30
-			}
-			if = {
-				limit = {
-					estate_loyalty = {
-						estate = estate_artificers
-						loyalty = 60
-					}
-				}
-				dip_power = 100
-				stability = 1
-			}
-			else = {
-				dip_power = 200
-				stability = 2
-			}
-		}
-	}
-	can_revoke = {
-		always = no
-	}
-	on_revoked = {
-		custom_tooltip = five_year_artifice_research_tt
-		custom_tooltip = artificer_points_hover_over_me_tt
+		stability = 1
 	}
 	on_granted = {
 		custom_tooltip = five_year_artifice_research_tt
 		custom_tooltip = artificer_points_hover_over_me_tt
-		if = {
-			limit = {
-				has_artificers_organization_privilege = yes
-				NOT = { has_estate_privilege = estate_artificers_organization_international_gommo }
-			}
-			if = {
-				limit = {
-					estate_loyalty = {
-						estate = estate_artificers
-						loyalty = 60
-					}
-				}
-				add_dip_power = -100
-				add_stability = -1
-			}
-			else = {
-				add_stability = -2
-				add_dip_power = -200
-			}
-			custom_tooltip = estate_artificers_organization_cost_tooltip
-			custom_tooltip = estate_artificers_organization_revoke_tooltip
-			clear_artificers_organization_effect = yes
-		}
-		#hidden_effect = {
-		#	add_country_modifier = {
-		#		name = rajput_to_artificer
-		#		duration = -1
-		#		hidden = yes
-		#	}
-		#}
+		clear_artificers_organization_effect = yes
 	}
 	mechanics = {
-
     }
 	penalties = {
 	}
 	benefits = {
 		has_carolean = yes	#bertus mod
-		production_efficiency = 0.1
-		#special_unit_forcelimit = 0.05	#0.05→0
+	}
+	can_revoke = {
+		stability = 1
+	}
+	on_revoked = {
+		custom_tooltip = five_year_artifice_research_tt
+		custom_tooltip = artificer_points_hover_over_me_tt
+		add_stability = -1
+	}
+	on_invalid = {
+		add_stability = -1
 	}
 	ai_will_do = {factor = 5}
 }
 
 estate_artificers_organization_state = {
 	icon = privilege_promote_maratha_nobility
-	loyalty = 0.1
+	loyalty = -0.05
 	influence = 0.15
 	#land_share = 5	#5→0
 	is_valid = {
@@ -135,69 +80,12 @@ estate_artificers_organization_state = {
 		NOT = { has_artificers_special_organization_privilege = yes }
 	}
 	can_select = {
-		if = {
-			limit = { has_artificers_organization_privilege = yes }
-			
-			NOT = {
-				estate_influence = {
-					estate = estate_artificers
-					influence = 25
-				}
-			}
-			estate_loyalty = {
-				estate = estate_artificers
-				loyalty = 30
-			}
-			
-			if = {
-				limit = {
-					estate_loyalty = {
-						estate = estate_artificers
-						loyalty = 60
-					}
-				}
-				dip_power = 100
-				stability = 1
-			}
-			else = {
-				dip_power = 200
-				stability = 2
-			}
-		}
-	}
-	can_revoke = {
-		always = no
-	}
-	on_revoked = {
-		custom_tooltip = ten_year_artifice_research_tt
-		custom_tooltip = artificer_points_hover_over_me_tt
+		stability = 1
 	}
 	on_granted = {
-		custom_tooltip = ten_year_artifice_research_tt
+		custom_tooltip = five_year_artifice_research_tt
 		custom_tooltip = artificer_points_hover_over_me_tt
-		if = {
-			limit = {
-				has_artificers_organization_privilege = yes
-				NOT = { has_estate_privilege = estate_artificers_organization_state }
-			}
-			if = {
-				limit = {
-					estate_loyalty = {
-						estate = estate_artificers
-						loyalty = 60
-					}
-				}
-				add_dip_power = -100
-				add_stability = -1
-			}
-			else = {
-				add_stability = -2
-				add_dip_power = -200
-			}
-			custom_tooltip = estate_artificers_organization_cost_tooltip
-			custom_tooltip = estate_artificers_organization_revoke_tooltip
-			clear_artificers_organization_effect = yes
-		}
+		clear_artificers_organization_effect = yes
 	}
 	mechanics = {
     }
@@ -205,8 +93,18 @@ estate_artificers_organization_state = {
 	}
 	benefits = {
 		has_carolean = yes	#bertus mod
-		production_efficiency = -0.1
-		#special_unit_forcelimit = 0.1	#0.10→0
+		production_efficiency = 0.1
+	}
+	can_revoke = {
+		stability = -1
+	}
+	on_revoked = {
+		custom_tooltip = five_year_artifice_research_tt
+		custom_tooltip = artificer_points_hover_over_me_tt
+		add_stability = -1
+	}
+	on_invalid = {
+		add_stability = -1
 	}
 	ai_will_do = {
 		factor = 5
@@ -241,74 +139,12 @@ estate_artificers_organization_independent_unions = {
 		NOT = { has_artificers_special_organization_privilege = yes }
 	}
 	can_select = {
-		if = {
-			limit = { has_artificers_organization_privilege = yes }
-			NOT = {
-				estate_influence = {
-					estate = estate_artificers
-					influence = 25
-				}
-			}
-			estate_loyalty = {
-				estate = estate_artificers
-				loyalty = 30
-			}
-			if = {
-				limit = {
-					estate_loyalty = {
-						estate = estate_artificers
-						loyalty = 60
-					}
-				}
-				dip_power = 100
-				stability = 1
-			}
-			else = {
-				dip_power = 200
-				stability = 2
-			}
-		}
-	}
-	can_revoke = {
-		always = no
-	}
-	on_revoked = {
-		custom_tooltip = ten_year_artifice_research_tt
-		custom_tooltip = artificer_points_hover_over_me_tt
+		stability = 1
 	}
 	on_granted = {
-		custom_tooltip = ten_year_artifice_research_tt
+		custom_tooltip = five_year_artifice_research_tt
 		custom_tooltip = artificer_points_hover_over_me_tt
-		if = {
-			limit = {
-				has_artificers_organization_privilege = yes
-				NOT = { has_estate_privilege = estate_artificers_organization_independent_unions }
-			}
-			if = {
-				limit = {
-					estate_loyalty = {
-						estate = estate_artificers
-						loyalty = 60
-					}
-				}
-				add_dip_power = -100
-				add_stability = -1
-			}
-			else = {
-				add_stability = -2
-				add_dip_power = -200
-			}
-			custom_tooltip = estate_artificers_organization_cost_tooltip
-			custom_tooltip = estate_artificers_organization_revoke_tooltip
-			clear_artificers_organization_effect = yes
-		}
-		#hidden_effect = {
-		#	add_country_modifier = {
-		#		name = rajput_to_artificer
-		#		duration = -1
-		#		hidden = yes
-		#	}
-		#}
+		clear_artificers_organization_effect = yes
 	}
 	mechanics = {
     }
@@ -316,9 +152,19 @@ estate_artificers_organization_independent_unions = {
 	}
 	benefits = {
 		has_carolean = yes	#bertus mod
-		production_efficiency = 0.05
+		production_efficiency = -0.10
 		amount_of_carolean = 0.25
-		#special_unit_forcelimit = 0.05	#0.05→0
+	}
+	can_revoke = {
+		stability = 1
+	}
+	on_revoked = {
+		custom_tooltip = five_year_artifice_research_tt
+		custom_tooltip = artificer_points_hover_over_me_tt
+		add_stability = -1
+	}
+	on_invalid = {
+		add_stability = -1
 	}
 	ai_will_do = {factor = 0}
 }
@@ -334,83 +180,12 @@ estate_artificers_organization_ravelian_control = {
 		NOT = { has_artificers_special_organization_privilege = yes }
 	}
 	can_select = {
-		if = {
-			limit = { has_artificers_organization_privilege = yes }
-			NOT = {
-				estate_influence = {
-					estate = estate_artificers
-					influence = 25
-				}
-			}
-			estate_loyalty = {
-				estate = estate_artificers
-				loyalty = 30
-			}
-			if = {
-				limit = {
-					estate_loyalty = {
-						estate = estate_artificers
-						loyalty = 60
-					}
-				}
-				dip_power = 100
-				stability = 1
-			}
-			else = {
-				dip_power = 200
-				stability = 2
-			}
-		}
-	}
-	can_revoke = {
-		always = no
-	}
-	on_revoked = {
-		custom_tooltip = ten_year_artifice_research_tt
-		custom_tooltip = artificer_points_hover_over_me_tt
+		stability = 1
 	}
 	on_granted = {
-		custom_tooltip = ten_year_artifice_research_tt
+		custom_tooltip = five_year_artifice_research_tt
 		custom_tooltip = artificer_points_hover_over_me_tt
-		if = {
-			limit = {
-				has_artificers_organization_privilege = yes
-				NOT = { has_estate_privilege = estate_artificers_organization_ravelian_control }
-			}
-			if = {
-				limit = {
-					estate_loyalty = {
-						estate = estate_artificers
-						loyalty = 60
-					}
-				}
-				add_dip_power = -100
-				add_stability = -1
-			}
-			else = {
-				add_stability = -2
-				add_dip_power = -200
-			}
-			custom_tooltip = estate_artificers_organization_cost_tooltip
-			custom_tooltip = estate_artificers_organization_revoke_tooltip
-			clear_artificers_organization_effect = yes
-		}
-		#hidden_effect = {
-		#	add_country_modifier = {
-		#		name = rajput_to_artificer
-		#		duration = -1
-		#		hidden = yes
-		#	}
-		#}
-	}
-	on_invalid = {
-		custom_tooltip = estate_artificers_ravelian_control_invalid_tooltip
-		hidden_effect = {
-			if = {
-				limit = { NOT = { has_artificers_organization_privilege = yes } }
-				set_estate_privilege = estate_artificers_organization_state
-			}
-		}
+		clear_artificers_organization_effect = yes
 	}
 	mechanics = {
     }
@@ -424,6 +199,24 @@ estate_artificers_organization_ravelian_control = {
 		
 		papal_influence = 0.5
 		#special_unit_forcelimit = 0.1	#0.10→0
+	}
+	can_revoke = {
+		stability = 1
+	}
+	on_revoked = {
+		custom_tooltip = five_year_artifice_research_tt
+		custom_tooltip = artificer_points_hover_over_me_tt
+		add_stability = -1
+	}
+	on_invalid = {
+		custom_tooltip = estate_artificers_ravelian_control_invalid_tooltip
+		hidden_effect = {
+			if = {
+				limit = { NOT = { has_artificers_organization_privilege = yes } }
+				set_estate_privilege = estate_artificers_organization_state
+			}
+		}
+		add_stability = -1
 	}
 	ai_will_do = {factor = 5}
 }
@@ -440,74 +233,13 @@ estate_artificers_organization_sun_elf = {
 		}
 		NOT = { has_artificers_special_organization_privilege = yes }
 	}
-	on_invalid = {
-		clr_country_flag = nsc_sun_elf_artificery
-		country_event = { id = estate_organization.5 }
-	}
 	can_select = {
-		if = {
-			limit = { has_artificers_organization_privilege = yes }
-			NOT = {
-				estate_influence = {
-					estate = estate_artificers
-					influence = 25
-				}
-			}
-			estate_loyalty = {
-				estate = estate_artificers
-				loyalty = 30
-			}
-			if = {
-				limit = {
-					estate_loyalty = {
-						estate = estate_artificers
-						loyalty = 60
-					}
-				}
-				dip_power = 100
-				stability = 1
-			}
-			else = {
-				dip_power = 200
-				stability = 2
-			}
-		}
-	}
-	can_revoke = {
-		always = no
-	}
-	on_revoked = {
-		custom_tooltip = ten_year_artifice_research_tt
-		custom_tooltip = artificer_points_hover_over_me_tt
-		clr_country_flag = nsc_sun_elf_artificery
+		stability = 1
 	}
 	on_granted = {
-		custom_tooltip = ten_year_artifice_research_tt
+		custom_tooltip = five_year_artifice_research_tt
 		custom_tooltip = artificer_points_hover_over_me_tt
-		debuff_artifice_points_5 = yes
-		if = {
-			limit = {
-				has_artificers_organization_privilege = yes
-				NOT = { has_estate_privilege = estate_artificers_organization_sun_elf }
-			}
-			if = {
-				limit = {
-					estate_loyalty = {
-						estate = estate_artificers
-						loyalty = 60
-					}
-				}
-				add_dip_power = -100
-				add_stability = -1
-			}
-			else = {
-				add_stability = -2
-				add_dip_power = -200
-			}
-			custom_tooltip = estate_artificers_organization_cost_tooltip
-			custom_tooltip = estate_artificers_organization_revoke_tooltip
-			clear_artificers_organization_effect = yes
-		}
+		clear_artificers_organization_effect = yes
 	}
 	mechanics = {
     }
@@ -517,7 +249,20 @@ estate_artificers_organization_sun_elf = {
 	benefits = {
 		has_carolean = yes	#bertus mod
 		nobles_influence_modifier = 0.10
-		#special_unit_forcelimit = 0.025	#0.025→0
+	}
+	can_revoke = {
+		stability = 1
+	}
+	on_revoked = {
+		custom_tooltip = five_year_artifice_research_tt
+		custom_tooltip = artificer_points_hover_over_me_tt
+		clr_country_flag = nsc_sun_elf_artificery
+		add_stability = -1
+	}
+	on_invalid = {
+		clr_country_flag = nsc_sun_elf_artificery
+		country_event = { id = estate_organization.5 }
+		add_stability = -1
 	}
 	ai_will_do = {factor = 0}
 }
@@ -532,13 +277,11 @@ estate_artificers_organization_covenant = {
 	}
 	can_select = {
 	}
-	can_revoke = {
-		always = no
-	}
-	on_revoked = {
-		custom_tooltip = artificer_points_hover_over_me_tt
+	can_select = {
+		stability = 1
 	}
 	on_granted = {
+		custom_tooltip = five_year_artifice_research_tt
 		custom_tooltip = artificer_points_hover_over_me_tt
 		clear_artificers_organization_effect = yes
 	}
@@ -549,6 +292,20 @@ estate_artificers_organization_covenant = {
 	benefits = {
 		has_carolean = yes	#bertus mod
 		#special_unit_forcelimit = 0.05	#0.05→0
+	}
+	can_revoke = {
+		stability = 1
+	}
+	on_revoked = {
+		custom_tooltip = five_year_artifice_research_tt
+		custom_tooltip = artificer_points_hover_over_me_tt
+		clr_country_flag = nsc_sun_elf_artificery
+		add_stability = -1
+	}
+	on_invalid = {
+		clr_country_flag = nsc_sun_elf_artificery
+		country_event = { id = estate_organization.5 }
+		add_stability = -1
 	}
 	ai_will_do = {factor = 5}
 }
@@ -569,67 +326,10 @@ estate_artificers_organization_feiten_shuimu_cadre = {
 			tag = Y20
 			was_tag = Y20
 		}
-	}
-	can_revoke = {
-		always = no
-	}
-	on_revoked = {
-		custom_tooltip = ten_year_artifice_research_tt
-		custom_tooltip = artificer_points_hover_over_me_tt
-		custom_tooltip = "Our Shuimu Operating Capacity currently provide the following to our Artificer regiments:"
-		if = {
-			limit = {
-				ROOT = {
-					NOT = {
-						check_variable = {
-							which = feiten_province_balance
-							value = 0.001
-						}
-					}
-				}
-			}
-			tooltip = { add_country_modifier = { name = feiten_shuimu_regiments_below_cap duration = -1 } }
-		}
-		else_if = {
-			limit = {
-				ROOT = {
-					check_variable = {
-						which = feiten_province_balance
-						value = 0.001
-					}
-					NOT = {
-						check_variable = {
-							which = feiten_province_balance
-							value = 0.5001
-						}
-					}
-				}
-			}
-			tooltip = { add_country_modifier = { name = feiten_shuimu_regiments_slightly_above_cap duration = -1 } }
-		}
-		else_if = {
-			limit = {
-				ROOT = {
-					check_variable = {
-						which = feiten_province_balance
-						value = 0.5001
-					}
-					NOT = {
-						check_variable = {
-							which = feiten_province_balance
-							value = 1.001
-						}
-					}
-				}
-			}
-			tooltip = { add_country_modifier = { name = feiten_shuimu_regiments_above_cap duration = -1 } }
-		}
-		else = {
-			tooltip = { add_country_modifier = { name = feiten_shuimu_regiments_way_over_cap duration = -1 } }
-		}
+		stability = 1
 	}
 	on_granted = {
-		custom_tooltip = ten_year_artifice_research_tt
+		custom_tooltip = five_year_artifice_research_tt
 		custom_tooltip = artificer_points_hover_over_me_tt
 		clear_artificers_organization_effect = yes
 	}
@@ -728,6 +428,71 @@ estate_artificers_organization_feiten_shuimu_cadre = {
 			fire_damage_received = 0.2
 		}
 	}
+	can_revoke = {
+		stability = 1
+	}
+	on_revoked = {
+		custom_tooltip = five_year_artifice_research_tt
+		custom_tooltip = artificer_points_hover_over_me_tt
+		clr_country_flag = nsc_sun_elf_artificery
+		add_stability = -1
+		custom_tooltip = "Our Shuimu Operating Capacity currently provide the following to our Artificer regiments:"
+		if = {
+			limit = {
+				ROOT = {
+					NOT = {
+						check_variable = {
+							which = feiten_province_balance
+							value = 0.001
+						}
+					}
+				}
+			}
+			tooltip = { add_country_modifier = { name = feiten_shuimu_regiments_below_cap duration = -1 } }
+		}
+		else_if = {
+			limit = {
+				ROOT = {
+					check_variable = {
+						which = feiten_province_balance
+						value = 0.001
+					}
+					NOT = {
+						check_variable = {
+							which = feiten_province_balance
+							value = 0.5001
+						}
+					}
+				}
+			}
+			tooltip = { add_country_modifier = { name = feiten_shuimu_regiments_slightly_above_cap duration = -1 } }
+		}
+		else_if = {
+			limit = {
+				ROOT = {
+					check_variable = {
+						which = feiten_province_balance
+						value = 0.5001
+					}
+					NOT = {
+						check_variable = {
+							which = feiten_province_balance
+							value = 1.001
+						}
+					}
+				}
+			}
+			tooltip = { add_country_modifier = { name = feiten_shuimu_regiments_above_cap duration = -1 } }
+		}
+		else = {
+			tooltip = { add_country_modifier = { name = feiten_shuimu_regiments_way_over_cap duration = -1 } }
+		}
+	}
+	on_invalid = {
+		clr_country_flag = nsc_sun_elf_artificery
+		country_event = { id = estate_organization.5 }
+		add_stability = -1
+	}
 	ai_will_do = {factor = 5}
 }
 
@@ -741,13 +506,13 @@ estate_artificers_organization_vazhatun_enhanced_astronomy = {
 		tag = I03
 		mission_completed = vazhatun_the_new_science
 	}
-	can_revoke = {
-		always = no
+	can_select = {
+		stability = 1
 	}
 	on_granted = {
 		vazhatun_increase_observation_efficiency_large = yes
+		custom_tooltip = five_year_artifice_research_tt
 		custom_tooltip = artificer_points_hover_over_me_tt
-		custom_tooltip = ten_year_artifice_research_tt
 		if = {
 			limit = {
 				has_artificers_organization_privilege = yes
@@ -756,20 +521,27 @@ estate_artificers_organization_vazhatun_enhanced_astronomy = {
 			clear_artificers_organization_effect = yes
 		}
 	}
-	on_revoked = {
-		vazhatun_decrease_observation_efficiency_large = yes
-		custom_tooltip = artificer_points_hover_over_me_tt
-		custom_tooltip = ten_year_artifice_research_tt
-	}
-	on_invalid = {
-		vazhatun_decrease_observation_efficiency_large = yes
-	}
 	mechanics = { enables_rajput_regiments }
 	penalties = {
 		production_efficiency = -0.05
 	}
 	benefits = {
 		amount_of_carolean = 0.05
+	}
+	can_revoke = {
+		stability = 1
+	}
+	on_revoked = {
+		vazhatun_decrease_observation_efficiency_large = yes
+		custom_tooltip = five_year_artifice_research_tt
+		custom_tooltip = artificer_points_hover_over_me_tt
+		add_stability = -1
+	}
+	on_invalid = {
+		custom_tooltip = five_year_artifice_research_tt
+		custom_tooltip = artificer_points_hover_over_me_tt
+		add_stability = -1
+		vazhatun_decrease_observation_efficiency_large = yes
 	}
 	ai_will_do = {factor = 5}
 }
@@ -962,8 +734,7 @@ artifice_invention_research_privilege = {
 		#custom_tooltip = decreases_our_artifice_upkeep_by_10
 	}
 	penalties = {
-		prestige_decay = 0.02
-		global_tax_modifier = -0.1
+		yearly_corruption = 0.20
 	}
 	benefits = {
 		#foo

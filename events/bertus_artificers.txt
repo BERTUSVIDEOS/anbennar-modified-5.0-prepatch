@@ -19,11 +19,8 @@ country_event = {	#
 	option = {	#
 		name = bertus_artificers.1.a
 		trigger = {			
-			NOT = { has_estate_privilege = estate_artificers_organization_state }
-			NOT = { has_estate_privilege = estate_artificers_organization_feiten_shuimu_cadre }
 			NOT = { has_estate_privilege = artifice_invention_research_privilege }
 			NOT = { has_estate_privilege = artifice_invention_directed_research }
-			NOT = { has_estate_privilege = artifice_invention_directed_research_feiten_precursor_secrets }
 			NOT = { has_country_flag = artificery_research_choice_ongoing }
 		}
 		custom_tooltip = set_research_privilege_tt
@@ -31,41 +28,6 @@ country_event = {	#
 			set_estate_privilege = artifice_invention_research_privilege
 			country_event = { id = artifice_events.1 }
 		}
-	}
-	option = {	#
-		name = bertus_artificers.1.b
-		trigger = {
-			NOT = { has_estate_privilege = artifice_invention_research_privilege }
-			NOT = { has_estate_privilege = artifice_invention_directed_research }
-			NOT = { has_estate_privilege = artifice_invention_directed_research_feiten_precursor_secrets }
-			NOT = { has_country_flag = artificery_research_choice_ongoing }
-			OR = { 
-				has_estate_privilege = estate_artificers_organization_state
-				has_estate_privilege = estate_artificers_organization_feiten_shuimu_cadre 
-			}
-		}
-		if = { limit = { tag = event_target:feiten_or_was_feiten_target }	#Feiten
-			if = {
-				limit = {
-					mission_completed = feiten_secrets_of_the_precursors
-					OR = {
-						any_subject_country = { any_owned_province = { trade_goods = precursor_relics } }
-						any_owned_province = { trade_goods = precursor_relics }
-					}
-				}
-				set_country_flag = artificery_research_choice_ongoing
-				hidden_effect = { country_event = { id = artifice_events.10 } }
-			}
-			else = {
-				custom_tooltip = set_research_privilege_tt
-				hidden_effect = { set_estate_privilege = artifice_invention_directed_research }
-			}
-		}
-		else = {
-			custom_tooltip = set_research_privilege_tt
-			hidden_effect = { set_estate_privilege = artifice_invention_directed_research }
-		}
-		hidden_effect = { country_event = { id = artifice_events.4 } }	#fast research
 	}
 	option = {	#Artificer Armory
 		name = bertus_artificers.1.c
@@ -247,7 +209,7 @@ country_event = {	#weapon lvl 1
 		
 		country_event = {id = bertus_artificers.51000}
 	}
-	option = {	#option A
+	option = {	#option A Fire
 		name = bertus_artificers.51100.a
 		trigger = {
 			OR = {
@@ -257,6 +219,9 @@ country_event = {	#weapon lvl 1
 			has_country_flag = unlocked_artifice_invention_elemental_rifles
 			NOT = {has_country_flag = artifice_weapons_2_flag}
 			NOT = {has_country_flag = artifice_weapons_3_flag}
+			NOT = {has_country_flag = artifice_blade_weapons_1_flag}
+			NOT = {has_country_flag = artifice_blade_weapons_2_flag}
+			NOT = {has_country_flag = artifice_blade_weapons_3_flag}
 			NOT = {has_country_flag = artifice_arcane_blaster_bertus_flag}
 		}
 		if = {
@@ -275,7 +240,7 @@ country_event = {	#weapon lvl 1
 
 		hidden_effect = {country_event = {id = bertus_artificers.51000}}		
 	}
-	option = {	#option A unable
+	option = {	#option A unable Fire
 		name = bertus_artificers.51100.a.unable
 		trigger = {
 			has_country_flag = unlocked_artifice_invention_elemental_rifles
@@ -287,6 +252,60 @@ country_event = {	#weapon lvl 1
 				has_country_flag = artifice_weapons_2_flag
 				has_country_flag = artifice_weapons_3_flag
 				has_country_flag = artifice_arcane_blaster_bertus_flag
+				has_country_flag = artifice_blade_weapons_1_flag
+				has_country_flag = artifice_blade_weapons_2_flag
+				has_country_flag = artifice_blade_weapons_3_flag
+			}
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.51000}}
+	}
+	option = {	#option B Shock
+		name = bertus_artificers.51100.b
+		trigger = {
+			OR = {
+				artifice_has_points_for_basic = yes
+				has_country_flag = artifice_blade_weapons_1_flag
+			}
+			has_country_flag = unlocked_artifice_invention_elemental_rifles
+			NOT = {has_country_flag = artifice_weapons_1_flag}
+			NOT = {has_country_flag = artifice_weapons_2_flag}
+			NOT = {has_country_flag = artifice_weapons_3_flag}
+			NOT = {has_country_flag = artifice_blade_weapons_2_flag}
+			NOT = {has_country_flag = artifice_blade_weapons_3_flag}
+			NOT = {has_country_flag = artifice_arcane_blaster_bertus_flag}
+		}
+		if = {
+			custom_tooltip = remove_country_modifier_artifice_blade_weapons_1_tt
+			limit = {has_country_flag = artifice_blade_weapons_1_flag}
+			clr_country_flag = artifice_blade_weapons_1_flag
+			hidden_effect = {clear_artificers_weapon = yes}
+			artifice_remove_basic = yes
+		}
+		else = {
+			custom_tooltip = add_country_modifier_artifice_blade_weapons_1_tt
+			set_country_flag = artifice_blade_weapons_1_flag
+			setup_artificers_weapon = yes
+			artifice_granted_basic = yes
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.51000}}		
+	}
+	option = {	#option B unable Shock
+		name = bertus_artificers.51100.b.unable
+		trigger = {
+			has_country_flag = unlocked_artifice_invention_elemental_rifles
+			OR = {
+				AND = {					
+					artifice_has_points_for_basic = no
+					NOT = {has_country_flag = artifice_weapons_1_flag}
+				}
+				has_country_flag = artifice_weapons_1_flag
+				has_country_flag = artifice_weapons_2_flag
+				has_country_flag = artifice_weapons_3_flag
+				has_country_flag = artifice_arcane_blaster_bertus_flag
+				has_country_flag = artifice_blade_weapons_2_flag
+				has_country_flag = artifice_blade_weapons_3_flag
 			}
 		}
 
@@ -324,6 +343,9 @@ country_event = {	#weapon lvl 2
 			has_country_flag = unlocked_artifice_invention_vorpal_rifles
 			NOT = {has_country_flag = artifice_weapons_1_flag}
 			NOT = {has_country_flag = artifice_weapons_3_flag}
+			NOT = {has_country_flag = artifice_blade_weapons_1_flag}
+			NOT = {has_country_flag = artifice_blade_weapons_2_flag}
+			NOT = {has_country_flag = artifice_blade_weapons_3_flag}
 			NOT = {has_country_flag = artifice_arcane_blaster_bertus_flag}
 		}
 		if = {
@@ -353,7 +375,61 @@ country_event = {	#weapon lvl 2
 				}
 				has_country_flag = artifice_weapons_1_flag
 				has_country_flag = artifice_weapons_3_flag
+				has_country_flag = artifice_blade_weapons_1_flag
+				has_country_flag = artifice_blade_weapons_2_flag
+				has_country_flag = artifice_blade_weapons_3_flag
 				has_country_flag = artifice_arcane_blaster_bertus_flag
+			}
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.51000}}
+	}
+	option = {	#option B Shock
+		name = bertus_artificers.51200.b
+		trigger = {
+			OR = {
+				artifice_has_points_for_expert = yes
+				has_country_flag = artifice_blade_weapons_2_flag
+			}
+			has_country_flag = unlocked_artifice_invention_elemental_rifles
+			NOT = {has_country_flag = artifice_weapons_1_flag}
+			NOT = {has_country_flag = artifice_weapons_2_flag}
+			NOT = {has_country_flag = artifice_weapons_3_flag}
+			NOT = {has_country_flag = artifice_blade_weapons_1_flag}
+			NOT = {has_country_flag = artifice_blade_weapons_3_flag}
+			NOT = {has_country_flag = artifice_arcane_blaster_bertus_flag}
+		}
+		if = {
+			custom_tooltip = remove_country_modifier_artifice_blade_weapons_2_tt
+			limit = {has_country_flag = artifice_blade_weapons_2_flag}
+			clr_country_flag = artifice_blade_weapons_2_flag
+			hidden_effect = {clear_artificers_weapon = yes}
+			artifice_remove_expert = yes
+		}
+		else = {
+			custom_tooltip = add_country_modifier_artifice_blade_weapons_2_tt
+			set_country_flag = artifice_blade_weapons_2_flag
+			setup_artificers_weapon = yes
+			artifice_granted_expert = yes
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.51000}}		
+	}
+	option = {	#option B unable Shock
+		name = bertus_artificers.51200.b.unable
+		trigger = {
+			has_country_flag = unlocked_artifice_invention_elemental_rifles
+			OR = {
+				AND = {
+					artifice_has_points_for_expert = no
+					NOT = {has_country_flag = artifice_weapons_2_flag}
+				}
+				has_country_flag = artifice_weapons_1_flag
+				has_country_flag = artifice_weapons_2_flag
+				has_country_flag = artifice_weapons_3_flag
+				has_country_flag = artifice_arcane_blaster_bertus_flag
+				has_country_flag = artifice_blade_weapons_1_flag
+				has_country_flag = artifice_blade_weapons_3_flag
 			}
 		}
 
@@ -391,6 +467,9 @@ country_event = {	#weapon lvl 3
 			has_country_flag = unlocked_artifice_invention_sparkdrive_rifles
 			NOT = {has_country_flag = artifice_weapons_2_flag}
 			NOT = {has_country_flag = artifice_weapons_1_flag}
+			NOT = {has_country_flag = artifice_blade_weapons_1_flag}
+			NOT = {has_country_flag = artifice_blade_weapons_2_flag}
+			NOT = {has_country_flag = artifice_blade_weapons_3_flag}
 			NOT = {has_country_flag = artifice_arcane_blaster_bertus_flag}
 		}
 		if = {
@@ -420,14 +499,68 @@ country_event = {	#weapon lvl 3
 				}
 				has_country_flag = artifice_weapons_1_flag
 				has_country_flag = artifice_weapons_2_flag
+				has_country_flag = artifice_blade_weapons_1_flag
+				has_country_flag = artifice_blade_weapons_2_flag
+				has_country_flag = artifice_blade_weapons_3_flag
 				has_country_flag = artifice_arcane_blaster_bertus_flag
 			}
 		}
 
 		hidden_effect = {country_event = {id = bertus_artificers.51000}}
 	}
-	option = {	#option B
+	option = {	#option B Shock
 		name = bertus_artificers.51300.b
+		trigger = {
+			OR = {
+				artifice_has_points_for_advanced = yes
+				has_country_flag = artifice_blade_weapons_3_flag
+			}
+			has_country_flag = unlocked_artifice_invention_elemental_rifles
+			NOT = {has_country_flag = artifice_weapons_1_flag}
+			NOT = {has_country_flag = artifice_weapons_2_flag}
+			NOT = {has_country_flag = artifice_weapons_3_flag}
+			NOT = {has_country_flag = artifice_blade_weapons_1_flag}
+			NOT = {has_country_flag = artifice_blade_weapons_2_flag}
+			NOT = {has_country_flag = artifice_arcane_blaster_bertus_flag}
+		}
+		if = {
+			custom_tooltip = remove_country_modifier_artifice_blade_weapons_3_tt
+			limit = {has_country_flag = artifice_blade_weapons_3_flag}
+			clr_country_flag = artifice_blade_weapons_3_flag
+			hidden_effect = {clear_artificers_weapon = yes}
+			artifice_remove_advanced = yes
+		}
+		else = {
+			custom_tooltip = add_country_modifier_artifice_blade_weapons_3_tt
+			set_country_flag = artifice_blade_weapons_3_flag
+			setup_artificers_weapon = yes
+			artifice_granted_advanced = yes
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.51000}}		
+	}
+	option = {	#option B unable Shock
+		name = bertus_artificers.51300.b.unable
+		trigger = {
+			has_country_flag = unlocked_artifice_invention_elemental_rifles
+			OR = {
+				AND = {
+					artifice_has_points_for_advanced = no
+					NOT = {has_country_flag = artifice_weapons_3_flag}
+				}
+				has_country_flag = artifice_weapons_1_flag
+				has_country_flag = artifice_weapons_2_flag
+				has_country_flag = artifice_weapons_3_flag
+				has_country_flag = artifice_arcane_blaster_bertus_flag
+				has_country_flag = artifice_blade_weapons_1_flag
+				has_country_flag = artifice_blade_weapons_2_flag
+			}
+		}
+
+		hidden_effect = {country_event = {id = bertus_artificers.51000}}
+	}
+	option = {	#option C
+		name = bertus_artificers.51300.c
 		trigger = {
 			OR = {
 				artifice_has_points_for_advanced = yes
@@ -437,6 +570,9 @@ country_event = {	#weapon lvl 3
 			NOT = {has_country_flag = artifice_weapons_1_flag}
 			NOT = {has_country_flag = artifice_weapons_2_flag}
 			NOT = {has_country_flag = artifice_weapons_3_flag}
+			NOT = {has_country_flag = artifice_blade_weapons_1_flag}
+			NOT = {has_country_flag = artifice_blade_weapons_2_flag}
+			NOT = {has_country_flag = artifice_blade_weapons_3_flag}
 		}
 		if = {
 			limit = {has_country_flag = artifice_arcane_blaster_bertus_flag}
@@ -466,6 +602,9 @@ country_event = {	#weapon lvl 3
 				has_country_flag = artifice_weapons_1_flag
 				has_country_flag = artifice_weapons_2_flag
 				has_country_flag = artifice_weapons_3_flag
+				has_country_flag = artifice_blade_weapons_1_flag
+				has_country_flag = artifice_blade_weapons_2_flag
+				has_country_flag = artifice_blade_weapons_3_flag
 			}
 		}
 

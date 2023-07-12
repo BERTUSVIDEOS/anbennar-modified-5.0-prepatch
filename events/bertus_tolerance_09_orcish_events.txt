@@ -155,8 +155,13 @@ province_event = {	# Minor landholders demand autonomy
 			add_estate_loyalty = { estate = estate_orcish loyalty = -20 }
 		}
 		add_unrest = 20
-		remove_orcish_minority_size_effect = yes
-		remove_1_dev_to_provinces = yes
+		if = {
+			limit = {culture_is_orcish = yes}
+			remove_1_dev_to_provinces = yes
+		}
+		else = {
+			remove_orcish_minority_size_effect = yes
+		}		
 		get_intolerance_from_provinces = { race = orcish }
 		gain_treasury_from_provinces = { cash_per_dev = 10 }
 		hidden_effect = {
@@ -166,10 +171,15 @@ province_event = {	# Minor landholders demand autonomy
 					owner = {
 						NOT = {has_estate_privilege = estate_orcish_purge}
 						NOT = {has_estate_privilege = estate_orcish_expulsion}
-					}					
+					}			
 				}
-				add_1_dev_to_provinces = yes
-				add_orcish_minority_size_effect = yes
+				if = {
+					limit = {ROOT = {culture_is_orcish = yes}}
+					add_1_dev_to_provinces = yes
+				}
+				else = {
+					add_orcish_minority_size_effect = yes
+				}
 			}
 		}
 	}
@@ -238,18 +248,6 @@ province_event = {	# Ambitious orcishs in government
 			add_estate_loyalty = { estate = estate_orcish loyalty = 10 }
 		}
 	}
-	option = {	# Their ambition will drive us further
-		name = orcish_tolerance_events.1003.b
-		owner = {			
-			add_estate_loyalty = { estate = all loyalty = -10 }
-			add_estate_loyalty = { estate = estate_orcish loyalty = 30 }
-		}
-		add_scaled_local_adm_power = 2
-		add_scaled_local_dip_power = 2
-		add_scaled_local_mil_power = 2
-		get_tolerance_from_provinces = { race = orcish }
-		lose_prestige_from_provinces = { prestige_per_dev = 0.2 }
-	}
 	option = {	# Curtail ambitious officials
 		name = orcish_tolerance_events.1003.c
 		owner = {			
@@ -258,6 +256,19 @@ province_event = {	# Ambitious orcishs in government
 			increase_legitimacy_small_effect = yes
 		}
 		get_intolerance_from_provinces = { race = orcish }
+	}
+	option = {	# Their ambition will drive us further
+		name = orcish_tolerance_events.1003.b
+		trigger = { owner = { high_tolerance_orcish_race_trigger = no } }
+		owner = {
+			add_estate_loyalty = { estate = all loyalty = -10 }
+			add_estate_loyalty = { estate = estate_orcish loyalty = 30 }
+		}
+		add_scaled_local_adm_power = 2
+		add_scaled_local_dip_power = 2
+		add_scaled_local_mil_power = 2
+		get_tolerance_from_provinces = { race = orcish }
+		lose_prestige_from_provinces = { prestige_per_dev = 0.2 }
 	}
 	option = {	# Reward them for their contributions
 		name = orcish_tolerance_events.1003.d
@@ -452,7 +463,6 @@ province_event = {	# Rapid growth due to orcish minority
 		owner = {add_estate_loyalty = { estate = estate_orcish loyalty = -10 }}
 		get_intolerance_from_provinces = { race = orcish }
 		remove_orcish_minority_size_effect = yes
-		remove_1_dev_to_provinces = yes
 		hidden_effect = {
 			random_province = {
 				limit = {
@@ -462,7 +472,6 @@ province_event = {	# Rapid growth due to orcish minority
 						NOT = {has_estate_privilege = estate_orcish_expulsion}
 					}					
 				}
-				add_1_dev_to_provinces = yes
 				add_orcish_minority_size_effect = yes
 			}
 		}
@@ -542,9 +551,15 @@ province_event = {	# Angry orcish mob forms
 		name = orcish_tolerance_events.1006.c
 		trigger = {owner = {manpower = 5}}
 		owner = {add_estate_loyalty = { estate = estate_orcish loyalty = -10 }}
+		add_prestige_or_monarch_power = {amount =  10}
 		lose_manpower_from_provinces = { manpower_per_dev = 0.5 }
-		remove_orcish_minority_size_effect = yes
-		remove_1_dev_to_provinces = yes
+		if = {
+			limit = {culture_is_orcish = yes}
+			remove_1_dev_to_provinces = yes
+		}
+		else = {
+			remove_orcish_minority_size_effect = yes
+		}		
 		hidden_effect = {
 			random_province = {
 				limit = {
@@ -554,8 +569,13 @@ province_event = {	# Angry orcish mob forms
 						NOT = {has_estate_privilege = estate_orcish_expulsion}
 					}					
 				}
-				add_1_dev_to_provinces = yes
-				add_orcish_minority_size_effect = yes
+				if = {
+					limit = {ROOT = {culture_is_orcish = yes}}
+					add_1_dev_to_provinces = yes
+				}
+				else = {
+					add_orcish_minority_size_effect = yes
+				}
 			}
 		}
 	}
@@ -641,8 +661,13 @@ province_event = {	# Orcish highwaymen
 		owner= {add_estate_loyalty = { estate = estate_orcish loyalty = -10 }}
 		add_province_modifier = { name = populace_punished_for_highwaymen_modifier duration = 3650 }
 		get_intolerance_from_provinces = { race = orcish }
-		remove_orcish_minority_size_effect = yes
-		remove_1_dev_to_provinces = yes
+		if = {
+			limit = {culture_is_orcish = yes}
+			remove_1_dev_to_provinces = yes
+		}
+		else = {
+			remove_orcish_minority_size_effect = yes
+		}		
 		hidden_effect = {
 			random_province = {
 				limit = {
@@ -652,8 +677,13 @@ province_event = {	# Orcish highwaymen
 						NOT = {has_estate_privilege = estate_orcish_expulsion}
 					}					
 				}
-				add_1_dev_to_provinces = yes
-				add_orcish_minority_size_effect = yes
+				if = {
+					limit = {ROOT = {culture_is_orcish = yes}}
+					add_1_dev_to_provinces = yes
+				}
+				else = {
+					add_orcish_minority_size_effect = yes
+				}
 			}
 		}
 	}
@@ -834,6 +864,9 @@ country_event = {	# orcish tolerance update
 		name = orcish_tolerance_events.5004.a
 
 		every_owned_province = {
+			limit = {
+				has_any_orcish_pop_trigger = yes
+			}
 			update_specific_racial_province_modifier_tolerance = { race=orcish }
 		}
 	}
@@ -852,7 +885,7 @@ country_event = {	# orcish tolerance update
 			NOT = {has_country_flag = just_updated_orcish_tolerance_flag}
 			had_country_flag = {
 				flag = just_updated_orcish_tolerance_flag
-				days = 30
+				days = 180
 			}
 		}
 	}
@@ -1041,23 +1074,7 @@ country_event = {	#Expulsion/Purge - Minority
 			event_target:racial_pop_migration_country  = {	#Calls Migrants Arrive to Migration Country
 				country_event = {
 					id = racial_pop_events_orcish.10
-					days = 14
-					random = 31
 				}
-			}
-		}
-		if = {
-			limit = { ruler_has_personality = greedy_personality }
-			if = {
-				limit = {
-					event_target:racial_pop_province_origin = {
-						development = 20
-					}
-				}
-				add_treasury = 50
-			}
-			else = {
-				add_treasury = 10
 			}
 		}
 		medium_decrease_of_orcish_tolerance_effect = yes
@@ -1222,8 +1239,6 @@ province_event = {	#Expulsion/Purge - Majority
 				event_target:racial_pop_migration_country  = {	#Calls Migrants Arrive to Migration Country
 					country_event = {
 						id = racial_pop_events_orcish.10
-						days = 14
-						random = 31
 					}
 				}
 			}
