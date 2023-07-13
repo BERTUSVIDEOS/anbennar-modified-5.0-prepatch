@@ -7393,6 +7393,33 @@ country_event = {
 		
 		custom_tooltip = magic_undead_army_desc_tt
 	}
+	#3 - Summon Undead Army (summon full FL action)
+	option = {	#
+		name = magic_ruler.7.dd
+		trigger = {
+			NOT = { has_ruler_modifier = ruler_recently_casted_spell }
+			NOT = {has_country_modifier = ruler_recently_casted_spell}
+			has_ruler_flag = necromancy_3
+			mil_power = 100
+			NOT = { has_ruler_modifier = magic_undead_cooldown }
+			has_country_modifier = undead_military
+		}
+		ai_chance = {factor = 0}
+		
+		add_mil_power = -100
+		magic_casted_spell = yes
+		add_ruler_modifier = { name = magic_undead_cooldown duration = 30 hidden = yes }
+						
+		increase_witch_king_points_small = yes
+		hidden_effect = {
+			summon_all_allowed_zombies = yes
+		}
+		custom_tooltip = "Summon All Undead we can!"
+		custom_tooltip = magic_undead_army_desc_tt
+		
+		set_country_flag = necromancy_menu
+		hidden_effect = { country_event = { id = magic_ruler.9 } }
+	}
 	#3 - Lichdom
 	option = {	#available
 		name = magic_ruler.7.e

@@ -8,7 +8,7 @@ get_necromancer_power = {
 	change_variable = {	which = necromancer_power_var which = pointsWitchKing}	#Magical Infamy base
 	every_owned_province = {
 		limit = {has_building = mage_tower}	#1 per mage tower
-		owner = {change_variable = {	which = necromancer_power_from_mage_towers_var value = 1}}
+		owner = {change_variable = {	which = necromancer_power_from_mage_towers_var value = 0.5}}
 	}
 	change_variable = {	which = necromancer_power_var which = necromancer_power_from_mage_towers_var}	
 	change_variable = {which = necromancer_power_from_damestear_var which = damestear}
@@ -37,7 +37,7 @@ get_necromancer_power = {
 	}
 	if = {	#necropolis bonus 
 		limit = {has_ruler_flag = necromancy_3}
-		multiply_variable = { which = necromancer_power_var value = 1.5 }
+		multiply_variable = { which = necromancer_power_var value = 1.25 }
 	}
 	trigger_switch = {
 		on_trigger = current_age
@@ -62,6 +62,18 @@ zombie_allowed_amount = {
 		limit = {
 			check_variable = {which = necromancer_power_var  which = num_of_undead_var}
 			NOT = {army_size_percentage = 1.0}
+		}
+		capital_scope = {streltsy_infantry = ROOT}
+		change_variable = {which = num_of_undead_var value = 1}
+	}
+}
+summon_all_allowed_zombies = {
+	set_variable = {which = num_of_undead_var value = 0}
+	export_to_variable = {which = num_of_undead_var value = trigger_value:num_of_streltsy}
+	change_variable = {which = num_of_undead_var value = 1}
+	while = {
+		limit = {
+			check_variable = {which = necromancer_power_var  which = num_of_undead_var}
 		}
 		capital_scope = {streltsy_infantry = ROOT}
 		change_variable = {which = num_of_undead_var value = 1}
