@@ -4,23 +4,21 @@ country_decisions = {
 	unite_the_children = {
 		major = yes
 		potential = {
-			OR = {
-				primary_culture = desha
-				primary_culture = far_akani
-				primary_culture = khasani
-			}
+			culture_group = akani
 			NOT = { tag = F58 }
 			NOT = { has_country_flag = formed_akan_flag }
+			NOT = { has_country_flag = super_nation_formed }
 			was_never_end_game_tag_trigger = yes
 		}
 		provinces_to_highlight = {
 			OR = {
+				province_id = 402	# Ekha
 				AND = {
 					region = akan_region
 					NOT = {
 						ROOT = {
 							num_of_owned_provinces_with = {
-								value = 15
+								value = 18	#18/27	without desert and ocean islands
 								region = akan_region
 							}
 						}
@@ -28,11 +26,6 @@ country_decisions = {
 					NOT = { owned_by = ROOT }
 				}
 				AND = {
-					OR = {
-						province_id = 382
-						province_id = 400
-						province_id = 402
-					}
 					OR = {
 						NOT = { owned_by = ROOT }
 						NOT = { is_core = ROOT }
@@ -45,12 +38,10 @@ country_decisions = {
 			is_at_war = no
 			NOT = { exists = F58 }
 			num_of_owned_provinces_with = {
-				value = 15
+				value = 18	#18/27	without desert and ocean islands
 				region = akan_region
 			}
-			owns_core_province = 382
-			owns_core_province = 400
-			owns_core_province = 402
+			owns_core_province = 402	# Ekha
 		}
 		effect = {
 			set_country_flag = formed_akan_flag
@@ -58,7 +49,12 @@ country_decisions = {
 			hidden_effect = { restore_country_name = yes }
 			remove_non_electors_emperors_from_empire_effect = yes
 			swap_non_generic_missions = yes
-			add_prestige_or_monarch_power = {amount =  20}
+			add_prestige_or_monarch_power = {amount = 25}
+			if = {
+				limit = {NOT = {government = republic}}
+				change_government = republic
+			}
+			add_government_reform = merchants_reform
 			if = {
 				limit = {
 					NOT = { government_rank = 2 }
@@ -75,16 +71,6 @@ country_decisions = {
 			}
 			akan_region = {
 				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { owned_by = ROOT }
-					NOT = { area = coastal_krahway_area }
-					NOT = { area = western_krahway_area }
-					NOT = { area = salahad_islands_area }
-				}
-				add_permanent_claim = ROOT
-			}
-			oris_area = {
-			limit = {
 					NOT = { is_core = ROOT }
 					NOT = { owned_by = ROOT }
 				}

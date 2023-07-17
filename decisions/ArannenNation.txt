@@ -5,16 +5,13 @@ country_decisions = {
 		major = yes
 		potential = {
 			primary_culture = arannese
-			OR = {
-				ai = no
-				NOT = { exists = A72 }
-			}
-			
 			NOT = { has_country_flag = formed_arannen_flag }
+			NOT = { has_country_flag = super_nation_formed }
 			OR = {
 				ai = no
 				is_playing_custom_nation = no
 			}
+			NOT = { exists = A72 }
 			NOT = { tag = Z01 }	#Anbennar
 			NOT = { tag = A72 }	#Arannen
 			is_colonial_nation = no
@@ -31,10 +28,18 @@ country_decisions = {
 		provinces_to_highlight = {
 			OR = {
 				province_id = 904 # Arannen
-				province_id = 313 # Endersby
-				province_id = 418 # Marllin
-				province_id = 325 # Cronesford
-				province_id = 419 # Varlosen
+				AND = {
+					culture = arannese
+					root = {
+						NOT = {
+							num_of_owned_provinces_with = {
+								is_core = ROOT
+								culture = arannese
+								value = 20	#20
+							}
+						}
+					}
+				}
 			}
 			OR = {
 				NOT = { owned_by = ROOT }
@@ -47,10 +52,11 @@ country_decisions = {
 			is_nomad = no			
 			NOT = { exists = A72 }
 			owns_core_province = 904 # Arannen
-			owns_core_province = 313 # Endersby
-			owns_core_province = 418 # Marllin
-			owns_core_province = 325 # Cronesford
-			owns_core_province = 419 # Varlosen
+			num_of_owned_provinces_with = {
+				is_core = ROOT
+				culture = arannese
+				value = 20	#20
+			}
 		}
 		effect = {
 			904 = { # Arannen
@@ -59,10 +65,12 @@ country_decisions = {
 			change_tag = A72
 			hidden_effect = { restore_country_name = yes }
 			swap_non_generic_missions = yes
+			if = {
+				limit = {NOT = {government = monarchy}}
+				change_government = monarchy
+			}
 			eastborders_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-				}
+				limit = {NOT = { owned_by = ROOT }}
 				add_permanent_claim = A72
 			}
 			hidden_effect = {
@@ -77,11 +85,9 @@ country_decisions = {
 				name = "centralization_modifier"
 				duration = 7300
 			}
-			add_prestige_or_monarch_power = {amount =  25}
+			add_prestige_or_monarch_power = {amount = 15}
 			if = {
-				limit = {
-					has_custom_ideas = no
-				}
+				limit = {has_custom_ideas = no}
 				country_event = { id = ideagroups.1 } #Swap Ideas
 			}
 			set_country_flag = formed_arannen_flag

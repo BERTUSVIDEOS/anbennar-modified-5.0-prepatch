@@ -8,7 +8,7 @@ A72_north = {
 	}
 	has_country_shield = yes
 	
-	A72_prepare_the_army = {
+	A72_prepare_the_army = {	#bertus mod
 		icon = mission_assemble_an_army
 		required_missions = { }
 		position = 1
@@ -25,33 +25,6 @@ A72_north = {
 		}
 		
 		effect = {
-			420 = {
-				if = {
-					limit = {
-						NOT = { is_core = ROOT }
-						NOT = { owned_by = ROOT }
-					}
-					add_permanent_claim = ROOT
-				}
-			}
-			921 = {
-				if = {
-					limit = {
-						NOT = { is_core = ROOT }
-						NOT = { owned_by = ROOT }
-					}
-					add_permanent_claim = ROOT
-				}
-			}
-			922 = {
-				if = {
-					limit = {
-						NOT = { is_core = ROOT }
-						NOT = { owned_by = ROOT }
-					}
-					add_permanent_claim = ROOT
-				}
-			}
 			gisden_area = {
 				limit = {
 					NOT = { is_core = ROOT }
@@ -59,49 +32,25 @@ A72_north = {
 				}
 				add_permanent_claim = ROOT
 			}
-			if = {
-				limit = { ai = yes }
-				add_country_modifier = {
-					name = arannen_ready_for_war
-					duration = 9125 #25 years
+			tellum_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { owned_by = ROOT }
 				}
-				412 = {
-					if = {
-						limit = {
-							NOT = { is_core = ROOT }
-							NOT = { owned_by = ROOT }
-						}
-						add_permanent_claim = ROOT
-					}
-				}
-				413 = {
-					if = {
-						limit = {
-							NOT = { is_core = ROOT }
-							NOT = { owned_by = ROOT }
-						}
-						add_permanent_claim = ROOT
-					}
-				}
-				414 = {
-					if = {
-						limit = {
-							NOT = { is_core = ROOT }
-							NOT = { owned_by = ROOT }
-						}
-						add_permanent_claim = ROOT
-					}
-				}
-				416 = {
-					if = {
-						limit = {
-							NOT = { is_core = ROOT }
-							NOT = { owned_by = ROOT }
-						}
-						add_permanent_claim = ROOT
-					}
-				}
+				add_permanent_claim = ROOT
 			}
+			highcliff_area  = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			add_country_modifier = {
+				name = arannen_ready_for_war
+				duration = 7300 #20 years
+			}
+			create_general = { tradition = 70 }
 		}
 	}
 	
@@ -111,20 +60,17 @@ A72_north = {
 		position = 2
 		
 		provinces_to_highlight = {
-			OR = {
-				province_id = 312
-				province_id = 321
-				province_id = 326
-			}
+			area = gisden_area
 			NOT = {
 				country_or_non_sovereign_subject_holds = ROOT
 			}
 		}
 		
 		trigger = {
-			312 = { country_or_non_sovereign_subject_holds = ROOT }
-			321 = { country_or_non_sovereign_subject_holds = ROOT }
-			326 = { country_or_non_sovereign_subject_holds = ROOT }
+			num_of_owned_provinces_with = {
+				value = 4
+				area = gisden_area
+			}
 		}
 		
 		effect = {
@@ -135,9 +81,16 @@ A72_north = {
 				}
 				add_permanent_claim = ROOT
 			}
+			rotwall_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
 			add_country_modifier = {
 				name = arannen_ready_for_war
-				duration = 9125 #25 years
+				duration = 7300 #20 years
 			}
 			remove_historical_friend = A60
 			A60 = {
@@ -152,20 +105,21 @@ A72_north = {
 		position = 3
 		
 		provinces_to_highlight = {
-			OR = {
-				province_id = 310
-				province_id = 311
-				province_id = 320
-			}
+			area = ashfields_area
+			area = rotwall_area
 			NOT = {
 				country_or_non_sovereign_subject_holds = ROOT
 			}
 		}
 		
 		trigger = {
-			310 = { country_or_non_sovereign_subject_holds = ROOT }
-			311 = { country_or_non_sovereign_subject_holds = ROOT }
-			326 = { country_or_non_sovereign_subject_holds = ROOT }
+			num_of_owned_provinces_with = {
+				value = 6
+				OR = {
+					area = ashfields_area
+					area = rotwall_area
+				}
+			}
 			if = {
 				limit = {
 					exists = A59
@@ -178,17 +132,28 @@ A72_north = {
 		}
 		
 		effect = {
-			add_casus_belli = {
-					type = cb_restore_personal_union
-					months = 300
-					target = A59
-			}
-			dostanor_region = {
+			if = {
 				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { owned_by = ROOT }
+					A59 = {ai = no}
 				}
-				add_permanent_claim = ROOT
+				dostanor_region = {
+					limit = {
+						NOT = { is_core = ROOT }
+						NOT = { owned_by = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+				add_country_modifier = {
+					name = "thriving_arms_industry"
+					duration = 7300 #20 years
+				}
+			}
+			else = {
+				add_casus_belli = {
+					type = cb_restore_personal_union
+					months = 240
+					target = A59
+				}
 			}
 		}
 	}
@@ -212,13 +177,11 @@ A72_north = {
 		}
 		
 		effect = {
-			if = {
-				limit = { exists = A59 }
-				add_country_modifier = {
-					name = arannen_subjugated_corvuria
-					duration = 9125 #25 years
-				}
+			add_country_modifier = {
+				name = arannen_subjugated_corvuria
+				duration = -1
 			}
+			add_prestige_or_monarch_power = {amount =  25}
 		}
 	}
 	
@@ -226,24 +189,13 @@ A72_north = {
 		icon = mission_alliances
 		required_missions = { A72_take_over_the_raven }
 		position = 5
-		
-		provinces_to_highlight = {
-			region = dostanor_region
-			NOT = {
-				owned_by = ROOT
-			}
-		}
-		
+				
 		trigger = {
-			dip_power = 50
-			dostanor_region = {
-				type = all
-				owned_by = ROOT
-			}
+			NOT = {exists = A59}
 		}
 		
 		effect = {
-			add_dip_power = -50
+			add_prestige_or_monarch_power = {amount =  25}
 			add_accepted_culture = corvurian
 		} 
 	}
@@ -264,59 +216,27 @@ A72_south = {
 		position = 2
 		
 		provinces_to_highlight = {
-			OR = {
-				province_id = 420
-				province_id = 921
-				province_id = 922
-			}
+			area = teLlum_area
+			area = highcliff_area
 			NOT = {
 				country_or_non_sovereign_subject_holds = ROOT
 			}
 		}
 		
 		trigger = {
-			420 = { country_or_non_sovereign_subject_holds = ROOT }
-			921 = { country_or_non_sovereign_subject_holds = ROOT }
-			922 = { country_or_non_sovereign_subject_holds = ROOT }
+			num_of_owned_provinces_with = {
+				value = 8
+				OR = {
+					area = telLum_area
+					area = highcliff_area
+				}
+			}
 		}
 		
 		effect = {
-			412 = {
-				if = {
-					limit = {
-						NOT = { is_core = ROOT }
-						NOT = { owned_by = ROOT }
-					}
-					add_permanent_claim = ROOT
-				}
-			}
-			413 = {
-				if = {
-					limit = {
-						NOT = { is_core = ROOT }
-						NOT = { owned_by = ROOT }
-					}
-					add_permanent_claim = ROOT
-				}
-			}
-			414 = {
-				if = {
-					limit = {
-						NOT = { is_core = ROOT }
-						NOT = { owned_by = ROOT }
-					}
-					add_permanent_claim = ROOT
-				}
-			}
-			416 = {
-				if = {
-					limit = {
-						NOT = { is_core = ROOT }
-						NOT = { owned_by = ROOT }
-					}
-					add_permanent_claim = ROOT
-				}
-			}
+			add_prestige_or_monarch_power = {amount =  25}
+			add_yearly_sailors = 2
+			add_yearly_manpower = 2
 		}
 	}
 	
@@ -326,30 +246,20 @@ A72_south = {
 		position = 3
 		
 		provinces_to_highlight = {
-			OR = {
-				province_id = 412
-				province_id = 413
-				province_id = 414
-				province_id = 416
-			}
+			province_id = 417
 			NOT = {
 				country_or_non_sovereign_subject_holds = ROOT
 			}
 		}
 		
 		trigger = {
-			if = {
-				limit = { ai = no }
-				412 = { country_or_non_sovereign_subject_holds = ROOT }
-				413 = { country_or_non_sovereign_subject_holds = ROOT }
-				414 = { country_or_non_sovereign_subject_holds = ROOT }
-				416 = { country_or_non_sovereign_subject_holds = ROOT }
-				dip_power = 100
-			}
-			else = {
-				414 = { country_or_non_sovereign_subject_holds = ROOT }
-				416 = { country_or_non_sovereign_subject_holds = ROOT }
-				dip_power = 100
+			OR = {
+				AND = {
+					exists = A86
+					trust = { who = A86 value = 100 }
+					alliance_with = A86
+				}
+				owns_core_province = 417
 			}
 		}
 		
@@ -357,17 +267,22 @@ A72_south = {
 			if = {
 				limit = { exists = A86 }
 				vassalize = A86
-				add_dip_power = -100
 			}
 			else = {
-				417 = {
-					if = {
-						limit = {
-							NOT = { is_core = ROOT }
-							NOT = { owned_by = ROOT }
-						}
-						add_permanent_claim = ROOT
+				add_prestige_or_monarch_power = {amount =  25}
+				add_years_of_owned_provinces_manpower = {
+					years = 10
+					trigger = {
+						province_id = 417
 					}
+					custom_tooltip = "Add 10 years of Tellum Manpower"
+				}
+				add_years_of_owned_provinces_production_income = {
+					years = 10
+					trigger = {
+						province_id = 417
+					}
+					custom_tooltip = "Add 10 years of Tellum Production"
 				}
 			}
 		}
@@ -386,56 +301,11 @@ A72_south = {
 			}
 			else = {
 			   total_development = 120
-			   army_size = 20
+			   army_size = 40
 			}
-		}   
+		}  
 		
 		effect = {
-			315 = {
-				if = {
-					limit = {
-						NOT = { is_core = ROOT }
-						NOT = { owned_by = ROOT }
-					}
-					add_permanent_claim = ROOT
-				}
-			}
-			319 = {
-				if = {
-					limit = {
-						NOT = { is_core = ROOT }
-						NOT = { owned_by = ROOT }
-					}
-					add_permanent_claim = ROOT
-				}
-			}
-			918 = {
-				if = {
-					limit = {
-						NOT = { is_core = ROOT }
-						NOT = { owned_by = ROOT }
-					}
-					add_permanent_claim = ROOT
-				}
-			}
-			919 = {
-				if = {
-					limit = {
-						NOT = { is_core = ROOT }
-						NOT = { owned_by = ROOT }
-					}
-					add_permanent_claim = ROOT
-				}
-			}
-			415 = {
-				if = {
-					limit = {
-						NOT = { is_core = ROOT }
-						NOT = { owned_by = ROOT }
-					}
-					add_permanent_claim = ROOT
-				}
-			}
 			gnollsgate_area = {
 				limit = {
 					NOT = { is_core = ROOT }
@@ -444,6 +314,27 @@ A72_south = {
 				add_permanent_claim = ROOT
 			} 
 			hawkfields_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			rhinmond_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			greater_bardswood_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			east_bisan_area = {
 				limit = {
 					NOT = { is_core = ROOT }
 					NOT = { owned_by = ROOT }
@@ -460,13 +351,11 @@ A72_south = {
 		
 		provinces_to_highlight = {
 			OR = {
-				province_id = 315
-				province_id = 319
-				province_id = 918 
-				province_id = 919
-				province_id = 415
+				area = rhinmond_area
+				area = greater_bardswood_area
 				area = gnollsgate_area
 				area = hawkfields_area
+				area = east_bisan_area
 			}
 			NOT = {
 				country_or_non_sovereign_subject_holds = ROOT
@@ -474,18 +363,15 @@ A72_south = {
 		}
 		
 		trigger = {
-			315 = { country_or_non_sovereign_subject_holds = ROOT }
-			319 = { country_or_non_sovereign_subject_holds = ROOT }
-			918 = { country_or_non_sovereign_subject_holds = ROOT } 
-			919 = { country_or_non_sovereign_subject_holds = ROOT }
-			415 = { country_or_non_sovereign_subject_holds = ROOT }
-			gnollsgate_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			hawkfields_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
+			num_of_owned_provinces_with = {
+				value = 15
+				OR = {
+					area = rhinmond_area
+					area = greater_bardswood_area
+					area = gnollsgate_area
+					area = hawkfields_area
+					area = east_bisan_area
+				}
 			}
 		} 
 		
@@ -520,8 +406,9 @@ A72_south = {
 		effect = {
 			add_country_modifier = {
 				name = arannen_driven_out_the_wexonards
-				duration = 9125 #25 years
+				duration = -1
 			}
+			add_prestige_or_monarch_power = {amount =  25}
 		}
 	}
 	
@@ -636,36 +523,40 @@ A72_busilar = {
 		}
 		
 		trigger = {
-			if = {
-				limit = { ai = no }
-				army_size_percentage = 1
-				gnollsgate_area = {
-					type = all
-					country_or_non_sovereign_subject_holds = ROOT
-				}
-				hawkfields_area = {
-					type = all
-					country_or_non_sovereign_subject_holds = ROOT
-				}
+			army_size_percentage = 0.90
+			gnollsgate_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
 			}
-			else = {
-				gnollsgate_area = {
-					type = all
-					country_or_non_sovereign_subject_holds = ROOT
-				}
-				hawkfields_area = {
-					type = all
-					country_or_non_sovereign_subject_holds = ROOT
-				}
-				manpower_percentage = 0.5
+			hawkfields_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
 			}
 		}
 		
 		effect = {
-			add_casus_belli = {
-				type = cb_restore_personal_union
-				months = 300
-				target = A29
+			if = {
+				limit = {
+					A29 = {ai = no}
+				}
+				businor_region = {
+					limit = {
+						NOT = { is_core = ROOT }
+						NOT = { owned_by = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+				add_country_modifier = {
+					name = "thriving_arms_industry"
+					duration = 7300 #20 years
+				}
+			}
+			else = {
+				add_casus_belli = {
+					type = cb_restore_personal_union
+					months = 240
+					target = A29
+				}
 			}
 		}
 	} 
@@ -676,21 +567,21 @@ A72_busilar = {
 		position = 6
 		
 		trigger = {
-			senior_union_with = A29
+			OR = {
+				senior_union_with = A29
+				businor_region = {
+					type = all
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+			}
 		}
 		
 		effect = {
 			add_country_modifier = {
 				name = arannen_subjugated_busilar
-				duration = 9125 #25 years
+				duration = -1
 			}
-			businor_region = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { owned_by = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
+			add_prestige_or_monarch_power = {amount =  25}
 		}
 	}
 }
@@ -810,9 +701,23 @@ A72_development = {
 		} 
 		
 		effect = {
-			add_country_modifier = {
-				name = arannen_recently_invested_in_the_countryside
-				duration = 9125 #25 years
+			custom_tooltip = "Every province with 12 development get:"
+			tooltip = {
+				add_province_modifier = {
+					name = arannen_recently_invested_in_the_countryside
+					duration = 9125 #25 years
+				}
+			}
+			hidden_effect = {
+				every_province = {
+					limit = {
+						development = 12
+					}
+					add_province_modifier = {
+						name = arannen_recently_invested_in_the_countryside
+						duration = 9125 #25 years
+					}
+				}
 			}
 		}
 	}
@@ -823,46 +728,54 @@ A72_development = {
 		position = 3
 		
 		provinces_to_highlight = {
-			OR = {
-				province_id = 904
-				province_id = 313
-				province_id = 325
-				province_id = 418
-				province_id = 419
+			AND = {
+				OR = {
+					NOT = { has_manufactory_trigger = yes }
+					culture = arannese
+				}
+				root = {
+					NOT = {
+						num_of_owned_provinces_with = {
+							NOT = { has_manufactory_trigger = yes }
+							culture = arannese
+							value = 4
+						}
+					}
+				}
 			}
 			OR = {
 				NOT = { owned_by = ROOT }
 				NOT = { has_manufactory_trigger = yes }
+				culture = arannese
 			}
 		}
 		
 		trigger = {
-			313 = {
-				owned_by = ROOT
+			num_of_owned_provinces_with = {
 				has_manufactory_trigger = yes
-			}
-			325 = {
-				owned_by = ROOT
-				has_manufactory_trigger = yes
-			}
-			418 = {
-				owned_by = ROOT
-				has_manufactory_trigger = yes
-			}
-			419 = {
-				owned_by = ROOT
-				has_manufactory_trigger = yes
-			}
-			904 = {
-				owned_by = ROOT
-				has_manufactory_trigger = yes
+				culture = arannese
+				value = 4
 			}
 		}
 		
 		effect = {
-			add_country_modifier = {
-				name = arannen_country_of_craftsmen
-				duration = -1
+			custom_tooltip = "Every province with a manufactory and arannese culture get:"
+			tooltip = {
+				add_province_modifier = {
+					name = arannen_country_of_craftsmen
+					duration = -1
+				}
+			}
+			hidden_effect = {
+				every_province = {
+					limit = {
+						has_manufactory_trigger = yes
+					}
+					add_province_modifier = {
+						name = arannen_country_of_craftsmen
+						duration = -1
+					}
+				}
 			}
 		}
 	}
@@ -883,19 +796,18 @@ A72_development = {
 		trigger = {
 			904 = {
 				owned_by = ROOT
-				development = 50
+				development = 60
 			}
-			treasury = 500
 		}
 		
 		effect = {
-			add_country_modifier = {
-				name = arannen_anbenncost_of_the_east
-				duration = -1
-			}
-			add_treasury = -500
+			add_prestige_or_monarch_power = {amount =  25}
 			904 = {
 				add_center_of_trade_level = 1
+				add_province_modifier = {
+					name = arannen_anbenncost_of_the_east
+					duration = -1
+				}
 			}
 		}
 	}
@@ -962,6 +874,16 @@ A72_development = {
 		}
 		
 		effect = {
+			316 = {
+				add_boost_pop_goods_produced = yes	
+				add_permanent_province_modifier = {name = iron_trade_modifier duration = -1}
+				set_province_flag = iron_boost_flag
+			}
+			317 = {
+				add_boost_pop_goods_produced = yes	
+				add_permanent_province_modifier = {name = iron_trade_modifier duration = -1}
+				set_province_flag = iron_boost_flag
+			}
 			add_country_modifier = {
 				name = arannen_source_of_iron
 				duration = -1
@@ -1033,13 +955,11 @@ A72_daravan = {
 		trigger = {
 			manpower = 2
 			adm_power = 50
-			mil_power = 100
 		}
 		
 		effect = {
 			add_manpower = -2
 			add_adm_power = -50
-			add_mil_power = -100
 			421 = { 
 				cede_province = A72
 			}
@@ -1093,7 +1013,7 @@ A72_daravan = {
 			add_adm_power = -100
 			add_country_modifier = {
 				name = arannen_colonizers_of_the_folly
-				duration = -1
+				duration = 36500
 			}
 		}
 	}
@@ -1169,8 +1089,6 @@ A72_daravan = {
 				add_base_tax = 1
 				add_base_production = 1
 				add_base_manpower = 1
-				change_culture = ROOT
-				change_religion = ROOT
 			}
 		}
 	}
