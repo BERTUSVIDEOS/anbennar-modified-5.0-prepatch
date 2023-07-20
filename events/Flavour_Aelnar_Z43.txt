@@ -2551,7 +2551,15 @@ country_event = {
 	option = {
         name = aelnar.12.a
 		trigger = { NOT = { has_country_flag = rianvisa_dahvar_rule } }
-        ai_chance = { factor = 100 }
+        ai_chance = { 
+			factor = 100
+			modifier = {
+				factor = 0
+				overlord = {
+					NOT = {religion = soise_vio}
+				}
+			}
+		}
 		change_religion = soise_vio
 		set_ruler_religion = soise_vio
 		set_heir_religion = soise_vio
@@ -2570,7 +2578,15 @@ country_event = {
 	option = {
         name = aelnar.12.b
 		trigger = { has_country_flag = rianvisa_dahvar_rule }
-        ai_chance = { factor = 100 }
+        ai_chance = { 
+			factor = 100
+			modifier = {
+				factor = 0
+				overlord = {
+					NOT = {religion = nur_dahvaraesa}
+				}
+			}
+		}
 		change_religion = nur_dahvaraesa
 		set_ruler_religion = nur_dahvaraesa
 		set_heir_religion = nur_dahvaraesa
@@ -2583,6 +2599,28 @@ country_event = {
 					change_religion = nur_dahvaraesa
 				}
 			}
+		}
+	}
+	option = {
+        name = aelnar.12.c
+        ai_chance = { 
+			factor = 100
+			modifier = {
+				factor = 0
+				overlord = {
+					NOT = {religion = elven_forebears}
+				}
+			}
+		}
+		add_country_modifier = {
+			name = aelnar_religion_boost_modifier
+			duration = -1
+		}
+	}
+	after = {
+		every_subject_country = {
+			limit = {religion = elven_forebears}
+			country_event = { id = aelnar.12 }
 		}
 	}
 }

@@ -2,21 +2,27 @@ naval_hegemon = {
 	allow = {
 		is_year = 1600
 		is_great_power = yes
-		NOT = { any_other_great_power = { naval_forcelimit = root } }
-		NOT = { has_country_modifier = lost_hegemony }
+		NOT = { any_country = { alliance_with = root } }
+		OR = {
+			NOT = { has_country_modifier = lost_hegemony }
+			is_hegemon = yes
+		}
+		has_estate = estate_mages
 	}
 	
 	base = {
-		country_diplomatic_power = -2
 	}
 	
 	# At max 100% tickup.
 	scale = {
-		country_diplomatic_power = 7
+		mages_loyalty_modifier = 0.50
+		mages_influence_modifier = 0.50
 	}
 	
 	max = {
-		global_naval_engagement_modifier = 0.10
+		monthly_magisterium_mana = 0.8333	#0→0.8333	#10 yearly
+		max_general_shock = 2
+		leader_land_shock = 2
 	}
 	
 }

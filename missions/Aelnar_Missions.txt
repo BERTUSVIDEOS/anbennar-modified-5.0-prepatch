@@ -1187,6 +1187,27 @@ aelnar_1_2 = {
 			}
 		}
 	}
+	Z43_elite_soldier = {
+		icon = the_italian_league
+		position = 12
+		
+		required_missions = {
+			Z43_southern_legion
+		}
+		
+		trigger = {
+			army_professionalism = 0.70
+			army_tradition = 70
+		}
+		
+		effect = {
+			add_army_tradition = -50
+			add_army_professionalism = -0.50
+			remove_estate_privilege = estate_elven_recruitment
+			set_country_flag = elven_elite_recruitment_flag
+			set_estate_privilege = estate_elven_elite_recruitment
+		}
+	}
 }
 	
 aelnar_1_dahvar_2 = {
@@ -1656,11 +1677,11 @@ aelnar_2_1 = {
 		effect = {
 			add_prestige_or_monarch_power = {amount =  25}
 			add_stability_or_adm_power = yes
-			custom_tooltip = "Every province owned by [Root.GetName] or its Colonies with farm trade goods gets:"
+			custom_tooltip = "Every province owned by [Root.GetName] or its Colonies with farm trade goods get:"
 			tooltip = {
 				add_province_modifier = {
 					name = aelnar_ynn_purity_done
-					duration = 7300
+					duration = -1
 				}
 			}
 			hidden_effect = {
@@ -1668,14 +1689,14 @@ aelnar_2_1 = {
 					limit = { province_with_farm_goods = yes }
 					add_province_modifier = {
 						name = aelnar_ynn_purity_done
-						duration = 7300
+						duration = -1
 					}
 				}
 				every_province = {
 					limit = {owner = {has_colonial_parent = ROOT} province_with_farm_goods = yes}
 					add_province_modifier = {
 						name = aelnar_ynn_purity_done
-						duration = 7300
+						duration = -1
 					}
 				}
 			}
@@ -1695,6 +1716,10 @@ aelnar_2_1 = {
 			add_country_modifier = {
 				name = thriving_arms_industry
 				duration = 7300
+			}
+			add_country_modifier = {
+				name = aelnar_army_modifier
+				duration = -1
 			}
 			add_army_tradition = 25
 		}
@@ -2474,13 +2499,12 @@ aelnar_3 = {
 		provinces_to_highlight = {
 			region = soruin_region
 			has_port = yes
-			NOT = { owned_by = ROOT }
 		}
 		
 		trigger = {
-			any_owned_province = {
+			soruin_region = {
 				has_port = yes
-				region = soruin_region
+				country_or_non_sovereign_subject_holds = ROOT
 			}
 		}
 		
@@ -2623,52 +2647,45 @@ aelnar_3 = {
 		}
 		
 		trigger = {
-			if = {
-				limit = { has_country_flag = rianvisa_dahvar_rule }
-				religion = nur_dahvaraesa
-			}
-			else = {
-				religion = soise_vio
-			}
+			has_estate_privilege = estate_elven_intolerance_policy
 			west_effelai_region = {
 				type = all
-				owned_by = ROOT
+				country_or_non_sovereign_subject_holds = ROOT
 			}
 			leechdens_region = {
 				type = all
-				owned_by = ROOT
+				country_or_non_sovereign_subject_holds = ROOT
 			}
 		}
 		
 		effect = {	#bertus mod
-			leechdens_region = {
-				limit = {
-					culture_is_elven = no
-				}
-				change_religion = ROOT
-				change_culture = ROOT
-				add_permanent_province_modifier = {
-					name = aelnar_genocide
-					duration = 7300
-				}
+			custom_tooltip = "Every province in our Colonies that is not Elven gets purged and get:"
+			add_permanent_province_modifier = {
+				name = aelnar_genocide
+				duration = 7300
 			}
-			west_effelai_region = {
-				limit = {
-					NOT = { culture = star_elf }
-					NOT = { culture = starborn }
-					NOT = { culture = duskers }
+			hidden_effect = {
+				leechdens_region = {
+					limit = {
+						culture_is_elven = no
+					}
+					change_religion = ROOT
+					change_culture = ROOT
+					add_permanent_province_modifier = {
+						name = aelnar_genocide
+						duration = 7300
+					}
 				}
-				if = {
-					limit = { ROOT = { has_country_flag = rianvisa_dahvar_rule } }
-					change_religion = nur_dahvaraesa
-				}
-				else = {
-					change_religion = soise_vio
-				}
-				change_culture = star_elf
-				add_permanent_province_modifier = {
-					name = aelnar_genocide
-					duration = 14600
+				west_effelai_region = {
+					limit = {
+						culture_is_elven = no
+					}
+					change_religion = ROOT
+					change_culture = ROOT
+					add_permanent_province_modifier = {
+						name = aelnar_genocide
+						duration = 7300
+					}
 				}
 			}
 		}
@@ -3651,6 +3668,7 @@ aelnar_5 = {
 		}
 		
 		effect = {
+			custom_tooltip = "Decide if to change religion or not"
 			country_event = { id = aelnar.12 } ## We swap religion
 		}
 	}
@@ -3873,7 +3891,7 @@ aelnar_5_calasandur_2 = {
 			capital_scope = {
 				area_for_scope_province = {
 					type = all
-					development = 15
+					development = 100
 				}
 			}
 		}
@@ -3887,6 +3905,14 @@ aelnar_5_calasandur_2 = {
 					}
 				}
 			}
+			define_advisor = {
+				type = war_master
+				name = "Aelenith"
+				skill = 1
+				culture = ROOT
+				religion = ROOT
+				cost_multiplier = 0.50
+			}
 		}
 	}
 	
@@ -3898,15 +3924,24 @@ aelnar_5_calasandur_2 = {
 		}
 		
 		trigger = {
-			manpower = 40
+			army_professionalism = 0.50
 			war_master = 7
 		}
 		
 		effect = {
-			add_manpower = -40
+			add_army_professionalism = -0.20
 			add_power_projection = {
 				type = mission_rewards_power_projection
 				amount = 15
+			}
+			remove_advisor = war_master
+			define_general = {
+				name = "Aelenith Arfil Hand"
+				shock = 13
+				fire = 13
+				manuever = 13
+				siege = 6
+				trait = master_of_arms_personality
 			}
 		}
 	}

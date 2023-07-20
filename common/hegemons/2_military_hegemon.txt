@@ -2,24 +2,27 @@ military_hegemon = {
 	allow = {
 		is_year = 1600
 		is_great_power = yes
-		AND = {
-			NOT = {any_other_great_power = { army_size = root }}
-			NOT = {any_other_great_power = { discipline = root }}
+		NOT = { any_country = { alliance_with = root } }
+		OR = {
+			NOT = { has_country_modifier = lost_hegemony }
+			is_hegemon = yes
 		}
-		NOT = { has_country_modifier = lost_hegemony }
+		has_estate = estate_artificers
 	}
 	
 	base = {
-		country_military_power = -2
 	}
 	
 	# At max 100% tickup.
 	scale = {
-		country_military_power = 7
+		artificers_loyalty_modifier = 0.50
+		artificers_influence_modifier = 0.50
 	}
 	
 	max = {
-		discipline = 0.05
+		monthly_artificers_capacity = 0.8333	#0→0.8333	#10 yearly
+		#artificer capacity 50%
+		leader_land_fire = 2
+		max_general_fire = 2
 	}
-	
 }
