@@ -208,6 +208,9 @@ jiangdu_war_empire_reform = {
 	valid_for_nation_designer = yes
 	nation_designer_cost = 0
 	legacy_equivalent = military_dictatorship
+
+	has_term_election = no
+
 	modifiers = {
         land_morale = 0.10
         governing_capacity_modifier = 0.10
@@ -220,7 +223,6 @@ jiangdu_war_empire_reform = {
 		locked_government_type = yes
 		enables_plutocratic_idea_group = no
 		enables_aristocratic_idea_group = yes
-		has_term_election = no
 	}
 }
 
@@ -2408,22 +2410,9 @@ nepotism_reform = {
 	potential = {
 		NOT = {
 			has_government_attribute = is_pirate_republic_reform
-			
-			has_reform = presidential_despot_reform
-			has_reform = military_dictatorship_reform
-			has_reform = admiralty_reform
-			has_reform = military_rulership_reform
 			has_reform = signoria_reform
 
-			#Anbennar
-			has_government_attribute = anb_special_elections
 			#has_reform = nezkaru_council_reform
-			has_reform = northern_league_magnates
-			has_reform = eternal_council
-			has_reform = stratocracy_reform
-			has_reform = free_slave_reform
-			has_reform = golden_republic_reform
-			has_reform = feiten_reformist_movement
 			culture_group = dwarven
 		}
 		OR = {
@@ -2440,6 +2429,14 @@ nepotism_reform = {
 				has_reform = admiralty_reform
 				has_reform = military_rulership_reform
 				has_reform = prussian_republic
+				#Anbennar
+				has_government_attribute = anb_special_elections
+				has_reform = northern_league_magnates
+				has_reform = eternal_council
+				has_reform = stratocracy_reform
+				has_reform = free_slave_reform
+				has_reform = golden_republic_reform
+				has_reform = feiten_reformist_movement
 			}
 		}
 	}
@@ -2883,22 +2880,11 @@ lottery_reform = {
 			
 			#anbennar
 			has_government_attribute = anb_special_elections
-			has_reform = obsidian_council_reform
 			# has_reform = nezkaru_council_reform
-			has_reform = malacnar_republic_reform
-			has_reform = golden_republic_reform
 			has_country_flag = mykx_disable_t3
-			has_reform = anisikheioni_naval_stratocracy
-			has_reform = eternal_council
-			has_reform = ameion_conquerers_reform
 			has_country_modifier = elven_administration
 			has_country_modifier = dwarven_administration
 			has_country_modifier = gnomish_administration
-			has_reform = military_dictatorship_reform
-			has_reform = pirate_republic_reform
-			has_reform = admiralty_reform
-			has_reform = military_rulership_reform
-			has_reform = roilsard_elective
 		}
 		OR = {
 			is_revolutionary = no
@@ -2909,6 +2895,12 @@ lottery_reform = {
 	trigger = {
 		NOT = { 
 			OR = {
+				has_reform = anisikheioni_naval_stratocracy
+				has_reform = eternal_council
+				has_reform = ameion_conquerers_reform
+				has_reform = malacnar_republic_reform
+				has_reform = golden_republic_reform
+				has_reform = obsidian_council_reform
 				has_reform = presidential_despot_reform
 				has_reform = military_dictatorship_reform
 				has_reform = admiralty_reform
@@ -2924,6 +2916,8 @@ lottery_reform = {
 				has_reform = sunrise_court_reform
 				has_reform = jiangdu_leadership_reform
 				has_reform = feiten_reformist_movement
+				has_reform = pirate_republic_reform
+				has_reform = roilsard_elective
 				
 			}
 		}
@@ -2985,12 +2979,6 @@ devotee_to_the_people_reform = {
 		OR = {
 			is_revolutionary = no
 			NOT = { has_dlc = "Emperor" }
-		}
-		OR = {
-			has_reform = presidential_despot_reform
-			has_reform = military_dictatorship_reform
-			has_reform = admiralty_reform
-			has_reform = military_rulership_reform
 		}
 	}
 	trigger = {
@@ -4599,17 +4587,17 @@ admiralty_reform = {
 	}
 	modifiers = {
 		leader_naval_fire = 1
-		naval_tradition_from_battle = 1
+		max_admiral_fire = 1
+		leader_naval_shock = 1
+		max_admiral_fire = 1
+		naval_tradition_from_battle = 1.0
 		republican_tradition = -0.5
 		max_absolutism = 10
-		global_naval_engagement_modifier = 0.20
-		leader_naval_manuever = 1
 		election_cycle = 4
-		admiral_cost = -0.20	#0→-0.20
+		admiral_cost = -0.10	#0→-0.10
 	}
 	custom_attributes = {
 		admirals_become_rulers = yes
-		cannot_become_dictatorship = yes
 	}	
 	effect = {
 		add_country_modifier = {
@@ -4631,24 +4619,23 @@ military_rulership_reform = {
 		is_revolutionary = no
 		NOT = {
 			has_government_attribute = is_pirate_republic_reform
-			
 			#anbennar
 			has_government_attribute = anb_special_elections
 		}
+	}
+	trigger = {
 		NOT = { has_reform = lottery_reform}
 		NOT = { has_reform = northern_league_magnates } # Anbennar
 		NOT = { has_reform = anisikheioni_naval_stratocracy }
 		NOT = { has_reform = roilsard_elective}
 		NOT = { has_reform = damescrown_republic_reform}
 	}
-	trigger = {
-	}
 	modifiers = {
 		republican_tradition = -0.5
 		max_absolutism = 10
-		army_tradition = 0.5
+		army_tradition_from_battle = 0.25
 		election_cycle = 4
-		general_cost = -0.20	#0→-0.20
+		general_cost = -0.10	#0→-0.10
 	}
 	custom_attributes = {
 		generals_become_rulers = yes
@@ -4660,10 +4647,6 @@ military_rulership_reform = {
 			name = aristocratic_discipline_modifier
 			duration = -1
 		}
-		custom_tooltip = extra_mage_tooltip
-		custom_tooltip = extra_mage_shock_tooltip
-		custom_tooltip = extra_mage_fire_tooltip
-		custom_tooltip = extra_mage_manuever_tooltip
 	}
 	removed_effect = {
 		remove_country_modifier = aristocratic_discipline_modifier
@@ -4773,6 +4756,9 @@ military_electorate_reform = {
 		is_revolutionary = yes
 		has_dlc = "Emperor"
 	}
+
+	has_term_election = no
+
 	modifiers = {
 		leader_land_fire = 1
 		army_tradition = 0.25
@@ -4780,7 +4766,6 @@ military_electorate_reform = {
 	}
 	custom_attributes = {
 		generals_become_rulers = yes
-		has_term_election = no
 	}
 	
 	ai = {
@@ -5713,6 +5698,9 @@ northern_league_military_electorate_reform = {
 		has_reform = northern_league_magnates
 		NOT = { has_reform = force_reelection_reform }
 	}
+
+	has_term_election = no
+
 	modifiers = {
 		leader_land_fire = 1
 		army_tradition = 0.25
@@ -5720,7 +5708,6 @@ northern_league_military_electorate_reform = {
 	}
 	custom_attributes = {
 		generals_become_rulers = yes
-		has_term_election = no
 		disables_regular_estates = yes
 	}
 	

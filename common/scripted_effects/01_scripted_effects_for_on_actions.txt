@@ -392,7 +392,7 @@ on_trade_good_changed_government_effect = {
 			limit = {
 				trade_goods = grain
 			}
-			remove_province_modifier = wine_bonus_prod
+			remove_province_modifier_effect = {MODIFIER = wine_bonus_prod}
 			add_province_modifier = { 
 				name = grain_bonus_prod
 				duration = -1
@@ -403,21 +403,21 @@ on_trade_good_changed_government_effect = {
 			limit = {
 				trade_goods = wine
 			}
-			remove_province_modifier = wine_bonus_prod
+			remove_province_modifier_effect = {MODIFIER = grain_bonus_prod}
 			add_province_modifier = { 
-				name = grain_bonus_prod
+				name = wine_bonus_prod
 				duration = -1
 				hidden = yes
 			}
 		}
 		else = {
-			remove_province_modifier = wine_bonus_prod
-			remove_province_modifier = grain_bonus_prod
+			remove_province_modifier_effect = {MODIFIER = grain_bonus_prod}
+			remove_province_modifier_effect = {MODIFIER = wine_bonus_prod}
 		}
 	}
 	else = {
-		remove_province_modifier = wine_bonus_prod
-		remove_province_modifier = grain_bonus_prod
+		remove_province_modifier_effect = {MODIFIER = grain_bonus_prod}
+		remove_province_modifier_effect = {MODIFIER = wine_bonus_prod}
 	}
 	if = {
 		limit = { owner = { has_government_attribute = extra_trade_goods_from_grain } }
@@ -429,9 +429,9 @@ on_trade_good_changed_government_effect = {
 				hidden = yes
 			}
 		}
-		else = { remove_province_modifier = grain_vodka_bonus_prod }
+		else = { remove_province_modifier_effect = {MODIFIER = grain_vodka_bonus_prod}}
 	}
-	else = { remove_province_modifier = grain_vodka_bonus_prod }
+	else = { remove_province_modifier_effect = {MODIFIER = grain_vodka_bonus_prod} }
 	if = {
 		limit = {
 			owner = { has_government_attribute = extra_trade_goods_from_naval_supplies }
@@ -447,36 +447,11 @@ on_trade_good_changed_government_effect = {
 			}
 		}
 		else = {
-			remove_province_modifier = naval_supplies_bonus_prod
+			remove_province_modifier_effect = {MODIFIER = naval_supplies_bonus_prod}
 		}
 	}
 	else = {
-		remove_province_modifier = naval_supplies_bonus_prod
-	}
-	if = {
-		limit = {
-			owner = { has_country_modifier = swe_support_of_the_peasantry }
-		}
-		if = {
-			limit = {
-				OR = {
-					trade_goods = grain
-					trade_goods = fish
-					trade_goods = livestock
-				}
-			}
-			add_province_modifier = { 
-				name = swe_support_of_the_peasantry_prov
-				duration = -1
-				hidden = yes
-			}
-		}
-		else = {
-			remove_province_modifier = swe_support_of_the_peasantry_prov
-		}
-	}
-	else = {
-		remove_province_modifier = swe_support_of_the_peasantry_prov
+		remove_province_modifier_effect = {MODIFIER = naval_supplies_bonus_prod}
 	}
 }
 #1.35
@@ -969,12 +944,7 @@ on_parliament_seat_lost_effect = {
 			}
 		}
 	}
-	if = {
-		limit = {
-			has_province_modifier = gov_buffed_parliament_seat
-		}
-		remove_province_modifier = gov_buffed_parliament_seat
-	}
+	remove_province_modifier_effect = {MODIFIER = gov_buffed_parliament_seat}
 }
 on_parliament_debate_failed_effect = {
 	if = {
