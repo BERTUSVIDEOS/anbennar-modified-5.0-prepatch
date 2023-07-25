@@ -47,22 +47,16 @@ enslavement_mechanic = {
 			icon = GFX_sell_slaves_button
 			cost_type = slaves_amount
 			trigger = {
-				OR = {
-					NOT = {has_country_flag = recently_sold_slaves}
-					had_country_flag = {
-						flag = recently_sold_slaves
-						days = 30
-					}
-				}
 				has_government_power = {
 					mechanic_type = enslavement_mechanic
 					power_type = slaves_amount
 					value = 10
 				}
+				NOT = {has_country_flag = buying_slaves}
 			}
 			effect = {
 				sell_slaves_effect = yes
-				set_country_flag = recently_sold_slaves
+				set_country_flag = selling_slaves
 			}
 			cooldown_years = 0
 			ai_chance = {factor = 0}
@@ -71,13 +65,6 @@ enslavement_mechanic = {
 			icon = GFX_buy_slaves_button
 			cost_type = slaves_amount
 			trigger = {
-				OR = {
-					NOT = {has_country_flag = recently_bought_slaves}
-					had_country_flag = {
-						flag = recently_bought_slaves
-						days = 30
-					}
-				}
 				not = {
 					has_government_power = {
 						mechanic_type = enslavement_mechanic
@@ -85,10 +72,10 @@ enslavement_mechanic = {
 						value = 100
 					}
 				}
+				NOT = {has_country_flag = selling_slaves}
 			}
-			effect = { 
-				buy_slaves_effect = yes
-				set_country_flag = recently_bought_slaves
+			effect = {
+				set_country_flag = buying_slaves
 			}
 			cooldown_years = 0
 			ai_chance = {factor = 0}

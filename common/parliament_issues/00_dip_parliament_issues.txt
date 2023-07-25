@@ -1,0 +1,598 @@
+appoint_a_grand_admiral = {
+
+	category = 2
+
+	allow = {
+		num_of_ports = 2
+	}
+	
+	effect = {
+		custom_tooltip = scale_with_absolutism_tt
+		trigger_switch = {
+			on_trigger = absolutism
+			140 = { create_admiral = { tradition = 100 add_shock = 1 add_fire = 1 add_manuever = 1} }
+			120 = { create_admiral = { tradition = 100 add_shock = 1 add_fire = 1} }
+			100 = { create_admiral = { tradition = 100} }
+			80 = { create_admiral = { tradition = 80} }
+			60 = { create_admiral = { tradition = 60} }
+			40 = { create_admiral = { tradition = 40} }
+			20 = {create_admiral = { tradition = 20} }
+		}
+	}
+
+	modifier = {
+		navy_tradition_decay = -0.005
+	}
+
+	
+	chance = {
+		factor = 1
+	}
+
+	ai_will_do = {
+		factor = 0
+	}	
+}
+
+charter_colonies = {
+
+	category = 2
+
+	allow = {
+		num_of_colonists = 1
+	}
+	
+	effect = {
+		custom_tooltip = scale_with_absolutism_tt
+		trigger_switch = {
+			on_trigger = absolutism
+			140 = {add_country_modifier = {name = charter_colonies_mod_7 duration = 3650} }
+			120 = {add_country_modifier = {name = charter_colonies_mod_6 duration = 3650} }
+			100 = {add_country_modifier = {name = charter_colonies_mod_5 duration = 3650} }
+			80 = {add_country_modifier = {name = charter_colonies_mod_4 duration = 3650} }
+			60 = {add_country_modifier = {name = charter_colonies_mod_3 duration = 3650} }
+			40 = {add_country_modifier = {name = charter_colonies_mod_2 duration = 3650} }
+			20 = {add_country_modifier = {name = charter_colonies_mod_1 duration = 3650} }
+		}
+	}
+	
+	modifier = {
+		colonists = 1
+	}
+	
+	chance = {
+		factor = 2
+		modifier = {
+			factor = 2
+			NOT = { num_of_colonies = 10 }
+		}
+	}
+
+
+	ai_will_do = {
+		factor = 1
+	}	
+}
+
+charter_trade_companies = {
+	
+	category = 2
+	
+	allow = {
+		dip_tech = 10
+	}
+	
+	effect = {
+		custom_tooltip = scale_with_absolutism_tt
+		trigger_switch = {
+			on_trigger = absolutism
+			140 = {add_country_modifier = {name = reduce_trade_regulations_mod_7 duration = 3650} }
+			120 = {add_country_modifier = {name = reduce_trade_regulations_mod_6 duration = 3650} }
+			100 = {add_country_modifier = {name = reduce_trade_regulations_mod_5 duration = 3650} }
+			80 = {add_country_modifier = {name = reduce_trade_regulations_mod_4 duration = 3650} }
+			60 = {add_country_modifier = {name = reduce_trade_regulations_mod_3 duration = 3650} }
+			40 = {add_country_modifier = {name = reduce_trade_regulations_mod_2 duration = 3650} }
+			20 = {add_country_modifier = {name = reduce_trade_regulations_mod_1 duration = 3650} }
+		}
+	}
+	
+	modifier = {
+		merchants = 1
+	}
+	
+	chance = {
+		factor = 1
+		modifier = {
+			factor = 2
+			trade_income_percentage = 0.3
+		}
+		modifier = {
+			factor = 2
+			trade_income_percentage = 0.4
+		}
+		modifier = {
+			factor = 2
+			OR = {
+				has_idea_group = plutocracy_ideas
+				has_idea_group = expansion_ideas
+			}
+		}
+	}
+
+
+	ai_will_do = {
+		factor = 1	
+	}	
+}
+
+colonial_taxation = {
+
+	category = 2
+
+	allow = {
+		colony = 1
+	}
+	
+	effect = {
+		custom_tooltip = scale_with_absolutism_tt
+		trigger_switch = {
+			on_trigger = absolutism
+			140 = {add_subjects_development_ducats = {multiplier = 7 age_multiplier = 1 trigger = {is_colonial_nation = yes} } }
+			120 = {add_subjects_development_ducats = {multiplier = 5.125 age_multiplier = 1 trigger = {is_colonial_nation = yes} } }
+			100 = {add_subjects_development_ducats = {multiplier = 3.75 age_multiplier = 1 trigger = {is_colonial_nation = yes} } }
+			80 = {add_subjects_development_ducats = {multiplier = 2.75 age_multiplier = 1 trigger = {is_colonial_nation = yes} } }
+			60 = {add_subjects_development_ducats = {multiplier = 2.0 age_multiplier = 1 trigger = {is_colonial_nation = yes} } }
+			40 = {add_subjects_development_ducats = {multiplier = 1.5 age_multiplier = 1 trigger = {is_colonial_nation = yes} } }
+			20 = {add_subjects_development_ducats = {multiplier = 1 age_multiplier = 1 trigger = {is_colonial_nation = yes} } }
+		}
+		get_racial_advisor = {class = colonial_governor random = no}
+	}
+	
+	modifier = {
+		global_tariffs = 0.10
+	}
+	
+	chance = {
+		factor = 1
+		modifier = {
+			factor = 1.5
+			colony = 2
+		}
+		modifier = {
+			factor = 2
+			colony = 3
+		}
+		modifier = {
+			factor = 2
+			colony = 4
+		}
+	}
+
+	ai_will_do = {
+		factor = 1
+	}	
+}
+
+emergency_impressment_act = {
+
+	category = 2
+
+	allow = {
+		any_owned_province = {
+			has_seat_in_parliament = yes
+			has_port = yes
+		}
+	}
+	
+	effect = {
+		custom_tooltip = scale_with_absolutism_tt
+		trigger_switch = {
+			on_trigger = absolutism
+			140 = {add_years_of_sailors_scaled_to_seats = 3.5 }
+			120 = {add_years_of_sailors_scaled_to_seats = 2.5625 }
+			100 = {add_years_of_sailors_scaled_to_seats = 1.875 }
+			80 = {add_years_of_sailors_scaled_to_seats = 1.375 }
+			60 = {add_years_of_sailors_scaled_to_seats = 1.0 }
+			40 = {add_years_of_sailors_scaled_to_seats = 0.75 }
+			20 = {add_years_of_sailors_scaled_to_seats = 0.5 }
+		}
+	}
+	modifier = {
+		sailors_recovery_speed = 0.1
+	}
+	
+	chance = {
+		factor = 1
+		modifier = {
+			factor = 2
+			NOT = {
+				sailors_percentage = 0.5
+			}
+		}
+		modifier = {
+			factor = 2
+			NOT = {
+				sailors_percentage = 0.25
+			}
+		}
+	}
+
+	ai_will_do = {
+		factor = 1
+		modifier = {
+			factor = 2
+			NOT = {
+				sailors_percentage = 0.5
+			}
+		}
+		modifier = {
+			factor = 0
+			NOT = { num_of_ports = 10 }
+		}
+	}	
+}
+
+establish_new_siberian_frontier = {
+
+	category = 2
+
+	allow = {
+		any_owned_province = {
+			has_empty_adjacent_province = yes
+			NOT = {has_terrain = dwarven_under_hold}
+			NOT = {has_terrain = dwarven_hold}
+		}
+	}
+	
+	effect = {
+		random_owned_province = {
+			limit = {has_empty_adjacent_province = yes}
+			random_neighbor_province = {
+				limit = {is_empty = yes}
+				add_siberian_construction = 800
+			}
+		}
+	}
+
+	chance = {
+		factor = 2
+	}
+
+	ai_will_do = {
+		factor = 1
+	}	
+}
+
+expand_diplomatic_corps = {
+
+	category = 2
+
+	allow = {
+	}
+	
+	effect = {
+		custom_tooltip = scale_with_absolutism_tt
+		trigger_switch = {
+			on_trigger = absolutism
+			140 = {add_country_modifier = {name = expand_diplomatic_corps_mod_7 duration = 3650} }
+			120 = {add_country_modifier = {name = expand_diplomatic_corps_mod_6 duration = 3650} }
+			100 = {add_country_modifier = {name = expand_diplomatic_corps_mod_5 duration = 3650} }
+			80 = {add_country_modifier = {name = expand_diplomatic_corps_mod_4 duration = 3650} }
+			60 = {add_country_modifier = {name = expand_diplomatic_corps_mod_3 duration = 3650} }
+			40 = {add_country_modifier = {name = expand_diplomatic_corps_mod_2 duration = 3650} }
+			20 = {add_country_modifier = {name = expand_diplomatic_corps_mod_1 duration = 3650} }
+		}
+	}
+	
+	modifier = {
+		diplomats = 1
+	}
+	
+	chance = {
+		factor = 1
+		modifier = {
+			factor = 1.5
+			NOT = { num_of_free_diplomatic_relations = 1 }
+		}
+		modifier = {
+			factor = 2
+			num_of_diplomatic_relations = 5
+		}
+		modifier = {
+			factor = 2
+			num_of_diplomatic_relations = 8
+		}
+	}
+
+	ai_will_do = {
+		factor = 1	
+	}	 
+}
+
+expand_navy = {
+
+	category = 2
+
+	allow = {
+		num_of_ports = 2
+	}
+	
+	effect = {
+		custom_tooltip = scale_with_absolutism_tt
+		trigger_switch = {
+			on_trigger = absolutism
+			140 = {add_navy_tradition = 35 }
+			120 = {add_navy_tradition = 25.625 }
+			100 = {add_navy_tradition = 18.75 }
+			80 = {add_navy_tradition = 13.75 }
+			60 = {add_navy_tradition = 10 }
+			40 = {add_navy_tradition = 7.5 }
+			20 = {add_navy_tradition = 5 }
+		}
+		get_racial_advisor = {class = naval_reformer random = no}
+	}
+	
+	modifier = {
+		navy_tradition = 1.0
+	}
+	
+	chance = {
+		factor = 1
+		modifier = {
+			factor = 3
+			NOT  = { navy_size_percentage = 0.2 }
+		}
+		modifier = {
+			factor = 2
+			NOT  = { navy_size_percentage = 0.5 }
+		}
+	}
+
+	ai_will_do = {
+		factor = 1
+		modifier = {
+			factor = 0
+			navy_size_percentage = 0.7
+		}
+		modifier = {
+			factor = 0
+			NOT = { num_of_ports = 5 }
+		}		
+	}	
+}
+
+imports_exports = {
+	#Restrict imports and support exports
+
+	category = 2
+
+	allow = {
+	}
+	
+	effect = {
+		add_mercantilism = 2
+		get_racial_advisor = {class = idea_var_advisor_21 random = no}
+	}
+	
+	modifier = {
+		global_own_trade_power = 0.05
+		mercantilism_cost = -0.1
+	}
+	
+	chance = {
+		factor = 1
+		modifier = {
+			factor = 2
+			OR = {
+				has_idea_group = plutocracy_ideas
+				has_idea_group = trade_ideas
+				has_idea_group = economic_ideas
+			}
+		}
+	}
+	
+	ai_will_do = {
+		factor = 1	
+	}	
+}
+
+issue_letters_of_marque = {
+
+	category = 2
+	
+	allow = {
+		num_of_ports = 2
+	}
+
+	effect = {
+		get_racial_advisor = {class = idea_var_advisor_26 random = no}
+	}
+	
+	modifier = {
+		privateer_efficiency = 0.15
+		embargo_efficiency = 0.1
+		light_ship_cost = -0.1
+	}
+
+	chance = {
+		factor = 1
+		
+		modifier = {
+			factor = 2
+			navy_size_percentage = 1.0
+			num_of_ports = 5
+		}
+		modifier = {
+			factor = 2
+			has_idea_group = spy_ideas
+		}
+		modifier = {
+			factor = 2
+			has_idea_group = maritime_ideas
+		}
+		modifier = {
+			factor = 1.5
+			OR = {
+				has_idea_group = naval_ideas
+				has_idea_group = quality_ideas
+			}
+		}
+		modifier = {
+			factor = 0.5
+			NOT = { num_of_ports = 5 }
+		}
+	}
+
+	ai_will_do = {
+		factor = 1
+		modifier = {
+			factor = 2
+			navy_size_percentage = 0.7
+		}
+		modifier = {
+			factor = 0
+			NOT = { num_of_ports = 5 }
+		}
+	}	
+}
+
+offices_to_vassals = {
+
+	category = 2
+
+	allow = {
+		OR = {
+			vassal = 2
+			personal_union = 2
+			AND = {
+				vassal = 1
+				personal_union = 1
+			}
+		}
+		government = monarchy
+	}
+	
+	effect = {
+		every_subject_country = {
+			limit = {is_subject_of_type = vassal}
+			add_opinion = {
+				who = FROM
+				modifier = parliament_closer_ties
+			}
+		}
+		custom_tooltip = escale_with_diplomatic_reputation_tt
+		trigger_switch = {
+			on_trigger = diplomatic_reputation
+			20 = {add_dip_power = 400 }
+			19 = {add_dip_power = 380 }
+			18 = {add_dip_power = 360 }
+			17 = {add_dip_power = 340 }
+			16 = {add_dip_power = 320 }
+			15 = {add_dip_power = 300 }
+			14 = {add_dip_power = 280 }
+			13 = {add_dip_power = 260 }
+			12 = {add_dip_power = 240 }
+			11 = {add_dip_power = 220 }
+			10 = {add_dip_power = 200 }
+			9 = {add_dip_power = 180 }
+			8 = {add_dip_power = 160 }
+			7 = {add_dip_power = 140 }
+			6 = {add_dip_power = 120 }
+			5 = {add_dip_power = 100 }
+			4 = {add_dip_power = 80 }
+			3 = {add_dip_power = 60 }
+			2 = {add_dip_power = 40 }
+			1 = {add_dip_power = 20 }
+		}
+	}
+	
+	modifier = {
+		diplomatic_annexation_cost = -0.15
+		vassal_income = 0.05
+	}
+
+	chance = {
+		factor = 1
+		modifier = {
+			factor = 2
+			vassal = 3
+		}
+		modifier = {
+			factor = 3
+			vassal = 4
+		}
+		modifier = {
+			factor = 4
+			vassal = 5
+		}
+	}
+	
+	ai_will_do = {
+		factor = 1
+		modifier = {
+			factor = 2
+			vassal = 4
+		}
+		modifier = {
+			factor = 2
+			personal_union = 2
+		}	
+	}
+}
+
+reduce_trade_regulations = {
+	
+	category = 2
+	
+	allow = {
+		OR = {
+			dip_tech = 16
+			has_idea_group = trade_ideas
+		}
+	}
+	
+	effect = {
+		custom_tooltip = scale_with_absolutism_tt
+		trigger_switch = {
+			on_trigger = absolutism
+			140 = {add_country_modifier = {name = reduce_trade_regulations_mod_7 duration = 7300} }
+			120 = {add_country_modifier = {name = reduce_trade_regulations_mod_6 duration = 7300} }
+			100 = {add_country_modifier = {name = reduce_trade_regulations_mod_5 duration = 7300} }
+			80 = {add_country_modifier = {name = reduce_trade_regulations_mod_4 duration = 7300} }
+			60 = {add_country_modifier = {name = reduce_trade_regulations_mod_3 duration = 7300} }
+			40 = {add_country_modifier = {name = reduce_trade_regulations_mod_2 duration = 7300} }
+			20 = {add_country_modifier = {name = reduce_trade_regulations_mod_1 duration = 7300} }
+		}
+	}
+	
+	modifier = {
+		trade_efficiency = 0.15
+	}
+	
+	chance = {
+		factor = 1
+		modifier = {
+			factor = 2
+			num_of_merchants = 6
+		}
+		modifier = {
+			factor = 2
+			trade_income_percentage = 0.3
+		}
+		modifier = {
+			factor = 2
+			trade_income_percentage = 0.4
+		}
+		modifier = {
+			factor = 2
+			OR = {
+				has_idea_group = plutocracy_ideas
+				has_idea_group = expansion_ideas
+			}
+		}
+	}
+
+	ai_will_do = {
+		factor = 1	
+	}	
+}

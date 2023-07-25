@@ -1,283 +1,309 @@
 namespace = halfling_tolerance_events
 
-province_event = {	# Racial Minister
+country_event = {	# Racial Minister
 	id = halfling_tolerance_events.1001
 	title = halfling_tolerance_events.1001.t
 	desc = halfling_tolerance_events.1001.desc
 	picture = ADVISOR_eventPicture
-	GOTO = ROOT
+	GOTO = province_event_target
 
 	trigger = {
-		is_city = yes
-		owner = {NOT = {has_country_modifier = halfling_administration}}
-		has_halfling_majority_trigger = yes
-		OR = {
-			NOT = {
-				region_for_scope_province = {
-					has_province_flag = halfling_tolerance_events.1001_flag_cd
-				}
-			}
-			region_for_scope_province = {
-				had_province_flag = {
-					flag = halfling_tolerance_events.1001_flag_cd
-					days = 7300
-				}
-			}
+		NOT = {has_country_modifier = halfling_administration}
+		medium_tolerance_halfling_race_trigger = yes
+		any_owned_province = {
+			is_city = yes
+			has_halfling_majority_trigger = yes
 		}
 	}
 	mean_time_to_happen = {
-		months = 2400
-		modifier = {factor = 2.0 owner = {any_owned_province = {has_halfling_majority_trigger = yes owner = {employed_advisor = {culture = PREV}}}}}
-		modifier = {factor = 0.75 owner = {has_country_modifier = racial_focus_halfling}}
-		modifier = {factor = 0.75 owner = {has_idea = tolerance_idea_2}}
-		modifier = {factor = 0.90 owner = {medium_tolerance_halfling_race_trigger = yes}}
-		modifier = {factor = 5.0 has_small_halfling_minority_trigger = yes}
-		modifier = {factor = 3.0 has_large_halfling_minority_trigger = yes}
-		modifier = {factor = 0.90 development = 30}
-		modifier = {factor = 0.90 development = 40}
+		months = 240
+		modifier = {factor = 2.0 any_owned_province = {has_halfling_majority_trigger = yes owner = {employed_advisor = {culture = PREV}}}}
+		modifier = {factor = 0.75 has_country_modifier = racial_focus_halfling}
+		modifier = {factor = 0.75 has_idea = tolerance_idea_2}
+		modifier = {factor = 0.90 high_tolerance_halfling_race_trigger = yes}
 	}
 	immediate = {
 		hidden_effect = {
-			owner = {
-				save_event_target_as = country_elder_advisor_target
+			save_event_target_as = country_elder_advisor_target
+			random_owned_province = {
+				limit = {
+					is_city = yes
+					has_halfling_majority_trigger = yes
+				}
+				save_event_target_as = province_event_target
+				save_event_target_as = advisor_province_event_target
 			}
-			clr_province_flag = halfling_tolerance_events.1001_flag_cd 
-			set_province_flag = halfling_tolerance_events.1001_flag_cd 
-			save_event_target_as = province_event_target
-			save_event_target_as = advisor_province_event_target
-			set_variable = {which = province_development value = 0}
-			export_to_variable = {which = province_development value = development}
-			set_variable = {which = cash_per_dev_tooltip value = 0}
-			change_variable = {which = cash_per_dev_tooltip value = 2}
-			set_variable = {which = prestige_per_dev_tooltip value = 0}
-			change_variable = {which = prestige_per_dev_tooltip value = 0.2}
+			random_owned_province = {
+				limit = {
+					is_city = yes
+					has_halfling_majority_trigger = yes
+					development = 30
+				}
+				save_event_target_as = province_event_target
+				save_event_target_as = advisor_province_event_target
+			}
+			random_owned_province = {
+				limit = {
+					is_city = yes
+					has_halfling_majority_trigger = yes
+					development = 40
+				}
+				save_event_target_as = province_event_target
+				save_event_target_as = advisor_province_event_target
+			}
+			event_target:province_event_target = {
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
+				set_variable = {which = cash_per_dev_tooltip value = 0}
+				change_variable = {which = cash_per_dev_tooltip value = 2}
+				set_variable = {which = prestige_per_dev_tooltip value = 0}
+				change_variable = {which = prestige_per_dev_tooltip value = 0.2}
+			}
 		}
 	}
 	option = {	# So what?
 		name = halfling_tolerance_events.1001.a
-		
-		add_unrest = 10
+		event_target:province_event_target = {
+			add_unrest = 10
+		}
 	}
 	option = {	# Recruit
 		name = halfling_tolerance_events.1001.b
-		owner = {
-			get_racial_advisor = { class = adm }
-			add_estate_loyalty = { estate = estate_halfling loyalty = 5 }
+		get_racial_advisor = { class = adm random = yes }
+		add_estate_loyalty = { estate = estate_halfling loyalty = 5 }
+		event_target:province_event_target = {
+			get_tolerance_from_provinces = { race = halfling }
+			lose_treasury_from_provinces = { cash_per_dev = 2 }
 		}
-		get_tolerance_from_provinces = { race = halfling }
-		lose_treasury_from_provinces = { cash_per_dev = 2 }
 	}
 	option = {	# Remove Him
 		name = halfling_tolerance_events.1001.c
-		get_intolerance_from_provinces = { race = halfling }
-		gain_prestige_from_provinces = { prestige_per_dev = 0.2 }
-		owner = {
-			increase_legitimacy_small_effect = yes			
-			add_estate_loyalty = { estate = estate_halfling loyalty = -10 }
+		event_target:province_event_target = {
+			get_intolerance_from_provinces = { race = halfling }
+			gain_prestige_from_provinces = { prestige_per_dev = 0.2 }
 		}
+		increase_legitimacy_small_effect = yes			
+		add_estate_loyalty = { estate = estate_halfling loyalty = -10 }
 	}
 }
-province_event = {	# Minor landholders demand autonomy
+country_event = {	# Minor landholders demand autonomy
 	id = halfling_tolerance_events.1002
 	title = halfling_tolerance_events.1002.t
 	desc = halfling_tolerance_events.1002.desc
 	picture = GREAT_BUILDING_eventPicture
-	GOTO = ROOT
+	GOTO = province_event_target
 
 	trigger = {
-		is_city = yes
-		owner = {NOT = {has_country_modifier = halfling_administration}}
-		has_any_halfling_pop_trigger = yes
-		OR = {
-			NOT = {
-				region_for_scope_province = {
-					has_province_flag = halfling_tolerance_events.1002_flag_cd
-				}
-			}
-			region_for_scope_province = {
-				had_province_flag = {
-					flag = halfling_tolerance_events.1002_flag_cd
-					days = 7300
-				}
-			}
+		NOT = {has_country_modifier = halfling_administration}
+		any_owned_province = {
+			is_city = yes
+			has_halfling_majority_trigger = yes
 		}
 	}
 
 	mean_time_to_happen = {
-		months = 2400
-		modifier = {factor = 2.00 owner = {has_estate_influence_modifier = {estate = estate_halfling modifier = EST_VAL_HALFLING_LANDHOLDERS_DEMANDS}}}
-		modifier = {factor = 2.00 owner = {stability = 2}}
-		modifier = {factor = 2.00 owner = {legitimacy_equivalent = 80}}
-		modifier = {factor = 0.75 owner = {has_country_modifier = racial_focus_halfling}}
-		modifier = {factor = 0.75 owner = {has_idea = tolerance_idea_2}}
-		modifier = {factor = 2.00 owner = {low_tolerance_halfling_race_trigger = yes}}
-		modifier = {factor = 0.90 owner = {medium_tolerance_halfling_race_trigger = yes}}
-		modifier = {factor = 0.80 owner = {high_tolerance_halfling_race_trigger = yes}}
-		modifier = {factor = 0.90 has_large_halfling_minority_trigger = yes}
-		modifier = {factor = 0.90 has_halfling_majority_trigger = yes}
-		modifier = {factor = 0.90 development = 30}
-		modifier = {factor = 0.90 development = 40}
+		months = 240
+		modifier = {factor = 2.00 has_estate_influence_modifier = {estate = estate_halfling modifier = EST_VAL_HALFLING_LANDHOLDERS_DEMANDS}}
+		modifier = {factor = 2.00 stability = 2}
+		modifier = {factor = 2.00 legitimacy_equivalent = 80}
+		modifier = {factor = 0.75 has_country_modifier = racial_focus_halfling}
+		modifier = {factor = 0.75 has_idea = tolerance_idea_2}
+		modifier = {factor = 2.00 low_tolerance_halfling_race_trigger = yes}
+		modifier = {factor = 0.90 medium_tolerance_halfling_race_trigger = yes}
+		modifier = {factor = 0.80 high_tolerance_halfling_race_trigger = yes}
 	}
 	immediate = {
 		hidden_effect = {
-			clr_province_flag = halfling_tolerance_events.1002_flag_cd 
-			set_province_flag = halfling_tolerance_events.1002_flag_cd 
-			save_event_target_as = province_event_target
-			set_variable = {which = province_development value = 0}
-			export_to_variable = {which = province_development value = development}
-			set_variable = {which = cash_per_dev_tooltip value = 0}
-			change_variable = {which = cash_per_dev_tooltip value = 10}
+			random_owned_province = {
+				limit = {
+					is_city = yes
+					has_halfling_majority_trigger = yes
+				}
+				save_event_target_as = province_event_target
+			}
+			random_owned_province = {
+				limit = {
+					is_city = yes
+					has_halfling_majority_trigger = yes
+					development = 30
+				}
+				save_event_target_as = province_event_target
+			}
+			random_owned_province = {
+				limit = {
+					is_city = yes
+					has_halfling_majority_trigger = yes
+					development = 40
+				}
+				save_event_target_as = province_event_target
+			}
+			event_target:province_event_target = {
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
+				set_variable = {which = cash_per_dev_tooltip value = 0}
+				change_variable = {which = cash_per_dev_tooltip value = 10}
+			}
 		}
 	}
 	option = {	# We cannot do this
 		name = halfling_tolerance_events.1002.a
 		
-		add_unrest = 10
+		event_target:province_event_target = {
+			add_unrest = 10
+		}
 	}
 	option = {	# Aight then
 		name = halfling_tolerance_events.1002.b
-		owner = {add_estate_loyalty = { estate = estate_halfling loyalty = 20 }}
-		add_halfling_minority_size_effect = yes
-		add_local_autonomy = 25
-		get_tolerance_from_provinces = { race = halfling }
-		owner = {
-			add_estate_influence_modifier = {
-				estate = estate_halfling
-				desc = EST_VAL_HALFLING_LANDHOLDERS_DEMANDS
-				influence = 5
-				duration = 7300
-			}
+		add_estate_loyalty = { estate = estate_halfling loyalty = 20 }
+		add_estate_influence_modifier = {
+			estate = estate_halfling
+			desc = EST_VAL_HALFLING_LANDHOLDERS_DEMANDS
+			influence = 5
+			duration = 7300
+		}
+		event_target:province_event_target = {
+			add_halfling_minority_size_effect = yes
+			add_local_autonomy = 25
+			get_tolerance_from_provinces = { race = halfling }
 		}
 	}
 	option = {	# How about we confiscate your land instead?
 		name = halfling_tolerance_events.1002.c
-		owner = {
-			add_estate_loyalty = { estate = estate_halfling loyalty = -20 }
-		}
-		add_unrest = 20
-		if = {
-			limit = {culture_is_halfling = yes}
-			remove_1_dev_to_provinces = yes
-		}
-		else = {
-			remove_halfling_minority_size_effect = yes
-		}		
-		get_intolerance_from_provinces = { race = halfling }
-		gain_treasury_from_provinces = { cash_per_dev = 10 }
-		hidden_effect = {
-			random_province = {
-				limit = {
-					province_distance = { who = THIS distance = 100 }
-					owner = {
-						NOT = {has_estate_privilege = estate_halfling_purge}
-						NOT = {has_estate_privilege = estate_halfling_expulsion}
-					}			
-				}
-				if = {
-					limit = {ROOT = {culture_is_halfling = yes}}
-					add_1_dev_to_provinces = yes
-				}
-				else = {
-					add_halfling_minority_size_effect = yes
+		add_estate_loyalty = { estate = estate_halfling loyalty = -20 }
+		event_target:province_event_target = {
+			add_unrest = 20
+			if = {
+				limit = {culture_is_halfling = yes}
+				remove_1_dev_to_provinces = yes
+			}
+			else = {
+				remove_halfling_minority_size_effect = yes
+			}		
+			get_intolerance_from_provinces = { race = halfling }
+			gain_treasury_from_provinces = { cash_per_dev = 10 }
+			hidden_effect = {
+				random_province = {
+					limit = {
+						province_distance = { who = THIS distance = 100 }
+						owner = {
+							NOT = {has_estate_privilege = estate_halfling_purge}
+							NOT = {has_estate_privilege = estate_halfling_expulsion}
+						}			
+					}
+					if = {
+						limit = {ROOT = {culture_is_halfling = yes}}
+						add_1_dev_to_provinces = yes
+					}
+					else = {
+						add_halfling_minority_size_effect = yes
+					}
 				}
 			}
 		}
 	}
 }
-province_event = {	# Ambitious halflings in government
+country_event = {	# Ambitious halflings in government
 	id = halfling_tolerance_events.1003
 	title = halfling_tolerance_events.1003.t
 	desc = halfling_tolerance_events.1003.desc
 	picture = PAINTER_ARTIST_eventPicture
-	GOTO = ROOT
+	GOTO = province_event_target
 
 	trigger = {
-		is_city = yes
-		has_any_halfling_pop_trigger = yes
-		owner = {
-			NOT = {has_country_modifier = halfling_administration}
-			OR = {
-				medium_tolerance_halfling_race_trigger = yes
-				high_tolerance_halfling_race_trigger = yes
-			}
+		any_owned_province = {
+			is_city = yes
+			has_any_halfling_pop_trigger = yes
 		}
+		NOT = {has_country_modifier = halfling_administration}
 		OR = {
-			NOT = {
-				region_for_scope_province = {
-					has_province_flag = halfling_tolerance_events.1003_flag_cd
-				}
-			}
-			region_for_scope_province = {
-				had_province_flag = {
-					flag = halfling_tolerance_events.1003_flag_cd
-					days = 7300
-				}
-			}
+			medium_tolerance_halfling_race_trigger = yes
+			high_tolerance_halfling_race_trigger = yes
 		}
 	}
 
 	mean_time_to_happen = {
-		months = 2400
-		modifier = {factor = 0.75 owner = {has_country_modifier = racial_focus_halfling}}
-		modifier = {factor = 0.75 owner = {has_idea = tolerance_idea_2}}
-		modifier = {factor = 0.90 has_large_halfling_minority_trigger = yes}
-		modifier = {factor = 0.90 has_halfling_majority_trigger = yes}
-		modifier = {factor = 0.90 development = 30}
-		modifier = {factor = 0.90 development = 40}
+		months = 240
+		modifier = {factor = 0.75 has_country_modifier = racial_focus_halfling}
+		modifier = {factor = 0.75 has_idea = tolerance_idea_2}
+		modifier = {factor = 0.80 high_tolerance_halfling_race_trigger = yes}
 	}
 
 	immediate = {
 		hidden_effect = {
-			clr_province_flag = halfling_tolerance_events.1003_flag_cd 
-			set_province_flag = halfling_tolerance_events.1003_flag_cd 
-			save_event_target_as = province_event_target
-			save_event_target_as = halfling_in_government_province
-			set_variable = {which = province_development value = 0}
-			export_to_variable = {which = province_development value = development}
-			set_variable = {which = prestige_per_dev_tooltip value = 0}
-			change_variable = {which = prestige_per_dev_tooltip value = 0.2}
-			set_variable = {which = cash_per_dev_tooltip value = 0}
-			change_variable = {which = cash_per_dev_tooltip value = 5}
+			random_owned_province = {
+				limit = {
+					is_city = yes
+					has_any_halfling_pop_trigger = yes
+				}
+				save_event_target_as = province_event_target
+				save_event_target_as = halfling_in_government_province
+			}
+			random_owned_province = {
+				limit = {
+					is_city = yes
+					has_any_halfling_pop_trigger = yes
+					development = 30
+				}
+				save_event_target_as = province_event_target
+				save_event_target_as = halfling_in_government_province
+			}
+			random_owned_province = {
+				limit = {
+					is_city = yes
+					has_any_halfling_pop_trigger = yes
+					development = 40
+				}
+				save_event_target_as = province_event_target
+				save_event_target_as = halfling_in_government_province
+			}
+			event_target:province_event_target = {
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
+				set_variable = {which = prestige_per_dev_tooltip value = 0}
+				change_variable = {which = prestige_per_dev_tooltip value = 0.2}
+				set_variable = {which = cash_per_dev_tooltip value = 0}
+				change_variable = {which = cash_per_dev_tooltip value = 5}
+			}
 		}
 	}
 	option = {	# I guess its to be expected
 		name = halfling_tolerance_events.1003.a
 		ai_chance = {factor = 50}
-		owner = {
-			add_adm_power = -20			
-			add_estate_loyalty = { estate = estate_halfling loyalty = 10 }
-		}
+		add_adm_power = -20
+		add_estate_loyalty = { estate = estate_halfling loyalty = 10 }
 	}
 	option = {	# Curtail ambitious officials
 		name = halfling_tolerance_events.1003.c
-		owner = {			
-			add_estate_loyalty = { estate = all loyalty = 10 }
-			add_estate_loyalty = { estate = estate_halfling loyalty = -20 }
-			increase_legitimacy_small_effect = yes
+		add_estate_loyalty = { estate = all loyalty = 10 }
+		add_estate_loyalty = { estate = estate_halfling loyalty = -20 }
+		increase_legitimacy_small_effect = yes
+		event_target:province_event_target = {
+			get_intolerance_from_provinces = { race = halfling }
 		}
-		get_intolerance_from_provinces = { race = halfling }
 	}
 	option = {	# Their ambition will drive us further
 		name = halfling_tolerance_events.1003.b
-		trigger = { owner = { high_tolerance_halfling_race_trigger = no } }
-		owner = {
-			add_estate_loyalty = { estate = all loyalty = -10 }
-			add_estate_loyalty = { estate = estate_halfling loyalty = 30 }
+		trigger = { high_tolerance_halfling_race_trigger = no }
+		add_estate_loyalty = { estate = all loyalty = -10 }
+		add_estate_loyalty = { estate = estate_halfling loyalty = 30 }
+		event_target:province_event_target = {
+			add_scaled_local_adm_power = 2
+			add_scaled_local_dip_power = 2
+			add_scaled_local_mil_power = 2
+			get_tolerance_from_provinces = { race = halfling }
+			lose_prestige_from_provinces = { prestige_per_dev = 0.2 }
 		}
-		add_scaled_local_adm_power = 2
-		add_scaled_local_dip_power = 2
-		add_scaled_local_mil_power = 2
-		get_tolerance_from_provinces = { race = halfling }
-		lose_prestige_from_provinces = { prestige_per_dev = 0.2 }
 	}
 	option = {	# Reward them for their contributions
 		name = halfling_tolerance_events.1003.d
-		trigger = { owner = { high_tolerance_halfling_race_trigger = yes } }
-		owner = {change_government_reform_progress = 10}
-		add_scaled_local_adm_power = 3
-		add_scaled_local_dip_power = 3
-		add_scaled_local_mil_power = 3
-		lose_treasury_from_provinces = { cash_per_dev = 5 }
+		trigger = { high_tolerance_halfling_race_trigger = yes }
+		change_government_reform_progress = 10
+		event_target:province_event_target = {
+			add_scaled_local_adm_power = 3
+			add_scaled_local_dip_power = 3
+			add_scaled_local_mil_power = 3
+			lose_treasury_from_provinces = { cash_per_dev = 5 }
+		}
 	}
 }
 country_event = {	# Halfling dominance undermining us
@@ -307,7 +333,7 @@ country_event = {	# Halfling dominance undermining us
 	}
 
 	mean_time_to_happen = {
-		months = 2400
+		months = 240
 		modifier = {factor = 3.00 NOT = {had_country_flag = { flag = halfling_tolerance_events_1004_flag days = 1825}}}
 		modifier = {
 			factor = 0.9
@@ -335,17 +361,19 @@ country_event = {	# Halfling dominance undermining us
 		modifier = {factor = 0.9 estate_territory = {estate = estate_halfling territory = 80}}
 		modifier = {factor = 0.9 estate_influence = {estate = estate_halfling influence = 60}}
 		modifier = {factor = 0.9 estate_influence = {estate = estate_halfling influence = 80}}
+		modifier = {factor = 0.9 estate_influence = {estate = estate_halfling influence = 100}}
 		modifier = {factor = 0.9 NOT = {legitimacy_equivalent = 90}}
 		modifier = {factor = 0.9 NOT = {legitimacy_equivalent = 80}}
 		modifier = {factor = 0.9 NOT = {legitimacy_equivalent = 70}}
 		modifier = {factor = 0.9 NOT = {legitimacy_equivalent = 60}}
 		modifier = {factor = 0.9 NOT = {legitimacy_equivalent = 50}}
+		modifier = {factor = 0.9 NOT = {stability = 3}}
+		modifier = {factor = 0.9 NOT = {stability = 2}}
 		modifier = {factor = 0.75 has_idea = tolerance_idea_2}
 	}
 	immediate = {
 		hidden_effect = {
 			clr_country_flag = halfling_tolerance_events_1004_flag
-			set_country_flag = halfling_tolerance_events_1004_flag
 		}
 	}
 	option = {	# What can we do?
@@ -373,8 +401,9 @@ country_event = {	# Halfling dominance undermining us
 	option = {	# They need to be put in their place
 		name = halfling_tolerance_events.1004.c
 		add_prestige_or_monarch_power = {amount =  10}
+		set_country_flag = halfling_tolerance_events_1004_flag
 		increase_legitimacy_small_effect = yes
-		small_decrease_of_halfling_tolerance_effect = yes		
+		small_decrease_of_halfling_tolerance_effect = yes
 		add_estate_loyalty = { estate = estate_halfling loyalty = -20 }
 		add_estate_loyalty_modifier = {
 			estate = estate_halfling
@@ -390,36 +419,25 @@ country_event = {	# Halfling dominance undermining us
 		}
 	}
 }
-province_event = {	# Rapid growth due to halfling minority
+country_event = {	# Rapid growth due to halfling minority
 	id = halfling_tolerance_events.1005
 	title = halfling_tolerance_events.1005.t
 	desc = halfling_tolerance_events.1005.desc
 	picture = CITY_VIEW_eventPicture
-	GOTO = ROOT
+	GOTO = province_event_targetd
 
 	trigger = {
-		is_city = yes
 		owner = {NOT = {has_country_modifier = halfling_administration}}
-		has_halfling_minority_trigger = yes
-		OR = {
-			NOT = {
-				region_for_scope_province = {
-					has_province_flag = halfling_tolerance_events.1005_flag_cd
-				}
-			}
-			region_for_scope_province = {
-				had_province_flag = {
-					flag = halfling_tolerance_events.1005_flag_cd
-					days = 7300
-				}
-			}
+		any_owned_province = {
+			is_city = yes
+			has_halfling_minority_trigger = yes
 		}
 	}
 
 	mean_time_to_happen = {
-		months = 2400
-		modifier = {factor = 0.75 owner = {has_country_modifier = racial_focus_halfling}}
-		modifier = {factor = 0.75 owner = {has_idea = tolerance_idea_2}}
+		months = 240
+		modifier = {factor = 0.75 has_country_modifier = racial_focus_halfling}
+		modifier = {factor = 0.75 has_idea = tolerance_idea_2}
 		modifier = {factor = 0.90 has_large_halfling_minority_trigger = yes}
 		modifier = {factor = 0.90 has_halfling_majority_trigger = yes}
 		modifier = {factor = 0.95 development = 20}
@@ -429,50 +447,79 @@ province_event = {	# Rapid growth due to halfling minority
 
 	immediate = {
 		hidden_effect = {
-			clr_province_flag = halfling_tolerance_events.1005_flag_cd 
-			set_province_flag = halfling_tolerance_events.1005_flag_cd 
-			save_event_target_as = province_event_target
-			set_variable = {which = province_development value = 0}
-			export_to_variable = {which = province_development value = development}
-			set_variable = {which = cash_per_dev_tooltip value = 0}
-			change_variable = {which = cash_per_dev_tooltip value = 2}
-			area = {
+			random_owned_province = {
+				limit = {
+					is_city = yes
+					has_halfling_minority_trigger = yes
+				}
+				save_event_target_as = province_event_target
+			}
+			random_owned_province = {
+				limit = {
+					is_city = yes
+					has_halfling_minority_trigger = yes
+					development = 30
+				}
+				save_event_target_as = province_event_target
+			}
+			random_owned_province = {
+				limit = {
+					is_city = yes
+					has_halfling_minority_trigger = yes
+					development = 40
+				}
+				save_event_target_as = province_event_target
+			}
+			event_target:province_event_target = {
 				set_variable = {which = province_development value = 0}
 				export_to_variable = {which = province_development value = development}
 				set_variable = {which = cash_per_dev_tooltip value = 0}
 				change_variable = {which = cash_per_dev_tooltip value = 2}
+				area = {
+					set_variable = {which = province_development value = 0}
+					export_to_variable = {which = province_development value = development}
+					set_variable = {which = cash_per_dev_tooltip value = 0}
+					change_variable = {which = cash_per_dev_tooltip value = 2}
+				}
 			}
 		}
 	}
 	option = {	# Great!
 		name = halfling_tolerance_events.1005.a
 
-		add_unrest = 10
-		add_halfling_minority_size_effect = yes
+		event_target:province_event_target = {
+			add_unrest = 10
+			add_halfling_minority_size_effect = yes
+		}
 	} 
 	option = {	# Support further development
 		name = halfling_tolerance_events.1005.b
-		owner = {add_estate_loyalty = { estate = estate_halfling loyalty = 10 }}
-		get_tolerance_from_provinces = { race = halfling }
-		lose_treasury_from_provinces = { cash_per_dev = 2}
-		add_halfling_minority_size_effect = yes
+
+		add_estate_loyalty = { estate = estate_halfling loyalty = 10 }
+		event_target:province_event_target = {
+			get_tolerance_from_provinces = { race = halfling }
+			lose_treasury_from_provinces = { cash_per_dev = 2}
+			add_halfling_minority_size_effect = yes
+		}
 	}
 	option = {	# They have no further use
 		name = halfling_tolerance_events.1005.c
 
-		owner = {add_estate_loyalty = { estate = estate_halfling loyalty = -10 }}
-		get_intolerance_from_provinces = { race = halfling }
-		remove_halfling_minority_size_effect = yes
-		hidden_effect = {
-			random_province = {
-				limit = {
-					province_distance = { who = THIS distance = 100 }
-					owner = {
-						NOT = {has_estate_privilege = estate_halfling_purge}
-						NOT = {has_estate_privilege = estate_halfling_expulsion}
-					}					
+		add_estate_loyalty = { estate = estate_halfling loyalty = -10 }
+		event_target:province_event_target = {
+			get_intolerance_from_provinces = { race = halfling }
+			remove_halfling_minority_size_effect = yes
+			hidden_effect = {
+				random_province = {
+					limit = {
+						province_distance = { who = THIS distance = 100 }
+						owner = {
+							NOT = {has_estate_privilege = estate_halfling_purge}
+							NOT = {has_estate_privilege = estate_halfling_expulsion}
+						}					
+					}
+					add_halfling_minority_size_effect = yes
 				}
-				add_halfling_minority_size_effect = yes
 			}
 		}
 	}
@@ -482,105 +529,123 @@ province_event = {	# Angry halfling mob forms
 	title = halfling_tolerance_events.1006.t
 	desc = halfling_tolerance_events.1006.desc
 	picture = ANGRY_MOB_eventPicture
-	GOTO = ROOT
+	GOTO = province_event_target
 
 	trigger = {
-		is_city = yes
 		owner = {NOT = {has_country_modifier = halfling_administration}}
-		has_any_halfling_pop_trigger = yes
-		pure_unrest = 1
-		OR = {
-			NOT = {
-				region_for_scope_province = {
-					has_province_flag = halfling_tolerance_events.1006_flag_cd
-				}
-			}
-			region_for_scope_province = {
-				had_province_flag = {
-					flag = halfling_tolerance_events.1006_flag_cd
-					days = 7300
-				}
-			}
+		any_owned_province = {
+			is_city = yes
+			has_any_halfling_pop_trigger = yes
+			pure_unrest = 5
 		}
 	}
 
 	mean_time_to_happen = {
-		months = 2400
-		modifier = {factor = 0.75 owner = {has_country_modifier = racial_focus_halfling}}
-		modifier = {factor = 0.75 owner = {has_idea = tolerance_idea_2}}
-		modifier = {factor = 2.0 pure_unrest = -5}
-		modifier = {factor = 2.0 pure_unrest = -10}
-		modifier = {factor = 0.90 has_large_halfling_minority_trigger = yes}
-		modifier = {factor = 0.90 has_halfling_majority_trigger = yes}
-		modifier = {factor = 0.90 development = 30}
-		modifier = {factor = 0.90 development = 40}
+		months = 240
+		modifier = {factor = 0.75 has_country_modifier = racial_focus_halfling}
+		modifier = {factor = 0.75 has_idea = tolerance_idea_2}
+		modifier = {factor = 0.90 any_owned_province = {has_large_halfling_minority_trigger = yes pure_unrest = 5}}
+		modifier = {factor = 0.90 any_owned_province = {has_halfling_majority_trigger = yes pure_unrest = 5}}
 		modifier = {factor = 0.50 has_oppressed_halfling_pop_trigger = yes}
-		modifier = {factor = 0.90 pure_unrest = 5}
-		modifier = {factor = 0.90 pure_unrest = 10}
 	}
 
 	immediate = {
 		hidden_effect = {
-			clr_province_flag = halfling_tolerance_events.1006_flag_cd 
-			set_province_flag = halfling_tolerance_events.1006_flag_cd 
-			save_event_target_as = province_event_target
-			save_event_target_as = halfling_mob_province
-			set_variable = {which = province_manpower value = 0}
-			export_to_variable = {which = province_manpower value = base_manpower}
-			set_variable = {which = manpower_per_dev_tooltip value = 0}
-			change_variable = {which = manpower_per_dev_tooltip value = 500}
-			set_variable = {which = province_development value = 0}
-			export_to_variable = {which = province_development value = development}
-			set_variable = {which = prestige_per_dev_tooltip value = 0}
-			change_variable = {which = prestige_per_dev_tooltip value = 0.1}
+			random_owned_province = {
+				limit = {
+					is_city = yes
+					has_halfling_minority_trigger = yes
+					pure_unrest = 5
+				}
+				save_event_target_as = province_event_target
+				save_event_target_as = halfling_mob_province
+			}
+			random_owned_province = {
+				limit = {
+					is_city = yes
+					has_halfling_minority_trigger = yes
+					development = 30
+					pure_unrest = 5
+				}
+				save_event_target_as = province_event_target
+				save_event_target_as = halfling_mob_province
+			}
+			random_owned_province = {
+				limit = {
+					is_city = yes
+					has_halfling_minority_trigger = yes
+					development = 40
+					pure_unrest = 5
+				}
+				save_event_target_as = province_event_target
+				save_event_target_as = halfling_mob_province
+			}
+			event_target:province_event_target = {
+				set_variable = {which = province_manpower value = 0}
+				export_to_variable = {which = province_manpower value = base_manpower}
+				set_variable = {which = manpower_per_dev_tooltip value = 0}
+				change_variable = {which = manpower_per_dev_tooltip value = 500}
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
+				set_variable = {which = prestige_per_dev_tooltip value = 0}
+				change_variable = {which = prestige_per_dev_tooltip value = 0.1}
+			}
 		}
 	}
 	option = {	# Just halflings being halflings
 		name = halfling_tolerance_events.1006.b
 		
-		add_unrest = 10
+		event_target:province_event_target = {
+			add_unrest = 10
+			add_devastation = 20
+		}
 	}
 	option = {	# De-escalate the situation
 		name = halfling_tolerance_events.1006.a
 		
-		owner = {add_estate_loyalty = { estate = estate_halfling loyalty = 10 }}
-		add_unrest = -10
-		lose_prestige_from_provinces = { prestige_per_dev = 0.1 }
+		add_estate_loyalty = { estate = estate_halfling loyalty = 10 }
+		event_target:province_event_target = {
+			add_unrest = -10
+			lose_prestige_from_provinces = { prestige_per_dev = 0.1 }
+		}
 	}
 	option = {	# Send out the troops!
 		name = halfling_tolerance_events.1006.c
 		trigger = {owner = {manpower = 5}}
-		owner = {add_estate_loyalty = { estate = estate_halfling loyalty = -10 }}
-		add_prestige_or_monarch_power = {amount =  10}
-		lose_manpower_from_provinces = { manpower_per_dev = 0.5 }
-		if = {
-			limit = {culture_is_halfling = yes}
-			remove_1_dev_to_provinces = yes
-		}
-		else = {
-			remove_halfling_minority_size_effect = yes
-		}		
-		hidden_effect = {
-			random_province = {
-				limit = {
-					province_distance = { who = THIS distance = 100 }
-					owner = {
-						NOT = {has_estate_privilege = estate_halfling_purge}
-						NOT = {has_estate_privilege = estate_halfling_expulsion}
-					}					
-				}
-				if = {
-					limit = {ROOT = {culture_is_halfling = yes}}
-					add_1_dev_to_provinces = yes
-				}
-				else = {
-					add_halfling_minority_size_effect = yes
+		add_estate_loyalty = { estate = estate_halfling loyalty = -10 }
+		
+		event_target:province_event_target = {
+			add_prestige_or_monarch_power = {amount =  10}
+			lose_manpower_from_provinces = { manpower_per_dev = 0.5 }
+			if = {
+				limit = {culture_is_halfling = yes}
+				remove_1_dev_to_provinces = yes
+			}
+			else = {
+				remove_halfling_minority_size_effect = yes
+			}		
+			hidden_effect = {
+				random_province = {
+					limit = {
+						province_distance = { who = THIS distance = 100 }
+						owner = {
+							NOT = {has_estate_privilege = estate_halfling_purge}
+							NOT = {has_estate_privilege = estate_halfling_expulsion}
+						}					
+					}
+					if = {
+						limit = {ROOT = {culture_is_halfling = yes}}
+						add_1_dev_to_provinces = yes
+					}
+					else = {
+						add_halfling_minority_size_effect = yes
+					}
 				}
 			}
 		}
 	}
 }
-province_event = {	# Halfling highwaymen
+country_event = {	# Halfling highwaymen
 	id = halfling_tolerance_events.1007
 	title = halfling_tolerance_events.1007.t
 	desc = halfling_tolerance_events.1007.desc
@@ -588,106 +653,239 @@ province_event = {	# Halfling highwaymen
 	GOTO = ROOT
 
 	trigger = {
-		is_city = yes
-		has_province_modifier = aw_bandits_1
-		owner = {NOT = {has_country_modifier = halfling_administration}}
-		has_any_halfling_pop_trigger = yes
-		NOT = {owner = {high_tolerance_halfling_race_trigger = yes }}
-		NOT = { has_province_modifier = highwaymen_modifier }
-		NOT = { has_province_modifier = populace_punished_for_highwaymen_modifier }
-		OR = {
-			NOT = {
-				area_for_scope_province = {
-					has_province_flag = halfling_tolerance_events.1007_flag_cd
-				}
+		NOT = {has_country_modifier = halfling_administration}
+		NOT = {high_tolerance_halfling_race_trigger = yes }
+		any_owned_province = {
+			is_city = yes
+			OR = {
+				has_province_modifier = aw_bandits_1
+				pure_unrest = 5
 			}
-			area_for_scope_province = {
-				had_province_flag = {
-					flag = halfling_tolerance_events.1007_flag_cd
-					days = 7300
-				}
-			}
+			has_any_halfling_pop_trigger = yes
+			NOT = { has_province_modifier = highwaymen_modifier }
+			NOT = { has_province_modifier = populace_punished_for_highwaymen_modifier }
 		}
 	}
 
 	mean_time_to_happen = {
 		months = 2400
-		modifier = {factor = 0.75 owner = {has_country_modifier = racial_focus_halfling}}
-		modifier = {factor = 2.00 owner = {high_tolerance_halfling_race_trigger = yes}}
-		modifier = {factor = 0.75 owner = {has_idea = tolerance_idea_2}}
-		modifier = {factor = 0.90 has_large_halfling_minority_trigger = yes}
-		modifier = {factor = 0.90 has_halfling_majority_trigger = yes}
-		modifier = {factor = 0.90 development = 30}
-		modifier = {factor = 0.90 development = 40}
-		modifier = {factor = 0.50 has_oppressed_halfling_pop_trigger = yes}
-		modifier = {factor = 0.90 pure_unrest = 5}
-		modifier = {factor = 0.90 pure_unrest = 10}
-		modifier = {factor = 0.50 any_neighbor_province = {has_province_modifier = highwaymen_modifier}}
+		modifier = {factor = 0.75 has_country_modifier = racial_focus_halfling}
+		modifier = {factor = 2.00 high_tolerance_halfling_race_trigger = yes}
+		modifier = {factor = 1.25 has_idea = tolerance_idea_2}
+		modifier = {factor = 0.90 any_owned_province = {has_large_halfling_minority_trigger = yes OR = {pure_unrest = 5 has_province_modifier = highwaymen_modifier}}}
+		modifier = {factor = 0.90 any_owned_province = {has_halfling_majority_trigger = yes OR = {pure_unrest = 5 has_province_modifier = highwaymen_modifier}}}
+		modifier = {factor = 0.50 any_owned_province = {has_oppressed_halfling_pop_trigger = yes}}
+		modifier = {factor = 0.50 any_owned_province = {any_neighbor_province = {has_province_modifier = highwaymen_modifier}}}
 	}
 
 	immediate = {
 		hidden_effect = {
-			save_event_target_as = province_event_target
-			set_variable = {which = province_manpower value = 0}
-			export_to_variable = {which = province_manpower value = base_manpower}
-			set_variable = {which = manpower_per_dev_tooltip value = 0}
-			change_variable = {which = manpower_per_dev_tooltip value = 500}
-			set_variable = {which = province_development value = 0}
-			export_to_variable = {which = province_development value = development}
+			random_owned_province = {
+				limit = {
+					is_city = yes
+					has_halfling_minority_trigger = yes
+					OR = {
+						has_province_modifier = aw_bandits_1
+						pure_unrest = 5
+					}
+				}
+				save_event_target_as = province_event_target
+			}
+			random_owned_province = {
+				limit = {
+					is_city = yes
+					has_halfling_minority_trigger = yes
+					development = 30
+					OR = {
+						has_province_modifier = aw_bandits_1
+						pure_unrest = 5
+					}
+				}
+				save_event_target_as = province_event_target
+			}
+			random_owned_province = {
+				limit = {
+					is_city = yes
+					has_halfling_minority_trigger = yes
+					development = 40
+					OR = {
+						has_province_modifier = aw_bandits_1
+						pure_unrest = 5
+					}
+				}
+				save_event_target_as = province_event_target
+			}
+			event_target:province_event_target = {
+				set_variable = {which = province_manpower value = 0}
+				export_to_variable = {which = province_manpower value = base_manpower}
+				set_variable = {which = manpower_per_dev_tooltip value = 0}
+				change_variable = {which = manpower_per_dev_tooltip value = 500}
+				set_variable = {which = province_development value = 0}
+				export_to_variable = {which = province_development value = development}
+			}
 		}
 	}
 	option = {	# Not worth finding them
 		name = halfling_tolerance_events.1007.a
 		
-		add_province_modifier = { name = highwaymen_modifier duration = 3650 }
+		event_target:province_event_target = {
+			if = {
+				limit = {NOT = {has_province_modifier = aw_bandits_1}}
+				add_province_modifier = { name = aw_bandits_1 duration = 3650 }
+			}
+			else = {
+				add_province_modifier = { name = highwaymen_modifier duration = 3650 }
+			}
+		}
 	}
 	option = {	# Establish more frequent patrols
 		name = halfling_tolerance_events.1007.b
 		trigger = {owner = {manpower = 5}}
 		
-		hidden_effect = {
-			clr_province_flag = halfling_tolerance_events.1007_flag_cd 
-			set_province_flag = halfling_tolerance_events.1007_flag_cd 
+		add_estate_loyalty = { estate = estate_halfling loyalty = -10 }
+		add_estate_loyalty = { estate = all loyalty = 10 }
+		event_target:province_event_target = {
+			add_unrest = -10
+			lose_manpower_from_provinces = { manpower_per_dev = 0.5 }
+			remove_province_modifier = aw_bandits_1
 		}
-		owner = {
-			add_estate_loyalty = { estate = estate_halfling loyalty = -10 }
-			add_estate_loyalty = { estate = all loyalty = 10 }
-		}
-		add_unrest = -10
-		lose_manpower_from_provinces = { manpower_per_dev = 0.5 }
-		remove_province_modifier = aw_bandits_1
 	}
 	option = {	# Punish them all for harbouring the criminals
 		name = halfling_tolerance_events.1007.c
 		
-		owner= {add_estate_loyalty = { estate = estate_halfling loyalty = -10 }}
-		add_province_modifier = { name = populace_punished_for_highwaymen_modifier duration = 3650 }
-		get_intolerance_from_provinces = { race = halfling }
-		if = {
-			limit = {culture_is_halfling = yes}
-			remove_1_dev_to_provinces = yes
-		}
-		else = {
-			remove_halfling_minority_size_effect = yes
-		}		
-		remove_province_modifier = aw_bandits_1
-		hidden_effect = {
-			random_province = {
-				limit = {
-					province_distance = { who = THIS distance = 100 }
-					owner = {
-						NOT = {has_estate_privilege = estate_halfling_purge}
-						NOT = {has_estate_privilege = estate_halfling_expulsion}
-					}					
-				}
-				if = {
-					limit = {ROOT = {culture_is_halfling = yes}}
-					add_1_dev_to_provinces = yes
-				}
-				else = {
-					add_halfling_minority_size_effect = yes
+		add_estate_loyalty = { estate = estate_halfling loyalty = -10 }
+		
+		event_target:province_event_target = {
+			add_province_modifier = { name = populace_punished_for_highwaymen_modifier duration = 3650 }
+			get_intolerance_from_provinces = { race = halfling }
+			if = {
+				limit = {culture_is_halfling = yes}
+				remove_1_dev_to_provinces = yes
+			}
+			else = {
+				remove_halfling_minority_size_effect = yes
+			}		
+			remove_province_modifier = aw_bandits_1
+			hidden_effect = {
+				random_province = {
+					limit = {
+						province_distance = { who = THIS distance = 100 }
+						owner = {
+							NOT = {has_estate_privilege = estate_halfling_purge}
+							NOT = {has_estate_privilege = estate_halfling_expulsion}
+						}					
+					}
+					if = {
+						limit = {ROOT = {culture_is_halfling = yes}}
+						add_1_dev_to_provinces = yes
+					}
+					else = {
+						add_halfling_minority_size_effect = yes
+					}
 				}
 			}
+		}
+	}
+}
+country_event = {	# minority arrives
+	id = halfling_tolerance_events.1009
+	title = halfling_tolerance_events.1009.t
+	desc = halfling_tolerance_events.1009.desc
+	picture = CITY_DEVELOPMENT_eventPicture
+	
+	hidden = yes
+
+	trigger = {
+		is_city = yes
+		OR = {
+			medium_tolerance_halfling_race_trigger = yes
+			high_tolerance_halfling_race_trigger = yes
+		}
+	}
+
+	mean_time_to_happen = {
+		months = 240
+		modifier = {factor = 5.00 is_at_war = yes}
+		modifier = {factor = 5.00 high_tolerance_halfling_race_trigger = no}
+		modifier = {factor = 2.00 any_owned_province = {has_any_halfling_pop_trigger = no}}
+		modifier = {factor = 1.50 NOT = {stability = 2}}
+		modifier = {factor = 1.50 NOT = {legitimacy_equivalent = 80}}
+		modifier = {factor = 0.75 has_country_modifier = racial_focus_halfling}
+		modifier = {factor = 0.75 has_idea = tolerance_idea_2}
+		modifier = {factor = 0.75 any_owned_province = {is_prosperous = yes}}
+		modifier = {factor = 0.95 any_owned_province = {has_any_halfling_pop_trigger = yes}}
+		modifier = {factor = 0.95 any_owned_province = {has_any_halfling_pop_trigger = yes development = 20}}
+		modifier = {factor = 0.95 any_owned_province = {has_any_halfling_pop_trigger = yes development = 30}}
+		modifier = {factor = 0.95 any_owned_province = {has_any_halfling_pop_trigger = yes development = 40}}
+	}
+
+	immediate = { }
+
+	option = {	# 
+		name = halfling_tolerance_events.1009.a
+		ai_chance = {factor = 10}
+
+		random_owned_province = {
+			limit = {is_city = yes}
+			province_event = {id = halfling_tolerance_events.1009}
+		}
+	}
+	option = {	# 
+		name = halfling_tolerance_events.1009.b
+		trigger = { any_owned_province = { is_city = yes development = 20 } }
+		ai_chance = {factor = 20}
+
+		random_owned_province = {
+			limit = { is_city = yes development = 20 }
+			province_event = {id = halfling_tolerance_events.1009}
+		}
+	}
+	option = {	# 
+		name = halfling_tolerance_events.1009.c
+		trigger = { any_owned_province = { is_city = yes development = 30 } }
+		ai_chance = {factor = 30}
+
+		random_owned_province = {
+			limit = { is_city = yes development = 30 }
+			province_event = {id = halfling_tolerance_events.1009}
+		}
+		
+	}
+	option = {	# 
+		name = halfling_tolerance_events.1009.d
+		trigger = { any_owned_province = { is_city = yes development = 40 } }
+		ai_chance = {factor = 40}
+
+		random_owned_province = {
+			limit = { is_city = yes development = 40 }
+			province_event = {id = halfling_tolerance_events.1009}
+		}
+	}
+	option = {	# 
+		name = halfling_tolerance_events.1009.e
+		trigger = { any_owned_province = { is_city = yes development = 40 is_prosperous = yes } }
+		ai_chance = {factor = 50}
+
+		random_owned_province = { limit = { is_city = yes development = 40 is_prosperous = yes }
+			province_event = {id = halfling_tolerance_events.1009}
+		}
+	}
+	option = {	# 
+		name = halfling_tolerance_events.1009.f
+		trigger = { any_owned_province = { is_city = yes development = 50 is_prosperous = yes } }
+		ai_chance = {factor = 60}
+
+		random_owned_province = { limit = { is_city = yes development = 50 is_prosperous = yes }
+			province_event = {id = halfling_tolerance_events.1009}
+		}
+	}
+	option = {	# 
+		name = halfling_tolerance_events.1009.g
+		trigger = { any_owned_province = { is_city = yes development = 60 is_prosperous = yes } }
+		ai_chance = {factor = 70}
+
+		random_owned_province = { limit = { is_city = yes development = 60 is_prosperous = yes }
+			province_event = {id = halfling_tolerance_events.1009}
 		}
 	}
 }
@@ -696,67 +894,20 @@ province_event = {	# minority arrives
 	title = halfling_tolerance_events.1008.t
 	desc = halfling_tolerance_events.1008.desc
 	picture = CITY_DEVELOPMENT_eventPicture
-	GOTO = ROOT
 
-	trigger = {
-		is_city = yes
-		owner = {
-			OR = {
-				medium_tolerance_halfling_race_trigger = yes
-				high_tolerance_halfling_race_trigger = yes
-			}
-		}
-		OR = {
-			NOT = {
-				area_for_scope_province = {
-					has_province_flag = halfling_tolerance_events.1008_flag_cd
-				}
-			}
-			area_for_scope_province = {
-				had_province_flag = {
-					flag = halfling_tolerance_events.1008_flag_cd
-					days = 7300
-				}
-			}
-		}
-	}
-
-	mean_time_to_happen = {
-		months = 2400
-		modifier = {factor = 5.00 owner = {is_at_war = yes}}
-		modifier = {factor = 5.00 owner = {high_tolerance_halfling_race_trigger = no}}
-		modifier = {factor = 2.00 owner = {any_owned_province = {has_any_halfling_pop_trigger = no}}}
-		modifier = {factor = 1.50 owner = {NOT = {stability = 2}}}
-		modifier = {factor = 1.50 owner = {NOT = {legitimacy_equivalent = 80}}}
-		modifier = {factor = 1.50 pure_unrest = 5}
-		modifier = {factor = 1.50 pure_unrest = 10}
-		modifier = {factor = 0.75 owner = {has_country_modifier = racial_focus_halfling}}
-		modifier = {factor = 0.75 owner = {has_idea = tolerance_idea_2}}
-		modifier = {factor = 0.75 is_prosperous = yes}
-		modifier = {factor = 0.95 has_large_halfling_minority_trigger = yes}
-		modifier = {factor = 0.95 has_halfling_majority_trigger = yes}
-		modifier = {factor = 0.95 development = 20}
-		modifier = {factor = 0.95 development = 30}
-		modifier = {factor = 0.95 development = 40}
-		modifier = {factor = 0.90 num_of_buildings_in_province = 6}
-		modifier = {factor = 0.90 num_of_buildings_in_province = 10}
-	}
-
+	is_triggered_only = yes
+	
 	immediate = {
-		hidden_effect = {
-			save_event_target_as = province_event_target
-			set_variable = {which = province_development value = 0}
-			export_to_variable = {which = province_development value = development}
-			set_variable = {which = cash_per_dev_tooltip value = 0}
-			change_variable = {which = cash_per_dev_tooltip value = 2}
-		}
+		save_event_target_as = province_event_target
+		set_variable = {which = province_development value = 0}
+		export_to_variable = {which = province_development value = development}
+		set_variable = {which = cash_per_dev_tooltip value = 0}
+		change_variable = {which = cash_per_dev_tooltip value = 2}
 	}
 	option = {	# Nah
 		name = halfling_tolerance_events.1008.a
 
 		hidden_effect = {
-			clr_province_flag = halfling_tolerance_events.1008_flag_cd 
-			set_province_flag = halfling_tolerance_events.1008_flag_cd 
 			random_province = {
 				limit = {
 					province_distance = { who = THIS distance = 100 }
@@ -765,7 +916,7 @@ province_event = {	# minority arrives
 						NOT = {has_estate_privilege = estate_halfling_expulsion}
 					}
 				}
-				province_event = { id = halfling_tolerance_events.1008 }
+				owner = {country_event = { id = halfling_tolerance_events.1009 }}
 			}
 		}
 	}
@@ -1110,7 +1261,7 @@ country_event = {	#Expulsion/Purge - Minority
 	}
 }
 
-province_event = {	#Expulsion/Purge - Majority 
+country_event = {	#Expulsion/Purge - Majority
 	id = racial_pop_events_halfling.18
 	title = racial_pop_events_halfling.18.t
 	picture = REFUGEES_ESCAPING_eventPicture
@@ -1125,145 +1276,212 @@ province_event = {	#Expulsion/Purge - Majority
 		desc = racial_pop_events_halfling.18.dpurge
 	}
 	trigger = {
-		is_city = yes
-		culture_is_halfling = yes
-		NOT = {has_construction = culture}
-		owner = {
-			OR = {
-				has_country_modifier = racial_pop_halfling_expulsion
-				has_country_modifier = racial_pop_halfling_purge
-			}
+		any_owned_province = {
+			is_city = yes
+			culture_is_halfling = yes
+			NOT = {has_construction = culture}
+		}
+		OR = {
+			has_country_modifier = racial_pop_halfling_expulsion
+			has_country_modifier = racial_pop_halfling_purge
 		}
 	}
 	
 	mean_time_to_happen = {
-		months = 240
-		modifier = {factor = 1.1 unrest = 1}
-		modifier = {factor = 1.1 unrest = 5}
-		modifier = {factor = 1.1 unrest = 10}
-		modifier = {factor = 1.1 unrest = 15}
-		modifier = {factor = 1.1 unrest = 20}
-		modifier = {factor = 0.90 owner = {has_country_modifier = monstrous_nation }}
-		modifier = {factor = 0.50 owner = {has_country_modifier = racial_focus_halfling}}
-		modifier = {factor = 0.75 owner = {has_country_modifier = racial_pop_halfling_purge}}
-		modifier = {factor = 0.75 owner = {has_idea = supremacy_inquisition}}
-		modifier = {factor = 0.75 owner = {has_government_attribute = faster_purguing_reform}}
-		modifier = {factor = 0.75 owner = {has_government_attribute = expulsion_purge_give_cash_and_power}}
-		modifier = {factor = 0.90 units_in_province = owner}
-		modifier = {factor = 0.90 NOT = {development = 5}}
-		modifier = {factor = 0.90 NOT = {development = 10}}
-		modifier = {factor = 0.90 NOT = {development = 20}}
-		modifier = {factor = 0.90 NOT = {development = 30}}
+		months = 120
+		modifier = {factor = 0.90 has_country_modifier = monstrous_nation }
+		modifier = {factor = 0.50 has_country_modifier = racial_focus_halfling}
+		modifier = {factor = 0.75 has_country_modifier = racial_pop_halfling_purge}
+		modifier = {factor = 0.75 has_idea = supremacy_inquisition}
+		modifier = {factor = 0.75 has_government_attribute = faster_purguing_reform}
+		modifier = {factor = 0.75 has_government_attribute = expulsion_purge_give_cash_and_power}
+		modifier = {factor = 0.90 any_owned_province = { units_in_province = owner is_city = yes NOT = {has_construction = culture} culture_is_halfling = yes}}
 	}
 	
 	immediate = {
 		hidden_effect = {	#Which country to migrate to
-			owner = {
-				save_event_target_as = owner_target
-				random_neighbor_country = {
-					limit = {
-						NOT = { has_country_modifier = racial_pop_halfling_purge }
-						NOT = { has_country_modifier = racial_pop_halfling_expulsion }
-					}
-					save_event_target_as = racial_pop_migration_country
+			save_event_target_as = owner_target
+			random_neighbor_country = {
+				limit = {
+					NOT = { has_country_modifier = racial_pop_halfling_purge }
+					NOT = { has_country_modifier = racial_pop_halfling_expulsion }
 				}
-				random_neighbor_country = {
-					limit = {
-						NOT = { has_country_modifier = racial_pop_halfling_purge }
-						NOT = { has_country_modifier = racial_pop_halfling_expulsion }
-						any_owned_province = {
-							development = 20
-						}
+				save_event_target_as = racial_pop_migration_country
+			}
+			random_neighbor_country = {
+				limit = {
+					NOT = { has_country_modifier = racial_pop_halfling_purge }
+					NOT = { has_country_modifier = racial_pop_halfling_expulsion }
+					any_owned_province = {
+						development = 20
 					}
-					save_event_target_as = racial_pop_migration_country
 				}
-				random_neighbor_country = {
-					limit = {
-						NOT = { has_country_modifier = racial_pop_halfling_purge }
-						NOT = { has_country_modifier = racial_pop_halfling_expulsion }
+				save_event_target_as = racial_pop_migration_country
+			}
+			random_neighbor_country = {
+				limit = {
+					NOT = { has_country_modifier = racial_pop_halfling_purge }
+					NOT = { has_country_modifier = racial_pop_halfling_expulsion }
+					medium_tolerance_halfling_race_trigger = yes
+				}
+				save_event_target_as = racial_pop_migration_country
+			}
+			random_neighbor_country = {
+				limit = {
+					NOT = { has_country_modifier = racial_pop_halfling_purge }
+					NOT = { has_country_modifier = racial_pop_halfling_expulsion }
+					medium_tolerance_halfling_race_trigger = yes
+					any_owned_province = {
+						development = 20
+					}
+				}
+				save_event_target_as = racial_pop_migration_country
+			}
+			random_neighbor_country = {
+				limit = {
+					NOT = { has_country_modifier = racial_pop_halfling_purge }
+					NOT = { has_country_modifier = racial_pop_halfling_expulsion }
+					high_tolerance_halfling_race_trigger = yes
+				}
+				save_event_target_as = racial_pop_migration_country
+			}
+			random_neighbor_country = {
+				limit = {
+					NOT = { has_country_modifier = racial_pop_halfling_purge }
+					NOT = { has_country_modifier = racial_pop_halfling_expulsion }
+					OR = {
 						medium_tolerance_halfling_race_trigger = yes
-					}
-					save_event_target_as = racial_pop_migration_country
-				}
-				random_neighbor_country = {
-					limit = {
-						NOT = { has_country_modifier = racial_pop_halfling_purge }
-						NOT = { has_country_modifier = racial_pop_halfling_expulsion }
-						medium_tolerance_halfling_race_trigger = yes
-						any_owned_province = {
-							development = 20
-						}
-					}
-					save_event_target_as = racial_pop_migration_country
-				}
-				random_neighbor_country = {
-					limit = {
-						NOT = { has_country_modifier = racial_pop_halfling_purge }
-						NOT = { has_country_modifier = racial_pop_halfling_expulsion }
 						high_tolerance_halfling_race_trigger = yes
 					}
-					save_event_target_as = racial_pop_migration_country
-				}
-				random_neighbor_country = {
-					limit = {
-						NOT = { has_country_modifier = racial_pop_halfling_purge }
-						NOT = { has_country_modifier = racial_pop_halfling_expulsion }
-						OR = {
-							medium_tolerance_halfling_race_trigger = yes
-							high_tolerance_halfling_race_trigger = yes
-						}
-						any_owned_province = {
-							development = 20
-							NOT = { has_halfling_minority_trigger = yes }
-							NOT = { has_halfling_majority_trigger = yes }
-						}
+					any_owned_province = {
+						development = 20
+						NOT = { has_halfling_minority_trigger = yes }
+						NOT = { has_halfling_majority_trigger = yes }
 					}
-					save_event_target_as = racial_pop_migration_country
 				}
+				save_event_target_as = racial_pop_migration_country
 			}
 		}
 	}
 	option = {			#Expel!
 		name = racial_pop_events_halfling.18.a
 		ai_chance = {factor = 50}
-		trigger = {owner = {has_country_modifier = racial_pop_halfling_expulsion}}
-		change_culture = owner
-		change_religion = owner
-		add_devastation = 30
-		bertus_dev_reduction = {value = 0.5}
-		add_permanent_province_modifier = { name = expulsion_unrest_modifier duration = 1825 }
-		owner = {
-			if = {	#only does this if they have an adjacent country
-				limit = {
-					any_neighbor_country = { 
-						NOT = { low_tolerance_halfling_race_trigger = yes }
-					}
-				}
-				event_target:racial_pop_migration_country  = {	#Calls Migrants Arrive to Migration Country
-					country_event = {
-						id = racial_pop_events_halfling.10
-					}
+		trigger = {has_country_modifier = racial_pop_halfling_expulsion}
+		
+		if = {
+			limit = {
+				num_of_owned_provinces_with = {
+					value = 10
+					is_city = yes
+					culture_is_halfling = yes
 				}
 			}
-			medium_decrease_of_halfling_tolerance_effect = yes
+			random_owned_province = {
+				limit = {
+					is_city = yes
+					culture_is_halfling = yes
+					NOT = {has_construction = culture}
+				}
+				area = {
+					limit = {
+						is_city = yes
+						culture_is_halfling = yes
+						NOT = {has_construction = culture}
+					}
+					change_culture = owner
+					change_religion = owner
+					add_devastation = 30
+					bertus_dev_reduction = {value = 0.5}
+					add_permanent_province_modifier = { name = expulsion_unrest_modifier duration = 1825 }
+				}
+			}
 		}
+		else = {
+			random_owned_province = {
+				limit = {
+					is_city = yes
+					culture_is_halfling = yes
+					NOT = {has_construction = culture}
+				}
+				change_culture = owner
+				change_religion = owner
+				add_devastation = 30
+				bertus_dev_reduction = {value = 0.5}
+				add_permanent_province_modifier = { name = expulsion_unrest_modifier duration = 1825 }
+			}
+		}
+		if = {	#only does this if they have an adjacent country
+			limit = {
+				any_neighbor_country = { 
+					NOT = { low_tolerance_halfling_race_trigger = yes }
+				}
+			}
+			event_target:racial_pop_migration_country  = {	#Calls Migrants Arrive to Migration Country
+				country_event = {
+					id = racial_pop_events_halfling.10
+				}
+			}
+		}
+		medium_decrease_of_halfling_tolerance_effect = yes
 	}
 	option = {		#Purge!	
 		name = racial_pop_events_halfling.20.a
 		ai_chance = {factor = 50}
-		trigger = {owner = {has_country_modifier = racial_pop_halfling_purge}}
+		trigger = {has_country_modifier = racial_pop_halfling_purge}
 		
-		add_devastation = 50
-		change_culture = owner
-		change_religion = owner
-		bertus_dev_reduction = {value = 0.5}
-		add_permanent_province_modifier = { name = purge_unrest_modifier duration = 1825 }
-		hidden_effect = {
-			remove_province_modifier = halfling_majority_oppressed
-			remove_province_modifier = halfling_majority_coexisting
-			remove_province_modifier = halfling_majority_integrated
+		if = {
+			limit = {
+				num_of_owned_provinces_with = {
+					value = 10
+					is_city = yes
+					culture_is_halfling = yes
+				}
+			}
+			random_owned_province = {
+				limit = {
+					is_city = yes
+					culture_is_halfling = yes
+					NOT = {has_construction = culture}
+				}
+				area = {
+					limit = {
+						is_city = yes
+						culture_is_halfling = yes
+						NOT = {has_construction = culture}
+					}
+					add_devastation = 50
+					change_culture = owner
+					change_religion = owner
+					bertus_dev_reduction = {value = 0.5}
+					add_permanent_province_modifier = { name = purge_unrest_modifier duration = 1825 }
+					hidden_effect = {
+						remove_province_modifier = halfling_majority_oppressed
+						remove_province_modifier = halfling_majority_coexisting
+						remove_province_modifier = halfling_majority_integrated
+					}
+				}
+			}
 		}
-		owner = {large_decrease_of_halfling_tolerance_effect = yes}
+		else = {
+			random_owned_province = {
+				limit = {
+					is_city = yes
+					culture_is_halfling = yes
+					NOT = {has_construction = culture}
+				}
+				add_devastation = 50
+				change_culture = owner
+				change_religion = owner
+				bertus_dev_reduction = {value = 0.5}
+				add_permanent_province_modifier = { name = purge_unrest_modifier duration = 1825 }
+				hidden_effect = {
+					remove_province_modifier = halfling_majority_oppressed
+					remove_province_modifier = halfling_majority_coexisting
+					remove_province_modifier = halfling_majority_integrated
+				}
+			}
+		}
+		large_decrease_of_halfling_tolerance_effect = yes
 	}	
 }
 

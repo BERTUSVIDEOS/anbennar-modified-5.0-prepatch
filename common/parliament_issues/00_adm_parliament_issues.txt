@@ -1,0 +1,1100 @@
+administrative_reform = {
+	category = 3 		# same category = 90% less likely
+
+	allow = {
+		num_of_owned_provinces_with = {
+			value = 3
+			local_autonomy = 20
+		}
+	}
+	
+	effect = {
+		custom_tooltip = scale_with_absolutism_tt
+		trigger_switch = {
+			on_trigger = absolutism
+			140 = {every_owned_province = { limit = { local_autonomy = 20 } add_local_autonomy = -35 }}
+			120 = {every_owned_province = { limit = { local_autonomy = 20 } add_local_autonomy = -25.625 }}
+			100 = {every_owned_province = { limit = { local_autonomy = 20 } add_local_autonomy = -18.75 }}
+			80 = {every_owned_province = { limit = { local_autonomy = 20 } add_local_autonomy = -13.75 }}
+			60 = {every_owned_province = { limit = { local_autonomy = 20 } add_local_autonomy = -10 }}
+			40 = {every_owned_province = { limit = { local_autonomy = 20 } add_local_autonomy = -7.5 }}
+			20 = {every_owned_province = { limit = { local_autonomy = 20 } add_local_autonomy = -5 }}
+		}
+	}
+	
+	modifier = {
+		global_autonomy = -0.10
+	}
+	
+	chance = {
+		factor = 1
+		modifier = {
+			factor = 2
+			average_home_autonomy = 25
+		}
+		modifier = {
+			factor = 3
+			average_home_autonomy = 35
+		}
+		modifier = {
+			factor = 3
+			average_home_autonomy = 50
+		}
+	}
+
+	ai_will_do = {
+		factor = 1
+		modifier = {
+			factor = 2
+			average_home_autonomy = 25
+		}
+		modifier = {
+			factor = 0
+			NOT = { average_home_autonomy = 10 }
+		}
+	}
+}
+
+appoint_a_new_prime_minister = {
+
+	category = 3
+
+	allow = {
+	}
+	
+	effect = {
+		get_racial_advisor = {class = statesman random = no}
+	}
+
+	modifier = {
+		stability_cost_modifier = -0.15
+	}
+
+	chance = {
+		factor = 1
+	}
+	
+	ai_will_do = {
+		factor = 1		
+	}	
+}
+
+appropriation_of_land = {
+
+	category = 3
+
+	allow = {
+		num_of_cities = 6
+	}
+	
+	on_issue_taken = {
+	}
+	
+	effect = {
+		hidden_effect = {
+			every_owned_province = {
+				limit = { is_in_capital_area = yes }
+				add_base_tax = 3
+			}
+		}
+		custom_tooltip = "Every province in capital area get:"
+		tooltip = {
+			add_base_tax = 3
+		}
+		custom_tooltip = appropriation_of_land_tt
+	}
+	
+	modifier = {
+	}
+
+	ai_will_do = {
+		factor = 1	
+	}	
+}
+
+charter_university = {
+
+	category = 3
+
+	allow = {
+	}
+	
+	effect = {
+		custom_tooltip = scale_with_absolutism_tt
+		trigger_switch = {
+			on_trigger = absolutism
+			140 = {change_innovativeness = 7 }
+			120 = {change_innovativeness = 5.125 }
+			100 = {change_innovativeness = 3.75 }
+			80 = {change_innovativeness = 2.75 }
+			60 = {change_innovativeness = 2 }
+			40 = {change_innovativeness = 1.5 }
+			20 = {change_innovativeness = 1 }
+		}
+	}
+	
+	modifier = {
+		yearly_innovativeness = 0.50
+	}
+	
+	chance = {
+		factor = 1
+	}
+
+	ai_will_do = {
+		factor = 1
+	}	
+}
+
+development_of_infrastructure = {
+
+	category = 3
+
+	allow = {
+	}
+	
+	effect = {
+		custom_tooltip = "Every owned province with Expanded Infrastructure get:"
+		tooltip = {
+			add_province_modifier = {
+				name = development_of_infrastructure_parliament_modifier
+				duration = 3650
+			}
+		}
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					has_province_modifier = expanded_infrastructure
+				}
+				add_province_modifier = {
+					name = development_of_infrastructure_parliament_modifier
+					duration = 3650
+				}
+			}
+		}
+	}
+	
+	modifier = {
+		expand_infrastructure_cost_modifier = -0.50
+	}
+	
+	chance = {
+		factor = 1
+		modifier = {
+			factor = 2
+			has_idea_group = economic_ideas
+		}
+	}
+
+	ai_will_do = {
+		factor = 1	
+	}	
+}
+
+election_reform = {
+
+	category = 3
+
+	allow = {
+		government = republic
+	}
+	
+	effect = {
+		custom_tooltip = scale_with_absolutism_tt
+		trigger_switch = {
+			on_trigger = absolutism
+			140 = {add_republican_tradition = 14 }
+			120 = {add_republican_tradition = 10.25 }
+			100 = {add_republican_tradition = 7.5 }
+			80 = {add_republican_tradition = 5.5 }
+			60 = {add_republican_tradition = 4 }
+			40 = {add_republican_tradition = 3 }
+			20 = {add_republican_tradition = 2 }
+		}
+	}
+	
+	modifier = {
+		republican_tradition = 0.5
+	}
+
+	chance = {
+		factor = 1
+		modifier = {
+			factor = 2
+			NOT = { republican_tradition = 60 }
+		}
+		modifier = {
+			factor = 2
+			NOT = { republican_tradition = 40 }
+		}
+		modifier = {
+			factor = 5
+			NOT = { republican_tradition = 20 }
+		}
+	}
+	
+	ai_will_do = {
+		factor = 1
+		modifier = {
+			factor = 2
+			NOT = { republican_tradition = 60 }
+		}		
+	}	
+}
+
+estates_fund_industrialization = {
+
+	category = 3
+
+	allow = {
+		has_institution = manufactories
+		any_owned_province = {
+			has_manufactory_trigger = yes
+			base_production = 5
+		}
+	}
+	
+	on_issue_taken = {
+	}
+
+	effect = {
+		custom_tooltip = "Every owned province with 5 Base Production & a Manufactory get:"
+		tooltip = {
+			add_province_modifier = {
+				name = fund_industrialization_parliament_modifier
+				duration = 3650
+			}
+		}
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					has_manufactory_trigger = yes
+					base_production = 5
+				}
+				add_province_modifier = {
+					name = fund_industrialization_parliament_modifier
+					duration = 3650
+				}
+			}
+		}
+	}
+	
+	modifier = {
+		build_time = -0.10
+	}
+
+	chance = { factor = 2 }
+	
+	ai_will_do = { factor = 2 }
+}
+
+fund_expansion_of_bureaucracy = {
+
+	category = 3
+
+	allow = {
+	}
+	
+	effect = {
+		custom_tooltip = scale_with_absolutism_tt
+		trigger_switch = {
+			on_trigger = absolutism
+			140 = {add_country_modifier = {name = fund_expansion_of_bureaucracy_mod_7 duration = 3650} }
+			120 = {add_country_modifier = {name = fund_expansion_of_bureaucracy_mod_6 duration = 3650} }
+			100 = {add_country_modifier = {name = fund_expansion_of_bureaucracy_mod_5 duration = 3650} }
+			80 = {add_country_modifier = {name = fund_expansion_of_bureaucracy_mod_4 duration = 3650} }
+			60 = {add_country_modifier = {name = fund_expansion_of_bureaucracy_mod_3 duration = 3650} }
+			40 = {add_country_modifier = {name = fund_expansion_of_bureaucracy_mod_2 duration = 3650} }
+			20 = {add_country_modifier = {name = fund_expansion_of_bureaucracy_mod_1 duration = 3650} }
+		}
+	}
+	
+	modifier = {
+		advisor_pool = 2
+	}
+	
+	chance = {
+		factor = 2
+		modifier = {
+			factor = 2
+			num_of_cities = 25
+		}
+	}
+
+	ai_will_do = {
+		factor = 1	
+	}	
+}
+
+fund_national_monuments = {
+
+	category = 3
+
+	allow = {
+	}
+	
+	effect = {
+		custom_tooltip = scale_with_absolutism_tt
+		trigger_switch = {
+			on_trigger = absolutism
+			140 = {add_prestige_scaled_to_seats = 35 }
+			120 = {add_prestige_scaled_to_seats = 25.625 }
+			100 = {add_prestige_scaled_to_seats = 18.75 }
+			80 = {add_prestige_scaled_to_seats = 13.75 }
+			60 = {add_prestige_scaled_to_seats = 10 }
+			40 = {add_prestige_scaled_to_seats = 7.5 }
+			20 = {add_prestige_scaled_to_seats = 5 }
+		}
+		trigger_switch = {
+			on_trigger = absolutism
+			140 = {add_country_modifier = {name = fund_national_monuments_mod_7 duration = 3650} }
+			120 = {add_country_modifier = {name = fund_national_monuments_mod_6 duration = 3650} }
+			100 = {add_country_modifier = {name = fund_national_monuments_mod_5 duration = 3650} }
+			80 = {add_country_modifier = {name = fund_national_monuments_mod_4 duration = 3650} }
+			60 = {add_country_modifier = {name = fund_national_monuments_mod_3 duration = 3650} }
+			40 = {add_country_modifier = {name = fund_national_monuments_mod_2 duration = 3650} }
+			20 = {add_country_modifier = {name = fund_national_monuments_mod_1 duration = 3650} }
+		}
+	}
+	
+	modifier = {
+	}
+	
+	chance = {
+		factor = 1
+	}
+
+	ai_will_do = {
+		factor = 1	
+	}	
+}
+
+government_debt_reduction = {
+	#Government debt funding plan, provinces contribute to payment of debt.
+
+	category = 3
+
+	allow = {
+		num_of_loans = 2
+	}
+	
+	effect = {
+		custom_tooltip = scale_with_absolutism_tt
+		trigger_switch = {
+			on_trigger = absolutism
+			140 = {add_country_modifier = {name = government_debt_reduction_mod_7 duration = 3650} }
+			120 = {add_country_modifier = {name = government_debt_reduction_mod_6 duration = 3650} }
+			100 = {add_country_modifier = {name = government_debt_reduction_mod_5 duration = 3650} }
+			80 = {add_country_modifier = {name = government_debt_reduction_mod_4 duration = 3650} }
+			60 = {add_country_modifier = {name = government_debt_reduction_mod_3 duration = 3650} }
+			40 = {add_country_modifier = {name = government_debt_reduction_mod_2 duration = 3650} }
+			20 = {add_country_modifier = {name = government_debt_reduction_mod_1 duration = 3650} }
+		}
+	}
+	
+	modifier = {
+		inflation_action_cost = -0.25
+	}
+	
+	chance = {
+		factor = 1
+		modifier = {
+			factor = 2
+			num_of_loans = 4
+		}
+		modifier = {
+			factor = 2
+			num_of_loans = 6
+		}
+		modifier = {
+			factor = 2
+			num_of_loans = 8
+		}
+		modifier = {
+			factor = 2
+			num_of_loans = 10
+		}
+	}
+
+	ai_will_do = {
+		factor = 1
+		modifier = {
+			factor = 2
+			num_of_loans = 8
+		}		
+	}	
+}
+
+grant_consessions_to_the_mages = {
+
+	category = 3
+
+	allow = {
+		has_estate = estate_mages
+	}
+	
+	effect = {
+		add_estate_loyalty = {
+			estate = estate_mages
+			loyalty = 20
+		}
+	}
+	modifier = {
+		mages_influence_modifier = 0.20
+	}
+
+	chance = {
+		factor = 1
+		modifier = {
+			factor = 5
+			NOT = { 
+				estate_loyalty = {
+					estate = estate_mages
+					loyalty = 40
+				}
+			}
+		}
+	}
+	
+	ai_will_do = {
+		factor = 1
+		modifier = {
+			factor = 2
+			NOT = { 
+				estate_loyalty = {
+					estate = estate_mages
+					loyalty = 40
+				}
+			}
+		}		
+	}	
+}
+
+grant_consessions_to_the_artificers = {
+
+	category = 3
+
+	allow = {
+		has_estate = estate_artificers
+	}
+	
+	effect = {
+		add_estate_loyalty = {
+			estate = estate_artificers
+			loyalty = 20
+		}
+	}
+	modifier = {
+		artificers_influence_modifier = 0.20
+	}
+
+	chance = {
+		factor = 1
+		modifier = {
+			factor = 5
+			NOT = { 
+				estate_loyalty = {
+					estate = estate_artificers
+					loyalty = 40
+				}
+			}
+		}
+	}
+	
+	ai_will_do = {
+		factor = 1
+		modifier = {
+			factor = 2
+			NOT = { 
+				estate_loyalty = {
+					estate = estate_artificers
+					loyalty = 40
+				}
+			}
+		}		
+	}	
+}
+
+grant_consessions_to_the_adventurers = {
+
+	category = 3
+
+	allow = {
+		has_estate = estate_adventurers
+	}
+	
+	effect = {
+		add_estate_loyalty = {
+			estate = estate_adventurers
+			loyalty = 20
+		}
+	}
+	modifier = {
+		adventurers_influence_modifier = 0.20
+	}
+
+	chance = {
+		factor = 1
+		modifier = {
+			factor = 5
+			NOT = { 
+				estate_loyalty = {
+					estate = estate_adventurers
+					loyalty = 40
+				}
+			}
+		}
+	}
+	
+	ai_will_do = {
+		factor = 1
+		modifier = {
+			factor = 2
+			NOT = { 
+				estate_loyalty = {
+					estate = estate_adventurers
+					loyalty = 40
+				}
+			}
+		}		
+	}	
+}
+
+harmonization_of_laws = {
+
+	category = 3
+
+	allow = {
+		OR = {
+			vassal = 2
+			personal_union = 2
+			AND = {
+				vassal = 1
+				personal_union = 1
+			}
+		}
+		NOT = { government = monarchy }
+	}
+	
+	effect = {
+		every_subject_country = {
+			limit = {is_subject_of_type = vassal}
+			add_opinion = {
+				who = FROM
+				modifier = parliament_closer_ties
+			}
+		}
+		custom_tooltip = escale_with_diplomatic_reputation_tt
+		trigger_switch = {
+			on_trigger = diplomatic_reputation
+			20 = {add_dip_power = 400 }
+			19 = {add_dip_power = 380 }
+			18 = {add_dip_power = 360 }
+			17 = {add_dip_power = 340 }
+			16 = {add_dip_power = 320 }
+			15 = {add_dip_power = 300 }
+			14 = {add_dip_power = 280 }
+			13 = {add_dip_power = 260 }
+			12 = {add_dip_power = 240 }
+			11 = {add_dip_power = 220 }
+			10 = {add_dip_power = 200 }
+			9 = {add_dip_power = 180 }
+			8 = {add_dip_power = 160 }
+			7 = {add_dip_power = 140 }
+			6 = {add_dip_power = 120 }
+			5 = {add_dip_power = 100 }
+			4 = {add_dip_power = 80 }
+			3 = {add_dip_power = 60 }
+			2 = {add_dip_power = 40 }
+			1 = {add_dip_power = 20 }
+		}
+	}
+	
+	modifier = {
+		diplomatic_annexation_cost = -0.15
+		vassal_income = 0.05
+	}
+	
+	chance = {
+		factor = 1
+		modifier = {
+			factor = 2
+			vassal = 3
+		}
+		modifier = {
+			factor = 3
+			vassal = 4
+		}
+		modifier = {
+			factor = 4
+			vassal = 5
+		}
+	}
+
+	ai_will_do = {
+		factor = 1
+		modifier = {
+			factor = 2
+			vassal = 4
+		}
+		modifier = {
+			factor = 2
+			personal_union = 2
+		}
+	}
+}
+
+increase_taxes = {
+
+	category = 3
+
+	allow = {
+	}
+	
+	effect = {
+		custom_tooltip = scale_with_absolutism_tt
+		trigger_switch = {
+			on_trigger = absolutism
+			140 = {add_years_of_tax_scaled_to_seats = 3.5 }
+			120 = {add_years_of_tax_scaled_to_seats = 2.5625 }
+			100 = {add_years_of_tax_scaled_to_seats = 1.875 }
+			80 = {add_years_of_tax_scaled_to_seats = 1.375 }
+			60 = {add_years_of_tax_scaled_to_seats = 1.0 }
+			40 = {add_years_of_tax_scaled_to_seats = 0.75 }
+			20 = {add_years_of_tax_scaled_to_seats = 0.50  }
+		}
+	}
+	
+	modifier = {
+		global_tax_modifier = 0.10
+	}
+	
+	chance = {
+		factor = 1
+		modifier = {
+			factor = 2
+			num_of_loans = 5
+		}
+		modifier = {
+			factor = 2
+			num_of_loans = 8
+		}
+	}
+
+	ai_will_do = {
+		factor = 1
+		modifier = {
+			factor = 2
+			num_of_loans = 1
+		}		
+	}	
+}
+
+reform_government_act = {
+
+	category = 3
+
+	allow = {
+	}
+	
+	effect = {
+		custom_tooltip = scale_with_absolutism_tt
+		trigger_switch = {
+			on_trigger = absolutism
+			140 = {change_government_reform_progress = 140 }
+			120 = {change_government_reform_progress = 102.5 }
+			100 = {change_government_reform_progress = 75 }
+			80 = {change_government_reform_progress = 55 }
+			60 = {change_government_reform_progress = 40 }
+			40 = {change_government_reform_progress = 30 }
+			20 = {change_government_reform_progress = 20 }
+		}
+	}
+	
+	modifier = {
+		reform_progress_growth = 0.25
+	}
+	
+	chance = {
+		factor = 1
+		modifier = {
+			factor = 2
+			num_of_loans = 5
+		}
+		modifier = {
+			factor = 2
+			num_of_loans = 8
+		}
+	}
+
+	ai_will_do = {
+		factor = 1
+		modifier = {
+			factor = 2
+			num_of_loans = 1
+		}		
+	}	
+}
+
+issue_investigate_corruption = {
+
+	category = 3
+
+	allow = {
+		corruption = 1.0
+	}
+	
+	effect = {
+		custom_tooltip = scale_with_absolutism_tt
+		trigger_switch = {
+			on_trigger = absolutism
+			140 = {add_corruption = 3.5 }
+			120 = {add_corruption = -2.5625 }
+			100 = {add_corruption = -1.875 }
+			80 = {add_corruption = -1.375 }
+			60 = {add_corruption = -1.0 }
+			40 = {add_corruption = -0.75 }
+			20 = {add_corruption = -0.5 }
+		}
+	}
+	
+	modifier = {
+		yearly_corruption = -0.20
+	}
+
+	chance = {
+		factor = 1
+		modifier = {
+			factor = 2
+			corruption = 3
+		}
+		modifier = {
+			factor = 2
+			corruption = 10
+		}
+		modifier = {
+			factor = 5
+			corruption = 20
+		}
+	}
+	
+	ai_will_do = {
+		factor = 1
+		modifier = {
+			factor = 2
+			corruption = 5
+		}		
+	}	
+}
+
+nationwide_census = {
+
+	category = 3
+	
+	allow = {
+		num_of_cities = 6
+	}
+	
+	on_issue_taken = {
+	}
+	
+	effect = {
+		hidden_effect = {
+			every_owned_province = {
+				limit = { is_in_capital_area = yes }
+				add_base_manpower = 3
+			}
+		}
+		custom_tooltip = "Every province in capital area get:"
+		tooltip = {
+			add_base_manpower = 3
+		}
+		custom_tooltip = nationwide_sensus_tt
+	}
+	
+	modifier = {
+		global_manpower_modifier = 0.05
+	}
+
+	ai_will_do = {
+		factor = 1	
+	}	
+}
+
+nationwide_land_survey = {
+
+	category = 3
+	
+	allow = {
+		num_of_cities = 6
+	}
+	
+	on_issue_taken = {
+	}
+	
+	effect = {
+		hidden_effect = {
+			every_owned_province = {
+				limit = { is_in_capital_area = yes }
+				add_base_production = 3
+			}
+		}
+		custom_tooltip = "Every province in capital area get:"
+		tooltip = {
+			add_base_production = 3
+		}
+		custom_tooltip = nationwide_land_survey_tt
+	}
+	
+	modifier = {
+		production_efficiency = 0.05
+	}
+
+	ai_will_do = {
+		factor = 1	
+	}	
+}
+
+prohibit_use_of_local_languages = {
+	#Prohibit use of local languages in administration, settlement a la Ireland, Russification, etc.
+
+	category = 3
+
+	allow = {
+		any_owned_province = {
+			has_owner_accepted_culture = no
+		}
+		NOT = { has_idea_group = humanist_ideas }
+	}
+	
+	
+	modifier = {
+		culture_conversion_cost = -0.15
+	}
+	
+	chance = {
+		factor = 1
+		modifier = {
+			factor = 2
+			num_of_owned_provinces_with = {
+				value = 10
+				has_owner_accepted_culture = no
+				has_owner_culture = no
+			}
+		}
+		modifier = {
+			factor = 3
+			num_of_owned_provinces_with = {
+				value = 20
+				has_owner_accepted_culture = no
+				has_owner_culture = no
+			}
+		}
+	}
+
+	ai_will_do = {
+		factor = 1
+		modifier = {
+			factor = 2
+			num_of_owned_provinces_with = {
+				value = 10
+				has_owner_accepted_culture = no
+			}
+		}		
+	}	
+}
+
+propagation_of_state_religion = {
+
+	category = 3
+
+	allow = {
+		any_owned_province = {
+			has_owner_religion = no
+		}
+		NOT = { has_idea_group = humanist_ideas }
+		OR = {
+			NOT = { has_dlc = "Mandate of Heaven" }
+			NOT = { religion = confucianism }
+		}
+	}
+	
+	effect = {
+		get_racial_advisor = {class = inquisitor random = no}
+		custom_tooltip = propagation_of_state_religion_tt
+	}
+	
+	modifier = {
+		global_missionary_strength = 0.02
+		missionaries = 1
+	}
+	
+	chance = {
+		factor = 1
+		modifier = {
+			factor = 2
+			NOT = { religious_unity = 0.5 }
+		}
+		modifier = {
+			factor = 2
+			num_of_owned_provinces_with = {
+				value = 10
+				has_owner_religion = no
+			}
+		}
+		modifier = {
+			factor = 10
+			num_of_owned_provinces_with = {
+				value = 20
+				has_owner_religion = no
+			}
+		}
+	}
+
+	ai_will_do = {
+		factor = 1
+		modifier = {
+			factor = 2
+			num_of_owned_provinces_with = {
+				value = 10
+				has_owner_religion = no
+			}
+		}	
+	}	
+}
+
+restore_integration = {
+
+	category = 3
+
+	allow = {
+		has_country_modifier = annexers_legacy
+	}
+	
+	on_issue_taken = {
+	}
+
+	effect = {
+		remove_country_modifier = annexers_legacy
+		get_racial_advisor = {class = idea_var_advisor_2 random = no}
+	}
+	
+	modifier = {
+		diplomatic_reputation = 2
+	}
+
+	chance = {
+		factor = 10
+	}
+	
+	ai_will_do = {
+		factor = 10
+	}
+}
+
+support_ruling_dynasty = {
+
+	category = 3
+
+	allow = {
+		government = monarchy
+		has_regency = no
+		is_lesser_in_union = no
+		NOT = { legitimacy = 80 }
+		NOT = {
+			AND = {
+				has_reform = celestial_empire
+				has_dlc = "Mandate of Heaven"
+			}
+		}
+	}
+	
+	effect = {
+		custom_tooltip = scale_with_absolutism_tt
+		trigger_switch = {
+			on_trigger = absolutism
+			140 = {add_legitimacy = 35 add_heir_claim = 35 }
+			120 = {add_legitimacy = 25.625 add_heir_claim = 25.625 }
+			100 = {add_legitimacy = 18.75 add_heir_claim = 18.75 }
+			80 = {add_legitimacy = 13.75 add_heir_claim = 13.75 }
+			60 = {add_legitimacy = 10 add_heir_claim = 10 }
+			40 = {add_legitimacy = 7.5 add_heir_claim = 7.5 }
+			20 = {add_legitimacy = 5 add_heir_claim = 5 }
+		}
+		get_racial_advisor = {class = idea_var_advisor_31 random = no}
+	}
+	
+	modifier = {
+		legitimacy = 1
+	}
+	
+	chance = {
+		factor = 1
+		modifier = {
+			factor = 2
+			NOT = { legitimacy = 70 }
+		}
+		modifier = {
+			factor = 2
+			NOT = { legitimacy = 60 }
+		}
+		modifier = {
+			factor = 2
+			NOT = { legitimacy = 50 }
+		}
+		modifier = {
+			factor = 5
+			NOT = { legitimacy = 30 }
+		}
+	}
+
+	ai_will_do = {
+		factor = 1
+		modifier = {
+			factor = 2
+			NOT = { legitimacy = 70 }
+		}
+	}
+}
+
+treason_act = {
+
+	category = 3
+
+	allow = {
+	}
+	
+	effect = {
+		get_racial_advisor = {class = spymaster random = no}
+	}
+	modifier = {
+		global_spy_defence = 0.15
+		global_unrest = -2
+	}
+
+	chance = {
+		factor = 1
+		modifier = {
+			factor = 2
+			OR = {
+				has_idea_group = spy_ideas
+			}
+		}
+		modifier = {
+			factor = 2
+			average_unrest = 4
+		}
+		modifier = {
+			factor = 2
+			average_unrest = 6
+		}
+		modifier = {
+			factor = 2
+			average_unrest = 8
+		}
+	}
+	
+	ai_will_do = {
+		factor = 1
+	}
+}

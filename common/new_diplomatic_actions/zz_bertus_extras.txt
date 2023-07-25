@@ -219,3 +219,119 @@ spy_steal_treasury_action = {
     }
 	ai_will_do = {always = no}
 }
+
+# Turn Eyalet to Vassal status
+promote_tributary_to_vassal = {
+	category = influence
+
+	require_acceptance = yes
+
+	alert_index = 20
+	alert_tooltip = reign_in_eyalet_alert_tooltip
+
+	is_visible = {
+		has_country_modifier = monstrous_nation
+		FROM = {
+			is_subject_of = ROOT
+			is_subject_of_type = tributary_state
+		}
+	}
+	is_allowed = {
+		FROM = { is_at_war = no }
+		FROM = {
+			has_opinion = {
+				who = ROOT
+				value = 190
+			}
+		}
+		FROM = { NOT = {liberty_desire = 50 }}
+	}
+	on_accept = {
+		create_subject = {
+			subject_type = vassal
+			subject = FROM
+			keep_liberty_desire = yes
+		}
+		FROM = {
+			add_liberty_desire = 25
+		}
+	}
+	on_decline = {
+		add_prestige = -10
+	}
+
+	ai_will_do = { # this is a trigger
+		always = no	#Too risky to test this out with the AI
+	}
+
+	ai_acceptance = {
+        add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = 0.2
+			}
+        }
+		add_entry = {
+			name = AI_TRUST_TOWARDS_ROOT
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}			
+			subtract_variable = { 
+				which = ai_value
+				value = 50
+			}
+			#1 trust = +4 ai points
+			multiply_variable = {
+				which = ai_value
+				value = 0.4
+			}
+		}
+		add_entry = {
+			name = AI_DIPLOMATIC_REPUTATION
+			export_to_variable = {
+				variable_name = ai_value
+				value = trigger_value:diplomatic_reputation
+			}
+			#1 rep = 4
+			multiply_variable = {
+				which = ai_value
+				value = 4
+			}
+		}
+		add_entry = {
+			name = AI_LIBERTY_DESIRE
+			export_to_variable = {
+				variable_name = ai_value
+				value = liberty_desire
+				who = FROM
+			}
+			multiply_variable = {
+				which = ai_value
+				value = -1
+			}
+		}
+		add_entry = {
+			name = AI_TOTAL_DEVELOPMENT
+			export_to_variable = {
+				variable_name = ai_value
+				value = total_development
+				who = FROM
+			}
+			#4 dev = -1
+			multiply_variable = {
+				which = ai_value
+				value = -0.10
+			}
+		}
+	}
+}
