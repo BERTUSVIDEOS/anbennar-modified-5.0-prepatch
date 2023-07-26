@@ -1481,9 +1481,6 @@ province_event = {	#theatre/opera cultural change
 		remove_building = theatre_lvl_2
 		clr_province_flag = theatre_lvl_1_flag
 		clr_province_flag = theatre_lvl_2_flag
-		province_event = {
-			id = bertus_pops.1038
-		}
 	}
 }
 country_event = {	#long lived advisors
@@ -1875,6 +1872,21 @@ province_event = {	#culture change
 		}
 	}
 }
+province_event = {	#boost pop goods produced
+	id = bertus_changes.1014
+	title = bertus_changes.1014.t
+	desc = bertus_changes.1014.desc
+	picture = DIPLOMACY_eventPicture
+	
+	hidden = yes
+	is_triggered_only = yes
+	
+	option = {
+		name = bertus_changes.1014.a
+		remove_boost_pop_goods_produced = yes
+		add_boost_pop_goods_produced = yes
+	}
+}
 country_event = {	#
 	id = bertus_changes.1043
 	title = bertus_changes.1043.t
@@ -2013,218 +2025,361 @@ country_event = {	#
 		}
 	}
 }
-province_event = {	#
-	id = bertus_changes.1070
-	title = bertus_changes.1070.t
-	desc = bertus_changes.1070.desc
+country_event = {	#setup provinces goods special modifiers 
+	id = bertus_changes.1099
+	title = bertus_changes.1099.t
+	desc = bertus_changes.1099.desc
 	picture = DIPLOMACY_eventPicture
-	
-	hidden = yes
-    trigger = {
-		is_city = yes
-		OR = {
-			owner = {is_state_core = ROOT}
-			is_node_in_trade_company_region = yes
-		}
-		OR = {
-			AND = {
-				has_province_modifier = unrule_lands
-				OR = {
-					any_neighbor_province = {
-						OR = {
-							is_capital = yes
-							has_province_modifier = unrule_lands_1
-							has_province_modifier = unrule_lands_2
-							has_province_modifier = unrule_lands_3
-							has_province_modifier = unrule_lands_4
-							not_unruly_lands = yes
-						}
-					}
-					AND = {
-						has_port = yes
-						owner = {
-							any_owned_province = {
-								has_port = yes
-								OR = {
-									is_capital = yes
-									has_province_modifier = unrule_lands_1
-									has_province_modifier = unrule_lands_2
-									has_province_modifier = unrule_lands_3
-									has_province_modifier = unrule_lands_4
-									not_unruly_lands = yes
-								}
-							}
-						}
-					}
-				}
-			}
-			AND = {
-				has_province_modifier = unrule_lands_1
-				OR = {
-					any_neighbor_province = {
-						OR = {
-							is_capital = yes
-							has_province_modifier = unrule_lands_2
-							has_province_modifier = unrule_lands_3
-							has_province_modifier = unrule_lands_4
-							not_unruly_lands = yes
-						}
-					}
-					AND = {
-						has_port = yes
-						owner = {
-							any_owned_province = {
-								has_port = yes
-								OR = {
-									is_capital = yes
-									has_province_modifier = unrule_lands_2
-									has_province_modifier = unrule_lands_3
-									has_province_modifier = unrule_lands_4
-									not_unruly_lands = yes
-								}
-							}
-						}
-					}
-				}
-			}
-			AND = {
-				has_province_modifier = unrule_lands_2
-				OR = {
-					any_neighbor_province = {
-						OR = {
-							is_capital = yes
-							has_province_modifier = unrule_lands_3
-							has_province_modifier = unrule_lands_4
-							not_unruly_lands = yes
-						}
-					}
-					AND = {
-						has_port = yes						
-						owner = {
-							any_owned_province = {
-								has_port = yes
-								OR = {
-									is_capital = yes
-									has_province_modifier = unrule_lands_3
-									has_province_modifier = unrule_lands_4
-									not_unruly_lands = yes
-								}
-							}
-						}
-					}
-				}
-			}
-			AND = {
-				has_province_modifier = unrule_lands_3
-				OR = {
-					any_neighbor_province = {
-						OR = {
-							is_capital = yes
-							has_province_modifier = unrule_lands_4
-							not_unruly_lands = yes
-						}
-					}
-					AND = {
-						has_port = yes
-						owner = {
-							any_owned_province = {
-								has_port = yes
-								OR = {
-									is_capital = yes
-									has_province_modifier = unrule_lands_4
-									not_unruly_lands = yes
-								}
-							}
-						}
-					}
-				}
-			}
-			AND = {
-				has_province_modifier = unrule_lands_4
-				OR = {
-					any_neighbor_province = {
-						OR = {
-							is_capital = yes
-							not_unruly_lands = yes
-						}
-					}
-					AND = {
-						has_port = yes
-						owner = {
-							any_owned_province = {
-								has_port = yes
-								OR = {
-									is_capital = yes
-									not_unruly_lands = yes
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-		owner = {
-			OR = {
-				ai = no
-				is_subject = yes			
-			}
-		}
-    }
-	
-	mean_time_to_happen = {
-		months = 60
-		modifier = {factor = 1.5 has_port = yes}
-		modifier = {factor = 0.9 development = 10}
-		modifier = {factor = 0.9 development = 15}
-		modifier = {factor = 0.9 development = 20}
-		modifier = {factor = 0.9 has_owner_accepted_culture = yes}
-		modifier = {factor = 4.0 nationalism = 5}
-		modifier = {factor = 0.9 has_owner_accepted_culture = no}
-		modifier = {factor = 0.9 owner = {any_neighbor_country = {ai = no}}}
-	}
 
+	hidden = yes
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	immediate = {
+	}
 	option = {
-		name = bertus_changes.1070.a
-		trigger = {has_province_modifier = unrule_lands}
-		remove_province_modifier = unrule_lands
-		add_permanent_province_modifier = {
-			name = unrule_lands_1
-			duration = -1
+		name = bertus_changes.1099.a
+		every_province = {
+			limit = {
+				OR = {
+					province_id = 14
+					province_id = 736
+				}
+			}
+			add_super_boost_goods_produced = yes
+			if = {
+				limit = {province_id = 14}
+				add_permanent_province_modifier = {name = the_pearls_modifier duration = -1}
+			}
+			if = {
+				limit = {province_id = 736}
+				add_permanent_province_modifier = {name = soulstones_of_isle_vroren duration = -1}
+			}
 		}
-	}
-	option = {	#
-		name = bertus_changes.1070.b
-		trigger = {has_province_modifier = unrule_lands_1}
-		remove_province_modifier = unrule_lands_1
-		add_permanent_province_modifier = {
-			name = unrule_lands_2
-			duration = -1
+		every_province = {
+			limit = {
+				OR = {
+					province_id = 425
+					province_id = 2198
+					province_id = 734
+					province_id = 186
+					province_id = 3020
+					province_id = 452
+					province_id = 462
+					province_id = 466
+					province_id = 464
+					province_id = 503
+					province_id = 463
+					province_id = 546
+					province_id = 467
+					province_id = 441 
+					province_id = 536
+					province_id = 256
+					province_id = 169
+					province_id = 704
+					province_id = 713
+					province_id = 717
+					province_id = 542
+					AND = {
+						region = west_castanor_region
+						region = inner_castanor_region
+						region = south_castanor_region
+						region = alenic_reach_region
+						trade_goods = fish
+					}
+					AND = {
+						trade_goods = fur
+						region = dalr_region
+						region = gerudian_coast_region
+						region = northern_pass_region
+					}
+					province_id = 253
+					province_id = 300
+					province_id = 298
+					province_id = 350
+					province_id = 253
+					province_id = 300
+					province_id = 298
+					province_id = 709
+					province_id = 163
+					province_id = 1000
+					province_id = 996
+					province_id = 999
+					province_id = 993
+					province_id = 190
+					province_id = 203
+					province_id = 195
+					province_id = 194
+					province_id = 105
+					province_id = 357
+					province_id = 260
+					province_id = 733
+					province_id = 1848
+					province_id = 260
+					province_id = 46
+					province_id = 911
+					province_id = 66
+					province_id = 63
+					province_id = 372
+					province_id = 385
+					province_id = 629
+					province_id = 293
+					province_id = 409
+					province_id = 393
+					province_id = 200
+					province_id = 424
+					province_id = 716
+					province_id = 706
+					province_id = 702
+					province_id = 742
+					province_id = 2835
+					province_id = 971
+					province_id = 970
+					province_id = 1931
+					province_id = 120
+					province_id = 134
+					province_id = 435
+					province_id = 434
+					province_id = 361
+					province_id = 360
+					province_id = 139
+					province_id = 418
+					province_id = 118
+					province_id = 1879
+					province_id = 451
+					province_id = 402
+					province_id = 172
+					province_id = 132
+					province_id = 6
+					province_id = 333
+					province_id = 419
+					province_id = 235
+					province_id = 115
+					province_id = 116
+					province_id = 117
+					province_id = 216
+					province_id = 451
+					province_id = 5028
+				}
+			}
+			hidden_effect = {province_event = { id = bertus_changes.1014}}	#boost pop goods produced
+			if = {	#coal bonus
+				limit = {
+					trade_goods = coal
+				}
+				add_permanent_province_modifier = {name = coal_trade_modifier duration = -1}
+			}
+			if = {	#wine bonus
+				limit = {
+					trade_goods = wine
+				}
+				add_permanent_province_modifier = {name = wine_trade_modifier duration = -1}
+			}
+			if = {	#lead bonus
+				limit = {
+					trade_goods = lead
+				}
+				add_permanent_province_modifier = {name = lead_trade_modifier duration = -1}
+			}
+			if = {	#faceting bonus
+				limit = {
+					trade_goods = gems
+				}
+				add_permanent_province_modifier = {name = gems_trade_modifier duration = -1}
+			}
+			if = {	#grain bonus
+				limit = {
+					trade_goods = grain
+				}
+				add_permanent_province_modifier = {name = grain_trade_modifier duration = -1}
+			}
+			if = {	#iron bonus
+				limit = {
+					trade_goods = iron
+				}
+				add_permanent_province_modifier = {name = iron_trade_modifier duration = -1}
+			}
+			if = {
+				limit = {
+					trade_goods = glass
+				}
+				add_province_modifier = {name = glass_trade_modifier duration = -1}
+			}
+			if = {
+				limit = {
+					trade_goods = naval_supplies
+				}
+				add_permanent_province_modifier = {name = naval_supplies_boost_modifier duration = -1}
+			}
+			if = {
+				limit = {
+					trade_goods = fish
+				}
+				add_permanent_province_modifier = {name = fish_boost_modifier duration = -1}
+			}
+			if = {
+				limit = {
+					trade_goods = incense
+				}
+				add_permanent_province_modifier = {name = incense_boost_modifier duration = -1}
+			}
+			if = {
+				limit = {
+					trade_goods = beer
+				}
+				add_permanent_province_modifier = {name = beer_boost_modifier duration = -1}
+			}
+			if = {
+				limit = {
+					trade_goods = whaling
+				}
+				add_permanent_province_modifier = {name = whaling_thaw_modifier duration = -1}
+			}
+			if = {
+				limit = {
+					trade_goods = tar
+				}
+				add_permanent_province_modifier = {name = tar_bonus_modifier duration = -1}
+			}
+			if = {
+				limit = {
+					trade_goods = fur
+				}
+				add_permanent_province_modifier = {name = northern_fur_modifier duration = -1}
+			}
+			if = {
+				limit = {
+					trade_goods = horses
+				}
+				add_permanent_province_modifier = {name = horse_garden_modifier duration = -1}
+			}
+			if = {	#copper bonus
+				limit = {
+					trade_goods = copper
+				}
+				if = {
+					limit = {province_id = 260}
+					add_permanent_province_modifier = {name = vanbury_steel_foundry duration = -1}
+				}
+				else = {		
+					add_permanent_province_modifier = {name = copper_trade_modifier duration = -1}
+				}
+			}
+			if = {
+				limit = {
+					trade_goods = jewellery
+				}
+				add_permanent_province_modifier = {name = jewel_trade_modifier duration = -1}
+				add_permanent_province_modifier = {name = jewelpoint_modifier duration = -1}
+			}
+			if = {
+				limit = {
+					trade_goods = champagne
+				}
+				add_permanent_province_modifier = {name = telgeir_champagne_modifier duration = -1}
+			}
+			if = {
+				limit = {
+					trade_goods = dyes
+				}
+				add_permanent_province_modifier = {name = viswall_dyes_modifier duration = -1}
+			}
+			if = {
+				limit = {
+					trade_goods = citrus
+				}
+				add_permanent_province_modifier = {name = citrus_trade_modifier duration = -1}
+			}
+			if = {
+				limit = {
+					trade_goods = marble
+				}
+				add_permanent_province_modifier = {name = blue_marble_trade_modifier duration = -1}
+			}
+			if = {	#grey oak
+				limit = {
+					trade_goods = lumber
+					OR = {
+						province_id = 716
+						province_id = 706
+						province_id = 702
+						province_id = 742
+						province_id = 2835
+						province_id = 971
+						province_id = 970
+					}
+				}
+				add_permanent_province_modifier = {name = lumber_grey_oak_trade_modifier duration = -1}
+			}
+			if = {	#red oak
+				limit = {
+					trade_goods = lumber
+					OR = {
+						province_id = 1931
+						province_id = 120
+					}
+				}
+				add_permanent_province_modifier = {name = lumber_red_oak_trade_modifier duration = -1}
+			}
+			if = {	#special oak
+				limit = {
+					trade_goods = lumber
+					OR = {
+						province_id = 134
+						province_id = 435
+						province_id = 434
+						province_id = 361
+						province_id = 360
+					}
+				}
+				add_permanent_province_modifier = {name = lumber_trade_modifier duration = -1}
+			}
+			if = {
+				limit = {
+					trade_goods = olive_oil
+				}
+				add_permanent_province_modifier = {name = olive_trade_modifier duration = -1}
+			}
+			if = {
+				limit = {
+					trade_goods = maple_syrup
+				}
+				add_permanent_province_modifier = {name = maple_syrup_trade_modifier duration = -1}
+			}
+			if = {
+				limit = {
+					trade_goods = rum
+				}
+				add_permanent_province_modifier = {name = rum_trade_modifier duration = -1}
+			}
+			if = {
+				limit = {
+					trade_goods = cheese
+				}
+				add_permanent_province_modifier = {name = cheese_trade_modifier duration = -1}
+			}
+			if = {
+				limit = {
+					trade_goods = silk
+				}
+				if = {
+					limit = {has_province_flag = estalleni_silks_flag}
+					add_permanent_province_modifier = {name = estalleni_silks duration = -1}
+				}
+				else = {
+					add_permanent_province_modifier = {name = silk_forest_modifier duration = -1}
+				}
+			}
+			if = {
+				limit = {
+					trade_goods = slaves
+				}
+				add_permanent_province_modifier = {name = slave_boost_modifier duration = -1}
+			}
 		}
-	}
-	option = {	#
-		name = bertus_changes.1070.c
-		trigger = {has_province_modifier = unrule_lands_2}
-		remove_province_modifier = unrule_lands_2
-		add_permanent_province_modifier = {
-			name = unrule_lands_3
-			duration = -1
-		}
-	}
-	option = {	#
-		name = bertus_changes.1070.c
-		trigger = {has_province_modifier = unrule_lands_3}
-		remove_province_modifier = unrule_lands_3
-		add_permanent_province_modifier = {
-			name = unrule_lands_4
-			duration = -1
-		}
-	}
-	option = {	#
-		name = bertus_changes.1070.d
-		trigger = {has_province_modifier = unrule_lands_4}
-		remove_province_modifier = unrule_lands_4
 	}
 }
+	
 country_event = {	#setup players electors & other stuff
 	id = bertus_changes.1100
 	title = bertus_changes.1100.t
@@ -2236,7 +2391,6 @@ country_event = {	#setup players electors & other stuff
 	
     trigger = {
 		NOT = {has_country_flag = bertus_electors_selected_flag}
-		NOT = {has_global_flag = bertus_electors_selected_flag}
 		ai = no
     }
 	
@@ -2279,7 +2433,6 @@ country_event = {	#setup players electors & other stuff
 		country_event = {id = ANEX_event.35 days = 10}
 		country_event = {id = bertus_goods.1001 days = 20}
 		country_event = {id = bertus_goods.1002 days = 60}
-		country_event = {id = bertus_goods.1002 days = 10}
 		if = {
 			limit = {is_part_of_hre = yes is_elector = no}
 			elector = yes
@@ -2318,6 +2471,55 @@ country_event = {	#setup players electors & other stuff
 				mechanic_type = magisterium_mechanic
 				power_type = magisterium_mana
 				value = 50
+			}
+		}
+		if = {	# Add wine to Wine Lords
+			limit = {has_government_attribute = winelord_boost}
+			every_owned_province = {
+				limit = {trade_goods = wine}
+				add_province_modifier = {
+					name = wine_lord_wine
+					duration = -1
+					hidden = yes
+				}
+			}
+		}
+		if = {	# Add bulwar gov cost to phoenix empire
+			limit = {has_government_attribute = bulwar_reduced_governing_cost}
+			every_owned_province = {
+				limit = {superregion = bulwar_superregion}
+				add_province_modifier = {
+					name = phoenix_empire_bulwar_gov_cost_modifier
+					duration = -1
+					hidden = yes
+				}
+			}
+		}
+		if = {	# Add modifier to Oak Lords
+			limit = {has_government_attribute = oak_lord_boost}
+			every_owned_province = {
+				limit = {
+					trade_goods = tropical_wood
+				}
+				add_province_modifier = {
+					name = oak_lord_province_modifier
+					duration = -1
+					hidden = yes
+				}
+			}
+		}
+		if = {
+			limit = {has_government_attribute = temples_modifier}	
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						has_tax_building_trigger = yes
+					}
+					add_province_modifier = {
+						name = gov_expanded_temple_rights_mod
+						duration = -1
+					}				
+				}		
 			}
 		}
 	}
@@ -2461,9 +2663,37 @@ province_event = {	#magic wards effect
 				has_province_modifier = magic_estate_ward_1
 				has_province_modifier = magic_estate_broad_ward_1
 				has_province_modifier = Y63_minor_rune_runic_ward_1
+				has_province_modifier = magic_estate_ward_2
+				has_province_modifier = magic_estate_broad_ward_2
+				has_province_modifier = Y63_minor_rune_runic_ward_2
+				has_province_modifier = magic_realm_abjuration_ward 
+				has_province_modifier = magic_estate_ward_3
+				has_province_modifier = magic_estate_broad_ward_3
+				has_province_modifier = Y63_minor_rune_runic_ward_3
+				has_province_modifier = magic_realm_abjuration_empowered_ward 
 			}
 		}
-		ai_chance = {factor = 33}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 3
+				OR = {
+					has_province_modifier = magic_estate_ward_2
+					has_province_modifier = magic_estate_broad_ward_2
+					has_province_modifier = Y63_minor_rune_runic_ward_2
+					has_province_modifier = magic_realm_abjuration_ward 
+				}
+			}
+			modifier = {
+				factor = 3
+				OR = {
+					has_province_modifier = magic_estate_ward_3
+					has_province_modifier = magic_estate_broad_ward_3
+					has_province_modifier = Y63_minor_rune_runic_ward_3
+					has_province_modifier = magic_realm_abjuration_empowered_ward 
+				}
+			}
+		}
 		trigger_switch = {
 			on_trigger = has_province_modifier
 			fireball_used_flag_modifier = {change_siege = -1}
@@ -2482,71 +2712,7 @@ province_event = {	#magic wards effect
 				has_province_modifier = Y63_minor_rune_runic_ward_1
 			}
 		}
-		ai_chance = {factor = 66}
-	}
-	option = {	#reduction lvl 2
-		name = bertus_changes.1106.a
-		trigger = {
-			OR = {
-				has_province_modifier = magic_estate_ward_2
-				has_province_modifier = magic_estate_broad_ward_2
-				has_province_modifier = Y63_minor_rune_runic_ward_2
-				has_province_modifier = magic_realm_abjuration_ward 
-			}
-		}
 		ai_chance = {factor = 50}
-		trigger_switch = {
-			on_trigger = has_province_modifier
-			fireball_used_flag_modifier = {change_siege = -1}
-			siege_magic_earthquake = {change_siege = -2}
-			siege_magic_thunderstorm = {change_siege = -3}
-			siege_magic_elemental_besieger = {remove_province_modifier = siege_magic_elemental_besieger}
-			meteor_strike_modifier = {change_siege = -5}
-		}
-	}
-	option = {	#do nothing lvl 2
-		name = bertus_changes.1106.a
-		trigger = {
-			OR = {
-				has_province_modifier = magic_estate_ward_2
-				has_province_modifier = magic_estate_broad_ward_2
-				has_province_modifier = Y63_minor_rune_runic_ward_2
-				has_province_modifier = magic_realm_abjuration_ward 
-			}
-		}
-		ai_chance = {factor = 50}
-	}
-	option = {	#reduction lvl 3
-		name = bertus_changes.1106.a
-		trigger = {
-			OR = {
-				has_province_modifier = magic_estate_ward_3
-				has_province_modifier = magic_estate_broad_ward_3
-				has_province_modifier = Y63_minor_rune_runic_ward_3
-				has_province_modifier = magic_realm_abjuration_empowered_ward 
-			}
-		}
-		ai_chance = {factor = 66}
-		trigger_switch = {
-			on_trigger = has_province_modifier
-			fireball_used_flag_modifier = {change_siege = -1}
-			siege_magic_earthquake = {change_siege = -2}
-			siege_magic_thunderstorm = {change_siege = -3}
-			siege_magic_elemental_besieger = {remove_province_modifier = siege_magic_elemental_besieger}
-			meteor_strike_modifier = {change_siege = -5}
-		}
-	}
-	option = {	#do nothing lvl 3
-		name = bertus_changes.1106.a
-		trigger = {
-			OR = {
-				has_province_modifier = magic_estate_ward_3
-				has_province_modifier = magic_estate_broad_ward_3
-				has_province_modifier = Y63_minor_rune_runic_ward_3
-				has_province_modifier = magic_realm_abjuration_empowered_ward 
-			}
-		}
-		ai_chance = {factor = 33}
 	}
 }
 country_event = {	#ilusion undiscover
@@ -3084,9 +3250,148 @@ country_event = {	#set up enslavement efficiency
 
 
 	#	id = bertus_changes.2032	#unused
-
-	#	id = bertus_changes.2033	#unused
 	
+country_event = {	#religion church power while gov reform
+	id = bertus_changes.2033	#unused
+	title = bertus_changes.2033.t
+	desc = bertus_changes.2033.desc
+	picture = DIPLOMACY_eventPicture
+
+	hidden = yes
+	trigger = {
+		church_power = 200
+		has_government_attribute = warlock_religion_actions_mechanic
+	}
+
+	mean_time_to_happen = {
+		months = 120
+		modifier = {factor = 0.50 church_power = 300}
+		modifier = {factor = 0.10 church_power = 400}
+		modifier = {factor = 1.1 NOT = {religious_unity = 0.90}}
+		modifier = {factor = 1.2 NOT = {religious_unity = 0.75}}
+		modifier = {factor = 2.0 NOT = {religious_unity = 0.50}}
+	}
+
+	option = {	#reincarnated warrior
+		name = bertus_changes.2033.a
+		ai_chance = {
+			factor = 10
+			modifier = {factor = 2 is_at_war = yes}
+		}
+		country_event = {id = bertus_changes.3001}
+
+	}
+	option = {	#gather great host
+		name = bertus_changes.2033.b
+		trigger = {
+			is_at_war = yes
+			NOT = {has_country_modifier = dookan_gather_great_host}
+		}
+		ai_chance = {
+			factor = 10
+			modifier = {factor = 2 NOT = { manpower_percentage = 0.1 }}
+			modifier = {factor = 2 NOT = { manpower_percentage = 0.25 }}
+		}
+		country_event = { id = great_dookan_events.3 }
+	}
+	option = {	#invoke warrior ancestors
+		name = bertus_changes.2033.c
+		trigger = {
+			is_at_war = yes
+			NOT = {has_country_modifier = dookan_reconnected_with_past_lives}
+		}
+		ai_chance = {
+			factor = 10
+			modifier = {factor = 10 any_province = { unit_in_battle = yes units_in_province = ROOT } }
+		}
+		country_event = { id = great_dookan_events.1 }
+	}
+	option = {	#shake the earth
+		name = bertus_changes.2033.d
+		trigger = {
+			is_at_war = yes
+		}
+		ai_chance = {
+			factor = 10
+			modifier = {factor = 10 any_province = {sieged_by = ROOT}}
+		}
+		hidden_effect = { # →bertus mod
+			country_event = { id = great_dookan_events.11 }
+		}
+	}
+	option = {	#glorious looting
+		name = bertus_changes.2033.e
+		trigger = {
+			is_at_war = yes
+			any_province = {
+				controlled_by = ROOT
+				NOT = { owned_by = ROOT }
+			}
+		}
+		ai_chance = {
+			factor = 50
+		}
+		country_event = { id = great_dookan_events.3 }
+	}
+	option = {	#assemble shamans
+		name = bertus_changes.2033.f
+		trigger = {
+			NOT = {has_country_modifier = assemble_shamans_aspect_modifier}
+		}
+		ai_chance = {
+			factor = 10
+			modifier = {factor = 2 NOT = {religious_unity = 0.5}}
+		}
+		country_event = {id = great_dookan_events.17}
+	}
+	option = {	#anoint slave herd
+		name = bertus_changes.2033.g
+		trigger = {
+			any_owned_province = {
+				has_owner_accepted_culture = yes
+				religion = ROOT
+				NOT = {has_province_modifier = dookan_anointed_slave_herd}
+				is_city = yes
+			}
+		}
+		ai_chance = {
+			factor = 10
+			modifier = {factor = 10 is_at_war = no}
+		}
+		country_event = { id = great_dookan_events.5 }
+	}
+	option = {	#look for omens
+		name = bertus_changes.2033.h
+		trigger = {
+			NOT = { has_country_modifier = dookan_omen_of_calamity }
+			NOT = { has_country_modifier = dookan_no_omen }
+			NOT = { has_country_modifier = dookans_mercy }
+			NOT = { has_country_flag = dookan_is_angry_flag }
+			NOT = { has_country_flag = look_for_omens_flag }
+		}
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 10
+				NOT = { has_country_modifier = dookan_omen_of_strength }
+				NOT = { has_country_modifier = dookan_omen_of_peace }
+				NOT = { has_country_modifier = dookan_omen_of_wisdom_adm }
+				NOT = { has_country_modifier = dookan_omen_of_wisdom_dip }
+				NOT = { has_country_modifier = dookan_omen_of_wisdom_mil }
+				NOT = { has_country_modifier = dookan_omen_of_destiny }
+				NOT = { has_country_modifier = dookans_mercy }
+				NOT = { has_country_modifier = dookan_no_omen }
+				NOT = { has_country_flag = look_for_omens_flag }
+				NOT = { has_country_flag = dookan_is_angry_flag }
+			}
+		}
+		hidden_effect = { # →bertus mod
+			set_country_flag = look_for_omens_flag
+			country_event = { id = great_dookan_events.16}
+		}
+	}
+}
+
 country_event = {	#religion general
 	id = bertus_changes.3000
 	title = bertus_changes.3000.t
@@ -3146,7 +3451,6 @@ country_event = {	#religion general
 	}	
 	after = {
 		country_event = {id = bertus_changes.6030}
-		clr_country_flag = find_reincarnated_warrior_aspect_flag
 	}
 }
 country_event = {	#religion general
@@ -3155,15 +3459,10 @@ country_event = {	#religion general
 	desc = bertus_changes.3001.desc
 	picture = DIPLOMACY_eventPicture
 		
-    trigger = {
-		OR = {
-			has_country_flag = find_reincarnated_warrior_aspect_flag
-			AND = {
-				has_government_attribute = warlock_religion_actions_mechanic
-				church_power = 100
-			}
-		}
-    }
+	is_triggered_only = yes
+
+    trigger = {}
+
 	mean_time_to_happen = {
 		months = 240
 		modifier = {factor = 0.90 church_power = 300}
@@ -3206,43 +3505,9 @@ province_event = {
 	desc = bertus_changes.3002.desc
 	picture = FAMINE_eventPicture
 	
+	is_triggered_only = yes
 	goto = ROOT
-	trigger = {
-		has_owner_accepted_culture = yes
-		religion = ROOT
-		NOT = {has_province_modifier = dookan_anointed_slave_herd}
-		is_city = yes
-		owner = {
-			OR = {
-				has_country_flag = anoint_slave_herd_great_flag
-				AND = {
-					has_government_attribute = warlock_religion_actions_mechanic
-					church_power = 50
-				}
-			}
-		}
-	}
-	immediate = {
-		owner = {
-			if = {
-				limit = {NOT = {has_country_flag = anoint_slave_herd_great_flag}}
-				add_church_power = -50
-			}
-			clr_country_flag = anoint_slave_herd_great_flag
-		}
-	}
 
-	mean_time_to_happen = {
-		months = 1800
-		modifier = {factor = 0.1 owner = {has_country_flag = anoint_slave_herd_great_flag}}
-		modifier = {factor = 0.90 owner = {church_power = 200}}
-		modifier = {factor = 0.50 owner = {church_power = 300}}
-		modifier = {factor = 2.0 owner = {NOT = {church_power = 100}}}
-		modifier = {factor = 1.1 owner = {NOT = {religious_unity = 0.90}}}
-		modifier = {factor = 1.2 owner = {NOT = {religious_unity = 0.75}}}
-		modifier = {factor = 2.0 owner = {NOT = {religious_unity = 0.50}}}
-		modifier = {factor = 2.0 is_state = no}
-	}
 	option = {
 		name = bertus_changes.3002.a
 		
@@ -3255,55 +3520,71 @@ province_event = {
 }
 	#	id = bertus_changes.3004	#unused
 	
-province_event = {	#spawn the thought
+country_event = {	#spawn the thought
 	id = bertus_changes.4001
 	title = bertus_changes.4001.t
 	desc = bertus_changes.4001.desc
 	picture = STREET_SPEECH_eventPicture
 
 	trigger = {
-		is_city = yes
 		is_year = 1500
-		owner = {
-			has_reform = technocracy_republic_reform
-			NOT = {religion = the_thought}
-			NOT = {has_country_flag = the_thought_prohibited_flag}
-		}
-		OR = {
-			culture_group = goblin
-			any_neighbor_province = {
+		has_reform = technocracy_republic_reform
+		NOT = {religion = the_thought}
+		NOT = {has_country_flag = the_thought_prohibited_flag}
+		any_owned_province = {
+			is_city = yes
+			OR = {
 				culture_group = goblin
+				any_neighbor_province = {
+					culture_group = goblin
+				}
 			}
 		}
 	}
 
 	mean_time_to_happen = {
 		months = 260
-		modifier = {factor = 0.4 province_id = 2931}
-		modifier = {factor = 0.6 culture = cave_goblin}
+		modifier = {factor = 0.4 owns = 2931}
+		modifier = {factor = 0.6 any_owned_province = {culture = cave_goblin culture_group = goblin is_city = yes}}
 	}
 
 	option = {
 		name = bertus_changes.4001.a
-		owner = {change_religion = the_thought}
 		change_religion = the_thought
-		add_permanent_province_modifier = {name = religious_center duration = -1}
-		add_permanent_province_modifier = {name = religious_zeal_at_conv duration = 4500}
-		random_neighbor_province = {
-			limit = {
-				is_capital = no
-				NOT = { religion = the_thought }
-			}
+		
+		capital_scope = {
 			change_religion = the_thought
 			add_permanent_province_modifier = {name = religious_zeal_at_conv duration = 4500}
 		}
-		random_neighbor_province = {
+		random_owned_province = {
 			limit = {
-				is_capital = no
-				NOT = { religion = the_thought}
+				is_city = yes
+				OR = {
+					culture_group = goblin
+					any_neighbor_province = {
+						culture_group = goblin
+					}
+				}
 			}
 			change_religion = the_thought
+			add_permanent_province_modifier = {name = religious_center duration = -1}
 			add_permanent_province_modifier = {name = religious_zeal_at_conv duration = 4500}
+			random_neighbor_province = {
+				limit = {
+					is_capital = no
+					NOT = { religion = the_thought }
+				}
+				change_religion = the_thought
+				add_permanent_province_modifier = {name = religious_zeal_at_conv duration = 4500}
+			}
+			random_neighbor_province = {
+				limit = {
+					is_capital = no
+					NOT = { religion = the_thought}
+				}
+				change_religion = the_thought
+				add_permanent_province_modifier = {name = religious_zeal_at_conv duration = 4500}
+			}
 		}
 	}
 	option = {	#NOPE
@@ -3311,722 +3592,7 @@ province_event = {	#spawn the thought
 		owner = {set_country_flag = the_thought_prohibited_flag}
 	}
 }
-province_event = {	#
-	id = bertus_changes.5001
-	title = bertus_changes.5001.t
-	desc = bertus_changes.5001.desc
-	picture = DIPLOMACY_eventPicture
-	
-	hidden = yes
-	
-    trigger = {	
-		is_city = yes
-		has_boost_pop_goods_produced = no
-		trade_goods = slaves
-		OR = {
-			province_id = 216
-			province_id = 451
-			province_id = 5028
-			has_province_modifier = empowered_slavers
-		}
-    }
-	mean_time_to_happen = {months = 1}
-	
-	option = {
-		name = bertus_changes.5001.a
-		add_boost_pop_goods_produced = yes
-		add_permanent_province_modifier = {name = slave_boost_modifier duration = -1}
-	}
-}
-province_event = {	#
-	id = bertus_changes.5002
-	title = bertus_changes.5002.t
-	desc = bertus_changes.5002.desc
-	picture = DIPLOMACY_eventPicture
-	
-	hidden = yes
-	
-    trigger = {	
-		is_city = yes
-		has_boost_pop_goods_produced = no
-		trade_goods = silk
-		OR = {
-			province_id = 115
-			province_id = 116
-			province_id = 117
-			has_province_flag = estalleni_silks_flag
-		}
-    }
-	mean_time_to_happen = {months = 1}
-
-	option = {
-		name = bertus_changes.5002.a
-		add_boost_pop_goods_produced = yes
-		if = {
-			limit = {
-				OR = {					
-					province_id = 115
-					province_id = 116
-					province_id = 117
-					province_id = 1810
-				}
-			}
-			add_permanent_province_modifier = {name = silk_forest_modifier duration = -1}
-		}
-		if = {
-			limit = {has_province_flag = estalleni_silks_flag}
-			add_permanent_province_modifier = {name = estalleni_silks duration = -1}
-		}
-	}
-}
-province_event = {	#
-	id = bertus_changes.5003
-	title = bertus_changes.5003.t
-	desc = bertus_changes.5003.desc
-	picture = DIPLOMACY_eventPicture
-	
-	hidden = yes
-	
-    trigger = {	
-		is_city = yes
-		trade_goods = cheese
-		has_boost_pop_goods_produced = no
-		OR = {
-			province_id = 132
-			province_id = 6
-			province_id = 333
-			province_id = 419
-			province_id = 235
-			has_province_modifier = adv_cheese_production
-		}
-    }
-	mean_time_to_happen = {months = 1}
-
-	option = {
-		name = bertus_changes.5003.a
-		add_boost_pop_goods_produced = yes
-		add_permanent_province_modifier = {name = cheese_trade_modifier duration = -1}
-	}
-}
-province_event = {	#
-	id = bertus_changes.5004
-	title = bertus_changes.5004.t
-	desc = bertus_changes.5004.desc
-	picture = DIPLOMACY_eventPicture
-	
-	hidden = yes
-	
-    trigger = {
-		is_city = yes
-		trade_goods = rum
-		has_boost_pop_goods_produced = no
-		OR = {
-			province_id = 451
-			province_id = 402
-			province_id = 172
-		}
-    }
-	mean_time_to_happen = {months = 1}
-
-	option = {
-		name = bertus_changes.5004.a
-		add_boost_pop_goods_produced = yes
-		add_permanent_province_modifier = {name = rum_trade_modifier duration = -1}
-	}
-}
-province_event = {	#
-	id = bertus_changes.5005
-	title = bertus_changes.5005.t
-	desc = bertus_changes.5005.desc
-	picture = DIPLOMACY_eventPicture
-	
-	hidden = yes
-	
-    trigger = {	
-		is_city = yes
-		trade_goods = maple_syrup
-		has_boost_pop_goods_produced = no
-		OR = {
-			province_id = 139
-			province_id = 418
-			province_id = 118
-			province_id = 1879
-		}
-    }
-	mean_time_to_happen = {months = 1}
-
-	option = {
-		name = bertus_changes.5005.a
-		add_boost_pop_goods_produced = yes
-		add_permanent_province_modifier = {name = maple_syrup_trade_modifier duration = -1}
-	}
-}
-province_event = {	#
-	id = bertus_changes.5006
-	title = bertus_changes.5006.t
-	desc = bertus_changes.5006.desc
-	picture = DIPLOMACY_eventPicture
-	
-	hidden = yes
-	
-    trigger = {	
-		is_city = yes
-		trade_goods = olive_oil
-		has_boost_pop_goods_produced = no
-		OR = {
-			province_id = 374
-		}
-    }
-	mean_time_to_happen = {months = 1}
-
-	option = {
-		name = bertus_changes.5006.a
-		add_boost_pop_goods_produced = yes
-		add_permanent_province_modifier = {name = olive_trade_modifier duration = -1}
-	}
-}
-province_event = {	#special oak
-	id = bertus_changes.5007
-	title = bertus_changes.5007.t
-	desc = bertus_changes.5007.desc
-	picture = DIPLOMACY_eventPicture
-	
-	hidden = yes
-	
-    trigger = {	
-		is_city = yes
-		trade_goods = lumber
-		has_boost_pop_goods_produced = no
-		OR = {
-			province_id = 134
-			province_id = 435
-			province_id = 434
-			province_id = 361
-			province_id = 360
-			has_province_modifier = deranne_aelvar_wood
-			has_province_modifier = small_country_hardwood
-			has_province_modifier = silver_good_lumber_modifier
-		}
-    }
-	mean_time_to_happen = {months = 1}
-	
-	option = {
-		name = bertus_changes.5007.a
-		add_boost_pop_goods_produced = yes
-		add_permanent_province_modifier = {name = lumber_trade_modifier duration = -1}
-	}
-}
-province_event = {	#red oak
-	id = bertus_changes.5008
-	title = bertus_changes.5008.t
-	desc = bertus_changes.5008.desc
-	picture = DIPLOMACY_eventPicture
-	
-	hidden = yes
-	
-    trigger = {	
-		is_city = yes
-		trade_goods = lumber
-		has_boost_pop_goods_produced = no
-		OR = {
-			province_id = 1931
-			province_id = 120
-		}
-    }
-	mean_time_to_happen = {months = 1}
-	
-	option = {
-		name = bertus_changes.5008.a
-		add_boost_pop_goods_produced = yes
-		add_permanent_province_modifier = {name = lumber_red_oak_trade_modifier duration = -1}
-	}
-}
-province_event = {	#grey oak
-	id = bertus_changes.5009
-	title = bertus_changes.5009.t
-	desc = bertus_changes.5009.desc
-	picture = DIPLOMACY_eventPicture
-	
-	hidden = yes
-	
-    trigger = {	
-		is_city = yes
-		trade_goods = lumber
-		has_boost_pop_goods_produced = no
-		OR = {
-			province_id = 716
-			province_id = 706
-			province_id = 702
-			province_id = 742
-			province_id = 2835
-			province_id = 971
-			province_id = 970
-		}
-    }
-	mean_time_to_happen = {months = 1}
-	
-	option = {
-		name = bertus_changes.5009.a
-		add_boost_pop_goods_produced = yes
-		add_permanent_province_modifier = {name = lumber_grey_oak_trade_modifier duration = -1}
-	}
-}
-province_event = {	#
-	id = bertus_changes.5010
-	title = bertus_changes.5010.t
-	desc = bertus_changes.5010.desc
-	picture = DIPLOMACY_eventPicture
-	
-	hidden = yes
-	
-    trigger = {	
-		is_city = yes
-		trade_goods = marble
-		has_boost_pop_goods_produced = no
-		OR = {
-			province_id = 409
-			province_id = 393
-			province_id = 200
-			province_id = 424
-		}
-    }
-	mean_time_to_happen = {months = 1}
-	
-	option = {
-		name = bertus_changes.5010.a
-		add_boost_pop_goods_produced = yes
-		add_permanent_province_modifier = {name = blue_marble_trade_modifier duration = -1}
-	}
-}
-province_event = {	#
-	id = bertus_changes.5011
-	title = bertus_changes.5011.t
-	desc = bertus_changes.5011.desc
-	picture = DIPLOMACY_eventPicture
-	
-	hidden = yes
-	
-    trigger = {	
-		is_city = yes
-		trade_goods = citrus
-		has_boost_pop_goods_produced = no
-		OR = {
-			province_id = 372
-			province_id = 385
-			province_id = 629
-			province_id = 293
-		}
-    }
-	mean_time_to_happen = {months = 1}
-	
-	option = {
-		name = bertus_changes.5011.a
-		add_boost_pop_goods_produced = yes
-		add_permanent_province_modifier = {name = citrus_trade_modifier duration = -1}
-	}
-}
-province_event = {	#
-	id = bertus_changes.5012
-	title = bertus_changes.5012.t
-	desc = bertus_changes.5012.desc
-	picture = DIPLOMACY_eventPicture
-	
-	hidden = yes
-	
-    trigger = {	
-		is_city = yes
-		trade_goods = dyes
-		has_boost_pop_goods_produced = no
-		OR = {
-			province_id = 66
-			province_id = 63
-		}
-    }
-	mean_time_to_happen = {months = 1}
-	
-	option = {
-		name = bertus_changes.5012.a
-		add_boost_pop_goods_produced = yes
-		add_permanent_province_modifier = {name = viswall_dyes_modifier duration = -1}
-	}
-}
-province_event = {	#
-	id = bertus_changes.5013
-	title = bertus_changes.5013.t
-	desc = bertus_changes.5013.desc
-	picture = DIPLOMACY_eventPicture
-	
-	hidden = yes
-	
-    trigger = {	
-		is_city = yes
-		trade_goods = champagne
-		has_boost_pop_goods_produced = no
-		OR = {
-			province_id = 911
-		}
-    }
-	mean_time_to_happen = {months = 1}
-	
-	option = {
-		name = bertus_changes.5013.a
-		add_boost_pop_goods_produced = yes
-		add_permanent_province_modifier = {name = telgeir_champagne_modifier duration = -1}
-	}
-}
-province_event = {	#
-	id = bertus_changes.5014
-	title = bertus_changes.5014.t
-	desc = bertus_changes.5014.desc
-	picture = DIPLOMACY_eventPicture
-	
-	hidden = yes
-	
-    trigger = {	
-		is_city = yes
-		trade_goods = jewellery
-		has_boost_pop_goods_produced = no
-		OR = {
-			province_id = 46
-		}
-    }
-	mean_time_to_happen = {months = 1}
-	
-	option = {
-		name = bertus_changes.5014.a
-		add_boost_pop_goods_produced = yes
-		add_permanent_province_modifier = {name = jewel_trade_modifier duration = -1}
-		if = {
-			limit = {province_id = 46}
-			add_permanent_province_modifier = {name = jewelpoint_modifier duration = -1}
-		}
-	}
-}
-province_event = {	#
-	id = bertus_changes.5015
-	title = bertus_changes.5015.t
-	desc = bertus_changes.5015.desc
-	picture = DIPLOMACY_eventPicture
-	
-	hidden = yes
-	
-    trigger = {
-		is_city = yes
-		trade_goods = pearls
-		has_super_boost_goods_produced = no
-		OR = {
-			province_id = 14
-			province_id = 736
-		}
-    }
-	mean_time_to_happen = {months = 1}
-	
-	option = {
-		name = bertus_changes.5015.a
-		add_super_boost_goods_produced = yes
-		if = {
-			limit = {province_id = 14}
-			add_permanent_province_modifier = {name = the_pearls_modifier duration = -1}
-		}
-		if = {
-			limit = {province_id = 736}
-			add_permanent_province_modifier = {name = soulstones_of_isle_vroren duration = -1}
-		}
-	}
-}
-province_event = {	#copper bonus
-	id = bertus_changes.5016
-	title = bertus_changes.5016.t
-	desc = bertus_changes.5016.desc
-	picture = DIPLOMACY_eventPicture
-	
-	hidden = yes
-	
-    trigger = {	
-		is_city = yes
-		trade_goods = copper
-		has_boost_pop_goods_produced = no
-		OR = {
-			province_id = 260
-			province_id = 733
-			province_id = 1848
-			has_province_modifier = busilar_busilari_copper_mines
-			has_province_modifier = small_country_coppertown_industry
-			has_province_modifier = sildnamm_industry
-		}
-    }
-	mean_time_to_happen = {months = 1}
-	
-	option = {
-		name = bertus_changes.5016.a
-		add_boost_pop_goods_produced = yes
-		if = {
-			limit = {province_id = 260}
-			add_permanent_province_modifier = {name = vanbury_steel_foundry duration = -1}
-		}
-		else = {		
-			add_permanent_province_modifier = {name = copper_trade_modifier duration = -1}
-		}
-	}
-}
-province_event = {	#
-	id = bertus_changes.5017
-	title = bertus_changes.5017.t
-	desc = bertus_changes.5017.desc
-	picture = DIPLOMACY_eventPicture
-	
-	hidden = yes
-	
-    trigger = {	
-		is_city = yes
-		trade_goods = horses
-		has_boost_pop_goods_produced = no
-		OR = {
-			province_id = 105
-			province_id = 357
-			has_province_modifier = adv_horses_production
-		}
-    }
-	mean_time_to_happen = {months = 1}
-	
-	option = {
-		name = bertus_changes.5017.a
-		add_boost_pop_goods_produced = yes
-		add_permanent_province_modifier = {name = horse_garden_modifier duration = -1}
-	}
-}
-province_event = {	#
-	id = bertus_changes.5018
-	title = bertus_changes.5018.t
-	desc = bertus_changes.5018.desc
-	picture = DIPLOMACY_eventPicture
-	
-	hidden = yes
-	
-    trigger = {	
-		is_city = yes
-		trade_goods = fur
-		has_boost_pop_goods_produced = no
-		OR = {
-			region = dalr_region
-			region = gerudian_coast_region
-			region = northern_pass_region
-		}
-    }
-	mean_time_to_happen = {months = 1}
-	
-	option = {
-		name = bertus_changes.5018.a
-		add_boost_pop_goods_produced = yes
-		add_permanent_province_modifier = {name = northern_fur_modifier duration = -1}
-	}
-}
-province_event = {	#
-	id = bertus_changes.5019
-	title = bertus_changes.5019.t
-	desc = bertus_changes.5019.desc
-	picture = DIPLOMACY_eventPicture
-	
-	hidden = yes
-	
-    trigger = {	
-		is_city = yes
-		trade_goods = tar
-		has_boost_pop_goods_produced = no
-		OR = {
-			province_id = 203
-			province_id = 195
-			province_id = 194
-		}
-    }
-	mean_time_to_happen = {months = 1}
-	
-	option = {
-		name = bertus_changes.5019.a
-		add_boost_pop_goods_produced = yes
-		add_permanent_province_modifier = {name = tar_bonus_modifier duration = -1}
-	}
-}
-province_event = {	#
-	id = bertus_changes.5020
-	title = bertus_changes.5020.t
-	desc = bertus_changes.5020.desc
-	picture = DIPLOMACY_eventPicture
-	
-	hidden = yes
-	
-    trigger = {	
-		is_city = yes
-		has_boost_pop_goods_produced = no
-		trade_goods = whaling
-		OR = {
-			province_id = 1000
-			province_id = 996
-			province_id = 999
-			province_id = 993
-			province_id = 190
-		}
-    }
-	mean_time_to_happen = {months = 1}
-	
-	option = {
-		name = bertus_changes.5020.a
-		add_boost_pop_goods_produced = yes
-		add_permanent_province_modifier = {name = whaling_thaw_modifier duration = -1}
-	}
-}
-province_event = {	#
-	id = bertus_changes.5021
-	title = bertus_changes.5021.t
-	desc = bertus_changes.5021.desc
-	picture = DIPLOMACY_eventPicture
-	
-	hidden = yes
-	
-    trigger = {	
-		is_city = yes
-		has_boost_pop_goods_produced = no
-		trade_goods = beer
-		OR = {
-			province_id = 253
-			province_id = 300
-			province_id = 298
-			province_id = 709
-			province_id = 163
-		}
-    }
-	mean_time_to_happen = {months = 1}
-	
-	option = {
-		name = bertus_changes.5021.a
-		add_boost_pop_goods_produced = yes
-		add_permanent_province_modifier = {name = beer_boost_modifier duration = -1}
-	}
-}
-province_event = {	#
-	id = bertus_changes.5022
-	title = bertus_changes.5022.t
-	desc = bertus_changes.5022.desc
-	picture = DIPLOMACY_eventPicture
-	
-	hidden = yes
-	
-    trigger = {	
-		is_city = yes
-		trade_goods = incense
-		has_boost_pop_goods_produced = no
-		OR = {
-			province_id = 253
-			province_id = 300
-			province_id = 298
-			province_id = 350
-			has_province_modifier = great_ording_unsung_heroes
-		}
-    }
-	mean_time_to_happen = {months = 1}
-	
-	option = {
-		name = bertus_changes.5022.a
-		add_boost_pop_goods_produced = yes
-		add_permanent_province_modifier = {name = incense_boost_modifier duration = -1}
-	}
-}
-province_event = {	#
-	id = bertus_changes.5023
-	title = bertus_changes.5023.t
-	desc = bertus_changes.5023.desc
-	picture = DIPLOMACY_eventPicture
-	
-	hidden = yes
-	
-    trigger = {
-		is_city = yes
-		trade_goods = fish
-		has_boost_pop_goods_produced = no
-		OR = {
-			region = west_castanor_region
-			region = inner_castanor_region
-			region = south_castanor_region
-			region = alenic_reach_region
-			has_province_modifier = adv_fish_production
-		}
-    }
-	mean_time_to_happen = {months = 1}
-	
-	option = {
-		name = bertus_changes.5023.a
-		add_boost_pop_goods_produced = yes
-		add_permanent_province_modifier = {name = fish_boost_modifier duration = -1}
-	}
-}
-province_event = {	#
-	id = bertus_changes.5024
-	title = bertus_changes.5024.t
-	desc = bertus_changes.5024.desc
-	picture = DIPLOMACY_eventPicture
-	
-	hidden = yes
-	
-    trigger = {	
-		is_city = yes
-		trade_goods = naval_supplies
-		has_boost_pop_goods_produced = no
-		OR = {
-			province_id = 704
-			province_id = 713
-			province_id = 717
-			province_id = 542
-		}
-    }
-	mean_time_to_happen = {months = 1}
-	
-	option = {
-		name = bertus_changes.5024.a
-		add_boost_pop_goods_produced = yes
-		add_permanent_province_modifier = {name = naval_supplies_boost_modifier duration = -1}
-	}
-}
-province_event = {	#
-	id = bertus_changes.5025
-	title = bertus_changes.5025.t
-	desc = bertus_changes.5025.desc
-	picture = DIPLOMACY_eventPicture
-	
-	hidden = yes
-	
-    trigger = {
-		is_city = yes
-		trade_goods = glass
-		has_boost_pop_goods_produced = no
-		OR = {
-			has_province_flag = lorent_bottlemaking_monopoly_flag
-			has_province_flag = giberd_artificer_manufactories_flag
-			has_province_flag = glass_boost_flag
-			province_id = 536
-			province_id = 256
-			province_id = 169
-			has_province_modifier = arbaran_elvenaire_workshops
-			has_province_modifier = grombar_glass_production_centre
-			has_province_modifier = glass_trade_modifier
-		}
-    }
-	mean_time_to_happen = {months = 1}
-	
-	option = {
-		name = bertus_changes.5025.a
-		add_boost_pop_goods_produced = yes
-		if = {
-			limit = {has_province_flag = lorent_bottlemaking_monopoly_flag}
-			add_province_modifier = {name = lorent_bottlemaking_monopoly duration = -1}
-		}
-		if = {
-			limit = {has_province_flag = giberd_artificer_manufactories_flag}
-			add_province_modifier = {name = giberd_artificer_manufactories duration = -1}
-		}
-		add_province_modifier = {name = glass_trade_modifier duration = -1}
-	}
-}
-province_event = {	#
+country_event = {	#
 	id = bertus_changes.5026
 	title = bertus_changes.5026.t
 	desc = bertus_changes.5026.desc
@@ -4035,53 +3601,55 @@ province_event = {	#
 	hidden = yes
 	
     trigger = {	
-		is_city = yes
 		OR = {
-			AND = {
+			any_owned_province = {
+				is_city = yes
 				OR = {
 					trade_goods = gold
 					trade_goods = silver
 				}
-				has_super_boost_goods_produced = no
-				OR = {
-					owner = {current_icon = invocation_of_gold}
-					has_province_modifier = eborthil_expansion_of_mines
-					has_province_modifier = tluukt_new_veins
-				}
+				NOT = {has_province_modifier = gnollish_gold_boost_modifier}
+				owner = {current_icon = invocation_of_gold}
 			}
-			AND = {
-				has_super_boost_goods_produced = yes
-				has_province_modifier = gnollish_gold_boost_modifier
-				NOT = {has_province_modifier = tluukt_new_veins}
-				NOT = {has_province_modifier = eborthil_expansion_of_mines}
+			any_owned_province = {
+				is_city = yes
 				OR = {
-					NOT = {
-						trade_goods = gold
-						trade_goods = silver
-					}
-					NOT = {owner = {current_icon = invocation_of_gold}}
+					trade_goods = gold
+					trade_goods = silver
 				}
+				has_province_modifier = gnollish_gold_boost_modifier
+				NOT = {owner = {current_icon = invocation_of_gold}}
 			}
 		}
-    }
+	}
 	mean_time_to_happen = {months = 1}
 	
 	option = {
 		name = bertus_changes.5026.a
-		trigger = {has_super_boost_goods_produced = no}
-		add_super_boost_goods_produced = yes
-		add_province_modifier = { name = gnollish_gold_boost_modifier duration = -1	}
+		trigger = {current_icon = invocation_of_gold}
+		every_owned_province = {
+			limit = {NOT = {has_province_modifier = gnollish_gold_boost_modifier}}
+			add_super_boost_goods_produced = yes
+			if = {
+				limit = {
+					NOT = {has_province_modifier = eborthil_expansion_of_mines}
+					NOT = {has_province_modifier = tluukt_new_veins}
+				}
+				add_province_modifier = { name = gnollish_gold_boost_modifier duration = -1	}
+			}
+		}
 	}
 	option = {
 		name = bertus_changes.5026.b
-		trigger = {has_super_boost_goods_produced = yes}
-		remove_super_boost_goods_produced = yes
-		remove_province_modifier = gnollish_gold_boost_modifier
-		remove_province_modifier = eborthil_expansion_of_mines
-		remove_province_modifier = tluukt_new_veins
+		trigger = {NOT = {current_icon = invocation_of_gold}}
+		every_owned_province = {
+			limit = {has_province_modifier = gnollish_gold_boost_modifier}
+			remove_super_boost_goods_produced = yes
+			remove_province_modifier = gnollish_gold_boost_modifier
+		}
 	}
 }
-province_event = {	#
+country_event = {	#
 	id = bertus_changes.5027
 	title = bertus_changes.5027.t
 	desc = bertus_changes.5027.desc
@@ -4090,25 +3658,20 @@ province_event = {	#
 	hidden = yes
 	
     trigger = {
-		is_city = yes
 		OR = {
-			AND = {
+			any_owned_province = {
+				is_city = yes
 				trade_goods = slaves
-				has_super_boost_goods_produced = no
-				OR = {
-					owner = {current_icon = invocation_of_chains}
-					has_province_modifier = slave_super_boost_modifier
-				}
+				NOT = {has_province_modifier = slave_super_boost_modifier}
+				owner = {current_icon = invocation_of_chains}
 			}
-			AND = {
-				has_super_boost_goods_produced = yes
-				has_province_modifier = slave_super_boost_modifier
+			any_owned_province = {
+				is_city = yes
 				OR = {
-					NOT = {trade_goods = slaves}
-					NOT = {
-						owner = {current_icon = invocation_of_chains}
-					}
+					trade_goods = slaves
 				}
+				has_province_modifier = slave_super_boost_modifier
+				NOT = {owner = {current_icon = invocation_of_chains}}
 			}
 		}
     }
@@ -4116,18 +3679,24 @@ province_event = {	#
 	
 	option = {
 		name = bertus_changes.5027.a
-		trigger = {has_super_boost_goods_produced = no}
-		add_super_boost_goods_produced = yes
-		add_province_modifier = { name = slave_super_boost_modifier	duration = -1 }
+		trigger = {current_icon = invocation_of_chains}
+		every_owned_province = {
+			limit = {NOT = {has_province_modifier = slave_super_boost_modifier}}
+			add_super_boost_goods_produced = yes
+			add_province_modifier = { name = slave_super_boost_modifier duration = -1	}
+		}
 	}
 	option = {
 		name = bertus_changes.5027.b
-		trigger = {has_super_boost_goods_produced = yes}
-		remove_super_boost_goods_produced = yes
-		remove_province_modifier = slave_super_boost_modifier
+		trigger = {NOT = {current_icon = invocation_of_gold}}
+		every_owned_province = {
+			limit = {has_province_modifier = slave_super_boost_modifier}
+			remove_super_boost_goods_produced = yes
+			remove_province_modifier = slave_super_boost_modifier
+		}
 	}
 }
-province_event = {	#
+country_event = {	#
 	id = bertus_changes.5029
 	title = bertus_changes.5029.t
 	desc = bertus_changes.5029.desc
@@ -4136,17 +3705,16 @@ province_event = {	#
 	hidden = yes
 	
     trigger = {
-		is_city = yes
 		OR = {
-			AND = {
+			any_owned_province = {
+				is_city = yes
 				province_group = bulwar_canals_goods_provinces
 				province_with_farm_goods = yes
-				has_bulwar_canals_boost_pop_goods_produced = no
 				owner = {owns = 601}
 				601 = {has_great_project = {type = bulwar_canals tier = 3}}
+				NOT = {has_province_modifier = bulwar_canals_boost_modifier}
 			}
-			AND = {
-				has_bulwar_canals_boost_pop_goods_produced = yes
+			any_owned_province = {
 				has_province_modifier = bulwar_canals_boost_modifier
 				OR = {
 					province_with_farm_goods = no	
@@ -4160,18 +3728,26 @@ province_event = {	#
 	
 	option = {
 		name = bertus_changes.5029.a
-		trigger = {has_bulwar_canals_boost_pop_goods_produced = no}
-		add_bulwar_canals_boost_pop_goods_produced = yes
-		add_permanent_province_modifier = { name = bulwar_canals_boost_modifier	duration = -1 }
-	}
-	option = {
-		name = bertus_changes.5029.b
-		trigger = {has_bulwar_canals_boost_pop_goods_produced = yes}
-		remove_bulwar_canals_boost_pop_goods_produced = yes
-		remove_province_modifier = bulwar_canals_boost_modifier
+		every_owned_province = {
+			limit = {has_province_modifier = bulwar_canals_boost_modifier}
+			remove_bulwar_canals_boost_pop_goods_produced = yes
+			remove_province_modifier = bulwar_canals_boost_modifier
+		}
+		if = {
+			limit = {
+				owns = 601
+				601 = {has_great_project = {type = bulwar_canals tier = 3}}
+				NOT = {has_province_modifier = bulwar_canals_boost_modifier}
+			}
+			every_owned_province = {
+				limit = {province_with_farm_goods = yes province_group = bulwar_canals_goods_provinces}
+				add_bulwar_canals_boost_pop_goods_produced = yes
+				add_province_modifier = { name = bulwar_canals_boost_modifier duration = -1	}
+			}
+		}
 	}
 }
-province_event = {	#
+country_event = {	#
 	id = bertus_changes.5030
 	title = bertus_changes.5030.t
 	desc = bertus_changes.5030.desc
@@ -4181,20 +3757,20 @@ province_event = {	#
 	
     trigger = {
 		OR = {
-			AND = {
+			any_owned_province = {
+				is_city = yes
 				has_terrain = dwarven_road
 				province_with_mine_goods = yes
-				has_great_dam_boost_pop_goods_produced = no
 				owner = {owns = 676}
 				676 = {has_great_project = {type = great_dam tier = 3}}
+				NOT = {has_province_modifier = great_dam_boost_modifier}
 			}
-			AND = {
-				has_great_dam_boost_pop_goods_produced = yes
+			any_owned_province = {
 				has_province_modifier = great_dam_boost_modifier
 				OR = {
-					province_with_mine_goods = no		
-					owner = {not = {owns = 676}}	
-					NOT = {676 = {has_great_project = {type = great_dam tier = 3}}}	
+					province_with_mine_goods = no
+					owner = {owns = 676}
+					676 = {has_great_project = {type = great_dam tier = 3}}
 				}
 			}
 		}
@@ -4203,165 +3779,25 @@ province_event = {	#
 	
 	option = {
 		name = bertus_changes.5030.a
-		trigger = {has_great_dam_boost_pop_goods_produced = no}
-		add_great_dam_boost_pop_goods_produced = yes
-		add_permanent_province_modifier = { name = great_dam_boost_modifier	duration = -1 }
-	}
-	option = {
-		name = bertus_changes.5030.b
-		trigger = {has_great_dam_boost_pop_goods_produced = yes}
-		remove_great_dam_boost_pop_goods_produced = yes
-		remove_province_modifier = great_dam_boost_modifier
-	}
-}
-province_event = {	#iron bonus
-	id = bertus_changes.5031
-	title = bertus_changes.5031.t
-	desc = bertus_changes.5031.desc
-	picture = DIPLOMACY_eventPicture
-	
-	hidden = yes
-	
-    trigger = {	
-		is_city = yes
-		trade_goods = iron
-		has_boost_pop_goods_produced = no
-		OR = {
-			province_id = 441 
-			has_province_modifier = adv_big_forge
-			has_province_modifier = wex_ironhill_1
-			has_province_modifier = grombar_frozen_forge
-			has_province_flag = iron_boost_flag
-			has_province_modifier = obrtrol_slave_mine
-			has_province_modifier = obrtrol_giant_forge
-			has_province_modifier = ogrish_steel
-			has_province_modifier = silverforge_iron_deposits
+		every_owned_province = {
+			limit = {has_province_modifier = great_dam_boost_modifier}
+			remove_great_dam_boost_pop_goods_produced = yes
+			remove_province_modifier = great_dam_boost_modifier
 		}
-    }
-	mean_time_to_happen = {months = 1}
-	
-	option = {
-		name = bertus_changes.5031.a
-		add_boost_pop_goods_produced = yes	
-		add_permanent_province_modifier = {name = iron_trade_modifier duration = -1}
-	}
-}
-province_event = {	#grain bonus
-	id = bertus_changes.5032
-	title = bertus_changes.5032.t
-	desc = bertus_changes.5032.desc
-	picture = DIPLOMACY_eventPicture
-	
-	hidden = yes
-	
-    trigger = {	
-		is_city = yes
-		trade_goods = grain
-		has_boost_pop_goods_produced = no
-		OR = {
-			province_id = 462
-			province_id = 466
-			province_id = 464
-			province_id = 503
-			province_id = 463
-			province_id = 546
-			province_id = 467
-			has_province_modifier = adv_grain_production
-			has_province_modifier = land_of_plenty
+		if = {
+			limit = {
+				owns = 676
+				676 = {has_great_project = {type = great_dam tier = 3}}
+			}
+			every_owned_province = {
+				limit = {province_with_mine_goods = yes has_terrain = dwarven_road}
+				add_great_dam_boost_pop_goods_produced = yes
+				add_permanent_province_modifier = { name = great_dam_boost_modifier	duration = -1 }
+			}
 		}
-    }
-	mean_time_to_happen = {months = 1}
-	
-	option = {
-		name = bertus_changes.5032.a
-		add_boost_pop_goods_produced = yes	
-		add_permanent_province_modifier = {name = grain_trade_modifier duration = -1}
 	}
 }
-province_event = {	#faceting bonus
-	id = bertus_changes.5033
-	title = bertus_changes.5033.t
-	desc = bertus_changes.5033.desc
-	picture = DIPLOMACY_eventPicture
-	
-	hidden = yes
-	
-    trigger = {	
-		is_city = yes
-		trade_goods = gems
-		has_boost_pop_goods_produced = no
-		OR = {
-			province_id = 734
-			province_id = 186
-			province_id = 3020
-			province_id = 452
-			has_province_modifier = diamond_district
-			has_province_modifier = rubyhold_gemstone_deposits
-		}
-    }
-	mean_time_to_happen = {months = 1}
-	
-	option = {
-		name = bertus_changes.5033.a
-		add_boost_pop_goods_produced = yes	
-		add_permanent_province_modifier = {name = gems_trade_modifier duration = -1}
-	}
-}
-province_event = {	#lead bonus
-	id = bertus_changes.5034
-	title = bertus_changes.5034.t
-	desc = bertus_changes.5034.desc
-	picture = DIPLOMACY_eventPicture
-	
-	hidden = yes
-	
-    trigger = {	
-		is_city = yes
-		trade_goods = lead
-		has_boost_pop_goods_produced = no
-		OR = {
-			province_id = 438
-		}
-    }
-	mean_time_to_happen = {months = 1}
-	
-	option = {
-		name = bertus_changes.5034.a
-		add_boost_pop_goods_produced = yes	
-		add_permanent_province_modifier = {name = lead_trade_modifier duration = -1}
-	}
-}
-province_event = {	#wine bonus
-	id = bertus_changes.5035
-	title = bertus_changes.5035.t
-	desc = bertus_changes.5035.desc
-	picture = DIPLOMACY_eventPicture
-	
-	hidden = yes
-	
-    trigger = {	
-		is_city = yes
-		trade_goods = wine
-		has_boost_pop_goods_produced = no
-		OR = {
-			province_id = 425
-			has_province_modifier = rubenaire_red_1
-			has_province_modifier = rubenaire_red_2
-			has_province_modifier = rubenaire_red_3
-			has_province_modifier = rubenaire_red_4
-			has_province_modifier = rubenaire_red_5
-			has_province_modifier = deranne_reaver_wine_mod
-		}
-    }
-	mean_time_to_happen = {months = 1}
-	
-	option = {
-		name = bertus_changes.5035.a
-		add_boost_pop_goods_produced = yes	
-		add_permanent_province_modifier = {name = wine_trade_modifier duration = -1}
-	}
-}
-province_event = {	#centralization bonus
+country_event = {	#centralization bonus
 	id = bertus_changes.5036
 	title = bertus_changes.5036.t
 	desc = bertus_changes.5036.desc
@@ -4372,13 +3808,14 @@ province_event = {	#centralization bonus
     trigger = {	
 		is_city = yes
 		OR = {
-			AND = {
-				NOT = {has_province_modifier = empire_centralization_modifier}
-				is_part_of_hre = yes
+			any_owned_province = {
 				owner = {is_part_of_hre = yes}
+				is_city = yes
+				is_part_of_hre = yes
 				has_province_flag = empire_centralization_province_flag
+				NOT = {has_province_modifier = empire_centralization_modifier}
 			}
-			AND = {
+			any_owned_province = {
 				has_province_modifier = empire_centralization_modifier
 				OR = {
 					is_part_of_hre = no
@@ -4391,38 +3828,23 @@ province_event = {	#centralization bonus
 	
 	option = {
 		name = bertus_changes.5036.a
-		trigger = {NOT = {has_province_modifier = empire_centralization_modifier}}
-		add_province_modifier = {name = empire_centralization_modifier duration = -1}
-	}
-	option = {
-		name = bertus_changes.5036.b
-		trigger = {has_province_modifier = empire_centralization_modifier}
-		remove_province_modifier = empire_centralization_modifier
-	}
-}
-province_event = {	#coal bonus
-	id = bertus_changes.5037
-	title = bertus_changes.5037.t
-	desc = bertus_changes.5037.desc
-	picture = DIPLOMACY_eventPicture
-	
-	hidden = yes
-	
-    trigger = {	
-		is_city = yes
-		trade_goods = coal
-		has_boost_pop_goods_produced = no
-		OR = {
-			has_province_modifier = wex_ironhill_2
-			has_province_modifier = coal_trade_modifier
+		every_owned_province = {
+			limit = {has_province_modifier = empire_centralization_modifier}
+			remove_province_modifier = empire_centralization_modifier
 		}
-    }
-	mean_time_to_happen = {months = 1}
-	
-	option = {
-		name = bertus_changes.5037.a
-		add_boost_pop_goods_produced = yes	
-		add_permanent_province_modifier = {name = coal_trade_modifier duration = -1}
+		if = {
+			limit = {
+				is_part_of_hre = yes
+			}
+			every_owned_province = {
+				limit = {
+					is_city = yes
+					is_part_of_hre = yes
+					has_province_flag = empire_centralization_province_flag
+				}
+				add_province_modifier = {name = empire_centralization_modifier duration = -1}
+			}
+		}
 	}
 }
 country_event = {	#
@@ -7401,7 +6823,7 @@ country_event = {	#no longer undead
     }
 	after = {}
 }
-province_event = {	#
+country_event = {	#
 	id = bertus_changes.6047
 	title = bertus_changes.6047.t
 	desc = bertus_changes.6047.desc
@@ -7410,29 +6832,73 @@ province_event = {	#
 	hidden = yes
 
 	trigger = {
-		owner = {
-			has_idea = flottenbasis1
-		}
-		NOT = {
-			has_province_modifier = flottenbasis1_dock_bonus_3
-			has_province_modifier = flottenbasis1_dock_bonus_2
-			has_province_modifier = flottenbasis1_dock_bonus_1
-		}
 		OR = {
-			has_building = navymanpower_lvl_3
-			has_building = drydock
-			has_building = dock
+			any_owned_province = {
+				owner = {has_idea = flottenbasis1}
+				is_city = yes
+				NOT = {
+					has_province_modifier = flottenbasis1_dock_bonus_3
+					has_province_modifier = flottenbasis1_dock_bonus_2
+					has_province_modifier = flottenbasis1_dock_bonus_1
+				}
+				OR = {
+					has_building = navymanpower_lvl_3
+					has_building = drydock
+					has_building = dock
+				}
+			}
+			any_owned_province = {
+				OR = {
+					has_province_modifier = flottenbasis1_dock_bonus_3
+					has_province_modifier = flottenbasis1_dock_bonus_2
+					has_province_modifier = flottenbasis1_dock_bonus_1
+				}
+				OR = {
+					NOT = {
+						has_building = navymanpower_lvl_3
+						has_building = drydock
+						has_building = dock
+					}
+					NOT = {owner = {has_idea = flottenbasis1}}
+				}
+			}
 		}
 	}
 	mean_time_to_happen = {months = 1}
 
 	option = {
 		name = bertus_changes.6047.a
-		trigger_switch = {
-			on_trigger = has_building
-			navymanpower_lvl_3 = {add_province_modifier = {name = flottenbasis1_dock_bonus_3 duration = -1 hidden = yes}}
-			drydock = {add_province_modifier = {name = flottenbasis1_dock_bonus_2 duration = -1 hidden = yes}}
-			dock = {add_province_modifier = {name = flottenbasis1_dock_bonus_1 duration = -1 hidden = yes}}
+		every_owned_province = {
+			limit = {
+				OR = {
+					has_province_modifier = flottenbasis1_dock_bonus_3
+					has_province_modifier = flottenbasis1_dock_bonus_2
+					has_province_modifier = flottenbasis1_dock_bonus_1
+				}
+			}
+			remove_province_modifier = flottenbasis1_dock_bonus_3
+			remove_province_modifier = flottenbasis1_dock_bonus_2
+			remove_province_modifier = flottenbasis1_dock_bonus_1
+		}
+		if = {
+			limit = {
+				has_idea = flottenbasis1
+			}
+			every_owned_province = {
+				limit = {
+					OR = {
+						has_building = navymanpower_lvl_3
+						has_building = drydock
+						has_building = dock
+					}
+				}
+				trigger_switch = {
+					on_trigger = has_building
+					navymanpower_lvl_3 = {add_province_modifier = {name = flottenbasis1_dock_bonus_3 duration = -1 hidden = yes}}
+					drydock = {add_province_modifier = {name = flottenbasis1_dock_bonus_2 duration = -1 hidden = yes}}
+					dock = {add_province_modifier = {name = flottenbasis1_dock_bonus_1 duration = -1 hidden = yes}}
+				}
+			}
 		}
 	}
 }
@@ -7445,29 +6911,73 @@ province_event = {	#
 	hidden = yes
 
 	trigger = {
-		owner = {
-			has_idea = flottenbasis4
-		}
-		NOT = {
-			has_province_modifier = flottenbasis4_dock_bonus_3
-			has_province_modifier = flottenbasis4_dock_bonus_2
-			has_province_modifier = flottenbasis4_dock_bonus_1
-		}
 		OR = {
-			has_building = navymanpower_lvl_3
-			has_building = drydock
-			has_building = dock
+			any_owned_province = {
+				owner = {has_idea = flottenbasis4}
+				is_city = yes
+				NOT = {
+					has_province_modifier = flottenbasis4_dock_bonus_3
+					has_province_modifier = flottenbasis4_dock_bonus_2
+					has_province_modifier = flottenbasis4_dock_bonus_1
+				}
+				OR = {
+					has_building = navymanpower_lvl_3
+					has_building = drydock
+					has_building = dock
+				}
+			}
+			any_owned_province = {
+				OR = {
+					has_province_modifier = flottenbasis4_dock_bonus_3
+					has_province_modifier = flottenbasis4_dock_bonus_2
+					has_province_modifier = flottenbasis4_dock_bonus_1
+				}
+				OR = {
+					NOT = {
+						has_building = navymanpower_lvl_3
+						has_building = drydock
+						has_building = dock
+					}
+					NOT = {owner = {has_idea = flottenbasis4}}
+				}
+			}
 		}
 	}
 	mean_time_to_happen = {months = 1}
 
 	option = {
 		name = bertus_changes.6048.a
-		trigger_switch = {
-			on_trigger = has_building
-			navymanpower_lvl_3 = {add_province_modifier = {name = flottenbasis4_dock_bonus_3 duration = -1 hidden = yes}}
-			drydock = {add_province_modifier = {name = flottenbasis4_dock_bonus_2 duration = -1 hidden = yes}}
-			dock = {add_province_modifier = {name = flottenbasis4_dock_bonus_1 duration = -1 hidden = yes}}
+		every_owned_province = {
+			limit = {
+				OR = {
+					has_province_modifier = flottenbasis4_dock_bonus_3
+					has_province_modifier = flottenbasis4_dock_bonus_2
+					has_province_modifier = flottenbasis4_dock_bonus_1
+				}
+			}
+			remove_province_modifier = flottenbasis4_dock_bonus_3
+			remove_province_modifier = flottenbasis4_dock_bonus_2
+			remove_province_modifier = flottenbasis4_dock_bonus_1
+		}
+		if = {
+			limit = {
+				has_idea = flottenbasis4
+			}
+			every_owned_province = {
+				limit = {
+					OR = {
+						has_building = navymanpower_lvl_3
+						has_building = drydock
+						has_building = dock
+					}
+				}
+				trigger_switch = {
+					on_trigger = has_building
+					navymanpower_lvl_3 = {add_province_modifier = {name = flottenbasis4_dock_bonus_3 duration = -1 hidden = yes}}
+					drydock = {add_province_modifier = {name = flottenbasis4_dock_bonus_2 duration = -1 hidden = yes}}
+					dock = {add_province_modifier = {name = flottenbasis4_dock_bonus_1 duration = -1 hidden = yes}}
+				}
+			}
 		}
 	}
 }

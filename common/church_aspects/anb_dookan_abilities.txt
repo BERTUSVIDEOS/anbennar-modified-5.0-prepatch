@@ -1,13 +1,11 @@
 
-find_reincarnated_warrior_aspect = {
+find_reincarnated_warrior_aspect = {	# →bertus mod
 	sprite = "GFX_reincarnated_warrior"
 	cost = 400	#50→400
 	
 	trigger = {
-		NOT = {has_country_modifier = dookan_gather_great_host}
 	}
 	effect = {
-		#create_general = { tradition = 40 }	# →bertus mod
 		custom_tooltip = great_dookan_general_tt
 		hidden_effect = {
 			set_country_flag = find_reincarnated_warrior_aspect_flag
@@ -25,6 +23,7 @@ gather_great_host_great_aspect = {
 	cost = 200
 	
 	trigger = {
+		NOT = {has_country_modifier = dookan_gather_great_host}
 		NOT = { manpower_percentage = 1 }
 	}
 	
@@ -55,6 +54,7 @@ gather_great_host_old_aspect = {
 	cost = 200
 	
 	trigger = {
+		NOT = {has_country_modifier = dookan_gather_great_host}
 		NOT = { manpower_percentage = 1 }
 	}
 	
@@ -221,11 +221,12 @@ anoint_slave_herd_great = {
 	cost = 100
 	
 	trigger = {
-		#any_owned_province = {	#bertus mod
-		#	trade_goods = slaves
-		#}
-		NOT = {
-			has_country_flag = anoint_slave_herd_great_flag
+		NOT = {has_country_flag = anoint_slave_herd_great_flag}
+		any_owned_province = {
+			has_owner_accepted_culture = yes
+			religion = ROOT
+			NOT = {has_province_modifier = dookan_anointed_slave_herd}
+			is_city = yes
 		}
 	}
 
@@ -251,12 +252,7 @@ anoint_slave_herd_old = {
 	cost = 100
 	
 	trigger = {
-		#any_owned_province = {	#bertus mod
-		#	trade_goods = slaves
-		#}
-		NOT = {
-			has_country_flag = anoint_slave_herd_great_flag
-		}
+		NOT = {has_country_flag = anoint_slave_herd_great_flag}
 	}
 
 	effect = {
@@ -315,19 +311,17 @@ shake_the_earth_great = {
 	sprite = "GFX_shake_the_earth_great"
 	cost = 100
 
+	trigger = {
+		NOT = {has_country_flag = dookan_shake_the_earth}
+	}
 	effect = {
+		set_country_flag = shake_the_earth_great_flag
 		country_event = { id = great_dookan_events.11 }
 	}
 	
 	# This needs to be province scope
 	ai_will_do = {
 		factor = 0
-	# 	modifier = {
-	# 		factor = 100
-	# 		any_army = {
-	# 			unit_in_siege = yes
-	# 		}
-	# 	}
 	}
 }
 
@@ -335,7 +329,11 @@ shake_the_earth_old = {
 	sprite = "GFX_shake_the_earth_old"
 	cost = 100
 
+	trigger = {
+		NOT = {has_country_flag = dookan_shake_the_earth}
+	}
 	effect = {
+		set_country_flag = shake_the_earth_great_flag
 		country_event = { id = great_dookan_events.11 }
 	}
 }
@@ -345,6 +343,7 @@ ask_for_dookan_guidance = {
 	cost = 200
 
 	effect = {
+		set_country_flag = ask_for_dookan_guidance_flag
 		country_event = { id = great_dookan_events.12 }
 	}
 	

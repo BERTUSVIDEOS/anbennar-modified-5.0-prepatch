@@ -143,6 +143,10 @@ on_startup = {
 		country_event = {
 			id = sjr_lorent_set_up.3			#bertus mod
 		}
+		country_event = {	#bertus mod: setup global
+			id = bertus_changes.1099	
+			days = 1	
+		}
 	}
 	country_event = {	#update_artifice_points = yes
 		id = anbennar_setup.20
@@ -155,71 +159,6 @@ on_startup = {
 	country_event = {	#enslavement
 		id = bertus_changes.1121
 		days = 5
-	}
-	if = {	# Add wine to Wine Lords
-		limit = {
-			NOT = { is_year = 1445 }
-			has_government_attribute = winelord_boost
-		}
-		every_owned_province = {
-			limit = {
-				trade_goods = wine
-			}
-			add_province_modifier = {
-				name = wine_lord_wine
-				duration = -1
-				hidden = yes
-			}
-		}
-	}
-	if = {	# Add bulwar gov cost to phoenix empire
-		limit = {
-			NOT = { is_year = 1445 }
-			has_government_attribute = bulwar_reduced_governing_cost
-		}
-		every_owned_province = {
-			limit = {
-				superregion = bulwar_superregion
-			}
-			add_province_modifier = {
-				name = phoenix_empire_bulwar_gov_cost_modifier
-				duration = -1
-				hidden = yes
-			}
-		}
-	}
-	if = {	# Add modifier to Oak Lords
-		limit = {
-			NOT = { is_year = 1445 }
-			has_government_attribute = oak_lord_boost
-		}
-		every_owned_province = {
-			limit = {
-				trade_goods = tropical_wood
-			}
-			add_province_modifier = {
-				name = oak_lord_province_modifier
-				duration = -1
-				hidden = yes
-			}
-		}
-	}
-	if = {
-		limit = {
-			NOT = { is_year = 1445 }
-			has_government_attribute = temples_modifier
-		}	
-		hidden_effect = {
-			every_owned_province = {
-				limit = {
-					has_tax_building_trigger = yes
-				}
-				add_province_modifier = {
-					name = gov_expanded_temple_rights_mod
-					duration = -1
-				}				
-			}		
-		}
 	}
 	A13 = {	#Derek Deland Setup and explanation
 		country_event = {
@@ -245,10 +184,6 @@ on_startup = {
 			days = 30
 		}
 	}
-
-	# every_country = {
-		# country_event = { id = anbennar_setup.9 days = 2 }
-	# }
 
 	if = {
 		limit = {
@@ -455,13 +390,6 @@ on_startup = {
 	#bertus mod#	country_event = { id = racial_modifiers.7 days = 1 } #Save primary culture
 	#########     Racial Pop Stuff     ###########
 
-	if = {
-		limit = {
-			has_dlc = "Cradle of Civilization"
-			has_country_modifier = tur_janissary
-		}
-		remove_country_modifier = tur_janissary
-	}
 	# initialize_schools_effect = yes #This is only used here but is used for readability of on_action file.
 	anb_initialize_schools_effect = yes
 	if = {
@@ -9152,6 +9080,16 @@ on_culture_promoted = {
 	update_nsc_level_secondary_effects = yes
 
 	#bertus mod
+	remove_country_modifier = cultural_bureaucracy_20
+	remove_country_modifier = cultural_bureaucracy_19
+	remove_country_modifier = cultural_bureaucracy_18
+	remove_country_modifier = cultural_bureaucracy_17
+	remove_country_modifier = cultural_bureaucracy_16
+	remove_country_modifier = cultural_bureaucracy_15
+	remove_country_modifier = cultural_bureaucracy_14
+	remove_country_modifier = cultural_bureaucracy_13
+	remove_country_modifier = cultural_bureaucracy_12
+	remove_country_modifier = cultural_bureaucracy_11
 	remove_country_modifier = cultural_bureaucracy_10
 	remove_country_modifier = cultural_bureaucracy_9
 	remove_country_modifier = cultural_bureaucracy_8
@@ -9168,6 +9106,16 @@ on_culture_promoted = {
 		}
 		trigger_switch = {
 			on_trigger = num_accepted_cultures
+			20 = {add_country_modifier = {name = cultural_bureaucracy_20 duration = -1 hidden = yes}}
+			19 = {add_country_modifier = {name = cultural_bureaucracy_19 duration = -1 hidden = yes}}
+			18 = {add_country_modifier = {name = cultural_bureaucracy_18 duration = -1 hidden = yes}}
+			17 = {add_country_modifier = {name = cultural_bureaucracy_17 duration = -1 hidden = yes}}
+			16 = {add_country_modifier = {name = cultural_bureaucracy_16 duration = -1 hidden = yes}}
+			15 = {add_country_modifier = {name = cultural_bureaucracy_15 duration = -1 hidden = yes}}
+			14 = {add_country_modifier = {name = cultural_bureaucracy_14 duration = -1 hidden = yes}}
+			13 = {add_country_modifier = {name = cultural_bureaucracy_13 duration = -1 hidden = yes}}
+			12 = {add_country_modifier = {name = cultural_bureaucracy_12 duration = -1 hidden = yes}}
+			11 = {add_country_modifier = {name = cultural_bureaucracy_11 duration = -1 hidden = yes}}
 			10 = {add_country_modifier = {name = cultural_bureaucracy_10 duration = -1 hidden = yes}}
 			9 = {add_country_modifier = {name = cultural_bureaucracy_9 duration = -1 hidden = yes}}
 			8 = {add_country_modifier = {name = cultural_bureaucracy_8 duration = -1 hidden = yes}}
@@ -9205,41 +9153,6 @@ on_culture_demoted = {
 	# judaism_on_culture_country_effect = yes #Anbennar
 	# imperial_modifiers_on_culture_country_effect = yes #Anbennar
 	on_culture_demoted_effect = yes
-	remove_country_modifier = cultural_bureaucracy_10
-	remove_country_modifier = cultural_bureaucracy_9
-	remove_country_modifier = cultural_bureaucracy_8
-	remove_country_modifier = cultural_bureaucracy_7
-	remove_country_modifier = cultural_bureaucracy_6
-	remove_country_modifier = cultural_bureaucracy_5
-	remove_country_modifier = cultural_bureaucracy_4
-	remove_country_modifier = cultural_bureaucracy_3
-	remove_country_modifier = cultural_bureaucracy_2
-	remove_country_modifier = cultural_bureaucracy_1
-	if = {	#bertus mod
-		limit = {
-			has_government_attribute = cultural_bureaucracy
-		}
-		trigger_switch = {
-			on_trigger = num_accepted_cultures
-			10 = {add_country_modifier = {name = cultural_bureaucracy_10 duration = -1 hidden = yes}}
-			9 = {add_country_modifier = {name = cultural_bureaucracy_9 duration = -1 hidden = yes}}
-			8 = {add_country_modifier = {name = cultural_bureaucracy_8 duration = -1 hidden = yes}}
-			7 = {add_country_modifier = {name = cultural_bureaucracy_7 duration = -1 hidden = yes}}
-			6 = {add_country_modifier = {name = cultural_bureaucracy_6 duration = -1 hidden = yes}}
-			5 = {add_country_modifier = {name = cultural_bureaucracy_5 duration = -1 hidden = yes}}
-			4 = {add_country_modifier = {name = cultural_bureaucracy_4 duration = -1 hidden = yes}}
-			3 = {add_country_modifier = {name = cultural_bureaucracy_3 duration = -1 hidden = yes}}
-			2 = {add_country_modifier = {name = cultural_bureaucracy_2 duration = -1 hidden = yes}}
-			1 = {add_country_modifier = {name = cultural_bureaucracy_1 duration = -1 hidden = yes}}
-		}
-	}
-	if = {
-		limit = {
-			NOT = {num_accepted_cultures = 5}
-			has_country_modifier = humanist_bonus
-		}
-		remove_country_modifier = humanist_bonus
-	}
 }
 
 # ROOT = country

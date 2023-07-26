@@ -58,8 +58,7 @@ country_event = {
 	option = {
 		name = great_dookan_events.3.a
 		
-		add_yearly_manpower = 2	#5→2
-		#add_army_professionalism = -0.025	#-0.025→0
+		add_yearly_manpower = 2
 		add_country_modifier = {
 			name = dookan_gather_great_host
 			duration = 730
@@ -77,6 +76,13 @@ country_event = {
 	is_triggered_only = yes
 	major = no
 	
+	immediate = {
+		if = {
+			limit = {NOT = {has_country_flag = glorious_looting_aspect_flag}}
+			add_church_power = -25
+		}
+		clr_country_flag = glorious_looting_aspect_flag
+	}
 	option = {
 		name = great_dookan_events.4.a
 		
@@ -85,25 +91,13 @@ country_event = {
 				controlled_by = ROOT
 				NOT = { owned_by = ROOT}
 			}
-			random_list = {
-				1 = { add_base_tax = -1 }
-				1 = { add_base_production = -1 }
-				1 = { add_base_manpower = -1 }
-			}
-			random_list = {
-				1 = { add_base_tax = -1 }
-				1 = { add_base_production = -1 }
-				1 = { add_base_manpower = -1 }
-			}
+			remove_1_dev_to_provinces = yes
+			remove_1_dev_to_provinces = yes
 			add_devastation = 50
 		}
 		
 		capital_scope = {
-			random_list = {
-				1 = { add_base_tax = 1 }
-				1 = { add_base_production = 1 }
-				1 = { add_base_manpower = 1 }
-			}
+			add_1_dev_to_provinces = yes
 		}
 	}
 }
@@ -119,9 +113,73 @@ country_event = {
 	major = no
 	hidden = yes
 	immediate = {
+		if = {
+			limit = {NOT = {has_country_flag = anoint_slave_herd_great_flag}}
+			add_church_power = -25
+		}
+		clr_country_flag = anoint_slave_herd_great_flag
 	}
 	option = { #→bertus mod
 		name = great_dookan_events.5.a
+		random_list = {
+			50 = {
+				modifier = {factor = 2.0 is_state = yes}
+				modifier = {factor = 2.0 development = 20}
+				modifier = {factor = 2.0 development = 30}
+				random_owned_province = {
+					limit = {
+						has_owner_accepted_culture = yes
+						religion = ROOT
+						NOT = {has_province_modifier = dookan_anointed_slave_herd}
+						is_city = yes
+						is_state = yes
+						development = 30
+					}
+					province_event = {id = bertus_changes.3002}
+				}
+			}
+			50 = {
+				modifier = {factor = 2.0 is_state = yes}
+				modifier = {factor = 2.0 development = 20}
+				random_owned_province = {
+					limit = {
+						has_owner_accepted_culture = yes
+						religion = ROOT
+						NOT = {has_province_modifier = dookan_anointed_slave_herd}
+						is_city = yes
+						is_state = yes
+						development = 20
+						NOT = {development = 30}
+					}
+					province_event = {id = bertus_changes.3002}
+				}
+			}
+			50 = {
+				modifier = {factor = 2.0 is_state = yes}
+				random_owned_province = {
+					limit = {
+						has_owner_accepted_culture = yes
+						religion = ROOT
+						NOT = {has_province_modifier = dookan_anointed_slave_herd}
+						is_city = yes
+						is_state = yes
+						NOT = {development = 20}
+					}
+					province_event = {id = bertus_changes.3002}
+				}
+			}
+			50 = {
+				random_owned_province = {
+					limit = {
+						has_owner_accepted_culture = yes
+						religion = ROOT
+						NOT = {has_province_modifier = dookan_anointed_slave_herd}
+						is_city = yes
+					}
+					province_event = {id = bertus_changes.3002}
+				}
+			}
+		}
 	}
 }
 
@@ -159,17 +217,17 @@ country_event = {
 		if = {limit = {mil_tech = 32} add_country_modifier = {name = shock_omen_of_strength_tech_32 duration = -1 hidden = yes}}
 		else_if = {limit = {mil_tech = 30}	add_country_modifier = {name = shock_omen_of_strength_tech_30 duration = -1 hidden = yes}}
 		else_if = {limit = {mil_tech = 28}	add_country_modifier = {name = shock_omen_of_strength_tech_28 duration = -1 hidden = yes}}
-		else_if = {limit = {mil_tech = 26} add_country_modifier = {name = shock_omen_of_strength_tech_26 duration = -1 hidden = yes}}
-		else_if = {limit = {mil_tech = 22} add_country_modifier = {name = shock_omen_of_strength_tech_22 duration = -1 hidden = yes}}
+		else_if = {limit = {mil_tech = 26}	add_country_modifier = {name = shock_omen_of_strength_tech_26 duration = -1 hidden = yes}}
+		else_if = {limit = {mil_tech = 22}	add_country_modifier = {name = shock_omen_of_strength_tech_22 duration = -1 hidden = yes}}
 		else_if = {limit = {mil_tech = 21}	add_country_modifier = {name = shock_omen_of_strength_tech_21 duration = -1 hidden = yes}}
-		else_if = {limit = {mil_tech = 18} add_country_modifier = {name = shock_omen_of_strength_tech_18 duration = -1 hidden = yes}}
-		else_if = {limit = {mil_tech = 14} add_country_modifier = {name = shock_omen_of_strength_tech_14 duration = -1 hidden = yes}}
-		else_if = {limit = {mil_tech = 11} add_country_modifier = {name = shock_omen_of_strength_tech_11 duration = -1 hidden = yes}}
-		else_if = {limit = {mil_tech = 10} add_country_modifier = {name = shock_omen_of_strength_tech_10 duration = -1 hidden = yes}}
-		else_if = {limit = {mil_tech = 8} add_country_modifier = {name = shock_omen_of_strength_tech_8 duration = -1 hidden = yes}}
-		else_if = {limit = {mil_tech = 6} add_country_modifier = {name = shock_omen_of_strength_tech_6 duration = -1 hidden = yes}}
-		else_if = {limit = {mil_tech = 5} add_country_modifier = {name = shock_omen_of_strength_tech_5 duration = -1 hidden = yes}}
-		else_if = {limit = {mil_tech = 2} add_country_modifier = {name = shock_omen_of_strength_tech_2 duration = -1 hidden = yes}}
+		else_if = {limit = {mil_tech = 18}	add_country_modifier = {name = shock_omen_of_strength_tech_18 duration = -1 hidden = yes}}
+		else_if = {limit = {mil_tech = 14}	add_country_modifier = {name = shock_omen_of_strength_tech_14 duration = -1 hidden = yes}}
+		else_if = {limit = {mil_tech = 11}	add_country_modifier = {name = shock_omen_of_strength_tech_11 duration = -1 hidden = yes}}
+		else_if = {limit = {mil_tech = 10}	add_country_modifier = {name = shock_omen_of_strength_tech_10 duration = -1 hidden = yes}}
+		else_if = {limit = {mil_tech = 8}	add_country_modifier = {name = shock_omen_of_strength_tech_8 duration = -1 hidden = yes}}
+		else_if = {limit = {mil_tech = 6}	add_country_modifier = {name = shock_omen_of_strength_tech_6 duration = -1 hidden = yes}}
+		else_if = {limit = {mil_tech = 5}	add_country_modifier = {name = shock_omen_of_strength_tech_5 duration = -1 hidden = yes}}
+		else_if = {limit = {mil_tech = 2}	add_country_modifier = {name = shock_omen_of_strength_tech_2 duration = -1 hidden = yes}}
 	}
 }
 
@@ -279,9 +337,6 @@ country_event = {
 	option = {	#→bertus mod
 		name = great_dookan_events.9.a
 		
-		#create_general = {
-		#	tradition = 80
-		#}
 		country_event = {
 			id = bertus_changes.3001
 		}
@@ -340,11 +395,18 @@ country_event = {
 	is_triggered_only = yes
 	major = no
 	
+	immediate = {
+		if = {
+			limit = {NOT = {has_country_flag = shake_the_earth_great_flag}}
+			add_church_power = -25
+		}
+		clr_country_flag = shake_the_earth_great_flag
+	}
 	option = {
 		name = great_dookan_events.11.a
 		
 		add_country_modifier = {
-			name = "dookan_shake_the_earth"	#+50% siege ability
+			name = "dookan_shake_the_earth"	#+50% siege ability +100% assault
 			duration = 90
 		}
 	}
@@ -360,10 +422,17 @@ country_event = {
 	is_triggered_only = yes
 	major = no
 	
+	immediate = {
+		if = {
+			limit = {NOT = {has_country_flag = ask_for_dookan_guidance_flag}}
+			add_church_power = -50
+		}
+		clr_country_flag = ask_for_dookan_guidance_flag
+	}
 	option = {	#→bertus mod
 		name = great_dookan_events.12.a
 		ai_chance = {
-			factor = 100
+			factor = 10
 			modifier = {
 				factor = 0
 				is_at_war = no
@@ -376,14 +445,12 @@ country_event = {
 		}
 		remove_country_modifier = dookans_guidance_peace
 		remove_country_modifier = dookan_omen_of_peace
-		remove_country_modifier = dookan_omen_of_wisdom_adm
-		remove_country_modifier = dookan_omen_of_wisdom_dip
 	}
 	
 	option = {	#→bertus mod
 		name = great_dookan_events.12.b
 		ai_chance = {
-			factor = 100
+			factor = 10
 			modifier = {
 				factor = 0
 				is_at_war = yes
@@ -418,7 +485,6 @@ country_event = {
 		remove_country_modifier = shock_omen_of_strength_tech_28
 		remove_country_modifier = shock_omen_of_strength_tech_30
 		remove_country_modifier = shock_omen_of_strength_tech_32
-		remove_country_modifier = dookan_omen_of_wisdom_mil
 	}
 	after = {	#→bertus mod
 		hidden_effect = {
@@ -454,6 +520,9 @@ country_event = {
 		months = 1
 	}
 	
+	immediate = {
+		clr_country_flag = dookan_is_angry_flag
+	}
 	option = {
 		name = great_dookan_events.13.a
 		
@@ -466,7 +535,6 @@ country_event = {
 			name = "dookans_mercy"	#+100% tax, +100% manpower recovery, -2.5% all power cost for 1 year
 			duration = 365
 		}
-		clr_country_flag = dookan_is_angry_flag
 	}
 }
 
@@ -518,8 +586,6 @@ country_event = {	#→bertus mod
 	
 	trigger = {
 	}
-	mean_time_to_happen = {
-	}
 	
 	option = {
 		name = great_dookan_events.15.a
@@ -546,38 +612,14 @@ country_event = {	#→bertus mod
 	desc = great_dookan_events.16.desc
 	picture = FAMINE_eventPicture
 		
-	trigger = {
-		OR = {
-			has_country_flag = look_for_omens_flag
-			has_reform = shaman_control_the_military_reform
-		}
-	}
-	mean_time_to_happen = {
-		months = 120
-		modifier = {
-			factor = 0.90
-			church_power = 300
-		}
-		modifier = {
-			factor = 0.50
-			church_power = 400
-		}
-		modifier = {
-			factor = 1.1
-			NOT = {religious_unity = 90}
-		}
-		modifier = {
-			factor = 1.2
-			NOT = {religious_unity = 75}
-		}
-		modifier = {
-			factor = 2.0
-			NOT = {religious_unity = 50}
-		}
-	}
+	is_triggered_only = yes
 	hidden = yes
+
 	option = {
 		name = great_dookan_events.16.a
+		trigger = {
+			NOT = { has_country_modifier = dookan_omen_of_strength }
+		}
 		ai_chance = {
 			factor = 100
 			modifier = {
@@ -590,6 +632,9 @@ country_event = {	#→bertus mod
 		country_event = { id = great_dookan_events.6 }
 	}
 	option = {
+		trigger = {
+			NOT = { has_country_modifier = dookan_omen_of_peace }
+		}
 		name = great_dookan_events.16.a
 		ai_chance = {
 			factor = 100
@@ -608,16 +653,10 @@ country_event = {	#→bertus mod
 	}
 	option = {
 		name = great_dookan_events.16.a
-		ai_chance = {
-			factor = 100
-			modifier = {
-				factor = 0.5
-				is_at_war = yes
-			}
-			modifier = {
-				factor = 2
-				is_at_war = no
-			}
+		trigger = {
+			NOT = { has_country_modifier = dookan_omen_of_wisdom_adm }
+			NOT = { has_country_modifier = dookan_omen_of_wisdom_dip }
+			NOT = { has_country_modifier = dookan_omen_of_wisdom_mil }
 		}
 		
 		custom_tooltip = dookan_look_for_omens_tooltip
@@ -625,6 +664,9 @@ country_event = {	#→bertus mod
 	}
 	option = {
 		name = great_dookan_events.16.a
+		trigger = {
+			NOT = { has_country_modifier = dookan_omen_of_destiny }
+		}
 		ai_chance = {
 			factor = 100
 			modifier = {
@@ -638,6 +680,12 @@ country_event = {	#→bertus mod
 	}
 	option = {
 		name = great_dookan_events.16.a
+		trigger = {
+			NOT = { has_country_modifier = dookan_omen_of_calamity }
+			NOT = { has_country_modifier = dookan_no_omen }
+			NOT = { has_country_modifier = dookans_mercy }
+			NOT = { has_country_flag = dookan_is_angry_flag }
+		}
 		ai_chance = {
 			factor = 50
 		}
@@ -649,7 +697,7 @@ country_event = {	#→bertus mod
 		clr_country_flag = look_for_omens_flag
 	}
 }
-# Dookan's Guidance
+# Assemble shamans
 country_event = {	#→bertus mod
 	id = great_dookan_events.17
 	title = great_dookan_events.17.t
@@ -659,10 +707,17 @@ country_event = {	#→bertus mod
 	is_triggered_only = yes
 	major = no
 	
+	immediate = {
+		if = {
+			limit = {NOT = {has_country_flag = assemble_shamans_great_aspect_flag}}
+			add_church_power = -25
+		}
+		clr_country_flag = assemble_shamans_great_aspect_flag
+	}
 	option = {
 		name = great_dookan_events.17.a
 		add_country_modifier = {
-			name = "assemble_shamans_aspect_modifier"	#+100% army tradition from battles, +15% morale, +10% shock damage, -10% shock damage received for 5 years
+			name = "assemble_shamans_aspect_modifier"
 			duration = 3650
 		}
 	}

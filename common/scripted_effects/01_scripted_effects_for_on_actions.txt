@@ -154,6 +154,43 @@ succession_culture_religion_effect = {
 on_province_owner_change_government_effect = {
 	if = {
 		limit = {
+			is_part_of_hre = yes
+			owner = {is_part_of_hre = yes}
+			NOT = {has_province_modifier = empire_centralization_modifier}
+			has_province_flag = empire_centralization_province_flag
+		}
+		add_province_modifier = {name = empire_centralization_modifier duration = -1}
+	}
+	if = {
+		limit = {
+			NOT = {has_province_modifier = flottenbasis1_dock_bonus_3}
+			NOT = {has_province_modifier = flottenbasis1_dock_bonus_2}
+			NOT = {has_province_modifier = flottenbasis1_dock_bonus_1}
+			owner = {has_idea = flottenbasis1}
+		}
+		trigger_switch = {
+			on_trigger = has_building
+			navymanpower_lvl_3 = {add_province_modifier = {name = flottenbasis1_dock_bonus_3 duration = -1 hidden = yes}}
+			drydock = {add_province_modifier = {name = flottenbasis1_dock_bonus_2 duration = -1 hidden = yes}}
+			dock = {add_province_modifier = {name = flottenbasis1_dock_bonus_1 duration = -1 hidden = yes}}
+		}
+	}
+	if = {
+		limit = {
+			NOT = {has_province_modifier = flottenbasis4_dock_bonus_3}
+			NOT = {has_province_modifier = flottenbasis4_dock_bonus_2}
+			NOT = {has_province_modifier = flottenbasis4_dock_bonus_1}
+			owner = {has_idea = flottenbasis4}
+		}
+		trigger_switch = {
+			on_trigger = has_building
+			navymanpower_lvl_3 = {add_province_modifier = {name = flottenbasis4_dock_bonus_3 duration = -1 hidden = yes}}
+			drydock = {add_province_modifier = {name = flottenbasis4_dock_bonus_2 duration = -1 hidden = yes}}
+			dock = {add_province_modifier = {name = flottenbasis4_dock_bonus_1 duration = -1 hidden = yes}}
+		}
+	}
+	if = {
+		limit = {
 			owner = {
 				is_part_of_hre = yes
 				has_global_flag = xenophobe_weddings_hre_flag
@@ -860,6 +897,105 @@ on_battle_ended_effect = {
 
 #Country effect
 on_culture_demoted_effect = {
+	remove_country_modifier = cultural_bureaucracy_20
+	remove_country_modifier = cultural_bureaucracy_19
+	remove_country_modifier = cultural_bureaucracy_18
+	remove_country_modifier = cultural_bureaucracy_17
+	remove_country_modifier = cultural_bureaucracy_16
+	remove_country_modifier = cultural_bureaucracy_15
+	remove_country_modifier = cultural_bureaucracy_14
+	remove_country_modifier = cultural_bureaucracy_13
+	remove_country_modifier = cultural_bureaucracy_12
+	remove_country_modifier = cultural_bureaucracy_11
+	remove_country_modifier = cultural_bureaucracy_10
+	remove_country_modifier = cultural_bureaucracy_9
+	remove_country_modifier = cultural_bureaucracy_8
+	remove_country_modifier = cultural_bureaucracy_7
+	remove_country_modifier = cultural_bureaucracy_6
+	remove_country_modifier = cultural_bureaucracy_5
+	remove_country_modifier = cultural_bureaucracy_4
+	remove_country_modifier = cultural_bureaucracy_3
+	remove_country_modifier = cultural_bureaucracy_2
+	remove_country_modifier = cultural_bureaucracy_1
+	if = {	#bertus mod
+		limit = {
+			has_government_attribute = cultural_bureaucracy
+		}
+		trigger_switch = {
+			on_trigger = num_accepted_cultures
+			10 = {add_country_modifier = {name = cultural_bureaucracy_10 duration = -1 hidden = yes}}
+			9 = {add_country_modifier = {name = cultural_bureaucracy_9 duration = -1 hidden = yes}}
+			8 = {add_country_modifier = {name = cultural_bureaucracy_8 duration = -1 hidden = yes}}
+			7 = {add_country_modifier = {name = cultural_bureaucracy_7 duration = -1 hidden = yes}}
+			6 = {add_country_modifier = {name = cultural_bureaucracy_6 duration = -1 hidden = yes}}
+			5 = {add_country_modifier = {name = cultural_bureaucracy_5 duration = -1 hidden = yes}}
+			4 = {add_country_modifier = {name = cultural_bureaucracy_4 duration = -1 hidden = yes}}
+			3 = {add_country_modifier = {name = cultural_bureaucracy_3 duration = -1 hidden = yes}}
+			2 = {add_country_modifier = {name = cultural_bureaucracy_2 duration = -1 hidden = yes}}
+			1 = {add_country_modifier = {name = cultural_bureaucracy_1 duration = -1 hidden = yes}}
+		}
+	}
+	if = {
+		limit = {
+			NOT = {num_accepted_cultures = 5}
+			has_country_modifier = humanist_bonus
+		}
+		remove_country_modifier = humanist_bonus
+	}
+	if = { #Lake Fed citizens MT
+		limit = {
+			has_country_modifier = federation_come_to_accept_1
+			OR = {
+				NOT = {
+					accepted_culture = tuugalak
+				}
+				NOT = {
+					accepted_culture = mogirga
+				}
+				NOT = {
+					accepted_culture = ulukungu
+				}
+			}
+		}
+		remove_country_modifier = federation_come_to_accept_1
+	}
+	if = { #Lake Fed citizens MT
+		limit = {
+			has_country_modifier = federation_come_to_accept_2
+			OR = {
+				NOT = {
+					accepted_culture = shuvuush
+				}
+				NOT = {
+					accepted_culture = runsukhi
+				}
+			}
+		}
+		remove_country_modifier = federation_come_to_accept_2
+	}
+	if = { #Lake Fed citizens MT
+		limit = {
+			has_country_modifier = federation_come_to_accept_3
+			OR = {
+				NOT = {
+					accepted_culture = tuugalak
+				}
+				NOT = {
+					accepted_culture = mogirga
+				}
+				NOT = {
+					accepted_culture = ulukungu
+				}
+				NOT = {
+					accepted_culture = shuvuush
+				}
+				NOT = {
+					accepted_culture = runsukhi
+				}
+			}
+		}
+		remove_country_modifier = federation_come_to_accept_3
+	}
 }
 
 
