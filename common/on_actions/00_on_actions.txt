@@ -7486,6 +7486,8 @@ on_province_religion_changed = {
 on_province_culture_converted = {
 	bertus_dev_reduction = {value = 0.5}	#bertus mod 
 	remove_province_modifier_effect = {MODIFIER = centralized_provinces_modifier}
+	remove_province_modifier_effect = {MODIFIER = centralized_province}
+	remove_province_modifier_effect = {MODIFIER = zentra_dev}
 	remove_province_modifier_effect = {MODIFIER = noble_castles_boost_modifier}
 	province_event = {id = bertus_pops.1038}
 	on_development_modifiers_effect = yes
@@ -10297,6 +10299,12 @@ on_estate_removed = {
 
 ##scope = colony province, FROM = owner country or province if there's a minority expulsion source, fires when the colony is created 1.35
 on_colony_established = {
+	if = {	#bertus mod
+		limit = {
+			owner = {has_idea = A01_scions_of_elvenkind}
+		}
+		add_elven_minority_size_effect = yes
+	}
 }
 
 #scope = new country, FROM = parent country 1.35
@@ -10522,18 +10530,24 @@ on_adm_exploited = {
 		}
 	}
 	remove_province_modifier_effect = {MODIFIER = centralized_provinces_modifier}
+	remove_province_modifier_effect = {MODIFIER = centralized_province}
+	remove_province_modifier_effect = {MODIFIER = zentra_dev}
 	on_adm_development_modifiers_effect = yes
 	on_development_modifiers_effect = yes
 }
 
 on_dip_exploited = {
 	remove_province_modifier_effect = {MODIFIER = centralized_provinces_modifier}
+	remove_province_modifier_effect = {MODIFIER = centralized_province}
+	remove_province_modifier_effect = {MODIFIER = zentra_dev}
 	on_dip_development_modifiers_effect = yes
 	on_development_modifiers_effect = yes
 }
 
 on_mil_exploited = {
 	remove_province_modifier_effect = {MODIFIER = centralized_provinces_modifier}
+	remove_province_modifier_effect = {MODIFIER = centralized_province}
+	remove_province_modifier_effect = {MODIFIER = zentra_dev}
 	on_mil_development_modifiers_effect = yes
 	on_development_modifiers_effect = yes
 }
