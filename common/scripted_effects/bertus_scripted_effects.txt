@@ -2501,21 +2501,28 @@ add_racial_superiority_modifier = {
 	}
 }
 remove_racial_culture = {
-	small_decrease_of_$race$_tolerance_effect = yes
 	if = {
 		limit = {
-			any_owned_province = {					
+			any_owned_province = {
 				culture_is_$race$ = yes
 				owner = {accepted_culture = PREV}
 			}
 		}
-		custom_tooltip = remove_$race$_culture_tooltip
-		every_owned_province = {
+		custom_tooltip = $race$_culture_removal_tt
+		while = {
 			limit = {
-				culture_is_$race$ = yes
-				owner = {accepted_culture = PREV}
+				any_owned_province = {
+					culture_is_$race$ = yes
+					owner = {accepted_culture = PREV}
+				}
 			}
-			owner = {remove_accepted_culture = PREV}
+			random_owned_province = {
+				limit = {
+					culture_is_$race$ = yes
+					owner = {accepted_culture = PREV}
+				}
+				owner = {remove_accepted_culture = PREV}
+			}
 		}
 	}
 }
