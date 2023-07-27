@@ -4160,33 +4160,21 @@ on_dismantle_revolution = {
 on_adm_development = {
 	on_adm_development_effect = yes
 	on_adm_development_extra_dev_effect = yes
-	on_adm_development_modifiers_effect = yes
-	on_development_modifiers_effect = yes
+	anb_on_development_effect = {development = tax}
+	
+	jaddari_deioderan_dev_counter_update = yes
 
 	#Anbennar
 	events = {
 		flavour_mulen.1
 		flavour_mulen.2
+		bertus_pops.1041	#base tax modifiers
+		bertus_pops.1040	#development based modifiers
+		bertus_pops.1050	#on dev increase modifiers
 	}
 	if = {
 		limit = { owner = { has_estate_privilege = estate_wolf_command_war_room_rights } }
 		owner = { add_legitimacy = 1 }
-	}
-	if = {
-		limit = { has_province_modifier = jaddari_blessed_land }
-		random = {
-			chance = 25
-			add_base_tax = 1
-		}
-	}
-	jaddari_deioderan_dev_counter_update = yes
-	# if = {
-		# limit = { owner = { has_country_flag = federation_state_council } }
-		# governing_point_adm = yes
-	# }
-	
-	anb_on_development_effect = {
-		development = tax
 	}
 }
 
@@ -4194,44 +4182,36 @@ on_adm_development = {
 on_dip_development = {
 	on_dip_development_effect = yes
 	on_dip_development_extra_dev_effect = yes
-	on_dip_development_modifiers_effect = yes
-	on_development_modifiers_effect = yes
+	anb_on_development_effect = {development = production}
 
 	#Anbennar
 	events = {
 		flavour_mulen.1
 		flavour_mulen.2
+		bertus_pops.1042	#base production modifiers
+		bertus_pops.1040	#development based modifiers
+		bertus_pops.1050	#on dev increase modifiers
 	}
 	jaddari_deioderan_dev_counter_update = yes
-	# if = {
-		# limit = { owner = { has_country_flag = federation_state_council } }
-		# governing_point_dip = yes
-	# }
-	
-	anb_on_development_effect = {
-		development = production
-	}
 }
 
 # province
 on_mil_development = {
 	on_mil_development_effect = yes
 	on_mil_development_extra_dev_effect = yes
-	on_mil_development_modifiers_effect = yes
-	on_development_modifiers_effect = yes
+	anb_on_development_effect = {development = manpower}
 
 	#Anbennar
 	events = {
 		flavour_mulen.1
 		flavour_mulen.2
+		bertus_pops.1043	#base manpower modifiers
+		bertus_pops.1040	#development based modifiers
+		bertus_pops.1050	#on dev increase modifiers
 	}
 	if = {
 		limit = { owner = { has_estate_privilege = estate_boar_command_war_room_rights } }
 		owner = { add_legitimacy = 1 }
-	}
-	
-	anb_on_development_effect = {
-		development = manpower
 	}
 }
 
@@ -7485,17 +7465,18 @@ on_province_religion_changed = {
 # province
 on_province_culture_converted = {
 	bertus_dev_reduction = {value = 0.5}	#bertus mod 
-	remove_province_modifier_effect = {MODIFIER = centralized_provinces_modifier}
-	remove_province_modifier_effect = {MODIFIER = centralized_province}
-	remove_province_modifier_effect = {MODIFIER = zentra_dev}
 	remove_province_modifier_effect = {MODIFIER = noble_castles_boost_modifier}
-	province_event = {id = bertus_pops.1038}
-	on_development_modifiers_effect = yes
-	on_adm_development_modifiers_effect = yes
-	on_dip_development_modifiers_effect = yes
-	on_mil_development_modifiers_effect = yes
+
+	events = {
+		bertus_pops.1038	#pop updater
+		bertus_pops.1048	#on dev reduction conditional modifiers
+		bertus_pops.1040	#development based modifiers
+		bertus_pops.1041	#base tax modifiers
+		bertus_pops.1042	#base production modifiers
+		bertus_pops.1043	#base manpower modifiers
+		bertus_pops.1039	#climate & terrain preferences updater
+	}
 	add_province_modifier = {name = non_military_pop duration = -1}
-	climate_and_terrain_preferences = yes
 	on_province_culture_converted_estate_privilges_effect = yes
 	on_province_culture_change_effect = yes #1.35
 
@@ -7509,6 +7490,17 @@ on_province_culture_converted = {
 	}
 	xhazobkult_set_appropriate_modifier = yes
 
+	if = {
+		limit = {
+			owner = { has_country_flag = phoenix_empire_the_sun_outshines_the_moon_flag }
+			has_province_modifier = phoenix_empire_the_sun_outshines_the_moon
+			culture = sun_elf
+		}
+		hidden_effect = {
+			remove_province_modifier = phoenix_empire_the_sun_outshines_the_moon
+			owner = { add_adm_power = 25 }
+		}
+	}
 	if = {
 		limit = {
 			owner = { tag = B32 }
@@ -7564,14 +7556,16 @@ on_province_culture_converted = {
 # province, general conversion through effects 1.35
 on_province_culture_changed = {
 	remove_province_modifier_effect = {MODIFIER = noble_castles_boost_modifier}
-	province_event = {id = bertus_pops.1038}
 	on_province_culture_converted_estate_privilges_effect = yes
 	on_province_culture_change_effect = yes
-	on_development_modifiers_effect = yes
-	on_adm_development_modifiers_effect = yes
-	on_dip_development_modifiers_effect = yes
-	on_mil_development_modifiers_effect = yes
-	climate_and_terrain_preferences = yes
+	events = {
+		bertus_pops.1038
+		bertus_pops.1040	#development based modifiers
+		bertus_pops.1041	#base tax modifiers
+		bertus_pops.1042	#base production modifiers
+		bertus_pops.1043	#base manpower modifiers
+		bertus_pops.1039	#climate & terrain preferences updater
+	}
 	add_province_modifier = {name = non_military_pop duration = -1}
 }
 
@@ -7590,25 +7584,21 @@ on_province_owner_change = {
 		spirits.006 #Temple restoration/corruption/purification cleanup
 		spirits.010 #More temple stuff
 		flavor_nuugdan_tsarai.84 #fanwang system
+		bertus_pops.1040	#development based modifiers
+		bertus_pops.1041	#base tax modifiers
+		bertus_pops.1042	#base production modifiers
+		bertus_pops.1043	#base manpower modifiers
+		bertus_pops.1050	#on dev increase modifiers
 	}
 	on_province_owner_change_government_effect = yes
 	on_province_owner_change_estate_privileges_effect = yes
-	on_development_modifiers_effect = yes
-	on_adm_development_modifiers_effect = yes
-	on_dip_development_modifiers_effect = yes
-	on_mil_development_modifiers_effect = yes
+	
 	
 
 	#Anbennar
 	add_province_modifier = {	#bertus mod
 		name = non_military_pop
 		duration = -1
-	}
-	if = {	#bertus mod
-		limit = {
-			owner = {has_government_attribute = elven_repopulation}
-		}
-		add_elven_minority_size_effect = yes
 	}
 
 	#Krakazol/Rahen initial friendship, formerly rahen.1
@@ -7907,10 +7897,6 @@ on_province_owner_change = {
 	}
 
 	if = {
-		limit = { owner = { NOT = { num_of_colonists = 1 } ai = yes } is_colony = yes }
-		multiply_colonysize = 0
-	}
-	if = {
 		limit = {
 			owner = { has_country_flag = phoenix_empire_the_sun_outshines_the_moon }
 			culture = moon_elf
@@ -7919,6 +7905,11 @@ on_province_owner_change = {
 			name = phoenix_empire_the_sun_outshines_the_moon
 			duration = -1
 		}
+	}
+
+	if = {
+		limit = { owner = { NOT = { num_of_colonists = 1 } ai = yes } is_colony = yes }
+		multiply_colonysize = 0
 	}
 	if = {
 		limit = {
@@ -9163,23 +9154,6 @@ on_primary_culture_changed = {
 	# judaism_on_culture_country_effect = yes #Anbennar
 	# imperial_modifiers_on_primary_culture_change_effect = yes #Anbennar
 	
-	if = {
-		limit = {
-			has_government_attribute = noble_castles_boost
-		}
-		every_owned_province = {	#bertus
-			limit = {has_province_modifier = noble_castles_boost_modifier}
-			remove_province_modifier = noble_castles_boost_modifier
-		}
-		every_owned_province = {	#bertus
-			limit = {
-				culture = owner
-				NOT = {has_province_modifier = noble_castles_boost_modifier}
-				has_fort_trigger = yes
-			}
-			add_province_modifier = {name = noble_castles_boost_modifier duration = -1}
-		}
-	}
 	#Anbennar
 	country_event = { id = racial_modifiers.5 }	#Racial Admin and Military - on primary culture change
 	if = {
@@ -9766,7 +9740,11 @@ on_trade_good_changed = {
 	on_trade_good_changed_estate_privileges_effect = yes
 	on_trade_good_changed_government_effect = yes
 	on_trade_good_changed_bertus_effect = yes
-	on_dip_development_modifiers_effect = yes
+	
+	events = {
+		bertus_pops.1049	#goods modifiers
+		bertus_pops.1042	#base production modifiers
+	}
 	if = {
 		limit = { 
 			has_advanced_hold_infrastructure = yes
@@ -10501,55 +10479,28 @@ on_new_age = {
 
 #ROOT = province
 on_adm_exploited = {
-	if = {
-		limit = { owner = { has_government_attribute = may_not_reduce_tax_on_exploitation } }
-		random = {
-			chance = 50
-			add_base_tax = 1
-		}
+	on_adm_exploited_effects = yes
+	events = {
+		bertus_pops.1048	#on dev reduction conditional modifiers
+		bertus_pops.1040	#development based modifiers
+		bertus_pops.1041	#base tax modifiers
 	}
-	if = {
-		limit = { owner = { has_government_attribute = may_not_reduce_tax_on_own_exploitation culture_group = ROOT } }
-		random = {
-			chance = 25
-			add_base_tax = 1
-		}
-	}
-	if = {
-		limit = { owner = { has_government_attribute = may_not_reduce_tax_on_foreign_exploitation NOT = { culture_group = ROOT } } }
-		random = {
-			chance = 50
-			add_base_tax = 1
-		}
-	}
-	if = {	#bertus mod
-		limit = {has_terrain = cavern owner = {has_idea = Z38_dragonheight_undercities}}
-		random = {
-			chance = 50
-			add_base_tax = 1
-		}
-	}
-	remove_province_modifier_effect = {MODIFIER = centralized_provinces_modifier}
-	remove_province_modifier_effect = {MODIFIER = centralized_province}
-	remove_province_modifier_effect = {MODIFIER = zentra_dev}
-	on_adm_development_modifiers_effect = yes
-	on_development_modifiers_effect = yes
 }
 
 on_dip_exploited = {
-	remove_province_modifier_effect = {MODIFIER = centralized_provinces_modifier}
-	remove_province_modifier_effect = {MODIFIER = centralized_province}
-	remove_province_modifier_effect = {MODIFIER = zentra_dev}
-	on_dip_development_modifiers_effect = yes
-	on_development_modifiers_effect = yes
+	events = {
+		bertus_pops.1048	#on dev reduction conditional modifiers
+		bertus_pops.1040	#development based modifiers
+		bertus_pops.1042	#base production modifiers
+	}
 }
 
 on_mil_exploited = {
-	remove_province_modifier_effect = {MODIFIER = centralized_provinces_modifier}
-	remove_province_modifier_effect = {MODIFIER = centralized_province}
-	remove_province_modifier_effect = {MODIFIER = zentra_dev}
-	on_mil_development_modifiers_effect = yes
-	on_development_modifiers_effect = yes
+	events = {
+		bertus_pops.1048	#on dev reduction conditional modifiers
+		bertus_pops.1040	#development based modifiers
+		bertus_pops.1043	#base manpower modifiers
+	}
 }
 
 on_raze = {

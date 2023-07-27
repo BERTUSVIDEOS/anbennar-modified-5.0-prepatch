@@ -2000,21 +2000,6 @@ province_event = {	#culture change
 		}
 	}
 }
-province_event = {	#boost pop goods produced
-	id = bertus_changes.1014
-	title = bertus_changes.1014.t
-	desc = bertus_changes.1014.desc
-	picture = DIPLOMACY_eventPicture
-	
-	hidden = yes
-	is_triggered_only = yes
-	
-	option = {
-		name = bertus_changes.1014.a
-		remove_boost_pop_goods_produced = yes
-		add_boost_pop_goods_produced = yes
-	}
-}
 country_event = {	#
 	id = bertus_changes.1043
 	title = bertus_changes.1043.t
@@ -2290,7 +2275,7 @@ country_event = {	#setup provinces goods special modifiers
 					province_id = 5028
 				}
 			}
-			hidden_effect = {province_event = { id = bertus_changes.1014}}	#boost pop goods produced
+			hidden_effect = {province_event = { id = bertus_pops.1045}}	#boost pop goods produced
 			if = {	#coal bonus
 				limit = {
 					trade_goods = coal
@@ -3786,12 +3771,12 @@ country_event = {	#
     trigger = {
 		OR = {
 			any_owned_province = {
+				NOT = {has_province_modifier = bulwar_canals_boost_modifier}
 				is_city = yes
 				province_group = bulwar_canals_goods_provinces
 				province_with_farm_goods = yes
 				owner = {owns = 601}
 				601 = {has_great_project = {type = bulwar_canals tier = 3}}
-				NOT = {has_province_modifier = bulwar_canals_boost_modifier}
 			}
 			any_owned_province = {
 				has_province_modifier = bulwar_canals_boost_modifier
@@ -3807,20 +3792,31 @@ country_event = {	#
 	
 	option = {
 		name = bertus_changes.5029.a
-		every_owned_province = {
-			limit = {has_province_modifier = bulwar_canals_boost_modifier}
-			remove_bulwar_canals_boost_pop_goods_produced = yes
-			remove_province_modifier = bulwar_canals_boost_modifier
+		if = {
+			limit = {
+				OR = {
+					owner = {NOT = {owns = 676}}		
+					NOT = {601 = {has_great_project = {type = bulwar_canals tier = 3}}}
+				}
+			}
+			every_owned_province = {
+				limit = {has_province_modifier = bulwar_canals_boost_modifier}
+				remove_bulwar_canals_boost_pop_goods_produced = yes
+				remove_province_modifier = bulwar_canals_boost_modifier
+			}
 		}
 		if = {
 			limit = {
 				owns = 601
 				601 = {has_great_project = {type = bulwar_canals tier = 3}}
-				NOT = {has_province_modifier = bulwar_canals_boost_modifier}
 			}
 			every_owned_province = {
-				limit = {province_with_farm_goods = yes province_group = bulwar_canals_goods_provinces}
-				add_bulwar_canals_boost_pop_goods_produced = yes
+				limit = {
+					NOT = {has_province_modifier = bulwar_canals_boost_modifier}
+					province_with_farm_goods = yes
+					province_group = bulwar_canals_goods_provinces
+				}
+				province_event = { id = bertus_pops.1046 }
 				add_province_modifier = { name = bulwar_canals_boost_modifier duration = -1	}
 			}
 		}
@@ -3837,12 +3833,12 @@ country_event = {	#
     trigger = {
 		OR = {
 			any_owned_province = {
+				NOT = {has_province_modifier = great_dam_boost_modifier}
 				is_city = yes
 				has_terrain = dwarven_road
 				province_with_mine_goods = yes
 				owner = {owns = 676}
 				676 = {has_great_project = {type = great_dam tier = 3}}
-				NOT = {has_province_modifier = great_dam_boost_modifier}
 			}
 			any_owned_province = {
 				has_province_modifier = great_dam_boost_modifier
@@ -3858,10 +3854,18 @@ country_event = {	#
 	
 	option = {
 		name = bertus_changes.5030.a
-		every_owned_province = {
-			limit = {has_province_modifier = great_dam_boost_modifier}
-			remove_great_dam_boost_pop_goods_produced = yes
-			remove_province_modifier = great_dam_boost_modifier
+		if = {
+			limit = {
+				OR = {
+					owner = {owns = 676}
+					676 = {has_great_project = {type = great_dam tier = 3}}
+				}
+			}
+			every_owned_province = {
+				limit = {has_province_modifier = great_dam_boost_modifier}
+				remove_great_dam_boost_pop_goods_produced = yes
+				remove_province_modifier = great_dam_boost_modifier
+			}
 		}
 		if = {
 			limit = {
@@ -3869,8 +3873,12 @@ country_event = {	#
 				676 = {has_great_project = {type = great_dam tier = 3}}
 			}
 			every_owned_province = {
-				limit = {province_with_mine_goods = yes has_terrain = dwarven_road}
-				add_great_dam_boost_pop_goods_produced = yes
+				limit = {
+					NOT = {has_province_modifier = great_dam_boost_modifier}
+					province_with_mine_goods = yes
+					has_terrain = dwarven_road
+				}
+				province_event = { id = bertus_pops.1047 }
 				add_permanent_province_modifier = { name = great_dam_boost_modifier	duration = -1 }
 			}
 		}

@@ -152,6 +152,31 @@ succession_culture_religion_effect = {
 }
 
 on_province_owner_change_government_effect = {
+	if = {	#bertus mod
+		limit = {
+			owner = {has_government_attribute = elven_repopulation}
+		}
+		add_elven_minority_size_effect = yes
+	}
+	if = {	#bertus mod
+		limit = {
+			is_part_of_hre = yes
+		}
+		if = {
+			limit = {
+				province_with_mine_goods = yes
+				has_global_flag = minery_reform_hre_flag
+			}
+			add_province_modifier = {name = minery_reform_province_modifier duration = -1}
+		}
+		if = {
+			limit = {
+				province_with_farm_goods = yes
+				has_global_flag = agriculture_reform_hre_flag
+			}
+			add_province_modifier = {name = agricultural_reform_province_modifier duration = -1}
+		}
+	}
 	if = {
 		limit = {
 			NOT = {has_province_modifier = magisgerium_damesear_claim_modifier}
@@ -1075,6 +1100,15 @@ on_harmonized_effect = {
 }
 
 on_province_culture_change_effect = {
+	if = {
+		limit = {
+			owner = {has_government_attribute = noble_castles_boost}
+			culture = owner
+			NOT = {has_province_modifier = noble_castles_boost_modifier}
+			has_fort_trigger = yes
+		}
+		add_province_modifier = {name = noble_castles_boost_modifier duration = -1}
+	}
 }
 
 on_colony_finished_effect = {
