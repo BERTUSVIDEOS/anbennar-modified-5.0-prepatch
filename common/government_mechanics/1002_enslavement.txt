@@ -39,6 +39,12 @@ enslavement_mechanic = {
 					monthly_slaves_amount = -0.20833	#2.5% every year
 				}
 			}
+			on_max_reached = {
+				clr_country_flag = buying_slaves
+			}
+			on_min_reached = {
+				clr_country_flag = selling_slaves
+			}
 		}
 	}
 	
@@ -55,8 +61,15 @@ enslavement_mechanic = {
 				NOT = {has_country_flag = buying_slaves}
 			}
 			effect = {
-				sell_slaves_effect = yes
-				set_country_flag = selling_slaves
+				if = {
+					limit = {
+						has_country_flag = selling_slaves
+					}
+					clr_country_flag = selling_slaves
+				}
+				else = {
+					set_country_flag = selling_slaves
+				}
 			}
 			cooldown_years = 0
 			ai_chance = {factor = 0}
@@ -75,7 +88,15 @@ enslavement_mechanic = {
 				NOT = {has_country_flag = selling_slaves}
 			}
 			effect = {
-				set_country_flag = buying_slaves
+				if = {
+					limit = {
+						has_country_flag = buying_slaves
+					}
+					clr_country_flag = buying_slaves
+				}
+				else = {
+					set_country_flag = buying_slaves
+				}
 			}
 			cooldown_years = 0
 			ai_chance = {factor = 0}

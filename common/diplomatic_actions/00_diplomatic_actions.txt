@@ -166,46 +166,12 @@ transfer_trade_power = {
 			set_country_flag = trade_power_count_4
 			clr_country_flag = trade_power_count_3
 		}
-		if = {
-			limit = { exists = event_target:feiten_or_was_feiten_target }
-			if = {
-				limit = { tag = event_target:feiten_or_was_feiten_target }
-				FROM = { set_country_flag = transfers_trade_to_feiten }
-			}
-		}
 	}
 }
 
 #Cut because the Grand Crusade war doesn't really have any place in the current content, but it could be very useful for the future.
 #Also modders should have the chance to just uncomment it all so they can experience the great 30 Years War like Crusade.
 declarewar = {
-#	condition = {
-#		tooltip = GRAND_CRUSADE_NO_OTHER_WAR
-#		potential = { }
-#		allow = {
-#			NOT = {
-#				is_in_war = {
-#					attacker_leader = ROOT
-#					casus_belli = cb_grand_crusade
-#				}
-#			}
-#		}
-#	}
-#	effect = {
-#		if = {
-#			limit = {
-#				has_global_flag = grand_crusades_enabled
-#				has_country_flag = grand_crusader_war_monger_flag
-#				is_in_war = {
-#					attacker_leader = ROOT
-#					casus_belli = cb_grand_crusade
-#				}
-#			}
-#			FROM = {
-#				save_global_event_target_as = grand_crusade_target
-#			}
-#		}
-#	}
 	condition = { #1.35
 		tooltip = AI_CANNOT_DECLARE_WHEN_STABILITY_LOSS
 		potential = {
@@ -234,61 +200,6 @@ declarewar = {
 			}
 		}
 	}
-	
-#	condition = {	#bertus mod
-#		tooltip = FEDERATION_MILITARY
-#		potential = {
-#			has_country_modifier = lake_federation_member
-#			has_country_modifier = federation_fighter
-#		}
-#		allow = {
-#			FROM = {
-#				NOT = { has_country_modifier = lake_federation_member }
-#			}
-#		}
-#	}
-	
-#	condition = {
-#		tooltip = FEDERATION_SUBVENTIONNER
-#		potential = {
-#			has_country_modifier = lake_federation_member
-#			has_country_modifier = federation_subventionner
-#		}
-#		allow = {
-#			FROM = {
-#				NOT = { has_country_modifier = federation_fighter }
-#			}
-#		}
-#	}
-	
-#	condition = {
-#		tooltip = FEDERATION_WAR_MANDAT
-#		potential = {
-#			has_country_modifier = lake_federation_member
-#			NOT = { is_lake_federation_leader = yes }
-#		}
-#		allow = {
-#			is_at_war = no
-#			OR = {
-#				AND = {
-#					has_country_modifier = federation_war_mandat
-#					FROM = { has_country_modifier = lake_federation_member }
-#				}
-#				FROM = { NOT = { has_country_modifier = lake_federation_member } }
-#			}
-#		}
-#	}
-	
-#	condition = {
-#		tooltip = FEDERATION_CRISIS_WAR
-#		potential = {
-#			has_country_modifier = lake_federation_member
-#			has_global_flag = federation_crisis
-#		}
-#		allow = {
-#			FROM = { NOT = { has_country_modifier = lake_federation_member } }
-#		}
-#	}
 	
 	condition = {
 		tooltip = ULTAKAL_DECREE
@@ -610,42 +521,8 @@ declarewar = {
 	}
 
 	effect = {
-		on_war_declaration_effect = yes #1.35
-
-		#if = {
-		#	limit = { 
-		#		has_country_modifier = federation_war_mandat
-		#		FROM = { has_country_modifier = lake_federation_member }
-		#	}
-		#	remove_country_modifier = federation_war_mandat
-		#}
+		on_war_declaration_effect = yes
 		
-		if = {
-			limit = { 
-				OR = {
-					tag = G93
-					FROM = { tag = G93 }
-				}
-				G93 = {
-					has_country_flag = mykx_hellfire_cannons_unlocked
-				}
-				NOT = { 
-					G93 = {
-						has_country_flag = mykx_hellfire_cannons_flag
-					}
-				}
-			}
-			G93 = { country_event = { id = mykx.33 } }
-		}
-		
-		#if = {
-		#	limit = {
-		#		NOT = { has_country_modifier = lake_federation_member }
-		#		FROM = { has_country_modifier = lake_federation_member }
-		#		has_global_flag = lake_the_place_of_everyone
-		#	}
-		#	FROM = { country_event = { id = lake.49 } }
-		#}
 		
 		if = {
 			limit = {
@@ -653,14 +530,6 @@ declarewar = {
 				has_country_flag = removing_monstrous
 			}
 			FROM = { country_event = { id = monstrous.103 } }
-		}
-		
-		if = { # Xiaken becomes Indipendent Xiaken if declare war at Wulin
-			limit = {
-				has_reform = xiaken
-				FROM = { has_reform = wulin }
-			}
-			add_government_reform = indep_xiaken
 		}
 		
 		if = {
@@ -789,21 +658,6 @@ declarewar = {
 			}
 			H77 = { country_event = { id = flavor_lodhum.150 days = 20 } }
 		}
-#		if = {
-#			limit = {
-#				tag = A73
-#				OR = {
-#					is_in_war = {
-#						attacker_leader = A73
-#						casus_belli = cb_trade_conflict
-#					}
-#				}
-#			}
-#			change_variable = {
-#          			which = nSilverforgeTradeWarsStarted
-#          			value = 1
-#        		}
-#		}
 	}
 }
 
@@ -1032,13 +886,11 @@ allianceaction = {
 				FROM = {
 					OR = {
 						is_companion = yes
-						mission_completed = G32_with_two_companions
 					}
 				}
 				ROOT = {
 					OR = {
 						is_companion = yes
-						mission_completed = G32_with_two_companions
 					}
 				}
 			}
@@ -1047,13 +899,11 @@ allianceaction = {
 			FROM = {
 				OR = {
 					is_companion = yes
-					mission_completed = G32_with_two_companions
 				}
 			}
 			ROOT = {
 				OR = {
 					is_companion = yes
-					mission_completed = G32_with_two_companions
 				}
 			}
 		}
@@ -2059,6 +1909,9 @@ callaction = {
 		allow = {
 			always = no
 		}
+	}
+	effect = {
+		hidden_effect = {country_event = {id = bertus_changes.1042}}
 	}
 }
 

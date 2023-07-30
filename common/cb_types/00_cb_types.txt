@@ -419,6 +419,10 @@ cb_conquest = {
 	prerequisites = {
 		claim = FROM
 		
+		OR = {
+			NOT = { has_reform = adventurer_reform }
+			has_reform = found_our_nation # So you can take provinces
+		}
 		NOT = {
 			has_country_modifier = phoenix_conquest_cb_mod
 			AND = {
@@ -739,7 +743,6 @@ cb_revolutionary = {
 			has_reform = prabhi_reform
 			has_reform = raja_reform
 			has_reform = xiaken
-			has_reform = wulin
 		}
 	}
 
@@ -763,7 +766,6 @@ cb_revolutionary = {
 				has_reform = prabhi_reform
 				has_reform = raja_reform
 				has_reform = xiaken
-				has_reform = wulin
 			}
 		}
 		OR = {
@@ -2798,46 +2800,6 @@ cb_rianvisa = {
 
 	war_goal = rianvisa_wargoal
 }
-#Malacnari War of Glory
-cb_malacnari_glory = {
-	valid_for_subject = no 
-
-	prerequisites = {
-		tag = G32
-		OR = {
-			AND = {
-				mission_completed = G32_secret_gunpowder
-				FROM = {
-					is_neighbor_of = ROOT
-					is_subject = no
-				}
-			}
-			AND = {
-				mission_completed = G32_make_them_kneel
-				FROM = {
-					capital_scope = { continent = north_america }
-					is_subject = no
-				}
-			}
-			AND = {
-				mission_completed = G32_vessels_beyond
-				FROM = {
-					exists = yes
-					is_subject = no
-				}
-			}
-		}
-	}
-	
-	attacker_disabled_po = {
-        po_demand_provinces
-        po_become_vassal
-        po_form_personal_union
-        po_transfer_vassals
-    }
-	
-	war_goal = superiority_malacnar
-} 
 
 # Claim Throne for mission
 cb_claim_throne_sugamber = { 

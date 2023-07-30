@@ -7,7 +7,7 @@ appoint_a_grand_admiral = {
 	}
 	
 	effect = {
-		custom_tooltip = scale_with_absolutism_tt
+		custom_tooltip = escale_with_absolutism_tt
 		trigger_switch = {
 			on_trigger = absolutism
 			140 = { create_admiral = { tradition = 100 add_shock = 1 add_fire = 1 add_manuever = 1} }
@@ -43,7 +43,7 @@ charter_colonies = {
 	}
 	
 	effect = {
-		custom_tooltip = scale_with_absolutism_tt
+		custom_tooltip = escale_with_absolutism_tt
 		trigger_switch = {
 			on_trigger = absolutism
 			140 = {add_country_modifier = {name = charter_colonies_mod_7 duration = 3650} }
@@ -83,7 +83,7 @@ charter_trade_companies = {
 	}
 	
 	effect = {
-		custom_tooltip = scale_with_absolutism_tt
+		custom_tooltip = escale_with_absolutism_tt
 		trigger_switch = {
 			on_trigger = absolutism
 			140 = {add_country_modifier = {name = reduce_trade_regulations_mod_7 duration = 3650} }
@@ -133,8 +133,141 @@ colonial_taxation = {
 		colony = 1
 	}
 	
+	on_issue_taken = {
+		hidden_effect = {
+			save_event_target_as = country_elder_advisor_target
+			if = {
+				limit = {
+					NOT = {has_country_flag = elder_adm_advisor_flag}
+					NOT = {has_country_flag = elder_dip_advisor_flag}
+					NOT = {has_country_flag = elder_mil_advisor_flag}
+				}
+				random_list = {
+					1 = {set_country_flag = elder_adm_advisor_flag}
+					1 = {set_country_flag = elder_dip_advisor_flag}
+					1 = {set_country_flag = elder_mil_advisor_flag}
+				}
+			}
+			if = {
+				limit = {has_country_modifier = elven_administration}
+				random_owned_province = {
+					limit = {
+						OR = {
+							has_owner_accepted_culture = yes
+							has_owner_culture = yes
+						}
+						culture_group = elven
+					}
+					save_event_target_as = province_event_target
+				}
+			}
+			else_if = {
+				limit = {has_country_modifier = dwarven_administration}
+				random_owned_province = {
+					limit = {
+						OR = {
+							has_owner_accepted_culture = yes
+							has_owner_culture = yes
+						}
+						culture_group = dwarven
+					}
+					save_event_target_as = province_event_target
+				}
+			}
+			else_if = {
+				limit = {has_country_modifier = gnomish_administration}
+				random_owned_province = {
+					limit = {
+						OR = {
+							has_owner_accepted_culture = yes
+							has_owner_culture = yes
+						}
+						culture_group = gnomish
+					}
+					save_event_target_as = province_event_target
+				}
+			}
+			else_if = {
+				limit = {
+					any_ally = {
+						OR = {
+							has_country_modifier = elven_administration
+							has_country_modifier = dwarven_administration
+							has_country_modifier = gnomish_administration
+						}
+					}
+				}
+				random_province = {
+					limit = {
+						owner = {
+							alliance_with = ROOT
+							OR = {
+								has_country_modifier = elven_administration
+								has_country_modifier = dwarven_administration
+								has_country_modifier = gnomish_administration
+							}
+						}
+						has_owner_accepted_culture = yes
+						OR = {
+							culture_group = elven
+							culture_group = dwarven
+							culture_group = gnomish
+						}
+					}
+					save_event_target_as = province_event_target
+				}
+			}
+			else_if = {
+				limit = {
+					any_owned_province = {
+						OR = {
+							has_integrated_elven_pop_trigger = yes
+							has_integrated_dwarven_pop_trigger = yes
+							has_integrated_gnomish_pop_trigger = yes
+						}
+					}	
+				}
+				random_owned_province = {
+					limit = {
+						OR = {
+							has_integrated_elven_pop_trigger = yes
+							has_integrated_dwarven_pop_trigger = yes
+							has_integrated_gnomish_pop_trigger = yes
+						}
+					}
+					save_event_target_as = province_event_target
+				}
+			}	
+			else_if = {
+				limit = {has_estate_privilege = estate_raj_ministries_ceremonial_ruler_act}
+				random_owned_province = {
+					save_event_target_as = province_event_target
+				}
+			}	
+			else_if = {
+				limit = {is_papal_controller = yes}
+				random_province = {
+					limit = {religion = ravelian}
+					save_event_target_as = province_event_target
+				}
+			}	
+			else = {
+				random_province = {
+					limit = {
+						has_discovered = ROOT
+						OR = {
+							culture_group = elven
+							culture_group = dwarven
+							culture_group = gnomish
+						}
+					}
+					save_event_target_as = province_event_target
+				}
+			}
+		}
+	}
 	effect = {
-		custom_tooltip = scale_with_absolutism_tt
+		custom_tooltip = escale_with_absolutism_tt
 		trigger_switch = {
 			on_trigger = absolutism
 			140 = {add_subjects_development_ducats = {multiplier = 7 age_multiplier = 1 trigger = {is_colonial_nation = yes} } }
@@ -145,7 +278,9 @@ colonial_taxation = {
 			40 = {add_subjects_development_ducats = {multiplier = 1.5 age_multiplier = 1 trigger = {is_colonial_nation = yes} } }
 			20 = {add_subjects_development_ducats = {multiplier = 1 age_multiplier = 1 trigger = {is_colonial_nation = yes} } }
 		}
-		get_racial_advisor = {class = colonial_governor random = no}
+		event_target:province_event_target = {
+			get_cost_dependant_racial_advisor = {class = colonial_governor specific = yes}
+		}
 	}
 	
 	modifier = {
@@ -185,7 +320,7 @@ emergency_impressment_act = {
 	}
 	
 	effect = {
-		custom_tooltip = scale_with_absolutism_tt
+		custom_tooltip = escale_with_absolutism_tt
 		trigger_switch = {
 			on_trigger = absolutism
 			140 = {add_years_of_sailors_scaled_to_seats = 3.5 }
@@ -271,7 +406,7 @@ expand_diplomatic_corps = {
 	}
 	
 	effect = {
-		custom_tooltip = scale_with_absolutism_tt
+		custom_tooltip = escale_with_absolutism_tt
 		trigger_switch = {
 			on_trigger = absolutism
 			140 = {add_country_modifier = {name = expand_diplomatic_corps_mod_7 duration = 3650} }
@@ -317,8 +452,141 @@ expand_navy = {
 		num_of_ports = 2
 	}
 	
+	on_issue_taken = {
+		hidden_effect = {
+			save_event_target_as = country_elder_advisor_target
+			if = {
+				limit = {
+					NOT = {has_country_flag = elder_adm_advisor_flag}
+					NOT = {has_country_flag = elder_dip_advisor_flag}
+					NOT = {has_country_flag = elder_mil_advisor_flag}
+				}
+				random_list = {
+					1 = {set_country_flag = elder_adm_advisor_flag}
+					1 = {set_country_flag = elder_dip_advisor_flag}
+					1 = {set_country_flag = elder_mil_advisor_flag}
+				}
+			}
+			if = {
+				limit = {has_country_modifier = elven_administration}
+				random_owned_province = {
+					limit = {
+						OR = {
+							has_owner_accepted_culture = yes
+							has_owner_culture = yes
+						}
+						culture_group = elven
+					}
+					save_event_target_as = province_event_target
+				}
+			}
+			else_if = {
+				limit = {has_country_modifier = dwarven_administration}
+				random_owned_province = {
+					limit = {
+						OR = {
+							has_owner_accepted_culture = yes
+							has_owner_culture = yes
+						}
+						culture_group = dwarven
+					}
+					save_event_target_as = province_event_target
+				}
+			}
+			else_if = {
+				limit = {has_country_modifier = gnomish_administration}
+				random_owned_province = {
+					limit = {
+						OR = {
+							has_owner_accepted_culture = yes
+							has_owner_culture = yes
+						}
+						culture_group = gnomish
+					}
+					save_event_target_as = province_event_target
+				}
+			}
+			else_if = {
+				limit = {
+					any_ally = {
+						OR = {
+							has_country_modifier = elven_administration
+							has_country_modifier = dwarven_administration
+							has_country_modifier = gnomish_administration
+						}
+					}
+				}
+				random_province = {
+					limit = {
+						owner = {
+							alliance_with = ROOT
+							OR = {
+								has_country_modifier = elven_administration
+								has_country_modifier = dwarven_administration
+								has_country_modifier = gnomish_administration
+							}
+						}
+						has_owner_accepted_culture = yes
+						OR = {
+							culture_group = elven
+							culture_group = dwarven
+							culture_group = gnomish
+						}
+					}
+					save_event_target_as = province_event_target
+				}
+			}
+			else_if = {
+				limit = {
+					any_owned_province = {
+						OR = {
+							has_integrated_elven_pop_trigger = yes
+							has_integrated_dwarven_pop_trigger = yes
+							has_integrated_gnomish_pop_trigger = yes
+						}
+					}	
+				}
+				random_owned_province = {
+					limit = {
+						OR = {
+							has_integrated_elven_pop_trigger = yes
+							has_integrated_dwarven_pop_trigger = yes
+							has_integrated_gnomish_pop_trigger = yes
+						}
+					}
+					save_event_target_as = province_event_target
+				}
+			}	
+			else_if = {
+				limit = {has_estate_privilege = estate_raj_ministries_ceremonial_ruler_act}
+				random_owned_province = {
+					save_event_target_as = province_event_target
+				}
+			}	
+			else_if = {
+				limit = {is_papal_controller = yes}
+				random_province = {
+					limit = {religion = ravelian}
+					save_event_target_as = province_event_target
+				}
+			}	
+			else = {
+				random_province = {
+					limit = {
+						has_discovered = ROOT
+						OR = {
+							culture_group = elven
+							culture_group = dwarven
+							culture_group = gnomish
+						}
+					}
+					save_event_target_as = province_event_target
+				}
+			}
+		}
+	}
 	effect = {
-		custom_tooltip = scale_with_absolutism_tt
+		custom_tooltip = escale_with_absolutism_tt
 		trigger_switch = {
 			on_trigger = absolutism
 			140 = {add_navy_tradition = 35 }
@@ -329,7 +597,9 @@ expand_navy = {
 			40 = {add_navy_tradition = 7.5 }
 			20 = {add_navy_tradition = 5 }
 		}
-		get_racial_advisor = {class = naval_reformer random = no}
+		event_target:province_event_target = {
+			get_cost_dependant_racial_advisor = {class = naval_reformer specific = yes}
+		}
 	}
 	
 	modifier = {
@@ -369,9 +639,144 @@ imports_exports = {
 	allow = {
 	}
 	
+	on_issue_taken = {
+		hidden_effect = {
+			save_event_target_as = country_elder_advisor_target
+			if = {
+				limit = {
+					NOT = {has_country_flag = elder_adm_advisor_flag}
+					NOT = {has_country_flag = elder_dip_advisor_flag}
+					NOT = {has_country_flag = elder_mil_advisor_flag}
+				}
+				random_list = {
+					1 = {set_country_flag = elder_adm_advisor_flag}
+					1 = {set_country_flag = elder_dip_advisor_flag}
+					1 = {set_country_flag = elder_mil_advisor_flag}
+				}
+			}
+			if = {
+				limit = {has_country_modifier = elven_administration}
+				random_owned_province = {
+					limit = {
+						OR = {
+							has_owner_accepted_culture = yes
+							has_owner_culture = yes
+						}
+						culture_group = elven
+					}
+					save_event_target_as = province_event_target
+				}
+			}
+			else_if = {
+				limit = {has_country_modifier = dwarven_administration}
+				random_owned_province = {
+					limit = {
+						OR = {
+							has_owner_accepted_culture = yes
+							has_owner_culture = yes
+						}
+						culture_group = dwarven
+					}
+					save_event_target_as = province_event_target
+				}
+			}
+			else_if = {
+				limit = {has_country_modifier = gnomish_administration}
+				random_owned_province = {
+					limit = {
+						OR = {
+							has_owner_accepted_culture = yes
+							has_owner_culture = yes
+						}
+						culture_group = gnomish
+					}
+					save_event_target_as = province_event_target
+				}
+			}
+			else_if = {
+				limit = {
+					any_ally = {
+						OR = {
+							has_country_modifier = elven_administration
+							has_country_modifier = dwarven_administration
+							has_country_modifier = gnomish_administration
+						}
+					}
+				}
+				random_province = {
+					limit = {
+						owner = {
+							alliance_with = ROOT
+							OR = {
+								has_country_modifier = elven_administration
+								has_country_modifier = dwarven_administration
+								has_country_modifier = gnomish_administration
+							}
+						}
+						has_owner_accepted_culture = yes
+						OR = {
+							culture_group = elven
+							culture_group = dwarven
+							culture_group = gnomish
+						}
+					}
+					save_event_target_as = province_event_target
+				}
+			}
+			else_if = {
+				limit = {
+					any_owned_province = {
+						OR = {
+							has_integrated_elven_pop_trigger = yes
+							has_integrated_dwarven_pop_trigger = yes
+							has_integrated_gnomish_pop_trigger = yes
+						}
+					}	
+				}
+				random_owned_province = {
+					limit = {
+						OR = {
+							has_integrated_elven_pop_trigger = yes
+							has_integrated_dwarven_pop_trigger = yes
+							has_integrated_gnomish_pop_trigger = yes
+						}
+					}
+					save_event_target_as = province_event_target
+				}
+			}	
+			else_if = {
+				limit = {has_estate_privilege = estate_raj_ministries_ceremonial_ruler_act}
+				random_owned_province = {
+					save_event_target_as = province_event_target
+				}
+			}	
+			else_if = {
+				limit = {is_papal_controller = yes}
+				random_province = {
+					limit = {religion = ravelian}
+					save_event_target_as = province_event_target
+				}
+			}	
+			else = {
+				random_province = {
+					limit = {
+						has_discovered = ROOT
+						OR = {
+							culture_group = elven
+							culture_group = dwarven
+							culture_group = gnomish
+						}
+					}
+					save_event_target_as = province_event_target
+				}
+			}
+		}
+	}
 	effect = {
 		add_mercantilism = 2
-		get_racial_advisor = {class = idea_var_advisor_21 random = no}
+		event_target:province_event_target = {
+			get_cost_dependant_racial_advisor = {class = idea_var_advisor_21 specific = yes}
+		}
 	}
 	
 	modifier = {
@@ -404,8 +809,143 @@ issue_letters_of_marque = {
 		num_of_ports = 2
 	}
 
+	on_issue_taken = {
+		hidden_effect = {
+			save_event_target_as = country_elder_advisor_target
+			if = {
+				limit = {
+					NOT = {has_country_flag = elder_adm_advisor_flag}
+					NOT = {has_country_flag = elder_dip_advisor_flag}
+					NOT = {has_country_flag = elder_mil_advisor_flag}
+				}
+				random_list = {
+					1 = {set_country_flag = elder_adm_advisor_flag}
+					1 = {set_country_flag = elder_dip_advisor_flag}
+					1 = {set_country_flag = elder_mil_advisor_flag}
+				}
+			}
+			if = {
+				limit = {has_country_modifier = elven_administration}
+				random_owned_province = {
+					limit = {
+						OR = {
+							has_owner_accepted_culture = yes
+							has_owner_culture = yes
+						}
+						culture_group = elven
+					}
+					save_event_target_as = province_event_target
+				}
+			}
+			else_if = {
+				limit = {has_country_modifier = dwarven_administration}
+				random_owned_province = {
+					limit = {
+						OR = {
+							has_owner_accepted_culture = yes
+							has_owner_culture = yes
+						}
+						culture_group = dwarven
+					}
+					save_event_target_as = province_event_target
+				}
+			}
+			else_if = {
+				limit = {has_country_modifier = gnomish_administration}
+				random_owned_province = {
+					limit = {
+						OR = {
+							has_owner_accepted_culture = yes
+							has_owner_culture = yes
+						}
+						culture_group = gnomish
+					}
+					save_event_target_as = province_event_target
+				}
+			}
+			else_if = {
+				limit = {
+					any_ally = {
+						OR = {
+							has_country_modifier = elven_administration
+							has_country_modifier = dwarven_administration
+							has_country_modifier = gnomish_administration
+						}
+					}
+				}
+				random_province = {
+					limit = {
+						owner = {
+							alliance_with = ROOT
+							OR = {
+								has_country_modifier = elven_administration
+								has_country_modifier = dwarven_administration
+								has_country_modifier = gnomish_administration
+							}
+						}
+						has_owner_accepted_culture = yes
+						OR = {
+							culture_group = elven
+							culture_group = dwarven
+							culture_group = gnomish
+						}
+					}
+					save_event_target_as = province_event_target
+				}
+			}
+			else_if = {
+				limit = {
+					any_owned_province = {
+						OR = {
+							has_integrated_elven_pop_trigger = yes
+							has_integrated_dwarven_pop_trigger = yes
+							has_integrated_gnomish_pop_trigger = yes
+						}
+					}	
+				}
+				random_owned_province = {
+					limit = {
+						OR = {
+							has_integrated_elven_pop_trigger = yes
+							has_integrated_dwarven_pop_trigger = yes
+							has_integrated_gnomish_pop_trigger = yes
+						}
+					}
+					save_event_target_as = province_event_target
+				}
+			}	
+			else_if = {
+				limit = {has_estate_privilege = estate_raj_ministries_ceremonial_ruler_act}
+				random_owned_province = {
+					save_event_target_as = province_event_target
+				}
+			}	
+			else_if = {
+				limit = {is_papal_controller = yes}
+				random_province = {
+					limit = {religion = ravelian}
+					save_event_target_as = province_event_target
+				}
+			}	
+			else = {
+				random_province = {
+					limit = {
+						has_discovered = ROOT
+						OR = {
+							culture_group = elven
+							culture_group = dwarven
+							culture_group = gnomish
+						}
+					}
+					save_event_target_as = province_event_target
+				}
+			}
+		}
+	}
 	effect = {
-		get_racial_advisor = {class = idea_var_advisor_26 random = no}
+		event_target:province_event_target = {
+			get_cost_dependant_racial_advisor = {class = idea_var_advisor_26 specific = yes}
+		}
 	}
 	
 	modifier = {
@@ -552,7 +1092,7 @@ reduce_trade_regulations = {
 	}
 	
 	effect = {
-		custom_tooltip = scale_with_absolutism_tt
+		custom_tooltip = escale_with_absolutism_tt
 		trigger_switch = {
 			on_trigger = absolutism
 			140 = {add_country_modifier = {name = reduce_trade_regulations_mod_7 duration = 7300} }

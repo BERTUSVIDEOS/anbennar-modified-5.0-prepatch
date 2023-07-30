@@ -23,7 +23,7 @@ country_event = {
 		name = anbennar_setup.1.a
 
 		every_country = {
-			limit = { has_country_modifier = monstrous_nation NOT = { has_country_flag = semi_monstrous } NOT = {tag = ROOT}}
+			limit = { has_country_modifier = monstrous_nation NOT = { has_country_flag = semi_monstrous } }
 			set_country_flag = setup_monstrous_opinion
 			every_country = {
 				limit = { has_country_modifier = monstrous_nation }
@@ -37,15 +37,15 @@ country_event = {
 			}
 		}
 		every_country = {
-			limit = { has_country_modifier = monstrous_nation has_country_flag = semi_monstrous NOT = {tag = ROOT}}
+			limit = { has_country_modifier = monstrous_nation has_country_flag = semi_monstrous }
 			set_country_flag = setup_monstrous_opinion
 			every_country = {
-				limit = { has_country_modifier = monstrous_nation }
+				limit = { has_country_modifier = monstrous_nation NOT = {tag = PREV}}
 				add_opinion = { who = PREV modifier = both_monstrous }
 				reverse_add_opinion = { who = PREV modifier = both_monstrous }
 			}
 			every_country = {
-				limit = { NOT = { has_country_modifier = monstrous_nation } }
+				limit = { NOT = { has_country_modifier = monstrous_nation } NOT = {tag = PREV}}
 				add_opinion = { who = PREV modifier = semi_monstrous }
 				reverse_add_opinion = { who = PREV modifier = semi_monstrous }
 			}
@@ -502,6 +502,14 @@ country_event = {
 	option = {
 		name = "anbennar_setup.1.a"
 
+		every_owned_province = {
+			province_event = {id = bertus_pops.1039 days = 1}	#climate & terrain preferences updater
+			province_event = {id = bertus_pops.1040 days = 2}	#development based modifiers
+			province_event = {id = bertus_pops.1041 days = 3}	#base tax modifiers
+			province_event = {id = bertus_pops.1042 days = 4}	#base production modifiers
+			province_event = {id = bertus_pops.1043 days = 5}	#base manpower modifiers
+			province_event = {id = bertus_pops.1049 days = 6}	#goods modifiers
+		}
 		#Elven
 		if = {
 			limit = {

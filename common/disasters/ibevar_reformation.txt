@@ -6,9 +6,14 @@ ibevar_reformation = {
 	}
 
 	can_start = {
-		always = yes
+		OR = {
+			NOT = {is_year = 1475}
+			AND = {
+				is_year = 1475
+				religion = regent_court
+			}
+		}
 	}
-	
 	
 	can_stop = {
         always = no
@@ -46,27 +51,37 @@ ibevar_reformation = {
 			}
 		}
 		else = {
-			south_ibevar_area = {
-				type = all
-				owned_by = ROOT
-				religion = regent_court
-			}
-			north_ibevar_area = {
-				type = all
-				owned_by = ROOT
-				religion = regent_court
-			}
-			ibevar_area = {
-				type = all
-				owned_by = ROOT
-				religion = regent_court
+			OR = {
+				had_country_flag = {
+					flag = ibevar_stays_forebear
+					days = 10950
+				}
+				AND = {
+					south_ibevar_area = {
+						type = all
+						owned_by = ROOT
+						religion = regent_court
+					}
+					north_ibevar_area = {
+						type = all
+						owned_by = ROOT
+						religion = regent_court
+					}
+					ibevar_area = {
+						type = all
+						owned_by = ROOT
+						religion = regent_court
+					}
+				}
 			}
 		}
 	}
 	
 	modifier = {
-		land_morale = -0.1
 		stability_cost_modifier = 0.5
+		tolerance_heathen = -2
+		tolerance_heretic = -2
+		tolerance_own = -2
 	}
 	
 	on_start = ibevar.2

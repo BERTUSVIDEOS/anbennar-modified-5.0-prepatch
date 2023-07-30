@@ -927,6 +927,11 @@ get_special_general_stats = {
 	}
 
 	if = {
+		limit = {has_country_flag = get_sword_wielder_general_flag}
+		change_variable = {which = country_leader_shock_var value = 1}
+		change_variable = {which = country_leader_manuever_var value = 1}
+	}
+	if = {
 		limit = {has_country_flag = get_adventurer_flag}
 		if = {
 			limit = {has_country_modifier = great_ording_unsung_heroes }
@@ -1142,11 +1147,53 @@ get_special_general_stats = {
 		change_variable = {which = country_leader_siege_var value = 1}
 	}
 
+	while = {	#change excess siege
+		limit = { check_variable = { which = country_leader_siege_var value = 11 } }
+		change_variable = {which = country_leader_siege_var value = -1}
+		random_list = {
+			50 = {
+				change_variable = {which = country_leader_fire_var value = 1}
+			}
+			50 = {
+				change_variable = {which = country_leader_shock_var value = 1}
+			}
+			50 = {
+				change_variable = {which = country_leader_manuever_var value = 1}
+			}
+		}
+	}
+	while = {	#change excess manuever
+		limit = { check_variable = { which = country_leader_manuever_var value = 16 } }
+		change_variable = {which = country_leader_manuever_var value = -1}
+		random_list = {
+			50 = {
+				change_variable = {which = country_leader_fire_var value = 1}
+			}
+			50 = {
+				change_variable = {which = country_leader_shock_var value = 1}
+			}
+		}
+	}
+	while = {	#change excess shock
+		limit = { check_variable = { which = country_leader_shock_var value = 26 } }
+		change_variable = {which = country_leader_shock_var value = -1}
+		change_variable = {which = country_leader_fire_var value = 1}
+	}
+	while = {	#change excess fire
+		limit = { check_variable = { which = country_leader_fire_var value = 26 } }
+		change_variable = {which = country_leader_fire_var value = -1}
+		change_variable = {which = country_leader_shock_var value = 1}
+	}
+	while = {	#remove excess shock
+		limit = { check_variable = { which = country_leader_shock_var value = 26 } }
+		add_prestige_or_monarch_power = {amount =  5}
+	}
+
 	change_variable = {which = country_leader_total_var which = country_leader_shock_var}
 	change_variable = {which = country_leader_total_var which = country_leader_fire_var}
 	change_variable = {which = country_leader_total_var which = country_leader_manuever_var}
 	change_variable = {which = country_leader_total_var which = country_leader_siege_var}
-	
+
 	set_variable = {which = special_general_cost value = 2}
 	if = {
 		limit = {
@@ -1155,8 +1202,8 @@ get_special_general_stats = {
 				has_country_flag = magisterium_free_general_flag
 			}
 		}
-		change_variable = {which = country_leader_fire_var value = 2}
-		change_variable = {which = country_leader_shock_var value = 2}
+		change_variable = {which = country_leader_fire_var value = 1}
+		change_variable = {which = country_leader_shock_var value = 1}
 		set_variable = {which = special_general_cost value = 0}
 		set_variable = {which = special_general_cost_tt value = 0}
 		clr_country_flag = magisterium_free_general_flag
@@ -1203,7 +1250,12 @@ improved_general_cost = {
 	}
 }
 general_defined_shock = {
-	if = { limit = {check_variable = {which = country_leader_shock_var value = 20}} general_defined_fire = { shock = 20}}
+	if = { limit = {check_variable = {which = country_leader_shock_var value = 25}} general_defined_fire = { shock = 25}}
+	else_if = { limit = {check_variable = {which = country_leader_shock_var value = 24}} general_defined_fire = { shock = 24}}
+	else_if = { limit = {check_variable = {which = country_leader_shock_var value = 23}} general_defined_fire = { shock = 23}}
+	else_if = { limit = {check_variable = {which = country_leader_shock_var value = 22}} general_defined_fire = { shock = 22}}
+	else_if = { limit = {check_variable = {which = country_leader_shock_var value = 21}} general_defined_fire = { shock = 21}}
+	else_if = { limit = {check_variable = {which = country_leader_shock_var value = 20}} general_defined_fire = { shock = 20}}
 	else_if = { limit = {check_variable = {which = country_leader_shock_var value = 19}} general_defined_fire = { shock = 19}}
 	else_if = { limit = {check_variable = {which = country_leader_shock_var value = 18}} general_defined_fire = { shock = 18}}
 	else_if = { limit = {check_variable = {which = country_leader_shock_var value = 17}} general_defined_fire = { shock = 17}}
@@ -1226,7 +1278,12 @@ general_defined_shock = {
 	else = { general_defined_fire = { shock = 0}}
 }
 general_defined_fire = {
-	if = { limit = {check_variable = {which = country_leader_fire_var value = 20}} general_defined_manuever = { shock = $shock$ fire = 20}}
+	if = { limit = {check_variable = {which = country_leader_fire_var value = 25}} general_defined_manuever = { shock = $shock$ fire = 25}}
+	else_if = { limit = {check_variable = {which = country_leader_fire_var value = 24}} general_defined_manuever = { shock = $shock$ fire = 24}}
+	else_if = { limit = {check_variable = {which = country_leader_fire_var value = 23}} general_defined_manuever = { shock = $shock$ fire = 23}}
+	else_if = { limit = {check_variable = {which = country_leader_fire_var value = 22}} general_defined_manuever = { shock = $shock$ fire = 22}}
+	else_if = { limit = {check_variable = {which = country_leader_fire_var value = 21}} general_defined_manuever = { shock = $shock$ fire = 21}}
+	else_if = { limit = {check_variable = {which = country_leader_fire_var value = 20}} general_defined_manuever = { shock = $shock$ fire = 20}}
 	else_if = { limit = {check_variable = {which = country_leader_fire_var value = 19}} general_defined_manuever = { shock = $shock$ fire = 19}}
 	else_if = { limit = {check_variable = {which = country_leader_fire_var value = 18}} general_defined_manuever = { shock = $shock$ fire = 18}}
 	else_if = { limit = {check_variable = {which = country_leader_fire_var value = 17}} general_defined_manuever = { shock = $shock$ fire = 17}}
@@ -1249,7 +1306,12 @@ general_defined_fire = {
 	else = { general_defined_manuever = { shock = $shock$ fire = 0}}
 }
 general_defined_manuever = {
-	if = { limit = {check_variable = {which = country_leader_manuever_var value = 10}} general_defined_siege = { shock = $shock$ fire = $fire$ manuever = 10}}
+	if = { limit = {check_variable = {which = country_leader_manuever_var value = 15}} general_defined_siege = { shock = $shock$ fire = $fire$ manuever = 15}}
+	else_if = { limit = {check_variable = {which = country_leader_manuever_var value = 14}} general_defined_siege = { shock = $shock$ fire = $fire$ manuever = 14}}
+	else_if = { limit = {check_variable = {which = country_leader_manuever_var value = 13}} general_defined_siege = { shock = $shock$ fire = $fire$ manuever = 13}}
+	else_if = { limit = {check_variable = {which = country_leader_manuever_var value = 12}} general_defined_siege = { shock = $shock$ fire = $fire$ manuever = 12}}
+	else_if = { limit = {check_variable = {which = country_leader_manuever_var value = 11}} general_defined_siege = { shock = $shock$ fire = $fire$ manuever = 11}}
+	else_if = { limit = {check_variable = {which = country_leader_manuever_var value = 10}} general_defined_siege = { shock = $shock$ fire = $fire$ manuever = 10}}
 	else_if = { limit = {check_variable = {which = country_leader_manuever_var value = 9}} general_defined_siege = { shock = $shock$ fire = $fire$ manuever = 9}}
 	else_if = { limit = {check_variable = {which = country_leader_manuever_var value = 8}} general_defined_siege = { shock = $shock$ fire = $fire$ manuever = 8}}
 	else_if = { limit = {check_variable = {which = country_leader_manuever_var value = 7}} general_defined_siege = { shock = $shock$ fire = $fire$ manuever = 7}}
@@ -1276,7 +1338,13 @@ general_defined_siege = {
 }
 define_special_general = {
 	event_target:get_general_event_targer = {
-		define_general = {shock = $shock$ fire = $fire$ manuever = $manuever$ siege = $siege$ name = special_general_name}
+		if = {
+			limit = {has_country_flag = get_ruler_general_flag}
+			define_ruler_to_general = {shock = $shock$ fire = $fire$ manuever = $manuever$ siege = $siege$ }
+		}
+		else = {
+			define_general = {shock = $shock$ fire = $fire$ manuever = $manuever$ siege = $siege$ name = special_general_name}
+		}
 	}
 }
 clr_special_general_flags = {
@@ -1297,6 +1365,8 @@ clr_special_general_flags = {
 	clr_country_flag = magisterium_free_general_flag
 	clr_country_flag = hero_free_general_flag
 	clr_country_flag = magisterium_general_flag
+	clr_country_flag = get_ruler_general_flag
+	clr_country_flag = get_sword_wielder_general_flag
 	clear_saved_name = special_general_name
 }
 update_tech_group = {

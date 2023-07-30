@@ -91,7 +91,9 @@ estate_troll_fire_advisor = {
 		}
 	}
     task_completed_effect = {
-		get_racial_advisor = {class = adm random = yes}
+		event_target:province_event_target = {
+			get_cost_dependant_racial_advisor = {class = adm random = yes}
+		}
 		clr_country_flag = just_fired_dip_advisor
 		clr_country_flag = need_to_fire_dip_advisor
 		
@@ -1776,7 +1778,7 @@ estate_troll_recruitment_agenda = {
 		custom_tooltip = estate_troll_recruitment_agenda_tt
 		hidden_effect = {
 			every_owned_province = {
-				limit = {has_troll_majority_trigger = yes}			
+				limit = {has_troll_majority_trigger = yes}	
 				gain_manpower_from_provinces = {manpower_per_dev = 0.100}
 			}
 		}
@@ -1933,6 +1935,9 @@ estate_troll_navy_chairman_agenda = {
 	can_select = {
 		high_tolerance_troll_race_trigger = yes
 		NOT = {has_country_modifier = estate_troll_navy_chairman_modifier}
+		any_owned_province = {
+			has_port = yes
+		}
 	}
 	pre_effect = {
 	}

@@ -189,9 +189,21 @@ province_event = {	#on dev increase modifiers
 	
 	trigger = {
 		OR = {
-			has_province_modifier = centralized_provinces_modifier
-			has_province_modifier = centralized_province
-			has_province_modifier = zentra_dev
+			AND = {
+				owner = {has_idea = entwicklung1}
+				development = 25
+				NOT = { has_province_modifier = zentra_dev }
+			}
+			AND = {
+				owner = {has_idea = zentra3}
+				development = 40
+				NOT = { has_province_modifier = centralized_province }
+			}
+			AND = {
+				owner = {has_government_attribute = boost_30_dev_provinces}
+				development = 30
+				NOT = {has_province_modifier = centralized_provinces_modifier}
+			}
 		}
 	}
 	option = {

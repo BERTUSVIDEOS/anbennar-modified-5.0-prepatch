@@ -936,7 +936,6 @@ country_event = {
 		
 		hidden_effect = { country_event = { id = vampires_estate_events.14 days = 3 } }
 	}
-	
 }
 
 #vampire Reborn - initialization giving spell schools ruler if nessecary
@@ -990,6 +989,17 @@ country_event = {
 		add_ruler_modifier = {
 			name = vampire_ruler
 			duration = -1
+		}
+	}
+	after = {
+		if = {	#bertus mod
+			limit = {
+				has_country_flag = dark_lord_flag
+				NOT = {has_country_modifier = corvuria_dark_lord}
+				has_ruler_modifier = vampire_ruler
+				ruler_has_mage_personality = yes
+			}
+			add_country_modifier = { name = corvuria_dark_lord duration = -1 }
 		}
 	}
 }
