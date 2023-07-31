@@ -39,6 +39,7 @@ NDefines.NCountry.COUNTRY_DEVELOPMENT_SCALE = 1000      --600→1000
 NDefines.NCountry.CHANGE_COLONIAL_TYPE_COOLDOWN_DURATION = 0    --10→0
 NDefines.NCountry.CORRUPTION_FROM_BANNERS = 0	--5→0
 NDefines.NCountry.DISINHERIT_PRESTIGE_HIT = -25	-- -50→-25
+NDefines.NCountry.ABDICATE_PRESTIGE_HIT = -25	-- -50→-25
 NDefines.NCountry.EMBRACE_INSTITUTION_COST = 2.5	-- 2.5 per development (autonomy modified)
 NDefines.NCountry.CORRUPTION_COST = 0.1	--0.05→0.1-- cost for monthly combat per development
 NDefines.NCountry.STATE_MAINTENANCE_DEV_FACTOR = 0.012	-- per dev 0.007→0.012

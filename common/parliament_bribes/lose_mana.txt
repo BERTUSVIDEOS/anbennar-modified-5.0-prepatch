@@ -1,0 +1,394 @@
+lose_mana = {
+	trigger = {
+		has_reached_seat_threshold = no
+		has_government_power = {
+			mechanic_type = magisterium_mechanic
+			power_type = magisterium_mana
+			value = 10
+		}
+	}
+	
+	effect = {
+		if = {
+			limit = {
+				has_expensive_debate = yes
+				NOT = { halved_parliament_bribes = yes }
+			}
+			bribe_effect_scaling_with_absolutism = {
+				effect_20 = "
+				add_government_power = {
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -6.40
+				}"
+				effect_40 = "
+				add_government_power = {
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -5.60
+				}"
+				effect_60 = "
+				add_government_power = {
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -4.80
+				}"
+				effect_80 = "
+				add_government_power = {
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -4.00
+				}"
+				effect_100 = "
+				add_government_power = {
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -3.20
+				}"
+				effect_120 = "
+				add_government_power = {
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -2.40
+				}"
+				effect_140 = "
+				add_government_power = {
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -1.60
+				}"
+				effect_max = "
+				add_government_power = {
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -0.80
+				}"
+			}
+		}
+		else_if = {
+			limit = {
+				OR = {
+					AND = {
+						has_expensive_debate = yes
+						halved_parliament_bribes = yes
+					}
+					AND = {
+						NOT = { has_expensive_debate = yes }
+						NOT = { halved_parliament_bribes = yes }
+					}
+				}
+			}
+			bribe_effect_scaling_with_absolutism = {
+				effect_20 = "
+				add_government_power = {
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -1.60
+				}"
+				effect_40 = "
+				add_government_power = {
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -1.40
+				}"
+				effect_60 = "
+				add_government_power = {
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -1.20
+				}"
+				effect_80 = "
+				add_government_power = {
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -1.00
+				}"
+				effect_100 = "
+				add_government_power = {
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -0.80
+				}"
+				effect_120 = "
+				add_government_power = {
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -0.60
+				}"
+				effect_140 = "
+				add_government_power = {
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -0.40
+				}"
+				effect_max = "
+				add_government_power = {
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -0.20
+				}"
+			}
+		}
+		else = {
+			bribe_effect_scaling_with_absolutism = {
+				effect_20 = "
+				add_government_power = {
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -3.20
+				}"
+				effect_40 = "
+				add_government_power = {
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -2.80
+				}"
+				effect_60 = "
+				add_government_power = {
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -2.40
+				}"
+				effect_80 = "
+				add_government_power = {
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -2.00
+				}"
+				effect_100 = "
+				add_government_power = {
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -1.60
+				}"
+				effect_120 = "
+				add_government_power = {
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -1.20
+				}"
+				effect_140 = "
+				add_government_power = {
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -0.80
+				}"
+				effect_max = "
+				add_government_power = {
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -0.40
+				}"
+			}
+		}
+	}
+	
+	ai_will_do = {
+		factor = 1
+		modifier = {
+			factor = 0.1
+			is_at_war = yes
+		}
+	}
+}
+
+national_lose_mana = {
+	trigger = {
+		has_reached_seat_threshold = yes
+		has_government_power = {
+			mechanic_type = magisterium_mechanic
+			power_type = magisterium_mana
+			value = 20
+		}
+	}
+	
+	effect = {
+		back_seats_of_bribe_type = {
+			bribe = lose_mana
+		}
+		if = {
+			limit = {
+				has_expensive_debate = yes
+				NOT = { halved_parliament_bribes = yes }
+			}
+			bribe_effect_scaling_with_absolutism = {
+				effect_20 = "
+				add_government_power = {
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -12.80
+				}"
+				effect_40 = "
+				add_government_power = {
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -6.40
+				}"
+				effect_60 = "
+				add_government_power = {
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -5.60
+				}"
+				effect_80 = "
+				add_government_power = {
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -4.80
+				}"
+				effect_100 = "
+				add_government_power = {
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -4.00
+				}"
+				effect_120 = "
+				add_government_power = {
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -3.20
+				}"
+				effect_140 = "
+				add_government_power = {
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -2.40
+				}"
+				effect_max = "
+				add_government_power = {
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -1.60
+				}"
+			}
+		}
+		else_if = {
+			limit = {
+				OR = {
+					AND = {
+						has_expensive_debate = yes
+						halved_parliament_bribes = yes
+					}
+					AND = {
+						NOT = { has_expensive_debate = yes }
+						NOT = { halved_parliament_bribes = yes }
+					}
+				}
+			}
+			bribe_effect_scaling_with_absolutism = {
+				effect_20 = "
+				add_government_power = {
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -3.20
+				}"
+				effect_40 = "
+				add_government_power = {
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -2.80
+				}"
+				effect_60 = "
+				add_government_power = {
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -2.40
+				}"
+				effect_80 = "
+				add_government_power = {
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -2.00
+				}"
+				effect_100 = "
+				add_government_power = {
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -1.60
+				}"
+				effect_120 = "
+				add_government_power = {
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -1.20
+				}"
+				effect_140 = "
+				add_government_power = {
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -0.80
+				}"
+				effect_max = "
+				add_government_power = {
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -0.40
+				}"
+			}
+		}
+		else = {
+			bribe_effect_scaling_with_absolutism = {
+				effect_20 = "
+				add_government_power = {
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -6.40
+				}"
+				effect_40 = "
+				add_government_power = {
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -5.60
+				}"
+				effect_60 = "
+				add_government_power = {
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -4.80
+				}"
+				effect_80 = "
+				add_government_power = {
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -4.00
+				}"
+				effect_100 = "
+				add_government_power = {
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -3.20
+				}"
+				effect_120 = "
+				add_government_power = {
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -2.40
+				}"
+				effect_140 = "
+				add_government_power = {
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -1.60
+				}"
+				effect_max = "
+				add_government_power = {
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -0.80
+				}"
+			}
+		}
+	}
+	
+	chance = {
+		factor = 1
+	}
+
+	ai_will_do = {
+		factor = 1
+		modifier = {
+			factor = 0.1
+			is_at_war = yes
+		}
+	}
+}

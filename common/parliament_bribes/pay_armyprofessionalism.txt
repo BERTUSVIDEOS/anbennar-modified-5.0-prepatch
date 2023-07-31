@@ -1,0 +1,146 @@
+pay_armyprofessionalism = {
+	trigger = {
+		has_reached_seat_threshold = no
+		has_dlc = "Cradle of Civilization"
+		army_professionalism = 0.02
+		has_not_bribe_blocking_debate_active = {
+			type = army_professionalism
+		}
+	}
+	
+	effect = {
+		if = {
+			limit = {
+				has_expensive_debate = yes
+				NOT = { halved_parliament_bribes = yes }
+			}
+			bribe_effect_scaling_with_absolutism = {
+				effect_20 = "add_yearly_manpower = -0.040"
+				effect_40 = "add_yearly_manpower = -0.035"
+				effect_60 = "add_yearly_manpower = -0.030"
+				effect_80 = "add_yearly_manpower = -0.025"
+				effect_100 = "add_yearly_manpower = -0.020"
+				effect_120 = "add_yearly_manpower = -0.015"
+				effect_140 = "add_yearly_manpower = -0.010"
+				effect_max = "add_yearly_manpower = -0.005"
+			}
+		}
+		else_if = {
+			limit = {
+				OR = {
+					AND = {
+						has_expensive_debate = yes
+						halved_parliament_bribes = yes
+					}
+					AND = {
+						NOT = { has_expensive_debate = yes }
+						NOT = { halved_parliament_bribes = yes }
+					}
+				}
+			}
+			bribe_effect_scaling_with_absolutism = {
+				effect_20 = "add_yearly_manpower = -0.010"
+				effect_40 = "add_yearly_manpower = -0.00875"
+				effect_60 = "add_yearly_manpower = -0.0075"
+				effect_80 = "add_yearly_manpower = -0.00625"
+				effect_100 = "add_yearly_manpower = -0.005"
+				effect_120 = "add_yearly_manpower = -0.00375"
+				effect_140 = "add_yearly_manpower = -0.0025"
+				effect_max = "add_yearly_manpower = -0.00125"
+			}
+		}
+		else = {
+			bribe_effect_scaling_with_absolutism = {
+				effect_20 = "add_yearly_manpower = -0.020"
+				effect_40 = "add_yearly_manpower = -0.0175"
+				effect_60 = "add_yearly_manpower = -0.015"
+				effect_80 = "add_yearly_manpower = -0.0125"
+				effect_100 = "add_yearly_manpower = -0.010"
+				effect_120 = "add_yearly_manpower = -0.0075"
+				effect_140 = "add_yearly_manpower = -0.005"
+				effect_max = "add_yearly_manpower = -0.0025"
+			}
+		}
+	}
+	
+	ai_will_do = {
+		factor = 1
+	}
+}
+
+national_pay_armyprofessionalism = {
+	trigger = {
+		has_reached_seat_threshold = yes
+		has_dlc = "Cradle of Civilization"
+		army_professionalism = 0.02
+		has_not_bribe_blocking_debate_active = {
+			type = army_professionalism
+		}
+	}
+	
+	effect = {
+		back_seats_of_bribe_type = {
+			bribe = pay_armyprofessionalism
+		}
+		if = {
+			limit = {
+				has_expensive_debate = yes
+				NOT = { halved_parliament_bribes = yes }
+			}
+			bribe_effect_scaling_with_absolutism = {
+				effect_20 = "add_yearly_manpower = -0.080"
+				effect_40 = "add_yearly_manpower = -0.070"
+				effect_60 = "add_yearly_manpower = -0.060"
+				effect_80 = "add_yearly_manpower = -0.050"
+				effect_100 = "add_yearly_manpower = -0.040"
+				effect_120 = "add_yearly_manpower = -0.30"
+				effect_140 = "add_yearly_manpower = -0.020"
+				effect_max = "add_yearly_manpower = -0.010"
+			}
+		}
+		else_if = {
+			limit = {
+				OR = {
+					AND = {
+						has_expensive_debate = yes
+						halved_parliament_bribes = yes
+					}
+					AND = {
+						NOT = { has_expensive_debate = yes }
+						NOT = { halved_parliament_bribes = yes }
+					}
+				}
+			}
+			bribe_effect_scaling_with_absolutism = {
+				effect_20 = "add_yearly_manpower = -0.020"
+				effect_40 = "add_yearly_manpower = -0.0175"
+				effect_60 = "add_yearly_manpower = -0.015"
+				effect_80 = "add_yearly_manpower = -0.0125"
+				effect_100 = "add_yearly_manpower = -0.010"
+				effect_120 = "add_yearly_manpower = -0.0075"
+				effect_140 = "add_yearly_manpower = -0.005"
+				effect_max = "add_yearly_manpower = -0.0025"
+			}
+		}
+		else = {
+			bribe_effect_scaling_with_absolutism = {
+				effect_20 = "add_yearly_manpower = -0.040"
+				effect_40 = "add_yearly_manpower = -0.035"
+				effect_60 = "add_yearly_manpower = -0.030"
+				effect_80 = "add_yearly_manpower = -0.025"
+				effect_100 = "add_yearly_manpower = -0.020"
+				effect_120 = "add_yearly_manpower = -0.015"
+				effect_140 = "add_yearly_manpower = -0.010"
+				effect_max = "add_yearly_manpower = -0.005"
+			}
+		}
+	}
+	
+	chance = {
+		factor = 1
+	}
+
+	ai_will_do = {
+		factor = 1
+	}
+}

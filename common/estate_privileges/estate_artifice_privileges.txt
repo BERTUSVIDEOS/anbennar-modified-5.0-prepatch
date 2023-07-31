@@ -12,15 +12,6 @@ estate_artificers_organization_international_gommo = {
 				has_country_flag = nsc_sun_elf_artificery
 			}
 		}
-		NOT = {
-			AND = {
-				OR = {
-					was_tag = Y20
-					tag = Y20
-				}
-				mission_completed = feiten_shuimu_engineering_cadre
-			}
-		}
 		NOT = { has_artificers_special_organization_privilege = yes }
 	}
 	can_select = {
@@ -68,15 +59,6 @@ estate_artificers_organization_state = {
 		OR = {
 			NOT = { has_estate = estate_dragon_command }
 			has_institution = manufactories
-		}
-		NOT = {
-			AND = {
-				OR = {
-					was_tag = Y20
-					tag = Y20
-				}
-				mission_completed = feiten_shuimu_engineering_cadre
-			}
 		}
 		NOT = { has_artificers_special_organization_privilege = yes }
 	}
@@ -127,15 +109,6 @@ estate_artificers_organization_independent_unions = {
 			AND = {
 				religion = bulwari_sun_cult
 				has_country_flag = nsc_sun_elf_artificery
-			}
-		}
-		NOT = {
-			AND = {
-				OR = {
-					was_tag = Y20
-					tag = Y20
-				}
-				mission_completed = feiten_shuimu_engineering_cadre
 			}
 		}
 		NOT = { has_artificers_special_organization_privilege = yes }
@@ -873,6 +846,7 @@ estate_artificers_feiten_invest_engineering_workshop = {
 		random_owned_province = {
 			limit = { has_province_flag = shuimu_workshop_build_location }
 			clr_province_flag = shuimu_workshop_build_location
+		}
 		change_variable = {
 			which = feiten_number_of_shuimu_engineering_cadre_facilities_investments
 			value = 1
@@ -887,7 +861,7 @@ estate_artificers_feiten_starry_eye_promotion = {
 	influence = 0.05
 	loyalty = 0	#0.05→0
 	#max_absolutism = -5	#-5→0
-	is_valid = { mission_completed = feiten_shuimu_engineering_cadre }
+	is_valid = { always = no }
 	can_select = { }
 	can_revoke = { }
 	on_granted = {
@@ -955,7 +929,7 @@ estate_artificers_feiten_grant_foreign_membership = {
 	loyalty = -0.05
 	#land_share = 5	#5→0
 	#max_absolutism = -5	#-5→0
-	is_valid = { mission_completed = feiten_arrival_of_gnomes }
+	is_valid = { always = no }
 	can_select = { }
 	can_revoke = { }
 	on_granted = {
@@ -8014,19 +7988,5 @@ artifice_invention_snotfinger_synthetic = {
 	}
 	on_granted = {
 		artifice_granted_advanced = yes
-		#update_artifice_points = yes #is included in the above effect
-
-# 	}
-# 	benefits = {
-# 		global_monthly_devastation = -0.1
-# 		manpower_recovery_speed = 0.1
-# 		yearly_corruption = -0.1
-# 	}
-# 	ai_will_do = {
-# 		factor = 5
-# 		modifier = {
-# 			factor = 0
-# 			over_artifice_capacity = yes
-# 		}
-# 	}
-# }
+	}
+}

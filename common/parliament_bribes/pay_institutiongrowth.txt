@@ -1,0 +1,72 @@
+pay_institutiongrowth = {
+	trigger = {
+		FROM = {
+			current_institution = 5
+			NOT = { current_institution = 100 }
+		}
+	}
+	
+	effect = {
+		if = {
+			limit = {
+				has_expensive_debate = yes
+				NOT = { halved_parliament_bribes = yes }
+			}
+			bribe_effect_scaling_with_absolutism = {
+				effect_20 = "FROM = { add_next_institution_embracement = -25.60}"
+				effect_40 = "FROM = { add_next_institution_embracement = -22.40}"
+				effect_60 = "FROM = { add_next_institution_embracement = -19.20}"
+				effect_80 = "FROM = { add_next_institution_embracement = -16.00}"
+				effect_100 = "FROM = { add_next_institution_embracement = -12.80}"
+				effect_120 = "FROM = { add_next_institution_embracement = -9.60}"
+				effect_140 = "FROM = { add_next_institution_embracement = -6.40}"
+				effect_max = "FROM = { add_next_institution_embracement = -3.20}"
+
+			}
+		}
+		else_if = {
+			limit = {
+				OR = {
+					AND = {
+						has_expensive_debate = yes
+						halved_parliament_bribes = yes
+					}
+					AND = {
+						NOT = { has_expensive_debate = yes }
+						NOT = { halved_parliament_bribes = yes }
+					}
+				}
+			}
+			bribe_effect_scaling_with_absolutism = {
+				effect_20 = "FROM = { add_next_institution_embracement = -6.40}"
+				effect_40 = "FROM = { add_next_institution_embracement = -5.60}"
+				effect_60 = "FROM = { add_next_institution_embracement = -4.80}"
+				effect_80 = "FROM = { add_next_institution_embracement = -4.00}"
+				effect_100 = "FROM = { add_next_institution_embracement = -3.20}"
+				effect_120 = "FROM = { add_next_institution_embracement = -2.40}"
+				effect_140 = "FROM = { add_next_institution_embracement = -1.60}"
+				effect_max = "FROM = { add_next_institution_embracement = -0.80}"
+			}
+		}
+		else = {
+			bribe_effect_scaling_with_absolutism = {
+				effect_20 = "FROM = { add_next_institution_embracement = -12.80}"
+				effect_40 = "FROM = { add_next_institution_embracement = -11.20}"
+				effect_60 = "FROM = { add_next_institution_embracement = -9.60}"
+				effect_80 = "FROM = { add_next_institution_embracement = -8.00}"
+				effect_100 = "FROM = { add_next_institution_embracement = -6.40}"
+				effect_120 = "FROM = { add_next_institution_embracement = -4.80}"
+				effect_140 = "FROM = { add_next_institution_embracement = -3.20}"
+				effect_max = "FROM = { add_next_institution_embracement = -1.60}"
+			}
+		}
+	}
+	
+	chance = {
+		factor = 1
+	}
+
+	ai_will_do = {
+		factor = 1
+	}
+}

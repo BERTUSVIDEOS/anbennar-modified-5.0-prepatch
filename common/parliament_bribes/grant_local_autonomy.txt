@@ -1,0 +1,70 @@
+grant_local_autonomy = {
+	trigger = {
+		FROM = { is_capital = no }
+		FROM = { NOT = { local_autonomy = 80 } }
+	}
+	
+	effect = {
+		if = {
+			limit = {
+				has_expensive_debate = yes
+				NOT = { halved_parliament_bribes = yes }
+			}
+			bribe_effect_scaling_with_absolutism = {
+				effect_20 = "FROM = { add_local_autonomy = 25.60}"
+				effect_40 = "FROM = { add_local_autonomy = 22.40}"
+				effect_60 = "FROM = { add_local_autonomy = 19.20}"
+				effect_80 = "FROM = { add_local_autonomy = 16.00}"
+				effect_100 = "FROM = { add_local_autonomy = 12.80}"
+				effect_120 = "FROM = { add_local_autonomy = 9.60}"
+				effect_140 = "FROM = { add_local_autonomy = 6.40}"
+				effect_max = "FROM = { add_local_autonomy = 3.20}"
+
+			}
+		}
+		else_if = {
+			limit = {
+				OR = {
+					AND = {
+						has_expensive_debate = yes
+						halved_parliament_bribes = yes
+					}
+					AND = {
+						NOT = { has_expensive_debate = yes }
+						NOT = { halved_parliament_bribes = yes }
+					}
+				}
+			}
+			bribe_effect_scaling_with_absolutism = {
+				effect_20 = "FROM = { add_local_autonomy = 6.40}"
+				effect_40 = "FROM = { add_local_autonomy = 5.60}"
+				effect_60 = "FROM = { add_local_autonomy = 4.80}"
+				effect_80 = "FROM = { add_local_autonomy = 4.00}"
+				effect_100 = "FROM = { add_local_autonomy = 3.20}"
+				effect_120 = "FROM = { add_local_autonomy = 2.40}"
+				effect_140 = "FROM = { add_local_autonomy = 1.60}"
+				effect_max = "FROM = { add_local_autonomy = 0.80}"
+			}
+		}
+		else = {
+			bribe_effect_scaling_with_absolutism = {
+				effect_20 = "FROM = { add_local_autonomy = 12.80}"
+				effect_40 = "FROM = { add_local_autonomy = 11.20}"
+				effect_60 = "FROM = { add_local_autonomy = 9.60}"
+				effect_80 = "FROM = { add_local_autonomy = 8.00}"
+				effect_100 = "FROM = { add_local_autonomy = 6.40}"
+				effect_120 = "FROM = { add_local_autonomy = 4.80}"
+				effect_140 = "FROM = { add_local_autonomy = 3.20}"
+				effect_max = "FROM = { add_local_autonomy = 1.60}"
+			}
+		}
+	}
+	
+	chance = {
+		factor = 1
+	}
+
+	ai_will_do = {
+		factor = 1
+	}	
+}

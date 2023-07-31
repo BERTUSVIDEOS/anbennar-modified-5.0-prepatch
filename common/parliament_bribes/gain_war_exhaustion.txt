@@ -1,0 +1,150 @@
+gain_war_exhaustion = {
+	trigger = {
+		has_reached_seat_threshold = no
+		has_not_bribe_blocking_debate_active = {
+			type = war_exhaustion
+		}
+		is_at_war = yes
+		NOT = { war_exhaustion = 19 }
+	}
+	
+	effect = {
+		if = {
+			limit = {
+				has_expensive_debate = yes
+				NOT = { halved_parliament_bribes = yes }
+			}
+			bribe_effect_scaling_with_absolutism = {
+				effect_20 = "add_war_exhaustion = 3.20"
+				effect_40 = "add_war_exhaustion = 2.80"
+				effect_60 = "add_war_exhaustion = 2.40"
+				effect_80 = "add_war_exhaustion = 2.00"
+				effect_100 = "add_war_exhaustion = 1.60"
+				effect_120 = "add_war_exhaustion = 1.20"
+				effect_140 = "add_war_exhaustion = 0.80"
+				effect_max = "add_war_exhaustion = 0.40"
+			}
+		}
+		else_if = {
+			limit = {
+				OR = {
+					AND = {
+						has_expensive_debate = yes
+						halved_parliament_bribes = yes
+					}
+					AND = {
+						NOT = { has_expensive_debate = yes }
+						NOT = { halved_parliament_bribes = yes }
+					}
+				}
+			}
+			bribe_effect_scaling_with_absolutism = {
+				effect_20 = "add_war_exhaustion = 0.80"
+				effect_40 = "add_war_exhaustion = 0.70"
+				effect_60 = "add_war_exhaustion = 0.60"
+				effect_80 = "add_war_exhaustion = 0.50"
+				effect_100 = "add_war_exhaustion = 0.40"
+				effect_120 = "add_war_exhaustion = 0.30"
+				effect_140 = "add_war_exhaustion = 0.20"
+				effect_max = "add_war_exhaustion = 0.10"
+			}
+		}
+		else = {
+			bribe_effect_scaling_with_absolutism = {
+				effect_20 = "add_war_exhaustion = 1.60"
+				effect_40 = "add_war_exhaustion = 1.40"
+				effect_60 = "add_war_exhaustion = 1.20"
+				effect_80 = "add_war_exhaustion = 1.00"
+				effect_100 = "add_war_exhaustion = 0.80"
+				effect_120 = "add_war_exhaustion = 0.60"
+				effect_140 = "add_war_exhaustion = 0.40"
+				effect_max = "add_war_exhaustion = 0.20"
+			}
+		}
+	}
+	
+	ai_will_do = {
+		factor = 1
+		modifier = {
+			factor = 0.1
+			war_exhaustion = 5
+		}
+	}
+}
+
+national_gain_war_exhaustion = {
+	trigger = {
+		has_reached_seat_threshold = yes
+		has_not_bribe_blocking_debate_active = {
+			type = war_exhaustion
+		}
+		is_at_war = yes
+		NOT = { war_exhaustion = 19 }
+	}
+	
+	effect = {
+		back_seats_of_bribe_type = {
+			bribe = gain_war_exhaustion
+		}
+		if = {
+			limit = {
+				has_expensive_debate = yes
+				NOT = { halved_parliament_bribes = yes }
+			}
+			bribe_effect_scaling_with_absolutism = {
+				effect_20 = "add_war_exhaustion = 3.20"
+				effect_40 = "add_war_exhaustion = 2.80"
+				effect_60 = "add_war_exhaustion = 2.40"
+				effect_80 = "add_war_exhaustion = 2.00"
+				effect_100 = "add_war_exhaustion = 1.60"
+				effect_120 = "add_war_exhaustion = 1.20"
+				effect_140 = "add_war_exhaustion = 0.80"
+				effect_max = "add_war_exhaustion = 0.40"
+			}
+		}
+		else_if = {
+			limit = {
+				OR = {
+					AND = {
+						has_expensive_debate = yes
+						halved_parliament_bribes = yes
+					}
+					AND = {
+						NOT = { has_expensive_debate = yes }
+						NOT = { halved_parliament_bribes = yes }
+					}
+				}
+			}
+			bribe_effect_scaling_with_absolutism = {
+				effect_20 = "add_war_exhaustion = 0.80"
+				effect_40 = "add_war_exhaustion = 0.70"
+				effect_60 = "add_war_exhaustion = 0.60"
+				effect_80 = "add_war_exhaustion = 0.50"
+				effect_100 = "add_war_exhaustion = 0.40"
+				effect_120 = "add_war_exhaustion = 0.30"
+				effect_140 = "add_war_exhaustion = 0.20"
+				effect_max = "add_war_exhaustion = 0.10"
+			}
+		}
+		else = {
+			bribe_effect_scaling_with_absolutism = {
+				effect_20 = "add_war_exhaustion = 1.60"
+				effect_40 = "add_war_exhaustion = 1.40"
+				effect_60 = "add_war_exhaustion = 1.20"
+				effect_80 = "add_war_exhaustion = 1.00"
+				effect_100 = "add_war_exhaustion = 0.80"
+				effect_120 = "add_war_exhaustion = 0.60"
+				effect_140 = "add_war_exhaustion = 0.40"
+				effect_max = "add_war_exhaustion = 0.20"
+			}
+		}
+	}
+	
+	ai_will_do = {
+		factor = 1
+		modifier = {
+			factor = 0.1
+			war_exhaustion = 5
+		}
+	}
+}

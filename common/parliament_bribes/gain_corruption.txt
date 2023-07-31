@@ -1,0 +1,148 @@
+gain_corruption = {
+	trigger = {
+		has_reached_seat_threshold = no
+		has_not_bribe_blocking_debate_active = {
+			type = corruption
+		}
+		NOT = { corruption = 99.91 }
+	}
+	
+	effect = {
+		if = {
+			limit = {
+				has_expensive_debate = yes
+				NOT = { halved_parliament_bribes = yes }
+			}
+			bribe_effect_scaling_with_absolutism = {
+				effect_20 = "add_corruption = 1.6"
+				effect_40 = "add_corruption = 1.4"
+				effect_60 = "add_corruption = 1.2"
+				effect_80 = "add_corruption = 1.0"
+				effect_100 = "add_corruption = 0.8"
+				effect_120 = "add_corruption = 0.6"
+				effect_140 = "add_corruption = 0.4"
+				effect_max = "add_corruption = 0.2"
+			}
+		}
+		else_if = {
+			limit = {
+				OR = {
+					AND = {
+						has_expensive_debate = yes
+						halved_parliament_bribes = yes
+					}
+					AND = {
+						NOT = { has_expensive_debate = yes }
+						NOT = { halved_parliament_bribes = yes }
+					}
+				}
+			}
+			bribe_effect_scaling_with_absolutism = {
+				effect_20 = "add_corruption = 0.40"
+				effect_40 = "add_corruption = 0.35"
+				effect_60 = "add_corruption = 0.30"
+				effect_80 = "add_corruption = 0.25"
+				effect_100 = "add_corruption = 0.20"
+				effect_120 = "add_corruption = 0.15"
+				effect_140 = "add_corruption = 0.10"
+				effect_max = "add_corruption = 0.05"
+			}
+		}
+		else = {
+			bribe_effect_scaling_with_absolutism = {
+				effect_20 = "add_corruption = 0.8"
+				effect_40 = "add_corruption = 0.7"
+				effect_60 = "add_corruption = 0.6"
+				effect_80 = "add_corruption = 0.5"
+				effect_100 = "add_corruption = 0.4"
+				effect_120 = "add_corruption = 0.3"
+				effect_140 = "add_corruption = 0.2"
+				effect_max = "add_corruption = 0.1"
+			}
+		}
+	}
+	
+	ai_will_do = {
+		factor = 1
+		modifier = {
+			factor = 0.1
+			corruption = 10
+		}
+	}
+}
+
+national_gain_corruption = {
+	trigger = {
+		has_reached_seat_threshold = yes
+		has_not_bribe_blocking_debate_active = {
+			type = corruption
+		}
+		NOT = { corruption = 99.91 }
+	}
+	
+	effect = {
+		back_seats_of_bribe_type = {
+			bribe = gain_corruption
+		}
+		if = {
+			limit = {
+				has_expensive_debate = yes
+				NOT = { halved_parliament_bribes = yes }
+			}
+			bribe_effect_scaling_with_absolutism = {
+				effect_20 = "add_corruption = 3.2"
+				effect_40 = "add_corruption = 2.8"
+				effect_60 = "add_corruption = 2.4"
+				effect_80 = "add_corruption = 2.0"
+				effect_100 = "add_corruption = 1.6"
+				effect_120 = "add_corruption = 1.2"
+				effect_140 = "add_corruption = 0.8"
+				effect_max = "add_corruption = 0.4"
+			}
+		}
+		else_if = {
+			limit = {
+				OR = {
+					AND = {
+						has_expensive_debate = yes
+						halved_parliament_bribes = yes
+					}
+					AND = {
+						NOT = { has_expensive_debate = yes }
+						NOT = { halved_parliament_bribes = yes }
+					}
+				}
+			}
+			bribe_effect_scaling_with_absolutism = {
+				effect_20 = "add_corruption = 0.8"
+				effect_40 = "add_corruption = 0.7"
+				effect_60 = "add_corruption = 0.6"
+				effect_80 = "add_corruption = 0.5"
+				effect_100 = "add_corruption = 0.4"
+				effect_120 = "add_corruption = 0.3"
+				effect_140 = "add_corruption = 0.2"
+				effect_max = "add_corruption = 0.1"
+			}
+		}
+		else = {
+			bribe_effect_scaling_with_absolutism = {
+				effect_20 = "add_corruption = 1.6"
+				effect_40 = "add_corruption = 1.4"
+				effect_60 = "add_corruption = 1.2"
+				effect_80 = "add_corruption = 1.0"
+				effect_100 = "add_corruption = 0.8"
+				effect_120 = "add_corruption = 0.6"
+				effect_140 = "add_corruption = 0.4"
+				effect_max = "add_corruption = 0.2"
+			}
+		}
+	}
+	
+	ai_will_do = {
+		factor = 1
+		modifier = {
+			factor = 0.1
+			corruption = 10
+		}
+	}
+}
