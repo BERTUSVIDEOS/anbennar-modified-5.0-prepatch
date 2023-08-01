@@ -31,7 +31,14 @@ parliamentary_reform = {
 		global_unrest = -1
 	}
 	
-	trigger = {	
+	trigger = {
+		if = {
+			limit = { has_country_flag = recently_got_parliament_flag }
+			had_country_flag = {
+				flag = recently_got_parliament_flag
+				days = 7300
+			}
+		}
 		if = {
 			limit = { has_dlc = "Res Publica" }
 			NOT = { has_reform = elective_monarchy }
@@ -65,6 +72,10 @@ parliamentary_reform = {
 		allow = { has_dlc = "Common Sense" }
 		has_parliament = yes
 	}
+	effect = {
+		clr_country_flag = recently_got_parliament_flag
+		set_country_flag = recently_got_parliament_flag
+	}
 	ai = {
 		factor = 1
 		modifier = {
@@ -95,9 +106,6 @@ parliamentary_reform = {
 				religion_group = faithless
 			}
 		}
-	}
-	post_removed_effect = {
-		give_estate_land_share_init = { estate = estate_nobles }
 	}
 }
 
@@ -277,6 +285,13 @@ dwarovar_assembly_of_holds_reform = {	#bertus mod
 	}
 	trigger = {
 		if = {
+			limit = { has_country_flag = recently_got_parliament_flag }
+			had_country_flag = {
+				flag = recently_got_parliament_flag
+				days = 7300
+			}
+		}
+		if = {
 			limit = { NOT = { has_dlc = "Mandate of Heaven" } }
 			NOT = { has_reform = celestial_empire }
 			NOT = { is_revolutionary_republic_trigger = yes }
@@ -295,6 +310,10 @@ dwarovar_assembly_of_holds_reform = {	#bertus mod
 		allow = { has_dlc = "Common Sense" }
 		has_parliament = yes
 	}
+	effect = {
+		clr_country_flag = recently_got_parliament_flag
+		set_country_flag = recently_got_parliament_flag
+	}
 }
 
 #tier 5 - parliament
@@ -310,6 +329,13 @@ amlharaz_reform = {	#bertus mod
 		}
 	}
 	trigger = {
+		if = {
+			limit = { has_country_flag = recently_got_parliament_flag }
+			had_country_flag = {
+				flag = recently_got_parliament_flag
+				days = 7300
+			}
+		}
 		OR = {
 			tag = I24
 			is_subject_of_type = amlharaz_hold
@@ -323,6 +349,10 @@ amlharaz_reform = {	#bertus mod
 	conditional = {
 		allow = { has_dlc = "Common Sense" }
 		has_parliament = yes
+	}
+	effect = {
+		clr_country_flag = recently_got_parliament_flag
+		set_country_flag = recently_got_parliament_flag
 	}
 }
 
@@ -1990,7 +2020,7 @@ six_livres_reform = {	#bertus mod	#new LotN
 			}
 		}
 	}
-	ai_chance  = {
+	ai = {
 		factor = 1
 	}
 }
@@ -2033,7 +2063,7 @@ two_treatises_reform = {	#bertus mod	#new LotN
 		remove_country_modifier = three_treatises_battlemages_modifier
 		remove_country_modifier = three_treatises_mercenary_modifier
 	}
-	ai_chance  = {factor = 1}
+	ai = {factor = 1}
 }
 
 the_leviathan_reform = {	#bertus mod	#new LotN
@@ -2043,7 +2073,7 @@ the_leviathan_reform = {	#bertus mod	#new LotN
 		all_power_cost = -0.05
 		administrative_efficiency = 0.05
 	}
-	ai_chance  = {
+	ai = {
 		factor = 1
 	}
 }
@@ -2121,6 +2151,15 @@ ameion_parliamentary_reform = { #Anbennar
 			have_had_reform = ameion_parliamentary_reform
 		}
 	}
+	trigger = {
+		if = {
+			limit = { has_country_flag = recently_got_parliament_flag }
+			had_country_flag = {
+				flag = recently_got_parliament_flag
+				days = 7300
+			}
+		}
+	}
 	modifiers = {
 		free_adm_policy = 1
 		possible_policy = 1
@@ -2129,7 +2168,11 @@ ameion_parliamentary_reform = { #Anbennar
 
 	conditional = {
 		allow = { has_dlc = "Common Sense" }
-		has_parliament = yes #YES Nobles
+		has_parliament = yes
+	}
+	effect = {
+		clr_country_flag = recently_got_parliament_flag
+		set_country_flag = recently_got_parliament_flag
 	}
 	ai = {
 		factor = 10

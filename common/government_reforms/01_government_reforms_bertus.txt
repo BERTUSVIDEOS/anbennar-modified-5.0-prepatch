@@ -80,6 +80,11 @@ black_tower_empire_reform = {
 	potential = {
 		culture_group = alenic
 		OR = {
+			devleopment = 1500
+			government_rank = 3
+		}
+		OR = {
+			has_great_project = { type = bal_vertesk tier = 3 }
 			has_reform = black_tower_empire_reform
 			have_had_reform = black_tower_empire_reform
 		}
@@ -93,12 +98,12 @@ black_tower_empire_reform = {
 		mages_loyalty_modifier = 0.10
 		mages_influence_modifier = 0.10
 		all_power_cost = -0.05
+		monthly_magisterium_mana = 0.1666
 	}
 
 	custom_attributes = {
 		locked_government_type = yes
 		is_magocracy = yes
-		shorter_cd_for_realm_magic = yes
 		magic_commander_academy = yes
 	}
 }
@@ -118,14 +123,16 @@ magisterium_reformed_reform = {
 	modifiers = {	#for better spellcasting
 		mages_loyalty_modifier = 0.15
 		mages_influence_modifier = 0.15
+		monthly_magisterium_mana = 0.1666
+		general_cost = 0.50
 	}
 	custom_attributes = {
 		locked_government_type = yes
 		election_on_death = yes
 		magisterium_election = yes
 		is_magocracy = yes
-		shorter_cd_for_realm_magic = yes
 		magic_commander_academy = yes
+		free_magic_commander = yes
 	}
 
 	effect = {
@@ -154,13 +161,15 @@ magisterium_empire_reform = {
 		monarch_military_power = 1
 		mages_loyalty_modifier = 0.2
 		mages_influence_modifier = 0.2
+		monthly_magisterium_mana = 0.1666
+		general_cost = 0.50
 	}
 
 	custom_attributes = {
 		locked_government_type = yes
 		is_magocracy = yes
-		shorter_cd_for_realm_magic = yes
 		magic_commander_academy = yes
+		free_magic_commander = yes
 	}
 
 	effect = {
@@ -307,8 +316,7 @@ alenic_empire = {
 	potential = {
 		culture_group = alenic
 		OR = {
-			has_reform = alenic_empire
-			have_had_reform = alenic_empire
+			devleopment = 1500
 			government_rank = 3
 		}
 		is_emperor = no
@@ -339,8 +347,7 @@ wine_empire = {
 			primary_culture = rosanda
 		}
 		OR = {
-			has_reform = wine_empire
-			have_had_reform = wine_empire
+			devleopment = 1500
 			government_rank = 3
 		}
 	}
@@ -397,9 +404,17 @@ damerian_empire = {
 			primary_culture = pashainey
 		}
 		OR = {
-			has_reform = damerian_empire
-			have_had_reform = damerian_empire
+			devleopment = 1500
 			government_rank = 3
+		}
+	}
+	trigger = {
+		if = {
+			limit = { has_country_flag = recently_got_parliament_flag }
+			had_country_flag = {
+				flag = recently_got_parliament_flag
+				days = 7300
+			}
 		}
 	}
 	fixed_rank = 3
@@ -422,6 +437,10 @@ damerian_empire = {
 	conditional = {
 		allow = { has_dlc = "Common Sense" }
 		has_parliament = yes
+	}
+	removed_effect = {
+		clr_country_flag = recently_got_parliament_flag
+		set_country_flag = recently_got_parliament_flag
 	}
 }
 emerald_theocracy = {

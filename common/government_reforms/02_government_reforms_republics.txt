@@ -102,11 +102,22 @@ protectorate_parliament_reform = {
 	potential = {
 		has_reform = protectorate_parliament_reform
 	}
+	trigger = {
+		if = {
+			limit = { has_country_flag = recently_got_parliament_flag }
+			had_country_flag = {
+				flag = recently_got_parliament_flag
+				days = 7300
+			}
+		}
+	}
 	lock_level_when_selected = yes
 	valid_for_new_country = no
 	valid_for_nation_designer = no
 	nation_designer_cost = 15
 	legacy_equivalent = protectorate_parliament_legacy
+	has_term_election = no
+
 	modifiers = {
 		global_autonomy = -0.05
 		land_morale = 0.1
@@ -130,12 +141,15 @@ protectorate_parliament_reform = {
 			english_parliament = yes
 		}
 	}
-	has_term_election = no
 	custom_attributes = {
 		locked_government_type = yes
 		enables_plutocratic_idea_group = yes
 		enables_aristocratic_idea_group = no
 		cannot_become_dictatorship = yes
+	}
+	removed_effect = {
+		clr_country_flag = recently_got_parliament_flag
+		set_country_flag = recently_got_parliament_flag
 	}
 }
 
@@ -1172,24 +1186,25 @@ self_governing_colony_government = {
 
 dutch_republic = {
 	icon = "dutch_republic"
-	allow_normal_conversion = yes
 	potential = {
 		always = no	#anbennar
-		# OR = {
-			# AND = {
-				# tag = NED
-				# NOT = { map_setup = map_setup_random }
-			# }
-			# AND = {
-				# is_playing_custom_nation = yes
-				# have_had_reform = dutch_republic
-			# }
-		# }
 	}
+	trigger = {
+		if = {
+			limit = { has_country_flag = recently_got_parliament_flag }
+			had_country_flag = {
+				flag = recently_got_parliament_flag
+				days = 7300
+			}
+		}
+	}
+
+	allow_normal_conversion = yes
 	legacy_equivalent = dutch_republic_legacy
 	valid_for_nation_designer = yes
 	nation_designer_cost = 40
 	royal_marriage = yes
+	duration = 4
 	nation_designer_trigger = {
 		has_dlc = "Res Publica"
 	}
@@ -1202,15 +1217,6 @@ dutch_republic = {
 		# has_voc_indiamen = yes #1.35
 		# allowed_voc_indiamen_fraction = 0.2 #1.35
 	}
-
-	removed_effect = {
-		if = {
-			# Monarchs seize power
-			limit = { government = monarchy }
-			country_event = { id = dutch_republic.33 }
-		}
-	}
-
 	custom_attributes = {
 		enables_plutocratic_idea_group = yes
 		enables_aristocratic_idea_group = no
@@ -1244,7 +1250,16 @@ dutch_republic = {
 		}
 		has_parliament = yes
 	}
-	duration = 4
+
+	removed_effect = {
+		clr_country_flag = recently_got_parliament_flag
+		set_country_flag = recently_got_parliament_flag
+		if = {
+			# Monarchs seize power
+			limit = { government = monarchy }
+			country_event = { id = dutch_republic.33 }
+		}
+	}
 }
 
 
@@ -1907,7 +1922,18 @@ azkare_court = {
 	potential = {
 		has_reform = azkare_court
 	}
+	trigger = {
+		if = {
+			limit = { has_country_flag = recently_got_parliament_flag }
+			had_country_flag = {
+				flag = recently_got_parliament_flag
+				days = 7300
+			}
+		}
+	}
 	valid_for_nation_designer = no
+	has_term_election = no
+
 	modifiers = {
 		advisor_cost = -0.15
 		development_cost = -0.1
@@ -1927,7 +1953,10 @@ azkare_court = {
 		disabled_purging = yes
 		disabled_expelling = yes
 	}
-	has_term_election = no
+	removed_effect = {
+		clr_country_flag = recently_got_parliament_flag
+		set_country_flag = recently_got_parliament_flag
+	}
 }
 
 sunrise_court_reform = {
@@ -1939,8 +1968,20 @@ sunrise_court_reform = {
 	potential = {
 		has_reform = sunrise_court_reform
 	}
+	trigger = {
+		if = {
+			limit = { has_country_flag = recently_got_parliament_flag }
+			had_country_flag = {
+				flag = recently_got_parliament_flag
+				days = 7300
+			}
+		}
+	}
 	valid_for_nation_designer = no
 	valid_for_new_country = no
+	fixed_rank = 3
+	duration = 30
+
 	modifiers = {
 		advisor_cost = -0.15
 		idea_cost = -0.1
@@ -1950,7 +1991,6 @@ sunrise_court_reform = {
 		global_missionary_strength = -0.1
 		max_absolutism = 20
 	}
-	fixed_rank = 3
 	
 	custom_attributes = {
 		locked_government_type = yes
@@ -1960,7 +2000,10 @@ sunrise_court_reform = {
 		disabled_purging = yes
 		disabled_expelling = yes
 	}
-	duration = 30
+	removed_effect = {
+		clr_country_flag = recently_got_parliament_flag
+		set_country_flag = recently_got_parliament_flag
+	}
 }
 
 beikdugang_plutocracy_reform = {
@@ -2112,19 +2155,33 @@ seghdihr_syndicates_reform = {
 }
 
 golden_republic_reform = {
+	icon = "peasant_republic"
+	
+
+	potential = {
+		has_reform = golden_republic_reform
+	}
+	trigger = {
+		if = {
+			limit = { has_country_flag = recently_got_parliament_flag }
+			had_country_flag = {
+				flag = recently_got_parliament_flag
+				days = 7300
+			}
+		}
+	}
+
 	allow_normal_conversion = no
 	lock_level_when_selected = yes
 	republican_name = no
 	royal_marriage = no
 	republic = yes	
 	has_term_election = no
-
-	icon = "peasant_republic"
-	potential = {
-		has_reform = golden_republic_reform
-	}
 	valid_for_nation_designer = no
 	legacy_equivalent = peasants_republic_legacy
+	duration = 4
+	boost_income = yes
+
 	modifiers = {
 		production_efficiency = 0.1
 		merchants = 1
@@ -2133,7 +2190,6 @@ golden_republic_reform = {
 		church_influence_modifier = -0.2
 		church_loyalty_modifier = -0.05
 	}
-	boost_income = yes
 	conditional = {
 		allow = {
 			has_dlc = "Res Publica"
@@ -2148,7 +2204,10 @@ golden_republic_reform = {
 		has_parliament = yes
 		cannot_become_dictatorship = yes
 	}
-	duration = 4
+	removed_effect = {
+		clr_country_flag = recently_got_parliament_flag
+		set_country_flag = recently_got_parliament_flag
+	}
 }
 
 ameion_conquerers_reform = {
@@ -3724,6 +3783,15 @@ presidential_revolutionary_reform = {
 			has_reform = bulwar_twelve_families_reform
 		}
 	}
+	trigger = {
+		if = {
+			limit = { has_country_flag = recently_got_parliament_flag }
+			had_country_flag = {
+				flag = recently_got_parliament_flag
+				days = 7300
+			}
+		}
+	}
 	modifiers = {
 		max_revolutionary_zeal = 10
 		yearly_revolutionary_zeal = 1
@@ -3732,6 +3800,10 @@ presidential_revolutionary_reform = {
 	}
 	custom_attributes = {
 		has_parliament = yes
+	}
+	removed_effect = {
+		clr_country_flag = recently_got_parliament_flag
+		set_country_flag = recently_got_parliament_flag
 	}
 	ai = {
 		factor = 1
@@ -3789,9 +3861,27 @@ trollsbayer_pluralism_reform = {
 			have_had_reform = trollsbayer_pluralism_reform
 		}
 	}
+	trigger = {
+		if = {
+			limit = { has_country_flag = recently_got_parliament_flag }
+			had_country_flag = {
+				flag = recently_got_parliament_flag
+				days = 7300
+			}
+		}
+	}
 	modifiers = {
 		no_religion_penalty = yes
 		stability_cost_modifier = -0.1
+	}
+	custom_attributes = {
+		has_parliament = yes
+		cannot_ally_non_republics = yes
+		anb_special_elections = yes
+		cannot_become_dictatorship = yes
+		disabled_expelling_halfling = yes
+		disabled_purging_halfling = yes
+		blocked_call_diet = yes
 	}
 	effect = {
 		custom_tooltip = break_every_non_republic_alliance_tt
@@ -3805,14 +3895,9 @@ trollsbayer_pluralism_reform = {
 			}
 		}
 	}
-	custom_attributes = {
-		has_parliament = yes
-		cannot_ally_non_republics = yes
-		anb_special_elections = yes
-		cannot_become_dictatorship = yes
-		disabled_expelling_halfling = yes
-		disabled_purging_halfling = yes
-		blocked_call_diet = yes
+	removed_effect = {
+		clr_country_flag = recently_got_parliament_flag
+		set_country_flag = recently_got_parliament_flag
 	}
 }
 
@@ -4114,6 +4199,15 @@ revolutionary_council_reform = {
 		has_dlc = "Emperor"
 		is_revolutionary = yes
 	}
+	trigger = {
+		if = {
+			limit = { has_country_flag = recently_got_parliament_flag }
+			had_country_flag = {
+				flag = recently_got_parliament_flag
+				days = 7300
+			}
+		}
+	}
 	modifiers = {
 		max_revolutionary_zeal = 10
 		election_cycle = -1
@@ -4126,6 +4220,10 @@ revolutionary_council_reform = {
 			}
 		}
 		has_parliament = yes
+	}
+	removed_effect = {
+		clr_country_flag = recently_got_parliament_flag
+		set_country_flag = recently_got_parliament_flag
 	}
 	ai = {
 		factor = 2
@@ -4842,7 +4940,14 @@ pirate_representation_reform = {
 	potential = {
 		has_government_attribute = is_pirate_republic_reform
 	}
-	trigger = {	
+	trigger = {
+		if = {
+			limit = { has_country_flag = recently_got_parliament_flag }
+			had_country_flag = {
+				flag = recently_got_parliament_flag
+				days = 7300
+			}
+		}
 		if = {
 			limit = { has_dlc = "Common Sense" }
 			OR = {
@@ -4877,6 +4982,10 @@ pirate_representation_reform = {
 			}
 		}
 		has_parliament = yes
+	}
+	removed_effect = {
+		clr_country_flag = recently_got_parliament_flag
+		set_country_flag = recently_got_parliament_flag
 	}
 
 	ai = {
@@ -5038,7 +5147,6 @@ federal_senate_reform = {
 				has_dlc = "Domination"
 			}
 		}
-		has_parliament = yes
 		custom_attributes = {
 			halved_parliament_bribes = yes
 			pariament_debate_bonus = yes
@@ -6040,13 +6148,28 @@ orlghelovar_glass_worker_reform = {
 railskulker_councils_of_technocrats = {
 	icon = "conciliarism_reform"
 	lock_level_when_selected = yes
-	has_parliament = yes
 	potential = {
 		has_reform = technocracy_republic_reform
+	}
+	trigger = {
+		if = {
+			limit = { has_country_flag = recently_got_parliament_flag }
+			had_country_flag = {
+				flag = recently_got_parliament_flag
+				days = 7300
+			}
+		}
 	}
 	modifiers = {
 		technology_cost = -0.05
 		artificers_influence_modifier = 0.1 
+	}
+	custom_attributes = {
+		has_parliament = yes
+	}
+	removed_effect = {
+		clr_country_flag = recently_got_parliament_flag
+		set_country_flag = recently_got_parliament_flag
 	}
 }
 	
@@ -6243,12 +6366,24 @@ anisikheioni_naval_administration = {
 #Theinos
 theinosi_synkletos = {
 	icon = "parliament"
-	allow_normal_conversion = no
 	potential = {
 		has_reform = theinosi_synkletos
 	}
+	trigger = {
+		if = {
+			limit = { has_country_flag = recently_got_parliament_flag }
+			had_country_flag = {
+				flag = recently_got_parliament_flag
+				days = 7300
+			}
+		}
+	}
+	
+	allow_normal_conversion = no
 	lock_level_when_selected = yes
 	valid_for_nation_designer = no
+	duration = 4
+
 	modifiers = {
 		colonists = 1
 		advisor_pool = 1
@@ -6271,7 +6406,10 @@ theinosi_synkletos = {
 			disables_estate_nobles = yes
 		}
 	}
-	duration = 4
+	removed_effect = {
+		clr_country_flag = recently_got_parliament_flag
+		set_country_flag = recently_got_parliament_flag
+	}
 }
 
 #Amgremos Pirate Republic

@@ -513,6 +513,10 @@ polish_elective_monarchy = {
 		}
 		has_parliament = yes
 	}
+	removed_effect = {
+		clr_country_flag = recently_got_parliament_flag
+		set_country_flag = recently_got_parliament_flag
+	}
 }
 
 # If you put everything into naval and colonialization	(Tall)
@@ -624,7 +628,6 @@ wine_lord_reform = {
 			primary_culture = rosanda
 		}
 		OR = {
-			has_reform = wine_lord_reform
 			NOT = {government_rank = 3}
 			AND = {
 				government_rank = 3
@@ -1074,6 +1077,16 @@ oak_monarchy_reform = {	#bertus mod
 			}
 		}
 	}
+	trigger = {
+		if = {
+			limit = { has_country_flag = recently_got_parliament_flag }
+			had_country_flag = {
+				flag = recently_got_parliament_flag
+				days = 7300
+			}
+		}
+	}
+
 	valid_for_nation_designer = yes
 	nation_designer_cost = 60
 	nation_designer_trigger = {}
@@ -1118,6 +1131,8 @@ oak_monarchy_reform = {	#bertus mod
 		}
 	}
 	removed_effect = {
+		clr_country_flag = recently_got_parliament_flag
+		set_country_flag = recently_got_parliament_flag
 		hidden_effect = {
 			set_variable = {
 				which = election_term
@@ -1143,6 +1158,13 @@ cyranvar_parliament_reform = {
 	}
 	trigger = {
 		if = {
+			limit = { has_country_flag = recently_got_parliament_flag }
+			had_country_flag = {
+				flag = recently_got_parliament_flag
+				days = 7300
+			}
+		}
+		if = {
 			limit = { NOT = { has_dlc = "Mandate of Heaven" } }
 			NOT = { has_reform = celestial_empire }
 			NOT = { is_revolutionary_republic_trigger = yes }
@@ -1155,6 +1177,10 @@ cyranvar_parliament_reform = {
 	conditional = {
 		allow = { has_dlc = "Common Sense" }
 		has_parliament = yes
+	}
+	removed_effect = {
+		clr_country_flag = recently_got_parliament_flag
+		set_country_flag = recently_got_parliament_flag
 	}
 }
 
@@ -1513,6 +1539,16 @@ damerian_monarchy = {
 			}
 		}
 	}
+	trigger = {
+		if = {
+			limit = { has_country_flag = recently_got_parliament_flag }
+			had_country_flag = {
+				flag = recently_got_parliament_flag
+				days = 7300
+			}
+		}
+	}
+
 	valid_for_nation_designer = yes
 	nation_designer_cost = 15
 	nation_designer_trigger = {
@@ -1528,6 +1564,10 @@ damerian_monarchy = {
 	conditional = {
 		allow = { has_dlc = "Common Sense" }
 		has_parliament = yes
+	}
+	removed_effect = {
+		clr_country_flag = recently_got_parliament_flag
+		set_country_flag = recently_got_parliament_flag
 	}
 }
 
@@ -1589,6 +1629,16 @@ kharunyana_monarchy = {
 			have_had_reform = kharunyana_monarchy
 		}
 	}
+	trigger = {
+		if = {
+			limit = { has_country_flag = recently_got_parliament_flag }
+			had_country_flag = {
+				flag = recently_got_parliament_flag
+				days = 7300
+			}
+		}
+	}
+
 	lock_level_when_selected = yes
 	valid_for_nation_designer = yes
 	nation_designer_cost = 15
@@ -1597,6 +1647,7 @@ kharunyana_monarchy = {
 	}
 	legacy_equivalent = english_monarchy_legacy
 	start_territory_to_estates = 0.3
+
 	modifiers = {
 		governing_capacity = 250
 		legitimacy = 0.5
@@ -1607,6 +1658,10 @@ kharunyana_monarchy = {
 	conditional = {
 		allow = { has_dlc = "Common Sense" }
 		has_parliament = yes
+	}
+	removed_effect = {
+		clr_country_flag = recently_got_parliament_flag
+		set_country_flag = recently_got_parliament_flag
 	}
 }
 
@@ -1903,20 +1958,18 @@ griffon_lords_reform = {
 	icon = "griffon_lords"
 	allow_normal_conversion = no
 	potential = {
-		has_reform = griffon_lords_reform
-		OR = {
-			primary_culture = marrodic
-			is_playing_custom_nation = yes
-		}
+		primary_culture = marrodic
 	}
 	legacy_equivalent = despotic_monarchy
 	valid_for_nation_designer = yes
 	nation_designer_cost = 20
+	fixed_rank = 2
 	modifiers = {
-		army_tradition_decay = -0.01
+		army_tradition_from_battle = 0.25
 		leader_land_manuever = 1
-		nobles_influence_modifier = 0.1
-		nobles_loyalty_modifier = 0.1
+	}
+	custom_attributes = {
+		is_griffon_lord = yes
 	}
 }
 
@@ -1924,11 +1977,11 @@ griffon_empire_reform = {
 	icon = "griffon_empire"
 	allow_normal_conversion = no
 	potential = {
-		has_reform = griffon_empire_reform
 		OR = {
-			primary_culture = marrodic
-			is_playing_custom_nation = yes
+			devleopment = 1500
+			government_rank = 3
 		}
+		primary_culture = marrodic
 	}
 	legacy_equivalent = despotic_monarchy
 	valid_for_nation_designer = yes
@@ -1937,9 +1990,11 @@ griffon_empire_reform = {
 	modifiers = {
 		leader_land_shock = 1
 		leader_land_manuever = 2
-		nobles_influence_modifier = 0.1
-		nobles_loyalty_modifier = 0.2
 		movement_speed = 0.2
+		army_tradition_from_battle = 0.5
+	}
+	custom_attributes = {
+		is_griffon_lord = yes
 	}
 }
 
@@ -2204,6 +2259,16 @@ ourdi_new_bulwari_accord = {
 		}
 		has_reform = ourdi_new_bulwari_accord
 	}
+	trigger = {
+		if = {
+			limit = { has_country_flag = recently_got_parliament_flag }
+			had_country_flag = {
+				flag = recently_got_parliament_flag
+				days = 7300
+			}
+		}
+	}
+
 	modifiers = {
 		global_missionary_strength = 0.02
 		global_unrest = -2
@@ -2215,6 +2280,10 @@ ourdi_new_bulwari_accord = {
 	conditional = {
 		allow = { has_dlc = "Common Sense" }
 		has_parliament = yes
+	}
+	removed_effect = {
+		clr_country_flag = recently_got_parliament_flag
+		set_country_flag = recently_got_parliament_flag
 	}
 
 	ai = {
@@ -5323,6 +5392,16 @@ hobgoblin_assembly_of_commands = {
 	potential = {
 		has_reform = hobgoblin_stratocracy_reform
 	}
+	trigger = {
+		if = {
+			limit = { has_country_flag = recently_got_parliament_flag }
+			had_country_flag = {
+				flag = recently_got_parliament_flag
+				days = 7300
+			}
+		}
+	}
+
 	modifiers = {
 		all_estate_influence_modifier = 0.1
 		all_estate_loyalty_equilibrium = 0.05
@@ -5333,6 +5412,11 @@ hobgoblin_assembly_of_commands = {
 		allow = { has_dlc = "Common Sense" }
 		has_parliament = yes
 	}
+	removed_effect = {
+		clr_country_flag = recently_got_parliament_flag
+		set_country_flag = recently_got_parliament_flag
+	}
+
 	ai = {
 		factor = 5
 	}
@@ -5347,12 +5431,26 @@ jadd_exemplary = {
 			have_had_reform = jadd_exemplary
 		}
 	}
+	trigger = {
+		if = {
+			limit = { has_country_flag = recently_got_parliament_flag }
+			had_country_flag = {
+				flag = recently_got_parliament_flag
+				days = 7300
+			}
+		}
+	}
+
 	modifiers = {
 		governing_capacity = 150
 	}
 	conditional = {
 		allow = { has_dlc = "Common Sense" }
 		has_parliament = yes
+	}
+	removed_effect = {
+		clr_country_flag = recently_got_parliament_flag
+		set_country_flag = recently_got_parliament_flag
 	}
 }
 
@@ -5402,14 +5500,24 @@ castanor_dominion_administration = {
 
 seghdihr_segamlavad = {
 	icon = "three_classes_reform"
-	allow_normal_conversion = no
-	lock_level_when_selected = yes
 	potential = {
 		OR = {
 			has_reform = seghdihr_segamlavad
 			have_had_reform = seghdihr_segamlavad
 		}
 	}
+	trigger = {
+		if = {
+			limit = { has_country_flag = recently_got_parliament_flag }
+			had_country_flag = {
+				flag = recently_got_parliament_flag
+				days = 7300
+			}
+		}
+	}
+
+	allow_normal_conversion = no
+	lock_level_when_selected = yes
 	valid_for_nation_designer = no
 	maintain_dynasty = yes
 
@@ -5422,6 +5530,10 @@ seghdihr_segamlavad = {
 	conditional = {
 		allow = { has_dlc = "Common Sense" }
 		has_parliament = yes
+	}
+	removed_effect = {
+		clr_country_flag = recently_got_parliament_flag
+		set_country_flag = recently_got_parliament_flag
 	}
 }
 
@@ -5454,6 +5566,16 @@ ogre_clan_assembly_reform = {
 			culture_group = ogre
 		}
 	}
+	trigger = {
+		if = {
+			limit = { has_country_flag = recently_got_parliament_flag }
+			had_country_flag = {
+				flag = recently_got_parliament_flag
+				days = 7300
+			}
+		}
+	}
+
 	modifiers = {
 		country_admin_power = 1
 		max_absolutism = -15
@@ -5462,6 +5584,11 @@ ogre_clan_assembly_reform = {
 		allow = { has_dlc = "Common Sense" }
 		has_parliament = yes
 	}
+	removed_effect = {
+		clr_country_flag = recently_got_parliament_flag
+		set_country_flag = recently_got_parliament_flag
+	}
+
 	ai = {
 		factor = 1
 	}
@@ -5714,7 +5841,6 @@ political_absolutism_reform = {	#bertus mod
 
 legislative_houses_reform = {	#bertus mod
 	icon = "parliament_hall"
-	allow_normal_conversion = yes
 	potential = {
 		is_revolutionary = no		
 		NOT = { has_reform = damerian_empire }
@@ -5722,6 +5848,9 @@ legislative_houses_reform = {	#bertus mod
 	trigger = {	
 		has_parliament = yes
 	}
+
+	allow_normal_conversion = yes
+
 	modifiers = {
 		expand_administration_cost = -1
 	}

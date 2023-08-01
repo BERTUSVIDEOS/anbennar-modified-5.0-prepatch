@@ -892,13 +892,7 @@ get_special_general_stats = {
 	export_to_variable = {which = country_leader_siege_var value = modifier:leader_siege}
 
 	if = {
-		limit = {has_government_attribute = generals_become_rulers}
-		change_variable = {which = country_leader_shock_var value = 1}
-		change_variable = {which = country_leader_fire_var value = 1}
-		change_variable = {which = country_leader_manuever_var value = 1}
-	}
-	if = {
-		limit = {army_tradition = 100}
+		limit = {army_tradition = 95}
 		change_variable = {which = country_leader_shock_var value = 1}
 		change_variable = {which = country_leader_fire_var value = 1}
 		change_variable = {which = country_leader_manuever_var value = 1}
@@ -925,12 +919,62 @@ get_special_general_stats = {
 		change_variable = {which = country_leader_manuever_var value = 1}
 		change_variable = {which = country_leader_siege_var value = 1}
 	}
-
 	if = {
-		limit = {has_country_flag = get_sword_wielder_general_flag}
+		limit = {has_government_attribute = generals_become_rulers}
 		change_variable = {which = country_leader_shock_var value = 1}
+		change_variable = {which = country_leader_fire_var value = 1}
 		change_variable = {which = country_leader_manuever_var value = 1}
 	}
+	if = {
+		limit = {has_country_flag = get_sword_wielder_general_flag}
+		if = {
+			limit = {army_tradition = 95}
+			change_variable = {which = country_leader_shock_var value = 1}
+			change_variable = {which = country_leader_fire_var value = 1}
+			change_variable = {which = country_leader_manuever_var value = 1}
+		}
+		if = {
+			limit = {army_tradition = 75}
+			change_variable = {which = country_leader_shock_var value = 1}
+			change_variable = {which = country_leader_fire_var value = 1}
+			change_variable = {which = country_leader_manuever_var value = 1}
+		}
+		if = {
+			limit = {army_tradition = 50}
+			change_variable = {which = country_leader_shock_var value = 1}
+			change_variable = {which = country_leader_fire_var value = 1}
+			change_variable = {which = country_leader_manuever_var value = 1}
+		}
+		if = {
+			limit = {army_tradition = 25}
+			change_variable = {which = country_leader_shock_var value = 1}
+			change_variable = {which = country_leader_fire_var value = 1}
+			change_variable = {which = country_leader_manuever_var value = 1}
+		}
+	}
+	if = {
+		limit = {has_country_flag = get_ruler_general_flag}
+		export_variable = { which = ruler_mil value = mil }
+		while = {	#+2 pip per mil skill
+			limit = { check_variable = { which = ruler_mil value = 1 } }
+			change_variable = {which = ruler_mil value = -1}
+			random_list = {
+				50 = {change_variable = {which = country_leader_fire_var value = 1}}
+				50 = {change_variable = {which = country_leader_shock_var value = 1}}
+				50 = {change_variable = {which = country_leader_manuever_var value = 1}}
+			}
+			random_list = {
+				50 = {change_variable = {which = country_leader_fire_var value = 1}}
+				50 = {change_variable = {which = country_leader_shock_var value = 1}}
+				50 = {change_variable = {which = country_leader_manuever_var value = 1}}
+			}
+		}
+		if = {
+			limit = {ruler_has_personality = mage_personality}
+			change_variable = {which = country_leader_shock_var value = 3}
+		}
+	}
+
 	if = {
 		limit = {has_country_flag = get_adventurer_flag}
 		if = {
@@ -943,7 +987,6 @@ get_special_general_stats = {
 			change_variable = {which = country_leader_fire_var value = 1}
 			change_variable = {which = country_leader_shock_var value = 1}
 			change_variable = {which = country_leader_manuever_var value = 1}
-			change_variable = {which = country_leader_siege_var value = 1}
 		}
 		if = {
 			limit = {estate_influence = {estate = estate_adventurers influence = 60}}
@@ -962,7 +1005,6 @@ get_special_general_stats = {
 			change_variable = {which = country_leader_fire_var value = 1}
 			change_variable = {which = country_leader_shock_var value = 1}
 			change_variable = {which = country_leader_manuever_var value = 1}
-			change_variable = {which = country_leader_siege_var value = 1}
 		}
 	}
 	else_if = {
@@ -978,6 +1020,13 @@ get_special_general_stats = {
 			change_variable = {which = country_leader_fire_var value = 1}
 		}
 		if = {
+			limit = {
+				has_country_flag = magisterium_free_general_flag
+			}
+			change_variable = {which = country_leader_fire_var value = 1}
+			change_variable = {which = country_leader_shock_var value = 1}
+		}
+		if = {
 			limit = {has_estate_privilege = estate_mages_battlemage_academies }
 			change_variable = {which = country_leader_shock_var value = 1}
 			change_variable = {which = country_leader_fire_var value = 1}
@@ -988,19 +1037,24 @@ get_special_general_stats = {
 			change_variable = {which = country_leader_shock_var value = 1}
 			change_variable = {which = country_leader_fire_var value = 1}
 			change_variable = {which = country_leader_manuever_var value = 1}
-			change_variable = {which = country_leader_siege_var value = 1}
 		}
 		if = {
 			limit = {has_estate_privilege = estate_mages_fire_academy }
 			change_variable = {which = country_leader_fire_var value = 1}
 		}
 		if = {
-			limit = {has_estate_privilege = estate_mages_air_academy }
+			limit = {
+				OR = {
+					has_estate_privilege = estate_mages_water_academy
+					has_estate_privilege = estate_mages_air_academy
+					has_estate_privilege = estate_mages_earth_academy
+					has_estate_privilege = estate_mages_divination_academy
+					has_estate_privilege = estate_mages_necromancy_academy
+					has_estate_privilege = estate_mages_conjuration_academy
+					has_estate_privilege = estate_mages_enchantment_academy
+				}
+			}
 			change_variable = {which = country_leader_shock_var value = 1}
-		}
-		if = {
-			limit = {has_estate_privilege = estate_mages_earth_academy }
-			change_variable = {which = country_leader_siege_var value = 1}
 		}
 		if = {
 			limit = {has_estate_privilege = estate_mages_water_academy }
@@ -1009,7 +1063,6 @@ get_special_general_stats = {
 		if = {
 			limit = {estate_influence = {estate = estate_mages influence = 100}}
 			change_variable = {which = country_leader_shock_var value = 1}
-			change_variable = {which = country_leader_siege_var value = 1}
 		}
 		if = {
 			limit = {estate_influence = {estate = estate_mages influence = 80}}
@@ -1018,7 +1071,6 @@ get_special_general_stats = {
 		if = {
 			limit = {estate_influence = {estate = estate_mages influence = 60}}
 			change_variable = {which = country_leader_shock_var value = 1}
-			change_variable = {which = country_leader_siege_var value = 1}
 		}
 		if = {
 			limit = {estate_influence = {estate = estate_mages influence = 40}}
@@ -1034,7 +1086,6 @@ get_special_general_stats = {
 		if = {
 			limit = {estate_influence = {estate = estate_artificers influence = 100}}
 			change_variable = {which = country_leader_fire_var value = 1}
-			change_variable = {which = country_leader_siege_var value = 1}
 		}
 		if = {
 			limit = {estate_influence = {estate = estate_artificers influence = 80}}
@@ -1043,7 +1094,6 @@ get_special_general_stats = {
 		if = {
 			limit = {estate_influence = {estate = estate_artificers influence = 60}}
 			change_variable = {which = country_leader_fire_var value = 1}
-			change_variable = {which = country_leader_siege_var value = 1}
 		}
 		if = {
 			limit = {estate_influence = {estate = estate_artificers influence = 40}}
@@ -1058,51 +1108,44 @@ get_special_general_stats = {
 		limit = {has_country_flag = get_lord_alfonso_flag }
 		set_variable = {which = country_leader_lord_alfonso_shock_var value = 0}
 		set_variable = {which = country_leader_lord_alfonso_fire_var value = 3}
-		set_variable = {which = country_leader_lord_alfonso_manuever_var value = 0}
+		set_variable = {which = country_leader_lord_alfonso_manuever_var value = 2}
 		set_variable = {which = country_leader_lord_alfonso_siege_var value = 0}
 		change_variable = {which = lord_alfonso value = 2}
 		while = {
 			limit = {check_variable = {which = lord_alfonso which = country_leader_lord_alfonso_shock_var}}
-			change_variable = {which = country_leader_lord_alfonso_shock_var value = 6}
+			change_variable = {which = country_leader_lord_alfonso_shock_var value = 5}
 			change_variable = {which = country_leader_shock_var value = 1}
 		}
 		while = {
 			limit = {check_variable = {which = lord_alfonso which = country_leader_lord_alfonso_fire_var}}
-			change_variable = {which = country_leader_lord_alfonso_fire_var value = 6}
+			change_variable = {which = country_leader_lord_alfonso_fire_var value = 5}
 			change_variable = {which = country_leader_fire_var value = 1}
 		}
 		while = {
 			limit = {check_variable = {which = lord_alfonso which = country_leader_lord_alfonso_manuever_var}}
-			change_variable = {which = country_leader_lord_alfonso_manuever_var value = 5}
+			change_variable = {which = country_leader_lord_alfonso_manuever_var value = 4}
 			change_variable = {which = country_leader_manuever_var value = 1}
-		}
-		while = {
-			limit = {check_variable = {which = lord_alfonso which = country_leader_lord_alfonso_siege_var}}
-			change_variable = {which = country_leader_lord_alfonso_siege_var value = 8}
-			change_variable = {which = country_leader_siege_var value = 1}
 		}
 	}
 	else_if = {
 		limit = {has_country_flag = ShaggtFiremouth_flag}
 		change_variable = {which = country_leader_fire_var value = 7}
 		change_variable = {which = country_leader_manuever_var value = 1}
-		change_variable = {which = country_leader_siege_var value = 2}
 	}
 	else_if = {
 		limit = {has_country_flag = KrambruStrongarm_flag}
 		change_variable = {which = country_leader_shock_var value = 7}
 		change_variable = {which = country_leader_manuever_var value = 2}
-		change_variable = {which = country_leader_siege_var value = 1}
 	}
 	else_if = {
 		limit = {has_country_flag = LutgorTheReaver_flag}
 		change_variable = {which = country_leader_fire_var value = 4}
 		change_variable = {which = country_leader_shock_var value = 4}
-		change_variable = {which = country_leader_siege_var value = 2}
 	}
 	else_if = {
 		limit = {has_country_flag = Zathnar_longlegged_flag}
 		change_variable = {which = country_leader_shock_var value = 6}
+		change_variable = {which = country_leader_fire_var value = 2}
 		change_variable = {which = country_leader_manuever_var value = 4}
 	}
 	else_if = {
@@ -1110,23 +1153,21 @@ get_special_general_stats = {
 		change_variable = {which = country_leader_fire_var value = 4}
 		change_variable = {which = country_leader_shock_var value = 4}
 		change_variable = {which = country_leader_manuever_var value = 1}
-		change_variable = {which = country_leader_siege_var value = 1}
 	}
 	else_if = {
 		limit = {has_country_flag = PegthusTheWinged_flag}
 		change_variable = {which = country_leader_fire_var value = 6}
-		change_variable = {which = country_leader_siege_var value = 4}
+		change_variable = {which = country_leader_shock_var value = 2}
+		change_variable = {which = country_leader_manuever_var value = 3}
 	}
 	else_if = {
 		limit = {has_country_flag = KruthnuTheBrawl_flag}
 		change_variable = {which = country_leader_shock_var value = 7}
-		change_variable = {which = country_leader_siege_var value = 3}
 	}
 	else_if = {
 		limit = {has_country_flag = Carl_The_Loony_flag}
 		change_variable = {which = country_leader_fire_var value = 5}
 		change_variable = {which = country_leader_shock_var value = 3}
-		change_variable = {which = country_leader_siege_var value = 2}
 	}
 	else_if = {
 		limit = {has_country_flag = MikeTheBrainy_flag}
@@ -1137,14 +1178,12 @@ get_special_general_stats = {
 	else_if = {
 		limit = {has_country_flag = JonhyTheFat_flag}
 		change_variable = {which = country_leader_shock_var value = 7}
-		change_variable = {which = country_leader_siege_var value = 3}
 	}
 	else_if = {
 		limit = {has_country_flag = McGregorTheBully_flag}
 		change_variable = {which = country_leader_fire_var value = 3}
 		change_variable = {which = country_leader_shock_var value = 5}
 		change_variable = {which = country_leader_manuever_var value = 1}
-		change_variable = {which = country_leader_siege_var value = 1}
 	}
 
 	while = {	#change excess siege
@@ -1200,14 +1239,11 @@ get_special_general_stats = {
 			OR = {
 				has_country_flag = hero_free_general_flag
 				has_country_flag = magisterium_free_general_flag
+				has_government_attribute = free_magic_commander
 			}
 		}
-		change_variable = {which = country_leader_fire_var value = 1}
-		change_variable = {which = country_leader_shock_var value = 1}
 		set_variable = {which = special_general_cost value = 0}
 		set_variable = {which = special_general_cost_tt value = 0}
-		clr_country_flag = magisterium_free_general_flag
-		clr_country_flag = hero_free_general_flag
 	}
 	else = {
 		change_variable = {which = special_general_cost which = country_leader_shock_var}
@@ -1337,7 +1373,7 @@ general_defined_siege = {
 	else = { define_special_general = { shock = $shock$ fire = $fire$ manuever = $manuever$ siege = 0}}
 }
 define_special_general = {
-	event_target:get_general_event_targer = {
+	event_target:get_general_event_target = {
 		if = {
 			limit = {has_country_flag = get_ruler_general_flag}
 			define_ruler_to_general = {shock = $shock$ fire = $fire$ manuever = $manuever$ siege = $siege$ }
@@ -1367,6 +1403,7 @@ clr_special_general_flags = {
 	clr_country_flag = magisterium_general_flag
 	clr_country_flag = get_ruler_general_flag
 	clr_country_flag = get_sword_wielder_general_flag
+	clr_country_flag = get_lord_alfonso_flag
 	clear_saved_name = special_general_name
 }
 update_tech_group = {

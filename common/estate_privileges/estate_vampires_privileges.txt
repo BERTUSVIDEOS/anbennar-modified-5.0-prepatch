@@ -766,50 +766,44 @@ estate_vampires_vampires_in_the_administration = {
 	}
 }
 
-estate_vampires_vampiric_military_command = {
+estate_vampires_vampiric_military_command = {	#bertus mod
 	icon = privilege_bloody_gauntlet
 	influence = 0
-	#max_absolutism = -5	#-5→0
 	is_valid = {
-		always = yes
+		NOT = {has_country_flag = estate_vampires_vampiric_military_command_flag}
 	}
 	can_select = {
 		NOT = {
 			has_estate_privilege = estate_mages_emergency_general
-			has_leader = "Lord Alfonso"
 		}
 	}
 	can_revoke = {}
 	on_granted = {	#bertus mod
 		custom_tooltip = estate_vampires_vampiric_military_command_tooltip
 		set_country_flag = get_lord_alfonso_flag
+		set_country_flag = hero_free_general_flag
 		custom_tooltip = "Kill Lord Alfonso if you wanna update him"
-		if = {
-			limit = {
-				NOT = {has_leader = "Lord Alfonso"}
-			}
-			custom_tooltip = get_lord_alfonso_general_tt
-			hidden_effect = {
-				set_saved_name = {key = special_general_name type = simple name = "Lord Alfonso"}
-				country_event = {id = bertus_changes.6030}
-			}
+		hidden_effect = {kill_leader = {type = "Lord Alfonso"}}
+		custom_tooltip = get_lord_alfonso_general_tt
+		hidden_effect = {
+			set_saved_name = {key = special_general_name type = simple name = "Lord Alfonso"}
+			country_event = {id = bertus_changes.6030}
 		}
 	}
 	
 	penalties = {
 		general_cost = 0.2
 		nationalist_loyalty_modifier = -0.1
-		#land_morale = -0.05	#-0.05→0
 	}
 	
-	benefits = {
-		#leader_land_fire = 1	#1→0
-		#leader_land_shock = 1	#1→0
-	}
+	benefits = {}
 	
 	cooldown_years = 10
 	on_cooldown_expires = {
-		remove_estate_privilege = estate_vampires_vampiric_military_command
+		set_country_flag = estate_vampires_vampiric_military_command_flag
+	}
+	on_invalid = {
+		clr_country_flag = estate_vampires_vampiric_military_command_flag
 	}
 	
 	ai_will_do = {factor = 10}

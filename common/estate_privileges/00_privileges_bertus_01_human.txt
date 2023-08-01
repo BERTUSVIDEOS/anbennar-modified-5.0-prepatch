@@ -285,6 +285,7 @@ estate_human_elite_regiments = {
 		has_race_recruitment = {
 			race = human
 		}
+		has_country_modifier = human_military
 	}
 	can_select = {
 		has_elite_regiments = no
@@ -823,6 +824,197 @@ estate_human_non_military_swap = {
 	cooldown_years = 10
 	on_cooldown_expires = {}
 }
+estate_human_alenic_academies = {
+	icon = privilege_recruit_rajput_general
+	is_valid = {
+		OR = {
+			NOT = {is_year = 1445}
+			AND = {
+				has_country_modifier = human_military
+				has_race_recruitment = {race = human}
+			}
+		}
+		NOT = {has_race_recruitment = {race = orcish}}
+		NOT = {has_race_recruitment = {race = goblin}}
+		NOT = {has_race_recruitment = {race = elven}}
+		culture_group = alenic
+	}
+	can_select = {
+		has_country_modifier = human_military
+		has_race_recruitment = {race = human}
+		NOT = {has_race_recruitment = {race = orcish}}
+		NOT = {has_race_recruitment = {race = goblin}}
+		NOT = {has_race_recruitment = {race = elven}}
+		NOT = {has_estate_privilege = estate_human_griffon_academies}
+		has_elite_regiments = no
+	}
+	on_granted = {
+		add_country_modifier = {name = alenic_academies_modifier duration = -1 hidden = yes}
+		custom_tooltip = alenic_academies_mechanic_tooltip
+		custom_tooltip = estate_human_alenic_academies_tt
+	}
+	benefits = {
+		allowed_cossack_fraction = 0.1
+	}
+	penalties = {
+		yearly_corruption = 0.20
+	}
+	conditional_modifier = {
+		trigger = {
+			any_country = {
+				war_with = root
+				has_race_recruitment = {
+					race = orcish
+				}
+			}
+		}
+		modifier = {
+			shock_damage_received = -0.05
+			morale_damage_received = -0.05
+		}
+	}
+	on_revoked = {
+		hidden_effect = {remove_country_modifier = alenic_academies_modifier}
+	}
+	on_invalid = {
+		hidden_effect = {remove_country_modifier = alenic_academies_modifier}
+	}
+	cooldown_years = 20
+	ai_will_do = {factor = 100}
+}
+estate_human_griffon_academies = {
+	icon = privilege_recruit_rajput_general
+	is_valid = {
+		OR = {
+			NOT = {is_year = 1445}
+			AND = {
+				has_country_modifier = human_military
+				has_race_recruitment = {race = human}
+			}
+		}
+		NOT = {has_race_recruitment = {race = orcish}}
+		NOT = {has_race_recruitment = {race = goblin}}
+		OR = {
+			has_reform = griffon_lords_reform
+			has_reform = griffon_empire_reform
+		}
+	}
+	can_select = {
+		has_country_modifier = human_military
+		has_race_recruitment = {race = human}
+		NOT = {has_race_recruitment = {race = orcish}}
+		NOT = {has_race_recruitment = {race = goblin}}
+		OR = {
+			has_reform = griffon_lords_reform
+			has_reform = griffon_empire_reform
+		}
+		has_elite_regiments = no
+	}
+	on_granted = {
+		add_country_modifier = {name = griffon_academies_modifier duration = -1 hidden = yes}
+		custom_tooltip = estate_human_griffon_academies_tt
+	}
+	penalties = {}
+	benefits = {}
+	can_revoke = { }
+	on_revoked = {
+		hidden_effect = {remove_country_modifier = griffon_academies_modifier}
+	}
+	on_invalid = {
+		hidden_effect = {remove_country_modifier = griffon_academies_modifier}
+	}
+	ai_will_do = {factor = 1}
+}
+estate_human_black_knights_academies = {
+	icon = privilege_recruit_rajput_general
+	is_valid = {
+		has_country_modifier = human_military
+		has_race_recruitment = {race = human}
+		OR = {
+			has_idea = A59_black_knights_of_corvuria
+			has_country_flag = A59_black_knights_of_corvuria_flag
+		}
+	}
+	can_select = {
+		has_country_modifier = human_military
+		has_race_recruitment = {race = human}
+		has_elite_regiments = no
+	}
+	on_granted = {
+		add_country_modifier = {name = black_knights_academies_modifier duration = -1 hidden = yes}
+		custom_tooltip = estate_human_black_knights_academies_tt
+		set_country_flag = A59_black_knights_of_corvuria_flag
+	}
+	penalties = {
+	}
+	benefits = {}
+	can_revoke = { }
+	on_revoked = {
+		hidden_effect = {remove_country_modifier = black_knights_academies_modifier}
+	}
+	on_invalid = {
+		hidden_effect = {remove_country_modifier = black_knights_academies_modifier}
+	}
+	ai_will_do = {factor = 1}
+}
+estate_human_fencing_academies = {
+	icon = privilege_recruit_rajput_general
+	is_valid = {
+		has_country_modifier = human_military
+		has_race_recruitment = {race = human}
+		OR = {
+			has_idea = A30_wexonard_school_of_fencing
+			has_country_flag = A30_wexonard_school_of_fencing_flag
+		}
+	}
+	can_select = {
+		has_country_modifier = human_military
+		has_race_recruitment = {race = human}
+		has_elite_regiments = no
+	}
+	on_granted = {
+		add_country_modifier = {name = fencing_academy_modifier duration = -1 hidden = yes}
+		custom_tooltip = estate_human_black_knights_academies_tt
+		set_country_flag = A30_wexonard_school_of_fencing_flag
+	}
+	benefits = {
+		allowed_cossack_fraction = 0.10
+	}
+	penalties = {
+		yearly_corruption = 0.20
+	}
+	can_revoke = { }
+	on_revoked = {
+		hidden_effect = {remove_country_modifier = fencing_academy_modifier}
+	}
+	on_invalid = {
+		hidden_effect = {remove_country_modifier = fencing_academy_modifier}
+	}
+	ai_will_do = {factor = 1}
+}
+estate_human_sunblessed_troops = {
+	icon = privilege_recruit_rajput_general
+	is_valid = {
+		has_idea = F37_sunblessed_troops
+		has_race_recruitment = {race = human}
+		has_race_recruitment = {race = elven}
+	}
+	can_select = {
+		has_race_recruitment = {race = human}
+		has_race_recruitment = {race = elven}
+		has_elite_regiments = no
+	}
+	on_granted = {}
+	penalties = {}
+	benefits = {}
+	modifier_by_land_ownership = {
+		discipline = 0.10
+		mercenary_discipline = -0.10
+	}
+	on_revoked = {}
+	on_invalid = {}
+	ai_will_do = {factor = 100}
+}
 estate_human_banned_inter_racial_marriages = {
 	icon = privilege_grant_autonomy
 	is_valid = {	
@@ -971,194 +1163,6 @@ estate_human_governors = {
 		country_event = {id = bertus_racial_military.5045}
 	}
 	ai_will_do = {factor = 0}
-}
-estate_human_alenic_academies = {
-	icon = privilege_recruit_rajput_general
-	is_valid = {
-		has_race_recruitment = {race = human}
-		has_country_modifier = human_military
-		culture_group = alenic
-		NOT = {has_race_recruitment = {race = orcish}}
-	}
-	can_select = {
-		NOT = {has_country_modifier = alenic_academies}
-		NOT = {has_race_recruitment = {race = orcish}}
-	}
-	on_granted = {
-		add_country_modifier = {name = alenic_academies duration = -1}
-		if = {
-			limit = {culture_group = alenic}
-			custom_tooltip = alenic_academies_mechanic_tooltip
-		}
-	}
-	benefits = {
-		allowed_cossack_fraction = 0.1
-	}
-	penalties = {
-		yearly_corruption = 0.05	
-	}
-	conditional_modifier = {
-		trigger = {
-			any_country = {
-				war_with = root
-				has_race_recruitment = {
-					race = orcish
-				}
-			}
-		}
-		modifier = {
-			morale_damage_received = -0.05
-			shock_damage_received = -0.05
-		}
-	}
-	on_revoked = {
-		remove_country_modifier = alenic_academies
-	}
-	on_invalid = {
-		remove_country_modifier = alenic_academies
-	}
-	cooldown_years = 20
-	ai_will_do = {factor = 100}
-}
-estate_human_sunblessed_troops = {
-	icon = privilege_recruit_rajput_general
-	is_valid = {
-		has_idea = F37_sunblessed_troops
-	}
-	can_select = {
-		has_race_recruitment = {
-			race = human
-		}
-	}
-	on_granted = {}
-	penalties = {}
-	benefits = {}
-	modifier_by_land_ownership = {
-		discipline = 0.1
-	}
-	on_revoked = {}
-	on_invalid = {
-	}
-	ai_will_do = {factor = 100}
-}
-estate_nobles_griffon_nobles = {
-	icon = privilege_promote_maratha_nobility
-	is_valid = {
-		OR = {
-			NOT = {is_year = 1445}
-			has_country_modifier = human_military
-		}
-		OR = {
-			has_reform = griffon_lords_reform
-			has_reform = griffon_empire_reform
-		}
-	}
-	can_select = {
-		OR = {
-			has_reform = griffon_lords_reform
-			has_reform = griffon_empire_reform
-		}
-	}
-	penalties = {}
-	benefits = {}
-	can_revoke = { always = no }
-	conditional_modifier = {
-		trigger = {estate_influence = {estate = estate_human influence = 60}}
-		modifier = {cavalry_power = 0.1}
-	}
-	conditional_modifier = {
-		trigger = {
-			NOT = {estate_influence = {estate = estate_human influence = 60}}
-			estate_influence = {estate = estate_human influence = 40}
-		}
-		modifier = {cavalry_power = 0.075}
-	}
-	conditional_modifier = {
-		trigger = {
-			NOT = {estate_influence = {estate = estate_human influence = 40}}
-			estate_influence = {estate = estate_human influence = 20}
-		}
-		modifier = {cavalry_power = 0.05}
-	}
-	conditional_modifier = {
-		trigger = {
-			NOT = {estate_influence = {estate = estate_human influence = 20}}
-		}
-		modifier = {cavalry_power = 0.025}
-	}
-	conditional_modifier = {
-		trigger = {
-			estate_loyalty = {estate = estate_human loyalty = 60}
-			estate_influence = {estate = estate_human influence = 60}
-		}
-		modifier = {cavalry_cost = -0.10}
-	}
-	conditional_modifier = {
-		trigger = {
-			estate_loyalty = {estate = estate_human loyalty = 60}
-			NOT = {estate_influence = {estate = estate_human influence = 60}}
-			estate_influence = {estate = estate_human influence = 40}
-		}
-		modifier = {cavalry_cost = -0.075}
-	}
-	conditional_modifier = {
-		trigger = {
-			estate_loyalty = {estate = estate_human loyalty = 60}
-			NOT = {estate_influence = {estate = estate_human influence = 40}}
-			estate_influence = {estate = estate_human influence = 20}
-		}
-		modifier = {cavalry_cost = -0.05}
-	}
-	conditional_modifier = {
-		trigger = {
-			estate_loyalty = {estate = estate_human loyalty = 60}
-			NOT = {estate_influence = {estate = estate_human influence = 20}}
-		}
-		modifier = {cavalry_cost = -0.025}
-	}
-	conditional_modifier = {
-		trigger = {
-			NOT = {estate_loyalty = {estate = estate_human loyalty = 30}}
-			estate_influence = {estate = estate_human influence = 60}
-		}
-		modifier = {
-			cavalry_cost = 0.10
-			cavalry_power = -0.10
-		}
-	}
-	conditional_modifier = {
-		trigger = {
-			NOT = {estate_loyalty = {estate = estate_human loyalty = 30}}
-			NOT = {estate_influence = {estate = estate_human influence = 60}}
-			estate_influence = {estate = estate_human influence = 40}
-		}
-		modifier = {
-			cavalry_cost = 0.075
-			cavalry_power = -0.075
-		}
-	}
-	conditional_modifier = {
-		trigger = {
-			NOT = {estate_loyalty = {estate = estate_human loyalty = 30}}
-			NOT = {estate_influence = {estate = estate_human influence = 40}}
-			estate_influence = {estate = estate_human influence = 20}
-		}
-		modifier = {
-			cavalry_cost = 0.05
-			cavalry_power = -0.05
-		}
-	}
-	conditional_modifier = {
-		trigger = {
-			NOT = {estate_loyalty = {estate = estate_human loyalty = 30}}
-			NOT = {estate_influence = {estate = estate_human influence = 20}}
-		}
-		modifier = {
-			cavalry_cost = 0.025
-			cavalry_power = -0.025
-		}
-	}
-	ai_will_do = {factor = 1}
 }
 estate_human_monopoly_of_incense = {
 	icon = privilege_monopoly_of_goods_incence

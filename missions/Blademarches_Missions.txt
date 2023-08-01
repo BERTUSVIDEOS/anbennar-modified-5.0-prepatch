@@ -27,9 +27,11 @@ blademarches_1 = {
 		trigger = {
 			808 = { #Vernham
 				owned_by = ROOT
-				has_building = training_fields
-				has_building = university
+				has_manpower_building_trigger = yes
+				has_forcelimit_building_trigger = yes
+				has_university_building_trigger = yes
 				base_manpower = 15
+				has_owner_accepted_culture = yes
 			}
 		}
 		
@@ -39,11 +41,7 @@ blademarches_1 = {
 					name = blademarches_vernham_university
 					duration = -1
 				}
-			}
-			define_advisor = {
-				type = army_reformer
-				skill = 3
-				discount = yes
+				get_cost_dependant_racial_advisor = {class = army_reformer specific = yes}
 			}
 		}
 	}
@@ -63,7 +61,8 @@ blademarches_1 = {
 			808 = { #Vernham
 				owned_by = ROOT
 			}
-			army_tradition = 50
+			army_tradition = 75
+			army_professionalism = 70
 			grand_captain = 3
 			mil_power = 300
 		}
@@ -73,7 +72,8 @@ blademarches_1 = {
 				name = blademarches_vernham_curriculum 
 				duration = -1
 			}
-			add_mil_power = -300
+			add_army_professionalism = -0.40
+			custom_tooltip = B33_vernham_officer_training_curriculum_tt
 		}
 	}
 }
@@ -590,9 +590,13 @@ blademarches_3 = {
 		position = 9
 		
 		provinces_to_highlight = {
-			area = oldhaven_area
-			NOT = { country_or_non_sovereign_subject_holds = ROOT }
-		}
+			OR = {
+				province_id = 874
+				AND = {
+					area = oldhaven_area
+					NOT = { country_or_non_sovereign_subject_holds = ROOT }
+				}
+			}
 		
 		trigger = {
 			oldhaven_area = {
@@ -600,7 +604,6 @@ blademarches_3 = {
 				country_or_non_sovereign_subject_holds = ROOT
 			}
 			has_ruler_modifier = wielding_calindal
-			adm_power = 100
 		}
 		
 		effect = {
@@ -610,7 +613,6 @@ blademarches_3 = {
 					duration = -1
 				}
 			}
-			add_adm_power = -100
 		}
 	}
 	
@@ -1009,7 +1011,7 @@ blademarches_5 = {
 		}
 	}
 	
-	B33_restore_the_stewards_hold = {
+	B33_restore_the_stewards_hold = {	#bertus mod
 		icon = take_the_bishoprics
 		required_missions = { B33_the_dragonfell_memorial}
 		ai = yes
@@ -1017,24 +1019,19 @@ blademarches_5 = {
 		
 		provinces_to_highlight = {
 			province_id = 819 #Steward's Hold
-			OR = {
-				NOT = { owned_by = ROOT }
-				NOT = { development = 15 }
-				NOT = { has_tax_building_trigger = yes }
-			}
 		}
 		
 		trigger = {
 			819 = { #Steward's Hold
 				owned_by = ROOT
-				development = 15
+				development = 30
+				has_manpower_building_trigger = yes
+				has_forcelimit_building_trigger = yes
 				has_tax_building_trigger = yes
 			}
-			dip_power = 50
 		}
 		
 		effect = {
-			add_dip_power = -50
 			819 = { #Steward's Hold
 				add_province_modifier = {
 					name = blademarches_home_of_bladestewards

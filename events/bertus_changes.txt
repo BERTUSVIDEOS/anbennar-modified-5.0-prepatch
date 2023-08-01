@@ -4305,6 +4305,7 @@ country_event = {
 	mean_time_to_happen = {
 		years = 5
 		modifier = {factor = 3.0 is_subject = yes}
+		modifier = {factor = 0.75 has_government_attribute = free_magic_commander}
 	}
 
 	option = {
@@ -5083,104 +5084,48 @@ country_event = {
 	immediate = {
 		get_special_general_stats = yes
 		if = {
-			limit = { has_saved_event_target = get_general_event_targer }
-		}
-		else = {
-			save_event_target_as = get_general_event_targer
+			limit = { NOT = {has_saved_event_target = get_general_event_target }}
+			save_event_target_as = get_general_event_target
 		}
 	}
     option = {
         name = bertus_changes.6030.a #
 		ai_chance = {factor = 1}
 		change_variable = {which = country_leader_fire_var value = 1}
-		if = {
-			limit = {NOT = {check_variable = {which = country_leader_manuever_var value = 10}}}
-			change_variable = {which = country_leader_manuever_var value = 1}
-		}
-		else = {
-			change_variable = {which = country_leader_shock_var value = 1}
-		}
+		change_variable = {which = country_leader_manuever_var value = 1}
     }
     option = {
         name = bertus_changes.6030.a #
 		ai_chance = {factor = 1}
 		change_variable = {which = country_leader_fire_var value = 1}
-		if = {
-			limit = {NOT = {check_variable = {which = country_leader_siege_var value = 10}}}
-			change_variable = {which = country_leader_siege_var value = 1}
-		}
-		else = {
-			change_variable = {which = country_leader_fire_var value = 1}
-		}
+		change_variable = {which = country_leader_siege_var value = 1}
     }
     option = {
         name = bertus_changes.6030.a #
 		ai_chance = {factor = 1}
 		change_variable = {which = country_leader_shock_var value = 1}
-		if = {
-			limit = {NOT = {check_variable = {which = country_leader_manuever_var value = 10}}}
-			change_variable = {which = country_leader_manuever_var value = 1}
-		}
-		else = {
-			change_variable = {which = country_leader_shock_var value = 1}
-		}
+		change_variable = {which = country_leader_manuever_var value = 1}
     }
     option = {
         name = bertus_changes.6030.a #
 		ai_chance = {factor = 1}
 		change_variable = {which = country_leader_shock_var value = 1}
-		if = {
-			limit = {NOT = {check_variable = {which = country_leader_siege_var value = 10}}}
-			change_variable = {which = country_leader_siege_var value = 1}
-		}
-		else = {
-			change_variable = {which = country_leader_fire_var value = 1}
-		}
+		change_variable = {which = country_leader_siege_var value = 1}
     }
     option = {
         name = bertus_changes.6030.a #
 		ai_chance = {factor = 1}
-		change_variable = {which = country_leader_fire_var value = 1}
-		if = {
-			limit = {NOT = {check_variable = {which = country_leader_manuever_var value = 10}}}
-			change_variable = {which = country_leader_manuever_var value = 1}
-		}
-		else = {
-			change_variable = {which = country_leader_shock_var value = 1}
-		}
+		change_variable = {which = country_leader_fire_var value = 2}
     }
     option = {
         name = bertus_changes.6030.a #
 		ai_chance = {factor = 1}
-		if = {
-			limit = {NOT = {check_variable = {which = country_leader_manuever_var value = 10}}}
-			change_variable = {which = country_leader_manuever_var value = 1}
-		}
-		else = {
-			change_variable = {which = country_leader_shock_var value = 1}
-		}
-		if = {
-			limit = {check_variable = {which = country_leader_siege_var value = 10}}
-			change_variable = {which = country_leader_siege_var value = 1}
-		}
-		else = {
-			change_variable = {which = country_leader_fire_var value = 1}
-		}
-    }
-    option = {
-        name = bertus_changes.6030.a #
-		ai_chance = {
-			factor = 1
-			modifier = {
-				factor = 0
-				check_variable = {which = country_leader_siege_var value = 9}
-			}
-		}
 		change_variable = {which = country_leader_siege_var value = 2}
     }
     after = {
         get_improved_general = yes
         clr_special_general_flags = yes
+		on_general_recruited_effect = yes	#on actions get general
     }
 }
 province_event = {

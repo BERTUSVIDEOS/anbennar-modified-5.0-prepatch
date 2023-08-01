@@ -2168,6 +2168,119 @@ get_cost_dependant_racial_advisor = {
 		]
 	}
 }
+set_cost_dependant_racial_advisor_event_target = {
+	save_event_target_as = country_elder_advisor_target
+	if = {
+		limit = {has_country_modifier = elven_administration}
+		random_owned_province = {
+			limit = {
+				OR = {
+					has_owner_accepted_culture = yes
+					has_owner_culture = yes
+				}
+				culture_group = elven
+			}
+			save_event_target_as = province_event_target
+		}
+	}
+	else_if = {
+		limit = {has_country_modifier = dwarven_administration}
+		random_owned_province = {
+			limit = {
+				OR = {
+					has_owner_accepted_culture = yes
+					has_owner_culture = yes
+				}
+				culture_group = dwarven
+			}
+			save_event_target_as = province_event_target
+		}
+	}
+	else_if = {
+		limit = {has_country_modifier = gnomish_administration}
+		random_owned_province = {
+			limit = {
+				OR = {
+					has_owner_accepted_culture = yes
+					has_owner_culture = yes
+				}
+				culture_group = gnomish
+			}
+			save_event_target_as = province_event_target
+		}
+	}
+	else_if = {
+		limit = {
+			any_ally = {
+				OR = {
+					has_country_modifier = elven_administration
+					has_country_modifier = dwarven_administration
+					has_country_modifier = gnomish_administration
+				}
+			}
+		}
+		random_province = {
+			limit = {
+				owner = {
+					alliance_with = ROOT
+					OR = {
+						has_country_modifier = elven_administration
+						has_country_modifier = dwarven_administration
+						has_country_modifier = gnomish_administration
+					}
+				}
+				has_owner_accepted_culture = yes
+				OR = {
+					culture_group = elven
+					culture_group = dwarven
+					culture_group = gnomish
+				}
+			}
+			save_event_target_as = province_event_target
+		}
+	}
+	else_if = {
+		limit = {
+			any_owned_province = {
+				OR = {
+					has_integrated_elven_pop_trigger = yes
+					has_integrated_dwarven_pop_trigger = yes
+					has_integrated_gnomish_pop_trigger = yes
+				}
+			}	
+		}
+		random_owned_province = {
+			limit = {
+				OR = {
+					has_integrated_elven_pop_trigger = yes
+					has_integrated_dwarven_pop_trigger = yes
+					has_integrated_gnomish_pop_trigger = yes
+				}
+			}
+			save_event_target_as = province_event_target
+		}
+	}	
+	else_if = {
+		limit = {has_estate_privilege = estate_raj_ministries_ceremonial_ruler_act}
+		random_owned_province = {
+			limit = {has_owner_accepted_culture = yes}
+			save_event_target_as = province_event_target
+		}
+	}	
+	else_if = {
+		limit = {is_papal_controller = yes}
+		random_province = {
+			limit = {religion = ravelian has_owner_accepted_culture = yes}
+			save_event_target_as = province_event_target
+		}
+	}
+	else = {
+		random_owned_province = {
+			limit = { has_owner_accepted_culture = yes }
+			save_event_target_as = province_event_target
+		}
+	}
+}
 magic_siege_defence = {
 	if = {
 		limit = {has_ward_province_modifiers = yes}
@@ -4013,10 +4126,7 @@ update_race_modifiers = {
 	remove_country_modifier = halfling_economic_chairman_mercantilism_90
 	remove_country_modifier = halfling_economic_chairman_mercantilism_100
 	remove_country_modifier = crodamos_elite_camel_modifier
-	remove_country_modifier = fencing_school_modifier
-	remove_country_modifier = black_knights_modifier
 	remove_country_modifier = elite_cavalry_modifier
-	remove_country_modifier = iron_orcs_modifier
 	remove_country_modifier = legacy_of_bladebreakers_modifier
 	remove_country_modifier = elite_marine_modifier
 	remove_country_modifier = elite_gnollish_guard_modifier
@@ -4067,27 +4177,9 @@ update_race_modifiers = {
 	}
 	if = {
 		limit = {
-			has_idea = Z50_iron_orcs
-		}
-		add_country_modifier = {name = iron_orcs_modifier duration = -1 hidden=  yes}
-	}
-	if = {
-		limit = {
-			has_idea = A59_black_knights_of_corvuria
-		}
-		add_country_modifier = {name = black_knights_modifier duration = -1 hidden=  yes}
-	}
-	if = {
-		limit = {
 			has_idea = A01_romance_and_chivalry
 		}
 		add_country_modifier = {name = elite_cavalry_modifier duration = -1 hidden=  yes}
-	}
-	if = {
-		limit = {
-			has_idea = A30_wexonard_school_of_fencing
-		}
-		add_country_modifier = {name = fencing_school_modifier duration = -1 hidden=  yes}
 	}
 	if = {
 		limit = {

@@ -211,6 +211,118 @@ province_event = {	#on dev increase modifiers
 		on_development_modifiers_effect = yes
 	}
 }
+country_event = {	#on get development ideas
+	id = bertus_pops.1051
+	title = bertus_pops.1051.t
+	desc = bertus_pops.1051.desc
+	picture = DIPLOMACY_eventPicture
+	
+	hidden = yes
+	
+	trigger = {
+		has_idea = entwicklung1
+		NOT = {has_country_flag = entwicklung1_flag}
+	}
+	option = {
+		name = bertus_pops.1051.a
+		set_country_flag = entwicklung1_flag
+		every_owned_province = {
+			limit = {
+				development = 25
+				NOT = { has_province_modifier = zentra_dev }
+			}
+			add_province_modifier = {name = zentra_dev duration = -1}
+		}
+	}
+}
+country_event = {	#on get centralization ideas
+	id = bertus_pops.1052
+	title = bertus_pops.1052.t
+	desc = bertus_pops.1052.desc
+	picture = DIPLOMACY_eventPicture
+	
+	hidden = yes
+	
+	trigger = {
+		has_idea = zentra3
+		NOT = {has_country_flag = zentra3_flag}
+	}
+	option = {
+		name = bertus_pops.1052.a
+		set_country_flag = zentra3_flag
+		every_owned_province = {
+			limit = {
+				development = 40
+				NOT = { has_province_modifier = centralized_province }
+			}
+			add_province_modifier = {name = centralized_province duration = -1}
+		}
+	}
+}
+country_event = {	#on get fleet base 1 ideas
+	id = bertus_pops.1053
+	title = bertus_pops.1053.t
+	desc = bertus_pops.1053.desc
+	picture = DIPLOMACY_eventPicture
+	
+	hidden = yes
+	
+	trigger = {
+		has_idea = flottenbasis1
+		NOT = {has_country_flag = flottenbasis1_flag}
+	}
+	option = {
+		name = bertus_pops.1053.a
+		set_country_flag = flottenbasis1_flag
+		every_owned_province = {
+			limit = {
+				OR = {
+					has_building = dock
+					has_building = drydock
+					has_building = navymanpower_lvl_3
+				}
+			}
+			trigger_switch = {
+				on_trigger = has_building
+				navymanpower_lvl_3 = {add_province_modifier = {name = flottenbasis1_dock_bonus_3 duration = -1 hidden = yes}}
+				drydock = {add_province_modifier = {name = flottenbasis1_dock_bonus_2 duration = -1 hidden = yes}}
+				dock = {add_province_modifier = {name = flottenbasis1_dock_bonus_1 duration = -1 hidden = yes}}
+			}
+		}
+	}
+}
+country_event = {	#on get fleet base 2 ideas
+	id = bertus_pops.1054
+	title = bertus_pops.1054.t
+	desc = bertus_pops.1054.desc
+	picture = DIPLOMACY_eventPicture
+	
+	hidden = yes
+	
+	trigger = {
+		has_idea = flottenbasis4
+		NOT = {has_country_flag = flottenbasis4_flag}
+	}
+	option = {
+		name = bertus_pops.1054.a
+		set_country_flag = flottenbasis4_flag
+		every_owned_province = {
+			limit = {
+				OR = {
+					has_building = shipyard
+					has_building = grand_shipyard
+					has_building = navyforcelimit_lvl_3
+				}
+			}
+			trigger_switch = {
+				on_trigger = has_building
+				navymanpower_lvl_3 = {add_province_modifier = {name = flottenbasis4_dock_bonus_3 duration = -1 hidden = yes}}
+				drydock = {add_province_modifier = {name = flottenbasis4_dock_bonus_2 duration = -1 hidden = yes}}
+				dock = {add_province_modifier = {name = flottenbasis4_dock_bonus_1 duration = -1 hidden = yes}}
+			}
+		}
+	}
+}
 province_event = {	#orc+human into half-orc
 	id = bertus_pops.2000
 	title = bertus_pops.2000.t
