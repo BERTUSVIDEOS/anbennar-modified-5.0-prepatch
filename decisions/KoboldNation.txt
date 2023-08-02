@@ -60,61 +60,30 @@ country_decisions = {
 			capital_scope = { continent = europe }
 		}
 		provinces_to_highlight = {
-			OR = { 
+			OR = {
+				province_id = 189	# soxun koblidzex
 				AND = {
-					province_id = 189
-					NOT = { owned_by = ROOT }
-				}
-				AND = {
-					province_id = 173
-					NOT = { owned_by = ROOT }
-					NOT = { 197 = { owned_by = ROOT } }
-				}
-				AND = {
-					province_id = 197
-					NOT = { owned_by = ROOT }
-					NOT = { 173 = { owned_by = ROOT } }
+					region = dragon_coast_region
+					root = {
+						NOT = {
+							num_of_owned_provinces_with = {
+								is_core = ROOT
+								region = dragon_coast_region
+								value = 24	#24/36 dragon coast except iochanmd, reaver coast, dragon hills
+							}
+						}
+					}
 				}
 			}
 		}
 		allow = {
-			adm_tech = 7
 			is_free_or_tributary_trigger = yes
 			is_nomad = no
 			is_at_war = no
-			OR = {
-				owns = 173
-				owns = 197
-			}
-			owns = 189
-			if = {
-				limit = {
-					tag = A26
-				}
-				NOT = { exists = A27 } 
-				NOT = { exists = A28 } 
-			}
-			else_if = {
-				limit = {
-					tag = A27
-				}
-				NOT = { exists = A26 } 
-				NOT = { exists = A28 } 
-			}
-			else_if = {
-				limit = {
-					tag = A28
-				}
-				NOT = { exists = A26 } 
-				NOT = { exists = A27 } 
-			}
-			else_if = {
-				limit = {
-					culture_group = kobold
-				}
-				NOT = { exists = A26 } 
-				NOT = { exists = A27 } 
-				NOT = { exists = A28 } 
+			owns_core_province = 189	# soxun koblidzex
+			num_of_owned_provinces_with = {
+				value = 24	#24/36 dragon coast except iochanmd, reaver coast, dragon hills
+				region = dragon_coast_region
 			}
 		}
 		effect = {
@@ -123,19 +92,11 @@ country_decisions = {
 				add_base_tax = 4
 				add_base_production = 4
 				add_base_manpower = 4
+				change_culture = kobildzani_kobold
 			}
 			change_tag = Z38
 			hidden_effect = { restore_country_name = yes }
 			swap_non_generic_missions = yes
-			custom_tooltip = tooltip_kobildzani_culture_provinces
-			hidden_effect = {
-				every_owned_province = {
-					limit = {
-						culture_group = kobold
-					}
-					change_culture = kobildzani_kobold
-				}
-			}
 			if = {
 				limit = { ruler_culture = ROOT }
 				set_ruler_culture = kobildzani_kobold
@@ -149,19 +110,20 @@ country_decisions = {
 				set_consort_culture = kobildzani_kobold
 			}
 			change_primary_culture = kobildzani_kobold
+			add_accepted_culture = greenscale_kobold
+			add_accepted_culture = bluescale_kobold
+			add_accepted_culture = redscale_kobold
 			remove_non_electors_emperors_from_empire_effect = yes
 			if = {
-				limit = {
-					NOT = { government_rank = 3 }
-				}
-				set_government_rank = 3
+				limit = { NOT = { government_rank = 2 } }
+				set_government_rank = 2
 			}
 			dragon_coast_region = {
 				limit = {
 					NOT = { owned_by = ROOT }
 					NOT = { is_claim = ROOT }
 				}
-				add_permanent_claim = Z38
+				add_permanent_claim = ROOT
 			}
 			add_prestige_or_monarch_power = {amount =  25}
 			if = {

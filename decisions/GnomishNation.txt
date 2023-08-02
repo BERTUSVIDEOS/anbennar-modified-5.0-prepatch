@@ -16,25 +16,30 @@ country_decisions = {
 		provinces_to_highlight = {
 			OR = {
 				province_id = 177		# Oddansbay
-				province_id = 167		# Royvibobb
-				province_id = 172		# Wessex
-				province_id = 173		# Lothian
-			}
-			OR = {
-				NOT = { owned_by = ROOT }
-				NOT = { is_core = ROOT }
+				AND = {
+					region = dragon_coast_region
+					root = {
+						NOT = {
+							num_of_owned_provinces_with = {
+								is_core = ROOT
+								region = dragon_coast_region
+								value = 24	#24/36 dragon coast except iochanmd, reaver coast, dragon hills
+							}
+						}
+					}
+				}
 			}
 		}
 		
 		allow = {
-			adm_tech = 7
 			is_free_or_tributary_trigger = yes
 			is_nomad = no
 			is_at_war = no
 			owns_core_province = 177		# Oddansbay
-			owns_core_province = 167		# Royvibobb
-			owns_core_province = 172		# Wessex
-			owns_core_province = 173		# Lothian
+			num_of_owned_provinces_with = {
+				value = 24	#24/36 dragon coast except iochanmd, reaver coast, dragon hills
+				region = dragon_coast_region
+			}
 		}
 		
 		effect = {
@@ -46,18 +51,21 @@ country_decisions = {
 			swap_non_generic_missions = yes
 			remove_non_electors_emperors_from_empire_effect = yes
 			if = {
-				limit = {
-					NOT = { government_rank = 2 }	#3?2
-				}
+				limit = { NOT = { government_rank = 2 } }
 				set_government_rank = 2	#3?2
 			}
 			dragon_coast_region = {
 				limit = {
 					NOT = { owned_by = ROOT }
+					NOT = { is_claim = ROOT }
 				}
 				add_permanent_claim = A79
 			}
 			add_prestige_or_monarch_power = {amount =  25}
+			if = {
+				limit = { has_custom_ideas = no }
+				country_event = { id = ideagroups.1 } #Swap Ideas
+			}
 			add_country_modifier = {
 				name = "centralization_modifier"
 				duration = 7300

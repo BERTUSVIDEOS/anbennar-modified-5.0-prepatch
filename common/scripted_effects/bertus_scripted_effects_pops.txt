@@ -250,13 +250,16 @@ remove_pop_modifier = {
 	remove_province_modifier = $race$_$class$_$amount$_$resource$_100
 }
 add_non_military_pop = {
-	add_province_modifier = { 
-		name = non_military_pop	 
-		duration = -1
+	if = {
+		limit = { has_non_military_pop = no }
+		add_province_modifier = { name = non_military_pop duration = -1 }
 	}
 }
 remove_non_military_pop = {
-	remove_province_modifier = non_military_pop
+	if = {
+		limit = { has_non_military_pop = yes }
+		remove_province_modifier = non_military_pop
+	}
 }
 culture_conversion_dev_change_cost = {
 	add_nationalism = -50
@@ -322,7 +325,14 @@ bertus_dev_reduction = {
 			}
 		}
 		province_event = {id = bertus_pops.1038}
+		province_event = { id = bertus_pops.1039 }	#climate & terrain preferences updater
 		province_event = { id = bertus_pops.1048 }	#on dev reduction conditional modifiers
+		province_event = { id = bertus_pops.1040 }	#development based modifiers
+		province_event = { id = bertus_pops.1041 }	#base tax modifiers
+		province_event = { id = bertus_pops.1042 }	#racial base production modifiers
+		province_event = { id = bertus_pops.1043 }	#base manpower modifiers
+		province_event = { id = bertus_pops.1048 }	#on dev reduction conditional modifiers
+		province_event = { id = bertus_pops.1049 }	#base production modifiers
 	}
 }
 gain_manpower_from_provinces = {
