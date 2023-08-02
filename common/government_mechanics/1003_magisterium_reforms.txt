@@ -57,18 +57,46 @@ magisterium_mechanic = {
 			gui = magisterium_gov_mech_interaction
 			cost_type = magisterium_mana
 			trigger = {
-				has_estate_privilege = estate_mages_organization_magisterium
 				NOT = {tag = A85}
+				if = {
+					limit = {has_estate_influence_modifier = { estate = estate_mages modifier = EST_VAL_GAVE_MANA}
+					custom_trigger_tooltip = {
+						tooltip = EST_VAL_GAVE_MANA_TT
+						NOT = {has_estate_influence_modifier = { estate = estate_mages modifier = EST_VAL_GAVE_MANA } }
+					}
+				}
 			}
 			effect = {
 				if = {
-					limit = {NOT = {has_country_flag = contribute_mana_flag}}
-					set_country_flag = contribute_mana_flag
-					custom_tooltip = activate_contribute_mana_tt
+					limit = {has_estate_privilege = estate_mages_organization_magisterium}
+					if = {
+						limit = {NOT = {has_country_flag = contribute_mana_flag}}
+						custom_tooltip = activate_contribute_magisterium_mana_tt
+					}
+					else = {
+						clr_country_flag = contribute_mana_flag
+						custom_tooltip = deactivate_contribute_magisterium_mana_tt
+					}
 				}
 				else = {
-					clr_country_flag = contribute_mana_flag
-					custom_tooltip = deactivate_contribute_mana_tt
+					custom_tooltip = activate_contribute_mana_tt
+					add_government_power = {
+						mechanic_type = magisterium_mechanic 
+						power_type = magisterium_mana
+						value = -33
+					}
+					add_estate_influence_modifier = {
+						estate = estate_mages
+						desc = EST_VAL_GAVE_MANA
+						influence = 10
+						duration = 7300
+					}
+					add_estate_loyalty_modifier = {
+						estate = estate_mages
+						desc = EST_VAL_GAVE_MANA
+						loyalty = 10
+						duration = 7300
+					}
 				}
 			}
 			cooldown_years = 0
