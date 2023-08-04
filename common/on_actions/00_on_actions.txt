@@ -7151,8 +7151,8 @@ on_province_religion_changed = {
 on_province_culture_converted = {
 	bertus_dev_reduction = {value = 0.5}	#bertus mod 
 	remove_province_modifier_effect = {MODIFIER = noble_castles_boost_modifier}
+	update_non_military_pop = yes	#bertus mod
 
-	add_non_military_pop = yes	#bertus mod
 	on_province_culture_converted_estate_privilges_effect = yes
 	on_province_culture_change_effect = yes #1.35
 
@@ -7231,7 +7231,7 @@ on_province_culture_changed = {
 		bertus_pops.1042	#racial base production modifiers
 		bertus_pops.1043	#base manpower modifiers
 	}
-	add_non_military_pop = yes	#bertus mod
+	update_non_military_pop = yes	#bertus mod
 }
 
 # THIS = Province, FROM = Country who Propogated
@@ -7266,7 +7266,7 @@ on_province_owner_change = {
 	on_province_owner_change_estate_privileges_effect = yes
 	
 	#Anbennar
-	add_non_military_pop = yes	#bertus mod
+	update_non_military_pop = yes	#bertus mod
 
 	#Krakazol/Rahen initial friendship, formerly rahen.1
 	if = {
@@ -9508,12 +9508,21 @@ on_mil_tech_taken = { #ROOT - Country, executed after on_tech_taken!
 } 
 
 on_barrage = { #ROOT - barraging country, FROM - barraged province 
-
+	if = {
+		limit = {
+			has_country_flag = marrhold_grenadiers_flag
+			has_estate_privilege = estate_human_griffon_academies
+		}
+		FROM = {
+			change_siege = 2
+			add_devastation = 10
+		}
+	}
 }
 
 on_naval_barrage = { #ROOT - barraging country, FROM - barraged province 
 	if = {
-		limit = {has_idea = maritim7}
+		limit = {has_idea = maritim3}
 		FROM = {change_siege = 1}
 	}
 }

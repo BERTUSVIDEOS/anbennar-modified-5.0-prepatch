@@ -49,8 +49,6 @@ marrhold = {
 				name = "marrhold_knights_griffon"
 				duration = 27375 #75 years
 			}
-			set_country_flag = marrhold_griffon_knights
-			custom_tooltip = unlock_merc_marrhold_griffon_knights_reward_tt
 		}
 	}
 	
@@ -192,20 +190,18 @@ marrhold = {
 		position = 10
 		required_missions = { marrhold_improvements }
 		trigger = {
-		num_of_cavalry = 12
+			NOT = { has_country_modifier = marrhold_reestructure }
+			diplomat = 5
+			army_organiser = 5
 		}
 		effect = {
 			add_country_modifier = {
-				name = "marrhold_reestructure"
-				duration = 3650 #10 years
+				name = marrhold_reestructure
+				duration = 1825 #5 years
 			}
-			add_estate_loyalty = {
-				estate = estate_human #before was nobles
-				loyalty = -10
-			}
-			add_estate_loyalty = {
-				estate = estate_adventurers
-				loyalty = 20
+			add_country_modifier = {
+				name = marrhold_salvation
+				duration = 7300 #20 years
 			}
 		}
 	}
@@ -216,20 +212,29 @@ marrhold = {
 		position = 11
 		required_missions = { marrhold_auxiliaries }
 		trigger = {
-			regimental_camp = 10
+			NOT = { has_country_modifier = marrhold_reestructure }
+			years_of_income = 0.5
+			dip_power = 200
+			quartermaster = 5
 		}
 		effect = {
+			add_dip_power = -200
+			add_years_of_income = -0.5
 			add_country_modifier = {
-				name = "marrhold_salvation"
-				duration = 7300 #20 years
+				name = marrhold_reestructure
+				duration = 1825 #5 years
 			}
+			custom_tooltip = marrhold_griffon_academies_gives_tt
+			custom_tooltip = national_elites_gives_tt
+			custom_tooltip = marrhold_angels_tt
+			set_country_flag = marrhold_angels_flag
 		}
 	}
 	
 	marrhold_crimson_deluge = {
 		icon = mission_star_comet
 		ai = yes
-		position = 12
+		position = 14
 		required_missions = {  }
 		trigger = {
 			OR = {
@@ -278,7 +283,7 @@ marrhold = {
 	marrhold_religious_war = {
 		icon = mission_destroyed_city
 		ai = yes
-		position = 13
+		position = 15
 		required_missions = { marrhold_crimson_deluge }
 		trigger = {
 			hre_leagues_enabled = yes
@@ -296,8 +301,8 @@ marrhold = {
 			add_splendor = 800	#0→800
 			define_general = {	#bertus mod
 				name = "Lucca 'The Mad'"
-				fire = 3
-				shock = 12
+				fire = 4
+				shock = 15
 				manuever = 6
 				siege = 1
 				female = yes
@@ -317,10 +322,25 @@ marrhold = {
 				estate = estate_artificers
 				loyalty = 60
 			}
+			years_of_income = 0.5
+			army_professionalism = 0.60
 		}
 		effect = {
-			set_country_flag = marrhold_bombardier
-			custom_tooltip = unlock_merc_marrhold_bombardier_reward_tt
+			add_army_professionalism = -0.20
+			add_years_of_income = -0.5
+			custom_tooltip = marrhold_griffon_academies_gives_tt
+			custom_tooltip = national_elites_gives_tt
+			custom_tooltip = marrhold_Plan_B_tt
+			set_country_flag = marrhold_Plan_B_flag
+			hidden_effect = {
+				if = {
+					limit = { has_estate_privilege = estate_human_griffon_academies }
+					add_country_modifier = {
+						name = marrhold_Plan_B_modifier
+						duration = -1
+					}
+				}
+			}
 		}
 	}
 }
@@ -364,13 +384,24 @@ marrhold_two = {
 				}
 				change_religion = ROOT
 				change_culture = marrodic
+				hidden_effect = {
+					save_event_target_as = province_event_target
+					event_target:province_event_target = {
+						set_variable = {which = province_development value = 0}
+						export_to_variable = {which = province_development value = development}
+						set_variable = {which = cash_per_dev_tooltip value = 0}
+						change_variable = {which = cash_per_dev_tooltip value = 10}
+					}
+					gain_treasury_from_provinces = { cash_per_dev = 10 }
+				}
+				custom_tooltip = gain_treasury_from_provinces_10_tt
 				bertus_dev_reduction = {value = 0.5}
 			}		
 			dryadsdale_area = {
 				add_base_production = 1
 				add_base_tax = 1
 				add_base_manpower = 1
-			}		
+			}
 		}
 	}
 	
@@ -381,32 +412,32 @@ marrhold_two = {
 		required_missions = { marrhold_griffon_knights marrhold_valley } 
 		trigger = {
 			any_owned_province = {
-				development = 10
-				has_building = farm_estate
+				development = 20
+				#has_province_modifier = local_griffons_modifier
+				area = marrhold_area
 			}
 		}
 		effect = {
-			add_country_modifier = {
-				name = marrhold_griffon_breeding
-				duration = 7300 #20 years
-			}
+			set_country_flag = marrhold_stables_flag
+			country_event = {id = flavor_marrhold.7 }
 		}
 	}
 	
 	marrhold_winged_generals = {
 		icon = mission_protect_albania
 		ai = yes
-		position = 5
-		required_missions = { marrhold_stables }
+		position = 7
+		required_missions = { marrhold_stables marrhold_chance }
 		trigger = {
-			army_tradition = 40
+			army_tradition = 75
 			num_of_generals = 2
 		}
 		effect = {
 			add_country_modifier = {
 				name = marrhold_winged_generals
-				duration = -1 #permanent
+				duration = -1
 			}
+			custom_tooltip = marrhold_winged_generals_tt
 		}
 	}
 	
@@ -416,13 +447,11 @@ marrhold_two = {
 		position = 9
 		required_missions = { marrhold_winged_generals }
 		trigger = {
-			has_global_modifier_value = {
-				which = cavalry_power
-				value = 0.4 
-			}
-			barracks = 5
+			army_professionalism = 0.4
+			army_reformer = 5
 		}
 		effect = {
+			add_army_professionalism = -0.20
 			add_country_modifier = {
 				name = marrhold_imagination
 				duration = 7300 #20 years
@@ -436,12 +465,22 @@ marrhold_two = {
 		position = 10
 		required_missions = { marrhold_improvements }
 		trigger = {
-			weapons = 3
+			check_variable = {
+				which = iron
+				value = 10
+			}
+			idea_var_advisor_13 = 5
+			NOT = { has_country_modifier = marrhold_reestructure }
 		}
 		effect = {
-			clr_country_flag = marrhold_griffon_knights
-			set_country_flag = marrhold_steel_griffon
-			custom_tooltip = unlock_merc_marrhold_steel_griffon_reward_tt
+			add_country_modifier = {
+				name = marrhold_reestructure
+				duration = 1825 #5 years
+			}
+			add_country_modifier = {
+				name = marrhold_glory
+				duration = 7300 #20 years
+			}
 		}
 	}
 	
@@ -452,11 +491,30 @@ marrhold_two = {
 		required_missions = { marrhold_steel_bird }
 		trigger = {
 			army_tradition = 60
+			NOT = { has_country_modifier = marrhold_reestructure }
+			idea_var_advisor_15 = 5
+			years_of_income = 0.5
+			mil_power = 200
 		}
 		effect = {
 			add_country_modifier = {
-				name = marrhold_no_surrender
-				duration = 7300 #20 years
+				name = marrhold_reestructure
+				duration = 1825 #5 years
+			}
+			add_years_of_income = -0.5
+			add_mil_power = -200
+			custom_tooltip = marrhold_griffon_academies_gives_tt
+			custom_tooltip = national_elites_gives_tt
+			custom_tooltip = marrhold_steel_bird_tt
+			set_country_flag = marrhold_steel_bird_flag
+			hidden_effect = {
+				if = {
+					limit = { has_estate_privilege = estate_human_griffon_academies }
+					add_country_modifier = {
+						name = marrhold_steel_bird_modifier
+						duration = -1
+					}
+				}
 			}
 		}
 	}
@@ -465,20 +523,17 @@ marrhold_two = {
 		icon = mission_assemble_an_army
 		ai = yes
 		position = 12
-		required_missions = { marrhold_angels marrhold_screaming_eagles marrhold_freedom }
+		required_missions = { marrhold_angels marrhold_screaming_eagles marrhold_survey_corps }
 		trigger = {
 			OR = {
 				army_tradition = 60
-				army_professionalism = 0.4
+				army_professionalism = 0.6
 			}
 		}
 		effect = {
 			add_country_modifier = {
 				name = marrhold_winged_army
 				duration = -1
-			}
-			hidden_effect = {
-				remove_country_modifier = marrhold_winged_generals
 			}
 		}
 	}
@@ -492,15 +547,7 @@ marrhold_two = {
 			895 = {
 				has_university_building_trigger = yes
 			}
-			OR = {
-				army_organiser = 3
-				army_reformer = 3
-				commandant = 3
-				grand_captain = 3
-				recruitmaster = 3
-				fortification_expert = 3
-				quartermaster = 3
-			}
+			has_mil_advisor_5 = yes
 		}
 		effect = {
 			change_innovativeness = 3	#0→3
@@ -517,15 +564,26 @@ marrhold_two = {
 		position = 16
 		required_missions = { marrhold_feather_academy }
 		trigger = {
-			mil_power = 100
-			treasury = 1500
+			years_of_income = 0.5
+			army_professionalism = 0.60
+			army_tradition = 90
 		}
 		effect = {
-			add_mil_power = -100
-			add_treasury = -1500
-			clr_country_flag = marrhold_steel_griffon
-			set_country_flag = marrhold_griffon_sky_lancers
-			custom_tooltip = unlock_merc_marrhold_griffon_sky_lancers_reward_tt
+			add_army_professionalism = -0.20
+			add_years_of_income = -0.5
+			custom_tooltip = marrhold_griffon_academies_gives_tt
+			custom_tooltip = national_elites_gives_tt
+			custom_tooltip = marrhold_sky_lancers_tt
+			set_country_flag = marrhold_sky_lancers_flag
+			hidden_effect = {
+				if = {
+					limit = { has_estate_privilege = estate_human_griffon_academies }
+					add_country_modifier = {
+						name = marrhold_sky_lancers_modifier
+						duration = -1
+					}
+				}
+			}
 		}
 	}
 	
@@ -536,17 +594,16 @@ marrhold_two = {
 		required_missions = { marrhold_Plan_B marrhold_sky_lancers marrhold_grenadiers}
 		trigger = {
 			OR = {
-				army_tradition = 90
-				army_professionalism = 0.6
+				army_tradition = 80
+				army_professionalism = 0.80
 			}
 		}
 		effect = {
+			add_army_professionalism = -0.20
+			remove_country_modifier = marrhold_winged_army
 			add_country_modifier = {
 				name = marrhold_sky_lords
 				duration = -1
-			}
-			hidden_effect = {
-				remove_country_modifier = marrhold_winged_army
 			}
 		}
 	}
@@ -636,7 +693,19 @@ marrhold_three = {
 				}
 				change_religion = ROOT
 				change_culture = marrodic
+				hidden_effect = {
+					save_event_target_as = province_event_target
+					event_target:province_event_target = {
+						set_variable = {which = province_development value = 0}
+						export_to_variable = {which = province_development value = development}
+						set_variable = {which = cash_per_dev_tooltip value = 0}
+						change_variable = {which = cash_per_dev_tooltip value = 10}
+					}
+					gain_treasury_from_provinces = { cash_per_dev = 10 }
+				}
+				custom_tooltip = gain_treasury_from_provinces_10_tt
 				bertus_dev_reduction = {value = 0.5}
+
 			}
 			esshyl_area = {
 				add_base_production = 1
@@ -728,11 +797,10 @@ marrhold_three = {
 	marrhold_chance = {
 		icon = prosper_in_piedmont
 		ai = yes
-		position = 5
+		position = 6
 		required_missions = { marrhold_fresh_air }
 		trigger = {
-			army_size = 25
-			cavalry_fraction = 0.25
+			num_of_hussars = 5
 		}
 		effect = {
 			medirleigh_area = {
@@ -749,13 +817,17 @@ marrhold_three = {
 				}
 				add_permanent_claim = ROOT
 			}
+			add_country_modifier = {
+				name = marrhold_griffon_breeding
+				duration = 7300 #20 years
+			}
 		}
 	}
 
 	marrhold_alenic_indeed = {
 		icon = mission_advance_to_the_dnieper
 		ai = yes
-		position = 6
+		position = 7
 		required_missions = { marrhold_chance}
 		provinces_to_highlight = {
 			NOT = {
@@ -811,46 +883,50 @@ marrhold_three = {
 		}
 	}
 	
-	marrhold_survey_corps = {
-		icon = mission_alone_in_the_forest
-		ai = yes
-		position = 10
-		required_missions = { marrhold_improvements } 
-		trigger = {
-			manpower = 10
-			880 = {
-				owned_by = ROOT
-				is_core = ROOT
-			}
-		}
-		effect = {
-			add_manpower = -5
-			set_country_flag = marrhold_survey_corps
-			custom_tooltip = unlock_merc_marrhold_survey_corps_reward_tt
-		}
-	}
-	
 	marrhold_freedom = {
 		icon = mission_alone_in_the_wood
 		ai = yes
-		position = 11
-		required_missions = { marrhold_survey_corps } 
+		position = 10
+		required_missions = { marrhold_improvements }
 		trigger = {
-			mil_power = 100
-			years_of_income = 0.5
-			OR = {
-				army_reformer = 2
-				commandant = 2
-				grand_captain = 2
-			}
+			spy_master = 5
+			idea_var_advisor_5 = 5
+			NOT = { has_country_modifier = marrhold_reestructure }
 		}
 		effect = {
-			add_mil_power = -100
-			add_years_of_income = -0.5
 			add_country_modifier = {
-				name = marrhold_glory
+				name = marrhold_reestructure
+				duration = 1825 #5 years
+			}
+			add_country_modifier = {
+				name = marrhold_no_surrender
 				duration = 7300 #20 years
 			}
+		}
+	}
+
+	marrhold_survey_corps = {
+		icon = mission_alone_in_the_forest
+		ai = yes
+		position = 11
+		required_missions = { marrhold_freedom } 
+		trigger = {
+			NOT = { has_country_modifier = marrhold_reestructure }
+			years_of_income = 0.5
+			adm_power = 200
+			recruitmaster = 5
+			has_ruler_modifier = swiftclaw_griffon_modifier
+		}
+		effect = {
+			add_years_of_income = -0.5
+			add_adm_power = -200
+			add_country_modifier = {
+				name = marrhold_reestructure
+				duration = 1825 #5 years
+			}
+			custom_tooltip = marrhold_griffon_academies_gives_tt
+			custom_tooltip = marrhold_survey_corps_tt
+			set_country_flag = marrhold_survey_corps_flag
 		}
 	}
 	
@@ -987,15 +1063,16 @@ marrhold_three = {
 		position = 16
 		required_missions = { marrhold_feather_academy }
 		trigger = {
-			mil_power = 100
-			treasury = 1500
+			years_of_income = 0.5
+			army_professionalism = 0.60
+			idea_var_advisor_17 = 5
 		}
 		effect = {
-			add_mil_power = -100
-			add_treasury = -1500
-			clr_country_flag = marrhold_survey_corps
-			set_country_flag = marrhold_griffon_grenadiers
-			custom_tooltip = unlock_merc_marrhold_griffon_grenadiers_reward_tt
+			add_army_professionalism = -0.20
+			add_years_of_income = -0.5
+			custom_tooltip = marrhold_griffon_academies_gives_tt
+			custom_tooltip = marrhold_grenadiers_tt
+			set_country_flag = marrhold_grenadiers_flag
 		}
 	}
 	
@@ -1067,6 +1144,18 @@ marrhold_woods = {
 				}
 				change_religion = ROOT
 				change_culture = marrodic
+				save_event_target_as = province_event_target
+				hidden_effect = {
+					save_event_target_as = province_event_target
+					event_target:province_event_target = {
+						set_variable = {which = province_development value = 0}
+						export_to_variable = {which = province_development value = development}
+						set_variable = {which = cash_per_dev_tooltip value = 0}
+						change_variable = {which = cash_per_dev_tooltip value = 10}
+					}
+					gain_treasury_from_provinces = { cash_per_dev = 10 }
+				}
+				custom_tooltip = gain_treasury_from_provinces_10_tt
 				bertus_dev_reduction = {value = 0.5}
 			}	
 			doewood_area = {
@@ -1080,6 +1169,18 @@ marrhold_woods = {
 				}
 				change_religion = ROOT
 				change_culture = marrodic
+				save_event_target_as = province_event_target
+				hidden_effect = {
+					save_event_target_as = province_event_target
+					event_target:province_event_target = {
+						set_variable = {which = province_development value = 0}
+						export_to_variable = {which = province_development value = development}
+						set_variable = {which = cash_per_dev_tooltip value = 0}
+						change_variable = {which = cash_per_dev_tooltip value = 10}
+					}
+					gain_treasury_from_provinces = { cash_per_dev = 10 }
+				}
+				custom_tooltip = gain_treasury_from_provinces_10_tt
 				bertus_dev_reduction = {value = 0.5}
 			}
 			hornwood_area = {
@@ -1147,7 +1248,7 @@ marrhold_woods = {
 	marrhold_grudge = {
 		icon = mission_duel_snow
 		ai = yes
-		position = 6
+		position = 7
 		required_missions = { marrhold_dworfs_2 marrhold_chance }
 		provinces_to_highlight = {
 			OR = {
@@ -1189,7 +1290,7 @@ marrhold_woods = {
 	marrhold_marches = {
 		icon = alpine_fortifications
 		ai = yes
-		position = 7
+		position = 8
 		required_missions = { marrhold_grudge }
 		provinces_to_highlight = {
 			OR = {

@@ -551,7 +551,7 @@ country_event = {	#non principal military pop
 	
 	mean_time_to_happen = {
 		days = 365
-		modifier = {factor = 2.0 is_at_war = yes}
+		modifier = {factor = 5.0 is_at_war = yes}
 		modifier = {factor = 2.0 manpower_percentage = 0.90}
 	}
 	
@@ -559,32 +559,24 @@ country_event = {	#non principal military pop
 		name = bertus_pops.2002.a
 		random_owned_province = {
 			limit = {
-				has_non_military_pop = yes
-				NOT = {has_province_modifier = non_military_pop}
+				is_city = yes
+				OR = {
+					AND = {
+						has_non_military_pop = yes
+						NOT = {has_province_modifier = non_military_pop}
+					}
+					AND = {
+						has_province_modifier = non_military_pop
+						has_non_military_pop = no
+					}
+				}
 			}
 			area = {
-				limit = {
-					has_non_military_pop = yes
-					NOT = {has_province_modifier = non_military_pop}
-				}
-				add_non_military_pop = yes
-			}
-		}
-		random_owned_province = {
-			limit = {
-				has_province_modifier = non_military_pop
-				has_non_military_pop = no
-			}
-			area = {
-				limit = {
-					has_province_modifier = non_military_pop
-					has_non_military_pop = no
-				}
-				remove_non_military_pop = yes
+				update_non_military_pop = yes
 			}
 		}
 	}
 	after = {
-		country_event = {id = bertus_racial_military.1001 days = 2}
+		country_event = {id = bertus_racial_military.1001 days = 1}
 	}
 }

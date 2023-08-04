@@ -845,7 +845,6 @@ estate_human_alenic_academies = {
 		NOT = {has_race_recruitment = {race = orcish}}
 		NOT = {has_race_recruitment = {race = goblin}}
 		NOT = {has_race_recruitment = {race = elven}}
-		NOT = {has_estate_privilege = estate_human_griffon_academies}
 		has_elite_regiments = no
 	}
 	on_granted = {
@@ -908,20 +907,69 @@ estate_human_griffon_academies = {
 			has_reform = griffon_lords_reform
 			has_reform = griffon_empire_reform
 		}
-		has_elite_regiments = no
 	}
 	on_granted = {
 		add_country_modifier = {name = griffon_academies_modifier duration = -1 hidden = yes}
+		if = {
+			limit = { has_country_flag = marrhold_survey_corps_flag }
+			custom_tooltip = estate_marrhold_survey_corps_tt
+		}
+		if = {
+			limit = { has_country_flag = marrhold_grenadiers_flag }
+			custom_tooltip = marrhold_grenadiers_tt
+		}
+		custom_tooltip = hussars_gives_tt
 		custom_tooltip = estate_human_griffon_academies_tt
+		if = {
+			limit = { has_country_flag = marrhold_steel_bird_flag }
+			add_country_modifier = {name = marrhold_steel_bird_modifier duration = -1 hidden = yes}
+			custom_tooltip = marrhold_steel_bird_tt
+		}
+		if = {
+			limit = { has_country_flag = marrhold_sky_lancers_flag }
+			add_country_modifier = {name = marrhold_sky_lancers_modifier duration = -1 hidden = yes}
+			custom_tooltip = marrhold_sky_lancers_tt
+		}
+		if = {
+			limit = { has_country_flag = marrhold_Plan_B_flag }
+			add_country_modifier = {name = marrhold_Plan_B_modifier duration = -1 hidden = yes}
+			custom_tooltip = marrhold_Plan_B_tt
+		}
 	}
 	penalties = {}
-	benefits = {}
+	benefits = {
+		can_recruit_hussars = yes
+	}
+	conditional_modifier = {
+		trigger = {has_country_flag = marrhold_survey_corps_flag}
+		modifier = {
+			army_tradition_from_battles = 0.25
+			land_maintenance_modifier = 0.05
+			yearly_corruption = 0.05
+		}
+	}
+	conditional_modifier = {
+		trigger = {has_country_flag = marrhold_angels_flag}
+		modifier = {
+			diplomats = 1
+			diplomatic_reputation = 2
+			regiment_manpower_usage = -0.10
+			reinforce_cost_modifier = 0.20
+			yearly_corruption = 0.05
+		}
+	}
 	can_revoke = { }
 	on_revoked = {
 		hidden_effect = {remove_country_modifier = griffon_academies_modifier}
+		hidden_effect = {remove_country_modifier = marrhold_steel_bird_modifier}
+		hidden_effect = {remove_country_modifier = marrhold_sky_lancers_modifier}
+		hidden_effect = {remove_country_modifier = marrhold_Plan_B_modifier}
 	}
 	on_invalid = {
 		hidden_effect = {remove_country_modifier = griffon_academies_modifier}
+		hidden_effect = {remove_country_modifier = marrhold_steel_bird_modifier}
+		hidden_effect = {remove_country_modifier = marrhold_sky_lancers_modifier}
+		hidden_effect = {remove_country_modifier = marrhold_Plan_B_modifier}
 	}
 	ai_will_do = {factor = 1}
 }

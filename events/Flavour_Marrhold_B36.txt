@@ -264,3 +264,73 @@ province_event = {	#bolean for mission
 		}
 	}
 }
+country_event = {	#Griffon breeding
+	id = flavor_marrhold.7
+	title = flavor_marrhold.7.title
+	desc = flavor_marrhold.7.desc
+	picture = NEW_HEIR_eventPicture
+	
+	trigger = {
+		has_country_flag = marrhold_stables_flag
+		NOT = {has_ruler_flag = griffon_breeding_flag}
+	}
+	mean_time_to_happen = { months = 1 }
+	
+	immediate = {
+		set_ruler_flag = griffon_breeding_flag
+	}
+	option = {	#Swiftclaw Griffon
+		name = flavor_marrhold.7.a
+		add_ruler_modifier = {
+			name = swiftclaw_griffon_modifier
+			duration = -1
+		}
+	}
+	option = {	#Ironclaw Griffon
+		name = flavor_marrhold.7.b
+		add_ruler_modifier = {
+			name = ironclaw_griffon_modifier
+			duration = -1
+		}
+	}
+	option = {	#Royal Griffon
+		name = flavor_marrhold.7.c
+		add_ruler_modifier = {
+			name = royal_griffon_modifier
+			duration = -1
+		}
+	}
+}
+country_event = {	#Griffon survey corps
+	id = flavor_marrhold.8
+	title = flavor_marrhold.8.title
+	desc = flavor_marrhold.8.desc
+	picture = NEW_HEIR_eventPicture
+	
+	hidden = yes
+	trigger = {
+		has_country_flag = marrhold_survey_corps_flag
+		has_estate_privilege = estate_human_griffon_academies
+	}
+	mean_time_to_happen = { months = 60 }
+	
+	immediate = {
+		random_neighbor_country = {
+			save_event_target_as = survey_corps_event_target
+		}
+		random_country = {
+			limit = { war_with = ROOT }
+			save_event_target_as = survey_corps_event_target
+		}
+		random_neighbor_country = {
+			limit = { war_with = ROOT }
+			save_event_target_as = survey_corps_event_target
+		}
+	}
+	option = {	#survey
+		name = flavor_marrhold.8.a
+		event_target:survey_corps_event_target = {
+			remove_fow = 1
+		}
+	}
+}

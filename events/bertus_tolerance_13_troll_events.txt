@@ -1267,7 +1267,7 @@ country_event = {	#Expulsion/Purge - Majority
 	id = racial_pop_events_troll.18
 	title = racial_pop_events_troll.18.t
 	picture = REFUGEES_ESCAPING_eventPicture
-	goto = ROOT
+	goto = province_event_target
 	
 	desc = {
 		trigger = { owner = {has_country_modifier = racial_pop_troll_expulsion }}
@@ -1363,6 +1363,14 @@ country_event = {	#Expulsion/Purge - Majority
 				}
 				save_event_target_as = racial_pop_migration_country
 			}
+			random_owned_province = {
+				limit = {
+					is_city = yes
+					culture_is_troll = yes
+					NOT = {has_construction = culture}
+				}
+				save_event_target_as = province_event_target
+			}
 		}
 	}
 	option = {			#Expel!
@@ -1378,12 +1386,7 @@ country_event = {	#Expulsion/Purge - Majority
 					culture_is_troll = yes
 				}
 			}
-			random_owned_province = {
-				limit = {
-					is_city = yes
-					culture_is_troll = yes
-					NOT = {has_construction = culture}
-				}
+			event_target:province_event_target = {
 				area = {
 					limit = {
 						is_city = yes
@@ -1399,12 +1402,7 @@ country_event = {	#Expulsion/Purge - Majority
 			}
 		}
 		else = {
-			random_owned_province = {
-				limit = {
-					is_city = yes
-					culture_is_troll = yes
-					NOT = {has_construction = culture}
-				}
+			event_target:province_event_target = {
 				change_culture = owner
 				change_religion = owner
 				add_devastation = 30
@@ -1439,12 +1437,7 @@ country_event = {	#Expulsion/Purge - Majority
 					culture_is_troll = yes
 				}
 			}
-			random_owned_province = {
-				limit = {
-					is_city = yes
-					culture_is_troll = yes
-					NOT = {has_construction = culture}
-				}
+			event_target:province_event_target = {
 				area = {
 					limit = {
 						is_city = yes
@@ -1465,12 +1458,7 @@ country_event = {	#Expulsion/Purge - Majority
 			}
 		}
 		else = {
-			random_owned_province = {
-				limit = {
-					is_city = yes
-					culture_is_troll = yes
-					NOT = {has_construction = culture}
-				}
+			event_target:province_event_target = {
 				add_devastation = 50
 				change_culture = owner
 				change_religion = owner
