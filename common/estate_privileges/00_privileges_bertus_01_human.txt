@@ -881,6 +881,78 @@ estate_human_alenic_academies = {
 	cooldown_years = 20
 	ai_will_do = {factor = 100}
 }
+estate_human_castanor_academies = {
+	icon = privilege_recruit_rajput_general
+	is_valid = {
+		has_country_modifier = human_military
+		has_race_recruitment = {race = human}
+		NOT = {has_race_recruitment = {race = orcish}}
+		NOT = {has_race_recruitment = {race = goblin}}
+		NOT = {has_race_recruitment = {race = elven}}
+		culture = castanorian
+	}
+	can_select = {
+		has_country_modifier = human_military
+		has_race_recruitment = {race = human}
+		NOT = {has_race_recruitment = {race = orcish}}
+		NOT = {has_race_recruitment = {race = goblin}}
+		NOT = {has_race_recruitment = {race = elven}}
+		has_elite_regiments = no
+	}
+	on_granted = {
+		add_country_modifier = {name = castanor_academies_modifier duration = -1 hidden = yes}
+		custom_tooltip = castanor_academies_mechanic_tooltip
+		custom_tooltip = estate_human_castanor_academies_tt
+	}
+	benefits = {
+		allowed_cossack_fraction = 0.1
+	}
+	penalties = {
+		yearly_corruption = 0.20
+	}
+	conditional_modifier = {
+		trigger = {
+			any_country = {
+				war_with = root
+				has_idea_group = shock0
+			}
+		}
+		modifier = {
+			shock_damage_received = -0.05
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			any_country = {
+				war_with = root
+				has_idea_group = fire0
+			}
+		}
+		modifier = {
+			fire_damage_received = -0.05
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			any_country = {
+				war_with = root
+				government_rank = 3
+			}
+		}
+		modifier = {
+			morale_damage = 0.05
+			morale_damage_received = -0.05
+		}
+	}
+	on_revoked = {
+		hidden_effect = {remove_country_modifier = castanor_academies_modifier}
+	}
+	on_invalid = {
+		hidden_effect = {remove_country_modifier = castanor_academies_modifier}
+	}
+	cooldown_years = 20
+	ai_will_do = {factor = 100}
+}
 estate_human_griffon_academies = {
 	icon = privilege_griffon_academies
 	is_valid = {
@@ -894,8 +966,13 @@ estate_human_griffon_academies = {
 		NOT = {has_race_recruitment = {race = orcish}}
 		NOT = {has_race_recruitment = {race = goblin}}
 		OR = {
+			has_estate_privilege = estate_human_griffon_academies
 			has_reform = griffon_lords_reform
 			has_reform = griffon_empire_reform
+			AND = {
+				army_tradition = 90
+				owns = 895
+			}
 		}
 	}
 	can_select = {

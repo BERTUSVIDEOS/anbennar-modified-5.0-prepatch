@@ -4032,6 +4032,13 @@ update_race_modifiers = {
 	remove_country_modifier = shock_omen_of_strength_tech_28
 	remove_country_modifier = shock_omen_of_strength_tech_30
 	remove_country_modifier = shock_omen_of_strength_tech_32
+	remove_country_modifier = castanor_legion_professionalism_modifier_tech_2
+	remove_country_modifier = castanor_legion_professionalism_modifier_tech_5
+	remove_country_modifier = castanor_legion_professionalism_modifier_tech_6
+	remove_country_modifier = castanor_legion_professionalism_modifier_tech_11
+	remove_country_modifier = castanor_legion_professionalism_modifier_tech_21
+	remove_country_modifier = castanor_legion_professionalism_modifier_tech_28
+	remove_country_modifier = castanor_legion_professionalism_modifier_tech_28
 	remove_country_modifier = griffon_academies_modifier_tech_1
 	remove_country_modifier = griffon_academies_modifier_tech_2
 	remove_country_modifier = griffon_academies_modifier_tech_6
@@ -5123,6 +5130,17 @@ update_race_modifiers = {
 		else_if = {limit = {mil_tech = 6} add_country_modifier = {name = shock_inf_cyranvar_ideas_tech_6 duration = -1 hidden = yes}}
 		else_if = {limit = {mil_tech = 5} add_country_modifier = {name = shock_inf_cyranvar_ideas_tech_5 duration = -1 hidden = yes}}
 		else_if = {limit = {mil_tech = 2} add_country_modifier = {name = shock_inf_cyranvar_ideas_tech_2 duration = -1 hidden = yes}}
+	}
+	if = {
+		limit = {
+			has_country_modifier = castanor_legion_doctrine_full_professionalism
+		}
+		if = {limit = {mil_tech = 28} add_country_modifier = {name = castanor_legion_professionalism_modifier_tech_28 duration = -1 hidden = yes}}
+		else_if = {limit = {mil_tech = 21}	add_country_modifier = {name = castanor_legion_professionalism_modifier_tech_21 duration = -1 hidden = yes}}
+		else_if = {limit = {mil_tech = 11} add_country_modifier = {name = castanor_legion_professionalism_modifier_tech_11 duration = -1 hidden = yes}}
+		else_if = {limit = {mil_tech = 6} add_country_modifier = {name = castanor_legion_professionalism_modifier_tech_6 duration = -1 hidden = yes}}
+		else_if = {limit = {mil_tech = 5} add_country_modifier = {name = castanor_legion_professionalism_modifier_tech_5 duration = -1 hidden = yes}}
+		else_if = {limit = {mil_tech = 2} add_country_modifier = {name = castanor_legion_professionalism_modifier_tech_2 duration = -1 hidden = yes}}
 	}
 	if = {
 		limit = {
@@ -6242,4 +6260,219 @@ add_colony_amount_modifier = {
 	else_if = {limit = {colony = 3} add_country_modifier = {name = $type$_3_bonus duration = -1 hidden = yes}}
 	else_if = {limit = {colony = 2} add_country_modifier = {name = $type$_2_bonus duration = -1 hidden = yes}}
 	else_if = {limit = {colony = 1} add_country_modifier = {name = $type$_1_bonus duration = -1 hidden = yes}}
+}
+castanor_fomrable_anbennar_stuff = {	#anbennar
+	# Draw a map claims
+	if = {
+		limit = { has_country_flag = castanTheGreatArea1Chosen }
+		custom_tooltip = castanor_the_great_trial_reward_tt
+		event_target:castanor_claim_1 = {
+			area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_claim = ROOT }
+				}
+				add_claim = ROOT
+			}
+		}
+		clr_country_flag = castanTheGreatArea1Chosen
+	}
+	else_if = {
+		limit = { has_country_flag = castanTheGreatArea2Chosen }
+		custom_tooltip = castanor_the_great_trial_reward_tt
+		event_target:castanor_claim_2 = {
+			area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_claim = ROOT }
+				}
+				add_claim = ROOT
+			}
+		}
+		clr_country_flag = castanTheGreatArea2Chosen
+	}
+	else_if = {
+		limit = { has_country_flag = castanTheGreatArea3Chosen }
+		custom_tooltip = castanor_the_great_trial_reward_tt
+		event_target:castanor_claim_3 = {
+			area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_claim = ROOT }
+				}
+				add_claim = ROOT
+			}
+		}
+		clr_country_flag = castanTheGreatArea3Chosen
+	}
+	
+	# Opinion + trust for dwarf-friend trial
+	if = {
+		limit = { has_country_flag = dwarf_friend_trial_success_jewelry }
+		custom_tooltip = castanor_dwarf_friend_trial_reward_tt
+		random_known_country = {
+			limit = { has_country_modifier = dwarven_administration }
+			add_trust = {
+				who = ROOT
+				value = 10
+				mutual = yes
+			}
+			add_opinion = {
+				who = ROOT
+				modifier = castanor_dwarf_friend_trial_jewelry_success
+			}
+		}
+		add_prestige_or_monarch_power = {amount =  5}
+		custom_tooltip = castan_linebreak_tt
+	}
+	else_if = {
+		limit = { has_country_flag = dwarf_friend_trial_success }
+		custom_tooltip = castanor_dwarf_friend_trial_reward_tt
+		random_known_country = {
+			limit = { has_country_modifier = dwarven_administration }
+		}
+		add_prestige = 2
+		custom_tooltip = castan_linebreak_tt
+	}
+	else_if = {
+		limit = { has_country_flag = dwarf_friend_trial_success_shield }
+		custom_tooltip = castanor_dwarf_friend_trial_reward_tt
+		random_known_country = {
+			limit = { has_country_modifier = dwarven_administration }
+			add_trust = {
+				who = ROOT
+				value = 5
+				mutual = yes
+			}
+			add_opinion = {
+				who = ROOT
+				modifier = castanor_dwarf_friend_trial_shield_success
+			}
+		}
+		add_prestige = 3
+		custom_tooltip = castan_linebreak_tt
+	}
+	else_if = {
+		limit = { has_country_flag = dwarf_friend_trial_success_weapon }
+		custom_tooltip = castanor_dwarf_friend_trial_reward_tt
+		random_known_country = {
+			limit = { has_country_modifier = dwarven_administration }
+			add_trust = {
+				who = ROOT
+				value = 15
+				mutual = yes
+			}
+			add_opinion = {
+				who = ROOT
+				modifier = castanor_dwarf_friend_trial_weapon_success
+			}
+		}
+		add_prestige_or_monarch_power = {amount =  10}
+		custom_tooltip = castan_linebreak_tt
+	}
+	else_if = {
+		limit = { has_country_flag = dwarf_friend_trial_fail }
+		custom_tooltip = castanor_dwarf_friend_trial_reward_tt
+		random_known_country = {
+			limit = { has_country_modifier = dwarven_administration }
+			add_opinion = {
+				who = ROOT
+				modifier = castanor_dwarf_friend_trial_fail
+			}
+		}
+		add_prestige = -5
+		custom_tooltip = castan_linebreak_tt
+	}
+	
+	# Effects for passing the oath trial
+	if = {
+		limit = { has_country_flag = castan_oath_preserver_succeeded }
+		add_ruler_modifier = {
+			name = castan_oath_preserver
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = { has_country_flag = castan_oath_peacemaker_succeeded }
+		random_known_country = {
+			limit = { is_rival = ROOT }
+			add_truce_with = ROOT
+		}
+	}
+	else_if = {
+		limit = { has_country_flag = castan_oath_righteous_succeeded }
+		add_ruler_modifier = {
+			name = castan_oath_righteous
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = { has_country_flag = castan_oath_old_succeeded }
+		add_ruler_personality = righteous_personality
+	}
+	else_if = {
+		limit = { has_country_flag = castan_oath_pious_succeeded }
+		every_known_country = {
+			limit = { has_matching_religion = ROOT }
+			add_opinion = {
+				who = ROOT
+				modifier = castanor_pious_trial_succeed
+				years = 10
+			}
+		}
+	}
+	else_if = {
+		limit = { has_country_flag = castan_oath_youthful_succeeded }
+		add_ruler_modifier = {
+			name = castan_oath_youthful
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = { has_country_flag = castan_oath_compassionate_succeeded }
+		add_ruler_modifier = {
+			name = castan_oath_compassionate
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = { has_country_flag = castan_oath_unwavering_succeeded }
+		add_ruler_modifier = {
+			name = castan_oath_unwavering
+			duration = -1
+		}
+		random_list = {
+			1 = {
+				increase_ruler_adm_effect = yes
+			}
+			1 = {
+				increase_ruler_dip_effect = yes
+			}
+			1 = {
+				increase_ruler_mil_effect = yes
+			}
+		}
+	}
+	else_if = {
+		limit = { has_country_flag = castan_oath_sickly_succeeded }
+		add_ruler_modifier = {
+			name = castan_oath_sickly
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = { has_country_flag = castan_oath_cowardly_succeeded }
+		add_ruler_modifier = {
+			name = castan_oath_cowardly
+			duration = -1
+		}
+	}
+	
+	# For completing the beastbane trial and succeeding in enchanting the item
+	trigger_switch = {
+		on_trigger = has_country_flag
+		beastbane_trial_enchantment_adm_success = { custom_tooltip = beastbane_trial_enchantment_adm_success_tt increase_ruler_adm_effect = yes }
+		beastbane_trial_enchantment_dip_success = { custom_tooltip = beastbane_trial_enchantment_dip_success_tt increase_ruler_dip_effect = yes }
+		beastbane_trial_enchantment_mil_success = { custom_tooltip = beastbane_trial_enchantment_mil_success_tt increase_ruler_mil_effect = yes }
+	}
 }

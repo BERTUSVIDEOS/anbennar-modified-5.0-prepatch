@@ -996,222 +996,8 @@ country_event = {
 	option = {
 		name = castanortrials.104.a
 		
-		# Define a ruler based on the candidate who won
-		define_new_castan = yes
-		
-		# Draw a map claims
-		if = {
-			limit = { has_country_flag = castanTheGreatArea1Chosen }
-			custom_tooltip = castanor_the_great_trial_reward_tt
-			event_target:castanor_claim_1 = {
-				area = {
-					limit = {
-						NOT = { is_core = ROOT }
-						NOT = { is_claim = ROOT }
-					}
-					add_claim = ROOT
-				}
-			}
-			clr_country_flag = castanTheGreatArea1Chosen
-		}
-		else_if = {
-			limit = { has_country_flag = castanTheGreatArea2Chosen }
-			custom_tooltip = castanor_the_great_trial_reward_tt
-			event_target:castanor_claim_2 = {
-				area = {
-					limit = {
-						NOT = { is_core = ROOT }
-						NOT = { is_claim = ROOT }
-					}
-					add_claim = ROOT
-				}
-			}
-			clr_country_flag = castanTheGreatArea2Chosen
-		}
-		else_if = {
-			limit = { has_country_flag = castanTheGreatArea3Chosen }
-			custom_tooltip = castanor_the_great_trial_reward_tt
-			event_target:castanor_claim_3 = {
-				area = {
-					limit = {
-						NOT = { is_core = ROOT }
-						NOT = { is_claim = ROOT }
-					}
-					add_claim = ROOT
-				}
-			}
-			clr_country_flag = castanTheGreatArea3Chosen
-		}
-		
-		# Opinion + trust for dwarf-friend trial
-		if = {
-			limit = { has_country_flag = dwarf_friend_trial_success_jewelry }
-			custom_tooltip = castanor_dwarf_friend_trial_reward_tt
-			random_known_country = {
-				limit = { has_country_modifier = dwarven_administration }
-				add_trust = {
-					who = ROOT
-					value = 10
-					mutual = yes
-				}
-				add_opinion = {
-					who = ROOT
-					modifier = castanor_dwarf_friend_trial_jewelry_success
-				}
-			}
-			add_prestige_or_monarch_power = {amount =  5}
-			custom_tooltip = castan_linebreak_tt
-		}
-		else_if = {
-			limit = { has_country_flag = dwarf_friend_trial_success }
-			custom_tooltip = castanor_dwarf_friend_trial_reward_tt
-			random_known_country = {
-				limit = { has_country_modifier = dwarven_administration }
-			}
-			add_prestige = 2
-			custom_tooltip = castan_linebreak_tt
-		}
-		else_if = {
-			limit = { has_country_flag = dwarf_friend_trial_success_shield }
-			custom_tooltip = castanor_dwarf_friend_trial_reward_tt
-			random_known_country = {
-				limit = { has_country_modifier = dwarven_administration }
-				add_trust = {
-					who = ROOT
-					value = 5
-					mutual = yes
-				}
-				add_opinion = {
-					who = ROOT
-					modifier = castanor_dwarf_friend_trial_shield_success
-				}
-			}
-			add_prestige = 3
-			custom_tooltip = castan_linebreak_tt
-		}
-		else_if = {
-			limit = { has_country_flag = dwarf_friend_trial_success_weapon }
-			custom_tooltip = castanor_dwarf_friend_trial_reward_tt
-			random_known_country = {
-				limit = { has_country_modifier = dwarven_administration }
-				add_trust = {
-					who = ROOT
-					value = 15
-					mutual = yes
-				}
-				add_opinion = {
-					who = ROOT
-					modifier = castanor_dwarf_friend_trial_weapon_success
-				}
-			}
-			add_prestige_or_monarch_power = {amount =  10}
-			custom_tooltip = castan_linebreak_tt
-		}
-		else_if = {
-			limit = { has_country_flag = dwarf_friend_trial_fail }
-			custom_tooltip = castanor_dwarf_friend_trial_reward_tt
-			random_known_country = {
-				limit = { has_country_modifier = dwarven_administration }
-				add_opinion = {
-					who = ROOT
-					modifier = castanor_dwarf_friend_trial_fail
-				}
-			}
-			add_prestige = -5
-			custom_tooltip = castan_linebreak_tt
-		}
-		
-		# Effects for passing the oath trial
-		if = {
-			limit = { has_country_flag = castan_oath_preserver_succeeded }
-			add_ruler_modifier = {
-				name = castan_oath_preserver
-				duration = -1
-			}
-		}
-		else_if = {
-			limit = { has_country_flag = castan_oath_peacemaker_succeeded }
-			random_known_country = {
-				limit = { is_rival = ROOT }
-				add_truce_with = ROOT
-			}
-		}
-		else_if = {
-			limit = { has_country_flag = castan_oath_righteous_succeeded }
-			add_ruler_modifier = {
-				name = castan_oath_righteous
-				duration = -1
-			}
-		}
-		else_if = {
-			limit = { has_country_flag = castan_oath_old_succeeded }
-			add_ruler_personality = righteous_personality
-		}
-		else_if = {
-			limit = { has_country_flag = castan_oath_pious_succeeded }
-			every_known_country = {
-				limit = { has_matching_religion = ROOT }
-				add_opinion = {
-					who = ROOT
-					modifier = castanor_pious_trial_succeed
-					years = 10
-				}
-			}
-		}
-		else_if = {
-			limit = { has_country_flag = castan_oath_youthful_succeeded }
-			add_ruler_modifier = {
-				name = castan_oath_youthful
-				duration = -1
-			}
-		}
-		else_if = {
-			limit = { has_country_flag = castan_oath_compassionate_succeeded }
-			add_ruler_modifier = {
-				name = castan_oath_compassionate
-				duration = -1
-			}
-		}
-		else_if = {
-			limit = { has_country_flag = castan_oath_unwavering_succeeded }
-			add_ruler_modifier = {
-				name = castan_oath_unwavering
-				duration = -1
-			}
-			random_list = {
-				1 = {
-					increase_ruler_adm_effect = yes
-				}
-				1 = {
-					increase_ruler_dip_effect = yes
-				}
-				1 = {
-					increase_ruler_mil_effect = yes
-				}
-			}
-		}
-		else_if = {
-			limit = { has_country_flag = castan_oath_sickly_succeeded }
-			add_ruler_modifier = {
-				name = castan_oath_sickly
-				duration = -1
-			}
-		}
-		else_if = {
-			limit = { has_country_flag = castan_oath_cowardly_succeeded }
-			add_ruler_modifier = {
-				name = castan_oath_cowardly
-				duration = -1
-			}
-		}
-		
-		# For completing the beastbane trial and succeeding in enchanting the item
-		trigger_switch = {
-			on_trigger = has_country_flag
-			beastbane_trial_enchantment_adm_success = { custom_tooltip = beastbane_trial_enchantment_adm_success_tt increase_ruler_adm_effect = yes }
-			beastbane_trial_enchantment_dip_success = { custom_tooltip = beastbane_trial_enchantment_dip_success_tt increase_ruler_dip_effect = yes }
-			beastbane_trial_enchantment_mil_success = { custom_tooltip = beastbane_trial_enchantment_mil_success_tt increase_ruler_mil_effect = yes }
-		}
+		define_new_castan = yes	# Define a ruler based on the candidate who won
+		castanor_fomrable_anbennar_stuff = yes
 		
 		if = {
 			limit = {
@@ -1220,60 +1006,17 @@ country_event = {
 			}
 			change_tag = B32
 			hidden_effect = { restore_country_name = yes }
-			custom_tooltip = tooltip_castanorian_culture_provinces
-			hidden_effect = {
-				every_owned_province = {
-					limit = {
-						has_owner_culture = yes
-						owner = {
-							culture_is_human = yes
-						}
-					}
-					change_culture = castanorian
-				}
-			}
-			if = {
-				limit = { ruler_culture = ROOT ruler_is_human = yes }
-				set_ruler_culture = castanorian
-			}
-			if = {
-				limit = { has_heir = yes heir_culture = ROOT heir_is_human = yes }
-				set_heir_culture = castanorian
-			}
-			if = {
-				limit = { has_consort = yes consort_culture = ROOT consort_is_human = yes }
-				set_consort_culture = castanorian
-			}
-			change_primary_culture = castanorian
 			remove_non_electors_emperors_from_empire_effect = yes
-			if = {
-				limit = {
-					NOT = { government_rank = 3 }
-				}
-				set_government_rank = 3
-			}
 			if = {
 				limit = { NOT = { government = monarchy } }
 				change_government = monarchy
 			}
-			840 = {	#To North Citadel
-				move_capital_effect = yes
-			}
-			hidden_effect = {
-				every_owned_province = {
-					limit = {
-						has_owner_culture = yes
-						owner = {
-							culture_is_human = yes
-						}
-					}
-					change_culture = castanorian
-				}
-			}
-			country_event = {
+			country_event = {	#government reform?
 				id = castanortrials.98
 			}
-			
+			country_event = {	#change culture?
+				id = castanortrials.105
+			}
 			#Claims
 			inner_castanor_region = {
 				limit = {
@@ -1293,7 +1036,6 @@ country_event = {
 				}
 				add_permanent_claim = B32
 			}
-			
 			if = {
 				limit = { has_custom_ideas = no }
 				country_event = { id = ideagroups.1 } #Swap Ideas
@@ -1311,10 +1053,6 @@ country_event = {
 			if = {
 				limit = { has_custom_ideas = no }
 				country_event = { id = ideagroups.1 } #Swap Ideas
-			}
-			set_variable = {
-				which = maxAllowedDominions
-				value = 2
 			}
 			swap_non_generic_missions = yes
 		}
@@ -1360,6 +1098,64 @@ country_event = {
 	}
 }
 
+# Change Culture?
+country_event = {
+	id = castanortrials.105
+	title = castanortrials.105.t
+	desc = castanortrials.105.desc
+	picture = HRE_eventPicture
+	
+	is_triggered_only = yes
+	
+	option = {	#yes
+		name = castanortrials.104.a
+
+		840 = {	#To North Citadel
+			move_capital_effect = yes
+		}
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					has_owner_culture = yes
+					owner = {
+						culture_is_human = yes
+					}
+				}
+				change_culture = castanorian
+			}
+		}
+		if = {
+			limit = { ruler_culture = ROOT ruler_is_human = yes }
+			set_ruler_culture = castanorian
+		}
+		if = {
+			limit = { has_heir = yes heir_culture = ROOT heir_is_human = yes }
+			set_heir_culture = castanorian
+		}
+		if = {
+			limit = { has_consort = yes consort_culture = ROOT consort_is_human = yes }
+			set_consort_culture = castanorian
+		}
+		change_primary_culture = castanorian
+		set_estate_privilege = estate_human_castanor_academies
+
+		custom_tooltip = tooltip_castanorian_culture_provinces
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					has_owner_culture = yes
+					owner = {
+						culture_is_human = yes
+					}
+				}
+				change_culture = castanorian
+			}
+		}
+	}
+	option = {	#no
+		name = castanortrials.104.b
+}
+}
 # Easy Events #
 # Rally cry - Castan XIII the Quiet
 country_event = {

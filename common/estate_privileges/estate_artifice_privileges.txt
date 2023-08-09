@@ -720,14 +720,14 @@ artifice_invention_research_privilege = {
 	benefits = {
 		#foo
 	}
-	cooldown_years = 10
+	on_invalid = {
+		clr_country_flag = remove_artifice_invention_research
+	}
+	cooldown_years = 5
 	on_cooldown_expires = {
 		country_event = {
 			id = artifice_events.2
 		}
-	}
-	on_invalid = {
-		clr_country_flag = remove_artifice_invention_research
 	}
 	ai_will_do = {
 		factor = 100 #ai shouldn't use this one. Just too much work getting them to understand it and making it not crash for linux. Their research will be done via decision? Doesnt look like it -Jay
@@ -769,7 +769,7 @@ artifice_invention_directed_research = {
 	benefits = {
 		#foo
 	}
-	cooldown_years = 10
+	cooldown_years = 5
 	on_cooldown_expires = {
 		country_event = {
 			id = artifice_events.3
@@ -4447,6 +4447,7 @@ artifice_invention_growth_beans = {	#Artificer Food boost I
 		#update_artifice_points = yes #is included in the above effect
 	}
 	on_granted_province = {
+		custom_tooltip = artifice_invention_growth_beans_tt
 		if = {
 			limit = {
 				province_with_farm_goods = yes
@@ -4458,9 +4459,7 @@ artifice_invention_growth_beans = {	#Artificer Food boost I
 			}
 		}
 		else_if = {
-			limit = {
-				has_province_modifier = artifice_growthbeans_bonus
-			}
+			limit = { has_province_modifier = artifice_growthbeans_bonus }
 			remove_province_modifier = artifice_growthbeans_bonus
 		}
 	}
@@ -4470,9 +4469,7 @@ artifice_invention_growth_beans = {	#Artificer Food boost I
 	}
 	on_revoked_province = {
 		if = {
-			limit = {
-				has_province_modifier = artifice_growthbeans_bonus
-			}
+			limit = { has_province_modifier = artifice_growthbeans_bonus }
 			remove_province_modifier = artifice_growthbeans_bonus
 		}
 	}
@@ -4482,9 +4479,7 @@ artifice_invention_growth_beans = {	#Artificer Food boost I
 	}
 	on_invalid_province = {
 		if = {
-			limit = {
-				has_province_modifier = artifice_growthbeans_bonus
-			}
+			limit = { has_province_modifier = artifice_growthbeans_bonus }
 			remove_province_modifier = artifice_growthbeans_bonus
 		}
 	}
