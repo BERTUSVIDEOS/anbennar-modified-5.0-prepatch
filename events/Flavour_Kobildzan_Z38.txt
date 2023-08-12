@@ -56,19 +56,13 @@ country_event = {
 	desc = flavor_kobildzan.2.d
 	picture = GREAT_BUILDING_eventPicture
 	
-	fire_only_once = yes
 	is_triggered_only = yes
 	
-	trigger = {
-		always = yes
-	}
-	
 	# Dragon Spawn
-	option = {		
+	option = {
 		name = flavor_kobildzan.2.a
 		ai_chance = { factor = 50 }	
 		define_ruler = {
-			name = "Zrakar"
 			age = 18
 			adm = 4
 			dip = 4
@@ -82,133 +76,80 @@ country_event = {
 	}
 }
 
-#The KoboldHoard
-country_event = {
+country_event = {	#The KoboldHoard effects
 	id = flavor_kobildzan.3
-	title = flavor_kobildzan.3.t
-	desc = flavor_kobildzan.3.d
+	title = flavor_kobildzan.3.title
+	desc = flavor_kobildzan.3.desc
 	picture = KOBOLD_HOARD_eventPicture
-	
-	is_triggered_only = yes
-	
-	trigger = {
-		always = yes
-		religion = kobold_dragon_cult
-		NOT = { has_global_flag = dragon_roar }
-	}
-	
-	# little investment
-	option = {		
-		name = flavor_kobildzan.3.a
-		ai_chance = { factor = 50 }	
-		trigger = { treasury = 100 }
-		add_treasury = -100
-		hidden_effect = { REB = { change_variable = { dragon_cult_hoard = 100 } } }
-		tooltip = { random = { chance = 10 add_stability_or_adm_power = yes } }
-		set_country_flag = hoard_chance_1
-		hidden_effect = { country_event = { id = flavor_kobildzan.100 } }
-		hidden_effect = { country_event = { id = flavor_kobildzan.4 } }
-		hidden_effect = { 189 = { upgrade_kobold_hoard = yes } }
-	}
-	
-	# Normal investment
-	option = {		
-		name = flavor_kobildzan.3.b
-		ai_chance = { factor = 50 }	
-		trigger = { treasury = 250 }
-		add_treasury = -250
-		hidden_effect = { REB = { change_variable = { dragon_cult_hoard = 250 } } }
-		add_prestige = 2
-		tooltip = { random = { chance = 10 add_stability_or_adm_power = yes } }
-		set_country_flag = hoard_chance_1
-		hidden_effect = { country_event = { id = flavor_kobildzan.100 } }
-		hidden_effect = { country_event = { id = flavor_kobildzan.4 } }
-		hidden_effect = { 189 = { upgrade_kobold_hoard = yes } }
-	}
-	
-	# Big investment
-	option = {		
-		name = flavor_kobildzan.3.c
-		ai_chance = { factor = 50 }	
-		trigger = { treasury = 500 }
-		add_treasury = -500
-		hidden_effect = { REB = { change_variable = { dragon_cult_hoard = 500 } } }
-		add_prestige_or_monarch_power = {amount =  5}
-		tooltip = { random = { chance = 25 add_stability_or_adm_power = yes } }
-		set_country_flag = hoard_chance_2
-		hidden_effect = { country_event = { id = flavor_kobildzan.100 } }
-		hidden_effect = { country_event = { id = flavor_kobildzan.4 } }
-		hidden_effect = { 189 = { upgrade_kobold_hoard = yes } }
-	}
-	
-	# Huge investment
-	option = {		
-		name = flavor_kobildzan.3.e
-		ai_chance = { factor = 50 }	
-		trigger = { treasury = 1000 }
-		add_treasury = -1000
-		hidden_effect = { REB = { change_variable = { dragon_cult_hoard = 1000 } } }
-		add_prestige_or_monarch_power = {amount =  10}
-		tooltip = { random = { chance = 50 add_stability_or_adm_power = yes } }
-		set_country_flag = hoard_chance_3
-		hidden_effect = { country_event = { id = flavor_kobildzan.100 } }
-		hidden_effect = { country_event = { id = flavor_kobildzan.4 } }
-		hidden_effect = { 189 = { upgrade_kobold_hoard = yes } }
-	}
-	
-	# Colossal investment
-	option = {		
-		name = flavor_kobildzan.3.f
-		ai_chance = { factor = 50 }
-		trigger = { treasury = 2000 }
-		add_treasury = -2000
-		hidden_effect = { REB = { change_variable = { dragon_cult_hoard = 2000 } } }
-		add_prestige_or_monarch_power = {amount =  25}
-		tooltip = { random = { chance = 75 add_stability_or_adm_power = yes } }
-		set_country_flag = hoard_chance_4
-		hidden_effect = { country_event = { id = flavor_kobildzan.100 } }
-		hidden_effect = { country_event = { id = flavor_kobildzan.4 } }
-		hidden_effect = { 189 = { upgrade_kobold_hoard = yes } }
-	}
-	
-	option = {		
-		name = flavor_kobildzan.3.g
-		ai_chance = { factor = 50 }
-		trigger = { treasury = 5000 }
-		add_treasury = -5000
-		hidden_effect = { REB = { change_variable = { dragon_cult_hoard = 5000 } } }
-		add_prestige_or_monarch_power = {amount =  50}
-		add_stability_or_adm_power = yes
-		hidden_effect = { country_event = { id = flavor_kobildzan.4 } }
-		hidden_effect = { 189 = { upgrade_kobold_hoard = yes } }
-	}
-	
-	# Go Back
-	option = {		
-		name = flavor_kobildzan.3.h
-		ai_chance = { factor = 50 }
-		hidden_effect = { clr_country_flag = kobold_hoard_menu }
-	}
-}
-
-country_event = {
-	id = flavor_kobildzan.4
-	title = flavor_kobildzan.4.t
-	desc = flavor_kobildzan.4.d
-	picture = GREAT_BUILDING_eventPicture
 	
 	is_triggered_only = yes
 	hidden = yes
 	
 	trigger = {
 		always = yes
+		religion = kobold_dragon_cult
 	}
 	
-	# Dragon Spawn
+	option = {	#add development on capital
+		name = flavor_kobildzan.3.a
+		ai_chance = { factor = 50 }
+		country_event = { id = flavor_kobildzan.5 }
+	}
+	option = {		#add manpower
+		name = flavor_kobildzan.3.b
+		ai_chance = { factor = 50 }	
+		country_event = { id = flavor_kobildzan.7 }
+	}
+	option = {		#dragon fire 
+		name = flavor_kobildzan.3.c
+		trigger = { NOT = {has_country_modifier = kobold_dragon_fire } }
+		ai_chance = { factor = 50 }
+		country_event = { id = flavor_kobildzan.8 }
+	}
+	option = {		#add dragon
+		name = flavor_kobildzan.3.d
+		ai_chance = { factor = 50 }
+		trigger = { has_country_modifier = kobold_military }
+		country_event = { id = flavor_kobildzan.4 }
+	}
+	option = {			#add mage ruler
+		name = flavor_kobildzan.3.e
+		ai_chance = { factor = 50 }
+		trigger = { has_country_flag = KOB_crown_the_dragon_spawn_flag NOT = {has_ruler_modifier = kobold_dragonspawn} }
+		country_event = { id = flavor_kobildzan.2 }
+	}
+}
+
+country_event = {	# Dragon Spawn
+	id = flavor_kobildzan.4
+	title = flavor_kobildzan.4.t
+	desc = flavor_kobildzan.4.d
+	picture = GREAT_BUILDING_eventPicture
+	
+	is_triggered_only = yes
+	
 	option = {		
 		name = flavor_kobildzan.4.a
 		ai_chance = { factor = 50 }	
-		country_event = { id = flavor_kobildzan.3 }
+		set_variable = {
+			which = capital_developmnet_var
+			value = 0
+		}
+		while = {
+			limit = {
+				check_variable = {
+					which = capital_developmnet_var
+					value = 10
+				}
+			}
+			change_variable = {
+				which = capital_developmnet_var
+				value = -10
+			}
+			capital_scope = {
+				hussar_cavalry = ROOT
+			}
+		}
 	}
 }
 
@@ -218,27 +159,16 @@ country_event = {
 	desc = flavor_kobildzan.5.d
 	picture = GREAT_BUILDING_eventPicture
 	
-	major = yes
-	fire_only_once = yes
-	
-	mean_time_to_happen = {
-		years = 5
-		
-		modifier = {
-			factor = 0.5
-			REB = { check_variable = { dragon_cult_hoard = 40000 } }
-		}
-	}
-	
-	trigger = {
-		capital_scope = { continent = europe }
-		NOT = { religion = kobold_dragon_cult }
-		REB = { check_variable = { dragon_cult_hoard = 35000 } }
-	}
+	is_triggered_only = yes
 	
 	option = {		
 		name = flavor_kobildzan.5.a
-		ai_chance = { factor = 50 }	
+		ai_chance = { factor = 50 }
+		capital_scope = {
+			add_1_dev_to_provinces = yes
+			add_1_dev_to_provinces = yes
+			add_1_dev_to_provinces = yes
+		}
 	}
 }
 
@@ -249,220 +179,60 @@ country_event = {
 	desc = flavor_kobildzan.6.d
 	picture = GREAT_BUILDING_eventPicture
 	
-	fire_only_once = yes
 	major = yes
-	
-	mean_time_to_happen = {
-		years = 150
+	is_triggered_only = yes
+	fire_only_once = yes
 		
-		modifier = {
-			factor = 0.9
-			REB = { check_variable = { dragon_cult_hoard = 40000 } }
-		}
-		modifier = {
-			factor = 0.8
-			REB = { check_variable = { dragon_cult_hoard = 50000 } }
-		}
-		modifier = {
-			factor = 0.7
-			REB = { check_variable = { dragon_cult_hoard = 60000 } }
-		}
-		modifier = {
-			factor = 0.2
-			REB = { check_variable = { dragon_cult_hoard = 75000 } }
-		}
-	}
-	
-	trigger = {
-		owns = 189
-		REB = { check_variable = { dragon_cult_hoard = 30000 } }
-		has_country_modifier = kobold_administration
-		OR = { has_country_flag = kobold_artificier_path has_country_flag = kobold_dragon_path  }
-	}
-	
 	immediate = {
 		hidden_effect = { set_global_flag = dragon_roar }
 	}
 	
-	option = {	
+	option = {
 		name = flavor_kobildzan.6.a
 		ai_chance = { factor = 50 }	
-		add_yearly_manpower = -5
-		add_stability = -3
-		change_price = {
-			trade_goods = grain
-			key = dragon_roar_winter
-			value = -0.75
-			duration = 1095
-		}
-		change_price = {
-			trade_goods = wine
-			key = dragon_roar_winter
-			value = -0.75
-			duration = 1095
-		}
 		add_country_modifier = {
-			name = kobold_aftermath_of_the_dragon_roar
-			duration = 3650
+			name = kobold_dragon_will
+			duration = -1
 		}
-		189 = {
-			remove_province_modifier = kobold_hoard_1
-			remove_province_modifier = kobold_hoard_2
-			remove_province_modifier = kobold_hoard_3
-			remove_province_modifier = kobold_hoard_4
-			remove_province_modifier = kobold_hoard_5
-			remove_province_modifier = kobold_hoard_6
-			remove_province_modifier = kobold_hoard_7
-			remove_province_modifier = kobold_hoard_8
-			remove_province_modifier = kobold_hoard_9
-			remove_province_modifier = kobold_hoard_10
-			remove_province_modifier = kobold_hoard_11
-			add_base_production = -3
-			add_base_tax = -3
-			add_base_manpower = -3
-			add_devastation = 100
-			add_permanent_province_modifier = {
-				name = devasted_province
-				duration = 1825
+		every_country = {
+			limit = {has_any_province = {continent = europe}}
+			add_country_modifier = {
+				name = kobold_aftermath_of_the_dragon_roar
+				duration = 3650
 			}
 		}
-		custom_tooltip = dragons_roar_1_tt
-		custom_tooltip = dragons_roar_2_tt
-		hidden_effect = {
-			dragondepth_area = {
-				add_base_production = -2
-				add_base_tax = -2
-				add_base_manpower = -2
-				add_devastation = 50
-			}
-			dragonheights_area = {
-				add_base_production = -2
-				add_base_tax = -2
-				add_base_manpower = -2
-				add_devastation = 50
-			}
-			westmoor_proper_area = {
-				add_base_production = -2
-				add_base_tax = -2
-				add_base_manpower = -2
-				add_devastation = 50
-			}
-			westmounts_area = {
-				add_base_production = -2
-				add_base_tax = -2
-				add_base_manpower = -2
-				add_devastation = 50
-			}
-			dragonhills_area = {
-				add_base_production = -2
-				add_base_tax = -2
-				add_base_manpower = -2
-				add_devastation = 50
-			}
-			gnomish_pass_area = {
-				add_base_production = -2
-				add_base_tax = -2
-				add_base_manpower = -2
-				add_devastation = 50
-			}
-			dragon_coast_region = {
-				random_list = {
-					33 = { add_base_manpower = -1 }
-					33 = { add_base_tax = -1 }
-					33 = { add_base_production = -1 }
-				}
-				add_devastation = 25
-			}
-			alenic_frontier_region = {
-				random_list = {
-					33 = { add_base_manpower = -1 }
-					33 = { add_base_tax = -1 }
-					33 = { add_base_production = -1 }
-				}
-				add_devastation = 25
-			}
-			damescrown_region = {
-				random_list = {
-					33 = { add_base_manpower = -1 }
-					33 = { add_base_tax = -1 }
-					33 = { add_base_production = -1 }
-				}
-				add_devastation = 25
-			}
-			small_country_region = {
-				random_list = {
-					33 = { add_base_manpower = -1 }
-					33 = { add_base_tax = -1 }
-					33 = { add_base_production = -1 }
-				}
-				add_devastation = 25
-			}
-		}
-		hidden_effect = { REB = { set_variable = { dragon_cult_hoard = 0 } } }
 	}
 }
 
-#The Dragon Gift
-country_event = {
+country_event = {		#The Dragon Benediction
 	id = flavor_kobildzan.7
 	title = flavor_kobildzan.7.t
 	desc = flavor_kobildzan.7.d
 	picture = GREAT_BUILDING_eventPicture
 	
-	fire_only_once = yes
-	
-	mean_time_to_happen = {
-		years = 2
-	}
-	
-	trigger = {
-		tag = Z38
-		has_global_flag = dragon_roar
-		owns = 189
-		NOT = { 189 = { has_province_modifier = devasted_province } }
-	}
+	is_triggered_only = yes
 	
 	option = {		
 		name = flavor_kobildzan.7.a
-		ai_chance = { factor = 50 }	
-		189 = {
-			add_permanent_province_modifier = {
-				name = the_dragon_gift
-				duration = -1
-			}
-			if = {
-				limit = { trade_goods = copper }
-				change_trade_goods = gems
-			}
-		}
+		ai_chance = { factor = 50 }
+		add_yearly_manpower = 1
 	}
 }
 
-#The Dragon Will
-country_event = {
+country_event = {	#The Dragon Will
 	id = flavor_kobildzan.8
 	title = flavor_kobildzan.8.t
 	desc = flavor_kobildzan.8.d
 	picture = GREAT_BUILDING_eventPicture
 	
-	fire_only_once = yes
-	
-	mean_time_to_happen = {
-		years = 10
-	}
-	
-	trigger = {
-		tag = Z38
-		has_global_flag = dragon_roar
-		has_country_flag = kobold_dragon_path
-	}
+	major = yes
 	
 	option = {		
 		name = flavor_kobildzan.8.a
-		ai_chance = { factor = 50 }	
+		ai_chance = { factor = 50 }
 		add_country_modifier = {
-			name = kobold_dragon_will
-			duration = -1
+			name = kobold_dragon_fire
+			duration = 3650
 		}
 	}
 }
@@ -474,7 +244,7 @@ country_event = {
 	desc = flavor_kobildzan.9.d
 	picture = GREAT_BUILDING_eventPicture
 	
-	fire_only_once = yes
+	major = yes
 	
 	mean_time_to_happen = {
 		years = 10
@@ -483,15 +253,468 @@ country_event = {
 	trigger = {
 		tag = Z38
 		has_global_flag = dragon_roar
-		has_country_flag = kobold_artificier_path
 	}
 	
-	option = {		
-		name = flavor_kobildzan.9.a
-		ai_chance = { factor = 50 }	
-		add_country_modifier = {
-			name = kobold_dragon_fire
-			duration = -1
+	option = {
+		name = flavor_kobildzan.9.dragon_coast_region
+		trigger = { NOT = { dragon_coast_region = { type = all owned_by = ROOT } } }
+		ai_chance = { factor = 1000 }
+		custom_tooltip = dragons_roar_1_tt
+		dragon_coast_region = {
+			limit = {
+				NOT = {owned_by = ROOT}
+			}
+			remove_1_dev_to_provinces = yes
+			add_devastation = 25
+			if = {
+				limit = { province_with_farm_goods = yes }
+				remove_1_dev_to_provinces = yes
+				add_devastation = 25
+			}
+			if = {
+				limit = { OR = {has_terrain = forest has_terrain = woods has_terrain = ancient_forest has_terrain = mushroom_forest_terrain has_terrain = gladeway } }
+				remove_1_dev_to_provinces = yes
+				remove_1_dev_to_provinces = yes
+				add_devastation = 25
+			}
+		}
+	}
+	option = {
+		name = flavor_kobildzan.9.alenic_frontier_region
+		trigger = { NOT = { alenic_frontier_region = { type = all owned_by = ROOT } } }
+		ai_chance = { factor = 100 }
+		custom_tooltip = dragons_roar_1_tt
+		alenic_frontier_region = {
+			limit = {
+				NOT = {owned_by = ROOT}
+			}
+			remove_1_dev_to_provinces = yes
+			add_devastation = 25
+			if = {
+				limit = { province_with_farm_goods = yes }
+				remove_1_dev_to_provinces = yes
+				add_devastation = 25
+			}
+			if = {
+				limit = { OR = {has_terrain = forest has_terrain = woods has_terrain = ancient_forest has_terrain = mushroom_forest_terrain has_terrain = gladeway } }
+				remove_1_dev_to_provinces = yes
+				remove_1_dev_to_provinces = yes
+				add_devastation = 25
+			}
+		}
+	}
+	option = {
+		name = flavor_kobildzan.9.alenic_reach_region
+		trigger = { NOT = { alenic_reach_region = { type = all owned_by = ROOT } } }
+		ai_chance = { factor = 100 }
+		custom_tooltip = dragons_roar_1_tt
+		alenic_reach_region = {
+			limit = {
+				NOT = {owned_by = ROOT}
+			}
+			remove_1_dev_to_provinces = yes
+			add_devastation = 25
+			if = {
+				limit = { province_with_farm_goods = yes }
+				remove_1_dev_to_provinces = yes
+				add_devastation = 25
+			}
+			if = {
+				limit = { OR = {has_terrain = forest has_terrain = woods has_terrain = ancient_forest has_terrain = mushroom_forest_terrain has_terrain = gladeway } }
+				remove_1_dev_to_provinces = yes
+				remove_1_dev_to_provinces = yes
+				add_devastation = 25
+			}
+		}
+	}
+	option = {
+		name = flavor_kobildzan.9.small_country_region
+		trigger = { NOT = { small_country_region = { type = all owned_by = ROOT } } }
+		ai_chance = { factor = 100 }
+		custom_tooltip = dragons_roar_1_tt
+		small_country_region = {
+			limit = {
+				NOT = {owned_by = ROOT}
+			}
+			remove_1_dev_to_provinces = yes
+			add_devastation = 25
+			if = {
+				limit = { province_with_farm_goods = yes }
+				remove_1_dev_to_provinces = yes
+				add_devastation = 25
+			}
+			if = {
+				limit = { OR = {has_terrain = forest has_terrain = woods has_terrain = ancient_forest has_terrain = mushroom_forest_terrain has_terrain = gladeway } }
+				remove_1_dev_to_provinces = yes
+				remove_1_dev_to_provinces = yes
+				add_devastation = 25
+			}
+		}
+	}
+	option = {
+		name = flavor_kobildzan.9.dalr_region
+		trigger = { NOT = { dalr_region = { type = all owned_by = ROOT } } }
+		ai_chance = { factor = 50 }
+		custom_tooltip = dragons_roar_1_tt
+		dalr_region = {
+			limit = {
+				NOT = {owned_by = ROOT}
+			}
+			remove_1_dev_to_provinces = yes
+			add_devastation = 25
+			if = {
+				limit = { province_with_farm_goods = yes }
+				remove_1_dev_to_provinces = yes
+				add_devastation = 25
+			}
+			if = {
+				limit = { OR = {has_terrain = forest has_terrain = woods has_terrain = ancient_forest has_terrain = mushroom_forest_terrain has_terrain = gladeway } }
+				remove_1_dev_to_provinces = yes
+				remove_1_dev_to_provinces = yes
+				add_devastation = 25
+			}
+		}
+	}
+	option = {
+		name = flavor_kobildzan.9.damescrown_region
+		trigger = { NOT = { damescrown_region = { type = all owned_by = ROOT } } }
+		ai_chance = { factor = 50 }
+		custom_tooltip = dragons_roar_1_tt
+		damescrown_region = {
+			limit = {
+				NOT = {owned_by = ROOT}
+			}
+			remove_1_dev_to_provinces = yes
+			add_devastation = 25
+			if = {
+				limit = { province_with_farm_goods = yes }
+				remove_1_dev_to_provinces = yes
+				add_devastation = 25
+			}
+			if = {
+				limit = { OR = {has_terrain = forest has_terrain = woods has_terrain = ancient_forest has_terrain = mushroom_forest_terrain has_terrain = gladeway } }
+				remove_1_dev_to_provinces = yes
+				remove_1_dev_to_provinces = yes
+				add_devastation = 25
+			}
+		}
+	}
+	option = {
+		name = flavor_kobildzan.9.lencenor_region
+		trigger = { NOT = { lencenor_region = { type = all owned_by = ROOT } } }
+		ai_chance = { factor = 50 }
+		custom_tooltip = dragons_roar_1_tt
+		lencenor_region = {
+			limit = {
+				NOT = {owned_by = ROOT}
+			}
+			remove_1_dev_to_provinces = yes
+			add_devastation = 25
+			if = {
+				limit = { province_with_farm_goods = yes }
+				remove_1_dev_to_provinces = yes
+				add_devastation = 25
+			}
+			if = {
+				limit = { OR = {has_terrain = forest has_terrain = woods has_terrain = ancient_forest has_terrain = mushroom_forest_terrain has_terrain = gladeway } }
+				remove_1_dev_to_provinces = yes
+				remove_1_dev_to_provinces = yes
+				add_devastation = 25
+			}
+		}
+	}
+	option = {
+		name = flavor_kobildzan.9.gerudian_coast_region
+		trigger = { NOT = { gerudian_coast_region = { type = all owned_by = ROOT } } }
+		ai_chance = { factor = 10 }
+		custom_tooltip = dragons_roar_1_tt
+		gerudian_coast_region = {
+			limit = {
+				NOT = {owned_by = ROOT}
+			}
+			remove_1_dev_to_provinces = yes
+			add_devastation = 25
+			if = {
+				limit = { province_with_farm_goods = yes }
+				remove_1_dev_to_provinces = yes
+				add_devastation = 25
+			}
+			if = {
+				limit = { OR = {has_terrain = forest has_terrain = woods has_terrain = ancient_forest has_terrain = mushroom_forest_terrain has_terrain = gladeway } }
+				remove_1_dev_to_provinces = yes
+				remove_1_dev_to_provinces = yes
+				add_devastation = 25
+			}
+		}
+	}
+	option = {
+		name = flavor_kobildzan.9.west_dameshead_region
+		trigger = { NOT = { west_dameshead_region = { type = all owned_by = ROOT } } }
+		ai_chance = { factor = 10 }
+		custom_tooltip = dragons_roar_1_tt
+		west_dameshead_region = {
+			limit = {
+				NOT = {owned_by = ROOT}
+			}
+			remove_1_dev_to_provinces = yes
+			add_devastation = 25
+			if = {
+				limit = { province_with_farm_goods = yes }
+				remove_1_dev_to_provinces = yes
+				add_devastation = 25
+			}
+			if = {
+				limit = { OR = {has_terrain = forest has_terrain = woods has_terrain = ancient_forest has_terrain = mushroom_forest_terrain has_terrain = gladeway } }
+				remove_1_dev_to_provinces = yes
+				remove_1_dev_to_provinces = yes
+				add_devastation = 25
+			}
+		}
+	}
+	option = {
+		name = flavor_kobildzan.9.esmaria_region
+		trigger = { NOT = { esmaria_region = { type = all owned_by = ROOT } } }
+		ai_chance = { factor = 5 }
+		custom_tooltip = dragons_roar_1_tt
+		esmaria_region = {
+			limit = {
+				NOT = {owned_by = ROOT}
+			}
+			remove_1_dev_to_provinces = yes
+			add_devastation = 25
+			if = {
+				limit = { province_with_farm_goods = yes }
+				remove_1_dev_to_provinces = yes
+				add_devastation = 25
+			}
+			if = {
+				limit = { OR = {has_terrain = forest has_terrain = woods has_terrain = ancient_forest has_terrain = mushroom_forest_terrain has_terrain = gladeway } }
+				remove_1_dev_to_provinces = yes
+				remove_1_dev_to_provinces = yes
+				add_devastation = 25
+			}
+		}
+	}
+	option = {
+		name = flavor_kobildzan.9.east_dameshead_region
+		trigger = { NOT = { east_dameshead_region = { type = all owned_by = ROOT } } }
+		ai_chance = { factor = 5 }
+		custom_tooltip = dragons_roar_1_tt
+		east_dameshead_region = {
+			limit = {
+				NOT = {owned_by = ROOT}
+			}
+			remove_1_dev_to_provinces = yes
+			add_devastation = 25
+			if = {
+				limit = { province_with_farm_goods = yes }
+				remove_1_dev_to_provinces = yes
+				add_devastation = 25
+			}
+			if = {
+				limit = { OR = {has_terrain = forest has_terrain = woods has_terrain = ancient_forest has_terrain = mushroom_forest_terrain has_terrain = gladeway } }
+				remove_1_dev_to_provinces = yes
+				remove_1_dev_to_provinces = yes
+				add_devastation = 25
+			}
+		}
+	}
+	option = {
+		name = flavor_kobildzan.9.forlorn_vale_region
+		trigger = { NOT = { forlorn_vale_region = { type = all owned_by = ROOT } } }
+		ai_chance = { factor = 5 }
+		custom_tooltip = dragons_roar_1_tt
+		forlorn_vale_region = {
+			limit = {
+				NOT = {owned_by = ROOT}
+			}
+			remove_1_dev_to_provinces = yes
+			add_devastation = 25
+			if = {
+				limit = { province_with_farm_goods = yes }
+				remove_1_dev_to_provinces = yes
+				add_devastation = 25
+			}
+			if = {
+				limit = { OR = {has_terrain = forest has_terrain = woods has_terrain = ancient_forest has_terrain = mushroom_forest_terrain has_terrain = gladeway } }
+				remove_1_dev_to_provinces = yes
+				remove_1_dev_to_provinces = yes
+				add_devastation = 25
+			}
+		}
+	}
+	option = {
+		name = flavor_kobildzan.9.the_borders_region
+		trigger = { NOT = { the_borders_region = { type = all owned_by = ROOT } } }
+		ai_chance = { factor = 1 }
+		custom_tooltip = dragons_roar_1_tt
+		the_borders_region = {
+			limit = {
+				NOT = {owned_by = ROOT}
+			}
+			remove_1_dev_to_provinces = yes
+			add_devastation = 25
+			if = {
+				limit = { province_with_farm_goods = yes }
+				remove_1_dev_to_provinces = yes
+				add_devastation = 25
+			}
+			if = {
+				limit = { OR = {has_terrain = forest has_terrain = woods has_terrain = ancient_forest has_terrain = mushroom_forest_terrain has_terrain = gladeway } }
+				remove_1_dev_to_provinces = yes
+				remove_1_dev_to_provinces = yes
+				add_devastation = 25
+			}
+		}
+	}
+	option = {
+		name = flavor_kobildzan.9.businor_region
+		trigger = { NOT = { businor_region = { type = all owned_by = ROOT } } }
+		ai_chance = { factor = 1 }
+		custom_tooltip = dragons_roar_1_tt
+		businor_region = {
+			limit = {
+				NOT = {owned_by = ROOT}
+			}
+			remove_1_dev_to_provinces = yes
+			add_devastation = 25
+			if = {
+				limit = { province_with_farm_goods = yes }
+				remove_1_dev_to_provinces = yes
+				add_devastation = 25
+			}
+			if = {
+				limit = { OR = {has_terrain = forest has_terrain = woods has_terrain = ancient_forest has_terrain = mushroom_forest_terrain has_terrain = gladeway } }
+				remove_1_dev_to_provinces = yes
+				remove_1_dev_to_provinces = yes
+				add_devastation = 25
+			}
+		}
+	}
+	option = {
+		name = flavor_kobildzan.9.dostanor_daravans_folly_region
+		trigger = { NOT = { dostanor_region = { type = all owned_by = ROOT } daravans_folly_region = { type = all owned_by = ROOT } } }
+		ai_chance = { factor = 1 }
+		custom_tooltip = dragons_roar_1_tt
+		dostanor_region = {
+			limit = {
+				NOT = {owned_by = ROOT}
+			}
+			remove_1_dev_to_provinces = yes
+			add_devastation = 25
+			if = {
+				limit = { province_with_farm_goods = yes }
+				remove_1_dev_to_provinces = yes
+				add_devastation = 25
+			}
+			if = {
+				limit = { OR = {has_terrain = forest has_terrain = woods has_terrain = ancient_forest has_terrain = mushroom_forest_terrain has_terrain = gladeway } }
+				remove_1_dev_to_provinces = yes
+				remove_1_dev_to_provinces = yes
+				add_devastation = 25
+			}
+		}
+		daravans_folly_region = {
+			limit = {
+				NOT = {owned_by = ROOT}
+			}
+			remove_1_dev_to_provinces = yes
+			add_devastation = 25
+			if = {
+				limit = { province_with_farm_goods = yes }
+				remove_1_dev_to_provinces = yes
+				add_devastation = 25
+			}
+			if = {
+				limit = { OR = {has_terrain = forest has_terrain = woods has_terrain = ancient_forest has_terrain = mushroom_forest_terrain has_terrain = gladeway } }
+				remove_1_dev_to_provinces = yes
+				remove_1_dev_to_provinces = yes
+				add_devastation = 25
+			}
+		}
+	}
+	option = {
+		name = flavor_kobildzan.9.castanor_region
+		trigger = { NOT = { west_castanor_region = { type = all owned_by = ROOT } inner_castanor_region = { type = all owned_by = ROOT } south_castanor_region = { type = all owned_by = ROOT } } }
+		ai_chance = { factor = 1 }
+		custom_tooltip = dragons_roar_1_tt
+		west_castanor_region = {
+			limit = {
+				NOT = {owned_by = ROOT}
+			}
+			remove_1_dev_to_provinces = yes
+			add_devastation = 25
+			if = {
+				limit = { province_with_farm_goods = yes }
+				remove_1_dev_to_provinces = yes
+				add_devastation = 25
+			}
+			if = {
+				limit = { OR = {has_terrain = forest has_terrain = woods has_terrain = ancient_forest has_terrain = mushroom_forest_terrain has_terrain = gladeway } }
+				remove_1_dev_to_provinces = yes
+				remove_1_dev_to_provinces = yes
+				add_devastation = 25
+			}
+		}
+		inner_castanor_region = {
+			limit = {
+				NOT = {owned_by = ROOT}
+			}
+			remove_1_dev_to_provinces = yes
+			add_devastation = 25
+			if = {
+				limit = { province_with_farm_goods = yes }
+				remove_1_dev_to_provinces = yes
+				add_devastation = 25
+			}
+			if = {
+				limit = { OR = {has_terrain = forest has_terrain = woods has_terrain = ancient_forest has_terrain = mushroom_forest_terrain has_terrain = gladeway } }
+				remove_1_dev_to_provinces = yes
+				remove_1_dev_to_provinces = yes
+				add_devastation = 25
+			}
+		}
+		south_castanor_region = {
+			limit = {
+				NOT = {owned_by = ROOT}
+			}
+			remove_1_dev_to_provinces = yes
+			add_devastation = 25
+			if = {
+				limit = { province_with_farm_goods = yes }
+				remove_1_dev_to_provinces = yes
+				add_devastation = 25
+			}
+			if = {
+				limit = { OR = {has_terrain = forest has_terrain = woods has_terrain = ancient_forest has_terrain = mushroom_forest_terrain has_terrain = gladeway } }
+				remove_1_dev_to_provinces = yes
+				remove_1_dev_to_provinces = yes
+				add_devastation = 25
+			}
+		}
+	}
+	option = {
+		name = flavor_kobildzan.9.deepwoods_superregion
+		trigger = { NOT = { deepwoods_superregion = { type = all owned_by = ROOT } } }
+		ai_chance = { factor = 1 }
+		custom_tooltip = dragons_roar_1_tt
+		deepwoods_superregion = {
+			limit = {
+				NOT = {owned_by = ROOT}
+			}
+			remove_1_dev_to_provinces = yes
+			add_devastation = 25
+			if = {
+				limit = { province_with_farm_goods = yes }
+				remove_1_dev_to_provinces = yes
+				add_devastation = 25
+			}
+			if = {
+				limit = { OR = {has_terrain = forest has_terrain = woods has_terrain = ancient_forest has_terrain = mushroom_forest_terrain has_terrain = gladeway } }
+				remove_1_dev_to_provinces = yes
+				remove_1_dev_to_provinces = yes
+				add_devastation = 25
+			}
 		}
 	}
 }

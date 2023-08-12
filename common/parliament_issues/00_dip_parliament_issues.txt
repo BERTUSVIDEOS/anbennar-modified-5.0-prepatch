@@ -258,10 +258,18 @@ establish_new_siberian_frontier = {
 	
 	effect = {
 		random_owned_province = {
-			limit = {has_empty_adjacent_province = yes}
+			limit = {
+				has_empty_adjacent_province = yes
+				NOT = {has_terrain = dwarven_under_hold}
+				NOT = {has_terrain = dwarven_hold}
+			}
 			random_neighbor_province = {
-				limit = {is_empty = yes}
-				add_siberian_construction = 800
+				limit = {
+					is_empty = yes
+					NOT = {has_terrain = dwarven_under_hold}
+					NOT = {has_terrain = dwarven_hold}
+				}
+				cede_province = ROOT
 			}
 		}
 	}

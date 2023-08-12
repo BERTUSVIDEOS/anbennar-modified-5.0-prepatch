@@ -1,0 +1,45 @@
+kobold_hoard_mechanic = {
+	alert_icon_gfx = GFX_alerticons_government_mechanics
+	alert_icon_index = 18
+	available = {
+		has_dlc = "Rights of Man"
+		has_countrty_modifier = kobold_administration
+	}
+
+	powers = {
+		hoard_amount = {
+			is_good = yes
+			max = 100000
+			base_monthly_growth = 0
+			development_scaled_monthly_growth = 0
+			scaled_modifier = {
+				modifier = {
+					manpower_in_true_faith_provinces = 0.50
+					global_unrest = -5
+				}
+			}
+			on_max_reached = { country_event = { id = flavor_kobildzan.6 }}
+			on_min_reached = {}
+		}
+	}
+	
+	interactions = {
+		grow_hoard = {
+			icon = GFX_buy_slaves_button
+			trigger = {
+				treasury = 1000
+			}
+			effect = {
+				add_treasury = -1000
+				add_government_power = { 
+					mechanic_type = kobold_hoard_mechanic 
+					power_type = hoard_amount 
+					value = 1000
+				}
+				country_event = { id = flavor_kobildzan.3 }
+			}
+			cooldown_years = 0
+			ai_chance = {factor = 0}
+		}
+	}
+}
