@@ -281,10 +281,7 @@ country_decisions = {
 	ork-uria_nation = {
 		major = yes
 		potential = {
-			OR = {
-				primary_culture = green_orc
-				primary_culture = gray_orc
-			}
+			primary_culture = green_orc
 			NOT = { has_country_flag = orc_nation_formed }
 			NOT = { has_country_flag = medium_formable_flag}
 			NOT = { has_country_flag = super_nation_formed }
@@ -334,7 +331,6 @@ country_decisions = {
 			}
 			change_tag = XA6
 			hidden_effect = { restore_country_name = yes }
-			change_primary_culture = green_orc
 			remove_non_electors_emperors_from_empire_effect = yes
 			swap_non_generic_missions = yes
 			if = {
@@ -365,6 +361,137 @@ country_decisions = {
 				country_event = { id = vampires_estate_events.12 days = 2 }
 			}
 			set_country_flag = orc_nation_formed
+			set_country_flag = medium_formable_flag
+		}
+		ai_will_do = {factor = 1}
+	}
+	western_confederacy_nation = {
+		major = yes
+		potential = {
+			culture_group = anbennarian
+			NOT = { has_country_flag = medium_formable_flag}
+			NOT = { has_country_flag = super_nation_formed }
+			capital_scope = { 
+				OR = {
+					region = small_country_region 
+					region = west_dameshead_region 
+					region = lencenor_region 
+					area = beepeck_area 
+					area = elkwood_area 
+					area = dames_forehead_area 
+					area = floodmarches_area 
+					area = east_dragonhills_area
+					area = eaglecrest_area
+					area = dragonhills_area
+					area = west_dragonhills_area
+				}
+			}
+			normal_or_historical_nations = yes
+			is_free_or_tributary_trigger = yes
+			was_never_end_game_tag_trigger = yes
+		}
+		provinces_to_highlight = {
+			OR = {
+				province_id = 66	#	north Viswall
+				province_id = 63	#	south Viswall
+				AND = {
+					OR = {
+						region = small_country_region	#38
+						region = west_dameshead_region	#50
+						area = beepeck_area
+						area = elkwood_area
+						area = dames_forehead_area
+						area = floodmarches_area	#17
+						area = east_dragonhills_area
+						area = eaglecrest_area
+						area = dragonhills_area
+						area = west_dragonhills_area	#17
+					}
+					root = {
+						NOT = {
+							num_of_owned_provinces_with = {
+								is_core = ROOT
+								OR = {
+									region = small_country_region	#38
+									region = west_dameshead_region	#50
+									area = beepeck_area
+									area = elkwood_area
+									area = dames_forehead_area
+									area = floodmarches_area	#17
+									area = east_dragonhills_area
+									area = eaglecrest_area
+									area = dragonhills_area
+									area = west_dragonhills_area	#17
+								}
+								value = 61	#	#total of 122
+							}
+						}
+					}
+				}
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		}
+		allow = {
+			is_at_war = no
+			is_free_or_tributary_trigger = yes
+			is_nomad = no
+			NOT = { exists = XA7 }
+			owns_core_province = 66	#	north Viswall
+			owns_core_province = 63	#	south Viswall
+			num_of_owned_provinces_with = {
+				is_core = ROOT
+				OR = {
+					region = small_country_region	#38
+					region = west_dameshead_region	#50
+					area = beepeck_area
+					area = elkwood_area
+					area = dames_forehead_area
+					area = floodmarches_area	#17
+					area = east_dragonhills_area
+					area = eaglecrest_area
+					area = dragonhills_area
+					area = west_dragonhills_area	#17
+				}
+				value = 61	#	#total of 122
+			}
+		}
+		effect = {
+			66 = {	#	north Viswall
+				move_capital_effect = yes
+			}
+			change_tag = XA7
+			hidden_effect = { restore_country_name = yes }
+			remove_non_electors_emperors_from_empire_effect = yes
+			#swap_non_generic_missions = yes	#no missions
+			if = {
+				limit = { NOT = { government = republic } }
+				change_government = republic
+			}
+			add_government_reform = confestern_democracy_reform
+			add_prestige_or_monarch_power = {amount =  25}
+			small_country_region = {
+				limit = { NOT = { owned_by = ROOT } }
+				add_permanent_claim = ROOT
+			}
+			west_dameshead_region = {
+				limit = { NOT = { owned_by = ROOT } }
+				add_permanent_claim = ROOT
+			}
+			lencenor_region = {
+				limit = { NOT = { owned_by = ROOT } }
+				add_permanent_claim = ROOT
+			}
+			dragon_coast_region = {
+				limit = { NOT = { owned_by = ROOT } }
+				add_permanent_claim = ROOT
+			}
+			if = {
+				limit = { has_custom_ideas = no }
+				country_event = { id = ideagroups.1 } #Swap Ideas
+			}
 			set_country_flag = medium_formable_flag
 		}
 		ai_will_do = {factor = 1}
