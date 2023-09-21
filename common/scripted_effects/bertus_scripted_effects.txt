@@ -98,6 +98,19 @@ climate_and_terrain_preferences = {
 	}
 	if = {
 		limit = {
+			OR = {
+				has_terrain = ancient_forest
+				has_terrain = gladeway
+			}
+			OR = {
+				has_elven_majority_trigger = yes
+				culture = emerald_orc
+			}
+		}
+		add_permanent_province_modifier = {name = elven_forest_preference duration = -1}
+	}
+	if = {
+		limit = {
 			has_terrain = hills
 			OR = {
 				has_dwarven_majority_trigger = yes
@@ -457,14 +470,21 @@ on_adm_development_extra_dev_effect = {
 		}
 	}
 	if = {	#bertus mod
-		limit = {trade_goods = salt owner = {overlord = {has_idea = A72_the_salt_lion_of_arannen}}}
+		limit = {trade_goods = salt owner = {has_idea = A72_the_salt_lion_of_arannen}}
 		random = { 
 			chance = 20
 			add_base_production = 1
 		}
 	}
 	if = {	#bertus mod
-		limit = {culture = arannese owner = {overlord = {has_idea = A72_the_grand_city_of_arannen}}}
+		limit = {culture_group = elven owner = {has_idea = XA8_1}}	#Elven empire idea
+		random = { 
+			chance = 20
+			add_base_tax = 1
+		}
+	}
+	if = {	#bertus mod
+		limit = {culture = arannese owner = {has_idea = A72_the_grand_city_of_arannen}}
 		random = { 
 			chance = 20
 			add_base_tax = 1
@@ -655,6 +675,13 @@ on_dip_development_extra_dev_effect = {
 	}
 	if = {	#bertus mod
 		limit = {trade_goods = salt owner = {overlord = {has_idea = A72_the_salt_lion_of_arannen}}}
+		random = { 
+			chance = 20
+			add_base_production = 1
+		}
+	}
+	if = {	#bertus mod
+		limit = {culture_group = elven owner = {has_idea = XA8_1}}	#Elven empire idea
 		random = { 
 			chance = 20
 			add_base_production = 1
@@ -893,6 +920,13 @@ on_mil_development_extra_dev_effect = {
 		random = { 
 			chance = 20
 			add_base_production = 1
+		}
+	}
+	if = {	#bertus mod
+		limit = {culture_group = elven owner = {has_idea = XA8_1}}	#Elven empire idea
+		random = { 
+			chance = 20
+			add_base_manpower = 1
 		}
 	}
 	if = {	#bertus mod
