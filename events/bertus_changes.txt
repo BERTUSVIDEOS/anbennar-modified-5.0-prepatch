@@ -4683,7 +4683,7 @@ country_event = {	#wrong race elector incident
 		clear_global_event_target = wrong_race_elector_target
 	}
 }
-country_event = {	#get emperor population
+province_event = {	#get emperor population
 	id = bertus_changes.6014
 	title = bertus_changes.6014.t
 	desc = bertus_changes.6014.desc
@@ -4692,42 +4692,30 @@ country_event = {	#get emperor population
 	hidden = yes
 	is_triggered_only = yes
 	
-	trigger = {
-		has_global_flag = emperors_will_flag
-		is_part_of_hre = yes
-		any_owned_province = {
-			is_part_of_hre = yes
-		}
-	}
-	mean_time_to_happen = {days = 1}
-	
 	option = {
 		name = bertus_changes.6014.a
-		every_owned_province = {
-			limit = {is_part_of_hre = yes}
-			if = { limit = {emperor = {has_country_modifier = human_administration}} add_human_minority_size_effect = yes }
-			if = { limit = {emperor = {has_country_modifier = elven_administration}} add_elven_minority_size_effect = yes }
-			if = { limit = {emperor = {has_country_modifier = dwarven_administration}} add_dwarven_minority_size_effect = yes }
-			if = { limit = {emperor = {has_country_modifier = halfling_administration}} add_halfling_minority_size_effect = yes }
-			if = { limit = {emperor = {has_country_modifier = gnomish_administration}} add_gnomish_minority_size_effect = yes }
-			if = { limit = {emperor = {has_country_modifier = harimari_administration}} add_harimari_minority_size_effect = yes }
-			if = { limit = {emperor = {has_country_modifier = gnollish_administration}} add_gnollish_minority_size_effect = yes }
-			if = { limit = {emperor = {has_country_modifier = ruinborn_administration}} add_ruinborn_minority_size_effect = yes }
-			if = { limit = {emperor = {has_country_modifier = orcish_administration}} add_orcish_minority_size_effect = yes }
-			if = { limit = {emperor = {has_country_modifier = goblin_administration}} add_goblin_minority_size_effect = yes }
-			if = { limit = {emperor = {has_country_modifier = ogre_administration}} add_ogre_minority_size_effect = yes }
-			if = { limit = {emperor = {has_country_modifier = centaur_administration}} add_centaur_minority_size_effect = yes }
-			if = { limit = {emperor = {has_country_modifier = troll_administration}} add_troll_minority_size_effect = yes }
-			if = { limit = {emperor = {has_country_modifier = harpy_administration}} add_harpy_minority_size_effect = yes }
-			if = { limit = {emperor = {has_country_modifier = half_orcish_administration}} add_half_orcish_minority_size_effect = yes }
-			if = { limit = {emperor = {has_country_modifier = half_elven_administration}} add_half_elven_minority_size_effect = yes }
-			if = { limit = {emperor = {has_country_modifier = hobgoblin_administration}} add_hobgoblin_minority_size_effect = yes }
-			if = { limit = {emperor = {has_country_modifier = kobold_administration}} add_kobold_minority_size_effect = yes }
-			if = { limit = {emperor = {has_country_modifier = lizardfolk_administration}} add_lizardfolk_minority_size_effect = yes }
-		}
+		if = { limit = {emperor = {has_country_modifier = human_administration} culture_is_human = yes} add_1_dev_to_provinces = yes }
+		if = { limit = {emperor = {has_country_modifier = elven_administration} culture_is_elven = yes} add_1_dev_to_provinces = yes }
+		if = { limit = {emperor = {has_country_modifier = dwarven_administration} culture_is_dwarven = yes} add_1_dev_to_provinces = yes }
+		if = { limit = {emperor = {has_country_modifier = halfling_administration} culture_is_halfling = yes} add_1_dev_to_provinces = yes }
+		if = { limit = {emperor = {has_country_modifier = gnomish_administration} culture_is_gnomish = yes} add_1_dev_to_provinces = yes }
+		if = { limit = {emperor = {has_country_modifier = harimari_administration} culture_is_harimari = yes} add_1_dev_to_provinces = yes }
+		if = { limit = {emperor = {has_country_modifier = gnollish_administration} culture_is_gnollish = yes} add_1_dev_to_provinces = yes }
+		if = { limit = {emperor = {has_country_modifier = ruinborn_administration} culture_is_ruinborn = yes} add_1_dev_to_provinces = yes }
+		if = { limit = {emperor = {has_country_modifier = orcish_administration} culture_is_orcish = yes} add_1_dev_to_provinces = yes }
+		if = { limit = {emperor = {has_country_modifier = goblin_administration} culture_is_goblin = yes} add_1_dev_to_provinces = yes }
+		if = { limit = {emperor = {has_country_modifier = ogre_administration} culture_is_ogre = yes} add_1_dev_to_provinces = yes }
+		if = { limit = {emperor = {has_country_modifier = centaur_administration} culture_is_centaur = yes} add_1_dev_to_provinces = yes }
+		if = { limit = {emperor = {has_country_modifier = troll_administration} culture_is_troll = yes} add_1_dev_to_provinces = yes }
+		if = { limit = {emperor = {has_country_modifier = harpy_administration} culture_is_harpy = yes} add_1_dev_to_provinces = yes }
+		if = { limit = {emperor = {has_country_modifier = half_orcish_administration} culture_is_half_orcish = yes} add_1_dev_to_provinces = yes }
+		if = { limit = {emperor = {has_country_modifier = half_elven_administration} culture_is_half_elven = yes} add_1_dev_to_provinces = yes }
+		if = { limit = {emperor = {has_country_modifier = hobgoblin_administration} culture_is_hobgoblin = yes} add_1_dev_to_provinces = yes }
+		if = { limit = {emperor = {has_country_modifier = kobold_administration} culture_is_kobold = yes} add_1_dev_to_provinces = yes }
+		if = { limit = {emperor = {has_country_modifier = lizardfolk_administration} culture_is_lizardfolk = yes} add_1_dev_to_provinces = yes }
 	}
 }
-country_event = {	#remove non emperor population
+province_event = {	#remove non emperor population
 	id = bertus_changes.6015
 	title = bertus_changes.6015.t
 	desc = bertus_changes.6015.desc
@@ -4735,42 +4723,28 @@ country_event = {	#remove non emperor population
 	
 	hidden = yes
 	is_triggered_only = yes
-	
-	trigger = {
-		has_global_flag = xenophobe_weddings_hre_flag
-		is_part_of_hre = yes
-		any_owned_province = {
-			is_part_of_hre = yes
-		}
-	}
-	
-	mean_time_to_happen = {days = 1}
 
 	option = {
 		name = bertus_changes.6015.a
-		every_owned_province = {
-			limit = {is_part_of_hre = yes}
-			if = { limit = {emperor = {has_country_modifier = human_administration} culture_is_human = yes} remove_human_minority_size_effect = yes }
-			if = { limit = {emperor = {has_country_modifier = elven_administration} culture_is_elven = yes} remove_elven_minority_size_effect = yes }
-			if = { limit = {emperor = {has_country_modifier = dwarven_administration} culture_is_dwarven = yes} remove_dwarven_minority_size_effect = yes }
-			if = { limit = {emperor = {has_country_modifier = halfling_administration} culture_is_halfling = yes} remove_halfling_minority_size_effect = yes }
-			if = { limit = {emperor = {has_country_modifier = gnomish_administration} culture_is_gnomish = yes} remove_gnomish_minority_size_effect = yes }
-			if = { limit = {emperor = {has_country_modifier = harimari_administration} culture_is_harimari = yes} remove_harimari_minority_size_effect = yes }
-			if = { limit = {emperor = {has_country_modifier = gnollish_administration} culture_is_gnollish = yes} remove_gnollish_minority_size_effect = yes }
-			if = { limit = {emperor = {has_country_modifier = ruinborn_administration} culture_is_ruinborn = yes} remove_ruinborn_minority_size_effect = yes }
-			if = { limit = {emperor = {has_country_modifier = orcish_administration} culture_is_orcish = yes} remove_orcish_minority_size_effect = yes }
-			if = { limit = {emperor = {has_country_modifier = goblin_administration} culture_is_goblin = yes} remove_goblin_minority_size_effect = yes }
-			if = { limit = {emperor = {has_country_modifier = ogre_administration} culture_is_ogre = yes} remove_ogre_minority_size_effect = yes }
-			if = { limit = {emperor = {has_country_modifier = centaur_administration} culture_is_centaur = yes} remove_centaur_minority_size_effect = yes }
-			if = { limit = {emperor = {has_country_modifier = troll_administration} culture_is_troll = yes} remove_troll_minority_size_effect = yes }
-			if = { limit = {emperor = {has_country_modifier = harpy_administration} culture_is_harpy = yes} remove_harpy_minority_size_effect = yes }
-			if = { limit = {emperor = {has_country_modifier = half_orcish_administration} culture_is_half_orcish = yes} remove_half_orcish_minority_size_effect = yes }
-			if = { limit = {emperor = {has_country_modifier = half_elven_administration} culture_is_half_elven = yes} remove_half_elven_minority_size_effect = yes }
-			if = { limit = {emperor = {has_country_modifier = hobgoblin_administration} culture_is_hobgoblin = yes} remove_hobgoblin_minority_size_effect = yes }
-			if = { limit = {emperor = {has_country_modifier = kobold_administration} culture_is_kobold = yes} remove_kobold_minority_size_effect = yes }
-			if = { limit = {emperor = {has_country_modifier = lizardfolk_administration} culture_is_lizardfolk = yes} remove_lizardfolk_minority_size_effect = yes }
-			remove_1_dev_to_provinces = yes
-		}
+		if = { limit = {emperor = {has_country_modifier = human_administration} culture_is_human = no} remove_1_dev_to_provinces = yes }
+		if = { limit = {emperor = {has_country_modifier = elven_administration} culture_is_elven = no} remove_1_dev_to_provinces = yes }
+		if = { limit = {emperor = {has_country_modifier = dwarven_administration} culture_is_dwarven = no} remove_1_dev_to_provinces = yes }
+		if = { limit = {emperor = {has_country_modifier = halfling_administration} culture_is_halfling = no} remove_1_dev_to_provinces = yes }
+		if = { limit = {emperor = {has_country_modifier = gnomish_administration} culture_is_gnomish = no} remove_1_dev_to_provinces = yes }
+		if = { limit = {emperor = {has_country_modifier = harimari_administration} culture_is_harimari = no} remove_1_dev_to_provinces = yes }
+		if = { limit = {emperor = {has_country_modifier = gnollish_administration} culture_is_gnollish = no} remove_1_dev_to_provinces = yes }
+		if = { limit = {emperor = {has_country_modifier = ruinborn_administration} culture_is_ruinborn = no} remove_1_dev_to_provinces = yes }
+		if = { limit = {emperor = {has_country_modifier = orcish_administration} culture_is_orcish = no} remove_1_dev_to_provinces = yes }
+		if = { limit = {emperor = {has_country_modifier = goblin_administration} culture_is_goblin = no} remove_1_dev_to_provinces = yes }
+		if = { limit = {emperor = {has_country_modifier = ogre_administration} culture_is_ogre = no} remove_1_dev_to_provinces = yes }
+		if = { limit = {emperor = {has_country_modifier = centaur_administration} culture_is_centaur = no} remove_1_dev_to_provinces = yes }
+		if = { limit = {emperor = {has_country_modifier = troll_administration} culture_is_troll = no} remove_1_dev_to_provinces = yes }
+		if = { limit = {emperor = {has_country_modifier = harpy_administration} culture_is_harpy = no} remove_1_dev_to_provinces = yes }
+		if = { limit = {emperor = {has_country_modifier = half_orcish_administration} culture_is_half_orcish = no} remove_1_dev_to_provinces = yes }
+		if = { limit = {emperor = {has_country_modifier = half_elven_administration} culture_is_half_elven = no} remove_1_dev_to_provinces = yes }
+		if = { limit = {emperor = {has_country_modifier = hobgoblin_administration} culture_is_hobgoblin = no} remove_1_dev_to_provinces = yes }
+		if = { limit = {emperor = {has_country_modifier = kobold_administration} culture_is_kobold = no} remove_1_dev_to_provinces = yes }
+		if = { limit = {emperor = {has_country_modifier = lizardfolk_administration} culture_is_lizardfolk = no} remove_1_dev_to_provinces = yes }
 	}
 }
 country_event = {	#empire centralization

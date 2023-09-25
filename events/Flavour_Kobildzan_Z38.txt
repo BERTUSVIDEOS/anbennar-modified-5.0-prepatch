@@ -86,7 +86,7 @@ country_event = {	#The KoboldHoard effects
 	hidden = yes
 	
 	trigger = {
-		has_countrty_modifier = kobold_administration
+		has_country_modifier = kobold_administration
 	}
 	
 	option = {	#add development on capital
@@ -105,52 +105,11 @@ country_event = {	#The KoboldHoard effects
 		ai_chance = { factor = 50 }
 		country_event = { id = flavor_kobildzan.8 }
 	}
-	option = {		#add dragon
-		name = flavor_kobildzan.3.d
-		ai_chance = { factor = 50 }
-		trigger = { has_country_modifier = kobold_military }
-		country_event = { id = flavor_kobildzan.4 }
-	}
 	option = {			#add mage ruler
 		name = flavor_kobildzan.3.e
 		ai_chance = { factor = 50 }
 		trigger = { has_country_flag = KOB_crown_the_dragon_spawn_flag NOT = {has_ruler_modifier = kobold_dragonspawn} }
 		country_event = { id = flavor_kobildzan.2 }
-	}
-}
-
-country_event = {	# Dragon Spawn
-	id = flavor_kobildzan.4
-	title = flavor_kobildzan.4.t
-	desc = flavor_kobildzan.4.d
-	picture = GREAT_BUILDING_eventPicture
-	
-	is_triggered_only = yes
-	
-	option = {		
-		name = flavor_kobildzan.4.a
-		ai_chance = { factor = 50 }
-		hidden_effect = {
-			set_variable = {
-				which = capital_developmnet_var
-				value = 0
-			}
-			while = {
-				limit = {
-					check_variable = {
-						which = capital_developmnet_var
-						value = 10
-					}
-				}
-				change_variable = {
-					which = capital_developmnet_var
-					value = -10
-				}
-				capital_scope = {
-					hussar_cavalry = ROOT
-				}
-			}
-		}
 	}
 }
 
@@ -196,7 +155,7 @@ country_event = {
 			duration = -1
 		}
 		every_country = {
-			limit = {has_any_province = {continent = europe}}
+			limit = {any_owned_province = {continent = europe}}
 			add_country_modifier = {
 				name = kobold_aftermath_of_the_dragon_roar
 				duration = 3650
@@ -227,6 +186,7 @@ country_event = {	#The Dragon Will
 	picture = GREAT_BUILDING_eventPicture
 	
 	major = yes
+	is_triggered_only = yes
 	
 	option = {		
 		name = flavor_kobildzan.8.a
