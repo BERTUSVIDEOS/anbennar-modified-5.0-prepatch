@@ -2890,6 +2890,7 @@ province_event = {	#underhold
 					country_event = {id = bertus_changes.1104}
 				}
 			}
+			remove_province_modifier = blocked_tunad_modifier
 		}
 	}
 }
@@ -6543,6 +6544,7 @@ country_event = {	#
 	is_triggered_only= yes
 		
 	trigger = {
+		ai = no
 		OR = {
 			NOT = {has_country_flag = max_mana_hint_cd_flag}
 			had_country_flag = {
@@ -6992,6 +6994,9 @@ country_event = {	#no navy chairman
 				NOT = {has_country_modifier = not_has_navy_chairman}
 				ai = no
 				NOT = {has_race_councelor = {type = navy}}
+				any_owned_province = {
+					has_port = yes
+				}
 			}
 			AND = {
 				has_country_modifier = not_has_navy_chairman
@@ -7008,7 +7013,7 @@ country_event = {	#no navy chairman
     option = {
         name = bertus_changes.6045.a # 
 		trigger ={
-			has_country_modifier = not_has_navy_chairman
+			NOT = {has_country_modifier = not_has_navy_chairman}
 		}
 		add_country_modifier = {
 			name = not_has_navy_chairman
@@ -7019,7 +7024,7 @@ country_event = {	#no navy chairman
     option = {
         name = bertus_changes.6045.b # 
 		trigger ={
-			NOT = {has_country_modifier = not_has_navy_chairman}
+			has_country_modifier = not_has_navy_chairman
 		}
 		remove_country_modifier = not_has_navy_chairman
     }
@@ -7148,7 +7153,7 @@ country_event = {	#
 		}
 	}
 }
-province_event = {	#
+country_event = {	#
 	id = bertus_changes.6048
 	title = bertus_changes.6048.t
 	desc = bertus_changes.6048.desc
