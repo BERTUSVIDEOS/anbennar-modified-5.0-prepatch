@@ -118,64 +118,83 @@ country_event = {
 			add_church_power = -25
 		}
 		clr_country_flag = anoint_slave_herd_great_flag
+		random_owned_province = {
+			limit = {
+				has_owner_accepted_culture = yes
+				religion = ROOT
+				NOT = {has_province_modifier = dookan_anointed_slave_herd}
+				is_city = yes
+				NOT = {development = 10}
+			}
+			save_event_target_as = event_target_0
+		}
+		random_owned_province = {
+			limit = {
+				has_owner_accepted_culture = yes
+				religion = ROOT
+				NOT = {has_province_modifier = dookan_anointed_slave_herd}
+				is_city = yes
+				is_state = yes
+				development = 10
+				NOT = {development = 20}
+			}
+			save_event_target_as = event_target_1
+		}
+		random_owned_province = {
+			limit = {
+				has_owner_accepted_culture = yes
+				religion = ROOT
+				NOT = {has_province_modifier = dookan_anointed_slave_herd}
+				is_city = yes
+				is_state = yes
+				development = 20
+				NOT = {development = 30}
+			}
+			save_event_target_as = event_target_2
+		}
+		random_owned_province = {
+			limit = {
+				has_owner_accepted_culture = yes
+				religion = ROOT
+				NOT = {has_province_modifier = dookan_anointed_slave_herd}
+				is_city = yes
+				is_state = yes
+				development = 30
+			}
+			save_event_target_as = event_target_3
+		}
+
 	}
 	option = { #→bertus mod
 		name = great_dookan_events.5.a
 		random_list = {
 			50 = {
-				modifier = {factor = 2.0 is_state = yes}
-				modifier = {factor = 2.0 development = 20}
-				modifier = {factor = 2.0 development = 30}
-				random_owned_province = {
-					limit = {
-						has_owner_accepted_culture = yes
-						religion = ROOT
-						NOT = {has_province_modifier = dookan_anointed_slave_herd}
-						is_city = yes
-						is_state = yes
-						development = 30
-					}
+				trigger = {has_saved_event_target = event_target_0}
+				event_target:event_target_0 = {
 					province_event = {id = bertus_changes.3002}
 				}
 			}
 			50 = {
-				modifier = {factor = 2.0 is_state = yes}
-				modifier = {factor = 2.0 development = 20}
-				random_owned_province = {
-					limit = {
-						has_owner_accepted_culture = yes
-						religion = ROOT
-						NOT = {has_province_modifier = dookan_anointed_slave_herd}
-						is_city = yes
-						is_state = yes
-						development = 20
-						NOT = {development = 30}
-					}
+				trigger = {has_saved_event_target = event_target_1}
+				modifier = {factor = 2.0 }
+				modifier = {factor = 2.0 event_target:event_target_0 = {is_state = yes}}
+				event_target:event_target_1 = {
 					province_event = {id = bertus_changes.3002}
 				}
 			}
 			50 = {
-				modifier = {factor = 2.0 is_state = yes}
-				random_owned_province = {
-					limit = {
-						has_owner_accepted_culture = yes
-						religion = ROOT
-						NOT = {has_province_modifier = dookan_anointed_slave_herd}
-						is_city = yes
-						is_state = yes
-						NOT = {development = 20}
-					}
+				trigger = {has_saved_event_target = event_target_2}
+				modifier = {factor = 4.0 }
+				modifier = {factor = 2.0 event_target:event_target_0 = {is_state = yes}}
+				event_target:event_target_2 = {
 					province_event = {id = bertus_changes.3002}
 				}
 			}
 			50 = {
-				random_owned_province = {
-					limit = {
-						has_owner_accepted_culture = yes
-						religion = ROOT
-						NOT = {has_province_modifier = dookan_anointed_slave_herd}
-						is_city = yes
-					}
+				trigger = {has_saved_event_target = event_target_3}
+				modifier = {factor = 8.0 }
+				modifier = {factor = 2.0 event_target:event_target_0 = {is_state = yes}}
+				event_target:event_target_3 = {
 					province_event = {id = bertus_changes.3002}
 				}
 			}

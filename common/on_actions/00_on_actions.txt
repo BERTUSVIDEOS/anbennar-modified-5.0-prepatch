@@ -4043,10 +4043,9 @@ on_yearly_pulse = {
 			has_government_mechanic = enslavement_mechanic
 			is_subject = no
 		}
-		every_province = {
+		every_owned_province = {
 			limit = {
 				trade_goods = slaves
-				owns_or_subject_of = THIS
 			}
 			export_to_variable = {
 				which = base_slave_production_var
@@ -4064,22 +4063,44 @@ on_yearly_pulse = {
 					value = -1
 				}
 				owner = {
-					add_government_power = {
-						mechanic_type = enslavement_mechanic
-						power_type = slaves_amount
-						value = 0.10
+					if = {
+						limit = { is_subject = yes }
+						overlord = {
+							add_government_power = {
+								mechanic_type = enslavement_mechanic
+								power_type = slaves_amount
+								value = 0.10
+							}
+						}
+					}
+					else = {
+						add_government_power = {
+							mechanic_type = enslavement_mechanic
+							power_type = slaves_amount
+							value = 0.10
+						}
 					}
 				}
 			}
 			if = {
-				limit = {
-					has_building = tradecompany
-				}
+				limit = { has_building = tradecompany }
 				owner = {
-					add_government_power = {
-						mechanic_type = enslavement_mechanic
-						power_type = slaves_amount
-						value = 1
+					if = {
+						limit = { is_subject = yes }
+						overlord = {
+							add_government_power = {
+								mechanic_type = enslavement_mechanic
+								power_type = slaves_amount
+								value = 1
+							}
+						}
+					}
+					else = {
+						add_government_power = {
+							mechanic_type = enslavement_mechanic
+							power_type = slaves_amount
+							value = 1
+						}
 					}
 				}
 			}
