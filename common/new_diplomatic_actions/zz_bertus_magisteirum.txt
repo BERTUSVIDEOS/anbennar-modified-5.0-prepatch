@@ -65,9 +65,10 @@ magisterium_leave_organization_action = {
 	}
 
     on_accept = {
-		ROOT = {			
-			if = {limit = {has_estate_privilege = estate_mages_organization_state} remove_estate_privilege = estate_mages_organization_magisterium}
+		ROOT = {
+			remove_estate_privilege = estate_mages_organization_magisterium
 			add_stability = -2
+			set_country_flag = out_of_magisterium_sphere_flag
 			country_event = {id = estate_organization.1}
 		}
 	}
@@ -255,7 +256,7 @@ magisterium_send_mage_general_action = {
     on_accept = {
 		FROM = {
 			set_saved_name = {key = special_general_name type = advisor scope = ROOT}
-			save_event_target_as = get_general_event_targer
+			save_event_target_as = get_general_event_target
 			add_treasury = -50
 		}
 		ROOT = {
@@ -295,6 +296,9 @@ magisterium_request_mage_general_action = {
 	}
 
     on_accept = {
+		add_treasury = -50
+		set_saved_name = {key = special_general_name type = advisor scope = FROM}
+		save_event_target_as = get_general_event_target
 		FROM = {
 			add_estate_loyalty = {
 				estate = estate_mages
@@ -305,9 +309,6 @@ magisterium_request_mage_general_action = {
 			set_country_flag = magisterium_free_general_flag
 			country_event = {id = bertus_changes.6030}
 		}
-		set_saved_name = {key = special_general_name type = advisor scope = FROM}
-		save_event_target_as = get_general_event_targer
-		add_treasury = -50
 	}
 	ai_will_do = {always = no}
 }
