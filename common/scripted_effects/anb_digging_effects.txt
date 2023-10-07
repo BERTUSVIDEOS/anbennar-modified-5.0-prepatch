@@ -5643,48 +5643,6 @@ dwarven_pantheon_unlock_random_deity = {
 	]
 }
 
-dwarven_pantheon_unlock_deity_digging = {
-	if = {
-		limit = {
-			has_dwarven_hold_5 = no
-			owner = {
-				religion = dwarven_pantheon
-				has_unlocked_all_dwarven_pantheon_deities = no
-			}
-		}
-		owner = {
-			if = {
-				limit = { 
-					has_unlocked_all_dwarven_pantheon_major_deities = yes 
-					has_unlocked_all_dwarven_pantheon_minor_deities = no
-				}
-				dwarven_pantheon_unlock_random_deity = { minor = yes }
-			}
-			if = {
-				limit = {
-					has_unlocked_all_dwarven_pantheon_major_deities = no
-					has_unlocked_all_dwarven_pantheon_minor_deities = yes
-				}
-				dwarven_pantheon_unlock_random_deity = { major = yes }
-			}
-			if = {
-				limit = {
-					has_unlocked_all_dwarven_pantheon_major_deities = no
-					has_unlocked_all_dwarven_pantheon_minor_deities = no
-				}
-				random_list = {
-					30 = {
-						dwarven_pantheon_unlock_random_deity = { major = yes }
-					}
-					70 = {
-						dwarven_pantheon_unlock_random_deity = { minor = yes }
-					}
-				}
-			}
-		}
-	}
-}
-
 
 ##############
 ### Blorcs ###
@@ -5961,7 +5919,7 @@ blorc_plunder_upgrade_check = {
 			# 	20 = { if = { limit = { NOT = { has_province_modifier = blorc_trophy1 } } owner = { country_event = { id = blorc.103 } } } }
 			# }
 			#pdx why are you like this
-			if = { limit = { development = 300 NOT = { has_province_modifier = blorc_trophy15 } } country_event = { id = blorc.103 } }
+			if = { limit = { development = 300 NOT = { has_province_modifier = blorc_trophy15 } } owner = { country_event = { id = blorc.103 } } }
 			if = { limit = { development = 280 NOT = { development = 300 } NOT = { has_province_modifier = blorc_trophy14 has_province_modifier = blorc_trophy15 } } owner = { country_event = { id = blorc.103 } } }
 			if = { limit = { development = 260 NOT = { development = 280 } NOT = { has_province_modifier = blorc_trophy13 has_province_modifier = blorc_trophy14 } } owner = { country_event = { id = blorc.103 } } }
 			if = { limit = { development = 240 NOT = { development = 260 } NOT = { has_province_modifier = blorc_trophy12 has_province_modifier = blorc_trophy13 } } owner = { country_event = { id = blorc.103 } } }

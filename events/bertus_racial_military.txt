@@ -9,6 +9,9 @@ country_event = {
 	hidden = yes
 	
 	is_triggered_only = yes
+	trigger = {
+		ai = no
+	}
 	
 	immediate = {
 		update_tech_flag = yes
@@ -110,11 +113,11 @@ province_event = {
 	is_triggered_only = yes
 	
 	immediate = {
-		all_races_effect = { EFFECT = count_country_manpower }
 	}
 	
 	option = {
 		name = "bertus_racial_military.1101.a"	
+		all_races_effect = { EFFECT = count_country_manpower }
 	}
 	
 	after = {
@@ -2864,76 +2867,6 @@ country_event = {
 	option = {
 		name = bertus_racial_military.6001.b
 		setup_battlemages_shock = yes
-	}
-}
-province_event = {
-	id = bertus_racial_military.6002
-	title = bertus_racial_military.6002.t
-	desc = bertus_racial_military.6002.desc
-	picture = DIPLOMACY_eventPicture
-	
-	hidden = yes
-	
-    trigger = {
-		OR = {
-			AND = {
-				NOT = { has_province_modifier = healthy_canals_bertus }
-				owner = { has_active_policy = sewer_system_policy }
-				OR = {
-					has_building = canal_system_lvl_1
-					has_building = canal_system_lvl_2
-				}
-			}
-			AND = {				
-				has_province_modifier = healthy_canals_bertus
-				OR = {
-					owner = {
-						NOT = {has_active_policy = sewer_system_policy}
-					}
-					NOT = {
-						has_building = canal_system_lvl_1
-						has_building = canal_system_lvl_2
-					}
-				}
-			}
-		}
-    }
-	
-	immediate = {
-	
-	}
-	option = {
-		name = bertus_racial_military.6002.a
-		trigger = {
-			owner = {
-				has_active_policy = sewer_system_policy
-			}
-			OR = {
-				has_building = canal_system_lvl_1
-				has_building = canal_system_lvl_2
-			}
-		}
-		add_province_modifier = {
-			name = healthy_canals_bertus
-			duration = -1
-		}
-	}
-	option = {
-		name = bertus_racial_military.6002.b
-		trigger = {
-			OR = {
-				NOT = {
-					owner = {
-						has_active_policy = sewer_system_policy
-					}
-				}
-				NOT = {
-					has_building = canal_system_lvl_1
-					has_building = canal_system_lvl_2
-				}
-			}
-		}
-		remove_province_modifier = healthy_canals_bertus
 	}
 }
 country_event = {	#ruler necromancer power

@@ -122,17 +122,6 @@ on_province_owner_change_government_effect = {
 		}
 		add_province_modifier = { name = jaddari_remnant_dhenijansar_administration duration = -1 hidden = yes }
 	}
-	if = {
-		limit = {
-			owner = {
-				NOT = {
-					overlord = { has_reform = raja_reform }
-					has_reform = raja_reform
-				}
-			}
-		}
-		rahen_clear_court_disaster_province_modifiers = yes
-	}
 	if = {	#Seinathil Sheetmusic Bonuses
 		limit = {
 			NOT = { has_province_modifier = A90_sheet_music_1 }
@@ -1380,10 +1369,6 @@ on_parliament_debate_failed_effect = {
 }
 on_parliament_debate_succeeded_effect = {
 	if = {
-		limit = { has_government_attribute = gain_rt_from_parliament }
-		add_republican_tradition = 5
-	}
-	if = {
 		limit = {has_government_attribute = pariament_debate_bonus}
 		add_adm_power = 100
 		add_dip_power = 100
@@ -1431,7 +1416,10 @@ on_force_conversion_effect = {
 			value = 1
 		}
 		if = {
-			limit = { has_government_attribute = gain_monarch_power_from_force_converting }
+			limit = { 
+				always = no
+				#has_government_attribute = gain_monarch_power_from_force_converting 
+			}
 			export_to_variable = {
 				variable_name = root_development
 				value = total_development
@@ -1452,10 +1440,6 @@ on_force_conversion_effect = {
 				add_dip_power = 1
 				add_mil_power = 1
 			}
-		}
-		if = {
-			limit = { has_government_attribute = theocratic_monarchy_mechanic }
-			change_statists_vs_orangists = -0.05
 		}
 	}
 }

@@ -39,45 +39,17 @@ russian_mechanic = {
 			}
 			effect = {
 				custom_tooltip = RUSABIL_SUDEBNIK_EFFECT_TT
-				if = {
-					limit = { has_government_attribute = weaker_russian_ability }
-					tooltip = {
-						add_local_autonomy_no_authority_effect = -5
-					}
-					hidden_effect = {
-						every_owned_province = {
-							add_local_autonomy_no_authority_effect = -5
-						}
-					}
+				tooltip = {
+					add_local_autonomy_no_authority_effect = -10
 				}
-				else = {
-					tooltip = {
+				hidden_effect = {
+					every_owned_province = {
 						add_local_autonomy_no_authority_effect = -10
-					}
-					hidden_effect = {
-						every_owned_province = {
-							add_local_autonomy_no_authority_effect = -10
-						}
 					}
 				}
 			}
 			cooldown_years = 0
-			ai_chance = {
-				factor = 10
-				modifier = {
-					factor = 100
-					average_autonomy_above_min = 20
-				}
-				modifier = {
-					factor = 100
-					average_autonomy_above_min = 10
-					has_government_power = {
-						mechanic_type = russian_mechanic
-						power_type = russian_adm_power
-						value = 140
-					}
-				}
-			}
+			ai_chance = {factor = 0}
 		}
 		RUSABIL_OPRICHNINA = {
 			gui = russian_mechanics_interaction_gui
@@ -88,35 +60,12 @@ russian_mechanic = {
 				rebel_progress_at_least = { value = 20 }
 			}
 			effect = { 
-				if = {
-					limit = { has_government_attribute = weaker_russian_ability }
-					add_rebel_progress = {
-						value = -20
-					}
-				}
-				else = {
-					add_rebel_progress = {
-						value = -30
-					}
+				add_rebel_progress = {
+					value = -30
 				}
 			}
 			cooldown_years = 0
-			ai_chance = {
-				factor = 10
-				modifier = {
-					factor = 100
-					rebel_progress_at_least = { value = 80 }
-				}
-				modifier = {
-					factor = 100
-					rebel_progress_at_least = { value = 30 }
-					has_government_power = {
-						mechanic_type = russian_mechanic
-						power_type = russian_dip_power
-						value = 140
-					}
-				}
-			}
+			ai_chance = {factor = 0}
 		}
 		RUSABIL_STRELTSY = {
 			gui = russian_mechanics_interaction_gui
@@ -132,49 +81,15 @@ russian_mechanic = {
 				}
 			}
 			effect = { 
-				#create_unit_forcelimit_percentage = {
-				#	type = infantry
-				#	special_unit_category = streltsy
-				#	force_limit_percentage = 0.2
-				#}
-				if = {
-					limit = { has_government_attribute = weaker_russian_ability }
-					add_country_modifier = {
-						name = equipped_streltsy_modifier_weaker
-						duration = 3650
-					}
-					add_yearly_manpower = 0.2
+				add_country_modifier = {
+					name = equipped_streltsy_modifier
+					duration = 3650
 				}
-				else = {
-					add_country_modifier = {
-						name = equipped_streltsy_modifier
-						duration = 3650
-					}
-					add_yearly_manpower = 0.1
-				}
-				if = {
-					limit = {
-						has_government_attribute = buffed_streltsy_button
-					}
-					add_country_modifier = {
-						name = prepared_streltsy_modifier
-						duration = 3650
-					}
-				}
+				add_yearly_manpower = 0.1
 				add_war_exhaustion = -2
 			}
 			cooldown_years = 0
-			ai_chance = {
-				factor = 10
-				modifier = {
-					factor = 100
-					is_in_important_war = yes
-				}
-				modifier = {
-					factor = 100
-					is_at_war = yes
-				}
-			}
+			ai_chance = {factor = 0}
 		}
 	}
 }

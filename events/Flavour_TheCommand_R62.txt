@@ -463,44 +463,6 @@ country_event = { # The rule of [ROOT.Monarch.GetName]
 
 ### Magic events
 
-country_event = { #End the Temple's Curse
-	id = the_command.4
-	title = the_command.4.t
-	desc = the_command.4.desc
-	picture = LAND_MILITARY_eventPicture
-
-	fire_only_once = yes
-	is_triggered_only = yes
-	
-	trigger = {
-		tag = R62
-	}
-	
-	immediate = {
-		hidden_effect = {
-			random_owned_province = {
-				limit = { OR = { has_province_modifier = damaged_temple_complex has_province_modifier = derelict_temple_complex } NOT = { has_province_flag = temple_being_plundered } is_city = yes is_core = ROOT }
-				setup_temple_restoration_speed = yes
-				save_event_target_as = temple_to_restore
-			}
-		}
-	}
-
-	option = {
-		name = the_command.4.a
-		ai_chance = {
-			factor = 1
-		}
-		custom_tooltip = command_the_temples_curse_tt
-		hidden_effect = {
-			every_owned_province = {
-				limit = { has_temple_complex = yes }
-				add_ogre_minority_size_effect = yes
-			}
-		}
-		event_target:temple_to_restore = { begin_temple_restoration = yes }
-	}
-}
 
 country_event = { #Extraction
 	id = the_command.5
@@ -2631,7 +2593,6 @@ country_event = { #Command encroaches on Raj!
 		ai_chance = {
 			factor = 1
 		}
-		raj_cohesion_change_absolute = { amount = -10 }
 	}
 }
 
