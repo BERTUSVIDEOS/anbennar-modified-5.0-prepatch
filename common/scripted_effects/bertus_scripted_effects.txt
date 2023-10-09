@@ -1,31 +1,31 @@
 
 
 climate_and_terrain_preferences = {
-	remove_province_modifier = severe_winter_preference
-	remove_province_modifier = arctic_preference
-	remove_province_modifier = woods_preference
-	remove_province_modifier = forest_preference
-	remove_province_modifier = jungle_preference
-	remove_province_modifier = hills_preference
-	remove_province_modifier = highlands_preference
-	remove_province_modifier = mountain_preference
-	remove_province_modifier = cavern_preference
-	remove_province_modifier = tunnel_preference
-	remove_province_modifier = marsh_preference
-	remove_province_modifier = coastal_preference
-	remove_province_modifier = desert_preference
-	remove_province_modifier = coastal_desert_preference
-	remove_province_modifier = steppe_preference
-	remove_province_modifier = savannah_preference
-	remove_province_modifier = drylands_preference
-	remove_province_modifier = grasslands_preference
-	remove_province_modifier = farmlands_preference
-	remove_province_modifier = city_preference
-	remove_province_modifier = arid_preference
-	remove_province_modifier = tropical_preference
-	remove_province_modifier = farmlands_dispreference
-	remove_province_modifier = marsh_dispreference
-	remove_province_modifier = woods_dispreference
+	remove_province_modifier_effect = {MODIFIER = severe_winter_preference}
+	remove_province_modifier_effect = {MODIFIER = arctic_preference}
+	remove_province_modifier_effect = {MODIFIER = woods_preference}
+	remove_province_modifier_effect = {MODIFIER = forest_preference}
+	remove_province_modifier_effect = {MODIFIER = jungle_preference}
+	remove_province_modifier_effect = {MODIFIER = hills_preference}
+	remove_province_modifier_effect = {MODIFIER = highlands_preference}
+	remove_province_modifier_effect = {MODIFIER = mountain_preference}
+	remove_province_modifier_effect = {MODIFIER = cavern_preference}
+	remove_province_modifier_effect = {MODIFIER = tunnel_preference}
+	remove_province_modifier_effect = {MODIFIER = marsh_preference}
+	remove_province_modifier_effect = {MODIFIER = coastal_preference}
+	remove_province_modifier_effect = {MODIFIER = desert_preference}
+	remove_province_modifier_effect = {MODIFIER = coastal_desert_preference}
+	remove_province_modifier_effect = {MODIFIER = steppe_preference}
+	remove_province_modifier_effect = {MODIFIER = savannah_preference}
+	remove_province_modifier_effect = {MODIFIER = drylands_preference}
+	remove_province_modifier_effect = {MODIFIER = grasslands_preference}
+	remove_province_modifier_effect = {MODIFIER = farmlands_preference}
+	remove_province_modifier_effect = {MODIFIER = city_preference}
+	remove_province_modifier_effect = {MODIFIER = arid_preference}
+	remove_province_modifier_effect = {MODIFIER = tropical_preference}
+	remove_province_modifier_effect = {MODIFIER = farmlands_dispreference}
+	remove_province_modifier_effect = {MODIFIER = marsh_dispreference}
+	remove_province_modifier_effect = {MODIFIER = woods_dispreference}
 	if = {
 		limit = {
 			has_winter = severe_winter
@@ -369,7 +369,7 @@ on_adm_development_extra_dev_effect = {
 			is_part_of_hre = yes
 		}
 		random = {
-			chance = 20
+			chance = 10
 			province_event = {id = bertus_changes.6014}
 		}
 	}
@@ -381,7 +381,6 @@ on_adm_development_extra_dev_effect = {
 		}
 		random = {
 			chance = 10
-			province_event = {id = bertus_changes.6014}
 			province_event = {id = bertus_changes.6015}
 		}
 	}
@@ -603,7 +602,7 @@ on_dip_development_extra_dev_effect = {
 			is_part_of_hre = yes
 		}
 		random = {
-			chance = 20
+			chance = 10
 			province_event = {id = bertus_changes.6014}
 		}
 	}
@@ -615,7 +614,6 @@ on_dip_development_extra_dev_effect = {
 		}
 		random = {
 			chance = 10
-			province_event = {id = bertus_changes.6014}
 			province_event = {id = bertus_changes.6015}
 		}
 	}
@@ -861,7 +859,7 @@ on_mil_development_extra_dev_effect = {
 			is_part_of_hre = yes
 		}
 		random = {
-			chance = 20
+			chance = 10
 			province_event = {id = bertus_changes.6014}
 		}
 	}
@@ -873,7 +871,6 @@ on_mil_development_extra_dev_effect = {
 		}
 		random = {
 			chance = 10
-			province_event = {id = bertus_changes.6014}
 			province_event = {id = bertus_changes.6015}
 		}
 	}
@@ -1872,29 +1869,12 @@ buy_slaves_effect = {
 		value = 10
 	}
 	hidden_effect = {
-		set_variable = {
-			which = slave_value_var
-			value = 1
-		}
-		multiply_variable = {
-			which = slave_value_var
-			which = global_slave_cost_var
-		}
-		multiply_variable = {
-			which = slave_value_var
-			value = 1.1
-		}
+		set_variable = { which = slave_value_var value = 1 }
+		multiply_variable = { which = slave_value_var which = global_slave_cost_var }
+		multiply_variable = { which = slave_value_var value = 1.1 }
 		while = {
-			limit = {
-				check_variable = {
-					which = slave_value_var
-					value = 0.1
-				}
-			}
-			change_variable = {
-				which = slave_value_var
-				value = -0.1
-			}
+			limit = { check_variable = { which = slave_value_var value = 0.1 } }
+			change_variable = { which = slave_value_var value = -0.1 }
 			add_treasury = -1
 		}
 		increase_slave_cost = yes
@@ -1907,29 +1887,12 @@ sell_slaves_effect = {
 		value = -10
 	}
 	hidden_effect = {
-		set_variable = {
-			which = slave_value_var
-			value = 1
-		}
-		multiply_variable = {
-			which = slave_value_var
-			which = global_slave_cost_var
-		}
-		multiply_variable = {
-			which = slave_value_var
-			value = 0.9
-		}
+		set_variable = { which = slave_value_var value = 1 }
+		multiply_variable = { which = slave_value_var which = global_slave_cost_var }
+		multiply_variable = { which = slave_value_var value = 0.9 }
 		while = {
-			limit = {
-				check_variable = {
-					which = slave_value_var
-					value = 0.1
-				}
-			}
-			change_variable = {
-				which = slave_value_var
-				value = -0.1
-			}
+			limit = { check_variable = { which = slave_value_var value = 0.1 } }
+			change_variable = { which = slave_value_var value = -0.1 }
 			add_treasury = 1
 		}
 		decrease_slave_cost = yes
@@ -1938,91 +1901,35 @@ sell_slaves_effect = {
 decrease_slave_cost = {
 	every_country = {
 		limit = {ai = no}
-		multiply_variable = {
-			which = global_slave_cost_var
-			value = 0.95
-		}
+		multiply_variable = { which = global_slave_cost_var value = 0.95 }
 		if = {
-			limit = {
-				NOT = {
-					check_variable = {
-						which = global_slave_cost_var
-						value = 10.0
-					}
-				}
-			}
-			set_variable = {
-				which = global_slave_cost_var
-				value = 10.0
-			}
+			limit = { NOT = { check_variable = { which = global_slave_cost_var value = 10.0 } } }
+			set_variable = { which = global_slave_cost_var value = 10.0 }
 		}
 	}
 }
 increase_slave_cost = {
 	every_country = {
 		limit = {ai = no}
-		multiply_variable = {
-			which = global_slave_cost_var
-			value = 1.05
-		}
+		multiply_variable = { which = global_slave_cost_var value = 1.05 }
 	}
 	if = {
-		limit = {
-			any_country = {
-				NOT = {
-					check_variable = {
-						which = global_slave_cost_var
-						which = ROOT
-					}
-				}
-			}
-		}
+		limit = { any_country = { NOT = { check_variable = { which = global_slave_cost_var which = ROOT } } } }
 		random_country = {
-			limit = {
-				NOT = {
-					check_variable = {
-						which = global_slave_cost_var
-						which = ROOT
-					}
-				}
-			}
-			change_variable = {
-				which = global_slave_cost_var
-				which = ROOT
-			}
+			limit = { NOT = { check_variable = { which = global_slave_cost_var which = ROOT } } }
+			change_variable = { which = global_slave_cost_var which = ROOT }
 		}
 	}
 }
 get_slaves = {
 	controller = {
-		set_variable = {
-			which = province_development
-			value = 0
-		}
-		export_to_variable = {
-			which = province_development
-			value = development
-			who = ROOT
-		}
-		multiply_variable = {
-			which = province_development
-			which = enslavement_efficiency_var
-		}
-		divide_variable = {
-			which = province_development
-			value = 50
-		}
+		set_variable = { which = province_development value = 0 }
+		export_to_variable = { which = province_development value = development who = ROOT }
+		multiply_variable = { which = province_development which = enslavement_efficiency_var }
+		divide_variable = { which = province_development value = 50 }
 		while = {
-			limit = {
-				check_variable = {
-					which = province_development
-					value = 0.01
-				}
-			}
-			change_variable = {
-				which = province_development
-				value = -0.01
-			}
+			limit = { check_variable = { which = province_development value = 0.01 } }
+			change_variable = { which = province_development value = -0.01 }
 			add_government_power = {
 				mechanic_type = enslavement_mechanic
 				power_type = slaves_amount
@@ -2378,101 +2285,9 @@ beepeck_stacking_effect = {
 }
 small_increase_of_all_tolerance_in_hre_effect = {
 	if = {
-		limit = {any_country = {is_part_of_hre = yes has_country_modifier = human_administration}}
-		small_increase_of_human_tolerance_effect = yes
+		limit = {any_country = {is_part_of_hre = yes has_country_modifier = $RACE$_administration}}
+		small_increase_of_$RACE$_tolerance_effect = yes
 	}
-	if = {
-		limit = {any_country = {is_part_of_hre = yes has_country_modifier = elven_administration}}
-		small_increase_of_elven_tolerance_effect = yes
-	}
-	if = {
-		limit = {any_country = {is_part_of_hre = yes has_country_modifier = dwarven_administration}}
-		small_increase_of_dwarven_tolerance_effect = yes
-	}
-	if = {
-		limit = {any_country = {is_part_of_hre = yes has_country_modifier = halfling_administration}}
-		small_increase_of_halfling_tolerance_effect = yes
-	}
-	if = {
-		limit = {any_country = {is_part_of_hre = yes has_country_modifier = gnomish_administration}}
-		small_increase_of_gnomish_tolerance_effect = yes
-	}
-	if = {
-		limit = {any_country = {is_part_of_hre = yes has_country_modifier = harimari_administration}}
-		small_increase_of_harimari_tolerance_effect = yes
-	}
-	if = {
-		limit = {any_country = {is_part_of_hre = yes has_country_modifier = gnollish_administration}}
-		small_increase_of_gnollish_tolerance_effect = yes
-	}
-	if = {
-		limit = {any_country = {is_part_of_hre = yes has_country_modifier = ruinborn_administration}}
-		small_increase_of_ruinborn_tolerance_effect = yes
-	}
-	if = {
-		limit = {any_country = {is_part_of_hre = yes has_country_modifier = orcish_administration}}
-		small_increase_of_orcish_tolerance_effect = yes
-	}
-	if = {
-		limit = {any_country = {is_part_of_hre = yes has_country_modifier = goblin_administration}}
-		small_increase_of_goblin_tolerance_effect = yes
-	}
-	if = {
-		limit = {any_country = {is_part_of_hre = yes has_country_modifier = ogre_administration}}
-		small_increase_of_ogre_tolerance_effect = yes
-	}
-	if = {
-		limit = {any_country = {is_part_of_hre = yes has_country_modifier = centaur_administration}}
-		small_increase_of_centaur_tolerance_effect = yes
-	}
-	if = {
-		limit = {any_country = {is_part_of_hre = yes has_country_modifier = troll_administration}}
-		small_increase_of_troll_tolerance_effect = yes
-	}
-	if = {
-		limit = {any_country = {is_part_of_hre = yes has_country_modifier = harpy_administration}}
-		small_increase_of_harpy_tolerance_effect = yes
-	}
-	if = {
-		limit = {any_country = {is_part_of_hre = yes has_country_modifier = half_orcish_administration}}
-		small_increase_of_half_orcish_tolerance_effect = yes
-	}
-	if = {
-		limit = {any_country = {is_part_of_hre = yes has_country_modifier = half_elven_administration}}
-		small_increase_of_half_elven_tolerance_effect = yes
-	}
-	if = {
-		limit = {any_country = {is_part_of_hre = yes has_country_modifier = hobgoblin_administration}}
-		small_increase_of_hobgoblin_tolerance_effect = yes
-	}
-	if = {
-		limit = {any_country = {is_part_of_hre = yes has_country_modifier = kobold_administration}}
-		small_increase_of_kobold_tolerance_effect = yes
-	}
-	if = {
-		limit = {any_country = {is_part_of_hre = yes has_country_modifier = lizardfolk_administration}}
-		small_increase_of_kobold_tolerance_effect = yes
-	}
-}
-small_increase_of_all_tolerance_effect = {
-	small_increase_of_human_tolerance_effect = yes
-	small_increase_of_elven_tolerance_effect = yes
-	small_increase_of_dwarven_tolerance_effect = yes
-	small_increase_of_halfling_tolerance_effect = yes
-	small_increase_of_gnomish_tolerance_effect = yes
-	small_increase_of_harimari_tolerance_effect = yes
-	small_increase_of_gnollish_tolerance_effect = yes
-	small_increase_of_ruinborn_tolerance_effect = yes
-	small_increase_of_orcish_tolerance_effect = yes
-	small_increase_of_goblin_tolerance_effect = yes
-	small_increase_of_ogre_tolerance_effect = yes
-	small_increase_of_centaur_tolerance_effect = yes
-	small_increase_of_troll_tolerance_effect = yes
-	small_increase_of_harpy_tolerance_effect = yes
-	small_increase_of_half_orcish_tolerance_effect = yes
-	small_increase_of_half_elven_tolerance_effect = yes
-	small_increase_of_hobgoblin_tolerance_effect = yes
-	small_increase_of_kobold_tolerance_effect = yes
 }
 add_expulsion_unrest = {
 	every_owned_province = {
@@ -2730,37 +2545,14 @@ increase_imperial_centralization = {
 }
 get_manpower_fraction = {
 	FROM = {
-		set_variable = {
-			which = current_manpower
-			value = 0
-		}
-		set_variable = {
-			which = manpower_to_transfer
-			value = 1
-		}
-		subtract_variable = {
-			which = manpower_to_transfer
-			value = $fraction$
-		}
-		export_to_variable = {
-			which = current_manpower
-			value = manpower
-		}
-		multiply_variable = {
-			which = manpower_to_transfer
-			which = current_manpower
-		}
+		set_variable = { which = current_manpower value = 0 }
+		set_variable = { which = manpower_to_transfer value = 1 }
+		subtract_variable = { which = manpower_to_transfer value = $fraction$ }
+		export_to_variable = { which = current_manpower value = manpower }
+		multiply_variable = { which = manpower_to_transfer which = current_manpower }
 		while = {
-			limit = {
-				check_variable = {
-					which = current_manpower
-					which = manpower_to_transfer
-				}
-			}
-			subtract_variable = {
-				which = current_manpower
-				value = 1
-			}
+			limit = { check_variable = { which = current_manpower which = manpower_to_transfer } }
+			subtract_variable = { which = current_manpower value = 1 }
 			add_manpower = -1
 			ROOT = {add_manpower = 1}
 		}
@@ -2768,37 +2560,14 @@ get_manpower_fraction = {
 }
 get_treasury_fraction = {
 	FROM = {
-		set_variable = {
-			which = current_treasury
-			value = 0
-		}
-		set_variable = {
-			which = treasury_to_transfer
-			value = 1
-		}
-		subtract_variable = {
-			which = treasury_to_transfer
-			value = $fraction$
-		}
-		export_to_variable = {
-			which = current_treasury
-			value = treasury
-		}
-		multiply_variable = {
-			which = treasury_to_transfer
-			which = current_treasury
-		}
+		set_variable = { which = current_treasury value = 0 }
+		set_variable = { which = treasury_to_transfer value = 1 }
+		subtract_variable = { which = treasury_to_transfer value = $fraction$ }
+		export_to_variable = { which = current_treasury value = treasury }
+		multiply_variable = { which = treasury_to_transfer which = current_treasury }
 		while = {
-			limit = {
-				check_variable = {
-					which = current_treasury
-					which = treasury_to_transfer
-				}
-			}
-			subtract_variable = {
-				which = current_treasury
-				value = 1
-			}
+			limit = { check_variable = { which = current_treasury which = treasury_to_transfer } }
+			subtract_variable = { which = current_treasury value = 1 }
 			add_treasury = -1
 			ROOT = {add_treasury = 1}
 		}

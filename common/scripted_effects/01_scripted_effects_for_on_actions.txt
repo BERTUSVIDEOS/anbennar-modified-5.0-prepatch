@@ -1341,6 +1341,28 @@ on_mil_development_effect = {
 
 # THIS = Province, FROM = Country, ROOT = Merc Unit
 on_mercenary_recruited_effect = {
+	if = {
+		limit = { NOT = { FROM = {has_country_flag = mithradhum_company_local }} mercenary_company = merc_mithril_company }
+		every_country = {
+			limit = { has_country_flag = mithradhum_company_local }
+			if = {
+				limit = {
+					any_province = {
+						owned_by = FROM
+						has_discovered = PREV
+					}
+				}
+				every_province = {
+					limit = {
+						owned_by = FROM
+						has_discovered = PREV
+					}
+					discover_country = PREV
+				}
+			}
+			country_event = {id = bertus_changes.6008}
+		}
+	}
 }
 
 on_parliament_debate_reset_effect = {
