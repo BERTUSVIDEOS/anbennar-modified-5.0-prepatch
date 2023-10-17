@@ -3,20 +3,16 @@ ibevar_reformation = {
 	potential = {
 		tag = A32
 		NOT = { has_country_flag = ibevar_reformation_end }
+		NOT = { has_country_modifier = ibevar_old_tradition_crisis_solved}
 	}
 
 	can_start = {
-		OR = {
-			NOT = {is_year = 1475}
-			AND = {
-				is_year = 1475
-				religion = regent_court
-			}
-		}
+		NOT = {religious_unity = 0.9}
+		is_part_of_hre = yes
 	}
 	
 	can_stop = {
-        always = no
+		always = no
 	}
 	
 	progress = {
@@ -27,51 +23,13 @@ ibevar_reformation = {
 	}
 	
 	can_end = {
-		if = {
-			limit = { ai = yes }
-			OR = {
-				AND = {
-					south_ibevar_area = {
-						type = all
-						owned_by = ROOT
-						religion = regent_court
-					}
-					north_ibevar_area = {
-						type = all
-						owned_by = ROOT
-						religion = regent_court
-					}
-					ibevar_area = {
-						type = all
-						owned_by = ROOT
-						religion = regent_court
-					}
-				}
-				has_country_flag = ibevar_ai_bypass
-			}
-		}
-		else = {
-			OR = {
-				had_country_flag = {
-					flag = ibevar_stays_forebear
-					days = 10950
-				}
-				AND = {
-					south_ibevar_area = {
-						type = all
-						owned_by = ROOT
-						religion = regent_court
-					}
-					north_ibevar_area = {
-						type = all
-						owned_by = ROOT
-						religion = regent_court
-					}
-					ibevar_area = {
-						type = all
-						owned_by = ROOT
-						religion = regent_court
-					}
+		religious_unity = 0.9
+		NOT = {
+			any_owned_province = {
+				OR = {
+					has_province_modifier = ibevar_old_tradition
+					has_province_modifier = ibevar_reformation_effort
+					has_province_modifier = ibevar_last_reformation_effort
 				}
 			}
 		}

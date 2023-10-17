@@ -833,22 +833,34 @@ on_province_religion_converted_effect = {
 		}
 		if = {
 			limit = {has_province_modifier = ibevar_old_tradition}
-			add_province_modifier = { name = ibevar_reformation_effort duration = -1 }
 			remove_province_modifier = ibevar_old_tradition
-			change_religion = elven_forebears
+			if = {
+				limit = {religion = regent_court}
+				change_religion = elven_forebears
+			}
+			else = { change_religion = regent_court }
+			add_province_modifier = { name = ibevar_reformation_effort duration = -1 }
 			remove_province_modifier = religious_zeal_at_conv
 		}
 		else_if = {
 			limit = {has_province_modifier = ibevar_reformation_effort}
-			add_province_modifier = { name = ibevar_last_reformation_effort duration = -1 }
 			remove_province_modifier = ibevar_reformation_effort
-			change_religion = elven_forebears
+			if = {
+				limit = {religion = regent_court}
+				change_religion = elven_forebears
+			}
+			else = { change_religion = regent_court }
+			add_province_modifier = { name = ibevar_last_reformation_effort duration = -1 }
 			remove_province_modifier = religious_zeal_at_conv
 		}
 		else_if = {
 			limit = {has_province_modifier = ibevar_last_reformation_effort}
 			remove_province_modifier = ibevar_last_reformation_effort
-			change_religion = elven_forebears
+			if = {
+				limit = {religion = regent_court}
+				change_religion = elven_forebears
+			}
+			else = { change_religion = regent_court }
 			remove_province_modifier = religious_zeal_at_conv
 		}
 	}
