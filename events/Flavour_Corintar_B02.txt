@@ -23,84 +23,39 @@ country_event = {
 	is_triggered_only = yes
 	
 	trigger = {
-		#government_type = adventurer
-		#government_rank = 2
 	}
 	
-#	option = {		# Despotic Monarchy
-#		name = "flavor_corintar.0.a"
-#		ai_chance = {
-#			factor = 30
-#			modifier = {
-#				factor = 2
-#				faction_in_power = adv_marchers
-#			}
-#		}	
-#		if = {
-#			limit = { NOT = { government = monarchy } }
-#			change_government = monarchy
-#		}
-#		add_government_reform = adventurer_kingdom_reform
-#		
-#		#Dynasty name triggers for each country
-#		hidden_effect = {
-#			country_event = { id = flavor_corintar.1 days = 1 }
-#		}
-#	}
-#	option = {		# Oligarchic Republic
-#		name = "flavor_corintar.0.b"
-#		ai_chance = {
-#			factor = 30
-#			modifier = {
-#				factor = 1.5
-#				faction_in_power = adv_pioneers
-#			}
-#			modifier = {
-#				factor = 2	#Having a poor ruler makes it likely they want an elective country
-#				OR = {
-#					NOT = { adm = 3 }
-#					NOT = { dip = 3 }
-#					NOT = { mil = 3 }
-#				}
-#			}
-#		}
-#		if = {
-#			limit = { NOT = { government = republic } }
-#			change_government = republic
-#		}
-#		add_government_reform = adventurer_republic_reform
-#	}
-#	option = {		# Merchant Republic
-#		name = "flavor_corintar.0.c"
-#		ai_chance = {
-#			factor = 10
-#			modifier = {
-#				factor = 4
-#				faction_in_power = adv_fortune_seekers
-#			}
-#		}
-#		if = {
-#			limit = { NOT = { government = republic } }
-#			change_government = republic
-#		}
-#		add_government_reform = merchants_reform
-#	}
-	
+	option = {		# Despotic Monarchy
+		name = "flavor_corintar.0.a"
+		ai_chance = { factor = 1 }
+		hidden_effect = { 
+			#Dynasty name triggers for each country
+			country_event = { id = flavor_corintar.1 days = 1 }
+		}
+		if = {
+			limit = { NOT = { government = monarchy } }
+			change_government = monarchy
+		}
+		add_government_reform = adventurer_kingdom_reform
+		
+	}
+	option = {		# Oligarchic Republic
+		name = "flavor_corintar.0.b"
+		ai_chance = { factor = 1 }
+		if = {
+			limit = { NOT = { government = republic } }
+			change_government = republic
+		}
+		add_government_reform = adventurer_republic_reform
+	}
 	option = {		# Knightly Order
 		name = "flavor_corintar.0.e"
-		ai_chance = {
-			factor = 60
-			modifier = {
-				factor = 4
-				religion = corinite
-			}
-		}
+		ai_chance = { factor = 10 }
 		if = {
 			limit = { NOT = { government = theocracy } }
 			change_government = theocracy
 		}
-		add_government_reform = monastic_order_reform
-		hidden_effect = { lose_reforms = 10 add_government_reform = monastic_order_reform }
+		add_government_reform = theocratic_adventurer_reform
 	}	
 	
 	#Optional
@@ -135,7 +90,7 @@ country_event = {
 	}
 	
 	#Option A
-	option = {		
+	option = {
 		name = "flavor_corintar.1.a"
 		ai_chance = { factor = 40 }	
 		define_heir = {
@@ -150,7 +105,7 @@ country_event = {
 	}
 	
 	#Option B
-	option = {		
+	option = {
 		name = "flavor_corintar.1.b"
 		ai_chance = { factor = 40 }	
 		define_heir = {
@@ -165,7 +120,7 @@ country_event = {
 	}
 	
 	#Keep their name
-	option = {		
+	option = {
 		name = "flavor_corintar.1.c"
 		ai_chance = { factor = 20 }	
 		define_heir = {
@@ -762,36 +717,41 @@ country_event = {
 	
 	option = {
 		name = flavor_corintar.30.a
-		trigger = { has_reform = monastic_order_reform }
+		#trigger = { has_reform = monastic_order_reform }	#bertus mod
 		ai_chance = { factor = 50 }
 		add_government_reform = corintar_the_circle_reborn
-	}
-	
-	option = {
-		name = flavor_corintar.30.b
-		trigger = { has_reform = monastic_order_reform }
-		ai_chance = { factor = 50 }
-		add_government_reform = corintar_warrior_priests
-	}
-	
-	option = {
-		ai_chance = { factor = 1 }
-		name = flavor_corintar.30.c
-		change_government = monarchy
-		hidden_effect = { add_legitimacy = 100 }
-		add_government_reform = autocracy_reform
-		add_country_modifier = {
-			name = corintar_knightly_legacy
-			duration = -1
+		define_ruler = {
+			adm = 6
+			dip = 6
+			mil = 6
+			age = 20
+		}
+		define_ruler_to_general = {
+			fire = 12
+			shock = 12
+			manuever = 6
+			siege = 6
 		}
 	}
 	
 	option = {
-		ai_chance = { factor = 0 }
-		name = flavor_corintar.30.e
-		add_prestige_or_monarch_power = {amount =  10}
+		name = flavor_corintar.30.b
+		#trigger = { has_reform = monastic_order_reform }	#bertus mod
+		ai_chance = { factor = 50 }
+		add_government_reform = corintar_warrior_priests
+		define_ruler = {
+			adm = 6
+			dip = 6
+			mil = 6
+			age = 20
+		}
+		define_ruler_to_general = {
+			fire = 12
+			shock = 12
+			manuever = 6
+			siege = 6
+		}
 	}
-	
 }
 
 # Petition to the [RulerTitle]

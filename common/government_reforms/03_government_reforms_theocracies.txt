@@ -1226,16 +1226,37 @@ the_glorious_quest = {
 corintar_corinite_crusade = {
 	icon = "soldiers_4"
 	potential = {
-		has_reform = monastic_order_reform
+		#has_reform = monastic_order_reform	#bertus mod
+		religion = corintar
 		OR = {
 			has_reform = corintar_corinite_crusade
 			have_had_reform = corintar_corinite_crusade
 		}
 	}
 	modifiers = {
+		#recover_army_morale_speed = 0.05	#0.05→0
 		shock_damage = 0.10
-		recover_army_morale_speed = 0.05
-		global_missionary_strength = 0.01
+		morale_damage = 0.10	#0→0.10
+		leader_land_shock = 2	#0→2
+		global_missionary_strength = 0.02	#0.01→0.02
+	}
+	custom_attributes = {
+		adventurer_commander_academy = yes
+	}
+	effect = {	#bertus mod
+		if = {
+			limit = {has_estate_privilege = estate_adventurers_emergency_general}
+			remove_estate_privilege = estate_adventurers_emergency_general
+		}
+		if = {
+			limit = {has_estate_privilege = estate_mages_emergency_general}
+			remove_estate_privilege = estate_mages_emergency_general
+		}
+		if = {
+			limit = {has_estate_privilege = estate_artificers_emergency_general}
+			remove_estate_privilege = estate_artificers_emergency_general
+		}
+		country_event = {id = bertus_changes.6010}
 	}
 }
 
@@ -1764,17 +1785,37 @@ adventurer_administration = {
 corintar_new_corintar = {
 	icon = "judge"
 	potential = {
-		has_reform = monastic_order_reform
+		#has_reform = monastic_order_reform	#bertus mod
+		religion = corintar
 		OR = {
 			has_reform = corintar_new_corintar
 			have_had_reform = corintar_new_corintar
 		}
 	}
-	modifiers = {
-		ae_impact = -0.1
-		spy_offence = 0.15
-		rebel_support_efficiency = 0.25
+	modifiers = {	#bertus mod
+		tolerance_own = 2
 	}
+	custom_attributes = {	#bertus mod
+		boosted_stability = yes
+		meritocratic_advisors = yes
+	}
+    effect = {
+        hidden_effect = {
+			trigger_switch = {
+				on_trigger = stability
+				3 = {add_country_modifier = {name = boosted_stability_3 duration = -1 hidden = yes}}
+				2 = {add_country_modifier = {name = boosted_stability_2 duration = -1 hidden = yes}}
+				1 = {add_country_modifier = {name = boosted_stability_1 duration = -1 hidden = yes}}
+			}
+        }
+    }
+    removed_effect = {
+        hidden_effect = {
+			remove_country_modifier = boosted_stability_1
+			remove_country_modifier = boosted_stability_2
+			remove_country_modifier = boosted_stability_3
+        }
+    }
 }
 
 dwarovar_hold_restoration = {
@@ -2138,10 +2179,10 @@ proclaim_republic_reform = {
 
 #Anbennar
 
-corintar_the_circle_reborn = {
+corintar_the_circle_reborn = {	#bertus mod
 	icon = "kingdom_of_god"
 	potential = {
-		has_reform = monastic_order_reform
+		#has_reform = monastic_order_reform	#bertus mod
 		OR = {
 			has_reform = corintar_the_circle_reborn
 			has_reform = corintar_warrior_priests
@@ -2149,16 +2190,31 @@ corintar_the_circle_reborn = {
 			have_had_reform = corintar_warrior_priests
 		}
 	}
+	heir = no
 	modifiers = {
-		advisor_cost = -0.1
-		max_absolutism = 10
+		advisor_cost = -0.10
+		tolerance_own = 3
+		max_absolutism = 20
+		max_absolutism_effect = 0.20
+		yearly_absolutism = 2
+		monarch_admin_power = 2
+		monarch_diplomatic_power = 2
+		monarch_military_power = 2
+	}
+	conditional = {
+		allow = { has_dlc = "Common Sense" }
+		has_parliament = yes
+	}
+	removed_effect = {
+		clr_country_flag = recently_got_parliament_flag
+		set_country_flag = recently_got_parliament_flag
 	}
 }
 
-corintar_warrior_priests = {
+corintar_warrior_priests = {	#bertus mod
 	icon = "warrior_monks_reform"
 	potential = {
-		has_reform = monastic_order_reform
+		#has_reform = monastic_order_reform	#bertus mod
 		OR = {
 			has_reform = corintar_the_circle_reborn
 			has_reform = corintar_warrior_priests
@@ -2166,9 +2222,24 @@ corintar_warrior_priests = {
 			have_had_reform = corintar_warrior_priests
 		}
 	}
+	heir = no
 	modifiers = {
 		general_cost = -0.1
-		leader_land_fire = 1
+		leader_land_shock = 2
+		leader_land_fire = 2
+		allowed_cossack_fraction = 0.10
+	}
+	custom_attributes = {
+		generals_become_rulers = yes
+	}
+	effect = {
+		add_country_modifier = {
+			name = warrior_priest_modifier
+			duration = -1
+		}
+	}
+	removed_effect = {
+		remove_country_modifier = warrior_priest_modifier
 	}
 }
 

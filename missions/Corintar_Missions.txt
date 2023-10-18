@@ -513,7 +513,7 @@ corintar_1_missions = {
 		}
 
 		trigger = {
-			adm_tech = 16
+			#adm_tech = 16	#16→0
 			calc_true_if = {
 				all_owned_province = {
 					OR = {
@@ -550,7 +550,7 @@ corintar_1_missions = {
 				add_building = mills
 				add_province_modifier = {
 					name = corintar_influx_of_settlers
-					duration = 7300
+					duration = -1	#7300→-1
 				}
 			}
 			random_owned_province = {
@@ -572,7 +572,7 @@ corintar_1_missions = {
 				add_building = mills
 				add_province_modifier = {
 					name = corintar_influx_of_settlers
-					duration = 7300
+					duration = -1	#7300→-1
 				}
 			}
 			random_owned_province = {
@@ -594,7 +594,7 @@ corintar_1_missions = {
 				add_building = textile
 				add_province_modifier = {
 					name = corintar_influx_of_settlers
-					duration = 7300
+					duration = -1	#7300→-1
 				}
 			}
 		}
@@ -613,7 +613,7 @@ corintar_1_missions = {
 				all_owned_province = {
 					religion = corinite
 					fort_level = 2
-					has_building = university
+					has_university_building_trigger = yes
 					has_tax_building_trigger = yes
 				}
 				amount = 6
@@ -1452,6 +1452,7 @@ corintar_3_missions = {
 				}
 			}
 			religion = corinite
+			reform_level = 5	#bertus mod
 		}
 		
 		effect = {
@@ -1479,18 +1480,6 @@ corintar_3_missions = {
 						}
 					}
 				}
-			}
-			if = {
-				limit = {
-					NOT = { government = theocracy }
-				}
-				change_government = theocracy
-			}
-			if = {
-				limit = {
-					NOT = { has_reform = monastic_order_reform }
-				}
-				add_government_reform = monastic_order_reform
 			}
 			add_government_reform = corintar_corinite_crusade
 		}
@@ -1656,6 +1645,10 @@ corintar_3_missions = {
 		
 		effect = {
 			# if corintar fought in the league war and won, they get maximum rewards
+			add_country_modifier = {
+				name = corintar_knightly_legacy
+				duration = -1
+			}
 			if = {
 				limit = {
 					has_country_modifier = joined_league_war
@@ -1772,22 +1765,19 @@ corintar_3_missions = {
 			NOT = { has_country_modifier = corintar_agents_in_training }
 			NOT = { has_country_modifier = corintar_theological_debate }
 			NOT = { has_country_modifier = corintar_inward_reflection }
+			if = {
+				limit = {
+					NOT = { government = republic }
+				}
+				reform_level = 9	#bertus mod
+			}
+			else = {
+				reform_level = 7	#bertus mod
+			}
 		}
 		
 		effect = {
 			add_stability = 1
-			if = {
-				limit = {
-					NOT = { government = theocracy }
-				}
-				change_government = theocracy
-			}
-			if = {
-				limit = {
-					NOT = { has_reform = monastic_order_reform }
-				}
-				add_government_reform = monastic_order_reform
-			}
 			add_government_reform = corintar_new_corintar
 		}
 	}
@@ -2470,8 +2460,11 @@ corintar_4_missions = {
 		effect = {
 			if = {
 				limit = { has_dlc = "Mandate of Heaven" }
-				every_owned_province = { 
-					limit = { superregion = escann_superregion }
+				custom_tooltip = corintar_escann_defended_add_prosperity_tt
+				escann_superregion = {
+					limit = {
+						owned_by = ROOT
+					}
 					add_prosperity = 25
 				}
 			}
