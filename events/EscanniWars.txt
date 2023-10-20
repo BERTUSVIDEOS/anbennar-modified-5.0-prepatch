@@ -44,6 +44,7 @@ country_event = {
 					region = inner_castanor_region
 				}
 			}
+			has_country_modifier = human_administration
 			total_development = 500
 			is_subject = no
 		}
@@ -117,23 +118,40 @@ country_event = {
 	trigger = {
 		has_global_flag = escanni_wars_global_flag
 		has_country_modifier = human_administration
+		owns = 831
+		owns = 832
+		owns = 833
 		OR = {
-			had_global_flag = {
-				flag = escanni_wars_global_flag
-				days = 18250
+			AND = {
+				had_global_flag = {
+					flag = escanni_wars_global_flag
+					days = 18250
+				}
+				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+					value = 27	#27/55
+					region = south_castanor_region
+				}
+				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+					value = 26	#26/52
+					region = west_castanor_region
+				}
+				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+					value = 28	#28/56
+					region = inner_castanor_region
+				}
 			}
 			AND = {
-				south_castanor_region = {
-					type = all
-					country_or_non_sovereign_subject_holds = ROOT
+				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+					value = 41	#41/55
+					region = south_castanor_region
 				}
-				west_castanor_region = {
-					type = all
-					country_or_non_sovereign_subject_holds = ROOT
+				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+					value = 39	#39/52
+					region = west_castanor_region
 				}
-				inner_castanor_region = {
-					type = all
-					country_or_non_sovereign_subject_holds = ROOT
+				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+					value = 42	#42/56
+					region = inner_castanor_region
 				}
 			}
 		}
@@ -157,78 +175,32 @@ country_event = {
 		hidden_effect = {
 			if = {
 				limit = {
-					south_castanor_region = {
-						type = all
-						country_or_non_sovereign_subject_holds = ROOT
+					num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+						value = 41	#41/55
+						region = south_castanor_region
 					}
-					west_castanor_region = {
-						type = all
-						country_or_non_sovereign_subject_holds = ROOT
+					num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+						value = 39	#39/52
+						region = west_castanor_region
 					}
-					inner_castanor_region = {
-						type = all
-						country_or_non_sovereign_subject_holds = ROOT
+					num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+						value = 42	#42/56
+						region = inner_castanor_region
 					}
 				}
 				set_country_flag = escanni_wars_complete_control
-				save_event_target_as = escanni_wars_victor
 			}
-			else_if = {
-				limit = {
-					is_subject = no
-					num_of_owned_provinces_with = {
-						value = 100
-						
-						OR = {
-							region = south_castanor_region
-							region = west_castanor_region
-							region = inner_castanor_region
-						}
-					}
-					#Own Castonath
-					owns = 831
-					owns = 832
-					owns = 833
-				}
-				save_event_target_as = escanni_wars_victor
-			}
-			else = {
-				random_country = {
-					limit = {
-						has_country_modifier = human_administration
-						OR = {
-							capital_scope = {
-								OR  = {
-									region = south_castanor_region
-									region = west_castanor_region
-									region = inner_castanor_region
-								}
-							}
-							has_country_flag = luciande_escanni_wars_flag
-						}
-						is_subject = no
-						num_of_owned_provinces_with = {
-							value = 100
-							OR = {
-								region = south_castanor_region
-								region = west_castanor_region
-								region = inner_castanor_region
-							}
-						}
-						#Own Castonath
-						owns = 831
-						owns = 832
-						owns = 833
-					}
-					save_event_target_as = escanni_wars_victor
-				}
-			}
+			save_event_target_as = escanni_wars_victor
 		}
 	}
 	
 	option = {
 		name = escanni_wars.2.a
 		
+		if = {
+			limit = { has_country_flag = escanni_wars_complete_control }
+			add_prestige_or_monarch_power = {amount = 50}
+		}
 		custom_tooltip = escanni_wars_end_tt
 		clr_global_flag = escanni_wars_global_flag
 		set_global_flag = escanni_wars_end_global_flag
@@ -590,7 +562,7 @@ country_event = {
 		name = escanni_wars.12.a
 		ai_chance = { factor = 100 }
 		
-		add_prestige = 25
+		add_prestige_or_monarch_power = {amount = 25}
 		join_all_defensive_wars_of = Emperor
 	}
 	
