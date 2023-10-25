@@ -313,6 +313,7 @@ marblehead_near_west = {
 					}
 			}
 			navy_size = 25
+			dip_power = 500
 		}
 		
 		effect = {
@@ -339,6 +340,17 @@ marblehead_near_west = {
 			hidden_effect = {
 				if = {
 					limit = { U11 = { is_subject_of = ROOT } }
+					set_variable = { which = totalVassalDev value = 0 }
+					U11 = {
+						ROOT = {
+							export_to_variable = { which = tempVassalDev value = total_development who = PREV }
+							change_variable = { which = totalVassalDev which = tempVassalDev }
+						}
+					}
+					while = { limit = { check_variable = { which = totalVassalDev value = 1 } }
+						add_dip_power = -2
+						change_variable = { which = totalVassalDev value = -1 }
+					}
 					inherit = U11
 				}
 			}	
@@ -589,10 +601,11 @@ marblehead_central = {
 			}
 			custom_trigger_tooltip = {
 				tooltip = marblehead_own_tribe_cores_tt
-					owns_all_provinces = {
-						is_core = U14
-					}
-			}	
+				owns_all_provinces = {
+					is_core = U14
+				}
+			}
+			dip_power = 500
 		}
 		
 		effect = {
@@ -617,6 +630,17 @@ marblehead_central = {
 				if = {
 					limit = {
 						U14 = { is_subject_of = ROOT }
+					}
+					set_variable = { which = totalVassalDev value = 0 }
+					U14 = {
+						ROOT = {
+							export_to_variable = { which = tempVassalDev value = total_development who = PREV }
+							change_variable = { which = totalVassalDev which = tempVassalDev }
+						}
+					}
+					while = { limit = { check_variable = { which = totalVassalDev value = 1 } }
+						add_dip_power = -2
+						change_variable = { which = totalVassalDev value = -1 }
 					}
 					inherit = U14
 				}
@@ -894,6 +918,7 @@ marblehead_near_east = {
 					share = 50
 				}
 			}
+			dip_power = 500
 		}
 		
 		effect = {
@@ -917,6 +942,17 @@ marblehead_near_east = {
 			hidden_effect = {
 				if = {
 					limit = { U13 = { is_subject_of = ROOT } }
+					set_variable = { which = totalVassalDev value = 0 }
+					U13 = {
+						ROOT = {
+							export_to_variable = { which = tempVassalDev value = total_development who = PREV }
+							change_variable = { which = totalVassalDev which = tempVassalDev }
+						}
+					}
+					while = { limit = { check_variable = { which = totalVassalDev value = 1 } }
+						add_dip_power = -2
+						change_variable = { which = totalVassalDev value = -1 }
+					}
 					inherit = U13
 				}
 			}
