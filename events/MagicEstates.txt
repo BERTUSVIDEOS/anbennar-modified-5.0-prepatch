@@ -1038,9 +1038,14 @@ country_event = {
 				name = magic_estate_aiding_construction_3
 				duration = 3650
 			}
+			hidden_effect = {
+				remove_country_modifier = magic_estate_aiding_construction_1
+				remove_country_modifier = magic_estate_aiding_construction_2
+			}
 		}
 		else_if = {
 			limit = { 
+				NOT = {has_country_modifier = magic_estate_aiding_construction_3}
 				estate_influence = { estate = estate_mages influence = 33 } 
 				has_government_power = { 
 					mechanic_type = magisterium_mechanic
@@ -1057,11 +1062,16 @@ country_event = {
 				name = magic_estate_aiding_construction_2
 				duration = 3650
 			}
+			hidden_effect = {
+				remove_country_modifier = magic_estate_aiding_construction_1
+			}
 			custom_tooltip = magisters_need_90_mana_tt
 			custom_tooltip = "to get lvl 3 Spell"
 		}
 		else_if = {
 			limit = {
+				NOT = {has_country_modifier = magic_estate_aiding_construction_3}
+				NOT = {has_country_modifier = magic_estate_aiding_construction_2}
 				has_government_power = { 
 					mechanic_type = magisterium_mechanic
 					power_type = magisterium_mana
@@ -1079,6 +1089,16 @@ country_event = {
 			}
 			custom_tooltip = magisters_need_70_mana_tt
 			custom_tooltip = "to get lvl 2 Spell"
+		}
+		else_if = {	#already have spell
+			limit = {
+				OR = {
+					has_country_modifier = magic_estate_aiding_construction_1
+					has_country_modifier = magic_estate_aiding_construction_2
+					has_country_modifier = magic_estate_aiding_construction_3
+				}
+			}
+			custom_tooltip = "Spell Already active"
 		}
 		else = {
 			custom_tooltip = magisters_need_50_70_90_mana_tt

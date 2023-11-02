@@ -376,6 +376,41 @@ estate_dwarven_elite_regiments = {
 	}
 	ai_will_do = {factor = 1}
 }
+estate_mithril_academies = {
+	icon = privilege_recruit_rajput_general
+	is_valid = {
+		has_country_modifier = dwarven_military
+		has_race_recruitment = {race = dwarven}
+		NOT = {has_race_recruitment = {race = orcish}}
+		NOT = {has_race_recruitment = {race = goblin}}
+		NOT = {has_race_recruitment = {race = elven}}
+		has_country_flag = mithril_academies_flag
+	}
+	can_select = {
+		has_country_modifier = dwarven_military
+		has_race_recruitment = {race = dwarven}
+		NOT = {has_race_recruitment = {race = orcish}}
+		NOT = {has_race_recruitment = {race = goblin}}
+		NOT = {has_race_recruitment = {race = elven}}
+	}
+	on_granted = {
+		add_country_modifier = {name = mithradhum_mithril_armory duration = -1 hidden = yes}
+	}
+	benefits = {
+		allowed_cossack_fraction = 0.1
+	}
+	penalties = {
+		yearly_corruption = 0.20
+	}
+	on_revoked = {
+		hidden_effect = {remove_country_modifier = mithradhum_mithril_armory}
+	}
+	on_invalid = {
+		hidden_effect = {remove_country_modifier = mithradhum_mithril_armory}
+	}
+	cooldown_years = 20
+	ai_will_do = {factor = 100}
+}
 estate_dwarven_intolerance_policy = {
 	icon = privilege_dwarven_supremacy	
 	influence = 0.10
