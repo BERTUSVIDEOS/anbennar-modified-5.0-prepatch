@@ -1235,7 +1235,13 @@ estate_human_administrative_education = {
 	icon = privilege_promote_maratha_nobility
 	influence = 0.10
 	is_valid = {
-		NOT = {heir_adm = 5}
+		OR = {
+			NOT = {heir_adm = 5}
+			AND = {
+				NOT = {heir_mil = 5}
+				has_idea = B33_calindal_the_gleaming_blade
+			}
+		}
 		has_heir = yes
 	}
 	can_select = {
@@ -1245,6 +1251,10 @@ estate_human_administrative_education = {
 	}
 	on_granted = {
 		custom_tooltip = estate_administrative_education_tooltip
+		if = {
+			limit = { has_idea = B33_calindal_the_gleaming_blade }
+			custom_tooltip = estate_militar_education_tooltip
+		}
 	}
 	penalties = {
 		yearly_corruption = 0.2
@@ -1274,6 +1284,13 @@ estate_human_administrative_education = {
 		if = {
 			limit = {NOT = {heir_adm = 5}}
 			change_heir_adm = 1
+		}
+		if = {
+			limit = {
+				has_idea = B33_calindal_the_gleaming_blade
+				NOT = {heir_mil = 5}
+			}
+			change_heir_mil = 1
 		}
 	}
 	ai_will_do = {factor = 0}

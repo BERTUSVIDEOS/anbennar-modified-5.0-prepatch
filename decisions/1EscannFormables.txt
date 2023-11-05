@@ -6,7 +6,11 @@ country_decisions = {
 		potential = {
 			NOT = {has_country_flag = medium_formable_flag}
 			capital_scope = {
-				region = inner_castanor_region
+				OR  = {
+					region = south_castanor_region
+					region = west_castanor_region
+					region = inner_castanor_region
+				}
 			}
 			OR = { 
 				culture_group = escanni
@@ -26,25 +30,8 @@ country_decisions = {
 			NOT = { has_country_flag = orc_nation_formed }	#prevents orc formables from forming it
 			NOT = { has_country_flag = adventurer_derived_government }	#if you've formed something like Nurcestir, you wont be able to form Castellyr. You need to form it while you're an adventurer
 
-			OR = {
-				ai = no
-				is_playing_custom_nation = no
-			}
-			OR = {
-				ai = no
-				AND = {
-					ai = yes
-					num_of_cities = 3
-				}
-			}
 			is_colonial_nation = no
-			OR = {
-				is_former_colonial_nation = no
-				AND = {
-					is_former_colonial_nation = yes
-					ai = no
-				}
-			}
+			
 			normal_or_historical_nations = yes
 			was_never_end_game_tag_trigger = yes
 			NOT = { has_country_flag = formed_castellyr_flag }
@@ -78,6 +65,9 @@ country_decisions = {
 			is_free_or_tributary_trigger = yes
 			is_nomad = no
 			is_at_war = no
+			capital_scope = {
+				region = inner_castanor_region
+			}
 			if = {
 				limit = { has_adventurer_reform = yes }
 				has_reform = found_our_nation
@@ -217,18 +207,8 @@ country_decisions = {
 					region = inner_castanor_region
 				}
 			}
-			OR = {
-				ai = no
-				is_playing_custom_nation = no
-			}
 			is_colonial_nation = no
-			OR = {
-				is_former_colonial_nation = no
-				AND = {
-					is_former_colonial_nation = yes
-					ai = no
-				}
-			}
+			
 			normal_or_historical_nations = yes
 		}
 		
@@ -282,31 +262,18 @@ country_decisions = {
 	blademarches_nation = {	#bertus mod 
 		major = yes
 		potential = {
-			NOT = {has_country_flag = medium_formable_flag}
-			capital_scope = {
-				region = south_castanor_region
-			}
-			has_country_modifier = human_administration	#bertus mod
+			NOT = { has_country_flag = medium_formable_flag }
 			NOT = { has_country_flag = feudal_escann_kingdom }
-			OR = {
-				ai = no
-				is_playing_custom_nation = no
-			}
-			OR = {
-				ai = no
-				AND = {
-					ai = yes
-					num_of_cities = 3
+			has_country_modifier = human_administration	#bertus mod
+			capital_scope = {
+				OR  = {
+					region = south_castanor_region
+					region = west_castanor_region
+					region = inner_castanor_region
 				}
 			}
 			is_colonial_nation = no
-			OR = {
-				is_former_colonial_nation = no
-				AND = {
-					is_former_colonial_nation = yes
-					ai = no
-				}
-			}
+			
 			normal_or_historical_nations = yes
 			was_never_end_game_tag_trigger = yes
 			NOT = { has_country_flag = formed_blademarches_flag }
@@ -344,6 +311,9 @@ country_decisions = {
 			is_nomad = no
 			is_at_war = no
 			NOT = { has_country_modifier = monstrous_nation }
+			capital_scope = {
+				region = south_castanor_region
+			}
 			
 			if = {
 				limit = { has_adventurer_reform = yes }
@@ -425,6 +395,8 @@ country_decisions = {
 				limit = { NOT = { government = monarchy } }
 				change_government = monarchy
 			}
+			remove_government_reform = states_general_reform
+			remove_government_reform = aristocratic_court_reform
 			add_government_reform = blademarches_kingdom_reform
 			if = {
 				limit = {
@@ -501,7 +473,11 @@ country_decisions = {
 		potential = {
 			NOT = {has_country_flag = medium_formable_flag}
 			capital_scope = {
-				region = west_castanor_region
+				OR  = {
+					region = south_castanor_region
+					region = west_castanor_region
+					region = inner_castanor_region
+				}
 			}
 			OR = { 
 				culture_group = escanni	
@@ -521,25 +497,8 @@ country_decisions = {
 			NOT = { has_country_flag = orc_nation_formed }	#prevents orc formables from forming it
 			#NOT = { has_country_flag = adventurer_derived_government }	#bertus mod #if you've formed something like Nurcestir, you wont be able to form Castellyr. You need to form it while you're an adventurer
 
-			OR = {
-				ai = no
-				is_playing_custom_nation = no
-			}
-			OR = {
-				ai = no
-				AND = {
-					ai = yes
-					num_of_cities = 3
-				}
-			}
 			is_colonial_nation = no
-			OR = {
-				is_former_colonial_nation = no
-				AND = {
-					is_former_colonial_nation = yes
-					ai = no
-				}
-			}
+			
 			normal_or_historical_nations = yes
 			was_never_end_game_tag_trigger = yes
 		}
@@ -574,6 +533,9 @@ country_decisions = {
 			is_free_or_tributary_trigger = yes
 			is_nomad = no
 			is_at_war = no
+			capital_scope = {
+				region = west_castanor_region
+			}
 			if = {
 				limit = { has_adventurer_reform = yes }
 				has_reform = found_our_nation
@@ -721,9 +683,10 @@ country_decisions = {
 		major = yes
 		potential = {
 			capital_scope = {
-				OR = {
+				OR  = {
+					region = south_castanor_region
 					region = west_castanor_region
-					region = forlorn_vale_region
+					region = inner_castanor_region
 				}
 			}
 			OR = { 
@@ -742,25 +705,8 @@ country_decisions = {
 			NOT = { has_country_flag = orc_nation_formed }	#prevents orc formables from forming it
 			#NOT = { has_country_flag = adventurer_derived_government }	#bertus mod #if you've formed something like Nurcestir, you wont be able to form Castellyr. You need to form it while you're an adventurer
 
-			OR = {
-				ai = no
-				is_playing_custom_nation = no
-			}
-			OR = {
-				ai = no
-				AND = {
-					ai = yes
-					num_of_cities = 3
-				}
-			}
 			is_colonial_nation = no
-			OR = {
-				is_former_colonial_nation = no
-				AND = {
-					is_former_colonial_nation = yes
-					ai = no
-				}
-			}
+			
 			normal_or_historical_nations = yes
 			was_never_end_game_tag_trigger = yes
 		}
@@ -801,6 +747,12 @@ country_decisions = {
 			is_free_or_tributary_trigger = yes
 			is_nomad = no
 			is_at_war = no
+			capital_scope = {
+				OR = {
+					region = west_castanor_region
+					region = forlorn_vale_region
+				}
+			}
 			if = {
 				limit = { has_adventurer_reform = yes }
 				has_reform = found_our_nation
@@ -922,25 +874,8 @@ country_decisions = {
 			NOT = { has_country_flag = orc_nation_formed }	#prevents orc formables from forming it
 			#NOT = { has_country_flag = adventurer_derived_government }	#bertus mod #if you've formed something like Nurcestir, you wont be able to form Castellyr. You need to form it while you're an adventurer
 
-			OR = {
-				ai = no
-				is_playing_custom_nation = no
-			}
-			OR = {
-				ai = no
-				AND = {
-					ai = yes
-					num_of_cities = 3
-				}
-			}
 			is_colonial_nation = no
-			OR = {
-				is_former_colonial_nation = no
-				AND = {
-					is_former_colonial_nation = yes
-					ai = no
-				}
-			}
+			
 		}
 		provinces_to_highlight = {
 			OR = {
@@ -1088,13 +1023,7 @@ country_decisions = {
 			NOT = { has_country_flag = formed_vrorenmarch_dominion }
 			NOT = { exists = Z45 } #Vrorenmarch doesn't exist
 			is_colonial_nation = no
-			OR = {
-				is_former_colonial_nation = no
-				AND = {
-					is_former_colonial_nation = yes
-					ai = no
-				}
-			}
+			
 		}
 		provinces_to_highlight = {
 			OR = {

@@ -15,7 +15,7 @@ get_necromancer_power = {
 	multiply_variable = {which = necromancer_power_from_damestear_var value = 0.05}	#5% per damestear good produced
 	change_variable = {which = necromancer_power_from_damestear_var value = 1}
 	multiply_variable = {which = necromancer_power_var which = necromancer_power_from_damestear_var}	# damestear boost
-	export_to_variable = {which = necromancer_power_from_mil_var value = trigger_value:mil}
+	export_to_variable = {which = necromancer_power_from_mil_var value = MIL}
 	multiply_variable = {which = necromancer_power_from_mil_var value = 0.05}	#5% per mil point
 	change_variable = {which = necromancer_power_from_mil_var value = 1}
 	multiply_variable = {which = necromancer_power_var which = necromancer_power_from_mil_var}	#mil boost
@@ -939,14 +939,14 @@ get_special_general_stats = {
 	}
 	if = {
 		limit = {has_country_flag = get_ruler_general_flag}
-		export_to_variable = { which = ruler_mil value = mil }
-		while = {	#+2 pip per mil skill
+		set_variable = {which = ruler_mil value = 0}
+		export_to_variable = { which = ruler_mil value = MIL }
+		while = {	#per mil skill
 			limit = { check_variable = { which = ruler_mil value = 1 } }
 			change_variable = {which = ruler_mil value = -1}
 			random_list = {
 				50 = {change_variable = {which = country_leader_fire_var value = 1}}
 				50 = {change_variable = {which = country_leader_shock_var value = 1}}
-				50 = {change_variable = {which = country_leader_manuever_var value = 1}}
 			}
 			random_list = {
 				50 = {change_variable = {which = country_leader_fire_var value = 1}}
