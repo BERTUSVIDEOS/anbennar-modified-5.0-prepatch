@@ -2558,6 +2558,7 @@ increase_imperial_centralization = {
 	else_if = {limit = {has_global_flag = imperial_centralization_2_flag} set_global_flag = imperial_centralization_3_flag}
 	else_if = {limit = {has_global_flag = imperial_centralization_1_flag} set_global_flag = imperial_centralization_2_flag}
 	else = {set_global_flag = imperial_centralization_1_flag}
+	country_event = { id = bertus_changes.1040}
 }
 get_manpower_fraction = {
 	FROM = {
@@ -3288,85 +3289,165 @@ on_trade_good_changed_bertus_effect = {
 		}
     }
 }
-update_race_modifiers = {
+war_modifiers_effects = {
+
+}
+on_war_ended_effects = {
+	remove_country_modifier = call_to_action_hre_mechanic
 	remove_country_modifier = human_resilience_modifier
 	remove_country_modifier = dwarven_elven_hate_modifier
 	remove_country_modifier = elves_hate_war_modifier
-	remove_country_modifier = elves_pure_training_modifier
 	remove_country_modifier = dwarven_hate_greenskins_modifier
 	remove_country_modifier = halflin_attitude_modifier
 	remove_country_modifier = monstrous_love_war_modifier
 	remove_country_modifier = orcs_hate_dwarven_modifier
 	remove_country_modifier = goblins_hate_dwarfs_modifier
 	remove_country_modifier = goblins_hate_elfs_modifier
-	remove_country_modifier = integrated_races_give_dev_cost_18
-	remove_country_modifier = integrated_races_give_dev_cost_17
-	remove_country_modifier = integrated_races_give_dev_cost_16
-	remove_country_modifier = integrated_races_give_dev_cost_15
-	remove_country_modifier = integrated_races_give_dev_cost_14
-	remove_country_modifier = integrated_races_give_dev_cost_13
-	remove_country_modifier = integrated_races_give_dev_cost_12
-	remove_country_modifier = integrated_races_give_dev_cost_11
-	remove_country_modifier = integrated_races_give_dev_cost_10
-	remove_country_modifier = integrated_races_give_dev_cost_9
-	remove_country_modifier = integrated_races_give_dev_cost_8
-	remove_country_modifier = integrated_races_give_dev_cost_7
-	remove_country_modifier = integrated_races_give_dev_cost_6
-	remove_country_modifier = integrated_races_give_dev_cost_5
-	remove_country_modifier = integrated_races_give_dev_cost_4
-	remove_country_modifier = integrated_races_give_dev_cost_3
-	remove_country_modifier = integrated_races_give_dev_cost_2
-	remove_country_modifier = integrated_races_give_dev_cost_1
-	remove_country_modifier = boosted_stability_1
-	remove_country_modifier = boosted_stability_2
-	remove_country_modifier = boosted_stability_3
-	remove_country_modifier = empire_centralization_10
-	remove_country_modifier = empire_centralization_9
-	remove_country_modifier = empire_centralization_8
-	remove_country_modifier = empire_centralization_7
-	remove_country_modifier = empire_centralization_6
-	remove_country_modifier = empire_centralization_5
-	remove_country_modifier = empire_centralization_4
-	remove_country_modifier = empire_centralization_3
-	remove_country_modifier = empire_centralization_2
-	remove_country_modifier = empire_centralization_1
-	remove_country_modifier = humanist_bonus
-	remove_country_modifier = dynastic_bonus_1
-	remove_country_modifier = dynastic_bonus_2
-	remove_country_modifier = dynastic_bonus_3
-	remove_country_modifier = dynastic_bonus_4
-	remove_country_modifier = dynastic_bonus_5
-	remove_country_modifier = dynastic_bonus_6
-	remove_country_modifier = kolo3_1_bonus
-	remove_country_modifier = kolo3_2_bonus
-	remove_country_modifier = kolo3_3_bonus
-	remove_country_modifier = kolo3_4_bonus
-	remove_country_modifier = kolo3_5_bonus
-	remove_country_modifier = kolo3_6_bonus
-	remove_country_modifier = kolo3_7_bonus
-	remove_country_modifier = kolo3_8_bonus
-	remove_country_modifier = kolo3_9_bonus
-	remove_country_modifier = kolo3_10_bonus
-	remove_country_modifier = kolo4_1_bonus
-	remove_country_modifier = kolo4_2_bonus
-	remove_country_modifier = kolo4_3_bonus
-	remove_country_modifier = kolo4_4_bonus
-	remove_country_modifier = kolo4_5_bonus
-	remove_country_modifier = kolo4_6_bonus
-	remove_country_modifier = kolo4_7_bonus
-	remove_country_modifier = kolo4_8_bonus
-	remove_country_modifier = kolo4_9_bonus
-	remove_country_modifier = kolo4_10_bonus
-	remove_country_modifier = kolo6_1_bonus
-	remove_country_modifier = kolo6_2_bonus
-	remove_country_modifier = kolo6_3_bonus
-	remove_country_modifier = kolo6_4_bonus
-	remove_country_modifier = kolo6_5_bonus
-	remove_country_modifier = kolo6_6_bonus
-	remove_country_modifier = kolo6_7_bonus
-	remove_country_modifier = kolo6_8_bonus
-	remove_country_modifier = kolo6_9_bonus
-	remove_country_modifier = kolo6_10_bonus
+	remove_country_modifier = defender_dwarovar_claimer
+	if = {
+		limit = {
+			is_at_war = no
+		}
+		if = {
+			limit = {
+				has_global_flag = call_to_reaction_hre_flag
+				is_part_of_hre = yes
+			}
+			add_country_modifier = {name = peaceful_times_hre_mechanic duration = -1 hidden = yes}
+		}
+	}
+	
+}
+on_war_started_effects = {
+	remove_country_modifier = peaceful_times_hre_mechanic
+	if = {
+		limit = {
+			is_at_war = yes
+		}
+		if = {
+			limit = {
+				has_global_flag = call_to_action_hre_flag
+				is_part_of_hre = yes
+			}
+			add_country_modifier = {name = call_to_action_hre_mechanic duration = -1 hidden = yes}
+		}
+		if = {
+			limit = {
+				estate_territory = {estate = estate_human territory = 60}
+				any_country = {
+					NOT = {estate_territory = {estate = estate_human territory = 40}}
+					war_with = ROOT
+				}
+			}
+			add_country_modifier = {name = human_resilience_modifier duration = -1 hidden = yes}
+		}
+		if = {
+			limit = {
+				estate_territory = {estate = estate_elven territory = 60}
+				any_country = {
+					estate_territory = {estate = estate_dwarven territory = 40}
+					war_with = ROOT
+				}
+			}
+			add_country_modifier = {name = dwarven_elven_hate_modifier duration = -1 hidden = yes}
+		}
+		if = {
+			limit = {
+				estate_territory = {estate = estate_elven territory = 60}
+				is_at_war = yes
+			}
+			add_country_modifier = {name = elves_hate_war_modifier duration = -1 hidden = yes}
+		}
+		if = {
+			limit = {
+				estate_territory = {estate = estate_dwarven territory = 60}
+				any_country = {
+					estate_territory = {estate = estate_elven territory = 40}
+					war_with = ROOT
+				}
+			}
+			add_country_modifier = {name = dwarven_elven_hate_modifier duration = -1 hidden = yes}
+		}
+		if = {
+			limit = {
+				estate_territory = {estate = estate_dwarven territory = 60}
+				any_country = {
+					OR = {
+						estate_territory = {estate = estate_goblin territory = 40}
+						estate_territory = {estate = estate_orcish territory = 40}
+					}
+					war_with = ROOT
+				}
+			}
+			add_country_modifier = {name = dwarven_hate_greenskins_modifier duration = -1 hidden = yes}
+		}
+		if = {
+			limit = {
+				estate_territory = {estate = estate_halfling territory = 60}
+				any_country = {
+					offensive_war_with = ROOT
+					NOT = {estate_territory = {estate = estate_halfling territory = 30}}
+				}
+			}
+			add_country_modifier = {name = halflin_attitude_modifier duration = -1 hidden = yes}
+		}
+		if = {
+			limit = {
+				is_at_war = yes
+				OR = {
+					has_estate_privilege = estate_orcish_first_hand_chairman
+					has_estate_privilege = estate_ogre_first_hand_chairman
+					has_estate_privilege = estate_centaur_first_hand_chairman
+					has_estate_privilege = estate_troll_first_hand_chairman
+					has_estate_privilege = estate_half_orcish_first_hand_chairman
+					has_estate_privilege = estate_hobgoblin_first_hand_chairman
+				}
+			}
+			add_country_modifier = {name = monstrous_love_war_modifier duration = -1 hidden = yes}
+		}
+		if = {
+			limit = {
+				estate_territory = {estate = estate_orcish territory = 60}
+				any_country = {
+					estate_territory = {estate = estate_dwarven territory = 40}
+					war_with = ROOT
+				}
+			}
+			add_country_modifier = {name = orcs_hate_dwarven_modifier duration = -1 hidden = yes}
+		}
+		if = {
+			limit = {
+				estate_territory = {estate = estate_goblin territory = 60}
+				any_country = {
+					estate_territory = {estate = estate_dwarven territory = 40}
+					war_with = ROOT
+				}
+			}
+			add_country_modifier = {name = goblins_hate_dwarfs_modifier duration = -1 hidden = yes}
+		}
+		if = {
+			limit = {
+				estate_territory = {estate = estate_goblin territory = 60}
+				any_country = {
+					estate_territory = {estate = estate_elven territory = 40}
+					war_with = ROOT
+				}
+			}
+			add_country_modifier = {name = goblins_hate_elfs_modifier duration = -1 hidden = yes}
+		}
+		if = {
+			limit = {
+				has_country_modifier = dwarovar_claimer
+				NOT = {is_year = 1500}
+				is_in_war = {
+					defenders = ROOT
+				}
+			}
+			add_country_modifier = {name = defender_dwarovar_claimer duration = -1 hidden = yes}
+		}
+	}
+}
+bertus_yearly_update = {
 	remove_country_modifier = nationalismus_manpower_120
 	remove_country_modifier = nationalismus_manpower_119
 	remove_country_modifier = nationalismus_manpower_118
@@ -3487,40 +3568,269 @@ update_race_modifiers = {
 	remove_country_modifier = nationalismus_manpower_3
 	remove_country_modifier = nationalismus_manpower_2
 	remove_country_modifier = nationalismus_manpower_1
-	remove_country_modifier = zentra_manpower_1
-	remove_country_modifier = zentra_manpower_2
-	remove_country_modifier = zentra_manpower_3
-	remove_country_modifier = imperialismus_autoritaet_1
-	remove_country_modifier = imperialismus_autoritaet_2
-	remove_country_modifier = imperialismus_autoritaet_3
-	remove_country_modifier = konigreich_force_land_1
-	remove_country_modifier = konigreich_force_land_2
-	remove_country_modifier = konigreich_force_land_3
-	remove_country_modifier = konigreich_force_fleet_1
-	remove_country_modifier = konigreich_force_fleet_2
-	remove_country_modifier = konigreich_force_fleet_3
-	remove_country_modifier = Z01_4_idea_legitimacy
-	remove_country_modifier = peaceful_times_hre_mechanic
-	remove_country_modifier = call_to_action_hre_mechanic
-	remove_country_modifier = monarchy_bonus
-	remove_country_modifier = imperial_faith_hre_mechanic
-	remove_country_modifier = religious_tolerance_hre_mechanic
-	remove_country_modifier = closed_market_hre_mechanic
-	remove_country_modifier = open_market_hre_mechanic
-	remove_country_modifier = salere_reform_hre_malus_mechanic
-	remove_country_modifier = emperors_will_mechanic
-	remove_country_modifier = salere_reform_hre_bonus_mechanic
-	remove_country_modifier = races_represented_malus_mechanic
-	remove_country_modifier = federal_dominance_hre_extra_electors
-	remove_country_modifier = races_represented_bonus_mechanic
 	remove_country_modifier = boosted_absolutism_20
 	remove_country_modifier = boosted_absolutism_40
 	remove_country_modifier = boosted_absolutism_60
 	remove_country_modifier = boosted_absolutism_80
 	remove_country_modifier = boosted_absolutism_100
 	remove_country_modifier = boosted_absolutism_120
-	remove_country_modifier = defender_dwarovar_claimer
-	remove_country_modifier = deactivated_ae
+	remove_country_modifier = integrated_races_give_dev_cost_18
+	remove_country_modifier = integrated_races_give_dev_cost_17
+	remove_country_modifier = integrated_races_give_dev_cost_16
+	remove_country_modifier = integrated_races_give_dev_cost_15
+	remove_country_modifier = integrated_races_give_dev_cost_14
+	remove_country_modifier = integrated_races_give_dev_cost_13
+	remove_country_modifier = integrated_races_give_dev_cost_12
+	remove_country_modifier = integrated_races_give_dev_cost_11
+	remove_country_modifier = integrated_races_give_dev_cost_10
+	remove_country_modifier = integrated_races_give_dev_cost_9
+	remove_country_modifier = integrated_races_give_dev_cost_8
+	remove_country_modifier = integrated_races_give_dev_cost_7
+	remove_country_modifier = integrated_races_give_dev_cost_6
+	remove_country_modifier = integrated_races_give_dev_cost_5
+	remove_country_modifier = integrated_races_give_dev_cost_4
+	remove_country_modifier = integrated_races_give_dev_cost_3
+	remove_country_modifier = integrated_races_give_dev_cost_2
+	remove_country_modifier = integrated_races_give_dev_cost_1
+	remove_country_modifier = empire_centralization_10
+	remove_country_modifier = empire_centralization_9
+	remove_country_modifier = empire_centralization_8
+	remove_country_modifier = empire_centralization_7
+	remove_country_modifier = empire_centralization_6
+	remove_country_modifier = empire_centralization_5
+	remove_country_modifier = empire_centralization_4
+	remove_country_modifier = empire_centralization_3
+	remove_country_modifier = empire_centralization_2
+	remove_country_modifier = empire_centralization_1
+	remove_country_modifier = Z01_4_idea_legitimacy
+	remove_country_modifier = monarchy_bonus
+	if = {
+		limit = {
+			has_government_attribute = boosted_absolutism
+		}
+		trigger_switch = {
+			on_trigger = absolutism
+			120 = {add_country_modifier = {name = boosted_absolutism_120 duration = -1 hidden = yes}}
+			100 = {add_country_modifier = {name = boosted_absolutism_100 duration = -1 hidden = yes}}
+			80 = {add_country_modifier = {name = boosted_absolutism_80 duration = -1 hidden = yes}}
+			60 = {add_country_modifier = {name = boosted_absolutism_60 duration = -1 hidden = yes}}
+			40 = {add_country_modifier = {name = boosted_absolutism_40 duration = -1 hidden = yes}}
+			20 = {add_country_modifier = {name = boosted_absolutism_20 duration = -1 hidden = yes}}
+		}
+	}
+	if = {
+		limit = {
+			has_idea = nationalismus2
+		}
+		trigger_switch = {
+			on_trigger = absolutism
+			120	 = {add_country_modifier = {name = nationalismus_manpower_120	duration = -1 hidden = yes}}
+			119	 = {add_country_modifier = {name = nationalismus_manpower_119	duration = -1 hidden = yes}}
+			118	 = {add_country_modifier = {name = nationalismus_manpower_118	duration = -1 hidden = yes}}
+			117	 = {add_country_modifier = {name = nationalismus_manpower_117	duration = -1 hidden = yes}}
+			116	 = {add_country_modifier = {name = nationalismus_manpower_116	duration = -1 hidden = yes}}
+			115	 = {add_country_modifier = {name = nationalismus_manpower_115	duration = -1 hidden = yes}}
+			114	 = {add_country_modifier = {name = nationalismus_manpower_114	duration = -1 hidden = yes}}
+			113	 = {add_country_modifier = {name = nationalismus_manpower_113	duration = -1 hidden = yes}}
+			112	 = {add_country_modifier = {name = nationalismus_manpower_112	duration = -1 hidden = yes}}
+			111	 = {add_country_modifier = {name = nationalismus_manpower_111	duration = -1 hidden = yes}}
+			110	 = {add_country_modifier = {name = nationalismus_manpower_110	duration = -1 hidden = yes}}
+			109	 = {add_country_modifier = {name = nationalismus_manpower_109	duration = -1 hidden = yes}}
+			108	 = {add_country_modifier = {name = nationalismus_manpower_108	duration = -1 hidden = yes}}
+			107	 = {add_country_modifier = {name = nationalismus_manpower_107	duration = -1 hidden = yes}}
+			106	 = {add_country_modifier = {name = nationalismus_manpower_106	duration = -1 hidden = yes}}
+			105	 = {add_country_modifier = {name = nationalismus_manpower_105	duration = -1 hidden = yes}}
+			104	 = {add_country_modifier = {name = nationalismus_manpower_104	duration = -1 hidden = yes}}
+			103	 = {add_country_modifier = {name = nationalismus_manpower_103	duration = -1 hidden = yes}}
+			102	 = {add_country_modifier = {name = nationalismus_manpower_102	duration = -1 hidden = yes}}
+			101	 = {add_country_modifier = {name = nationalismus_manpower_101	duration = -1 hidden = yes}}
+			100	 = {add_country_modifier = {name = nationalismus_manpower_100	duration = -1 hidden = yes}}
+			99	 = {add_country_modifier = {name = nationalismus_manpower_99	duration = -1 hidden = yes}}
+			98	 = {add_country_modifier = {name = nationalismus_manpower_98	duration = -1 hidden = yes}}
+			97	 = {add_country_modifier = {name = nationalismus_manpower_97	duration = -1 hidden = yes}}
+			96	 = {add_country_modifier = {name = nationalismus_manpower_96	duration = -1 hidden = yes}}
+			95	 = {add_country_modifier = {name = nationalismus_manpower_95	duration = -1 hidden = yes}}
+			94	 = {add_country_modifier = {name = nationalismus_manpower_94	duration = -1 hidden = yes}}
+			93	 = {add_country_modifier = {name = nationalismus_manpower_93	duration = -1 hidden = yes}}
+			92	 = {add_country_modifier = {name = nationalismus_manpower_92	duration = -1 hidden = yes}}
+			91	 = {add_country_modifier = {name = nationalismus_manpower_91	duration = -1 hidden = yes}}
+			90	 = {add_country_modifier = {name = nationalismus_manpower_90	duration = -1 hidden = yes}}
+			89	 = {add_country_modifier = {name = nationalismus_manpower_89	duration = -1 hidden = yes}}
+			88	 = {add_country_modifier = {name = nationalismus_manpower_88	duration = -1 hidden = yes}}
+			87	 = {add_country_modifier = {name = nationalismus_manpower_87	duration = -1 hidden = yes}}
+			86	 = {add_country_modifier = {name = nationalismus_manpower_86	duration = -1 hidden = yes}}
+			85	 = {add_country_modifier = {name = nationalismus_manpower_85	duration = -1 hidden = yes}}
+			84	 = {add_country_modifier = {name = nationalismus_manpower_84	duration = -1 hidden = yes}}
+			83	 = {add_country_modifier = {name = nationalismus_manpower_83	duration = -1 hidden = yes}}
+			82	 = {add_country_modifier = {name = nationalismus_manpower_82	duration = -1 hidden = yes}}
+			81	 = {add_country_modifier = {name = nationalismus_manpower_81	duration = -1 hidden = yes}}
+			80	 = {add_country_modifier = {name = nationalismus_manpower_80	duration = -1 hidden = yes}}
+			79	 = {add_country_modifier = {name = nationalismus_manpower_79	duration = -1 hidden = yes}}
+			78	 = {add_country_modifier = {name = nationalismus_manpower_78	duration = -1 hidden = yes}}
+			77	 = {add_country_modifier = {name = nationalismus_manpower_77	duration = -1 hidden = yes}}
+			76	 = {add_country_modifier = {name = nationalismus_manpower_76	duration = -1 hidden = yes}}
+			75	 = {add_country_modifier = {name = nationalismus_manpower_75	duration = -1 hidden = yes}}
+			74	 = {add_country_modifier = {name = nationalismus_manpower_74	duration = -1 hidden = yes}}
+			73	 = {add_country_modifier = {name = nationalismus_manpower_73	duration = -1 hidden = yes}}
+			72	 = {add_country_modifier = {name = nationalismus_manpower_72	duration = -1 hidden = yes}}
+			71	 = {add_country_modifier = {name = nationalismus_manpower_71	duration = -1 hidden = yes}}
+			70	 = {add_country_modifier = {name = nationalismus_manpower_70	duration = -1 hidden = yes}}
+			69	 = {add_country_modifier = {name = nationalismus_manpower_69	duration = -1 hidden = yes}}
+			68	 = {add_country_modifier = {name = nationalismus_manpower_68	duration = -1 hidden = yes}}
+			67	 = {add_country_modifier = {name = nationalismus_manpower_67	duration = -1 hidden = yes}}
+			66	 = {add_country_modifier = {name = nationalismus_manpower_66	duration = -1 hidden = yes}}
+			65	 = {add_country_modifier = {name = nationalismus_manpower_65	duration = -1 hidden = yes}}
+			64	 = {add_country_modifier = {name = nationalismus_manpower_64	duration = -1 hidden = yes}}
+			63	 = {add_country_modifier = {name = nationalismus_manpower_63	duration = -1 hidden = yes}}
+			62	 = {add_country_modifier = {name = nationalismus_manpower_62	duration = -1 hidden = yes}}
+			61	 = {add_country_modifier = {name = nationalismus_manpower_61	duration = -1 hidden = yes}}
+			60	 = {add_country_modifier = {name = nationalismus_manpower_60	duration = -1 hidden = yes}}
+			59	 = {add_country_modifier = {name = nationalismus_manpower_59	duration = -1 hidden = yes}}
+			58	 = {add_country_modifier = {name = nationalismus_manpower_58	duration = -1 hidden = yes}}
+			57	 = {add_country_modifier = {name = nationalismus_manpower_57	duration = -1 hidden = yes}}
+			56	 = {add_country_modifier = {name = nationalismus_manpower_56	duration = -1 hidden = yes}}
+			55	 = {add_country_modifier = {name = nationalismus_manpower_55	duration = -1 hidden = yes}}
+			54	 = {add_country_modifier = {name = nationalismus_manpower_54	duration = -1 hidden = yes}}
+			53	 = {add_country_modifier = {name = nationalismus_manpower_53	duration = -1 hidden = yes}}
+			52	 = {add_country_modifier = {name = nationalismus_manpower_52	duration = -1 hidden = yes}}
+			51	 = {add_country_modifier = {name = nationalismus_manpower_51	duration = -1 hidden = yes}}
+			50	 = {add_country_modifier = {name = nationalismus_manpower_50	duration = -1 hidden = yes}}
+			49	 = {add_country_modifier = {name = nationalismus_manpower_49	duration = -1 hidden = yes}}
+			48	 = {add_country_modifier = {name = nationalismus_manpower_48	duration = -1 hidden = yes}}
+			47	 = {add_country_modifier = {name = nationalismus_manpower_47	duration = -1 hidden = yes}}
+			46	 = {add_country_modifier = {name = nationalismus_manpower_46	duration = -1 hidden = yes}}
+			45	 = {add_country_modifier = {name = nationalismus_manpower_45	duration = -1 hidden = yes}}
+			44	 = {add_country_modifier = {name = nationalismus_manpower_44	duration = -1 hidden = yes}}
+			43	 = {add_country_modifier = {name = nationalismus_manpower_43	duration = -1 hidden = yes}}
+			42	 = {add_country_modifier = {name = nationalismus_manpower_42	duration = -1 hidden = yes}}
+			41	 = {add_country_modifier = {name = nationalismus_manpower_41	duration = -1 hidden = yes}}
+			40	 = {add_country_modifier = {name = nationalismus_manpower_40	duration = -1 hidden = yes}}
+			39	 = {add_country_modifier = {name = nationalismus_manpower_39	duration = -1 hidden = yes}}
+			38	 = {add_country_modifier = {name = nationalismus_manpower_38	duration = -1 hidden = yes}}
+			37	 = {add_country_modifier = {name = nationalismus_manpower_37	duration = -1 hidden = yes}}
+			36	 = {add_country_modifier = {name = nationalismus_manpower_36	duration = -1 hidden = yes}}
+			35	 = {add_country_modifier = {name = nationalismus_manpower_35	duration = -1 hidden = yes}}
+			34	 = {add_country_modifier = {name = nationalismus_manpower_34	duration = -1 hidden = yes}}
+			33	 = {add_country_modifier = {name = nationalismus_manpower_33	duration = -1 hidden = yes}}
+			32	 = {add_country_modifier = {name = nationalismus_manpower_32	duration = -1 hidden = yes}}
+			31	 = {add_country_modifier = {name = nationalismus_manpower_31	duration = -1 hidden = yes}}
+			30	 = {add_country_modifier = {name = nationalismus_manpower_30	duration = -1 hidden = yes}}
+			29	 = {add_country_modifier = {name = nationalismus_manpower_29	duration = -1 hidden = yes}}
+			28	 = {add_country_modifier = {name = nationalismus_manpower_28	duration = -1 hidden = yes}}
+			27	 = {add_country_modifier = {name = nationalismus_manpower_27	duration = -1 hidden = yes}}
+			26	 = {add_country_modifier = {name = nationalismus_manpower_26	duration = -1 hidden = yes}}
+			25	 = {add_country_modifier = {name = nationalismus_manpower_25	duration = -1 hidden = yes}}
+			24	 = {add_country_modifier = {name = nationalismus_manpower_24	duration = -1 hidden = yes}}
+			23	 = {add_country_modifier = {name = nationalismus_manpower_23	duration = -1 hidden = yes}}
+			22	 = {add_country_modifier = {name = nationalismus_manpower_22	duration = -1 hidden = yes}}
+			21	 = {add_country_modifier = {name = nationalismus_manpower_21	duration = -1 hidden = yes}}
+			20	 = {add_country_modifier = {name = nationalismus_manpower_20	duration = -1 hidden = yes}}
+			19	 = {add_country_modifier = {name = nationalismus_manpower_19	duration = -1 hidden = yes}}
+			18	 = {add_country_modifier = {name = nationalismus_manpower_18	duration = -1 hidden = yes}}
+			17	 = {add_country_modifier = {name = nationalismus_manpower_17	duration = -1 hidden = yes}}
+			16	 = {add_country_modifier = {name = nationalismus_manpower_16	duration = -1 hidden = yes}}
+			15	 = {add_country_modifier = {name = nationalismus_manpower_15	duration = -1 hidden = yes}}
+			14	 = {add_country_modifier = {name = nationalismus_manpower_14	duration = -1 hidden = yes}}
+			13	 = {add_country_modifier = {name = nationalismus_manpower_13	duration = -1 hidden = yes}}
+			12	 = {add_country_modifier = {name = nationalismus_manpower_12	duration = -1 hidden = yes}}
+			11	 = {add_country_modifier = {name = nationalismus_manpower_11	duration = -1 hidden = yes}}
+			10	 = {add_country_modifier = {name = nationalismus_manpower_10	duration = -1 hidden = yes}}
+			9	 = {add_country_modifier = {name = nationalismus_manpower_9		duration = -1 hidden = yes}}
+			8	 = {add_country_modifier = {name = nationalismus_manpower_8		duration = -1 hidden = yes}}
+			7	 = {add_country_modifier = {name = nationalismus_manpower_7		duration = -1 hidden = yes}}
+			6	 = {add_country_modifier = {name = nationalismus_manpower_6		duration = -1 hidden = yes}}
+			5	 = {add_country_modifier = {name = nationalismus_manpower_5		duration = -1 hidden = yes}}
+			4	 = {add_country_modifier = {name = nationalismus_manpower_4		duration = -1 hidden = yes}}
+			3	 = {add_country_modifier = {name = nationalismus_manpower_3		duration = -1 hidden = yes}}
+			2	 = {add_country_modifier = {name = nationalismus_manpower_2		duration = -1 hidden = yes}}
+			1	 = {add_country_modifier = {name = nationalismus_manpower_1		duration = -1 hidden = yes}}
+		}
+	}
+	if = {
+		limit = {
+			has_government_attribute = integrated_races_give_dev_cost
+		}
+		get_integrated_races_modifier = yes
+	}
+	if = {
+		limit = {
+			hre_reform_passed = emperor_regional_centralization
+			is_emperor = yes
+		}
+		country_event = { id = bertus_changes.1040}
+	}
+	if = {
+		limit = {
+			has_idea = Z01_4
+			legitimacy_equivalent = 90
+		}
+		add_country_modifier = {name = Z01_4_idea_legitimacy duration = -1 hidden = yes}
+	}
+	if = {
+		limit = {
+			has_idea = monarchie1
+			legitimacy_equivalent = 80
+		}
+		add_country_modifier = {name = monarchy_bonus duration = -1 hidden = yes}
+	}
+}
+update_recruitment_modifiers = {
+	remove_country_modifier = fast_pace_race_mechanic
+	remove_country_modifier = slow_pace_mechanic
+	remove_country_modifier = malus_if_monstrous_mechanic
+	remove_country_modifier = elves_pure_training_modifier
+	if = {
+		limit = {
+			OR = {
+				has_race_recruitment = {race = elven}
+				has_race_recruitment = {race = dwarven}
+				has_race_recruitment = {race = half_elven}
+			}
+			has_country_modifier = monstrous_nation
+		}
+		add_country_modifier = {name = malus_if_monstrous_mechanic duration = -1 hidden = yes}
+	}
+	if = {
+		limit = {
+			OR = {
+				has_race_recruitment = {race = elven}
+				has_race_recruitment = {race = half_elven}
+			}
+			NOT = {
+				has_race_recruitment = {race = human}
+				has_race_recruitment = {race = dwarven}
+				has_race_recruitment = {race = halfling}
+				has_race_recruitment = {race = gnomish}
+				has_race_recruitment = {race = orcish}
+				has_race_recruitment = {race = goblin}
+				has_race_recruitment = {race = kobold}
+			}
+		}
+		add_country_modifier = {name = fast_pace_race_mechanic duration = -1 hidden = yes}
+	}
+	if = {
+		limit = {
+			OR = {
+				has_race_recruitment = {race = dwarven}
+				has_race_recruitment = {race = halfling}
+				has_race_recruitment = {race = goblin}
+				has_race_recruitment = {race = gnomish}
+				has_race_recruitment = {race = kobolds}
+			}
+		}
+		add_country_modifier = {name = slow_pace_mechanic duration = -1 hidden = yes}
+	}_country_modifier = {name = elite_cavalry_modifier duration = -1 hidden = yes}
+}
+if = {
+	limit = {
+		estate_territory = {
+			estate = estate_elven
+			territory = 90
+		}
+	}
+	add_country_modifier = {name = elves_pure_training_modifier duration = -1 hidden = yes}
+}
+update_military_modifiers = {
 	remove_country_modifier = grasshopper_muncher_country_ideas_tech_1
 	remove_country_modifier = grasshopper_muncher_country_ideas_tech_6
 	remove_country_modifier = grasshopper_muncher_country_ideas_tech_8
@@ -3839,679 +4149,8 @@ update_race_modifiers = {
 	remove_country_modifier = elven_artillery_tech_22
 	remove_country_modifier = elven_artillery_tech_25
 	remove_country_modifier = elven_artillery_tech_32
-	remove_country_modifier = fast_pace_race_mechanic
-	remove_country_modifier = slow_pace_mechanic
-	remove_country_modifier = malus_if_monstrous_mechanic
-	remove_country_modifier = cultural_bureaucracy_20
-	remove_country_modifier = cultural_bureaucracy_19
-	remove_country_modifier = cultural_bureaucracy_18
-	remove_country_modifier = cultural_bureaucracy_17
-	remove_country_modifier = cultural_bureaucracy_16
-	remove_country_modifier = cultural_bureaucracy_15
-	remove_country_modifier = cultural_bureaucracy_14
-	remove_country_modifier = cultural_bureaucracy_13
-	remove_country_modifier = cultural_bureaucracy_12
-	remove_country_modifier = cultural_bureaucracy_11
-	remove_country_modifier = cultural_bureaucracy_10
-	remove_country_modifier = cultural_bureaucracy_9
-	remove_country_modifier = cultural_bureaucracy_8
-	remove_country_modifier = cultural_bureaucracy_7
-	remove_country_modifier = cultural_bureaucracy_6
-	remove_country_modifier = cultural_bureaucracy_5
-	remove_country_modifier = cultural_bureaucracy_4
-	remove_country_modifier = cultural_bureaucracy_3
-	remove_country_modifier = cultural_bureaucracy_2
-	remove_country_modifier = cultural_bureaucracy_1
-	remove_country_modifier = gnomish_militar_chairman_10
-	remove_country_modifier = gnomish_militar_chairman_20
-	remove_country_modifier = gnomish_militar_chairman_30
-	remove_country_modifier = gnomish_militar_chairman_40
-	remove_country_modifier = gnomish_militar_chairman_50
-	remove_country_modifier = gnomish_militar_chairman_60
-	remove_country_modifier = gnomish_militar_chairman_70
-	remove_country_modifier = gnomish_militar_chairman_80
-	remove_country_modifier = gnomish_militar_chairman_90
-	remove_country_modifier = gnomish_militar_chairman_100
-	remove_country_modifier = halfling_economic_chairman_mercantilism_10
-	remove_country_modifier = halfling_economic_chairman_mercantilism_20
-	remove_country_modifier = halfling_economic_chairman_mercantilism_30
-	remove_country_modifier = halfling_economic_chairman_mercantilism_40
-	remove_country_modifier = halfling_economic_chairman_mercantilism_50
-	remove_country_modifier = halfling_economic_chairman_mercantilism_60
-	remove_country_modifier = halfling_economic_chairman_mercantilism_70
-	remove_country_modifier = halfling_economic_chairman_mercantilism_80
-	remove_country_modifier = halfling_economic_chairman_mercantilism_90
-	remove_country_modifier = halfling_economic_chairman_mercantilism_100
-	remove_country_modifier = crodamos_elite_camel_modifier
-	remove_country_modifier = elite_cavalry_modifier
-	remove_country_modifier = legacy_of_bladebreakers_modifier
-	remove_country_modifier = elite_marine_modifier
-	remove_country_modifier = elite_gnollish_guard_modifier
-	remove_country_modifier = goblin_fungi_fanatic_modifier
-	remove_country_modifier = idea_imperial_guard_modifier
-	remove_country_modifier = goblin_shamans_fire_modifier
 	setup_artificers_academies = yes
 	setup_battlemages_shock = yes
-	if = {
-		limit = {has_country_flag = unified_gnoll_flag}
-		add_country_modifier = {name = elite_gnollish_guard_modifier duration = -1 hidden=  yes}
-	}
-	if = {
-		limit = {has_idea = imperialismus7}
-		add_country_modifier = {name = idea_imperial_guard_modifier duration = -1 hidden=  yes}
-	}
-	if = {
-		limit = {
-			OR = {
-				has_country_modifier = gnollish_military
-				has_idea = A11_seafaring_traditions
-				has_idea = Z50_ambitions_of_temar_ironsea
-				has_idea = A02_reaver_blood
-				has_country_flag = elite_marine_flag
-			}
-		}
-		add_country_modifier = {name = elite_marine_modifier duration = -1 hidden=  yes}
-	}
-	if = {
-		limit = {
-			has_country_modifier = goblin_military
-			check_variable = {
-				which = fungi
-				value = 10
-			}
-		}
-		add_country_modifier = {name = goblin_fungi_fanatic_modifier duration = -1 hidden=  yes}
-	}
-	if = {
-		limit = {has_idea = B46_shamans}
-		add_country_modifier = {name = goblin_shamans_fire_modifier duration = -1 hidden=  yes}
-	}
-	if = {
-		limit = {
-			has_idea = Z52_legacy_of_bladebreakers
-		}
-		add_country_modifier = {name = legacy_of_bladebreakers_modifier duration = -1 hidden=  yes}
-	}
-	if = {
-		limit = {
-			has_idea = A01_romance_and_chivalry
-		}
-		add_country_modifier = {name = elite_cavalry_modifier duration = -1 hidden=  yes}
-	}
-	if = {
-		limit = {
-			is_at_war = no
-		}
-		if = {
-			limit = {
-				has_global_flag = call_to_reaction_hre_flag
-				is_part_of_hre = yes
-			}
-			add_country_modifier = {name = peaceful_times_hre_mechanic duration = -1 hidden=  yes}
-		}
-	}
-	if = {
-		limit = {
-			is_at_war = yes
-		}
-		if = {
-			limit = {
-				has_global_flag = call_to_action_hre_flag
-				is_part_of_hre = yes
-			}
-			add_country_modifier = {name = call_to_action_hre_mechanic duration = -1 hidden=  yes}
-		}
-		if = {
-			limit = {
-				estate_territory = {estate = estate_human territory = 60}
-				any_country = {
-					NOT = {estate_territory = {estate = estate_human territory = 40}}
-					war_with = ROOT
-				}
-			}
-			add_country_modifier = {name = human_resilience_modifier duration = -1 hidden=  yes}
-		}
-		if = {
-			limit = {
-				estate_territory = {estate = estate_elven territory = 60}
-				any_country = {
-					estate_territory = {estate = estate_dwarven territory = 40}
-					war_with = ROOT
-				}
-			}
-			add_country_modifier = {name = dwarven_elven_hate_modifier duration = -1 hidden=  yes}
-		}
-		if = {
-			limit = {
-				estate_territory = {estate = estate_elven territory = 60}
-				is_at_war = yes
-			}
-			add_country_modifier = {name = elves_hate_war_modifier duration = -1 hidden=  yes}
-		}
-		if = {
-			limit = {
-				estate_territory = {estate = estate_dwarven territory = 60}
-				any_country = {
-					estate_territory = {estate = estate_elven territory = 40}
-					war_with = ROOT
-				}
-			}
-			add_country_modifier = {name = dwarven_elven_hate_modifier duration = -1 hidden=  yes}
-		}
-		if = {
-			limit = {
-				estate_territory = {estate = estate_dwarven territory = 60}
-				any_country = {
-					OR = {
-						estate_territory = {estate = estate_goblin territory = 40}
-						estate_territory = {estate = estate_orcish territory = 40}
-					}
-					war_with = ROOT
-				}
-			}
-			add_country_modifier = {name = dwarven_hate_greenskins_modifier duration = -1 hidden=  yes}
-		}
-		if = {
-			limit = {
-				estate_territory = {estate = estate_halfling territory = 60}
-				any_country = {
-					offensive_war_with = ROOT
-					NOT = {estate_territory = {estate = estate_halfling territory = 30}}
-				}
-			}
-			add_country_modifier = {name = halflin_attitude_modifier duration = -1 hidden=  yes}
-		}
-		if = {
-			limit = {
-				is_at_war = yes
-				OR = {
-					has_estate_privilege = estate_orcish_first_hand_chairman
-					has_estate_privilege = estate_ogre_first_hand_chairman
-					has_estate_privilege = estate_centaur_first_hand_chairman
-					has_estate_privilege = estate_troll_first_hand_chairman
-					has_estate_privilege = estate_half_orcish_first_hand_chairman
-					has_estate_privilege = estate_hobgoblin_first_hand_chairman
-				}
-			}
-			add_country_modifier = {name = monstrous_love_war_modifier duration = -1 hidden=  yes}
-		}
-		if = {
-			limit = {
-				estate_territory = {estate = estate_orcish territory = 60}
-				any_country = {
-					estate_territory = {estate = estate_dwarven territory = 40}
-					war_with = ROOT
-				}
-			}
-			add_country_modifier = {name = orcs_hate_dwarven_modifier duration = -1 hidden=  yes}
-		}
-		if = {
-			limit = {
-				estate_territory = {estate = estate_goblin territory = 60}
-				any_country = {
-					estate_territory = {estate = estate_dwarven territory = 40}
-					war_with = ROOT
-				}
-			}
-			add_country_modifier = {name = goblins_hate_dwarfs_modifier duration = -1 hidden=  yes}
-		}
-		if = {
-			limit = {
-				estate_territory = {estate = estate_goblin territory = 60}
-				any_country = {
-					estate_territory = {estate = estate_elven territory = 40}
-					war_with = ROOT
-				}
-			}
-			add_country_modifier = {name = goblins_hate_elfs_modifier duration = -1 hidden=  yes}
-		}
-		if = {
-			limit = {
-				has_country_modifier = dwarovar_claimer
-				NOT = {is_year = 1500}
-				is_in_war = {
-					defenders = ROOT
-				}
-			}
-			add_country_modifier = {name = defender_dwarovar_claimer duration = -1 hidden=  yes}
-		}
-	}
-	if = {
-		limit = {
-			estate_territory = {
-				estate = estate_elven
-				territory = 90
-			}
-		}
-		add_country_modifier = {name = elves_pure_training_modifier duration = -1 hidden=  yes}
-	}
-	if = {
-		limit = {
-			has_government_attribute = integrated_races_give_dev_cost
-		}
-		get_integrated_races_modifier = yes
-	}
-	if = {
-		limit = {
-			has_government_attribute = boosted_stability
-		}
-		trigger_switch = {
-			on_trigger = stability
-			3 = {add_country_modifier = {name = boosted_stability_3 duration = -1 hidden = yes}}
-			2 = {add_country_modifier = {name = boosted_stability_2 duration = -1 hidden = yes}}
-			1 = {add_country_modifier = {name = boosted_stability_1 duration = -1 hidden = yes}}
-		}
-	}
-	if = {
-		limit = {
-			hre_reform_passed = emperor_regional_centralization
-			is_emperor = yes
-		}
-		get_empire_centralization_modifier = yes
-	}
-	if = {
-		limit = {
-			has_idea = kolonialimperium3
-			num_accepted_cultures = 5
-		}
-		add_country_modifier = {name = humanist_bonus duration = -1 hidden = yes}
-	}
-	if = {
-		limit = {
-			has_idea = foreign_embassies_2
-			has_new_dynasty = no
-		}
-		get_dynastic_bonus_modifier = yes
-	}
-	if = {
-		limit = {
-			has_idea = kolonialimperium4
-			colony = 1
-		}
-		add_colony_amount_modifier = {type = kolo3}
-	}
-	if = {
-		limit = {
-			has_idea = kolonialimperium3
-			colony = 1
-		}
-		add_colony_amount_modifier = {type = kolo4}
-	}
-	if = {
-		limit = {
-			has_idea = kolonialimperium6
-			colony = 1
-		}
-		add_colony_amount_modifier = {type = kolo6}
-	}
-	if = {
-		limit = {
-			has_idea = flottenbasis4
-		}
-		trigger_switch = {
-			on_trigger = current_age
-			age_of_revolutions = {add_country_modifier = {name = flottenbasis_sailors_3 duration = -1 hidden = yes}}
-			age_of_absolutism = {add_country_modifier = {name = flottenbasis_sailors_2 duration = -1 hidden = yes}}
-			age_of_reformation = {add_country_modifier = {name = flottenbasis_sailors_1 duration = -1 hidden = yes}}
-		}
-	}
-	if = {
-		limit = {
-			has_idea = flottenbasis1
-		}
-		trigger_switch = {
-			on_trigger = current_age
-			age_of_revolutions = {add_country_modifier = {name = flottenbasis_manpower_3 duration = -1 hidden = yes}}
-			age_of_absolutism = {add_country_modifier = {name = flottenbasis_manpower_2 duration = -1 hidden = yes}}
-			age_of_reformation = {add_country_modifier = {name = flottenbasis_manpower_1 duration = -1 hidden = yes}}
-		}
-	}
-	if = {
-		limit = {
-			has_idea = nationalismus2
-		}
-		trigger_switch = {
-			on_trigger = absolutism
-			120	 = {add_country_modifier = {name = nationalismus_manpower_120	duration = -1 hidden = yes}}
-			119	 = {add_country_modifier = {name = nationalismus_manpower_119	duration = -1 hidden = yes}}
-			118	 = {add_country_modifier = {name = nationalismus_manpower_118	duration = -1 hidden = yes}}
-			117	 = {add_country_modifier = {name = nationalismus_manpower_117	duration = -1 hidden = yes}}
-			116	 = {add_country_modifier = {name = nationalismus_manpower_116	duration = -1 hidden = yes}}
-			115	 = {add_country_modifier = {name = nationalismus_manpower_115	duration = -1 hidden = yes}}
-			114	 = {add_country_modifier = {name = nationalismus_manpower_114	duration = -1 hidden = yes}}
-			113	 = {add_country_modifier = {name = nationalismus_manpower_113	duration = -1 hidden = yes}}
-			112	 = {add_country_modifier = {name = nationalismus_manpower_112	duration = -1 hidden = yes}}
-			111	 = {add_country_modifier = {name = nationalismus_manpower_111	duration = -1 hidden = yes}}
-			110	 = {add_country_modifier = {name = nationalismus_manpower_110	duration = -1 hidden = yes}}
-			109	 = {add_country_modifier = {name = nationalismus_manpower_109	duration = -1 hidden = yes}}
-			108	 = {add_country_modifier = {name = nationalismus_manpower_108	duration = -1 hidden = yes}}
-			107	 = {add_country_modifier = {name = nationalismus_manpower_107	duration = -1 hidden = yes}}
-			106	 = {add_country_modifier = {name = nationalismus_manpower_106	duration = -1 hidden = yes}}
-			105	 = {add_country_modifier = {name = nationalismus_manpower_105	duration = -1 hidden = yes}}
-			104	 = {add_country_modifier = {name = nationalismus_manpower_104	duration = -1 hidden = yes}}
-			103	 = {add_country_modifier = {name = nationalismus_manpower_103	duration = -1 hidden = yes}}
-			102	 = {add_country_modifier = {name = nationalismus_manpower_102	duration = -1 hidden = yes}}
-			101	 = {add_country_modifier = {name = nationalismus_manpower_101	duration = -1 hidden = yes}}
-			100	 = {add_country_modifier = {name = nationalismus_manpower_100	duration = -1 hidden = yes}}
-			99	 = {add_country_modifier = {name = nationalismus_manpower_99	duration = -1 hidden = yes}}
-			98	 = {add_country_modifier = {name = nationalismus_manpower_98	duration = -1 hidden = yes}}
-			97	 = {add_country_modifier = {name = nationalismus_manpower_97	duration = -1 hidden = yes}}
-			96	 = {add_country_modifier = {name = nationalismus_manpower_96	duration = -1 hidden = yes}}
-			95	 = {add_country_modifier = {name = nationalismus_manpower_95	duration = -1 hidden = yes}}
-			94	 = {add_country_modifier = {name = nationalismus_manpower_94	duration = -1 hidden = yes}}
-			93	 = {add_country_modifier = {name = nationalismus_manpower_93	duration = -1 hidden = yes}}
-			92	 = {add_country_modifier = {name = nationalismus_manpower_92	duration = -1 hidden = yes}}
-			91	 = {add_country_modifier = {name = nationalismus_manpower_91	duration = -1 hidden = yes}}
-			90	 = {add_country_modifier = {name = nationalismus_manpower_90	duration = -1 hidden = yes}}
-			89	 = {add_country_modifier = {name = nationalismus_manpower_89	duration = -1 hidden = yes}}
-			88	 = {add_country_modifier = {name = nationalismus_manpower_88	duration = -1 hidden = yes}}
-			87	 = {add_country_modifier = {name = nationalismus_manpower_87	duration = -1 hidden = yes}}
-			86	 = {add_country_modifier = {name = nationalismus_manpower_86	duration = -1 hidden = yes}}
-			85	 = {add_country_modifier = {name = nationalismus_manpower_85	duration = -1 hidden = yes}}
-			84	 = {add_country_modifier = {name = nationalismus_manpower_84	duration = -1 hidden = yes}}
-			83	 = {add_country_modifier = {name = nationalismus_manpower_83	duration = -1 hidden = yes}}
-			82	 = {add_country_modifier = {name = nationalismus_manpower_82	duration = -1 hidden = yes}}
-			81	 = {add_country_modifier = {name = nationalismus_manpower_81	duration = -1 hidden = yes}}
-			80	 = {add_country_modifier = {name = nationalismus_manpower_80	duration = -1 hidden = yes}}
-			79	 = {add_country_modifier = {name = nationalismus_manpower_79	duration = -1 hidden = yes}}
-			78	 = {add_country_modifier = {name = nationalismus_manpower_78	duration = -1 hidden = yes}}
-			77	 = {add_country_modifier = {name = nationalismus_manpower_77	duration = -1 hidden = yes}}
-			76	 = {add_country_modifier = {name = nationalismus_manpower_76	duration = -1 hidden = yes}}
-			75	 = {add_country_modifier = {name = nationalismus_manpower_75	duration = -1 hidden = yes}}
-			74	 = {add_country_modifier = {name = nationalismus_manpower_74	duration = -1 hidden = yes}}
-			73	 = {add_country_modifier = {name = nationalismus_manpower_73	duration = -1 hidden = yes}}
-			72	 = {add_country_modifier = {name = nationalismus_manpower_72	duration = -1 hidden = yes}}
-			71	 = {add_country_modifier = {name = nationalismus_manpower_71	duration = -1 hidden = yes}}
-			70	 = {add_country_modifier = {name = nationalismus_manpower_70	duration = -1 hidden = yes}}
-			69	 = {add_country_modifier = {name = nationalismus_manpower_69	duration = -1 hidden = yes}}
-			68	 = {add_country_modifier = {name = nationalismus_manpower_68	duration = -1 hidden = yes}}
-			67	 = {add_country_modifier = {name = nationalismus_manpower_67	duration = -1 hidden = yes}}
-			66	 = {add_country_modifier = {name = nationalismus_manpower_66	duration = -1 hidden = yes}}
-			65	 = {add_country_modifier = {name = nationalismus_manpower_65	duration = -1 hidden = yes}}
-			64	 = {add_country_modifier = {name = nationalismus_manpower_64	duration = -1 hidden = yes}}
-			63	 = {add_country_modifier = {name = nationalismus_manpower_63	duration = -1 hidden = yes}}
-			62	 = {add_country_modifier = {name = nationalismus_manpower_62	duration = -1 hidden = yes}}
-			61	 = {add_country_modifier = {name = nationalismus_manpower_61	duration = -1 hidden = yes}}
-			60	 = {add_country_modifier = {name = nationalismus_manpower_60	duration = -1 hidden = yes}}
-			59	 = {add_country_modifier = {name = nationalismus_manpower_59	duration = -1 hidden = yes}}
-			58	 = {add_country_modifier = {name = nationalismus_manpower_58	duration = -1 hidden = yes}}
-			57	 = {add_country_modifier = {name = nationalismus_manpower_57	duration = -1 hidden = yes}}
-			56	 = {add_country_modifier = {name = nationalismus_manpower_56	duration = -1 hidden = yes}}
-			55	 = {add_country_modifier = {name = nationalismus_manpower_55	duration = -1 hidden = yes}}
-			54	 = {add_country_modifier = {name = nationalismus_manpower_54	duration = -1 hidden = yes}}
-			53	 = {add_country_modifier = {name = nationalismus_manpower_53	duration = -1 hidden = yes}}
-			52	 = {add_country_modifier = {name = nationalismus_manpower_52	duration = -1 hidden = yes}}
-			51	 = {add_country_modifier = {name = nationalismus_manpower_51	duration = -1 hidden = yes}}
-			50	 = {add_country_modifier = {name = nationalismus_manpower_50	duration = -1 hidden = yes}}
-			49	 = {add_country_modifier = {name = nationalismus_manpower_49	duration = -1 hidden = yes}}
-			48	 = {add_country_modifier = {name = nationalismus_manpower_48	duration = -1 hidden = yes}}
-			47	 = {add_country_modifier = {name = nationalismus_manpower_47	duration = -1 hidden = yes}}
-			46	 = {add_country_modifier = {name = nationalismus_manpower_46	duration = -1 hidden = yes}}
-			45	 = {add_country_modifier = {name = nationalismus_manpower_45	duration = -1 hidden = yes}}
-			44	 = {add_country_modifier = {name = nationalismus_manpower_44	duration = -1 hidden = yes}}
-			43	 = {add_country_modifier = {name = nationalismus_manpower_43	duration = -1 hidden = yes}}
-			42	 = {add_country_modifier = {name = nationalismus_manpower_42	duration = -1 hidden = yes}}
-			41	 = {add_country_modifier = {name = nationalismus_manpower_41	duration = -1 hidden = yes}}
-			40	 = {add_country_modifier = {name = nationalismus_manpower_40	duration = -1 hidden = yes}}
-			39	 = {add_country_modifier = {name = nationalismus_manpower_39	duration = -1 hidden = yes}}
-			38	 = {add_country_modifier = {name = nationalismus_manpower_38	duration = -1 hidden = yes}}
-			37	 = {add_country_modifier = {name = nationalismus_manpower_37	duration = -1 hidden = yes}}
-			36	 = {add_country_modifier = {name = nationalismus_manpower_36	duration = -1 hidden = yes}}
-			35	 = {add_country_modifier = {name = nationalismus_manpower_35	duration = -1 hidden = yes}}
-			34	 = {add_country_modifier = {name = nationalismus_manpower_34	duration = -1 hidden = yes}}
-			33	 = {add_country_modifier = {name = nationalismus_manpower_33	duration = -1 hidden = yes}}
-			32	 = {add_country_modifier = {name = nationalismus_manpower_32	duration = -1 hidden = yes}}
-			31	 = {add_country_modifier = {name = nationalismus_manpower_31	duration = -1 hidden = yes}}
-			30	 = {add_country_modifier = {name = nationalismus_manpower_30	duration = -1 hidden = yes}}
-			29	 = {add_country_modifier = {name = nationalismus_manpower_29	duration = -1 hidden = yes}}
-			28	 = {add_country_modifier = {name = nationalismus_manpower_28	duration = -1 hidden = yes}}
-			27	 = {add_country_modifier = {name = nationalismus_manpower_27	duration = -1 hidden = yes}}
-			26	 = {add_country_modifier = {name = nationalismus_manpower_26	duration = -1 hidden = yes}}
-			25	 = {add_country_modifier = {name = nationalismus_manpower_25	duration = -1 hidden = yes}}
-			24	 = {add_country_modifier = {name = nationalismus_manpower_24	duration = -1 hidden = yes}}
-			23	 = {add_country_modifier = {name = nationalismus_manpower_23	duration = -1 hidden = yes}}
-			22	 = {add_country_modifier = {name = nationalismus_manpower_22	duration = -1 hidden = yes}}
-			21	 = {add_country_modifier = {name = nationalismus_manpower_21	duration = -1 hidden = yes}}
-			20	 = {add_country_modifier = {name = nationalismus_manpower_20	duration = -1 hidden = yes}}
-			19	 = {add_country_modifier = {name = nationalismus_manpower_19	duration = -1 hidden = yes}}
-			18	 = {add_country_modifier = {name = nationalismus_manpower_18	duration = -1 hidden = yes}}
-			17	 = {add_country_modifier = {name = nationalismus_manpower_17	duration = -1 hidden = yes}}
-			16	 = {add_country_modifier = {name = nationalismus_manpower_16	duration = -1 hidden = yes}}
-			15	 = {add_country_modifier = {name = nationalismus_manpower_15	duration = -1 hidden = yes}}
-			14	 = {add_country_modifier = {name = nationalismus_manpower_14	duration = -1 hidden = yes}}
-			13	 = {add_country_modifier = {name = nationalismus_manpower_13	duration = -1 hidden = yes}}
-			12	 = {add_country_modifier = {name = nationalismus_manpower_12	duration = -1 hidden = yes}}
-			11	 = {add_country_modifier = {name = nationalismus_manpower_11	duration = -1 hidden = yes}}
-			10	 = {add_country_modifier = {name = nationalismus_manpower_10	duration = -1 hidden = yes}}
-			9	 = {add_country_modifier = {name = nationalismus_manpower_9		duration = -1 hidden = yes}}
-			8	 = {add_country_modifier = {name = nationalismus_manpower_8		duration = -1 hidden = yes}}
-			7	 = {add_country_modifier = {name = nationalismus_manpower_7		duration = -1 hidden = yes}}
-			6	 = {add_country_modifier = {name = nationalismus_manpower_6		duration = -1 hidden = yes}}
-			5	 = {add_country_modifier = {name = nationalismus_manpower_5		duration = -1 hidden = yes}}
-			4	 = {add_country_modifier = {name = nationalismus_manpower_4		duration = -1 hidden = yes}}
-			3	 = {add_country_modifier = {name = nationalismus_manpower_3		duration = -1 hidden = yes}}
-			2	 = {add_country_modifier = {name = nationalismus_manpower_2		duration = -1 hidden = yes}}
-			1	 = {add_country_modifier = {name = nationalismus_manpower_1		duration = -1 hidden = yes}}
-		}
-	}
-	if = {
-		limit = {
-			has_idea = zentra5
-		}
-		trigger_switch = {
-			on_trigger = current_age
-			age_of_revolutions = {add_country_modifier = {name = zentra_manpower_3 duration = -1 hidden = yes}}
-			age_of_absolutism = {add_country_modifier = {name = zentra_manpower_2 duration = -1 hidden = yes}}
-			age_of_reformation = {add_country_modifier = {name = zentra_manpower_1 duration = -1 hidden = yes}}
-		}
-	}
-	if = {
-		limit = {
-			has_idea = imperialismus2
-		}
-		trigger_switch = {
-			on_trigger = current_age
-			age_of_revolutions = {add_country_modifier = {name = imperialismus_autoritaet_3 duration = -1 hidden = yes}}
-			age_of_absolutism = {add_country_modifier = {name = imperialismus_autoritaet_2 duration = -1 hidden = yes}}
-			age_of_reformation = {add_country_modifier = {name = imperialismus_autoritaet_1 duration = -1 hidden = yes}}
-		}
-	}
-	if = {
-		limit = {
-			has_idea = konigreich2
-		}
-		trigger_switch = {
-			on_trigger = current_age
-			age_of_revolutions = {add_country_modifier = {name = konigreich_force_land_3 duration = -1 hidden = yes}}
-			age_of_absolutism = {add_country_modifier = {name = konigreich_force_land_2 duration = -1 hidden = yes}}
-			age_of_reformation = {add_country_modifier = {name = konigreich_force_land_1 duration = -1 hidden = yes}}
-		}
-	}
-	if = {
-		limit = {
-			has_idea = konigreich5
-		}
-		trigger_switch = {
-			on_trigger = current_age
-			age_of_revolutions = {add_country_modifier = {name = konigreich_force_fleet_3 duration = -1 hidden = yes}}
-			age_of_absolutism = {add_country_modifier = {name = konigreich_force_fleet_2 duration = -1 hidden = yes}}
-			age_of_reformation = {add_country_modifier = {name = konigreich_force_fleet_1 duration = -1 hidden = yes}}
-		}
-	}
-	if = {
-		limit = {
-			has_idea = Z01_4
-			legitimacy_equivalent = 90
-		}
-		add_country_modifier = {name = Z01_4_idea_legitimacy duration = -1 hidden=  yes}
-	}
-	if = {
-		limit = {
-			has_idea = monarchie1
-			legitimacy_equivalent = 80
-		}
-		add_country_modifier = {name = monarchy_bonus duration = -1 hidden=  yes}
-	}
-	if = {
-		limit = {
-			has_global_flag = imperial_faith_hre_flag
-			is_part_of_hre = yes
-		}
-		add_country_modifier = {name = imperial_faith_hre_mechanic duration = -1 hidden=  yes}
-	}
-	if = {
-		limit = {
-			has_global_flag = religious_tolerance_hre_flag
-			is_part_of_hre = yes
-		}
-		add_country_modifier = {name = religious_tolerance_hre_mechanic duration = -1 hidden=  yes}
-	}
-	if = {
-		limit = {
-			has_global_flag = closed_market_hre_flag
-			is_part_of_hre = yes
-		}
-		add_country_modifier = {name = closed_market_hre_mechanic duration = -1 hidden=  yes}
-	}
-	if = {
-		limit = {
-			has_global_flag = open_market_hre_flag
-			is_part_of_hre = yes
-		}
-		add_country_modifier = {name = open_market_hre_mechanic duration = -1 hidden=  yes}
-	}
-	if = {
-		limit = {
-			has_global_flag = imperial_emperors_will_hre_flag
-			is_part_of_hre = yes
-			OR = {
-				AND = {emperor = {has_country_modifier = human_administration} has_country_modifier = human_administration}
-				AND = {emperor = {has_country_modifier = elven_administration} has_country_modifier = elven_administration}
-				AND = {emperor = {has_country_modifier = dwarven_administration} has_country_modifier = dwarven_administration}
-				AND = {emperor = {has_country_modifier = halfling_administration} has_country_modifier = halfling_administration}
-				AND = {emperor = {has_country_modifier = gnomish_administration} has_country_modifier = gnomish_administration}
-				AND = {emperor = {has_country_modifier = harimari_administration} has_country_modifier = harimari_administration}
-				AND = {emperor = {has_country_modifier = gnollish_administration} has_country_modifier = gnollish_administration}
-				AND = {emperor = {has_country_modifier = ruinborn_administration} has_country_modifier = ruinborn_administration}
-				AND = {emperor = {has_country_modifier = orcish_administration} has_country_modifier = orcish_administration}
-				AND = {emperor = {has_country_modifier = goblin_administration} has_country_modifier = goblin_administration}
-				AND = {emperor = {has_country_modifier = ogre_administration} has_country_modifier = ogre_administration}
-				AND = {emperor = {has_country_modifier = centaur_administration} has_country_modifier = centaur_administration}
-				AND = {emperor = {has_country_modifier = troll_administration} has_country_modifier = troll_administration}
-				AND = {emperor = {has_country_modifier = harpy_administration} has_country_modifier = harpy_administration}
-				AND = {emperor = {has_country_modifier = half_orcish_administration} has_country_modifier = half_orcish_administration}
-				AND = {emperor = {has_country_modifier = half_elven_administration} has_country_modifier = half_elven_administration}
-				AND = {emperor = {has_country_modifier = hobgoblin_administration} has_country_modifier = hobgoblin_administration}
-				AND = {emperor = {has_country_modifier = kobold_administration} has_country_modifier = kobold_administration}
-			}
-		}
-		add_country_modifier = {name = emperors_will_mechanic duration = -1 hidden=  yes}
-	}
-	if = {
-		limit = {
-			has_global_flag = imperial_dominance_hre_flag
-			is_emperor = yes
-			OR = {
-				AND = {any_elector = {NOT = { has_country_modifier = human_administration}} has_country_modifier = human_administration}
-				AND = {any_elector = {NOT = { has_country_modifier = elven_administration}} has_country_modifier = elven_administration}
-				AND = {any_elector = {NOT = { has_country_modifier = dwarven_administration}} has_country_modifier = dwarven_administration}
-				AND = {any_elector = {NOT = { has_country_modifier = halfling_administration}} has_country_modifier = halfling_administration}
-				AND = {any_elector = {NOT = { has_country_modifier = gnomish_administration}} has_country_modifier = gnomish_administration}
-				AND = {any_elector = {NOT = { has_country_modifier = harimari_administration}} has_country_modifier = harimari_administration}
-				AND = {any_elector = {NOT = { has_country_modifier = gnollish_administration}} has_country_modifier = gnollish_administration}
-				AND = {any_elector = {NOT = { has_country_modifier = ruinborn_administration}} has_country_modifier = ruinborn_administration}
-				AND = {any_elector = {NOT = { has_country_modifier = orcish_administration}} has_country_modifier = orcish_administration}
-				AND = {any_elector = {NOT = { has_country_modifier = goblin_administration}} has_country_modifier = goblin_administration}
-				AND = {any_elector = {NOT = { has_country_modifier = ogre_administration}} has_country_modifier = ogre_administration}
-				AND = {any_elector = {NOT = { has_country_modifier = centaur_administration}} has_country_modifier = centaur_administration}
-				AND = {any_elector = {NOT = { has_country_modifier = troll_administration}} has_country_modifier = troll_administration}
-				AND = {any_elector = {NOT = { has_country_modifier = harpy_administration}} has_country_modifier = harpy_administration}
-				AND = {any_elector = {NOT = { has_country_modifier = half_orcish_administration}} has_country_modifier = half_orcish_administration}
-				AND = {any_elector = {NOT = { has_country_modifier = half_elven_administration}} has_country_modifier = half_elven_administration}
-				AND = {any_elector = {NOT = { has_country_modifier = hobgoblin_administration}} has_country_modifier = hobgoblin_administration}
-				AND = {any_elector = {NOT = { has_country_modifier = kobold_administration}} has_country_modifier = kobold_administration}
-			}
-		}
-		add_country_modifier = {name = salere_reform_hre_malus_mechanic duration = -1 hidden=  yes}
-	}
-	if = {
-		limit = {
-			has_global_flag = imperial_dominance_hre_flag
-			is_emperor = yes
-			OR = {
-				AND = {all_elector = {has_country_modifier = human_administration} has_country_modifier = human_administration}
-				AND = {all_elector = {has_country_modifier = elven_administration} has_country_modifier = elven_administration}
-				AND = {all_elector = {has_country_modifier = dwarven_administration} has_country_modifier = dwarven_administration}
-				AND = {all_elector = {has_country_modifier = halfling_administration} has_country_modifier = halfling_administration}
-				AND = {all_elector = {has_country_modifier = gnomish_administration} has_country_modifier = gnomish_administration}
-				AND = {all_elector = {has_country_modifier = harimari_administration} has_country_modifier = harimari_administration}
-				AND = {all_elector = {has_country_modifier = gnollish_administration} has_country_modifier = gnollish_administration}
-				AND = {all_elector = {has_country_modifier = ruinborn_administration} has_country_modifier = ruinborn_administration}
-				AND = {all_elector = {has_country_modifier = orcish_administration} has_country_modifier = orcish_administration}
-				AND = {all_elector = {has_country_modifier = goblin_administration} has_country_modifier = goblin_administration}
-				AND = {all_elector = {has_country_modifier = ogre_administration} has_country_modifier = ogre_administration}
-				AND = {all_elector = {has_country_modifier = centaur_administration} has_country_modifier = centaur_administration}
-				AND = {all_elector = {has_country_modifier = troll_administration} has_country_modifier = troll_administration}
-				AND = {all_elector = {has_country_modifier = harpy_administration} has_country_modifier = harpy_administration}
-				AND = {all_elector = {has_country_modifier = half_orcish_administration} has_country_modifier = half_orcish_administration}
-				AND = {all_elector = {has_country_modifier = half_elven_administration} has_country_modifier = half_elven_administration}
-				AND = {all_elector = {has_country_modifier = hobgoblin_administration} has_country_modifier = hobgoblin_administration}
-				AND = {all_elector = {has_country_modifier = kobold_administration} has_country_modifier = kobold_administration}
-			}
-		}
-		add_country_modifier = {name = salere_reform_hre_bonus_mechanic duration = -1 hidden=  yes}
-	}
-	if = {
-		limit = {
-			has_global_flag = federal_dominance_hre_flag
-			is_emperor = yes
-			all_races_represented = no
-		}
-		add_country_modifier = {name = races_represented_malus_mechanic duration = -1 hidden=  yes}
-	}
-	if = {
-		limit = {
-			has_global_flag = federal_dominance_hre_flag
-			is_part_of_hre = yes
-			all_races_represented = yes
-		}
-		add_country_modifier = {name = races_represented_bonus_mechanic duration = -1 hidden=  yes}
-	}
-	if = {
-		limit = {
-			has_global_flag = federal_dominance_hre_flag
-			is_emperor = yes
-		}
-		add_country_modifier = {name = federal_dominance_hre_extra_electors duration = -1 hidden=  yes}
-	}
-	if = {
-		limit = {
-			has_government_attribute = boosted_absolutism
-		}
-		trigger_switch = {
-			on_trigger = absolutism
-			120 = {add_country_modifier = {name = boosted_absolutism_120 duration = -1 hidden = yes}}
-			100 = {add_country_modifier = {name = boosted_absolutism_100 duration = -1 hidden = yes}}
-			80 = {add_country_modifier = {name = boosted_absolutism_80 duration = -1 hidden = yes}}
-			60 = {add_country_modifier = {name = boosted_absolutism_60 duration = -1 hidden = yes}}
-			40 = {add_country_modifier = {name = boosted_absolutism_40 duration = -1 hidden = yes}}
-			20 = {add_country_modifier = {name = boosted_absolutism_20 duration = -1 hidden = yes}}
-		}
-	}
-	if = {
-		limit = {
-			has_global_flag = aggresive_expansion_deactivated_flag
-			ai = no
-		}
-		add_country_modifier = {name = deactivated_ae duration = -1 hidden=  yes}
-	}
-	if = {
-		limit = {
-			empire_of_china_reform_passed = crodamos_camel_cavalry_decision
-			is_emperor_of_china = yes
-		}
-		add_country_modifier = {name = crodamos_elite_camel_modifier duration = -1}
-	}
 	if = {
 		limit = {
 			has_idea = B46_cowardly_tactics
@@ -5049,74 +4688,311 @@ update_race_modifiers = {
 		else_if = {limit = {mil_tech = 13} add_country_modifier = {name = elven_artillery_tech_13 duration = -1 hidden = yes}}
 		else_if = {limit = {mil_tech = 7} add_country_modifier = {name = elven_artillery_tech_7 duration = -1 hidden = yes}}
 	}
+
+}
+update_race_modifiers = {
+	remove_country_modifier = boosted_stability_1
+	remove_country_modifier = boosted_stability_2
+	remove_country_modifier = boosted_stability_3
+	remove_country_modifier = dynastic_bonus_1
+	remove_country_modifier = dynastic_bonus_2
+	remove_country_modifier = dynastic_bonus_3
+	remove_country_modifier = dynastic_bonus_4
+	remove_country_modifier = dynastic_bonus_5
+	remove_country_modifier = dynastic_bonus_6
+	remove_country_modifier = kolo3_1_bonus
+	remove_country_modifier = kolo3_2_bonus
+	remove_country_modifier = kolo3_3_bonus
+	remove_country_modifier = kolo3_4_bonus
+	remove_country_modifier = kolo3_5_bonus
+	remove_country_modifier = kolo3_6_bonus
+	remove_country_modifier = kolo3_7_bonus
+	remove_country_modifier = kolo3_8_bonus
+	remove_country_modifier = kolo3_9_bonus
+	remove_country_modifier = kolo3_10_bonus
+	remove_country_modifier = kolo4_1_bonus
+	remove_country_modifier = kolo4_2_bonus
+	remove_country_modifier = kolo4_3_bonus
+	remove_country_modifier = kolo4_4_bonus
+	remove_country_modifier = kolo4_5_bonus
+	remove_country_modifier = kolo4_6_bonus
+	remove_country_modifier = kolo4_7_bonus
+	remove_country_modifier = kolo4_8_bonus
+	remove_country_modifier = kolo4_9_bonus
+	remove_country_modifier = kolo4_10_bonus
+	remove_country_modifier = kolo6_1_bonus
+	remove_country_modifier = kolo6_2_bonus
+	remove_country_modifier = kolo6_3_bonus
+	remove_country_modifier = kolo6_4_bonus
+	remove_country_modifier = kolo6_5_bonus
+	remove_country_modifier = kolo6_6_bonus
+	remove_country_modifier = kolo6_7_bonus
+	remove_country_modifier = kolo6_8_bonus
+	remove_country_modifier = kolo6_9_bonus
+	remove_country_modifier = kolo6_10_bonus
+	remove_country_modifier = imperial_faith_hre_mechanic
+	remove_country_modifier = religious_tolerance_hre_mechanic
+	remove_country_modifier = closed_market_hre_mechanic
+	remove_country_modifier = open_market_hre_mechanic
+	remove_country_modifier = salere_reform_hre_malus_mechanic
+	remove_country_modifier = emperors_will_mechanic
+	remove_country_modifier = salere_reform_hre_bonus_mechanic
+	remove_country_modifier = races_represented_malus_mechanic
+	remove_country_modifier = federal_dominance_hre_extra_electors
+	remove_country_modifier = races_represented_bonus_mechanic
+	remove_country_modifier = deactivated_ae
+	remove_country_modifier = halfling_economic_chairman_mercantilism_10
+	remove_country_modifier = halfling_economic_chairman_mercantilism_20
+	remove_country_modifier = halfling_economic_chairman_mercantilism_30
+	remove_country_modifier = halfling_economic_chairman_mercantilism_40
+	remove_country_modifier = halfling_economic_chairman_mercantilism_50
+	remove_country_modifier = halfling_economic_chairman_mercantilism_60
+	remove_country_modifier = halfling_economic_chairman_mercantilism_70
+	remove_country_modifier = halfling_economic_chairman_mercantilism_80
+	remove_country_modifier = halfling_economic_chairman_mercantilism_90
+	remove_country_modifier = halfling_economic_chairman_mercantilism_100
+	remove_country_modifier = gnomish_militar_chairman_10
+	remove_country_modifier = gnomish_militar_chairman_20
+	remove_country_modifier = gnomish_militar_chairman_30
+	remove_country_modifier = gnomish_militar_chairman_40
+	remove_country_modifier = gnomish_militar_chairman_50
+	remove_country_modifier = gnomish_militar_chairman_60
+	remove_country_modifier = gnomish_militar_chairman_70
+	remove_country_modifier = gnomish_militar_chairman_80
+	remove_country_modifier = gnomish_militar_chairman_90
+	remove_country_modifier = gnomish_militar_chairman_100
+	remove_country_modifier = crodamos_elite_camel_modifier
+	remove_country_modifier = elite_cavalry_modifier
+	remove_country_modifier = legacy_of_bladebreakers_modifier
+	remove_country_modifier = elite_marine_modifier
+	remove_country_modifier = elite_gnollish_guard_modifier
+	remove_country_modifier = goblin_fungi_fanatic_modifier
+	remove_country_modifier = idea_imperial_guard_modifier
+	remove_country_modifier = goblin_shamans_fire_modifier
 	if = {
-		limit = {
-			OR = {
-				has_race_recruitment = {race = elven}
-				has_race_recruitment = {race = half_elven}
-			}
-			NOT = {
-				has_race_recruitment = {race = human}
-				has_race_recruitment = {race = dwarven}
-				has_race_recruitment = {race = halfling}
-				has_race_recruitment = {race = gnomish}
-				has_race_recruitment = {race = orcish}
-				has_race_recruitment = {race = goblin}
-				has_race_recruitment = {race = kobold}
-			}
-		}
-		add_country_modifier = {name = fast_pace_race_mechanic duration = -1 hidden = yes}
+		limit = {has_country_flag = unified_gnoll_flag}
+		add_country_modifier = {name = elite_gnollish_guard_modifier duration = -1 hidden = yes}
+	}
+	if = {
+		limit = {has_idea = imperialismus7}
+		add_country_modifier = {name = idea_imperial_guard_modifier duration = -1 hidden = yes}
 	}
 	if = {
 		limit = {
 			OR = {
-				has_race_recruitment = {race = dwarven}
-				has_race_recruitment = {race = halfling}
-				has_race_recruitment = {race = goblin}
-				has_race_recruitment = {race = gnomish}
-				has_race_recruitment = {race = kobolds}
+				has_country_flag = elite_marine_flag
+				has_country_modifier = gnollish_military
+				has_idea = A11_seafaring_traditions
+				has_idea = Z50_ambitions_of_temar_ironsea
+				has_idea = A02_reaver_blood
 			}
 		}
-		add_country_modifier = {name = slow_pace_mechanic duration = -1 hidden = yes}
+		add_country_modifier = {name = elite_marine_modifier duration = -1 hidden = yes}
 	}
 	if = {
 		limit = {
-			OR = {
-				has_race_recruitment = {race = elven}
-				has_race_recruitment = {race = dwarven}
-				has_race_recruitment = {race = half_elven}
+			has_country_modifier = goblin_military
+			check_variable = {
+				which = fungi
+				value = 10
 			}
-			has_country_modifier = monstrous_nation
 		}
-		add_country_modifier = {name = malus_if_monstrous_mechanic duration = -1 hidden = yes}
+		add_country_modifier = {name = goblin_fungi_fanatic_modifier duration = -1 hidden = yes}
+	}
+	if = {
+		limit = {has_idea = B46_shamans}
+		add_country_modifier = {name = goblin_shamans_fire_modifier duration = -1 hidden = yes}
 	}
 	if = {
 		limit = {
-			has_government_attribute = cultural_bureaucracy
+			has_idea = Z52_legacy_of_bladebreakers
+		}
+		add_country_modifier = {name = legacy_of_bladebreakers_modifier duration = -1 hidden = yes}
+	}
+	if = {
+		limit = {
+			has_government_attribute = boosted_stability
 		}
 		trigger_switch = {
-			on_trigger = num_accepted_cultures
-			20 = {add_country_modifier = {name = cultural_bureaucracy_20 duration = -1 hidden = yes}}
-			19 = {add_country_modifier = {name = cultural_bureaucracy_19 duration = -1 hidden = yes}}
-			18 = {add_country_modifier = {name = cultural_bureaucracy_18 duration = -1 hidden = yes}}
-			17 = {add_country_modifier = {name = cultural_bureaucracy_17 duration = -1 hidden = yes}}
-			16 = {add_country_modifier = {name = cultural_bureaucracy_16 duration = -1 hidden = yes}}
-			15 = {add_country_modifier = {name = cultural_bureaucracy_15 duration = -1 hidden = yes}}
-			14 = {add_country_modifier = {name = cultural_bureaucracy_14 duration = -1 hidden = yes}}
-			13 = {add_country_modifier = {name = cultural_bureaucracy_13 duration = -1 hidden = yes}}
-			12 = {add_country_modifier = {name = cultural_bureaucracy_12 duration = -1 hidden = yes}}
-			11 = {add_country_modifier = {name = cultural_bureaucracy_11 duration = -1 hidden = yes}}
-			10 = {add_country_modifier = {name = cultural_bureaucracy_10 duration = -1 hidden = yes}}
-			9 = {add_country_modifier = {name = cultural_bureaucracy_9 duration = -1 hidden = yes}}
-			8 = {add_country_modifier = {name = cultural_bureaucracy_8 duration = -1 hidden = yes}}
-			7 = {add_country_modifier = {name = cultural_bureaucracy_7 duration = -1 hidden = yes}}
-			6 = {add_country_modifier = {name = cultural_bureaucracy_6 duration = -1 hidden = yes}}
-			5 = {add_country_modifier = {name = cultural_bureaucracy_5 duration = -1 hidden = yes}}
-			4 = {add_country_modifier = {name = cultural_bureaucracy_4 duration = -1 hidden = yes}}
-			3 = {add_country_modifier = {name = cultural_bureaucracy_3 duration = -1 hidden = yes}}
-			2 = {add_country_modifier = {name = cultural_bureaucracy_2 duration = -1 hidden = yes}}
-			1 = {add_country_modifier = {name = cultural_bureaucracy_1 duration = -1 hidden = yes}}
+			on_trigger = stability
+			3 = {add_country_modifier = {name = boosted_stability_3 duration = -1 hidden = yes}}
+			2 = {add_country_modifier = {name = boosted_stability_2 duration = -1 hidden = yes}}
+			1 = {add_country_modifier = {name = boosted_stability_1 duration = -1 hidden = yes}}
 		}
+	}
+	if = {
+		limit = {
+			has_idea = foreign_embassies_2
+			has_new_dynasty = no
+		}
+		get_dynastic_bonus_modifier = yes
+	}
+	if = {
+		limit = {
+			has_idea = kolonialimperium4
+			colony = 1
+		}
+		add_colony_amount_modifier = {type = kolo3}
+	}
+	if = {
+		limit = {
+			has_idea = kolonialimperium3
+			colony = 1
+		}
+		add_colony_amount_modifier = {type = kolo4}
+	}
+	if = {
+		limit = {
+			has_idea = kolonialimperium6
+			colony = 1
+		}
+		add_colony_amount_modifier = {type = kolo6}
+	}
+	if = {
+		limit = {
+			has_global_flag = imperial_faith_hre_flag
+			is_part_of_hre = yes
+		}
+		add_country_modifier = {name = imperial_faith_hre_mechanic duration = -1 hidden = yes}
+	}
+	if = {
+		limit = {
+			has_global_flag = religious_tolerance_hre_flag
+			is_part_of_hre = yes
+		}
+		add_country_modifier = {name = religious_tolerance_hre_mechanic duration = -1 hidden = yes}
+	}
+	if = {
+		limit = {
+			has_global_flag = closed_market_hre_flag
+			is_part_of_hre = yes
+		}
+		add_country_modifier = {name = closed_market_hre_mechanic duration = -1 hidden = yes}
+	}
+	if = {
+		limit = {
+			has_global_flag = open_market_hre_flag
+			is_part_of_hre = yes
+		}
+		add_country_modifier = {name = open_market_hre_mechanic duration = -1 hidden = yes}
+	}
+	if = {
+		limit = {
+			has_global_flag = imperial_emperors_will_hre_flag
+			is_part_of_hre = yes
+			OR = {
+				AND = {emperor = {has_country_modifier = human_administration} has_country_modifier = human_administration}
+				AND = {emperor = {has_country_modifier = elven_administration} has_country_modifier = elven_administration}
+				AND = {emperor = {has_country_modifier = dwarven_administration} has_country_modifier = dwarven_administration}
+				AND = {emperor = {has_country_modifier = halfling_administration} has_country_modifier = halfling_administration}
+				AND = {emperor = {has_country_modifier = gnomish_administration} has_country_modifier = gnomish_administration}
+				AND = {emperor = {has_country_modifier = harimari_administration} has_country_modifier = harimari_administration}
+				AND = {emperor = {has_country_modifier = gnollish_administration} has_country_modifier = gnollish_administration}
+				AND = {emperor = {has_country_modifier = ruinborn_administration} has_country_modifier = ruinborn_administration}
+				AND = {emperor = {has_country_modifier = orcish_administration} has_country_modifier = orcish_administration}
+				AND = {emperor = {has_country_modifier = goblin_administration} has_country_modifier = goblin_administration}
+				AND = {emperor = {has_country_modifier = ogre_administration} has_country_modifier = ogre_administration}
+				AND = {emperor = {has_country_modifier = centaur_administration} has_country_modifier = centaur_administration}
+				AND = {emperor = {has_country_modifier = troll_administration} has_country_modifier = troll_administration}
+				AND = {emperor = {has_country_modifier = harpy_administration} has_country_modifier = harpy_administration}
+				AND = {emperor = {has_country_modifier = half_orcish_administration} has_country_modifier = half_orcish_administration}
+				AND = {emperor = {has_country_modifier = half_elven_administration} has_country_modifier = half_elven_administration}
+				AND = {emperor = {has_country_modifier = hobgoblin_administration} has_country_modifier = hobgoblin_administration}
+				AND = {emperor = {has_country_modifier = kobold_administration} has_country_modifier = kobold_administration}
+			}
+		}
+		add_country_modifier = {name = emperors_will_mechanic duration = -1 hidden = yes}
+	}
+	if = {
+		limit = {
+			has_global_flag = imperial_dominance_hre_flag
+			is_emperor = yes
+			OR = {
+				AND = {any_elector = {NOT = { has_country_modifier = human_administration}} has_country_modifier = human_administration}
+				AND = {any_elector = {NOT = { has_country_modifier = elven_administration}} has_country_modifier = elven_administration}
+				AND = {any_elector = {NOT = { has_country_modifier = dwarven_administration}} has_country_modifier = dwarven_administration}
+				AND = {any_elector = {NOT = { has_country_modifier = halfling_administration}} has_country_modifier = halfling_administration}
+				AND = {any_elector = {NOT = { has_country_modifier = gnomish_administration}} has_country_modifier = gnomish_administration}
+				AND = {any_elector = {NOT = { has_country_modifier = harimari_administration}} has_country_modifier = harimari_administration}
+				AND = {any_elector = {NOT = { has_country_modifier = gnollish_administration}} has_country_modifier = gnollish_administration}
+				AND = {any_elector = {NOT = { has_country_modifier = ruinborn_administration}} has_country_modifier = ruinborn_administration}
+				AND = {any_elector = {NOT = { has_country_modifier = orcish_administration}} has_country_modifier = orcish_administration}
+				AND = {any_elector = {NOT = { has_country_modifier = goblin_administration}} has_country_modifier = goblin_administration}
+				AND = {any_elector = {NOT = { has_country_modifier = ogre_administration}} has_country_modifier = ogre_administration}
+				AND = {any_elector = {NOT = { has_country_modifier = centaur_administration}} has_country_modifier = centaur_administration}
+				AND = {any_elector = {NOT = { has_country_modifier = troll_administration}} has_country_modifier = troll_administration}
+				AND = {any_elector = {NOT = { has_country_modifier = harpy_administration}} has_country_modifier = harpy_administration}
+				AND = {any_elector = {NOT = { has_country_modifier = half_orcish_administration}} has_country_modifier = half_orcish_administration}
+				AND = {any_elector = {NOT = { has_country_modifier = half_elven_administration}} has_country_modifier = half_elven_administration}
+				AND = {any_elector = {NOT = { has_country_modifier = hobgoblin_administration}} has_country_modifier = hobgoblin_administration}
+				AND = {any_elector = {NOT = { has_country_modifier = kobold_administration}} has_country_modifier = kobold_administration}
+			}
+		}
+		add_country_modifier = {name = salere_reform_hre_malus_mechanic duration = -1 hidden = yes}
+	}
+	if = {
+		limit = {
+			has_global_flag = imperial_dominance_hre_flag
+			is_emperor = yes
+			OR = {
+				AND = {all_elector = {has_country_modifier = human_administration} has_country_modifier = human_administration}
+				AND = {all_elector = {has_country_modifier = elven_administration} has_country_modifier = elven_administration}
+				AND = {all_elector = {has_country_modifier = dwarven_administration} has_country_modifier = dwarven_administration}
+				AND = {all_elector = {has_country_modifier = halfling_administration} has_country_modifier = halfling_administration}
+				AND = {all_elector = {has_country_modifier = gnomish_administration} has_country_modifier = gnomish_administration}
+				AND = {all_elector = {has_country_modifier = harimari_administration} has_country_modifier = harimari_administration}
+				AND = {all_elector = {has_country_modifier = gnollish_administration} has_country_modifier = gnollish_administration}
+				AND = {all_elector = {has_country_modifier = ruinborn_administration} has_country_modifier = ruinborn_administration}
+				AND = {all_elector = {has_country_modifier = orcish_administration} has_country_modifier = orcish_administration}
+				AND = {all_elector = {has_country_modifier = goblin_administration} has_country_modifier = goblin_administration}
+				AND = {all_elector = {has_country_modifier = ogre_administration} has_country_modifier = ogre_administration}
+				AND = {all_elector = {has_country_modifier = centaur_administration} has_country_modifier = centaur_administration}
+				AND = {all_elector = {has_country_modifier = troll_administration} has_country_modifier = troll_administration}
+				AND = {all_elector = {has_country_modifier = harpy_administration} has_country_modifier = harpy_administration}
+				AND = {all_elector = {has_country_modifier = half_orcish_administration} has_country_modifier = half_orcish_administration}
+				AND = {all_elector = {has_country_modifier = half_elven_administration} has_country_modifier = half_elven_administration}
+				AND = {all_elector = {has_country_modifier = hobgoblin_administration} has_country_modifier = hobgoblin_administration}
+				AND = {all_elector = {has_country_modifier = kobold_administration} has_country_modifier = kobold_administration}
+			}
+		}
+		add_country_modifier = {name = salere_reform_hre_bonus_mechanic duration = -1 hidden = yes}
+	}
+	if = {
+		limit = {
+			has_global_flag = federal_dominance_hre_flag
+			is_emperor = yes
+			all_races_represented = no
+		}
+		add_country_modifier = {name = races_represented_malus_mechanic duration = -1 hidden = yes}
+	}
+	if = {
+		limit = {
+			has_global_flag = federal_dominance_hre_flag
+			is_part_of_hre = yes
+			all_races_represented = yes
+		}
+		add_country_modifier = {name = races_represented_bonus_mechanic duration = -1 hidden = yes}
+	}
+	if = {
+		limit = {
+			has_global_flag = federal_dominance_hre_flag
+			is_emperor = yes
+		}
+		add_country_modifier = {name = federal_dominance_hre_extra_electors duration = -1 hidden = yes}
+	}
+	if = {
+		limit = {
+			has_global_flag = aggresive_expansion_deactivated_flag
+			ai = no
+		}
+		add_country_modifier = {name = deactivated_ae duration = -1 hidden = yes}
+	}
+	if = {
+		limit = {
+			empire_of_china_reform_passed = crodamos_camel_cavalry_decision
+			is_emperor_of_china = yes
+		}
+		add_country_modifier = {name = crodamos_elite_camel_modifier duration = -1}
 	}
 	if = {
 		limit = {
@@ -5152,6 +5028,75 @@ update_race_modifiers = {
 			30 = {add_country_modifier = {name = halfling_economic_chairman_mercantilism_30 duration = -1 hidden = yes}}
 			20 = {add_country_modifier = {name = halfling_economic_chairman_mercantilism_20 duration = -1 hidden = yes}}
 			10 = {add_country_modifier = {name = halfling_economic_chairman_mercantilism_10 duration = -1 hidden = yes}}
+		}
+	}
+}
+on_culture_update_effect = {
+	remove_country_modifier = cultural_bureaucracy_20
+	remove_country_modifier = cultural_bureaucracy_19
+	remove_country_modifier = cultural_bureaucracy_18
+	remove_country_modifier = cultural_bureaucracy_17
+	remove_country_modifier = cultural_bureaucracy_16
+	remove_country_modifier = cultural_bureaucracy_15
+	remove_country_modifier = cultural_bureaucracy_14
+	remove_country_modifier = cultural_bureaucracy_13
+	remove_country_modifier = cultural_bureaucracy_12
+	remove_country_modifier = cultural_bureaucracy_11
+	remove_country_modifier = cultural_bureaucracy_10
+	remove_country_modifier = cultural_bureaucracy_9
+	remove_country_modifier = cultural_bureaucracy_8
+	remove_country_modifier = cultural_bureaucracy_7
+	remove_country_modifier = cultural_bureaucracy_6
+	remove_country_modifier = cultural_bureaucracy_5
+	remove_country_modifier = cultural_bureaucracy_4
+	remove_country_modifier = cultural_bureaucracy_3
+	remove_country_modifier = cultural_bureaucracy_2
+	remove_country_modifier = cultural_bureaucracy_1
+	if = {
+		limit = {
+			has_government_attribute = cultural_bureaucracy
+		}
+		trigger_switch = {
+			on_trigger = num_accepted_cultures
+			20 = {add_country_modifier = {name = cultural_bureaucracy_20 duration = -1 hidden = yes}}
+			19 = {add_country_modifier = {name = cultural_bureaucracy_19 duration = -1 hidden = yes}}
+			18 = {add_country_modifier = {name = cultural_bureaucracy_18 duration = -1 hidden = yes}}
+			17 = {add_country_modifier = {name = cultural_bureaucracy_17 duration = -1 hidden = yes}}
+			16 = {add_country_modifier = {name = cultural_bureaucracy_16 duration = -1 hidden = yes}}
+			15 = {add_country_modifier = {name = cultural_bureaucracy_15 duration = -1 hidden = yes}}
+			14 = {add_country_modifier = {name = cultural_bureaucracy_14 duration = -1 hidden = yes}}
+			13 = {add_country_modifier = {name = cultural_bureaucracy_13 duration = -1 hidden = yes}}
+			12 = {add_country_modifier = {name = cultural_bureaucracy_12 duration = -1 hidden = yes}}
+			11 = {add_country_modifier = {name = cultural_bureaucracy_11 duration = -1 hidden = yes}}
+			10 = {add_country_modifier = {name = cultural_bureaucracy_10 duration = -1 hidden = yes}}
+			9 = {add_country_modifier = {name = cultural_bureaucracy_9 duration = -1 hidden = yes}}
+			8 = {add_country_modifier = {name = cultural_bureaucracy_8 duration = -1 hidden = yes}}
+			7 = {add_country_modifier = {name = cultural_bureaucracy_7 duration = -1 hidden = yes}}
+			6 = {add_country_modifier = {name = cultural_bureaucracy_6 duration = -1 hidden = yes}}
+			5 = {add_country_modifier = {name = cultural_bureaucracy_5 duration = -1 hidden = yes}}
+			4 = {add_country_modifier = {name = cultural_bureaucracy_4 duration = -1 hidden = yes}}
+			3 = {add_country_modifier = {name = cultural_bureaucracy_3 duration = -1 hidden = yes}}
+			2 = {add_country_modifier = {name = cultural_bureaucracy_2 duration = -1 hidden = yes}}
+			1 = {add_country_modifier = {name = cultural_bureaucracy_1 duration = -1 hidden = yes}}
+		}
+	}
+}
+on_culture_promoted_effect = {
+	if = {
+		limit = {
+			has_idea = cultural_ties_2
+			num_accepted_cultures = 5
+		}
+		add_country_modifier = {name = humanist_bonus duration = -1 hidden = yes}
+	}
+	if = { #1.35
+		limit = { has_country_flag = reduce_ae_from_prom_cultures_flag }
+		every_country = {
+			add_aggressive_expansion = {
+				who = ROOT 
+				value = -3
+				apply_calc = no 
+			}
 		}
 	}
 }
@@ -5901,6 +5846,7 @@ add_colony_amount_modifier = {
 	else_if = {limit = {colony = 3} add_country_modifier = {name = $type$_3_bonus duration = -1 hidden = yes}}
 	else_if = {limit = {colony = 2} add_country_modifier = {name = $type$_2_bonus duration = -1 hidden = yes}}
 	else_if = {limit = {colony = 1} add_country_modifier = {name = $type$_1_bonus duration = -1 hidden = yes}}
+	else = {}
 }
 castanor_fomrable_anbennar_stuff = {	#anbennar
 	# Draw a map claims

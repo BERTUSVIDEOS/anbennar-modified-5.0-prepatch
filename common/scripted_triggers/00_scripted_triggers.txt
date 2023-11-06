@@ -42,14 +42,6 @@ is_free_or_tributary_trigger = { #I.e. Tags that can conduct independent diploma
 
 
 # Third Rome Triggers
-# has_russian_government_interaction = {
-# 	has_dlc = "Third Rome"
-# 	OR = {
-# 		# has_reform = tsardom
-# 		# has_reform = principality
-# 		has_reform = veche_republic
-# 	}
-# }
 
 
 #RIGHTS OF MAN TRIGGERS
@@ -931,6 +923,13 @@ has_holy_order_trigger = {
 		}
 	}
 }
+has_any_holy_order = {
+}
+can_create_holy_orders = {
+}
+unlocked_holy_order = {
+	has_country_flag = unlocked_holy_order_$type$
+}
 
 same_govt_as_root_trigger = {
 	custom_trigger_tooltip = {
@@ -1659,41 +1658,53 @@ has_completed_idea_group_of_category = {
 	]
 }
 
-#1.35
-num_of_completed_idea_groups_by_category = {
+num_of_completed_idea_groups_adm = {
 	calc_true_if = {
-		[[adm_ideas]
-			full_idea_group = innovativeness_ideas
-			full_idea_group = religious_ideas
-			full_idea_group = economic_ideas
-			full_idea_group = expansion_ideas
-			full_idea_group = administrative_ideas
-			full_idea_group = humanist_ideas
-			full_idea_group = infrastructure_ideas
-		]
-		[[dip_ideas]
-			full_idea_group = spy_ideas
-			full_idea_group = diplomatic_ideas
-			full_idea_group = trade_ideas
-			full_idea_group = exploration_ideas
-			full_idea_group = maritime_ideas
-			full_idea_group = influence_ideas
-			full_idea_group = court_ideas
-		]
-		[[mil_ideas]
-			full_idea_group = aristocracy_ideas
-			full_idea_group = offensive_ideas
-			full_idea_group = defensive_ideas
-			full_idea_group = quality_ideas
-			full_idea_group = quantity_ideas
-			full_idea_group = maritime_ideas
-			full_idea_group = theocracy_gov_ideas
-			full_idea_group = indigenous_ideas
-			full_idea_group = horde_gov_ideas
-			full_idea_group = plutocracy_ideas
-		]
+		desc = num_of_completed_idea_groups_adm_tt
+		full_idea_group = innovativeness_ideas
+		full_idea_group = religious_ideas
+		full_idea_group = economic_ideas
+		full_idea_group = expansion_ideas
+		full_idea_group = administrative_ideas
+		full_idea_group = humanist_ideas
+		full_idea_group = infrastructure_ideas
 		amount = $amount$
 	}
+}
+
+num_of_completed_idea_groups_dip = {
+	calc_true_if = {
+		desc = num_of_completed_idea_groups_dip_tt
+		full_idea_group = spy_ideas
+		full_idea_group = diplomatic_ideas
+		full_idea_group = trade_ideas
+		full_idea_group = exploration_ideas
+		full_idea_group = maritime_ideas
+		full_idea_group = influence_ideas
+		full_idea_group = court_ideas
+		amount = $amount$
+	}
+}
+
+num_of_completed_idea_groups_mil = {
+	calc_true_if = {
+		desc = num_of_completed_idea_groups_mil_tt
+		full_idea_group = aristocracy_ideas
+		full_idea_group = offensive_ideas
+		full_idea_group = defensive_ideas
+		full_idea_group = quality_ideas
+		full_idea_group = quantity_ideas
+		full_idea_group = maritime_ideas
+		full_idea_group = theocracy_gov_ideas
+		full_idea_group = indigenous_ideas
+		full_idea_group = horde_gov_ideas
+		full_idea_group = plutocracy_ideas
+		amount = $amount$
+	}
+}
+
+num_of_completed_idea_groups_by_category = {
+	num_of_completed_idea_groups_$type$ = { amount = $amount$ }
 }
 
 has_religion_of_increased_opinion_for_scope = {
@@ -2085,7 +2096,16 @@ has_unlocked_government_reform = {
 }
 
 has_unlocked_estate = {
-	has_country_flag = unlocked_$estate$
+	has_country_flag = unlocked_$estate$_flag
+}
+
+#This trigger is used for enabled estates which should be active at all time, no matter what
+has_enabled_estate = {
+	has_country_flag = enables_$estate$_flag
+}
+
+has_disabled_estate = {
+	has_country_flag = disables_$estate$_flag
 }
 
 #### Supports the following government reforms ####
@@ -2263,21 +2283,11 @@ province_is_or_accepts_religion = {
 
 has_not_any_exploration_ideas = {
 	NOT = { has_idea = quest_for_the_new_world }
-	# NOT = { has_idea = call_of_our_forefathers }
-	# NOT = { has_idea = tonga_oceanic_empire }
-	# NOT = { has_idea = samoa_trade }
-	# NOT = { has_idea = legendary_voyagers }
-	# NOT = { has_idea_group = ICE_ideas }
 }
 
 has_any_exploration_idea = {
 	OR = {
 		has_idea = quest_for_the_new_world
-		# has_idea = call_of_our_forefathers
-		# has_idea = tonga_oceanic_empire
-		# has_idea = samoa_trade
-		# has_idea = legendary_voyagers
-		# has_idea_group = ICE_ideas
 	}
 }
 
@@ -2369,20 +2379,20 @@ has_valuable_resource = {
 #country scope
 ruler_total_stats = {
 	variable_arithmetic_trigger = {
-		custom_tooltip = ruler_total_stats_$stats$
+		custom_tooltip = ruler_total_stats_$amount$
 		export_to_variable = {
 			variable_name = ruler_adm
-			value = adm
+			value = ADM
 			who = ROOT
 		}
 		export_to_variable = {
 			variable_name = ruler_dip
-			value = dip
+			value = DIP
 			who = ROOT
 		}
 		export_to_variable = {
 			variable_name = ruler_mil
-			value = mil
+			value = MIL
 			who = ROOT
 		}
 		change_variable = {
@@ -2395,7 +2405,7 @@ ruler_total_stats = {
 		}
 		check_variable = {
 			which = ruler_adm
-			value = $stats$
+			value = $amount$
 		}
 	}
 }
@@ -2405,17 +2415,17 @@ ruler_total_stats_target = {
 		custom_tooltip = $custom_tooltip$
 		export_to_variable = {
 			variable_name = ruler_adm
-			value = adm
+			value = ADM
 			who = $who$
 		}
 		export_to_variable = {
 			variable_name = ruler_dip
-			value = dip
+			value = DIP
 			who = $who$
 		}
 		export_to_variable = {
 			variable_name = ruler_mil
-			value = mil
+			value = MIL
 			who = $who$
 		}
 		change_variable = {
@@ -2428,14 +2438,14 @@ ruler_total_stats_target = {
 		}
 		check_variable = {
 			which = ruler_adm
-			value = $stats$
+			value = $amount$
 		}
 	}
 }
 
 heir_total_stats = {
 	variable_arithmetic_trigger = {
-		custom_tooltip = heir_total_stats_$stats$
+		custom_tooltip = heir_total_stats_$amount$
 		export_to_variable = {
 			variable_name = heir_adm_var
 			value = heir_adm
@@ -2461,7 +2471,7 @@ heir_total_stats = {
 		}
 		check_variable = {
 			which = heir_adm_var
-			value = $stats$
+			value = $amount$
 		}
 	}
 }
@@ -2494,14 +2504,14 @@ heir_total_stats_target = {
 		}
 		check_variable = {
 			which = heir_adm_var
-			value = $stats$
+			value = $amount$
 		}
 	}
 }
 
 consort_total_stats = {
 	variable_arithmetic_trigger = {
-		custom_tooltip = consort_total_stats_$stats$
+		custom_tooltip = consort_total_stats_$amount$
 		export_to_variable = {
 			variable_name = consort_adm_var
 			value = consort_adm
@@ -2527,7 +2537,7 @@ consort_total_stats = {
 		}
 		check_variable = {
 			which = consort_adm_var
-			value = $stats$
+			value = $amount$
 		}
 	}
 }
@@ -2560,7 +2570,7 @@ consort_total_stats_target = {
 		}
 		check_variable = {
 			which = consort_adm_var
-			value = $stats$
+			value = $amount$
 		}
 	}
 }
@@ -2797,10 +2807,6 @@ has_points_for_livonian_monarchy = {
 }
 
 is_allowed_to_recruit_mercenaries = {
-	# custom_trigger_tooltip = {
-	# 	tooltip = is_allowed_to_recruit_mercenaries_tt
-	# 	NOT = { has_country_modifier = dan_sca_refocus_on_personal_armies }
-	# }
 }
 
 #TODO ADjustment of everything bellow to anbennar
@@ -2850,91 +2856,19 @@ is_flatland = {
 
 #1.35
 is_yellow_river_province_trigger = {
-	# custom_trigger_tooltip = {
-	# 	tooltip = is_yellow_river_province_trigger_tt
-	# 	OR = { 
-	# 		province_id = 4196 
-	# 		province_id = 2142
-	# 		province_id = 2141
-	# 		province_id = 2176
-	# 		province_id = 688
-	# 		province_id = 1836
-	# 		province_id = 694
-	# 		province_id = 700
-	# 	}
-	# }
 }
 
 #1.35
 is_yangtze_river_province_trigger = {
-	# custom_trigger_tooltip = {
-	# 	tooltip = is_yangtze_river_province_trigger_tt
-	# 	OR = { 
-	# 		province_id = 2145
-	# 		province_id = 1821
-	# 		province_id = 1838
-	# 		province_id = 686
-	# 		province_id = 683
-	# 		province_id = 4197
-	# 		province_id = 682
-	# 		province_id = 2172
-	# 		province_id = 681
-	# 	}
-	# }
 }
 
 #1.35
 is_eyalet_trigger = {
-	# custom_trigger_tooltip = {
-	# 	tooltip = is_eyalet_trigger_tt
-	# 	OR = {
-	# 		is_subject_of_type = eyalet
-	# 		is_subject_of_type = core_eyalet
-	# 	}
-	# }
 }
 
 has_strong_mil_national_ideas = {
 	custom_trigger_tooltip = {
 		tooltip = has_strong_mil_national_ideas_tt
-		# OR = { 
-		# 	tag = FRA
-		# 	tag = PRU
-		# 	tag = SPA 
-		# 	tag = TUR
-		# 	tag = JAP
-		# 	tag = RUS
-		# 	tag = MOS
-		# 	tag = TEU
-		# 	tag = POL
-		# 	tag = PLC
-		# 	tag = ITA
-		# 	tag = GER
-		# 	tag = QNG
-		# 	tag = SWE
-		# 	tag = SCA
-		# 	tag = GBR
-		# 	tag = NED
-		# 	tag = RUM
-		# 	tag = MAM
-		# 	tag = ZIM
-		# 	tag = ZUL
-		# 	tag = ODA
-		# 	tag = SMZ
-		# 	tag = MCH
-		# 	tag = MLC
-		# 	tag = MJZ
-		# 	tag = BNG
-		# 	tag = NPL
-		# 	tag = PUN
-		# 	tag = BHA
-		# 	tag = RJP
-		# 	tag = HSA
-		# 	tag = SMO
-		# 	tag = MAS
-		# 	tag = JMN
-		# 	tag = SYN
-		# }
 	}
 }
 
@@ -3764,6 +3698,192 @@ is_legendary_mage = { #Made for Elikhand but generally usable. The tooltip is wi
 			is_illusion_3 = yes
 			is_necromancy_3 = yes
 			is_transmutation_3 = yes
+		}
+	}
+}
+num_of_forced_converted_countries = {
+	custom_trigger_tooltip = {
+		tooltip = HAS_FORCE_CONVERTED_$amount$_COUNTRIES_TT
+		check_variable = {
+			which = num_of_forced_conversions
+			value = $amount$
+		}
+	}
+}
+
+num_of_converted_provinces = {
+	custom_trigger_tooltip = {
+		tooltip = HAS_CONVERTED_$amount$_PROVINCES_TT
+		check_variable = {
+			which = num_converted_religion
+			value = $amount$
+		}
+	}
+}
+
+has_unlocked_trading_policy = {
+	custom_trigger_tooltip = {
+		tooltip = has_unlocked_trading_policy_$policy$_tt
+		NOT = { has_country_flag = locked_trading_policy_$policy$ }
+	}
+}
+
+has_locked_trading_policy = {
+	custom_trigger_tooltip = {
+		tooltip = has_locked_trading_policy_$policy$_tt
+		has_country_flag = locked_trading_policy_$policy$
+	}
+}
+
+has_enabled_trading_policy = {
+	has_country_flag = enabled_trading_policy_$policy$
+	NOT = { has_country_flag = disabled_trading_policy_$policy$ }
+}
+
+has_disabled_trading_policy = {
+	has_country_flag = disabled_trading_policy_$policy$
+}
+
+has_not_disabled_trading_policy = {
+	NOT = { has_country_flag = disabled_trading_policy_$policy$ }
+}
+
+trading_policy_or_upgraded_policy_in_node = {
+	OR = {
+		trading_policy_in_node = {
+			node = $node$
+			policy = $policy$
+		}
+		trading_policy_in_node = {
+			node = $node$
+			policy = $policy$_upgraded
+		}
+	}
+}
+
+# Supports the following decisions
+##################################
+# grand_vizier_selection
+# horse_breeding_decision
+has_unlocked_decision = {
+	custom_trigger_tooltip = {
+		tooltip = has_unlocked_decision_$type$_tt
+		has_country_flag = unlocked_decision_$type$
+	}
+}
+
+has_max_monthly_monarch_power = {
+	if = {
+		limit = {
+			#Promote Advisors - +2
+			has_dlc = "Cradle of Civilization"
+			#National Focus - +2
+			has_dlc = "Res Publica"
+			has_dlc = "Common Sense"
+		}
+		monthly_$type$ = 18
+	}
+	else_if = {
+		limit = {
+			OR = {
+				has_dlc = "Cradle of Civilization"
+				has_dlc = "Res Publica"
+				has_dlc = "Common Sense"
+			}
+		}
+		monthly_$type$ = 16
+	}
+	else = {
+		monthly_$type$ = 14
+	}
+}
+
+has_high_monthly_monarch_power = {
+	if = {
+		limit = {
+			#Promote Advisors - +2
+			has_dlc = "Cradle of Civilization"
+			#National Focus - +2
+			has_dlc = "Res Publica"
+			has_dlc = "Common Sense"
+		}
+		monthly_$type$ = 14
+	}
+	else_if = {
+		limit = {
+			OR = {
+				has_dlc = "Cradle of Civilization"
+				has_dlc = "Res Publica"
+				has_dlc = "Common Sense"
+			}
+		}
+		monthly_$type$ = 12
+	}
+	else = {
+		monthly_$type$ = 10
+	}
+}
+
+has_medium_monthly_monarch_power = {
+	if = {
+		limit = {
+			#Promote Advisors - +2
+			has_dlc = "Cradle of Civilization"
+			#National Focus - +2
+			has_dlc = "Res Publica"
+			has_dlc = "Common Sense"
+		}
+		monthly_$type$ = 12
+	}
+	else_if = {
+		limit = {
+			OR = {
+				has_dlc = "Cradle of Civilization"
+				has_dlc = "Res Publica"
+				has_dlc = "Common Sense"
+			}
+		}
+		monthly_$type$ = 10
+	}
+	else = {
+		monthly_$type$ = 8
+	}
+}
+
+has_defender_of_faith_religion = {
+	custom_trigger_tooltip = {
+		tooltip = has_defender_of_faith_religion_tt
+	}
+}
+
+has_unlocked_diplomatic_action = {
+	has_country_flag = unlocked_diplomatic_action_$type$
+}
+
+has_unified_islam = {
+}
+
+has_completed_all_persian_missions = {
+}
+
+has_any_ongoing_construction = {
+	custom_trigger_tooltip = {
+		tooltip = has_any_ongoing_construction_tt
+		has_construction = building
+		has_construction = core
+		has_construction = culture
+		has_construction = great_project
+		has_construction = canal
+		has_construction = missionary
+	}
+}
+
+total_non_estate_disasters_completed = {
+	custom_trigger_tooltip = {
+		tooltip = total_non_estate_disasters_completed_$value$_tt
+		check_variable = {
+			which = total_disasters_completed_counter
+			value = $value$
 		}
 	}
 }
