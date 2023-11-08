@@ -3819,16 +3819,16 @@ update_recruitment_modifiers = {
 			}
 		}
 		add_country_modifier = {name = slow_pace_mechanic duration = -1 hidden = yes}
-	}_country_modifier = {name = elite_cavalry_modifier duration = -1 hidden = yes}
-}
-if = {
-	limit = {
-		estate_territory = {
-			estate = estate_elven
-			territory = 90
-		}
 	}
-	add_country_modifier = {name = elves_pure_training_modifier duration = -1 hidden = yes}
+	if = {
+		limit = {
+			estate_territory = {
+				estate = estate_elven
+				territory = 90
+			}
+		}
+		add_country_modifier = {name = elves_pure_training_modifier duration = -1 hidden = yes}
+	}
 }
 update_military_modifiers = {
 	remove_country_modifier = grasshopper_muncher_country_ideas_tech_1
@@ -4688,7 +4688,6 @@ update_military_modifiers = {
 		else_if = {limit = {mil_tech = 13} add_country_modifier = {name = elven_artillery_tech_13 duration = -1 hidden = yes}}
 		else_if = {limit = {mil_tech = 7} add_country_modifier = {name = elven_artillery_tech_7 duration = -1 hidden = yes}}
 	}
-
 }
 update_race_modifiers = {
 	remove_country_modifier = boosted_stability_1
@@ -4700,36 +4699,6 @@ update_race_modifiers = {
 	remove_country_modifier = dynastic_bonus_4
 	remove_country_modifier = dynastic_bonus_5
 	remove_country_modifier = dynastic_bonus_6
-	remove_country_modifier = kolo3_1_bonus
-	remove_country_modifier = kolo3_2_bonus
-	remove_country_modifier = kolo3_3_bonus
-	remove_country_modifier = kolo3_4_bonus
-	remove_country_modifier = kolo3_5_bonus
-	remove_country_modifier = kolo3_6_bonus
-	remove_country_modifier = kolo3_7_bonus
-	remove_country_modifier = kolo3_8_bonus
-	remove_country_modifier = kolo3_9_bonus
-	remove_country_modifier = kolo3_10_bonus
-	remove_country_modifier = kolo4_1_bonus
-	remove_country_modifier = kolo4_2_bonus
-	remove_country_modifier = kolo4_3_bonus
-	remove_country_modifier = kolo4_4_bonus
-	remove_country_modifier = kolo4_5_bonus
-	remove_country_modifier = kolo4_6_bonus
-	remove_country_modifier = kolo4_7_bonus
-	remove_country_modifier = kolo4_8_bonus
-	remove_country_modifier = kolo4_9_bonus
-	remove_country_modifier = kolo4_10_bonus
-	remove_country_modifier = kolo6_1_bonus
-	remove_country_modifier = kolo6_2_bonus
-	remove_country_modifier = kolo6_3_bonus
-	remove_country_modifier = kolo6_4_bonus
-	remove_country_modifier = kolo6_5_bonus
-	remove_country_modifier = kolo6_6_bonus
-	remove_country_modifier = kolo6_7_bonus
-	remove_country_modifier = kolo6_8_bonus
-	remove_country_modifier = kolo6_9_bonus
-	remove_country_modifier = kolo6_10_bonus
 	remove_country_modifier = imperial_faith_hre_mechanic
 	remove_country_modifier = religious_tolerance_hre_mechanic
 	remove_country_modifier = closed_market_hre_mechanic
@@ -4762,52 +4731,10 @@ update_race_modifiers = {
 	remove_country_modifier = gnomish_militar_chairman_90
 	remove_country_modifier = gnomish_militar_chairman_100
 	remove_country_modifier = crodamos_elite_camel_modifier
-	remove_country_modifier = elite_cavalry_modifier
-	remove_country_modifier = legacy_of_bladebreakers_modifier
-	remove_country_modifier = elite_marine_modifier
 	remove_country_modifier = elite_gnollish_guard_modifier
-	remove_country_modifier = goblin_fungi_fanatic_modifier
-	remove_country_modifier = idea_imperial_guard_modifier
-	remove_country_modifier = goblin_shamans_fire_modifier
 	if = {
 		limit = {has_country_flag = unified_gnoll_flag}
 		add_country_modifier = {name = elite_gnollish_guard_modifier duration = -1 hidden = yes}
-	}
-	if = {
-		limit = {has_idea = imperialismus7}
-		add_country_modifier = {name = idea_imperial_guard_modifier duration = -1 hidden = yes}
-	}
-	if = {
-		limit = {
-			OR = {
-				has_country_flag = elite_marine_flag
-				has_country_modifier = gnollish_military
-				has_idea = A11_seafaring_traditions
-				has_idea = Z50_ambitions_of_temar_ironsea
-				has_idea = A02_reaver_blood
-			}
-		}
-		add_country_modifier = {name = elite_marine_modifier duration = -1 hidden = yes}
-	}
-	if = {
-		limit = {
-			has_country_modifier = goblin_military
-			check_variable = {
-				which = fungi
-				value = 10
-			}
-		}
-		add_country_modifier = {name = goblin_fungi_fanatic_modifier duration = -1 hidden = yes}
-	}
-	if = {
-		limit = {has_idea = B46_shamans}
-		add_country_modifier = {name = goblin_shamans_fire_modifier duration = -1 hidden = yes}
-	}
-	if = {
-		limit = {
-			has_idea = Z52_legacy_of_bladebreakers
-		}
-		add_country_modifier = {name = legacy_of_bladebreakers_modifier duration = -1 hidden = yes}
 	}
 	if = {
 		limit = {
@@ -4826,27 +4753,6 @@ update_race_modifiers = {
 			has_new_dynasty = no
 		}
 		get_dynastic_bonus_modifier = yes
-	}
-	if = {
-		limit = {
-			has_idea = kolonialimperium4
-			colony = 1
-		}
-		add_colony_amount_modifier = {type = kolo3}
-	}
-	if = {
-		limit = {
-			has_idea = kolonialimperium3
-			colony = 1
-		}
-		add_colony_amount_modifier = {type = kolo4}
-	}
-	if = {
-		limit = {
-			has_idea = kolonialimperium6
-			colony = 1
-		}
-		add_colony_amount_modifier = {type = kolo6}
 	}
 	if = {
 		limit = {
@@ -5029,6 +4935,59 @@ update_race_modifiers = {
 			20 = {add_country_modifier = {name = halfling_economic_chairman_mercantilism_20 duration = -1 hidden = yes}}
 			10 = {add_country_modifier = {name = halfling_economic_chairman_mercantilism_10 duration = -1 hidden = yes}}
 		}
+	}
+}
+on_colonial_condition_effects = {
+	remove_country_modifier = kolo3_1_bonus
+	remove_country_modifier = kolo3_2_bonus
+	remove_country_modifier = kolo3_3_bonus
+	remove_country_modifier = kolo3_4_bonus
+	remove_country_modifier = kolo3_5_bonus
+	remove_country_modifier = kolo3_6_bonus
+	remove_country_modifier = kolo3_7_bonus
+	remove_country_modifier = kolo3_8_bonus
+	remove_country_modifier = kolo3_9_bonus
+	remove_country_modifier = kolo3_10_bonus
+	remove_country_modifier = kolo4_1_bonus
+	remove_country_modifier = kolo4_2_bonus
+	remove_country_modifier = kolo4_3_bonus
+	remove_country_modifier = kolo4_4_bonus
+	remove_country_modifier = kolo4_5_bonus
+	remove_country_modifier = kolo4_6_bonus
+	remove_country_modifier = kolo4_7_bonus
+	remove_country_modifier = kolo4_8_bonus
+	remove_country_modifier = kolo4_9_bonus
+	remove_country_modifier = kolo4_10_bonus
+	remove_country_modifier = kolo6_1_bonus
+	remove_country_modifier = kolo6_2_bonus
+	remove_country_modifier = kolo6_3_bonus
+	remove_country_modifier = kolo6_4_bonus
+	remove_country_modifier = kolo6_5_bonus
+	remove_country_modifier = kolo6_6_bonus
+	remove_country_modifier = kolo6_7_bonus
+	remove_country_modifier = kolo6_8_bonus
+	remove_country_modifier = kolo6_9_bonus
+	remove_country_modifier = kolo6_10_bonus
+	if = {
+		limit = {
+			has_idea = kolonialimperium4
+			colony = 1
+		}
+		add_colony_amount_modifier = {type = kolo3}
+	}
+	if = {
+		limit = {
+			has_idea = kolonialimperium3
+			colony = 1
+		}
+		add_colony_amount_modifier = {type = kolo4}
+	}
+	if = {
+		limit = {
+			has_idea = kolonialimperium6
+			colony = 1
+		}
+		add_colony_amount_modifier = {type = kolo6}
 	}
 }
 on_culture_update_effect = {
