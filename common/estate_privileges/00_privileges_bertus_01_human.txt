@@ -302,6 +302,17 @@ estate_human_elite_regiments = {
 	benefits = {
 		allowed_cossack_fraction = 0.05
 	}
+	conditional_modifier = {
+		trigger = {
+			819 = {
+				owned_by = ROOT
+				has_province_modifier = blademarches_home_of_bladestewards
+			}
+		}
+		modifier = {
+			allowed_cossack_fraction = 0.10
+		}
+	}
 	mechanics = {}
 	on_revoked = {
 		remove_country_modifier = elite_guard_modifier
@@ -1201,6 +1212,63 @@ estate_human_sunblessed_troops = {
 	on_revoked = {}
 	on_invalid = {}
 	ai_will_do = {factor = 100}
+}
+estate_human_vernham_academy = {
+	icon = privilege_recruit_rajput_general
+	is_valid = {
+		has_race_recruitment = {
+			race = human
+		}
+		has_country_modifier = human_military
+		808 = { #Vernham
+			owned_by = ROOT
+			has_province_flag = blademarches_vernham_university_flag
+		}
+	}
+	can_select = {
+		has_elite_regiments = no
+	}
+	on_granted = {
+		add_country_modifier = {
+			name = blademarches_vernham_university
+			duration = -1
+		}
+	}
+	penalties = {
+		yearly_corruption = 0.20
+	}
+	benefits = {
+		allowed_cossack_fraction = 0.05
+	}
+	conditional_modifier = {
+		trigger = {
+			819 = {
+				owned_by = ROOT
+				has_province_modifier = blademarches_home_of_bladestewards
+			}
+		}
+		modifier = {
+			allowed_cossack_fraction = 0.10
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			has_country_flag = B33_vernham_officer_training_curriculum_flag
+		}
+		modifier = {
+			leader_cost = 0.1
+			shock_damage = 0.1
+			leader_land_shock = 1
+		}
+	}
+	mechanics = {}
+	on_revoked = {
+		remove_country_modifier = blademarches_vernham_university
+	}
+	on_invalid = {
+		remove_country_modifier = blademarches_vernham_university
+	}
+	ai_will_do = {factor = 1}
 }
 estate_human_banned_inter_racial_marriages = {
 	icon = privilege_grant_autonomy

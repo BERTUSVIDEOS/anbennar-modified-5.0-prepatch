@@ -979,7 +979,7 @@ country_event = {
 				area = nortessord_area
 			}
 			NOT = { nationalism = 1 }
-			has_province_modifier = orcish_majority_integrated
+			has_integrated_orcish_pop_trigger = yes	#bertus mod
 			is_city = yes
 		}
 	}
@@ -1013,6 +1013,7 @@ country_event = {
 	
 	option = {
 		name = flavor_corintar.34.a
+		add_accepted_culture = redtusk_orc
 		event_target:corintarget_redtusk = {
 			change_culture = redtusk_orc
 		}
@@ -1020,7 +1021,7 @@ country_event = {
 			name = corintar_redtusk_orcs_i
 			duration = -1
 		}
-		add_accepted_culture = redtusk_orc
+		custom_tooltip = corintar_redtusk_orcs_tt
 	}
 }
 
@@ -1573,7 +1574,7 @@ country_event = {
 }
 
 # For Corin!
-country_event = {
+country_event = {	#bertus mod
 	id = flavor_corintar.43
 	title = flavor_corintar.43.t
 	desc = flavor_corintar.43.d
@@ -1616,33 +1617,28 @@ country_event = {
 	option = {
 		name = flavor_corintar.43.a
 		ai_chance = { factor = 10 }
-		if = {
-			limit = { has_dlc = "Common Sense" }
-			add_karma = -10
-		}
 		declare_war_with_cb = {
 			who = event_target:corintarget_war
 			casus_belli = cb_crusade
 		}
 		if = {
 			limit = { mission_completed = corintar_tension_abroad }
+			add_church_power = 50
 			add_country_modifier = {
 				name = corintar_for_corin
-				duration = 3650
+				duration = 1825 # 5 years	10?5
 			}
-			random_owned_province = {
-				limit = { religion = corinite }
+			capital_scope = {
 				build_to_forcelimit = { infantry = 0.1 }
-				ROOT = { artillery = PREV }
 			}
 		}
 		else = {
+			add_church_power = 25
 			add_country_modifier = {
 				name = corintar_for_corin
 				duration = 1825 # 5 years
 			}
-			random_owned_province = {
-				limit = { religion = corinite }
+			capital_scope = {
 				build_to_forcelimit = { infantry = 0.05 }
 			}
 		}
@@ -1653,12 +1649,8 @@ country_event = {
 	option = {
 		name = flavor_corintar.43.b
 		ai_chance = { factor = 90 }
-		if = {
-			limit = { has_dlc = "Common Sense" }
-			add_karma = 10
-		}
 		
-		add_prestige = -20
+		add_church_power = -20
 		random_owned_province = {
 			limit = { religion = corinite }
 			add_unrest = 10

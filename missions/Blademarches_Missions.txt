@@ -37,11 +37,11 @@ blademarches_1 = {
 		
 		effect = {
 			808 = { #Vernham
-				add_permanent_province_modifier = {
-					name = blademarches_vernham_university
-					duration = -1
-				}
+				set_province_flag = blademarches_vernham_university_flag
 				get_cost_dependant_racial_advisor = {class = army_reformer specific = yes}
+				ROOT = {
+					set_estate_privilege = estate_human_vernham_academy
+				}
 			}
 		}
 	}
@@ -67,10 +67,7 @@ blademarches_1 = {
 		}
 		
 		effect = {
-			add_country_modifier = {
-				name = blademarches_vernham_curriculum 
-				duration = -1
-			}
+			set_country_flag = B33_vernham_officer_training_curriculum_flag
 			add_army_professionalism = -0.40
 			custom_tooltip = B33_vernham_officer_training_curriculum_tt
 		}
@@ -161,6 +158,10 @@ blademarches_2 = {
 		effect = {
 			800 = { #Old Vernham
 				change_trade_goods = iron
+				add_permanent_province_modifier = {	#bertus mod
+					name = adv_big_forge
+					duration = -1
+				}
 			}
 			dostans_way_area = {
 				limit = {
@@ -259,7 +260,19 @@ blademarches_2 = {
 				}
 				add_permanent_claim = ROOT
 			}
-			country_event = { id = flavor_blademarches.14 }
+			country_event_with_option_insight = {
+				id = flavor_blademarches.14
+				option_1 = "
+					add_country_modifier = {
+						name = blademarches_settling_the_folly
+						duration = 36500
+					}
+					add_adm_power = -300
+				"
+				option_2 = "
+				
+				"
+			}
 		}
 	}
 	
@@ -406,13 +419,6 @@ blademarches_3 = {
 				}
 				add_permanent_claim = ROOT
 			}
-			banesfork_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { owned_by = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
 			clovenwood_area = {
 				limit = {
 					NOT = { is_core = ROOT }
@@ -539,7 +545,15 @@ blademarches_3 = {
 				}
 				add_permanent_claim = ROOT
 			}
-			country_event = { id = flavor_blademarches.12 }
+			country_event_with_effect_insight = {
+				id = flavor_blademarches.12
+				effect = "
+					add_country_modifier = {
+						name = blademarches_bright_hussars
+						duration = -1
+					}
+				"
+			}
 		}
 	}
 	B33_a_squanderer_redeemed = {
@@ -698,7 +712,6 @@ blademarches_4 = {
 				AND = {
 					OR = { 
 						area = blademarch_area
-						area = banesfork_area
 					}
 					NOT = { owned_by = ROOT }
 				}
@@ -714,10 +727,6 @@ blademarches_4 = {
 		
 		trigger = {
 			blademarch_area = {
-				type = all
-				owned_by = ROOT
-			}
-			banesfork_area = {
 				type = all
 				owned_by = ROOT
 			}
@@ -745,9 +754,6 @@ blademarches_4 = {
 					NOT = { owned_by = ROOT }
 				}
 				add_permanent_claim = ROOT
-			}
-			817 = { #Bladeskeep
-				move_capital_effect = yes
 			}
 		}
 	}
@@ -963,7 +969,25 @@ blademarches_4 = {
 		}
 		
 		effect = {
-			country_event = { id = flavor_blademarches.13 }
+			country_event_with_effect_insight = {
+				id = flavor_blademarches.13
+				effect = "
+					add_country_modifier = {
+						name = blademarches_triumph
+						duration = -1
+					}
+					add_prestige = 50
+					add_army_professionalism = 0.1
+					add_treasury = 2000
+				"
+			}
+			define_general = {
+				name = "Varilor síl Aldcamp"
+				fire = 4
+				shock = 9
+				manuever = 4
+				siege = 4
+			}
 		}
 	}
 }
@@ -1038,6 +1062,7 @@ blademarches_5 = {
 					duration = -1
 				}
 			}
+			custom_tooltip = B33_restore_the_stewards_hold_tt
 		}
 	}
 }

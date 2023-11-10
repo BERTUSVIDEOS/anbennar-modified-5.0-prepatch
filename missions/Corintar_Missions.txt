@@ -1833,7 +1833,39 @@ corintar_3_missions = {
 				}
 				add_claim = ROOT
 			}
-			country_event = { id = flavor_corintar.30 }
+			country_event_with_option_insight = {
+				id = flavor_corintar.30
+				option_1 = "
+					add_government_reform = corintar_the_circle_reborn
+					define_ruler = {
+						adm = 6
+						dip = 6
+						mil = 6
+						age = 20
+					}
+					define_ruler_to_general = {
+						fire = 12
+						shock = 12
+						manuever = 6
+						siege = 6
+					}
+				"
+				option_2 = "
+					add_government_reform = corintar_warrior_priests
+					define_ruler = {
+						adm = 6
+						dip = 6
+						mil = 6
+						age = 20
+					}
+					define_ruler_to_general = {
+						fire = 12
+						shock = 12
+						manuever = 6
+						siege = 6
+					}
+				"
+			}
 			
 			# If the Consolidation Wars have already ended, allow the name change and a weaker modifier
 			# It is possible to win the consolidation wars, and before switching mission trees, take this mission
@@ -2147,8 +2179,32 @@ corintar_4_missions = {
 				}
 				add_permanent_claim = ROOT
 			}
-			country_event = {
+			country_event_with_effect_insight = {
 				id = flavor_corintar.32
+				effect = "
+					clouded_wood_area = {
+						limit = {
+							NOT = { culture = redtusk_orc }
+						}
+						change_culture = green_orc
+					}
+					clouded_wood_area = {
+						add_base_tax = 1
+						add_base_production = 1
+						add_base_manpower = 1
+					}
+					sarwood_area = {
+						limit = {
+							NOT = { culture = redtusk_orc }
+						}
+						change_culture = green_orc
+					}
+					sarwood_area = {
+						add_base_tax = 1
+						add_base_production = 1
+						add_base_manpower = 1
+					}
+				"
 			}
 			corintar_refresh_reconstruction = yes
 			if = {
@@ -2340,23 +2396,38 @@ corintar_4_missions = {
 					random = 30
 				}
 			}
+			custom_tooltip = upgrade_corintar_redtusk_orcs_tt
 			if = {
 				limit = { has_country_modifier = corintar_redtusk_orcs_ii }
+				hidden_effect = {
+					remove_country_modifier = corintar_redtusk_orcs_ii
+					remove_estate_privilege = estate_orcish_redtusks_academy_ii
+				}
+				if = {
+					limit = {
+						has_estate_privilege = estate_orcish_redtusks_academy_ii
+					}
+					set_estate_privilege = estate_orcish_redtusks_academy_iii
+				}
 				add_country_modifier = {
 					name = corintar_redtusk_orcs_iii
 					duration = -1
 				}
-				hidden_effect = {
-					remove_country_modifier = corintar_redtusk_orcs_ii
-				}
 			}
 			else = {
+				hidden_effect = {
+					remove_country_modifier = corintar_redtusk_orcs_i
+					remove_estate_privilege = estate_orcish_redtusks_academy_i
+				}
+				if = {
+					limit = {
+						has_estate_privilege = estate_orcish_redtusks_academy_i
+					}
+					set_estate_privilege = estate_orcish_redtusks_academy_ii
+				}
 				add_country_modifier = {
 					name = corintar_redtusk_orcs_ii
 					duration = -1
-				}
-				hidden_effect = {
-					remove_country_modifier = corintar_redtusk_orcs_i
 				}
 			}
 		}
@@ -2619,8 +2690,36 @@ corintar_5_missions = {
 				}
 				add_permanent_claim = ROOT
 			}
-			country_event = {
+			country_event_with_option_insight = {
 				id = flavor_corintar.37
+				option_1 = "
+					custom_tooltip = flavor_corintar.37.a_insight_tooltip
+					854 = { # Bradnath
+						change_trade_goods = iron
+						add_base_production = 2
+						if = {
+							limit = {
+								NOT = { has_dwarven_majority_trigger = yes }
+							}
+							add_dwarven_minority_size_effect = yes
+						}
+					}
+				"
+				option_2 = "
+					custom_tooltip = flavor_corintar.37.b_insight_tooltip
+					854 = { # Bradnath
+						add_base_production = 4
+						if = {
+							limit = {
+								NOT = { has_dwarven_majority_trigger = yes }
+							}
+							add_dwarven_minority_size_effect = yes
+						}
+					}
+				"
+				option_3 = "
+					custom_tooltip = flavor_corintar.37.c_insight_tooltip
+				"
 			}
 			corintar_refresh_reconstruction = yes
 		}
@@ -2693,8 +2792,23 @@ corintar_5_missions = {
 				add_base_tax = 1
 				add_base_manpower = 1
 			}
-			country_event = {
+			country_event_with_effect_insight = {
 				id = flavor_corintar.31
+				effect = "
+					small_increase_of_orcish_tolerance_effect = yes
+					clouded_wood_area = {
+						limit = {
+							NOT = { is_core = ROOT }
+						}
+						add_permanent_claim = ROOT
+					}
+					sarwood_area = {
+						limit = {
+							NOT = { is_core = ROOT }
+						}
+						add_permanent_claim = ROOT
+					}
+				"
 			}
 			set_country_flag = get_adventurer_flag
 			set_country_flag = great_general_extra_pips_flag
@@ -2921,23 +3035,38 @@ corintar_5_missions = {
 					remove_building = tradecompany
 				}
 			}
+			custom_tooltip = upgrade_corintar_redtusk_orcs_tt
 			if = {
 				limit = { has_country_modifier = corintar_redtusk_orcs_ii }
+				hidden_effect = {
+					remove_country_modifier = corintar_redtusk_orcs_ii
+					remove_estate_privilege = estate_orcish_redtusks_academy_ii
+				}
+				if = {
+					limit = {
+						has_estate_privilege = estate_orcish_redtusks_academy_ii
+					}
+					set_estate_privilege = estate_orcish_redtusks_academy_iii
+				}
 				add_country_modifier = {
 					name = corintar_redtusk_orcs_iii
 					duration = -1
 				}
-				hidden_effect = {
-					remove_country_modifier = corintar_redtusk_orcs_ii
-				}
 			}
 			else = {
+				hidden_effect = {
+					remove_country_modifier = corintar_redtusk_orcs_i
+					remove_estate_privilege = estate_orcish_redtusks_academy_i
+				}
+				if = {
+					limit = {
+						has_estate_privilege = estate_orcish_redtusks_academy_i
+					}
+					set_estate_privilege = estate_orcish_redtusks_academy_ii
+				}
 				add_country_modifier = {
 					name = corintar_redtusk_orcs_ii
 					duration = -1
-				}
-				hidden_effect = {
-					remove_country_modifier = corintar_redtusk_orcs_i
 				}
 			}
 		}
@@ -2999,13 +3128,19 @@ corintar_5_missions = {
 				every_owned_province = {
 					clr_province_flag = corintar_flag
 				}
+				remove_estate_privilege = estate_orcish_redtusks_academy_iii
+				remove_country_modifier = corintar_redtusk_orcs_iii
+			}
+			custom_tooltip = upgrade_corintar_redtusk_orcs_tt
+			if = {
+				limit = {
+					has_estate_privilege = estate_orcish_redtusks_academy_iii
+				}
+				set_estate_privilege = estate_orcish_redtusks_academy_vi
 			}
 			add_country_modifier = {
 				name = corintar_redtusk_orcs_iv
 				duration = -1
-			}
-			hidden_effect = {
-				remove_country_modifier = corintar_redtusk_orcs_iii
 			}
 		}
 	}
