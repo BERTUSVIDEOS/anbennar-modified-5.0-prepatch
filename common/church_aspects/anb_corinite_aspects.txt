@@ -15,6 +15,13 @@ corinite_rosh_hashanah_aspect = {	#ADM aspect
 			unrest = 4
 			NOT = { stability = 0 }
 		}
+		modifier = {
+			factor = 0
+			OR = {
+				has_church_aspect = corinite_sukkot_aspect
+				has_church_aspect = corinite_simchat_torah_aspect
+			}
+		}
 	}
 }
 
@@ -24,7 +31,16 @@ corinite_simchat_torah_aspect = {	#ADM aspect
 		same_culture_advisor_cost = -0.1
 	}
 	monarch_power = adm
-	ai_will_do = {factor = 15}
+	ai_will_do = {
+		factor = 15
+		modifier = {
+			factor = 0
+			OR = {
+				has_church_aspect = corinite_sukkot_aspect
+				has_church_aspect = corinite_rosh_hashanah_aspect
+			}
+		}
+	}
 }
 
 corinite_sukkot_aspect = {	#ADM aspect
@@ -42,6 +58,13 @@ corinite_sukkot_aspect = {	#ADM aspect
 		modifier = {
 			factor = 7
 			num_of_loans = 6
+		}
+		modifier = {
+			factor = 0
+			OR = {
+				has_church_aspect = corinite_simchat_torah_aspect
+				has_church_aspect = corinite_rosh_hashanah_aspect
+			}
 		}
 	}
 }
@@ -64,6 +87,13 @@ corinite_communities_aspect = {	#DIP aspect
 			factor = 0.01
 			NOT = { dominant_religion = jewish }
 		}
+		modifier = {
+			factor = 0
+			OR = {
+				has_church_aspect = corinite_diplomatic_rabbi_aspect
+				has_church_aspect = corinite_abrahamic_aspect
+			}
+		}
 	}
 }
 
@@ -76,7 +106,16 @@ corinite_diplomatic_rabbi_aspect = {	#DIP aspect
 		development_cost = -0.05
 	}
 	monarch_power = dip
-	ai_will_do = {factor = 15}
+	ai_will_do = {
+		factor = 15
+		modifier = {
+			factor = 0
+			OR = {
+				has_church_aspect = corinite_communities_aspect
+				has_church_aspect = corinite_abrahamic_aspect
+			}
+		}
+	}
 }
 
 corinite_abrahamic_aspect = {	#DIP aspect
@@ -96,6 +135,13 @@ corinite_abrahamic_aspect = {	#DIP aspect
 		modifier = {
 			factor = 10
 			NOT = { dominant_religion = jewish }
+		}
+		modifier = {
+			factor = 0
+			OR = {
+				has_church_aspect = corinite_communities_aspect
+				has_church_aspect = corinite_diplomatic_rabbi_aspect
+			}
 		}
 	}
 }
@@ -120,6 +166,13 @@ corinite_yom_kippur_aspect = {	#MIL aspect
 			factor = 2
 			NOT = { manpower_percentage = 0.5 }
 		}
+		modifier = {
+			factor = 0
+			OR = {
+				has_church_aspect = corinite_purim_teachings_aspect
+				has_church_aspect = corinite_remember_passover_aspect
+			}
+		}
 	}
 }
 
@@ -137,6 +190,13 @@ corinite_remember_passover_aspect = {	#MIL aspect
 		modifier = {
 			factor = 2
 			is_at_war = yes
+		}
+		modifier = {
+			factor = 0
+			OR = {
+				has_church_aspect = corinite_purim_teachings_aspect
+				has_church_aspect = corinite_yom_kippur_aspect
+			}
 		}
 	}
 }
@@ -156,6 +216,13 @@ corinite_purim_teachings_aspect = {	#MIL aspect
 		modifier = {
 			factor = 2
 			is_at_war = yes
+		}
+		modifier = {
+			factor = 0
+			OR = {
+				has_church_aspect = corinite_remember_passover_aspect
+				has_church_aspect = corinite_yom_kippur_aspect
+			}
 		}
 	}
 }

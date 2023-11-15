@@ -494,21 +494,38 @@ moonhaven_corinite_missions = {
 		position = 6
 		
 		trigger = {
-			mil = 4
-			treasury = 200
-			A45 = {
-				has_opinion = {
-					who = A31
-					value = 200
+			if = {	#bertus mod
+				limit = {
+					exists = A45
 				}
-				army_size = 20
+				mil = 4
+				treasury = 200
+				A45 = {
+					has_opinion = {
+						who = A31
+						value = 200
+					}
+					army_size = 20
+				}
+			}
+			else = {
+				277 = {
+					owned_by = ROOT
+					base_manpower = 10
+				}
+				army_tradition = 80
 			}
 		}
 		
 		effect = {
-			A45 = {
-				add_treasury = 200
-				country_event = { id = A31_flavour.2 }
+			if = {	#bertus mod
+				limit = {
+					exists = A45
+				}
+				A45 = {
+					add_treasury = 200
+					country_event = { id = A31_flavour.2 }
+				}
 			}
 			add_treasury = -200
 			add_mil_power = 300
@@ -1241,13 +1258,7 @@ moonhaven_colonial_missions = {
 			treasury = 200
 			any_subject_country = {
 				is_colonial_nation_of = A31
-				capital_scope = {
-					colonial_region = colonial_taychend
-				}
-			}
-			any_known_country = {
-				culture_group = taychendi_ruinborn_elf
-				truce_with = A31
+				total_development = 500	#bertus mod
 			}
 		}
 		
@@ -1255,9 +1266,7 @@ moonhaven_colonial_missions = {
 			add_treasury = -200
 			random_subject_country = {
 				limit = {
-					capital_scope = {
-						colonial_region = colonial_taychend
-					}
+					total_development = 500	#bertus mod
 				}
 				random_owned_province = {
 					change_trade_goods = tea
