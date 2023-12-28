@@ -1,5 +1,39 @@
 
 
+increase_vampire_skill = {
+	random_list = {
+		33 = {
+			trigger = { NOT = {check_variable = { which = vampire_adm_skill value = 6 } } }
+			modifier = { factor = 0.5 check_variable = { which = vampire_adm_skill value = 6 } }
+			change_variable = { which = vampire_adm_skill value = $value$ }
+			change_variable = { which = ruler_adm value = $value$ }
+			if = {
+				limit = { has_ruler_modifier = vampire_ruler }
+				change_adm = $value$
+			}
+		}
+		33 = {
+			trigger = { NOT = {check_variable = { which = vampire_dip_skill value = 6 } } }
+			modifier = { factor = 0.5 check_variable = { which = vampire_dip_skill value = 6 } }
+			change_variable = { which = vampire_dip_skill value = $value$ }
+			change_variable = { which = ruler_dip value = $value$ }
+			if = {
+				limit = { has_ruler_modifier = vampire_ruler }
+				change_dip = $value$
+			}
+		}
+		33 = {
+			trigger = { NOT = {check_variable = { which = vampire_mil_skill value = 6 } } }
+			modifier = { factor = 0.5 check_variable = { which = vampire_mil_skill value = 6 } }
+			change_variable = { which = vampire_mil_skill value = $value$ }
+			change_variable = { which = ruler_mil value = $value$ }
+			if = {
+				limit = { has_ruler_modifier = vampire_ruler }
+				change_mil = $value$
+			}
+		}
+	}
+}
 climate_and_terrain_preferences = {
 	remove_province_modifier_effect = {MODIFIER = severe_winter_preference}
 	remove_province_modifier_effect = {MODIFIER = arctic_preference}
@@ -869,7 +903,6 @@ on_mil_development_extra_dev_effect = {
 		if = { limit = { owner = {is_subject = yes} } owner = {overlord = {add_church_power = 2}} }
 		else = { owner = {add_church_power = 2} }
 	}
-	}
 	if = {
 		limit = { 
 			has_global_flag = emperors_will_hre_flag
@@ -1202,7 +1235,10 @@ on_dip_development_modifiers_effect = {
 	if = {	#coal bonus
 		limit = {
 			trade_goods = coal
-			has_province_modifier = wex_ironhill_2
+			OR = {
+				has_province_flag = coal_boost_flag
+				has_province_modifier = wex_ironhill_2
+			}
 		}
 		add_permanent_province_modifier = {name = coal_trade_modifier duration = -1}
 		province_event = {id = bertus_pops.1045 } 	#boost pop goods produced
@@ -2744,7 +2780,7 @@ kobold_celebrate_effect = {
 		random_owned_province = {
 			limit = {religion = ROOT}
 			save_event_target_as = province_event_target
-			get_cost_dependant_racial_advisor = {class = adm random = yes}
+			get_cost_dependant_racial_advisor = { random = yes class = adm }
 		}
 		add_adm_power = 50
 	}
@@ -2796,7 +2832,7 @@ kobold_celebrate_effect = {
 		random_owned_province = {
 			limit = {religion = ROOT}
 			save_event_target_as = province_event_target
-			get_cost_dependant_racial_advisor = {class = dip random = yes}
+			get_cost_dependant_racial_advisor = { random = yes class = dip }
 		}
 		add_dip_power = 50
 	}
@@ -2817,7 +2853,7 @@ kobold_celebrate_effect = {
 		random_owned_province = {
 			limit = {religion = ROOT}
 			save_event_target_as = province_event_target
-			get_cost_dependant_racial_advisor = {class = mil random = yes}
+			get_cost_dependant_racial_advisor = { random = yes class = mil }
 		}
 		add_mil_power = 50
 	}
@@ -2954,7 +2990,7 @@ dwarven_celebrate_effect = {
 		random_owned_province = {
 			limit = {religion = ROOT}
 			save_event_target_as = province_event_target
-			get_cost_dependant_racial_advisor = {class = mil random = yes}
+			get_cost_dependant_racial_advisor = { random = yes class = mil }
 		}
 	}
 	if = {

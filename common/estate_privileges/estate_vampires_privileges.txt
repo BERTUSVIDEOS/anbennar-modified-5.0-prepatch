@@ -267,6 +267,78 @@ estate_vampires_organization_vampires_lord = {
 			loyalty = 70
 		}
 	}
+	conditional_modifier = {	#bertus mod
+		trigger = { NOT = { has_ruler_modifier = vampire_ruler } check_variable = { which = vampire_adm_skill value = 1 } NOT = {check_variable = { which = vampire_adm_skill value = 2 } } }
+		modifier = { country_admin_power = 1 }
+	}
+	conditional_modifier = {	#bertus mod
+		trigger = { NOT = { has_ruler_modifier = vampire_ruler } check_variable = { which = vampire_adm_skill value = 1 } NOT = {check_variable = { which = vampire_adm_skill value = 3 } } }
+		modifier = { country_admin_power = 2 }
+	}
+	conditional_modifier = {	#bertus mod
+		trigger = { NOT = { has_ruler_modifier = vampire_ruler } check_variable = { which = vampire_adm_skill value = 1 } NOT = {check_variable = { which = vampire_adm_skill value = 4 } } }
+		modifier = { country_admin_power = 3 }
+	}
+	conditional_modifier = {	#bertus mod
+		trigger = { NOT = { has_ruler_modifier = vampire_ruler } check_variable = { which = vampire_adm_skill value = 1 } NOT = {check_variable = { which = vampire_adm_skill value = 5 } } }
+		modifier = { country_admin_power = 4 }
+	}
+	conditional_modifier = {	#bertus mod
+		trigger = { NOT = { has_ruler_modifier = vampire_ruler } check_variable = { which = vampire_adm_skill value = 1 } NOT = {check_variable = { which = vampire_adm_skill value = 6 } } }
+		modifier = { country_admin_power = 5 }
+	}
+	conditional_modifier = {	#bertus mod
+		trigger = { NOT = { has_ruler_modifier = vampire_ruler } check_variable = { which = vampire_adm_skill value = 1 } }
+		modifier = { country_admin_power = 6 }
+	}
+	conditional_modifier = {	#bertus mod
+		trigger = { NOT = { has_ruler_modifier = vampire_ruler } check_variable = { which = vampire_dip_skill value = 1 } NOT = {check_variable = { which = vampire_dip_skill value = 2 } } }
+		modifier = { country_diplomatic_power = 1 }
+	}
+	conditional_modifier = {	#bertus mod
+		trigger = { NOT = { has_ruler_modifier = vampire_ruler } check_variable = { which = vampire_dip_skill value = 1 } NOT = {check_variable = { which = vampire_dip_skill value = 3 } } }
+		modifier = { country_diplomatic_power = 2 }
+	}
+	conditional_modifier = {	#bertus mod
+		trigger = { NOT = { has_ruler_modifier = vampire_ruler } check_variable = { which = vampire_dip_skill value = 1 } NOT = {check_variable = { which = vampire_dip_skill value = 4 } } }
+		modifier = { country_diplomatic_power = 3 }
+	}
+	conditional_modifier = {	#bertus mod
+		trigger = { NOT = { has_ruler_modifier = vampire_ruler } check_variable = { which = vampire_dip_skill value = 1 } NOT = {check_variable = { which = vampire_dip_skill value = 5 } } }
+		modifier = { country_diplomatic_power = 4 }
+	}
+	conditional_modifier = {	#bertus mod
+		trigger = { NOT = { has_ruler_modifier = vampire_ruler } check_variable = { which = vampire_dip_skill value = 1 } NOT = {check_variable = { which = vampire_dip_skill value = 6 } } }
+		modifier = { country_diplomatic_power = 5 }
+	}
+	conditional_modifier = {	#bertus mod
+		trigger = { NOT = { has_ruler_modifier = vampire_ruler } check_variable = { which = vampire_dip_skill value = 1 } }
+		modifier = { country_diplomatic_power = 6 }
+	}
+	conditional_modifier = {	#bertus mod
+		trigger = { NOT = { has_ruler_modifier = vampire_ruler } check_variable = { which = vampire_mil_skill value = 1 } NOT = {check_variable = { which = vampire_mil_skill value = 2 } } }
+		modifier = { country_military_power = 1 }
+	}
+	conditional_modifier = {	#bertus mod
+		trigger = { NOT = { has_ruler_modifier = vampire_ruler } check_variable = { which = vampire_mil_skill value = 1 } NOT = {check_variable = { which = vampire_mil_skill value = 3 } } }
+		modifier = { country_military_power = 2 }
+	}
+	conditional_modifier = {	#bertus mod
+		trigger = { NOT = { has_ruler_modifier = vampire_ruler } check_variable = { which = vampire_mil_skill value = 1 } NOT = {check_variable = { which = vampire_mil_skill value = 4 } } }
+		modifier = { country_military_power = 3 }
+	}
+	conditional_modifier = {	#bertus mod
+		trigger = { NOT = { has_ruler_modifier = vampire_ruler } check_variable = { which = vampire_mil_skill value = 1 } NOT = {check_variable = { which = vampire_mil_skill value = 5 } } }
+		modifier = { country_military_power = 4 }
+	}
+	conditional_modifier = {	#bertus mod
+		trigger = { NOT = { has_ruler_modifier = vampire_ruler } check_variable = { which = vampire_mil_skill value = 1 } NOT = {check_variable = { which = vampire_mil_skill value = 6 } } }
+		modifier = { country_military_power = 5 }
+	}
+	conditional_modifier = {	#bertus mod
+		trigger = { NOT = { has_ruler_modifier = vampire_ruler } check_variable = { which = vampire_mil_skill value = 1 } }
+		modifier = { country_military_power = 6 }
+	}
 	can_revoke = {
 		always = no
 	}
@@ -279,7 +351,7 @@ estate_vampires_organization_vampires_lord = {
 	}
 	
 	benefits = {
-		country_admin_power = 1
+		#country_admin_power = 1	#1→0
 	}
 	
 	ai_will_do = {factor = 0}
@@ -474,25 +546,24 @@ estate_vampires_organize_a_masquerade = {
 		NOT = { has_country_flag = remove_vampire_masquerade }
 	}
 	can_select = {
-	}
-	can_revoke = {
+		NOT = {check_variable = { which = vampire_adm_skill value = 6 } }
+		NOT = {check_variable = { which = vampire_dip_skill value = 6 } }
+		NOT = {check_variable = { which = vampire_mil_skill value = 6 } }
 	}
 	on_granted = {
+		custom_tooltip = estate_masquerade_tooltip
 	}
-	
+	benefits = {}
+	penalties = {
+		yearly_corruption = 0.10
+	}
+	can_revoke = {}
 	on_invalid = {
 		clr_country_flag = remove_vampire_masquerade
 	}
-	
-	penalties = {
-		global_tax_modifier = -0.1
-	}
-	
-	benefits = {
-	}
-	
-	cooldown_years = 5
+	cooldown_years = 20
 	on_cooldown_expires = {
+		increase_vampire_skill = { value = 1 }
 		set_country_flag = remove_vampire_masquerade
 	}
 	ai_will_do = {

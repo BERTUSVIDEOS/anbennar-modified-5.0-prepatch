@@ -568,6 +568,15 @@ country_event = {	# Angry gnollish mob forms
 			random_owned_province = {
 				limit = {
 					is_city = yes
+					has_any_gnollish_pop_trigger = yes
+					pure_unrest = 5
+				}
+				save_event_target_as = province_event_target
+				save_event_target_as = gnollish_mob_province
+			}
+			random_owned_province = {
+				limit = {
+					is_city = yes
 					has_gnollish_minority_trigger = yes
 					development = 30
 					pure_unrest = 5
@@ -620,7 +629,7 @@ country_event = {	# Angry gnollish mob forms
 		add_estate_loyalty = { estate = estate_gnollish loyalty = -10 }
 		
 		event_target:province_event_target = {
-			add_prestige_or_monarch_power = {amount =  10}
+			owner = { add_prestige_or_monarch_power = {amount = 10} }
 			lose_manpower_from_provinces = { manpower_per_dev = 0.5 }
 			if = {
 				limit = {culture_is_gnollish = yes}
