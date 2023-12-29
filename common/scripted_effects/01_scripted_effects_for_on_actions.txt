@@ -827,41 +827,36 @@ on_province_religion_converted_effect = {
 		owner = { change_statists_vs_orangists = -0.01 }
 	}
 	if = {
-		limit = {
-			owner = { has_disaster = ibevar_reformation }
-		}
+		limit = {has_province_modifier = ibevar_old_tradition}
+		remove_province_modifier = ibevar_old_tradition
 		if = {
-			limit = {has_province_modifier = ibevar_old_tradition}
-			remove_province_modifier = ibevar_old_tradition
-			if = {
-				limit = {religion = regent_court}
-				change_religion = elven_forebears
-			}
-			else = { change_religion = regent_court }
-			add_province_modifier = { name = ibevar_reformation_effort duration = -1 }
-			remove_province_modifier = religious_zeal_at_conv
+			limit = {religion = regent_court}
+			change_religion = elven_forebears
 		}
-		else_if = {
-			limit = {has_province_modifier = ibevar_reformation_effort}
-			remove_province_modifier = ibevar_reformation_effort
-			if = {
-				limit = {religion = regent_court}
-				change_religion = elven_forebears
-			}
-			else = { change_religion = regent_court }
-			add_province_modifier = { name = ibevar_last_reformation_effort duration = -1 }
-			remove_province_modifier = religious_zeal_at_conv
+		else = { change_religion = regent_court }
+		add_province_modifier = { name = ibevar_reformation_effort duration = -1 }
+		remove_province_modifier = religious_zeal_at_conv
+	}
+	else_if = {
+		limit = {has_province_modifier = ibevar_reformation_effort}
+		remove_province_modifier = ibevar_reformation_effort
+		if = {
+			limit = {religion = regent_court}
+			change_religion = elven_forebears
 		}
-		else_if = {
-			limit = {has_province_modifier = ibevar_last_reformation_effort}
-			remove_province_modifier = ibevar_last_reformation_effort
-			if = {
-				limit = {religion = regent_court}
-				change_religion = elven_forebears
-			}
-			else = { change_religion = regent_court }
-			remove_province_modifier = religious_zeal_at_conv
+		else = { change_religion = regent_court }
+		add_province_modifier = { name = ibevar_last_reformation_effort duration = -1 }
+		remove_province_modifier = religious_zeal_at_conv
+	}
+	else_if = {
+		limit = {has_province_modifier = ibevar_last_reformation_effort}
+		remove_province_modifier = ibevar_last_reformation_effort
+		if = {
+			limit = {religion = regent_court}
+			change_religion = elven_forebears
 		}
+		else = { change_religion = regent_court }
+		remove_province_modifier = religious_zeal_at_conv
 	}
 	if = {	#bertus mod
 		limit = { has_government_attribute = gain_power_from_conversions }
