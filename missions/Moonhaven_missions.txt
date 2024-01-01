@@ -151,7 +151,14 @@ moonhaven_regent_court_missions = {
 			small_increase_of_gnomish_tolerance_effect = yes
 		}
 	}
-	
+}
+moonhaven_regent_missions = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = A31 has_country_flag = A31_regent }
+
 	A31_true_to_rc = {
 		icon = mission_buddhist_monk_praying
 		required_missions = { A31_unraveling }
@@ -163,7 +170,6 @@ moonhaven_regent_court_missions = {
 				has_country_flag = A31_regent
 			}
 		 	religious_unity = 1
-			religion = regent_court
 			stability = 1
 			NOT = {
 				num_of_rebel_armies = 1
@@ -272,7 +278,7 @@ moonhaven_regent_court_missions = {
 		}
 		
 		trigger = {
-			adm_power = 300
+			adm_power = 100
 			OR = {
 				A45 = {
 					is_subject_of = A31
@@ -291,16 +297,7 @@ moonhaven_regent_court_missions = {
 		}
 		
 		effect = {
-			add_adm_power = -300
-			if = {
-				limit = {
-					NOT = { exists = A45 }
-				}
-				release = A45
-			}
-			create_march = A45
-			add_historical_friend = A45
-			A45 = { add_historical_friend = A31 }
+			add_adm_power = -100
 			335 = { add_core = A31 }
 			5 = { add_core = A31 }
 			357 = { add_core = A31 }
@@ -358,15 +355,17 @@ moonhaven_regent_court_missions = {
 				army_tradition = 75
 				army_professionalism = 1
 			}
-			adm_power = 200
-			treasury = 1000
+			adm_power = 100
 			any_ally = { is_emperor = yes }
 			has_country_modifier = hre_dominant_regent_court
 		}
 		
 		effect = {
-			add_adm_power = -200
-			add_treasury = -1000
+			add_adm_power = -100
+			add_country_modifier = {
+				name = "generic_mission_faith_boost"
+				duration = -1
+			}
 			custom_tooltip = A31_place_dev
 			hidden_effect = {
 				every_owned_province = {
@@ -392,11 +391,12 @@ moonhaven_regent_court_missions = {
 					}
 				}
 			}
+			complete_mission = A31_greater_revelation_regent
 		}
 	}
 }
 
-moonhaven_corinite_missions = {
+moonhaven_basic_2_missions = {
 	slot = 2
 	generic = no
 	ai = yes
@@ -408,29 +408,43 @@ moonhaven_corinite_missions = {
 		required_missions = { }
 		position = 2
 		
-		trigger = {
-			any_ally = { tag = A45 }
-			A45 = {
-				has_opinion = {
-					who = A31
-					value = 170
+		trigger = {	#bertus mod
+			OR = {
+				AND = {
+					alliance_with = A45
+					A45 = {
+						has_opinion = {
+							who = A31
+							value = 170
+						}
+					}
 				}
+				is_rival = A45
+				NOT = { exists = A38 }
 			}
 		}
 		
 		effect = {
-			A45 = {
-				add_trust = {
-					who = A31
-					value = 20
-					mutual = yes
+			if = {
+				limit = {
+					alliance_with = A45
+				}
+				A45 = {
+					add_trust = {
+						who = A31
+						value = 20
+						mutual = yes
+					}
+				}
+				define_advisor = {
+					type = diplomat
+					skill = 3
+					cost_multiplier = 0.50
+					culture = east_damerian
 				}
 			}
-			define_advisor = {
-				type = diplomat
-				skill = 1
-				discount = yes
-				culture = east_damerian
+			else = {
+				define_advisor = { skill = 3 type = idea_var_advisor_23 cost_multiplier = 0.50  culture = ROOT religion = ROOT}
 			}
 		}
 	}
@@ -444,16 +458,21 @@ moonhaven_corinite_missions = {
 			stability = 1
 			is_at_war = no
 			is_religion_enabled = corinite
-			OR = {
-				A45 = { religion = corinite }
-				NOT = { exists = A45 }
-			}
 		}
 		
 		effect = {
 			country_event = { id = A31_flavour.1 }
 		}
 	}
+}
+
+moonhaven_corinite_missions = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = A31 has_country_flag = A31_corinite }
+
 	
 	A31_new_path = {
 		icon = mission_hands_praying
@@ -465,9 +484,8 @@ moonhaven_corinite_missions = {
 				tooltip = A31_went_corinite
 				has_country_flag = A31_corinite
 			}
-			religious_unity = 1
-			religion = corinite
 			stability = 1
+			religious_unity = 1
 			NOT = {
 				num_of_rebel_armies = 1
 				num_of_rebel_controlled_provinces = 1
@@ -479,10 +497,13 @@ moonhaven_corinite_missions = {
 				name = "A31_conversion_zeal"
 				duration = 7300
 			}
-			A45 = {
-				add_country_modifier = {
-					name = "A31_conversion_zeal"
-					duration = 7300
+			if = {
+				limit = { alliance_with = A45 }
+				A45 = {
+					add_country_modifier = {
+						name = "A31_conversion_zeal"
+						duration = 7300
+					}
 				}
 			}
 		}
@@ -514,6 +535,7 @@ moonhaven_corinite_missions = {
 					base_manpower = 10
 				}
 				army_tradition = 80
+				owns = 277
 			}
 		}
 		
@@ -542,7 +564,7 @@ moonhaven_corinite_missions = {
 		position = 7
 		
 		trigger = {
-			adm_power = 200
+			adm_power = 100
 			OR = {
 				adm = 4
 				AND = {
@@ -553,18 +575,21 @@ moonhaven_corinite_missions = {
 		}
 		
 		effect = {
-			add_adm_power = -200
+			add_adm_power = -100
 			random_owned_area = {
 				limit = { continent = europe }
 				add_human_minority_size_effect = yes
 			}
 			medium_increase_of_human_tolerance_effect = yes
-			A45 = {
-				random_owned_area = {
-					limit = { NOT = { area = silverwoods_area } }
+			if = {
+				limit = { alliance_with = A45 }
+				A45 = {
+					random_owned_area = {
+						limit = { NOT = { area = silverwoods_area } }
 						add_elven_minority_size_effect = yes
+					}
+					medium_increase_of_elven_tolerance_effect = yes
 				}
-				medium_increase_of_elven_tolerance_effect = yes
 			}
 		}
 	}
@@ -586,13 +611,16 @@ moonhaven_corinite_missions = {
 			add_treasury = -200
 			add_country_modifier = {
 				name = "A31_damerian_development"
-				duration = 1825
+				duration = 7300
 			}
-			A45 = {
-				country_event = { id = A31_flavour.3 }
-				add_country_modifier = {
-					name = "A31_damerian_development"
-					duration = 1825
+			if = {
+				limit = { alliance_with = A45 }
+				A45 = {
+					country_event = { id = A31_flavour.3 }
+					add_country_modifier = {
+						name = "A31_damerian_development"
+						duration = 7300
+					}
 				}
 			}
 		}
@@ -608,39 +636,45 @@ moonhaven_corinite_missions = {
 			at_war_with_religious_enemy = yes
 			OR = {
 				mil = 5
-				mil_power = 200
+				mil_power = 100
 			}
 		}
 		
 		effect = {
 			if = { limit = { NOT = { mil = 5 } }
-				add_mil_power = -200
+				add_mil_power = -100
 			}
 			add_country_modifier = {
 				name = "A31_auxillaries_moonhaven"
 				duration = 27375
 			}
-			A45 = {
-				country_event = { id = A31_flavour.4 }
-				add_country_modifier = {
-					name = "A31_auxillaries_istralore"
-					duration = 27375
+			add_country_modifier = {
+				name = "A31_auxillaries_istralore"
+				duration = 27375
+			}
+			if = {
+				limit = { alliance_with = A45 }
+				A45 = {
+					country_event = { id = A31_flavour.4 }
+					add_country_modifier = {
+						name = "A31_auxillaries_istralore"
+						duration = 27375
+					}
 				}
 			}
 		}
 	}
-	
+
 	A31_corin_light = {
 		icon = mission_empire
 		required_missions = { A31_elven_auxillaries }
 		position = 10
 		
 		trigger = {
-			treasury = 750
-			adm_power = 200
-			OR = {
-				A45 = { is_emperor = yes }
-				A58 = { is_emperor = yes }
+			adm_power = 100
+			emperor = {
+				alliance_with = ROOT
+				religion = corinite
 			}
 			calc_true_if = {
 				all_province = {
@@ -655,9 +689,12 @@ moonhaven_corinite_missions = {
 		}
 		
 		effect = {
-			add_treasury = -750
-			add_adm_power = -200
+			add_adm_power = -100
 			add_splendor = 500
+			add_country_modifier = {
+				name = "generic_mission_faith_boost"
+				duration = -1
+			}
 			custom_tooltip = A31_tax_elf
 			hidden_effect = {
 				europe = {
@@ -668,7 +705,7 @@ moonhaven_corinite_missions = {
 					add_base_tax = 1
 				}
 			}
-			complete_mission = A31_greater_revelation
+			complete_mission = A31_greater_revelation_corinite
 		}
 	}
 }
@@ -805,7 +842,10 @@ moonhaven_development_missions = {
 		trigger = {
 			dip_power = 100
 			treasury = 100
-			any_ally = { primary_culture = east_damerian }
+			OR = {
+				any_ally = { primary_culture = east_damerian }
+				accepted_culture = east_damerian
+			}
 		}
 		
 		effect = {
@@ -815,12 +855,18 @@ moonhaven_development_missions = {
 			random_subject_country = {
 				limit = { is_colonial_nation_of = A31 }
 				random_owned_province = {
-					add_base_tax = 1
-					add_base_manpower = 1
-					add_base_production = 1
+					add_base_tax = 2
+					add_base_manpower = 2
+					add_base_production = 2
 					add_human_minority_size_effect = yes
 					add_half_elven_minority_size_effect = yes
 				}
+			}
+			define_advisor = {
+				type = idea_var_advisor_10
+				skill = 3
+				cost_multiplier = 0.50
+				culture = east_damerian
 			}
 		}
 	}
@@ -967,7 +1013,7 @@ moonhaven_development_missions = {
 		
 		trigger = {
 			OR = {
-				adm_power = 400
+				adm_power = 100
 				full_idea_group = trade_ideas
 				full_idea_group = economic_ideas
 			}
@@ -998,7 +1044,7 @@ moonhaven_development_missions = {
 						}
 					}
 				}
-				add_adm_power = -400
+				add_adm_power = -100
 			}
 			add_mercantilism = 3
 			define_advisor = {
@@ -1027,7 +1073,7 @@ moonhaven_development_missions = {
 				total_development = 500
 			}
 			OR = {
-				dip_power = 400
+				dip_power = 100
 				full_idea_group = maritime_ideas
 			}
 		}
@@ -1041,7 +1087,7 @@ moonhaven_development_missions = {
 						}
 					}
 				}
-				add_dip_power = -400
+				add_dip_power = -100
 			}
 			add_country_modifier = {
 				name = "A31_elven_home"
@@ -1049,15 +1095,22 @@ moonhaven_development_missions = {
 			}
 		}
 	}
-	
-	A31_greater_revelation = {
+}
+
+moonhaven_corinite_3_missions = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = A31 has_country_flag = A31_corinite }
+
+	A31_greater_revelation_corinite = {
 		icon = deal_with_the_illuminati
 		required_missions = { A31_elven_auxillaries }
 		position = 10
 		
 		trigger = {
-			treasury = 750
-			adm_power = 200
+			adm_power = 100
 			calc_true_if = {
 				all_province = {
 					is_part_of_hre = yes
@@ -1070,8 +1123,11 @@ moonhaven_development_missions = {
 		}
 		
 		effect = {
-			add_treasury = -750
-			add_adm_power = -200
+			add_adm_power = -100
+			add_country_modifier = {
+				name = "generic_mission_faith_boost"
+				duration = -1
+			}
 			custom_tooltip = A31_prod_elf
 			hidden_effect = {
 				europe = {
@@ -1093,6 +1149,61 @@ moonhaven_development_missions = {
 				}
 			}
 			complete_mission = A31_corin_light
+		}
+	}
+}
+moonhaven_regent_3_missions = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = A31 has_country_flag = A31_regent }
+
+	A31_greater_revelation_regent = {
+		icon = deal_with_the_illuminati
+		required_missions = { A31_elven_auxillaries }
+		position = 10
+		
+		trigger = {
+			adm_power = 100
+			calc_true_if = {
+				all_province = {
+					is_part_of_hre = yes
+					culture = moon_elf
+					religion = ravelian
+				}
+				amount = 7
+			}
+			religion = ravelian
+		}
+		
+		effect = {
+			add_adm_power = -100
+			add_country_modifier = {
+				name = "generic_mission_faith_boost"
+				duration = -1
+			}
+			custom_tooltip = A31_prod_elf
+			hidden_effect = {
+				europe = {
+					limit = {
+						is_part_of_hre = yes
+						has_elven_minority_trigger = yes
+					}
+					add_base_production = 1
+				}
+			}
+			custom_tooltip = A31_ravelian_tax
+			hidden_effect = {
+				europe = {
+					limit = {
+						is_part_of_hre = yes
+						culture = moon_elf
+					}
+					add_base_tax = 1
+				}
+			}
+			complete_mission = A31_elven_place_empire
 		}
 	}
 }
@@ -1133,18 +1244,30 @@ moonhaven_colonial_missions = {
 			add_dip_power = -50
 			if = {
 				limit = { NOT = { exists = A21 } }
-				add_navy_tradition = 5
+				add_navy_tradition = 20
+				define_explorer = {
+					shock = 6
+					fire = 8
+					manuever = 7
+					siege = 7
+					name = "Eledas Seawatcher"
+				}
 			}
 			else = {
 				add_navy_tradition = 10
 				52 = {
 					add_unit_construction = {
 						type = light_ship
-						amount = 1
+						amount = 3
 						cost = 0
-						speed = 1
+						speed = 0
 					}
 				}
+				create_explorer = { tradition = 100 }
+			}
+			add_country_modifier = {
+				name = "A31_better_range"
+				duration = 9125
 			}
 		}
 	}
@@ -1176,8 +1299,8 @@ moonhaven_colonial_missions = {
 		
 		effect = {
 			add_country_modifier = {
-				name = "A31_better_range"
-				duration = 9125
+				name = "colonial_enthusiasm"
+				duration = 7300
 			}
 		}
 	}
@@ -1201,6 +1324,14 @@ moonhaven_colonial_missions = {
 					add_base_tax = 2
 					add_base_production =  2
 				}
+				add_country_modifier = {
+					name = "colonial_enthusiasm"
+					duration = 7300
+				}
+			}
+			add_country_modifier = {
+				name = "colonial_enthusiasm"
+				duration = 7300
 			}
 		}
 	}
@@ -1280,7 +1411,7 @@ moonhaven_colonial_missions = {
 		}
 	}
 	
-	A31_elven_history = {
+	A31_elven_history = {	#bertus mod
 		icon = mission_rb_inland_india
 		required_missions = { A31_taychend }
 		position = 6
@@ -1298,9 +1429,9 @@ moonhaven_colonial_missions = {
 			}
 			OR = {
 				AND = {
-					adm_power = 150
-					dip_power = 150
-					mil_power = 150
+					adm_power = 50
+					dip_power = 50
+					mil_power = 50
 				}
 				ruler_has_personality = scholar_personality
 			}
@@ -1311,19 +1442,19 @@ moonhaven_colonial_missions = {
 				limit = {
 					NOT = { ruler_has_personality = scholar_personality }
 				}
-				add_adm_power = -150
-				add_dip_power = -150
-				add_mil_power = -150
+				add_adm_power = -50
+				add_dip_power = -50
+				add_mil_power = -50
 			}
 			add_country_modifier = {
 				name = "A31_elven_archeology"
-				duration = 5475
+				duration = 7300
 			}
 			every_subject_country = {
 				limit = { is_colonial_nation = yes }
 				add_country_modifier = {
 					name = "A31_elven_archeology"
-					duration = 5475
+					duration = 7300
 				}
 			}
 		}
@@ -1503,7 +1634,7 @@ moonhaven_colonial_missions = {
 		}
 		
 		effect = {
-			add_years_of_income = -2
+			add_years_of_income = -1
 			if = {
 				limit = {
 					estate_loyalty = {
@@ -1573,6 +1704,7 @@ moonhaven_exploration_missions = {
 			}
 			52 = { add_base_production = 1 }
 			696 = { add_base_production = 1 }
+			create_explorer = { tradition = 100 }	#bertus mod
 		}
 	}
 	
@@ -1613,12 +1745,12 @@ moonhaven_exploration_missions = {
 				limit = { is_colonial_nation_of = A31 }
 				capital_scope = {
 					change_trade_goods = tea
-					add_base_production = 2
+					add_base_production = 3
 				}
 				random_owned_province = {
 					limit = { NOT = { trade_goods = tea } }
 					change_trade_goods = tea
-					add_base_production = 2
+					add_base_production = 3
 				}
 			}
 		}

@@ -90,223 +90,48 @@ interaction = {	#6-1
 	ai_will_do = {factor = 0}
 }
 interaction = {	#7-1
-    key = country_goods_interaction
+    key = empty_interaction
     random_seed = random
-	cooldown_months = 0
+	cooldown_months = 1
 
-    trigger = {
+    trigger = {		
 		custom_trigger_tooltip = {
-			tooltip = trade_goods_variables_localisations_tooltip
-			always = yes
+			tooltip = celebrate_space_tooltip
+			always = no
 		}
     }
-    effect = {	
-		custom_tooltip = spacing_tooltip
-		if = {	#has goods de-activated
-			limit = {NOT = {has_global_flag = stored_goods_activated_flag}}
-			custom_tooltip = bertus_deactivated_goods_tt
-		}
-		custom_tooltip = bertus_open_goods_menu_tt
-		hidden_effect = {
-			country_event = {id = ANEX_event.34}
-			country_event = {id = bertus_changes.7000}
-		}
-		custom_tooltip = spacing_tooltip
+    effect = {
     }
 	ai_will_do = {factor = 0}
 }
 interaction = {	#8-1
-    key = country_study_magic_interaction
-    random_seed = random
-	cooldown_months = 0
+	key = empty_interaction
+	random_seed = random
+	cooldown_months = 1
 
-    trigger = {
-		hidden_trigger = {
-			ai = no	#bertus mod
-			NOT = { has_ruler_flag = magic_menu_opened }
+	trigger = {		
+		custom_trigger_tooltip = {
+			tooltip = celebrate_space_tooltip
+			always = no
 		}
-		NOT = { has_country_flag = in_magocracy_heir_selection }
-		NOT = { has_ruler_modifier = magic_realm_menu_cooldown }
-		NOT = { has_ruler_modifier = ruler_recently_casted_spell }
-		ruler_has_mage_personality = yes
-		if = { limit = { NOT = {months_of_ruling = 2 }}
-			months_of_ruling = 2
-		}
-		if = { limit = { is_lesser_in_union = yes }
-			is_lesser_in_union = no
-		}
-		if = { limit = { ai = yes }
-			NOT = { has_ruler_modifier = ruler_recently_casted_spell }
-		}
-		if = { limit = { has_ruler_flag = abjuration_3 }
-			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_abjuration_3 }
-		}
-		else_if = { limit = { has_ruler_flag = abjuration_2 }
-			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_abjuration_2 }
-		}
-		else_if = { limit = { has_ruler_flag = abjuration_1 }
-			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_abjuration_1 }
-		}
-		else = {
-			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_abjuration_0 }
-		}
-		
-		if = { limit = { has_ruler_flag = conjuration_3 }
-			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_conjuration_3 }
-		}
-		else_if = { limit = { has_ruler_flag = conjuration_2 }
-			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_conjuration_2 }
-		}
-		else_if = { limit = { has_ruler_flag = conjuration_1 }
-			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_conjuration_1 }
-		}
-		else = {
-			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_conjuration_0 }
-		}
-		
-		if = { limit = { has_ruler_flag = divination_3 }
-			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_divination_3 }
-		}
-		else_if = { limit = { has_ruler_flag = divination_2 }
-			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_divination_2 }
-		}
-		else_if = { limit = { has_ruler_flag = divination_1 }
-			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_divination_1 }
-		}
-		else = {
-			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_divination_0 }
-		}
-		
-		if = { limit = { has_ruler_flag = enchantment_3 }
-			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_enchantment_3 }
-		}
-		else_if = { limit = { has_ruler_flag = enchantment_2 }
-			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_enchantment_2 }
-		}
-		else_if = { limit = { has_ruler_flag = enchantment_1 }
-			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_enchantment_1 }
-		}
-		else = {
-			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_enchantment_0 }
-		}
-		
-		if = { limit = { has_ruler_flag = evocation_3 }
-			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_evocation_3 }
-		}
-		else_if = { limit = { has_ruler_flag = evocation_2 }
-			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_evocation_2 }
-		}
-		else_if = { limit = { has_ruler_flag = evocation_1 }
-			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_evocation_1 }
-		}
-		else = {
-			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_evocation_0 }
-		}
-		
-		if = { limit = { has_ruler_flag = illusion_3 }
-			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_illusion_3 }
-		}
-		else_if = { limit = { has_ruler_flag = illusion_2 }
-			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_illusion_2 }
-		}
-		else_if = { limit = { has_ruler_flag = illusion_1 }
-			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_illusion_1 }
-		}
-		else = {
-			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_illusion_0 }
-		}
-		
-		if = { limit = { has_ruler_flag = necromancy_3 }
-			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_necromancy_3 }
-		}
-		else_if = { limit = { has_ruler_flag = necromancy_2 }
-			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_necromancy_2 }
-		}
-		else_if = { limit = { has_ruler_flag = necromancy_1 }
-			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_necromancy_1 }
-		}
-		else = {
-			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_necromancy_0 }
-		}
-		
-		if = { limit = { has_ruler_flag = transmutation_3 }
-			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_transmutation_3 }
-		}
-		else_if = { limit = { has_ruler_flag = transmutation_2 }
-			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_transmutation_2 }
-		}
-		else_if = { limit = { has_ruler_flag = transmutation_1 }
-			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_transmutation_1 }
-		}
-		else = {
-			custom_trigger_tooltip = { always = yes tooltip = tooltip_has_transmutation_0 }
-		}
-    }
-    effect = {
-		custom_tooltip = open_ruler_magic_menu_tt
-		hidden_effect = { country_event = { id = magic_ruler.0 } }
-		open_single_menu = yes	#prevents people from opening the menu multiple times
-		#Allows for vampires that become mages naturally
-		hidden_effect = {
-			if = { 
-				limit = { has_ruler_flag = is_a_vampire }
-				set_country_flag = mage_vampire
-			}
-		}
-    }
+	}
+	effect = {
+	}
 	ai_will_do = {factor = 0}
 }
 interaction = {	#9-1
-    key = country_administration_interaction
-    random_seed = random
-	cooldown_months = 0
+	key = empty_interaction
+	random_seed = random
+	cooldown_months = 1
 
-    trigger = {
-		hidden_trigger = {
-			OR = {
-				NOT = { has_country_flag = racial_pop_menu_opened }
-				had_country_flag = {	#If something weird happens and the flag wasn't cleared, allow to open after a year
-					flag = racial_military_menu_opened
-					days = 365
-				}
-			}
+	trigger = {		
+		custom_trigger_tooltip = {
+			tooltip = celebrate_space_tooltip
+			always = no
 		}
-    }
-    effect = {		
-		country_administration_effect = {
-			type = administration
-		}
-		custom_tooltip = tolerance_of_human_info_tooltip
-		custom_tooltip = tolerance_of_elven_info_tooltip
-		custom_tooltip = tolerance_of_dwarven_info_tooltip
-		custom_tooltip = tolerance_of_halfling_info_tooltip
-		custom_tooltip = tolerance_of_gnomish_info_tooltip
-		custom_tooltip = tolerance_of_harimari_info_tooltip
-		custom_tooltip = tolerance_of_gnollish_info_tooltip
-		custom_tooltip = tolerance_of_ruinborn_info_tooltip
-		custom_tooltip = tolerance_of_goblin_info_tooltip
-		custom_tooltip = tolerance_of_orcish_info_tooltip
-		custom_tooltip = tolerance_of_ogre_info_tooltip
-		custom_tooltip = tolerance_of_centaur_info_tooltip
-		custom_tooltip = tolerance_of_troll_info_tooltip
-		custom_tooltip = tolerance_of_harpy_info_tooltip
-		custom_tooltip = tolerance_of_half_orcish_info_tooltip
-		custom_tooltip = tolerance_of_half_elven_info_tooltip
-		custom_tooltip = tolerance_of_hobgoblin_info_tooltip
-		custom_tooltip = tolerance_of_kobold_info_tooltip
-		custom_tooltip = spacing_tooltip
-		custom_tooltip = pop_menu_access_tt
-		hidden_effect = {
-			if = { limit = { ai = yes }
-				country_event = { id = racial_pop_misc.1 }
-			}
-			else = {	
-				pop_menu_calculations = yes
-				country_event = { id = racial_pop_misc.3 }
-			}
-			set_country_flag = racial_pop_menu_opened
-		}
-    }
+	}
+	effect = {
+	}
 	ai_will_do = {factor = 0}
 }
 interaction = {	#1-2
@@ -558,21 +383,18 @@ interaction = {	#8-2
 	ai_will_do = {factor = 0}
 }
 interaction = {	#9-2
-    key = country_military_interaction
-    random_seed = random
-	cooldown_months = 0
+	key = empty_interaction
+	random_seed = random
+	cooldown_months = 1
 
-    trigger = {
-		hidden_trigger = {
-			NOT = { has_country_flag = racial_military_menu_opened }
+	trigger = {		
+		custom_trigger_tooltip = {
+			tooltip = celebrate_space_tooltip
+			always = no
 		}
-    }
-    effect = {
-		country_administration_effect = {
-			type = military
-		}
-		country_event = {id = bertus_racial_military.1001}
-    }
+	}
+	effect = {
+	}
 	ai_will_do = {factor = 0}
 }
 interaction = {	#1-3

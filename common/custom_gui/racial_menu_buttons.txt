@@ -1,0 +1,79 @@
+custom_button = {
+    name = racial_pop_menu
+    potential = {
+		always = yes
+	}
+	trigger = {
+		hidden_trigger = {
+			NOT = { has_country_flag = racial_military_menu_opened }
+			NOT = { has_country_flag = racial_pop_menu_opened }
+			NOT = { has_country_modifier = racial_pop_menu_cooldown }
+		}
+	}
+	effect = {
+		country_administration_effect = {
+			type = administration
+		}
+		custom_tooltip = tolerance_of_human_info_tooltip
+		custom_tooltip = tolerance_of_elven_info_tooltip
+		custom_tooltip = tolerance_of_dwarven_info_tooltip
+		custom_tooltip = tolerance_of_halfling_info_tooltip
+		custom_tooltip = tolerance_of_gnomish_info_tooltip
+		custom_tooltip = tolerance_of_harimari_info_tooltip
+		custom_tooltip = tolerance_of_gnollish_info_tooltip
+		custom_tooltip = tolerance_of_ruinborn_info_tooltip
+		custom_tooltip = tolerance_of_goblin_info_tooltip
+		custom_tooltip = tolerance_of_orcish_info_tooltip
+		custom_tooltip = tolerance_of_ogre_info_tooltip
+		custom_tooltip = tolerance_of_centaur_info_tooltip
+		custom_tooltip = tolerance_of_troll_info_tooltip
+		custom_tooltip = tolerance_of_harpy_info_tooltip
+		custom_tooltip = tolerance_of_half_orcish_info_tooltip
+		custom_tooltip = tolerance_of_half_elven_info_tooltip
+		custom_tooltip = tolerance_of_hobgoblin_info_tooltip
+		custom_tooltip = tolerance_of_kobold_info_tooltip
+		custom_tooltip = spacing_tooltip
+		custom_tooltip = pop_menu_access_tt
+		hidden_effect = {
+			if = { limit = { ai = yes }
+				country_event = { id = racial_pop_misc.1 }
+			}
+			else = {	
+				pop_menu_calculations = yes
+				country_event = { id = racial_pop_misc.3 }
+			}
+			set_country_flag = racial_pop_menu_opened
+		}
+	}
+	tooltip = pop_menu_access_tt
+}
+custom_button = {
+    name = racial_mil_menu
+    potential = {
+		ai = no
+	}
+	trigger = {
+		hidden_trigger = {
+			OR = {
+				NOT = {has_country_flag = racial_mil_menu_cd}
+				had_country_flag = {
+					flag = racial_mil_menu_cd
+					days = 30
+				}
+			}
+		}
+	}
+	effect = {
+		hidden_effect = {
+			clr_country_flag = racial_mil_menu_cd
+			set_country_flag = racial_mil_menu_cd
+			country_event = {id = bertus_racial_military.1001}
+		}
+		country_administration_effect = {
+			type = military
+			military = yes
+		}
+		custom_tooltip = "Update Military Recruitment"
+	}
+	tooltip = mil_menu_access_tt
+}
