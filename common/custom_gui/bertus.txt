@@ -136,14 +136,12 @@ custom_button = {
 		always = yes
 	} #Determines when the icon is visible
 	trigger = {
-		hidden_trigger = {
-			OR = {
-				NOT = {has_country_flag = trade_goods_update_cd}
-				had_country_flag = {
-					flag = trade_goods_update_cd
-					days = 30
-				}
+		if = {
+			limit = {
+				has_country_flag = trade_goods_update_cd
+				NOT = { had_country_flag = { flag = trade_goods_update_cd days = 30 } }
 			}
+			had_country_flag = { flag = trade_goods_update_cd days = 30 }
 		}
 	}
 	effect = {
@@ -201,4 +199,161 @@ custom_button = {
 		open_single_menu = yes	#prevents people from opening the menu multiple times
 	}
     tooltip = siege_magic_tt #Can use customizable localisation
+}
+custom_button = {
+    name = first_chairman_interaction #Must match a scripted iconType in a .gui file
+    potential = {
+		ai = no
+	} #Determines when the icon is visible
+	trigger = {
+		if = {
+			limit = {
+				has_country_flag = first_chairman_interaction_cd
+				NOT = { had_country_flag = { flag = first_chairman_interaction_cd days = 3650 } }
+			}
+			had_country_flag = { flag = first_chairman_interaction_cd days = 3650 }
+		}
+	}
+	effect = {
+		country_chairman_effect = { type = first_hand }
+		country_event = { id = bertus_racial_military.5200 }
+		hidden_effect = {
+			clr_country_flag = first_chairman_interaction_cd
+			set_country_flag = first_chairman_interaction_cd
+		}
+	}
+    tooltip = first_chairman_interaction_tt #Can use customizable localisation
+}
+custom_button = {
+    name = diplomacy_chairman_interaction #Must match a scripted iconType in a .gui file
+    potential = {
+		ai = no
+	} #Determines when the icon is visible
+	trigger = {
+		if = {
+			limit = {
+				has_country_flag = diplomacy_chairman_interaction_cd
+				NOT = { had_country_flag = { flag = diplomacy_chairman_interaction_cd days = 3650 } }
+			}
+			had_country_flag = { flag = diplomacy_chairman_interaction_cd days = 3650 }
+		}
+	}
+	effect = {
+		country_chairman_effect = { type = diplomacy }
+		country_event = { id = bertus_racial_military.5201 }
+		hidden_effect = {
+			clr_country_flag = diplomacy_chairman_interaction_cd
+			set_country_flag = diplomacy_chairman_interaction_cd
+		}
+	}
+    tooltip = diplomacy_chairman_interaction_tt #Can use customizable localisation
+}
+custom_button = {
+    name = military_chairman_interaction #Must match a scripted iconType in a .gui file
+    potential = {
+		ai = no
+	} #Determines when the icon is visible
+	trigger = {
+		if = {
+			limit = {
+				has_country_flag = military_chairman_interaction_cd
+				NOT = { had_country_flag = { flag = military_chairman_interaction_cd days = 3650 } }
+			}
+			had_country_flag = { flag = military_chairman_interaction_cd days = 3650 }
+		}
+	}
+	effect = {
+		country_chairman_effect = { type = military }
+		country_event = { id = bertus_racial_military.5202 }
+		hidden_effect = {
+			clr_country_flag = military_chairman_interaction_cd
+			set_country_flag = military_chairman_interaction_cd
+		}
+	}
+    tooltip = military_chairman_interaction_tt #Can use customizable localisation
+}
+custom_button = {
+    name = economic_chairman_interaction #Must match a scripted iconType in a .gui file
+    potential = {
+		ai = no
+	} #Determines when the icon is visible
+	trigger = {
+		if = {
+			limit = {
+				has_country_flag = economic_chairman_interaction_cd
+				NOT = { had_country_flag = { flag = economic_chairman_interaction_cd days = 3650 } }
+			}
+			had_country_flag = { flag = economic_chairman_interaction_cd days = 3650 }
+		}
+	}
+	effect = {
+		country_chairman_effect = { type = economic }
+		country_event = { id = bertus_racial_military.5203 }
+		if = {
+			limit = {
+				has_country_modifier = estate_halfling_economic_chairman_modifier
+			}
+			custom_tooltip = estate_halfling_economic_chairman_tooltip
+		}
+		hidden_effect = {
+			clr_country_flag = economic_chairman_interaction_cd
+			set_country_flag = economic_chairman_interaction_cd
+		}
+	}
+    tooltip = economic_chairman_interaction_tt #Can use customizable localisation
+}
+custom_button = {
+    name = navy_chairman_interaction #Must match a scripted iconType in a .gui file
+    potential = {
+		ai = no
+	} #Determines when the icon is visible
+	trigger = {
+		if = {
+			limit = { all_owned_province = { has_port = no } }
+			any_owned_province = { has_port = yes }
+		}
+		if = {
+			limit = {
+				has_country_flag = navy_chairman_interaction_cd
+				NOT = { had_country_flag = { flag = navy_chairman_interaction_cd days = 3650 } }
+			}
+			had_country_flag = { flag = navy_chairman_interaction_cd days = 3650 }
+		}
+	}
+	effect = {
+		country_chairman_effect = { type = navy }
+		country_event = { id = bertus_racial_military.5204 }
+		hidden_effect = {
+			clr_country_flag = navy_chairman_interaction_cd
+			set_country_flag = navy_chairman_interaction_cd
+		}
+	}
+    tooltip = navy_chairman_interaction_tt #Can use customizable localisation
+}
+custom_button = {
+    name = racial_mil_update
+    potential = {
+		ai = no
+	}
+	trigger = {
+		if = {
+			limit = {
+				has_country_flag = racial_mil_menu_cd
+				NOT = { had_country_flag = { flag = racial_mil_menu_cd days = 30 } }
+			}
+			had_country_flag = { flag = racial_mil_menu_cd days = 30 }
+		}
+	}
+	effect = {
+		hidden_effect = {
+			clr_country_flag = racial_mil_menu_cd
+			set_country_flag = racial_mil_menu_cd
+			country_event = {id = bertus_racial_military.1001}
+			country_administration_effect = {
+				type = military
+				military = yes
+			}
+		}
+	}
+	tooltip = ""
 }

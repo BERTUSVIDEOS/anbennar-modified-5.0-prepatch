@@ -995,6 +995,67 @@ estate_human_castanor_academies = {
 	cooldown_years = 20
 	ai_will_do = {factor = 100}
 }
+estate_human_urviksten_academies = {
+	icon = privilege_recruit_rajput_general
+	is_valid = {
+		has_country_modifier = human_military
+		has_race_recruitment = {race = human}
+		NOT = {has_race_recruitment = {race = orcish}}
+		NOT = {has_race_recruitment = {race = goblin}}
+		culture_group = gerudian
+		ownes = 984
+	}
+	can_select = {
+		has_country_modifier = human_military
+		has_race_recruitment = {race = human}
+		NOT = {has_race_recruitment = {race = orcish}}
+		NOT = {has_race_recruitment = {race = goblin}}
+		has_elite_regiments = no
+		culture_group = gerudian
+		984 = {
+			owned_by = ROOT
+			has_great_project = {
+				type = urviksten_ebonsteel_armory
+				tier = 2
+			}
+		}
+	}
+	on_granted = {
+		custom_tooltip = estate_human_urviksten_academies_tt
+		custom_tooltip = estate_human_urviksten_academies_infantry_modifier_tt
+		add_country_modifier = {name = urviksten_academies_modifier duration = -1 hidden = yes}
+	}
+	benefits = {
+		allowed_cossack_fraction = 0.1
+	}
+	penalties = {
+		yearly_corruption = 0.20
+	}
+	conditional_modifier = {
+		trigger = {
+			984 = {
+				owned_by = ROOT
+				has_great_project = {
+					type = urviksten_ebonsteel_armory
+					tier = 3
+				}
+			}
+		}
+		modifier = {
+			fire_damage_received = -0.05
+			shock_damage_received = -0.05
+		}
+	}
+	on_revoked = {
+		custom_tooltip = estate_human_castanor_academies_tt
+		hidden_effect = {remove_country_modifier = castanor_academies_modifier}
+	}
+	on_invalid = {
+		hidden_effect = {remove_country_modifier = castanor_academies_modifier}
+	}
+	cooldown_years = 20
+	ai_will_do = {factor = 100}
+}
 estate_human_griffon_academies = {
 	icon = privilege_griffon_academies
 	is_valid = {

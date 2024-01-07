@@ -2031,6 +2031,12 @@ country_event = {	#
 	
 	hidden = yes
 	is_triggered_only = yes
+	trigger = {
+		OR = {
+			ai = no
+			NOT = {is_year = 1446}
+		}
+	}
 	
 	option = {
 		name = bertus_changes.1038.a
@@ -2073,6 +2079,12 @@ country_event = {	#
 	
 	hidden = yes
 	is_triggered_only = yes
+	trigger = {
+		OR = {
+			ai = no
+			NOT = {is_year = 1446}
+		}
+	}
 	
 	option = {
 		name = bertus_changes.1041.a
@@ -2087,6 +2099,12 @@ country_event = {	#
 	
 	hidden = yes
 	is_triggered_only = yes
+	trigger = {
+		OR = {
+			ai = no
+			NOT = {is_year = 1446}
+		}
+	}
 	
 	option = {
 		name = bertus_changes.1042.a
@@ -4094,7 +4112,7 @@ country_event = {	#
 		if = {
 			limit = {
 				OR = {
-					owner = {NOT = {owns = 676}}		
+					NOT = {owns = 676}
 					NOT = {601 = {has_great_project = {type = bulwar_canals tier = 3}}}
 				}
 			}
@@ -4791,6 +4809,19 @@ province_event = {	#get emperor population
 	
 	hidden = yes
 	is_triggered_only = yes
+	trigger = {
+		OR = {
+			NOT = { has_country_flag = add_emperor_population_flag }
+			had_country_flag = {
+				flag = add_emperor_population_flag
+				days = 30
+			}
+		}
+	}
+	immediate = {
+		clr_country_flag = add_emperor_population_flag
+		set_country_flag = add_emperor_population_flag
+	}
 	
 	option = {
 		name = bertus_changes.6014.a
@@ -4823,6 +4854,19 @@ province_event = {	#remove non emperor population
 	
 	hidden = yes
 	is_triggered_only = yes
+	trigger = {
+		OR = {
+			NOT = { has_country_flag = remove_emperor_population_flag }
+			had_country_flag = {
+				flag = remove_emperor_population_flag
+				days = 30
+			}
+		}
+	}
+	immediate = {
+		clr_country_flag = remove_emperor_population_flag
+		set_country_flag = remove_emperor_population_flag
+	}
 
 	option = {
 		name = bertus_changes.6015.a

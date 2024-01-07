@@ -818,6 +818,19 @@ on_province_religion_changed_effect = {
 }
 
 on_province_religion_converted_effect = {
+	if = {	#bertus mod
+		limit = { has_idea = F51_increase_lightbringer_jurisdiction }
+		set_variable = { which = development_var value = 0 }
+		export_to_variable = { which = development_var value = development who = PREV }
+		while = {
+			limit = { check_variable = { which = development_var value = 1 } }
+			subtract_variable = { which = development_var value = 1 }
+			add_adm_power = 5
+			add_dip_power = 5
+			add_mil_power = 5
+			add_fervor = 2
+		}
+	}
 	if = {
 		limit = { owner = { has_government_attribute = gain_devotion_from_conversions } }
 		owner = { add_devotion = 0.2 }

@@ -1,7 +1,7 @@
 
 country_decisions = {
 
-	form_jadd_empire = {
+	form_jadd_empire = {	#bertus mod
 		major = yes
 		potential = {
 			religion = the_jadd
@@ -11,70 +11,32 @@ country_decisions = {
 		}
 		provinces_to_highlight = {
 			OR = {
+				province_id = 2909
 				AND = {
-					OR = {
-						superregion = bulwar_superregion
-						superregion = rahen_superregion
-					}
-					NOT = { owned_by = ROOT }
-					NOT = {
-						ROOT = {
-							num_of_owned_provinces_with = {
-								value = 150
-								OR = {
-									superregion = bulwar_superregion
-									superregion = rahen_superregion
-								}
+					superregion = bulwar_superregion
+					ROOT = {
+						NOT = {
+							num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+								value = 100
+								superregion = bulwar_superregion
 							}
 						}
 					}
 				}
-				AND = {
-					OR = {
-						province_id = 2909
-						province_id = 643
-						province_id = 625
-						province_id = 601
-						province_id = 4411
-						province_id = 4435
-						province_id = 4391
-					}
-					OR = {
-						NOT = { owned_by = ROOT }
-						NOT = { is_core = ROOT }
-					}
-				}
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
 			}
 		}
 		allow = {
 			is_at_war = no
 			is_free_or_tributary_trigger = yes
-			if = {
-				limit = { ai = yes }
-				num_of_owned_provinces_with = {
-					value = 100
-					OR = {
-						superregion = bulwar_superregion
-						superregion = rahen_superregion
-					}
-				}
+			num_of_owned_provinces_with = {
+				value = 100
+				superregion = bulwar_superregion
 			}
-			else = {
-				num_of_owned_provinces_with = {
-					value = 150
-					OR = {
-						superregion = bulwar_superregion
-						superregion = rahen_superregion
-					}
-				}
-				owns_core_province = 2909
-				owns_core_province = 643
-				owns_core_province = 625
-				owns_core_province = 601
-				owns_core_province = 4411
-				owns_core_province = 4435
-				owns_core_province = 4391
-			}
+			owns_core_province = 2909
 			
 		}
 		effect = {
@@ -83,9 +45,7 @@ country_decisions = {
 			swap_non_generic_missions = yes
 			hidden_effect = {
 				every_owned_province = {
-					limit = {
-						is_part_of_hre = yes
-					}
+					limit = { is_part_of_hre = yes }
 					set_in_empire = no
 				}
 			}
@@ -96,18 +56,12 @@ country_decisions = {
 				country_event = { id = ideagroups.1 } #Swap Ideas
 			}
 			if = {
-				limit = {
-					NOT = {
-						government = monarchy
-					}
-				}
+				limit = { NOT = { government = monarchy } }
 				change_government = monarchy
 			}
 			add_government_reform = jadd_empire
 			if = {
-				limit = {
-					has_dlc = "Dharma"
-				}
+				limit = { has_dlc = "Dharma" }
 				add_government_reform = jadd_nobility
 			}
 			country_event = { id = jadd_empire.1 }

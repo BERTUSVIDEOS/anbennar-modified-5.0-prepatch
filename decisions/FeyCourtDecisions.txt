@@ -1,14 +1,17 @@
 
 country_decisions = {
 	
-	seelie_ritual = {
+	seelie_ritual = {	#bertus mod
 		major = yes
+		
 		potential = {
+			has_dlc = "Cradle of Civilization"
+			has_government_attribute = allow_piety_switch_decision
 			religion_group = fey_religion
 		}
-
 		allow = {
-			adm_power = 50
+			NOT = { piety = -0.49 }
+			stability = -2
 			NOT = {
 				OR = {
 					has_country_modifier = seelie_ritual
@@ -17,35 +20,25 @@ country_decisions = {
 			}
 		}
 		effect = {
-			if = {
-				limit = { ai = no }
-				add_adm_power = -50
-			}
-			add_piety = 0.1
+			add_stability = -1
+			add_piety = 2
 			add_country_modifier = {
 				name = seelie_ritual
 				duration = 1825
 			}
-			
 		}
 		ai_will_do = {
 			factor = 1
-			
 			modifier = {
 				factor = 0
-				
 				is_at_war = yes
 			}
-			
 			modifier = {
 				factor = 0
-				
 				piety = 0.8
 			}
-			
 			modifier = {
 				factor = 100
-				
 				piety = -1
 				NOT = { piety = -0.2 }
 			}
@@ -53,14 +46,15 @@ country_decisions = {
 		ai_importance = 400
 	}
 	
-	unseelie_ritual = {
+	unseelie_ritual = {	#bertus mod
 		major = yes
 		potential = {
 			religion_group = fey_religion
+			has_government_attribute = allow_piety_switch_decision
 		}
-
 		allow = {
-			mil_power = 50
+			piety = 0.5
+			stability = -2
 			NOT = {
 				OR = {
 					has_country_modifier = seelie_ritual
@@ -69,11 +63,8 @@ country_decisions = {
 			}
 		}
 		effect = {
-			if = {
-				limit = { ai = no }
-				add_mil_power = -50
-			}
-			add_piety = -0.1
+			add_stability = -1
+			add_piety = -2
 			add_country_modifier = {
 				name = unseelie_ritual
 				duration = 1825
@@ -81,23 +72,16 @@ country_decisions = {
 		}
 		ai_will_do = {
 			factor = 1
-
-			
 			modifier = {
 				factor = 100
-				
 				is_at_war = yes
 			}
-			
 			modifier = {
 				factor = 0
-				
 				NOT = { piety = -0.8 }
 			}
-			
 			modifier = {
 				factor = 100
-				
 				piety = 0.2
 				NOT = { piety = 1 }
 			}
