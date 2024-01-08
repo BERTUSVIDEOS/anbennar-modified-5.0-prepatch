@@ -155,14 +155,30 @@ jaddari_westward = {
 						is_capital_of = F21
 					}
 					exists = F21
-					NOT = { F21 = { is_subject_of = ROOT } }
+					NOT = { F21 = { 
+						OR = {
+							is_subject_of = ROOT
+							is_subject_of_scripted_trigger = {
+								overlord = ROOT
+								subject_type = tributary_state
+							}
+						}
+					}
 				}
 			}
 		}
 		
 		trigger = {
 			OR = {
-				F21 = { is_subject_of = ROOT }
+				F21 = { 
+					OR = {
+						is_subject_of = ROOT
+						is_subject_of_scripted_trigger = {
+							overlord = ROOT
+							subject_type = tributary_state
+						}
+					}
+				}
 				AND = {
 					NOT = { exists = F21 }
 					549 = { country_or_non_sovereign_subject_holds = ROOT }
@@ -3393,18 +3409,16 @@ jaddari_diplomatic = {
 			NOT = { owned_by = F49 }
 		}
 		
-		trigger = {
+		trigger = {	#BERTUS MOD
 			is_at_war = no
-			F49 = {
-				is_at_war = no
-			}
-			F49 = {
-				is_subject = no
-			}
-			F49 = {
-				has_opinion = {
-					who = ROOT
-					value = 200
+			F49 = { is_at_war = no }
+			OR = {
+				F49 = { is_subject = no }
+				F49 = {
+					has_opinion = {
+						who = ROOT
+						value = 200
+					}
 				}
 			}
 			is_subject = no
@@ -4095,7 +4109,17 @@ jaddari_diplomatic_4 = {
 					NOT = { country_or_non_sovereign_subject_holds = ROOT }
 				}
 				AND = {
-					NOT = { R62 = { is_subject_of = ROOT } }
+					NOT = {
+						R62 = { 
+							OR = {
+								is_subject_of = ROOT
+								is_subject_of_scripted_trigger = {
+									overlord = ROOT
+									subject_type = tributary_state
+								}
+							}
+						}
+					}
 					superregion = rahen_superregion
 					owned_by = R62
 				}
@@ -4126,7 +4150,13 @@ jaddari_diplomatic_4 = {
 					}
 				}
 				R62 = {
-					is_subject_of = ROOT
+					OR = {
+						is_subject_of = ROOT
+						is_subject_of_scripted_trigger = {
+							overlord = ROOT
+							subject_type = tributary_state
+						}
+					}
 				}
 			}
 		}
@@ -4507,7 +4537,13 @@ jaddari_eastward = {
 		
 		trigger = {
 			F47 = {
-				is_subject_of = ROOT
+				OR = {
+					is_subject_of = ROOT
+					is_subject_of_scripted_trigger = {
+						overlord = ROOT
+						subject_type = tributary_state
+					}
+				}
 				owns_core_province = 2914
 			}
 		}
@@ -4533,7 +4569,13 @@ jaddari_eastward = {
 		trigger = {
 			OR = {
 				F47 = {
-					is_subject_of = ROOT
+					OR = {
+						is_subject_of = ROOT
+						is_subject_of_scripted_trigger = {
+							overlord = ROOT
+							subject_type = tributary_state
+						}
+					}
 					owns_core_province = 2914
 					religion = the_jadd
 					has_opinion = {
@@ -4543,7 +4585,13 @@ jaddari_eastward = {
 				}
 				AND = {
 					F47 = {
-						is_subject_of = ROOT
+						OR = {
+							is_subject_of = ROOT
+							is_subject_of_scripted_trigger = {
+								overlord = ROOT
+								subject_type = tributary_state
+							}
+						}
 						owns_core_province = 2914
 						has_opinion = {
 							who = ROOT
@@ -4585,7 +4633,13 @@ jaddari_eastward = {
 		
 		trigger = {
 			F47 = {
-				is_subject_of = ROOT
+				OR = {
+					is_subject_of = ROOT
+					is_subject_of_scripted_trigger = {
+						overlord = ROOT
+						subject_type = tributary_state
+					}
+				}
 				owns_core_province = 2914
 			}
 			mil_power = 100
