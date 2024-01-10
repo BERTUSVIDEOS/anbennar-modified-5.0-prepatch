@@ -316,7 +316,7 @@ country_event = {	#base production modifiers
 		}
 	}
 }
-country_event = {	#on dev increase modifiers
+province_event = {	#on dev increase modifiers
 	id = bertus_pops.1050
 	title = bertus_pops.1050.t
 	desc = bertus_pops.1050.desc
@@ -325,39 +325,23 @@ country_event = {	#on dev increase modifiers
 	hidden = yes
 	is_triggered_only = yes
 	trigger = {
-		OR = {
-			ai = no
-			overlord = { ai = no }
-			NOT = {is_year = 1446}
-		}
-		OR = {
-			has_idea = entwicklung1
-			has_idea = zentra3
-			has_government_attribute = boost_30_dev_provinces
+		owner = {
+			OR = {
+				ai = no
+				overlord = { ai = no }
+				NOT = {is_year = 1446}
+			}
+			OR = {
+				has_idea = entwicklung1
+				has_idea = zentra3
+				has_government_attribute = boost_30_dev_provinces
+			}
 		}
 	}
 	option = {
 		name = bertus_pops.1050.a
 		clr_country_flag = bertus_pops_1050_flag
-		every_owned_province = {
-			limit = {
-				OR = {
-					AND = {
-						development = 25
-						NOT = { has_province_modifier = zentra_dev }
-					}
-					AND = {
-						development = 40
-						NOT = { has_province_modifier = centralized_province }
-					}
-					AND = {
-						development = 30
-						NOT = {has_province_modifier = centralized_provinces_modifier}
-					}
-				}
-			}
-			on_development_modifiers_effect = yes
-		}
+		on_development_modifiers_effect = yes  	#bertus mod
 	}
 }
 country_event = {	#on get development ideas

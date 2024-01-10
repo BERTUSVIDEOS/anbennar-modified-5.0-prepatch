@@ -117,8 +117,7 @@ remove_estate_race_councelor = {
 		}
 	]
 	all_races_effect = {
-		EFFECT = remove_chairman
-		type = $type$
+		EFFECT = update_racial_tolerance
 	}
 }
 remove_chairman  = {
@@ -300,6 +299,12 @@ country_administration_effect = {
 		if = {
 			limit = { estate_territory = { estate = estate_lizardfolk territory = 1 } }
 			custom_tooltip = lizardfolk_militarization_tt
+		}
+	]
+	[[military]
+		all_races_effect = {
+			EFFECT = remove_chairman
+			type = $type$
 		}
 	]
 	custom_tooltip = spacing_tooltip
@@ -583,6 +588,9 @@ all_races_effect = {
 	$EFFECT$ = { RACE = hobgoblin [[type] type = $type$] }
 	$EFFECT$ = { RACE = kobold [[type] type = $type$] }
 	$EFFECT$ = { RACE = lizardfolk [[type] type = $type$] }
+}
+update_racial_tolerance = {
+	update_$RACE$_tolerance = yes
 }
 change_estate_land_to_percentage = {
 	if = {
@@ -990,7 +998,12 @@ get_special_general_stats = {
 		change_variable = {which = country_leader_fire_var value = 2}
 	}
 	if = {
-		limit = {has_country_flag = get_sword_wielder_general_flag}
+		limit = {
+			OR = {
+				has_country_flag = get_sword_wielder_general_flag
+				has_country_flag = get_god_feaster_general_flag
+			}
+		}
 		if = {
 			limit = {army_tradition = 95}
 			change_variable = {which = country_leader_shock_var value = 1}
@@ -1017,7 +1030,12 @@ get_special_general_stats = {
 		}
 	}
 	if = {
-		limit = {has_country_flag = get_ruler_general_flag}
+		limit = {
+			OR = {
+				has_country_flag = get_ruler_general_flag
+				has_country_flag = get_god_feaster_general_flag
+			}
+		}
 		set_variable = {which = ruler_mil value = 0}
 		export_to_variable = { which = ruler_mil value = MIL }
 		while = {	#per mil skill
@@ -1031,6 +1049,20 @@ get_special_general_stats = {
 				50 = {change_variable = {which = country_leader_fire_var value = 1}}
 				50 = {change_variable = {which = country_leader_shock_var value = 1}}
 				50 = {change_variable = {which = country_leader_manuever_var value = 1}}
+			}
+			if = {
+				limit = {has_country_flag = get_god_feaster_general_flag}
+				random_list = {
+					50 = {change_variable = {which = country_leader_fire_var value = 1}}
+					50 = {change_variable = {which = country_leader_shock_var value = 1}}
+				}
+				if = {
+					limit = { has_country_flag = get_ruler_general_flag has_country_flag = get_god_feaster_general_flag }
+					random_list = {
+						50 = {change_variable = {which = country_leader_fire_var value = 1}}
+						50 = {change_variable = {which = country_leader_shock_var value = 1}}
+					}
+				}
 			}
 		}
 		if = {
@@ -1477,6 +1509,7 @@ clr_special_general_flags = {
 	clr_country_flag = get_ruler_general_flag
 	clr_country_flag = get_sword_wielder_general_flag
 	clr_country_flag = get_lord_alfonso_flag
+	clr_country_flag = get_god_feaster_general_flag
 	clear_saved_name = special_general_name
 }
 update_tech_group = {

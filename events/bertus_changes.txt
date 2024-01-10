@@ -2111,7 +2111,7 @@ country_event = {	#
 		update_race_modifiers = yes	#bertus mod
 	}
 }
-country_event = {	#
+country_event = {	#Eat The Strong
 	id = bertus_changes.1043
 	title = bertus_changes.1043.t
 	desc = bertus_changes.1043.desc
@@ -2119,132 +2119,121 @@ country_event = {	#
 	
 	is_triggered_only = yes
 	
+	immediate = {
+	}
 	option = {
 		name = bertus_changes.1043.a
-		if = {
+		random_list = {
+			25 = {
+				trigger = { has_leader = "Carl 'The Loony'" }
+				kill_leader = {type = "Carl 'The Loony'"}
+			}
+			25 = {
+				trigger = { has_leader = "Mike 'The Brainy'" }
+				kill_leader = {type = "Mike 'The Brainy'"}
+			}
+			25 = {
+				trigger = { has_leader = "Jonhy 'The Fat'" }
+				kill_leader = {type = "Jonhy 'The Fat'"}
+			}
+			25 = {
+				trigger = { has_leader = "McGregor 'The Bully'" }
+				kill_leader = {type = "McGregor 'The Bully'"}
+			}
+			25 = {
+				trigger = {
+					NOT = { has_leader = "Carl 'The Loony'" }
+					NOT = { has_leader = "Mike 'The Brainy'" }
+					NOT = { has_leader = "Jonhy 'The Fat'" }
+					NOT = { has_leader = "McGregor 'The Bully'" }
+				}
+				kill_leader = {type = general}
+			}
+		}
+		if = { 
 			limit = {
-				OR ={
-					has_leader_with = {
-						fire = 8
-						shock = 1
-						siege = 3
-						general = yes
-					}
-					has_leader_with = {
-						fire = 5
-						shock = 5
-						manuever = 2
-						general = yes
-					}
-					has_leader_with = {
-						shock = 8
-						siege = 2
-						general = yes
-					}
-					has_leader_with = {
-						shock = 8
-						manuever = 2
-						general = yes
-					}
-				}
+				NOT = {adm = 6}
+				NOT = {dip = 6}
+				NOT = {mil = 6}
 			}
-			kill_leader = {type = "Carl 'The Loony'"}
-			kill_leader = {type = "Mike 'The Brainy'"}
-			kill_leader = {type = "Jonhy 'The Fat'"}
-			kill_leader = {type = "McGregor 'The Bully'"}
-			if = {
-				limit = {NOT = {adm = 5}}
-				random = {
-					chance = 50
-					change_adm = 2
-				}
+			custom_tooltip = eat_the_strong_ruler_boost_tt
+		}
+		if = { 
+			limit = { is_female = no }
+			custom_tooltip = god_feaster_tooltip
+		}
+		if = { 
+			limit = { is_female = yes }
+			custom_tooltip = god_feaster_envoy_tooltip
+		}
+		random_list = {
+			25 = {
+				trigger = { NOT = {adm = 6} }
+				change_adm = 1
 			}
-			else_if = {
-				limit = {NOT = {adm = 6}}
-				random = {
-					chance = 50
-					change_adm = 1
-					add_adm_power = 100
-				}
+			25 = {
+				trigger = { NOT = {dip = 6} }
+				change_dip = 1
 			}
-			if = {
-				limit = {NOT = {dip = 5}}
-				random = {
-					chance = 50
-					change_dip = 2
-				}
+			25 = {
+				trigger = { NOT = {mil = 6} }
+				change_mil = 1
 			}
-			else_if = {
-				limit = {NOT = {dip = 6}}
-				random = {
-					chance = 50
-					change_dip = 1
-					add_dip_power = 100
-				}
+		}
+		random_list = {
+			25 = {
+				trigger = { NOT = {adm = 6} }
+				change_adm = 1
 			}
-			if = {
-				limit = {NOT = {mil = 5}}
-				random = {
-					chance = 50
-					change_mil = 2
-				}
+			25 = {
+				trigger = { NOT = {dip = 6} }
+				change_dip = 1
 			}
-			else_if = {
-				limit = {NOT = {mil = 6}}
-				random = {
-					chance = 50
-					change_mil = 1
-					add_mil_power = 100
-				}
+			25 = {
+				trigger = { NOT = {mil = 6} }
+				change_mil = 1
 			}
-			if = {
-				limit = {
+			25 = {
+				trigger = { 
 					adm = 6
 					dip = 6
 					mil = 6
-					is_monarch_leader = no
 					is_female = no
 				}
-				define_ruler_to_general = {
-					fire = 10
-					shock = 10
-					manuever = 6
-					siege = 4
-					trait = god_feaster_personality
+				if = {
+					limit = { is_monarch_leader = yes }
+					hidden_effect = {
+						exile_ruler_as = { name = my_exiled_ruler }
+						set_ruler = my_exiled_ruler
+						add_stability = 1
+					}
 				}
+				set_country_flag = get_ruler_general_flag
+				set_country_flag = hero_free_general_flag
+				set_country_flag = get_god_feaster_general_flag
+				set_country_flag = get_adventurer_flag
+				hidden_effect = {
+					country_event = {id = bertus_changes.6030}
+				}
+				add_ruler_modifier = {name = eaten_strong_guy duration = -1}
+				set_variable = { which = temp value = 0 }
 			}
-			if = {
-				limit = {
+			25 = {
+				trigger = { 
 					adm = 6
 					dip = 6
 					mil = 6
 					is_female = yes
 				}
-				define_general = {
-					fire = 10
-					shock = 10
-					manuever = 6
-					siege = 4
-					trait = god_feaster_personality
-					name = "Feast of the Gods envoy"
-				}
-			}
-			if = {
-				limit = {
-					adm = 6
-					dip = 6
-					mil = 6
-					is_monarch_leader = yes
+				custom_tooltip = god_feaster_tooltip
+				set_country_flag = hero_free_general_flag
+				set_country_flag = get_god_feaster_general_flag
+				set_country_flag = get_adventurer_flag
+				hidden_effect = {
+					set_saved_name = {key = special_general_name type = simple name = "Feast of the Gods envoy" }
+					country_event = {id = bertus_changes.6030}
 				}
 				add_ruler_modifier = {name = eaten_strong_guy duration = -1}
-			}
-		}
-		else = {
-			kill_leader = {type = random}
-			random_list = {
-				33 = {change_adm = 1}
-				33 = {change_dip = 1}
-				33 = {change_mil = 1}
 			}
 		}
 	}
@@ -3641,8 +3630,178 @@ country_event = {	#set up enslavement efficiency
 	}
 }
 
+province_event = {
+    id = bertus_changes.2030
+    title = bertus_changes.2030.title
+    desc = bertus_changes.2030.desc
+    picture = DHIMMI_ESTATE_eventPicture
 
-	#	id = bertus_changes.2032	#unused
+	is_triggered_only = yes
+	goto = ROOT
+
+	trigger = {
+		num_of_units_in_province = { who = controller amount = 5 }
+		if = {
+			limit = { development = 20 }
+			num_of_units_in_province = { who = controller amount = 10 }
+		}
+		if = {
+			limit = { development = 30 }
+			num_of_units_in_province = { who = controller amount = 15 }
+		}
+		if = {
+			limit = { development = 40 }
+			num_of_units_in_province = { who = controller amount = 20 }
+		}
+		if = {
+			limit = { development = 50 }
+			num_of_units_in_province = { who = controller amount = 25 }
+		}
+		if = {
+			limit = { development = 60 }
+			num_of_units_in_province = { who = controller amount = 30 }
+		}
+		if = {
+			limit = { development = 70 }
+			num_of_units_in_province = { who = controller amount = 35 }
+		}
+		if = {
+			limit = { development = 80 }
+			num_of_units_in_province = { who = controller amount = 40 }
+		}
+		if = {
+			limit = { development = 90 }
+			num_of_units_in_province = { who = controller amount = 45 }
+		}
+		if = {
+			limit = { development = 100 }
+			num_of_units_in_province = { who = controller amount = 50 }
+		}
+		controller = {
+			has_estate_privilege = estate_ogre_stone_soup
+		}
+		unit_in_battle = no
+	}
+
+	immediate = {
+		controller = {
+			country_event = {
+				id = bertus_changes.2031
+				days = 335
+			}
+		}
+		hidden_effect = {
+			add_province_modifier = {
+				name = making_soup_modifier
+				duration = 335
+			}
+		}
+	}
+    option = {
+        name = bertus_changes.2030.a #
+		
+    }
+}
+country_event = {
+    id = bertus_changes.2031
+    title = bertus_changes.2031.title
+    desc = bertus_changes.2031.desc
+    picture = DHIMMI_ESTATE_eventPicture
+
+	is_triggered_only = yes
+	goto = FROM
+
+	trigger = {
+		FROM = {
+			num_of_units_in_province = { who = controller amount = 5 }
+			if = {
+				limit = { development = 20 }
+				num_of_units_in_province = { who = controller amount = 10 }
+			}
+			if = {
+				limit = { development = 30 }
+				num_of_units_in_province = { who = controller amount = 15 }
+			}
+			if = {
+				limit = { development = 40 }
+				num_of_units_in_province = { who = controller amount = 20 }
+			}
+			if = {
+				limit = { development = 50 }
+				num_of_units_in_province = { who = controller amount = 25 }
+			}
+			if = {
+				limit = { development = 60 }
+				num_of_units_in_province = { who = controller amount = 30 }
+			}
+			if = {
+				limit = { development = 70 }
+				num_of_units_in_province = { who = controller amount = 35 }
+			}
+			if = {
+				limit = { development = 80 }
+				num_of_units_in_province = { who = controller amount = 40 }
+			}
+			if = {
+				limit = { development = 90 }
+				num_of_units_in_province = { who = controller amount = 45 }
+			}
+			if = {
+				limit = { development = 100 }
+				num_of_units_in_province = { who = controller amount = 50 }
+			}
+			controller = {
+				has_estate_privilege = estate_ogre_stone_soup
+			}
+			unit_in_battle = no
+		}
+	}
+
+	immediate = {
+		hidden_effect = {
+			FROM = {
+				set_variable = {which = province_manpower value = 0}
+				export_to_variable = {which = province_manpower value = base_manpower}
+				set_variable = {which = manpower_per_dev_tooltip value = 0}
+				change_variable = {which = manpower_per_dev_tooltip value = 100}
+			}
+		}
+	}
+    option = {
+        name = bertus_changes.2031.a #
+		
+		FROM = {
+			gain_manpower_from_provinces = {manpower_per_dev = 0.1}
+			bertus_dev_reduction = {value = 0.25}
+			province_event = {
+				id = bertus_changes.2030
+				days = 30
+			}
+		}
+    }
+}
+country_event = {
+    id = bertus_changes.2032
+    title = bertus_changes.2032.title
+    desc = bertus_changes.2032.desc
+    picture = DHIMMI_ESTATE_eventPicture
+
+	is_triggered_only = yes
+	goto = FROM
+
+	immediate = {}
+
+    option = {
+        name = bertus_changes.2032.a #
+		tooltip = {
+			FROM = { bertus_dev_reduction = {value = 0.25} }
+		}
+		add_country_modifier = {
+			name = stone_soup_vengeance_modifier
+			duration = 365
+		}
+    }
+}
 	
 country_event = {	#religion church power while gov reform
 	id = bertus_changes.2033	#unused

@@ -65,31 +65,33 @@ verkalgulan_government_missions = {
 			define_advisor = {
 				type = natural_scientist
 				skill = 2
-				discount = yes
+				cost_multiplier = 0.66
 			}
 			define_advisor = {
 				type = trader
 				skill = 2
-				discount = yes
+				cost_multiplier = 0.66
 			}
 			define_advisor = {
 				type = army_organiser
 				skill = 2
-				discount = yes
+				cost_multiplier = 0.66
 			}
 		}
 	}
 	
-	verkalgulan_open_mercenary_negotiations = {
+	verkalgulan_open_mercenary_negotiations = {	 #bertus mod
 		icon = mission_landsknecht_soldier
 		required_missions = { verkalgulan_for_a_rainy_day }
 		position = 4
 		
 		trigger = {
 			quartermaster = 4
+			years_of_income = 0.5
 		}
 		
 		effect = {
+			add_years_of_income = -0.5
 			add_country_modifier = {
 				name = verkalgulan_mercenary_negotiations
 				duration = 7300 #20 years
@@ -97,16 +99,18 @@ verkalgulan_government_missions = {
 		}
 	}
 	
-	verkalgulan_establish_mercenary_companies = {
+	verkalgulan_establish_mercenary_companies = {	 #bertus mod
 		icon = mission_assemble_an_army
 		required_missions = { verkalgulan_open_mercenary_negotiations }
 		position = 5
 		
 		trigger = {
 			army_organiser = 4
+			years_of_income = 0.5
 		}
 		
 		effect = {
+			add_years_of_income = -0.5
 			add_country_modifier = {
 				name = verkalgulan_the_golden_shield_company
 				duration = -1
@@ -123,18 +127,18 @@ verkalgulan_government_missions = {
 		}
 	}
 	
-	verkalgulan_mercenary_integration = {
+	verkalgulan_mercenary_integration = {	 #bertus mod
 		icon = mission_consolidate_the_state
 		required_missions = { verkalgulan_establish_mercenary_companies }
 		position = 6
 		
 		trigger = {
 			army_reformer = 4
-			mil_power = 400
+			years_of_income = 0.5
 		}
 		
 		effect = {
-			add_mil_power = -400
+			add_years_of_income = -0.5
 			add_country_modifier = {
 				name = verkalgulan_integrated_companies
 				duration = -1
@@ -142,7 +146,7 @@ verkalgulan_government_missions = {
 		}
 	}
 	
-	verkalgulan_national_mercenaries = {
+	verkalgulan_national_mercenaries = {	 #bertus mod
 		icon = mission_recruit_streltsy
 		required_missions = { verkalgulan_mercenary_integration }
 		position = 7
@@ -162,9 +166,11 @@ verkalgulan_government_missions = {
 				is_variable_equal = { which = our_army_size which = our_merc_size }
 			}
 			is_in_deficit = no
+			years_of_income = 0.5
 		}
 		
 		effect = {
+			add_years_of_income = -0.5
 			remove_country_modifier = verkalgulan_integrated_companies
 			add_country_modifier = {
 				name = verkalgulan_full_mercenary_reliance
@@ -173,7 +179,7 @@ verkalgulan_government_missions = {
 		}
 	}
 	
-	verkalgulan_ensure_company_discipline = {
+	verkalgulan_ensure_company_discipline = {	 #bertus mod
 		icon = mission_levantine_restoration
 		required_missions = { verkalgulan_national_mercenaries }
 		position = 8
@@ -187,12 +193,14 @@ verkalgulan_government_missions = {
 			else = {
 				commandant = 3
 			}
+			years_of_income = 0.5
 		}
 		
 		effect = {
+			add_years_of_income = -0.5
 			add_country_modifier = {
 				name = verkalgulan_disciplined_mercenaries
-				duration = 7300 #20 years
+				duration = -1
 			}
 		}
 	}
@@ -223,7 +231,7 @@ verkalgulan_world_bank_missions = {
 			define_advisor = {
 				type = master_of_mint
 				skill = 2
-				discount = yes
+				cost_multiplier = 0.66
 			}
 		}
 	}
@@ -382,12 +390,16 @@ verkalgulan_world_bank_missions = {
 				NOT = { owned_by = ROOT }
 				NOT = { is_core = ROOT }
 				NOT = { development = 50 }
+				NOT = { fort_level = 2 }
 			}
 		}
 		
 		trigger = {
 			owns_core_province = 4078
-			4078 = { development = 50 }
+			4078 = { 
+				development = 50 
+				fort_level = 2 
+			}
 		}
 		
 		effect = {
@@ -395,6 +407,10 @@ verkalgulan_world_bank_missions = {
 				add_province_modifier = {
 					name = verkalgulan_rebuilt_hold
 					duration = 9125 #25 years
+				}
+				add_province_modifier = {
+					name = verkalgulan_gate_of_the_segbandal
+					duration = -1 #50 years
 				}
 			}
 			add_prestige_or_monarch_power = {amount =  20}
@@ -661,7 +677,7 @@ verkalgulan_the_delve_missions = {
 				NOT = { owned_by = ROOT }
 				NOT = { is_core = ROOT }
 				NOT = { fort_level = 2 }
-				NOT = { development = 40 }
+				NOT = { development = 50 }
 			}
 		}
 		
@@ -671,13 +687,19 @@ verkalgulan_the_delve_missions = {
 				fort_level = 2
 				development = 50
 			}
+			years_of_income = 0.5
 		}
 		
 		effect = {
+			add_years_of_income = -0.5
 			4124 = {
 				add_province_modifier = {
+					name = verkalgulan_rebuilt_hold
+					duration = 9125 #25 years
+				}
+				add_province_modifier = {
 					name = verkalgulan_gate_of_the_segbandal
-					duration = 18250 #50 years
+					duration = -1 #50 years
 				}
 			}
 			add_prestige_or_monarch_power = {amount =  20}
@@ -830,7 +852,7 @@ verkalgulan_the_citadel_missions = {
 					name = "Dhûndar Korvûzad"
 					type = statesman
 					skill = 4
-					discount = yes
+					cost_multiplier = 0.66
 					culture = gold_dwarf
 					religion = ROOT
 				}
@@ -840,7 +862,7 @@ verkalgulan_the_citadel_missions = {
 					name = "Dhûndar Korvûzad"
 					type = statesman
 					skill = 3
-					discount = yes
+					cost_multiplier = 0.66
 					culture = gold_dwarf
 					religion = ROOT
 				}
@@ -944,16 +966,30 @@ verkalgulan_the_citadel_missions = {
 		
 		provinces_to_highlight = {
 			province_id = 4218
+			province_id = 6823
 			OR = {
 				NOT = { owned_by = ROOT }
 				NOT = { is_core = ROOT }
-				NOT = { development = 50 }
+				AND = {
+					NOT = { 
+						province_id = 4218
+						development = 50
+					}
+				}
+				AND = {
+					NOT = { 
+						province_id = 6823
+						fort_level = 2
+					}
+				}
 			}
 		}
 		
 		trigger = {
 			owns_core_province = 4218
+			owns_core_province = 6823
 			4218 = { development = 50 }
+			6823 = { fort_level = 2 }
 		}
 		
 		effect = {
@@ -961,6 +997,12 @@ verkalgulan_the_citadel_missions = {
 				add_province_modifier = {
 					name = verkalgulan_rebuilt_hold
 					duration = 9125 #25 years
+				}
+			}
+			6823 = {
+				add_province_modifier = {
+					name = verkalgulan_gate_of_the_segbandal
+					duration = -1 #50 years
 				}
 			}
 			add_prestige_or_monarch_power = {amount =  20}
@@ -1003,9 +1045,11 @@ verkalgulan_great_works_missions = {
 				is_core = ROOT
 				fort_level = 4
 			}
+			years_of_income = 0.5
 		}
 		
 		effect = {
+			add_years_of_income = -0.5
 			2915 = {
 				add_permanent_province_modifier = {
 					name = verkalgulan_forward_fortifications
@@ -1041,9 +1085,11 @@ verkalgulan_great_works_missions = {
 				is_core = ROOT
 				fort_level = 7
 			}
+			years_of_income = 0.5
 		}
 		
 		effect = {
+			add_years_of_income = -0.5
 			2914 = {
 				add_permanent_province_modifier = {
 					name = verkalgulan_the_great_citadel
@@ -1142,13 +1188,19 @@ verkalgulan_great_works_missions = {
 				fort_level = 2
 				development = 50
 			}
+			years_of_income = 0.5
 		}
 		
 		effect = {
+			add_years_of_income = -0.5
 			4217 = {
 				add_province_modifier = {
+					name = verkalgulan_rebuilt_hold
+					duration = 9125 #25 years
+				}
+				add_province_modifier = {
 					name = verkalgulan_gate_of_the_segbandal
-					duration = 18250 #50 years
+					duration = -1 #50 years
 				}
 			}
 			add_prestige_or_monarch_power = {amount =  20}

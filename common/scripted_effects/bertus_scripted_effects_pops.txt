@@ -266,7 +266,7 @@ bertus_dev_reduction = {
 	custom_tooltip = culture_conversion_dev_$value$_reduction_tt
 	if = {
 		limit = {
-			owner = {OR = {has_government_attribute = expulsion_purge_give_cash_and_power has_estate_privilege = estate_ogre_stone_soup}}
+			controller = {OR = {has_government_attribute = expulsion_purge_give_cash_and_power has_estate_privilege = estate_ogre_stone_soup}}
 		}
 		custom_tooltip = culture_conversion_dev_reduction_extra_points_tt
 	}
@@ -288,8 +288,8 @@ bertus_dev_reduction = {
 			change_variable = {which = cicles_per_tax value = 1}
 			add_base_tax = -1
 			if = {
-				limit = {owner = {OR = {has_government_attribute = expulsion_purge_give_cash_and_power has_estate_privilege = estate_ogre_stone_soup}}}
-				owner = {add_treasury = 25 add_adm_power = 5}
+				limit = {controller = {OR = {has_government_attribute = expulsion_purge_give_cash_and_power has_estate_privilege = estate_ogre_stone_soup}}}
+				controller = {add_treasury = 25 add_adm_power = 5}
 			}
 		}
 		while = {
@@ -297,8 +297,8 @@ bertus_dev_reduction = {
 			change_variable = {which = cicles_per_production value = 1}
 			add_base_production = -1
 			if = {
-				limit = {owner = {OR = {has_government_attribute = expulsion_purge_give_cash_and_power has_estate_privilege = estate_ogre_stone_soup}}}
-				owner = {add_treasury = 25 add_dip_power = 5}
+				limit = {controller = {OR = {has_government_attribute = expulsion_purge_give_cash_and_power has_estate_privilege = estate_ogre_stone_soup}}}
+				controller = {add_treasury = 25 add_dip_power = 5}
 			}
 		}
 		while = {
@@ -306,19 +306,20 @@ bertus_dev_reduction = {
 			change_variable = {which = cicles_per_manpower value = 1}
 			add_base_manpower = -1
 			if = {
-				limit = {owner = {OR = {has_government_attribute = expulsion_purge_give_cash_and_power has_estate_privilege = estate_ogre_stone_soup}}}
-				owner = {add_treasury = 25 add_mil_power = 5}
+				limit = {controller = {OR = {has_government_attribute = expulsion_purge_give_cash_and_power has_estate_privilege = estate_ogre_stone_soup}}}
+				controller = {add_treasury = 25 add_mil_power = 5}
 			}
 		}
 		province_event = {id = bertus_pops.1038}
 		province_event = { id = bertus_pops.1039 }	#climate & terrain preferences updater
-		province_event = { id = bertus_pops.1048 }	#on dev reduction conditional modifiers
-		province_event = { id = bertus_pops.1040 }	#development based modifiers
-		province_event = { id = bertus_pops.1041 }	#base tax modifiers
-		province_event = { id = bertus_pops.1042 }	#racial base production modifiers
-		province_event = { id = bertus_pops.1043 }	#base manpower modifiers
-		province_event = { id = bertus_pops.1048 }	#on dev reduction conditional modifiers
-		province_event = { id = bertus_pops.1049 }	#base production modifiers
+		controller = {
+			country_event = { id = bertus_pops.1040 }	#development based modifiers
+			country_event = { id = bertus_pops.1041 }	#base tax modifiers
+			country_event = { id = bertus_pops.1042 }	#racial base production modifiers
+			country_event = { id = bertus_pops.1043 }	#base manpower modifiers
+			country_event = { id = bertus_pops.1048 }	#on dev reduction conditional modifiers
+			country_event = { id = bertus_pops.1049 }	#base production modifiers
+		}
 	}
 }
 gain_manpower_from_provinces = {
@@ -331,7 +332,7 @@ gain_manpower_from_provinces = {
 		while = {
 			limit = {check_variable = {which = province_manpower which = cicles_per_manpower}}
 			change_variable = {which = cicles_per_manpower value = 1}
-			owner = { add_manpower = $manpower_per_dev$ }
+			controller = { add_manpower = $manpower_per_dev$ }
 		}
 	}
 	custom_tooltip = gain_manpower_from_provinces_tt
@@ -422,7 +423,7 @@ get_tolerance_from_provinces = {
 			change_variable = {which = cicles_per_development value = 1}
 			owner = {smallest_increase_of_$race$_tolerance_effect = yes }
 		}
-		owner = { country_event = {id = $race$_tolerance_events.5005} } 	# tolerance update
+		owner = { country_event = { id = $race$_tolerance_events.5005 } } 	# tolerance update
 	}
 	custom_tooltip = get_tolerance_from_provinces_tt
 	tooltip = {owner = { smallest_increase_of_$race$_tolerance_effect = yes }}
@@ -454,9 +455,11 @@ add_1_dev_to_provinces = {
 		hidden_effect = {
 			province_event = {id = bertus_pops.1038}	#pop updater
 			province_event = { id = bertus_pops.1050 }	#on dev increase modifiers
-			province_event = { id = bertus_pops.1041 }	#base tax modifiers
-			province_event = { id = bertus_pops.1042 }	#base production modifiers
-			province_event = { id = bertus_pops.1043 }	#base manpower modifiers
+			owner = {
+				country_event = { id = bertus_pops.1041 }	#base tax modifiers
+				country_event = { id = bertus_pops.1042 }	#base production modifiers
+				country_event = { id = bertus_pops.1043 }	#base manpower modifiers
+			}
 		}
 	}
 }
@@ -471,9 +474,11 @@ remove_1_dev_to_provinces = {
 		hidden_effect = {
 			province_event = {id = bertus_pops.1038}	#pop updater
 			province_event = { id = bertus_pops.1050 }	#on dev increase modifiers
-			province_event = { id = bertus_pops.1041 }	#base tax modifiers
-			province_event = { id = bertus_pops.1042 }	#base production modifiers
-			province_event = { id = bertus_pops.1043 }	#base manpower modifiers
+			owner = {
+				country_event = { id = bertus_pops.1041 }	#base tax modifiers
+				country_event = { id = bertus_pops.1042 }	#base production modifiers
+				country_event = { id = bertus_pops.1043 }	#base manpower modifiers
+			}
 		}
 	}
 }
