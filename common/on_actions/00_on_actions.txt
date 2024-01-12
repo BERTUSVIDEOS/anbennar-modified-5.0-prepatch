@@ -1732,20 +1732,21 @@ on_siege_lost_country = {
 # root = location, from = losing country
 on_siege_won_province = {
 	remove_siege_spells_from_province = yes
+	remove_province_modifier = making_soup_modifier	#bertus mod
 	events = {
 		flavor_vazhatun.111
 	}
     if = {
 		limit = {
-			#controller = {
-			#	OR = {
-			#		ai = no
-			#		AND = {
-			#			ai = yes
-			#			is_subject = yes
-			#		}
-			#	}
-			#}
+			controller = {
+				OR = {
+					ai = no
+					AND = {
+						ai = yes
+						is_subject = yes
+					}
+				}
+			}
 			is_city = yes
 			NOT = { controlled_by = owner }
 		}
@@ -1762,15 +1763,6 @@ on_siege_won_province = {
 				duration = 1825
 				hidden = yes
 			}
-		}
-		if = {
-			limit = {
-				controller = {
-					has_estate_privilege = estate_ogre_stone_soup
-				}
-				NOT = { has_province_modifier = already_made_soup_modifier }
-			}
-			province_event = { id = bertus_changes.2030 days = 30}	#making soup
 		}
 	}
 	if = {
@@ -3174,6 +3166,143 @@ on_monthly_pulse = {
 	if = {	#bertus mod
 		limit = { has_country_flag = selling_slaves }
 		sell_slaves_effect = yes
+	}
+	if = {	#bertus mod
+		limit = {
+			any_owned_province = {
+				has_province_modifier = making_soup_modifier
+				OR = {
+					controlled_by = owner
+					NOT = {
+						if = {
+							limit = { development = 100 }
+							num_of_units_in_province = { who = controller amount = 50 }
+						}
+						else_if = {
+							limit = { development = 90 }
+							num_of_units_in_province = { who = controller amount = 45 }
+						}
+						else_if = {
+							limit = { development = 80 }
+							num_of_units_in_province = { who = controller amount = 40 }
+						}
+						else_if = {
+							limit = { development = 70 }
+							num_of_units_in_province = { who = controller amount = 35 }
+						}
+						else_if = {
+							limit = { development = 60 }
+							num_of_units_in_province = { who = controller amount = 30 }
+						}
+						else_if = {
+							limit = { development = 50 }
+							num_of_units_in_province = { who = controller amount = 25 }
+						}
+						else_if = {
+							limit = { development = 40 }
+							num_of_units_in_province = { who = controller amount = 20 }
+						}
+						else_if = {
+							limit = { development = 30 }
+							num_of_units_in_province = { who = controller amount = 15 }
+						}
+						else_if = {
+							limit = { development = 20 }
+							num_of_units_in_province = { who = controller amount = 10 }
+						}
+						else_if = {
+							limit = { development = 18 }
+							num_of_units_in_province = { who = controller amount = 9 }
+						}
+						else_if = {
+							limit = { development = 16 }
+							num_of_units_in_province = { who = controller amount = 8 }
+						}
+						else_if = {
+							limit = { development = 14 }
+							num_of_units_in_province = { who = controller amount = 7 }
+						}
+						else_if = {
+							limit = { development = 12 }
+							num_of_units_in_province = { who = controller amount = 6 }
+						}
+						else_if = {
+							limit = { development = 10 }
+							num_of_units_in_province = { who = controller amount = 5 }
+						}
+						else = { num_of_units_in_province = { who = controller amount = 4 } }
+					}
+				}
+			}
+		}
+		every_owned_province = {
+			limit = {
+				has_province_modifier = making_soup_modifier
+				OR = {
+					controlled_by = owner
+					NOT = {
+						if = {
+							limit = { development = 100 }
+							num_of_units_in_province = { who = controller amount = 50 }
+						}
+						else_if = {
+							limit = { development = 90 }
+							num_of_units_in_province = { who = controller amount = 45 }
+						}
+						else_if = {
+							limit = { development = 80 }
+							num_of_units_in_province = { who = controller amount = 40 }
+						}
+						else_if = {
+							limit = { development = 70 }
+							num_of_units_in_province = { who = controller amount = 35 }
+						}
+						else_if = {
+							limit = { development = 60 }
+							num_of_units_in_province = { who = controller amount = 30 }
+						}
+						else_if = {
+							limit = { development = 50 }
+							num_of_units_in_province = { who = controller amount = 25 }
+						}
+						else_if = {
+							limit = { development = 40 }
+							num_of_units_in_province = { who = controller amount = 20 }
+						}
+						else_if = {
+							limit = { development = 30 }
+							num_of_units_in_province = { who = controller amount = 15 }
+						}
+						else_if = {
+							limit = { development = 20 }
+							num_of_units_in_province = { who = controller amount = 10 }
+						}
+						else_if = {
+							limit = { development = 18 }
+							num_of_units_in_province = { who = controller amount = 9 }
+						}
+						else_if = {
+							limit = { development = 16 }
+							num_of_units_in_province = { who = controller amount = 8 }
+						}
+						else_if = {
+							limit = { development = 14 }
+							num_of_units_in_province = { who = controller amount = 7 }
+						}
+						else_if = {
+							limit = { development = 12 }
+							num_of_units_in_province = { who = controller amount = 6 }
+						}
+						else_if = {
+							limit = { development = 10 }
+							num_of_units_in_province = { who = controller amount = 5 }
+						}
+						else = { num_of_units_in_province = { who = controller amount = 4 } }
+					}
+				}
+			}
+			remove_province_modifier = making_soup_modifier
+		}
 	}
 }
 on_yearly_pulse = {
