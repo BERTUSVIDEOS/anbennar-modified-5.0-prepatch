@@ -289,6 +289,18 @@ bertus_dev_reduction = {
 		multiply_variable = {which = province_tax value = $value$}
 		multiply_variable = {which = province_production value = $value$}
 		multiply_variable = {which = province_manpower value = $value$}
+		if = {
+			limit = {NOT = {check_variable = {which = province_tax value = 1}}}
+			set_variable = {which = province_tax value = 1}
+		}
+		if = {
+			limit = {NOT = {check_variable = {which = province_production value = 1}}}
+			set_variable = {which = province_production value = 1}
+		}
+		if = {
+			limit = {NOT = {check_variable = {which = province_manpower value = 1}}}
+			set_variable = {which = province_manpower value = 1}
+		}
 		while = {
 			limit = {check_variable = {which = province_tax which = cicles_per_tax}}
 			change_variable = {which = cicles_per_tax value = 1}
@@ -328,16 +340,14 @@ bertus_dev_reduction = {
 				controller = {add_church_power = 1}
 			}
 		}
-		province_event = {id = bertus_pops.1038}
+		province_event = { id = bertus_pops.1038 }
 		province_event = { id = bertus_pops.1039 }	#climate & terrain preferences updater
-		controller = {
-			country_event = { id = bertus_pops.1040 }	#development based modifiers
-			country_event = { id = bertus_pops.1041 }	#base tax modifiers
-			country_event = { id = bertus_pops.1042 }	#racial base production modifiers
-			country_event = { id = bertus_pops.1043 }	#base manpower modifiers
-			country_event = { id = bertus_pops.1048 }	#on dev reduction conditional modifiers
-			country_event = { id = bertus_pops.1049 }	#base production modifiers
-		}
+		province_event = { id = bertus_pops.1040 }	#development based modifiers
+		province_event = { id = bertus_pops.1041 }	#base tax modifiers
+		province_event = { id = bertus_pops.1042 }	#racial base production modifiers
+		province_event = { id = bertus_pops.1043 }	#base manpower modifiers
+		province_event = { id = bertus_pops.1048 }	#on dev reduction conditional modifiers
+		province_event = { id = bertus_pops.1049 }	#base production modifiers
 	}
 }
 gain_manpower_from_provinces = {
@@ -471,13 +481,8 @@ add_1_dev_to_provinces = {
 			25 = {add_base_manpower = 1}
 		}
 		hidden_effect = {
-			province_event = {id = bertus_pops.1038}	#pop updater
-			province_event = { id = bertus_pops.1050 }	#on dev increase modifiers
-			owner = {
-				country_event = { id = bertus_pops.1041 }	#base tax modifiers
-				country_event = { id = bertus_pops.1042 }	#base production modifiers
-				country_event = { id = bertus_pops.1043 }	#base manpower modifiers
-			}
+			province_event = { id = bertus_pops.1038 }	#pop updater
+			province_event = { id = bertus_pops.1037 }	#overall pop updater
 		}
 	}
 }
@@ -490,13 +495,8 @@ remove_1_dev_to_provinces = {
 			25 = {add_base_manpower = -1}
 		}
 		hidden_effect = {
-			province_event = {id = bertus_pops.1038}	#pop updater
-			province_event = { id = bertus_pops.1050 }	#on dev increase modifiers
-			owner = {
-				country_event = { id = bertus_pops.1041 }	#base tax modifiers
-				country_event = { id = bertus_pops.1042 }	#base production modifiers
-				country_event = { id = bertus_pops.1043 }	#base manpower modifiers
-			}
+			province_event = { id = bertus_pops.1038 }	#pop updater
+			province_event = { id = bertus_pops.1037 }	#overall pop updater
 		}
 	}
 }
