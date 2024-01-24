@@ -1805,64 +1805,57 @@ vertesk_3_missions = {
 			}
 		}
 	}
-	
-	A23_damescrown_2 = {
-		icon = mission_great_trading_houses
-		required_missions = { A23_damescrown_1 }
-		position = 8
-		
-		provinces_to_highlight = {
-			area = damescrown_area
-			NOT = { country_or_non_sovereign_subject_holds = ROOT }
-		}
-		
-		trigger = {
-			damescrown_area = { 
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			OR = { 
-				NOT = { exists = A25 }
-				A25 = { 
-					vassal_of = A23
-					NOT = { liberty_desire = 50 }
-				}
-			}	
-		}
-		
-		effect = {
-			234 = { 
-				add_base_tax = -1
-				add_base_production = -1
-				add_base_manpower = -1
-			}
-			216 = { 
-				add_base_tax = 2
-				add_base_production = 1
-				add_base_manpower = 1
-			}
-		}
-	}
-	
-	A23_gib_electorate = {
-		icon = all_bases_covered
-		required_missions = { A23_damescrown_2 }
-		position = 9
-		
-		trigger = {
-			A25 = { is_elector = yes }
-			NOT = { A23 = { is_elector = yes } }
-			A25 = { vassal_of = A23 }	
-		}
-		
-		effect = {
-			A25 = { elector = no }
-			A23 = { elector = yes }
-			add_prestige_or_monarch_power = {amount =  25}
-			add_republican_tradition = 15 
-		}
-	}
-	
+	 A23_damescrown_2 = {
+        icon = mission_great_trading_houses
+        required_missions = { A23_damescrown_1 }
+        position = 8
+        
+        provinces_to_highlight = {
+            area = damescrown_area
+            NOT = { country_or_non_sovereign_subject_holds = ROOT }
+        }
+        
+        trigger = {
+            damescrown_area = { 
+                type = all
+                country_or_non_sovereign_subject_holds = ROOT
+            }    
+        }
+        
+        effect = {
+            234 = { 
+                add_base_tax = -1
+                add_base_production = -1
+                add_base_manpower = -1
+            }
+            216 = { 
+                add_base_tax = 2
+                add_base_production = 1
+                add_base_manpower = 1
+            }
+        }
+    }
+    
+    A23_gib_electorate = {
+        icon = all_bases_covered
+        required_missions = { A23_damescrown_2 }
+        position = 9
+        
+        trigger = {
+            OR = { 
+                NOT = { exists = A25 }
+                A25 = { 
+                    vassal_of = A23
+                    NOT = { liberty_desire = 50 }
+                }
+            }
+        }
+        
+        effect = {
+            add_prestige_or_monarch_power = {amount =  25}
+            add_republican_tradition = 15 
+        }
+    }
 	A23_influence = {
 		icon = feast_of_pheasants
 		required_missions = { A23_gib_electorate }

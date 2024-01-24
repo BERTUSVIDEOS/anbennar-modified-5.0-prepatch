@@ -706,7 +706,7 @@ gawed_column_3 = {
 		effect = {
 			216 = { #Vertesk
 				add_permanent_province_modifier = {
-					name = "gawed_vertesk_arsenal"
+					name = A23_the_arsenal
 					duration = -1
 				}
 			}
@@ -795,130 +795,149 @@ gawed_column_3 = {
 	}
 	
 	gawed_prospect_along_tributaries = {
-		icon = mission_rb_prospect_for_coal
-		required_missions = {  }
-		position = 7
-		
-		provinces_to_highlight = {
-			OR = {
-				province_id = 217 #Talonmount
-				province_id = 346 #Somberwold
-			}
-			NOT = {
-				AND = {
-					owned_by = ROOT
-					OR = {
-						has_production_building_trigger = yes
-						trade_goods = gold
-					}
-					base_production = 5
-				}
-			}
-		}
-		
-		trigger = {
-			advisor = natural_scientist
-			217 = { #Talonmount
-				owned_by = ROOT
-				OR = {
-					has_production_building_trigger = yes
-					trade_goods = gold
-				}
-				base_production = 5
-			}
-			346 = { #Somberwold
-				owned_by = ROOT
-				OR = {
-					has_production_building_trigger = yes
-					trade_goods = gold
-				}
-				base_production = 5
-			}
-		}
+        icon = mission_rb_prospect_for_coal
+        required_missions = {  }
+        position = 7
+        
+        provinces_to_highlight = {
+            OR = {
+                province_id = 217 #Talonmount
+                province_id = 346 #Somberwold
+            }
+            NOT = {
+                AND = {
+                    owned_by = ROOT
+                    OR = {
+                        has_production_building_trigger = yes
+                        trade_goods = gold
+                    }
+                    base_production = 5
+                }
+            }
+        }
+        
+        trigger = {
+            advisor = natural_scientist
+            217 = { #Talonmount
+                owned_by = ROOT
+                OR = {
+                    has_production_building_trigger = yes
+                    trade_goods = gold
+                }
+                base_production = 5
+            }
+            346 = { #Somberwold
+                owned_by = ROOT
+                OR = {
+                    has_production_building_trigger = yes
+                    trade_goods = gold
+                }
+                base_production = 5
+            }
+        }
 
-		effect = {
-			217 = { #Talonmount
-				change_trade_goods = copper
-				add_base_tax = 1
-				add_base_production = 1
-				add_base_manpower = 1
-			}
-			346 = { #Somberwold
-				change_trade_goods = iron
-				add_base_tax = 1
-				add_base_production = 1
-				add_base_manpower = 1
-			}
-		}
-	}
+        effect = {
+            217 = { #Talonmount
+                change_trade_goods = copper
+                add_base_tax = 1
+                add_base_production = 1
+                add_base_manpower = 1
+                add_permanent_province_modifier = {
+                    name = gawed_untouched_mineral_deposits
+                    duration = -1
+                }
+            }
+            
+            346 = { #Somberwold
+                change_trade_goods = iron
+                add_base_tax = 1
+                add_base_production = 1
+                add_base_manpower = 1
+                add_permanent_province_modifier = {
+                    name = gawed_untouched_mineral_deposits
+                    duration = -1
+                }
+            }
+        }
+    }
 	
 	gawed_alen_glassworks = {
-		icon = bohemian_crystal
-		required_missions = { gawed_prospect_along_tributaries }
-		position = 8
-		
-		provinces_to_highlight = {
-			OR = {
-				province_id = 219 #Tenbury
-				province_id = 339 #Elwick-upon-Alen
-			}
-			NOT = {
-				AND = {
-					owned_by = ROOT
-					num_free_building_slots = 1
-					OR = {
-						has_production_building_trigger = yes
-						trade_goods = gold
-					}
-					has_tax_building_trigger = yes
-					development = 20
-				}
-			}
-		}
-		
-		trigger = {
-			treasury = 500
-			219 = { #Tenbury
-				owned_by = ROOT
-				num_free_building_slots = 1
-				OR = {
-					has_production_building_trigger = yes
-					trade_goods = gold
-				}
-				has_tax_building_trigger = yes
-				development = 20
-			}
-			339 = { #Elwick-upon-Alen
-				owned_by = ROOT
-				num_free_building_slots = 1
-				OR = {
-					has_production_building_trigger = yes
-					trade_goods = gold
-				}
-				has_tax_building_trigger = yes
-				development = 20
-			}
-		}
+        icon = bohemian_crystal
+        required_missions = { gawed_prospect_along_tributaries }
+        position = 8
+        
+        provinces_to_highlight = {
+            OR = {
+                province_id = 219 #Tenbury
+                province_id = 339 #Elwick-upon-Alen
+            }
+            NOT = {
+                AND = {
+                    owned_by = ROOT
+                    num_free_building_slots = 1
+                    OR = {
+                        has_production_building_trigger = yes
+                        trade_goods = gold
+                    }
+                    has_tax_building_trigger = yes
+                    development = 20
+                }
+            }
+        }
+        
+        trigger = {
+            treasury = 500
+            219 = { #Tenbury
+                owned_by = ROOT
+                num_free_building_slots = 1
+                OR = {
+                    has_production_building_trigger = yes
+                    trade_goods = gold
+                }
+                has_tax_building_trigger = yes
+                development = 20
+            }
+            339 = { #Elwick-upon-Alen
+                owned_by = ROOT
+                num_free_building_slots = 1
+                OR = {
+                    has_production_building_trigger = yes
+                    trade_goods = gold
+                }
+                has_tax_building_trigger = yes
+                development = 20
+            }
+        }
 
-		effect = {
-			219 = { #Tenbury
-				change_trade_goods = glass
-				add_building_construction = {
-					building = mills
-					speed = 1
-					cost = 0.5
-				}
-			}
-			339 = { #Elwick-upon-Alen
-				change_trade_goods = glass
-				add_building_construction = {
-					building = mills
-					speed = 1
-					cost = 0.5
-				}
-			}
-		}
-	}
+        effect = {
+            219 = { #Tenbury
+                change_trade_goods = glass
+                add_building_construction = {
+                    building = mills
+                    speed = 1
+                    cost = 0.5
+                }
+                add_base_production = 3
+                add_permanent_province_modifier = {
+                    name = gawed_alenic_glassworks
+                    duration = -1
+                }
+            }
+            339 = { #Elwick-upon-Alen
+                change_trade_goods = glass
+                add_building_construction = {
+                    building = mills
+                    speed = 1
+                    cost = 0.5
+                }
+                add_base_production = 3
+                add_permanent_province_modifier = {
+                    name = gawed_alenic_glassworks
+                    duration = -1
+                }
+            }
+        }
+    }
 }
 
 gawed_column_4 = {
@@ -1240,11 +1259,55 @@ gawed_column_4 = {
 			}
 		}
 	}
-	
+	gawed_restore_vanbury = {
+        icon = mission_rb_prospect_for_coal
+        required_missions = {  }
+        position = 7
+        
+        provinces_to_highlight = {
+            OR = {
+                province_id = 222 #Vanbury
+            }
+            NOT = {
+                AND = {
+                    owned_by = ROOT
+                    OR = {
+                        has_production_building_trigger = yes
+                        trade_goods = gold
+                    }
+                    has_manufactory_trigger = yes
+                    base_production = 15
+
+                }
+            }
+        }
+        
+        trigger = {
+            treasury = 1000
+            222 = { #Vanbury
+                owned_by = ROOT
+				has_production_building_trigger = yes
+                has_manufactory_trigger = yes
+                base_production = 15
+            }
+        }
+
+        effect = {
+            add_treasury = -1000
+            222 = { #Talonmount
+                add_base_production = 5
+                add_permanent_province_modifier = {
+                    name = gawed_restored_vanbury_foundries
+                    duration = -1
+                }
+            }
+        }
+    }
+
 	gawed_the_gawedi_empire = {
 		icon = mission_sweat_fealty
 		required_missions = {  }
-		position = 7
+		position = 8
 		
 		provinces_to_highlight = {
 			province_id = 221 #Gaweton
@@ -1287,10 +1350,15 @@ gawed_column_4 = {
 			221 = { #Gaweton
 				change_trade_goods = paper
 				add_building_construction = {
-					building = university
+					building = mills 
 					speed = 1
 					cost = 0.5
 				}
+                add_base_production = 3
+                add_permanent_province_modifier = {
+                    name = gawed_administrating_an_empire
+                    duration = -1
+                }
 			}
 		}
 	}
@@ -1328,8 +1396,8 @@ gawed_column_4 = {
 		
 		effect = {
 			add_country_modifier = {
-				name = "proto_industrialization"
-				duration = 7300 #20 years
+				name = gawed_proto_industrialization
+				duration = -1
 			}
 		}
 	}
@@ -1373,8 +1441,11 @@ gawed_column_4 = {
 		
 		effect = {
 			alen_river_cities = {
-				add_base_tax = 1
-				add_base_production = 1
+				add_base_production = 5
+                add_permanent_province_modifier = {
+                    name = gawed_black_river
+                    duration = -1
+                } 
 			}
 		}
 	}
@@ -1645,77 +1716,81 @@ gawed_column_5 = {
 	}
 	
 	gawed_invest_in_rural_estates = {
-		icon = mission_rice_field
-		required_missions = {  }
-		position = 7
-		
-		provinces_to_highlight = {
-			OR = {
-				AND = {
-					OR = {
-						area = alenic_expanse_area
-						area = dragonhills_area
-					}
-					OR = {
-						NOT = {
-							has_production_building_trigger = yes
-							trade_goods = gold
-						}
-						NOT = { owned_by = ROOT }
-					}
-				}
-				AND = {
-					OR = {
-						province_id = 243 #Gerwick
-						province_id = 213 #Eaglecrest
-					}
-					OR = {
-						NOT = { owned_by = ROOT }
-						NOT = { development = 15 }
-					}
-				}
-			}
-		}
-		
-		trigger = {
-			alenic_expanse_area = {
-				type = all
-				owned_by = ROOT
-				OR = {
-					has_production_building_trigger = yes
-					trade_goods = gold
-				}
-			}
-			dragonhills_area = {
-				type = all
-				owned_by = ROOT
-				OR = {
-					has_production_building_trigger = yes
-					trade_goods = gold
-				}
-			}
-			243 = { #Gerwick
-				owned_by = ROOT
-				development = 15
-			}
-			213 = { #Eaglecrest
-				owned_by = ROOT
-				development = 15
-			}
-		}
-		
-		effect = {
-			alenic_expanse_area = {
-				add_base_production = 1
-			}
-			dragonhills_area = {
-				add_base_production = 1
-			}
-			213 = { #Eaglecrest
-				change_trade_goods = cloth
-			}
-		}
-	}
+        icon = mission_rice_field
+        required_missions = {  }
+        position = 7
+        
+        provinces_to_highlight = {
+            OR = {
+                AND = {
+                    OR = {
+                        area = alenic_expanse_area
+                        area = dragonhills_area
+                    }
+                    OR = {
+                        NOT = {
+                            has_production_building_trigger = yes
+                            trade_goods = gold
+                        }
+                        NOT = { owned_by = ROOT }
+                    }
+                }
+                AND = {
+                    OR = {
+                        province_id = 243 #Gerwick
+                        province_id = 213 #Eaglecrest
+                    }
+                    OR = {
+                        NOT = { owned_by = ROOT }
+                        NOT = { development = 15 }
+                    }
+                }
+            }
+        }
+        
+        trigger = {
+            alenic_expanse_area = {
+                type = all
+                owned_by = ROOT
+                OR = {
+                    has_production_building_trigger = yes
+                    trade_goods = gold
+                }
+            }
+            dragonhills_area = {
+                type = all
+                owned_by = ROOT
+                OR = {
+                    has_production_building_trigger = yes
+                    trade_goods = gold
+                }
+            }
+            243 = { #Gerwick
+                owned_by = ROOT
+                development = 15
+            }
+            213 = { #Eaglecrest
+                owned_by = ROOT
+                development = 15
+            }
+        }
+        
+        effect = {
+            alenic_expanse_area = {
+                add_base_production = 1
+            }
+            dragonhills_area = {
+                add_base_production = 1
+            }
+            213 = { #Eaglecrest
+                change_trade_goods = cloth
+                add_permanent_province_modifier = {
+                    name = revitalized_rural_trade
+                    duration = -1
+                }
+            }
+        }
+    }
 	
 	gawed_greatwood_fur = {
 		icon = mission_alone_in_the_wood
@@ -1798,13 +1873,6 @@ gawed_column_5 = {
 					trade_goods = gold
 				}
 			}
-			226 = { #Legion's Clearing
-				owned_by = ROOT
-				OR = {
-					has_production_building_trigger = yes
-					trade_goods = gold
-				}
-			}
 			225 = { #Alenvord
 				owned_by = ROOT
 				num_free_building_slots = 1
@@ -1817,23 +1885,41 @@ gawed_column_5 = {
 			hidden_effect = {
 				alenvord_area = {
 					limit = { trade_goods = fur }
-					add_base_production = 1
+					add_base_production = 3
+                    add_permanent_province_modifier = {
+                        name = gawed_greatwoods_fur
+                        duration = -1
+                    }
+
 				}
 				balvord_area = {
 					limit = { trade_goods = fur }
-					add_base_production = 1
+					add_base_production = 3
+                    add_permanent_province_modifier = {
+                        name = gawed_greatwoods_fur
+                        duration = -1
+                    }
 				}
 				jonsway_area = {
 					limit = { trade_goods = fur }
-					add_base_production = 1
+					add_base_production = 3
+                    add_permanent_province_modifier = {
+                        name = gawed_greatwoods_fur
+                        duration = -1
+                    }
 				}
 			}
 			223 = { #Drakesford
 				if = {
 					limit = { trade_goods = fur }
-					add_base_production = 1
+					add_base_production = 3
 				}
 				change_trade_goods = cloth
+                add_permanent_province_modifier = {
+					name = gawed_greatwoods_export_center
+					duration = -1
+                }
+
 			}
 			225 = { #Alenvord
 				add_building_construction = {

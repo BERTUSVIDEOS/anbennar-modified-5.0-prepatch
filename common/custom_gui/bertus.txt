@@ -583,3 +583,92 @@ custom_icon = {
 	}
 	tooltip = ""
 }
+custom_icon = {
+	name = dookan_guidance_activated
+	potential = {
+		religion = old_dookan
+	}
+	tooltip = "[Root.getGreatDookanGuidanceName]"
+	frame = {
+	    number = 1
+	    trigger = { 
+			has_country_modifier = dookans_guidance_peace
+		}
+	}
+	frame = {
+	    number = 2
+	    trigger = { 
+			has_country_modifier = dookans_guidance_war
+		}
+	}
+	frame = { #First matched frame clause will be used.
+	    number = 3
+	    trigger = { 
+		}
+	}
+}
+custom_button = {
+	name = one_v_one_high_piety_action
+	potential = { uses_piety = yes ai = no }
+	trigger = {
+		hidden_trigger = {
+			OR = {
+				NOT = { has_country_flag = one_v_one_high_piety_action_flag }
+				had_country_flag = { flag = one_v_one_high_piety_action_flag days = 1825 }
+			}
+			piety = 0.75
+		}
+	}
+	effect = {
+		tooltip = { add_years_of_income = 0.5 }
+		if = {
+			limit = { NOT = { has_country_flag = one_v_one_piety_action_confirm_flag } }
+			set_country_flag = one_v_one_high_piety_action_confirm_flag
+			set_country_flag = one_v_one_piety_action_confirm_flag
+			if = {
+				limit = { has_country_flag = one_v_one_high_piety_action_flag NOT = { had_country_flag = { flag = one_v_one_high_piety_action_flag days = 1825 } } }
+				custom_tooltip = one_v_one_high_piety_action_cooldown_tt
+			}
+		}
+		hidden_effect = { save_yearly_income = yes }
+	}
+	tooltip = one_v_one_high_piety_action_tt
+}
+custom_icon = {
+	name = one_v_one_high_piety_action_confirm_background
+	potential = { has_country_flag = one_v_one_high_piety_action_confirm_flag }
+}
+custom_text_box = {
+    name = one_v_one_high_piety_action_effect
+    potential = { has_country_flag = one_v_one_high_piety_action_confirm_flag }
+    tooltip = one_v_one_high_piety_action_effect
+}
+custom_button = {
+	name = one_v_one_piety_action_not_confirm
+	potential = { has_country_flag = one_v_one_piety_action_confirm_flag }
+	trigger = {}
+	effect = {
+		clr_country_flag = one_v_one_piety_action_confirm_flag
+		clr_country_flag = one_v_one_low_piety_action_confirm_flag
+		clr_country_flag = one_v_one_high_piety_action_confirm_flag
+	}
+}
+custom_button = {
+	name = one_v_one_piety_action_confirm
+	potential = { has_country_flag = one_v_one_piety_action_confirm_flag }
+	trigger = {}
+	effect = {
+		clr_country_flag = one_v_one_piety_action_confirm_flag
+		clr_country_flag = one_v_one_low_piety_action_confirm_flag
+		clr_country_flag = one_v_one_high_piety_action_confirm_flag
+		add_years_of_income = 1
+		hidden_effect = { add_piety = -0.5 }
+		set_country_flag = one_v_one_high_piety_action_flag
+		hidden_effect = {
+			export_to_variable = { which = one_v_one_high_piety_action_was_set_year value = trigger_value:is_year }
+			export_to_variable = { which = one_v_one_high_piety_action_was_set_month value = trigger_value:is_month }
+			set_variable = { which = one_v_one_high_piety_action_length value = 5 }
+			change_variable = { which = one_v_one_high_piety_action_length which = one_v_one_high_piety_action_was_set_year }
+		}
+	}
+}
