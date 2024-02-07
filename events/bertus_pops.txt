@@ -44,16 +44,12 @@ province_event = {	#overall pop updater
 	
 	option = {
 		name = bertus_pops.1037.a
-		province_event = { id = bertus_pops.1040 days = 1}	#on dev increase modifiers
-		province_event = { id = bertus_pops.1041 days = 2}	#on dev increase modifiers
-		province_event = { id = bertus_pops.1042 days = 3}	#on dev increase modifiers
-		province_event = { id = bertus_pops.1043 days = 4}	#on dev increase modifiers
-		province_event = { id = bertus_pops.1044 days = 5}	#on dev increase modifiers
-		province_event = { id = bertus_pops.1045 days = 6}	#on dev increase modifiers
-		province_event = { id = bertus_pops.1046 days = 7}	#on dev increase modifiers
-		province_event = { id = bertus_pops.1047 days = 8}	#on dev increase modifiers
-		province_event = { id = bertus_pops.1048 days = 9}	#on dev increase modifiers
-		province_event = { id = bertus_pops.1049 days = 10}	#on dev increase modifiers
+		province_event = { id = bertus_pops.1040 days = 1}	#development based modifiers
+		province_event = { id = bertus_pops.1041 days = 2}	#base tax based modifiers
+		province_event = { id = bertus_pops.1042 days = 3}	#racial base production modifiers
+		province_event = { id = bertus_pops.1043 days = 4}	#base manpower based modifiers
+		province_event = { id = bertus_pops.1048 days = 9}	#on dev reduction conditional modifiers
+		province_event = { id = bertus_pops.1049 days = 10}	#base production modifiers
 		province_event = { id = bertus_pops.1050 days = 11}	#on dev increase modifiers
 	}
 }
@@ -151,7 +147,7 @@ province_event = {	#base tax based modifiers
 	
 	option = {
 		name = bertus_pops.1041.a
-		remove_pop_modifier = {race = all class = parliament amount = 25percent resource = tax }
+		remove_pop_modifier = {race = all class = parliament amount = 10percent resource = tax }
 		remove_pop_modifier = {race = all class = bonus amount = 50percent resource = tax }
 		remove_pop_modifier = {race = all class = malus amount = 50percent resource = tax }
 		remove_pop_modifier = {race = all class = racial_bonus amount = 25percent resource = tax }
@@ -187,7 +183,7 @@ province_event = {	#racial base production modifiers
 		remove_pop_modifier = {race = all class = agriculture_bonus amount = 25percent resource = goods_produced }
 		remove_pop_modifier = {race = all class = minery_bonus amount = 25percent resource = goods_produced }
 		remove_pop_modifier = {race = all class = emperor_college_bonus amount = 25percent resource = goods_produced }
-		remove_pop_modifier = {race = all class = parliament amount = 25percent resource = goods_produced }
+		remove_pop_modifier = {race = all class = parliament amount = 10percent resource = goods_produced }
 		on_dip_development_racial_modifiers_effect = yes
 	}
 }
@@ -211,7 +207,7 @@ province_event = {	#base manpower based modifiers
 	
 	option = {
 		name = bertus_pops.1043.a
-		remove_pop_modifier = {race = all class = parliament amount = 20percent resource = manpower }
+		remove_pop_modifier = {race = all class = parliament amount = 10percent resource = manpower }
 		remove_pop_modifier = {race = harimari class = tropical_bonus amount = 20percent resource = manpower }
 		remove_pop_modifier = {race = gnollish class = sea_bonus amount = 20percent resource = manpower_sailors }
 		remove_pop_modifier = {race = gnollish class = arid_bonus amount = 20percent resource = manpower }
@@ -237,6 +233,30 @@ province_event = {	#super boost pop goods produced
 				ai = no
 				overlord = { ai = no }
 				NOT = {is_year = 1446}
+			}
+		}
+		OR = {
+			AND = {
+				trade_goods = pearls
+				OR = {
+					province_id = 14
+					province_id = 736
+				}
+			}
+			AND = {
+				trade_goods = slaves
+				owner = {current_icon = invocation_of_chains}
+			}
+			AND = {
+				OR = {
+					trade_goods = gold
+					trade_goods = silver
+				}
+				OR = {
+					owner = {current_icon = invocation_of_gold}
+					has_province_modifier = eborthil_expansion_of_mines
+					has_province_modifier = tluukt_new_veins
+				}
 			}
 		}
 	}

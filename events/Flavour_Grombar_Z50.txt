@@ -1765,7 +1765,7 @@ country_event = {
 }
 
 # Half-Orc conversion
-country_event = {
+country_event = {	#bertus mod
 	id = flavor_grombar.22
 	title = flavor_grombar.22.t
 	desc = flavor_grombar.22.d
@@ -1786,7 +1786,12 @@ country_event = {
 		name = flavor_grombar.22.a
 		ai_chance = { factor = 100 }
 		if = {
-			limit = { primary_culture = gray_orc }
+			limit = {
+				OR = {
+					primary_culture = gray_orc
+					primary_culture = grombar_orc
+				}
+			}
 			change_primary_culture = grombar_half_orc
 			clear_racial_military = yes
 			
@@ -1798,22 +1803,8 @@ country_event = {
 				name = half_orcish_military
 				duration = -1  
 			}
-			change_unit_type = tech_half_orcish	#tech_gerudian→tech_half_orcish
-		}
-		if = {
-			limit = { primary_culture = grombar_orc }
-			change_primary_culture = grombar_half_orc
-			clear_racial_military = yes
-			
-			add_country_modifier = { 
-				name = restructuring_military
-				duration = 3650
-			}
-			add_country_modifier = { 
-				name = half_orcish_military
-				duration = -1  
-			}
-			change_unit_type = tech_half_orcish	#tech_gerudian→tech_half_orcish
+			change_unit_type = tech_half_orcish
+			custom_tooltip = "Every Grombar Orc province:"
 			every_owned_province = {
 				limit = { culture = grombar_half_orc }
 				change_culture = grombar_half_orc

@@ -1202,6 +1202,9 @@ A59_Nathalire = {
 					months = 300
 				}
 			}
+			else = {	#bertus mod
+				451 = { add_permanent_claim = ROOT }
+			}
 			define_admiral = {
 				shock = 2
 				fire = 3
@@ -1211,7 +1214,7 @@ A59_Nathalire = {
 	    }
 	}
 	
-	A59_subjugate_nathalire = {
+	A59_subjugate_nathalire = {	#bertus mod
 		icon = mission_sea_battles
 		required_missions = { A59_prepare_fleet }
 		position = 5
@@ -1235,10 +1238,8 @@ A59_Nathalire = {
 			}
 			else = { 
 				add_dip_power = 100
-				A74 = { change_primary_culture = FROM }
 			}
 			add_mil_power = 50
-			451 = { add_culture_construction = { speed = 1 cost = 0 }}
 	    }
 	}
 	
@@ -2920,7 +2921,7 @@ A59_Wider_dev = {
 	    }
 	}
 	
-	A59_manipulate_merchants = {
+	A59_manipulate_merchants = {	#bertus mod
 		icon = mission_market
 		required_missions = { A59_corvuria_city A59_healing_folly }
 		position = 13
@@ -2932,7 +2933,7 @@ A59_Wider_dev = {
 		}
 		
 		trigger = {
-		    has_institution = global_trade
+			num_of_merchants = 3
 			num_of_owned_provinces_with = {
 				value = 2
 				province_has_center_of_trade_of_level = 3
@@ -3218,14 +3219,17 @@ A59_Artifier = {
 	}
 	has_country_shield = yes
 	
-	A59_obtain_relics = {
+	A59_obtain_relics = {	#bertus mod
 		icon = mission_zambezi_gold
 		required_missions = { A59_corvuria_city }
 		position = 13
 		
 		trigger = {
-		    has_institution = manufactories
-			owns = 448
+			448 = {
+				owned_by = ROOT
+				base_production = 10
+				has_production_building_trigger = yes
+			}
 			OR = {
 				custom_trigger_tooltip = {
 					tooltip = corvuria_relic_friend

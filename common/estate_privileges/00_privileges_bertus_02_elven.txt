@@ -277,13 +277,27 @@ estate_elven_recruitment = {
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 		custom_tooltip = malus_if_dwarven_mechanic_tooltip
 		custom_tooltip = elven_bonus_against_dwarves_mechanic_tooltip
+		custom_tooltip = elven_bonus_if_mainly_tooltip
 	}
-	modifier_by_land_ownership = {
-	}
+	modifier_by_land_ownership = {}
 	penalties = {}
 	benefits = {}
 	mechanics = {
 		enables_cossack_regiments
+	}
+	conditional_modifier = {
+		trigger = { estate_territory = { estate = estate_elven territory = 90 } }
+		modifier = {
+			drill_decay_modifier = -0.2
+			max_general_shock = 1
+			max_general_fire = 1
+			max_general_maneuver = 1
+			max_general_siege = 1
+			max_admiral_shock = 1
+			max_admiral_fire = 1
+			max_admiral_maneuver = 1
+			max_admiral_siege = 1
+		}
 	}
 	can_revoke = {
 	}
@@ -357,14 +371,14 @@ estate_elven_elite_regiments = {
 	benefits = {
 		allowed_cossack_fraction = 0.05		
 	}
-	mechanics = {
-	}
+	mechanics = {}
 	on_revoked = {
 		remove_country_modifier = elite_guard_modifier
 	}
 	on_invalid = {
 		remove_country_modifier = elite_guard_modifier
 	}
+	cooldown_years = 20
 	ai_will_do = {factor = 1}
 }
 estate_elven_jaddanzar_academies = {
@@ -389,14 +403,14 @@ estate_elven_jaddanzar_academies = {
 	benefits = {
 		cav_to_inf_ratio = 0.10
 	}
-	mechanics = {
-	}
+	mechanics = {}
 	on_revoked = {
 		remove_country_modifier = jaddanzar_academies_modifier
 	}
 	on_invalid = {
 		remove_country_modifier = jaddanzar_academies_modifier
 	}
+	cooldown_years = 20
 	ai_will_do = {factor = 1}
 }
 estate_elven_elite_academies = {
@@ -428,27 +442,22 @@ estate_elven_elite_academies = {
 		has_race_recruitment = { race = elven }
 		has_elite_regiments = no
 	}
-	on_granted = {
-	}
+	on_granted = {}
 	modifier_by_land_ownership = {
 		discipline = 0.10
 		mercenary_discipline = -0.10
 		military_tactics = 0.20
 		global_regiment_cost = 0.20
 	}
-	penalties = {
-	}
+	penalties = {}
 	benefits = {
 		allowed_cossack_fraction = -0.05
 	}
-	mechanics = {
-	}
-	can_revoke = {
-	}
-	on_revoked = {
-	}
-	on_invalid = {
-	}
+	mechanics = {}
+	can_revoke = {}
+	on_revoked = {}
+	on_invalid = {}
+	cooldown_years = 20
 	ai_will_do = {factor = 1000}
 }
 estate_elven_aelnar_elite = {
@@ -499,6 +508,7 @@ estate_elven_aelnar_elite = {
 		hidden_effect = {remove_country_modifier = aelnar_elite_modifier}
 		hidden_effect = {remove_country_modifier = aelnar_marine_elite_modifier}
 	}
+	cooldown_years = 20
 	ai_will_do = {factor = 1}
 }
 estate_elven_cyranvar_only_the_best = {
@@ -538,16 +548,18 @@ estate_elven_cyranvar_only_the_best = {
 		yearly_corruption = 0.20
 	}
 	benefits = {
+		global_defender_dice_roll_bonus = 1
+		global_attacker_dice_roll_bonus = -1
 		allowed_cossack_fraction = 0.05
 	}
-	mechanics = {
-	}
+	mechanics = {}
 	on_revoked = {
 		hidden_effect = {remove_country_modifier = cyranvar_only_the_best_modifier}
 	}
 	on_invalid = {
 		hidden_effect = {remove_country_modifier = cyranvar_only_the_best_modifier}
 	}
+	cooldown_years = 20
 	ai_will_do = {factor = 1}
 }
 estate_elven_cyranvar_one_of_many = {
@@ -562,8 +574,7 @@ estate_elven_cyranvar_one_of_many = {
 		has_race_recruitment = { race = elven }
 		has_elite_regiments = no
 	}
-	on_granted = {
-	}
+	on_granted = {}
 	penalties = {
 		yearly_corruption = 0.20
 	}
@@ -576,12 +587,10 @@ estate_elven_cyranvar_one_of_many = {
 	benefits = {
 		allowed_cossack_fraction = 0.10
 	}
-	mechanics = {
-	}
-	on_revoked = {
-	}
-	on_invalid = {
-	}
+	mechanics = {}
+	on_revoked = {}
+	on_invalid = {}
+	cooldown_years = 20
 	ai_will_do = {factor = 1}
 }
 estate_elven_sunblessed_troops = {
@@ -596,8 +605,7 @@ estate_elven_sunblessed_troops = {
 		has_race_recruitment = { race = elven }
 		has_elite_regiments = no
 	}
-	on_granted = {
-	}
+	on_granted = {}
 	penalties = {
 		allowed_cossack_fraction = -0.05
 	}
@@ -613,10 +621,9 @@ estate_elven_sunblessed_troops = {
 		mercenary_discipline = -0.05
 		army_tradition_from_battle = 0.25
 	}
-	on_revoked = {
-	}
-	on_invalid = {
-	}
+	on_revoked = {}
+	on_invalid = {}
+	cooldown_years = 20
 	ai_will_do = {factor = 100}
 }
 estate_elven_intolerance_policy = {
@@ -671,8 +678,7 @@ estate_elven_intolerance_policy = {
 		tolerance_heretic = -2
 		relation_with_other_culture = -50
 	}
-	benefits = {
-	}
+	benefits = {}
 	conditional_modifier = {
 		trigger = {
 			NOT = {
@@ -1371,32 +1377,24 @@ estate_elven_wood_working = {
 			}
 		}
 		else_if = {
-			limit = {
-				has_province_modifier = elven_wood_working_modifier
-			}
+			limit = { has_province_modifier = elven_wood_working_modifier }
 			remove_province_modifier = elven_wood_working_modifier
 		}
 	}
 	benefits  = {
 		build_cost = -0.05			
 	}
-	penalties = {
-	}
-	on_revoked = {
-	}
+	penalties = {}
+	on_revoked = {}
 	on_revoked_province = {
 		if = {
-			limit = {
-				has_province_modifier = elven_wood_working_modifier
-			}
+			limit = { has_province_modifier = elven_wood_working_modifier }
 			remove_province_modifier = elven_wood_working_modifier
 		}
 	}
 	on_invalid_province = {
 		if = {
-			limit = {
-				has_province_modifier = elven_wood_working_modifier
-			}
+			limit = { has_province_modifier = elven_wood_working_modifier }
 			remove_province_modifier = elven_wood_working_modifier
 		}
 	}

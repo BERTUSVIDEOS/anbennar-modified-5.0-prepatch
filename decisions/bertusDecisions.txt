@@ -1,4 +1,41 @@
 country_decisions = {
+	Create_a_Trade_Hub = {	#from gecko
+        color = { 166  0  0 }
+        potential = {
+            ai = no
+            has_dlc = "Dharma"
+        }
+
+        allow = {
+            is_at_war = no
+            any_owned_province = {
+				area_for_scope_province = {
+					type = all
+					NOT = {
+						province_has_center_of_trade_of_level = 1
+					}
+				}
+				NOT = {
+					province_has_center_of_trade_of_level = 1
+				}
+                is_state = yes
+				development = 40
+				OR = {
+					has_building = marketplace
+					has_building = trade_depot
+					has_building = stock_exchange
+				}
+            }
+            treasury = 200
+            dip_power = 50
+        }
+        effect = {
+            add_treasury = -200
+            add_dip_power = -50
+            country_event = { id = bertus_changes.3004 }
+        }
+
+    }
 	add_all_provinces_to_seats = {
         color = { 166  0  0 }
 		potential = {
@@ -47,6 +84,14 @@ country_decisions = {
 						limit = { has_seat_in_parliament = no }
 						set_seat_in_parliament = yes
 					}
+				}
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = { has_seat_in_parliament = yes }
+					add_pop_modifier = {race = all class = parliament amount = 10percent resource = tax onbase = base_tax}
+					add_pop_modifier = {race = all class = parliament amount = 10percent resource = goods_produced onbase = base_production}
+					add_pop_modifier = {race = all class = parliament amount = 10percent resource = manpower onbase = base_manpower}
 				}
 			}
 		}

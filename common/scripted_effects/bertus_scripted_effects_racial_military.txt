@@ -1034,6 +1034,17 @@ get_special_general_stats = {
 		}
 	}
 	if = {
+		limit = {has_country_flag = general_dragon_flag }
+		set_variable = {which = general_dragon_var value = 0}
+		export_to_variable = { which = general_dragon_var value = army_size }
+		while = {
+			limit = {check_variable = {which = general_dragon_var value = 100}}
+			change_variable = {which = country_leader_shock_var value = -100}
+			change_variable = {which = country_leader_shock_var value = 1}
+			change_variable = {which = country_leader_fire_var value = 1}
+		}
+	}
+	if = {
 		limit = {
 			OR = {
 				has_country_flag = get_ruler_general_flag
@@ -1231,7 +1242,7 @@ get_special_general_stats = {
 		}
 		while = {
 			limit = {check_variable = {which = lord_alfonso which = country_leader_lord_alfonso_manuever_var}}
-			change_variable = {which = country_leader_lord_alfonso_manuever_var value = 4}
+			change_variable = {which = country_leader_lord_alfonso_manuever_var value = 6}
 			change_variable = {which = country_leader_manuever_var value = 1}
 		}
 	}
@@ -1514,6 +1525,7 @@ clr_special_general_flags = {
 	clr_country_flag = get_sword_wielder_general_flag
 	clr_country_flag = get_lord_alfonso_flag
 	clr_country_flag = get_god_feaster_general_flag
+	clr_country_flag = general_dragon_flag
 	clear_saved_name = special_general_name
 }
 update_tech_group = {

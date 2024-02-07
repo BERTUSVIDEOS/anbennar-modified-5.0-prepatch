@@ -105,6 +105,53 @@ country_event = {	#The KoboldHoard effects
 		ai_chance = { factor = 50 }
 		country_event = { id = flavor_kobildzan.8 }
 	}
+	option = {		#dragon fire general
+		name = flavor_kobildzan.3.c
+		trigger = { NOT = {has_country_modifier = kobold_dragon_fire_3 } }
+		ai_chance = { factor = 50 }
+		country_event = { id = flavor_kobildzan.15 }
+	}
+	option = {		#church power
+		name = flavor_kobildzan.3.c
+		trigger = { uses_church_aspects = yes }
+		ai_chance = { factor = 50 }
+		country_event = { id = flavor_kobildzan.13 }
+	}
+	option = {		#adm advisor
+		name = flavor_kobildzan.3.c
+		ai_chance = { factor = 50 }
+		set_country_flag = adm_advisor_flag
+		country_event = { id = flavor_kobildzan.14 }
+	}
+	option = {		#dip advisor
+		name = flavor_kobildzan.3.c
+		ai_chance = { factor = 50 }
+		set_country_flag = dip_advisor_flag
+		country_event = { id = flavor_kobildzan.14 }
+	}
+	option = {		#mil advisor
+		name = flavor_kobildzan.3.c
+		ai_chance = { factor = 50 }
+		set_country_flag = mil_advisor_flag
+		country_event = { id = flavor_kobildzan.14 }
+	}
+	option = {		#dragon general
+		name = flavor_kobildzan.3.c
+		trigger = { NOT = {has_country_modifier = got_dragon_general_modifier } }
+		ai_chance = { factor = 10 }
+		set_country_flag = hero_free_general_flag
+		set_country_flag = great_general_extra_pips_flag
+		set_country_flag = get_artificer_flag
+		set_country_flag = general_dragon_flag
+		hidden_effect = {
+			country_event = {id = bertus_changes.6030}
+		}
+		add_country_modifier = {
+			name = got_dragon_general_modifier
+			duration = 3650
+			hidden = yes
+		}
+	}
 	option = {			#add mage ruler
 		name = flavor_kobildzan.3.e
 		ai_chance = { factor = 50 }
@@ -122,8 +169,10 @@ country_event = {
 	is_triggered_only = yes
 	
 	option = {		
-		name = flavor_kobildzan.5.a
+		name = flavor_kobildzan.7.a
 		ai_chance = { factor = 50 }
+		goto = capital
+
 		capital_scope = {
 			add_1_dev_to_provinces = yes
 			add_1_dev_to_provinces = yes
@@ -791,6 +840,92 @@ country_event = {
 		add_country_modifier = {
 			name = kobold_fire_touched
 			duration = -1
+		}
+	}
+}
+
+country_event = {
+	id = flavor_kobildzan.13
+	title = flavor_kobildzan.13.t
+	desc = flavor_kobildzan.13.d
+	picture = GREAT_BUILDING_eventPicture
+	
+	is_triggered_only = yes
+
+	trigger = {}
+	
+	option = {		
+		name = flavor_kobildzan.7.a
+		ai_chance = { factor = 50 }	
+		add_church_power = 100
+	}
+}
+
+country_event = {
+	id = flavor_kobildzan.14
+	title = flavor_kobildzan.14.t
+	desc = flavor_kobildzan.14.d
+	picture = GREAT_BUILDING_eventPicture
+	
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = { culture_group = kobold }
+				save_event_target_as = province_event_target
+			}
+			save_event_target_as = country_elder_advisor_target
+		}
+	}
+	
+	option = {		
+		name = flavor_kobildzan.7.a
+		trigger = { has_country_flag = adm_advisor_flag }
+		ai_chance = { factor = 50 }	
+		event_target:province_event_target = {get_cost_dependant_racial_advisor = {class = adm random = yes}}
+	}
+	option = {		
+		name = flavor_kobildzan.7.a
+		trigger = { has_country_flag = dip_advisor_flag }
+		ai_chance = { factor = 50 }	
+		event_target:province_event_target = {get_cost_dependant_racial_advisor = {class = dip random = yes}}
+	}
+	option = {		
+		name = flavor_kobildzan.7.a
+		trigger = { has_country_flag = mil_advisor_flag }
+		ai_chance = { factor = 50 }	
+		event_target:province_event_target = {get_cost_dependant_racial_advisor = {class = mil random = yes}}
+	}
+	after = {
+		clr_country_flag = adm_advisor_flag
+		clr_country_flag = dip_advisor_flag
+		clr_country_flag = mil_advisor_flag
+	}
+}
+country_event = {
+	id = flavor_kobildzan.15
+	title = flavor_kobildzan.15.t
+	desc = flavor_kobildzan.15.d
+	picture = GREAT_BUILDING_eventPicture
+	
+	is_triggered_only = yes
+
+	trigger = {}
+	
+	option = {		
+		name = flavor_kobildzan.7.a
+		ai_chance = { factor = 50 }	
+		if = {
+			limit = { has_country_modifier = kobold_dragon_fire_2 }
+			add_country_modifier = { name = kobold_dragon_fire_3 duration = 1825 }
+		}
+		else_if = {
+			limit = { has_country_modifier = kobold_dragon_fire_1 }
+			add_country_modifier = { name = kobold_dragon_fire_2 duration = 1825 }
+		}
+		else = {
+			add_country_modifier = { name = kobold_dragon_fire_1 duration = 1825 }
 		}
 	}
 }

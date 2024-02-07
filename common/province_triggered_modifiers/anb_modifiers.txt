@@ -433,52 +433,6 @@ jaddari_the_mountain_of_clear_sight = {
 	}
 }
 
-federation_unlawful_occupation = {
-	potential = {
-		owner = { 
-			OR = {
-				ai = no
-				overlord = { ai = no }
-				was_player = yes
-			}
-		}
-		NOT = { has_global_flag = lake_federation_disbanded }
-		NOT = { has_global_flag = lake_federation_formed }
-		owner = { has_country_modifier = lake_federation_member }
-	}
-
-	trigger = {
-		owner = {
-			OR = {
-				NOT = {
-					OR = {
-						tag = J06
-						tag = J07
-					}
-				}
-				custom_trigger_tooltip = {
-					tooltip = lawful_ultakal_tooltip
-					has_country_flag = unlawful_ultakal
-				}
-				custom_trigger_tooltip = {
-					tooltip = unlawful_ultakal_tooltip
-					has_global_flag = unlawful_ultakal
-				}
-			}
-		}
-	}
-	# picture = "federation_unlawful_occupation"
-	diplomatic_reputation = -1.5
-	prestige = -0.25
-
-	#Province scope
-	on_activation = {
-	}
-
-	on_deactivation = {
-	}
-}
-
 swamp_stilts_1 = {
 	potential = {
 		owner = { 
@@ -3412,40 +3366,6 @@ treasure_fleet_upgrade_timer = { #Sovkelqur MT
 	}
 }
 
-boons_from_fleet_trigger = { #Sovkelqur MT
-	trigger = {
-		5226 = {
-			owner = {
-				tag = J33
-			}
-		}
-	}
-
-	hidden = yes
-
-	potential = {
-		owner = { 
-			OR = {
-				ai = no
-				overlord = { ai = no }
-				was_player = yes
-			}
-		}
-		always = yes
-	}
-
-	on_activation = {
-		5226 = {
-			owner = {
-				country_event = {
-					id = lake.68
-				}
-			}
-			remove_province_triggered_modifier = boons_from_fleet_trigger
-		}
-	}
-}
-
 bulwar_districts_manager = {
 	potential = {
 		owner = { 
@@ -4907,27 +4827,6 @@ vacyntassi_eduz_ginakku_province_triggered_modifier = {
 	
 	on_deactivation = {
 	}
-}
-
-beast_memory_recursion_modifier = {
-    #hidden = yes
-
-    potential = {
-        always = yes
-    }
-
-    trigger = {
-		is_month = 3
-		NOT = { is_month = 4 }
-    }
-    
-    on_activation = {
-        province_event = { id = beast_memory.7 } #does stuff
-    }
-
-    
-    on_deactivation = {
-    }
 }
 
 #Nakavy Avo shrines and religious centre

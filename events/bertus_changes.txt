@@ -3774,7 +3774,7 @@ province_event = {
 }
 	
 country_event = {	#religion church power while gov reform
-	id = bertus_changes.2033	#unused
+	id = bertus_changes.2033
 	title = bertus_changes.2033.t
 	desc = bertus_changes.2033.desc
 	picture = DIPLOMACY_eventPicture
@@ -4031,7 +4031,110 @@ province_event = {
 		}
 	}
 }
-	#	id = bertus_changes.3004	#unused
+country_event = {
+    id = bertus_changes.3004
+    title = echo.4.title
+    desc = echo.4.desc
+    picture = MERCHANTS_TALKING_eventPicture
+
+    is_triggered_only = yes
+
+    immediate = {
+        random_owned_province = {
+            limit = {
+                area_for_scope_province = {
+                    type = all
+                    NOT = {
+                        province_has_center_of_trade_of_level = 1
+                    }
+                }
+                NOT = {
+                    province_has_center_of_trade_of_level = 1
+                }
+                is_state = yes
+                development = 40
+                OR = {
+                    has_building = marketplace
+                    has_building = trade_depot
+                    has_building = stock_exchange
+                }
+            }
+            set_province_flag = my_center_of_trade_province_1_flag
+            save_event_target_as = my_center_of_trade_province_1
+        }
+        random_owned_province = {
+            limit = {
+                area_for_scope_province = {
+                    type = all
+                    NOT = {
+                        province_has_center_of_trade_of_level = 1
+                    }
+                }
+                NOT = { has_province_flag = my_center_of_trade_province_1_flag }
+                NOT = { province_has_center_of_trade_of_level = 1 }
+                is_state = yes
+                development = 40
+                OR = {
+                    has_building = marketplace
+                    has_building = trade_depot
+                    has_building = stock_exchange
+                }
+            }
+            set_province_flag = my_center_of_trade_province_2_flag
+            save_event_target_as = my_center_of_trade_province_2
+        }
+        random_owned_province = {
+            limit = {
+                area_for_scope_province = {
+                    type = all
+                    NOT = {
+                        province_has_center_of_trade_of_level = 1
+                    }
+                }
+                NOT = { has_province_flag = my_center_of_trade_province_1_flag }
+                NOT = { has_province_flag = my_center_of_trade_province_2_flag }
+                NOT = { province_has_center_of_trade_of_level = 1 }
+                is_state = yes
+                development = 40
+                OR = {
+                    has_building = marketplace
+                    has_building = trade_depot
+                    has_building = stock_exchange
+                }
+            }
+            save_event_target_as = my_center_of_trade_province_3
+        }
+    }
+    option = {
+        name = echo.4.a
+        goto = my_center_of_trade_province_1
+        event_target:my_center_of_trade_province_1 = {
+            center_of_trade = 1
+        }
+    }
+    option = {
+        name = echo.4.a
+        trigger = { has_saved_event_target = my_center_of_trade_province_2 }
+        goto = my_center_of_trade_province_2
+        event_target:my_center_of_trade_province_2 = {
+            center_of_trade = 1
+        }
+    }
+    option = {
+        name = echo.4.a
+        trigger = { has_saved_event_target = my_center_of_trade_province_3 }
+        goto = my_center_of_trade_province_3
+        event_target:my_center_of_trade_province_3 = {
+            center_of_trade = 1
+        }
+    }
+    after = {
+        every_owned_province = {
+            clr_province_flag = my_center_of_trade_province_1_flag
+            clr_province_flag = my_center_of_trade_province_2_flag
+        }
+    }
+}
 	
 country_event = {	#spawn the thought
 	id = bertus_changes.4001

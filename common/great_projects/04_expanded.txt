@@ -2746,9 +2746,9 @@ urviksten_ebonsteel_armory = {
 			OR = {
 				culture_group = gerudian
 				culture = black_castanorian
+				culture_group = half_orc
+				culture_group = half_elf
 			}
-			has_owner_religion = yes
-			religion_group = gerudian
 		}
 	}	
 	can_upgrade_trigger = {
@@ -2757,9 +2757,9 @@ urviksten_ebonsteel_armory = {
 			OR = {
 				culture_group = gerudian
 				culture = black_castanorian
+				culture_group = half_orc
+				culture_group = half_elf
 			}
-			has_owner_religion = yes
-			religion_group = gerudian
 		}
 	}	
 	keep_trigger = {}
@@ -2803,8 +2803,17 @@ urviksten_ebonsteel_armory = {
 		}
 		area_modifier = {}
 		country_modifiers = {
-			infantry_shock = 0.10
+			infantry_shock = 0.075
 			infantry_cost = -0.05
+		}
+		conditional_modifier = {
+			trigger = {
+				has_owner_religion = yes
+				religion_group = gerudian
+			}
+			modifier = {
+				infantry_shock = 0.075
+			}
 		}
 		on_upgraded = {}
 	}
@@ -2821,10 +2830,32 @@ urviksten_ebonsteel_armory = {
 		}
 		area_modifier = {}
 		country_modifiers = {
-			infantry_shock = 0.20
+			infantry_shock = 0.15
 			infantry_cost = -0.10
 		}
-		on_upgraded = {}
+		conditional_modifier = {
+			trigger = {
+				has_owner_religion = yes
+				religion_group = gerudian
+			}
+			modifier = {
+				infantry_shock = 0.15
+			}
+		}
+		on_upgraded = {
+			if = {
+				limit = {
+					owner = {
+						OR = {
+							has_country_modifier = orcish_military
+							has_country_modifier = half_orcish_military
+						}
+						has_race_recruitment = { race = orcish }
+					}
+				}
+				custom_tooltip = allow_iron_orcs_tt
+			}
+		}
 	}
 }
 
