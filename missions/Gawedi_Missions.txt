@@ -90,7 +90,42 @@ gawed_column_1 = {
 				}
 				add_permanent_claim = ROOT
 			}
+			exwes_coast_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			west_exwes_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
 			iochand_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			reaver_coast_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			west_dragonhills_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			gnomish_pass_area = {
 				limit = {
 					NOT = { is_core = ROOT }
 					NOT = { owned_by = ROOT }
@@ -110,6 +145,12 @@ gawed_column_1 = {
 				area = beepeck_area
 				area = exwes_area
 				area = iochand_area
+				area = exwes_coast_area
+				area = west_exwes_area
+				area = iochand_area
+				area = reaver_coast_area
+				area = west_dragonhills_area
+				area = gnomish_pass_area
 			}
 			NOT = { country_or_non_sovereign_subject_holds = ROOT }
 		}
@@ -123,7 +164,27 @@ gawed_column_1 = {
 				type = all
 				country_or_non_sovereign_subject_holds = ROOT
 			}
+			exwes_coast_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			west_exwes_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
 			iochand_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			reaver_coast_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			west_dragonhills_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			gnomish_pass_area = {
 				type = all
 				country_or_non_sovereign_subject_holds = ROOT
 			}
@@ -137,7 +198,28 @@ gawed_column_1 = {
 				}
 				add_permanent_claim = ROOT
 			}
+			north_deranne_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			portnamm_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
 			redglades_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			east_redglades_area = {
 				limit = {
 					NOT = { is_core = ROOT }
 					NOT = { owned_by = ROOT }
@@ -153,14 +235,23 @@ gawed_column_1 = {
 		position = 4
 		
 		provinces_to_highlight = {
-			area = redglades_area
-			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			OR = {
+				area = redglades_area
+				area = east_redglades_area
+			}
+			NOT = { controlled_by = ROOT }
 		}
 		
 		trigger = {
 			redglades_area = {
 				type = all
-				country_or_non_sovereign_subject_holds = ROOT
+				controlled_by = ROOT
+				devastation = 20
+			}
+			east_redglades_area = {
+				type = all
+				controlled_by = ROOT
+				devastation = 20
 			}
 		}
 		
@@ -171,14 +262,7 @@ gawed_column_1 = {
 			}
 			
 			country_event = { id = flavor_gawed.1 days = 1 }
-			ionnidar_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { owned_by = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-			upper_bloodwine_area = {
+			lencenor_region = {
 				limit = {
 					NOT = { is_core = ROOT }
 					NOT = { owned_by = ROOT }
@@ -329,10 +413,24 @@ gawed_column_2 = {
 		}
 		
 		effect = {
-			add_casus_belli = {
-				target = A76 #Uelaire
-				type = cb_vassalize_mission
-				months = 300
+			if = {
+				limit = {
+					exists = A76
+				}
+				add_casus_belli = {
+					target = A76 #Uelaire
+					type = cb_vassalize_mission
+					months = 300
+				}
+			}
+			else = {
+				dames_forehead_area = {
+					limit = {
+						NOT = { is_core = ROOT }
+						NOT = { owned_by = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
 			}
 			arbaran_area = {
 				limit = {
@@ -356,13 +454,6 @@ gawed_column_2 = {
 				add_permanent_claim = ROOT
 			}
 			cestir_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { owned_by = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-			dames_forehead_area = {
 				limit = {
 					NOT = { is_core = ROOT }
 					NOT = { owned_by = ROOT }
