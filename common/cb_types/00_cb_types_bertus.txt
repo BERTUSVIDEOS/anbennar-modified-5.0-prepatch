@@ -13,7 +13,28 @@
 # TRIGGERED - Triggered from within the code or by event effects
 # --------------------------------------------------------------
 
-# Restoration of recently broken PU
+cb_the_jadd_world_crusade = {
+	valid_for_subject = no
+
+	prerequisites_self = {
+		is_revolutionary = no
+		has_government_attribute = gain_force_conversion_cb
+	}
+
+	prerequisites = {
+		NOT = { religion = FROM }
+		NOT = {	has_matching_religion = FROM }
+		has_government_attribute = gain_force_conversion_cb
+		FROM = { is_subject = no }
+		OR = {
+			is_neighbor_of = FROM
+			any_country = { religion = the_jadd is_neighbor_of = FROM }
+		}
+	}
+
+	war_goal = superiority_the_jadd_world_crusade
+}
+
 cb_ogre_force_tributary = { 
  
 	valid_for_subject = no 

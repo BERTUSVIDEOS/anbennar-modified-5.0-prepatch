@@ -402,11 +402,32 @@ country_event = {
 	option = {
 		name = magic_ruler.5.g	#available
 		trigger = {
+			NOT = { has_ruler_modifier = ruler_recently_casted_spell }
+			NOT = {has_country_modifier = ruler_recently_casted_spell}
 			OR = {
 				has_ruler_flag = evocation_3
 				AND = {
 					has_ruler_flag = evocation_2
 					has_ruler_flag = rakshasa_patron
+				}
+			}
+			mil_power = 200
+			is_at_war = yes
+			is_lesser_in_union = no
+			any_army = {
+				location = {
+					fort_level = 1
+					sieged_by = ROOT
+					unit_has_leader = yes
+					has_ruler_leader_from = ROOT
+				}
+			}
+			NOT = { has_ruler_modifier = magic_siege_cooldown }
+			if = {
+				limit = { has_country_flag = meteor_strike_used_flag }
+				had_country_flag = {
+					flag = meteor_strike_used_flag
+					days = 3650
 				}
 			}
 		}
@@ -469,12 +490,6 @@ country_event = {
 		trigger = {
 			ai = no
 			NOT = { has_ruler_flag = evocation_3 }
-			NOT = {
-				AND = {
-					has_ruler_flag = evocation_2
-					has_ruler_flag = rakshasa_patron
-				}
-			}
 		}
 		set_country_flag = siege_magic_menu
 		hidden_effect = { country_event = { id = magic_ruler.9 } }
@@ -522,25 +537,123 @@ country_event = {
 		custom_tooltip = magic_meteor_desc_tt
 	}
 	
+	option = {
+		name = magic_ruler.5.gx	#unavailable - other
+		trigger = {			
+			ai = no
+			OR = {
+				has_ruler_modifier = magic_realm_menu_cooldown
+				has_country_modifier = ruler_recently_casted_spell
+				has_ruler_flag = evocation_3
+				AND = {
+					has_ruler_flag = evocation_2
+					has_ruler_flag = rakshasa_patron
+				}
+			}
+			OR = {
+				NOT = {mil_power = 200}
+				is_at_war = no
+				is_lesser_in_union = yes
+				NOT = {
+					any_army = {
+						location = {
+							fort_level = 1
+							sieged_by = ROOT
+							unit_has_leader = yes
+							has_ruler_leader_from = ROOT
+						}
+					}
+				}
+				has_ruler_modifier = magic_siege_cooldown
+				NOT = {
+					had_country_flag = {
+						flag = meteor_strike_used_flag
+						days = 3650
+					}
+				}
+			}
+		}
+		set_country_flag = evocation_menu
+		clr_ruler_flag = magic_just_casted_spell
+		hidden_effect = { country_event = { id = magic_ruler.9 } }
+		
+		if = { limit = { has_country_flag = meteor_strike_used_flag }
+			custom_tooltip = meteor_strike_used_flag_tt
+		}
+		if = { limit = { has_ruler_modifier = magic_siege_cooldown }
+			custom_tooltip = magic_siege_cooldown_tt
+		}
+		if = { limit = { is_at_war = no }
+			custom_tooltip = magic_is_at_war_tt
+		}
+		if = { limit = { is_lesser_in_union = yes }
+			custom_tooltip = magic_is_not_in_lesser_union_tt
+		}
+		if = {
+			limit = {
+				NOT = {
+					any_army = {
+						location = {
+							fort_level = 1
+							sieged_by = ROOT
+							unit_has_leader = yes
+							has_ruler_leader_from = ROOT
+						}
+					}
+				}
+			}
+			custom_tooltip = magic_leadered_army_sieging_tt
+		}
+		
+		custom_tooltip = magic_effect_separator_tt
+		
+		custom_tooltip = magic_if_siege_magic_succeeds_tt
+		tooltip = {
+			change_siege = 10
+			add_devastation = 50
+		}
+		custom_tooltip = magic_meteor_desc_tt
+	}
+
 	#3 - Shapechange into a Dragon
 	option = {
 		name = magic_ruler.8.j	#available
 		trigger = {
+			NOT = { has_ruler_modifier = ruler_recently_casted_spell }
+			NOT = {has_country_modifier = ruler_recently_casted_spell}
 			has_ruler_flag = transmutation_3
+			is_at_war = yes
+			is_lesser_in_union = no
+			any_army = {
+				location = {
+					fort_level = 1
+					sieged_by = ROOT
+					unit_has_leader = yes
+					has_ruler_leader_from = ROOT
+				}
+			}
+			mil_power = 100
+			NOT = { has_ruler_modifier = magic_siege_cooldown }
+			if = {
+				limit = { has_country_flag = shapechange_into_dragon_used_flag }
+				had_country_flag = {
+					flag = shapechange_into_dragon_used_flag
+					days = 3650
+				}
+			}
 		}
 		ai_chance = {factor = 50}
 		
 		country_event = { id = magic_siege.23 }
 		custom_tooltip = magic_if_siege_magic_succeeds_tt
-		tooltip = {
-			event_target:spell_target_province = { 
-				hidden_effect = {change_siege = 2}
-				custom_tooltip = "Change siege progress by 2"
-				add_province_modifier = {
-					name = siege_magic_dragon_besieger
-					duration = 60
+		tooltip = {			
+			random_list = {
+				10 = {}
+				90 = {
+					change_siege = 2
+					add_devastation = 10
+					add_province_modifier = {name = siege_magic_dragon_besieger duration = 60}
 				}
-				add_devastation = 10
 			}
 		}
 		custom_tooltip = magic_dragon_desc_tt
@@ -551,7 +664,8 @@ country_event = {
 			ai = no
 			NOT = { has_ruler_flag = transmutation_3 }
 		}
-		set_country_flag = siege_magic_menu
+		set_country_flag = transmutation_menu
+		clr_ruler_flag = magic_just_casted_spell
 		hidden_effect = { country_event = { id = magic_ruler.9 } }
 		
 		custom_tooltip = school_mastery_not_legendary_tt
@@ -559,15 +673,96 @@ country_event = {
 		custom_tooltip = magic_effect_separator_tt
 		
 		custom_tooltip = magic_if_siege_magic_succeeds_tt
-		tooltip = {
-			event_target:spell_target_province = { 
-				hidden_effect = {change_siege = 2}
-				custom_tooltip = "Change siege progress by 2"
-				add_province_modifier = {
-					name = siege_magic_dragon_besieger
-					duration = 60
+		
+		tooltip = {			
+			random_list = {
+				10 = {}
+				90 = {
+					change_siege = 2
+					add_devastation = 10
+					add_province_modifier = {name = siege_magic_dragon_besieger duration = 60}
 				}
-				add_devastation = 10
+			}
+		}
+		custom_tooltip = magic_dragon_desc_tt
+	}
+	option = {
+		name = magic_ruler.8.jx	#unavailable - other
+		trigger = {
+			ai = no
+			has_ruler_flag = transmutation_3
+			OR = {
+				has_ruler_modifier = magic_realm_menu_cooldown
+				has_country_modifier = ruler_recently_casted_spell
+				is_at_war = no
+				is_lesser_in_union = yes
+				NOT = {
+					any_army = {
+						location = {
+							fort_level = 1
+							sieged_by = ROOT
+							unit_has_leader = yes
+							has_ruler_leader_from = ROOT
+						}
+					}
+				}
+				NOT = {mil_power = 100}
+				has_ruler_modifier = magic_siege_cooldown
+				NOT = {
+					had_country_flag = {
+						flag = shapechange_into_dragon_used_flag
+						days = 3650
+					}
+				}
+			}
+		}
+		set_country_flag = transmutation_menu
+		clr_ruler_flag = magic_just_casted_spell
+		hidden_effect = { country_event = { id = magic_ruler.9 } }
+		
+		if = { limit = { has_country_flag = shapechange_into_dragon_used_flag }
+			custom_tooltip = shapechange_into_dragon_used_flag_tt
+		}
+		if = { limit = { has_ruler_modifier = magic_siege_cooldown }
+			custom_tooltip = magic_siege_cooldown_tt
+		}
+		if = { limit = { is_at_war = no }
+			custom_tooltip = magic_is_at_war_tt
+		}
+		if = { limit = { is_lesser_in_union = yes }
+			custom_tooltip = magic_is_not_in_lesser_union_tt
+		}
+		if = { limit = { NOT = {mil_power = 100 }}
+			custom_tooltip = magic_need_100_mil_tt
+		}
+		if = {
+			limit = {
+				NOT = {
+					any_army = {
+						location = {
+							fort_level = 1
+							sieged_by = ROOT
+							unit_has_leader = yes
+							has_ruler_leader_from = ROOT
+						}
+					}
+				}
+			}
+			custom_tooltip = magic_leadered_army_sieging_tt
+		}
+		
+		custom_tooltip = magic_effect_separator_tt
+		
+		custom_tooltip = magic_if_siege_magic_succeeds_tt
+		
+		tooltip = {			
+			random_list = {
+				10 = {}
+				90 = {
+					change_siege = 2
+					add_devastation = 10
+					add_province_modifier = {name = siege_magic_dragon_besieger duration = 60}
+				}
 			}
 		}
 		custom_tooltip = magic_dragon_desc_tt
@@ -2369,6 +2564,8 @@ country_event = {
 				}
 			}
 		}
+		clr_country_flag = meteor_strike_used_flag
+		set_country_flag = meteor_strike_used_flag
 	}
 	# Cast Meteor Strike
 	option = {
@@ -2791,6 +2988,8 @@ country_event = {
 				}
 			}
 		}
+		clr_country_flag = shapechange_into_dragon_used_flag
+		set_country_flag = shapechange_into_dragon_used_flag
 	}
 	# Shapechange
 	option = {

@@ -63,9 +63,10 @@ interaction = {	#8-2
 				hidden_trigger = { NOT = { has_country_flag = V63_runes_menu_open } }
 			}
 			else = {
-				NOT = { has_estate_privilege = estate_mages_cast_spells }
+				#NOT = { has_estate_privilege = estate_mages_cast_spells }	#into custom gui
 				if = { limit = { tag = I02 }	#krak
 					mission_completed = krak_relighting_forges
+					NOT = { has_estate_privilege = estate_mages_cast_spells }
 				}
 			}
 		}
@@ -88,13 +89,12 @@ interaction = {	#8-2
 				custom_tooltip = opens_magic_estate_menu_tt
 				custom_tooltip = cast_spell_effect_tt
 				hidden_effect = {
-					set_estate_privilege = estate_mages_cast_spells
 					if = { limit = { tag = I02 }
 						country_event = { id = flavor_krak.100 }
 					}
-					else = {
-						country_event = { id = magic_estate.1 }
-					}
+					#else = {	#into custom gui
+					#	country_event = { id = magic_estate.1 }
+					#}
 				}
 			}
 		}

@@ -1,0 +1,1749 @@
+
+custom_button = {
+    name = magic_menu_estate
+    
+    potential = {
+		ai = no
+		has_estate = estate_mages
+		NOT = { has_country_flag = Y63_unlocked_minor_runes }
+		if = { limit = { tag = I02 }	#krak
+			mission_completed = krak_relighting_forges
+		}
+		NOT = { has_estate = estate_acolytes }
+		NOT = { has_estate_privilege = artifice_invention_korashi_tuners }
+	}
+	trigger = {}
+	effect = {
+		hidden_effect = {
+			if = {
+				limit = { NOT = { has_estate_privilege = estate_mages_cast_spells } }
+				set_estate_privilege = estate_mages_cast_spells
+			}
+			else = {
+				remove_estate_privilege = estate_mages_cast_spells
+			}
+		}
+	}
+	tooltip = "Cast Spell"
+}
+custom_icon = {
+	name = magic_menu_background
+	
+    potential = {
+		ai = no	
+		has_estate_privilege = estate_mages_cast_spells
+	}
+	tooltip = ""
+}
+custom_icon = {
+	name = magic_menu_spell_strength
+	
+    potential = {
+		ai = no	
+		has_estate_privilege = estate_mages_cast_spells
+	}
+	tooltip = ""
+}
+custom_text_box = {
+	name = magic_menu_spell_strength_text
+	
+    potential = {
+		ai = no	
+		has_estate_privilege = estate_mages_cast_spells
+	}
+	tooltip = ""
+}
+custom_button = {
+    name = magic_menu_magnificent_feast
+    
+    potential = {
+		ai = no	
+		has_estate_privilege = estate_mages_cast_spells
+	}
+	trigger = {
+		has_government_power = { 
+			mechanic_type = magisterium_mechanic
+			power_type = magisterium_mana
+			value = 10
+		}
+	}
+	effect = {
+		#Effect
+		if = { 
+			limit = { 
+				estate_influence = { estate = estate_mages influence = 66 }
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 30
+				}
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -30
+			}
+			add_country_modifier = {
+				name = magic_estate_magnificent_feast_3
+				duration = 3650
+			}
+		}
+		else_if = { 
+			limit = { 
+				estate_influence = { estate = estate_mages influence = 33 }
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 20
+				}
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -20
+			}
+			add_country_modifier = {
+				name = magic_estate_magnificent_feast_2
+				duration = 3650
+			}
+			custom_tooltip = magisters_need_30_mana_tt
+			custom_tooltip = "to get lvl 3 Spell"
+		}
+		else_if = { 
+			limit = { 
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 10
+				}
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -10
+			}
+			add_country_modifier = {
+				name = magic_estate_magnificent_feast_1
+				duration = 3650
+			}
+			custom_tooltip = magisters_need_20_mana_tt
+			custom_tooltip = "to get lvl 2 Spell"
+		}
+		else = {
+			custom_tooltip = magisters_need_10_20_30_mana_tt
+		}
+		custom_tooltip = magic_feast_desc_tt
+		hidden_effect = {
+			if = {
+				limit = { NOT = { has_estate_privilege = estate_mages_cast_spells } }
+				remove_country_modifier = magic_cooldown
+			}
+			if = { # Causes crashes on Linux
+				limit = { ai = no }
+				remove_estate_privilege = estate_mages_cast_spells 
+			}
+			else = {
+				set_country_flag = revoke_mage_estate_spells
+			}
+		}
+	}
+	tooltip = "Magnificent Feast"
+}
+custom_button = {
+    name = magic_menu_plant_growth
+    
+    potential = {
+		ai = no	
+		has_estate_privilege = estate_mages_cast_spells
+	}
+	trigger = {
+		any_owned_province = { plant_growth_target = yes }
+		has_government_power = { 
+			mechanic_type = magisterium_mechanic
+			power_type = magisterium_mana
+			value = 30
+		}
+	}
+	effect = {
+		if = { 
+			limit = { 
+				estate_influence = { estate = estate_mages influence = 66 }
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 50
+				}
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -50
+			}
+			custom_tooltip = plant_growth_3_tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = {  plant_growth_target = yes }
+					add_province_modifier = {
+						name = magic_realm_transmutation_plant_growth_3
+						duration = 3650
+					}
+				}
+			}
+		}
+		else_if = { 
+			limit = { 
+				estate_influence = { estate = estate_mages influence = 33 }
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 40
+				}
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -40
+			}
+			custom_tooltip = plant_growth_2_tt
+			custom_tooltip = magisters_need_50_mana_tt
+			custom_tooltip = "to get lvl 3 Spell"
+			hidden_effect = {
+				every_owned_province = {
+					limit = { plant_growth_target = yes }
+					add_province_modifier = {
+						name = magic_realm_transmutation_plant_growth_2
+						duration = 3650
+					}
+				}
+			}
+		}
+		else = {
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -30
+			}
+			custom_tooltip = plant_growth_1_tt
+			custom_tooltip = magisters_need_40_mana_tt
+			custom_tooltip = "to get lvl 2 Spell"
+			hidden_effect = {
+				every_owned_province = {
+					limit = {  plant_growth_target = yes }
+					add_province_modifier = {
+						name = magic_realm_transmutation_plant_growth_1
+						duration = 3650
+					}
+				}
+			}
+		}
+		
+		custom_tooltip = plant_growth_devastation_tooltip
+		hidden_effect = { country_event = { id = magic_estate.100 } } #Devastation ticks up
+		
+		custom_tooltip = magic_plant_growth_desc_tt
+		hidden_effect = {
+			if = {
+				limit = { NOT = { has_estate_privilege = estate_mages_cast_spells } }
+				remove_country_modifier = magic_cooldown
+			}
+			if = { # Causes crashes on Linux
+				limit = { ai = no }
+				remove_estate_privilege = estate_mages_cast_spells 
+			}
+			else = {
+				set_country_flag = revoke_mage_estate_spells
+			}
+		}
+	}
+	tooltip = "Pland Growth"
+}
+custom_button = {
+    name = magic_menu_scrying_rivals
+    
+    potential = {
+		ai = no	
+		has_estate_privilege = estate_mages_cast_spells
+	}
+	trigger = {
+		any_rival_country  = { exists = yes }
+		NOT = {
+			has_country_modifier = magic_estate_scrying_rivals_1
+			has_country_modifier = magic_estate_scrying_rivals_2
+			has_country_modifier = magic_estate_scrying_rivals_3
+			has_country_modifier = magic_estate_scrying_neighbours_1
+			has_country_modifier = magic_estate_scrying_neighbours_2
+			has_country_modifier = magic_estate_scrying_neighbours_3
+		}
+		has_government_power = { 
+			mechanic_type = magisterium_mechanic
+			power_type = magisterium_mana
+			value = 10
+		}
+	}
+	effect = {
+		if = { 
+			limit = { 
+				estate_influence = { estate = estate_mages influence = 66 }
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 30
+				}
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -30
+			}
+			add_country_modifier = {
+				name = magic_estate_scrying_rivals_3
+				duration = 3650	#10 years
+			}
+			every_rival_country = {
+				remove_fow = 4
+				add_spy_network_from = { who = ROOT value = 30 }
+				add_spy_network_in = { who = ROOT value = -30 } 
+			}
+		}
+		else_if = { 
+			limit = { 
+				estate_influence = { estate = estate_mages influence = 33 }
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 20
+				}
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -20
+			}
+			add_country_modifier = {
+				name = magic_estate_scrying_rivals_2
+				duration = 3650	#10 years
+			}
+			every_rival_country = {
+				remove_fow = 3
+				add_spy_network_from = { who = ROOT value = 20 }
+				add_spy_network_in = { who = ROOT value = -20 }
+			}
+			custom_tooltip = magisters_need_30_mana_tt
+			custom_tooltip = "to get lvl 3 Spell"
+		}
+		else = {
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -10
+			}
+			add_country_modifier = {
+				name = magic_estate_scrying_rivals_1
+				duration = 3650	#10 years
+			}
+			every_rival_country = {
+				remove_fow = 2
+				add_spy_network_from = { who = ROOT value = 10 }
+				add_spy_network_in = { who = ROOT value = -10 }
+			}
+			custom_tooltip = magisters_need_20_mana_tt
+			custom_tooltip = "to get lvl 2 Spell"
+		}
+		hidden_effect = {
+			if = {
+				limit = { NOT = { has_estate_privilege = estate_mages_cast_spells } }
+				remove_country_modifier = magic_cooldown
+			}
+			if = { # Causes crashes on Linux
+				limit = { ai = no }
+				remove_estate_privilege = estate_mages_cast_spells 
+			}
+			else = {
+				set_country_flag = revoke_mage_estate_spells
+			}
+		}
+	}
+	tooltip = "Scrying Rivals"
+}
+custom_button = {
+    name = magic_menu_scrying_neighbours
+    
+    potential = {
+		ai = no	
+		has_estate_privilege = estate_mages_cast_spells
+	}
+	trigger = {
+		any_country = { is_neighbor_of = ROOT }
+		NOT = {
+			has_country_modifier = magic_estate_scrying_rivals_1
+			has_country_modifier = magic_estate_scrying_rivals_2
+			has_country_modifier = magic_estate_scrying_rivals_3
+			has_country_modifier = magic_estate_scrying_neighbours_1
+			has_country_modifier = magic_estate_scrying_neighbours_2
+			has_country_modifier = magic_estate_scrying_neighbours_3
+		}
+		has_government_power = { 
+			mechanic_type = magisterium_mechanic
+			power_type = magisterium_mana
+			value = 10
+		}
+	}
+	effect = {
+		hidden_effect = {
+			every_country = { 
+				limit = { is_neighbor_of = ROOT }
+				country_event = {id = bertus_changes.1113}
+			}
+		}	
+		if = { 
+			limit = { 
+				estate_influence = { estate = estate_mages influence = 66 } 
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 30
+				}
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -30
+			}
+			add_country_modifier = {
+				name = magic_estate_scrying_neighbours_3
+				duration = 3650	#10 years
+			}
+			custom_tooltip = magic_scrying_fow_3_tt
+			hidden_effect = {
+				every_neighbor_country = {
+					remove_fow = 4
+				}
+			}
+			if = { limit = { neighbor_is_ahead_in_institution = yes }
+				capital_scope = {
+					area = {
+						limit = { owned_by = ROOT }
+						add_province_modifier = {
+							name = magic_estate_scrying_stealing_institution_3
+							duration = 3650
+						}
+					}
+				}
+			}
+		}
+		else_if = { 
+			limit = { 
+				estate_influence = { estate = estate_mages influence = 33 } 
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 20
+				}
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -20
+			}
+			add_country_modifier = {
+				name = magic_estate_scrying_neighbours_2
+				duration = 3650	#10 years
+			}
+			custom_tooltip = magic_scrying_fow_2_tt
+			hidden_effect = {
+				every_neighbor_country = {
+					remove_fow = 3
+				}
+			}
+			if = { limit = { neighbor_is_ahead_in_institution = yes }
+				capital_scope = {
+					area = {
+						limit = { owned_by = ROOT }
+						add_province_modifier = {
+							name = magic_estate_scrying_stealing_institution_2
+							duration = 3650
+						}
+					}
+				}
+			}
+			custom_tooltip = magisters_need_30_mana_tt
+			custom_tooltip = "to get lvl 3 Spell"
+		}
+		else = {
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -10
+			}
+			add_country_modifier = {
+				name = magic_estate_scrying_neighbours_1
+				duration = 3650
+			}
+			custom_tooltip = magic_scrying_fow_1_tt
+			hidden_effect = {
+				every_neighbor_country = {
+					remove_fow = 2
+				}
+			}
+			if = { limit = { neighbor_is_ahead_in_institution = yes }
+				capital_scope = {
+					area = {
+						limit = { owned_by = ROOT }
+						add_province_modifier = {
+							name = magic_estate_scrying_stealing_institution_1
+							duration = 3650
+						}
+					}
+				}
+			}
+			custom_tooltip = magisters_need_20_mana_tt
+			custom_tooltip = "to get lvl 2 Spell"
+		}
+		
+		custom_tooltip = magic_scrying_desc_tt
+		hidden_effect = {
+			if = {
+				limit = { NOT = { has_estate_privilege = estate_mages_cast_spells } }
+				remove_country_modifier = magic_cooldown
+			}
+			if = { # Causes crashes on Linux
+				limit = { ai = no }
+				remove_estate_privilege = estate_mages_cast_spells 
+			}
+			else = {
+				set_country_flag = revoke_mage_estate_spells
+			}
+		}
+	}
+	tooltip = "Scrying Neighbours"
+}
+custom_button = {
+    name = magic_menu_scrying_internal_dissidents
+    
+    potential = {
+		ai = no	
+		has_estate_privilege = estate_mages_cast_spells
+	}
+	trigger = {
+		has_government_power = { 
+			mechanic_type = magisterium_mechanic
+			power_type = magisterium_mana
+			value = 20
+		}
+	}
+	effect = {
+		if = { 
+			limit = { 
+				estate_influence = { estate = estate_mages influence = 66 }
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 40
+				}
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -40
+			}
+			add_country_modifier = {
+				name = magic_estate_scrying_internal_dissidents_3
+				duration = 3650	#10 years
+			}
+		}
+		else_if = { 
+			limit = { 
+				estate_influence = { estate = estate_mages influence = 33 } 
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 30
+				}
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -30
+			}
+			add_country_modifier = {
+				name = magic_estate_scrying_internal_dissidents_2
+				duration = 3650	#10 years
+			}
+			custom_tooltip = magisters_need_40_mana_tt
+			custom_tooltip = "to get lvl 3 Spell"
+		}
+		else_if = {
+			limit = {
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 20
+				}
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -20
+			}
+			add_country_modifier = {
+				name = magic_estate_scrying_internal_dissidents_1
+				duration = 3650
+			}
+			custom_tooltip = magisters_need_30_mana_tt
+			custom_tooltip = "to get lvl 2 Spell"
+		}
+		else = {
+			custom_tooltip = magisters_need_20_30_40_mana_tt
+		}
+		custom_tooltip = magic_scrying_desc_tt
+		hidden_effect = {
+			if = {
+				limit = { NOT = { has_estate_privilege = estate_mages_cast_spells } }
+				remove_country_modifier = magic_cooldown
+			}
+			if = { # Causes crashes on Linux
+				limit = { ai = no }
+				remove_estate_privilege = estate_mages_cast_spells 
+			}
+			else = {
+				set_country_flag = revoke_mage_estate_spells
+			}
+		}
+	}
+	tooltip = "Scrying Internal Dissidents"
+}
+custom_button = {
+    name = magic_menu_aid_war_effort
+    
+    potential = {
+		ai = no	
+		has_estate_privilege = estate_mages_cast_spells
+	}
+	trigger = {
+		is_at_war = yes
+		has_government_power = { 
+			mechanic_type = magisterium_mechanic
+			power_type = magisterium_mana
+			value = 30
+		}
+	}
+	effect = {
+		if = { 
+			limit = { 
+				estate_influence = { estate = estate_mages influence = 66 }
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 90
+				}
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -90
+			}
+			add_country_modifier = {
+				name = magic_estate_scrying_military_intelligence_3
+				duration = 1825	#5 years
+			}
+			every_country = {
+				limit = { war_with = ROOT }
+				remove_fow = 4
+			}
+		}
+		else_if = { 
+			limit = { 
+				OR = { estate_influence = { estate = estate_mages influence = 33 } has_country_flag = command_enslaved_the_oracle_flag } 
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 60
+				}
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -60
+			}
+			add_country_modifier = {
+				name = magic_estate_scrying_military_intelligence_2
+				duration = 1825	#5 years
+			}
+			every_country = {
+				limit = { war_with = ROOT }
+				remove_fow = 3
+			}
+			custom_tooltip = magisters_need_90_mana_tt
+			custom_tooltip = "to get lvl 3 Spell"
+		}
+		else = { 
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -30
+			}
+			add_country_modifier = {
+				name = magic_estate_scrying_military_intelligence_1
+				duration = 1825	#5 years
+			}
+			every_country = {
+				limit = { war_with = ROOT }
+				remove_fow = 2
+			}
+			custom_tooltip = magisters_need_60_mana_tt
+			custom_tooltip = "to get lvl 2 Spell"
+		}
+		
+		custom_tooltip = magic_scrying_desc_tt
+		hidden_effect = {
+			if = {
+				limit = { NOT = { has_estate_privilege = estate_mages_cast_spells } }
+				remove_country_modifier = magic_cooldown
+			}
+			if = { # Causes crashes on Linux
+				limit = { ai = no }
+				remove_estate_privilege = estate_mages_cast_spells 
+			}
+			else = {
+				set_country_flag = revoke_mage_estate_spells
+			}
+		}
+	}
+	tooltip = "Aid War Effort"
+}
+custom_button = {
+    name = magic_menu_foretelling
+    
+    potential = {
+		ai = no	
+		has_estate_privilege = estate_mages_cast_spells
+	}
+	trigger = {
+		OR = {
+			if = {
+				limit = { has_estate_privilege = estate_mages_organization_magisterium }
+				A85 = { has_unlocked_spell = { spell = divination_school_reform} }
+			}
+			has_unlocked_spell = { spell = divination_school_reform}
+		}
+		NOT = { has_country_modifier = divination_school_reform_modifier }
+		has_government_power = { 
+			mechanic_type = magisterium_mechanic
+			power_type = magisterium_mana
+			value = 50
+		}
+	}
+	effect = {
+		if = {
+			limit = {
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 50
+				}
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -50
+			}
+			add_country_modifier = {
+				name = divination_school_reform_modifier
+				duration = 730
+			}
+		}
+		else = {
+			custom_tooltip = magisters_need_50_mana_tt
+			tooltip = {
+				custom_tooltip = "Would give:"
+				add_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -50
+				}
+				add_country_modifier = {
+					name = divination_school_reform_modifier
+					duration = 730
+				}
+			}
+		}
+		hidden_effect = {
+			if = {
+				limit = { NOT = { has_estate_privilege = estate_mages_cast_spells } }
+				remove_country_modifier = magic_cooldown
+			}
+			if = { # Causes crashes on Linux
+				limit = { ai = no }
+				remove_estate_privilege = estate_mages_cast_spells 
+			}
+			else = {
+				set_country_flag = revoke_mage_estate_spells
+			}
+		}
+	}
+	tooltip = "Foretelling"
+}
+custom_button = {
+    name = magic_menu_weaken_minds
+    
+    potential = {
+		ai = no	
+		has_estate_privilege = estate_mages_cast_spells
+	}
+	trigger = {
+		OR = {
+			if = {
+				limit = { has_estate_privilege = estate_mages_organization_magisterium }
+				A85 = { has_unlocked_spell = { spell = enchantment_school_reform} }
+			}
+			has_unlocked_spell = { spell = enchantment_school_reform}
+		}
+		NOT = { has_country_modifier = enchantment_school_reform_modifier }
+		has_government_power = { 
+			mechanic_type = magisterium_mechanic
+			power_type = magisterium_mana
+			value = 50
+		}
+	}
+	effect = {
+		if = {
+			limit = {
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 50
+				}
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -50
+			}
+			hidden_effect = {
+				add_country_modifier = {
+					name = enchantment_school_reform_modifier_flag
+					duration = 730
+				}
+			}
+			tooltip = {
+				custom_tooltip = every_war_enemy_tt
+				add_country_modifier = {
+					name = enchantment_school_reform_modifier
+					duration = 730
+				}
+			}
+		}
+		else = {
+			custom_tooltip = magisters_need_50_mana_tt
+			tooltip = {
+				custom_tooltip = "Would give:"
+				add_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -50
+				}
+				custom_tooltip = every_war_enemy_tt
+				add_country_modifier = {
+					name = enchantment_school_reform_modifier
+					duration = 730
+				}
+			}
+		}
+		hidden_effect = {
+			if = {
+				limit = { NOT = { has_estate_privilege = estate_mages_cast_spells } }
+				remove_country_modifier = magic_cooldown
+			}
+			if = { # Causes crashes on Linux
+				limit = { ai = no }
+				remove_estate_privilege = estate_mages_cast_spells 
+			}
+			else = {
+				set_country_flag = revoke_mage_estate_spells
+			}
+		}
+	}
+	tooltip = "Weaken Minds"
+}
+custom_button = {
+    name = magic_menu_abjuration_shield
+    
+    potential = {
+		ai = no	
+		has_estate_privilege = estate_mages_cast_spells
+	}
+	trigger = {
+		OR = {
+			if = {
+				limit = { has_estate_privilege = estate_mages_organization_magisterium }
+				A85 = { has_unlocked_spell = { spell = abjuration_school_reform} }
+			}
+			has_unlocked_spell = { spell = abjuration_school_reform}
+		}
+		NOT = { has_country_modifier = abjuration_school_reform_modifier }
+		has_government_power = { 
+			mechanic_type = magisterium_mechanic
+			power_type = magisterium_mana
+			value = 50
+		}
+	}
+	effect = {
+		if = {
+			limit = {
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 50
+				}
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -50
+			}
+			add_country_modifier = {
+				name = abjuration_school_reform_modifier
+				duration = 730
+			}
+		}
+		else = {
+			custom_tooltip = magisters_need_50_mana_tt
+			tooltip = {
+				custom_tooltip = "Would give:"
+				add_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -50
+				}
+				add_country_modifier = {
+					name = abjuration_school_reform_modifier
+					duration = 730
+				}
+			}
+		}
+		hidden_effect = {
+			if = {
+				limit = { NOT = { has_estate_privilege = estate_mages_cast_spells } }
+				remove_country_modifier = magic_cooldown
+			}
+			if = { # Causes crashes on Linux
+				limit = { ai = no }
+				remove_estate_privilege = estate_mages_cast_spells 
+			}
+			else = {
+				set_country_flag = revoke_mage_estate_spells
+			}
+		}
+	}
+	tooltip = "Abjuration Shield"
+}
+custom_button = {
+    name = magic_menu_healing_spells
+    
+    potential = {
+		ai = no	
+		has_estate_privilege = estate_mages_cast_spells
+	}
+	trigger = {
+		OR = {
+			if = {
+				limit = { has_estate_privilege = estate_mages_organization_magisterium }
+				A85 = { has_unlocked_spell = { spell = transmutation_school_reform} }
+			}
+			has_unlocked_spell = { spell = transmutation_school_reform}
+		}
+		NOT = { has_country_modifier = transmutation_school_reform_modifier }
+		has_government_power = { 
+			mechanic_type = magisterium_mechanic
+			power_type = magisterium_mana
+			value = 50
+		}
+	}
+	effect = {
+		if = {
+			limit = {
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 50
+				}
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -50
+			}
+			add_country_modifier = {
+				name = transmutation_school_reform_modifier
+				duration = 730
+			}
+			hidden_effect = {
+				add_country_modifier = {
+					name = transmutation_school_reform_marine_modifier
+					duration = 730
+					hidden = yes
+				}
+			}
+		}
+		else = {
+			custom_tooltip = magisters_need_50_mana_tt
+			tooltip = {
+				custom_tooltip = "Would give:"
+				add_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -50
+				}
+				add_country_modifier = {
+					name = transmutation_school_reform_modifier
+					duration = 730
+				}
+			}
+		}
+		hidden_effect = {
+			if = {
+				limit = { NOT = { has_estate_privilege = estate_mages_cast_spells } }
+				remove_country_modifier = magic_cooldown
+			}
+			if = { # Causes crashes on Linux
+				limit = { ai = no }
+				remove_estate_privilege = estate_mages_cast_spells 
+			}
+			else = {
+				set_country_flag = revoke_mage_estate_spells
+			}
+		}
+	}
+	tooltip = "Healing Spells"
+}
+custom_button = {
+    name = magic_menu_evocated_weapons
+    
+    potential = {
+		ai = no	
+		has_estate_privilege = estate_mages_cast_spells
+	}
+	trigger = {
+		OR = {
+			if = {
+				limit = { has_estate_privilege = estate_mages_organization_magisterium }
+				A85 = { has_unlocked_spell = { spell = evocation_school_reform} }
+			}
+			has_unlocked_spell = { spell = evocation_school_reform}
+		}
+		NOT = { has_country_modifier = evocation_school_reform_modifier }
+		has_government_power = { 
+			mechanic_type = magisterium_mechanic
+			power_type = magisterium_mana
+			value = 50
+		}
+	}
+	effect = {
+		if = {
+			limit = {
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 50
+				}
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -50
+			}
+			add_country_modifier = {
+				name = evocation_school_reform_modifier
+				duration = 730
+			}
+		}
+		else = {
+			custom_tooltip = magisters_need_50_mana_tt
+			tooltip = {
+				custom_tooltip = "Would give:"
+				add_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -50
+				}
+				add_country_modifier = {
+					name = evocation_school_reform_modifier
+					duration = 730
+				}
+			}
+		}
+		hidden_effect = {
+			if = {
+				limit = { NOT = { has_estate_privilege = estate_mages_cast_spells } }
+				remove_country_modifier = magic_cooldown
+			}
+			if = { # Causes crashes on Linux
+				limit = { ai = no }
+				remove_estate_privilege = estate_mages_cast_spells 
+			}
+			else = {
+				set_country_flag = revoke_mage_estate_spells
+			}
+		}
+	}
+	tooltip = "Evocated Weapons"
+}
+custom_button = {
+    name = magic_menu_delusions
+    
+    potential = {
+		ai = no	
+		has_estate_privilege = estate_mages_cast_spells
+	}
+	trigger = {
+		OR = {
+			if = {
+				limit = { has_estate_privilege = estate_mages_organization_magisterium }
+				A85 = { has_unlocked_spell = { spell = illusion_school_reform} }
+			}
+			has_unlocked_spell = { spell = illusion_school_reform}
+		}
+		NOT = { has_country_modifier = illusion_school_reform_modifier }
+		has_government_power = { 
+			mechanic_type = magisterium_mechanic
+			power_type = magisterium_mana
+			value = 50
+		}
+	}
+	effect = {
+		if = {
+			limit = {
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 50
+				}
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -50
+			}
+			tooltip = {
+				custom_tooltip = "Every owned province get:"
+				add_province_modifier = {
+					name = illusion_school_reform_modifier
+					duration = 730
+				}
+			}
+			hidden_effect = {
+				every_owned_province = {
+					add_province_modifier = {
+						name = illusion_school_reform_modifier
+						duration = 730
+					}
+				}
+			}
+		}
+		else = {
+			custom_tooltip = magisters_need_50_mana_tt
+			tooltip = {
+				custom_tooltip = "Would give:"
+				add_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -50
+				}
+				custom_tooltip = "Every owned province get:"
+				add_province_modifier = {
+					name = illusion_school_reform_modifier
+					duration = 730
+				}
+			}
+		}
+		hidden_effect = {
+			if = {
+				limit = { NOT = { has_estate_privilege = estate_mages_cast_spells } }
+				remove_country_modifier = magic_cooldown
+			}
+			if = { # Causes crashes on Linux
+				limit = { ai = no }
+				remove_estate_privilege = estate_mages_cast_spells 
+			}
+			else = {
+				set_country_flag = revoke_mage_estate_spells
+			}
+		}
+	}
+	tooltip = "Delusions"
+}
+custom_button = {
+    name = magic_menu_elemental_summoning
+    
+    potential = {
+		ai = no	
+		has_estate_privilege = estate_mages_cast_spells
+	}
+	trigger = {
+		OR = {
+			if = {
+				limit = { has_estate_privilege = estate_mages_organization_magisterium }
+				A85 = { has_unlocked_spell = { spell = conjuration_school_reform} }
+			}
+			has_unlocked_spell = { spell = conjuration_school_reform}
+		}
+		NOT = { has_country_modifier = conjuration_school_reform_modifier }
+		has_government_power = { 
+			mechanic_type = magisterium_mechanic
+			power_type = magisterium_mana
+			value = 50
+		}
+	}
+	effect = {
+		if = {
+			limit = {
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 50
+				}
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -50
+			}
+			add_country_modifier = {
+				name = conjuration_school_reform_modifier
+				duration = 730
+			}
+		}
+		else = {
+			custom_tooltip = magisters_need_50_mana_tt
+			tooltip = {
+				custom_tooltip = "Would give:"
+				add_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = -50
+				}
+				add_country_modifier = {
+					name = conjuration_school_reform_modifier
+					duration = 730
+				}
+			}
+		}
+		hidden_effect = {
+			if = {
+				limit = { NOT = { has_estate_privilege = estate_mages_cast_spells } }
+				remove_country_modifier = magic_cooldown
+			}
+			if = { # Causes crashes on Linux
+				limit = { ai = no }
+				remove_estate_privilege = estate_mages_cast_spells 
+			}
+			else = {
+				set_country_flag = revoke_mage_estate_spells
+			}
+		}
+	}
+	tooltip = "Elemental Summoning"
+}
+custom_button = {
+    name = magic_menu_aid_constructions
+    
+    potential = {
+		ai = no	
+		has_estate_privilege = estate_mages_cast_spells
+	}
+	trigger = {
+		has_government_power = { 
+			mechanic_type = magisterium_mechanic
+			power_type = magisterium_mana
+			value = 50
+		}
+	}
+	effect = {
+		if = { 
+			limit = { 
+				estate_influence = { estate = estate_mages influence = 66 } 
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 90
+				}
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -90
+			}
+			add_country_modifier = {
+				name = magic_estate_aiding_construction_3
+				duration = 3650
+			}
+			hidden_effect = {
+				remove_country_modifier = magic_estate_aiding_construction_1
+				remove_country_modifier = magic_estate_aiding_construction_2
+			}
+		}
+		else_if = {
+			limit = { 
+				NOT = {has_country_modifier = magic_estate_aiding_construction_3}
+				estate_influence = { estate = estate_mages influence = 33 } 
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 70
+				}
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -70
+			}
+			add_country_modifier = {
+				name = magic_estate_aiding_construction_2
+				duration = 3650
+			}
+			hidden_effect = {
+				remove_country_modifier = magic_estate_aiding_construction_1
+			}
+			custom_tooltip = magisters_need_90_mana_tt
+			custom_tooltip = "to get lvl 3 Spell"
+		}
+		else_if = {
+			limit = {
+				NOT = {has_country_modifier = magic_estate_aiding_construction_3}
+				NOT = {has_country_modifier = magic_estate_aiding_construction_2}
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 50
+				}
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -50
+			}
+			add_country_modifier = {
+				name = magic_estate_aiding_construction_1
+				duration = 3650
+			}
+			custom_tooltip = magisters_need_70_mana_tt
+			custom_tooltip = "to get lvl 2 Spell"
+		}
+		else_if = {	#already have spell
+			limit = {
+				OR = {
+					has_country_modifier = magic_estate_aiding_construction_1
+					has_country_modifier = magic_estate_aiding_construction_2
+					has_country_modifier = magic_estate_aiding_construction_3
+				}
+			}
+			custom_tooltip = "Spell Already active"
+		}
+		else = {
+			custom_tooltip = magisters_need_50_70_90_mana_tt
+			tooltip = {
+				custom_tooltip = "Would give:"
+				if = { 
+					limit = { 
+						estate_influence = { estate = estate_mages influence = 66 } 
+					}
+					add_government_power = { 
+						mechanic_type = magisterium_mechanic
+						power_type = magisterium_mana
+						value = -90
+					}
+					add_country_modifier = {
+						name = magic_estate_aiding_construction_3
+						duration = 3650
+					}
+				}
+				else_if = {
+					limit = { 
+						estate_influence = { estate = estate_mages influence = 33 } 
+					}
+					add_government_power = { 
+						mechanic_type = magisterium_mechanic
+						power_type = magisterium_mana
+						value = -70
+					}
+					add_country_modifier = {
+						name = magic_estate_aiding_construction_2
+						duration = 3650
+					}
+				}
+				else = {
+					add_government_power = { 
+						mechanic_type = magisterium_mechanic
+						power_type = magisterium_mana
+						value = -50
+					}
+					add_country_modifier = {
+						name = magic_estate_aiding_construction_1
+						duration = 3650
+					}
+				}
+			}
+		}
+		
+		custom_tooltip = magic_construction_desc_tt
+		hidden_effect = {
+			if = {
+				limit = { NOT = { has_estate_privilege = estate_mages_cast_spells } }
+				remove_country_modifier = magic_cooldown
+			}
+			if = { # Causes crashes on Linux
+				limit = { ai = no }
+				remove_estate_privilege = estate_mages_cast_spells 
+			}
+			else = {
+				set_country_flag = revoke_mage_estate_spells
+			}
+		}
+	}
+	tooltip = "Aid Constructions"
+}
+custom_button = {
+    name = magic_menu_broad_ward
+    
+    potential = {
+		ai = no	
+		has_estate_privilege = estate_mages_cast_spells
+	}
+	trigger = {
+		has_government_power = { 
+			mechanic_type = magisterium_mechanic
+			power_type = magisterium_mana
+			value = 20
+		}
+	}
+	effect = {
+		if = { 
+			limit = { 
+				estate_influence = { estate = estate_mages influence = 66 }
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 40
+				}
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -40
+			}
+			custom_tooltip = estate_ward_3_tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						has_no_ward_province_modifiers = yes
+						is_city = yes
+						OR = {
+							fort_level = 2
+							is_capital = yes
+						}
+					}
+					add_province_modifier = {
+						name = magic_estate_broad_ward_3
+						duration = 1825
+					}
+				}
+			}
+		}
+		else_if = { 
+			limit = { 
+				estate_influence = { estate = estate_mages influence = 33 }
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 30
+				}
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -30
+			}
+			custom_tooltip = estate_ward_2_tt
+			custom_tooltip = magisters_need_40_mana_tt
+			custom_tooltip = "to get lvl 3 Spell"
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						has_no_ward_province_modifiers = yes
+						is_city = yes
+						OR = {
+							fort_level = 2
+							is_capital = yes
+						}
+					}
+					add_province_modifier = {
+						name = magic_estate_broad_ward_2
+						duration = 1825
+					}
+				}
+			}
+		}
+		else_if = { 
+			limit = { 
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 20
+				}
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -20
+			}
+			custom_tooltip = estate_ward_1_tt
+			custom_tooltip = magisters_need_30_mana_tt
+			custom_tooltip = "to get lvl 2 Spell"
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						has_no_ward_province_modifiers = yes
+						is_city = yes
+						OR = {
+							fort_level = 2
+							is_capital = yes
+						}
+					}
+					add_province_modifier = {
+						name = magic_estate_broad_ward_1
+						duration = 1825
+					}
+				}
+			}
+		}
+		else = {
+			custom_tooltip = magisters_need_20_30_40_mana_tt
+		}
+		
+		custom_tooltip = magic_ward_desc_tt
+		hidden_effect = {
+			if = {
+				limit = { NOT = { has_estate_privilege = estate_mages_cast_spells } }
+				remove_country_modifier = magic_cooldown
+			}
+			if = { # Causes crashes on Linux
+				limit = { ai = no }
+				remove_estate_privilege = estate_mages_cast_spells 
+			}
+			else = {
+				set_country_flag = revoke_mage_estate_spells
+			}
+		}
+	}
+	tooltip = "Broad Ward"
+}
+custom_button = {
+    name = magic_menu_narrow_wards
+    
+    potential = {
+		ai = no	
+		has_estate_privilege = estate_mages_cast_spells
+	}
+	trigger = {
+		has_government_power = { 
+			mechanic_type = magisterium_mechanic
+			power_type = magisterium_mana
+			value = 30
+		}
+	}
+	effect = {
+		if = { 
+			limit = {
+				estate_influence = { estate = estate_mages influence = 66 }
+				has_government_power = {
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 50
+				}
+			}
+
+			add_government_power = {
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -50
+			}
+			capital_scope = {
+				every_province = {
+					limit = {
+						owned_by = ROOT
+						OR = {
+							has_building = mage_tower
+							NOT = {
+								province_distance = {
+									who = PREV
+									distance = 75
+								}
+							}
+						}
+						has_no_ward_province_modifiers = yes
+						is_city = yes							
+						OR = {
+							fort_level = 2
+							is_capital = yes
+						}
+					}
+					add_province_modifier = {
+						name = magic_estate_ward_3
+						duration = 1825
+					}
+				}
+			}
+		}
+		else_if = { 
+			limit = { 
+				estate_influence = { estate = estate_mages influence = 33 }
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 40
+				}
+			}
+
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -40
+			}
+			capital_scope = {
+				every_province = {
+					limit = {
+						owned_by = ROOT
+						OR = {
+							has_building = mage_tower
+							NOT = {
+								province_distance = {
+									who = PREV
+									distance = 50
+								}
+							}
+						}
+						has_no_ward_province_modifiers = yes
+						is_city = yes
+						OR = {
+							fort_level = 2
+							is_capital = yes
+						}
+					}
+					add_province_modifier = {
+						name = magic_estate_ward_2
+						duration = 1825
+					}
+				}
+			}
+			custom_tooltip = magisters_need_50_mana_tt
+			custom_tooltip = "to get lvl 3 Spell"
+		}
+		else_if = {
+			limit = { 
+				has_government_power = { 
+					mechanic_type = magisterium_mechanic
+					power_type = magisterium_mana
+					value = 30
+				}
+			}
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -30
+			}
+			capital_scope = {
+				every_province = {
+					limit = {
+						owned_by = ROOT
+						OR = {
+							has_building = mage_tower
+							NOT = {
+								province_distance = {
+									who = PREV
+									distance = 25
+								}
+							}
+						}
+						has_no_ward_province_modifiers = yes
+						is_city = yes							
+						OR = {
+							fort_level = 2
+							is_capital = yes
+						}
+					}
+					add_province_modifier = {
+						name = magic_estate_ward_1
+						duration = 1825
+					}
+				}
+			}
+			custom_tooltip = magisters_need_40_mana_tt
+			custom_tooltip = "to get lvl 2 Spell"
+		}
+		else = {
+			custom_tooltip = magisters_need_30_40_50_mana_tt
+		}
+		custom_tooltip = magic_ward_desc_tt
+		hidden_effect = {
+			if = {
+				limit = { NOT = { has_estate_privilege = estate_mages_cast_spells } }
+				remove_country_modifier = magic_cooldown
+			}
+			if = { # Causes crashes on Linux
+				limit = { ai = no }
+				remove_estate_privilege = estate_mages_cast_spells 
+			}
+			else = {
+				set_country_flag = revoke_mage_estate_spells
+			}
+		}
+	}
+	tooltip = "Broad Wards"
+}
+custom_button = {
+    name = magic_menu_rite_of_conception
+    
+    potential = {
+		ai = no	
+		has_estate_privilege = estate_mages_cast_spells
+	}
+	trigger = {
+		has_consort = yes
+		has_government_attribute = heir
+		is_lesser_in_union = no
+		NOT = { ruler_is_immortal = yes } # No lich babies	
+		has_government_power = { 
+			mechanic_type = magisterium_mechanic
+			power_type = magisterium_mana
+			value = 75
+		}
+	}
+	effect = {
+		if = { limit = { has_heir = yes }
+			add_legitimacy = -25
+		}
+		add_government_power = { 
+			mechanic_type = magisterium_mechanic
+			power_type = magisterium_mana
+			value = -75
+		}
+		custom_tooltip = magic_estate_rite_of_conception_tooltip
+		
+		custom_tooltip = magic_conception_desc_tt
+		hidden_effect = {
+			country_event = { id = acolyte_estate.9 }
+			if = {
+				limit = { NOT = { has_estate_privilege = estate_mages_cast_spells } }
+				remove_country_modifier = magic_cooldown
+			}
+			if = { # Causes crashes on Linux
+				limit = { ai = no }
+				remove_estate_privilege = estate_mages_cast_spells 
+			}
+			else = {
+				set_country_flag = revoke_mage_estate_spells
+			}
+		}
+	}
+	tooltip = "Rite of Conception"
+}

@@ -1,0 +1,75 @@
+
+po_the_jadd_world_crusade = {
+	category = 6
+	power_projection = humiliated_rival 
+	power_cost_base = 1.0 
+	prestige_base = 0.5 # Prestige = WS cost * this so 5 prestige (quite a bit in comparison to other things)
+	ae_base = 0
+	warscore_cost = {
+		all_provinces = 0.0
+		no_provinces = 60.0
+		owner_keeps = 0.0
+		conquered = 0.0
+		returned_core = 0.0
+		released_nation = 0.0
+		cancelled_subject = 0.0 
+		concede_colonial_region = 0.0
+	}
+	warscore_cap = 60
+	requires_demand_independence = no 
+	is_make_subject = no
+	requires_is_allowed = yes
+	applies_to_war_target = no
+	
+	is_visible = {
+		always = yes
+	}
+	is_allowed = {
+		has_government_attribute = gain_force_conversion_cb 
+	}
+	effect = { 
+		add_country_modifier = {
+			name = recently_force_converted_protagonist_timer
+			duration = 5475
+			hidden = yes
+		}
+		change_variable = { which = num_of_forced_conversions value = 1 }
+		if = {
+			limit = { has_government_attribute = gain_monarch_power_from_force_converting }
+			export_to_variable = {
+				variable_name = root_development
+				value = total_development
+				who = FROM
+			}
+			while = {
+				limit = { check_variable = { which = root_development value = 1 } }
+				subtract_variable = { which = root_development value = 1 }
+				if = {
+					limit = { NOT = { adm = 999 } }
+					add_adm_power = 1
+				}
+				else = { add_splendor = 5}
+				if = {
+					limit = { NOT = { dip = 999 } }
+					add_dip_power = 1
+				}
+				else = { add_splendor = 5}
+				if = {
+					limit = { NOT = { mil = 999 } }
+					add_mil_power = 1
+				}
+				else = { add_splendor = 5}
+			}
+		}
+		FROM = {
+			force_converted = yes
+		}
+	}
+	ai_weight = { 
+		export_to_variable = {
+			variable_name = ai_value 
+			value = trigger_value:always # Not really sure what this means, will have to do some testing
+		}
+	}
+}
+

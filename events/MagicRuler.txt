@@ -2069,7 +2069,7 @@ country_event = {
 			}
 		}
 		if = { limit = { has_ruler_modifier = magic_loreseeker_cooldown }
-			custom_tooltip = magic_1_year_cooldown_tt
+			custom_tooltip = magic_2_year_cooldown_tt
 		}
 		magic_legend_lore_cost_tooltip = yes
 		if = { limit = { NOT = { ruler_studying_magic = yes } }
@@ -5827,6 +5827,13 @@ country_event = {
 				}
 			}
 			NOT = { has_ruler_modifier = magic_siege_cooldown }
+			if = {
+				limit = { has_country_flag = meteor_strike_used_flag }
+				had_country_flag = {
+					flag = meteor_strike_used_flag
+					days = 3650
+				}
+			}
 		}
 		ai_chance = {
 			factor = 50
@@ -5871,7 +5878,7 @@ country_event = {
 	}
 	option = {
 		name = magic_ruler.5.gx	#unavailable - other
-		trigger = {			
+		trigger = {
 			ai = no
 			OR = {
 				has_ruler_modifier = magic_realm_menu_cooldown
@@ -5897,12 +5904,21 @@ country_event = {
 					}
 				}
 				has_ruler_modifier = magic_siege_cooldown
+				NOT = {
+					had_country_flag = {
+						flag = meteor_strike_used_flag
+						days = 3650
+					}
+				}
 			}
 		}
 		set_country_flag = evocation_menu
 		clr_ruler_flag = magic_just_casted_spell
 		hidden_effect = { country_event = { id = magic_ruler.9 } }
 		
+		if = { limit = { has_country_flag = meteor_strike_used_flag }
+			custom_tooltip = meteor_strike_used_flag_tt
+		}
 		if = { limit = { has_ruler_modifier = magic_siege_cooldown }
 			custom_tooltip = magic_siege_cooldown_tt
 		}
@@ -8831,7 +8847,7 @@ country_event = {
 			}
 		}
 		custom_tooltip = magic_giant_desc_tt
-	}		
+	}
 	#3 - Shapechange into a Dragon
 	option = {
 		name = magic_ruler.8.j	#available
@@ -8851,6 +8867,13 @@ country_event = {
 			}
 			mil_power = 100
 			NOT = { has_ruler_modifier = magic_siege_cooldown }
+			if = {
+				limit = { has_country_flag = shapechange_into_dragon_used_flag }
+				had_country_flag = {
+					flag = shapechange_into_dragon_used_flag
+					days = 3650
+				}
+			}
 		}
 		ai_chance = {factor = 50}
 		
@@ -8918,12 +8941,21 @@ country_event = {
 				}
 				NOT = {mil_power = 100}
 				has_ruler_modifier = magic_siege_cooldown
+				NOT = {
+					had_country_flag = {
+						flag = shapechange_into_dragon_used_flag
+						days = 3650
+					}
+				}
 			}
 		}
 		set_country_flag = transmutation_menu
 		clr_ruler_flag = magic_just_casted_spell
 		hidden_effect = { country_event = { id = magic_ruler.9 } }
 		
+		if = { limit = { has_country_flag = shapechange_into_dragon_used_flag }
+			custom_tooltip = shapechange_into_dragon_used_flag_tt
+		}
 		if = { limit = { has_ruler_modifier = magic_siege_cooldown }
 			custom_tooltip = magic_siege_cooldown_tt
 		}

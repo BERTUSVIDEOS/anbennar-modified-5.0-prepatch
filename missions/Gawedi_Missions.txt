@@ -322,20 +322,40 @@ gawed_column_1 = {
 			add_mil_power = 100
 		}
 	}
-	
-	# gawed_gawedi_wars_of_religion = {
-		# icon = influence_the_church
-		# required_missions = {  }
-		# position = 9
+
+    gawed_the_moormen= {
+		icon = mission_impaled_soldies
+		required_missions = {gawed_reform_alenic_armies}
+		position = 10
+
+        provinces_to_highlight = {
+			owned_by = ROOT
+            culture = moorman
+			NOT = {
+                has_manpower_building_trigger = yes
+                development = 20
+			}
+		}
 		
-		# trigger = {
+		trigger = {
+            num_of_owned_provinces_with = {
+				value = 10
+				culture = moorman
+                has_manpower_building_trigger = yes
+                development = 20
+			}
+			is_at_war = no
+			army_professionalism = 0.40
+		}
 		
-		# }
-		
-		# effect = {
-		
-		# }
-	# }
+		effect = {
+            add_army_professionalism = -0.20
+			add_country_modifier = {
+				name = gawed_the_moormen
+				duration = -1
+			}
+		}
+	}
 }
 
 
@@ -687,20 +707,81 @@ gawed_column_2 = {
 			}
 		}
 	}
+    gawed_reform_alenic_armies = {
+		icon = mission_assemble_an_army
+		required_missions = {}
+		position = 9
+		
+		trigger = {
+			is_at_war = no
+			army_professionalism = 0.20
+		}
+		
+		effect = {
+            add_army_professionalism = -0.20
+			add_country_modifier = {
+				name = ibevar_modernizing_the_army
+				duration = 3650
+			}
+		}
+	}
+    gawed_the_gawedi = {
+		icon = the_italian_league
+		required_missions = {gawed_reform_alenic_armies}
+		position = 10
+
+        provinces_to_highlight = {
+			owned_by = ROOT
+            culture = gawedi
+			NOT = {
+                has_manpower_building_trigger = yes
+                development = 20
+			}
+		}
+		
+		trigger = {
+            num_of_owned_provinces_with = {
+				value = 20
+				culture = gawedi
+                has_manpower_building_trigger = yes
+                development = 20
+			}
+			is_at_war = no
+			army_professionalism = 0.40
+		}
+		
+		effect = {
+            add_army_professionalism = -0.20
+			add_country_modifier = {
+				name = gawed_the_gawedi
+				duration = -1
+			}
+		}
+	}
+    gawed_alenic_pride = {
+		icon = give_him_back_his_legions
+		required_missions = {
+            gawed_the_moormen
+            gawed_the_verteskers
+            gawed_the_gawedi
+            gawed_the_woodsmen
+        }
+		position = 11
+		
+		trigger = {
+			is_at_war = no
+			army_professionalism = 0.80
+		}
+		
+		effect = {
+            add_army_professionalism = -0.60
+			add_country_modifier = {
+				name = gawed_reformed_alenic_armies
+				duration = -1
+			}
+		}
+	}
 	
-	# gawed_northern_league = {
-		# icon = mission_rb_hanseatic_east
-		# required_missions = {  }
-		# position = 9
-		
-		# trigger = {
-		
-		# }
-		
-		# effect = {
-		
-		# }
-	# }
 }
 
 gawed_column_3 = {
@@ -1029,6 +1110,47 @@ gawed_column_3 = {
             }
         }
     }
+	
+    gawed_the_verteskers= {
+		icon = mission_build_up_to_force_limit
+		required_missions = {gawed_reform_alenic_armies}
+		position = 10
+
+        provinces_to_highlight = {
+			owned_by = ROOT
+            culture = vertesker
+			NOT = {
+                has_manpower_building_trigger = yes
+                development = 25
+			}
+		}
+		
+		trigger = {
+            num_of_owned_provinces_with = {
+				value = 5
+				culture = vertesker
+                has_manpower_building_trigger = yes
+                development = 25
+			}
+			is_at_war = no
+			army_professionalism = 0.40
+		}
+		
+		effect = {
+            add_army_professionalism = -0.20
+			216 = {
+				add_province_modifier = {
+					name = gawed_vertesker_marines
+					duration = -1
+				}
+			}
+            add_country_modifier = {
+				name = gawed_the_black_seagulls
+				duration = -1
+			}
+		}
+	}
+
 }
 
 gawed_column_4 = {
@@ -1453,93 +1575,41 @@ gawed_column_4 = {
 			}
 		}
 	}
-	
-	gawed_expansion_of_gawedi_cities = {
-		icon = imperial_capitals
-		required_missions = {
-			gawed_alen_glassworks
-			gawed_the_gawedi_empire
-			gawed_greatwood_fur
-		}
-		position = 9
-		
-		provinces_to_highlight = {
-			province_group = alen_river_cities
+
+    gawed_the_woodsmen = {
+		icon = mission_rb_unite_the_clans
+		required_missions = {gawed_reform_alenic_armies}
+		position = 10
+
+        provinces_to_highlight = {
+			owned_by = ROOT
+            culture = old_alenic
 			NOT = {
-				AND = {
-					has_manufactory_trigger = yes
-					development = 20
-				}
+                has_manpower_building_trigger = yes
+                development = 15
 			}
 		}
 		
 		trigger = {
-			num_of_owned_provinces_with = {
-				value = 25
-				has_manufactory_trigger = yes
+            num_of_owned_provinces_with = {
+				value = 10
+				culture = old_alenic
+                has_manpower_building_trigger = yes
+                development = 15
 			}
-			alen_river_cities = {
-				type = all
-				has_manufactory_trigger = yes
-				development = 20
-			}
+			is_at_war = no
+			army_professionalism = 0.40
 		}
 		
 		effect = {
+            add_army_professionalism = -0.20
 			add_country_modifier = {
-				name = gawed_proto_industrialization
+				name = gawed_the_woodsmen
 				duration = -1
 			}
 		}
 	}
-	
-	gawed_the_black_river = {
-		icon = industrialized_rhineland
-		required_missions = { gawed_expansion_of_gawedi_cities }
-		position = 10
-		
-		provinces_to_highlight = {
-			OR = {
-				province_id = 217 #Talonmount
-				province_id = 337 #Alenath
-				province_id = 222 #Vanbury
-				province_id = 344 #Oudescker
-			}
-			OR = {
-				NOT = { owned_by = ROOT }
-				NOT = { has_building = furnace }
-			}
-		}
-		
-		trigger = {
-			217 = { #Talonmount
-				owned_by = ROOT
-				has_building = furnace
-			}
-			337 = { #Alenath
-				owned_by = ROOT
-				has_building = furnace
-			}
-			222 = { #Vanbury
-				owned_by = ROOT
-				has_building = furnace
-			}
-			344 = { #Oudescker
-				owned_by = ROOT
-				has_building = furnace
-			}
-		}
-		
-		effect = {
-			alen_river_cities = {
-				add_base_production = 5
-                add_permanent_province_modifier = {
-                    name = gawed_black_river
-                    duration = -1
-                } 
-			}
-		}
-	}
+
 }
 
 gawed_column_5 = {
@@ -2018,6 +2088,93 @@ gawed_column_5 = {
 					speed = 1
 					cost = 0.5
 				}
+			}
+		}
+	}
+
+	gawed_expansion_of_gawedi_cities = {
+		icon = imperial_capitals
+		required_missions = {
+			gawed_alen_glassworks
+			gawed_the_gawedi_empire
+			gawed_greatwood_fur
+		}
+		position = 9
+		
+		provinces_to_highlight = {
+			province_group = alen_river_cities
+			NOT = {
+				AND = {
+					has_manufactory_trigger = yes
+					development = 20
+				}
+			}
+		}
+		
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 25
+				has_manufactory_trigger = yes
+			}
+			alen_river_cities = {
+				type = all
+				has_manufactory_trigger = yes
+				development = 20
+			}
+		}
+		
+		effect = {
+			add_country_modifier = {
+				name = gawed_proto_industrialization
+				duration = -1
+			}
+		}
+	}
+	
+	gawed_the_black_river = {
+		icon = industrialized_rhineland
+		required_missions = { gawed_expansion_of_gawedi_cities }
+		position = 10
+		
+		provinces_to_highlight = {
+			OR = {
+				province_id = 217 #Talonmount
+				province_id = 337 #Alenath
+				province_id = 222 #Vanbury
+				province_id = 344 #Oudescker
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { has_building = furnace }
+			}
+		}
+		
+		trigger = {
+			217 = { #Talonmount
+				owned_by = ROOT
+				has_building = furnace
+			}
+			337 = { #Alenath
+				owned_by = ROOT
+				has_building = furnace
+			}
+			222 = { #Vanbury
+				owned_by = ROOT
+				has_building = furnace
+			}
+			344 = { #Oudescker
+				owned_by = ROOT
+				has_building = furnace
+			}
+		}
+		
+		effect = {
+			alen_river_cities = {
+				add_base_production = 5
+                add_permanent_province_modifier = {
+                    name = gawed_black_river
+                    duration = -1
+                } 
 			}
 		}
 	}
