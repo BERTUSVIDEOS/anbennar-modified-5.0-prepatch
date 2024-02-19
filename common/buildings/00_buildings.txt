@@ -52,6 +52,10 @@ fort_15th = {
 	cost = 200
 	time = 30
 
+	modifier = {
+		fort_level = 2
+	}
+
 	build_trigger = {
 		can_build_fort = yes
 	}
@@ -59,10 +63,29 @@ fort_15th = {
 		can_build_fort = yes
 	}
 
-	modifier = {
-		fort_level = 2
+	on_built = {
+		#ANBENNAR - windward stuff
+		if = {
+			limit = { FROM = { has_estate_privilege = estate_elephant_command_war_room_rights } }
+			FROM = { add_legitimacy = 1 }
+		}
+		if = {
+			limit = {
+				owner = {has_government_attribute = noble_castles_boost}
+				NOT = {has_province_modifier = noble_castles_boost_modifier}
+				has_fort_trigger = yes
+			}
+			add_province_modifier = {name = noble_castles_boost_modifier duration = -1}
+		}
 	}
 
+	on_destroyed = {
+		#ANBENNAR - windward stuff
+		if = {
+			limit = { has_province_modifier = noble_castles_boost_modifier }
+			remove_province_modifier = noble_castles_boost_modifier
+		}
+	}
 	onmap = yes
 
 	influencing_fort = yes
@@ -74,6 +97,7 @@ fort_16th = {
 	cost = 400
 	time = 30
 	make_obsolete = fort_15th
+
 	modifier = {
 		fort_level = 4
 	}
@@ -93,7 +117,6 @@ fort_16th = {
 		if = {
 			limit = {
 				owner = {has_government_attribute = noble_castles_boost}
-				culture = owner
 				NOT = {has_province_modifier = noble_castles_boost_modifier}
 				has_fort_trigger = yes
 			}
@@ -104,9 +127,7 @@ fort_16th = {
 	on_destroyed = {
 		#ANBENNAR - windward stuff
 		if = {
-			limit = {
-				has_province_modifier = noble_castles_boost_modifier
-			}
+			limit = { has_province_modifier = noble_castles_boost_modifier }
 			remove_province_modifier = noble_castles_boost_modifier
 		}
 	}
@@ -121,6 +142,10 @@ fort_16th = {
 fort_17th = {
 	cost = 600
 	time = 30
+
+	modifier = {
+		fort_level = 6
+	}
 
 	build_trigger = {
 		can_build_fort = yes
@@ -137,7 +162,6 @@ fort_17th = {
 		if = {
 			limit = {
 				owner = {has_government_attribute = noble_castles_boost}
-				culture = owner
 				NOT = {has_province_modifier = noble_castles_boost_modifier}
 				has_fort_trigger = yes
 			}
@@ -157,11 +181,6 @@ fort_17th = {
 
 	make_obsolete = fort_16th
 
-	modifier = {
-		fort_level = 6
-	}
-
-
 	onmap = yes
 
 	influencing_fort = yes
@@ -172,7 +191,6 @@ fort_17th = {
 fort_18th = {
 	cost = 800
 	time = 30
-
 
 	make_obsolete = fort_17th
 
@@ -195,7 +213,6 @@ fort_18th = {
 		if = {
 			limit = {
 				owner = {has_government_attribute = noble_castles_boost}
-				culture = owner
 				NOT = {has_province_modifier = noble_castles_boost_modifier}
 				has_fort_trigger = yes
 			}

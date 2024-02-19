@@ -1,0 +1,1441 @@
+
+custom_button = {
+    name = artificers_menu_estate
+    
+    potential = {
+		ai = no
+		custom_trigger_tooltip = {
+			tooltip = has_artificer_estate_tt
+			OR = {
+				has_estate = estate_artificers
+				AND = {
+					has_estate = estate_dragon_command
+					has_institution = manufactories
+				}
+			}
+		}
+	}
+	trigger = {}
+	effect = {
+		hidden_effect = {
+			if = {
+				limit = { NOT = { has_country_flag = estate_artificers_innovations_flag } }
+				set_country_flag = estate_artificers_innovations_flag
+			}
+			else = {
+				clr_country_flag = estate_artificers_innovations_flag
+			}
+			if = {
+				limit = { has_estate_privilege = estate_mages_cast_spells }
+				remove_estate_privilege = estate_mages_cast_spells
+			}
+		}
+	}
+	tooltip = "artifice_breakdown_short"
+}
+custom_icon = {
+	name = artificers_menu_background
+	
+    potential = {
+		ai = no	
+		has_country_flag = estate_artificers_innovations_flag
+	}
+	tooltip = ""
+}
+custom_text_box = {
+	name = artificers_capacity_progress_text
+	
+    potential = {
+		ai = no	
+		has_country_flag = estate_artificers_innovations_flag
+	}
+	tooltip = "artifice_breakdown"
+}
+custom_icon = {
+	name = artificers_capacity_progress
+	
+    potential = {
+		ai = no	
+		has_country_flag = estate_artificers_innovations_flag
+	}
+	frame = {
+		number = 21
+		trigger = { check_variable = { which = RemainingArtificePoints value = 100 } }
+	}
+	frame = {
+		number = 20
+		trigger = { check_variable = { which = RemainingArtificePoints value = 95 } }
+	}
+	frame = {
+		number = 19
+		trigger = { check_variable = { which = RemainingArtificePoints value = 90 } }
+	}
+	frame = {
+		number = 18
+		trigger = { check_variable = { which = RemainingArtificePoints value = 85 } }
+	}
+	frame = {
+		number = 17
+		trigger = { check_variable = { which = RemainingArtificePoints value = 80 } }
+	}
+	frame = {
+		number = 16
+		trigger = { check_variable = { which = RemainingArtificePoints value = 75 } }
+	}
+	frame = {
+		number = 15
+		trigger = { check_variable = { which = RemainingArtificePoints value = 70 } }
+	}
+	frame = {
+		number = 14
+		trigger = { check_variable = { which = RemainingArtificePoints value = 65 } }
+	}
+	frame = {
+		number = 13
+		trigger = { check_variable = { which = RemainingArtificePoints value = 60 } }
+	}
+	frame = {
+		number = 12
+		trigger = { check_variable = { which = RemainingArtificePoints value = 55 } }
+	}
+	frame = {
+		number = 11
+		trigger = { check_variable = { which = RemainingArtificePoints value = 50 } }
+	}
+	frame = {
+		number = 10
+		trigger = { check_variable = { which = RemainingArtificePoints value = 45 } }
+	}
+	frame = {
+		number = 9
+		trigger = { check_variable = { which = RemainingArtificePoints value = 40 } }
+	}
+	frame = {
+		number = 8
+		trigger = { check_variable = { which = RemainingArtificePoints value = 35 } }
+	}
+	frame = {
+		number = 7
+		trigger = { check_variable = { which = RemainingArtificePoints value = 30 } }
+	}
+	frame = {
+		number = 6
+		trigger = { check_variable = { which = RemainingArtificePoints value = 25 } }
+	}
+	frame = {
+		number = 5
+		trigger = { check_variable = { which = RemainingArtificePoints value = 20 } }
+	}
+	frame = {
+		number = 4
+		trigger = { check_variable = { which = RemainingArtificePoints value = 15 } }
+	}
+	frame = {
+		number = 3
+		trigger = { check_variable = { which = RemainingArtificePoints value = 10 } }
+	}
+	frame = {
+		number = 2
+		trigger = { check_variable = { which = RemainingArtificePoints value = 5 } }
+	}
+	frame = {
+		number = 1
+		trigger = { check_variable = { which = RemainingArtificePoints value = 0 } }
+	}
+	tooltip = ""
+}
+custom_button = {
+    name = invention_portable_turrets
+    
+    potential = {
+		ai = no
+		has_country_flag = estate_artificers_innovations_flag
+		NOT = {has_unlocked_invention = { invention = unlocked_artifice_invention_codorran_powered_exosuit}}
+	}
+	trigger = {
+		has_unlocked_invention = { invention = unlocked_artifice_invention_portable_turrets}
+		if = {
+			limit = {NOT = {has_country_modifier = artifice_portable_turrets} }
+			artifice_has_points_for_basic = yes
+		}
+	}
+	effect = {
+		if = {
+			limit = {has_country_modifier = artifice_portable_turrets}
+			remove_country_modifier = artifice_portable_turrets
+			artifice_remove_basic = yes
+		}
+		else = {
+			add_country_modifier = {
+				name = artifice_portable_turrets
+				duration = -1
+			}
+			artifice_granted_basic = yes
+		}
+	}
+	tooltip = "Portable Turrets"
+}
+custom_button = {
+    name = invention_codorran_powered_exosuit
+    
+    potential = {
+		ai = no
+		has_country_flag = estate_artificers_innovations_flag
+		has_unlocked_invention = { invention = unlocked_artifice_invention_codorran_powered_exosuit}
+		NOT = {has_unlocked_invention = { invention = unlocked_artifice_invention_mechanim_auto_rifle}}
+	}
+	trigger = {
+		has_unlocked_invention = { invention = unlocked_artifice_invention_codorran_powered_exosuit}
+		if = {
+			limit = {NOT = {has_country_modifier = artifice_codorran_exoskeleton} }
+			artifice_has_points_for_expert = yes
+		}
+	}
+	effect = {
+		if = {
+			limit = {has_country_modifier = artifice_portable_turrets}
+			remove_country_modifier = artifice_portable_turrets
+			artifice_remove_basic = yes
+		}
+		if = {
+			limit = {has_country_modifier = artifice_codorran_exoskeleton}
+			remove_country_modifier = artifice_codorran_exoskeleton
+			artifice_remove_expert = yes
+		}
+		else = {
+			add_country_modifier = {
+				name = artifice_codorran_exoskeleton
+				duration = -1
+			}
+			artifice_granted_expert = yes
+		}
+	}
+	tooltip = "Codorran Powered Exosuits"
+}
+custom_button = {
+    name = invention_mechanim_auto_rifle
+    
+    potential = {
+		ai = no
+		has_country_flag = estate_artificers_innovations_flag
+		has_unlocked_invention = { invention = unlocked_artifice_invention_mechanim_auto_rifle}
+	}
+	trigger = {
+		has_unlocked_invention = { invention = unlocked_artifice_invention_mechanim_auto_rifle}
+		if = {
+			limit = {NOT = {has_country_modifier = artifice_mechanim_auto_rifle_modifier} }
+			artifice_has_points_for_advanced = yes
+		}
+	}
+	effect = {
+		if = {
+			limit = {has_country_modifier = artifice_portable_turrets}
+			remove_country_modifier = artifice_portable_turrets
+			artifice_remove_basic = yes
+		}
+		if = {
+			limit = {has_country_modifier = artifice_codorran_exoskeleton}
+			remove_country_modifier = artifice_codorran_exoskeleton
+			artifice_remove_expert = yes
+		}
+		if = {
+			limit = {has_country_modifier = artifice_mechanim_auto_rifle_modifier}
+			remove_country_modifier = artifice_mechanim_auto_rifle_modifier
+			artifice_remove_advanced = yes
+		}
+		else = {
+			add_country_modifier = {
+				name = artifice_mechanim_auto_rifle_modifier
+				duration = -1
+			}
+			artifice_granted_advanced = yes
+		}
+	}
+	tooltip = "Mechanic Auto-rifle"
+}
+custom_button = {
+    name = invention_power_fists
+    
+    potential = {
+		ai = no
+		has_country_flag = estate_artificers_innovations_flag
+		NOT = {has_unlocked_invention = { invention = unlocked_artifice_invention_mechanic_fists}}
+	}
+	trigger = {
+		has_unlocked_invention = { invention = unlocked_artifice_invention_power_fists}
+		if = {
+			limit = {NOT = {has_country_modifier = artifice_power_fists} }
+			artifice_has_points_for_basic = yes
+		}
+	}
+	effect = {
+		if = {
+			limit = {has_country_modifier = artifice_power_fists}
+			remove_country_modifier = artifice_power_fists
+			artifice_remove_basic = yes
+		}
+		else = {
+			add_country_modifier = {
+				name = artifice_power_fists
+				duration = -1
+			}
+			artifice_granted_basic = yes
+		}
+	}
+	tooltip = "Powered Fists"
+}
+custom_button = {
+    name = invention_mechanic_fists
+    
+    potential = {
+		ai = no
+		has_country_flag = estate_artificers_innovations_flag
+		has_unlocked_invention = { invention = unlocked_artifice_invention_mechanic_fists}
+		NOT = {has_unlocked_invention = { invention = unlocked_artifice_invention_mechanim_power_fists}}
+	}
+	trigger = {
+		has_unlocked_invention = { invention = unlocked_artifice_invention_mechanic_fists}
+		if = {
+			limit = {NOT = {has_country_modifier = artifice_mechanic_fists_modifier} }
+			artifice_has_points_for_expert = yes
+		}
+	}
+	effect = {
+		if = {
+			limit = {has_country_modifier = artifice_power_fists}
+			remove_country_modifier = artifice_power_fists
+			artifice_remove_basic = yes
+		}
+		if = {
+			limit = {has_country_modifier = artifice_mechanic_fists_modifier}
+			remove_country_modifier = artifice_mechanic_fists_modifier
+			artifice_remove_expert = yes
+		}
+		else = {
+			add_country_modifier = {
+				name = artifice_mechanic_fists_modifier
+				duration = -1
+			}
+			artifice_granted_expert = yes
+		}
+	}
+	tooltip = "Mechanic Fists"
+}
+custom_button = {
+    name = invention_mechanim_power_fists
+    
+    potential = {
+		ai = no
+		has_unlocked_invention = { invention = unlocked_artifice_invention_mechanim_power_fists} 
+		has_country_flag = estate_artificers_innovations_flag
+	}
+	trigger = {
+		has_unlocked_invention = { invention = unlocked_artifice_invention_mechanim_power_fists}
+		if = {
+			limit = {NOT = {has_country_modifier = artifice_mechanim_power_fists_modifier} }
+			artifice_has_points_for_advanced = yes
+		}
+	}
+	effect = {
+		if = {
+			limit = {has_country_modifier = artifice_power_fists}
+			remove_country_modifier = artifice_power_fists
+			artifice_remove_basic = yes
+		}
+		if = {
+			limit = {has_country_modifier = artifice_mechanic_fists_modifier}
+			remove_country_modifier = artifice_mechanic_fists_modifier
+			artifice_remove_expert = yes
+		}
+		if = {
+			limit = {has_country_modifier = artifice_mechanim_power_fists_modifier}
+			remove_country_modifier = artifice_mechanim_power_fists_modifier
+			artifice_remove_advanced = yes
+		}
+		else = {
+			add_country_modifier = {
+				name = artifice_mechanim_power_fists_modifier
+				duration = -1
+			}
+			artifice_granted_advanced = yes
+		}
+	}
+	tooltip = "Mechanm Powerfists"
+}
+custom_button = {
+    name = invention_predator_exoskeleton
+    
+    potential = {
+		ai = no
+		has_country_flag = estate_artificers_innovations_flag
+		NOT = {has_unlocked_invention = { invention = unlocked_artifice_invention_artificer_exo_arms}}
+	}
+	trigger = {
+		has_unlocked_invention = { invention = unlocked_artifice_invention_predator_exoskeleton}
+		if = {
+			limit = {NOT = {has_country_modifier = artifice_predator_exoskeleton} }
+			artifice_has_points_for_basic = yes
+		}
+	}
+	effect = {
+		if = {
+			limit = {has_country_modifier = artifice_predator_exoskeleton}
+			remove_country_modifier = artifice_predator_exoskeleton
+			artifice_remove_basic = yes
+		}
+		else = {
+			add_country_modifier = {
+				name = artifice_predator_exoskeleton
+				duration = -1
+			}
+			artifice_granted_basic = yes
+		}
+	}
+	tooltip = "Predator Exo-skeleton"
+}
+custom_button = {
+    name = invention_artificer_exo_arms
+    
+    potential = {
+		ai = no
+		has_country_flag = estate_artificers_innovations_flag
+		has_unlocked_invention = { invention = unlocked_artifice_invention_artificer_exo_arms}
+		NOT = {has_unlocked_invention = { invention = unlocked_artifice_invention_mechanim_soldiers}}
+	}
+	trigger = {
+		has_unlocked_invention = { invention = unlocked_artifice_invention_artificer_exo_arms}
+		if = {
+			limit = {NOT = {has_country_modifier = artifice_exo_arms} }
+			artifice_has_points_for_expert = yes
+		}
+	}
+	effect = {
+		if = {
+			limit = {has_country_modifier = artifice_predator_exoskeleton}
+			remove_country_modifier = artifice_predator_exoskeleton
+			artifice_remove_basic = yes
+		}
+		if = {
+			limit = {has_country_modifier = artifice_exo_arms}
+			remove_country_modifier = artifice_exo_arms
+			artifice_remove_expert = yes
+		}
+		else = {
+			add_country_modifier = {
+				name = artifice_exo_arms
+				duration = -1
+			}
+			artifice_granted_expert = yes
+		}
+	}
+	tooltip = "Exo Arms"
+}
+custom_button = {
+    name = invention_mechanim_soldiers
+    
+    potential = {
+		ai = no
+		has_country_flag = estate_artificers_innovations_flag
+		has_unlocked_invention = { invention = unlocked_artifice_invention_mechanim_soldiers}
+	}
+	trigger = {
+		has_unlocked_invention = { invention = unlocked_artifice_invention_mechanim_soldiers}
+		if = {
+			limit = {NOT = {has_country_modifier = artifice_mechanim_soldiers} }
+			artifice_has_points_for_advanced = yes
+		}
+	}
+	effect = {
+		if = {
+			limit = {has_country_modifier = artifice_predator_exoskeleton}
+			remove_country_modifier = artifice_predator_exoskeleton
+			artifice_remove_basic = yes
+		}
+		if = {
+			limit = {has_country_modifier = artifice_exo_arms}
+			remove_country_modifier = artifice_exo_arms
+			artifice_remove_expert = yes
+		}
+		if = {
+			limit = {has_country_modifier = artifice_mechanim_soldiers}
+			remove_country_modifier = artifice_mechanim_soldiers
+			artifice_remove_advanced = yes
+		}
+		else = {
+			add_country_modifier = {
+				name = artifice_mechanim_soldiers
+				duration = -1
+			}
+			artifice_granted_advanced = yes
+		}
+	}
+	tooltip = "Mechanim Soldiers"
+}
+custom_button = {
+    name = invention_war_golems
+    
+    potential = {
+		ai = no
+		has_country_flag = estate_artificers_innovations_flag
+		NOT = {has_unlocked_invention = { invention = unlocked_artifice_invention_vorpal_rune_protection}}
+	}
+	trigger = {
+		has_unlocked_invention = { invention = unlocked_artifice_invention_war_golems}
+		if = {
+			limit = {NOT = {has_country_modifier = artifice_armor_shock_1_modifier} }
+			artifice_has_points_for_basic = yes
+		}
+	}
+	effect = {
+		if = {
+			limit = {has_country_modifier = artifice_armor_shock_1_modifier}
+			remove_country_modifier = artifice_armor_shock_1_modifier
+			artifice_remove_basic = yes
+		}
+		else = {
+			add_country_modifier = {
+				name = artifice_armor_shock_1_modifier
+				duration = -1
+			}
+			artifice_granted_basic = yes
+		}
+	}
+	tooltip = "War Golems"
+}
+custom_button = {
+    name = invention_vorpal_rune_protection
+    
+    potential = {
+		ai = no
+		has_country_flag = estate_artificers_innovations_flag
+		has_unlocked_invention = { invention = unlocked_artifice_invention_vorpal_rune_protection}
+		NOT = {has_unlocked_invention = { invention = unlocked_artifice_invention_veykoda_rune_protections} }
+	}
+	trigger = {
+		has_unlocked_invention = { invention = unlocked_artifice_invention_vorpal_rune_protection}
+		if = {
+			limit = {NOT = {has_country_modifier = artifice_armor_shock_2_modifier} }
+			artifice_has_points_for_expert = yes
+		}
+	}
+	effect = {
+		if = {
+			limit = {has_country_modifier = artifice_armor_shock_1_modifier}
+			remove_country_modifier = artifice_armor_shock_1_modifier
+			artifice_remove_basic = yes
+		}
+		if = {
+			limit = {has_country_modifier = artifice_armor_shock_2_modifier}
+			remove_country_modifier = artifice_armor_shock_2_modifier
+			artifice_remove_expert = yes
+		}
+		else = {
+			add_country_modifier = {
+				name = artifice_armor_shock_2_modifier
+				duration = -1
+			}
+			artifice_granted_expert = yes
+		}
+	}
+	tooltip = "Vorpal Rune Protection"
+}
+custom_button = {
+    name = invention_veykoda_rune_protections
+    
+    potential = {
+		ai = no
+		has_country_flag = estate_artificers_innovations_flag
+		has_unlocked_invention = { invention = unlocked_artifice_invention_veykoda_rune_protections}
+	}
+	trigger = {
+		has_unlocked_invention = { invention = unlocked_artifice_invention_veykoda_rune_protections}
+		if = {
+			limit = {NOT = {has_country_modifier = artifice_armor_shock_3_modifier} }
+			artifice_has_points_for_advanced = yes
+		}
+	}
+	effect = {
+		if = {
+			limit = {has_country_modifier = artifice_armor_shock_1_modifier}
+			remove_country_modifier = artifice_armor_shock_1_modifier
+			artifice_remove_basic = yes
+		}
+		if = {
+			limit = {has_country_modifier = artifice_armor_shock_2_modifier}
+			remove_country_modifier = artifice_armor_shock_2_modifier
+			artifice_remove_expert = yes
+		}
+		if = {
+			limit = {has_country_modifier = artifice_armor_shock_3_modifier}
+			remove_country_modifier = artifice_armor_shock_3_modifier
+			artifice_remove_advanced = yes
+		}
+		else = {
+			add_country_modifier = {
+				name = artifice_armor_shock_3_modifier
+				duration = -1
+			}
+			artifice_granted_advanced = yes
+		}
+	}
+	tooltip = "Veykoda Rune Protection"
+}
+custom_button = {
+    name = invention_scale_plating
+    
+    potential = {
+		ai = no
+		has_country_flag = estate_artificers_innovations_flag
+		NOT = {has_unlocked_invention = { invention = unlocked_artifice_invention_dragonscale_plating}}
+	}
+	trigger = {
+		has_unlocked_invention = { invention = unlocked_artifice_invention_scale_plating}
+		if = {
+			limit = {NOT = {has_country_modifier = artifice_armor_fire_1_modifier} }
+			artifice_has_points_for_basic = yes
+		}
+	}
+	effect = {
+		if = {
+			limit = {has_country_modifier = artifice_armor_fire_1_modifier}
+			remove_country_modifier = artifice_armor_fire_1_modifier
+			artifice_remove_basic = yes
+		}
+		else = {
+			add_country_modifier = {
+				name = artifice_armor_fire_1_modifier
+				duration = -1
+			}
+			artifice_granted_basic = yes
+		}
+	}
+	tooltip = "Scale Plating"
+}
+custom_button = {
+    name = invention_dragonscale_plating
+    
+    potential = {
+		ai = no
+		has_country_flag = estate_artificers_innovations_flag
+		has_unlocked_invention = { invention = unlocked_artifice_invention_dragonscale_plating}
+		NOT = {has_unlocked_invention = { invention = unlocked_artifice_invention_personal_mageshields} }
+	}
+	trigger = {
+		has_unlocked_invention = { invention = unlocked_artifice_invention_dragonscale_plating}
+		if = {
+			limit = {NOT = {has_country_modifier = artifice_armor_fire_2_modifier} }
+			artifice_has_points_for_expert = yes
+		}
+	}
+	effect = {
+		if = {
+			limit = {has_country_modifier = artifice_armor_fire_1_modifier}
+			remove_country_modifier = artifice_armor_fire_1_modifier
+			artifice_remove_basic = yes
+		}
+		if = {
+			limit = {has_country_modifier = artifice_armor_fire_2_modifier}
+			remove_country_modifier = artifice_armor_fire_2_modifier
+			artifice_remove_expert = yes
+		}
+		else = {
+			add_country_modifier = {
+				name = artifice_armor_fire_2_modifier
+				duration = -1
+			}
+			artifice_granted_expert = yes
+		}
+	}
+	tooltip = "Dragon-Scale Plating"
+}
+custom_button = {
+    name = invention_personal_mageshields
+    
+    potential = {
+		ai = no
+		has_country_flag = estate_artificers_innovations_flag
+		has_unlocked_invention = { invention = unlocked_artifice_invention_personal_mageshields}
+	}
+	trigger = {
+		has_unlocked_invention = { invention = unlocked_artifice_invention_personal_mageshields}
+		if = {
+			limit = {NOT = {has_country_modifier = artifice_armor_fire_3_modifier} }
+			artifice_has_points_for_advanced = yes
+		}
+	}
+	effect = {
+		if = {
+			limit = {has_country_modifier = artifice_armor_fire_1_modifier}
+			remove_country_modifier = artifice_armor_fire_1_modifier
+			artifice_remove_basic = yes
+		}
+		if = {
+			limit = {has_country_modifier = artifice_armor_fire_2_modifier}
+			remove_country_modifier = artifice_armor_fire_2_modifier
+			artifice_remove_expert = yes
+		}
+		if = {
+			limit = {has_country_modifier = artifice_armor_fire_3_modifier}
+			remove_country_modifier = artifice_armor_fire_3_modifier
+			artifice_remove_advanced = yes
+		}
+		else = {
+			add_country_modifier = {
+				name = artifice_armor_fire_3_modifier
+				duration = -1
+			}
+			artifice_granted_advanced = yes
+		}
+	}
+	tooltip = "Personal Megashields"
+}
+custom_button = {
+    name = invention_warframe
+    
+    potential = {
+		ai = no
+		has_country_flag = estate_artificers_innovations_flag
+		NOT = {has_unlocked_invention = { invention = unlocked_artifice_invention_giantshape_warframe}}
+	}
+	trigger = {
+		has_unlocked_invention = { invention = unlocked_artifice_invention_warframe}
+		if = {
+			limit = {NOT = {has_country_modifier = artifice_armor_mixed_1_modifier} }
+			artifice_has_points_for_basic = yes
+		}
+	}
+	effect = {
+		if = {
+			limit = {has_country_modifier = artifice_armor_mixed_1_modifier}
+			remove_country_modifier = artifice_armor_mixed_1_modifier
+			artifice_remove_basic = yes
+		}
+		else = {
+			add_country_modifier = {
+				name = artifice_armor_mixed_1_modifier
+				duration = -1
+			}
+			artifice_granted_basic = yes
+		}
+	}
+	tooltip = "Warframe"
+}
+custom_button = {
+    name = invention_giantshape_warframe
+    
+    potential = {
+		ai = no
+		has_country_flag = estate_artificers_innovations_flag
+		has_unlocked_invention = { invention = unlocked_artifice_invention_giantshape_warframe}
+		NOT = {has_unlocked_invention = { invention = unlocked_artifice_invention_platinum_warsuit} }
+	}
+	trigger = {
+		has_unlocked_invention = { invention = unlocked_artifice_invention_giantshape_warframe}
+		if = {
+			limit = {NOT = {has_country_modifier = artifice_armor_mixed_2_modifier} }
+			artifice_has_points_for_expert = yes
+		}
+	}
+	effect = {
+		if = {
+			limit = {has_country_modifier = artifice_armor_mixed_1_modifier}
+			remove_country_modifier = artifice_armor_mixed_1_modifier
+			artifice_remove_basic = yes
+		}
+		if = {
+			limit = {has_country_modifier = artifice_armor_mixed_2_modifier}
+			remove_country_modifier = artifice_armor_mixed_2_modifier
+			artifice_remove_expert = yes
+		}
+		else = {
+			add_country_modifier = {
+				name = artifice_armor_mixed_2_modifier
+				duration = -1
+			}
+			artifice_granted_expert = yes
+		}
+	}
+	tooltip = "Giantshape Warframe"
+}
+custom_button = {
+    name = invention_platinum_warsuit
+    
+    potential = {
+		ai = no
+		has_country_flag = estate_artificers_innovations_flag
+		has_unlocked_invention = { invention = unlocked_artifice_invention_platinum_warsuit}
+	}
+	trigger = {
+		has_unlocked_invention = { invention = unlocked_artifice_invention_platinum_warsuit}
+		if = {
+			limit = {NOT = {has_country_modifier = artifice_armor_mixed_3_modifier} }
+			artifice_has_points_for_advanced = yes
+		}
+	}
+	effect = {
+		if = {
+			limit = {has_country_modifier = artifice_armor_mixed_1_modifier}
+			remove_country_modifier = artifice_armor_mixed_1_modifier
+			artifice_remove_basic = yes
+		}
+		if = {
+			limit = {has_country_modifier = artifice_armor_mixed_2_modifier}
+			remove_country_modifier = artifice_armor_mixed_2_modifier
+			artifice_remove_expert = yes
+		}
+		if = {
+			limit = {has_country_modifier = artifice_armor_mixed_3_modifier}
+			remove_country_modifier = artifice_armor_mixed_3_modifier
+			artifice_remove_advanced = yes
+		}
+		else = {
+			add_country_modifier = {
+				name = artifice_armor_mixed_3_modifier
+				duration = -1
+			}
+			artifice_granted_advanced = yes
+		}
+	}
+	tooltip = "Kronium Battlesuit"
+}
+custom_button = {
+    name = invention_blade_weapons_1
+    
+    potential = {
+		ai = no
+		has_country_flag = estate_artificers_innovations_flag
+		NOT = {has_unlocked_invention = { invention = unlocked_artifice_invention_blade_weapons_2 } }
+	}
+	trigger = {
+		has_unlocked_invention = { invention = unlocked_artifice_invention_blade_weapons_1 }
+		if = {
+			limit = { NOT = { has_country_flag = artifice_blade_weapons_1 } }
+			artifice_has_points_for_basic = yes
+		}
+	}
+	effect = {
+		if = {
+			limit = {has_country_flag = artifice_blade_weapons_1}
+			custom_tooltip = remove_country_modifier_artifice_blade_weapons_1_tt
+			clear_artificers_weapon = yes
+		}
+		else = {
+			custom_tooltip = add_country_modifier_artifice_blade_weapons_1_tt
+			hidden_effect = { clear_artificers_weapon = yes }
+			set_country_flag = artifice_blade_weapons_1
+			setup_artificers_weapon = yes
+			artifice_granted_basic = yes
+		}
+	}
+	tooltip = "Elemental Blades"
+}
+custom_button = {
+    name = invention_blade_weapons_2
+    
+    potential = {
+		ai = no
+		has_country_flag = estate_artificers_innovations_flag
+		has_unlocked_invention = { invention = unlocked_artifice_invention_blade_weapons_2 }
+		NOT = {has_unlocked_invention = { invention = unlocked_artifice_invention_blade_weapons_3 } }
+	}
+	trigger = {
+		has_unlocked_invention = { invention = unlocked_artifice_invention_blade_weapons_2 }
+		if = {
+			limit = { NOT = { has_country_flag = artifice_blade_weapons_2 } }
+			artifice_has_points_for_expert = yes
+		}
+	}
+	effect = {
+		if = {
+			limit = {has_country_flag = artifice_blade_weapons_2}
+			custom_tooltip = remove_country_modifier_artifice_blade_weapons_2_tt
+			clear_artificers_weapon = yes
+		}
+		else = {
+			custom_tooltip = add_country_modifier_artifice_blade_weapons_2_tt
+			hidden_effect = { clear_artificers_weapon = yes }
+			set_country_flag = artifice_blade_weapons_2
+			setup_artificers_weapon = yes
+			artifice_granted_expert = yes
+		}
+	}
+	tooltip = "Codorran Blades"
+}
+custom_button = {
+    name = invention_blade_weapons_3
+    
+    potential = {
+		ai = no
+		has_unlocked_invention = { invention = unlocked_artifice_invention_blade_weapons_3}
+		has_country_flag = estate_artificers_innovations_flag
+	}
+	trigger = {
+		has_unlocked_invention = { invention = unlocked_artifice_invention_blade_weapons_3}
+		if = {
+			limit = { NOT = {has_country_flag = artifice_blade_weapons_3 } }
+			artifice_has_points_for_advanced = yes
+		}
+	}
+	effect = {
+		if = {
+			limit = {has_country_flag = artifice_blade_weapons_3}
+			custom_tooltip = remove_country_modifier_artifice_blade_weapons_3_tt
+			clear_artificers_weapon = yes
+		}
+		else = {
+			custom_tooltip = add_country_modifier_artifice_blade_weapons_3_tt
+			hidden_effect = { clear_artificers_weapon = yes }
+			set_country_flag = artifice_blade_weapons_3
+			setup_artificers_weapon = yes
+			artifice_granted_advanced = yes
+		}
+	}
+	tooltip = "Mechanim Blades"
+}
+custom_button = {
+    name = invention_rifle_weapons_1
+    
+    potential = {
+		ai = no
+		has_country_flag = estate_artificers_innovations_flag
+		NOT = {has_unlocked_invention = { invention = unlocked_artifice_invention_rifle_weapons_2 } }
+	}
+	trigger = {
+		has_unlocked_invention = { invention = unlocked_artifice_invention_rifle_weapons_1 }
+		if = {
+			limit = { NOT = {has_country_flag = artifice_rifle_weapons_1 } }
+			artifice_has_points_for_basic = yes
+		}
+	}
+	effect = {
+		if = {
+			limit = { has_country_flag = artifice_rifle_weapons_1 }
+			custom_tooltip = remove_country_modifier_artifice_rifle_weapons_1_tt
+			clear_artificers_weapon = yes
+		}
+		else = {
+			custom_tooltip = add_country_modifier_artifice_rifle_weapons_1_tt
+			hidden_effect = { clear_artificers_weapon = yes }
+			set_country_flag = artifice_rifle_weapons_1
+			setup_artificers_weapon = yes
+			artifice_granted_basic = yes
+		}
+	}
+	tooltip = "Elemental Rifles"
+}
+custom_button = {
+    name = invention_rifle_weapons_2
+    
+    potential = {
+		ai = no
+		has_country_flag = estate_artificers_innovations_flag
+		has_unlocked_invention = { invention = unlocked_artifice_invention_rifle_weapons_2 }
+		NOT = {has_unlocked_invention = { invention = unlocked_artifice_invention_rifle_weapons_3 } }
+	}
+	trigger = {
+		has_unlocked_invention = { invention = unlocked_artifice_invention_rifle_weapons_2 }
+		if = {
+			limit = { NOT = {has_country_flag = artifice_rifle_weapons_2 } }
+			artifice_has_points_for_expert = yes
+		}
+	}
+	effect = {
+		if = {
+			limit = { has_country_flag = artifice_rifle_weapons_2 }
+			custom_tooltip = remove_country_modifier_artifice_rifle_weapons_2_tt
+			clear_artificers_weapon = yes
+		}
+		else = {
+			custom_tooltip = add_country_modifier_artifice_rifle_weapons_2_tt
+			hidden_effect = { clear_artificers_weapon = yes }
+			set_country_flag = artifice_rifle_weapons_2
+			setup_artificers_weapon = yes
+			artifice_granted_expert = yes
+		}
+	}
+	tooltip = "Vorpal Rifles"
+}
+custom_button = {
+    name = invention_rifle_weapons_3
+    
+    potential = {
+		ai = no
+		has_country_flag = estate_artificers_innovations_flag
+		has_unlocked_invention = { invention = unlocked_artifice_invention_rifle_weapons_3}
+	}
+	trigger = {
+		has_unlocked_invention = { invention = unlocked_artifice_invention_rifle_weapons_3}
+		if = {
+			limit = { NOT = {has_country_flag = artifice_rifle_weapons_3} }
+			artifice_has_points_for_advanced = yes
+		}
+	}
+	effect = {
+		if = {
+			limit = { has_country_flag = artifice_rifle_weapons_3 }
+			custom_tooltip = remove_country_modifier_artifice_weapons_arcane_blaster_tt
+			clear_artificers_weapon = yes
+		}
+		else = {
+			custom_tooltip = add_country_modifier_artifice_rifle_weapons_3_tt
+			hidden_effect = { clear_artificers_weapon = yes }
+			set_country_flag = artifice_rifle_weapons_3
+			setup_artificers_weapon = yes
+			artifice_granted_advanced = yes
+		}
+	}
+	tooltip = "Sparkdrive Rifles"
+}
+custom_button = {
+    name = invention_mechanim_arcane_blasters
+    
+    potential = {
+		ai = no
+		has_unlocked_invention = { invention = unlocked_artifice_invention_blade_weapons_2} 
+		has_unlocked_invention = { invention = unlocked_artifice_invention_rifle_weapons_2} 
+		has_country_flag = estate_artificers_innovations_flag
+	}
+	trigger = {
+		has_unlocked_invention = { invention = unlocked_artifice_invention_arcane_blaster}
+		if = {
+			limit = {NOT = {has_country_flag = artifice_arcane_blaster_bertus_flag} }
+			artifice_has_points_for_advanced = yes
+		}
+	}
+	effect = {
+		if = {
+			limit = {has_country_flag = artifice_arcane_blaster_bertus_flag}
+			custom_tooltip = remove_country_modifier_artifice_weapons_arcane_blaster_tt
+			clear_artificers_weapon = yes
+		}
+		else = {
+			custom_tooltip = add_country_modifier_artifice_arcane_blaster_tt
+			hidden_effect = { clear_artificers_weapon = yes }
+			set_country_flag = artifice_arcane_blaster_bertus_flag
+			setup_artificers_weapon = yes
+			artifice_granted_advanced = yes
+		}
+	}
+	tooltip = "Arcane Blaster"
+}
+custom_button = {
+    name = invention_elemental_gunpowder
+    
+    potential = {
+		ai = no
+		has_country_flag = estate_artificers_innovations_flag
+		NOT = {has_unlocked_invention = { invention = unlocked_artifice_invention_vorpal_bullets} }
+	}
+	trigger = {
+		has_unlocked_invention = { invention = unlocked_artifice_invention_elemental_gunpowder}
+		if = {
+			limit = {NOT = {has_country_modifier = elemental_bullets_modifier} }
+			artifice_has_points_for_basic = yes
+		}
+	}
+	effect = {
+		if = {
+			limit = {has_country_modifier = elemental_bullets_modifier}
+			remove_country_modifier = elemental_bullets_modifier
+			artifice_remove_basic = yes
+		}
+		else = {
+			add_country_modifier = {
+				name = elemental_bullets_modifier
+				duration = -1
+			}
+			artifice_granted_basic = yes
+		}
+	}
+	tooltip = "Elemental gunpowder"
+}
+custom_button = {
+    name = invention_vorpal_bullets
+    
+    potential = {
+		ai = no
+		has_country_flag = estate_artificers_innovations_flag
+		has_unlocked_invention = { invention = unlocked_artifice_invention_vorpal_bullets}
+		NOT = {has_unlocked_invention = { invention = unlocked_artifice_invention_black_damestear_bullets} }
+	}
+	trigger = {
+		has_unlocked_invention = { invention = unlocked_artifice_invention_vorpal_bullets}
+		if = {
+			limit = {NOT = {has_country_modifier = vorpal_bullets_modifier} }
+			artifice_has_points_for_expert = yes
+		}
+	}
+	effect = {
+		if = {
+			limit = {has_country_modifier = elemental_bullets_modifier}
+			remove_country_modifier = elemental_bullets_modifier
+			artifice_remove_basic = yes
+		}
+		if = {
+			limit = {has_country_modifier = vorpal_bullets_modifier}
+			remove_country_modifier = vorpal_bullets_modifier
+			artifice_remove_expert = yes
+		}
+		else = {
+			add_country_modifier = {
+				name = vorpal_bullets_modifier
+				duration = -1
+			}
+			artifice_granted_expert = yes
+		}
+	}
+	tooltip = "Vorpal Bullets"
+}
+custom_button = {
+    name = invention_black_damestear_bullets
+    
+    potential = {
+		ai = no
+		has_country_flag = estate_artificers_innovations_flag
+		has_unlocked_invention = { invention = unlocked_artifice_invention_black_damestear_bullets}
+	}
+	trigger = {
+		has_unlocked_invention = { invention = unlocked_artifice_invention_black_damestear_bullets}
+		if = {
+			limit = {NOT = {has_country_modifier = artifice_armor_mixed_3_modifier} }
+			artifice_has_points_for_advanced = yes
+		}
+	}
+	effect = {
+		if = {
+			limit = {has_country_modifier = elemental_bullets_modifier}
+			remove_country_modifier = elemental_bullets_modifier
+			artifice_remove_basic = yes
+		}
+		if = {
+			limit = {has_country_modifier = vorpal_bullets_modifier}
+			remove_country_modifier = vorpal_bullets_modifier
+			artifice_remove_expert = yes
+		}
+		if = {
+			limit = {has_country_modifier = artifice_armor_mixed_3_modifier}
+			remove_country_modifier = artifice_armor_mixed_3_modifier
+			artifice_remove_advanced = yes
+		}
+		else = {
+			add_country_modifier = {
+				name = artifice_armor_mixed_3_modifier
+				duration = -1
+			}
+			artifice_granted_advanced = yes
+		}
+	}
+	tooltip = "Black-damestear Bullets"
+}
+custom_button = {
+    name = invention_elemental_serum
+    
+    potential = {
+		ai = no
+		has_country_flag = estate_artificers_innovations_flag
+		NOT = {has_unlocked_invention = { invention = unlocked_artifice_invention_soldier_serum} }
+	}
+	trigger = {
+		has_unlocked_invention = { invention = unlocked_artifice_invention_elemental_serum}
+		if = {
+			limit = {NOT = {has_country_modifier = artifice_enhancement_1_modifier} }
+			artifice_has_points_for_basic = yes
+		}
+	}
+	effect = {
+		if = {
+			limit = {has_country_modifier = artifice_enhancement_1_modifier}
+			remove_country_modifier = artifice_enhancement_1_modifier
+			artifice_remove_basic = yes
+		}
+		else = {
+			add_country_modifier = {
+				name = artifice_enhancement_1_modifier
+				duration = -1
+			}
+			artifice_granted_basic = yes
+		}
+	}
+	tooltip = "Elemental Serum"
+}
+custom_button = {
+    name = invention_soldier_serum
+    
+    potential = {
+		ai = no
+		has_country_flag = estate_artificers_innovations_flag
+		has_unlocked_invention = { invention = unlocked_artifice_invention_soldier_serum}
+		NOT = {has_unlocked_invention = { invention = unlocked_artifice_invention_avatar_supersoldier_serum} }
+	}
+	trigger = {
+		has_unlocked_invention = { invention = unlocked_artifice_invention_soldier_serum}
+		if = {
+			limit = {NOT = {has_country_modifier = artifice_enhancement_2_modifier} }
+			artifice_has_points_for_expert = yes
+		}
+	}
+	effect = {
+		if = {
+			limit = {has_country_modifier = artifice_enhancement_1_modifier}
+			remove_country_modifier = artifice_enhancement_1_modifier
+			artifice_remove_basic = yes
+		}
+		if = {
+			limit = {has_country_modifier = artifice_enhancement_2_modifier}
+			remove_country_modifier = artifice_enhancement_2_modifier
+			artifice_remove_expert = yes
+		}
+		else = {
+			add_country_modifier = {
+				name = artifice_enhancement_2_modifier
+				duration = -1
+			}
+			artifice_granted_expert = yes
+		}
+	}
+	tooltip = "Soldier Serum"
+}
+custom_button = {
+    name = invention_avatar_supersoldier_serum
+    
+    potential = {
+		ai = no
+		has_country_flag = estate_artificers_innovations_flag
+		has_unlocked_invention = { invention = unlocked_artifice_invention_avatar_supersoldier_serum}
+	}
+	trigger = {
+		has_unlocked_invention = { invention = unlocked_artifice_invention_avatar_supersoldier_serum}
+		if = {
+			limit = {
+				NOT = {has_country_modifier = artifice_enhancement_3_modifier}
+				NOT = {has_country_modifier = artifice_enhancement_dragon_3_modifier}
+				NOT = {has_country_modifier = artifice_enhancement_rage_3_modifier}
+				NOT = {has_country_modifier = artifice_enhancement_hero_3_modifier}
+			}
+			artifice_has_points_for_advanced = yes
+		}
+	}
+	effect = {
+		if = {
+			limit = {has_country_modifier = artifice_enhancement_1_modifier}
+			remove_country_modifier = artifice_enhancement_1_modifier
+			artifice_remove_basic = yes
+		}
+		if = {
+			limit = {has_country_modifier = artifice_enhancement_2_modifier}
+			remove_country_modifier = artifice_enhancement_2_modifier
+			artifice_remove_expert = yes
+		}
+		if = {
+			limit = {has_country_modifier = artifice_enhancement_hero_3_modifier}
+			remove_country_modifier = artifice_enhancement_hero_3_modifier
+			artifice_remove_advanced = yes
+		}
+		if = {
+			limit = {has_country_modifier = artifice_enhancement_rage_3_modifier}
+			remove_country_modifier = artifice_enhancement_rage_3_modifier
+			artifice_remove_advanced = yes
+		}
+		if = {
+			limit = {has_country_modifier = artifice_enhancement_dragon_3_modifier}
+			remove_country_modifier = artifice_enhancement_dragon_3_modifier
+			artifice_remove_advanced = yes
+		}
+		if = {
+			limit = {has_country_modifier = artifice_enhancement_3_modifier}
+			remove_country_modifier = artifice_enhancement_3_modifier
+			artifice_remove_advanced = yes
+		}
+		else = {
+			add_country_modifier = {
+				name = artifice_enhancement_3_modifier
+				duration = -1
+			}
+			artifice_granted_advanced = yes
+		}
+	}
+	tooltip = "Avatar Serum"
+}
+custom_button = {
+    name = invention_dragonblood_gene_warriors
+    
+    potential = {
+		ai = no
+		has_country_flag = estate_artificers_innovations_flag
+		has_unlocked_invention = { invention = unlocked_artifice_invention_soldier_serum}
+	}
+	trigger = {
+		has_unlocked_invention = { invention = unlocked_artifice_invention_dragonblood_gene_warriors}
+		if = {
+			limit = {
+				NOT = {has_country_modifier = artifice_enhancement_3_modifier}
+				NOT = {has_country_modifier = artifice_enhancement_dragon_3_modifier}
+				NOT = {has_country_modifier = artifice_enhancement_rage_3_modifier}
+				NOT = {has_country_modifier = artifice_enhancement_hero_3_modifier}
+			}
+			artifice_has_points_for_advanced = yes
+		}
+	}
+	effect = {
+		if = {
+			limit = {has_country_modifier = artifice_enhancement_1_modifier}
+			remove_country_modifier = artifice_enhancement_1_modifier
+			artifice_remove_basic = yes
+		}
+		if = {
+			limit = {has_country_modifier = artifice_enhancement_2_modifier}
+			remove_country_modifier = artifice_enhancement_2_modifier
+			artifice_remove_expert = yes
+		}
+		if = {
+			limit = {has_country_modifier = artifice_enhancement_3_modifier}
+			remove_country_modifier = artifice_enhancement_3_modifier
+			artifice_remove_advanced = yes
+		}
+		if = {
+			limit = {has_country_modifier = artifice_enhancement_hero_3_modifier}
+			remove_country_modifier = artifice_enhancement_hero_3_modifier
+			artifice_remove_advanced = yes
+		}
+		if = {
+			limit = {has_country_modifier = artifice_enhancement_rage_3_modifier}
+			remove_country_modifier = artifice_enhancement_rage_3_modifier
+			artifice_remove_advanced = yes
+		}
+		if = {
+			limit = {has_country_modifier = artifice_enhancement_dragon_3_modifier}
+			remove_country_modifier = artifice_enhancement_dragon_3_modifier
+			artifice_remove_advanced = yes
+		}
+		else = {
+			add_country_modifier = {
+				name = artifice_enhancement_dragon_3_modifier
+				duration = -1
+			}
+			artifice_granted_advanced = yes
+		}
+	}
+	tooltip = "Blood-Dragon Gene Warriors"
+}
+custom_button = {
+    name = invention_controlled_rage_serum
+    
+    potential = {
+		ai = no
+		has_country_flag = estate_artificers_innovations_flag
+		has_unlocked_invention = { invention = unlocked_artifice_invention_soldier_serum}
+	}
+	trigger = {
+		has_unlocked_invention = { invention = unlocked_artifice_invention_controlled_rage_serum}
+		if = {
+			limit = {
+				NOT = {has_country_modifier = artifice_enhancement_3_modifier}
+				NOT = {has_country_modifier = artifice_enhancement_dragon_3_modifier}
+				NOT = {has_country_modifier = artifice_enhancement_rage_3_modifier}
+				NOT = {has_country_modifier = artifice_enhancement_hero_3_modifier}
+			}
+			artifice_has_points_for_advanced = yes
+		}
+	}
+	effect = {
+		if = {
+			limit = {has_country_modifier = artifice_enhancement_1_modifier}
+			remove_country_modifier = artifice_enhancement_1_modifier
+			artifice_remove_basic = yes
+		}
+		if = {
+			limit = {has_country_modifier = artifice_enhancement_2_modifier}
+			remove_country_modifier = artifice_enhancement_2_modifier
+			artifice_remove_expert = yes
+		}
+		if = {
+			limit = {has_country_modifier = artifice_enhancement_3_modifier}
+			remove_country_modifier = artifice_enhancement_3_modifier
+			artifice_remove_advanced = yes
+		}
+		if = {
+			limit = {has_country_modifier = artifice_enhancement_hero_3_modifier}
+			remove_country_modifier = artifice_enhancement_hero_3_modifier
+			artifice_remove_advanced = yes
+		}
+		if = {
+			limit = {has_country_modifier = artifice_enhancement_dragon_3_modifier}
+			remove_country_modifier = artifice_enhancement_dragon_3_modifier
+			artifice_remove_advanced = yes
+		}
+		if = {
+			limit = {has_country_modifier = artifice_enhancement_rage_3_modifier}
+			remove_country_modifier = artifice_enhancement_rage_3_modifier
+			artifice_remove_advanced = yes
+		}
+		else = {
+			add_country_modifier = {
+				name = artifice_enhancement_rage_3_modifier
+				duration = -1
+			}
+			artifice_granted_advanced = yes
+		}
+	}
+	tooltip = "Rage Serum"
+}
+custom_button = {
+    name = invention_vernman_hero_tonic
+    
+    potential = {
+		ai = no
+		has_country_flag = estate_artificers_innovations_flag
+		has_unlocked_invention = { invention = unlocked_artifice_invention_soldier_serum}
+	}
+	trigger = {
+		has_unlocked_invention = { invention = unlocked_artifice_invention_vernman_hero_tonic}
+		if = {
+			limit = {
+				NOT = {has_country_modifier = artifice_enhancement_3_modifier}
+				NOT = {has_country_modifier = artifice_enhancement_dragon_3_modifier}
+				NOT = {has_country_modifier = artifice_enhancement_rage_3_modifier}
+				NOT = {has_country_modifier = artifice_enhancement_hero_3_modifier}
+			}
+			artifice_has_points_for_advanced = yes
+		}
+	}
+	effect = {
+		if = {
+			limit = {has_country_modifier = artifice_enhancement_1_modifier}
+			remove_country_modifier = artifice_enhancement_1_modifier
+			artifice_remove_basic = yes
+		}
+		if = {
+			limit = {has_country_modifier = artifice_enhancement_2_modifier}
+			remove_country_modifier = artifice_enhancement_2_modifier
+			artifice_remove_expert = yes
+		}
+		if = {
+			limit = {has_country_modifier = artifice_enhancement_3_modifier}
+			remove_country_modifier = artifice_enhancement_3_modifier
+			artifice_remove_advanced = yes
+		}
+		if = {
+			limit = {has_country_modifier = artifice_enhancement_dragon_3_modifier}
+			remove_country_modifier = artifice_enhancement_dragon_3_modifier
+			artifice_remove_advanced = yes
+		}
+		if = {
+			limit = {has_country_modifier = artifice_enhancement_rage_3_modifier}
+			remove_country_modifier = artifice_enhancement_rage_3_modifier
+			artifice_remove_advanced = yes
+		}
+		if = {
+			limit = {has_country_modifier = artifice_enhancement_hero_3_modifier}
+			remove_country_modifier = artifice_enhancement_hero_3_modifier
+			artifice_remove_advanced = yes
+		}
+		else = {
+			add_country_modifier = {
+				name = artifice_enhancement_hero_3_modifier
+				duration = -1
+			}
+			artifice_granted_advanced = yes
+		}
+	}
+	tooltip = "Hero Serum"
+}

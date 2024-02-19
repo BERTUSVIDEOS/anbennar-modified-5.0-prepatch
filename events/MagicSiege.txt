@@ -402,8 +402,8 @@ country_event = {
 	option = {
 		name = magic_ruler.5.g	#available
 		trigger = {
-			NOT = { has_ruler_modifier = ruler_recently_casted_spell }
-			NOT = {has_country_modifier = ruler_recently_casted_spell}
+			#NOT = { has_ruler_modifier = ruler_recently_casted_spell }	#bertus mod
+			#NOT = {has_country_modifier = ruler_recently_casted_spell}	#bertus mod
 			OR = {
 				has_ruler_flag = evocation_3
 				AND = {
@@ -411,7 +411,7 @@ country_event = {
 					has_ruler_flag = rakshasa_patron
 				}
 			}
-			mil_power = 200
+			has_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 100 }
 			is_at_war = yes
 			is_lesser_in_union = no
 			any_army = {
@@ -423,13 +423,6 @@ country_event = {
 				}
 			}
 			NOT = { has_ruler_modifier = magic_siege_cooldown }
-			if = {
-				limit = { has_country_flag = meteor_strike_used_flag }
-				had_country_flag = {
-					flag = meteor_strike_used_flag
-					days = 3650
-				}
-			}
 		}
 		ai_chance = {
 			factor = 50
@@ -542,8 +535,8 @@ country_event = {
 		trigger = {			
 			ai = no
 			OR = {
-				has_ruler_modifier = magic_realm_menu_cooldown
-				has_country_modifier = ruler_recently_casted_spell
+				#has_ruler_modifier = magic_realm_menu_cooldown	#bertus mod
+				#has_country_modifier = ruler_recently_casted_spell	#bertus mod
 				has_ruler_flag = evocation_3
 				AND = {
 					has_ruler_flag = evocation_2
@@ -551,7 +544,7 @@ country_event = {
 				}
 			}
 			OR = {
-				NOT = {mil_power = 200}
+				NOT = { has_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 100 } }
 				is_at_war = no
 				is_lesser_in_union = yes
 				NOT = {
@@ -565,21 +558,12 @@ country_event = {
 					}
 				}
 				has_ruler_modifier = magic_siege_cooldown
-				NOT = {
-					had_country_flag = {
-						flag = meteor_strike_used_flag
-						days = 3650
-					}
-				}
 			}
 		}
 		set_country_flag = evocation_menu
 		clr_ruler_flag = magic_just_casted_spell
 		hidden_effect = { country_event = { id = magic_ruler.9 } }
 		
-		if = { limit = { has_country_flag = meteor_strike_used_flag }
-			custom_tooltip = meteor_strike_used_flag_tt
-		}
 		if = { limit = { has_ruler_modifier = magic_siege_cooldown }
 			custom_tooltip = magic_siege_cooldown_tt
 		}
@@ -619,8 +603,8 @@ country_event = {
 	option = {
 		name = magic_ruler.8.j	#available
 		trigger = {
-			NOT = { has_ruler_modifier = ruler_recently_casted_spell }
-			NOT = {has_country_modifier = ruler_recently_casted_spell}
+			#NOT = { has_ruler_modifier = ruler_recently_casted_spell }	#bertus mod
+			#NOT = {has_country_modifier = ruler_recently_casted_spell}	#bertus mod
 			has_ruler_flag = transmutation_3
 			is_at_war = yes
 			is_lesser_in_union = no
@@ -632,15 +616,8 @@ country_event = {
 					has_ruler_leader_from = ROOT
 				}
 			}
-			mil_power = 100
+			has_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 60 }
 			NOT = { has_ruler_modifier = magic_siege_cooldown }
-			if = {
-				limit = { has_country_flag = shapechange_into_dragon_used_flag }
-				had_country_flag = {
-					flag = shapechange_into_dragon_used_flag
-					days = 3650
-				}
-			}
 		}
 		ai_chance = {factor = 50}
 		
@@ -674,7 +651,8 @@ country_event = {
 		
 		custom_tooltip = magic_if_siege_magic_succeeds_tt
 		
-		tooltip = {			
+		tooltip = {
+			add_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = -60 }
 			random_list = {
 				10 = {}
 				90 = {
@@ -692,8 +670,8 @@ country_event = {
 			ai = no
 			has_ruler_flag = transmutation_3
 			OR = {
-				has_ruler_modifier = magic_realm_menu_cooldown
-				has_country_modifier = ruler_recently_casted_spell
+				#has_ruler_modifier = magic_realm_menu_cooldown	#bertus mod
+				#has_country_modifier = ruler_recently_casted_spell	#bertus mod
 				is_at_war = no
 				is_lesser_in_union = yes
 				NOT = {
@@ -706,23 +684,14 @@ country_event = {
 						}
 					}
 				}
-				NOT = {mil_power = 100}
+				NOT = { has_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 60 }}
 				has_ruler_modifier = magic_siege_cooldown
-				NOT = {
-					had_country_flag = {
-						flag = shapechange_into_dragon_used_flag
-						days = 3650
-					}
-				}
 			}
 		}
 		set_country_flag = transmutation_menu
 		clr_ruler_flag = magic_just_casted_spell
 		hidden_effect = { country_event = { id = magic_ruler.9 } }
 		
-		if = { limit = { has_country_flag = shapechange_into_dragon_used_flag }
-			custom_tooltip = shapechange_into_dragon_used_flag_tt
-		}
 		if = { limit = { has_ruler_modifier = magic_siege_cooldown }
 			custom_tooltip = magic_siege_cooldown_tt
 		}
@@ -732,8 +701,8 @@ country_event = {
 		if = { limit = { is_lesser_in_union = yes }
 			custom_tooltip = magic_is_not_in_lesser_union_tt
 		}
-		if = { limit = { NOT = {mil_power = 100 }}
-			custom_tooltip = magic_need_100_mil_tt
+		if = { limit = { NOT = { has_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 60 } } }
+			custom_tooltip = magisters_need_60_mana_tt
 		}
 		if = {
 			limit = {
@@ -755,7 +724,8 @@ country_event = {
 		
 		custom_tooltip = magic_if_siege_magic_succeeds_tt
 		
-		tooltip = {			
+		tooltip = {
+			add_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = -60 }
 			random_list = {
 				10 = {}
 				90 = {
@@ -808,9 +778,14 @@ country_event = {
 		
 		#Costs
 		#add_adm_power = -10	#Adm is concentration spells	#bertus mdo NOPE
-		add_mil_power = -20	#bertus mod
 		
-		magic_casted_spell = yes
+		add_government_power = { 	#bertus mod
+			mechanic_type = magisterium_mechanic
+			power_type = magisterium_mana
+			value = -20
+		}
+		
+		#magic_casted_spell = yes	#bertus mod - no need to limit by time since it is limited by mana cost
 		add_ruler_modifier = { name = magic_siege_cooldown duration = 30 hidden = yes }
 		
 		#Success/Fail
@@ -1150,9 +1125,13 @@ country_event = {
 		ai_chance = {factor = 90}
 		
 		#Costs	#bertus mod
-		add_mil_power = -50
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -30
+			}
 		
-		magic_casted_spell = yes
+		#magic_casted_spell = yes	#bertus mod - no need to limit by time since it is limited by mana cost
 		add_ruler_modifier = { name = magic_siege_cooldown duration = 30 hidden = yes }
 		
 		increase_witch_king_points_small = yes
@@ -1491,9 +1470,10 @@ country_event = {
 		name = magic_siege.5.a
 		ai_chance = {factor = 90}
 		
-		magic_casted_spell = yes
+		#magic_casted_spell = yes	#bertus mod - no need to limit by time since it is limited by mana cost
 		add_ruler_modifier = { name = magic_siege_cooldown duration = 30 hidden = yes }
 		
+		add_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = -50 }
 		increase_witch_king_points_large = yes
 		
 		add_ruler_modifier = {	#For Witch King mtth & echantment malus events
@@ -1501,9 +1481,6 @@ country_event = {
 			duration = 1825
 			hidden = yes
 		}
-
-		
-		add_mil_power = -150
 		#Costs + Success/Fail
 		if = {
 			limit = {
@@ -1885,9 +1862,9 @@ country_event = {
 		ai_chance = {factor = 90}
 		
 		#Costs
-		add_mil_power = -10
+		add_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = -10 }
 		
-		magic_casted_spell = yes
+		#magic_casted_spell = yes	#bertus mod - no need to limit by time since it is limited by mana cost
 		add_ruler_modifier = { name = magic_siege_cooldown duration = 30 hidden = yes }
 		
 		#Success/Fail
@@ -2261,9 +2238,9 @@ country_event = {
 		ai_chance = {factor = 90}
 		
 		#Costs
-		add_mil_power = -50
+		add_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = -40 }
 		
-		magic_casted_spell = yes
+		#magic_casted_spell = yes	#bertus mod - no need to limit by time since it is limited by mana cost
 		add_ruler_modifier = { name = magic_siege_cooldown duration = 30 hidden = yes }
 		
 		increase_witch_king_points_medium = yes
@@ -2564,8 +2541,6 @@ country_event = {
 				}
 			}
 		}
-		clr_country_flag = meteor_strike_used_flag
-		set_country_flag = meteor_strike_used_flag
 	}
 	# Cast Meteor Strike
 	option = {
@@ -2573,7 +2548,7 @@ country_event = {
 		ai_chance = {factor = 90}
 		
 		#Costs
-		add_mil_power = -150
+		add_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = -100 }
 		
 		increase_witch_king_points_large = yes
 		
@@ -2583,7 +2558,7 @@ country_event = {
 			hidden = yes
 		}
 		
-		magic_casted_spell = yes
+		#magic_casted_spell = yes	#bertus mod - no need to limit by time since it is limited by mana cost
 		add_ruler_modifier = { name = magic_siege_cooldown duration = 30 hidden = yes }
 		
 		#Success/Fail
@@ -2811,9 +2786,9 @@ country_event = {
 		}
 		
 		#Costs
-		add_mil_power = -30
+		add_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = -50 }
 		
-		magic_casted_spell = yes
+		#magic_casted_spell = yes	#bertus mod - no need to limit by time since it is limited by mana cost
 		add_ruler_modifier = { name = magic_siege_cooldown duration = 30 hidden = yes }
 		
 		#Success/Fail
@@ -2988,8 +2963,6 @@ country_event = {
 				}
 			}
 		}
-		clr_country_flag = shapechange_into_dragon_used_flag
-		set_country_flag = shapechange_into_dragon_used_flag
 	}
 	# Shapechange
 	option = {
@@ -2999,9 +2972,9 @@ country_event = {
 		}
 		
 		#Costs
-		add_mil_power = -100
+			add_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = -60 }
 		
-		magic_casted_spell = yes
+		#magic_casted_spell = yes	#bertus mod - no need to limit by time since it is limited by mana cost
 		add_ruler_modifier = { name = magic_siege_cooldown duration = 30 hidden = yes }
 		
 		#Success/Fail

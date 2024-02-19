@@ -976,58 +976,33 @@ on_battle_won_unit_effect = {
 	}
 	if = {
 		limit = {
-			unit_owner = {
-				has_government_mechanic = warlock_religion_actions_mechanic
-			}
+			unit_owner = { uses_church_aspects = yes OR = { religion_group = orcish religion_group = giantkin } }
 		}
 		unit_owner = {
-			set_variable = {
-				which = monarch_kill
-				which = land_units_killed
-			}
-			set_variable = {
-				which = monarch_losses
-				which = land_units_lost
-			}
-			divide_variable = {
-				which = monarch_kill
-				value = 1000
-			}
-			divide_variable = {
-				which = monarch_losses
-				value = 1000
-			}
+			set_variable = { which = amount_kill which = land_units_killed }
+			divide_variable = { which = amount_kill value = 1000 }
 			while = {
 				limit = {
-					check_variable = {
-						which = monarch_kill
-						value = 1
-					}
+					check_variable = { which = amount_kill value = 1 }
 				}
-				add_church_power = 0.1
-				change_variable = {
-					which = monarch_losses
-					value = -1
+				add_church_power = 1
+				change_variable = { which = amount_kill value = -1 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			unit_owner = { has_government_attribute = warlock_religion_actions_mechanic }
+		}
+		unit_owner = {
+			set_variable = { which = amount_kill which = land_units_killed }
+			divide_variable = { which = amount_kill value = 1000 }
+			while = {
+				limit = {
+					check_variable = { which = amount_kill value = 1 }
 				}
-				if = {
-					limit = {
-						church_power = 400
-					}
-					set_country_flag = anoint_slave_herd_great_flag
-					random_owned_province = {
-						limit = {
-							accepted_culture = ROOT
-							religion = ROOT
-							NOT = {has_province_modifier = dookan_anointed_slave_herd}
-						}
-						area = {
-							add_prosperity = 100
-							add_devastation = -50
-							add_province_modifier = {name = dookan_anointed_slave_herd duration = 3650}
-						}
-					}
-					add_church_power = -25
-				}
+				add_church_power = 1
+				change_variable = { which = amount_kill value = -1 }
 			}
 		}
 	}
@@ -1197,15 +1172,6 @@ on_province_culture_change_effect = {
 			remove_province_modifier = phoenix_empire_the_sun_outshines_the_moon
 			owner = { add_adm_power = 25 }
 		}
-	}
-	if = {
-		limit = {
-			owner = {has_government_attribute = noble_castles_boost}
-			culture = owner
-			NOT = {has_province_modifier = noble_castles_boost_modifier}
-			has_fort_trigger = yes
-		}
-		add_province_modifier = {name = noble_castles_boost_modifier duration = -1}
 	}
 }
 

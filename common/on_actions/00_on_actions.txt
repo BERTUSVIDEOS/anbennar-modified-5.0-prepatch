@@ -3073,12 +3073,20 @@ on_adm_development = {
 	
 	jaddari_deioderan_dev_counter_update = yes
 
+	if = {
+		limit = { NOT = {has_province_flag = bertus_pops_1040_flag} }	#development based modifiers
+		set_province_flag = bertus_pops_1040_flag
+		province_event = {id = bertus_pops.1040 days = 30}
+	}
+	if = {
+		limit = { NOT = {has_province_flag = bertus_pops_1041_flag} }	#base tax based modifiers
+		set_province_flag = bertus_pops_1041_flag
+		province_event = {id = bertus_pops.1041 days = 30}
+	}
 	#Anbennar
 	events = {
 		flavour_mulen.1
 		flavour_mulen.2
-		bertus_pops.1040	#development based modifiers
-		bertus_pops.1041	#base tax based modifiers
 	}
 	if = {
 		limit = { owner = { has_estate_privilege = estate_wolf_command_war_room_rights } }
@@ -3093,13 +3101,25 @@ on_dip_development = {
 	anb_on_development_effect = {development = production}
 	on_development_modifiers_effect = yes  	#bertus mod
 
+	if = {
+		limit = { NOT = {has_province_flag = bertus_pops_1040_flag} }	#development based modifiers
+		set_province_flag = bertus_pops_1040_flag
+		province_event = {id = bertus_pops.1040 days = 30}
+	}
+	if = {
+		limit = { NOT = {has_province_flag = bertus_pops_1042_flag} }	#racial base production modifiers
+		set_province_flag = bertus_pops_1042_flag
+		province_event = {id = bertus_pops.1042 days = 30}
+	}
+	if = {
+		limit = { NOT = {has_province_flag = bertus_pops_1049_flag} }	#base production modifiers
+		set_province_flag = bertus_pops_1049_flag
+		province_event = {id = bertus_pops.1049 days = 30}
+	}
 	#Anbennar
 	events = {
 		flavour_mulen.1
 		flavour_mulen.2
-		bertus_pops.1040	#development based modifiers
-		bertus_pops.1042	#racial base production modifiers
-		bertus_pops.1049	#base production modifiers
 	}
 	jaddari_deioderan_dev_counter_update = yes
 }
@@ -3111,12 +3131,20 @@ on_mil_development = {
 	anb_on_development_effect = {development = manpower}
 	on_development_modifiers_effect = yes  	#bertus mod
 
+	if = {
+		limit = { NOT = {has_province_flag = bertus_pops_1040_flag} }	#development based modifiers
+		set_province_flag = bertus_pops_1040_flag
+		province_event = {id = bertus_pops.1040 days = 30}
+	}
+	if = {
+		limit = { NOT = {has_province_flag = bertus_pops_1043_flag} }	#base manpower based modifiers
+		set_province_flag = bertus_pops_1043_flag
+		province_event = {id = bertus_pops.1043 days = 30}
+	}
 	#Anbennar
 	events = {
 		flavour_mulen.1
 		flavour_mulen.2
-		bertus_pops.1040	#development based modifiers
-		bertus_pops.1043	#base manpower based modifiers
 	}
 	if = {
 		limit = { owner = { has_estate_privilege = estate_boar_command_war_room_rights } }
@@ -6128,9 +6156,15 @@ on_province_culture_converted = {
 		}
 		remove_province_modifier_effect = { MODIFIER = B34_orc_hunting_grounds}
 	}
-	events = {
-		bertus_pops.1038
-		bertus_pops.1037
+	if = {
+		limit = { NOT = {has_province_flag = bertus_pops_1038_flag} }	#overall pop removal
+		set_province_flag = bertus_pops_1038_flag
+		province_event = {id = bertus_pops.1038 days = 30}
+	}
+	if = {
+		limit = { NOT = {has_province_flag = bertus_pops_1037_flag} }	#overall pop updater
+		set_province_flag = bertus_pops_1037_flag
+		province_event = {id = bertus_pops.1037 days = 30}
 	}
 }
 
@@ -6140,9 +6174,15 @@ on_province_culture_changed = {
 	on_province_culture_converted_estate_privilges_effect = yes
 	on_province_culture_change_effect = yes
 
-	events = {
-		bertus_pops.1038
-		bertus_pops.1037
+	if = {
+		limit = { NOT = {has_province_flag = bertus_pops_1038_flag} }	#overall pop removal
+		set_province_flag = bertus_pops_1038_flag
+		province_event = {id = bertus_pops.1038 days = 30}
+	}
+	if = {
+		limit = { NOT = {has_province_flag = bertus_pops_1037_flag} }	#overall pop updater
+		set_province_flag = bertus_pops_1037_flag
+		province_event = {id = bertus_pops.1037 days = 30}
 	}
 }
 
@@ -6161,12 +6201,36 @@ on_province_owner_change = {
 		limit = { religion = noreligion }
 		change_religion = owner
 	}
-	province_event = {id = bertus_pops.1039 days = 1}	#climate & terrain preferences updater
-	province_event = {id = bertus_pops.1040 days = 2}	#development based modifiers
-	province_event = {id = bertus_pops.1041 days = 3}	#base tax based modifiers
-	province_event = {id = bertus_pops.1042 days = 4}	#racial base production modifiers
-	province_event = {id = bertus_pops.1043 days = 5}	#base manpower based modifiers
-	province_event = {id = bertus_pops.1049 days = 6}	#base production modifiers
+	if = {
+		limit = { NOT = {has_province_flag = bertus_pops_1039_flag} }	#climate & terrain preferences updater
+		set_province_flag = bertus_pops_1039_flag
+		province_event = {id = bertus_pops.1039 days = 30}
+	}
+	if = {
+		limit = { NOT = {has_province_flag = bertus_pops_1040_flag} }	#development based modifiers
+		set_province_flag = bertus_pops_1040_flag
+		province_event = {id = bertus_pops.1040 days = 30}
+	}
+	if = {
+		limit = { NOT = {has_province_flag = bertus_pops_1041_flag} }	#base tax based modifiers
+		set_province_flag = bertus_pops_1041_flag
+		province_event = {id = bertus_pops.1041 days = 30}
+	}
+	if = {
+		limit = { NOT = {has_province_flag = bertus_pops_1042_flag} }	#racial base production modifiers
+		set_province_flag = bertus_pops_1042_flag
+		province_event = {id = bertus_pops.1042 days = 30}
+	}
+	if = {
+		limit = { NOT = {has_province_flag = bertus_pops_1043_flag} }	#base manpower based modifiers
+		set_province_flag = bertus_pops_1043_flag
+		province_event = {id = bertus_pops.1043 days = 30}
+	}
+	if = {
+		limit = { NOT = {has_province_flag = bertus_pops_1049_flag} }	#base production modifiers
+		set_province_flag = bertus_pops_1049_flag
+		province_event = {id = bertus_pops.1049 days = 30}
+	}
 
 	events = {
 		# japan.1
@@ -7314,9 +7378,15 @@ on_trade_good_changed = {
 		}
 		clr_hold_advanced_infrastructure = yes
 	}
-	events = {
-		bertus_pops.1042	#racial base production modifiers
-		bertus_pops.1049	#base production modifiers
+	if = {
+		limit = { NOT = {has_province_flag = bertus_pops_1042_flag} }	#racial base production modifiers
+		set_province_flag = bertus_pops_1042_flag
+		province_event = {id = bertus_pops.1042 days = 30}
+	}
+	if = {
+		limit = { NOT = {has_province_flag = bertus_pops_1049_flag} }	#base production modifiers
+		set_province_flag = bertus_pops_1049_flag
+		province_event = {id = bertus_pops.1049 days = 30}
 	}
 }
 
@@ -7988,27 +8058,61 @@ on_new_age = {
 #ROOT = province
 on_adm_exploited = {
 	on_adm_exploited_effects = yes
-	events = {
-		bertus_pops.1040	#development based modifiers
-		bertus_pops.1041	#base tax based modifiers
-		bertus_pops.1048	#on dev reduction conditional modifiers
+	if = {
+		limit = { NOT = {has_province_flag = bertus_pops_1040_flag} }	#development based modifiers
+		set_province_flag = bertus_pops_1040_flag
+		province_event = {id = bertus_pops.1040 days = 30}
+	}
+	if = {
+		limit = { NOT = {has_province_flag = bertus_pops_1041_flag} }	#base tax based modifiers
+		set_province_flag = bertus_pops_1041_flag
+		province_event = {id = bertus_pops.1041 days = 30}
+	}
+	if = {
+		limit = { NOT = {has_province_flag = bertus_pops_1048_flag} }	#on dev reduction conditional modifiers
+		set_province_flag = bertus_pops_1048_flag
+		province_event = {id = bertus_pops.1048 days = 30}
 	}
 }
 
 on_dip_exploited = {
-	events = {
-		bertus_pops.1040	#development based modifiers
-		bertus_pops.1042	#racial base production modifiers
-		bertus_pops.1048	#on dev reduction conditional modifiers
-		bertus_pops.1049	#base production modifiers
+	if = {
+		limit = { NOT = {has_province_flag = bertus_pops_1040_flag} }	#development based modifiers
+		set_province_flag = bertus_pops_1040_flag
+		province_event = {id = bertus_pops.1040 days = 30}
+	}
+	if = {
+		limit = { NOT = {has_province_flag = bertus_pops_1042_flag} }	#racial base production modifiers
+		set_province_flag = bertus_pops_1042_flag
+		province_event = {id = bertus_pops.1042 days = 30}
+	}
+	if = {
+		limit = { NOT = {has_province_flag = bertus_pops_1048_flag} }	#on dev reduction conditional modifiers
+		set_province_flag = bertus_pops_1048_flag
+		province_event = {id = bertus_pops.1048 days = 30}
+	}
+	if = {
+		limit = { NOT = {has_province_flag = bertus_pops_1049_flag} }	#base production modifiers
+		set_province_flag = bertus_pops_1049_flag
+		province_event = {id = bertus_pops.1049 days = 30}
 	}
 }
 
 on_mil_exploited = {
-	events = {
-		bertus_pops.1040	#development based modifiers
-		bertus_pops.1043	#base manpower based modifiers
-		bertus_pops.1048	#on dev reduction conditional modifiers
+	if = {
+		limit = { NOT = {has_province_flag = bertus_pops_1040_flag} }	#development based modifiers
+		set_province_flag = bertus_pops_1040_flag
+		province_event = {id = bertus_pops.1040 days = 30}
+	}
+	if = {
+		limit = { NOT = {has_province_flag = bertus_pops_1043_flag} }	#base manpower based modifiers
+		set_province_flag = bertus_pops_1043_flag
+		province_event = {id = bertus_pops.1043 days = 30}
+	}
+	if = {
+		limit = { NOT = {has_province_flag = bertus_pops_1048_flag} }	#on dev reduction conditional modifiers
+		set_province_flag = bertus_pops_1048_flag
+		province_event = {id = bertus_pops.1048 days = 30}
 	}
 }
 
@@ -8087,6 +8191,10 @@ on_barrage = { #ROOT - barraging country, FROM - barraged province
 			change_siege = 2
 			add_devastation = 10
 		}
+	}
+	if = {	#bertus mod
+		limit = { has_government_attribute = extra_siege_on_breach }
+		FROM = { change_siege = 2 }
 	}
 }
 

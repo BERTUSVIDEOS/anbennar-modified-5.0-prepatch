@@ -3,8 +3,17 @@ artificers_capacity_mechanic = {
 	alert_icon_index = 19
 	available = {
 		has_dlc = "Rights of Man"
-		has_estate = estate_artificers
-		always = no #work in progress
+		custom_trigger_tooltip = {
+			tooltip = has_artificer_estate_tt
+			OR = {
+				has_estate = estate_artificers
+				AND = {
+					has_estate = estate_dragon_command
+					has_institution = manufactories
+				}
+			}
+		}
+		#always = no #work in progress
 	}
 
 	powers = {
@@ -15,10 +24,17 @@ artificers_capacity_mechanic = {
 			base_monthly_growth = 0
 			scaled_modifier = {
 				modifier = {
-					yearly_innovativeness = 1.0
 				}
 			}
 			on_max_reached = {
+				country_event = {
+					id = artifice_events.1
+				}
+				add_government_power = { 
+					mechanic_type = artificers_capacity_mechanic
+					power_type = artificers_capacity
+					value = -100
+				}
 			}
 		}
 	}
