@@ -9092,7 +9092,7 @@ is_race_in_any_caste = {
 	]
 }
 
-can_purge_race = {
+can_purge_race = {	#bertus mod
 	is_part_of_hre = no	
 	NOT = {
 		OR = {
@@ -9103,32 +9103,12 @@ can_purge_race = {
 	NOT = { has_country_modifier = $RACE$_administration }
 	NOT = { has_country_modifier = $RACE$_military }
 	NOT = { ruler_is_$RACE$ = yes }
-	if = {
-		limit = { ai = yes }
-		OR = {
-			any_owned_province = {
-				has_$RACE$_minority_trigger = yes
-			}
-			any_owned_province = {
-				has_$RACE$_majority_trigger = yes
-			}
-		}
-	}
 	NOT = { has_country_modifier = forced_to_end_$RACE$_purge }
 	NOT = { has_government_attribute = disabled_purging }
 	NOT = { has_government_attribute = disabled_purging_$RACE$ }
-	if = {
-		limit = { has_country_flag = has_caste_estates }
-		NOT = {
-			is_race_in_any_caste = {
-				$RACE$ = yes
-			}
-		}
-	}
-	#adm_power = 100	#100→0
 }
 
-can_expel_race = {
+can_expel_race = {	#bertus mod
 	OR = {
 		is_part_of_hre = no		
 		AND = {
@@ -9145,27 +9125,7 @@ can_expel_race = {
 	NOT = { has_country_modifier = $RACE$_administration }
 	NOT = { has_country_modifier = $RACE$_military }
 	NOT = { ruler_is_$RACE$ = yes }
-	if = {
-		limit = { ai = yes }
-		OR = {
-			any_owned_province = {
-				has_$RACE$_minority_trigger = yes
-			}
-			any_owned_province = {
-				has_$RACE$_majority_trigger = yes
-			}
-		}
-	}
 	NOT = { has_country_modifier = forced_to_end_$RACE$_purge }
 	NOT = { has_government_attribute = disabled_expelling }
 	NOT = { has_government_attribute = disabled_expelling_$RACE$ }
-	if = {
-		limit = { has_country_flag = has_caste_estates }
-		NOT = {
-			is_race_in_any_caste = {
-				$RACE$ = yes
-			}
-		}
-	}
-	#adm_power = 50	#bertus mod
 }

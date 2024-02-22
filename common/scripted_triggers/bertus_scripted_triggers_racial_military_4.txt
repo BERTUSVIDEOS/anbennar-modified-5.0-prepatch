@@ -22,6 +22,23 @@ at_least_one_race_trigger = {
 		$TRIGGER$ = { RACE = lizardfolk [[type] type = $type$] }
 	}
 }
+is_purging_or_expelling_province_race = {
+	AND = {
+		$type$ = {
+			OR = {
+				has_country_modifier = racial_pop_$RACE$_expulsion
+				has_country_modifier = racial_pop_$RACE$_purge
+			}
+		}
+		OR = {
+			AND = {
+				NOT = {has_construction = culture}
+				culture_is_$RACE$ = yes
+			}
+			has_$RACE$_minority_trigger = yes
+		}
+	}
+}
 has_same_race_recruitment = {
 	AND = {
 		$type$ = {

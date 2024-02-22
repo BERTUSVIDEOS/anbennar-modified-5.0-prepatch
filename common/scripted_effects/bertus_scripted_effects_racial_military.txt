@@ -225,82 +225,7 @@ country_administration_effect = {
 	if = {limit = {has_country_modifier = hobgoblin_$type$} custom_tooltip = has_hobgoblin_$type$_tooltip}
 	if = {limit = {has_country_modifier = kobold_$type$} custom_tooltip = has_kobold_$type$_tooltip}
 	[[military]
-		if = {
-			limit = { estate_territory = { estate = estate_human territory = 1 } }
-			custom_tooltip = human_militarization_tt
-		}
-		if = {
-			limit = { estate_territory = { estate = estate_elven territory = 1 } }
-			custom_tooltip = elven_militarization_tt
-		}
-		if = {
-			limit = { estate_territory = { estate = estate_dwarven territory = 1 } }
-			custom_tooltip = dwarven_militarization_tt
-		}
-		if = {
-			limit = { estate_territory = { estate = estate_halfling territory = 1 } }
-			custom_tooltip = halfling_militarization_tt
-		}
-		if = {
-			limit = { estate_territory = { estate = estate_gnomish territory = 1 } }
-			custom_tooltip = gnomish_militarization_tt
-		}
-		if = {
-			limit = { estate_territory = { estate = estate_harimari territory = 1 } }
-			custom_tooltip = harimari_militarization_tt
-		}
-		if = {
-			limit = { estate_territory = { estate = estate_gnollish territory = 1 } }
-			custom_tooltip = gnollish_militarization_tt
-		}
-		if = {
-			limit = { estate_territory = { estate = estate_ruinborn territory = 1 } }
-			custom_tooltip = ruinborn_militarization_tt
-		}
-		if = {
-			limit = { estate_territory = { estate = estate_orcish territory = 1 } }
-			custom_tooltip = orcish_militarization_tt
-		}
-		if = {
-			limit = { estate_territory = { estate = estate_goblin territory = 1 } }
-			custom_tooltip = goblin_militarization_tt
-		}
-		if = {
-			limit = { estate_territory = { estate = estate_ogre territory = 1 } }
-			custom_tooltip = ogre_militarization_tt
-		}
-		if = {
-			limit = { estate_territory = { estate = estate_centaur territory = 1 } }
-			custom_tooltip = centaur_militarization_tt
-		}
-		if = {
-			limit = { estate_territory = { estate = estate_troll territory = 1 } }
-			custom_tooltip = troll_militarization_tt
-		}
-		if = {
-			limit = { estate_territory = { estate = estate_harpy territory = 1 } }
-			custom_tooltip = harpy_militarization_tt
-		}
-		if = {
-			limit = { estate_territory = { estate = estate_half_orcish territory = 1 } }
-			custom_tooltip = half_orcish_militarization_tt
-		}
-		if = {
-			limit = { estate_territory = { estate = estate_half_elven territory = 1 } }
-			custom_tooltip = half_elven_militarization_tt
-		}
-		if = {
-			limit = { estate_territory = { estate = estate_hobgoblin territory = 1 } }
-			custom_tooltip = hobgoblin_militarization_tt
-		}
-		if = {
-			limit = { estate_territory = { estate = estate_kobold territory = 1 } }
-			custom_tooltip = kobold_militarization_tt
-		}
-		if = {
-			limit = { estate_territory = { estate = estate_lizardfolk territory = 1 } }
-			custom_tooltip = lizardfolk_militarization_tt
-		}
+		custom_tooltip = racial_mil_update
 	]
 	[[administration]
 		all_races_effect = {
@@ -630,6 +555,9 @@ all_races_effect = {
 	$EFFECT$ = { RACE = hobgoblin [[type] type = $type$] }
 	$EFFECT$ = { RACE = kobold [[type] type = $type$] }
 	$EFFECT$ = { RACE = lizardfolk [[type] type = $type$] }
+}
+race_event = {
+	$type$_event = { id = $RACE$_tolerance_events.5009 }
 }
 remove_racial_chairman = {
 	remove_estate_privilege = estate_$RACE$_$type$_chairman
@@ -1081,7 +1009,7 @@ get_special_general_stats = {
 		export_to_variable = { which = general_dragon_var value = army_size }
 		while = {
 			limit = {check_variable = {which = general_dragon_var value = 100}}
-			change_variable = {which = country_leader_shock_var value = -100}
+			change_variable = {which = general_dragon_var value = -100}
 			change_variable = {which = country_leader_shock_var value = 1}
 			change_variable = {which = country_leader_fire_var value = 1}
 		}
@@ -1348,7 +1276,7 @@ get_special_general_stats = {
 	}
 
 	while = {	#change excess siege
-		limit = { check_variable = { which = country_leader_siege_var value = 11 } }
+		limit = { check_variable = { which = country_leader_siege_var value = 9 } }
 		change_variable = {which = country_leader_siege_var value = -1}
 		random_list = {
 			50 = {
@@ -1363,7 +1291,7 @@ get_special_general_stats = {
 		}
 	}
 	while = {	#change excess manuever
-		limit = { check_variable = { which = country_leader_manuever_var value = 16 } }
+		limit = { check_variable = { which = country_leader_manuever_var value = 13 } }
 		change_variable = {which = country_leader_manuever_var value = -1}
 		random_list = {
 			50 = {

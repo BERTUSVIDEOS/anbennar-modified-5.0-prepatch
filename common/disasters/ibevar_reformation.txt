@@ -1,5 +1,5 @@
 
-ibevar_reformation = {
+ibevar_reformation = {	#bertus mod
 	potential = {
 		tag = A32
 		NOT = { has_country_flag = ibevar_reformation_end }
@@ -8,12 +8,24 @@ ibevar_reformation = {
 
 	can_start = {
 		NOT = { has_country_modifier = ibevar_old_tradition_crisis_solved}
-		OR = {
+		calc_true_if = {
+			amount = 2
+			
+			unrest = 1
 			AND = {
 				NOT = {religious_unity = 0.9}
 				is_part_of_hre = yes
 			}
-			nOT = {religious_unity = 0.75}
+			num_of_religion = { religion = regent_court value = 0.10 }
+			num_of_religion = { religion = corinite value = 0.10 }
+			ruler_religion = corinite
+			ruler_religion = regent_court
+			heir_religion = corinite
+			heir_religion = regent_court
+			consort_religion = corinite
+			consort_religion = regent_court
+			employed_advisor = { religion = regent_court }
+			employed_advisor = { religion = corinite }
 		}
 	}
 	
@@ -23,7 +35,7 @@ ibevar_reformation = {
 	
 	progress = {
 		modifier = {
-			factor = 100
+			factor = 9
 			always = yes
 		}
 	}

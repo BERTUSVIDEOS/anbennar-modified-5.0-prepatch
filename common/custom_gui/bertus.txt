@@ -115,7 +115,7 @@ custom_button = {
 	}
 	effect = {
 		hidden_effect = { country_event = { id = magic_ruler.0 } }
-		open_single_menu = yes	#prevents people from opening the menu multiple times
+		open_single_menu = yes
 		#Allows for vampires that become mages naturally
 		hidden_effect = {
 			if = { 
@@ -127,10 +127,45 @@ custom_button = {
 	tooltip = open_ruler_magic_menu_tt
 }
 custom_button = {
-    name = trade_goods_update #Must match a scripted iconType in a .gui file
+    name = racial_mil_update
+    potential = {
+		ai = no
+	}
+	trigger = {
+		if = {
+			limit = {
+				has_country_flag = racial_mil_menu_cd
+				NOT = { had_country_flag = { flag = racial_mil_menu_cd days = 30 } }
+			}
+			had_country_flag = { flag = racial_mil_menu_cd days = 30 }
+		}
+	}
+	effect = {
+		hidden_effect = {
+			clr_country_flag = racial_mil_menu_cd
+			set_country_flag = racial_mil_menu_cd
+			country_event = {id = bertus_racial_military.1001}
+		}
+		country_administration_effect = {
+			type = military
+			military = yes
+		}
+		custom_tooltip = "Update Military Recruitment"
+	}
+	tooltip = mil_menu_access_tt
+}
+custom_text_box = {
+    name = bertus_racial_military
+    potential = {
+		ai = no
+	}
+    tooltip = "racial_mil_update"
+}
+custom_button = {
+    name = trade_goods_update
     potential = {
 		always = yes
-	} #Determines when the icon is visible
+	}
 	trigger = {
 		if = {
 			limit = {
@@ -141,7 +176,7 @@ custom_button = {
 		}
 	}
 	effect = {
-		custom_tooltip = bertus_open_goods_menu_tt #Can use customizable localisation
+		custom_tooltip = bertus_open_goods_menu_tt
 		hidden_effect = {
 			country_event = {id = ANEX_event.34}
 			country_event = {id = bertus_changes.7000}
@@ -149,16 +184,16 @@ custom_button = {
 			set_country_flag = trade_goods_update_cd
 		}
 	}
-    tooltip = bertus_open_goods_menu #Can use customizable localisation
+    tooltip = bertus_open_goods_menu
 }
 custom_button = {
-    name = siege_magic #Must match a scripted iconType in a .gui file
+    name = siege_magic
     potential = {
-		ai = no	#bertus mod
+		ai = no
 		ruler_has_mage_personality = yes
 		months_of_ruling = 2
 		NOT = { has_ruler_flag = magic_menu_opened }
-	} #Determines when the icon is visible
+	}
 	trigger = {
 		custom_trigger_tooltip = {
 			tooltip = ruler_knows_siege_spell_tt
@@ -192,15 +227,15 @@ custom_button = {
 		set_ruler_flag = magic_siege_menu
 		custom_tooltip = open_siege_magic_menu_tt
 		hidden_effect = { country_event = { id = magic_siege.1 } }
-		open_single_menu = yes	#prevents people from opening the menu multiple times
+		open_single_menu = yes
 	}
-    tooltip = siege_magic_tt #Can use customizable localisation
+    tooltip = siege_magic_tt
 }
 custom_button = {
-    name = first_chairman_interaction #Must match a scripted iconType in a .gui file
+    name = first_chairman_interaction
     potential = {
 		ai = no
-	} #Determines when the icon is visible
+	}
 	trigger = {
 		if = {
 			limit = {
@@ -218,13 +253,13 @@ custom_button = {
 			set_country_flag = first_chairman_interaction_cd
 		}
 	}
-    tooltip = first_chairman_interaction_tt #Can use customizable localisation
+    tooltip = first_chairman_interaction_tt
 }
 custom_button = {
-    name = diplomacy_chairman_interaction #Must match a scripted iconType in a .gui file
+    name = diplomacy_chairman_interaction
     potential = {
 		ai = no
-	} #Determines when the icon is visible
+	}
 	trigger = {
 		if = {
 			limit = {
@@ -242,13 +277,13 @@ custom_button = {
 			set_country_flag = diplomacy_chairman_interaction_cd
 		}
 	}
-    tooltip = diplomacy_chairman_interaction_tt #Can use customizable localisation
+    tooltip = diplomacy_chairman_interaction_tt
 }
 custom_button = {
-    name = military_chairman_interaction #Must match a scripted iconType in a .gui file
+    name = military_chairman_interaction
     potential = {
 		ai = no
-	} #Determines when the icon is visible
+	}
 	trigger = {
 		if = {
 			limit = {
@@ -266,13 +301,13 @@ custom_button = {
 			set_country_flag = military_chairman_interaction_cd
 		}
 	}
-    tooltip = military_chairman_interaction_tt #Can use customizable localisation
+    tooltip = military_chairman_interaction_tt
 }
 custom_button = {
-    name = economic_chairman_interaction #Must match a scripted iconType in a .gui file
+    name = economic_chairman_interaction
     potential = {
 		ai = no
-	} #Determines when the icon is visible
+	}
 	trigger = {
 		if = {
 			limit = {
@@ -296,13 +331,13 @@ custom_button = {
 			set_country_flag = economic_chairman_interaction_cd
 		}
 	}
-    tooltip = economic_chairman_interaction_tt #Can use customizable localisation
+    tooltip = economic_chairman_interaction_tt
 }
 custom_button = {
-    name = navy_chairman_interaction #Must match a scripted iconType in a .gui file
+    name = navy_chairman_interaction
     potential = {
 		ai = no
-	} #Determines when the icon is visible
+	}
 	trigger = {
 		if = {
 			limit = { all_owned_province = { has_port = no } }
@@ -324,34 +359,7 @@ custom_button = {
 			set_country_flag = navy_chairman_interaction_cd
 		}
 	}
-    tooltip = navy_chairman_interaction_tt #Can use customizable localisation
-}
-custom_button = {
-    name = racial_mil_update
-    potential = {
-		ai = no
-	}
-	trigger = {
-		if = {
-			limit = {
-				has_country_flag = racial_mil_menu_cd
-				NOT = { had_country_flag = { flag = racial_mil_menu_cd days = 30 } }
-			}
-			had_country_flag = { flag = racial_mil_menu_cd days = 30 }
-		}
-	}
-	effect = {
-		hidden_effect = {
-			clr_country_flag = racial_mil_menu_cd
-			set_country_flag = racial_mil_menu_cd
-			country_event = {id = bertus_racial_military.1001}
-			country_administration_effect = {
-				type = military
-				military = yes
-			}
-		}
-	}
-	tooltip = ""
+    tooltip = navy_chairman_interaction_tt
 }
 custom_icon = {
 	name = special_abilities_background
@@ -381,8 +389,14 @@ custom_button = {
 		}
 	}
 	trigger = {
-		unit_in_battle = no
-		NOT = { has_province_modifier = making_soup_modifier }
+		if = {
+			limit = { unit_in_battle = yes }
+			unit_in_battle = no
+		}
+		if = {
+			limit = { has_province_modifier = making_soup_modifier }
+			NOT = { has_province_modifier = making_soup_modifier }
+		}
 		if = {
 			limit = { development = 100 }
 			num_of_units_in_province = { who = controller amount = 50 }
@@ -450,6 +464,7 @@ custom_button = {
 custom_icon = {
 	name = human_image_background
 	potential = {
+		ai = no
 		has_country_modifier = human_administration
 	}
 	tooltip = ""
@@ -457,6 +472,7 @@ custom_icon = {
 custom_icon = {
 	name = elven_image_background
 	potential = {
+		ai = no
 		has_country_modifier = elven_administration
 	}
 	tooltip = ""
@@ -464,6 +480,7 @@ custom_icon = {
 custom_icon = {
 	name = dwarven_image_background
 	potential = {
+		ai = no
 		has_country_modifier = dwarven_administration
 	}
 	tooltip = ""
@@ -471,6 +488,7 @@ custom_icon = {
 custom_icon = {
 	name = halfling_image_background
 	potential = {
+		ai = no
 		has_country_modifier = halfling_administration
 	}
 	tooltip = ""
@@ -478,6 +496,7 @@ custom_icon = {
 custom_icon = {
 	name = gnomish_image_background
 	potential = {
+		ai = no
 		has_country_modifier = gnomish_administration
 	}
 	tooltip = ""
@@ -485,6 +504,7 @@ custom_icon = {
 custom_icon = {
 	name = harimari_image_background
 	potential = {
+		ai = no
 		has_country_modifier = harimari_administration
 	}
 	tooltip = ""
@@ -492,6 +512,7 @@ custom_icon = {
 custom_icon = {
 	name = gnollish_image_background
 	potential = {
+		ai = no
 		has_country_modifier = gnollish_administration
 	}
 	tooltip = ""
@@ -499,6 +520,7 @@ custom_icon = {
 custom_icon = {
 	name = ruinborn_image_background
 	potential = {
+		ai = no
 		has_country_modifier = ruinborn_administration
 	}
 	tooltip = ""
@@ -506,6 +528,7 @@ custom_icon = {
 custom_icon = {
 	name = orcish_image_background
 	potential = {
+		ai = no
 		has_country_modifier = orcish_administration
 	}
 	tooltip = ""
@@ -513,6 +536,7 @@ custom_icon = {
 custom_icon = {
 	name = goblin_image_background
 	potential = {
+		ai = no
 		has_country_modifier = goblin_administration
 	}
 	tooltip = ""
@@ -520,6 +544,7 @@ custom_icon = {
 custom_icon = {
 	name = ogre_image_background
 	potential = {
+		ai = no
 		has_country_modifier = ogre_administration
 	}
 	tooltip = ""
@@ -527,6 +552,7 @@ custom_icon = {
 custom_icon = {
 	name = centaur_image_background
 	potential = {
+		ai = no
 		has_country_modifier = centaur_administration
 	}
 	tooltip = ""
@@ -534,6 +560,7 @@ custom_icon = {
 custom_icon = {
 	name = troll_image_background
 	potential = {
+		ai = no
 		has_country_modifier = troll_administration
 	}
 	tooltip = ""
@@ -541,6 +568,7 @@ custom_icon = {
 custom_icon = {
 	name = harpy_image_background
 	potential = {
+		ai = no
 		has_country_modifier = harpy_administration
 	}
 	tooltip = ""
@@ -548,6 +576,7 @@ custom_icon = {
 custom_icon = {
 	name = half_orcish_image_background
 	potential = {
+		ai = no
 		has_country_modifier = half_orcish_administration
 	}
 	tooltip = ""
@@ -555,6 +584,7 @@ custom_icon = {
 custom_icon = {
 	name = half_elven_image_background
 	potential = {
+		ai = no
 		has_country_modifier = half_elven_administration
 	}
 	tooltip = ""
@@ -562,6 +592,7 @@ custom_icon = {
 custom_icon = {
 	name = kobold_image_background
 	potential = {
+		ai = no
 		has_country_modifier = kobold_administration
 	}
 	tooltip = ""
@@ -569,6 +600,7 @@ custom_icon = {
 custom_icon = {
 	name = hobgoblin_image_background
 	potential = {
+		ai = no
 		has_country_modifier = hobgoblin_administration
 	}
 	tooltip = ""
@@ -576,6 +608,7 @@ custom_icon = {
 custom_icon = {
 	name = lizardfolk_image_background
 	potential = {
+		ai = no
 		has_country_modifier = lizardfolk_administration
 	}
 	tooltip = ""
@@ -583,6 +616,7 @@ custom_icon = {
 custom_icon = {
 	name = dookan_guidance_activated
 	potential = {
+		ai = no
 		religion = old_dookan
 	}
 	tooltip = "[Root.getGreatDookanGuidanceName]"
@@ -605,8 +639,132 @@ custom_icon = {
 	}
 }
 custom_button = {
+	name = dookan_slave_herd
+	potential = {
+		owner = {
+			ai = no
+			OR = {
+				religion = old_dookan
+				religion = great_dookan
+				religion = feast_of_the_gods
+			}
+		}
+	}
+	trigger = {
+		if = {
+			limit = { owner = {NOT = { check_variable = { which = slave_herd_amount_var value = 1 } } } }
+			owner = { check_variable = { which = slave_herd_amount_var value = 1 } }
+		}
+		area_for_scope_province = {
+			type = all
+			has_owner_accepted_culture = yes
+			religion = FROM
+			NOT = {has_province_modifier = dookan_anointed_slave_herd}
+		}
+	}
+	effect = {
+		owner = {
+			change_variable = { which = slave_herd_amount_var value = -1 }
+		}
+		province_event = {id = bertus_changes.3002}
+	}
+	tooltip = "Get Slave Herd"
+}
+custom_button = {
+	name = corinite_state_communities
+	potential = {
+		owner = {
+			ai = no
+			religion = corinite
+		}
+	}
+	trigger = {
+		if = {
+			limit = { owner = {NOT = { check_variable = { which = corinite_building_amount_var value = 1 } } } }
+			owner = { check_variable = { which = corinite_building_amount_var value = 1 } }
+		}
+		area_for_scope_province = {
+			type = all
+			religion = FROM
+			is_state_core = FROM
+			controlled_by = FROM
+			NOT = {has_province_modifier = corinite_communities_aspect_modifier}
+		}
+	}
+	effect = {
+		owner = {
+			change_variable = { which = corinite_building_amount_var value = -1 }
+		}
+		province_event = {id = bertus_changes.1109}
+	}
+	tooltip = "Get Corins Community"
+}
+custom_button = {
+	name = corinite_state_blessing
+	potential = {
+		owner = {
+			ai = no
+			religion = corinite
+		}
+	}
+	trigger = {
+		if = {
+			limit = { owner = {NOT = { check_variable = { which = corinite_development_amount_var value = 1 } } } }
+			owner = { check_variable = { which = corinite_development_amount_var value = 1 } }
+		}
+		is_state = yes
+		area_for_scope_province = {
+			type = all
+			religion = FROM
+			is_state_core = FROM
+			controlled_by = FROM
+			NOT = {has_province_modifier = corinite_diplomatic_rabbi_aspect_modifier}
+		}
+	}
+	effect = {
+		owner = {
+			change_variable = { which = corinite_development_amount_var value = -1 }
+		}
+		province_event = {id = bertus_changes.1110}
+	}
+	tooltip = "Get Corins Blassing"
+}
+custom_button = {
+	name = corinite_state_wisdom
+	potential = {
+		owner = {
+			ai = no
+			religion = corinite
+		}
+	}
+	trigger = {
+		if = {
+			limit = { owner = {NOT = { check_variable = { which = corinite_religion_amount_var value = 1 } } } }
+			owner = { check_variable = { which = corinite_religion_amount_var value = 1 } }
+		}
+		is_state = yes
+		area_for_scope_province = {
+			type = all
+			NOT = {religion = FROM}
+			is_state_core = FROM
+			controlled_by = FROM
+			NOT = {has_province_modifier = corinite_abrahamic_aspect_modifier}
+		}
+	}
+	effect = {
+		owner = {
+			change_variable = { which = corinite_religion_amount_var value = -1 }
+		}
+		province_event = {id = bertus_changes.1111}
+	}
+	tooltip = "Get Corins Wisdom Assistant"
+}
+custom_button = {
 	name = one_v_one_high_piety_action
-	potential = { uses_piety = yes ai = no }
+	potential = {
+		ai = no
+		uses_piety = yes
+	}
 	trigger = {
 		hidden_trigger = {
 			OR = {
@@ -633,16 +791,25 @@ custom_button = {
 }
 custom_icon = {
 	name = one_v_one_high_piety_action_confirm_background
-	potential = { has_country_flag = one_v_one_high_piety_action_confirm_flag }
+	potential = {
+		ai = no
+		has_country_flag = one_v_one_high_piety_action_confirm_flag
+	}
 }
 custom_text_box = {
     name = one_v_one_high_piety_action_effect
-    potential = { has_country_flag = one_v_one_high_piety_action_confirm_flag }
+    potential = {
+		ai = no
+		has_country_flag = one_v_one_high_piety_action_confirm_flag
+	}
     tooltip = one_v_one_high_piety_action_effect
 }
 custom_button = {
 	name = one_v_one_piety_action_not_confirm
-	potential = { has_country_flag = one_v_one_piety_action_confirm_flag }
+	potential = {
+		ai = no
+		has_country_flag = one_v_one_piety_action_confirm_flag
+	}
 	trigger = {}
 	effect = {
 		clr_country_flag = one_v_one_piety_action_confirm_flag
@@ -652,7 +819,10 @@ custom_button = {
 }
 custom_button = {
 	name = one_v_one_piety_action_confirm
-	potential = { has_country_flag = one_v_one_piety_action_confirm_flag }
+	potential = { 
+		ai = no
+		has_country_flag = one_v_one_piety_action_confirm_flag
+	}
 	trigger = {}
 	effect = {
 		clr_country_flag = one_v_one_piety_action_confirm_flag
@@ -668,4 +838,86 @@ custom_button = {
 			change_variable = { which = one_v_one_high_piety_action_length which = one_v_one_high_piety_action_was_set_year }
 		}
 	}
+}
+custom_button = {
+	name = purge_action
+	potential = {
+		at_least_one_race_trigger = {
+			TRIGGER = is_purging_or_expelling_province_race
+			type = owner
+		}
+	}
+	trigger = {
+		if = {
+			limit = { unit_in_battle = yes }
+			unit_in_battle = no
+		}
+		if = {
+			limit = { development = 100 }
+			num_of_units_in_province = { who = controller amount = 50 }
+		}
+		else_if = {
+			limit = { development = 90 }
+			num_of_units_in_province = { who = controller amount = 45 }
+		}
+		else_if = {
+			limit = { development = 80 }
+			num_of_units_in_province = { who = controller amount = 40 }
+		}
+		else_if = {
+			limit = { development = 70 }
+			num_of_units_in_province = { who = controller amount = 35 }
+		}
+		else_if = {
+			limit = { development = 60 }
+			num_of_units_in_province = { who = controller amount = 30 }
+		}
+		else_if = {
+			limit = { development = 50 }
+			num_of_units_in_province = { who = controller amount = 25 }
+		}
+		else_if = {
+			limit = { development = 40 }
+			num_of_units_in_province = { who = controller amount = 20 }
+		}
+		else_if = {
+			limit = { development = 30 }
+			num_of_units_in_province = { who = controller amount = 15 }
+		}
+		else_if = {
+			limit = { development = 20 }
+			num_of_units_in_province = { who = controller amount = 10 }
+		}
+		else_if = {
+			limit = { development = 18 }
+			num_of_units_in_province = { who = controller amount = 9 }
+		}
+		else_if = {
+			limit = { development = 16 }
+			num_of_units_in_province = { who = controller amount = 8 }
+		}
+		else_if = {
+			limit = { development = 14 }
+			num_of_units_in_province = { who = controller amount = 7 }
+		}
+		else_if = {
+			limit = { development = 12 }
+			num_of_units_in_province = { who = controller amount = 6 }
+		}
+		else_if = {
+			limit = { development = 10 }
+			num_of_units_in_province = { who = controller amount = 5 }
+		}
+		else = { num_of_units_in_province = { who = controller amount = 4 } }
+	}
+	effect = {
+		hidden_effect = {
+			all_races_effect = {
+				EFFECT = race_event
+				type = province
+			}
+		}
+		custom_tooltip = "This may cause Revolts"
+	}
+	tooltip = "Remove Undesirables"
 }

@@ -1531,3 +1531,168 @@ province_event = {	#enslavement
 		}
 	}
 }
+province_event = {	#dwarven expell/purge rebels
+    id = dwarven_tolerance_events.5008
+    title = dwarven_tolerance_events.5008.title
+    desc = dwarven_tolerance_events.5008.desc
+	picture = DIPLOMACY_eventPicture
+
+	hidden = yes
+	is_triggered_only = yes
+
+    trigger = { }
+
+	immediate = {}
+    option = {
+        name = dwarven_tolerance_events.5008.a #
+		ai_chance = { factor = 10 }
+		spawn_dev_dependant_rebels = { type = leadered_peasant_rebels }
+    }
+}
+province_event = {	#dwarven expell/purge province
+    id = dwarven_tolerance_events.5009
+    title = dwarven_tolerance_events.5009.title
+    desc = dwarven_tolerance_events.5009.desc
+	picture = DIPLOMACY_eventPicture
+
+	hidden = yes
+	is_triggered_only = yes
+
+    trigger = {
+		owner = {
+			OR = {
+				has_country_modifier = racial_pop_dwarven_expulsion
+				has_country_modifier = racial_pop_dwarven_purge
+			}
+		}
+		OR = {
+			AND = {
+				NOT = {has_construction = culture}
+				culture_is_dwarven = yes
+			}
+			has_dwarven_minority_trigger = yes
+		}
+	}
+
+	immediate = {}
+    option = {
+        name = dwarven_tolerance_events.5009.a #
+		ai_chance = { factor = 10 }
+		if = {	#purge
+			limit = { owner = { has_country_modifier = racial_pop_dwarven_purge } }
+			hidden_effect = { province_event = { id = dwarven_tolerance_events.5008 } }
+			owner = { large_decrease_of_dwarven_tolerance_effect = yes }
+			if = {	#minority
+				limit = { has_dwarven_minority_trigger = yes }
+				remove_dwarven_minority_size_effect = yes
+				remove_dwarven_minority_size_effect = yes
+				add_devastation = 20
+			}
+			if = {	#majority
+				limit = { has_dwarven_majority_trigger = yes }
+				add_devastation = 50
+				change_culture = owner
+				change_religion = owner
+				bertus_dev_reduction = { value = 0.5 }
+				add_permanent_province_modifier = { name = purge_unrest_modifier duration = 1825 }
+				hidden_effect = {
+					remove_province_modifier = dwarven_majority_oppressed
+					remove_province_modifier = dwarven_majority_coexisting
+					remove_province_modifier = dwarven_majority_integrated
+				}
+			}
+		}
+		if = {	#expell
+			limit = { owner = { has_country_modifier = racial_pop_dwarven_expulsion} }
+			hidden_effect = { 
+				random = {
+					chance = 25
+					province_event = { id = dwarven_tolerance_events.5008 }
+				}
+			}
+			owner = { medium_decrease_of_dwarven_tolerance_effect = yes }
+			if = {	#minority
+				limit = { has_dwarven_minority_trigger = yes }
+				remove_dwarven_minority_size_effect = yes
+			}
+			if = {	#majority
+				limit = { has_dwarven_majority_trigger = yes }
+				change_culture = owner
+				change_religion = owner
+				add_devastation = 30
+				bertus_dev_reduction = { value = 0.5 }
+				add_permanent_province_modifier = { name = expulsion_unrest_modifier duration = 1825 }
+			}
+			if = {	#only does this if they have an adjacent country
+				limit = { owner = { any_neighbor_country = {  NOT = { low_tolerance_dwarven_race_trigger = yes } } } }
+				owner = {
+					hidden_effect = {	#Which country to migrate to
+						random_neighbor_country = {
+							limit = {
+								NOT = { has_country_modifier = racial_pop_dwarven_purge }
+								NOT = { has_country_modifier = racial_pop_dwarven_expulsion }
+							}
+							save_event_target_as = racial_pop_migration_country
+						}
+						random_neighbor_country = {
+							limit = {
+								NOT = { has_country_modifier = racial_pop_dwarven_purge }
+								NOT = { has_country_modifier = racial_pop_dwarven_expulsion }
+								any_owned_province = {
+									development = 20
+								}
+							}
+							save_event_target_as = racial_pop_migration_country
+						}
+						random_neighbor_country = {
+							limit = {
+								NOT = { has_country_modifier = racial_pop_dwarven_purge }
+								NOT = { has_country_modifier = racial_pop_dwarven_expulsion }
+								medium_tolerance_dwarven_race_trigger = yes
+							}
+							save_event_target_as = racial_pop_migration_country
+						}
+						random_neighbor_country = {
+							limit = {
+								NOT = { has_country_modifier = racial_pop_dwarven_purge }
+								NOT = { has_country_modifier = racial_pop_dwarven_expulsion }
+								medium_tolerance_dwarven_race_trigger = yes
+								any_owned_province = {
+									development = 20
+								}
+							}
+							save_event_target_as = racial_pop_migration_country
+						}
+						random_neighbor_country = {
+							limit = {
+								NOT = { has_country_modifier = racial_pop_dwarven_purge }
+								NOT = { has_country_modifier = racial_pop_dwarven_expulsion }
+								high_tolerance_dwarven_race_trigger = yes
+							}
+							save_event_target_as = racial_pop_migration_country
+						}
+						random_neighbor_country = {
+							limit = {
+								NOT = { has_country_modifier = racial_pop_dwarven_purge }
+								NOT = { has_country_modifier = racial_pop_dwarven_expulsion }
+								OR = {
+									medium_tolerance_dwarven_race_trigger = yes
+									high_tolerance_dwarven_race_trigger = yes
+								}
+								any_owned_province = {
+									development = 20
+									NOT = { has_dwarven_minority_trigger = yes }
+									NOT = { has_dwarven_majority_trigger = yes }
+								}
+							}
+							save_event_target_as = racial_pop_migration_country
+						}
+					}
+				}
+				event_target:racial_pop_migration_country  = {	#Calls Migrants Arrive to Migration Country
+					country_event = { id = racial_pop_events_dwarven.10 }
+				}
+			}
+		}
+    }
+}
