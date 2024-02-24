@@ -1,0 +1,111 @@
+
+######################################################################
+# Human rebels.
+######################################################################
+orcish_rebels = {
+	
+	color = { 190 55 55 }
+	
+	area = nation 					# Stays within the nation
+	government = republic			# Don't care about gov type				
+	defection = none				# Will not defect
+	independence = none				# Does not strive for independence
+	gfx_type = culture_province
+	will_relocate = yes	
+
+	resilient = yes					# Can retreat
+	reinforcing = yes				# Can reinforce
+	general = yes					# Does use generals
+	smart = yes						# Do assault forts, tactically withdraw from battle, etc.
+	unit_transfer = no				# Units do not remain after enforcing demands.
+	
+	artillery = 0.2
+	infantry = 0.8
+	cavalry = 0.0
+	
+	morale = 1.25
+	
+	# Possible handle actions
+	handle_action_negotiate = no
+	handle_action_stability = no
+	handle_action_build_core = no
+	handle_action_send_missionary = no	
+	
+	# The rebel type with the highest modifier for this province gets picked
+	spawn_chance = {
+		factor = 0
+	}
+ 
+ 	# This is checked for EACH province in the Area of Operations
+	movement_evaluation = {
+		factor = 1
+		modifier = {
+			factor = 0.1
+			units_in_province = 1
+		}
+		modifier = {
+			factor = 0.001
+			controlled_by = REB
+		}
+		modifier = {
+			factor = 2.0
+			is_capital = yes
+		}
+		modifier = {
+			factor = 5.0
+			culture_is_orcish = yes
+		}
+		modifier = {
+			factor = 3.0
+			has_orcish_minority_trigger = yes
+		}
+		modifier = {
+			factor = 1.5
+			unrest = 2
+		}
+		modifier = {
+			factor = 1.5
+			unrest = 4
+		}
+		modifier = {
+			factor = 1.5
+			unrest = 6
+		}
+	}
+	
+ 	# Province Scope
+ 	siege_won_trigger = {
+ 		NOT = { local_autonomy = 50 }
+ 	}
+	siege_won_effect = {
+		add_local_autonomy = 20
+	}	
+	
+	# Country scope
+	can_negotiate_trigger = {
+		always = no
+	}
+	
+	# Country scope
+	can_enforce_trigger = {
+		always = yes
+	}
+
+	# Localisation for their demands
+	demands_description = "orcish_rebels_demand"
+	
+	# Country scope
+	demands_enforced_effect = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = just_lost_to_rebels
+				duration = 10
+				hidden = yes
+			}
+		}
+		create_independent_estate = {
+			estate = estate_orcish
+			play_as = no
+		}
+	}
+}
