@@ -40,15 +40,16 @@ silverforge_innovations = {
 		}
 		effect = {
 			add_prestige_or_monarch_power = {amount =  10}
-			270 = {
+			bennonhill_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
 				add_permanent_claim = ROOT
 			}
-			260 = {
+			909 = {
 				add_permanent_claim = ROOT
-			}	
-			263 = {
-				add_permanent_claim = ROOT
-			}	
+			}
 			add_country_modifier = {
 				name = "thriving_arms_industry"
 				duration = 7300
@@ -65,42 +66,9 @@ silverforge_innovations = {
 		
 		provinces_to_highlight = {
 			OR = {
-				province_id = 270
-				province_id = 260
-				province_id = 263
+				area = bennonhill_area
+				province_id = 909
 			}
-			NOT = {owned_by = ROOT }
-		}
-		
-		trigger = {
-			270 = {
-				owned_by = ROOT
-			}
-			260 = {
-				owned_by = ROOT
-			}
-			263 = {
-				owned_by = ROOT
-			}
-		}
-		effect = {
-			bennonhill_area = {
-				add_permanent_claim = ROOT
-			}
-			hearthswood_area = {
-				add_permanent_claim = ROOT
-			}
-		}
-	}
-	silverforge_take_the_flatlands = {
-		icon = restore_great_moravia
-		required_missions = { 
-			silverforge_west_forest
-		}
-		position = 5
-		
-		provinces_to_highlight = {
-			area = bennonhill_area
 			NOT = {owned_by = ROOT }
 		}
 		
@@ -109,32 +77,33 @@ silverforge_innovations = {
 				type = all
 				owned_by = ROOT
 			}
-			high_tolerance_gnomish_race_trigger = yes
+			909 = {
+				owned_by = ROOT
+			}
 		}
 		effect = {
-			custom_tooltip = unlock_artificer_tt
-			set_country_flag = supporting_artificers
-			add_prestige_or_monarch_power = {amount =  10}
-			define_advisor = {
-				type = master_of_mint
-				skill = 3
-				cost_multiplier = 0.50
-				culture = imperial_gnome
-				religion = regent_court
+			hearthswood_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
 			}
 			cann_esmar_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
 				add_permanent_claim = ROOT
 			}
 		}
 	}
-	
-	silverforge_take_the_esmar_river = {
+	silverforge_take_telgeir = {
 		icon = mission_pf_map_table
 		required_missions = {
-			silverforge_hearthswood
-			silverforge_take_the_flatlands
+			silverforge_west_forest
 		}
-		position = 6
+		position = 5
 		
 		provinces_to_highlight = {
 			area = cann_esmar_area	
@@ -146,35 +115,55 @@ silverforge_innovations = {
 				type = all
 				owned_by = ROOT
 			}
-			266 = {
-				development = 30
-				owned_by = ROOT
-				province_has_center_of_trade_of_level = 2
-			}
 		}
 		effect = {
 			add_prestige_or_monarch_power = {amount =  10}
 			912 = {
 				add_province_triggered_modifier = silverforge_glass_production
 			}
-			266 = {
-				add_province_modifier = {
-					name = silverforge_esmaraine_market
-					duration = -1
-				}
-				if = {
-					limit = {NOT = {has_global_flag = stored_goods_activated_flag}}
-					change_trade_goods = glass
-				}
+		}
+	}
+	silverforge_telgeir_human_tolerance = {
+		icon = restore_great_moravia
+		required_missions = { 
+			silverforge_take_telgeir
+		}
+		position = 5
+		
+		provinces_to_highlight = {
+			province_id = 911
+			OR = {
+				NOT = {owned_by = ROOT }
+				development = 30
+			}
+		}
+		
+		trigger = {
+			911 = {
+				owned_by = ROOT
+				development = 30
+				has_university_building_trigger = yes
+			}
+			high_tolerance_human_race_trigger = yes
+		}
+		effect = {
+			add_prestige_or_monarch_power = {amount =  10}
+			define_advisor = {
+				type = idea_var_advisor_17
+				skill = 3
+				cost_multiplier = 0.50
+				culture = esmari
+				religion = regent_court
 			}
 		}
 	}
+
 	silverforge_calascandar_development = { 
 		icon = mission_guns_of_urban
 		required_missions = {
-			silverforge_east_dameshead_coast
+			silverforge_take_the_esmar_river
 		}		
-		position = 8
+		position = 7
 		
 		provinces_to_highlight = {
 			area = heartland_borders_area
@@ -243,90 +232,71 @@ silverforge_internal_development = {
 		}
 	}
 	
-	silverforge_hearthswood = { 
-		icon = develop_konigsberg
-		required_missions = { 
-			silverforge_west_forest
+	silverforge_take_the_esmar_river = {
+		icon = mission_pf_map_table
+		required_missions = {
+			silverforge_hearthswood
+			silverforge_take_telgeir
 		}
-		
-		position = 5
+		position = 6
 		
 		provinces_to_highlight = {
-			area = hearthswood_area
+			province_id = 266
+			OR = {
+				NOT = {
+					266 = {
+						development = 30
+						owned_by = ROOT
+						province_has_center_of_trade_of_level = 2
+					}
+				}
+				NOT = {owned_by = ROOT }
+			}
 		}
 		
 		trigger = {
-			hearthswood_area = {
-				type = all
-				base_production = 10
-			}
-			OR = {			
-				hearthswood_area = {
-					type = all
-					owned_by = ROOT
-					OR = {
-						culture_group = dwarven
-						AND = {
-							culture_group = gnomish
-							province_id = 271
-						}
-					}
-				}
-				any_ally = {
-					hearthswood_area = {
-						type = all
-						owned_by = PREV
-					}
-					has_opinion = {
-						who = ROOT
-						value = 200
-					}
-					reverse_has_opinion = {
-						who = ROOT
-						value = 200
-					}
-				}
+			266 = {
+				development = 30
+				owned_by = ROOT
+				province_has_center_of_trade_of_level = 2
 			}
 		}
 		effect = {
 			add_prestige_or_monarch_power = {amount =  10}
 			912 = {
-				custom_tooltip = reduce_incompleted_hold_level_tt
-				hidden_effect = {reduce_incompleted_hold_level = yes}
+				add_province_triggered_modifier = silverforge_glass_production
 			}
-			273 = {
-				change_trade_goods = lumber
+			266 = {
 				add_province_modifier = {
-					name = silver_good_lumber_modifier
+					name = silverforge_esmaraine_market
 					duration = -1
 				}
-				hidden_effect = {province_event = { id = bertus_pops.1045}}	#boost pop goods produced
-				add_dwarven_minority_size_effect = yes
+				if = {
+					limit = {NOT = {has_global_flag = stored_goods_activated_flag}}
+					change_trade_goods = glass
+				}
 			}
-			272 = {
-				change_trade_goods = lumber
-				add_province_modifier = {
-					name = silver_good_lumber_modifier
-					duration = -1
+			heartland_borders_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_permanent_claim = ROOT }
 				}
-				hidden_effect = {province_event = { id = bertus_pops.1045}}	#boost pop goods produced
-				add_dwarven_minority_size_effect = yes
+				add_permanent_claim = ROOT
 			}
-			900 = {
-				change_trade_goods = lumber
-				add_permanent_province_modifier = {
-					name = silver_good_lumber_modifier
-					duration = -1
+			songbarges_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_permanent_claim = ROOT }
 				}
-				hidden_effect = {province_event = { id = bertus_pops.1045}}	#boost pop goods produced
-				add_dwarven_minority_size_effect = yes
+				add_permanent_claim = ROOT
 			}
 		}
 	}
+
 	silverforge_expand_west = { 
 		icon = mission_advance_to_the_dnieper
 		required_missions = {
-			silverforge_hearthswood
+			silverforge_take_the_esmar_river
 		}
 		
 		provinces_to_highlight = {
@@ -355,7 +325,7 @@ silverforge_internal_development = {
 				add_permanent_claim = ROOT
 			}
 		}
-	}	
+	}
 	silverforge_east_dameshead_coast = { 
 		icon = mission_invade_island
 		required_missions = {
@@ -386,13 +356,6 @@ silverforge_internal_development = {
 					name = silverforge_konwell_port
 					duration = -1
 				}
-			}
-			heartland_borders_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_permanent_claim = ROOT }
-				}
-				add_permanent_claim = ROOT
 			}
 		}
 	}
@@ -448,7 +411,7 @@ silverforge_deepwoods_development = {
 			adm_power = 100
 			912 = {
 				development = 25
-				has_building = education_lvl_1
+				has_university_building_trigger = yes
 			}
 			innovativeness = 20
 		}
@@ -671,15 +634,32 @@ silverforge_expansion = {
 		position = 4
 		
 		provinces_to_highlight = {
-			province_id = 901
+			OR = {
+				AND = {
+					NOT = {
+						development = 20
+						owned_by = ROOT
+						province_has_center_of_trade_of_level = 2
+					}
+					province_id = 901
+				}
+				AND = {
+					area = high_esmar_area
+					NOT = { owned_by = ROOT }
+				}
+			}
 		}
 		
 		trigger = {
 			901 = {
 				development = 20
 				owned_by = ROOT
-				province_has_center_of_trade_of_level = 2				
-			}			
+				province_has_center_of_trade_of_level = 2
+			}
+			high_esmar_area = {
+				owned_by = ROOT
+				type = all
+			}
 		}
 		effect = {
 			add_prestige_or_monarch_power = {amount =  10}
@@ -798,21 +778,14 @@ silverforge_expansion = {
 				add_permanent_claim = ROOT
 			}
 		}
-	}	
-}
-
-silverforge_trade = {
-	slot = 3
-	generic = no
-	ai = yes 
-	potential = { tag = A73 }
-	has_country_shield = yes
+	}
 	
 	silverforge_oldpassage = {
 		icon = mission_rb_trinity_college_dublin
 		required_missions = {
+			silverforge_metal_hills
 		}
-		position = 6
+		position = 7
 		
 		provinces_to_highlight = {
 			province_id = 263
@@ -835,8 +808,8 @@ silverforge_trade = {
 		icon = mission_spoils_of_war
 		required_missions = {
 			silverforge_oldpassage
+			silverforge_take_the_flatlands
 		}
-		position = 6
 		
 		trigger = {
 			912 = {
@@ -864,7 +837,6 @@ silverforge_trade = {
 		required_missions = {
 			silverforge_reform_the_forest_rangers
 		}
-		position = 7
 		
 		trigger = {
 			912 = {
@@ -891,7 +863,6 @@ silverforge_trade = {
 		required_missions = {
 			silverforge_launch_the_expedition
 		}
-		position = 8
 		
 		provinces_to_highlight = {
 		}
@@ -914,5 +885,129 @@ silverforge_trade = {
 			custom_tooltip = silverforge_ranger_training_3_tooltip
 		}
 	}
+}
+
+silverforge_trade = {
+	slot = 3
+	generic = no
+	ai = yes 
+	potential = { tag = A73 }
+	has_country_shield = yes
 	
+	silverforge_hearthswood = { 
+		icon = develop_konigsberg
+		required_missions = { 
+			silverforge_esmaraine_trade_hub
+		}
+		position = 5
+		
+		provinces_to_highlight = {
+			area = hearthswood_area
+		}
+		
+		trigger = {
+			hearthswood_area = {
+				type = all
+				base_production = 10
+			}
+			OR = {			
+				hearthswood_area = {
+					type = all
+					owned_by = ROOT
+					OR = {
+						culture_group = dwarven
+						AND = {
+							culture_group = gnomish
+							province_id = 271
+						}
+					}
+				}
+				any_ally = {
+					hearthswood_area = {
+						type = all
+						owned_by = PREV
+					}
+					has_opinion = {
+						who = ROOT
+						value = 200
+					}
+					reverse_has_opinion = {
+						who = ROOT
+						value = 200
+					}
+				}
+			}
+		}
+		effect = {
+			add_prestige_or_monarch_power = {amount =  10}
+			912 = {
+				custom_tooltip = reduce_incompleted_hold_level_tt
+				hidden_effect = {reduce_incompleted_hold_level = yes}
+			}
+			273 = {
+				change_trade_goods = lumber
+				add_province_modifier = {
+					name = silver_good_lumber_modifier
+					duration = -1
+				}
+				hidden_effect = {province_event = { id = bertus_pops.1045}}	#boost pop goods produced
+				add_dwarven_minority_size_effect = yes
+			}
+			272 = {
+				change_trade_goods = lumber
+				add_province_modifier = {
+					name = silver_good_lumber_modifier
+					duration = -1
+				}
+				hidden_effect = {province_event = { id = bertus_pops.1045}}	#boost pop goods produced
+				add_dwarven_minority_size_effect = yes
+			}
+			900 = {
+				change_trade_goods = lumber
+				add_permanent_province_modifier = {
+					name = silver_good_lumber_modifier
+					duration = -1
+				}
+				hidden_effect = {province_event = { id = bertus_pops.1045}}	#boost pop goods produced
+				add_dwarven_minority_size_effect = yes
+			}
+		}
+	}
+	silverforge_take_the_flatlands = {
+		icon = restore_great_moravia
+		required_missions = { 
+			silverforge_hearthswood
+		}
+		position = 7
+		
+		provinces_to_highlight = {
+			province_id = 271
+			OR = {
+				NOT = {owned_by = ROOT }
+				development = 30
+			}
+		}
+		
+		trigger = {
+			271 = {
+				owned_by = ROOT
+				development = 30
+				has_university_building_trigger = yes
+			}
+			high_tolerance_gnomish_race_trigger = yes
+		}
+		effect = {
+			custom_tooltip = unlock_artificer_tt
+			set_country_flag = supporting_artificers
+			add_prestige_or_monarch_power = {amount =  10}
+			define_advisor = {
+				type = master_of_mint
+				skill = 3
+				cost_multiplier = 0.50
+				culture = imperial_gnome
+				religion = regent_court
+			}
+		}
+	}
+
 }

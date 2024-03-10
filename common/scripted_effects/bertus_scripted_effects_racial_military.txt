@@ -962,8 +962,8 @@ get_special_general_stats = {
 		limit = {
 			has_country_flag = great_general_extra_pips_flag
 		}
-		change_variable = {which = country_leader_shock_var value = 2}
-		change_variable = {which = country_leader_fire_var value = 2}
+		change_variable = {which = country_leader_shock_var value = 3}
+		change_variable = {which = country_leader_fire_var value = 3}
 	}
 	if = {
 		limit = {
@@ -1004,8 +1004,10 @@ get_special_general_stats = {
 		while = {
 			limit = {check_variable = {which = general_dragon_var value = 100}}
 			change_variable = {which = general_dragon_var value = -100}
-			change_variable = {which = country_leader_shock_var value = 1}
-			change_variable = {which = country_leader_fire_var value = 1}
+			random_list = {
+				50 = {change_variable = {which = country_leader_fire_var value = 1}}
+				50 = {change_variable = {which = country_leader_shock_var value = 1}}
+			}
 		}
 	}
 	if = {
@@ -1928,4 +1930,19 @@ update_tech_group = {
 		add_country_modifier = { name = kobold_military duration = -1 }
 	}
 	country_event = { id = bertus_changes.1041 }
+}
+update_lord_alfonso_level = {
+	if = {
+		limit = { NOT = { check_variable = { which = lord_alfonso_exp_needed value = 1 } } }
+		set_variable = { which = lord_alfonso_exp_needed value = 100 }
+	}
+	while = {
+		limit = { check_variable = { which = lord_alfonso_exp which = lord_alfonso_exp_needed } }
+		change_variable = { which = lord_alfonso value = 1 }
+		change_variable = { which = lord_alfonso_exp which = lord_alfonso_exp_needed }
+		multiply_variable = { which = lord_alfonso_exp_needed value = 2 }
+	}
+	country_event = {
+		id = bertus_changes.1043
+	}
 }

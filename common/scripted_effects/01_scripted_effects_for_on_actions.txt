@@ -1013,6 +1013,25 @@ on_battle_lost_unit_effect = {
 }
 
 on_battle_won_country_effect = {
+	if = {	#lord alfonso experience
+		limit = {
+			has_leader = "Lord Alfonso"
+			#testing#	FROM = {ai = no}
+		}
+		change_variable = {
+			which = temp
+			which = land_units_killed
+		}
+		divide_variable = {	#1 exp every 100 kills
+			which = temp
+			value = 100
+		}
+		change_variable = {	#in order to avoid division by 0
+			which = lord_alfonso_exp
+			which = temp
+		}
+		update_lord_alfonso_level = yes
+	}
 	if = {	#bertus mod
 		limit = {
 			ROOT = {

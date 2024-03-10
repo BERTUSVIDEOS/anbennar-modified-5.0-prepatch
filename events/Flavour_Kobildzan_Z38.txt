@@ -106,10 +106,10 @@ country_event = {	#The KoboldHoard effects
 		has_country_modifier = kobold_administration
 	}
 	
-	option = {	#add development on capital
+	option = {	#add development on province
 		name = flavor_kobildzan.3.a
 		ai_chance = { factor = 50 }
-		country_event = { id = flavor_kobildzan.5 }
+		country_event = { id = flavor_kobildzan.16 }
 	}
 	option = {		#add manpower
 		name = flavor_kobildzan.3.b
@@ -178,9 +178,13 @@ country_event = {	#The KoboldHoard effects
 			}
 		}
 		set_country_flag = hero_free_general_flag
-		set_country_flag = great_general_extra_pips_flag
+		custom_tooltip = get_free_great_artificer_general_tt
 		set_country_flag = get_artificer_flag
+		custom_tooltip = get_artificer_flag_tt
+		set_country_flag = great_general_extra_pips_flag
+		custom_tooltip = great_general_extra_pips_flag_tt
 		set_country_flag = general_dragon_flag
+		custom_tooltip = general_dragon_flag_tt
 		set_saved_name = {key = special_general_name type = simple name = "Dragon Envoy" }
 		hidden_effect = {
 			country_event = {id = bertus_changes.6030}
@@ -199,24 +203,22 @@ country_event = {	#The KoboldHoard effects
 	}
 }
 
-country_event = {
+province_event = {
 	id = flavor_kobildzan.5
 	title = flavor_kobildzan.5.t
 	desc = flavor_kobildzan.5.d
 	picture = GREAT_BUILDING_eventPicture
+	goto = ROOT
 	
 	is_triggered_only = yes
 	
 	option = {		
 		name = flavor_kobildzan.7.a
 		ai_chance = { factor = 50 }
-		goto = capital
 
-		capital_scope = {
-			add_base_tax = 1
-			add_base_production = 1
-			add_base_manpower = 1
-		}
+		add_base_tax = 1
+		add_base_production = 1
+		add_base_manpower = 1
 	}
 }
 
@@ -972,6 +974,127 @@ country_event = {
 				NOT = {has_country_modifier = kobold_dragon_fire_3 }
 			}
 			add_country_modifier = { name = kobold_dragon_fire_1 duration = 1825 }
+		}
+	}
+}
+
+country_event = {
+	id = flavor_kobildzan.16
+	title = flavor_kobildzan.16.t
+	desc = flavor_kobildzan.16.d
+	picture = GREAT_BUILDING_eventPicture
+	
+	is_triggered_only = yes
+	hidden = yes
+
+	trigger = {}
+	
+	option = {
+		name = flavor_kobildzan.7.a
+		ai_chance = { factor = 50 }
+		capital_scope = {
+			province_event = { id = flavor_kobildzan.5 }
+		}
+	}
+	option = {
+		name = flavor_kobildzan.7.a
+		trigger = {
+			any_owned_province = {
+				culture_is_kobold = yes
+			}
+		}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 2
+				any_owned_province = {
+					culture_is_kobold = yes
+				}
+			}
+		}
+		random_owned_province = {
+			limit = {
+				culture_is_kobold = yes
+			}
+			province_event = { id = flavor_kobildzan.5 }
+		}
+	}
+	option = {
+		name = flavor_kobildzan.7.a
+		trigger = {
+			any_owned_province = {
+				culture_is_kobold = yes
+				NOT = { development = 30 }
+			}
+		}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 2
+				any_owned_province = {
+					culture_is_kobold = yes
+					NOT = { development = 30 }
+				}
+			}
+		}
+		random_owned_province = {
+			limit = {
+				culture_is_kobold = yes
+				NOT = { development = 30 }
+			}
+			province_event = { id = flavor_kobildzan.5 }
+		}
+	}
+	option = {
+		name = flavor_kobildzan.7.a
+		trigger = {
+			any_owned_province = {
+				culture_is_kobold = yes
+				NOT = { development = 20 }
+			}
+		}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 2
+				any_owned_province = {
+					culture_is_kobold = yes
+					NOT = { development = 20 }
+				}
+			}
+		}
+		random_owned_province = {
+			limit = {
+				culture_is_kobold = yes
+				NOT = { development = 20 }
+			}
+			province_event = { id = flavor_kobildzan.5 }
+		}
+	}
+	option = {
+		name = flavor_kobildzan.7.a
+		trigger = {
+			any_owned_province = {
+				culture_is_kobold = yes
+				NOT = { development = 10 }
+			}
+		}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 2
+				any_owned_province = {
+					culture_is_kobold = yes
+					NOT = { development = 10 }
+				}
+			}
+		}
+		random_owned_province = {
+			limit = {
+				culture_is_kobold = yes
+				NOT = { development = 10 }
+			}
+			province_event = { id = flavor_kobildzan.5 }
 		}
 	}
 }

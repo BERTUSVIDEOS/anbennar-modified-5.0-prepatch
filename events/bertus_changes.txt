@@ -2208,9 +2208,11 @@ country_event = {	#Eat The Strong
 						add_stability = 1
 					}
 				}
+				custom_tooltip = make_ruler_general_tooltip
 				set_country_flag = get_ruler_general_flag
 				set_country_flag = hero_free_general_flag
 				set_country_flag = get_god_feaster_general_flag
+				custom_tooltip = get_god_feaster_general_flag_tt
 				set_country_flag = get_adventurer_flag
 				hidden_effect = {
 					country_event = {id = bertus_changes.6030}
@@ -2228,6 +2230,7 @@ country_event = {	#Eat The Strong
 				custom_tooltip = god_feaster_tooltip
 				set_country_flag = hero_free_general_flag
 				set_country_flag = get_god_feaster_general_flag
+				custom_tooltip = get_god_feaster_general_flag_tt
 				set_country_flag = get_adventurer_flag
 				hidden_effect = {
 					set_saved_name = {key = special_general_name type = simple name = "Feast of the Gods envoy" }
@@ -2236,6 +2239,20 @@ country_event = {	#Eat The Strong
 				add_ruler_modifier = {name = eaten_strong_guy duration = -1}
 			}
 		}
+	}
+}
+country_event = {	#
+	id = bertus_changes.1043	#lord alfonse lvl up
+	title = bertus_changes.1043.title
+	desc = bertus_changes.1043.desc
+	picture = DIPLOMACY_eventPicture
+	
+	is_triggered_only = yes
+	trigger = {}
+	
+	option = {
+		name = bertus_changes.1043.a
+		custom_tooltip = lord_alfonso_lvl_up_tt
 	}
 }
 country_event = {	#setup provinces goods special modifiers 
@@ -3157,7 +3174,7 @@ province_event = {	#corinite build cost blessing
 	
 	option = {	#
 		name = bertus_changes.1109.a
-		area = {add_province_modifier = {name = corinite_communities_aspect_modifier duration = 3650}}
+		area = {add_province_modifier = {name = corinite_communities_aspect_modifier duration = 1825 } }
 	}
 }
 province_event = {	#corinite dev cost blessing
@@ -3170,7 +3187,7 @@ province_event = {	#corinite dev cost blessing
 	
 	option = {	#
 		name = bertus_changes.1109.a
-		area = {add_province_modifier = {name = corinite_diplomatic_rabbi_aspect_modifier duration = 3650}}
+		area = {add_province_modifier = {name = corinite_diplomatic_rabbi_aspect_modifier duration = 1825 } }
 	}
 }
 province_event = {	#corinite missionary blessing
@@ -3183,7 +3200,7 @@ province_event = {	#corinite missionary blessing
 	
 	option = {	#
 		name = bertus_changes.1109.a
-		area = {add_province_modifier = {name = corinite_abrahamic_aspect_modifier duration = 3650}}
+		area = {add_province_modifier = {name = corinite_abrahamic_aspect_modifier duration = 1825 } }
 	}
 }
 country_event = {
@@ -3437,6 +3454,11 @@ country_event = {	#Spell Show resourcess
 	is_triggered_only = yes
 	
 	immediate = {
+		if = {
+			limit = { has_spy_network_from = { who = FROM value = 1 } }
+			custom_tooltip = "Is spying on us: YES"
+		}
+		else = {custom_tooltip = "Is spying on us: NO"}
 		custom_tooltip = show_enemy_treasury_tt
 		custom_tooltip = show_enemy_current_troops_tt
 		custom_tooltip = show_enemy_special_troops_tt
@@ -4778,6 +4800,7 @@ country_event = {
 		name = bertus_changes.6010.a #Ok
 		ai_chance = {factor = 1 modifier = {factor = 0 NOT = {mil_power = 800}}}
 		set_country_flag = get_mage_flag
+		custom_tooltip = get_mage_flag_tt
 		set_saved_name = {key = special_general_name type = advisor scope = ROOT}
 		custom_tooltip = get_special_general_tt
 		hidden_effect = {country_event = {id = bertus_changes.6030}}
