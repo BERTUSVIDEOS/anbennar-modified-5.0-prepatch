@@ -359,6 +359,9 @@ country_event = {
 	option = {	#A familiar to aid in my magical research
 		name = magic_project_homunculus.6.a
 		trigger = {
+			always = no #bertus mod
+		}
+		trigger = {
 			NOT = { has_country_flag = ruler_studying_homunculus_familiar }
 		}
 		ai_chance = {factor = 50}
@@ -374,6 +377,9 @@ country_event = {
 	
 	option = {	#General
 		name = magic_project_homunculus.6.b
+		trigger = {
+			always = no #bertus mod
+		}
 		ai_chance = {
 			factor = 50
 			modifier = {
@@ -386,8 +392,15 @@ country_event = {
 			}
 		}
 		
-		create_general = {
-			tradition = 75
+		set_country_flag = hero_free_general_flag
+		custom_tooltip = get_free_great_hero_general_tt
+		set_country_flag = get_adventurer_flag
+		custom_tooltip = get_adventurer_flag_tt
+		set_country_flag = great_general_extra_pips_flag
+		custom_tooltip = great_general_extra_pips_flag_tt
+		hidden_effect = {
+			set_saved_name = {key = special_general_name type = advisor scope = ROOT}
+			country_event = {id = bertus_changes.6030}
 		}
 		
 		set_ruler_flag = magic_project_homunculus_complete
@@ -399,6 +412,9 @@ country_event = {
 	
 	option = {	#Admiral
 		name = magic_project_homunculus.6.c
+		trigger = {
+			always = no #bertus mod
+		}
 		ai_chance = {
 			factor = 50
 			modifier = {
@@ -416,7 +432,7 @@ country_event = {
 		}
 		
 		create_admiral = {
-			tradition = 75
+			tradition = 100
 		}
 		
 		magic_project_clear_homunculus_flags = yes
@@ -428,6 +444,7 @@ country_event = {
 	option = {	#Masquerade them as an heir of my house
 		name = magic_project_homunculus.6.dd
 		trigger = {
+			always = no #bertus mod
 			has_ruler_flag = homunculus_current_humanlike
 			has_government_attribute = heir
 			NOT = { has_reform = magocracy_reform }
@@ -494,6 +511,7 @@ country_event = {
 	option = {	#Make em my consort
 		name = magic_project_homunculus.6.e
 		trigger = {
+			always = no #bertus mod
 			has_ruler_flag = homunculus_current_humanlike
 			has_consort = no
 			
@@ -530,7 +548,6 @@ country_event = {
 		}
 
 		remove_consort = yes
-		
 		if = {
 			limit = {
 				is_female = no
@@ -573,6 +590,8 @@ country_event = {
 		country_event = { id = magic_project_homunculus.7 days = 1 }
 		
 		set_ruler_flag = magic_project_homunculus_complete
+		custom_tooltip = "Give half the stats of Ruler as monarch power"
+		get_homonculus_skill = yes
 		custom_tooltip = tooltip_magic_project_complete
 	}
 }

@@ -1,0 +1,1018 @@
+damescrown_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = A25
+	}
+	
+	A25_gold_diplomacy = {
+		icon = sponsor_the_arts
+		position = 1
+		trigger = {
+			share_of_starting_income = 1.3
+		}
+		effect = {
+			define_advisor = {
+				type = diplomat
+				skill = 2
+				cost_multiplier = 0.50
+				culture = crownsman
+				name = "Peter Jingle"
+			}
+		}
+	}
+	
+	A25_consolidate_trade_league = {
+		icon = the_crown_of_lothair
+		required_missions {
+			A25_gold_diplomacy
+		}
+		position = 2
+		provinces_to_highlight = {
+			OR = {
+				province_id = 249
+				province_id = 915
+			}
+		}
+		trigger = {
+			OR = {
+				NOT = { exists = A53 }
+				A53 = {
+					has_opinion = { who = ROOT value = 190 }
+					trust = { who = ROOT value = 90 }
+				}
+			}
+			OR = {
+				NOT = { exists = A54 }
+				A54 = {
+					has_opinion = { who = ROOT value = 190 }
+					trust = { who = ROOT value = 90 }
+				}
+			}
+		}
+		effect = {
+			vassalize = A53
+			vassalize = A54
+		}
+	}
+
+	A25_fortify_saltmarshes = {
+	icon = fund_the_monasteries
+		required_missions {
+			A25_claim_vertesk
+		}
+		position = 3
+		provinces_to_highlight = {
+			OR = {
+				province_id = 214
+				province_id = 215
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			214 = {
+				owned_by = ROOT
+				has_fort_building_trigger = yes
+			}
+			advisor = fortification_expert
+		}
+		effect = {
+			dames_forehead_area = {
+				limit = {
+					NOT = {
+						owned_by = ROOT
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			beepeck_area = {
+				limit = {
+					NOT = {
+						owned_by = ROOT
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	A25_seize_beepeck = {
+	icon = expand_the_terraferma
+		required_missions {
+			A25_fortify_saltmarshes
+		}
+		position = 4
+		provinces_to_highlight = {
+			OR = {
+				area = beepeck_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			beepeck_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = A25_hafling_goodies
+				duration = 9125 
+			}
+			63 = {
+				add_trade_modifier = {
+					who = ROOT
+					duration = 9125
+					power = 25
+					key = STRONG_MERCHANTS
+				}
+			}
+		}
+	}
+	
+	A25_dameshead_domination = {
+	icon = control_coromandel
+		required_missions {
+			A25_seize_beepeck
+		}
+		position = 5
+		provinces_to_highlight = {
+			OR = {
+				province_id = 234
+				province_id = 249
+				province_id = 216
+				province_id = 151
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			owns = 234
+			owns = 249
+			owns = 216
+			owns = 151
+			234 = { is_strongest_trade_power = ROOT }
+			234 = {
+				trade_share = {
+					country = A25
+					share = 90
+				}
+			}
+		}
+		effect = {
+			country_event = { id = flavor_damescrown.3 }
+			add_country_modifier = {
+				name = A25_crownsmen_lake
+				duration = -1
+			}
+			add_mercantilism = 3
+			266 = {
+				add_trade_node_income = 10
+			}
+		}
+	}
+
+}
+
+damescrown_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = A25
+	}
+	A25_naval_buildup = {
+		icon = overshadow_venice
+		position = 1
+		trigger = {
+			navy_size_percentage = 1.0
+		}
+		effect = {
+			add_navy_tradition = 10
+			vertesk_area = {
+				limit = {
+					NOT = {
+						owned_by = ROOT
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	A25_claim_vertesk = {
+		icon = develop_our_capital
+		required_missions {
+			A25_naval_buildup
+			A25_trade_haven
+		}
+		position = 2
+		provinces_to_highlight = {
+			OR = {
+				province_id = 251
+				province_id = 216
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			owns = 251
+			owns = 216
+		}
+		effect = {
+			derwing_area = {
+				limit = {
+					NOT = {
+						owned_by = ROOT
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			floodmarches_area = {
+				limit = {
+					NOT = {
+						owned_by = ROOT
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	A25_allen_tradepost = {
+		icon = mission_hanseatic_city
+		required_missions {
+			A25_claim_vertesk
+		}
+		position = 4
+		provinces_to_highlight = {
+			OR = {
+				area = south_alen_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			south_alen_area = {
+				type = all
+				owned_by = ROOT
+			}
+			337 = {
+				has_trade_building_trigger = yes
+			}
+		}
+		effect = {
+			337 = {
+				change_religion = ROOT
+				change_culture = crownsman
+				add_base_tax = 1
+				add_base_production = 1
+				add_base_manpower = 1
+			}
+			gawed_area = {
+				limit = {
+					NOT = {
+						owned_by = ROOT
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			alenvord_area = {
+				limit = {
+					NOT = {
+						owned_by = ROOT
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			723 = {
+				add_trade_modifier = {
+					who = ROOT
+					duration = 9125
+					power = 25
+					key = STRONG_MERCHANTS
+				}
+			}
+			229 = {
+				add_trade_modifier = {
+					who = ROOT
+					duration = 9125
+					power = 25
+					key = STRONG_MERCHANTS
+				}
+			}
+		}
+	}
+	
+	A25_consolidate_power = {
+	icon = continue_the_renaissance
+	required_missions {
+			A25_state_republic
+		}
+	position = 7
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+		custom_trigger_tooltip = {
+				tooltip = damescrown_corporate_path_tooltip
+				has_country_flag = damescrown_corporate_path
+			}
+			estate_loyalty = {
+				estate = estate_burghers
+				loyalty = 80
+			}
+			is_orangists_in_power = yes
+			stability = 2
+			army_size = 40
+			share_of_starting_income = 3
+		}
+		effect = {
+			add_republican_tradition = -5
+			add_mercantilism = 3
+			country_event = { id = flavor_damescrown.6 }
+		}
+	}
+	
+	A25_institute_wealth_voting = {
+	icon = mission_asian_trader
+	required_missions {
+			A25_consolidate_power
+		}
+	position = 8
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			estate_loyalty = {
+				estate = estate_burghers
+				loyalty = 90
+			}
+			is_orangists_in_power = yes
+			stability = 2
+			mil_power = 100
+			mercantilism = 45
+			}
+		effect = {
+			add_mil_power = -100
+			add_republican_tradition = -5
+			add_mercantilism = 3
+			country_event = { id = flavor_damescrown.9 }
+			remove_country_modifier = A25_republican_backlash
+		}
+	}
+	
+	A25_institute_corperate_rule = {
+	icon = chater_the_voc
+	required_missions {
+			A25_institute_wealth_voting
+		}
+	position = 9
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			estate_loyalty = {
+				estate = estate_burghers
+				loyalty = 90
+			}
+			stability = 1
+			is_orangists_in_power = yes
+			prestige = 50
+			num_of_estate_privileges = { estate = estate_burghers value = 7 }
+			}
+		effect = {
+			add_republican_tradition = 20
+			A25 = { change_government = republic }
+			add_government_reform = clstc_oligarchy
+			remove_country_modifier = A25_republic_tensions
+		}
+	}
+}
+
+damescrown_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = A25
+	}
+	A25_trade_haven = {
+		icon = mission_early_game_buildings
+		position = 1
+		provinces_to_highlight = {
+			OR = {
+				province_id = 234
+			}
+		}
+		trigger = {
+			stability = 2
+			234 = {
+				has_trade_building_trigger = yes
+			}
+		}
+		effect = {
+			add_mercantilism = 3
+		}
+	}
+	
+	A25_control_trade = {
+		icon = mission_galleys_in_port
+		required_missions {
+			A25_trade_haven
+		}
+		position = 2
+		provinces_to_highlight = {
+			OR = {
+				
+			}
+		}
+		trigger = {
+			num_of_light_ship = 20
+			234 = {
+				trade_share = {
+					country = A25
+					share = 51
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+					name = A25_trade_ships
+					duration = 5475
+				}
+		}
+	}
+	
+	A25_printing_press = {
+		icon = mission_armoury
+		required_missions {
+			A25_control_trade
+		}
+		position = 3
+		provinces_to_highlight = {
+			province_id = 234
+				NOT = {
+				AND = {
+					owned_by = ROOT
+					num_free_building_slots = 1
+					OR = {
+						has_production_building_trigger = yes
+						trade_goods = gold
+					}
+					has_tax_building_trigger = yes
+					development = 35
+				}
+			}
+		}
+		trigger = {
+			has_institution = printing_press
+			234 = { 
+				owned_by = ROOT
+				num_free_building_slots = 1
+				OR = {
+					has_production_building_trigger = yes
+					trade_goods = gold
+				}
+				has_manufactory_trigger = yes
+				development = 40
+			}
+		}
+		effect = {
+			country_event = { id = flavor_damescrown.2 } 
+			change_price = {
+				trade_goods = paper
+				key = damescrown_printing
+				value = 0.20
+				duration = 36500
+			}
+			234 = {
+				add_province_modifier = {
+					name = A25_imperial_printing
+					duration = -1
+				}
+				add_building_construction = {
+					building = mills
+					speed = 1
+					cost = 0.5
+				}
+			}
+				
+		}
+	}
+	
+	A25_state_republic = {
+		icon = all_bases_covered
+		required_missions {
+		}
+		position = 6
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			estate_loyalty = {
+				estate = estate_burghers
+				loyalty = 70
+			}
+			government_rank = 2
+		}
+		effect = {
+			add_republican_tradition = 5
+			country_event = { id = flavor_damescrown.10 }
+				
+		}
+	}
+}
+
+damescrown_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = A25
+	}
+	A25_mercenary_contracts = {
+		icon = mission_landsknecht_soldier
+		position = 1
+		provinces_to_highlight = {
+			OR = {
+				
+			}
+		}
+		trigger = {
+			army_size_percentage = 1.1
+		}
+		effect = {
+			add_country_modifier = {
+				name = A25_improved_mercenary_contracts
+				duration = 7300
+			}
+			golden_plains_area = {
+				limit = {
+					NOT = {
+						owned_by = ROOT
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			heartland_borders_area = {
+				limit = {
+					NOT = {
+						owned_by = ROOT
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			arbaran_area = {
+				limit = {
+					NOT = {
+						owned_by = ROOT
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	A25_down_the_crowns_road = {
+		icon = mission_advance_to_the_dnieper
+		required_missions {
+			A25_mercenary_contracts
+		}
+		position = 2
+		provinces_to_highlight = {
+			OR = {
+				area = heartland_borders_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			heartland_borders_area = {
+				type = all
+				owned_by = ROOT
+			}
+		}
+		effect = {
+			add_years_of_income = 1
+			cann_esmar_area = {
+				limit = {
+					NOT = {
+						owned_by = ROOT
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			ryalanar_area = {
+				limit = {
+					NOT = {
+						owned_by = ROOT
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	A25_northern_esmari = {
+		icon = mission_unite_home_region
+		required_missions {
+			A25_down_the_crowns_road
+		}
+		position = 3
+		provinces_to_highlight = {
+			OR = {
+				area = ryalanar_area
+				area = cann_esmar_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			ryalanar_area = {
+				type = all
+				owned_by = ROOT
+			}
+			cann_esmar_area = {
+				type = all
+				owned_by = ROOT
+			}
+		}
+		effect = {
+			esmaria_region = {
+				limit = {
+					NOT = {
+						owned_by = ROOT
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	A25_new_trading_hub = {
+		icon = develop_provence
+		required_missions {
+			A25_northern_esmari
+		}
+		position = 4
+		provinces_to_highlight = {
+			OR = {
+				province_id = 265
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			treasury = 500
+			265 = { 
+				owned_by = ROOT
+				has_trade_building_trigger = yes
+				development = 25
+			}
+			266 = {
+				trade_share = {
+					country = A25
+					share = 75
+				}
+			}
+		}
+		effect = {
+			add_treasury = -500
+			add_mercantilism = 3
+			265 = {
+				if = {
+					limit = { NOT = { province_has_center_of_trade_of_level = 1 } }
+					center_of_trade = 1
+				}
+				else_if = {
+					limit = { province_has_center_of_trade_of_level = 3 }
+					add_base_tax = 1
+					add_base_production = 1
+				}
+				else = {
+					add_center_of_trade_level = 1
+				}
+			}
+			266 = {
+				add_province_modifier = {
+					name = A25_esmaria_tradecenter
+					duration = -1
+				}
+			}
+		}
+	}
+	
+	A25_military_industrial_complex = {
+		icon = industrialized_rhineland
+		required_missions {
+			A25_new_trading_hub
+			A25_arbarani_mustering_grounds
+		}
+		position = 5
+		provinces_to_highlight = {
+			OR = {
+				province_id = 911
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			country_or_non_sovereign_subject_holds = ROOT  
+			trade_goods = ivory
+		}
+		trigger = {
+			years_of_income = 2
+			share_of_starting_income = 50
+			if = {
+				limit = { 254 = { trade_goods = iron } }
+				254 = {
+					owned_by = ROOT
+					has_production_building_trigger = yes 
+					has_manufactory_trigger = yes
+					base_production = 20
+				}
+			}
+			else = {
+				912 = {
+					owned_by = ROOT
+					has_production_building_trigger = yes 
+					has_manufactory_trigger = yes
+					base_production = 25
+				}
+			}
+			if = {
+				limit = { 260 = { trade_goods = coppper } }
+				260 = {
+					owned_by = ROOT
+					has_production_building_trigger = yes 
+					has_manufactory_trigger = yes
+					base_production = 20
+				}
+			}
+			else = {
+				335 = {
+					owned_by = ROOT
+					has_production_building_trigger = yes 
+					has_manufactory_trigger = yes
+					base_production = 25
+				}
+			}
+			911 = {
+				owned_by = ROOT
+				has_great_project = {
+					type = telgeir_vanbury_steel_foundry
+					tier = 3
+				}
+			}
+		}
+		effect = {
+			add_years_of_income = -2
+			911 = {
+				if = {
+					limit = { NOT = { province_has_center_of_trade_of_level = 1 } }
+					center_of_trade = 1
+				}
+				else_if = {
+					limit = { province_has_center_of_trade_of_level = 3 }
+					add_base_tax = 1
+					add_base_production = 1
+				}
+				else = {
+					add_center_of_trade_level = 1
+				}
+			}
+			911 = {
+			add_province_modifier = {
+					name = A25_telgier_steel_works
+					duration = -1
+				}
+			}
+			add_country_modifier = {
+				name = A25_industrial_society 
+				duration = -1
+			}
+		}
+	}
+	
+	A25_weaken_clstc = {
+	icon = mission_high_income
+	required_missions {
+			A25_state_republic
+		}
+	position = 7
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+		custom_trigger_tooltip = {
+				tooltip = damescrown_republican_path_tooltip
+				has_country_flag = damescrown_republican_path
+			}
+			estate_loyalty = {
+				estate = estate_burghers
+				loyalty = 80
+			}
+			is_statists_in_power = yes
+			legitimacy_equivalent = 70
+			monthly_adm = 10
+			monthly_dip = 10
+			}
+		effect = {
+			add_republican_tradition = 5
+			add_reform_progress_small_effect = yes	
+			country_event = { id = flavor_damescrown.7 }
+			add_stability = -1
+		}
+	}
+	
+	A25_nationalize_clstc = {
+	icon = saxon_manufacturing
+	required_missions {
+			A25_weaken_clstc
+		}
+	position = 8
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			estate_loyalty = {
+				estate = estate_burghers
+				loyalty = 90
+			}
+			is_statists_in_power = yes
+			legitimacy_equivalent = 80
+			dip_power = 100
+			adm_power = 100
+			}
+		effect = {
+			add_dip_power = -100
+			add_adm_power = -100
+			add_republican_tradition = 5
+			add_reform_progress_small_effect = yes	
+			country_event = { id = flavor_damescrown.8 }
+			remove_country_modifier = A25_economic_slow_down
+		}
+	}
+	
+	A25_revitalize_democracy = {
+	icon = friends_in_high_places
+	required_missions {
+			A25_nationalize_clstc
+		}
+	position = 9
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			estate_loyalty = {
+				estate = estate_burghers
+				loyalty = 90
+			}
+			stability = 1
+			is_statists_in_power = yes
+			legitimacy_equivalent = 90
+			prestige = 50
+			num_of_estate_privileges = { estate = estate_burghers value = 7 }
+			}
+		effect = {
+			A25 = { change_government = republic }
+			add_government_reform = free_republic_reform
+			remove_country_modifier = A25_republic_tensions
+		}
+	}
+}
+
+damescrown_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = A25
+	}
+	
+	A25_batter_arbaran = {
+		icon = mission_assemble_an_army
+		required_missions {
+			A25_mercenary_contracts
+		}
+		position = 2
+		provinces_to_highlight = {
+			OR = {
+				area = golden_plains_area
+				province_id = 349
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			golden_plains_area = {
+				type = all
+				owned_by = ROOT
+			}
+			owns = 349
+		}
+		effect = {
+			add_power_projection = {
+				type = mission_rewards_power_projection
+				amount = 20
+			}
+			cestir_area = {
+				limit = {
+					NOT = {
+						owned_by = ROOT
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			teagansfield_area = {
+				limit = {
+					NOT = {
+						owned_by = ROOT
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	A25_consolidate_arbaran = {
+	icon = mission_city_prosperity
+		required_missions {
+			A25_batter_arbaran
+		}
+		position = 3
+		provinces_to_highlight = {
+			OR = {
+				area = golden_plains_area
+				area = arbaran_area
+				area = cestir_area
+				area = teagansfield_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			golden_plains_area = {
+				type = all
+				owned_by = ROOT
+			}
+			arbaran_area = {
+				type = all
+				owned_by = ROOT
+			}
+			cestir_area = {
+				type = all
+				owned_by = ROOT
+			}
+			teagansfield_area = {
+				type = all
+				owned_by = ROOT
+			}
+		}
+		effect = {
+			add_dip_power = 50
+			add_adm_power = 50
+			add_mil_power = 50
+			country_event = { id = flavor_damescrown.1 }
+		}
+	}
+	
+	A25_arbarani_mustering_grounds = {
+		icon = swiss_mercenaries
+		required_missions {
+			A25_consolidate_arbaran
+		}
+		position = 4
+		provinces_to_highlight = {
+			OR = {
+				province_id = 245
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 20
+				has_manpower_building_trigger = yes
+			}
+			245 = {
+				owned_by = ROOT
+				base_manpower = 20
+			}
+		}
+		effect = {
+			country_event = { id = flavor_damescrown.4 }
+		}
+	}
+}
+

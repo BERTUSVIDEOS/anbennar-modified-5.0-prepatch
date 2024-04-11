@@ -1,0 +1,1160 @@
+U07_column_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		tag = U07
+		NOT = { map_setup = map_setup_random }
+	}
+	has_country_shield = yes
+	
+	##Mission Start
+	foreign_knowledge = {
+		icon = mission_ahmadabad_paper
+		required_missions {
+			
+		}
+		position = 1
+		provinces_to_highlight = {
+			##PROVINCESHIGHLIGHTCODE
+		}
+		trigger = {
+			is_institution_enabled = renaissance
+			NOT = { has_institution = renaissance }
+			400 = {
+				province_has_center_of_trade_of_level = 2
+			}
+		}
+		effect = {
+			400 = {
+				add_province_modifier = {
+					name = foreign_knowledge
+					duration = 7300
+				}
+			}
+		}
+	}
+	##Mission End
+	##Mission Start
+	sway_ekha = {
+		icon = mission_gharbianss
+		required_missions {
+			aket_treaty
+		}
+		position = 3
+		provinces_to_highlight = {
+			OR = {
+				province_id = 402
+				province_id = 388
+				province_id = 391
+				province_id = 389
+				province_id = 407
+			}
+		}
+		trigger = {
+			U08 = {
+				OR = {
+					AND = {
+						is_subject_of = ROOT
+						NOT = { liberty_desire = 50 }
+						has_opinion = { who = ROOT value = 100 }
+						trust = { who = ROOT value = 100 }
+					}
+					NOT = { exists = yes }
+				}
+			}
+		}
+		effect = {
+			add_adm_power = 50
+			if = {
+				limit = { U08 = { is_subject_of = ROOT } }
+				inherit = U08
+			}
+		}
+	}
+	##Mission Start
+	xhazoblukt_council = {
+		icon = mission_sunset
+		required_missions {
+			sway_ekha
+		}
+		position = 4
+		provinces_to_highlight = {
+			##PROVINCESHIGHLIGHTCODE
+		}
+		trigger = {
+			adm_tech = 6
+			advisor = inquisitor
+			adm_power = 50
+		}
+		effect = {
+			medium_increase_of_human_tolerance_effect = yes
+			add_adm_power = -50
+			add_country_modifier = {
+				name = spread_xhazoblukt
+				duration = -1
+			}
+			U07 = {
+				country_event = { id = flavor_viakkoc.2 }
+				
+			}
+		}
+	}
+	##Mission End
+	##
+	##Mission Start
+	humans_place = {
+		icon = mission_accomodate_the_rajputs
+		required_missions {
+			xhazoblukt_council
+		}
+		position = 5
+		provinces_to_highlight = {
+			ROOT = {
+				num_of_owned_provinces_with = {
+					value = 5
+					OR = {
+						culture = desha
+						has_human_minority_trigger = yes
+					}
+				}
+			}
+		}
+		trigger = {
+			adm_tech = 8
+			religious_unity = 0.8
+					num_of_owned_provinces_with = {
+					value = 55
+					}
+				high_tolerance_human_race_trigger = yes
+		}
+		effect = {
+			U07 = { change_government = theocracy }
+			set_government_rank = 2
+			#add_government_reform = human_xhazoblukt_reform
+			remove_country_modifier = aket_reforms
+		}
+	}
+	##Mission End
+	##
+
+
+}
+U07_column_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		tag = U07
+		NOT = { map_setup = map_setup_random }
+	}
+	has_country_shield = yes
+	
+	##Mission Start
+	new_pack = {
+		icon = mission_nomad
+		required_missions {
+			
+		}
+		position = 1
+		provinces_to_highlight = {
+			##PROVINCESHIGHLIGHTCODE
+		}
+		trigger = {
+			army_size_percentage = 1
+			num_of_generals = 1
+		}
+		effect = {
+			deshak_area = {
+				limit = {
+					NOT = {
+						owned_by = ROOT
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			akarat_area = {
+				limit = {
+					NOT = {
+						owned_by = ROOT
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	##Mission End
+	##Mission Start
+	gnollish_language = {
+		icon = mission_brahmin_administrators
+		required_missions {
+			gnollish_city
+		}
+		position = 4
+		provinces_to_highlight = {
+			##PROVINCESHIGHLIGHTCODE
+		}
+		trigger = {
+			employed_advisor = {
+				category = ADM
+				religion = ROOT
+				culture = ROOT
+				skill = 5
+			}
+			employed_advisor = {
+				category = DIP
+				religion = ROOT
+				culture = ROOT
+				skill = 5
+			}
+			employed_advisor = {
+				category = MIL
+				religion = ROOT
+				culture = ROOT
+				skill = 5
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = gnollish_language_transcribed
+				duration = -1
+			}
+			add_country_modifier = {
+				name = increased_communication
+				duration = 9125
+			}
+		}
+	}
+	##Mission End
+	##Mission Start
+	gnollish_frontier = {
+		icon = mission_claim_the_canaries
+		required_missions {
+			
+		}
+		position = 5
+		provinces_to_highlight = {
+			OR = {
+				province_id = 6097
+				province_id = 6095
+				province_id = 6093
+				province_id = 6094
+			}
+		}
+		trigger = {
+			treasury = 500
+		}
+		effect = {
+			if = {
+				limit = {
+					6097 = { is_empty = yes }
+				}
+				6097 = {
+					add_core = ROOT
+					cede_province = ROOT
+				}
+				add_treasury = -125
+			}
+			if = {
+				limit = {
+					6095 = { is_empty = yes }
+				}
+				6095 = {
+					add_core = ROOT
+					cede_province = ROOT
+				}
+				add_treasury = -125
+			}
+			if = {
+				limit = {
+					6094 = { is_empty = yes }
+				}
+				6094 = {
+					add_core = ROOT
+					cede_province = ROOT
+				}
+				add_treasury = -125
+			}
+			if = {
+				limit = {
+					6093 = { is_empty = yes }
+				}
+				6093 = {
+					add_core = ROOT
+					cede_province = ROOT
+				}
+				add_treasury = -125
+			}
+			
+		}
+	}
+	##Mission End
+	##Mission Start
+	gnollish_settlements = {
+		icon = mission_zambezi_gold
+		required_missions {
+			gnollish_frontier
+		}
+		position = 6
+		provinces_to_highlight = {
+			OR = {
+				province_id = 6097
+				province_id = 6095
+				province_id = 6093
+				province_id = 6094
+				province_id = 6096
+			}
+		}
+		trigger = {
+			6097 = {
+				development = 10
+			}
+			6096 = {
+				development = 10
+			}
+			6095 = {
+				development = 10
+			}
+			6093 = {
+				development = 10
+			}
+			6094 = {
+				development = 10
+			}
+		}
+		effect = {
+			6097 = {
+				add_province_modifier = {
+					name = southern_colonies
+					duration = 9125
+				}
+			}
+			6095 = {
+				add_province_modifier = {
+					name = southern_colonies
+					duration = 9125
+				}
+			}
+			6093 = {
+				add_province_modifier = {
+					name = southern_colonies
+					duration = 9125
+				}
+			}
+			6094 = {
+				add_province_modifier = {
+					name = southern_colonies
+					duration = 9125
+				}
+			}
+			6096 = {
+				add_province_modifier = {
+					name = southern_colonies
+					duration = 9125
+				}
+			}
+			U07 = {
+				country_event = { id = flavor_viakkoc.3 }
+				
+			}
+		}
+	}
+	##Mission End
+}
+
+U07_column_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		tag = U07
+		NOT = { map_setup = map_setup_random }
+	}
+	has_country_shield = yes
+	
+	##Mission Start
+	deshak_conquest = {
+		icon = mission_control_the_desh
+		required_missions {
+			
+		}
+		position = 1
+		provinces_to_highlight = {
+			OR = {
+				area = deshak_area
+			}
+		}
+		trigger = {
+			deshak_area = {
+				type = all
+				owned_by = ROOT
+			}
+			
+		}
+		effect = {
+			add_treasury = 250
+			add_mil_power = 50
+			oris_area = {
+				limit = {
+					NOT = {
+						owned_by = ROOT
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			country_event = { id = flavor_viakkoc.1 }
+		}
+	}
+	##Mission End
+	##Mission Start
+	aket_treaty = {
+		icon = mission_vedic_education
+		required_missions {
+			deshak_conquest
+			new_pack
+			demonic_advisors
+		}
+		position = 2
+		provinces_to_highlight = {
+			##PROVINCESHIGHLIGHTCODE
+		}
+		trigger = {
+			total_development = 200
+			mil_power = 100
+		}
+		effect = {
+			add_mil_power = -100
+			add_dip_power = 100
+			add_adm_power = 100
+			add_country_modifier = {
+				name = aket_reforms
+				duration = -1
+			}
+			medium_increase_of_human_tolerance_effect = yes
+		}
+	}
+	##Mission End
+	##Mission Start
+	gnollish_city = {
+		icon = alpine_defenses
+		required_missions {
+			aket_treaty
+		}
+		position = 3
+		provinces_to_highlight = {
+			OR = {
+				province_id = 393
+			}
+		}
+		trigger = {
+			393 = {
+			development = 20
+			}
+		}
+		effect = {
+			393 = {
+				if = {
+					limit = { NOT = { province_has_center_of_trade_of_level = 1 } }
+					center_of_trade = 1
+				}
+				else_if = {
+					limit = { province_has_center_of_trade_of_level = 3 }
+					add_base_tax = 1
+					add_base_production = 1
+				}
+				else = {
+					add_center_of_trade_level = 1
+				}
+				add_province_modifier = {
+					name = model_gnollish_city
+					duration = -1
+				}
+			}
+		}
+	}
+	##Mission End
+	##Mission Start
+	gnollish_citizens = {
+		icon = mission_che_principal_peole
+		required_missions {
+			gnollish_city
+		}
+		position = 4
+		provinces_to_highlight = {
+			OR = {
+				province_id = 395
+				province_id = 396
+				province_id = 401
+				province_id = 6091
+				province_id = 6092
+			}
+		}
+		trigger = {
+			395 = {
+				owned_by = ROOT
+				has_tax_building_trigger = yes
+			}
+			396 = {
+				owned_by = ROOT
+				has_tax_building_trigger = yes
+			}
+			401 = {
+				owned_by = ROOT
+				has_tax_building_trigger = yes
+			}
+			6091 = {
+				owned_by = ROOT
+				has_tax_building_trigger = yes
+			}
+			6092 = {
+				owned_by = ROOT
+				has_tax_building_trigger = yes
+			}
+		}
+		effect = {
+			395 = { 
+				add_base_tax = 2
+			}
+			396 = { 
+				add_base_tax = 2
+			}
+			401 = { 
+				add_base_tax = 2
+			}
+			6091 = { 
+				add_base_tax = 2
+			}
+			6092 = { 
+				add_base_tax = 2
+			}
+			add_country_modifier = {
+				name = gnoll_citizen_class
+				duration = 9125
+			}
+		}
+	}
+	##Mission End
+	##
+	push_south = {
+		icon = mission_unite_the_deccan
+		required_missions {
+			consolidate_kheterata
+		}
+		position = 6
+		provinces_to_highlight = {
+			OR = {
+				area = zeewix_area
+				area = krahilyn_area
+				area = saymas_area
+				area = gnolltauz_area
+				area = gnollakaz_area
+			}
+		}
+		trigger = {
+			zeewix_area = {
+				type = all
+				owned_by = ROOT
+			}
+			krahilyn_area = {
+				type = all
+				owned_by = ROOT
+			}
+			saymas_area = {
+				type = all
+				owned_by = ROOT
+			}
+			gnolltauz_area = {
+				type = all
+				owned_by = ROOT
+			}
+			gnollakaz_area = {
+				type = all
+				owned_by = ROOT
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = gnoll_homeland
+				duration = -1
+			}
+		}
+	}
+	##Mission End
+	##
+	
+}
+
+U07_column_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+		tag = U07
+		NOT = { map_setup = map_setup_random }
+	}
+	has_country_shield = yes
+	
+	##Mission Start
+	demonic_advisors = {
+		icon = mission_deccanis
+		required_missions {
+			
+		}
+		position = 1
+		provinces_to_highlight = {
+			##PROVINCESHIGHLIGHTCODE
+		}
+		trigger = {
+			monthly_adm = 8
+			monthly_dip = 7
+			monthly_mil = 12
+		}
+		effect = {
+			add_country_modifier = {
+				name = demonic_advisors
+				duration = 18250
+			}
+		}
+	}
+	##Mission End
+	##Mission Start
+	salad_march = {
+		icon = mission_unite_west_india
+		required_missions {
+			aket_treaty
+		}
+		position = 3
+		provinces_to_highlight = {
+			OR = {
+				area = oris_area
+			}
+		}
+		trigger = {
+			oris_area = {
+				type = all
+				owned_by = ROOT
+			}
+			army_size = 30
+		}
+		effect = {
+			ohitsopot_area = {
+				limit = {
+					NOT = {
+						owned_by = ROOT
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			garpix_brrtekuh_area = {
+				limit = {
+					NOT = {
+						owned_by = ROOT
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			 western_krahway_area = {
+				limit = {
+					NOT = {
+						owned_by = ROOT
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			add_country_modifier = {
+				name = desert_warfare
+				duration = 3650
+			}
+			set_country_flag = hero_free_general_flag
+			custom_tooltip = get_free_great_mage_general_tt
+			set_country_flag = get_mage_flag
+			custom_tooltip = get_mage_flag_tt
+			set_country_flag = great_general_extra_pips_flag
+			custom_tooltip = great_general_extra_pips_flag_tt
+			hidden_effect = {
+				set_saved_name = {key = special_general_name type = simple name = "Chafur the Ravanger"}
+				country_event = {id = bertus_changes.6030}
+			}
+		}
+	}
+	##Mission End
+	##Mission Start
+	delta_attack = {
+		icon = mission_burning_separation
+		required_missions {
+			salad_march
+		}
+		position = 4
+		provinces_to_highlight = {
+			OR = {
+				area = ohitsopot_area
+				area = garpix_brrtekuh_area
+				area = western_krahway_area
+			}
+		}
+		trigger = {
+			ohitsopot_area = {
+				type = all
+				owned_by = ROOT
+			}
+			garpix_brrtekuh_area = {
+				type = all
+				owned_by = ROOT
+			}
+			owns = 6099
+			owns = 6098
+			owns = 6096
+			army_size = 40
+		}
+		effect = {
+			 coast_of_tears_area = {
+				limit = {
+					NOT = {
+						owned_by = ROOT
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			mothers_delta_area = {
+				limit = {
+					NOT = {
+						owned_by = ROOT
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			lower_sorrow_area = {
+				limit = {
+					NOT = {
+						owned_by = ROOT
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			 upper_sorrow_area = {
+				limit = {
+					NOT = {
+						owned_by = ROOT
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			kheterat_proper_area = {
+				limit = {
+					NOT = {
+						owned_by = ROOT
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			add_country_modifier = {
+				name = gnollish_vigor
+				duration = 9125
+			}
+		}
+	}
+	##Mission End
+	##
+	consolidate_kheterata = {
+		icon = mission_skull
+		required_missions {
+			delta_attack
+		}
+		position = 5
+		provinces_to_highlight = {
+			OR = {
+				area = coast_of_tears_area
+				area = mothers_delta_area
+				area = lower_sorrow_area
+				area = upper_sorrow_area
+				area = kheterat_proper_area
+			}
+		}
+		trigger = {
+			stability = 2
+			coast_of_tears_area = {
+				type = all
+				owned_by = ROOT
+			}
+			mothers_delta_area = {
+				type = all
+				owned_by = ROOT
+			}
+			lower_sorrow_area = {
+				type = all
+				owned_by = ROOT
+			}
+			upper_sorrow_area = {
+				type = all
+				owned_by = ROOT
+			}
+			kheterat_proper_area = {
+				type = all
+				owned_by = ROOT
+			}
+		}
+		effect = {
+			country_event = { id = flavor_viakkoc.4 }
+			country_event = { id = flavor_viakkoc.5 }
+			country_event = { id = flavor_viakkoc.6 }
+			gol_region = {
+				limit = {
+					NOT = {
+						owned_by = ROOT
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	##Mission End
+	##
+	push_east = {
+		icon = mission_unite_the_deccan
+		required_missions {
+			consolidate_kheterata
+		}
+		position = 6
+		provinces_to_highlight = {
+			OR = {
+				area = hitputtiushesh_area
+				area = awaashesh_area
+				area = ibtat_axast_area
+				area = masusopot_area
+				area = elizna_area
+			}
+		}
+		trigger = {
+			hitputtiushesh_area = {
+				type = all
+				owned_by = ROOT
+			}
+			awaashesh_area = {
+				type = all
+				owned_by = ROOT
+			}
+			ibtat_axast_area = {
+				type = all
+				owned_by = ROOT
+			}
+			masusopot_area = {
+				type = all
+				owned_by = ROOT
+			}
+			elizna_area = {
+				type = all
+				owned_by = ROOT
+			}
+		}
+		effect = {
+			bulwar_proper_region = {
+				limit = {
+					NOT = {
+						owned_by = ROOT
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	##Mission End
+	##
+}
+
+U07_column_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {
+		tag = U07
+		NOT = { map_setup = map_setup_random }
+	}
+	has_country_shield = yes
+	
+	##Mission Start
+	corsair_fleet = {
+		icon = mission_launch_a_flagship
+		required_missions {
+			
+		}
+		position = 1
+		provinces_to_highlight = {
+			##PROVINCESHIGHLIGHTCODE
+		}
+		trigger = {
+			navy_size_percentage = 1
+			num_of_admirals = 1
+		}
+		effect = {
+			add_country_modifier = {
+				name = raiding_fleet
+				duration = 7300
+			}
+		}
+	}
+	##Mission End
+	##Mission Start
+	raid_north = {
+		icon = mission_torch_fire
+		required_missions {
+			corsair_fleet
+		}
+		position = 2
+		provinces_to_highlight = {
+			OR = {
+				area = busilari_straits_area
+				area = isle_of_tef_area
+			}
+		}
+		trigger = {
+			35 = {
+				devastation = 5
+			}
+			36 = {
+				devastation = 5
+			}
+			379 = {
+				devastation = 5
+			}
+			380 = {
+				devastation = 5
+			}
+			369 = {
+				devastation = 5
+			}
+			39 = {
+				devastation = 5
+			}
+			373 = {
+				devastation = 5
+			}
+			374 = {
+				devastation = 5
+			}
+		}
+		effect = {
+			add_treasury = 250
+			add_adm_power = 50
+			isle_of_tef_area = {
+				limit = {
+					NOT = {
+						owned_by = ROOT
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	##Mission End
+	##Mission Start
+	seize_tef = {
+		icon = dalmatian_conquest
+		required_missions {
+			raid_north
+		}
+		position = 3
+		provinces_to_highlight = {
+			OR = {
+				area = isle_of_tef_area
+			}
+		}
+		trigger = {
+			isle_of_tef_area = {
+				type = all
+				owned_by = ROOT
+			}
+		}
+		effect = {
+			35 = {
+			add_province_modifier = {
+					name = slave_mine
+					duration = -1
+				}
+			}
+		}
+	}
+	##Mission End
+	##Mission Start
+	trade_control = {
+		icon = mission_unite_coromandel
+		required_missions {
+			seize_tef
+		}
+		position = 4
+		provinces_to_highlight = {
+			province_id = 380
+			OR = {
+				NOT = { is_strongest_trade_power = ROOT }
+				NOT = {
+					trade_share = {
+						country = U07
+						share = 30
+					}
+				}
+			}
+		}
+		trigger = {
+			 380 = { is_strongest_trade_power = ROOT }
+			 380 = {
+				trade_share = {
+					country = U07
+					share = 30
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = control_divenhal_sea_trade
+				duration = -1
+			}
+			busilari_straits_area = {
+				limit = {
+					NOT = {
+						owned_by = ROOT
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			busilar_area = {
+				limit = {
+					NOT = {
+						owned_by = ROOT
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			hapiande_area = {
+				limit = {
+					NOT = {
+						owned_by = ROOT
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			lorbet_area = {
+				limit = {
+					NOT = {
+						owned_by = ROOT
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	##Mission End
+	
+	dominate_busilar	= {
+		icon = fight_bosnian_heresies
+		required_missions {
+			trade_control
+		}
+		position = 5
+		provinces_to_highlight = {
+			OR = {
+				area = busilari_straits_area
+				area = busilar_area
+				area = hapiande_area
+				area = lorbet_area
+			}
+		}
+		trigger = {
+			busilari_straits_area = {
+				type = all
+				owned_by = ROOT
+			}
+		
+			busilar_area = {
+				type = all
+				owned_by = ROOT
+			}
+			hapiande_area = {
+				type = all
+				owned_by = ROOT
+			}
+			lorbet_area = {
+				type = all
+				owned_by = ROOT
+			}
+			
+		}
+		effect = {
+			country_event = { id = flavor_viakkoc.7 }
+			add_country_modifier = {
+				name = foothold_cannor
+				duration = -1
+			}
+			businor_region = {
+				limit = {
+					NOT = {
+						owned_by = ROOT
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			verne_area = {
+				limit = {
+					NOT = {
+						owned_by = ROOT
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			wyvernmark_area = {
+				limit = {
+					NOT = {
+						owned_by = ROOT
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			
+		}
+	}
+	##Mission End
+	##
+	
+	new_divisions = {
+		icon = mission_new_army
+		required_missions {
+			consolidate_kheterata
+		}
+		position = 6
+		provinces_to_highlight = {
+			##PROVINCESHIGHLIGHTCODE
+		}
+		trigger = {
+			army_size = 100
+			total_development = 700
+		}
+		effect = {
+			add_country_modifier = {
+				name = new_division_system
+				duration = -1
+			}
+		}
+	}
+	##Mission End
+	##
+	
+}

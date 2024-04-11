@@ -1,0 +1,1959 @@
+##BranchStart 0
+Naval = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		tag = F23
+		NOT = { map_setup = map_setup_random }
+	}
+	has_country_shield = yes
+	
+	##Mission Start
+	F23_mercant_fleet = {
+		icon = mission_aragonese_navy
+		required_missions {
+			
+		}
+		position = 1
+		provinces_to_highlight = {
+			##PROVINCESHIGHLIGHTCODE
+		}
+		trigger = {
+			num_of_light_ship = 15
+		}
+		effect = {
+			add_country_modifier = {
+				name = F23_trade_ships
+				duration = 7300
+			}
+		}
+	}
+	##Mission End
+	##Mission Start
+	F23_bahar_trade = {
+		icon = mission_heart_of_the_hansa
+		required_missions {
+			F23_mercant_fleet
+			F23_revive_economy
+		}
+		position = 2
+		provinces_to_highlight = {
+			province_id = 526
+			OR = {
+				NOT = { is_strongest_trade_power = ROOT }
+				NOT = {
+					trade_share = {
+						country = F23
+						share = 50
+					}
+				}
+			}
+		}
+		trigger = {
+			526 = { is_strongest_trade_power = ROOT }
+			526 = {
+				trade_share = {
+					country = F23
+					share = 50
+				}
+			}
+		}
+		effect = {
+			526 = {
+				if = {
+					limit = { NOT = { province_has_center_of_trade_of_level = 1 } }
+					center_of_trade = 1
+				}
+				else_if = {
+					limit = { province_has_center_of_trade_of_level = 3 }
+					add_base_tax = 1
+					add_base_production = 1
+				}
+				else = {
+					add_center_of_trade_level = 1
+				}
+			}
+			533 = {
+				if = {
+					limit = {
+						NOT = {
+							owned_by = ROOT
+							is_core = ROOT
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			582 = {
+				if = {
+					limit = {
+						NOT = {
+							owned_by = ROOT
+							is_core = ROOT
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			6760 = {
+				if = {
+					limit = {
+						NOT = {
+							owned_by = ROOT
+							is_core = ROOT
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			6761 = {
+				if = {
+					limit = {
+						NOT = {
+							owned_by = ROOT
+							is_core = ROOT
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+	##Mission End
+	##Mission Start
+	F23_trade_tendrils = {
+		icon = secure_dejima
+		required_missions {
+			F23_bahar_trade
+		}
+		position = 3
+		provinces_to_highlight = {
+			OR = {
+				province_id = 533
+				province_id = 582
+				province_id = 6760
+				province_id = 6761
+				
+			}
+		}
+		trigger = {
+			582 = { is_strongest_trade_power = ROOT }
+			582 = {
+				trade_share = {
+					country = F23
+					share = 50
+				}
+			}
+			533 = {
+				owned_by = ROOT
+			} 
+			582 = {
+				owned_by = ROOT
+			} 
+			6760 = {
+				owned_by = ROOT
+			} 
+			6761 = {
+				owned_by = ROOT
+			} 
+		}
+		effect = {
+			533 = {
+				add_province_modifier = {
+					name = F23_trade_ports
+					duration = -1
+				}
+			}
+			582 = {
+				add_province_modifier = {
+					name = F23_trade_ports
+					duration = -1
+				}
+			}
+			6760 = {
+				add_province_modifier = {
+					name = F23_trade_ports
+					duration = -1
+				}
+			}
+			6761 = {
+				add_province_modifier = {
+					name = F23_trade_ports
+					duration = -1
+				}
+			}
+		}
+	}
+	##Mission End
+	##
+	
+	##Mission Start
+	F23_eastern_expedition = {
+		icon = mission_fleet_arrival
+		required_missions {
+			F23_prepare_fleet
+		}
+		position = 5
+		provinces_to_highlight = {
+			OR = {
+				area = isle_of_tef_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			380 = { is_strongest_trade_power = ROOT }
+			380 = {
+				trade_share = {
+					country = F23
+					share = 50
+				}
+			}
+			isle_of_tef_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = F23_divenhal_dominance
+				duration = 10950
+			}
+			west_damesear_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			east_damesear_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			14 = {
+				if = {
+					limit = {
+						NOT = {
+							owned_by = ROOT
+							is_core = ROOT
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			376 = {
+				if = {
+					limit = {
+						NOT = {
+							owned_by = ROOT
+							is_core = ROOT
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+	##Mission End
+	##
+	
+	##Mission Start
+	F23_isle_dame = {
+		icon = mission_rb_inland_india
+		required_missions {
+			F23_eastern_expedition
+		}
+		position = 6
+		provinces_to_highlight = {
+			OR = {
+				area = west_damesear_area
+				area = east_damesear_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			
+			west_damesear_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			
+			east_damesear_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			8 = { is_strongest_trade_power = ROOT }
+			8 = {
+				trade_share = {
+					country = F23
+					share = 50
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = F23_damesear_goodies
+				duration = 9125
+			}
+			country_event = { id = flavor_ovdaltungr.3 }
+		}
+	}
+	##Mission End
+	
+	##Mission Start
+	F23_industrialists = {
+		icon = mission_rb_central_belt_coal_mining
+		required_missions {
+			F23_secure_the_army
+		}
+		position = 13
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = F23_industrialists_tt
+				has_country_flag = F23_industrialists_path
+			}
+			has_ruler_flag = servator_online
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				trade_goods = damestear
+				value = 3
+			}
+			share_of_starting_income = 50
+				
+		}
+		effect = {
+			add_ruler_modifier = {
+				name = F23_Industrialists_1
+				duration = -1
+			}
+		
+		}
+	}
+	##Mission End
+	
+}
+##BranchEnd 0
+##BranchStart 1
+Economy = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		tag = F23
+		NOT = { map_setup = map_setup_random }
+	}
+	has_country_shield = yes
+	
+	##Mission Start
+	F23_revive_economy = {
+		icon = mission_african_gold
+		required_missions {
+			
+		}
+		position = 1
+		provinces_to_highlight = {
+			##PROVINCESHIGHLIGHTCODE
+		}
+		trigger = {
+			total_development = 125
+			share_of_starting_income = 2.5
+		}
+		effect = {
+			525 = {
+				add_province_modifier = {
+					name = F23_economic_revitalization
+					duration = 7300
+				}
+			}
+			526 = {
+				add_province_modifier = {
+					name = F23_economic_revitalization
+					duration = 7300
+				}
+			}
+			527 = {
+				add_province_modifier = {
+					name = F23_economic_revitalization
+					duration = 7300
+				}
+			}
+		}
+	}
+	##Mission End
+	##Mission Start
+	F23_copper_coinage = {
+		icon = reform_the_monte
+		required_missions {
+			F23_revive_economy
+			F23_reclaim_gold
+		}
+		position = 2
+		provinces_to_highlight = {
+			##PROVINCESHIGHLIGHTCODE
+		}
+		trigger = {
+			526 = {
+				owned_by = ROOT
+				base_production = 20
+			}
+			527 = {
+				owned_by = ROOT
+				base_production = 10
+			}
+			num_of_owned_provinces_with = {
+				has_production_building_trigger = yes
+				value = 5
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = F23_copper_money
+				duration = -1
+			}
+		}
+	}
+	##Mission End
+	##Mission Start
+	F23_copper_bank = {
+		icon = tame_the_magnates
+		required_missions {
+			F23_copper_coinage
+		}
+		position = 3
+		provinces_to_highlight = {
+			OR = {
+				province_id = 526
+			}
+		}
+		trigger = {
+			526 = {
+				development = 60
+				owned_by = ROOT
+			}
+			num_of_owned_provinces_with = {
+				has_courthouse_building_trigger = yes
+				value = 5
+			}
+			monthly_dip = 12
+		}
+		effect = {
+			add_country_modifier = {
+				name = F23_copper_bank1
+				duration = -1
+			}
+		}
+	}
+	##Mission End
+	##Mission Start
+	F23_prepare_fleet = {
+		icon = imperial_navy
+		required_missions {
+			F23_copper_bank
+			F23_trade_tendrils
+			F23_dwarf_core
+		}
+		position = 4
+		provinces_to_highlight = {
+			OR = {
+				province_id = 526
+				province_id = 521
+				province_id = 516
+				province_id = 530
+				province_id = 536
+			}
+		}
+		
+		trigger = {
+			treasury = 1000
+			526 = {
+				development = 20
+				has_building = shipyard
+			}
+			521 = {
+				development = 20
+				has_building = shipyard
+			}
+			516 = {
+				development = 20
+				has_building = shipyard
+			}
+			530 = {
+				development = 20
+				has_building = shipyard
+			}
+			536 = {
+				development = 20
+				has_building = shipyard
+			}
+			
+		}
+		effect = {
+			add_treasury = -1000
+			add_country_modifier = {
+				name = F23_construct_fleet
+				duration = 3650
+			}
+			add_country_modifier = {
+				name = F23_basis_fleet
+				duration = -1
+			}
+			isle_of_tef_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	##Mission End
+	##
+	
+	##Mission Start
+	F23_copper_bottoms = {
+		icon = mission_launch_a_flagship
+		required_missions {
+			F23_prepare_fleet
+		}
+		position = 5
+		provinces_to_highlight = { 
+			country_or_non_sovereign_subject_holds = ROOT  
+			trade_goods = copper
+		}
+		
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				trade_goods = copper
+				has_production_building_trigger = yes 
+				development = 10
+				value = 5
+			}
+			num_of_heavy_ship = 25
+			sailors = 25000
+		}
+		effect = {
+			add_country_modifier = {
+				name = F23_copper_hulls
+				duration = -1
+			}
+		}
+	}
+	##Mission End
+	##
+	
+	##Mission Start
+	F23_bronze_reavers = {
+		icon = reclaim_the_aegean
+		required_missions {
+			F23_copper_bottoms
+		}
+		position = 6
+		provinces_to_highlight = { 
+			OR = {
+				province_id = 1252
+				province_id = 1270
+			}
+		}
+		
+		trigger = {
+			has_dip_advisor_4 = yes
+			num_of_light_ship = 75
+			234 = {
+				trade_share = {
+					country = F23
+					share = 25
+				}
+			}
+			8 = {
+				trade_share = {
+					country = F23
+					share = 25
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = F23_bronze_reavers_1
+				duration = 3650
+			}
+			add_power_projection = {
+						amount = 25
+					}
+		}
+	}
+	##Mission End
+	##
+	
+	##Mission Start
+	F23_bronze_bottoms = {
+		icon = mission_rb_scottish_north_sea_trade
+		required_missions {
+			F23_bronze_reavers
+		}
+		position = 7
+		provinces_to_highlight = { 
+			country_or_non_sovereign_subject_holds = ROOT  
+			trade_goods = copper
+			trade_goods = iron
+		}
+		
+		trigger = {
+			dip_tech = 13
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				trade_goods = copper
+				has_production_building_trigger = yes 
+				development = 10
+				value = 8
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				trade_goods = iron
+				has_production_building_trigger = yes 
+				development = 10
+				value = 8
+			}
+			num_of_heavy_ship = 75
+			sailors = 50000
+		}
+		effect = {
+			add_country_modifier = {
+				name = F23_bronze_hulls
+				duration = -1
+			}
+			remove_country_modifier = F23_copper_hulls
+		}
+	}
+	##Mission End
+	##
+	
+	##Mission Start
+	F23_bureaucracy = {
+		icon = mission_big_house
+		required_missions {
+			F23_secure_the_army
+		}
+		position = 13
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = F23_bureaucracy_tt
+				has_country_flag = F23_bureaucracy_path
+			}
+			has_ruler_flag = servator_online
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				trade_goods = damestear
+				value = 3
+				}
+			estate_loyalty = {
+				estate = estate_church
+				loyalty = 70
+			}
+			estate_loyalty = {
+				estate = estate_nobles
+				loyalty = 70
+			}
+			estate_loyalty = {
+				estate = estate_burghers
+				loyalty = 70
+			}
+			estate_loyalty = {
+				estate = estate_mages
+				loyalty = 70
+			}
+				
+		}
+		effect = {
+			add_ruler_modifier = {
+				name = F23_Bureaucracy_1
+				duration = -1
+				}
+		
+			}
+	}
+	##Mission End
+	
+}
+##BranchEnd 1
+##BranchStart 2
+Centralization = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		tag = F23
+		NOT = { map_setup = map_setup_random }
+	}
+	has_country_shield = yes
+	
+	##Mission Start
+	F23_reclaim_gold = {
+		icon = mission_zambezi_gold
+		required_missions {
+			
+		}
+		position = 1
+		provinces_to_highlight = {
+			OR = {
+				province_id = 527
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			527 = {
+				owned_by = ROOT
+			} 
+		}
+		effect = {
+			medbahar_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	##Mission End
+	##Mission Start
+	F23_kill_goblins = {
+		icon = mission_impaled_soldies
+		required_missions {
+			F23_reclaim_gold
+		}
+		position = 2
+		provinces_to_highlight = {
+			OR = {
+				area = medbahar_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			medbahar_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			520 = { NOT = { unrest = 1 } }
+			527 = { NOT = { unrest = 1 } }
+			528 = { NOT = { unrest = 1 } }
+			529 = { NOT = { unrest = 1 } }
+		}
+		effect = {
+			520 = {
+				change_religion = ROOT
+				change_culture = copper_dwarf
+			}
+			527 = {
+				change_religion = ROOT
+				change_culture = copper_dwarf
+			}
+			528	= {
+				change_religion = ROOT
+				change_culture = copper_dwarf
+			}
+			529 = {
+				change_religion = ROOT
+				change_culture = copper_dwarf
+			}
+		}
+	}
+	##Mission End
+	##Mission Start
+	F23_dwarf_core = {
+		icon = mission_colonial
+		required_missions {
+			F23_kill_goblins
+		}
+		position = 3
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			medbahar_area = {
+				type = all
+				development = 11
+				country_or_non_sovereign_subject_holds = ROOT
+				NOT = { devastation = 1 }
+			}
+			tungr_mountains_area = {
+				type = all
+				development = 11
+				country_or_non_sovereign_subject_holds = ROOT
+				NOT = { devastation = 1 }
+			}
+			
+		}
+		effect = {
+			add_country_modifier = {
+				name = F23_recover_core
+				duration = 9125
+			}
+		}
+	##Mission End
+	##
+	}
+	
+	##Mission Start
+	F23_northern_marches = {
+		icon = mission_conquer_50_development
+		required_missions {
+			F23_old_domain
+		}
+		position = 4
+		provinces_to_highlight = {
+			OR = {
+				area = west_overmarch_area
+				area = east_overmarch_area
+				area = south_overmarch_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			west_overmarch_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			east_overmarch_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			south_overmarch_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			510 = {
+				owned_by = ROOT
+				has_fort_building_trigger = yes
+				base_manpower = 10
+			}
+			
+		}
+		effect = {
+			add_country_modifier = {
+				name = F23_folly_settlement
+				duration = 7300
+			}
+			510 = {
+				add_province_modifier = {
+					name = F23_dwarven_balouord
+					duration = -1
+				}
+			}
+		}
+	##Mission End
+	##
+	}
+	
+	##Mission Start
+	F23_prepare_grand_campaign = {
+		icon = mission_assemble_an_army
+		required_missions {
+			F23_bahar_whole
+		}
+		position = 5
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			estate_loyalty = {
+				estate = estate_church
+				loyalty = 60
+			}
+			estate_loyalty = {
+				estate = estate_nobles
+				loyalty = 60
+			}
+			estate_loyalty = {
+				estate = estate_burghers
+				loyalty = 60
+			}
+			has_adm_advisor_4 = yes
+			army_size = 75
+		}
+		effect = {
+			harpy_hills_region = {
+				limit = {
+					NOT = {
+						owned_by = ROOT
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			add_country_modifier = {
+				name = F23_prepare_grand_campaign_1
+				duration = 5475
+			}
+		}
+	}
+	##Mission End
+	
+	##Mission Start
+	F23_execute_plan_120 = {
+		icon = mission_burning_castle
+		required_missions {
+			F23_prepare_grand_campaign
+		}
+		position = 6
+		provinces_to_highlight = {
+			superregion = bulwar_superregion
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			is_at_war = no
+			num_of_owned_provinces_with = {
+				value = 120
+				superregion = bulwar_superregion
+			}
+			NOT = { exists = F21 }
+			NOT = { exists = F37 }
+			NOT = { exists = F25 }
+			irrliam_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			 imuluses_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			sareyand_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			bulwar_superregion = {
+				limit = {
+					NOT = {
+						owned_by = ROOT
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			add_adm_power = 100
+			add_mil_power = 100
+			add_dip_power = 100
+			
+			country_event = { id = flavor_ovdaltungr.2 }
+		
+		}
+	}
+	##Mission End
+	
+	##Mission Start
+	F23_investigate_artifacts = {
+		icon = mission_market_place_with_asian_traders
+		required_missions {
+			F23_execute_plan_120
+		}
+		position = 7
+		provinces_to_highlight = {
+			OR = {
+				province_id = 658
+				province_id = 688
+				province_id = 631
+				province_id = 556
+			}
+			NOT = {
+				AND = {
+					owned_by = ROOT
+					development = 25
+				}
+			}
+		}
+		trigger = {
+			658 = { 
+				owned_by = ROOT
+				development = 25
+			}
+			688 = { 
+				owned_by = ROOT
+				development = 25
+			}
+			631 = { 
+				owned_by = ROOT
+				development = 25
+			}
+			556 = { 
+				owned_by = ROOT
+				development = 25
+			}
+			estate_loyalty = {
+				estate = estate_mages
+				loyalty = 70
+			}
+			has_estate_privilege = estate_mages_reduced_research_regulations
+			court_mage = 4
+		}
+		effect = {
+			658 = {
+				change_trade_goods = precursor_relics
+			}
+			add_country_modifier = {
+				name = F23_uncovered_relics
+				duration = 7300
+			}
+		
+		}
+	}
+	##Mission End
+	
+	##Mission Start
+	F23_the_servator = {
+		icon = mission_unknown_mission
+		required_missions {
+			F23_investigate_artifacts
+		}
+		position = 8
+		provinces_to_highlight = {
+			OR = {
+				province_id = 526
+			}
+			NOT = {
+				AND = {
+					owned_by = ROOT
+					development = 80
+				}
+			}
+		}
+		trigger = {
+			primary_culture = copper_dwarf
+			526 = { 
+				owned_by = ROOT
+				development = 80
+			}
+			mil_power = 300
+			dip_power = 300
+			adm_power = 300
+			treasury = 2500
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				trade_goods = damestear
+				value = 1
+				}
+			
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				trade_goods = precursor_relics
+				value = 1
+				}
+				
+		}
+		effect = {
+			add_mil_power = -300
+			add_dip_power = -300
+			add_adm_power = -300
+			add_treasury = -2500
+			country_event = { id = flavor_ovdaltungr.4 }
+		
+		}
+	}
+	##Mission End
+	
+	##Mission Start
+	F23_stabilize_realm = {
+		icon = mission_noble_council
+		required_missions {
+			F23_the_servator
+		}
+		position = 9
+		provinces_to_highlight = {
+			superregion = bulwar_superregion
+			owned_by = ROOT
+			unrest = 0
+		}
+		trigger = {
+			stability = 2
+			is_at_war = no
+			if = {
+				OR = {
+					NOT = {
+						any_owned_province = {
+							superregion = bulwar_superregion
+							unrest = 0
+						}
+					}
+				}
+			}
+			else = {
+				NOT = {
+					any_owned_province = {
+						superregion = bulwar_superregion
+						unrest = 0
+					}
+				}
+			}
+				
+		}
+		effect = {
+			remove_country_modifier = F23_servator_unrest
+		
+		}
+	}
+	##Mission End
+	
+	##Mission Start
+	F23_restructure_realm = {
+		icon = mission_have_manufactories
+		required_missions {
+			F23_stabilize_realm
+		}
+		position = 10
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			years_of_income = 3
+			has_global_modifier_value = {
+				which = global_trade_goods_size_modifier 
+				value = 0.4
+			}
+			has_ruler_flag = servator_online
+				
+		}
+		effect = {
+			add_years_of_income = -3
+			add_country_modifier = {
+				name = F23_restructured_realm
+				duration = 10950
+			}
+			add_adm_power = 222
+			add_mil_power = 222
+			add_dip_power = 222
+			add_prestige = 100
+		
+		}
+	}
+	##Mission End
+	
+	##Mission Start
+	F23_loyalty_chips = {
+		icon = mission_unknown_mission
+		required_missions {
+			F23_restructure_realm
+		}
+		position = 11
+		provinces_to_highlight = {
+			OR = {
+				area = anzarzax_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			590 = {
+				development = 20
+				has_building = mage_tower
+				owned_by = ROOT
+			}
+			589 = {
+				owned_by = ROOT
+			} 
+			588 = {
+				owned_by = ROOT
+			}
+			has_ruler_flag = servator_online
+				
+		}
+		effect = {
+			590 = {
+				add_province_modifier = {
+					name = F23_chip_factory
+					duration = -1
+				}
+				add_base_production = 5
+				change_trade_goods = damestear
+			}
+			589 = {
+				add_province_modifier = {
+					name = F23_consumed_land
+					duration = -1
+				}
+				add_base_tax = -5
+				add_base_production = -5
+				add_base_manpower = -5
+			}
+			588 = {
+				add_province_modifier = {
+					name = F23_consumed_land
+					duration = -1
+				}
+				add_base_tax = -5
+				add_base_production = -5
+				add_base_manpower = -5
+			}
+		
+		}
+	}
+	##Mission End
+	
+	##Mission Start
+	F23_secure_the_army = {
+		icon = mission_levantine_restoration
+		required_missions {
+			F23_loyalty_chips
+		}
+		position = 12
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			has_ruler_flag = servator_online
+			army_tradition = 70
+			mil_power = 200
+			total_development = 2000
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				trade_goods = damestear
+				value = 2
+				}
+		}
+		effect = {
+			add_yearly_manpower = -2
+			add_army_tradition = -20
+			add_mil_power = -200
+			add_ruler_modifier = {
+				name = F23_loyal_army
+				duration = -1
+			}
+			country_event = { id = flavor_ovdaltungr.8 }
+		}
+	}
+	##Mission End
+	
+	##Mission Start
+	F23_common_man = {
+		icon = subiaco_press
+		required_missions {
+			F23_secure_the_army
+		}
+		position = 13
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = F23_commoner_tt
+				has_country_flag = F23_commoner_path
+			}
+			has_ruler_flag = servator_online
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				trade_goods = damestear
+				value = 3
+				}
+			if = {
+				OR = {
+					NOT = {
+						any_owned_province = {
+							superregion = bulwar_superregion
+							unrest = 0
+						}
+					}
+				}
+			}
+			else = {
+				NOT = {
+					any_owned_province = {
+						superregion = bulwar_superregion
+						unrest = 0
+					}
+				}
+			}
+				
+		}
+		effect = {
+			add_ruler_modifier = {
+				name = F23_Commonman_1
+				duration = -1
+			}
+		
+		}
+	}
+	##Mission End
+}
+##BranchEnd 2
+##BranchStart 3
+Expansion = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+		tag = F23
+		NOT = { map_setup = map_setup_random }
+	}
+	has_country_shield = yes
+	
+	##Mission Start
+	F23_new_cannons = {
+		icon = mission_cannons_firing
+		required_missions {
+			
+		}
+		position = 1
+		provinces_to_highlight = {
+			country_or_non_sovereign_subject_holds = ROOT  
+			trade_goods = copper
+		}
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = F23_commoner_tt
+				has_country_flag = F23_commoner_path
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				trade_goods = copper
+				value = 3
+				}
+			mil_tech = 7
+			army_tradition = 50
+		}
+		effect = {
+			add_country_modifier = {
+				name = F23_introduction_cannons
+				duration = 5475
+			}
+		}
+	##Mission End
+	##
+	}
+	##Mission Start
+	F23_humans_bahar = {
+		icon = mission_discussion_arch
+		required_missions {
+			
+		}
+		position = 2
+		provinces_to_highlight = {
+			##PROVINCESHIGHLIGHTCODE
+		}
+		trigger = {
+			army_size = 20
+			OR = {
+				NOT = { exists = U18 }
+				U18 = { 
+					has_spy_network_from = {
+						who = ROOT
+						value = 25
+					}
+				}
+			}
+		}
+		effect = {
+			crathanor_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			reuyel_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	##Mission End
+	##Mission Start
+	F23_old_domain = {
+		icon = mission_mounted_battle
+		required_missions {
+			F23_humans_bahar
+		}
+		position = 3
+		provinces_to_highlight = {
+			OR = {
+				area = crathanor_area
+				area = reuyel_area
+				area = medbahar_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			crathanor_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			reuyel_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			medbahar_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_adm_power = 100
+			add_mil_power = 100
+			add_dip_power = 100
+			bahar_region = {
+				limit = {
+					NOT = {
+						owned_by = ROOT
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			south_overmarch_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	##Mission End
+	##
+	
+	##Mission Start
+	F23_bahar_whole = {
+		icon = mission_persian_soldiers
+		required_missions {
+			F23_old_domain
+		}
+		position = 4
+		provinces_to_highlight = {
+			region = bahar_region
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			bahar_region = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			change_adm = 1
+			change_dip = 1
+			change_mil = 1
+			ROOT = {
+			set_government_rank = 2
+			}
+			add_country_modifier = {
+				name = F23_centralization
+				duration = 9125
+			}
+		}
+	}
+	##Mission End
+	
+	##Mission Start
+	F23_remake_bahar = {
+		icon = mission_conquer_mewar
+		required_missions {
+			F23_bahar_whole
+		}
+		position = 5
+		provinces_to_highlight = {
+			region = bahar_region
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 20
+				has_manufactory_trigger = yes
+			}
+			bahar_region = {
+				type = all
+				development = 10
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			mil_power = 200
+			dip_power = 200
+			adm_power = 200
+		}
+		effect = {
+			add_mil_power = -200
+			add_dip_power = -200
+			add_adm_power = -200
+			534 = {
+			change_trade_goods = iron
+			}
+			520 = {
+			change_trade_goods = copper
+			}
+			541 = {
+			change_trade_goods = naval_supplies
+			}
+			518 = {
+			change_trade_goods = glass
+			}
+			bahar_region = { 
+					limit = { owned_by = ROOT } 
+					add_province_modifier = { 
+						name = F23_remake_bahar_1
+						duration = -1 
+					} 
+				}
+			516 = {
+				add_dwarven_minority_size_effect = yes
+			}
+			521 = {
+				add_dwarven_minority_size_effect = yes
+			}
+			452 = {
+				add_dwarven_minority_size_effect = yes
+			}
+			530 = {
+				add_dwarven_minority_size_effect = yes
+			}
+			536 = {
+				add_dwarven_minority_size_effect = yes
+			}
+			538 = {
+				add_dwarven_minority_size_effect = yes
+			}
+			550 = {
+				add_dwarven_minority_size_effect = yes
+			}
+		}
+	}
+	##Mission End
+	##
+	
+	##Mission Start
+	F23_forge_breadbasket = {
+		icon = mission_rice_field
+		required_missions {
+			F23_remake_bahar
+			F23_execute_plan_120
+		}
+		position = 7
+		provinces_to_highlight = {
+			country_or_non_sovereign_subject_holds = ROOT  
+			trade_goods = grain
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				trade_goods = grain
+				has_production_building_trigger = yes 
+				value = 25
+			}
+			irrliam_area = {
+				type = all
+				development = 11
+				country_or_non_sovereign_subject_holds = ROOT
+				is_prosperous = yes
+			}
+			kumarkand_area = {
+				type = all
+				development = 11
+				country_or_non_sovereign_subject_holds = ROOT
+				is_prosperous = yes
+			}
+			harklum_area = {
+				type = all
+				development = 11
+				country_or_non_sovereign_subject_holds = ROOT
+				is_prosperous = yes
+			}
+			sareyand_area = {
+				type = all
+				development = 11
+				country_or_non_sovereign_subject_holds = ROOT
+				is_prosperous = yes
+			}
+			upper_suran_area = {
+				type = all
+				development = 11
+				country_or_non_sovereign_subject_holds = ROOT
+				is_prosperous = yes
+			}
+		}
+		effect = {
+			bahar_region = { 
+					limit = { owned_by = ROOT } 
+					add_province_modifier = { 
+						name = F23_grain_imports
+						duration = -1 
+					} 
+				}
+			610 = {
+			change_trade_goods = grain
+			}
+			604 = {
+			change_trade_goods = grain
+			}
+			612 = {
+			change_trade_goods = grain
+			}
+			638 = {
+			change_trade_goods = grain
+			}
+			532 = {
+			change_trade_goods = cloth
+			}
+			547 = {
+			change_trade_goods = silk
+			}
+		}
+	}
+	##Mission End
+	
+	##Mission Start
+	F23_mechanical_hold = {
+		icon = mission_industrialize_bengal
+		required_missions {
+			F23_the_servator
+		}
+		position = 9
+		provinces_to_highlight = {
+			OR = {
+				province_id = 526
+			}
+			NOT = {
+				AND = {
+					owned_by = ROOT
+					development = 90
+				}
+			}
+		}
+		trigger = {
+			526 = { 
+				owned_by = ROOT
+				development = 90
+			}
+			has_ruler_flag = servator_online
+				
+		}
+		effect = {
+		526 = {
+			add_province_modifier = {
+					name = F23_mechanical_hold_1
+					duration = -1
+				}
+			}
+		}
+	}
+	##Mission End
+	
+	##Mission Start
+	F23_mechanical_fortress = {
+		icon = mission_magnificent_castle
+		required_missions {
+			F23_mechanical_hold
+		}
+		position = 10
+		provinces_to_highlight = {
+			OR = {
+				province_id = 526
+			}
+			NOT = {
+				AND = {
+					owned_by = ROOT
+					base_manpower = 30
+				}
+			}
+		}
+		trigger = {
+			526 = {
+				owned_by = ROOT
+				has_fort_building_trigger = yes
+				base_manpower = 30
+			}
+			has_ruler_flag = servator_online
+				
+		}
+		effect = {
+		526 = {
+			add_province_modifier = {
+					name = F23_mechanical_fortress_1
+					duration = -1
+				}
+			}
+		}
+	}
+	##Mission End
+	
+	##Mission Start
+	F23_bourgeoisie = {
+		icon = mission_monarch_diplomacy
+		required_missions {
+			F23_secure_the_army
+		}
+		position = 13
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = F23_bourgeoisie_tt
+				has_country_flag = F23_bourgeoisie_path
+			}
+			has_ruler_flag = servator_online
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				trade_goods = damestear
+				value = 3
+				}
+			has_adm_advisor_5 = yes
+			has_dip_advisor_5 = yes
+			has_mil_advisor_5 = yes
+				
+		}
+		effect = {
+		add_ruler_modifier = {
+				name = F23_Bourgeoisie_1
+				duration = -1
+				}
+		
+		}
+	}
+	##Mission End
+	
+}
+##BranchEnd 3
+##BranchStart 4
+Stability = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {
+		tag = F23
+		NOT = { map_setup = map_setup_random }
+	}
+	has_country_shield = yes
+	
+	##Mission Start
+	F23_religion_sucks = {
+		icon = mission_hands_praying
+		required_missions {
+			
+		}
+		position = 1
+		provinces_to_highlight = {
+			##PROVINCESHIGHLIGHTCODE
+		}
+		trigger = {
+			total_development = 200
+			stability = 2
+		}
+		effect = {
+			add_country_modifier = {
+				name = F23_religious_tolerance
+				duration = 18250
+			}
+		}
+	}
+	##Mission End
+	##Mission Start
+	F23_selection_faith = {
+		icon = mission_rb_control_state_religion
+		required_missions {
+			F23_religion_sucks
+			F23_old_domain
+		}
+		position = 4
+		provinces_to_highlight = {
+			##PROVINCESHIGHLIGHTCODE
+		}
+		trigger = {
+			stability = 2
+			num_of_owned_provinces_with = {
+				value = 15
+				has_tax_building_trigger = yes
+			}
+			prestige = 50
+			legitimacy_equivalent = 80
+		}
+		effect = {
+			country_event = { id = flavor_ovdaltungr.1 }
+			add_reform_progress_small_effect = yes
+		}
+	}
+	##Mission End
+	##
+	
+	##Mission Start
+	F23_civil_administration = {
+		icon = mission_hanseatic_city
+		required_missions {
+			F23_bahar_whole
+		}
+		position = 5
+		provinces_to_highlight = {
+			##PROVINCESHIGHLIGHTCODE
+		}
+		trigger = {
+			monthly_adm = 10
+			monthly_dip = 10
+			monthly_mil = 10
+			high_tolerance_human_race_trigger = yes
+			num_of_owned_provinces_with = {
+				has_courthouse_building_trigger = yes
+				value = 20
+			}
+			religious_unity = 0.85
+		}
+		effect = {
+			capital_scope = {
+				add_human_minority_size_effect = yes
+			}
+			add_reform_progress_small_effect = yes
+			add_country_modifier = {
+				name = F23_administrative_reforms
+				duration = 9125
+			}
+		}
+	}
+	##Mission End
+	##
+	
+	##Mission Start
+	F23_division_systems = {
+		icon = army_reforms
+		required_missions {
+			F23_civil_administration
+		}
+		position = 6
+		provinces_to_highlight = {
+			##PROVINCESHIGHLIGHTCODE
+		}
+		trigger = {
+			has_mil_advisor_5 = yes
+			num_of_owned_provinces_with = {
+				has_manpower_building_trigger = yes
+				value = 50
+			}
+			army_tradition = 60
+			
+		}
+		effect = {
+			add_country_modifier = {
+				name = F23_2_tier_divisions
+				duration = -1
+			}
+		}
+	}
+	##Mission End
+	##
+	
+	##Mission Start
+	F23_artillery_school = {
+		icon = mission_mithril_cannons
+		required_missions {
+			F23_division_systems
+		}
+		position = 7
+		provinces_to_highlight = {
+			##PROVINCESHIGHLIGHTCODE
+		}
+		trigger = {
+			years_of_income = 1.5
+			is_at_war = no
+			mil_power = 200
+			has_professionalism_equivalent = { VAL=0.4 }
+		}
+		effect = {
+			add_mil_power = -200
+			add_years_of_income = -1.5
+			add_army_tradition = 20
+			define_general = {
+			name = "Nori Warhorn"
+			shock = 3
+			fire = 8
+			manuever = 1
+			siege = 5
+			trait = cannoneer_personality
+			}
+			add_country_modifier = {
+				name = F23_fire_school
+				duration = -1
+			}
+		}
+	}
+	##Mission End
+	##
+	
+	##Mission Start
+	F23_bronze_legions = {
+		icon = mission_mechanical_mining
+		required_missions {
+			F23_artillery_school
+		}
+		position = 8
+		provinces_to_highlight = { 
+			OR = {
+				province_id = 545
+				province_id = 548
+			}
+		}
+		
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				trade_goods = copper
+				has_production_building_trigger = yes 
+				development = 10
+				value = 8
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				trade_goods = iron
+				has_production_building_trigger = yes 
+				development = 10
+				value = 8
+			}
+			army_size = 200
+			has_global_modifier_value = {
+				which = discipline
+				value = 0.15
+			}
+			545 = {
+				development = 25
+				owned_by = ROOT
+			}
+			548 = {
+				development = 25
+				owned_by = ROOT
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = F23_bronze_legions_1
+				duration = -1
+			}
+			country_event = { id = flavor_ovdaltungr.6 }
+		}
+	}
+	##Mission End
+	##
+	
+	##Mission Start
+	F23_navy = {
+		icon = mission_combat_barbary_piracy
+		required_missions {
+			F23_secure_the_army
+		}
+		position = 13
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = F23_navy_tt
+				has_country_flag = F23_navy_path
+			}
+			has_ruler_flag = servator_online
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				trade_goods = damestear
+				value = 3
+				}
+			num_of_heavy_ship = 200
+			sailors = 100000
+				
+		}
+		effect = {
+			add_ruler_modifier = {
+				name = F23_Navy_1
+				duration = -1
+				}
+		
+		}
+	}
+	##Mission End
+}
+##BranchEnd 4

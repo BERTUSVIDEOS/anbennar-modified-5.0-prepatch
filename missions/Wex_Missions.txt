@@ -484,30 +484,70 @@ wex_slot_3 = {
 				type = all
 				country_or_non_sovereign_subject_holds = ROOT
 			}
-			OR = {
+			if = {
+				limit = { senior_union_with = A93 }
 				A93 = {
 					has_opinion = {
 						who = ROOT
-						value = 100
+						value = 190
+					}
+					trust = {
+						who = ROOT
+						value = 90
 					}
 				}
-				legitimacy = 100
-				imperial_influence = 50
-				estate_loyalty = {
-					estate = estate_human
-					loyalty = 80
-				}
+			}
+			legitimacy = 90
+			imperial_influence = 50
+			estate_loyalty = {
+				estate = estate_human
+				loyalty = 80
 			}
 		}
 		
 		effect = {
-			country_event = {id = bertus_missions.1009}
 			add_ruler_modifier = {
 				name = wex_heir_of_sybille
 				duration = -1
 			}
 			change_heir_adm = 1
 			change_heir_dip = 1
+			country_event_with_option_insight = {
+				id = bertus_missions.1009
+				option_1 = "
+					define_advisor = {
+						type = idea_var_advisor_2
+						skill = 3
+						culture = esmari
+						cost_multiplier = 0.75
+					}
+					add_country_modifier = { name = iv_advisor_event_2 duration = 2190 }
+				"
+				option_2 = "
+					set_country_flag = hero_free_general_flag
+					custom_tooltip = get_free_great_hero_general_tt
+					set_country_flag = get_adventurer_flag
+					custom_tooltip = get_adventurer_flag_tt
+					set_country_flag = great_general_extra_pips_flag
+					custom_tooltip = great_general_extra_pips_flag_tt
+					hidden_effect = {
+						set_saved_name = {key = special_general_name type = advisor scope = ROOT}
+						country_event = {id = bertus_changes.6030}
+					}
+				"
+				option_3 = "
+					if = {
+						limit = { senior_union_with = A93 }
+						custom_tooltip = bertus_missions.1009.c_A93_autonomy_tt
+						inherit = A93
+					}
+					else = {
+						custom_tooltip = bertus_missions.1009.c_A93_tt
+					}
+					capital_scope = { add_random_development = 5 }
+					custom_tooltip = bertus_missions.1009.c_tt
+				"
+			}
 		}
 	}
 	
@@ -531,11 +571,15 @@ wex_slot_3 = {
 				name = wex_new_army
 				duration = 7300
 			}
-			define_general = {
-				shock = 5
-				fire = 3
-				manuever = 5
-				siege = 1
+			set_country_flag = hero_free_general_flag
+			custom_tooltip = get_free_great_hero_general_tt
+			set_country_flag = get_adventurer_flag
+			custom_tooltip = get_adventurer_flag_tt
+			set_country_flag = great_general_extra_pips_flag
+			custom_tooltip = great_general_extra_pips_flag_tt
+			hidden_effect = {
+				set_saved_name = {key = special_general_name type = advisor scope = ROOT}
+				country_event = {id = bertus_changes.6030}
 			}
 		}
 	}

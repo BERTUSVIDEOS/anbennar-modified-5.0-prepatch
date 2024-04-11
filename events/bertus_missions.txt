@@ -623,95 +623,69 @@ country_event = {	#wex estalleni loyal nobles
 
 	is_triggered_only = yes
 	
-	mean_time_to_happen = {		
-	}
-	immediate = {
-	}
+	immediate = { }
 	option = {	#advisor
 		name = bertus_missions.1009.b
 		define_advisor = {
 			name = "Skramus Highbudget"
-			type = diplomat
-			skill = 2
+			type = idea_var_advisor_2
+			skill = 3
 			culture = esmari
 			cost_multiplier = 0.75
 		}
-		add_dip_power = 100
+		add_country_modifier = {
+			name = "iv_advisor_event_2"
+			duration = 2190
+		}
 	}
 	option = {	#general
 		name = bertus_missions.1009.a
-		define_general = {
-			shock = 4
-			fire = 4
-			manuever = 4
-			siege = 1
+		set_country_flag = hero_free_general_flag
+		custom_tooltip = get_free_great_hero_general_tt
+		set_country_flag = get_adventurer_flag
+		custom_tooltip = get_adventurer_flag_tt
+		set_country_flag = great_general_extra_pips_flag
+		custom_tooltip = great_general_extra_pips_flag_tt
+		hidden_effect = {
+			set_saved_name = {key = special_general_name type = advisor scope = ROOT}
+			country_event = {id = bertus_changes.6030}
 		}
-		add_mil_power = 50
 	}
 	option = {	#direct loyalty
 		name = bertus_missions.1009.c
 		if = {
 			limit = {
-				legitimacy = 100
-			}
-			random_province = {
-				limit = {
-					owned_by = A93
-					is_capital = no
-				}
-				cede_province = ROOT
-				add_core = ROOT
-				add_local_autonomy = 50
-			}
-		}
-		if = {
-			limit = {
 				A93 = {
-					has_opinion = {
-						who = ROOT
-						value = 100
-					}
+					has_opinion = { who = ROOT value = 190 }
+					trust = { who = ROOT value = 90 }
 				}
 			}
-			random_province = {
-				limit = {
-					owned_by = A93
-					is_capital = no
+			custom_tooltip = bertus_missions.1009.c_A93_autonomy_tt
+			hidden_effect = {
+				every_province = {
+					limit = { owned_by = A93 }
+					add_local_autonomy = 50
 				}
-				cede_province = ROOT
-				add_core = ROOT
-				add_local_autonomy = 50
+			}
+			inherit = A93
+		}
+		else = {
+			custom_tooltip = bertus_missions.1009.c_A93_tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = { is_core  = A93 }
+					add_random_development = 2
+				}
 			}
 		}
-		if = {
-			limit = {
-				imperial_influence = 50
-			}
-			random_province = {
-				limit = {
-					owned_by = A93
-					is_capital = no
-				}
-				cede_province = ROOT
-				add_core = ROOT
-				add_local_autonomy = 50
-			}
+		capital_scope = {
+			add_random_development = 5
 		}
-		if = {
-			limit = {
-				estate_loyalty = {
-					estate = estate_human
-					loyalty = 80
-				}
-			}
-			random_province = {
-				limit = {
-					owned_by = A93
-					is_capital = no
-				}
-				cede_province = ROOT
-				add_core = ROOT
-				add_local_autonomy = 50
+		custom_tooltip = bertus_missions.1009.c_tt
+		hidden_effect = {
+			every_owned_province = {
+				limit = { culture_is_human = yes }
+				add_random_development = 1
 			}
 		}
 	}
@@ -722,13 +696,10 @@ country_event = {
 	desc = bertus_missions.1010.desc
 	picture = PRAYING_eventPicture
 
-	trigger = {
-	}
+	trigger = { }
 	is_triggered_only = yes
-	mean_time_to_happen = {		
-	}
-	immediate = {
-	}
+	
+	immediate = { }
 	option = {	#propose agreement
 		name = bertus_missions.1010.a
 		tooltip = {

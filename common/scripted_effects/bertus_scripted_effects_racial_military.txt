@@ -960,13 +960,6 @@ get_special_general_stats = {
 	}
 	if = {
 		limit = {
-			has_country_flag = great_general_extra_pips_flag
-		}
-		change_variable = {which = country_leader_shock_var value = 3}
-		change_variable = {which = country_leader_fire_var value = 3}
-	}
-	if = {
-		limit = {
 			OR = {
 				has_country_flag = get_sword_wielder_general_flag
 				has_country_flag = get_god_feaster_general_flag
@@ -1054,6 +1047,8 @@ get_special_general_stats = {
 
 	if = {
 		limit = {has_country_flag = get_adventurer_flag}
+		change_variable = {which = country_leader_fire_var value = 2}
+		change_variable = {which = country_leader_shock_var value = 2}
 		if = {
 			limit = {
 				has_country_modifier = great_ording_unsung_heroes 
@@ -1094,6 +1089,7 @@ get_special_general_stats = {
 	}
 	if = {
 		limit = {has_country_flag = get_mage_flag}
+		change_variable = {which = country_leader_shock_var value = 2}
 		if = {
 			limit = {
 				OR = {
@@ -1168,6 +1164,7 @@ get_special_general_stats = {
 	}
 	if = {
 		limit = {has_country_flag = get_artificer_flag}
+		change_variable = {which = country_leader_fire_var value = 2}
 		if = {
 			limit = {estate_influence = {estate = estate_artificers influence = 100}}
 			change_variable = {which = country_leader_fire_var value = 1}
@@ -1269,6 +1266,13 @@ get_special_general_stats = {
 		change_variable = {which = country_leader_fire_var value = 3}
 		change_variable = {which = country_leader_shock_var value = 5}
 		change_variable = {which = country_leader_manuever_var value = 1}
+	}
+	if = {
+		limit = {
+			has_country_flag = great_general_extra_pips_flag
+		}
+		change_variable = {which = country_leader_shock_var value = 2}
+		change_variable = {which = country_leader_fire_var value = 2}
 	}
 
 	while = {	#change excess siege
@@ -1661,21 +1665,25 @@ update_tech_group = {
 		if = {
 			limit = {
 				NOT = {unit_type = tech_east_harimari}
+				culture_group = harimari
 				OR = {
 					capital_scope = { superregion = yanshen_superregion }
 					capital_scope = { superregion = south_haless_superregion }
 					capital_scope = { superregion = north_haless_superregion }
-					primary_culture = east_harimari
-					AND = {
-						accepted_culture = east_harimari
-						NOT = { culture_group = harimari }
-					}
 				}
 			}
 			change_unit_type = tech_east_harimari
 		}
 		else_if = {
-			limit = { NOT = { primary_culture = east_harimari } NOT = {unit_type = tech_west_harimari}}
+			limit = {
+				NOT = {unit_type = tech_west_harimari}
+				NOT = { culture_group = harimari }
+				NOT = {
+					capital_scope = { superregion = yanshen_superregion }
+					capital_scope = { superregion = south_haless_superregion }
+					capital_scope = { superregion = north_haless_superregion }
+				}
+			}
 			change_unit_type = tech_west_harimari
 		}
 		clear_racial_military = yes
@@ -1939,10 +1947,39 @@ update_lord_alfonso_level = {
 	while = {
 		limit = { check_variable = { which = lord_alfonso_exp which = lord_alfonso_exp_needed } }
 		change_variable = { which = lord_alfonso value = 1 }
-		change_variable = { which = lord_alfonso_exp which = lord_alfonso_exp_needed }
+		subtract_variable = { which = lord_alfonso_exp which = lord_alfonso_exp_needed }
 		multiply_variable = { which = lord_alfonso_exp_needed value = 2 }
 	}
 	country_event = {
-		id = bertus_changes.1043
+		id = bertus_changes.1044
+	}
+}
+
+increase_military_investment = {
+	if = {
+		limit = {
+			NOT = {has_country_flag = military_investment_$type$_1_flag}
+		}
+		add_country_modifier = { name = military_investment_$type$_1_modifier duration = -1 }
+		set_country_flag = military_investment_$type$_1_flag
+	}
+	else = {
+		trigger_switch = {
+			on_trigger = has_country_flag
+			military_investment_$type$_9_flag = { add_country_modifier = { name = military_investment_$type$_10_modifier duration = -1 } remove_country_modifier = military_investment_$type$_9_modifier set_country_flag = military_investment_$type$_10_flag }
+			military_investment_$type$_8_flag = { add_country_modifier = { name = military_investment_$type$_9_modifier duration = -1 } remove_country_modifier = military_investment_$type$_8_modifier set_country_flag = military_investment_$type$_9_flag }
+			military_investment_$type$_7_flag = { add_country_modifier = { name = military_investment_$type$_8_modifier duration = -1 } remove_country_modifier = military_investment_$type$_7_modifier set_country_flag = military_investment_$type$_8_flag }
+			military_investment_$type$_6_flag = { add_country_modifier = { name = military_investment_$type$_7_modifier duration = -1 } remove_country_modifier = military_investment_$type$_6_modifier set_country_flag = military_investment_$type$_7_flag }
+			military_investment_$type$_5_flag = { add_country_modifier = { name = military_investment_$type$_6_modifier duration = -1 } remove_country_modifier = military_investment_$type$_5_modifier set_country_flag = military_investment_$type$_6_flag }
+			military_investment_$type$_4_flag = { add_country_modifier = { name = military_investment_$type$_5_modifier duration = -1 } remove_country_modifier = military_investment_$type$_4_modifier set_country_flag = military_investment_$type$_5_flag }
+			military_investment_$type$_3_flag = { add_country_modifier = { name = military_investment_$type$_4_modifier duration = -1 } remove_country_modifier = military_investment_$type$_3_modifier set_country_flag = military_investment_$type$_4_flag }
+			military_investment_$type$_2_flag = { add_country_modifier = { name = military_investment_$type$_3_modifier duration = -1 } remove_country_modifier = military_investment_$type$_2_modifier set_country_flag = military_investment_$type$_3_flag }
+			military_investment_$type$_1_flag = { add_country_modifier = { name = military_investment_$type$_2_modifier duration = -1 } remove_country_modifier = military_investment_$type$_1_modifier set_country_flag = military_investment_$type$_2_flag }
+		}
+	}
+	add_government_power = {
+		mechanic_type = military_reforms_mechanic
+		power_type = military_reform_power
+		value = -100
 	}
 }

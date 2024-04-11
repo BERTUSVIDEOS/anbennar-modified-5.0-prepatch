@@ -1,0 +1,54 @@
+military_reforms_mechanic = {
+	alert_icon_gfx = GFX_alerticons_government_mechanics
+	alert_icon_index = 10
+	available = {
+		has_dlc = "Rights of Man"
+	}
+
+	powers = {
+		military_reform_power = {
+			max = 150
+			base_monthly_growth = 0
+			scaled_modifier = {
+				modifier = {}
+			}
+		}
+	}
+	
+	interactions = {
+		boost_military = {
+			gui = military_reform_gov_mech
+			cost_type = military_reform_power
+			center = no
+			trigger = {
+				mil_power = 200
+			}
+			effect = {
+				add_mil_power = -200
+				tooltip = {
+					add_government_power = {
+						mechanic_type = military_reforms_mechanic
+						power_type = military_reform_power
+						value = 50
+					}
+				}
+				hidden_effect = {
+					set_variable = { which = temp value = 500 }
+					while = {
+						limit = {
+							check_variable = { which = temp value = 1 }
+						}
+						change_variable = { which = temp value = -1}
+						add_government_power = {
+							mechanic_type = military_reforms_mechanic
+							power_type = military_reform_power
+							value = 0.1
+						}
+					}
+				}
+			}
+			cooldown_years = 0
+			ai_chance = { factor = 0 }
+		}
+	}
+}

@@ -1749,7 +1749,7 @@ country_event = {	#long lived advisors
 		modifier = {factor = 0.80 has_harmonized_with = elven}
 		modifier = {factor = 0.9 has_reform = council_of_the_ancients_reform}
 		modifier = {factor = 0.6 has_estate_privilege = estate_raj_ministries_ceremonial_ruler_act}
-		modifier = {factor = 0.80 has_idea = XA8_6}	#Elven empire idea
+		modifier = {factor = 0.90 has_idea = XA8_6}	#Elven empire idea
 		modifier = {factor = 0.50 has_idea = I24_hall_of_the_ancestors}	#Dwarven empire idea
 		modifier = {
 			factor = 0.50
@@ -2242,16 +2242,16 @@ country_event = {	#Eat The Strong
 	}
 }
 country_event = {	#
-	id = bertus_changes.1043	#lord alfonse lvl up
-	title = bertus_changes.1043.title
-	desc = bertus_changes.1043.desc
+	id = bertus_changes.1044	#lord alfonse lvl up
+	title = bertus_changes.1044.title
+	desc = bertus_changes.1044.desc
 	picture = DIPLOMACY_eventPicture
 	
 	is_triggered_only = yes
 	trigger = {}
 	
 	option = {
-		name = bertus_changes.1043.a
+		name = bertus_changes.1044.a
 		custom_tooltip = lord_alfonso_lvl_up_tt
 	}
 }
@@ -2630,6 +2630,7 @@ country_event = {	#setup provinces 1
 		every_province = {
 			limit = {
 				is_city = yes
+				owner = {ai = NO}
 				OR = {
 					has_elven_majority_trigger = yes
 					has_half_elven_majority_trigger = yes
@@ -2798,6 +2799,7 @@ country_event = {	#setup provinces 6
 		every_province = {
 			limit = {
 				is_city = yes
+				owner = {ai = NO}
 				OR = {
 					has_orcish_majority_trigger = yes
 					has_kobold_majority_trigger = yes
@@ -5550,6 +5552,27 @@ country_event = {	#incident: Resources
 		name = bertus_changes.6026.b #Minery Focus
 		custom_tooltip = tooltip_minery_reform_hre
 		set_global_flag = minery_reform_hre_flag
+	}
+	after = {
+		hidden_effect = {
+			every_province = {	#bertus mod
+				limit = { is_part_of_hre = yes }
+				if = {
+					limit = {
+						province_with_mine_goods = yes
+						has_global_flag = minery_reform_hre_flag
+					}
+					add_province_modifier = {name = minery_reform_province_modifier duration = -1}
+				}
+				if = {
+					limit = {
+						province_with_farm_goods = yes
+						has_global_flag = agriculture_reform_hre_flag
+					}
+					add_province_modifier = {name = agricultural_reform_province_modifier duration = -1}
+				}
+			}
+		}
 	}
 }
 country_event = {	#incident: High Minister
