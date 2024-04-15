@@ -24,19 +24,27 @@ A16_branch_1 = {
 		}
 		
 		trigger = {
-			33 = {
-				fort_level = 2
-			}
+			33 = { fort_level = 2 }
 			owns_or_subject_of = 33
 		}
 		
-		effect = {
+		effect = {	#bertus mod
+			if = {
+				limit = { owns = 33 }
+				33 = { cede_province = Z68 }
+				create_subject = {
+					subject_type = vassal
+					subject = Z68
+				}
+			}
 			33 = {
 				add_province_modifier = {
 					name = wineport_toarnaire_defensiveness
 					duration = 7300
 				}
+				add_center_of_trade_level = 2
 			}
+			add_stability = 1
 		}
 	}
 	
@@ -603,7 +611,7 @@ A16_branch_3 = {
 	A16_unite_league = {
 		icon = mission_establish_the_prikazy
 		required_missions = {
-			A16_protect_toarnaire A16_recognition A16_dwarven_craftsmen A16_buyout_minar A16_fifth_city
+			A16_recognition A16_dwarven_craftsmen A16_buyout_minar A16_fifth_city
 		}
 		position = 3
 		

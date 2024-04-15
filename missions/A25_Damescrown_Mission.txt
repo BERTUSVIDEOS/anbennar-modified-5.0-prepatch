@@ -326,7 +326,7 @@ damescrown_2 = {
 				has_country_flag = damescrown_corporate_path
 			}
 			estate_loyalty = {
-				estate = estate_burghers
+				estate =  estate_human
 				loyalty = 80
 			}
 			is_orangists_in_power = yes
@@ -352,7 +352,7 @@ damescrown_2 = {
 		}
 		trigger = {
 			estate_loyalty = {
-				estate = estate_burghers
+				estate =  estate_human
 				loyalty = 90
 			}
 			is_orangists_in_power = yes
@@ -380,13 +380,13 @@ damescrown_2 = {
 		}
 		trigger = {
 			estate_loyalty = {
-				estate = estate_burghers
+				estate =  estate_human
 				loyalty = 90
 			}
 			stability = 1
 			is_orangists_in_power = yes
 			prestige = 50
-			num_of_estate_privileges = { estate = estate_burghers value = 7 }
+			num_of_estate_privileges = { estate =  estate_human value = 7 }
 			}
 		effect = {
 			add_republican_tradition = 20
@@ -519,7 +519,7 @@ damescrown_3 = {
 		}
 		trigger = {
 			estate_loyalty = {
-				estate = estate_burghers
+				estate =  estate_human
 				loyalty = 70
 			}
 			government_rank = 2
@@ -724,11 +724,24 @@ damescrown_4 = {
 		position = 5
 		provinces_to_highlight = {
 			OR = {
+				if = {
+					limit = { 254 = { trade_goods = iron } }
+					province_id = 254
+				}
+				else = {
+					province_id = 912
+				}
+				if = {
+					limit = { 260 = { trade_goods = iron } }
+					province_id = 260
+				}
+				else = {
+					province_id = 335
+				}
 				province_id = 911
 			}
 			NOT = { country_or_non_sovereign_subject_holds = ROOT }
 			country_or_non_sovereign_subject_holds = ROOT  
-			trade_goods = ivory
 		}
 		trigger = {
 			years_of_income = 2
@@ -819,7 +832,7 @@ damescrown_4 = {
 				has_country_flag = damescrown_republican_path
 			}
 			estate_loyalty = {
-				estate = estate_burghers
+				estate =  estate_human
 				loyalty = 80
 			}
 			is_statists_in_power = yes
@@ -846,7 +859,7 @@ damescrown_4 = {
 		}
 		trigger = {
 			estate_loyalty = {
-				estate = estate_burghers
+				estate =  estate_human
 				loyalty = 90
 			}
 			is_statists_in_power = yes
@@ -875,19 +888,21 @@ damescrown_4 = {
 		}
 		trigger = {
 			estate_loyalty = {
-				estate = estate_burghers
+				estate =  estate_human
 				loyalty = 90
 			}
 			stability = 1
 			is_statists_in_power = yes
 			legitimacy_equivalent = 90
 			prestige = 50
-			num_of_estate_privileges = { estate = estate_burghers value = 7 }
-			}
+			num_of_estate_privileges = { estate =  estate_human value = 7 }
+		}
 		effect = {
-			A25 = { change_government = republic }
-			add_government_reform = free_republic_reform
 			remove_country_modifier = A25_republic_tensions
+			add_country_modifier = {
+				name = A25_revitalize_democracy_modifier
+				duration = 36500
+			}
 		}
 	}
 }
