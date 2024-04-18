@@ -2809,14 +2809,18 @@ great_dam = {
 		area_modifier = {}
 		country_modifiers = {}
 		on_upgraded = {
-			every_owned_province = {
-				limit = {
-					has_terrain = dwarven_road
-					province_with_mine_goods = yes
-					is_city = yes
+			hidden_effect = {
+				owner = {
+					every_owned_province = {
+						limit = {
+							has_terrain = dwarven_road
+							province_with_mine_goods = yes
+							is_city = yes
+						}
+						add_province_modifier = { name = great_dam_boost_modifier duration = -1	}
+						province_event = { id = bertus_pops.1047 }
+					}
 				}
-				add_province_modifier = { name = great_dam_boost_modifier duration = -1	}
-				province_event = { id = bertus_pops.1047 }
 			}
 		}
 	}
@@ -4176,15 +4180,17 @@ bulwar_canals = {
 		}
 		on_upgraded = {
 			custom_tooltip = bulwar_canals_goods_boost_tooltip
-			owner = {
-				every_owned_province = {
-					limit = {
-						province_group = bulwar_canals_goods_provinces
-						province_with_farm_goods = yes
-						is_city = yes
+			hidden_effect = {
+				owner = {
+					every_owned_province = {
+						limit = {
+							province_group = bulwar_canals_goods_provinces
+							province_with_farm_goods = yes
+							is_city = yes
+						}
+						add_province_modifier = { name = bulwar_canals_boost_modifier duration = -1	}
+						province_event = { id = bertus_pops.1046 }
 					}
-					add_province_modifier = { name = bulwar_canals_boost_modifier duration = -1	}
-					province_event = { id = bertus_pops.1046 }
 				}
 			}
 		}
@@ -5432,14 +5438,11 @@ deranne_westport_gateway_to_aelantir = {
 
 	can_be_moved = no
 
-	move_days_per_unit_distance = 1
-	
+	move_days_per_unit_distance = 1	
 	
 	starting_tier = 0
-	
 
 	type = monument
-
 
 	build_trigger = {}
 	on_built = {
@@ -5764,26 +5767,20 @@ anbencost_harbor = {
 
 	move_days_per_unit_distance = 1
 	
-	
 	starting_tier = 0
-	
 
 	type = monument
 
-
 	build_trigger = {
-
 	}
 
 	on_built = {
 		show_ambient_object = murud_janjira 
 	}
-	
 
 	on_destroyed = {
 		hide_ambient_object = murud_janjira 
 	}
-
 
 	can_use_modifiers_trigger = {
 		AND = {
@@ -5796,7 +5793,6 @@ anbencost_harbor = {
 		}
 	}
 
-
 	can_upgrade_trigger = {
 		AND = {
 			province_is_or_accepts_culture = yes
@@ -5808,12 +5804,9 @@ anbencost_harbor = {
 		}
 	}
 
-
 	keep_trigger = {}
 
-
 	tier_0 = {
-		
 		upgrade_time = {
 			months = 0
 		}
@@ -5827,7 +5820,6 @@ anbencost_harbor = {
 	}
 
 	tier_1 = {
-		
 		upgrade_time = {
 			months = 120
 		}
@@ -5855,7 +5847,6 @@ anbencost_harbor = {
 	}
 
 	tier_2 = {
-		
 		upgrade_time = {
 			months = 240
 		}
@@ -5874,7 +5865,6 @@ anbencost_harbor = {
 	}
 
 	tier_3 = {
-		
 		upgrade_time = {
 			months = 360
 		}
@@ -5891,8 +5881,7 @@ anbencost_harbor = {
 			admiral_cost = -0.1
 			max_flagships = 1
 		}
-		on_upgraded = {	
-		}
+		on_upgraded = {	}
 	}
 }
 damescrown_grand_exchange = {
@@ -7994,6 +7983,89 @@ ovdal_kanzad_gate = {
 		}
 		area_modifier = {}	
 		country_modifiers = {}
+		on_upgraded = {}
+	}
+}
+rubyhold_great_mine = {
+	start = 62
+	date = 1444.1.1
+	time = {
+		months = 120
+	}
+	build_cost = 1000
+	can_be_moved = no
+	starting_tier = 0
+	type = monument
+	build_trigger = {}
+	on_built = {}
+	on_destroyed = {}
+	keep_trigger = {}
+	can_use_modifiers_trigger = {}
+	can_upgrade_trigger = {	}
+	tier_0 = {
+	upgrade_time = {
+			months = 0
+		}
+		cost_to_upgrade = {
+			factor = 0
+		}
+		province_modifiers = {}
+		area_modifier = {}
+		country_modifiers = {}
+		on_upgraded = {}
+	}
+
+	tier_1 = {
+		upgrade_time = {
+			months = 120
+		}
+		cost_to_upgrade = {
+			factor = 1000
+		}
+		province_modifiers = {
+			trade_goods_size = 1
+			trade_value_modifier = 0.10
+		}
+		area_modifier = {}
+		country_modifiers = {
+			monthly_magisterium_mana = 0.2088	#0→0.2088	#2.5 yearly
+		}
+		on_upgraded = {}
+	}
+
+	tier_2 = {
+		upgrade_time = {
+			months = 120
+		}
+		cost_to_upgrade = {
+			factor = 2000
+		}
+		province_modifiers = {
+			trade_goods_size = 2.5
+			trade_value_modifier = 0.25
+		}
+		area_modifier = {}
+		country_modifiers = {
+			monthly_magisterium_mana = 0.4166	#0→0.4166	#5 yearly
+		}
+		on_upgraded = {}
+	}
+
+	tier_3 = {
+		upgrade_time = {
+			months = 120
+		}
+		cost_to_upgrade = {
+			factor = 3000
+		}
+		province_modifiers = {
+			trade_goods_size = 5
+			trade_value_modifier = 0.50
+		}
+		area_modifier = {}	
+		country_modifiers = {
+			monthly_magisterium_mana = 0.8333	#0→0.8333	#10 yearly
+		}
 		on_upgraded = {}
 	}
 }

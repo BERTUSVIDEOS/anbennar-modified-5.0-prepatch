@@ -91,6 +91,7 @@ NDefines.NEconomy.MERCHANT_MAX_POWER_BONUS = 5.0	--2→5
 NDefines.NEconomy.COLONY_MIN_AUTONOMY = 0	--50→0
 NDefines.NEconomy.LAND_TECH_MERC_MAINTENANCE_IMPACT = 0	--0.08→-0
 
+NDefines.NMilitary.DAYS_PER_PHASE = 2   --3→2
 NDefines.NMilitary.ARMY_DRILL_YEARLY_GAIN = 5.0	--10→5-- Gain from Drilling
 NDefines.NMilitary.COSSACKS_SHOCK_DAMAGE_BONUS = 0	--0.1→0
 NDefines.NMilitary.STRELTSY_FIRE_DAMAGE_BONUS = 0	--0.1→0

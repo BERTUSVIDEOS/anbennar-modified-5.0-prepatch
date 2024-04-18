@@ -4809,7 +4809,10 @@ appointment_by_committee_reform = {
 	}
 	modifiers = {
 		advisor_pool = 1
-		advisor_cost = -0.05
+		free_dip_policy = 1
+	}
+	custom_attributes = {
+		meritocratic_advisors = yes
 	}
 }
 
@@ -4820,8 +4823,29 @@ bureaucratic_aparatus_reform = {
 		#NOT = { has_reform = nezkaru_council_reform }
 	}
 	modifiers = {
+		free_adm_policy = 1
 		min_autonomy_in_territories = -0.10
 	}
+	custom_attributes = {
+		boosted_stability = yes
+	}
+    effect = {
+        hidden_effect = {
+			trigger_switch = {
+				on_trigger = stability
+				3 = {add_country_modifier = {name = boosted_stability_3 duration = -1 hidden = yes}}
+				2 = {add_country_modifier = {name = boosted_stability_2 duration = -1 hidden = yes}}
+				1 = {add_country_modifier = {name = boosted_stability_1 duration = -1 hidden = yes}}
+			}
+        }
+    }
+    removed_effect = {
+        hidden_effect = {
+			remove_country_modifier = boosted_stability_1
+			remove_country_modifier = boosted_stability_2
+			remove_country_modifier = boosted_stability_3
+        }
+    }
 }
 
 
@@ -4832,7 +4856,10 @@ universal_suffrage_reform = {
 		#NOT = { has_reform = nezkaru_council_reform }
 	}
 	modifiers = {
-		free_dip_policy = 1
+		free_mil_policy = 1
+	}
+	custom_attributes = {
+		recruiting_generals_increases_professionalism = yes
 	}
 	ai = {
 		factor = 1
