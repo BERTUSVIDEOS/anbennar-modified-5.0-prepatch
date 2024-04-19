@@ -31,6 +31,16 @@ silverforge_innovations = {
 				name = mission_nuclear_modifier
 				duration = 1825
 			}
+			set_country_flag = hero_free_general_flag
+			custom_tooltip = get_free_great_hero_general_tt
+			set_country_flag = get_adventurer_flag
+			custom_tooltip = get_adventurer_flag_tt
+			set_country_flag = great_general_extra_pips_flag
+			custom_tooltip = great_general_extra_pips_flag_tt
+			hidden_effect = {	#bertus mod
+				set_saved_name = {key = special_general_name type = advisor scope = ROOT}
+				country_event = {id = bertus_changes.6030}
+			}
 		}
 	}
 	
@@ -145,53 +155,17 @@ silverforge_innovations = {
 			}
 		}
 		effect = {
-			add_prestige_or_monarch_power = {amount =  10}
-			912 = {
-				add_province_triggered_modifier = silverforge_glass_production
-			}
+			add_prestige_or_monarch_power = {amount =  20}
+			add_stability_or_adm_power = yes
 		}
 	}
-	silverforge_telgeir_human_tolerance = {
-		icon = restore_great_moravia
-		required_missions = { 
-			silverforge_take_telgeir
-		}
-		position = 5
-		
-		provinces_to_highlight = {
-			province_id = 911
-			OR = {
-				NOT = {owned_by = ROOT }
-				development = 30
-			}
-		}
-		
-		trigger = {
-			911 = {
-				owned_by = ROOT
-				development = 30
-				has_university_building_trigger = yes
-			}
-			high_tolerance_human_race_trigger = yes
-		}
-		effect = {
-			add_prestige_or_monarch_power = {amount =  10}
-			define_advisor = {
-				type = idea_var_advisor_17
-				skill = 3
-				cost_multiplier = 0.50
-				culture = esmari
-				religion = regent_court
-			}
-		}
-	}
-
 	silverforge_calascandar_development = { 
 		icon = mission_guns_of_urban
+		position = 6
+
 		required_missions = {
-			silverforge_take_the_esmar_river
+			silverforge_take_telgeir
 		}		
-		position = 7
 		
 		provinces_to_highlight = {
 			area = heartland_borders_area
@@ -214,6 +188,108 @@ silverforge_innovations = {
 			add_country_modifier = {
 				name = army_enthusiasm
 				duration = 3650
+			}
+		}
+	}
+	silverforge_expand_west = { 
+		icon = mission_advance_to_the_dnieper
+		position = 9
+		required_missions = {
+			silverforge_reform_the_forest_rangers
+		}
+		
+		provinces_to_highlight = {
+			area = songbarges_area
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			songbarges_area = {
+				type = all
+				owned_by = ROOT	
+			}
+		}
+		effect = {
+			konwell_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			ryalanar_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+
+	silverforge_east_dameshead_coast = { 
+		icon = mission_invade_island
+		position = 10
+		required_missions = {
+			silverforge_expand_west
+		}
+		
+		provinces_to_highlight = {
+			OR = {
+				area = ryalanar_area
+				area = konwell_area
+			}
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			konwell_area = {
+				type = all
+				owned_by = ROOT
+			}
+			ryalanar_area = {
+				type = all
+				owned_by = ROOT
+			}
+		}
+		effect = {
+			add_prestige_or_monarch_power = {amount =  10}
+			275 = {
+				add_province_modifier = {
+					name = silverforge_konwell_port
+					duration = -1
+				}
+			}
+		}
+	}
+	silverforge_konwell_fortress = { 
+		icon = mission_eastern_european_city
+		required_missions = {
+			silverforge_east_dameshead_coast
+		}
+		
+		provinces_to_highlight = {
+			province_id = 275
+		}
+		trigger = {
+			275 = {
+				development = 40
+				OR = {
+					has_building = coastal_defence
+					has_building = naval_battery
+				}
+				OR = {
+					has_building = fort_16th
+					has_building = fort_17th
+					has_building = fort_18th
+				}
+			}
+		}
+		effect = {
+			275 = {
+				remove_province_modifier = silverforge_konwell_port
+				add_province_modifier = {
+					name = silverforge_konwell_fortress
+					duration = -1
+				}
 			}
 		}
 	}
@@ -290,19 +366,14 @@ silverforge_internal_development = {
 			}
 		}
 		effect = {
-			add_prestige_or_monarch_power = {amount =  10}
-			912 = {
-				add_province_triggered_modifier = silverforge_glass_production
-			}
+			add_prestige_or_monarch_power = {amount =  20}
 			266 = {
+				add_base_production = -10
 				add_province_modifier = {
 					name = silverforge_esmaraine_market
 					duration = -1
 				}
-				if = {
-					limit = {NOT = {has_global_flag = stored_goods_activated_flag}}
-					change_trade_goods = glass
-				}
+				change_trade_goods = glass
 			}
 			heartland_borders_area = {
 				limit = {
@@ -321,105 +392,64 @@ silverforge_internal_development = {
 		}
 	}
 
-	silverforge_expand_west = { 
-		icon = mission_advance_to_the_dnieper
-		required_missions = {
+	silverforge_telgeir_human_tolerance = {
+		icon = restore_great_moravia
+		required_missions = { 
 			silverforge_take_the_esmar_river
 		}
+		position = 5
 		
 		provinces_to_highlight = {
-			area = songbarges_area
-			NOT = { owned_by = ROOT }
-		}
-		trigger = {
-			songbarges_area = {
-				type = all
-				owned_by = ROOT	
-			}
-		}
-		effect = {
-			konwell_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_permanent_claim = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-			ryalanar_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_permanent_claim = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-		}
-	}
-	silverforge_east_dameshead_coast = { 
-		icon = mission_invade_island
-		required_missions = {
-			silverforge_expand_west
-		}
-		
-		provinces_to_highlight = {
+			province_id = 911
 			OR = {
-				area = ryalanar_area
-				area = konwell_area
+				NOT = {owned_by = ROOT }
+				development = 30
 			}
-			NOT = { owned_by = ROOT }
-		}
-		trigger = {
-			konwell_area = {
-				type = all
-				owned_by = ROOT
-			}
-			ryalanar_area = {
-				type = all
-				owned_by = ROOT
-			}
-		}
-		effect = {
-			add_prestige_or_monarch_power = {amount =  10}
-			275 = {
-				add_province_modifier = {
-					name = silverforge_konwell_port
-					duration = -1
-				}
-			}
-		}
-	}
-	silverforge_konwell_fortress = { 
-		icon = mission_eastern_european_city
-		required_missions = {
-			silverforge_east_dameshead_coast
 		}
 		
-		provinces_to_highlight = {
-			province_id = 275
-		}
 		trigger = {
-			275 = {
-				development = 40
-				OR = {
-					has_building = coastal_defence
-					has_building = naval_battery
-				}
-				OR = {
-					has_building = fort_16th
-					has_building = fort_17th
-					has_building = fort_18th
-				}
+			911 = {
+				owned_by = ROOT
+				development = 30
+				has_university_building_trigger = yes
 			}
+			high_tolerance_human_race_trigger = yes
 		}
 		effect = {
-			275 = {
-				remove_province_modifier = silverforge_konwell_port
-				add_province_modifier = {
-					name = silverforge_konwell_fortress
-					duration = -1
-				}
+			add_prestige_or_monarch_power = {amount =  20}
+			define_advisor = {
+				type = idea_var_advisor_17
+				skill = 3
+				cost_multiplier = 0.50
+				culture = esmari
+				religion = regent_court
 			}
 		}
 	}
+
+	silverforge_esmar_optics = { 
+		icon = mission_guns_of_urban
+		required_missions = {
+			silverforge_reform_the_forest_rangers
+		}		
+		position = 9
+		
+		provinces_to_highlight = {
+			province_id = 266
+		}
+		trigger = {
+			266 = {
+				base_production = 20
+				owned_by = ROOT
+			}
+		}
+		effect = {
+			266 = {
+				add_province_triggered_modifier = silverforge_glass_production
+			}
+		}
+	}
+	
 }
 
 silverforge_deepwoods_development = {
@@ -832,85 +862,38 @@ silverforge_expansion = {
 			}
 		}
 	}
-	silverforge_reform_the_forest_rangers = {
-		icon = mission_spoils_of_war
-		required_missions = {
-			silverforge_oldpassage
-			silverforge_take_the_flatlands
-		}
-		
-		trigger = {
-			912 = {
-				has_manpower_building_trigger = yes
-				has_forcelimit_building_trigger = yes
-				base_manpower = 20
-				base_production = 20
-			}
-			army_professionalism = 0.40
-			treasury = 500
-		}
-		effect = {
-			set_country_flag = silverforge_fire_flag
-			add_treasury = -500
-			add_country_modifier = {
-				name = silverforge_ranger_training_1
-				duration = -1
-			}
-			custom_tooltip = silverforge_ranger_training_1_tooltip
-		}
-	}
-	
-	silverforge_launch_the_expedition = { 
-		icon = mission_landsknecht_soldier
-		required_missions = {
+	silverforge_artificer_guilds = {
+		icon = restore_great_moravia
+		required_missions = { 
 			silverforge_reform_the_forest_rangers
 		}
-		
-		trigger = {
-			912 = {
-				has_manpower_building_trigger = yes
-				has_forcelimit_building_trigger = yes
-				base_manpower = 30
-			}
-			army_professionalism = 0.60
-			treasury = 1000
-		}
-		effect = {
-			add_treasury = -1000
-			remove_country_modifier = silverforge_ranger_training_1
-			add_country_modifier = {
-				name = silverforge_ranger_training_2
-				duration = -1
-			}
-			custom_tooltip = silverforge_ranger_training_2_tooltip
-		}
-	}
-	
-	silverforge_arrow_lumber_camps = { 
-		icon = mission_rb_unite_the_clans
-		required_missions = {
-			silverforge_launch_the_expedition
-		}
+		position = 9
 		
 		provinces_to_highlight = {
+			province_id = 271
 		}
+		
 		trigger = {
-			912 = {
-				has_manpower_building_trigger = yes
-				has_forcelimit_building_trigger = yes
-				base_manpower = 40
+			271 = {
+				owned_by = ROOT
+				has_great_project = {
+					type = giberd_academy_of_engineering
+					tier = 2
+				}
 			}
-			army_professionalism = 0.80
-			treasury = 2000
+			custom_trigger_tooltip = {
+				tooltip = estate_gnomish_first_hand_chairman_modifier_tt
+				has_country_modifier = estate_gnomish_first_hand_chairman_modifier
+			}
 		}
 		effect = {
-			add_treasury = -2000
-			remove_country_modifier = silverforge_ranger_training_2
-			add_country_modifier = {
-				name = silverforge_ranger_training_3
-				duration = -1
+			add_prestige_or_monarch_power = {amount =  20}
+			271 = {
+				add_great_project_tier = {
+					type = giberd_academy_of_engineering
+					tier = 1
+				}
 			}
-			custom_tooltip = silverforge_ranger_training_3_tooltip
 		}
 	}
 }
@@ -1025,9 +1008,7 @@ silverforge_trade = {
 			high_tolerance_gnomish_race_trigger = yes
 		}
 		effect = {
-			custom_tooltip = unlock_artificer_tt
-			set_country_flag = supporting_artificers
-			add_prestige_or_monarch_power = {amount =  10}
+			add_prestige_or_monarch_power = {amount = 20}
 			define_advisor = {
 				type = master_of_mint
 				skill = 3
@@ -1035,6 +1016,98 @@ silverforge_trade = {
 				culture = imperial_gnome
 				religion = regent_court
 			}
+			capital_scope = {
+				add_gnomish_minority_size_effect = yes
+				add_gnomish_minority_size_effect = yes
+			}
+			hearthswood_area = {
+				add_gnomish_minority_size_effect = yes
+				add_gnomish_minority_size_effect = yes
+			}
+		}
+	}
+	silverforge_reform_the_forest_rangers = {
+		icon = mission_spoils_of_war
+		position = 8
+		required_missions = {
+			silverforge_oldpassage
+			silverforge_take_the_flatlands
+			silverforge_telgeir_human_tolerance
+		}
+		
+		trigger = {
+			912 = {
+				has_manpower_building_trigger = yes
+				has_forcelimit_building_trigger = yes
+				base_manpower = 20
+				base_production = 20
+			}
+			army_professionalism = 0.40
+			treasury = 500
+		}
+		effect = {
+			set_mid_tier_formable = yes
+			set_country_flag = silverforge_fire_flag
+			add_treasury = -500
+			add_country_modifier = {
+				name = silverforge_ranger_training_1
+				duration = -1
+			}
+			custom_tooltip = silverforge_ranger_training_1_tooltip
+		}
+	}
+	
+	silverforge_launch_the_expedition = { 
+		icon = mission_landsknecht_soldier
+		required_missions = {
+			silverforge_reform_the_forest_rangers
+		}
+		
+		trigger = {
+			912 = {
+				has_manpower_building_trigger = yes
+				has_forcelimit_building_trigger = yes
+				base_manpower = 30
+			}
+			army_professionalism = 0.60
+			treasury = 1000
+		}
+		effect = {
+			add_treasury = -1000
+			remove_country_modifier = silverforge_ranger_training_1
+			add_country_modifier = {
+				name = silverforge_ranger_training_2
+				duration = -1
+			}
+			custom_tooltip = silverforge_ranger_training_2_tooltip
+		}
+	}
+	
+	silverforge_arrow_lumber_camps = { 
+		icon = mission_rb_unite_the_clans
+		required_missions = {
+			silverforge_launch_the_expedition
+		}
+		
+		provinces_to_highlight = {
+		}
+		trigger = {
+			912 = {
+				has_manpower_building_trigger = yes
+				has_forcelimit_building_trigger = yes
+				base_manpower = 40
+			}
+			army_professionalism = 0.80
+			treasury = 2000
+		}
+		effect = {
+			add_treasury = -2000
+			remove_country_modifier = silverforge_ranger_training_2
+			add_country_modifier = {
+				name = silverforge_ranger_training_3
+				duration = -1
+			}
+			custom_tooltip = silverforge_ranger_training_3_tooltip
 		}
 	}
 

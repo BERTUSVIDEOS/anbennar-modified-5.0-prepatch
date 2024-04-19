@@ -5301,6 +5301,12 @@ country_event = {	#incident: Colleges reform
 			set_in_empire = no
 		}
 	}
+	after = {
+		every_country = {
+			limit = { is_part_of_hre = yes }
+			country_event = { id = bertus_changes.1042}
+		}
+	}
 }
 country_event = {	#incident: Imperial Call
 	id = bertus_changes.6020
@@ -5319,6 +5325,12 @@ country_event = {	#incident: Imperial Call
 		name = bertus_changes.6020.b #emperor colleges
 		custom_tooltip = tooltip_call_to_action_hre
 		set_global_flag = call_to_action_hre_flag
+	}
+	after = {
+		every_country = {
+			limit = { is_part_of_hre = yes }
+			country_event = { id = bertus_changes.1042}
+		}
 	}
 }
 country_event = {	#incident: Eralas Reform
@@ -5339,6 +5351,12 @@ country_event = {	#incident: Eralas Reform
 		custom_tooltip = tooltip_imperial_dominance_hre
 		set_global_flag = imperial_dominance_hre_flag
 	}
+	after = {
+		every_country = {
+			limit = { is_part_of_hre = yes }
+			country_event = { id = bertus_changes.1042}
+		}
+	}
 }
 country_event = {	#incident: Imperial Authority
 	id = bertus_changes.6022
@@ -5357,6 +5375,12 @@ country_event = {	#incident: Imperial Authority
 		name = bertus_changes.6022.b #Emperors Will
 		custom_tooltip = tooltip_emperors_will_hre
 		set_global_flag = emperors_will_hre_flag
+	}
+	after = {
+		every_country = {
+			limit = { is_part_of_hre = yes }
+			country_event = { id = bertus_changes.1042}
+		}
 	}
 }
 country_event = {	#incident: Market Reform
@@ -5377,6 +5401,12 @@ country_event = {	#incident: Market Reform
 		custom_tooltip = tooltip_closed_market_hre
 		set_global_flag = closed_market_hre_flag
 	}
+	after = {
+		every_country = {
+			limit = { is_part_of_hre = yes }
+			country_event = { id = bertus_changes.1042}
+		}
+	}
 }
 country_event = {	#incident: Religious Reform
 	id = bertus_changes.6024
@@ -5395,6 +5425,12 @@ country_event = {	#incident: Religious Reform
 		name = bertus_changes.6024.b #Imperial Faith
 		custom_tooltip = tooltip_imperial_faith_hre
 		set_global_flag = imperial_faith_hre_flag
+	}
+	after = {
+		every_country = {
+			limit = { is_part_of_hre = yes }
+			country_event = { id = bertus_changes.1042}
+		}
 	}
 }
 country_event = {	#incident: Weddings
@@ -5474,6 +5510,12 @@ country_event = {	#incident: Weddings
 			}
 		}
 	}
+	after = {
+		every_country = {
+			limit = { is_part_of_hre = yes }
+			country_event = { id = bertus_changes.1042}
+		}
+	}
 }
 country_event = {	#incident: Resources
 	id = bertus_changes.6026
@@ -5514,6 +5556,12 @@ country_event = {	#incident: Resources
 			}
 		}
 	}
+	after = {
+		every_country = {
+			limit = { is_part_of_hre = yes }
+			country_event = { id = bertus_changes.1042}
+		}
+	}
 }
 country_event = {	#incident: High Minister
 	id = bertus_changes.6027
@@ -5532,6 +5580,12 @@ country_event = {	#incident: High Minister
 		name = bertus_changes.6027.b #High Mage
 		custom_tooltip = tooltip_high_mage_hre
 		set_global_flag = high_mage_hre_flag
+	}
+	after = {
+		every_country = {
+			limit = { is_part_of_hre = yes }
+			country_event = { id = bertus_changes.1042}
+		}
 	}
 }
 country_event = {	#empire extra authority
@@ -5707,7 +5761,26 @@ country_event = {
 
 	is_triggered_only = yes
 
-	immediate = {}
+	immediate = {
+		if = {
+			limit = {
+				NOT = { has_country_flag = elven_interaction_cd }
+			}
+			set_country_flag = elven_interaction_cd
+		}
+		else_if = {
+			limit = {
+				NOT = { has_country_flag = human_interaction_cd }
+			}
+			set_country_flag = human_interaction_cd
+		}
+		else_if = {
+			limit = {
+				NOT = { has_country_flag = half_elven_interaction_cd }
+			}
+			set_country_flag = half_elven_interaction_cd
+		}
+	}
     option = {
         name = bertus_changes.6033.a #
 		trigger = {
@@ -5717,7 +5790,7 @@ country_event = {
 			add_isolationism = -5
 		}
 		tooltip = {
-			add_years_of_income = 1
+			add_years_of_income = 0.5
 		}
     }
     option = {
@@ -5768,7 +5841,7 @@ country_event = {
 			add_isolationism = 3
 		}
 		tooltip = {
-			add_yearly_manpower = 5
+			add_yearly_manpower = 2
 		}
     }
     option = {

@@ -125,52 +125,13 @@ country_event = { #Consult with Skalds - Skaldskola offered vassalization
 	
 	option = { #yes
 		name = "gerudia.4.a"
-		ai_chance = { 
-			factor = 75
-			modifier = {
-				factor = 2
-				has_opinion = {
-					who = Z08
-					value = 200
-				}
-			}
-			modifier = {
-				factor = 0.5
-				army_strength = {
-					who = Z08
-					value = 1.0
-				}
-			}
-			modifier = {
-				factor = 0.01
-				army_strength = {
-					who = Z08
-					value = 1.5
-				}
-			}
-		}
+		ai_chance = {  factor = 75 }	#bertus mod
 		
 		Z08 = { country_event = { id = "gerudia.5" } }
 	}
 	option = { #no
 		name = "gerudia.4.b"
-		ai_chance = { 
-			factor = 25
-			modifier = {
-				factor = 5
-				army_strength = {
-					who = Z08
-					value = 1.0
-				}
-			}
-			modifier = {
-				factor = 100
-				army_strength = {
-					who = Z08
-					value = 1.5
-				}
-			}
-		}
+		ai_chance = { factor = 0 }	#bertus mod
 		
 		Z08 = { country_event = { id = "gerudia.6" } }
 	}
@@ -243,6 +204,14 @@ country_event = { #Consult with Skalds - Skaldskola push claims
 			who = Z09
 			value = -10
 			mutual = yes
+		}
+		every_province = {
+			limit = { owned_by = Z09 }
+			add_claim = ROOT
+		}
+		declare_war_with_cb = {	#bertus mod
+			who = Z09
+			casus_belli = cb_conquest
 		}
 	}
 }

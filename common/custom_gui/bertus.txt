@@ -922,3 +922,53 @@ custom_button = {
 	}
 	tooltip = "Remove Undesirables"
 }
+custom_button = {
+	name = surael_interaction
+	potential = { 
+		ai = no
+		religion = bulwari_sun_cult
+	}
+	trigger = {
+		OR = {
+			if = {
+				limit = {
+					has_country_flag = elven_interaction_cd
+					NOT = { had_country_flag = { flag = elven_interaction_cd days = 5475 } }
+				}
+				had_country_flag = { flag = elven_interaction_cd days = 5475 }
+			}
+			if = {
+				limit = {
+					has_country_flag = human_interaction_cd
+					NOT = { had_country_flag = { flag = human_interaction_cd days = 5475 } }
+				}
+				had_country_flag = { flag = human_interaction_cd days = 5475 }
+			}
+			if = {
+				limit = {
+					has_country_flag = half_elven_interaction_cd
+					NOT = { had_country_flag = { flag = half_elven_interaction_cd days = 5475 } }
+				}
+				had_country_flag = { flag = half_elven_interaction_cd days = 5475 }
+			}
+		}
+	}
+	tooltip = "Change Chosen's Role"
+	effect = {
+		country_event = {id = bertus_changes.6033}
+		hidden_effect = {
+			if = {
+				limit = { had_country_flag = { flag = elven_interaction_cd days = 5475 } }
+				clr_country_flag = elven_interaction_cd
+			}
+			else_if = {
+				limit = { had_country_flag = { flag = human_interaction_cd days = 5475 } }
+				clr_country_flag = human_interaction_cd
+			}
+			else_if = {
+				limit = { had_country_flag = { flag = half_elven_interaction_cd days = 5475 } }
+				clr_country_flag = half_elven_interaction_cd
+			}
+		}
+	}
+}

@@ -542,7 +542,7 @@ on_adm_development_extra_dev_effect = {
 		}
 	}
 	if = {	#bertus mod
-		limit = {culture_group = elven owner = {has_idea = XA8_1}}	#Elven empire idea
+		limit = {culture_group = elven owner = {OR = { has_idea = XA8_1 has_idea = I45_the_oak_gift } } }	#Elven empire/cyrnavar idea
 		random = { 
 			chance = 20
 			add_base_tax = 1
@@ -783,7 +783,7 @@ on_dip_development_extra_dev_effect = {
 		}
 	}
 	if = {	#bertus mod
-		limit = {culture_group = elven owner = {has_idea = XA8_1}}	#Elven empire idea
+	limit = {culture_group = elven owner = {OR = { has_idea = XA8_1 has_idea = I45_the_oak_gift } } }	#Elven empire/cyrnavar idea
 		random = { 
 			chance = 20
 			add_base_production = 1
@@ -1076,7 +1076,7 @@ on_mil_development_extra_dev_effect = {
 		}
 	}
 	if = {	#bertus mod
-		limit = {culture_group = elven owner = {has_idea = XA8_1}}	#Elven empire idea
+	limit = {culture_group = elven owner = {OR = { has_idea = XA8_1 has_idea = I45_the_oak_gift } } }	#Elven empire/cyrnavar idea
 		random = { 
 			chance = 20
 			add_base_manpower = 1
@@ -2622,7 +2622,7 @@ get_isolationsim_bonus = {
 			isolationism = 0
 			NOT = {isolationism = 1}
 		}
-		add_years_of_income = 1
+		add_years_of_income = 0.5
 	}
 	else_if = {
 		limit = {
@@ -2649,7 +2649,7 @@ get_isolationsim_bonus = {
 			isolationism = 3
 			NOT = {isolationism = 4}
 		}
-		add_yearly_manpower = 5
+		add_yearly_manpower = 2
 	}
 	else_if = {
 		limit = {
@@ -4796,6 +4796,10 @@ update_race_modifiers = {
 		limit = {
 			has_global_flag = imperial_faith_hre_flag
 			is_part_of_hre = yes
+			OR = {
+				has_matching_religion = emperor
+				is_emperor = yes
+			}
 		}
 		add_country_modifier = {name = imperial_faith_hre_mechanic duration = -1 hidden = yes}
 	}
@@ -4825,6 +4829,7 @@ update_race_modifiers = {
 			has_global_flag = imperial_emperors_will_hre_flag
 			is_part_of_hre = yes
 			OR = {
+				is_emperor = yes
 				AND = {emperor = {has_country_modifier = human_administration} has_country_modifier = human_administration}
 				AND = {emperor = {has_country_modifier = elven_administration} has_country_modifier = elven_administration}
 				AND = {emperor = {has_country_modifier = dwarven_administration} has_country_modifier = dwarven_administration}
@@ -6116,4 +6121,13 @@ get_homonculus_skill = {
 		3 = {add_country_modifier = { name = homunculus_mil_power_2_modifier duration = -1 } }
 		1 = {add_country_modifier = { name = homunculus_mil_power_1_modifier duration = -1 } }
 	}
+}
+
+set_mid_tier_formable = {
+	custom_tooltip = medium_formable_tt
+	set_country_flag = medium_formable_flag
+}
+set_super_tier_formable = {
+	custom_tooltip = super_formable_tt
+	set_country_flag = super_nation_formed
 }

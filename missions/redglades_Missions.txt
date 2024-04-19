@@ -265,6 +265,16 @@ A03_redglades_trade = {
 				name = mission_nuclear_modifier
 				duration = 1825
 			}
+			set_country_flag = hero_free_general_flag
+			custom_tooltip = get_free_great_hero_general_tt
+			set_country_flag = get_adventurer_flag
+			custom_tooltip = get_adventurer_flag_tt
+			set_country_flag = great_general_extra_pips_flag
+			custom_tooltip = great_general_extra_pips_flag_tt
+			hidden_effect = {	#bertus mod
+				set_saved_name = {key = special_general_name type = advisor scope = ROOT}
+				country_event = {id = bertus_changes.6030}
+			}
 		}
 	}
 	A03_redglades_barraks = {
@@ -332,16 +342,36 @@ A03_redglades_trade = {
 					name = redglades_oficials_modifier
 					duration = -1
 				}
-				define_general = {
-					name = "Great Inquisitor Amerendar"
-					shock = 11
-					fire = 2
-					manuever = 6
-					siege = 1
-					trait = shock_specialist_personality
+				set_country_flag = hero_free_general_flag
+				custom_tooltip = get_free_great_mage_general_tt
+				set_country_flag = get_mage_flag
+				custom_tooltip = get_mage_flag_tt
+				set_country_flag = great_general_extra_pips_flag
+				custom_tooltip = great_general_extra_pips_flag_tt
+				hidden_effect = {	#bertus mod
+					set_saved_name = {key = special_general_name type = simple name = "Great Inquisitor Amerendar"}
+					country_event = {id = bertus_changes.6030}
 				}
 			}
-			else = {custom_tooltip = redglades_general_tt}
+			else = {
+				custom_tooltip = redglades_general_tt
+				tooltip = {
+					add_country_modifier = {
+						name = redglades_oficials_modifier
+						duration = -1
+					}
+					set_country_flag = hero_free_general_flag
+					custom_tooltip = get_free_great_mage_general_tt
+					set_country_flag = get_mage_flag
+					custom_tooltip = get_mage_flag_tt
+					set_country_flag = great_general_extra_pips_flag
+					custom_tooltip = great_general_extra_pips_flag_tt
+					hidden_effect = {	#bertus mod
+						set_saved_name = {key = special_general_name type = simple name = "Great Inquisitor Amerendar"}
+						country_event = {id = bertus_changes.6030}
+					}
+				}
+			}
 			if = {
 				limit = {navy_tradition = 75}
 				add_country_modifier = {
@@ -357,7 +387,23 @@ A03_redglades_trade = {
 					trait = buccaneer_personality
 				}
 			}
-			else = {custom_tooltip = redglades_admiral_tt}
+			else = {
+				custom_tooltip = redglades_admiral_tt
+				tooltip = {
+					add_country_modifier = {
+						name = redglades_admirals_modifier
+						duration = -1
+					}
+					define_explorer = {
+						name = "Am-Onchû Sparrow"
+						shock = 5
+						fire = 5
+						manuever = 6
+						siege = 2
+						trait = buccaneer_personality
+					}
+				}
+			}
 		}
 	}
 	A03_redglades_professionalism = {
