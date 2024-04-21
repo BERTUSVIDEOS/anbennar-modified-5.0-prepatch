@@ -4,9 +4,7 @@
 #Province Scope
 add_or_extend_province_modifier_effect = {
 	if = {
-		limit = {
-			has_province_modifier = $MODIFIER$
-		}
+		limit = { has_province_modifier = $MODIFIER$ }
 		extend_province_modifier = { name = $MODIFIER$ duration = $DURATION$ }
 	}
 	else = {
@@ -16,74 +14,26 @@ add_or_extend_province_modifier_effect = {
 
 #Used in army professionalism event:
 #used where FROM is a province and ROOT is a country, ie onaction for provinces fallen
-add_loot_from_province_effect = { 
-	if = {
-		limit = {
-			FROM = {
-				NOT = { development = 18 }
-			}
-		}
-		add_treasury = 115
-		add_mil_power = 15
+add_loot_from_province_effect = {	#bertus mod 
+	custom_tooltip = loot_effect_tt
+	hidden_effect = {
+		set_variable = { which = treasury_looted value = 0 }
+		set_variable = { which = mil_power_looted value = 0 }
+		export_to_variable = { which = treasury_looted value = development who = FROM }
+		export_to_variable = { which = mil_power_looted value = development who = FROM }
 	}
-	if = {
-		limit = {
-			FROM = {
-				development = 18
-				NOT = { development = 21 }
-			}
-		}
-		add_treasury = 135
-		add_mil_power = 15
+	while = {
+		limit = {check_variable = {which = treasury_looted value = 1}}
+		change_variable = {which = treasury_looted value = -1}
+		add_treasury = 25
 	}
-	if = {
-		limit = {
-			FROM = {
-				development = 21
-				NOT = { development = 24 }
-			}
-		}
-		add_treasury = 155
-		add_mil_power = 25
+	while = {
+		limit = {check_variable = {which = mil_power_looted value = 1}}
+		change_variable = {which = mil_power_looted value = -1}
+		add_mil_power = 5
 	}
-	if = {
-		limit = {
-			FROM = {
-				development = 24
-				NOT = { development = 27 }
-			}
-		}
-		add_treasury = 180
-		add_mil_power = 30
-	}
-	if = {
-		limit = {
-			FROM = {
-				development = 27
-				NOT = { development = 30 }
-			}
-		}
-		add_treasury = 210
-		add_mil_power = 40
-	}
-	if = {
-		limit = {
-			FROM = {
-				development = 30
-				NOT = { development = 33 }
-			}
-		}
-		add_treasury = 230
-		add_mil_power = 50
-	}
-	if = {
-		limit = {
-			FROM = {
-				development = 33
-			}
-		}
-		add_treasury = 250
-		add_mil_power = 55
+	FROM = {
+		bertus_dev_reduction = {value = 0.25}	#bertus mod 
 	}
 }
 

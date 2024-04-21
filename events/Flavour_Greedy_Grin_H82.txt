@@ -72,15 +72,7 @@ country_event = { #The question regarding the Gold Dwarfs
 			change_culture = cave_goblin
 			change_religion = goblinic_shamanism
 			add_devastation = 30
-			add_base_tax = -2
-			add_base_production = -2
-			add_base_manpower = -2
-		}
-		hidden_effect = {
-			country_event = { 
-   			 id = race_setup_events.4
-    			 days = 2
-			}
+			bertus_dev_reduction = {value = 0.5}	#bertus mod 
 		}
 	}
 
@@ -114,33 +106,43 @@ country_event = { #The Sacking of Seghdihr ?
 	
 	fire_only_once = yes
 	is_triggered_only = yes
+	trigger = {
+		FROM = {province_id = 4124}
+		tag = H82
+	}
+	immediate = {
+		hidden_effect = {
+			set_variable = { which = treasury_looted value = 0 }
+			set_variable = { which = mil_power_looted value = 0 }
+			export_to_variable = { which = treasury_looted value = development who = FROM }
+			multiply_variable = { which = treasury_looted value = 25 }
+			export_to_variable = { which = mil_power_looted value = development who = FROM }
+			multiply_variable = { which = mil_power_looted value = 5 }
+		}
+	}
 	
 	option = { #just take what we can
 		name = flavor_greedy_grin.3.a
-		ai_chance = {
-			factor = 50
-		}
+		ai_chance = { factor = 50 }
 		add_treasury = 300
 	}
 
 	option = { #sack it completly
 		name = flavor_greedy_grin.3.b
-		ai_chance = {
-			factor = 50
-		}
-		add_treasury = 600
-		add_mil_power = 150
-		4124 = {
+		ai_chance = { factor = 50 }
+		add_treasury = 300
+		add_loot_from_province_effect = yes
+		FROM = {
 			add_devastation = 70
-			add_base_tax = -3
-			add_base_production = -3
-			add_base_manpower = -3
 			owner = {
 				country_event = {
 					id = flavor_greedy_grin.4
 				}
 			}
 		}
+	}
+	after = {
+		set_country_flag = sacked_Seghdihr_flag
 	}
 }
 
@@ -155,13 +157,17 @@ country_event = { #sacking of seghdihr
 
 	option = { #thats a grudge
 		name = flavor_greedy_grin.4.a
-		ai_chance = {
-			factor = 100
+		ai_chance = { factor = 100 }
+		tooltip = {
+			4124 = {
+				add_devastation = 70
+				bertus_dev_reduction = {value = 0.25}	#bertus mod 
+			}
 		}
 	}
 }
 
-country_event = { #The question regarding the Citrine Dwarfs
+country_event = { #The question regarding the Citrine Dwarfs	#bertus mod
 	id = flavor_greedy_grin.5
 	title = flavor_greedy_grin.5.t
 	desc = flavor_greedy_grin.5.d
@@ -172,36 +178,24 @@ country_event = { #The question regarding the Citrine Dwarfs
 
 	trigger = {
 		tag = H82
-		owns = 4124
 	}
 
 	option = { #kill any that resist
 		name = flavor_greedy_grin.5.a
-		ai_chance = {
-			factor = 50
-		}
+		ai_chance = { factor = 50 }
 		4124 = {
 			change_culture = cave_goblin
 			change_religion = goblinic_shamanism
 			add_devastation = 30
-			add_base_tax = -2
-			add_base_production = -2
-			add_base_manpower = -2
-		}
-		hidden_effect = {
-			country_event = { 
-   			 id = race_setup_events.4
-    			 days = 2
-			}
+			bertus_dev_reduction = {value = 0.5}	#bertus mod 
 		}
 	}
 
 	option = { #let them pay an extra tax
 		name = flavor_greedy_grin.5.b
-		ai_chance = {
-			factor = 50
-		}
+		ai_chance = { factor = 50 }
 		4124 = {
+			add_goblin_minority_size_effect = yes
 			add_goblin_minority_size_effect = yes
 			add_province_modifier = { 
  		 	  name = greedy_grin_citrine_dwarven_tax

@@ -47,6 +47,13 @@ country_event = {
 				NOT = { tag = ROOT }
 			}
 		}
+		if = {
+			limit = {
+				NOT = { has_country_flag = sacked_Seghdihr_flag }
+			}
+			NOT = { FROM = { province_id = 4124 } }
+			NOT = { tag = H82 }
+		}
 	}
 	
 	immediate = {
@@ -59,6 +66,12 @@ country_event = {
 					set_country_flag = was_plundered
 				} #For prettier tooltip
 			}
+			set_variable = { which = treasury_looted value = 0 }
+			set_variable = { which = mil_power_looted value = 0 }
+			export_to_variable = { which = treasury_looted value = development who = FROM }
+			multiply_variable = { which = treasury_looted value = 25 }
+			export_to_variable = { which = mil_power_looted value = development who = FROM }
+			multiply_variable = { which = mil_power_looted value = 5 }
 		}
 	}
 	
@@ -78,8 +91,20 @@ country_event = {
 			}
 		}
 		modifier = {
-			factor = 2
+			factor = 1.5
 			has_country_modifier = monstrous_nation
+		}
+		modifier = {
+			factor = 1.5
+			FROM = { has_terrain = city_terrain }
+		}
+		modifier = {
+			factor = 1.5
+			FROM = { has_terrain = dwarven_hold }
+		}
+		modifier = {
+			factor = 1.5
+			FROM = { is_capital = yes }
 		}
 		modifier = {
 			factor = 1.5
@@ -91,10 +116,7 @@ country_event = {
 		name = army_professionalism_events.1.b #We We need better discipline! (and salaries)
 		ai_chance = {
 			factor = 25
-			modifier = {
-				factor = 2
-				years_of_income = 0.5
-			}
+			modifier = { factor = 2 years_of_income = 0.5 }
 		}
 		add_army_professionalism = 0.05
 		add_years_of_income = -0.25
@@ -108,9 +130,7 @@ country_event = {
 	}
 	option = {
 		name = army_professionalism_events.1.a #We must punish the perpetrators
-		ai_chance = {
-			factor = 50
-		}
+		ai_chance = { factor = 50 }
 		add_prestige = -5
 		FROM = {
 			province_event = { id = army_professionalism_events.18 }
@@ -133,11 +153,7 @@ country_event = {
 		trigger = {
 			OR = {
 				has_country_modifier = monstrous_nation
-				FROM = {
-					owner = {
-						is_rival = ROOT
-					}
-				}
+				FROM = { owner = { is_rival = ROOT } }
 			}
 		}
 		ai_chance = {
@@ -182,9 +198,7 @@ country_event = {
 			}
 		}
 		highlight = yes
-		ai_chance = {
-			factor = 25
-		}
+		ai_chance = { factor = 25 }
 		add_treasury = 1000
 		add_army_professionalism = -0.05
 		add_prestige = -10
