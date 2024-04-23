@@ -151,7 +151,14 @@ NDefines.NMilitary.SLAVE_RAIDS_SAILOR_FACTOR = -0.10
 NDefines.NMilitary.SLACKEN_MIN_AP = 0.40      --0→0.40
 NDefines.NMilitary.STRELTSY_MANPOWER_COST_MODIFIER = 0  --1.0→0
 
-NDefines.NAI.MAX_CAV_PERCENTAGE = 20 --50→20 -- For modding actual ratio is dynamically computed but will be no higher than this.
+NDefines.NAI.UNCONDITIONAL_SURRENDER_HOPELESS_STRENGTH_COMPARISON = 10      --20→10 -- if they have 20 times the army strength you do, wave the white flag
+NDefines.NAI.UNCONDITIONAL_SURRENDER_WARSCORE_LIMIT = -75                   -- AI won't surrender unless it's this bad.
+NDefines.NAI.PEACE_TIME_MONTHS = 12                                         -- 60→12  -- Tiempo de "AI stubbornness in a war", un modificador de aceptar la paz
+NDefines.NAI.PEACE_FORCE_BALANCE_FACTOR = 0                                 -- 0.2→0 -- Aceptacion de la IA al reconocer que el otro bando es mas fuerte
+NDefines.NAI.PEACE_WARGOAL_FACTOR = 0.5                                     -- 0→0.5   -- Aceptacion de la IA a rendirse por controlar el CB
+NDefines.NAI.PEACE_ALLY_WARSCORE_MULT = 1                                   -- 0.5→1 -- Entusiasmo por el warsocre global de la guerra
+NDefines.NAI.PEACE_ALLY_WARGOAL_MULT = 2                                    -- 0→2   -- Aceptacion de la IA aliada por no controlar el CB
+NDefines.NAI.MAX_CAV_PERCENTAGE = 20                                        --50→20 -- For modding actual ratio is dynamically computed but will be no higher than this.
 
 NDefines.NReligion.MAX_PAPAL_INFLUENCE = 300.0	--200→300-- The maximum stored amount of papal influence for each country.
 NDefines.NReligion.MAX_CHURCH_POWER = 400	--200→400
