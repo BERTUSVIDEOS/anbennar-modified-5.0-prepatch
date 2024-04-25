@@ -331,6 +331,17 @@ on_religion_change = {
 		change_religion = night_coven_reformed
 	}
 	if = {
+		limit = { 
+			NOT = { any_country = { is_emperor_of_china = yes } } 
+			religion = khetist
+		}
+		set_emperor_of_china = ROOT
+	}
+	if = {
+		limit = { is_emperor_of_china = yes }
+		dismantle_empire_of_china = yes
+	}
+	if = {
 		limit = { NOT = { religion = night_coven_reformed } }
 		#remove night coven Reforms if you convert away
 		remove_country_modifier = night_coven_reform_1_m
@@ -2017,7 +2028,11 @@ on_new_monarch = {
 		}
 		clr_country_flag = wesdam_first_succession
 		set_country_flag = wesdam_succession_crisis
-		country_event = { id = flavor_wesdam.11 }
+		if = {
+			limit = { NOT = { active_imperial_incident = any } }
+			country_event = { id = flavor_wesdam.11 }
+		}
+		else = { country_event = { id = flavor_wesdam.11 days = 365 } }
 	}
 	if = {
 		limit = {
@@ -6169,6 +6184,7 @@ on_province_culture_converted = {
 		}
 		remove_province_modifier_effect = { MODIFIER = B34_orc_hunting_grounds}
 	}
+	province_event = { id = race_setup_events.15 }	#update races
 	if = {
 		limit = { NOT = {has_province_flag = bertus_pops_1038_flag} }	#overall pop removal
 		set_province_flag = bertus_pops_1038_flag
@@ -6186,6 +6202,7 @@ on_province_culture_changed = {
 	remove_province_modifier_effect = {MODIFIER = noble_castles_boost_modifier}
 	on_province_culture_converted_estate_privilges_effect = yes
 	on_province_culture_change_effect = yes
+	province_event = { id = race_setup_events.15 }	#update races
 
 	if = {
 		limit = { NOT = {has_province_flag = bertus_pops_1038_flag} }	#overall pop removal

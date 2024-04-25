@@ -4992,6 +4992,7 @@ country_event = {	#wrong race elector
 	option = {
 		name = bertus_changes.6012.b #Never	
 		set_imperial_incident = incident_wrong_race_elector
+		set_global_flag = aoa_incident_active_flag_tt
 	}
 }
 country_event = {	#wrong race elector incident
@@ -5042,6 +5043,9 @@ country_event = {	#wrong race elector incident
 			}
 		}
 		clear_global_event_target = wrong_race_elector_target
+	}
+	after = {
+		clr_global_flag = aoa_incident_active_flag_tt
 	}
 }
 province_event = {	#get emperor population
@@ -5399,6 +5403,7 @@ country_event = {	#incident: Colleges reform
 			limit = { is_part_of_hre = yes }
 			country_event = { id = bertus_changes.1042}
 		}
+		clr_global_flag = aoa_incident_active_flag_tt
 	}
 }
 country_event = {	#incident: Imperial Call
@@ -5424,6 +5429,7 @@ country_event = {	#incident: Imperial Call
 			limit = { is_part_of_hre = yes }
 			country_event = { id = bertus_changes.1042}
 		}
+		clr_global_flag = aoa_incident_active_flag_tt
 	}
 }
 country_event = {	#incident: Eralas Reform
@@ -5449,6 +5455,7 @@ country_event = {	#incident: Eralas Reform
 			limit = { is_part_of_hre = yes }
 			country_event = { id = bertus_changes.1042}
 		}
+		clr_global_flag = aoa_incident_active_flag_tt
 	}
 }
 country_event = {	#incident: Imperial Authority
@@ -5474,6 +5481,7 @@ country_event = {	#incident: Imperial Authority
 			limit = { is_part_of_hre = yes }
 			country_event = { id = bertus_changes.1042}
 		}
+		clr_global_flag = aoa_incident_active_flag_tt
 	}
 }
 country_event = {	#incident: Market Reform
@@ -5499,6 +5507,7 @@ country_event = {	#incident: Market Reform
 			limit = { is_part_of_hre = yes }
 			country_event = { id = bertus_changes.1042}
 		}
+		clr_global_flag = aoa_incident_active_flag_tt
 	}
 }
 country_event = {	#incident: Religious Reform
@@ -5524,6 +5533,7 @@ country_event = {	#incident: Religious Reform
 			limit = { is_part_of_hre = yes }
 			country_event = { id = bertus_changes.1042}
 		}
+		clr_global_flag = aoa_incident_active_flag_tt
 	}
 }
 country_event = {	#incident: Weddings
@@ -5608,6 +5618,7 @@ country_event = {	#incident: Weddings
 			limit = { is_part_of_hre = yes }
 			country_event = { id = bertus_changes.1042}
 		}
+		clr_global_flag = aoa_incident_active_flag_tt
 	}
 }
 country_event = {	#incident: Resources
@@ -5654,6 +5665,7 @@ country_event = {	#incident: Resources
 			limit = { is_part_of_hre = yes }
 			country_event = { id = bertus_changes.1042}
 		}
+		clr_global_flag = aoa_incident_active_flag_tt
 	}
 }
 country_event = {	#incident: High Minister
@@ -5679,6 +5691,7 @@ country_event = {	#incident: High Minister
 			limit = { is_part_of_hre = yes }
 			country_event = { id = bertus_changes.1042}
 		}
+		clr_global_flag = aoa_incident_active_flag_tt
 	}
 }
 country_event = {	#empire extra authority
@@ -5705,7 +5718,6 @@ country_event = {	#empire free cityes vassalization
 	is_triggered_only = yes
 
 	trigger = {
-		hre_reform_passed = imperial_cities
 	}
 	option = {	#	yes
 		name = bertus_changes.6029.a
@@ -5718,7 +5730,7 @@ country_event = {	#empire free cityes vassalization
 					subject_type = subject_free_city
 					subject = ROOT
 				}
-				add_imperial_influence = 1
+				add_imperial_influence = 2
 			}
 			if = {
 				limit = {has_reform = free_city}
@@ -7690,6 +7702,99 @@ country_event = {	#
 					dock = {add_province_modifier = {name = flottenbasis4_dock_bonus_1 duration = -1 hidden = yes}}
 				}
 			}
+		}
+	}
+}
+country_event = {	#incident magisterium emperorship claim
+	id = bertus_changes.6049
+	title = bertus_changes.6049.t
+	desc = bertus_changes.6049.desc
+	picture = DIPLOMACY_eventPicture
+	
+	hidden = yes
+	is_triggered_only = yes
+
+	option = {	#
+		name = bertus_changes.6049.a
+		ai_chance = {factor = 25}
+		custom_tooltip = tooltip_abdicate_emperorship_hre
+		set_global_flag = abdicate_emperorship_flag
+		A85 = {
+			set_emperor = yes
+		}
+	}
+	option = {
+		name = bertus_changes.6049.b
+		ai_chance = {factor = 75}
+		custom_tooltip = tooltip_keep_emperorship_hre
+		set_global_flag = keep_emperorship_flag
+		A85 = {
+			declare_war_with_cb = {
+				who = emperor
+				casus_belli = cb_usurp_emperorship
+			}
+		}
+		hidden_effect = {
+			every_country = {
+				limit = {
+					NOT = { tag = A85 }
+					NOT = { is_emperor = yes }
+					is_part_of_hre = yes
+					if = {
+						limit = { is_subject = yes }
+						is_subject_of_type = tributary_state
+					}
+				}
+				country_event = { id = bertus_changes.6050 days = 5 random = 5 }	#incident magisterium emperorship war sides
+			}
+			emperor = {
+				while = {	#give imperial authority back
+					limit = {  check_variable = { which = save_imperial_authority_var value = 1 } }
+					change_variable = { which = save_imperial_authority_var value = -1 }
+					add_imperial_influence = 1
+				}
+			}
+		}
+	}
+	after = {
+		clr_global_flag = aoa_incident_active_flag_tt
+	}
+}
+country_event = {	#incident magisterium emperorship war sides
+	id = bertus_changes.6050
+	title = bertus_changes.6050.t
+	desc = bertus_changes.6050.desc
+	picture = DIPLOMACY_eventPicture
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = bertus_changes.6050.a
+		ai_chance = {factor = 50}
+		custom_tooltip = tooltip_magisterium_emperorship_war_emperor_side_hre
+		set_country_flag = magisterium_emperorship_war_emperor_side_flag
+		join_all_defensive_wars_of = emperor
+	}
+	option = {	#
+		name = bertus_changes.6050.b
+		ai_chance = {factor = 50}
+		custom_tooltip = tooltip_magisterium_emperorship_war_magisterium_side_hre
+		set_country_flag = magisterium_emperorship_war_magisterium_side_flag
+		join_all_offensive_wars_of = A85
+	}
+	option = {	#
+		name = bertus_changes.6050.c
+		ai_chance = {factor = 25}
+		custom_tooltip = tooltip_magisterium_emperorship_war_no_side_hre
+		if = {
+			limit = { alliance_with = A85 }
+			break_alliance = A85
+			white_peace = emperor
+		}
+		if = {
+			limit = { alliance_with = emperor }
+			break_alliance = emperor
+			white_peace = A85
 		}
 	}
 }

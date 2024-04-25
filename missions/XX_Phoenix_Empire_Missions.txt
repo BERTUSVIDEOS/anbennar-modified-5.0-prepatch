@@ -1610,14 +1610,31 @@ phoenix_empire_3 = {
 		}
 		
 		provinces_to_highlight = {
-			superregion = bulwar_superregion
-			NOT = { owned_by = ROOT }
+			OR = {
+				AND = {
+					superregion = bulwar_superregion
+					root = {
+						NOT = {
+							num_of_owned_provinces_with = {
+								is_core = ROOT
+								superregion = bulwar_superregion
+								value = 154	#154/233
+							}
+						}
+					}
+				}
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
 		}
 		
 		trigger = {
-			bulwar_superregion = {
-				type = all
-				owned_by = ROOT
+			num_of_owned_provinces_with = {
+				is_core = ROOT
+				superregion = bulwar_superregion
+				value = 154	#154/233
 			}
 			if = {
 				limit = { NOT = { government = monarchy } }

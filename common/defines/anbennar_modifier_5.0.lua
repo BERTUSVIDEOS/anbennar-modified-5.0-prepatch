@@ -78,6 +78,7 @@ NDefines.NCountry.AUTONOMY_AT_CONQUEST_CLAIM = 20	--40→20
 NDefines.NCountry.REVOLUTION_EMBRACE_MIN_SPREAD = 0.50
 NDefines.NCountry.TRADE_FAVORS_FOR_MEN_REQUIRED_OPINION = 201
 NDefines.NCountry.TRADE_FAVORS_FOR_SAILORS_REQUIRED_OPINION = 201
+NDefines.NCountry.GALLEY_INLAND_SEA_COAST_RATIO = 0 	--0.75→0		-- % of ports that need to be inland seas for galleys to be considered important
 	
 NDefines.NEconomy.COLONIAL_MAINTENANCE_FACTOR = 2.0	--8→2-- _EDEF_COLONIAL_MAINTENANCE_FACTOR_
 NDefines.NEconomy.TRADE_PROPAGATE_DIVIDER = 10	--5→10
@@ -114,7 +115,7 @@ NDefines.NMilitary.GARRISON_SIZE = 2000 --1000→2000-- GARRISON_SIZE
 NDefines.NMilitary.SIEGE_FORCE_NEEDED_MULTIPLIER = 0.5--3→0.5	-- x times garrison to be able to siege.
 NDefines.NMilitary.SIEGE_GARRISON_SURRENDER = 200--100→200-- A siege ends when there is less than 100 defenders left.
 NDefines.NMilitary.CAVALRY_SPEED = 1.0 --0.7→1.0-- _MDEF_CAVALRY_SPEED = 10
-NDefines.NMilitary.CAVALRY_COST = 40.0 --25→40-- _MDEF_CAVALRY_COST = 10
+NDefines.NMilitary.CAVALRY_COST = 30.0 --25→30-- _MDEF_CAVALRY_COST = 10
 NDefines.NMilitary.ARTILLERY_COST = 50.0 --30→50-- _MDEF_ARTILLERY_COST = 10
 NDefines.NMilitary.FORTRESS_COST = 0.25	--0.5→0.25-- base fort cost
 NDefines.NMilitary.TRANSPORT_COST = 6	--12→6-- _MDEF_TRANSPORT_COST = 10

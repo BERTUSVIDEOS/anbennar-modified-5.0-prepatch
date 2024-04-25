@@ -8,9 +8,7 @@ on_new_monarch_effect = { #1.35
 	if = {
 		limit = {
 			has_consort_regency = no
-			any_owned_province = {
-				has_province_modifier = domain_of_spouses_family
-			}
+			any_owned_province = { has_province_modifier = domain_of_spouses_family }
 		}
 		every_owned_province = {
 			limit = { has_province_modifier = domain_of_spouses_family }
@@ -20,9 +18,7 @@ on_new_monarch_effect = { #1.35
 	if = {
 		limit = {
 			has_consort_regency = no
-			any_owned_province = {
-				has_province_modifier = home_of_consort
-			}
+			any_owned_province = { has_province_modifier = home_of_consort }
 		}
 		every_owned_province = {
 			limit = { has_province_modifier = home_of_consort }
@@ -39,12 +35,7 @@ on_new_monarch_effect = { #1.35
 	}
 	if = {
 		limit = { has_government_attribute = civil_war_on_every_new_ruler }
-		capital_scope = {
-			spawn_rebels = {
-				type = pretender_rebels
-				size = 2
-			}
-		}
+		capital_scope = { spawn_rebels = { type = pretender_rebels size = 2 } }
 	}
 	if = {
 		limit = {
@@ -65,13 +56,8 @@ on_new_monarch_effect = { #1.35
 			limit = {
 				has_government_attribute = theocratic_monarchy_mechanic
 			}
-			country_event = {
-				id = flavor_sca.2
-			}
-			country_event = {
-				id = theocracy.1
-				days = 3
-			}
+			country_event = { id = flavor_sca.2 }
+			country_event = { id = theocracy.1 days = 3 }
 		}
 	}
 	if = {
@@ -245,9 +231,7 @@ on_province_owner_change_government_effect = {
 			owned_by = B34
 		}
 		if = {
-			limit = { 
-				owner = {  has_country_flag = luciande_tier3_slaves_flag } 
-			}
+			limit = { owner = {  has_country_flag = luciande_tier3_slaves_flag } }
 			add_province_modifier = { name = B34_board_of_chains_boost_upgraded_2 duration = -1 hidden = yes }
 		}
 		else_if = {
@@ -384,15 +368,11 @@ on_province_owner_change_government_effect = {
 		}
 	}
 	if = {	#bertus mod
-		limit = {
-			owner = {has_government_attribute = elven_repopulation}
-		}
+		limit = { owner = {has_government_attribute = elven_repopulation} }
 		add_elven_minority_size_effect = yes
 	}
 	if = {	#bertus mod
-		limit = {
-			is_part_of_hre = yes
-		}
+		limit = { is_part_of_hre = yes }
 		if = {
 			limit = {
 				province_with_mine_goods = yes
@@ -876,9 +856,7 @@ on_province_religion_converted_effect = {
 		set_variable = { which = development_var value = 0 }
 		export_to_variable = { which = development_var value = development who = PREV }
 		while = {
-			limit = { 
-				check_variable = { which = development_var value = 1 }
-			}
+			limit = {  check_variable = { which = development_var value = 1 } }
 			subtract_variable = { which = development_var value = 1 }
 			add_adm_power = 2
 			add_dip_power = 2
@@ -889,30 +867,16 @@ on_province_religion_converted_effect = {
 
 on_trade_good_changed_government_effect = {
 	if = {
-		limit = {
-			owner = { has_reform = monastic_breweries_reform }
-		}
+		limit = { owner = { has_reform = monastic_breweries_reform } }
 		if = {
-			limit = {
-				trade_goods = grain
-			}
+			limit = { trade_goods = grain }
 			remove_province_modifier_effect = {MODIFIER = wine_bonus_prod}
-			add_province_modifier = { 
-				name = grain_bonus_prod
-				duration = -1
-				hidden = yes
-			}
+			add_province_modifier = { name = grain_bonus_prod duration = -1 hidden = yes }
 		}
 		else_if = {
-			limit = {
-				trade_goods = wine
-			}
+			limit = { trade_goods = wine }
 			remove_province_modifier_effect = {MODIFIER = grain_bonus_prod}
-			add_province_modifier = { 
-				name = wine_bonus_prod
-				duration = -1
-				hidden = yes
-			}
+			add_province_modifier = {  name = wine_bonus_prod duration = -1 hidden = yes }
 		}
 		else = {
 			remove_province_modifier_effect = {MODIFIER = grain_bonus_prod}
@@ -927,28 +891,16 @@ on_trade_good_changed_government_effect = {
 		limit = { owner = { has_government_attribute = extra_trade_goods_from_grain } }
 		if = {
 			limit = { trade_goods = grain }
-			add_province_modifier = { 
-				name = grain_vodka_bonus_prod
-				duration = -1
-				hidden = yes
-			}
+			add_province_modifier = { name = grain_vodka_bonus_prod duration = -1 hidden = yes }
 		}
 		else = { remove_province_modifier_effect = {MODIFIER = grain_vodka_bonus_prod}}
 	}
 	else = { remove_province_modifier_effect = {MODIFIER = grain_vodka_bonus_prod} }
 	if = {
-		limit = {
-			owner = { has_government_attribute = extra_trade_goods_from_naval_supplies }
-		}
+		limit = { owner = { has_government_attribute = extra_trade_goods_from_naval_supplies } }
 		if = {
-			limit = {
-				trade_goods = naval_supplies
-			}
-			add_province_modifier = { 
-				name = naval_supplies_bonus_prod
-				duration = -1
-				hidden = yes
-			}
+			limit = { trade_goods = naval_supplies }
+			add_province_modifier = {  name = naval_supplies_bonus_prod duration = -1 hidden = yes }
 		}
 		else = {
 			remove_province_modifier_effect = {MODIFIER = naval_supplies_bonus_prod}
@@ -962,9 +914,7 @@ on_trade_good_changed_government_effect = {
 on_battle_won_unit_effect = {
 	if = {
 		limit = {
-			unit_owner = {
-				has_government_attribute = winning_battles_increases_legitimacy
-			}
+			unit_owner = { has_government_attribute = winning_battles_increases_legitimacy }
 			is_ruler_commanding_unit = yes
 		}
 		unit_owner = {
@@ -983,25 +933,19 @@ on_battle_won_unit_effect = {
 			set_variable = { which = amount_kill which = land_units_killed }
 			divide_variable = { which = amount_kill value = 1000 }
 			while = {
-				limit = {
-					check_variable = { which = amount_kill value = 1 }
-				}
+				limit = { check_variable = { which = amount_kill value = 1 } }
 				add_church_power = 1
 				change_variable = { which = amount_kill value = -1 }
 			}
 		}
 	}
 	if = {
-		limit = {
-			unit_owner = { has_government_attribute = warlock_religion_actions_mechanic }
-		}
+		limit = { unit_owner = { has_government_attribute = warlock_religion_actions_mechanic } }
 		unit_owner = {
 			set_variable = { which = amount_kill which = land_units_killed }
 			divide_variable = { which = amount_kill value = 1000 }
 			while = {
-				limit = {
-					check_variable = { which = amount_kill value = 1 }
-				}
+				limit = { check_variable = { which = amount_kill value = 1 } }
 				add_church_power = 1
 				change_variable = { which = amount_kill value = -1 }
 			}
@@ -1016,62 +960,20 @@ on_battle_won_unit_effect = {
 			}
 		}
 		unit_owner = {
-			set_variable = {
-				which = military_reform_unit_kill_losses
-				value = 0
-			}
-			change_variable = {
-				which = military_reform_unit_kill_losses
-				which = land_units_lost
-			}
-			set_variable = {
-				which = land_forcelimit_unit_kill_losses
-				value = 0
-			}
-			export_to_variable = {
-				which = land_forcelimit_unit_kill_losses
-				value = trigger_value:land_forcelimit
-			}
-			set_variable = {
-				which = army_size_unit_kill_losses
-				value = 0
-			}
-			export_to_variable = {
-				which = army_size_unit_kill_losses
-				value = trigger_value:army_size
-			}
-			divide_variable = {
-				which = military_reform_unit_kill_losses
-				value = 1000
-			}
-			divide_variable = {
-				which = military_reform_unit_kill_losses
-				which = land_forcelimit_unit_kill_losses
-			}
-			multiply_variable = {
-				which = military_reform_unit_kill_losses
-				which = army_size_unit_kill_losses
-			}
-			divide_variable = {
-				which = military_reform_unit_kill_losses
-				which = land_forcelimit_unit_kill_losses
-			}
+			set_variable = { which = military_reform_unit_kill_losses value = 0 }
+			change_variable = { which = military_reform_unit_kill_losses which = land_units_lost }
+			set_variable = { which = land_forcelimit_unit_kill_losses value = 0 }
+			export_to_variable = { which = land_forcelimit_unit_kill_losses value = trigger_value:land_forcelimit }
+			set_variable = { which = army_size_unit_kill_losses value = 0 }
+			export_to_variable = { which = army_size_unit_kill_losses value = trigger_value:army_size }
+			divide_variable = { which = military_reform_unit_kill_losses value = 1000 }
+			divide_variable = { which = military_reform_unit_kill_losses which = land_forcelimit_unit_kill_losses }
+			multiply_variable = { which = military_reform_unit_kill_losses which = army_size_unit_kill_losses }
+			divide_variable = { which = military_reform_unit_kill_losses which = land_forcelimit_unit_kill_losses }
 			while = {
-				limit = {
-					check_variable = {
-						which = military_reform_unit_kill_losses
-						value = 0.1
-					}
-				}
-				change_variable = {
-					which = military_reform_unit_kill_losses
-					value = -0.1
-				}
-				add_government_power = { 
-					mechanic_type = military_reforms_mechanic 
-					power_type = military_reform_power
-					value = 0.1
-				}
+				limit = { check_variable = { which = military_reform_unit_kill_losses value = 0.1 } }
+				change_variable = { which = military_reform_unit_kill_losses value = -0.1 }
+				add_government_power = { mechanic_type = military_reforms_mechanic power_type = military_reform_power value = 0.1 }
 			}
 		}
 	}
@@ -1087,62 +989,20 @@ on_battle_lost_unit_effect = {
 			}
 		}
 		unit_owner = {
-			set_variable = {
-				which = military_reform_unit_kill_losses
-				value = 0
-			}
-			change_variable = {
-				which = military_reform_unit_kill_losses
-				which = land_units_lost
-			}
-			set_variable = {
-				which = land_forcelimit_unit_kill_losses
-				value = 0
-			}
-			export_to_variable = {
-				which = land_forcelimit_unit_kill_losses
-				value = trigger_value:land_forcelimit
-			}
-			set_variable = {
-				which = army_size_unit_kill_losses
-				value = 0
-			}
-			export_to_variable = {
-				which = army_size_unit_kill_losses
-				value = trigger_value:army_size
-			}
-			divide_variable = {
-				which = military_reform_unit_kill_losses
-				value = 1000
-			}
-			divide_variable = {
-				which = military_reform_unit_kill_losses
-				which = land_forcelimit_unit_kill_losses
-			}
-			multiply_variable = {
-				which = military_reform_unit_kill_losses
-				which = army_size_unit_kill_losses
-			}
-			divide_variable = {
-				which = military_reform_unit_kill_losses
-				which = land_forcelimit_unit_kill_losses
-			}
+			set_variable = { which = military_reform_unit_kill_losses value = 0 }
+			change_variable = { which = military_reform_unit_kill_losses which = land_units_lost }
+			set_variable = { which = land_forcelimit_unit_kill_losses value = 0 }
+			export_to_variable = { which = land_forcelimit_unit_kill_losses value = trigger_value:land_forcelimit }
+			set_variable = { which = army_size_unit_kill_losses value = 0 }
+			export_to_variable = { which = army_size_unit_kill_losses value = trigger_value:army_size }
+			divide_variable = { which = military_reform_unit_kill_losses value = 1000 }
+			divide_variable = { which = military_reform_unit_kill_losses which = land_forcelimit_unit_kill_losses }
+			multiply_variable = { which = military_reform_unit_kill_losses which = army_size_unit_kill_losses }
+			divide_variable = { which = military_reform_unit_kill_losses which = land_forcelimit_unit_kill_losses }
 			while = {
-				limit = {
-					check_variable = {
-						which = military_reform_unit_kill_losses
-						value = 0.1
-					}
-				}
-				change_variable = {
-					which = military_reform_unit_kill_losses
-					value = -0.1
-				}
-				add_government_power = { 
-					mechanic_type = military_reforms_mechanic 
-					power_type = military_reform_power
-					value = 0.1
-				}
+				limit = { check_variable = { which = military_reform_unit_kill_losses value = 0.1 } }
+				change_variable = { which = military_reform_unit_kill_losses value = -0.1 }
+				add_government_power = { mechanic_type = military_reforms_mechanic power_type = military_reform_power value = 0.1 }
 			}
 		}
 	}
@@ -1152,20 +1012,11 @@ on_battle_won_country_effect = {
 	if = {	#lord alfonso experience
 		limit = {
 			has_leader = "Lord Alfonso"
-			#testing#	FROM = {ai = no}
+			FROM = { OR = { ai = no overlord = { ai = no } } }
 		}
-		change_variable = {
-			which = temp
-			which = land_units_killed
-		}
-		divide_variable = {	#1 exp every 100 kills
-			which = temp
-			value = 100
-		}
-		change_variable = {	#in order to avoid division by 0
-			which = lord_alfonso_exp
-			which = temp
-		}
+		change_variable = { which = temp which = land_units_killed }
+		divide_variable = { which = temp value = 100 }	#1 exp every 100 kills
+		change_variable = { which = lord_alfonso_exp which = temp }	#in order to avoid division by 0
 		update_lord_alfonso_level = yes
 	}
 	if = {	#bertus mod
@@ -1177,10 +1028,7 @@ on_battle_won_country_effect = {
 		}
 		ROOT = {
 			remove_country_modifier = corinite_purim_teachings_aspect_modifier
-			add_country_modifier = {
-				name = corinite_purim_teachings_aspect_modifier
-				duration = 730
-			}
+			add_country_modifier = { name = corinite_purim_teachings_aspect_modifier duration = 730 }
 		}
 	}
 	if = {
@@ -1188,38 +1036,16 @@ on_battle_won_country_effect = {
 			ROOT = { has_government_attribute = manpower_from_defeating_armies }
 		}
 		ROOT = {
-			multiply_variable = {
-				which = land_units_killed_var
-				value = 0.1
-			}
+			multiply_variable = { which = land_units_killed_var value = 0.1 }
 			while = {
-				limit = {
-					check_variable = {
-						which = land_units_killed_var
-						value = 1000
-					}
-				}
-				subtract_variable = {
-					which = land_units_killed_var
-					value = 1000
-				}
+				limit = { check_variable = { which = land_units_killed_var value = 1000 } }
+				subtract_variable = { which = land_units_killed_var value = 1000 }
 				add_manpower = 1
 			}
-			multiply_variable = {
-				which = land_units_killed_var
-				value = 1000
-			}
+			multiply_variable = { which = land_units_killed_var value = 1000 }
 			while = {
-				limit = {
-					check_variable = {
-						which = land_units_killed_var
-						value = 1000
-					}
-				}
-				subtract_variable = {
-					which = land_units_killed_var
-					value = 1000
-				}
+				limit = { check_variable = { which = land_units_killed_var value = 1000 } }
+				subtract_variable = { which = land_units_killed_var value = 1000 }
 				add_manpower = 0.001
 			}
 		}
@@ -1228,22 +1054,10 @@ on_battle_won_country_effect = {
 #1.35
 on_battle_ended_effect = {
 	ROOT = {
-		change_variable = {
-			which = total_land_units_killed
-			which = land_units_killed
-		}
-		change_variable = {
-			which = total_land_units_lost
-			which = land_units_lost
-		}
-		change_variable = {
-			which = total_naval_units_killed
-			which = naval_units_killed
-		}
-		change_variable = {
-			which = total_naval_units_lost
-			which = naval_units_lost
-		}
+		change_variable = { which = total_land_units_killed which = land_units_killed }
+		change_variable = { which = total_land_units_lost which = land_units_lost }
+		change_variable = { which = total_naval_units_killed which = naval_units_killed }
+		change_variable = { which = total_naval_units_lost which = naval_units_lost }
 	}
 }
 
@@ -1283,9 +1097,7 @@ on_war_declaration_effect = {
 		9 = {}
 	}
 	country_event = {id = bertus_changes.1042}
-	FROM = {
-		country_event = {id = bertus_changes.1042}
-	}
+	FROM = { country_event = {id = bertus_changes.1042} }
 }
 
 remove_all_age_of_discovery_modifiers = {
@@ -1343,22 +1155,10 @@ on_colonist_boosting_colony_effect = {
 					#test if colonists outnumber natives
 					variable_arithmetic_trigger = {
 						custom_tooltip = colonysize_is_larger_than_nativesize_tt
-						export_to_variable = {
-							which = vab_colonysize
-							value = trigger_value:colonysize
-						}
-						export_to_variable = {
-							which = vab_nativesize
-							value = trigger_value:native_size
-						}
-						multiply_variable = {
-							which = vab_nativesize
-							value = 100
-						}
-						check_variable = {
-							which = vab_colonysize
-							which = vab_nativesize
-						}
+						export_to_variable = { which = vab_colonysize value = trigger_value:colonysize }
+						export_to_variable = { which = vab_nativesize value = trigger_value:native_size }
+						multiply_variable = { which = vab_nativesize value = 100 }
+						check_variable = { which = vab_colonysize which = vab_nativesize }
 					}
 					is_in_capital_area = yes
 					continent = north_america
@@ -1381,22 +1181,10 @@ on_colonist_boosting_colony_effect = {
 					#test if colonists outnumber natives
 					variable_arithmetic_trigger = {
 						custom_tooltip = colonysize_is_larger_than_nativesize_tt
-						export_to_variable = {
-							which = vab_colonysize
-							value = trigger_value:colonysize
-						}
-						export_to_variable = {
-							which = vab_nativesize
-							value = trigger_value:native_size
-						}
-						multiply_variable = {
-							which = vab_nativesize
-							value = 100
-						}
-						check_variable = {
-							which = vab_colonysize
-							which = vab_nativesize
-						}
+						export_to_variable = { which = vab_colonysize value = trigger_value:colonysize }
+						export_to_variable = { which = vab_nativesize value = trigger_value:native_size }
+						multiply_variable = { which = vab_nativesize value = 100 }
+						check_variable = { which = vab_colonysize which = vab_nativesize }
 					}
 					is_in_capital_area = yes
 					continent = north_america
@@ -1508,7 +1296,7 @@ on_parliament_debate_failed_effect = {
 }
 on_parliament_debate_succeeded_effect = {
 	if = {
-		limit = {has_government_attribute = pariament_debate_bonus}
+		limit = {has_government_attribute = parliament_debate_bonus}
 		add_adm_power = 100
 		add_dip_power = 100
 		add_mil_power = 100
@@ -1545,22 +1333,11 @@ on_change_tag_effect = {
 
 on_force_conversion_effect = {
 	FROM = {
-		add_country_modifier = {
-			name = recently_force_converted_protagonist_timer
-			duration = 5475
-			hidden = yes
-		}
-		change_variable = {
-			which = num_of_forced_conversions
-			value = 1
-		}
+		add_country_modifier = { name = recently_force_converted_protagonist_timer duration = 5475 hidden = yes }
+		change_variable = { which = num_of_forced_conversions value = 1 }
 		if = {
 			limit = { has_government_attribute = gain_monarch_power_from_force_converting }
-			export_to_variable = {
-				variable_name = root_development
-				value = total_development
-				who = ROOT
-			}
+			export_to_variable = { variable_name = root_development value = total_development who = ROOT }
 			while = {
 				limit = { check_variable = { which = root_development value = 1 } }
 				subtract_variable = { which = root_development value = 1 }
@@ -1594,9 +1371,7 @@ on_general_recruited_effect = {
 		add_yearly_manpower = 0.10
 	}
 	if = {	#bertus mod
-		limit = {
-			has_government_attribute = recruiting_generals_increases_professionalism
-		}
+		limit = { has_government_attribute = recruiting_generals_increases_professionalism }
 		add_army_professionalism = 0.002
 	}
 	if = {
@@ -1606,18 +1381,12 @@ on_general_recruited_effect = {
 }
 on_sale_of_titles_effect = {
 	hidden_effect = {
-		change_variable = {
-			which = sale_of_titles_counter
-			value = 1
-		}
+		change_variable = { which = sale_of_titles_counter value = 1 }
 	}
 }
 on_summon_the_diet_effect = {
 	hidden_effect = {
-		change_variable = {
-			which = summon_the_diet_counter
-			value = 1
-		}
+		change_variable = { which = summon_the_diet_counter value = 1 }
 	}
 }
 on_seize_land_effect = {
@@ -1651,9 +1420,7 @@ on_heir_disinherited_or_death_effect = {
 		limit = { has_ruler_flag = sancaga_cikma }
 		clr_ruler_flag = sancaga_cikma
 		every_owned_province = {
-			limit = {
-				has_province_modifier = heir_in_training
-			}
+			limit = { has_province_modifier = heir_in_training }
 			remove_province_modifier = heir_in_training
 		}
 	}

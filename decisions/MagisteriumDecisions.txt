@@ -108,6 +108,13 @@ country_decisions = {
 			is_nomad = no
 			owns_core_province = 8	# Anbenncost
 			OR = {
+				is_emperor = yes
+				AND = {
+					NOT = { active_imperial_incident = any }
+					NOT = {	truce_with = emperor }
+				}
+			}
+			OR = {
 				AND = {
 					is_emperor = yes
 					development_in_provinces = {
@@ -130,48 +137,70 @@ country_decisions = {
 			}
 		}
 		effect = {
-			8 = { #Anbenncost
-				move_capital_effect = yes
-			}
-			hidden_effect = { restore_country_name = yes }
-			swap_non_generic_missions = yes
-			remove_non_electors_emperors_from_empire_effect = yes
-			set_country_flag = magisterium_empire_flag
-			clr_country_flag = magisterium_reformed_flag
-			add_government_reform = magisterium_empire_reform
-			custom_tooltip = get_claims_on_hre_tt
-			hidden_effect = {
-				every_province = {
-					limit = {
-						NOT = { owned_by = ROOT }
-						is_part_of_hre = yes
-					}
-					add_permanent_claim = A85
-				}
-			}
-			add_prestige_or_monarch_power = {amount =  25}
-			if = { 
-				limit = { has_dlc = "Mandate of Heaven" }
-				custom_tooltip = if_used_ge_rest_else_50_years_extension_tt 
-				if = {
-					limit = { has_had_golden_age = yes } 
-					reset_golden_age = yes 
-				}
-				else_if = {
-					limit = { in_golden_age = yes } 
-					extend_golden_age = 600 
-				}
-			}
 			if = {
-				limit = {is_emperor = no}
-				set_emperor = yes
+				limit = {
+					is_emperor = yes
+				}
+				8 = { #Anbenncost
+					move_capital_effect = yes
+				}
+				hidden_effect = { restore_country_name = yes }
+				swap_non_generic_missions = yes
+				remove_non_electors_emperors_from_empire_effect = yes
+				set_country_flag = magisterium_empire_flag
+				clr_country_flag = magisterium_reformed_flag
+				add_government_reform = magisterium_empire_reform
+				custom_tooltip = get_claims_on_hre_tt
+				hidden_effect = {
+					every_province = {
+						limit = {
+							NOT = { owned_by = ROOT }
+							is_part_of_hre = yes
+						}
+						add_permanent_claim = A85
+					}
+				}
+				add_prestige_or_monarch_power = {amount =  25}
+				if = { 
+					limit = { has_dlc = "Mandate of Heaven" }
+					custom_tooltip = if_used_ge_rest_else_50_years_extension_tt 
+					if = {
+						limit = { has_had_golden_age = yes } 
+						reset_golden_age = yes 
+					}
+					else_if = {
+						limit = { in_golden_age = yes } 
+						extend_golden_age = 600 
+					}
+				}
+				if = {
+					limit = {is_emperor = no}
+					set_emperor = yes
+				}
+				add_country_modifier = {
+					name = "centralization_modifier"
+					duration = 7300
+				}
+				set_country_flag = formed_magisterium_empire_flag
+				set_country_flag = super_nation_formed
 			}
-			add_country_modifier = {
-				name = "centralization_modifier"
-				duration = 7300
+			else = {
+				emperor = {	#remove imperial authority temporarily
+					hidden_effect = {
+						set_variable = { which = save_imperial_authority_var value = 0 }
+						export_to_variable = { which = save_imperial_authority_var value = trigger_value:imperial_influence }
+					}
+					add_imperial_influence = -100
+				}
+				set_imperial_incident = incident_magisterium_emperorship_war
+				set_global_flag = aoa_incident_active_flag_tt
+				custom_tooltip = tooltip_option_alpha
+				custom_tooltip = tooltip_abdicate_emperorship_hre
+				custom_tooltip = tooltip_option_beta
+				custom_tooltip = tooltip_keep_emperorship_hre
+				custom_tooltip = celebrate_space_tooltip
+				custom_tooltip = spacing_tooltip
 			}
-			set_country_flag = formed_magisterium_empire_flag
-			set_country_flag = super_nation_formed
 		}
 		ai_will_do = {factor = 1}
 		ai_importance = 400

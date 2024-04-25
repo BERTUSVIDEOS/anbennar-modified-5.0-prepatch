@@ -365,13 +365,9 @@ custom_icon = {
 	name = special_abilities_background
 	potential = {
 		is_city = yes
-		controller = {
-			has_estate_privilege = estate_ogre_stone_soup
-		}
+		controller = { has_estate_privilege = estate_ogre_stone_soup }
 		NOT = { controlled_by = owner }
-		FROM = {
-			ai = no
-		}
+		FROM = { ai = no }
 	}
 	tooltip = ""
 }
@@ -379,9 +375,6 @@ custom_button = {
     name = stone_soup
     potential = {
 		is_city = yes
-		controller = {
-			has_estate_privilege = estate_ogre_stone_soup
-		}
 		NOT = { controlled_by = owner }
 		FROM = {
 			ai = no
@@ -641,6 +634,7 @@ custom_icon = {
 custom_button = {
 	name = dookan_slave_herd
 	potential = {
+		owned_by = FROM
 		owner = {
 			ai = no
 			OR = {
@@ -673,6 +667,7 @@ custom_button = {
 custom_button = {
 	name = corinite_state_communities
 	potential = {
+		owned_by = FROM
 		owner = {
 			ai = no
 			religion = corinite
@@ -702,6 +697,7 @@ custom_button = {
 custom_button = {
 	name = corinite_state_blessing
 	potential = {
+		owned_by = FROM
 		owner = {
 			ai = no
 			religion = corinite
@@ -732,6 +728,7 @@ custom_button = {
 custom_button = {
 	name = corinite_state_wisdom
 	potential = {
+		owned_by = FROM
 		owner = {
 			ai = no
 			religion = corinite
@@ -842,7 +839,7 @@ custom_button = {
 custom_button = {
 	name = purge_action
 	potential = {
-		owns = ROOT
+		owned_by = FROM
 		owner = { is_part_of_hre = no }
 		at_least_one_race_trigger = {
 			TRIGGER = is_purging_or_expelling_province_race
@@ -930,27 +927,55 @@ custom_button = {
 		religion = bulwari_sun_cult
 	}
 	trigger = {
-		OR = {
-			if = {
-				limit = {
-					has_country_flag = elven_interaction_cd
-					NOT = { had_country_flag = { flag = elven_interaction_cd days = 5475 } }
+		if = {
+			limit = { has_government_attribute = praise_surael_reform_mechanic }
+			OR = {
+				if = {
+					limit = {
+						has_country_flag = elven_interaction_cd
+						NOT = { had_country_flag = { flag = elven_interaction_cd days = 3650 } }
+					}
+					had_country_flag = { flag = elven_interaction_cd days = 3650 }
 				}
-				had_country_flag = { flag = elven_interaction_cd days = 5475 }
+				if = {
+					limit = {
+						has_country_flag = human_interaction_cd
+						NOT = { had_country_flag = { flag = human_interaction_cd days = 3650 } }
+					}
+					had_country_flag = { flag = human_interaction_cd days = 3650 }
+				}
+				if = {
+					limit = {
+						has_country_flag = half_elven_interaction_cd
+						NOT = { had_country_flag = { flag = half_elven_interaction_cd days = 3650 } }
+					}
+					had_country_flag = { flag = half_elven_interaction_cd days = 3650 }
+				}
 			}
-			if = {
-				limit = {
-					has_country_flag = human_interaction_cd
-					NOT = { had_country_flag = { flag = human_interaction_cd days = 5475 } }
+		}
+		else = {
+			OR = {
+				if = {
+					limit = {
+						has_country_flag = elven_interaction_cd
+						NOT = { had_country_flag = { flag = elven_interaction_cd days = 5475 } }
+					}
+					had_country_flag = { flag = elven_interaction_cd days = 5475 }
 				}
-				had_country_flag = { flag = human_interaction_cd days = 5475 }
-			}
-			if = {
-				limit = {
-					has_country_flag = half_elven_interaction_cd
-					NOT = { had_country_flag = { flag = half_elven_interaction_cd days = 5475 } }
+				if = {
+					limit = {
+						has_country_flag = human_interaction_cd
+						NOT = { had_country_flag = { flag = human_interaction_cd days = 5475 } }
+					}
+					had_country_flag = { flag = human_interaction_cd days = 5475 }
 				}
-				had_country_flag = { flag = half_elven_interaction_cd days = 5475 }
+				if = {
+					limit = {
+						has_country_flag = half_elven_interaction_cd
+						NOT = { had_country_flag = { flag = half_elven_interaction_cd days = 5475 } }
+					}
+					had_country_flag = { flag = half_elven_interaction_cd days = 5475 }
+				}
 			}
 		}
 	}
