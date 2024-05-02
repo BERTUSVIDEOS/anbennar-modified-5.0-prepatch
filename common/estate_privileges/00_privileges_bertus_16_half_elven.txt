@@ -413,10 +413,23 @@ estate_half_elven_intolerance_policy = {
 		remove_racial_culture = { race = hobgoblin }
 		remove_racial_culture = { race = kobold }
 		custom_tooltip = estate_half_elven_one_culture_exceptions_tt
+		hidden_effect = {
+			every_known_country = {
+				limit = {
+					NOT = { has_country_modifier = human_administration }
+					NOT = { has_country_modifier = half_elven_administration }
+					NOT = { has_country_modifier = elven_administration }
+				}
+				reverse_add_opinion = {
+					who = ROOT
+					modifier = opinion_supremacy_race
+				}
+			}
+		}
 	}
 	on_granted_province = {
 		add_racial_superiority_modifier = {
-			race = half_orcish
+			race = half_elven
 			multiple_races = yes
 			race2 = elven
 			race3 = human
@@ -431,11 +444,6 @@ estate_half_elven_intolerance_policy = {
 	}
 	conditional_modifier = {
 		trigger = {
-			any_ally = {
-				NOT = { culture_is_elven = yes }
-				NOT = { culture_is_human = yes }
-				NOT = { culture_is_half_elven = yes }
-			}
 			NOT = {
 				calc_true_if = {
 					has_government_attribute = faster_purguing_reform
@@ -453,11 +461,6 @@ estate_half_elven_intolerance_policy = {
 	}
 	conditional_modifier = {
 		trigger = {
-			any_ally = {
-				NOT = { culture_is_elven = yes }
-				NOT = { culture_is_human = yes }
-				NOT = { culture_is_half_elven = yes }
-			}
 			calc_true_if = {
 				has_government_attribute = faster_purguing_reform
 				has_idea = total_supremacy
@@ -480,11 +483,6 @@ estate_half_elven_intolerance_policy = {
 	}
 	conditional_modifier = {
 		trigger = {
-			any_ally = {
-				NOT = { culture_is_elven = yes }
-				NOT = { culture_is_human = yes }
-				NOT = { culture_is_half_elven = yes }
-			}
 			calc_true_if = {
 				has_government_attribute = faster_purguing_reform
 				has_idea = total_supremacy
@@ -507,11 +505,6 @@ estate_half_elven_intolerance_policy = {
 	}
 	conditional_modifier = {
 		trigger = {
-			any_ally = {
-				NOT = { culture_is_elven = yes }
-				NOT = { culture_is_human = yes }
-				NOT = { culture_is_half_elven = yes }
-			}
 			calc_true_if = {
 				has_government_attribute = faster_purguing_reform
 				has_idea = total_supremacy
@@ -615,24 +608,6 @@ estate_half_elven_intolerance_policy = {
 			manpower_recovery_speed = 0.15
 			reinforce_speed = 0.30
 			recover_army_morale_speed = 0.075
-		}
-	}
-	conditional_modifier = {
-		trigger = {
-			any_ally = {
-				NOT = { culture_is_elven = yes }
-				NOT = { culture_is_human = yes }
-				NOT = { culture_is_half_elven = yes }
-			}
-		}
-		modifier = {
-			land_morale = -0.05
-			stability_cost_modifier = 0.2
-			legitimacy = -1
-			republican_tradition = -0.25
-			devotion = -0.5
-			global_unrest = 2
-			administrative_efficiency = -0.05		
 		}
 	}
 	on_revoked = {

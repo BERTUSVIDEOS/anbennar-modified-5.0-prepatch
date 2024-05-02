@@ -298,22 +298,18 @@ pirate_republic_reform = {
 	icon = "pirate_republic"
 	allow_normal_conversion = no
 	legacy_equivalent = pirate_republic
-	lock_level_when_selected = yes
-	modifiers = {
-		republican_tradition = -1
-		max_absolutism = 10
-		naval_forcelimit_modifier = 0.5
-		capture_ship_chance = 0.33
-		state_governing_cost = 0.75
-		may_perform_slave_raid_on_same_religion = yes
-		allowed_marine_fraction = 0.5
+	#lock_level_when_selected = yes	#bertus mod
+	
+
+	potential = {
+		has_reform = pirate_republic_reform
+		OR = {
+			has_dlc = "Lions of the North"
+			has_dlc = "Golden Century"
+		}
 	}
 	trigger = {
 	}
-	valid_for_nation_designer = yes
-	nation_designer_cost = 40
-	can_form_trade_league = no
-	
 	nation_designer_trigger = {
 		OR = {
 			has_dlc = "Lions of the North"
@@ -331,31 +327,50 @@ pirate_republic_reform = {
 		NOT = { technology_group = south_american }
 		NOT = { technology_group = mesoamerican }
 	}
-
-	removed_effect = {
-		clr_country_flag = pirate_mutineer_council
-	}
-	
-	potential = {
-		has_reform = pirate_republic_reform
-		OR = {
-			has_dlc = "Lions of the North"
-			has_dlc = "Golden Century"
-		}
-	}
-	
+	valid_for_nation_designer = yes
+	nation_designer_cost = 40
+	can_form_trade_league = no
+	duration = 4
 	factions_frame = 9
 	
-	duration = 4
-	
+	modifiers = {
+		#capture_ship_chance = 0.10	#0.33→0
+		#state_governing_cost = 0.75	#0.75→0
+		republican_tradition = -1
+		max_absolutism = 10
+		governing_capacity_modifier = -0.50	#0→-0.50
+		naval_forcelimit_modifier = 0.5
+		naval_maintenance_modifier = -0.10	#0→-0.10
+		global_sailors_modifier = 0.50	#0→0.50
+		global_manpower_modifier = -0.50	#0→-0.50
+		allowed_marine_fraction = 0.5
+		may_perform_slave_raid_on_same_religion = yes
+	}
 	custom_attributes = {
 		locked_government_type = yes
 		force_admiral_leader = yes
 		is_pirate_republic_reform = yes
 		elections_increase_factions_influence = yes
 		cannot_become_dictatorship = yes
+		cannot_ally_non_pirates = yes
 	}
-	
+	effect = {
+		custom_tooltip = break_every_non_pirate_alliance_tt
+		custom_tooltip = blocks_other_reforms_for_this_level_for_10_years_tt
+		hidden_effect = {
+			every_ally = {
+				limit = {
+					NOT = { has_government_attribute = is_pirate_republic_reform }
+				}
+				ROOT = { break_alliance = PREV }
+			}
+			clr_country_flag = has_the_pirate_ways_reform
+			set_country_flag = has_the_pirate_ways_reform
+		}
+	}
+	removed_effect = {
+		clr_country_flag = pirate_mutineer_council
+	}
 }
 
 noble_elite_reform = {
@@ -2531,11 +2546,19 @@ council_of_captains_reform = {
 		}
 	}
 	modifiers = {
-		privateer_efficiency = 0.33
+		#privateer_efficiency = 0.33	#0.33→0
+		free_navy_leader_pool = 1	#0→1
+		admiral_cost = -0.10	#0→-0.10
+		max_admiral_fire = 1	#0→1
+		max_admiral_shock = 1	#0→1
 	}
-	ai = {
-		factor = 2.5
+	custom_attributes = {
+		admirals_give_navy_tradition = yes
+		admirals_give_republican_tradition = yes
+		admirals_give_sailors = yes
+		winning_battles_increases_legitimacy = yes
 	}
+	ai = { factor = 2.5 }
 }
 
 articles_of_agreement_reform = {
@@ -2559,12 +2582,12 @@ articles_of_agreement_reform = {
 		}
 	}
 	modifiers = {
+		#global_sailors_modifier = 0.1	#0.1→0
+		global_allowed_num_of_buildings = 1	#0→1
 		republican_tradition = 0.5
-		global_sailors_modifier = 0.1
+		global_defender_dice_roll_bonus = 2	#0→2
 	}
-	ai = {
-		factor = 2.5
-	}
+	ai = { factor = 2.5 }
 }
 
 smugglers_haven_reform = {
@@ -2588,11 +2611,15 @@ smugglers_haven_reform = {
 		}
 	}
 	modifiers = {
-		global_foreign_trade_power = 0.3
+		global_foreign_trade_power = 0.30
+		trade_range_modifier = 0.50	#0→0.50
+		global_ship_trade_power = 0.20	#0→0.20
+		light_ship_hull_size_modifier = 0.20	#0→0.20
 	}
-	ai = {
-		factor = 2.5
+	custom_attributes = {
+		only_one_ally = yes
 	}
+	ai = { factor = 2.5 }
 }
 
 the_pirate_ways_reform = {
@@ -2602,28 +2629,19 @@ the_pirate_ways_reform = {
 		has_government_attribute = is_pirate_republic_reform
 	}
 	modifiers = {
-		privateer_efficiency = 0.25
-		land_morale = 0.1
-		naval_morale = 0.1
+		#republican_tradition = 1	#1→0
+		#privateer_efficiency = 0.25	#0.25→0
+		#land_morale = 0.10
+		#naval_morale = 0.10
 		naval_maintenance_modifier = -0.10
-		republican_tradition = 1
+		trade_range_modifier = 0.50	#0→0.50
+		light_ship_number_of_cannons_modifier = 0.20	#0→0.20
+		privateer_efficiency = 0.15	#0→0.15
 	}
 	effect = {
-		custom_tooltip = break_every_non_pirate_alliance_tt
-		custom_tooltip = blocks_other_reforms_for_this_level_for_10_years_tt
-		hidden_effect = {
-			every_ally = {
-				limit = {
-					NOT = { has_government_attribute = is_pirate_republic_reform }
-				}
-				ROOT = { break_alliance = PREV }
-			}
-			clr_country_flag = has_the_pirate_ways_reform
-			set_country_flag = has_the_pirate_ways_reform
-		}
 	}
 	custom_attributes = {
-		cannot_ally_non_pirates = yes
+		only_one_ally = yes
 	}
 	ai = {
 		factor = 1
@@ -3174,29 +3192,7 @@ dwarovar_elder_wisdom = {
 }
 
 #Religion within Republic
-establish_religious_institution_for_pirates_reform = {
-	icon = "religious_leader"
-	allow_normal_conversion = yes
-	potential = {
-		has_government_attribute = is_pirate_republic_reform
-	}
-	trigger = {	
-		OR = {
-			NOT = { has_estate = estate_church }
-			has_reform = establish_religious_institution_for_pirates_reform
-		}
-	}
-	modifiers = {
-		tolerance_own = 2
-	}
-	custom_attributes = {
-	}
-	effect = {
-	}
-	ai = {
-		factor = 2.5
-	}
-}
+# establish_religious_institution_for_pirates_reform	#bertus unused
 
 crew_before_faith_reform = {
 	icon = "pirate_crew"
@@ -3205,27 +3201,18 @@ crew_before_faith_reform = {
 		has_government_attribute = is_pirate_republic_reform
 	}
 	modifiers = {
-		war_exhaustion = -0.1
+		#war_exhaustion = -0.10	#-0.10→0
+		tolerance_heathen = 1	#0→1
+		tolerance_heretic = 1	#0→1
+		navy_tradition = 0.5	#0→0.5
+		naval_attrition = -0.10	#0→-0.10
 	}
 	ai = {
 		factor = 2.5
 	}
 }
 
-respect_for_the_sea_reform = {
-	icon = "great_sea"
-	allow_normal_conversion = yes
-	potential = {
-		has_government_attribute = is_pirate_republic_reform
-	}
-	modifiers = {
-		global_unrest = -1
-		navy_tradition = 0.5
-	}
-	ai = {
-		factor = 2.5
-	}
-}
+#respect_for_the_sea_reform	#bertus unused
 
 relgious_freedom_reform = {
 	icon = "partial_secularisation_reform"
@@ -3234,9 +3221,10 @@ relgious_freedom_reform = {
 		has_government_attribute = is_pirate_republic_reform
 	}
 	modifiers = {
-		development_cost = -0.05
-		tolerance_heathen = 1
-		tolerance_heretic = 1
+		#tolerance_heathen = 1	#1→0
+		#tolerance_heretic = 1	#1→0
+		development_cost_modifier = -0.05
+		no_religion_penalty = yes
 	}
 	ai = {
 		factor = 2.5
@@ -3507,6 +3495,7 @@ presidential_reform = {
 		NOT = {
 			has_reform = golden_republic_reform
 			has_reform = bulwar_twelve_families_reform
+			has_reform = pirate_republic_reform	
 		}
 	}
 	modifiers = {
@@ -3558,6 +3547,7 @@ attorney_general_reform = {
 	potential = {
 		is_revolutionary = no
 		NOT = {culture_group = dwarven }
+		NOT = { has_reform = pirate_republic_reform	}
 	}
 	allow_normal_conversion = yes
 	modifiers = {
@@ -3839,17 +3829,7 @@ broaden_executive_powers_reform = {
 	}
 }
 
-devolution_of_powers_reform = {
-	icon = "generic_people"
-	allow_normal_conversion = yes
-	modifiers = {
-		advisor_pool = 2
-		global_autonomy = -0.05
-	}
-	ai = {
-		factor = 1.5
-	}
-}
+#devolution_of_powers_reform	#bertus unused
 
 power_to_the_raiders_reform = {
 	icon = "sea_raiders"
@@ -3858,12 +3838,18 @@ power_to_the_raiders_reform = {
 		has_government_attribute = is_pirate_republic_reform
 	}
 	modifiers = {
+		#global_sailors_modifier = 0.25	#0.25→0
 		allowed_marine_fraction = 0.25
-		global_sailors_modifier = 0.25
+		privateer_efficiency = 0.15	#0→0.15
+		coast_raid_range = 1	#0→1
 	}
-	ai = {
-		factor = 2.5
+	effect = {
+		add_country_modifier = {
+			name = aristocratic_marine_discipline_modifier
+			duration = -1
+		}
 	}
+	ai = { factor = 2.5 }
 }
 
 power_to_the_captains_reform = {
@@ -3873,12 +3859,12 @@ power_to_the_captains_reform = {
 		has_government_attribute = is_pirate_republic_reform
 	}
 	modifiers = {
-		heavy_ship_power = 0.1
+		#heavy_ship_power = 0.10	#0.10→0
 		movement_speed_in_fleet_modifier = 1
+		max_admiral_fire = 1	#0→1
+		max_admiral_shock = 1	#0→1
 	}
-	ai = {
-		factor = 2.5
-	}
+	ai = { factor = 2.5 }
 }
 
 power_to_the_smugglers_reform = {
@@ -3889,11 +3875,11 @@ power_to_the_smugglers_reform = {
 	}
 	modifiers = {
 		merchants = 1
-		ship_power_propagation = 0.25
+		ship_power_propagation = 0.20	#0.25→0.20
+		ship_trade_power_modifier = 0.20
+		trade_range_modifier = 0.50	#0→0.50
 	}
-	ai = {
-		factor = 2.5
-	}
+	ai = { factor = 2.5 }
 }
 
 consolidate_power_to_the_ruler_reform = {
@@ -3969,11 +3955,15 @@ pirate_king_reform = {
 		has_government_attribute = is_pirate_republic_reform
 	}
 	modifiers = {
-		harsh_treatment_cost = -0.2
+		#harsh_treatment_cost = -0.2	#-0.20→0
 		leader_naval_fire = 1
+		leader_naval_shock = 1	#0→1
+		admiral_cost = -0.10	#0→-0.10
 	}
 	custom_attributes = {
 		admirals_become_rulers = yes
+		winning_wars_gives_rt = yes
+		winning_battles_increases_legitimacy = yes
 	}
 	has_term_election = no
 	ai = {
@@ -3988,16 +3978,21 @@ war_against_the_world_doctrine_reform = {
 	disallowed_trade_goods = { slaves }
 	potential = {
 		has_government_attribute = is_pirate_republic_reform
+		NOT = { has_government_attribute = the_pirate_ways_reform }
+		NOT = { has_government_attribute = smugglers_haven_reform }
 	}
 	trigger = {
 		NOT = { culture_group = gnollish }
 	}
 	modifiers = {
-		years_of_nationalism = -5
-		global_ship_recruit_speed = -0.15
+		#years_of_nationalism = -5	#-5→0
+		#global_ship_recruit_speed = -0.15	#-0.15→0
+		naval_morale = 0.10	#0→0.10
+		land_morale = 0.10	#0→0.10
 	}
 	custom_attributes = {
 		gives_war_against_the_world_tooltip_dummy = yes
+		mil_advisors_give_manpower_recovery_from_skill_level = yes
 	}
 	ai = {
 		factor = 2.5
@@ -4011,13 +4006,37 @@ black_market_consortium_reform = {
 	potential = {
 		has_government_attribute = is_pirate_republic_reform
 	}
+	trigger = {
+		if = {
+			limit = { has_country_flag = recently_got_parliament_flag }
+			had_country_flag = {
+				flag = recently_got_parliament_flag
+				days = 7300
+			}
+		}
+	}
 	modifiers = {
+		trade_efficiency = 0.10	#0→0.10
+		merchants = 1	#0→1
 	}
 	conditional = {
 		allow = {
 			has_dlc = "Res Publica"
 		}
 		can_use_trade_post = yes
+	}
+	conditional = {
+		allow = {
+			OR = {
+				has_dlc = "Common Sense"
+				has_dlc = "Domination"
+			}
+		}
+		has_parliament = yes
+	}
+	removed_effect = {
+		clr_country_flag = recently_got_parliament_flag
+		set_country_flag = recently_got_parliament_flag
 	}
 	boost_income = yes
 	ai = {
@@ -4157,30 +4176,7 @@ dwarovar_cartel_backing = {
 
 
 #Economical Matters
-empowered_quartermasters_reform = {
-	icon = "merchant"
-	allow_normal_conversion = yes
-	potential = {
-		has_government_attribute = is_pirate_republic_reform
-	}
-	trigger = {	
-		OR = {
-			NOT = { has_estate = estate_burghers }
-			has_reform = empowered_quartermasters_reform
-		}
-	}
-	modifiers = {
-		naval_maintenance_modifier = -0.15
-		max_absolutism = -15
-	}
-	effect = {
-	}
-	custom_attributes = {
-	}
-	ai = {
-		factor = 1
-	}
-}
+#empowered_quartermasters_reform	#bertus mod unused
 
 open_naval_services_reform = {
 	icon = "merchant_ship"
@@ -4199,14 +4195,13 @@ open_naval_services_reform = {
 		hidden_effect = {
 			every_owned_province = {
 				if = {
-					limit = {
-						trade_goods = naval_supplies
-					}
+					limit = { trade_goods = naval_supplies }
 					add_province_modifier = { 
 						name = naval_supplies_bonus_prod
 						duration = -1
 						hidden = yes
 					}
+					province_event = {id = bertus_pops.1044 }	#super boost pop goods produced
 				}
 			}
 		}
@@ -4214,10 +4209,9 @@ open_naval_services_reform = {
 	removed_effect = {
 		hidden_effect = {
 			every_owned_province = {
-				limit = {
-					has_province_modifier = naval_supplies_bonus_prod
-				}
+				limit = { has_province_modifier = naval_supplies_bonus_prod }
 				remove_province_modifier = naval_supplies_bonus_prod
+				province_event = {id = bertus_pops.1044 }	#super boost pop goods produced
 			}
 		}
 	}
@@ -4239,9 +4233,12 @@ master_smugglers_reform = {
 	}
 	modifiers = {
 		mercenary_cost = -0.2
+		mercenary_discipline = 0.05	#0→0.05
+		allow_mercenary_drill = yes	#bertus mod
 	}
 	custom_attributes = {
 		mercs_do_not_cost_army_professionalism = yes
+		
 	}
 	ai = {
 		factor = 1
@@ -4257,9 +4254,9 @@ cutthroat_approach_reform = {
 	trigger = {
 	}
 	modifiers = {
-		naval_tradition_from_battle = 0.5
-		prestige_from_naval = 0.5
-		capture_ship_chance = 0.33
+		naval_tradition_from_battle = 0.50
+		prestige_from_naval = 0.50
+		capture_ship_chance = 0.10	#0.33→0.10
 	}
 	conditional = {
 		allow = { has_dlc = "Golden Century" }
@@ -4281,6 +4278,7 @@ political_principle_reform = {
 		NOT = { # Anebnnar
 			#has_reform = nezkaru_council_reform
 			has_reform = northern_league_magnates
+			has_government_attribute = is_pirate_republic_reform	#bertus mod
 		}
 	}
 	modifiers = {
@@ -4292,9 +4290,10 @@ moral_principle_reform = {
 	icon = "parliament_hall"
 	allow_normal_conversion = yes
 	potential = {
-		NOT = { # Anbennar
+		NOT = {
 			#has_reform = nezkaru_council_reform
-			has_reform = northern_league_magnates
+			has_reform = northern_league_magnates	# Anbennar
+			has_government_attribute = is_pirate_republic_reform	#bertus mod
 		}
 	}
 	modifiers = {
@@ -4306,7 +4305,10 @@ stability_principle_reform = {
 	icon = "soldiers_6"
 	allow_normal_conversion = yes
 	potential = {
-		NOT = { has_reform = northern_league_magnates } #Anbennar
+		NOT = {
+			has_reform = northern_league_magnates 	# Anbennar
+			has_government_attribute = is_pirate_republic_reform	#bertus mod
+		}
 	}
 	modifiers = {
 		possible_mil_policy = 1
@@ -4341,6 +4343,7 @@ military_principle_reform = {
 	allow_normal_conversion = yes
 	potential = {
 		NOT = { has_reform = northern_league_magnates } #Anbennar
+		NOT = { has_reform = pirate_republic_reform } #bertus mod
 	}
 	modifiers = {
 		republican_tradition = -0.5
@@ -4633,6 +4636,7 @@ dynastic_rulership_reform = {	#bertus mod
 			has_reform = northern_league_magnates
 			culture_group = dwarven
 		}
+		NOT = { has_government_attribute = is_pirate_republic_reform }
 		NOT = { has_reform = northern_league_magnates } # Anbennar
 		NOT = { has_reform = anisikheioni_naval_stratocracy }
 		NOT = { has_reform = roilsard_elective}
@@ -4665,8 +4669,9 @@ rule_through_plunder_reform = {
 		has_government_attribute = is_pirate_republic_reform
 	}
 	modifiers = {
-		loot_amount = 1
-		land_attrition = -0.05
+		#land_attrition = -0.05	#-0.05→0
+		loot_amount = 1.0
+		available_province_loot = 1.0	#0→1.0
 	}
 	raze_province = yes
 	
@@ -4844,64 +4849,7 @@ universal_suffrage_reform = {
 	}
 }
 
-pirate_representation_reform = {
-	icon = "council"
-	allow_normal_conversion = yes
-	potential = {
-		has_government_attribute = is_pirate_republic_reform
-	}
-	trigger = {
-		if = {
-			limit = { has_country_flag = recently_got_parliament_flag }
-			had_country_flag = {
-				flag = recently_got_parliament_flag
-				days = 7300
-			}
-		}
-		if = {
-			limit = { has_dlc = "Common Sense" }
-			OR = {
-				NOT = { has_estate = estate_nobles }
-				crown_stronger_than_estate = { estate = estate_nobles }
-				has_reform = pirate_representation_reform
-			}
-		}
-		if = {
-			limit = { has_dlc = "Res Publica" }
-			NOT = { has_reform = elective_monarchy }
-		}
-		if = {
-			limit = { has_dlc = "Lions of the North" }
-			NOT = { has_reform = polish_elective_monarchy }
-		}
-		if = {
-			limit = { NOT = { has_dlc = "Mandate of Heaven" } }
-			NOT = { has_reform = celestial_empire }
-			NOT = { is_revolutionary_republic_trigger = yes }
-		}
-	}
-	modifiers = {
-		republican_tradition = 0.5
-		max_absolutism = -15
-	}
-	conditional = {
-		allow = {
-			OR = {
-				has_dlc = "Common Sense"
-				has_dlc = "Domination"
-			}
-		}
-		has_parliament = yes
-	}
-	removed_effect = {
-		clr_country_flag = recently_got_parliament_flag
-		set_country_flag = recently_got_parliament_flag
-	}
-
-	ai = {
-		factor = 0
-	}
-}
+#pirate_representation_reform	#bertus mod unused
 
 feiten_keju = {
 	icon = "paper_with_seal"
@@ -4918,21 +4866,7 @@ feiten_keju = {
 
 #Question of Dictatorship
 
-pirates_become_republic_reform = {
-	icon = "parliament_highlighted"
-	allow_normal_conversion = yes
-	
-	potential = {
-		has_reform = pirate_republic_reform
-	}
-	effect = {
-		remove_government_reform = pirate_republic_reform
-		set_country_flag = populists_in_government
-	}
-	ai = {
-		factor = 0
-	}
-}
+#pirates_become_republic_reform	#bertus mod unused
 
 seize_executive_power_reform = {
 	icon = "king_2_highlighted"
@@ -5106,49 +5040,11 @@ president_for_life_reform = {
     }
 }
 
-unified_piratical_confederacy_reform = {
-	icon = "pirate_council"
-	allow_normal_conversion = yes
-	potential = { 
-		has_government_attribute = is_pirate_republic_reform
-	}
-	modifiers = {
-		state_governing_cost = -0.5
-	}
-}
+#unified_piratical_confederacy_reform	#bertus mod unused
 
-scourge_of_the_seven_sea_reform = {
-	icon = "pirate_ship"
-	allow_normal_conversion = yes
-	potential = { 
-		has_government_attribute = is_pirate_republic_reform
-	}
-	modifiers = {
-		max_absolutism = 20
-		naval_tradition_from_battle = 1
-		army_tradition_from_battle = 1
-	}
-	custom_attributes = {
-		raiding_increases_pp = yes
-		winning_battles_increases_legitimacy = yes
-	}
-}
+#scourge_of_the_seven_sea_reform	#bertus mod unused
 
-neutral_ground_reform = {
-	icon = "neutral_ground"
-	allow_normal_conversion = yes
-	potential = { 
-		has_government_attribute = is_pirate_republic_reform
-	}
-	modifiers = {
-		diplomatic_reputation = 2
-		improve_relation_modifier = 0.15
-	}
-	custom_attributes = {
-		vassals_can_hoist_the_black_flag = yes
-		pirate_vassal_bonus = yes
-	}
-}
+#neutral_ground_reform	#bertus mod unused
 
 government_for_people_reform = {
 	icon = "government_for_people_reform"

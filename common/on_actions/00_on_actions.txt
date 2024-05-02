@@ -1235,7 +1235,8 @@ on_separate_war_lost = {
 # country
 # root = loser country, from = winner country
 on_battle_lost_country = {
-	#on_battle_ended_effect = yes 1.35
+	on_battle_ended_effect = yes	# 1.35
+	on_battle_lost_country_effect = yes
 	if = {	#bertus mod
 		limit = {has_country_modifier = corinite_purim_teachings_aspect_modifier}
 		ROOT = {
@@ -1535,7 +1536,7 @@ on_battle_won_unit = {
 # country
 # root = winning country, from = loser country
 on_battle_won_country = {
-	#on_battle_ended_effect = yes
+	on_battle_ended_effect = yes
 	on_battle_won_country_effect = yes #1.35
 	if = {
 		limit = { religion = goblinic_shamanism  NOT = { FROM = { OR = { tag = REB tag = NAT } } } }
@@ -6723,9 +6724,26 @@ on_admiral_recruited = {
 			OR = {
 				has_country_modifier = pol_global_maritime_empire_modifier
 				has_country_modifier = pol_global_maritime_empire_2_modifier
+				has_government_attribute = admirals_give_navy_tradition
 			}
 		}
 		add_navy_tradition = 1
+	}
+	if = {
+		limit = {
+			OR = {
+				has_government_attribute = admirals_give_republican_tradition
+			}
+		}
+		add_republican_tradition = 1
+	}
+	if = {
+		limit = {
+			OR = {
+				has_government_attribute = admirals_give_sailors
+			}
+		}
+		add_yearly_sailors = 0.5
 	}
 }
 

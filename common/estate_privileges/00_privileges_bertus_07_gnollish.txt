@@ -1399,6 +1399,17 @@ estate_gnollish_intolerance_policy = {
 		remove_racial_culture = { race = half_elven }
 		remove_racial_culture = { race = hobgoblin }
 		remove_racial_culture = { race = kobold }
+		hidden_effect = {
+			every_known_country = {
+				limit = {
+					NOT = { has_country_modifier = gnollish_administration }
+				}
+				reverse_add_opinion = {
+					who = ROOT
+					modifier = opinion_supremacy_race
+				}
+			}
+		}
 	}
 	on_granted_province = {
 		add_racial_superiority_modifier = {
@@ -1408,13 +1419,11 @@ estate_gnollish_intolerance_policy = {
 	penalties = {
 		tolerance_heathen = -2
 		tolerance_heretic = -2
-		relation_with_other_culture = -50
 	}
 	benefits = {
 	}
 	conditional_modifier = {
 		trigger = {
-			any_ally = {NOT = { has_country_modifier = gnollish_administration }}
 			NOT = {
 				calc_true_if = {
 					has_government_attribute = faster_purguing_reform
@@ -1432,7 +1441,6 @@ estate_gnollish_intolerance_policy = {
 	}
 	conditional_modifier = {
 		trigger = {
-			any_ally = {NOT = { has_country_modifier = gnollish_administration }}
 			calc_true_if = {
 				has_government_attribute = faster_purguing_reform
 				has_idea = total_supremacy
@@ -1455,7 +1463,6 @@ estate_gnollish_intolerance_policy = {
 	}
 	conditional_modifier = {
 		trigger = {
-			any_ally = {NOT = { has_country_modifier = gnollish_administration }}
 			calc_true_if = {
 				has_government_attribute = faster_purguing_reform
 				has_idea = total_supremacy
@@ -1478,7 +1485,6 @@ estate_gnollish_intolerance_policy = {
 	}
 	conditional_modifier = {
 		trigger = {
-			any_ally = {NOT = { has_country_modifier = gnollish_administration }}
 			calc_true_if = {
 				has_government_attribute = faster_purguing_reform
 				has_idea = total_supremacy
@@ -1579,25 +1585,17 @@ estate_gnollish_intolerance_policy = {
 			recover_army_morale_speed = 0.075
 		}
 	}
-	conditional_modifier = {
-		trigger = {
-			any_ally = {
-				NOT = { culture_is_gnollish = yes }
-			}
-		}
-		modifier = {
-			land_morale = -0.05
-			stability_cost_modifier = 0.2
-			legitimacy = -1
-			republican_tradition = -0.25
-			devotion = -0.5
-			global_unrest = 2
-			administrative_efficiency = -0.05		
-		}
-	}
 	on_revoked = {
 		custom_tooltip = estate_one_culture_rta
 		custom_tooltip = estate_one_culture_rtb
+		hidden_effect = {
+			every_known_country = {
+				limit = {
+					ROOT = { has_opinion_modifier = { modifier = opinion_supremacy_race who = FROM } }
+				}
+				reverse_remove_opinion = { modifier = opinion_supremacy_race who = ROOT }
+			}
+		}
 	}
 	on_revoked_province = {
 		remove_racial_superiority_modifier = yes

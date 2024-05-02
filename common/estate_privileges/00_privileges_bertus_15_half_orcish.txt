@@ -386,6 +386,19 @@ estate_half_orcish_intolerance_policy = {
 		remove_racial_culture = { race = half_elven }
 		remove_racial_culture = { race = hobgoblin }
 		remove_racial_culture = { race = kobold }
+		hidden_effect = {
+			every_known_country = {
+				limit = {
+					NOT = { has_country_modifier = human_administration }
+					NOT = { has_country_modifier = half_orcish_administration }
+					NOT = { has_country_modifier = orcish_administration }
+				}
+				reverse_add_opinion = {
+					who = ROOT
+					modifier = opinion_supremacy_race
+				}
+			}
+		}
 	}
 	on_granted_province = {
 		add_racial_superiority_modifier = {
@@ -404,11 +417,6 @@ estate_half_orcish_intolerance_policy = {
 	}
 	conditional_modifier = {
 		trigger = {
-			any_ally = {
-				NOT = { culture_is_orcish = yes }
-				NOT = { culture_is_human = yes }
-				NOT = { culture_is_half_orcish = yes }
-			}
 			NOT = {
 				calc_true_if = {
 					has_government_attribute = faster_purguing_reform
@@ -426,11 +434,6 @@ estate_half_orcish_intolerance_policy = {
 	}
 	conditional_modifier = {
 		trigger = {
-			any_ally = {
-				NOT = { culture_is_orcish = yes }
-				NOT = { culture_is_human = yes }
-				NOT = { culture_is_half_orcish = yes }
-			}
 			calc_true_if = {
 				has_government_attribute = faster_purguing_reform
 				has_idea = total_supremacy
@@ -453,11 +456,6 @@ estate_half_orcish_intolerance_policy = {
 	}
 	conditional_modifier = {
 		trigger = {
-			any_ally = {
-				NOT = { culture_is_orcish = yes }
-				NOT = { culture_is_human = yes }
-				NOT = { culture_is_half_orcish = yes }
-			}
 			calc_true_if = {
 				has_government_attribute = faster_purguing_reform
 				has_idea = total_supremacy
@@ -480,11 +478,6 @@ estate_half_orcish_intolerance_policy = {
 	}
 	conditional_modifier = {
 		trigger = {
-			any_ally = {
-				NOT = { culture_is_orcish = yes }
-				NOT = { culture_is_human = yes }
-				NOT = { culture_is_half_orcish = yes }
-			}
 			calc_true_if = {
 				has_government_attribute = faster_purguing_reform
 				has_idea = total_supremacy
@@ -589,23 +582,6 @@ estate_half_orcish_intolerance_policy = {
 			manpower_recovery_speed = 0.15
 			reinforce_speed = 0.30
 			recover_army_morale_speed = 0.075
-		}
-	}
-	conditional_modifier = {
-		trigger = {
-			any_ally = {
-				NOT = { culture_is_orcish = yes }
-				NOT = { culture_is_human = yes }
-				NOT = { culture_is_half_orcish = yes }
-			}
-		}
-		modifier = {
-			stability_cost_modifier = 0.2
-			legitimacy = -1
-			republican_tradition = -0.25
-			devotion = -0.5
-			global_unrest = 2
-			administrative_efficiency = -0.05		
 		}
 	}
 	on_revoked = {
