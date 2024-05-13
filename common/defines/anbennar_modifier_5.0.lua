@@ -35,7 +35,6 @@ NDefines.NDiplomacy.CELESTIAL_EMPIRE_MANDATE_PER_HUNDRED_DEVASTATION = -3   -- -
 NDefines.NDiplomacy.CELESTIAL_EMPIRE_MANDATE_PER_STATE_WITH_PROSPERITY = 0.10   --0.04→0.10
 NDefines.NDiplomacy.HEGEMONY_MONTHLY_PROGRESS = 1.0 --0.5→1.0
 
-
 NDefines.NCountry.COUNTRY_DEVELOPMENT_SCALE = 1000      --600→1000
 NDefines.NCountry.CHANGE_COLONIAL_TYPE_COOLDOWN_DURATION = 0    --10→0
 NDefines.NCountry.CORRUPTION_FROM_BANNERS = 0	--5→0
@@ -71,6 +70,7 @@ NDefines.NCountry.EXPAND_INFRASTRUCTURE_DEV_LIMIT = 10 --15→10-- How much dev 
 NDefines.NCountry.PS_CHANGE_CULTURE = 6	--10→6
 NDefines.NCountry.CALL_ALLY_DECLINE_PRESTIGE_PENALTY = 0	-- -25.0→0
 NDefines.NCountry.CORE_LOSE_PRESTIGE = -1.0	-- -10→-1
+NDefines.NCountry.ABANDON_CORE_PRESTIGE = -1.0	-- -10→-1
 NDefines.NCountry.BASE_POWER_INCREASE = 4	--3→4
 NDefines.NCountry.GALLEY_INLAND_SEA_COAST_RATIO = 0	--0.75→0
 NDefines.NCountry.AUTONOMY_AT_CONQUEST = 25	--50→25
@@ -151,6 +151,10 @@ NDefines.NMilitary.LEADER_MAX_PIPS = 8 --6→8
 NDefines.NMilitary.SLAVE_RAIDS_SAILOR_FACTOR = -0.10
 NDefines.NMilitary.SLACKEN_MIN_AP = 0.40      --0→0.40
 NDefines.NMilitary.STRELTSY_MANPOWER_COST_MODIFIER = 0  --1.0→0
+NDefines.NMilitary.RIVER_CROSSING_PENALTY = 2       --1→2
+NDefines.NMilitary.STRAIT_CROSSING_PENALTY = 4      --2→4
+NDefines.NMilitary.SEA_LANDING_PENALTY = 4      --2→4
+
 
 NDefines.NAI.UNCONDITIONAL_SURRENDER_HOPELESS_STRENGTH_COMPARISON = 10      --20→10 -- if they have 20 times the army strength you do, wave the white flag
 NDefines.NAI.UNCONDITIONAL_SURRENDER_WARSCORE_LIMIT = -75                   -- AI won't surrender unless it's this bad.

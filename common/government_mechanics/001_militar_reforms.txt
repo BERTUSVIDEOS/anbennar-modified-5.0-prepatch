@@ -7,10 +7,14 @@ military_reforms_mechanic = {
 
 	powers = {
 		military_reform_power = {
-			max = 150
+			max = 100
 			base_monthly_growth = 0
 			scaled_modifier = {
 				modifier = {}
+			}
+			on_max_reached = {
+				add_government_power = { mechanic_type = military_reforms_mechanic power_type = military_reform_power value = -100 }
+				change_variable = { which = military_reforms_tokens_var value = 1 }
 			}
 		}
 	}
@@ -26,24 +30,14 @@ military_reforms_mechanic = {
 			effect = {
 				add_mil_power = -200
 				tooltip = {
-					add_government_power = {
-						mechanic_type = military_reforms_mechanic
-						power_type = military_reform_power
-						value = 50
-					}
+					add_government_power = { mechanic_type = military_reforms_mechanic power_type = military_reform_power value = 50 }
 				}
 				hidden_effect = {
 					set_variable = { which = temp value = 500 }
 					while = {
-						limit = {
-							check_variable = { which = temp value = 1 }
-						}
+						limit = { check_variable = { which = temp value = 1 } }
 						change_variable = { which = temp value = -1}
-						add_government_power = {
-							mechanic_type = military_reforms_mechanic
-							power_type = military_reform_power
-							value = 0.1
-						}
+						add_government_power = { mechanic_type = military_reforms_mechanic power_type = military_reform_power value = 0.1 }
 					}
 				}
 			}

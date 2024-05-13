@@ -952,31 +952,6 @@ on_battle_won_unit_effect = {
 }
 
 on_battle_lost_unit_effect = {
-	if = {	#bertus mod - Military Reform
-		limit = {
-			#enemy_unit = { unit_owner = { OR = {ai = no overlord = { ai = no } } } }
-			unit_owner = {
-				ai = no
-				has_government_mechanic = military_reforms_mechanic
-			}
-		}
-		unit_owner = {
-			set_variable = { which = military_reform_unit_kill_losses value = 0 }
-			change_variable = { which = military_reform_unit_kill_losses which = land_units_lost }
-			set_variable = { which = land_forcelimit_unit_kill_losses value = 0 }
-			export_to_variable = { which = land_forcelimit_unit_kill_losses value = trigger_value:land_forcelimit }
-			set_variable = { which = army_size_unit_kill_losses value = 0 }
-			export_to_variable = { which = army_size_unit_kill_losses value = trigger_value:army_size }
-			divide_variable = { which = military_reform_unit_kill_losses value = 1000 }
-			divide_variable = { which = military_reform_unit_kill_losses which = land_forcelimit_unit_kill_losses }
-			multiply_variable = { which = military_reform_unit_kill_losses which = army_size_unit_kill_losses }
-			while = {
-				limit = { check_variable = { which = military_reform_unit_kill_losses value = 0.1 } }
-				change_variable = { which = military_reform_unit_kill_losses value = -0.1 }
-				add_government_power = { mechanic_type = military_reforms_mechanic power_type = military_reform_power value = 0.01 }
-			}
-		}
-	}
 }
 
 on_battle_won_country_effect = {
