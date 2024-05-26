@@ -1305,14 +1305,22 @@ aelnar_1_3 = {
 		}
 		
 		trigger = {
-			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
-				value = 2
+			any_province = {	#bertus mod
+				country_or_non_sovereign_subject_holds = ROOT
 				region = amadia_region
-				trade_goods = gold
+				base_production = 10
 			}
 		}
 		
 		effect = {
+			random_province = {	#bertus mod
+				limit = {
+					country_or_non_sovereign_subject_holds = ROOT
+					region = amadia_region
+					base_production = 10
+				}
+				change_trade_goods = gold
+			}
 			add_years_of_income = 2.5
 			add_inflation = 3
 			add_country_modifier = {
@@ -2074,7 +2082,7 @@ aelnar_2_2 = {
 		
 		trigger = {
 			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
-				value = 10
+				value = 3
 				region = amadia_region
 			}
 		}
@@ -2105,7 +2113,7 @@ aelnar_2_2 = {
 		
 		trigger = {
 			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
-				value = 20
+				value = 2
 				region = amadia_region
 			}
 		}
@@ -2137,17 +2145,10 @@ aelnar_2_2 = {
 		}
 		
 		provinces_to_highlight = {
-			region = alecand_region
-			has_port = yes
-			NOT = { owned_by = ROOT }
 		}
 		
 		trigger = {
-			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
-				value = 2
-				region = alecand_region
-				has_port = yes
-			}
+			total_own_and_non_tributary_subject_development = 1000
 		}
 		
 		effect = {
@@ -2169,15 +2170,10 @@ aelnar_2_2 = {
 		}
 		
 		provinces_to_highlight = {
-			region = alecand_region
-			NOT = { owned_by = ROOT }
 		}
 		
 		trigger = {
-			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
-				value = 10
-				region = alecand_region
-			}
+			total_own_and_non_tributary_subject_development = 1500
 		}
 		
 		effect = {
@@ -2200,17 +2196,10 @@ aelnar_2_2 = {
 		}
 		
 		provinces_to_highlight = {
-			region = devand_region
-			has_port = yes
-			NOT = { owned_by = ROOT }
 		}
 		
 		trigger = {
-			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
-				value = 3
-				has_port = yes
-				region = devand_region
-			}
+			total_own_and_non_tributary_subject_development = 1000
 		}
 		
 		effect = {
@@ -2232,15 +2221,10 @@ aelnar_2_2 = {
 		}
 		
 		provinces_to_highlight = {
-			colonial_region = colonial_kheionai
-			NOT = { owned_by = ROOT }
 		}
 		
 		trigger = {
-			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
-				value = 15
-				colonial_region = colonial_kheionai
-			}
+			total_own_and_non_tributary_subject_development = 1500
 		}
 		
 		effect = {
@@ -2741,13 +2725,20 @@ aelnar_3 = {
 		}
 		
 		provinces_to_highlight = {
-			is_capital_of = ROOT
-			NOT = { development = 70 }
+			OR = {
+				is_capital_of = ROOT
+				area = venail_area
+			}
 		}
 		
 		trigger = {
 			capital_scope = {
-				development = 70
+				development = 50
+				area = venail_area
+			}
+			development_in_provinces = {
+				value = 200
+				area = venail_area
 			}
 		}
 		
@@ -3895,16 +3886,20 @@ aelnar_5_calasandur_2 = {
 		position = 7
 		
 		provinces_to_highlight = {
-			area_for_scope_province = { is_capital_of = ROOT }
-			NOT = { development = 15 }
+			OR = {
+				is_capital_of = ROOT
+				area = venail_area
+			}
 		}
 		
 		trigger = {
 			capital_scope = {
-				area_for_scope_province = {
-					type = all
-					development = 100
-				}
+				development = 40
+				area = venail_area
+			}
+			development_in_provinces = {
+				value = 150
+				area = venail_area
 			}
 		}
 		
@@ -4445,21 +4440,21 @@ aelnar_5_2 = {
 				area = north_vanburia_area
 				area = east_vanburia_area
 			}
-			NOT = { owned_by = ROOT }
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
 		}
 		
 		trigger = {
 			west_vanburia_area = {
 				type = all
-				owned_by = ROOT
+				country_or_non_sovereign_subject_holds = ROOT
 			}
 			north_vanburia_area = {
 				type = all
-				owned_by = ROOT
+				country_or_non_sovereign_subject_holds = ROOT
 			}
 			east_vanburia_area = {
 				type = all
-				owned_by = ROOT
+				country_or_non_sovereign_subject_holds = ROOT
 			}
 		}
 		
@@ -4487,7 +4482,7 @@ aelnar_5_2 = {
 				area = north_vanburia_area
 				area = east_vanburia_area
 			}
-			NOT = { owned_by = ROOT }
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
 		}
 		
 		trigger = {
@@ -4503,15 +4498,15 @@ aelnar_5_2 = {
 			primary_culture = star_elf
 			west_vanburia_area = {
 				type = all
-				owned_by = ROOT
+				country_or_non_sovereign_subject_holds = ROOT
 			}
 			north_vanburia_area = {
 				type = all
-				owned_by = ROOT
+				country_or_non_sovereign_subject_holds = ROOT
 			}
 			east_vanburia_area = {
 				type = all
-				owned_by = ROOT
+				country_or_non_sovereign_subject_holds = ROOT
 			}
 		}
 		

@@ -1192,8 +1192,9 @@ on_development_scaled_modifiers_effect = {
 		add_pop_modifier = {race = all class = malus amount = 25percent resource = trade_power onbase = development}
 	}
 	if = {
-		limit = { has_ogre_majority_trigger = yes }
+		limit = { has_ogre_majority_trigger = yes }qqq
 		add_pop_modifier = {race = all class = malus amount = 50percent resource = trade_power onbase = development}
+		add_pop_modifier = {race = ogre class = malus amount = 25percent resource = land_forcelimit onbase = development}
 	}
 	if = {
 		limit = {
@@ -2642,9 +2643,10 @@ get_isolationsim_bonus = {
 			isolationism = 2
 			NOT = {isolationism = 3}
 		}
-		custom_tooltip = get_great_hero_general_tt
 		set_country_flag = get_adventurer_flag
-		custom_tooltip = get_adventurer_flag_tt
+		custom_tooltip = get_great_hero_general_tt
+		set_country_flag = great_general_extra_pips_flag
+		custom_tooltip = great_general_extra_pips_flag_tt
 		hidden_effect = {
 			set_saved_name = {key = special_general_name type = advisor scope = ROOT}
 			country_event = {id = bertus_changes.6030}
@@ -2665,15 +2667,24 @@ get_isolationsim_bonus = {
 		random_list = {
 			33 = {
 				modifier = {factor = 0 adm = 6}
-				change_adm = 1
+				change_ruler_stat = {
+					type = adm
+					amount = 1
+				}
 			}
 			33 = {
 				modifier = {factor = 0 dip = 6}
-				change_dip = 1
+				change_ruler_stat = {
+					type = dip
+					amount = 1
+				}
 			}
 			33 = {
 				modifier = {factor = 0 mil = 6}
-				change_mil = 1
+				change_ruler_stat = {
+					type = mil
+					amount = 1
+				}
 			}
 		}
 	}
