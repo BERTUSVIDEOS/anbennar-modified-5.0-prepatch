@@ -2686,6 +2686,12 @@ get_isolationsim_bonus = {
 					amount = 1
 				}
 			}
+			1 = {
+				trigger = { adm = 6 dip = 6 mil = 6 }
+				add_adm_power = 100
+				add_dip_power = 100
+				add_mil_power = 100
+			}
 		}
 	}
 }
@@ -3822,6 +3828,7 @@ bertus_yearly_update = {
 	}
 }
 update_recruitment_modifiers = {
+	remove_country_modifier = very_fast_pace_race_mechanic
 	remove_country_modifier = fast_pace_race_mechanic
 	remove_country_modifier = slow_pace_mechanic
 	remove_country_modifier = malus_if_monstrous_mechanic
@@ -3839,24 +3846,6 @@ update_recruitment_modifiers = {
 	if = {
 		limit = {
 			OR = {
-				has_race_recruitment = {race = elven}
-				has_race_recruitment = {race = half_elven}
-			}
-			NOT = {
-				has_race_recruitment = {race = human}
-				has_race_recruitment = {race = dwarven}
-				has_race_recruitment = {race = halfling}
-				has_race_recruitment = {race = gnomish}
-				has_race_recruitment = {race = orcish}
-				has_race_recruitment = {race = goblin}
-				has_race_recruitment = {race = kobold}
-			}
-		}
-		add_country_modifier = {name = fast_pace_race_mechanic duration = -1 hidden = yes}
-	}
-	if = {
-		limit = {
-			OR = {
 				has_race_recruitment = {race = dwarven}
 				has_race_recruitment = {race = halfling}
 				has_race_recruitment = {race = goblin}
@@ -3865,6 +3854,35 @@ update_recruitment_modifiers = {
 			}
 		}
 		add_country_modifier = {name = slow_pace_mechanic duration = -1 hidden = yes}
+	}
+	else_if = {
+		limit = {
+			OR = {
+				has_race_recruitment = {race = elven}
+				has_race_recruitment = {race = half_elven}
+			}
+		}
+		add_country_modifier = {name = fast_pace_race_mechanic duration = -1 hidden = yes}
+	}
+	else_if = {
+		limit = {
+			OR = {
+				has_race_recruitment = {race = ogre}
+				has_race_recruitment = {race = troll}
+				has_race_recruitment = {race = harpy}
+				#centaur excluded
+			}
+			NOT = {
+				has_race_recruitment = {race = human}
+				has_race_recruitment = {race = harimari}
+				has_race_recruitment = {race = gnollish}
+				has_race_recruitment = {race = ruinborn}
+				has_race_recruitment = {race = orcish}
+				has_race_recruitment = {race = hobgoblin}
+				has_race_recruitment = {race = lizardfolk}
+			}
+		}
+		add_country_modifier = {name = very_fast_pace_race_mechanic duration = -1 hidden = yes}
 	}
 }
 update_military_modifiers = {
