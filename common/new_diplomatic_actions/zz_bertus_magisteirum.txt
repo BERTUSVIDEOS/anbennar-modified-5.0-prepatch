@@ -117,7 +117,12 @@ magisterium_study_assistance_action = {
 			country_event = {id = bertus_changes.1118}
 		}
 	}
-	ai_acceptance = {always = yes}
+	ai_acceptance = {
+		add_entry = {
+			name = STABILITY_AI_MODIFIER
+			export_to_variable = { variable_name = ai_value value = 1 }
+		}
+	}
 	ai_will_do = {always = no}
 }
 cancel_magisterium_study_assistance_action = {
@@ -254,17 +259,16 @@ magisterium_send_mage_general_action = {
 	}
 
     on_accept = {
+		get_yearly_income_fraction = { TARGET = FROM RECIPIENT = ROOT fraction = 0.50 } #get 1/2th of target yearly income
 		FROM = {
 			set_saved_name = {key = special_general_name type = advisor scope = ROOT}
 			save_event_target_as = get_general_event_target
-			add_treasury = -50
 		}
 		ROOT = {
 			add_estate_loyalty = {
 				estate = estate_mages
-				loyalty = -20
+				loyalty = -10
 			}
-			add_treasury = 50
 			set_country_flag = get_mage_flag
 			custom_tooltip = get_mage_flag_tt
 			set_country_flag = magisterium_free_general_flag
@@ -272,7 +276,9 @@ magisterium_send_mage_general_action = {
 			country_event = {id = bertus_changes.6030}
 		}
 	}
-	ai_will_do = {always = no}
+	ai_will_do = {
+		FROM = { AI = NO }
+	}
 }
 magisterium_request_mage_general_action = {
 	category = mages_influence_modifier
@@ -286,27 +292,29 @@ magisterium_request_mage_general_action = {
 	
 	is_allowed = {
 		FROM = {
-			estate_loyalty = {
-				estate = estate_mages
-				loyalty = 60
-			}
 			custom_trigger_tooltip = {
 				tooltip = not_war_with_root_tt
 				NOT = {war_with = ROOT}
 			}
+			owes_favors = { who = ROOT value = 20 }
 		}
 	}
 
+	on_decline = {
+		FROM = {
+			add_stability = -1
+			add_devotion = -5
+			add_estate_loyalty = { estate = estate_mages loyalty = -10 }
+		}
+		add_favors = { who = FROM amount = -20 }
+	}
     on_accept = {
-		add_treasury = -50
+		get_yearly_income_fraction = { TARGET = ROOT RECIPIENT = FROM fraction = 0.50 } #get 1/2th of target yearly income
+		add_favors = { who = FROM amount = -20 }
+
 		set_saved_name = {key = special_general_name type = advisor scope = FROM}
 		save_event_target_as = get_general_event_target
 		FROM = {
-			add_estate_loyalty = {
-				estate = estate_mages
-				loyalty = -20
-			}
-			add_treasury = 50
 			set_country_flag = get_mage_flag
 			custom_tooltip = get_mage_flag_tt
 			set_country_flag = magisterium_free_general_flag
@@ -315,6 +323,19 @@ magisterium_request_mage_general_action = {
 		}
 	}
 	ai_will_do = {always = no}
+	ai_acceptance = { # This works similarly to variable_arithmetic_trigger, but does not support triggers generally. Instead, "limit" will be evaluated first and the rest ignored if it isn't passed.
+		add_entry = {
+			name = STABILITY_AI_MODIFIER
+			limit = {
+				FROM = { NOT = { stability = 1 } }
+			}
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = {
+				which = ai_value 
+				value = 25
+			}
+		}
+	}
 }
 magisterium_send_mage_advisor_action = {
 	category = mages_influence_modifier
@@ -340,13 +361,9 @@ magisterium_send_mage_advisor_action = {
 	}
 
     on_accept = {
-		ROOT = {
-			add_estate_loyalty = {
-				estate = estate_mages
-				loyalty = -20
-			}
-			add_treasury = 50
-		}
+		get_yearly_income_fraction = { TARGET = FROM RECIPIENT = ROOT fraction = 0.50 } #get 1/2th of target yearly income
+		add_estate_loyalty = {estate = estate_mages loyalty = -20 }
+
 		set_saved_name = {key = special_general_name type = advisor scope = FROM}
 		if = {
 			limit = {
@@ -361,7 +378,6 @@ magisterium_send_mage_advisor_action = {
 					owned_by = ROOT
 				}
 				FROM = {
-					add_treasury = -50
 					define_advisor = {
 						type = court_mage
 						name = special_general_name
@@ -384,7 +400,6 @@ magisterium_send_mage_advisor_action = {
 					is_part_of_hre = yes
 				}
 				FROM = {
-					add_treasury = -50
 					define_advisor = {
 						type = court_mage
 						name = special_general_name
@@ -399,7 +414,6 @@ magisterium_send_mage_advisor_action = {
 		else = {
 			random_owned_province = {
 				FROM = {
-					add_treasury = -50
 					define_advisor = {
 						type = court_mage
 						name = special_general_name
@@ -426,24 +440,27 @@ magisterium_request_mage_advisor_action = {
 	
 	is_allowed = {
 		FROM = {
-			estate_loyalty = {
-				estate = estate_mages
-				loyalty = 60
-			}
 			custom_trigger_tooltip = {
 				tooltip = not_war_with_root_tt
 				NOT = {war_with = ROOT }
 			}
+			owes_favors = { who = ROOT value = 20 }
 		}
 	}
 
-    on_accept = {
+	on_decline = {
 		FROM = {
-			add_estate_loyalty = {
-				estate = estate_mages
-				loyalty = -20
-			}
-			add_treasury = 50
+			add_stability = -1
+			add_devotion = -5
+			add_estate_loyalty = { estate = estate_mages loyalty = -10 }
+		}
+		add_favors = { who = FROM amount = -20 }
+	}
+    on_accept = {
+		get_yearly_income_fraction = { TARGET = ROOT RECIPIENT = FROM fraction = 0.50 } #get 1/2th of target yearly income
+		add_favors = { who = FROM amount = -20 }
+
+		FROM = {
 			set_saved_name = {key = special_general_name type = advisor scope = FROM}
 		}
 		if = {
@@ -459,7 +476,6 @@ magisterium_request_mage_advisor_action = {
 					owned_by = FROM
 				}
 				ROOT = {
-					add_treasury = -50
 					define_advisor = {
 						type = court_mage
 						name = special_general_name
@@ -482,7 +498,6 @@ magisterium_request_mage_advisor_action = {
 					is_part_of_hre = yes
 				}
 				ROOT = {
-					add_treasury = -50
 					define_advisor = {
 						type = court_mage
 						name = special_general_name
@@ -497,7 +512,6 @@ magisterium_request_mage_advisor_action = {
 		else = {
 			random_owned_province = {
 				ROOT = {
-					add_treasury = -50
 					define_advisor = {
 						type = court_mage
 						name = special_general_name
@@ -511,6 +525,20 @@ magisterium_request_mage_advisor_action = {
 		}
 	}
 	ai_will_do = {always = no}
+
+	ai_acceptance = { # This works similarly to variable_arithmetic_trigger, but does not support triggers generally. Instead, "limit" will be evaluated first and the rest ignored if it isn't passed.
+		add_entry = {
+			name = STABILITY_AI_MODIFIER
+			limit = {
+				FROM = { NOT = { stability = 1 } }
+			}
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = {
+				which = ai_value 
+				value = 25
+			}
+		}
+	}
 }
 magisterium_organize_magical_council_action = {
 	category = mages_influence_modifier
@@ -538,22 +566,14 @@ magisterium_organize_magical_council_action = {
 			tooltip = from_has_100_opinion_tt
 			FROM = { has_opinion = {who = ROOT value = 100}}
 		}
-		estate_loyalty = {
-			estate = estate_mages
-			loyalty = 60
-		}
+		estate_loyalty = { estate = estate_mages loyalty = 60 }
 	}
 
     on_accept = {
-		ROOT = {
-			add_estate_loyalty = {
-				estate = estate_mages
-				loyalty = -20
-			}
-			add_treasury = 50
-		}
+		get_yearly_income_fraction = { TARGET = FROM RECIPIENT = ROOT fraction = 0.50 } #get 1/2th of target yearly income
+		add_estate_loyalty = { estate = estate_mages loyalty = -20 }
+
 		FROM = {
-			add_treasury = -50
 			capital_scope = {
 				add_province_modifier = {
 					name = magical_council_modifier
@@ -589,23 +609,23 @@ magisterium_request_organize_magical_council_action = {
 				tooltip = from_has_100_opinion_tt
 				has_opinion = {who = ROOT value = 100}
 			}
-			estate_loyalty = {
-				estate = estate_mages
-				loyalty = 60
-			}
+			owes_favors = { who = ROOT value = 20 }
 		}
 	}
 
-    on_accept = {
+	on_decline = {
 		FROM = {
-			add_estate_loyalty = {
-				estate = estate_mages
-				loyalty = -20
-			}
-			add_treasury = 50
+			add_stability = -1
+			add_devotion = -5
+			add_estate_loyalty = { estate = estate_mages loyalty = -10 }
 		}
+		add_favors = { who = FROM amount = -20 }
+	}
+    on_accept = {
+		get_yearly_income_fraction = { TARGET = ROOT RECIPIENT = FROM fraction = 0.50 } #get 1/2th of target yearly income
+		add_favors = { who = FROM amount = -20 }
+
 		ROOT = {
-			add_treasury = -50
 			capital_scope = {
 				add_province_modifier = {
 					name = magical_council_modifier
@@ -614,7 +634,20 @@ magisterium_request_organize_magical_council_action = {
 			}
 		}
 	}
-	ai_will_do = {always = yes}
+	ai_will_do = {always = no}
+	ai_acceptance = { # This works similarly to variable_arithmetic_trigger, but does not support triggers generally. Instead, "limit" will be evaluated first and the rest ignored if it isn't passed.
+		add_entry = {
+			name = STABILITY_AI_MODIFIER
+			limit = {
+				FROM = { NOT = { stability = 1 } }
+			}
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = {
+				which = ai_value 
+				value = 25
+			}
+		}
+	}
 }
 magisterium_vacuum_mana_action = {
 	category = mages_influence_modifier
@@ -652,6 +685,55 @@ magisterium_vacuum_mana_action = {
 		}
 	}
 	ai_will_do = {always = yes}
+}
+magisterium_favor_mana_action = {
+	category = favors
+	require_acceptance = yes
+	alert_index = 21
+	
+	is_visible = {
+		has_government_mechanic = magisterium_mechanic
+    }
+	
+	is_allowed = {
+		FROM = {
+			owes_favors = { who = ROOT value = 10 }
+		}
+	}
+
+	on_decline = {
+		FROM = { add_stability = -1 }
+		add_favors = { who = FROM amount = -10 }
+	}
+    on_accept = {
+		add_favors = { who = FROM amount = -10 }
+		add_government_power = { 
+			mechanic_type = magisterium_mechanic
+			power_type = magisterium_mana
+			value = 10
+		}
+		FROM = {
+			add_government_power = { 
+				mechanic_type = magisterium_mechanic
+				power_type = magisterium_mana
+				value = -10
+			}
+		}
+	}
+	ai_will_do = {always = no}
+	ai_acceptance = { # This works similarly to variable_arithmetic_trigger, but does not support triggers generally. Instead, "limit" will be evaluated first and the rest ignored if it isn't passed.
+		add_entry = {
+			name = STABILITY_AI_MODIFIER
+			limit = {
+				FROM = { NOT = { stability = 1 } }
+			}
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = {
+				which = ai_value 
+				value = 25
+			}
+		}
+	}
 }
 give_magisterium_mana_action = {
 	category = mages_influence_modifier
@@ -694,6 +776,12 @@ give_magisterium_mana_action = {
 		}
 	}
 	ai_will_do = {always = yes}
+	ai_acceptance = {
+		add_entry = {
+			name = STABILITY_AI_MODIFIER
+			export_to_variable = { variable_name = ai_value value = 1 }
+		}
+	}
 }
 magisterium_cast_divination_spell_action = {
 	category = mages_influence_modifier

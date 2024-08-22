@@ -2615,6 +2615,21 @@ get_treasury_fraction = {
 		}
 	}
 }
+get_yearly_income_fraction = {
+	$TARGET$ = {
+		set_variable = { which = yearly_income value = 0 }
+		set_variable = { which = income_to_transfer value = 1 }
+		subtract_variable = { which = income_to_transfer value = $fraction$ }
+		export_to_variable = { which = yearly_income value = years_of_income }
+		multiply_variable = { which = income_to_transfer which = yearly_income }
+		while = {
+			limit = { check_variable = { which = yearly_income which = income_to_transfer } }
+			subtract_variable = { which = yearly_income value = 1 }
+			add_treasury = -1
+			$RECIPIENT$ = {add_treasury = 1}
+		}
+	}
+}
 increase_isolationism = {
 	add_isolationism = $value$
 	get_isolationsim_bonus = yes

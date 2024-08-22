@@ -264,6 +264,12 @@ estate_troll_recruitment = {
 	mechanics = {
 		enables_cossack_regiments
 	}
+	conditional_modifier = {
+		trigger = { estate_territory = { estate = estate_troll territory = 90 } }
+		modifier = {
+			allowed_musketeer_fraction = 1.0
+		}
+	}
 	can_revoke = {
 		had_country_flag = {
 			flag = estate_troll_recruitment_cooldown_flag
@@ -308,14 +314,29 @@ estate_troll_recruitment_2 = {
 				limit = { NOT = { has_country_flag = estate_troll_recruitment_cooldown_flag } }
 				set_country_flag = estate_troll_recruitment_cooldown_flag
 			}
+			add_country_modifier = {
+				name = estate_troll_recruitment_2_modifier
+				duration = -1
+			}
+			#starter setup
+				every_owned_province = {
+					limit = { units_in_province = 1 }
+					kill_units = { who = owner type = infantry }
+				}
+				export_to_variable = {which = forcelimit_var value = land_forcelimit}
+				multiply_variable = {which = forcelimit_var value = 0.66}
+				while = {
+					limit = { check_variable = { which = forcelimit_var value = 1 } }
+					change_variable = { which = forcelimit_var value = -1 }
+					capital_scope = { musketeer_infantry = ROOT }
+				}
+			#
 		}
 		custom_tooltip = very_fast_pace_race_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
-		infantry_fire = -0.35
-		infantry_shock = 1.0
-		military_tactics = 0.375
 		siege_ability = -0.25
+		allowed_musketeer_fraction = 1.0
 	}
 	penalties = {
 	}
@@ -323,6 +344,12 @@ estate_troll_recruitment_2 = {
 	}
 	mechanics = {
 		enables_cossack_regiments
+	}
+	conditional_modifier = {
+		trigger = { estate_territory = { estate = estate_troll territory = 90 } }
+		modifier = {
+			allowed_musketeer_fraction = 1.0
+		}
 	}
 	can_revoke = {
 		had_country_flag = {
@@ -335,12 +362,14 @@ estate_troll_recruitment_2 = {
 			clr_country_flag = estate_troll_recruitment_flag
 			clr_country_flag = estate_troll_recruitment_cooldown_flag
 			country_event = { id = bertus_racial_military.1001 }
+			remove_country_modifier = estate_troll_recruitment_2_modifier
 		}
 	}
 	on_invalid = {
 		clr_country_flag = estate_troll_recruitment_flag
 		update_troll_recruitment = yes
 		set_estate_privilege = estate_troll_recruitment_4
+		remove_country_modifier = estate_troll_recruitment_2_modifier
 	}
 	ai_will_do = {
 		factor = 1000
@@ -368,14 +397,16 @@ estate_troll_recruitment_4 = {
 				limit = { NOT = { has_country_flag = estate_troll_recruitment_cooldown_flag } }
 				set_country_flag = estate_troll_recruitment_cooldown_flag
 			}
+			add_country_modifier = {
+				name = estate_troll_recruitment_4_modifier
+				duration = -1
+			}
 		}
 		custom_tooltip = very_fast_pace_race_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
-		infantry_fire = -0.35
-		infantry_shock = 1.0
-		military_tactics = 0.5
 		siege_ability = -0.25
+		allowed_musketeer_fraction = 1.0
 	}
 	penalties = {
 	}
@@ -383,6 +414,12 @@ estate_troll_recruitment_4 = {
 	}
 	mechanics = {
 		enables_cossack_regiments
+	}
+	conditional_modifier = {
+		trigger = { estate_territory = { estate = estate_troll territory = 90 } }
+		modifier = {
+			allowed_musketeer_fraction = 1.0
+		}
 	}
 	can_revoke = {
 		had_country_flag = {
@@ -395,12 +432,14 @@ estate_troll_recruitment_4 = {
 			clr_country_flag = estate_troll_recruitment_flag
 			clr_country_flag = estate_troll_recruitment_cooldown_flag
 			country_event = { id = bertus_racial_military.1001 }
+			remove_country_modifier = estate_troll_recruitment_4_modifier
 		}
 	}
 	on_invalid = {
 		clr_country_flag = estate_troll_recruitment_flag
 		update_troll_recruitment = yes
 		set_estate_privilege = estate_troll_recruitment_5
+		remove_country_modifier = estate_troll_recruitment_4_modifier
 	}
 	ai_will_do = {
 		factor = 1000
@@ -428,14 +467,16 @@ estate_troll_recruitment_5 = {
 				limit = { NOT = { has_country_flag = estate_troll_recruitment_cooldown_flag } }
 				set_country_flag = estate_troll_recruitment_cooldown_flag
 			}
+			add_country_modifier = {
+				name = estate_troll_recruitment_5_modifier
+				duration = -1
+			}
 		}
 		custom_tooltip = very_fast_pace_race_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
-		infantry_fire = -0.35
-		infantry_shock = 1.3
-		military_tactics = 0.50
 		siege_ability = -0.25
+		allowed_musketeer_fraction = 1.0
 	}
 	penalties = {
 	}
@@ -443,6 +484,12 @@ estate_troll_recruitment_5 = {
 	}
 	mechanics = {
 		enables_cossack_regiments
+	}
+	conditional_modifier = {
+		trigger = { estate_territory = { estate = estate_troll territory = 90 } }
+		modifier = {
+			allowed_musketeer_fraction = 1.0
+		}
 	}
 	can_revoke = {
 		had_country_flag = {
@@ -455,12 +502,14 @@ estate_troll_recruitment_5 = {
 			clr_country_flag = estate_troll_recruitment_flag
 			clr_country_flag = estate_troll_recruitment_cooldown_flag
 			country_event = { id = bertus_racial_military.1001 }
+			remove_country_modifier = estate_troll_recruitment_5_modifier
 		}
 	}
 	on_invalid = {
 		clr_country_flag = estate_troll_recruitment_flag
 		update_troll_recruitment = yes
 		set_estate_privilege = estate_troll_recruitment_6
+		remove_country_modifier = estate_troll_recruitment_5_modifier
 	}
 	ai_will_do = {
 		factor = 1000
@@ -488,14 +537,16 @@ estate_troll_recruitment_6 = {
 				limit = { NOT = { has_country_flag = estate_troll_recruitment_cooldown_flag } }
 				set_country_flag = estate_troll_recruitment_cooldown_flag
 			}
+			add_country_modifier = {
+				name = estate_troll_recruitment_6_modifier
+				duration = -1
+			}
 		}
 		custom_tooltip = very_fast_pace_race_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
-		infantry_fire = -0.55
-		infantry_shock = 1.90	
-		military_tactics = 0.625
 		siege_ability = -0.25
+		allowed_musketeer_fraction = 1.0
 	}
 	penalties = {
 	}
@@ -503,6 +554,12 @@ estate_troll_recruitment_6 = {
 	}
 	mechanics = {
 		enables_cossack_regiments
+	}
+	conditional_modifier = {
+		trigger = { estate_territory = { estate = estate_troll territory = 90 } }
+		modifier = {
+			allowed_musketeer_fraction = 1.0
+		}
 	}
 	can_revoke = {
 		had_country_flag = {
@@ -515,12 +572,14 @@ estate_troll_recruitment_6 = {
 			clr_country_flag = estate_troll_recruitment_flag
 			clr_country_flag = estate_troll_recruitment_cooldown_flag
 			country_event = { id = bertus_racial_military.1001 }
+			remove_country_modifier = estate_troll_recruitment_6_modifier
 		}
 	}
 	on_invalid = {
 		clr_country_flag = estate_troll_recruitment_flag
 		update_troll_recruitment = yes
 		set_estate_privilege = estate_troll_recruitment_7
+		remove_country_modifier = estate_troll_recruitment_6_modifier
 	}
 	ai_will_do = {
 		factor = 1000
@@ -548,14 +607,16 @@ estate_troll_recruitment_7 = {
 				limit = { NOT = { has_country_flag = estate_troll_recruitment_cooldown_flag } }
 				set_country_flag = estate_troll_recruitment_cooldown_flag
 			}
+			add_country_modifier = {
+				name = estate_troll_recruitment_7_modifier
+				duration = -1
+			}
 		}
 		custom_tooltip = very_fast_pace_race_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
-		infantry_fire = -0.55
-		infantry_shock = 1.90
-		military_tactics = 0.75
 		siege_ability = -0.25
+		allowed_musketeer_fraction = 1.0
 	}
 	penalties = {
 	}
@@ -563,6 +624,12 @@ estate_troll_recruitment_7 = {
 	}
 	mechanics = {
 		enables_cossack_regiments
+	}
+	conditional_modifier = {
+		trigger = { estate_territory = { estate = estate_troll territory = 90 } }
+		modifier = {
+			allowed_musketeer_fraction = 1.0
+		}
 	}
 	can_revoke = {
 		had_country_flag = {
@@ -575,12 +642,14 @@ estate_troll_recruitment_7 = {
 			clr_country_flag = estate_troll_recruitment_flag
 			clr_country_flag = estate_troll_recruitment_cooldown_flag
 			country_event = { id = bertus_racial_military.1001 }
+			remove_country_modifier = estate_troll_recruitment_7_modifier
 		}
 	}
 	on_invalid = {
 		clr_country_flag = estate_troll_recruitment_flag
 		update_troll_recruitment = yes
 		set_estate_privilege = estate_troll_recruitment_8
+		remove_country_modifier = estate_troll_recruitment_7_modifier
 	}
 	ai_will_do = {
 		factor = 1000
@@ -608,14 +677,16 @@ estate_troll_recruitment_8 = {
 				limit = { NOT = { has_country_flag = estate_troll_recruitment_cooldown_flag } }
 				set_country_flag = estate_troll_recruitment_cooldown_flag
 			}
+			add_country_modifier = {
+				name = estate_troll_recruitment_8_modifier
+				duration = -1
+			}
 		}
 		custom_tooltip = very_fast_pace_race_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
-		infantry_fire = -0.8
-		infantry_shock = 1.90
-		military_tactics = 0.75
 		siege_ability = -0.25
+		allowed_musketeer_fraction = 1.0
 	}
 	penalties = {
 	}
@@ -623,6 +694,12 @@ estate_troll_recruitment_8 = {
 	}
 	mechanics = {
 		enables_cossack_regiments
+	}
+	conditional_modifier = {
+		trigger = { estate_territory = { estate = estate_troll territory = 90 } }
+		modifier = {
+			allowed_musketeer_fraction = 1.0
+		}
 	}
 	can_revoke = {
 		had_country_flag = {
@@ -635,12 +712,14 @@ estate_troll_recruitment_8 = {
 			clr_country_flag = estate_troll_recruitment_flag
 			clr_country_flag = estate_troll_recruitment_cooldown_flag
 			country_event = { id = bertus_racial_military.1001 }
+			remove_country_modifier = estate_troll_recruitment_8_modifier
 		}
 	}
 	on_invalid = {
 		clr_country_flag = estate_troll_recruitment_flag
 		update_troll_recruitment = yes
 		set_estate_privilege = estate_troll_recruitment_9
+		remove_country_modifier = estate_troll_recruitment_8_modifier
 	}
 	ai_will_do = {
 		factor = 1000
@@ -668,14 +747,16 @@ estate_troll_recruitment_9 = {
 				limit = { NOT = { has_country_flag = estate_troll_recruitment_cooldown_flag } }
 				set_country_flag = estate_troll_recruitment_cooldown_flag
 			}
+			add_country_modifier = {
+				name = estate_troll_recruitment_9_modifier
+				duration = -1
+			}
 		}
 		custom_tooltip = very_fast_pace_race_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
-		infantry_fire = -0.8
-		infantry_shock = 1.90
-		military_tactics = 0.875
 		siege_ability = -0.25
+		allowed_musketeer_fraction = 1.0
 	}
 	penalties = {
 	}
@@ -683,6 +764,12 @@ estate_troll_recruitment_9 = {
 	}
 	mechanics = {
 		enables_cossack_regiments
+	}
+	conditional_modifier = {
+		trigger = { estate_territory = { estate = estate_troll territory = 90 } }
+		modifier = {
+			allowed_musketeer_fraction = 1.0
+		}
 	}
 	can_revoke = {
 		had_country_flag = {
@@ -695,12 +782,14 @@ estate_troll_recruitment_9 = {
 			clr_country_flag = estate_troll_recruitment_flag
 			clr_country_flag = estate_troll_recruitment_cooldown_flag
 			country_event = { id = bertus_racial_military.1001 }
+			remove_country_modifier = estate_troll_recruitment_9_modifier
 		}
 	}
 	on_invalid = {
 		clr_country_flag = estate_troll_recruitment_flag
 		update_troll_recruitment = yes
 		set_estate_privilege = estate_troll_recruitment_11
+		remove_country_modifier = estate_troll_recruitment_9_modifier
 	}
 	ai_will_do = {
 		factor = 1000
@@ -728,14 +817,16 @@ estate_troll_recruitment_11 = {
 				limit = { NOT = { has_country_flag = estate_troll_recruitment_cooldown_flag } }
 				set_country_flag = estate_troll_recruitment_cooldown_flag
 			}
+			add_country_modifier = {
+				name = estate_troll_recruitment_11_modifier
+				duration = -1
+			}
 		}
 		custom_tooltip = very_fast_pace_race_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
-		infantry_fire = -0.8
-		infantry_shock = 2.3
-		military_tactics = 0.875
 		siege_ability = -0.25
+		allowed_musketeer_fraction = 1.0
 	}
 	penalties = {
 	}
@@ -743,6 +834,12 @@ estate_troll_recruitment_11 = {
 	}
 	mechanics = {
 		enables_cossack_regiments
+	}
+	conditional_modifier = {
+		trigger = { estate_territory = { estate = estate_troll territory = 90 } }
+		modifier = {
+			allowed_musketeer_fraction = 1.0
+		}
 	}
 	can_revoke = {
 		had_country_flag = {
@@ -755,12 +852,14 @@ estate_troll_recruitment_11 = {
 			clr_country_flag = estate_troll_recruitment_flag
 			clr_country_flag = estate_troll_recruitment_cooldown_flag
 			country_event = { id = bertus_racial_military.1001 }
+			remove_country_modifier = estate_troll_recruitment_11_modifier
 		}
 	}
 	on_invalid = {
 		clr_country_flag = estate_troll_recruitment_flag
 		update_troll_recruitment = yes
 		set_estate_privilege = estate_troll_recruitment_12
+		remove_country_modifier = estate_troll_recruitment_11_modifier
 	}
 	ai_will_do = {
 		factor = 1000
@@ -788,14 +887,16 @@ estate_troll_recruitment_12 = {
 				limit = { NOT = { has_country_flag = estate_troll_recruitment_cooldown_flag } }
 				set_country_flag = estate_troll_recruitment_cooldown_flag
 			}
+			add_country_modifier = {
+				name = estate_troll_recruitment_12_modifier
+				duration = -1
+			}
 		}
 		custom_tooltip = very_fast_pace_race_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
-		infantry_fire = -0.8
-		infantry_shock = 2.3
-		military_tactics = 1.0
 		siege_ability = -0.25
+		allowed_musketeer_fraction = 1.0
 	}
 	penalties = {
 	}
@@ -803,6 +904,12 @@ estate_troll_recruitment_12 = {
 	}
 	mechanics = {
 		enables_cossack_regiments
+	}
+	conditional_modifier = {
+		trigger = { estate_territory = { estate = estate_troll territory = 90 } }
+		modifier = {
+			allowed_musketeer_fraction = 1.0
+		}
 	}
 	can_revoke = {
 		had_country_flag = {
@@ -815,12 +922,14 @@ estate_troll_recruitment_12 = {
 			clr_country_flag = estate_troll_recruitment_flag
 			clr_country_flag = estate_troll_recruitment_cooldown_flag
 			country_event = { id = bertus_racial_military.1001 }
+			remove_country_modifier = estate_troll_recruitment_12_modifier
 		}
 	}
 	on_invalid = {
 		clr_country_flag = estate_troll_recruitment_flag
 		update_troll_recruitment = yes
 		set_estate_privilege = estate_troll_recruitment_14
+		remove_country_modifier = estate_troll_recruitment_12_modifier
 	}
 	ai_will_do = {
 		factor = 1000
@@ -848,14 +957,16 @@ estate_troll_recruitment_14 = {
 				limit = { NOT = { has_country_flag = estate_troll_recruitment_cooldown_flag } }
 				set_country_flag = estate_troll_recruitment_cooldown_flag
 			}
+			add_country_modifier = {
+				name = estate_troll_recruitment_14_modifier
+				duration = -1
+			}
 		}
 		custom_tooltip = very_fast_pace_race_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
-		infantry_fire = -1.1
-		infantry_shock = 2.3
-		military_tactics = 1.0
 		siege_ability = -0.25
+		allowed_musketeer_fraction = 1.0
 	}
 	penalties = {
 	}
@@ -863,6 +974,12 @@ estate_troll_recruitment_14 = {
 	}
 	mechanics = {
 		enables_cossack_regiments
+	}
+	conditional_modifier = {
+		trigger = { estate_territory = { estate = estate_troll territory = 90 } }
+		modifier = {
+			allowed_musketeer_fraction = 1.0
+		}
 	}
 	can_revoke = {
 		had_country_flag = {
@@ -875,12 +992,14 @@ estate_troll_recruitment_14 = {
 			clr_country_flag = estate_troll_recruitment_flag
 			clr_country_flag = estate_troll_recruitment_cooldown_flag
 			country_event = { id = bertus_racial_military.1001 }
+			remove_country_modifier = estate_troll_recruitment_14_modifier
 		}
 	}
 	on_invalid = {
 		clr_country_flag = estate_troll_recruitment_flag
 		update_troll_recruitment = yes
 		set_estate_privilege = estate_troll_recruitment_15
+		remove_country_modifier = estate_troll_recruitment_14_modifier
 	}
 	ai_will_do = {
 		factor = 1000
@@ -908,14 +1027,16 @@ estate_troll_recruitment_15 = {
 				limit = { NOT = { has_country_flag = estate_troll_recruitment_cooldown_flag } }
 				set_country_flag = estate_troll_recruitment_cooldown_flag
 			}
+			add_country_modifier = {
+				name = estate_troll_recruitment_15_modifier
+				duration = -1
+			}
 		}
 		custom_tooltip = very_fast_pace_race_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
-		infantry_fire = -1.1
-		infantry_shock = 2.3
-		military_tactics = 1.125
 		siege_ability = -0.25
+		allowed_musketeer_fraction = 1.0
 	}
 	penalties = {
 	}
@@ -923,6 +1044,12 @@ estate_troll_recruitment_15 = {
 	}
 	mechanics = {
 		enables_cossack_regiments
+	}
+	conditional_modifier = {
+		trigger = { estate_territory = { estate = estate_troll territory = 90 } }
+		modifier = {
+			allowed_musketeer_fraction = 1.0
+		}
 	}
 	can_revoke = {
 		had_country_flag = {
@@ -935,12 +1062,14 @@ estate_troll_recruitment_15 = {
 			clr_country_flag = estate_troll_recruitment_flag
 			clr_country_flag = estate_troll_recruitment_cooldown_flag
 			country_event = { id = bertus_racial_military.1001 }
+			remove_country_modifier = estate_troll_recruitment_15_modifier
 		}
 	}
 	on_invalid = {
 		clr_country_flag = estate_troll_recruitment_flag
 		update_troll_recruitment = yes
 		set_estate_privilege = estate_troll_recruitment_19
+		remove_country_modifier = estate_troll_recruitment_15_modifier
 	}
 	ai_will_do = {
 		factor = 1000
@@ -968,14 +1097,16 @@ estate_troll_recruitment_19 = {
 				limit = { NOT = { has_country_flag = estate_troll_recruitment_cooldown_flag } }
 				set_country_flag = estate_troll_recruitment_cooldown_flag
 			}
+			add_country_modifier = {
+				name = estate_troll_recruitment_19_modifier
+				duration = -1
+			}
 		}
 		custom_tooltip = very_fast_pace_race_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
-		infantry_fire = -1.1
-		infantry_shock = 2.3
-		military_tactics = 1.25
 		siege_ability = -0.25
+		allowed_musketeer_fraction = 1.0
 	}
 	penalties = {
 	}
@@ -983,6 +1114,12 @@ estate_troll_recruitment_19 = {
 	}
 	mechanics = {
 		enables_cossack_regiments
+	}
+	conditional_modifier = {
+		trigger = { estate_territory = { estate = estate_troll territory = 90 } }
+		modifier = {
+			allowed_musketeer_fraction = 1.0
+		}
 	}
 	can_revoke = {
 		had_country_flag = {
@@ -995,12 +1132,14 @@ estate_troll_recruitment_19 = {
 			clr_country_flag = estate_troll_recruitment_flag
 			clr_country_flag = estate_troll_recruitment_cooldown_flag
 			country_event = { id = bertus_racial_military.1001 }
+			remove_country_modifier = estate_troll_recruitment_19_modifier
 		}
 	}
 	on_invalid = {
 		clr_country_flag = estate_troll_recruitment_flag
 		update_troll_recruitment = yes
 		set_estate_privilege = estate_troll_recruitment_20
+		remove_country_modifier = estate_troll_recruitment_19_modifier
 	}
 	ai_will_do = {
 		factor = 1000
@@ -1028,14 +1167,16 @@ estate_troll_recruitment_20 = {
 				limit = { NOT = { has_country_flag = estate_troll_recruitment_cooldown_flag } }
 				set_country_flag = estate_troll_recruitment_cooldown_flag
 			}
+			add_country_modifier = {
+				name = estate_troll_recruitment_20_modifier
+				duration = -1
+			}
 		}
 		custom_tooltip = very_fast_pace_race_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
-		infantry_fire = -1.6
-		infantry_shock = 2.3
-		military_tactics = 1.25
 		siege_ability = -0.25
+		allowed_musketeer_fraction = 1.0
 	}
 	penalties = {
 	}
@@ -1043,6 +1184,12 @@ estate_troll_recruitment_20 = {
 	}
 	mechanics = {
 		enables_cossack_regiments
+	}
+	conditional_modifier = {
+		trigger = { estate_territory = { estate = estate_troll territory = 90 } }
+		modifier = {
+			allowed_musketeer_fraction = 1.0
+		}
 	}
 	can_revoke = {
 		had_country_flag = {
@@ -1055,12 +1202,14 @@ estate_troll_recruitment_20 = {
 			clr_country_flag = estate_troll_recruitment_flag
 			clr_country_flag = estate_troll_recruitment_cooldown_flag
 			country_event = { id = bertus_racial_military.1001 }
+			remove_country_modifier = estate_troll_recruitment_20_modifier
 		}
 	}
 	on_invalid = {
 		clr_country_flag = estate_troll_recruitment_flag
 		update_troll_recruitment = yes
 		set_estate_privilege = estate_troll_recruitment_21
+		remove_country_modifier = estate_troll_recruitment_20_modifier
 	}
 	ai_will_do = {
 		factor = 1000
@@ -1088,14 +1237,16 @@ estate_troll_recruitment_21 = {
 				limit = { NOT = { has_country_flag = estate_troll_recruitment_cooldown_flag } }
 				set_country_flag = estate_troll_recruitment_cooldown_flag
 			}
+			add_country_modifier = {
+				name = estate_troll_recruitment_21_modifier
+				duration = -1
+			}
 		}
 		custom_tooltip = very_fast_pace_race_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
-		infantry_fire = -1.6
-		infantry_shock = 3.3
-		military_tactics = 1.375
 		siege_ability = -0.25
+		allowed_musketeer_fraction = 1.0
 	}
 	penalties = {
 	}
@@ -1103,6 +1254,12 @@ estate_troll_recruitment_21 = {
 	}
 	mechanics = {
 		enables_cossack_regiments
+	}
+	conditional_modifier = {
+		trigger = { estate_territory = { estate = estate_troll territory = 90 } }
+		modifier = {
+			allowed_musketeer_fraction = 1.0
+		}
 	}
 	can_revoke = {
 		had_country_flag = {
@@ -1115,12 +1272,14 @@ estate_troll_recruitment_21 = {
 			clr_country_flag = estate_troll_recruitment_flag
 			clr_country_flag = estate_troll_recruitment_cooldown_flag
 			country_event = { id = bertus_racial_military.1001 }
+			remove_country_modifier = estate_troll_recruitment_21_modifier
 		}
 	}
 	on_invalid = {
 		clr_country_flag = estate_troll_recruitment_flag
 		update_troll_recruitment = yes
 		set_estate_privilege = estate_troll_recruitment_23
+		remove_country_modifier = estate_troll_recruitment_21_modifier
 	}
 	ai_will_do = {
 		factor = 1000
@@ -1148,14 +1307,16 @@ estate_troll_recruitment_23 = {
 				limit = { NOT = { has_country_flag = estate_troll_recruitment_cooldown_flag } }
 				set_country_flag = estate_troll_recruitment_cooldown_flag
 			}
+			add_country_modifier = {
+				name = estate_troll_recruitment_23_modifier
+				duration = -1
+			}
 		}
 		custom_tooltip = very_fast_pace_race_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
-		infantry_fire = -1.6
-		infantry_shock = 3.3
-		military_tactics = 1.50
 		siege_ability = -0.25
+		allowed_musketeer_fraction = 1.0
 	}
 	penalties = {
 	}
@@ -1163,6 +1324,12 @@ estate_troll_recruitment_23 = {
 	}
 	mechanics = {
 		enables_cossack_regiments
+	}
+	conditional_modifier = {
+		trigger = { estate_territory = { estate = estate_troll territory = 90 } }
+		modifier = {
+			allowed_musketeer_fraction = 1.0
+		}
 	}
 	can_revoke = {
 		had_country_flag = {
@@ -1175,12 +1342,14 @@ estate_troll_recruitment_23 = {
 			clr_country_flag = estate_troll_recruitment_flag
 			clr_country_flag = estate_troll_recruitment_cooldown_flag
 			country_event = { id = bertus_racial_military.1001 }
+			remove_country_modifier = estate_troll_recruitment_23_modifier
 		}
 	}
 	on_invalid = {
 		clr_country_flag = estate_troll_recruitment_flag
 		update_troll_recruitment = yes
 		set_estate_privilege = estate_troll_recruitment_24
+		remove_country_modifier = estate_troll_recruitment_23_modifier
 	}
 	ai_will_do = {
 		factor = 1000
@@ -1208,14 +1377,16 @@ estate_troll_recruitment_24 = {
 				limit = { NOT = { has_country_flag = estate_troll_recruitment_cooldown_flag } }
 				set_country_flag = estate_troll_recruitment_cooldown_flag
 			}
+			add_country_modifier = {
+				name = estate_troll_recruitment_24_modifier
+				duration = -1
+			}
 		}
 		custom_tooltip = very_fast_pace_race_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
-		infantry_fire = -1.6
-		infantry_shock = 3.3
-		military_tactics = 1.625
 		siege_ability = -0.25
+		allowed_musketeer_fraction = 1.0
 	}
 	penalties = {
 	}
@@ -1223,6 +1394,12 @@ estate_troll_recruitment_24 = {
 	}
 	mechanics = {
 		enables_cossack_regiments
+	}
+	conditional_modifier = {
+		trigger = { estate_territory = { estate = estate_troll territory = 90 } }
+		modifier = {
+			allowed_musketeer_fraction = 1.0
+		}
 	}
 	can_revoke = {
 		had_country_flag = {
@@ -1235,12 +1412,14 @@ estate_troll_recruitment_24 = {
 			clr_country_flag = estate_troll_recruitment_flag
 			clr_country_flag = estate_troll_recruitment_cooldown_flag
 			country_event = { id = bertus_racial_military.1001 }
+			remove_country_modifier = estate_troll_recruitment_24_modifier
 		}
 	}
 	on_invalid = {
 		clr_country_flag = estate_troll_recruitment_flag
 		update_troll_recruitment = yes
 		set_estate_privilege = estate_troll_recruitment_27
+		remove_country_modifier = estate_troll_recruitment_24_modifier
 	}
 	ai_will_do = {
 		factor = 1000
@@ -1268,14 +1447,16 @@ estate_troll_recruitment_27 = {
 				limit = { NOT = { has_country_flag = estate_troll_recruitment_cooldown_flag } }
 				set_country_flag = estate_troll_recruitment_cooldown_flag
 			}
+			add_country_modifier = {
+				name = estate_troll_recruitment_27_modifier
+				duration = -1
+			}
 		}
 		custom_tooltip = very_fast_pace_race_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
-		infantry_fire = -2.1
-		infantry_shock = 3.3
-		military_tactics = 1.625
 		siege_ability = -0.25
+		allowed_musketeer_fraction = 1.0
 	}
 	penalties = {
 	}
@@ -1283,6 +1464,12 @@ estate_troll_recruitment_27 = {
 	}
 	mechanics = {
 		enables_cossack_regiments
+	}
+	conditional_modifier = {
+		trigger = { estate_territory = { estate = estate_troll territory = 90 } }
+		modifier = {
+			allowed_musketeer_fraction = 1.0
+		}
 	}
 	can_revoke = {
 		had_country_flag = {
@@ -1295,12 +1482,14 @@ estate_troll_recruitment_27 = {
 			clr_country_flag = estate_troll_recruitment_flag
 			clr_country_flag = estate_troll_recruitment_cooldown_flag
 			country_event = { id = bertus_racial_military.1001 }
+			remove_country_modifier = estate_troll_recruitment_27_modifier
 		}
 	}
 	on_invalid = {
 		clr_country_flag = estate_troll_recruitment_flag
 		update_troll_recruitment = yes
 		set_estate_privilege = estate_troll_recruitment_28
+		remove_country_modifier = estate_troll_recruitment_27_modifier
 	}
 	ai_will_do = {
 		factor = 1000
@@ -1328,14 +1517,16 @@ estate_troll_recruitment_28 = {
 				limit = { NOT = { has_country_flag = estate_troll_recruitment_cooldown_flag } }
 				set_country_flag = estate_troll_recruitment_cooldown_flag
 			}
+			add_country_modifier = {
+				name = estate_troll_recruitment_28_modifier
+				duration = -1
+			}
 		}
 		custom_tooltip = very_fast_pace_race_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
-		infantry_fire = -2.1
-		infantry_shock = 4.3
-		military_tactics = 1.625
 		siege_ability = -0.25
+		allowed_musketeer_fraction = 1.0
 	}
 	penalties = {
 	}
@@ -1343,6 +1534,12 @@ estate_troll_recruitment_28 = {
 	}
 	mechanics = {
 		enables_cossack_regiments
+	}
+	conditional_modifier = {
+		trigger = { estate_territory = { estate = estate_troll territory = 90 } }
+		modifier = {
+			allowed_musketeer_fraction = 1.0
+		}
 	}
 	can_revoke = {
 		had_country_flag = {
@@ -1355,12 +1552,14 @@ estate_troll_recruitment_28 = {
 			clr_country_flag = estate_troll_recruitment_flag
 			clr_country_flag = estate_troll_recruitment_cooldown_flag
 			country_event = { id = bertus_racial_military.1001 }
+			remove_country_modifier = estate_troll_recruitment_28_modifier
 		}
 	}
 	on_invalid = {
 		clr_country_flag = estate_troll_recruitment_flag
 		update_troll_recruitment = yes
 		set_estate_privilege = estate_troll_recruitment_30
+		remove_country_modifier = estate_troll_recruitment_28_modifier
 	}
 	ai_will_do = {
 		factor = 1000
@@ -1388,14 +1587,16 @@ estate_troll_recruitment_30 = {
 				limit = { NOT = { has_country_flag = estate_troll_recruitment_cooldown_flag } }
 				set_country_flag = estate_troll_recruitment_cooldown_flag
 			}
+			add_country_modifier = {
+				name = estate_troll_recruitment_30_modifier
+				duration = -1
+			}
 		}
 		custom_tooltip = very_fast_pace_race_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
-		infantry_fire = -2.1
-		infantry_shock = 4.3
-		military_tactics = 1.75
 		siege_ability = -0.25
+		allowed_musketeer_fraction = 1.0
 	}
 	penalties = {
 	}
@@ -1403,6 +1604,12 @@ estate_troll_recruitment_30 = {
 	}
 	mechanics = {
 		enables_cossack_regiments
+	}
+	conditional_modifier = {
+		trigger = { estate_territory = { estate = estate_troll territory = 90 } }
+		modifier = {
+			allowed_musketeer_fraction = 1.0
+		}
 	}
 	can_revoke = {
 		had_country_flag = {
@@ -1415,12 +1622,14 @@ estate_troll_recruitment_30 = {
 			clr_country_flag = estate_troll_recruitment_flag
 			clr_country_flag = estate_troll_recruitment_cooldown_flag
 			country_event = { id = bertus_racial_military.1001 }
+			remove_country_modifier = estate_troll_recruitment_30_modifier
 		}
 	}
 	on_invalid = {
 		clr_country_flag = estate_troll_recruitment_flag
 		update_troll_recruitment = yes
 		set_estate_privilege = estate_troll_recruitment_31
+		remove_country_modifier = estate_troll_recruitment_30_modifier
 	}
 	ai_will_do = {
 		factor = 1000
@@ -1448,14 +1657,16 @@ estate_troll_recruitment_31 = {
 				limit = { NOT = { has_country_flag = estate_troll_recruitment_cooldown_flag } }
 				set_country_flag = estate_troll_recruitment_cooldown_flag
 			}
+			add_country_modifier = {
+				name = estate_troll_recruitment_31_modifier
+				duration = -1
+			}
 		}
 		custom_tooltip = very_fast_pace_race_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
-		infantry_fire = -3.1
-		infantry_shock = 4.3
-		military_tactics = 1.75
 		siege_ability = -0.25
+		allowed_musketeer_fraction = 1.0
 	}
 	penalties = {
 	}
@@ -1463,6 +1674,12 @@ estate_troll_recruitment_31 = {
 	}
 	mechanics = {
 		enables_cossack_regiments
+	}
+	conditional_modifier = {
+		trigger = { estate_territory = { estate = estate_troll territory = 90 } }
+		modifier = {
+			allowed_musketeer_fraction = 1.0
+		}
 	}
 	can_revoke = {
 		had_country_flag = {
@@ -1475,12 +1692,14 @@ estate_troll_recruitment_31 = {
 			clr_country_flag = estate_troll_recruitment_flag
 			clr_country_flag = estate_troll_recruitment_cooldown_flag
 			country_event = { id = bertus_racial_military.1001 }
+			remove_country_modifier = estate_troll_recruitment_31_modifier
 		}
 	}
 	on_invalid = {
 		clr_country_flag = estate_troll_recruitment_flag
 		update_troll_recruitment = yes
 		set_estate_privilege = estate_troll_recruitment_32
+		remove_country_modifier = estate_troll_recruitment_31_modifier
 	}
 	ai_will_do = {
 		factor = 1000
@@ -1507,14 +1726,16 @@ estate_troll_recruitment_32 = {
 				limit = { NOT = { has_country_flag = estate_troll_recruitment_cooldown_flag } }
 				set_country_flag = estate_troll_recruitment_cooldown_flag
 			}
+			add_country_modifier = {
+				name = estate_troll_recruitment_32_modifier
+				duration = -1
+			}
 		}
 		custom_tooltip = very_fast_pace_race_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
-		infantry_fire = -3.1
-		infantry_shock = 4.3
-		military_tactics = 1.875
 		siege_ability = -0.25
+		allowed_musketeer_fraction = 1.0
 	}
 	penalties = {
 	}
@@ -1522,6 +1743,12 @@ estate_troll_recruitment_32 = {
 	}
 	mechanics = {
 		enables_cossack_regiments
+	}
+	conditional_modifier = {
+		trigger = { estate_territory = { estate = estate_troll territory = 90 } }
+		modifier = {
+			allowed_musketeer_fraction = 1.0
+		}
 	}
 	can_revoke = {
 		had_country_flag = {
@@ -1534,10 +1761,12 @@ estate_troll_recruitment_32 = {
 			clr_country_flag = estate_troll_recruitment_flag
 			clr_country_flag = estate_troll_recruitment_cooldown_flag
 			country_event = { id = bertus_racial_military.1001 }
+			remove_country_modifier = estate_troll_recruitment_32_modifier
 		}
 	}
 	on_invalid = {
 		clr_country_flag = estate_troll_recruitment_flag
+		remove_country_modifier = estate_troll_recruitment_32_modifier
 	}
 	ai_will_do = {
 		factor = 1000
