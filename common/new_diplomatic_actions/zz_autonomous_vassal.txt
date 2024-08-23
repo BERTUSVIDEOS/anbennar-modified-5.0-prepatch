@@ -44,30 +44,37 @@ make_autonomous_vassal = {
 		}
 	}
 	on_accept = {
-		add_trust = {
-			who = FROM
-			value = 10
-			mutual = yes
-		}
-		create_subject = {
-			subject_type = autonomous_vassal
-			subject = FROM 
-		}
 		if = {	#BERTUS MOD
 			limit = {
-				is_subject_of_type = lorent_sphere_subject
+				FROM = { is_subject_of_type = lorent_sphere_subject }
+			}
+			create_subject = {
+				subject_type = autonomous_vassal
+				subject = FROM 
 			}
 			add_stability = -1
+			add_favors = {
+				who = FROM
+				amount = -100
+			}
 			FROM = {
 				add_liberty_desire = 100
 				add_trust = {
 					who = ROOT
 					value = -50
+					mutual = yes
 				}
-				add_favors = {
-					who = ROOT
-					amount = -100
-				}
+			}
+		}
+		else = {
+			create_subject = {
+				subject_type = autonomous_vassal
+				subject = FROM 
+			}
+			add_trust = {
+				who = FROM
+				value = 10
+				mutual = yes
 			}
 		}
 	}
