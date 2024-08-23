@@ -6291,6 +6291,35 @@ on_province_owner_change = {
 		}
 		owner = { country_event = { id = flavor_greedy_grin.5 } }
 	}
+	if = {	#bertus mod
+		limit = {
+			owner = {
+				has_government_attribute = magisterium_damesear_claim
+				NOT = { has_country_flag = magisterium_damesear_claim_removed }
+			}
+			NOT = {
+				area = west_damesear_area
+				area = east_damesear_area
+			}
+			is_part_of_hre = yes
+		}
+		owner = {
+			if = {
+				limit = {
+					OR = {
+						has_global_flag = aoa_incident_active_flag_tt
+						war_with = emperor
+					}
+				}
+				set_global_flag = incident_magisterium_damesear_isle_rights_violation_delay_flag
+			}
+			else = {
+				set_imperial_incident = incident_magisterium_damesear_isle_rights_violation
+				set_global_flag = aoa_incident_active_flag_tt
+			}
+		}
+	}
+			
 	#Krakazol/Rahen initial friendship, formerly rahen.1
 	if = {
 		limit = {

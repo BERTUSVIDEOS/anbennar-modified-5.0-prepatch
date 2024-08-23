@@ -6002,9 +6002,9 @@ country_event = {
 			has_ruler_flag = illusion_1
 			has_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 40 }
 			NOT = { has_ruler_modifier = magic_marvels_cooldown }
-			NOT = { has_country_modifier = illusionary_marvels_1 }
-			NOT = { has_country_modifier = illusionary_marvels_2 }
-			NOT = { has_country_modifier = illusionary_marvels_3 }
+			NOT = { has_ruler_modifier = illusionary_marvels_1 }
+			NOT = { has_ruler_modifier = illusionary_marvels_2 }
+			NOT = { has_ruler_modifier = illusionary_marvels_3 }
 		}
 		ai_chance = {
 			factor = 50
@@ -6013,7 +6013,7 @@ country_event = {
 		
 		add_mana_effect = { mana = -40 }
 		#magic_casted_spell = yes	#bertus mod - no need to limit by time since it is limited by mana cost
-		add_country_modifier = {name = illusionary_marvels_1 duration = 3650}
+		add_ruler_modifier = {name = illusionary_marvels_1 duration = 3650}
 		if = {
 			limit = {
 				has_ruler_flag = rakshasa_patron
@@ -6048,7 +6048,7 @@ country_event = {
 		tooltip = {
 			add_mana_effect = { mana = -40 }
 			add_prestige = 2
-			add_country_modifier = {name = illusionary_marvels_1 duration = 3650}
+			add_ruler_modifier = {name = illusionary_marvels_1 duration = 3650}
 		}
 		custom_tooltip = magic_illusionary_marvels_desc_tt
 	}
@@ -6062,18 +6062,27 @@ country_event = {
 				#has_country_modifier = ruler_recently_casted_spell	#bertus mod
 				NOT = { has_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 40 } }
 				has_ruler_modifier = magic_marvels_cooldown
-				has_country_modifier = illusionary_marvels_1 
-				has_country_modifier = illusionary_marvels_2 
-				has_country_modifier = illusionary_marvels_3 
+				has_ruler_modifier = illusionary_marvels_1 
+				has_ruler_modifier = illusionary_marvels_2 
+				has_ruler_modifier = illusionary_marvels_3 
 			}
 		}
 		if = { limit = { has_ruler_modifier = magic_marvels_cooldown }
 			custom_tooltip = magic_1_month_cooldown_tt
 		}
+		if = {
+			limit = {
+				OR = {
+					has_ruler_modifier = illusionary_marvels_1
+					has_ruler_modifier = illusionary_marvels_2
+					has_ruler_modifier = illusionary_marvels_3
+				}
+			}
+			custom_tooltip = magic_spell_already_active_tt
+		}
 		if = { limit = { NOT = { has_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 40 } } }
 			custom_tooltip = magisters_need_40_mana_tt
 		}
-		
 		set_country_flag = illusion_menu
 		#clr_ruler_flag = magic_just_casted_spell #bertus mod
 		hidden_effect = { country_event = { id = magic_ruler.0 } }
@@ -6083,7 +6092,7 @@ country_event = {
 		tooltip = {
 			add_mana_effect = { mana = -40 }
 			add_prestige = 2
-			add_country_modifier = {name = illusionary_marvels_1 duration = 3650}
+			add_ruler_modifier = {name = illusionary_marvels_1 duration = 3650}
 		}
 		custom_tooltip = magic_illusionary_marvels_desc_tt
 	}
@@ -6096,15 +6105,15 @@ country_event = {
 			has_ruler_flag = illusion_2
 			has_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 40 }
 			NOT = { has_ruler_modifier = magic_marvels_cooldown }
-			NOT = { has_country_modifier = illusionary_marvels_1 }
-			NOT = { has_country_modifier = illusionary_marvels_2 }
-			NOT = { has_country_modifier = illusionary_marvels_3 }
+			NOT = { has_ruler_modifier = illusionary_marvels_1 }
+			NOT = { has_ruler_modifier = illusionary_marvels_2 }
+			NOT = { has_ruler_modifier = illusionary_marvels_3 }
 		}
 		ai_chance = {factor = 50}
 		
 		add_mana_effect = { mana = -40 }
 		#magic_casted_spell = yes	#bertus mod - no need to limit by time since it is limited by mana cost
-		add_country_modifier = {name = illusionary_marvels_2 duration = 3650}
+		add_ruler_modifier = {name = illusionary_marvels_2 duration = 3650}
 		
 		add_ruler_modifier = { name = magic_marvels_cooldown duration = 30 hidden = yes }
 		if = {
@@ -6141,7 +6150,7 @@ country_event = {
 		tooltip = {
 			add_mana_effect = { mana = -40 }
 			#magic_casted_spell = yes	#bertus mod - no need to limit by time since it is limited by mana cost
-			add_country_modifier = {name = illusionary_marvels_2 duration = 3650}
+			add_ruler_modifier = {name = illusionary_marvels_2 duration = 3650}
 			add_prestige_or_monarch_power = {amount =  5}
 		}
 		custom_tooltip = magic_illusionary_marvels_desc_tt
@@ -6156,13 +6165,23 @@ country_event = {
 				#has_country_modifier = ruler_recently_casted_spell	#bertus mod
 				NOT = { has_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 40 } }
 				has_ruler_modifier = magic_marvels_cooldown
-				has_country_modifier = illusionary_marvels_1 
-				has_country_modifier = illusionary_marvels_2 
-				has_country_modifier = illusionary_marvels_3 
+				has_ruler_modifier = illusionary_marvels_1 
+				has_ruler_modifier = illusionary_marvels_2 
+				has_ruler_modifier = illusionary_marvels_3 
 			}
 		}
 		if = { limit = { has_ruler_modifier = magic_marvels_cooldown }
 			custom_tooltip = magic_1_month_cooldown_tt
+		}
+		if = {
+			limit = {
+				OR = {
+					has_ruler_modifier = illusionary_marvels_1
+					has_ruler_modifier = illusionary_marvels_2
+					has_ruler_modifier = illusionary_marvels_3
+				}
+			}
+			custom_tooltip = magic_spell_already_active_tt
 		}
 		if = { limit = { NOT = { has_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 40 } } }
 			custom_tooltip = magisters_need_40_mana_tt
@@ -6177,7 +6196,7 @@ country_event = {
 		tooltip = {
 			add_mana_effect = { mana = -40 }
 			#magic_casted_spell = yes	#bertus mod - no need to limit by time since it is limited by mana cost
-			add_country_modifier = {name = illusionary_marvels_2 duration = 3650}
+			add_ruler_modifier = {name = illusionary_marvels_2 duration = 3650}
 			add_prestige_or_monarch_power = {amount =  5}
 		}
 		custom_tooltip = magic_illusionary_marvels_desc_tt
@@ -6191,15 +6210,15 @@ country_event = {
 			has_ruler_flag = illusion_3
 			has_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 40 }
 			NOT = { has_ruler_modifier = magic_marvels_cooldown }
-			NOT = { has_country_modifier = illusionary_marvels_1 }
-			NOT = { has_country_modifier = illusionary_marvels_2 }
-			NOT = { has_country_modifier = illusionary_marvels_3 }
+			NOT = { has_ruler_modifier = illusionary_marvels_1 }
+			NOT = { has_ruler_modifier = illusionary_marvels_2 }
+			NOT = { has_ruler_modifier = illusionary_marvels_3 }
 		}
 		ai_chance = {factor = 50}
 
 		add_mana_effect = { mana = -40 }
 		#magic_casted_spell = yes	#bertus mod - no need to limit by time since it is limited by mana cost
-		add_country_modifier = {name = illusionary_marvels_3 duration = 3650}
+		add_ruler_modifier = {name = illusionary_marvels_3 duration = 3650}
 		#magic_casted_spell = yes	#bertus mod - no need to limit by time since it is limited by mana cost
 		add_ruler_modifier = { name = magic_marvels_cooldown duration = 30 hidden = yes }
 		add_prestige_or_monarch_power = {amount =  10}
@@ -6226,7 +6245,7 @@ country_event = {
 		tooltip = {
 			add_mana_effect = { mana = -40 }
 			#magic_casted_spell = yes	#bertus mod - no need to limit by time since it is limited by mana cost
-			add_country_modifier = {name = illusionary_marvels_3 duration = 3650}
+			add_ruler_modifier = {name = illusionary_marvels_3 duration = 3650}
 			add_prestige_or_monarch_power = {amount =  10}
 		}
 		custom_tooltip = magic_illusionary_marvels_desc_tt
@@ -6241,13 +6260,26 @@ country_event = {
 				#has_country_modifier = ruler_recently_casted_spell	#bertus mod
 				NOT = { has_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 40 } }
 				has_ruler_modifier = magic_marvels_cooldown
-				has_country_modifier = illusionary_marvels_1 
-				has_country_modifier = illusionary_marvels_2 
-				has_country_modifier = illusionary_marvels_3 
+				has_ruler_modifier = illusionary_marvels_1 
+				has_ruler_modifier = illusionary_marvels_2 
+				has_ruler_modifier = illusionary_marvels_3 
 			}
 		}
 		if = { limit = { has_ruler_modifier = magic_marvels_cooldown }
 			custom_tooltip = magic_1_month_cooldown_tt
+		}
+		if = { limit = { NOT = { has_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 40 } } }
+			custom_tooltip = magisters_need_40_mana_tt
+		}
+		if = {
+			limit = {
+				OR = {
+					has_ruler_modifier = illusionary_marvels_1
+					has_ruler_modifier = illusionary_marvels_2
+					has_ruler_modifier = illusionary_marvels_3
+				}
+			}
+			custom_tooltip = magic_spell_already_active_tt
 		}
 		if = { limit = { NOT = { has_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 40 } } }
 			custom_tooltip = magisters_need_40_mana_tt

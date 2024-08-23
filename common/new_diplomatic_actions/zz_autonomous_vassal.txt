@@ -10,7 +10,10 @@ make_autonomous_vassal = {
 	is_visible = {
 		is_subject = no
 		FROM = {
-			is_subject_of_type = vassal
+			OR = {
+				is_subject_of_type = vassal
+				is_subject_of_type = lorent_sphere_subject
+			}
 			is_subject_of = ROOT		
 		}
 		if = {
@@ -21,18 +24,21 @@ make_autonomous_vassal = {
 	is_allowed = {
 		hidden_trigger = {
 			is_subject = no
-			FROM = {
-				is_subject_of_type = vassal
-				is_subject_of = ROOT		
-			}
 		}
 		reverse_has_opinion = {
 			who = FROM
 			value = 0
 		}
 		FROM = {
-			is_subject_of_type = vassal
-			is_subject_of = ROOT		
+			if = {	#BERTUS MOD
+				limit = {
+					is_subject_of_type = lorent_sphere_subject
+				}
+				trust = { who = ROOT value = 100 }
+				owes_favors  = { who = ROOT value = 100 }
+				NOT = { truce_with = ROOT }
+				NOT = { liberty_desire = 1 }
+			}
 		}
 	}
 	on_accept = {
@@ -44,6 +50,15 @@ make_autonomous_vassal = {
 		create_subject = {
 			subject_type = autonomous_vassal
 			subject = FROM 
+		}
+		if = {	#BERTUS MOD
+			limit = {
+				is_subject_of_type = lorent_sphere_subject
+			}
+			add_stability = -1
+			FROM = {
+				add_liberty_desire = 100
+			}
 		}
 	}
 	on_decline = 	{

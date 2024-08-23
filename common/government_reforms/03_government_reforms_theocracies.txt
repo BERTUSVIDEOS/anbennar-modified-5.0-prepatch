@@ -611,15 +611,20 @@ magisterium_reform = {
 
 	effect = {
 		hidden_effect= {
-			every_owned_province = {	#bertus
+			if = {
 				limit = {
-					OR = {
-						area = west_damesear_area
-						area = east_damesear_area
-					}
-					NOT = {has_province_modifier = magisgerium_damesear_claim_modifier}
+					NOT = { has_country_flag = magisterium_damesear_claim_removed }
 				}
-				add_province_modifier = {name = magisgerium_damesear_claim_modifier duration = -1}
+				every_owned_province = {	#bertus
+					limit = {
+						OR = {
+							area = west_damesear_area
+							area = east_damesear_area
+						}
+						NOT = {has_province_modifier = magisgerium_damesear_claim_modifier}
+					}
+					add_province_modifier = {name = magisgerium_damesear_claim_modifier duration = -1}
+				}
 			}
 		}
 	}

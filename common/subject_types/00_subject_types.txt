@@ -1456,7 +1456,7 @@ autonomous_vassal = {
 	gets_help_with_rebels = no
 	overlord_can_attack = no
 	overlord_protects_external = yes
-	takes_diplo_slot = yes
+	takes_diplo_slot = no
 	
 	max_government_rank = 1
 	trust_on_start = 40
@@ -3461,7 +3461,7 @@ lorent_sphere_subject = {
 	is_voluntary = yes
 	overlord_can_attack = no
 	takes_diplo_slot = no
-	base_liberty_desire = -10
+	base_liberty_desire = 0
 	relative_power_class = 1
 	should_quit_wars_on_activation = no
 	can_send_tribute = yes
@@ -3479,17 +3479,17 @@ lorent_sphere_subject = {
 	can_send_missionary_to_subject = no
 	overlord_can_fabricate_for = no
 	does_overlord_size_count_for_warscore_cost = no
-	can_concentrate_development = no
+	can_concentrate_development = yes
 
 	max_government_rank = 1
 
-	forcelimit_to_overlord = 0.25						# Percent of subject FL to use as base for modifiers
-	naval_forcelimit_to_overlord = 0.25					# Percent of subject FL to use as base for modifiers
-	manpower_to_overlord = 0.25							# Percent of subject FL to use as base for modifiers
-	sailors_to_overlord = 0.25							# Percent of subject FL to use as base for modifiers
-	pays_overlord = 0.5									# 1.0 represents the amount payed by vassals
+	forcelimit_to_overlord = 0.10						# Percent of subject FL to use as base for modifiers
+	naval_forcelimit_to_overlord = 0.10					# Percent of subject FL to use as base for modifiers
+	manpower_to_overlord = 0.10							# Percent of subject FL to use as base for modifiers
+	sailors_to_overlord = 0.10							# Percent of subject FL to use as base for modifiers
+	pays_overlord = 0.25									# 1.0 represents the amount payed by vassals
 	
-	liberty_desire_development_ratio = 0.33
+	liberty_desire_development_ratio = 0.50
 	trust_on_start = 0
 	
 	overlord_opinion_modifier = is_lorent_sphere
@@ -3530,7 +3530,7 @@ lorent_sphere_subject = {
 	enforce_religion = no
 	customize_subject = no
 	replace_governor = no
-	grant_province = no
+	grant_province = yes
 	enforce_culture = no
 	siphon_income = no
 	fortify_march = no
@@ -3542,23 +3542,25 @@ lorent_sphere_subject = {
 	increase_tariffs = no
 	decrease_tariffs = no
 	takeondebt = no
-	bestow_gifts = no
+	bestow_gifts = yes
 	send_additional_troops = no
 	demand_artifacts = no
 	demand_additional_tribute = no
 	force_seppuku = no
 	press_sailors = no
-	contribute_to_capital = no
+	contribute_to_capital = yes
 	force_isolation = no
-	return_land = no
-	conscript_general = no
-	knowledge_sharing = no
+	return_land = yes
+	conscript_general = yes
+	knowledge_sharing = yes
 	block_settlement_growth = no
 	allow_settlement_growth = no
 	# (special)
 	sword_hunt = no
 	sankin_kotai = no
 	expel_ronin = no
+	separatists_become_subjects = yes
+	can_gain_favors = no #1.35 
 
 	# Modifiers:
 	modifier_subject = clear # Tributaries don't get the ordinary subject_nation penalty 
@@ -3571,9 +3573,6 @@ lorent_sphere_subject = {
 		modifier = 	lorent_sphere_subject_overlord_bonus	
 		trigger = {
 			NOT = {liberty_desire = 50}
-			FROM = {
-				ai = yes
-			}
 		}
 	}
 	modifier_subject = {
@@ -3581,16 +3580,6 @@ lorent_sphere_subject = {
 		modifier = 	lorent_sphere_subject_bonus	
 		trigger = {
 			NOT = {liberty_desire = 50}
-			FROM = {
-				ai = yes
-			}
-		}
-	}
-	modifier_subject = {
-		#if lorent is IA
-		modifier = 	lorent_sphere_no_fl	
-		trigger = {
-			liberty_desire = 50
 		}
 	}
 }

@@ -6196,7 +6196,7 @@ country_event = {
         name = bertus_changes.6036.transmutation_school # School Transmutation
 		trigger = {
 			has_country_flag = schools_of_magic_reform_flag
-			NOT = {has_country_flag =  transmutation_school_reform_flag}
+			NOT = {has_country_flag = transmutation_school_reform_flag}
 		}
 		if = {
 			limit = {
@@ -6206,7 +6206,7 @@ country_event = {
 					value = 75
 				}
 			}
-			set_country_flag = unlocked_transmutation_school_reform_flag
+			set_country_flag = transmutation_school_reform_flag
 			custom_tooltip = transmutation_school_tt
 			add_government_power = { 
 				mechanic_type = magisterium_mechanic 
@@ -7761,7 +7761,7 @@ country_event = {	#incident magisterium emperorship claim
 						is_subject_of_type = tributary_state
 					}
 				}
-				country_event = { id = bertus_changes.6050 days = 5 random = 5 }	#incident magisterium emperorship war sides
+				country_event = { id = bertus_changes.6050 days = 5 random = 15 }	#incident magisterium emperorship war sides
 			}
 			emperor = {
 				while = {	#give imperial authority back
@@ -7783,6 +7783,7 @@ country_event = {	#incident magisterium emperorship war sides
 	picture = DIPLOMACY_eventPicture
 	
 	is_triggered_only = yes
+	major = yes
 	
 	option = {
 		name = bertus_changes.6050.a
@@ -7812,6 +7813,236 @@ country_event = {	#incident magisterium emperorship war sides
 			break_alliance = emperor
 			white_peace = A85
 		}
+	}
+}
+country_event = {	#incident magisterium isle rights violation
+	id = bertus_changes.6051
+	title = bertus_changes.6051.t
+	desc = bertus_changes.6051.desc
+	picture = DIPLOMACY_eventPicture
+	
+	hidden = yes
+	is_triggered_only = yes
+
+	option = {	#return core
+		name = bertus_changes.6051.a
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 10
+				is_emperor = yes
+			}
+		}
+
+		A85 = {	#ultimatum
+			country_event = { id = bertus_changes.6052 }
+		}
+	}
+	option = { #no return core
+		name = bertus_changes.6051.b
+		ai_chance = {factor = 25}
+		set_country_flag = magisterium_damesear_claim_removed
+		custom_tooltip = magisterium_damesear_claim_removed_tt
+		hidden = {
+			every_province = {
+				limit = {
+					NOT = {
+						area = west_damesear_area
+						area = east_damesear_area
+					}
+					is_part_of_hre = yes
+					owner = {
+						has_government_attribute = magisterium_damesear_claim
+					}
+				}
+				emperor = {
+					add_imperial_influence = -5
+				}
+			}
+			clr_global_flag = aoa_incident_active_flag_tt
+		}
+		add_country_modifier = { name = magisterium_damesear_claim_broken_malus duration = 7300 }
+	}
+	after = {
+	}
+}
+country_event = {	#incident magisterium isle rights violation - magisterium response
+	id = bertus_changes.6052
+	title = bertus_changes.6052.t
+	desc = bertus_changes.6052.desc
+	picture = DIPLOMACY_eventPicture
+	
+	is_triggered_only = yes
+	major = yes
+
+    immediate = {
+		every_owned_province = {
+			limit = {
+				NOT = {
+					area = west_damesear_area
+					area = east_damesear_area
+				}
+				is_part_of_hre = yes
+			}
+            save_event_target_as = unlawful_province
+		}
+	}
+	option = {	#return core
+		name = bertus_changes.6052.a
+		ai_chance = {factor = 50}
+		goto = unlawful_province 
+		every_owned_province = {
+			limit = {
+				NOT = {
+					area = west_damesear_area
+					area = east_damesear_area
+				}
+				is_part_of_hre = yes
+			}
+			cede_province = emperor
+			add_territorial_core = emperor
+		}
+	}
+	option = { #no return core
+		name = bertus_changes.6052.b
+		ai_chance = {factor = 50}
+		set_country_flag = magisterium_damesear_claim_removed
+		emperor = {
+			declare_war_with_cb = {
+				who = A85
+				casus_belli = cb_damesear_privilege
+			}
+		}
+		custom_tooltip = magisterium_damesear_claim_removed_tt
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					NOT = {
+						area = west_damesear_area
+						area = east_damesear_area
+					}
+					is_part_of_hre = yes
+				}
+				emperor = {
+					add_imperial_influence = -5
+				}
+			}
+		}
+		add_country_modifier = { name = magisterium_damesear_claim_broken_malus duration = 7300 }
+		hidden_effect = {
+			every_country = {
+				limit = {
+					NOT = { tag = A85 }
+					NOT = { is_emperor = yes }
+					is_part_of_hre = yes
+					if = {
+						limit = { is_subject = yes }
+						is_subject_of_type = tributary_state
+					}
+				}
+				country_event = { id = bertus_changes.6053 days = 5 random = 15 }	#incident magisterium emperorship war sides
+			}
+		}
+	}
+	after = {
+		clr_global_flag = aoa_incident_active_flag_tt
+	}
+}
+country_event = {	#incident magisterium Damesear right violation war sides
+	id = bertus_changes.6053
+	title = bertus_changes.6053.t
+	desc = bertus_changes.6053.desc
+	picture = DIPLOMACY_eventPicture
+	
+	is_triggered_only = yes
+	major = yes
+	
+	option = {
+		name = bertus_changes.6053.a
+		ai_chance = {factor = 50}
+		custom_tooltip = tooltip_magisterium_emperorship_war_emperor_side_hre
+		set_country_flag = magisterium_damesear_claim_emperor_side_flag
+		join_all_offensive_wars_of = emperor
+	}
+	option = {	#
+		name = bertus_changes.6053.b
+		ai_chance = {factor = 10}
+		custom_tooltip = tooltip_magisterium_emperorship_war_magisterium_side_hre
+		set_country_flag = magisteriumdamesear_claim_magisterium_side_flag
+		join_all_defensive_wars_of = A85
+	}
+	option = {	#
+		name = bertus_changes.6053.c
+		ai_chance = {factor = 100}
+		custom_tooltip = tooltip_magisterium_emperorship_war_no_side_hre
+		if = {
+			limit = { alliance_with = A85 }
+			break_alliance = A85
+			white_peace = emperor
+		}
+		if = {
+			limit = { alliance_with = emperor }
+			break_alliance = emperor
+			white_peace = A85
+		}
+	}
+}
+country_event = {	#incidents from reforms posponed
+	id = bertus_changes.6054
+	title = bertus_changes.6054.t
+	desc = bertus_changes.6054.desc
+	picture = DIPLOMACY_eventPicture
+
+	hidden = yes
+	
+	trigger = {
+		is_emperor = yes
+		OR = {
+			has_global_flag = incident_imperial_colleges_delay_flag
+			has_global_flag = incident_imperial_call_delay_flag
+			has_global_flag = incident_eralas_reform_delay_flag
+			has_global_flag = incident_imperial_authority_reform_delay_flag
+			has_global_flag = incident_market_reform_delay_flag
+			has_global_flag = incident_religious_reform_delay_flag
+			has_global_flag = incident_weddings_reform_delay_flag
+			has_global_flag = incident_resource_reform_delay_flag
+			has_global_flag = incident_high_ministery_reform_delay_flag
+			AND = {
+				has_global_flag = incident_magisterium_damesear_isle_rights_violation_flag
+				NOT = { war_with = A85 }
+			}
+		}
+	}
+
+	option = {	#
+		name = bertus_changes.6054.a
+		ai_chance = {factor = 25}
+		trigger_switch = {
+			on_trigger = has_global_flag
+			incident_imperial_colleges_delay_flag = { set_imperial_incident = incident_imperial_colleges }
+			incident_imperial_colleges_delay_flag = { set_imperial_incident = incident_imperial_call }
+			incident_imperial_colleges_delay_flag = { set_imperial_incident = incident_eralas_reform }
+			incident_imperial_colleges_delay_flag = { set_imperial_incident = incident_imperial_authority_reform }
+			incident_imperial_colleges_delay_flag = { set_imperial_incident = incident_market_reform }
+			incident_imperial_colleges_delay_flag = { set_imperial_incident = incident_religious_reform }
+			incident_imperial_colleges_delay_flag = { set_imperial_incident = incident_weddings_reform }
+			incident_imperial_colleges_delay_flag = { set_imperial_incident = incident_resource_reform }
+			incident_imperial_colleges_delay_flag = { set_imperial_incident = incident_high_ministery_reform }
+			incident_imperial_colleges_delay_flag = { set_imperial_incident = incident_magisterium_damesear_isle_rights_violation }
+		}
+		set_global_flag = aoa_incident_active_flag_tt
+	}
+	after = {
+		clr_global_flag = incident_imperial_colleges_delay_flag
+		clr_global_flag = incident_imperial_call_delay_flag
+		clr_global_flag = incident_eralas_reform_delay_flag
+		clr_global_flag = incident_imperial_authority_reform_delay_flag
+		clr_global_flag = incident_market_reform_delay_flag
+		clr_global_flag = incident_religious_reform_delay_flag
+		clr_global_flag = incident_weddings_reform_delay_flag
+		clr_global_flag = incident_resource_reform_delay_flag
+		clr_global_flag = incident_high_ministery_reform_delay_flag
+		clr_global_flag = incident_magisterium_damesear_isle_rights_violation_delay_flag
 	}
 }
 country_event = {	#goods menu

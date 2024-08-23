@@ -275,6 +275,7 @@ estate_ogre_recruitment = {
 			}
 		}
 		custom_tooltip = very_fast_pace_race_mechanic_tooltip
+		custom_tooltip = ogre_bonus_if_mainly_tooltip
 	}
 	modifier_by_land_ownership = {
 	}
@@ -327,10 +328,7 @@ estate_ogre_recruitment_2 = {
 				limit = { NOT = { has_country_flag = estate_ogre_recruitment_cooldown_flag } }
 				set_country_flag = estate_ogre_recruitment_cooldown_flag
 			}
-			add_country_modifier = {
-				name = estate_ogre_recruitment_2_modifier
-				duration = -1
-			}
+			update_special_regiment_modifier = { race = ogre value = 2 }
 			#starter setup
 				every_owned_province = {
 					limit = { units_in_province = 1 }
@@ -346,6 +344,7 @@ estate_ogre_recruitment_2 = {
 			#
 		}
 		custom_tooltip = very_fast_pace_race_mechanic_tooltip
+		custom_tooltip = ogre_bonus_if_mainly_tooltip
 	}
 	modifier_by_land_ownership = {
 		siege_ability = -0.50
@@ -371,16 +370,15 @@ estate_ogre_recruitment_2 = {
 		hidden_effect = {
 			clr_country_flag = estate_ogre_recruitment_flag
 			country_event = { id = bertus_racial_military.1001 }
+			remove_special_regiment_modifier = { race = ogre value = 2 }
 		}
 		add_mil_power = -100
-		clr_country_flag = estate_ogre_recruitment_flag
-		remove_country_modifier = estate_ogre_recruitment_2_modifier
 	}
 	on_invalid = {
 		clr_country_flag = estate_ogre_recruitment_flag
 		update_ogre_recruitment = yes
 		set_estate_privilege = estate_ogre_recruitment_4
-		remove_country_modifier = estate_ogre_recruitment_2_modifier
+		remove_special_regiment_modifier = { race = ogre value = 2 }
 	}
 	ai_will_do = {
 		factor = 1000
@@ -408,152 +406,7 @@ estate_ogre_recruitment_4 = {
 				limit = { NOT = { has_country_flag = estate_ogre_recruitment_cooldown_flag } }
 				set_country_flag = estate_ogre_recruitment_cooldown_flag
 			}
-			add_country_modifier = {
-				name = estate_ogre_recruitment_4_modifier
-				duration = -1
-			}
-		}
-		custom_tooltip = very_fast_pace_race_mechanic_tooltip
-	}
-	modifier_by_land_ownership = {
-		siege_ability = -0.50
-		allowed_samurai_fraction = 1.0
-	}
-	penalties = {
-	}
-	benefits = {
-		has_samurai = yes
-	}
-	mechanics = {
-		enables_cossack_regiments
-	}
-	conditional_modifier = {
-		trigger = { estate_territory = { estate = estate_ogre territory = 90 } }
-		modifier = {
-			allowed_samurai_fraction = 1.0
-		}
-	}
-	can_revoke = {
-		had_country_flag = {
-			flag = estate_ogre_recruitment_cooldown_flag
-			days = 7300
-		}
-	}
-	on_revoked = {
-		hidden_effect = {
-			clr_country_flag = estate_ogre_recruitment_flag
-			clr_country_flag = estate_ogre_recruitment_cooldown_flag
-			country_event = { id = bertus_racial_military.1001 }
-		remove_country_modifier = estate_ogre_recruitment_4_modifier
-		}		
-	}
-	on_invalid = {
-		clr_country_flag = estate_ogre_recruitment_flag
-		update_ogre_recruitment = yes
-		set_estate_privilege = estate_ogre_recruitment_5
-		remove_country_modifier = estate_ogre_recruitment_4_modifier
-	}
-	ai_will_do = {
-		factor = 1000
-	}
-}
-estate_ogre_recruitment_5 = {
-	icon = privilege_demand_more_troops
-	loyalty = -0.10
-	influence = 0.10
-	is_valid = {
-		mil_tech = 5
-		NOT = {mil_tech = 6}
-	}
-	can_select = {		
-		high_tolerance_ogre_race_trigger = yes	
-		any_owned_province = {
-			culture_is_ogre = yes
-		}
-	}
-	on_granted = {
-		hidden_effect = {
-			set_country_flag = estate_ogre_recruitment_flag
-			country_event = { id = bertus_racial_military.1001 }
-			if = {
-				limit = { NOT = { has_country_flag = estate_ogre_recruitment_cooldown_flag } }
-				set_country_flag = estate_ogre_recruitment_cooldown_flag
-			}
-			add_country_modifier = {
-				name = estate_ogre_recruitment_5_modifier
-				duration = -1
-			}
-		}
-		custom_tooltip = very_fast_pace_race_mechanic_tooltip
-	}
-	modifier_by_land_ownership = {
-		siege_ability = -0.50
-		allowed_samurai_fraction = 1.0
-	}
-	penalties = {
-	}
-	benefits = {
-		has_samurai = yes
-	}
-	mechanics = {
-		enables_cossack_regiments
-	}
-	conditional_modifier = {
-		trigger = { estate_territory = { estate = estate_ogre territory = 90 } }
-		modifier = {
-			allowed_samurai_fraction = 1.0
-		}
-	}
-	can_revoke = {
-		had_country_flag = {
-			flag = estate_ogre_recruitment_cooldown_flag
-			days = 7300
-		}
-	}
-	on_revoked = {
-		hidden_effect = {
-			clr_country_flag = estate_ogre_recruitment_flag
-			clr_country_flag = estate_ogre_recruitment_cooldown_flag
-			country_event = { id = bertus_racial_military.1001 }
-		remove_country_modifier = estate_ogre_recruitment_5_modifier
-		}		
-	}
-	on_invalid = {
-		clr_country_flag = estate_ogre_recruitment_flag
-		update_ogre_recruitment = yes
-		set_estate_privilege = estate_ogre_recruitment_6
-		remove_country_modifier = estate_ogre_recruitment_5_modifier
-	}
-	ai_will_do = {
-		factor = 1000
-	}
-}
-estate_ogre_recruitment_6 = {
-	icon = privilege_demand_more_troops
-	loyalty = -0.10
-	influence = 0.10
-	is_valid = {
-		mil_tech = 6
-		NOT = {mil_tech = 7}
-	}
-	can_select = {		
-		high_tolerance_ogre_race_trigger = yes	
-		any_owned_province = {
-			culture_is_ogre = yes
-		}
-	}
-	on_granted = {
-		hidden_effect = {
-			set_country_flag = estate_ogre_recruitment_flag
-			country_event = { id = bertus_racial_military.1001 }
-			if = {
-				limit = { NOT = { has_country_flag = estate_ogre_recruitment_cooldown_flag } }
-				set_country_flag = estate_ogre_recruitment_cooldown_flag
-			}
-			add_country_modifier = {
-				name = estate_ogre_recruitment_6_modifier
-				duration = -1
-			}
+			update_special_regiment_modifier = { race = ogre value = 4 }
 		}
 		custom_tooltip = very_fast_pace_race_mechanic_tooltip
 		custom_tooltip = ogre_bonus_if_mainly_tooltip
@@ -587,14 +440,152 @@ estate_ogre_recruitment_6 = {
 			clr_country_flag = estate_ogre_recruitment_flag
 			clr_country_flag = estate_ogre_recruitment_cooldown_flag
 			country_event = { id = bertus_racial_military.1001 }
-		remove_country_modifier = estate_ogre_recruitment_6_modifier
-		}		
+			remove_special_regiment_modifier = { race = ogre value = 4 }
+		}
+	}
+	on_invalid = {
+		clr_country_flag = estate_ogre_recruitment_flag
+		update_ogre_recruitment = yes
+		set_estate_privilege = estate_ogre_recruitment_5
+		remove_special_regiment_modifier = { race = ogre value = 4 }
+	}
+	ai_will_do = {
+		factor = 1000
+	}
+}
+estate_ogre_recruitment_5 = {
+	icon = privilege_demand_more_troops
+	loyalty = -0.10
+	influence = 0.10
+	is_valid = {
+		mil_tech = 5
+		NOT = {mil_tech = 6}
+	}
+	can_select = {		
+		high_tolerance_ogre_race_trigger = yes	
+		any_owned_province = {
+			culture_is_ogre = yes
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			set_country_flag = estate_ogre_recruitment_flag
+			country_event = { id = bertus_racial_military.1001 }
+			if = {
+				limit = { NOT = { has_country_flag = estate_ogre_recruitment_cooldown_flag } }
+				set_country_flag = estate_ogre_recruitment_cooldown_flag
+			}
+			update_special_regiment_modifier = { race = ogre value = 5 }
+		}
+		custom_tooltip = very_fast_pace_race_mechanic_tooltip
+		custom_tooltip = ogre_bonus_if_mainly_tooltip
+	}
+	modifier_by_land_ownership = {
+		siege_ability = -0.50
+		allowed_samurai_fraction = 1.0
+	}
+	penalties = {
+	}
+	benefits = {
+		has_samurai = yes
+	}
+	mechanics = {
+		enables_cossack_regiments
+	}
+	conditional_modifier = {
+		trigger = { estate_territory = { estate = estate_ogre territory = 90 } }
+		modifier = {
+			allowed_samurai_fraction = 1.0
+		}
+	}
+	can_revoke = {
+		had_country_flag = {
+			flag = estate_ogre_recruitment_cooldown_flag
+			days = 7300
+		}
+	}
+	on_revoked = {
+		hidden_effect = {
+			clr_country_flag = estate_ogre_recruitment_flag
+			clr_country_flag = estate_ogre_recruitment_cooldown_flag
+			country_event = { id = bertus_racial_military.1001 }
+			remove_special_regiment_modifier = { race = ogre value = 5 }
+		}
+	}
+	on_invalid = {
+		clr_country_flag = estate_ogre_recruitment_flag
+		update_ogre_recruitment = yes
+		set_estate_privilege = estate_ogre_recruitment_6
+		remove_special_regiment_modifier = { race = ogre value = 5 }
+	}
+	ai_will_do = {
+		factor = 1000
+	}
+}
+estate_ogre_recruitment_6 = {
+	icon = privilege_demand_more_troops
+	loyalty = -0.10
+	influence = 0.10
+	is_valid = {
+		mil_tech = 6
+		NOT = {mil_tech = 7}
+	}
+	can_select = {		
+		high_tolerance_ogre_race_trigger = yes	
+		any_owned_province = {
+			culture_is_ogre = yes
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			set_country_flag = estate_ogre_recruitment_flag
+			country_event = { id = bertus_racial_military.1001 }
+			if = {
+				limit = { NOT = { has_country_flag = estate_ogre_recruitment_cooldown_flag } }
+				set_country_flag = estate_ogre_recruitment_cooldown_flag
+			}
+			update_special_regiment_modifier = { race = ogre value = 6 }
+		}
+		custom_tooltip = very_fast_pace_race_mechanic_tooltip
+		custom_tooltip = ogre_bonus_if_mainly_tooltip
+	}
+	modifier_by_land_ownership = {
+		siege_ability = -0.50
+		allowed_samurai_fraction = 1.0
+	}
+	penalties = {
+	}
+	benefits = {
+		has_samurai = yes
+	}
+	mechanics = {
+		enables_cossack_regiments
+	}
+	conditional_modifier = {
+		trigger = { estate_territory = { estate = estate_ogre territory = 90 } }
+		modifier = {
+			allowed_samurai_fraction = 1.0
+		}
+	}
+	can_revoke = {
+		had_country_flag = {
+			flag = estate_ogre_recruitment_cooldown_flag
+			days = 7300
+		}
+	}
+	on_revoked = {
+		hidden_effect = {
+			clr_country_flag = estate_ogre_recruitment_flag
+			clr_country_flag = estate_ogre_recruitment_cooldown_flag
+			country_event = { id = bertus_racial_military.1001 }
+			remove_special_regiment_modifier = { race = ogre value = 6 }
+		}
 	}
 	on_invalid = {
 		clr_country_flag = estate_ogre_recruitment_flag
 		update_ogre_recruitment = yes
 		set_estate_privilege = estate_ogre_recruitment_7
-		remove_country_modifier = estate_ogre_recruitment_6_modifier
+		remove_special_regiment_modifier = { race = ogre value = 6 }
 	}
 	ai_will_do = {
 		factor = 1000
@@ -622,12 +613,10 @@ estate_ogre_recruitment_7 = {
 				limit = { NOT = { has_country_flag = estate_ogre_recruitment_cooldown_flag } }
 				set_country_flag = estate_ogre_recruitment_cooldown_flag
 			}
-			add_country_modifier = {
-				name = estate_ogre_recruitment_7_modifier
-				duration = -1
-			}
+			update_special_regiment_modifier = { race = ogre value = 7 }
 		}
 		custom_tooltip = very_fast_pace_race_mechanic_tooltip
+		custom_tooltip = ogre_bonus_if_mainly_tooltip
 	}
 	modifier_by_land_ownership = {
 		siege_ability = -0.50
@@ -658,14 +647,14 @@ estate_ogre_recruitment_7 = {
 			clr_country_flag = estate_ogre_recruitment_flag
 			clr_country_flag = estate_ogre_recruitment_cooldown_flag
 			country_event = { id = bertus_racial_military.1001 }
-		remove_country_modifier = estate_ogre_recruitment_7_modifier
-		}		
+			remove_special_regiment_modifier = { race = ogre value = 7 }
+		}
 	}
 	on_invalid = {
 		clr_country_flag = estate_ogre_recruitment_flag
 		update_ogre_recruitment = yes
 		set_estate_privilege = estate_ogre_recruitment_8
-		remove_country_modifier = estate_ogre_recruitment_7_modifier
+		remove_special_regiment_modifier = { race = ogre value = 7 }
 	}
 	ai_will_do = {
 		factor = 1000
@@ -693,12 +682,10 @@ estate_ogre_recruitment_8 = {
 				limit = { NOT = { has_country_flag = estate_ogre_recruitment_cooldown_flag } }
 				set_country_flag = estate_ogre_recruitment_cooldown_flag
 			}
-			add_country_modifier = {
-				name = estate_ogre_recruitment_8_modifier
-				duration = -1
-			}
+			update_special_regiment_modifier = { race = ogre value = 8 }
 		}
 		custom_tooltip = very_fast_pace_race_mechanic_tooltip
+		custom_tooltip = ogre_bonus_if_mainly_tooltip
 	}
 	modifier_by_land_ownership = {
 		siege_ability = -0.50
@@ -729,14 +716,14 @@ estate_ogre_recruitment_8 = {
 			clr_country_flag = estate_ogre_recruitment_flag
 			clr_country_flag = estate_ogre_recruitment_cooldown_flag
 			country_event = { id = bertus_racial_military.1001 }
-		remove_country_modifier = estate_ogre_recruitment_8_modifier
-		}		
+			remove_special_regiment_modifier = { race = ogre value = 8 }
+		}
 	}
 	on_invalid = {
 		clr_country_flag = estate_ogre_recruitment_flag
 		update_ogre_recruitment = yes
 		set_estate_privilege = estate_ogre_recruitment_9
-		remove_country_modifier = estate_ogre_recruitment_8_modifier
+		remove_special_regiment_modifier = { race = ogre value = 8 }
 	}
 	ai_will_do = {
 		factor = 1000
@@ -764,12 +751,10 @@ estate_ogre_recruitment_9 = {
 				limit = { NOT = { has_country_flag = estate_ogre_recruitment_cooldown_flag } }
 				set_country_flag = estate_ogre_recruitment_cooldown_flag
 			}
-			add_country_modifier = {
-				name = estate_ogre_recruitment_9_modifier
-				duration = -1
-			}
+			update_special_regiment_modifier = { race = ogre value = 9 }
 		}
 		custom_tooltip = very_fast_pace_race_mechanic_tooltip
+		custom_tooltip = ogre_bonus_if_mainly_tooltip
 	}
 	modifier_by_land_ownership = {
 		siege_ability = -0.50
@@ -800,14 +785,14 @@ estate_ogre_recruitment_9 = {
 			clr_country_flag = estate_ogre_recruitment_flag
 			clr_country_flag = estate_ogre_recruitment_cooldown_flag
 			country_event = { id = bertus_racial_military.1001 }
-		remove_country_modifier = estate_ogre_recruitment_9_modifier
-		}		
+			remove_special_regiment_modifier = { race = ogre value = 9 }
+		}
 	}
 	on_invalid = {
 		clr_country_flag = estate_ogre_recruitment_flag
 		update_ogre_recruitment = yes
 		set_estate_privilege = estate_ogre_recruitment_11
-		remove_country_modifier = estate_ogre_recruitment_9_modifier
+		remove_special_regiment_modifier = { race = ogre value = 9 }
 	}
 	ai_will_do = {
 		factor = 1000
@@ -835,12 +820,10 @@ estate_ogre_recruitment_11 = {
 				limit = { NOT = { has_country_flag = estate_ogre_recruitment_cooldown_flag } }
 				set_country_flag = estate_ogre_recruitment_cooldown_flag
 			}
-			add_country_modifier = {
-				name = estate_ogre_recruitment_11_modifier
-				duration = -1
-			}
+			update_special_regiment_modifier = { race = ogre value = 11 }
 		}
 		custom_tooltip = very_fast_pace_race_mechanic_tooltip
+		custom_tooltip = ogre_bonus_if_mainly_tooltip
 	}
 	modifier_by_land_ownership = {
 		siege_ability = -0.50
@@ -871,14 +854,14 @@ estate_ogre_recruitment_11 = {
 			clr_country_flag = estate_ogre_recruitment_flag
 			clr_country_flag = estate_ogre_recruitment_cooldown_flag
 			country_event = { id = bertus_racial_military.1001 }
-		remove_country_modifier = estate_ogre_recruitment_11_modifier
-		}		
+			remove_special_regiment_modifier = { race = ogre value = 11 }
+		}
 	}
 	on_invalid = {
 		clr_country_flag = estate_ogre_recruitment_flag
 		update_ogre_recruitment = yes
 		set_estate_privilege = estate_ogre_recruitment_12
-		remove_country_modifier = estate_ogre_recruitment_11_modifier
+		remove_special_regiment_modifier = { race = ogre value = 11 }
 	}
 	ai_will_do = {
 		factor = 1000
@@ -906,12 +889,10 @@ estate_ogre_recruitment_12 = {
 				limit = { NOT = { has_country_flag = estate_ogre_recruitment_cooldown_flag } }
 				set_country_flag = estate_ogre_recruitment_cooldown_flag
 			}
-			add_country_modifier = {
-				name = estate_ogre_recruitment_12_modifier
-				duration = -1
-			}
+			update_special_regiment_modifier = { race = ogre value = 12 }
 		}
 		custom_tooltip = very_fast_pace_race_mechanic_tooltip
+		custom_tooltip = ogre_bonus_if_mainly_tooltip
 	}
 	modifier_by_land_ownership = {
 		siege_ability = -0.50
@@ -942,14 +923,14 @@ estate_ogre_recruitment_12 = {
 			clr_country_flag = estate_ogre_recruitment_flag
 			clr_country_flag = estate_ogre_recruitment_cooldown_flag
 			country_event = { id = bertus_racial_military.1001 }
-		remove_country_modifier = estate_ogre_recruitment_12_modifier
-		}		
+			remove_special_regiment_modifier = { race = ogre value = 12 }
+		}
 	}
 	on_invalid = {
 		clr_country_flag = estate_ogre_recruitment_flag
 		update_ogre_recruitment = yes
 		set_estate_privilege = estate_ogre_recruitment_13
-		remove_country_modifier = estate_ogre_recruitment_12_modifier
+		remove_special_regiment_modifier = { race = ogre value = 12 }
 	}
 	ai_will_do = {
 		factor = 1000
@@ -977,12 +958,10 @@ estate_ogre_recruitment_13 = {
 				limit = { NOT = { has_country_flag = estate_ogre_recruitment_cooldown_flag } }
 				set_country_flag = estate_ogre_recruitment_cooldown_flag
 			}
-			add_country_modifier = {
-				name = estate_ogre_recruitment_13_modifier
-				duration = -1
-			}
+			update_special_regiment_modifier = { race = ogre value = 13 }
 		}
 		custom_tooltip = very_fast_pace_race_mechanic_tooltip
+		custom_tooltip = ogre_bonus_if_mainly_tooltip
 	}
 	modifier_by_land_ownership = {
 		siege_ability = -0.50
@@ -1013,14 +992,14 @@ estate_ogre_recruitment_13 = {
 			clr_country_flag = estate_ogre_recruitment_flag
 			clr_country_flag = estate_ogre_recruitment_cooldown_flag
 			country_event = { id = bertus_racial_military.1001 }
-		remove_country_modifier = estate_ogre_recruitment_13_modifier
-		}		
+			remove_special_regiment_modifier = { race = ogre value = 13 }
+		}
 	}
 	on_invalid = {
 		clr_country_flag = estate_ogre_recruitment_flag
 		update_ogre_recruitment = yes
 		set_estate_privilege = estate_ogre_recruitment_14
-		remove_country_modifier = estate_ogre_recruitment_13_modifier
+		remove_special_regiment_modifier = { race = ogre value = 13 }
 	}
 	ai_will_do = {
 		factor = 1000
@@ -1048,12 +1027,10 @@ estate_ogre_recruitment_14 = {
 				limit = { NOT = { has_country_flag = estate_ogre_recruitment_cooldown_flag } }
 				set_country_flag = estate_ogre_recruitment_cooldown_flag
 			}
-			add_country_modifier = {
-				name = estate_ogre_recruitment_14_modifier
-				duration = -1
-			}
+			update_special_regiment_modifier = { race = ogre value = 14 }
 		}
 		custom_tooltip = very_fast_pace_race_mechanic_tooltip
+		custom_tooltip = ogre_bonus_if_mainly_tooltip
 	}
 	modifier_by_land_ownership = {
 		siege_ability = -0.50
@@ -1084,14 +1061,14 @@ estate_ogre_recruitment_14 = {
 			clr_country_flag = estate_ogre_recruitment_flag
 			clr_country_flag = estate_ogre_recruitment_cooldown_flag
 			country_event = { id = bertus_racial_military.1001 }
-		remove_country_modifier = estate_ogre_recruitment_14_modifier
-		}		
+			remove_special_regiment_modifier = { race = ogre value = 14 }
+		}
 	}
 	on_invalid = {
 		clr_country_flag = estate_ogre_recruitment_flag
 		update_ogre_recruitment = yes
 		set_estate_privilege = estate_ogre_recruitment_15
-		remove_country_modifier = estate_ogre_recruitment_14_modifier
+		remove_special_regiment_modifier = { race = ogre value = 14 }
 	}
 	ai_will_do = {
 		factor = 1000
@@ -1119,12 +1096,10 @@ estate_ogre_recruitment_15 = {
 				limit = { NOT = { has_country_flag = estate_ogre_recruitment_cooldown_flag } }
 				set_country_flag = estate_ogre_recruitment_cooldown_flag
 			}
-			add_country_modifier = {
-				name = estate_ogre_recruitment_15_modifier
-				duration = -1
-			}
+			update_special_regiment_modifier = { race = ogre value = 15 }
 		}
 		custom_tooltip = very_fast_pace_race_mechanic_tooltip
+		custom_tooltip = ogre_bonus_if_mainly_tooltip
 	}
 	modifier_by_land_ownership = {
 		siege_ability = -0.50
@@ -1155,14 +1130,14 @@ estate_ogre_recruitment_15 = {
 			clr_country_flag = estate_ogre_recruitment_flag
 			clr_country_flag = estate_ogre_recruitment_cooldown_flag
 			country_event = { id = bertus_racial_military.1001 }
-		remove_country_modifier = estate_ogre_recruitment_15_modifier
-		}		
+			remove_special_regiment_modifier = { race = ogre value = 15 }
+		}
 	}
 	on_invalid = {
 		clr_country_flag = estate_ogre_recruitment_flag
 		update_ogre_recruitment = yes
 		set_estate_privilege = estate_ogre_recruitment_16
-		remove_country_modifier = estate_ogre_recruitment_15_modifier
+		remove_special_regiment_modifier = { race = ogre value = 15 }
 	}
 	ai_will_do = {
 		factor = 1000
@@ -1190,12 +1165,10 @@ estate_ogre_recruitment_16 = {
 				limit = { NOT = { has_country_flag = estate_ogre_recruitment_cooldown_flag } }
 				set_country_flag = estate_ogre_recruitment_cooldown_flag
 			}
-			add_country_modifier = {
-				name = estate_ogre_recruitment_16_modifier
-				duration = -1
-			}
+			update_special_regiment_modifier = { race = ogre value = 16 }
 		}
 		custom_tooltip = very_fast_pace_race_mechanic_tooltip
+		custom_tooltip = ogre_bonus_if_mainly_tooltip
 	}
 	modifier_by_land_ownership = {
 		siege_ability = -0.50
@@ -1226,14 +1199,14 @@ estate_ogre_recruitment_16 = {
 			clr_country_flag = estate_ogre_recruitment_flag
 			clr_country_flag = estate_ogre_recruitment_cooldown_flag
 			country_event = { id = bertus_racial_military.1001 }
-		remove_country_modifier = estate_ogre_recruitment_16_modifier
-		}		
+			remove_special_regiment_modifier = { race = ogre value = 16 }
+		}
 	}
 	on_invalid = {
 		clr_country_flag = estate_ogre_recruitment_flag
 		update_ogre_recruitment = yes
 		set_estate_privilege = estate_ogre_recruitment_19
-		remove_country_modifier = estate_ogre_recruitment_16_modifier
+		remove_special_regiment_modifier = { race = ogre value = 16 }
 	}
 	ai_will_do = {
 		factor = 1000
@@ -1261,12 +1234,10 @@ estate_ogre_recruitment_19 = {
 				limit = { NOT = { has_country_flag = estate_ogre_recruitment_cooldown_flag } }
 				set_country_flag = estate_ogre_recruitment_cooldown_flag
 			}
-			add_country_modifier = {
-				name = estate_ogre_recruitment_19_modifier
-				duration = -1
-			}
+			update_special_regiment_modifier = { race = ogre value = 19 }
 		}
 		custom_tooltip = very_fast_pace_race_mechanic_tooltip
+		custom_tooltip = ogre_bonus_if_mainly_tooltip
 	}
 	modifier_by_land_ownership = {
 		siege_ability = -0.50
@@ -1297,14 +1268,14 @@ estate_ogre_recruitment_19 = {
 			clr_country_flag = estate_ogre_recruitment_flag
 			clr_country_flag = estate_ogre_recruitment_cooldown_flag
 			country_event = { id = bertus_racial_military.1001 }
-		remove_country_modifier = estate_ogre_recruitment_19_modifier
-		}		
+			remove_special_regiment_modifier = { race = ogre value = 19 }
+		}
 	}
 	on_invalid = {
 		clr_country_flag = estate_ogre_recruitment_flag
 		update_ogre_recruitment = yes
 		set_estate_privilege = estate_ogre_recruitment_20
-		remove_country_modifier = estate_ogre_recruitment_19_modifier
+		remove_special_regiment_modifier = { race = ogre value = 19 }
 	}
 	ai_will_do = {
 		factor = 1000
@@ -1332,12 +1303,10 @@ estate_ogre_recruitment_20 = {
 				limit = { NOT = { has_country_flag = estate_ogre_recruitment_cooldown_flag } }
 				set_country_flag = estate_ogre_recruitment_cooldown_flag
 			}
-			add_country_modifier = {
-				name = estate_ogre_recruitment_20_modifier
-				duration = -1
-			}
+			update_special_regiment_modifier = { race = ogre value = 20 }
 		}
 		custom_tooltip = very_fast_pace_race_mechanic_tooltip
+		custom_tooltip = ogre_bonus_if_mainly_tooltip
 	}
 	modifier_by_land_ownership = {
 		siege_ability = -0.50
@@ -1368,14 +1337,14 @@ estate_ogre_recruitment_20 = {
 			clr_country_flag = estate_ogre_recruitment_flag
 			clr_country_flag = estate_ogre_recruitment_cooldown_flag
 			country_event = { id = bertus_racial_military.1001 }
-		remove_country_modifier = estate_ogre_recruitment_20_modifier
-		}		
+			remove_special_regiment_modifier = { race = ogre value = 20 }
+		}
 	}
 	on_invalid = {
 		clr_country_flag = estate_ogre_recruitment_flag
 		update_ogre_recruitment = yes
 		set_estate_privilege = estate_ogre_recruitment_21
-		remove_country_modifier = estate_ogre_recruitment_20_modifier
+		remove_special_regiment_modifier = { race = ogre value = 20 }
 	}
 	ai_will_do = {
 		factor = 1000
@@ -1403,12 +1372,10 @@ estate_ogre_recruitment_21 = {
 				limit = { NOT = { has_country_flag = estate_ogre_recruitment_cooldown_flag } }
 				set_country_flag = estate_ogre_recruitment_cooldown_flag
 			}
-			add_country_modifier = {
-				name = estate_ogre_recruitment_21_modifier
-				duration = -1
-			}
+			update_special_regiment_modifier = { race = ogre value = 21 }
 		}
 		custom_tooltip = very_fast_pace_race_mechanic_tooltip
+		custom_tooltip = ogre_bonus_if_mainly_tooltip
 	}
 	modifier_by_land_ownership = {
 		siege_ability = -0.50
@@ -1439,14 +1406,14 @@ estate_ogre_recruitment_21 = {
 			clr_country_flag = estate_ogre_recruitment_flag
 			clr_country_flag = estate_ogre_recruitment_cooldown_flag
 			country_event = { id = bertus_racial_military.1001 }
-		remove_country_modifier = estate_ogre_recruitment_21_modifier
-		}		
+			remove_special_regiment_modifier = { race = ogre value = 21 }
+		}
 	}
 	on_invalid = {
 		clr_country_flag = estate_ogre_recruitment_flag
 		update_ogre_recruitment = yes
 		set_estate_privilege = estate_ogre_recruitment_22
-		remove_country_modifier = estate_ogre_recruitment_21_modifier
+		remove_special_regiment_modifier = { race = ogre value = 21 }
 	}
 	ai_will_do = {
 		factor = 1000
@@ -1474,12 +1441,10 @@ estate_ogre_recruitment_22 = {
 				limit = { NOT = { has_country_flag = estate_ogre_recruitment_cooldown_flag } }
 				set_country_flag = estate_ogre_recruitment_cooldown_flag
 			}
-			add_country_modifier = {
-				name = estate_ogre_recruitment_22_modifier
-				duration = -1
-			}
+			update_special_regiment_modifier = { race = ogre value = 22 }
 		}
 		custom_tooltip = very_fast_pace_race_mechanic_tooltip
+		custom_tooltip = ogre_bonus_if_mainly_tooltip
 	}
 	modifier_by_land_ownership = {
 		siege_ability = -0.50
@@ -1510,14 +1475,14 @@ estate_ogre_recruitment_22 = {
 			clr_country_flag = estate_ogre_recruitment_flag
 			clr_country_flag = estate_ogre_recruitment_cooldown_flag
 			country_event = { id = bertus_racial_military.1001 }
-		remove_country_modifier = estate_ogre_recruitment_22_modifier
-		}		
+			remove_special_regiment_modifier = { race = ogre value = 22 }
+		}
 	}
 	on_invalid = {
 		clr_country_flag = estate_ogre_recruitment_flag
 		update_ogre_recruitment = yes
 		set_estate_privilege = estate_ogre_recruitment_23
-		remove_country_modifier = estate_ogre_recruitment_22_modifier
+		remove_special_regiment_modifier = { race = ogre value = 22 }
 	}
 	ai_will_do = {
 		factor = 1000
@@ -1545,12 +1510,10 @@ estate_ogre_recruitment_23 = {
 				limit = { NOT = { has_country_flag = estate_ogre_recruitment_cooldown_flag } }
 				set_country_flag = estate_ogre_recruitment_cooldown_flag
 			}
-			add_country_modifier = {
-				name = estate_ogre_recruitment_23_modifier
-				duration = -1
-			}
+			update_special_regiment_modifier = { race = ogre value = 23 }
 		}
 		custom_tooltip = very_fast_pace_race_mechanic_tooltip
+		custom_tooltip = ogre_bonus_if_mainly_tooltip
 	}
 	modifier_by_land_ownership = {
 		siege_ability = -0.50
@@ -1581,14 +1544,14 @@ estate_ogre_recruitment_23 = {
 			clr_country_flag = estate_ogre_recruitment_flag
 			clr_country_flag = estate_ogre_recruitment_cooldown_flag
 			country_event = { id = bertus_racial_military.1001 }
-		remove_country_modifier = estate_ogre_recruitment_23_modifier
-		}		
+			remove_special_regiment_modifier = { race = ogre value = 23 }
+		}
 	}
 	on_invalid = {
 		clr_country_flag = estate_ogre_recruitment_flag
 		update_ogre_recruitment = yes
 		set_estate_privilege = estate_ogre_recruitment_24
-		remove_country_modifier = estate_ogre_recruitment_23_modifier
+		remove_special_regiment_modifier = { race = ogre value = 23 }
 	}
 	ai_will_do = {
 		factor = 1000
@@ -1616,12 +1579,10 @@ estate_ogre_recruitment_24 = {
 				limit = { NOT = { has_country_flag = estate_ogre_recruitment_cooldown_flag } }
 				set_country_flag = estate_ogre_recruitment_cooldown_flag
 			}
-			add_country_modifier = {
-				name = estate_ogre_recruitment_24_modifier
-				duration = -1
-			}
+			update_special_regiment_modifier = { race = ogre value = 24 }
 		}
 		custom_tooltip = very_fast_pace_race_mechanic_tooltip
+		custom_tooltip = ogre_bonus_if_mainly_tooltip
 	}
 	modifier_by_land_ownership = {
 		siege_ability = -0.50
@@ -1652,14 +1613,14 @@ estate_ogre_recruitment_24 = {
 			clr_country_flag = estate_ogre_recruitment_flag
 			clr_country_flag = estate_ogre_recruitment_cooldown_flag
 			country_event = { id = bertus_racial_military.1001 }
-		remove_country_modifier = estate_ogre_recruitment_24_modifier
-		}		
+			remove_special_regiment_modifier = { race = ogre value = 24 }
+		}
 	}
 	on_invalid = {
 		clr_country_flag = estate_ogre_recruitment_flag
 		update_ogre_recruitment = yes
 		set_estate_privilege = estate_ogre_recruitment_25
-		remove_country_modifier = estate_ogre_recruitment_24_modifier
+		remove_special_regiment_modifier = { race = ogre value = 24 }
 	}
 	ai_will_do = {
 		factor = 1000
@@ -1687,12 +1648,10 @@ estate_ogre_recruitment_25 = {
 				limit = { NOT = { has_country_flag = estate_ogre_recruitment_cooldown_flag } }
 				set_country_flag = estate_ogre_recruitment_cooldown_flag
 			}
-			add_country_modifier = {
-				name = estate_ogre_recruitment_25_modifier
-				duration = -1
-			}
+			update_special_regiment_modifier = { race = ogre value = 25 }
 		}
 		custom_tooltip = very_fast_pace_race_mechanic_tooltip
+		custom_tooltip = ogre_bonus_if_mainly_tooltip
 	}
 	modifier_by_land_ownership = {
 		siege_ability = -0.50
@@ -1723,14 +1682,14 @@ estate_ogre_recruitment_25 = {
 			clr_country_flag = estate_ogre_recruitment_flag
 			clr_country_flag = estate_ogre_recruitment_cooldown_flag
 			country_event = { id = bertus_racial_military.1001 }
-		remove_country_modifier = estate_ogre_recruitment_25_modifier
-		}		
+			remove_special_regiment_modifier = { race = ogre value = 25 }
+		}
 	}
 	on_invalid = {
 		clr_country_flag = estate_ogre_recruitment_flag
 		update_ogre_recruitment = yes
 		set_estate_privilege = estate_ogre_recruitment_27
-		remove_country_modifier = estate_ogre_recruitment_25_modifier
+		remove_special_regiment_modifier = { race = ogre value = 25 }
 	}
 	ai_will_do = {
 		factor = 1000
@@ -1758,12 +1717,10 @@ estate_ogre_recruitment_27 = {
 				limit = { NOT = { has_country_flag = estate_ogre_recruitment_cooldown_flag } }
 				set_country_flag = estate_ogre_recruitment_cooldown_flag
 			}
-			add_country_modifier = {
-				name = estate_ogre_recruitment_27_modifier
-				duration = -1
-			}
+			update_special_regiment_modifier = { race = ogre value = 27 }
 		}
 		custom_tooltip = very_fast_pace_race_mechanic_tooltip
+		custom_tooltip = ogre_bonus_if_mainly_tooltip
 	}
 	modifier_by_land_ownership = {
 		siege_ability = -0.50
@@ -1794,14 +1751,14 @@ estate_ogre_recruitment_27 = {
 			clr_country_flag = estate_ogre_recruitment_flag
 			clr_country_flag = estate_ogre_recruitment_cooldown_flag
 			country_event = { id = bertus_racial_military.1001 }
-		remove_country_modifier = estate_ogre_recruitment_27_modifier
-		}		
+			remove_special_regiment_modifier = { race = ogre value = 27 }
+		}
 	}
 	on_invalid = {
 		clr_country_flag = estate_ogre_recruitment_flag
 		update_ogre_recruitment = yes
 		set_estate_privilege = estate_ogre_recruitment_28
-		remove_country_modifier = estate_ogre_recruitment_27_modifier
+		remove_special_regiment_modifier = { race = ogre value = 27 }
 	}
 	ai_will_do = {
 		factor = 1000
@@ -1829,12 +1786,10 @@ estate_ogre_recruitment_28 = {
 				limit = { NOT = { has_country_flag = estate_ogre_recruitment_cooldown_flag } }
 				set_country_flag = estate_ogre_recruitment_cooldown_flag
 			}
-			add_country_modifier = {
-				name = estate_ogre_recruitment_28_modifier
-				duration = -1
-			}
+			update_special_regiment_modifier = { race = ogre value = 28 }
 		}
 		custom_tooltip = very_fast_pace_race_mechanic_tooltip
+		custom_tooltip = ogre_bonus_if_mainly_tooltip
 	}
 	modifier_by_land_ownership = {
 		siege_ability = -0.50
@@ -1865,14 +1820,14 @@ estate_ogre_recruitment_28 = {
 			clr_country_flag = estate_ogre_recruitment_flag
 			clr_country_flag = estate_ogre_recruitment_cooldown_flag
 			country_event = { id = bertus_racial_military.1001 }
-		remove_country_modifier = estate_ogre_recruitment_28_modifier
-		}		
+			remove_special_regiment_modifier = { race = ogre value = 28 }
+		}
 	}
 	on_invalid = {
 		clr_country_flag = estate_ogre_recruitment_flag
 		update_ogre_recruitment = yes
 		set_estate_privilege = estate_ogre_recruitment_30
-		remove_country_modifier = estate_ogre_recruitment_28_modifier
+		remove_special_regiment_modifier = { race = ogre value = 28 }
 	}
 	ai_will_do = {
 		factor = 1000
@@ -1900,12 +1855,10 @@ estate_ogre_recruitment_30 = {
 				limit = { NOT = { has_country_flag = estate_ogre_recruitment_cooldown_flag } }
 				set_country_flag = estate_ogre_recruitment_cooldown_flag
 			}
-			add_country_modifier = {
-				name = estate_ogre_recruitment_30_modifier
-				duration = -1
-			}
+			update_special_regiment_modifier = { race = ogre value = 30 }
 		}
 		custom_tooltip = very_fast_pace_race_mechanic_tooltip
+		custom_tooltip = ogre_bonus_if_mainly_tooltip
 	}
 	modifier_by_land_ownership = {
 		siege_ability = -0.50
@@ -1936,14 +1889,14 @@ estate_ogre_recruitment_30 = {
 			clr_country_flag = estate_ogre_recruitment_flag
 			clr_country_flag = estate_ogre_recruitment_cooldown_flag
 			country_event = { id = bertus_racial_military.1001 }
-		remove_country_modifier = estate_ogre_recruitment_30_modifier
-		}		
+			remove_special_regiment_modifier = { race = ogre value = 30 }
+		}
 	}
 	on_invalid = {
 		clr_country_flag = estate_ogre_recruitment_flag
 		update_ogre_recruitment = yes
 		set_estate_privilege = estate_ogre_recruitment_31
-		remove_country_modifier = estate_ogre_recruitment_30_modifier
+		remove_special_regiment_modifier = { race = ogre value = 30 }
 	}
 	ai_will_do = {
 		factor = 1000
@@ -1971,12 +1924,10 @@ estate_ogre_recruitment_31 = {
 				limit = { NOT = { has_country_flag = estate_ogre_recruitment_cooldown_flag } }
 				set_country_flag = estate_ogre_recruitment_cooldown_flag
 			}
-			add_country_modifier = {
-				name = estate_ogre_recruitment_31_modifier
-				duration = -1
-			}
+			update_special_regiment_modifier = { race = ogre value = 31 }
 		}
 		custom_tooltip = very_fast_pace_race_mechanic_tooltip
+		custom_tooltip = ogre_bonus_if_mainly_tooltip
 	}
 	modifier_by_land_ownership = {
 		siege_ability = -0.50
@@ -2007,14 +1958,14 @@ estate_ogre_recruitment_31 = {
 			clr_country_flag = estate_ogre_recruitment_flag
 			clr_country_flag = estate_ogre_recruitment_cooldown_flag
 			country_event = { id = bertus_racial_military.1001 }
-		remove_country_modifier = estate_ogre_recruitment_31_modifier
-		}		
+			remove_special_regiment_modifier = { race = ogre value = 31 }
+		}
 	}
 	on_invalid = {
 		clr_country_flag = estate_ogre_recruitment_flag
 		update_ogre_recruitment = yes
 		set_estate_privilege = estate_ogre_recruitment_32
-		remove_country_modifier = estate_ogre_recruitment_31_modifier
+		remove_special_regiment_modifier = { race = ogre value = 31 }
 	}
 	ai_will_do = {
 		factor = 1000
@@ -2041,12 +1992,10 @@ estate_ogre_recruitment_32 = {
 				limit = { NOT = { has_country_flag = estate_ogre_recruitment_cooldown_flag } }
 				set_country_flag = estate_ogre_recruitment_cooldown_flag
 			}
-			add_country_modifier = {
-				name = estate_ogre_recruitment_32_modifier
-				duration = -1
-			}
+			update_special_regiment_modifier = { race = ogre value = 32 }
 		}
 		custom_tooltip = very_fast_pace_race_mechanic_tooltip
+		custom_tooltip = ogre_bonus_if_mainly_tooltip
 	}
 	modifier_by_land_ownership = {
 		siege_ability = -0.50
@@ -2077,12 +2026,12 @@ estate_ogre_recruitment_32 = {
 			clr_country_flag = estate_ogre_recruitment_flag
 			clr_country_flag = estate_ogre_recruitment_cooldown_flag
 			country_event = { id = bertus_racial_military.1001 }
-			remove_country_modifier = estate_ogre_recruitment_32_modifier
-		}		
+			remove_special_regiment_modifier = { race = ogre value = 32 }
+		}
 	}
 	on_invalid = {
 		clr_country_flag = estate_ogre_recruitment_flag
-		remove_country_modifier = estate_ogre_recruitment_32_modifier
+		remove_special_regiment_modifier = { race = ogre value = 32 }
 	}
 	ai_will_do = {
 		factor = 1000

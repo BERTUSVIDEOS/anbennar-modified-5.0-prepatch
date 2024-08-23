@@ -238,7 +238,8 @@ cancel_magisterium_investigate_action = {
 magisterium_send_mage_general_action = {
 	category = mages_influence_modifier
 	require_acceptance = yes
-	alert_index = 21
+	alert_index = 48
+	alert_tooltip = magisterium_send_mage_general_action_tt
 	
 	is_visible = {
 		tag = A85
@@ -283,7 +284,8 @@ magisterium_send_mage_general_action = {
 magisterium_request_mage_general_action = {
 	category = mages_influence_modifier
 	require_acceptance = yes
-	alert_index = 21
+	alert_index = 48
+	alert_tooltip = magisterium_request_mage_general_action_tt
 	
 	is_visible = {
 		FROM = {tag = A85}
@@ -296,7 +298,7 @@ magisterium_request_mage_general_action = {
 				tooltip = not_war_with_root_tt
 				NOT = {war_with = ROOT}
 			}
-			owes_favors = { who = ROOT value = 20 }
+			owes_favors = { who = ROOT value = 50 }
 		}
 	}
 
@@ -306,11 +308,11 @@ magisterium_request_mage_general_action = {
 			add_devotion = -5
 			add_estate_loyalty = { estate = estate_mages loyalty = -10 }
 		}
-		add_favors = { who = FROM amount = -20 }
+		add_favors = { who = FROM amount = -50 }
 	}
     on_accept = {
 		get_yearly_income_fraction = { TARGET = ROOT RECIPIENT = FROM fraction = 0.50 } #get 1/2th of target yearly income
-		add_favors = { who = FROM amount = -20 }
+		add_favors = { who = FROM amount = -50 }
 
 		set_saved_name = {key = special_general_name type = advisor scope = FROM}
 		save_event_target_as = get_general_event_target
@@ -340,7 +342,8 @@ magisterium_request_mage_general_action = {
 magisterium_send_mage_advisor_action = {
 	category = mages_influence_modifier
 	require_acceptance = yes
-	alert_index = 21
+	alert_index = 48
+	alert_tooltip = magisterium_send_mage_advisor_action_tt
 	
 	is_visible = {
 		tag = A85
@@ -431,7 +434,8 @@ magisterium_send_mage_advisor_action = {
 magisterium_request_mage_advisor_action = {
 	category = mages_influence_modifier
 	require_acceptance = yes
-	alert_index = 21
+	alert_index = 48
+	alert_tooltip = magisterium_request_mage_advisor_action_tt
 	
 	is_visible = {
 		FROM = {tag = A85}
@@ -444,7 +448,7 @@ magisterium_request_mage_advisor_action = {
 				tooltip = not_war_with_root_tt
 				NOT = {war_with = ROOT }
 			}
-			owes_favors = { who = ROOT value = 20 }
+			owes_favors = { who = ROOT value = 50 }
 		}
 	}
 
@@ -454,11 +458,11 @@ magisterium_request_mage_advisor_action = {
 			add_devotion = -5
 			add_estate_loyalty = { estate = estate_mages loyalty = -10 }
 		}
-		add_favors = { who = FROM amount = -20 }
+		add_favors = { who = FROM amount = -50 }
 	}
     on_accept = {
 		get_yearly_income_fraction = { TARGET = ROOT RECIPIENT = FROM fraction = 0.50 } #get 1/2th of target yearly income
-		add_favors = { who = FROM amount = -20 }
+		add_favors = { who = FROM amount = -50 }
 
 		FROM = {
 			set_saved_name = {key = special_general_name type = advisor scope = FROM}
@@ -543,7 +547,8 @@ magisterium_request_mage_advisor_action = {
 magisterium_organize_magical_council_action = {
 	category = mages_influence_modifier
 	require_acceptance = yes
-	alert_index = 21
+	alert_index = 48
+	alert_tooltip = magisterium_organize_magical_council_action_tt
 	
 	is_visible = {
 		tag = A85
@@ -587,7 +592,8 @@ magisterium_organize_magical_council_action = {
 magisterium_request_organize_magical_council_action = {
 	category = mages_influence_modifier
 	require_acceptance = yes
-	alert_index = 21
+	alert_index = 48
+	alert_tooltip = magisterium_request_organize_magical_council_action_tt
 	
 	is_visible = {
 		FROM = {tag = A85}
@@ -609,7 +615,7 @@ magisterium_request_organize_magical_council_action = {
 				tooltip = from_has_100_opinion_tt
 				has_opinion = {who = ROOT value = 100}
 			}
-			owes_favors = { who = ROOT value = 20 }
+			owes_favors = { who = ROOT value = 50 }
 		}
 	}
 
@@ -619,11 +625,11 @@ magisterium_request_organize_magical_council_action = {
 			add_devotion = -5
 			add_estate_loyalty = { estate = estate_mages loyalty = -10 }
 		}
-		add_favors = { who = FROM amount = -20 }
+		add_favors = { who = FROM amount = -50 }
 	}
     on_accept = {
 		get_yearly_income_fraction = { TARGET = ROOT RECIPIENT = FROM fraction = 0.50 } #get 1/2th of target yearly income
-		add_favors = { who = FROM amount = -20 }
+		add_favors = { who = FROM amount = -50 }
 
 		ROOT = {
 			capital_scope = {
@@ -652,7 +658,7 @@ magisterium_request_organize_magical_council_action = {
 magisterium_vacuum_mana_action = {
 	category = mages_influence_modifier
 	require_acceptance = no
-	alert_index = 21
+	alert_index = 48
 	
 	is_visible = {
 		has_government_mechanic = magisterium_mechanic
@@ -666,21 +672,10 @@ magisterium_vacuum_mana_action = {
 	}
 
     on_accept = {
-		add_government_power = { 
-			mechanic_type = magisterium_mechanic
-			power_type = magisterium_mana
-			value = 10
-		}
-		add_spy_network_in = {
-			who = FROM
-			value = -75
-		}
+		add_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 10 }
+		add_spy_network_in = { who = FROM value = -75 }
 		FROM = {
-			add_government_power = { 
-				mechanic_type = magisterium_mechanic
-				power_type = magisterium_mana
-				value = -10
-			}
+			add_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = -10 }
 			country_event = {id = bertus_changes.6039}
 		}
 	}
@@ -689,7 +684,8 @@ magisterium_vacuum_mana_action = {
 magisterium_favor_mana_action = {
 	category = favors
 	require_acceptance = yes
-	alert_index = 21
+	alert_index = 48
+	alert_tooltip = magisterium_favor_mana_action_tt
 	
 	is_visible = {
 		has_government_mechanic = magisterium_mechanic
@@ -697,27 +693,19 @@ magisterium_favor_mana_action = {
 	
 	is_allowed = {
 		FROM = {
-			owes_favors = { who = ROOT value = 10 }
+			owes_favors = { who = ROOT value = 25 }
 		}
 	}
 
 	on_decline = {
 		FROM = { add_stability = -1 }
-		add_favors = { who = FROM amount = -10 }
+		add_favors = { who = FROM amount = -25 }
 	}
     on_accept = {
-		add_favors = { who = FROM amount = -10 }
-		add_government_power = { 
-			mechanic_type = magisterium_mechanic
-			power_type = magisterium_mana
-			value = 10
-		}
+		add_favors = { who = FROM amount = -25 }
+		add_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 10 }
 		FROM = {
-			add_government_power = { 
-				mechanic_type = magisterium_mechanic
-				power_type = magisterium_mana
-				value = -10
-			}
+			add_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = -10 }
 		}
 	}
 	ai_will_do = {always = no}
@@ -738,7 +726,8 @@ magisterium_favor_mana_action = {
 give_magisterium_mana_action = {
 	category = mages_influence_modifier
 	require_acceptance = yes
-	alert_index = 21
+	alert_index = 48
+	alert_tooltip = give_magisterium_mana_action_tt
 	
 	is_visible = {
 		FROM = {tag = A85}
@@ -755,27 +744,31 @@ give_magisterium_mana_action = {
 			power_type = magisterium_mana
 			value = 10
 		}
+		NOT = { at_war_with = FROM }
 	}
 
     on_accept = {
-		add_government_power = { 
+		if = {
+			limit = { ai = yes }
+			add_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = -50 }
+		}
+		add_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = -10 }
+		add_estate_loyalty = { estate = estate_mages loyalty = 10 }
+		FROM = {
+			add_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 10 }
+		}
+		add_favors = { who = FROM amount = 1 }
+	}
+	ai_will_do = {
+		has_government_power = { 
 			mechanic_type = magisterium_mechanic 
 			power_type = magisterium_mana
-			value = -10
+			value = 90
 		}
-		add_estate_loyalty = {
-			estate = estate_mages
-			loyalty = 10
-		}
-		FROM = {
-			add_government_power = { 
-				mechanic_type = magisterium_mechanic 
-				power_type = magisterium_mana
-				value = 10
-			}
-		}
+		FROM = { has_opinion = {who = ROOT value = 100}}
+		NOT = { is_rival = FROM }
+		overlord = { NOT = { is_rival = FROM } }
 	}
-	ai_will_do = {always = yes}
 	ai_acceptance = {
 		add_entry = {
 			name = STABILITY_AI_MODIFIER
@@ -810,16 +803,9 @@ magisterium_cast_divination_spell_action = {
 	}
 
     on_accept = {
-		add_government_power = { 
-			mechanic_type = magisterium_mechanic
-			power_type = magisterium_mana
-			value = -20
-		}
+		add_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = -20 }
 		FROM = {
-			add_country_modifier = {
-				name = divination_spell_reform_modifier
-				duration = 1825
-			}
+			add_country_modifier = { name = divination_spell_reform_modifier duration = 1825 }
 		}
 	}
 	ai_will_do = {always = no}
@@ -851,11 +837,7 @@ magisterium_cast_enchantment_spell_action = {
 	}
 
     on_accept = {
-		add_government_power = { 
-			mechanic_type = magisterium_mechanic
-			power_type = magisterium_mana
-			value = -20
-		}
+		add_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = -20 }
 		FROM = {
 			small_increase_of_human_tolerance_effect = yes
 			small_increase_of_elven_tolerance_effect = yes
@@ -876,10 +858,7 @@ magisterium_cast_enchantment_spell_action = {
 			small_increase_of_hobgoblin_tolerance_effect = yes
 			small_increase_of_kobold_tolerance_effect = yes
 			small_increase_of_lizardfolk_tolerance_effect = yes
-			add_country_modifier = {
-				name = enchantment_diplo_school_reform_modifier
-				duration = 1825
-			}
+			add_country_modifier = { name = enchantment_diplo_school_reform_modifier duration = 1825 }
 		}
 	}
 	ai_will_do = {always = no}
@@ -911,16 +890,9 @@ magisterium_cast_abjuration_spell_action = {
 	}
 
     on_accept = {
-		add_government_power = { 
-			mechanic_type = magisterium_mechanic
-			power_type = magisterium_mana
-			value = -20
-		}
+		add_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = -20 }
 		FROM = {
-			add_country_modifier = {
-				name = abjuration_defender_school_reform_modifier
-				duration = 1825
-			}
+			add_country_modifier = { name = abjuration_defender_school_reform_modifier duration = 1825 }
 		}
 	}
 	ai_will_do = {always = no}
@@ -945,6 +917,7 @@ magisterium_cast_transmutation_spell_action = {
 			limit = { FROM = { any_owned_province = {has_province_modifier = transmutation_spell_reform_elemental_climate_control_modifier} } }
 			FROM = { NOT = { any_owned_province = {has_province_modifier = transmutation_spell_reform_elemental_climate_control_modifier} } }
 		}
+		FROM = { any_owned_province = { province_with_farm_goods = yes } }
 		if = {
 			limit = { FROM = { war_with = ROOT} }
 			FROM = { NOT = {war_with = ROOT}}
@@ -952,19 +925,12 @@ magisterium_cast_transmutation_spell_action = {
 	}
 
     on_accept = {
-		add_government_power = { 
-			mechanic_type = magisterium_mechanic
-			power_type = magisterium_mana
-			value = -20
-		}
+		add_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = -20 }
 		FROM = {
 			every_owned_province = {
 				limit = {province_with_farm_goods = yes}
 				remove_province_modifier = transmutation_spell_reform_elemental_climate_control_modifier
-				add_province_modifier = {
-					name = transmutation_spell_reform_elemental_climate_control_modifier
-					duration = 3650
-				}
+				add_province_modifier = { name = transmutation_spell_reform_elemental_climate_control_modifier duration = 3650 }
 			}
 		}
 	}
@@ -997,16 +963,9 @@ magisterium_cast_evocation_spell_action = {
 	}
 
     on_accept = {
-		add_government_power = { 
-			mechanic_type = magisterium_mechanic
-			power_type = magisterium_mana
-			value = -20
-		}
+		add_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = -20 }
 		FROM = {
-			add_country_modifier = {
-				name = evocation_spell_school_reform_modifier
-				duration = 1825
-			}
+			add_country_modifier = { name = evocation_spell_school_reform_modifier duration = 1825 }
 		}
 	}
 	ai_will_do = {always = no}
@@ -1038,18 +997,11 @@ magisterium_cast_illusion_spell_action = {
 	}
 
     on_accept = {
-		add_government_power = { 
-			mechanic_type = magisterium_mechanic
-			power_type = magisterium_mana
-			value = -20
-		}
+		add_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = -20 }
 		FROM = {
 			every_owned_province = {
 				remove_province_modifier = illusion_school_reform_magisterium_modifier
-				add_province_modifier = {
-					name = illusion_school_reform_magisterium_modifier
-					duration = 3650
-				}
+				add_province_modifier = { name = illusion_school_reform_magisterium_modifier duration = 3650 }
 			}
 		}
 	}
@@ -1079,22 +1031,16 @@ magisterium_cast_conjuration_spell_action = {
 			limit = { FROM = { war_with = ROOT} }
 			FROM = { NOT = {war_with = ROOT}}
 		}
+		FROM = { any_owned_province = { province_with_mine_goods = yes } }
 	}
 
     on_accept = {
-		add_government_power = { 
-			mechanic_type = magisterium_mechanic
-			power_type = magisterium_mana
-			value = -20
-		}
+		add_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = -20 }
 		FROM = {
-			every_province = {
+			every_owned_province = {
 				limit = {owner = {has_estate_privilege = estate_mages_organization_magisterium} province_with_mine_goods = yes }
 				remove_province_modifier = conjuration_spell_reform_elemental_extraction_modifier
-				add_province_modifier =	 {
-					name = conjuration_spell_reform_elemental_extraction_modifier
-					duration = 3650
-				}
+				add_province_modifier =	 { name = conjuration_spell_reform_elemental_extraction_modifier duration = 3650 }
 			}
 		}
 	}
