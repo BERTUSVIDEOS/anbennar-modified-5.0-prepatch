@@ -1,0 +1,1057 @@
+namespace = bertus_gawed_initial_disaster
+
+country_event = {	#start
+	id = bertus_gawed_initial_disaster.1000
+	title = bertus_gawed_initial_disaster.1000.t
+	desc = bertus_gawed_initial_disaster.1000.desc
+	picture = INVENTION_eventPicture
+	
+	is_triggered_only = yes
+		
+	immediate = {
+		set_country_flag = gawed_initial_disaster_flag
+	}
+	option = {	#What a mess
+		name = bertus_gawed_initial_disaster.1000.a
+
+	}
+	after = {
+	}
+}
+country_event = {	#start peasants
+	id = bertus_gawed_initial_disaster.1100
+	title = bertus_gawed_initial_disaster.1100.t
+	desc = bertus_gawed_initial_disaster.1100.desc
+	picture = INVENTION_eventPicture
+	
+	is_triggered_only = yes
+		
+	immediate = {
+		set_variable = {
+			which = peasants_apeased_var
+			value = 0
+		}
+	}
+	option = {	#What a mess
+		name = bertus_gawed_initial_disaster.1100.a
+
+	}
+	after = {
+	}
+}
+country_event = {	# peasant demand tax exception
+	id = bertus_gawed_initial_disaster.1101
+	title = bertus_gawed_initial_disaster.1101.t
+	desc = bertus_gawed_initial_disaster.1101.desc
+	picture = INVENTION_eventPicture
+			
+	is_triggered_only = yes
+	trigger = {
+		NOT = { has_country_modifier = a13_peasant_diaster_tax_exception_modifier }
+	}
+	immediate = {
+	}
+	mean_time_to_happen = {
+		days = 1
+		modifier = {
+			factor = 4
+			NOT = { Has_country_modifier = a13_peasant_diaster_tax_exception_modifier }
+		}
+	}
+	option = {	#concede
+		name = bertus_gawed_initial_disaster.1101.a
+		add_country_modifier = { name = a13_peasant_diaster_tax_exception_modifier duration = 365 } #1 YEAR
+		change_variable = { which = peasants_apeased_var value = 5 }
+	}
+	option = {	#reject
+		name = bertus_gawed_initial_disaster.1101.b
+		custom_tooltip = "Peasants wont like that"
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					NOT = { has_terrain = city_terrain }
+					culture_group = ROOT
+				}
+				spawn_rebels = { size = 2 type = leadered_peasant_rebels }
+			}
+			random_owned_province = {
+				limit = {
+					NOT = { has_terrain = city_terrain }
+					culture_group = ROOT
+				}
+				spawn_rebels = { size = 2 type = leadered_peasant_rebels }
+			}
+			random_owned_province = {
+				limit = {
+					NOT = { has_terrain = city_terrain }
+					culture_group = ROOT
+				}
+				spawn_rebels = { size = 2 type = leadered_peasant_rebels }
+			}
+			random_owned_province = {
+				limit = {
+					NOT = { has_terrain = city_terrain }
+					culture_group = ROOT
+				}
+				spawn_rebels = { size = 2 type = leadered_peasant_rebels }
+			}
+		}
+	}
+	after = {
+	}
+}
+country_event = {	# bandits
+	id = bertus_gawed_initial_disaster.1102
+	title = bertus_gawed_initial_disaster.1102.t
+	desc = bertus_gawed_initial_disaster.1102.desc
+	picture = INVENTION_eventPicture
+			
+	is_triggered_only = yes
+	mean_time_to_happen = {
+		days = 1
+		modifier = {
+			factor = 2
+			any_owned_province = { devastation = 10 }
+		}
+		modifier = {
+			factor = 2
+			any_owned_province = { devastation = 20 }
+		}
+	}
+	trigger = {
+		any_owned_province = {
+			NOT = {
+				has_terrain = city_terrain  #bandits cannot spawn in cities
+				has_province_modifier = aw_bandits_1
+				has_province_modifier = aw_bandits_2
+				has_province_modifier = aw_bandits_3
+			}
+		}
+	}
+	immediate = {
+		random_list = {
+			20 = {
+				trigger = {
+					any_owned_province = {
+						OR = {
+							has_terrain = forest
+							has_terrain = woods
+							has_terrain = hills
+						}
+					}
+				}
+				random_list = {
+					20 = {
+						trigger = {
+							any_owned_province = { devastation = 10 }
+						}
+						random_owned_province = {
+							limit = {
+								OR = {
+									has_terrain = forest
+									has_terrain = woods
+									has_terrain = hills
+								}
+								devastation = 10
+							}
+							save_event_target_as = bandits_target
+						}
+					}
+					10 = {
+						random_owned_province = {
+							limit = {
+								OR = {
+									has_terrain = forest
+									has_terrain = woods
+									has_terrain = hills
+								}
+							}
+							save_event_target_as = bandits_target
+						}
+					}
+				}
+			}
+			10 = {
+				random_list = {
+					20 = {
+						trigger = {
+							any_owned_province = { devastation = 10 }
+						}
+						random_owned_province = {
+							limit = {
+								devastation = 10
+							}
+							save_event_target_as = bandits_target
+						}
+					}
+					10 = {
+						random_owned_province = {
+							limit = {
+							}
+							save_event_target_as = bandits_target
+						}
+					}
+				}
+			}
+		}
+	}
+	option = {	#send troops
+		name = bertus_gawed_initial_disaster.1102.a
+		add_manpower = -2
+		change_variable = { which = peasants_apeased_var value = 2 }
+	}
+	option = {	#cant afford
+		name = bertus_gawed_initial_disaster.1102.b
+		custom_tooltip = "Peasants wont like that"
+		change_variable = { which = peasants_apeased_var value = -1 }
+
+		hidden_effect = {
+			event_target:bandits_target = {
+				province_event = { id = aw_bandits.0 }				
+			}
+		}
+	}
+	after = {
+	}
+}
+country_event = {	# prosperity
+	id = bertus_gawed_initial_disaster.1103
+	title = bertus_gawed_initial_disaster.1103.t
+	desc = bertus_gawed_initial_disaster.1103.desc
+	picture = INVENTION_eventPicture
+			
+	is_triggered_only = yes
+	trigger = {
+		any_owned_province = {
+			NOT = { has_terrain = city_terrain }
+			province_with_farm_goods = yes
+			culture_group = ROOT
+			is_prosperous = yes
+		}
+	}
+	immediate = {
+	}
+	mean_time_to_happen = {
+		days = 1
+		modifier = {
+			factor = 2
+			stability = 1
+		}
+	}
+	option = {	#yay!
+		name = bertus_gawed_initial_disaster.1103.a
+		every_owned_province = {
+			limit = {
+				NOT = { has_terrain = city_terrain }
+				province_with_farm_goods = yes
+				culture_group = ROOT
+				is_prosperous = yes
+			}
+			owner = { change_variable = { which = peasants_apeased_var value = 0.1 } }
+		}
+	}
+	after = {
+	}
+}
+country_event = {	# being looted by orcs
+	id = bertus_gawed_initial_disaster.1104
+	title = bertus_gawed_initial_disaster.1104.t
+	desc = bertus_gawed_initial_disaster.1104.desc
+	picture = INVENTION_eventPicture
+			
+	is_triggered_only = yes
+	trigger = {
+		any_owned_province = {
+			NOT = { has_terrain = city_terrain }
+			province_with_farm_goods = yes
+			culture_group = ROOT
+			controller = { has_country_modifier = orcish_military }
+		}
+	}
+	mean_time_to_happen = {
+		days = 1
+		modifier = {
+			factor = 10
+			is_at_war = yes
+		}
+	}
+	immediate = {
+	}
+	option = {	#f!
+		name = bertus_gawed_initial_disaster.1104.a
+		every_owned_province = {
+			limit = {
+				NOT = { has_terrain = city_terrain }
+				province_with_farm_goods = yes
+				culture_group = ROOT
+				controller = { has_country_modifier = orcish_military }
+			}
+			owner = { change_variable = { which = peasants_apeased_var value = -0.1 } }
+		}
+	}
+	after = {
+	}
+}
+country_event = {	# being looted by kobolds
+	id = bertus_gawed_initial_disaster.1105
+	title = bertus_gawed_initial_disaster.1105.t
+	desc = bertus_gawed_initial_disaster.1105.desc
+	picture = INVENTION_eventPicture
+			
+	is_triggered_only = yes
+	trigger = {
+		any_owned_province = {
+			NOT = { has_terrain = city_terrain }
+			province_with_farm_goods = yes
+			culture_group = ROOT
+			controller = { has_country_modifier = kobold_military }
+		}
+	}
+	mean_time_to_happen = {
+		days = 1
+		modifier = {
+			factor = 10
+			is_at_war = yes
+		}
+	}
+	immediate = {
+	}
+	option = {	#f!
+		name = bertus_gawed_initial_disaster.1105.a
+		every_owned_province = {
+			limit = {
+				NOT = { has_terrain = city_terrain }
+				province_with_farm_goods = yes
+				culture_group = ROOT
+				controller = { has_country_modifier = kobold_military }
+			}
+			owner = { change_variable = { which = peasants_apeased_var value = -0.1 } }
+		}
+	}
+	after = {
+	}
+}
+country_event = {	# just rebels
+	id = bertus_gawed_initial_disaster.1108
+	title = bertus_gawed_initial_disaster.1108.t
+	desc = bertus_gawed_initial_disaster.1108.desc
+	picture = INVENTION_eventPicture
+			
+	is_triggered_only = yes
+	trigger = {
+		NOT = { has_country_modifier = a13_peasant_diaster_tax_exception_modifier }
+	}
+	immediate = {
+	}
+	mean_time_to_happen = {
+		days = 1
+		modifier = {
+			factor = 0.50
+			has_country_modifier = a13_peasant_diaster_tax_exception_modifier
+		}
+	}
+	option = {	#damn
+		name = bertus_gawed_initial_disaster.1108.a
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					NOT = { has_terrain = city_terrain }
+					culture_group = ROOT
+				}
+				spawn_rebels = { size = 1 type = leadered_peasant_rebels }
+			}
+			random_owned_province = {
+				limit = {
+					NOT = { has_terrain = city_terrain }
+					culture_group = ROOT
+				}
+				spawn_rebels = { size = 1 type = leadered_peasant_rebels }
+			}
+			random_owned_province = {
+				limit = {
+					NOT = { has_terrain = city_terrain }
+					culture_group = ROOT
+				}
+				spawn_rebels = { size = 1 type = leadered_peasant_rebels }
+			}
+		}
+	}
+	after = {
+	}
+}
+country_event = {	# strike on farmable
+	id = bertus_gawed_initial_disaster.1109
+	title = bertus_gawed_initial_disaster.1109.t
+	desc = bertus_gawed_initial_disaster.1109.desc
+	picture = INVENTION_eventPicture
+			
+	is_triggered_only = yes
+	trigger = {
+		NOT = { has_country_modifier = a13_peasant_diaster_tax_exception_modifier }
+		any_owned_province = {
+			NOT = { has_terrain = city_terrain }
+			province_with_farm_goods = yes
+			culture_group = ROOT
+			NOT = { has_province_modifier = a13_peasant_strike_on_farmables_modifier }
+		}
+	}
+	immediate = {
+	}
+	mean_time_to_happen = {
+		days = 1
+		modifier = {
+			factor = 0.50
+			has_country_modifier = a13_peasant_diaster_tax_exception_modifier
+		}
+	}
+	option = {	#damn
+		name = bertus_gawed_initial_disaster.1109.a
+		random_owned_province = {
+			limit = {
+				NOT = { has_terrain = city_terrain }
+				province_with_farm_goods = yes
+				culture_group = ROOT
+				NOT = { has_province_modifier = a13_peasant_strike_on_farmables_modifier }
+			}
+			area = {
+				limit = {
+					NOT = { has_terrain = city_terrain }
+					province_with_farm_goods = yes
+					culture_group = ROOT
+				}
+				add_province_modifier = {
+					name = a13_peasant_strike_on_farmables_modifier
+					duration = 1825
+				}
+			}
+		}
+	}
+	after = {
+	}
+}
+country_event = {	#end peasants
+	id = bertus_gawed_initial_disaster.1199
+	title = bertus_gawed_initial_disaster.1199.t
+	desc = bertus_gawed_initial_disaster.1199.desc
+	picture = INVENTION_eventPicture
+	
+	is_triggered_only = yes
+		
+	immediate = {
+		set_country_flag = apeased_peasants_flag
+	}
+	option = {	#Finaly!
+		name = bertus_gawed_initial_disaster.1199.a
+	}
+}
+country_event = {	#start burghers
+	id = bertus_gawed_initial_disaster.1200
+	title = bertus_gawed_initial_disaster.1200.t
+	desc = bertus_gawed_initial_disaster.1200.desc
+	picture = INVENTION_eventPicture
+	
+	is_triggered_only = yes
+		
+	immediate = {
+		set_variable = {
+			which = burghers_apeased_var
+			value = 0
+		}
+	}
+	option = {	#What a mess
+		name = bertus_gawed_initial_disaster.1200.a
+
+	}
+	after = {
+	}
+}
+country_event = {	# burghers demand tax exception
+	id = bertus_gawed_initial_disaster.1201
+	title = bertus_gawed_initial_disaster.1201.t
+	desc = bertus_gawed_initial_disaster.1201.desc
+	picture = INVENTION_eventPicture
+			
+	is_triggered_only = yes
+	trigger = {
+		NOT = { has_country_modifier = a13_burghers_diaster_tax_exception_modifier }
+	}
+	immediate = {
+	}
+	mean_time_to_happen = {
+		days = 1
+		modifier = {
+			factor = 4
+			NOT = { Has_country_modifier = a13_burghers_diaster_tax_exception_modifier }
+		}
+	}
+	option = {	#concede
+		name = bertus_gawed_initial_disaster.1201.a
+		
+		home_trade_node_effect_scope = {
+			home_add_trade_node_income = -1
+		}
+		add_country_modifier = { name = a13_burghers_diaster_tax_exception_modifier duration = 365 } #1 YEAR
+		change_variable = { which = burghers_apeased_var value = 5 }
+	}
+	option = {	#reject
+		name = bertus_gawed_initial_disaster.1201.b
+		custom_tooltip = "Burghers wont like that"
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					has_terrain = city_terrain
+					culture_group = ROOT
+					NOT = { has_province_modifier = a13_burghers_diaster_lower_production_modifier }
+				}
+				add_province_modifier = { name = a13_burghers_diaster_lower_production_modifier duration = 1825 }
+			}
+			random_owned_province = {
+				limit = {
+					has_terrain = city_terrain
+					culture_group = ROOT
+					NOT = { has_province_modifier = a13_burghers_diaster_lower_production_modifier }
+				}
+				add_province_modifier = { name = a13_burghers_diaster_lower_production_modifier duration = 1825 }
+			}
+			random_owned_province = {
+				limit = {
+					has_terrain = city_terrain
+					culture_group = ROOT
+					NOT = { has_province_modifier = a13_burghers_diaster_lower_production_modifier }
+				}
+				add_province_modifier = { name = a13_burghers_diaster_lower_production_modifier duration = 1825 }
+			}
+			random_owned_province = {
+				limit = {
+					has_terrain = city_terrain
+					culture_group = ROOT
+					NOT = { has_province_modifier = a13_burghers_diaster_lower_production_modifier }
+				}
+				add_province_modifier = { name = a13_burghers_diaster_lower_production_modifier duration = 1825 }
+			}
+		}
+	}
+	after = {
+	}
+}
+country_event = {	# thieves
+	id = bertus_gawed_initial_disaster.1202
+	title = bertus_gawed_initial_disaster.1202.t
+	desc = bertus_gawed_initial_disaster.1202.desc
+	picture = INVENTION_eventPicture
+			
+	is_triggered_only = yes
+	mean_time_to_happen = {
+		days = 1
+		modifier = {
+			factor = 2
+			any_owned_province = {
+				development = 20
+				NOT = {
+					has_province_modifier = aw_thieves_guild_1
+					has_province_modifier = aw_thieves_guild_2
+					has_province_modifier = aw_thieves_guild_3
+				}
+			}
+		}
+		modifier = {
+			factor = 2
+			any_owned_province = {
+				development = 30
+				NOT = {
+					has_province_modifier = aw_thieves_guild_1
+					has_province_modifier = aw_thieves_guild_2
+					has_province_modifier = aw_thieves_guild_3
+				}
+			}
+		}
+		modifier = {
+			factor = 2
+			any_owned_province = {
+				development = 40
+				NOT = {
+					has_province_modifier = aw_thieves_guild_1
+					has_province_modifier = aw_thieves_guild_2
+					has_province_modifier = aw_thieves_guild_3
+				}
+			}
+		}
+	}
+	trigger = {
+		any_owned_province = {
+			has_terrain = city_terrain  #bandits cannot spawn in cities
+			NOT = {
+				has_province_modifier = aw_thieves_guild_1
+				has_province_modifier = aw_thieves_guild_2
+				has_province_modifier = aw_thieves_guild_3
+			}
+		}
+	}
+	immediate = {
+		random_list = {
+			20 = {
+				trigger = {
+					any_owned_province = {
+						has_terrain = city_terrain
+						NOT = {
+							has_province_modifier = aw_thieves_guild_1
+							has_province_modifier = aw_thieves_guild_2
+							has_province_modifier = aw_thieves_guild_3
+						}
+					}
+				}
+				random_owned_province = {
+					limit = {
+						has_terrain = city_terrain
+						development = 30
+						NOT = {
+							has_province_modifier = aw_thieves_guild_1
+							has_province_modifier = aw_thieves_guild_2
+							has_province_modifier = aw_thieves_guild_3
+						}
+					}
+					save_event_target_as = thieves_target
+				}
+				random_owned_province = {
+					limit = {
+						has_terrain = city_terrain
+						development = 25
+						NOT = {
+							has_province_modifier = aw_thieves_guild_1
+							has_province_modifier = aw_thieves_guild_2
+							has_province_modifier = aw_thieves_guild_3
+						}
+					}
+					save_event_target_as = thieves_target
+				}
+				random_owned_province = {
+					limit = {
+						has_terrain = city_terrain
+						development = 20
+						NOT = {
+							has_province_modifier = aw_thieves_guild_1
+							has_province_modifier = aw_thieves_guild_2
+							has_province_modifier = aw_thieves_guild_3
+						}
+					}
+					save_event_target_as = thieves_target
+				}
+				random_owned_province = {
+					limit = {
+						has_terrain = city_terrain
+						development = 15
+						NOT = {
+							has_province_modifier = aw_thieves_guild_1
+							has_province_modifier = aw_thieves_guild_2
+							has_province_modifier = aw_thieves_guild_3
+						}
+					}
+					save_event_target_as = thieves_target
+				}
+			}
+			10 = {
+				random_owned_province = {
+					limit = {
+						NOT = {
+							has_province_modifier = aw_thieves_guild_1
+							has_province_modifier = aw_thieves_guild_2
+							has_province_modifier = aw_thieves_guild_3
+						}
+					}
+					save_event_target_as = thieves_target
+				}
+				random_owned_province = {
+					limit = {
+						development = 15
+						NOT = {
+							has_province_modifier = aw_thieves_guild_1
+							has_province_modifier = aw_thieves_guild_2
+							has_province_modifier = aw_thieves_guild_3
+						}
+					}
+					save_event_target_as = thieves_target
+				}
+				random_owned_province = {
+					limit = {
+						development = 20
+						NOT = {
+							has_province_modifier = aw_thieves_guild_1
+							has_province_modifier = aw_thieves_guild_2
+							has_province_modifier = aw_thieves_guild_3
+						}
+					}
+					save_event_target_as = thieves_target
+				}
+			}
+		}
+	}
+	option = {	#send troops
+		name = bertus_gawed_initial_disaster.1202.a
+		add_manpower = -2
+		change_variable = { which = burghers_apeased_var value = 2 }
+	}
+	option = {	#cant afford
+		name = bertus_gawed_initial_disaster.1202.b
+		custom_tooltip = "Peasants wont like that"
+		change_variable = { which = burghers_apeased_var value = -1 }
+
+		hidden_effect = {
+			event_target:thieves_target = {
+				province_event = { id = aw_thieves_guild.0 }			
+			}
+		}
+	}
+	after = {
+	}
+}
+country_event = {	# prosperity
+	id = bertus_gawed_initial_disaster.1203
+	title = bertus_gawed_initial_disaster.1203.t
+	desc = bertus_gawed_initial_disaster.1203.desc
+	picture = INVENTION_eventPicture
+			
+	is_triggered_only = yes
+	trigger = {
+		any_owned_province = {
+			has_terrain = city_terrain
+			culture_group = ROOT
+			is_prosperous = yes
+		}
+	}
+	immediate = {
+	}
+	mean_time_to_happen = {
+		days = 1
+		modifier = {
+			factor = 2
+			stability = 1
+		}
+	}
+	option = {	#yay!
+		name = bertus_gawed_initial_disaster.1203.a
+		every_owned_province = {
+			limit = {
+				has_terrain = city_terrain
+				culture_group = ROOT
+				is_prosperous = yes
+			}
+			owner = { change_variable = { which = burghers_apeased_var value = 0.1 } }
+		}
+	}
+	after = {
+	}
+}
+country_event = {	# being looted by orcs
+	id = bertus_gawed_initial_disaster.1204
+	title = bertus_gawed_initial_disaster.1204.t
+	desc = bertus_gawed_initial_disaster.1204.desc
+	picture = INVENTION_eventPicture
+			
+	is_triggered_only = yes
+	trigger = {
+		any_owned_province = {
+			NOT = { has_terrain = city_terrain }
+			province_with_farm_goods = yes
+			culture_group = ROOT
+			controller = { has_country_modifier = orcish_military }
+		}
+	}
+	mean_time_to_happen = {
+		days = 1
+		modifier = {
+			factor = 10
+			is_at_war = yes
+		}
+	}
+	immediate = {
+	}
+	option = {	#f!
+		name = bertus_gawed_initial_disaster.1204.a
+		every_owned_province = {
+			limit = {
+				NOT = { has_terrain = city_terrain }
+				province_with_farm_goods = yes
+				culture_group = ROOT
+				controller = { has_country_modifier = orcish_military }
+			}
+			owner = { change_variable = { which = burghers_apeased_var value = -0.1 } }
+		}
+	}
+	after = {
+	}
+}
+country_event = {	# privateers!
+	id = bertus_gawed_initial_disaster.1205
+	title = bertus_gawed_initial_disaster.1205.t
+	desc = bertus_gawed_initial_disaster.1205.desc
+	picture = INVENTION_eventPicture
+			
+	is_triggered_only = yes
+	trigger = {
+		home_trade_node_effect_scope = {
+			privateer_power = {
+				share = 10
+			}
+		}
+	}
+	mean_time_to_happen = {
+		days = 1
+		modifier = {
+			factor = 2
+			home_trade_node_effect_scope = {
+				privateer_power = {
+					share = 25
+				}
+			}
+		}
+		modifier = {
+			factor = 2
+			home_trade_node_effect_scope = {
+				privateer_power = {
+					share = 50
+				}
+			}
+		}
+	}
+	immediate = {
+	}
+	option = {	#f!
+		name = bertus_gawed_initial_disaster.1205.a
+		change_variable = { which = burghers_apeased_var value = -2 }
+	}
+	after = {
+	}
+}
+country_event = {	# merchants strike
+	id = bertus_gawed_initial_disaster.1206
+	title = bertus_gawed_initial_disaster.1206.t
+	desc = bertus_gawed_initial_disaster.1206.desc
+	picture = INVENTION_eventPicture
+			
+	is_triggered_only = yes
+	trigger = {
+		NOT = { has_country_modifier = a13_burghers_diaster_strike_modifier }
+	}
+	immediate = {
+		random_neighbor_country = {
+			save_event_target_as = country_merchant_target
+		}
+		random_list = {
+			33 = {
+				trigger = {
+					A23 = {
+						exists = yes
+						home_trade_node_effect_scope = { has_merchant = A23 }
+					}
+				}
+				A23 = {
+					save_event_target_as = country_merchant_target
+				}
+			}
+			33 = {
+				trigger = {
+					A25 = {
+						exists = yes
+						home_trade_node_effect_scope = { has_merchant = A25 }
+					}
+				}
+				A25 = {
+					save_event_target_as = country_merchant_target
+				}
+			}
+			33 = {
+				trigger = {
+					A12 = {
+						exists = yes
+						home_trade_node_effect_scope = { has_merchant = A12 }
+					}
+				}
+				A12 = {
+					save_event_target_as = country_merchant_target
+				}
+			}
+		}
+	}
+	mean_time_to_happen = {
+		days = 1
+	}
+	option = {	#damn
+		name = bertus_gawed_initial_disaster.1206.a
+		add_country_modifier = {
+			name = a13_burghers_diaster_strike_modifier
+			duration = -730
+		}
+		home_trade_node_effect_scope = {
+			add_trade_modifier = {
+				who = evnet_target:country_merchant_target
+				duration = 730
+				power = 50
+				key = STRONG_MERCHANTS
+			}
+		}
+	}
+	
+	option = {	#damn
+		name = bertus_gawed_initial_disaster.1206.b
+		random_owned_province = {
+			limit = {
+				OR = {
+					trade_goods = cloth
+					trade_goods = carpet
+					trade_goods = wool
+				}
+				culture_group = ROOT
+				NOT = { has_province_modifier = a13_peasant_strike_on_textiles_modifier }
+			}
+			area = {
+				limit = {
+					OR = {
+						trade_goods = cloth
+						trade_goods = carpet
+						trade_goods = wool
+					}
+					culture_group = ROOT
+				}
+				add_province_modifier = {
+					name = a13_peasant_strike_on_textiles_modifier
+					duration = 1825
+				}
+			}
+		}
+	}
+	after = {
+	}
+}
+country_event = {	# good trade
+	id = bertus_gawed_initial_disaster.1207
+	title = bertus_gawed_initial_disaster.1207.t
+	desc = bertus_gawed_initial_disaster.1207.desc
+	picture = INVENTION_eventPicture
+			
+	is_triggered_only = yes
+	
+	trigger = {
+		trade_income_percentage = 0.30
+	}
+	immediate = {
+	}
+	mean_time_to_happen = {
+		days = 1
+		modifier = {
+			factor = 2
+			trade_income_percentage = 0.35
+		}
+		modifier = {
+			factor = 2
+			trade_income_percentage = 0.40
+		}
+	}
+	option = {	#yay
+		name = bertus_gawed_initial_disaster.1206.a
+		change_variable = { which = burghers_apeased_var value = 2 }
+	}
+	after = {
+	}
+}
+country_event = {	#end burghers
+	id = bertus_gawed_initial_disaster.1299
+	title = bertus_gawed_initial_disaster.1299.t
+	desc = bertus_gawed_initial_disaster.1299.desc
+	picture = INVENTION_eventPicture
+	
+	is_triggered_only = yes
+		
+	immediate = {
+		set_country_flag = apeased_burghers_flag
+		clr_country_flag = gawed_burghers_disaster_embargoed_halfling
+	}
+	option = {	#Finaly!
+		name = bertus_gawed_initial_disaster.1299.a
+	}
+}
+country_event = {	#start nobles
+	id = bertus_gawed_initial_disaster.1300
+	title = bertus_gawed_initial_disaster.1300.t
+	desc = bertus_gawed_initial_disaster.1300.desc
+	picture = INVENTION_eventPicture
+	
+	is_triggered_only = yes
+		
+	immediate = {
+		set_variable = {
+			which = nobles_apeased_var
+			value = 0
+		}
+	}
+	option = {	#What a mess
+		name = bertus_gawed_initial_disaster.1300.a
+
+	}
+	after = {
+	}
+}
+country_event = {	#end nobles
+	id = bertus_gawed_initial_disaster.1399
+	title = bertus_gawed_initial_disaster.1399.t
+	desc = bertus_gawed_initial_disaster.1399.desc
+	picture = INVENTION_eventPicture
+	
+	is_triggered_only = yes
+		
+	immediate = {
+		set_country_flag = apeased_nobles_flag
+	}
+	option = {	#Finaly!
+		name = bertus_gawed_initial_disaster.1399.a
+	}
+}
+country_event = {	#start mages
+	id = bertus_gawed_initial_disaster.1400
+	title = bertus_gawed_initial_disaster.1400.t
+	desc = bertus_gawed_initial_disaster.1400.desc
+	picture = INVENTION_eventPicture
+	
+	is_triggered_only = yes
+		
+	immediate = {
+		set_variable = {
+			which = mages_apeased_var
+			value = 0
+		}
+	}
+	option = {	#What a mess
+		name = bertus_gawed_initial_disaster.1400.a
+
+	}
+	after = {
+	}
+}
+country_event = {	#end mages
+	id = bertus_gawed_initial_disaster.1499
+	title = bertus_gawed_initial_disaster.1499.t
+	desc = bertus_gawed_initial_disaster.1499.desc
+	picture = INVENTION_eventPicture
+	
+	is_triggered_only = yes
+		
+	immediate = {
+		set_country_flag = apeased_mages_flag
+	}
+	option = {	#Finaly!
+		name = bertus_gawed_initial_disaster.1499.a
+	}
+}
+country_event = {	#end
+	id = bertus_gawed_initial_disaster.1999
+	title = bertus_gawed_initial_disaster.1999.t
+	desc = bertus_gawed_initial_disaster.1999.desc
+	picture = INVENTION_eventPicture
+	
+	is_triggered_only = yes
+		
+	immediate = {
+	}
+	option = {	#Finaly!
+		name = bertus_gawed_initial_disaster.1999.a
+	}
+}

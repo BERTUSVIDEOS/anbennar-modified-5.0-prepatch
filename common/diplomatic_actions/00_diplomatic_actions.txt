@@ -100,7 +100,61 @@ demand_unlawful_territory_action = {
 	}
 }
 embargoaction = {
+	condition = {	#bertus mod
+		potential = {
+			has_disaster = gawed_initial_disaster_burghers
+			has_country_flag = gawed_burghers_disaster_embargoed_halfling_@FROM_flag
+			FROM = { has_country_modifier = halfling_administration }
+		}
+		allow = {
+			custom_trigger_tooltip = {
+				tooltip = "Can't remove embargo until burghers are apeased"
+				NOT = { has_country_flag = gawed_burghers_disaster_embargoed_halfling_@FROM_flag }
+			}
+		}
+	}
+	condition = {	#bertus mod
+		potential = {
+			has_disaster = gawed_initial_disaster_burghers
+			has_country_flag = gawed_burghers_disaster_embargoed_elven_@FROM_flag
+			FROM = { has_country_modifier = elven_administration }
+		}
+		allow = {
+			custom_trigger_tooltip = {
+				tooltip = "Can't remove embargo until burghers are apeased"
+				NOT = { has_country_flag = gawed_burghers_disaster_embargoed_elven_@FROM_flag }
+			}
+		}
+	}
 	effect = {
+		if = {	#bertus mod
+			limit = {
+				has_disaster = gawed_initial_disaster_burghers
+				FROM = { has_country_modifier = halfling_administration }
+			}
+			set_country_flag = gawed_burghers_disaster_embargoed_halfling_@FROM_flag
+			change_variable = { which = burghers_apeased_var value = 5 }
+		}
+		if = {	#bertus mod
+			limit = {
+				has_country_flag = gawed_burghers_disaster_embargoed_halfling_@FROM_flag
+			}
+			clr_country_flag = gawed_burghers_disaster_embargoed_halfling_@FROM_flag
+		}
+		if = {	#bertus mod
+			limit = {
+				has_disaster = gawed_initial_disaster_burghers
+				FROM = { has_country_modifier = elven_administration }
+			}
+			set_country_flag = gawed_burghers_disaster_embargoed_elven_@FROM_flag
+			change_variable = { which = burghers_apeased_var value = 5 }
+		}
+		if = {	#bertus mod
+			limit = {
+				has_country_flag = gawed_burghers_disaster_embargoed_elven_@FROM_flag
+			}
+			clr_country_flag = gawed_burghers_disaster_embargoed_elven_@FROM_flag
+		}
 		if = {
 			limit = {
 				tag = A73

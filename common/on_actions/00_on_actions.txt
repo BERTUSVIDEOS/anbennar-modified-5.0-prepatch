@@ -126,12 +126,12 @@ on_startup = {
 		id = bertus_changes.1121
 		days = 5
 	}
-	A13 = {	#Derek Deland Setup and explanation
-		country_event = {
-			id = flavor_gawed.4
-			days = 1
-		}
-	}
+	#A13 = {	#Derek Deland Setup and explanation
+	#	country_event = {
+	#		id = flavor_gawed.4
+	#		days = 1
+	#	}
+	#}
 	F29 = {	#Jaddari-Zokka War
 		country_event = {
 			id = zokka_jaddari_war.1
@@ -833,6 +833,27 @@ on_war_won = {
 			NOT = { has_country_flag = gecko_show_strength }
 		}
 		set_country_flag = gecko_show_strength
+	}
+	if = {	#bertus mod
+		limit = {
+			has_disaster = gawed_initial_disaster_burghers
+			FROM = { has_country_modifier = orcish_military }
+		}
+		change_variable = { which = burghers_apeased_var value = 5 }
+	}
+	if = {	#bertus mod
+		limit = {
+			has_disaster = gawed_initial_disaster_peasants
+			FROM = { has_country_modifier = orcish_military }
+		}
+		change_variable = { which = peasants_apeased_var value = 5 }
+	}
+	if = {	#bertus mod
+		limit = {
+			has_disaster = gawed_initial_disaster_peasants
+			FROM = { has_country_modifier = kobold_military }
+		}
+		change_variable = { which = peasants_apeased_var value = 5 }
 	}
 	#FROM = { country_event = { id = flavor_cri.6 } }
 	if = {	#bertus mod
@@ -8219,11 +8240,44 @@ on_adm_advisor_hired = { #ROOT - Country, executed after on_advisor_hired!
 }
 
 on_dip_advisor_hired = { #ROOT - Country, executed after on_advisor_hired!
-
+	if = {
+		limit = {
+			has_disaster = gawed_initial_disaster_peasants
+			OR = { trader = 1 idea_var_advisor_21 = 1 }
+		}
+		change_variable = { which = peasants_apeased_var value = -5 }
+	}
+	if = {
+		limit = {
+			has_disaster = gawed_initial_disaster_burghers
+			NOT = {
+				employed_advisor = {
+					type = trader
+					culture = bluefoot_halfling
+				}
+				employed_advisor = {
+					type = idea_var_advisor_21
+					culture = bluefoot_halfling
+				}
+			}
+			OR = {
+				trader = 1
+				idea_var_advisor_21 = 1
+			}
+		}
+		change_variable = { which = burghers_apeased_var value = -5 }
+	}
 }
 
 on_mil_advisor_hired = { #ROOT - Country, executed after on_advisor_hired!
-
+	if = {
+		limit = { has_disaster = gawed_initial_disaster_nobles employed_advisor = { category = MIL culture = gawedi } } 
+		change_variable = { which = nobles_apeased_var value = 5 }
+	}
+	if = {
+		limit = { has_disaster = gawed_initial_disaster_nobles employed_advisor = { category = MIL culture = gawedi } } 
+		change_variable = { which = burghers_apeased_var value = -5 }
+	}
 }
 
 on_core = { #ROOT - Province, #FROM - Country that gets the core

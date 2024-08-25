@@ -2915,6 +2915,16 @@ quash_noble_power_reform = {	#bertus mod
 	custom_attributes = {
 		claim_states = yes
 	}
+	effect = {
+		if = {
+			limit = { has_disaster = gawed_initial_disaster_peasants }
+			change_variable = { which = peasants_apeased_var value = 5 }
+		}
+		if = {
+			limit = { has_disaster = gawed_initial_disaster_nobles }
+			change_variable = { which = nobles_apeased_var value = -5 }
+		}
+	}
 	ai = {
 		factor = 1
 		modifier = {
@@ -3012,6 +3022,16 @@ grant_military_command_reform = {	#bertus mod	#new LotN
 	}
 	custom_attributes = {
 		recruiting_generals_give_yearly_manpower = yes
+	}
+	effect = {
+		if = {
+			limit = { has_disaster = gawed_initial_disaster_peasants }
+			change_variable = { which = peasants_apeased_var value = -5 }
+		}
+		if = {
+			limit = { has_disaster = gawed_initial_disaster_nobles }
+			change_variable = { which = nobles_apeased_var value = 5 }
+		}
 	}
 	ai = {
 		factor = 1
@@ -3985,6 +4005,10 @@ centralize_reform = {	#bertus mod
 		}
 	}
 	effect = {
+		if = {
+			limit = { has_disaster = gawed_initial_disaster_burghers}
+			change_variable = { which = burghers_apeased_var value = 5 }
+		}
 		hidden_effect= {
 			every_owned_province = {	#bertus
 				limit = {
@@ -4145,6 +4169,12 @@ regional_council_reform = {	#bertus mod	#new LotN
 	modifiers = {
 		state_maintenance_modifier = -0.33
 		global_autonomy = -0.025
+	}
+	effect = {
+		if = {
+			limit = { has_disaster = gawed_initial_disaster_peasants }
+			change_variable = { which = peasants_apeased_var value = 5 }
+		}
 	}
 	conditional = {
 		allow = { has_dlc = "Mandate of Heaven" }

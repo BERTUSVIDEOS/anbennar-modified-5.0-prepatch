@@ -1228,6 +1228,14 @@ on_adm_development_effect = {
 }
 on_dip_development_effect = {
 	if = {
+		limit = { owner = { has_disaster = gawed_initial_disaster_peasants } province_with_farm_goods = yes }
+		owner = { change_variable = { which = peasants_apeased_var value = 1 } }
+	}
+	if = {
+		limit = { owner = { has_disaster = gawed_initial_disaster_burghers } has_terrain = city_terrain }
+		owner = { change_variable = { which = burghers_apeased_var value = 1 } }
+	}
+	if = {
 		limit = {owner = {has_government_attribute = boost_30_dev_provinces}}
 		if = {
 			limit = {
@@ -1239,6 +1247,10 @@ on_dip_development_effect = {
 	}
 }
 on_mil_development_effect = {
+	if = {
+		limit = { owner = { has_disaster = gawed_initial_disaster_nobles } }
+		owner = { change_variable = { which = nobles_apeased_var value = 1 } }
+	}
 	if = {
 		limit = {owner = {has_government_attribute = boost_30_dev_provinces}}
 		if = {

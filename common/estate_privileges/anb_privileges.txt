@@ -1931,6 +1931,20 @@ estate_burghers_magnate_council = {
 	can_select = {
 		#always
 	}
+	on_granted = {
+		if = {
+			limit = { has_disaster = gawed_initial_disaster_peasants }
+			change_variable = { which = peasants_apeased_var value = -10 }
+		}
+		if = {
+			limit = { has_disaster = gawed_initial_disaster_burghers }
+			change_variable = { which = burghers_apeased_var value = 10 }
+		}
+	}
+	penalties = {}
+	benefits = {
+		global_trade_power = 0.10
+	}
 	can_revoke = {
 		if = {
 			limit = { tag = A13 }
@@ -1941,10 +1955,6 @@ estate_burghers_magnate_council = {
 	}
 	on_revoked = {
 		add_stability = -2
-	}
-	penalties = {}
-	benefits = {
-		global_trade_power = 0.10
 	}
 	# This is too much, adding more crownland through events is more sustainable
 	# mechanics = {

@@ -64,6 +64,7 @@ fort_15th = {
 	}
 
 	on_built = {
+		fort_build_effect = yes
 		#ANBENNAR - windward stuff
 		if = {
 			limit = { FROM = { has_estate_privilege = estate_elephant_command_war_room_rights } }
@@ -109,6 +110,7 @@ fort_16th = {
 		can_build_fort = yes
 	}
 	on_built = {
+		fort_build_effect = yes
 		#ANBENNAR - windward stuff
 		if = {
 			limit = { FROM = { has_estate_privilege = estate_elephant_command_war_room_rights } }
@@ -154,6 +156,7 @@ fort_17th = {
 		can_build_fort = yes
 	}
 	on_built = {
+		fort_build_effect = yes
 		#ANBENNAR - windward stuff
 		if = {
 			limit = { FROM = { has_estate_privilege = estate_elephant_command_war_room_rights } }
@@ -205,6 +208,7 @@ fort_18th = {
 		can_build_fort = yes
 	}
 	on_built = {
+		fort_build_effect = yes
 		#ANBENNAR - windward stuff
 		if = {
 			limit = { FROM = { has_estate_privilege = estate_elephant_command_war_room_rights } }
@@ -1231,6 +1235,16 @@ coastal_defence = {
 		hostile_fleet_attrition = 5
 	}
 
+	on_built = {
+		if = {
+			limit = {
+				owner = { has_disaster = gawed_initial_disaster_burghers }
+				has_terrain = city_terrain
+			}
+			owner = { change_variable = { which = burghers_apeased_var value = 1 } }
+		}
+	}
+
 	ai_will_do = {factor = 1}
 }
 
@@ -1249,6 +1263,15 @@ naval_battery = {
 		hostile_disembark_speed = 2.0
 		hostile_fleet_attrition = 10
 		local_own_coast_naval_combat_bonus = 1
+	}
+	on_built = {
+		if = {
+			limit = {
+				owner = { has_disaster = gawed_initial_disaster_burghers }
+				has_terrain = city_terrain
+			}
+			owner = { change_variable = { which = burghers_apeased_var value = 1 } }
+		}
 	}
 
 	ai_will_do = {factor = 0}
@@ -1524,6 +1547,7 @@ farm_estate = {
 	onmap = yes
 
 	on_built = {
+		farm_estate_build_effect = yes
 		if = {
 			limit = {
 				area = castonath_area
@@ -2205,6 +2229,15 @@ education_lvl_1 = {
 		local_state_maintenance_modifier = 0.5
 	}
 
+	on_built = {
+		if = {
+			limit = {
+				owner = { has_disaster = gawed_initial_disaster_burghers }
+				has_terrain = city_terrain
+			}
+			owner = { change_variable = { which = burghers_apeased_var value = 1 } }
+		}
+	}
 	ai_will_do = {factor = 1}
 
 }
@@ -2223,6 +2256,15 @@ education_lvl_2 = {
 		local_institution_spread = 0.25
 		institution_growth = 5.0
 		local_state_maintenance_modifier = 1.0
+	}
+	on_built = {
+		if = {
+			limit = {
+				owner = { has_disaster = gawed_initial_disaster_burghers }
+				has_terrain = city_terrain
+			}
+			owner = { change_variable = { which = burghers_apeased_var value = 1 } }
+		}
 	}
 
 	ai_will_do = {factor = 10}
@@ -2244,7 +2286,15 @@ university = {
 		institution_growth = 10.0
 		local_state_maintenance_modifier = 2.0
 	}
-
+	on_built = {
+		if = {
+			limit = {
+				owner = { has_disaster = gawed_initial_disaster_burghers }
+				has_terrain = city_terrain
+			}
+			owner = { change_variable = { which = burghers_apeased_var value = 1 } }
+		}
+	}
 	ai_will_do = {factor = 10}
 }
 
@@ -3147,6 +3197,9 @@ infrastructure_lvl_1 = { # Dirt Track
 
 		allowed_num_of_buildings = 1
 	}
+	on_built = {
+		road_build_effect = yes
+	}
 
 	ai_will_do = {factor = 5}
 }
@@ -3164,6 +3217,9 @@ infrastructure_lvl_2 = {
 
 		allowed_num_of_buildings = 1
 	}
+	on_built = {
+		road_build_effect = yes
+	}
 	ai_will_do = {factor = 5}
 }
 
@@ -3179,7 +3235,9 @@ infrastructure_lvl_3 = {
 		province_trade_power_value = 0.75
 
 		allowed_num_of_buildings = 1
-
+	}
+	on_built = {
+		road_build_effect = yes
 	}
 	ai_will_do = {factor = 5}
 }
@@ -3196,6 +3254,9 @@ infrastructure_lvl_4 = {
 		province_trade_power_value = 1.0
 		
 		allowed_num_of_buildings = 1
+	}
+	on_built = {
+		road_build_effect = yes
 	}
 	ai_will_do = {factor = 5}
 }
@@ -3681,6 +3742,7 @@ marketplace = {
 		province_trade_power_value = 1.25	#0→1.25
 	}
 	on_built = {
+		market_build_effect = yes
 		if = {
 			limit = {FROM = { has_government_attribute = trade_buildings_boost }}
 			add_province_modifier = {name = trade_buildings_boost_modifier duration = -1}
@@ -3705,6 +3767,7 @@ trade_depot = {
 		province_trade_power_value = 2.5	#0→2.5
 	}
 	on_built = {
+		market_build_effect = yes
 		if = {
 			limit = {FROM = { has_government_attribute = trade_buildings_boost }}
 			add_province_modifier = {name = trade_buildings_boost_modifier duration = -1}
@@ -3729,6 +3792,7 @@ stock_exchange = {
 		province_trade_power_value = 3.75	#0→3.75
 	}
 	on_built = {
+		market_build_effect = yes
 		if = {
 			limit = {FROM = { has_government_attribute = trade_buildings_boost }}
 			add_province_modifier = {name = trade_buildings_boost_modifier duration = -1}
@@ -3753,6 +3817,7 @@ trade_lvl_4 = {
 		province_trade_power_value = 5	#0→5
 	}
 	on_built = {
+		market_build_effect = yes
 		if = {
 			limit = {FROM = { has_government_attribute = trade_buildings_boost }}
 			add_province_modifier = {name = gov_expanded_temple_rights_mod duration = -1}
@@ -3874,6 +3939,13 @@ dock = {
 
 	on_built = {
 		if = {
+			limit = {
+				owner = { has_disaster = gawed_initial_disaster_burghers }
+				has_terrain = city_terrain
+			}
+			owner = { change_variable = { which = burghers_apeased_var value = 1 } }
+		}
+		if = {
 			limit = {owner = {has_idea = flottenbasis1}}
 			add_province_modifier = {
 				name = flottenbasis1_dock_bonus_1
@@ -3917,6 +3989,13 @@ drydock = {
 		local_sailors_modifier = 1.0
 	}
 	on_built = {
+		if = {
+			limit = {
+				owner = { has_disaster = gawed_initial_disaster_burghers }
+				has_terrain = city_terrain
+			}
+			owner = { change_variable = { which = burghers_apeased_var value = 1 } }
+		}
 		if = {
 			limit = {owner = {has_idea = flottenbasis1}}
 			remove_province_modifier = flottenbasis1_dock_bonus_1
@@ -3963,6 +4042,13 @@ navymanpower_lvl_3 = {
 		local_sailors_modifier = 1.5
 	}
 	on_built = {
+		if = {
+			limit = {
+				owner = { has_disaster = gawed_initial_disaster_burghers }
+				has_terrain = city_terrain
+			}
+			owner = { change_variable = { which = burghers_apeased_var value = 1 } }
+		}
 		if = {
 			limit = {owner = {has_idea = flottenbasis1}}
 			remove_province_modifier = flottenbasis1_dock_bonus_1
@@ -4012,6 +4098,15 @@ shipyard = {
 	modifier = {	#bertus mod
 		naval_forcelimit = 2
 	}
+	on_built = {
+		if = {
+			limit = {
+				owner = { has_disaster = gawed_initial_disaster_burghers }
+				has_terrain = city_terrain
+			}
+			owner = { change_variable = { which = burghers_apeased_var value = 1 } }
+		}
+	}
 	ai_will_do = {factor = 1}
 }
 
@@ -4026,6 +4121,15 @@ grand_shipyard = {
 	}
 	modifier = {	#bertus mod
 		naval_forcelimit = 4
+	}
+	on_built = {
+		if = {
+			limit = {
+				owner = { has_disaster = gawed_initial_disaster_burghers }
+				has_terrain = city_terrain
+			}
+			owner = { change_variable = { which = burghers_apeased_var value = 1 } }
+		}
 	}
 	ai_will_do = {factor = 1.5}
 }
@@ -4042,6 +4146,15 @@ navyforcelimit_lvl_3 = {
 
 	modifier = {	#bertus mod
 		naval_forcelimit = 6
+	}
+	on_built = {
+		if = {
+			limit = {
+				owner = { has_disaster = gawed_initial_disaster_burghers }
+				has_terrain = city_terrain
+			}
+			owner = { change_variable = { which = burghers_apeased_var value = 1 } }
+		}
 	}
 	ai_will_do = {factor = 0.7}
 }
