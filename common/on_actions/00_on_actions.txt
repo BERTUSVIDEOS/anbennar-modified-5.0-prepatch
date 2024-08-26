@@ -855,6 +855,13 @@ on_war_won = {
 		}
 		change_variable = { which = peasants_apeased_var value = 5 }
 	}
+	if = {	#bertus mod
+		limit = {
+			has_disaster = gawed_initial_disaster_nobles
+			FROM = { is_neighbor_of = ROOT }
+		}
+		change_variable = { which = nobles_apeased_var value = 5 }
+	}
 	#FROM = { country_event = { id = flavor_cri.6 } }
 	if = {	#bertus mod
 		limit = {
@@ -8236,36 +8243,47 @@ on_advisor_hired = { #ROOT - Country
 }
 
 on_adm_advisor_hired = { #ROOT - Country, executed after on_advisor_hired!
-
+	if = {
+		limit = {
+			court_mage = 1
+		}
+		if = {
+			limit = { has_disaster = gawed_initial_disaster_nobles } 
+			change_variable = { which = nobles_apeased_var value = -5 }
+		}
+		if = {
+			limit = { has_disaster = gawed_initial_disaster_mages } 
+			change_variable = { which = mages_apeased_var value = 5 }
+		}
+	}
 }
 
 on_dip_advisor_hired = { #ROOT - Country, executed after on_advisor_hired!
 	if = {
 		limit = {
-			has_disaster = gawed_initial_disaster_peasants
 			OR = { trader = 1 idea_var_advisor_21 = 1 }
 		}
-		change_variable = { which = peasants_apeased_var value = -5 }
+		if = {
+			limit = { has_disaster = gawed_initial_disaster_peasants } 
+			change_variable = { which = peasants_apeased_var value = -5 }
+		}
+		if = {
+			limit = { has_disaster = gawed_initial_disaster_nobles } 
+			change_variable = { which = nobles_apeased_var value = -5 }
+		}
 	}
 	if = {
 		limit = {
-			has_disaster = gawed_initial_disaster_burghers
 			NOT = {
-				employed_advisor = {
-					type = trader
-					culture = bluefoot_halfling
-				}
-				employed_advisor = {
-					type = idea_var_advisor_21
-					culture = bluefoot_halfling
-				}
+				employed_advisor = { type = trader culture = bluefoot_halfling }
+				employed_advisor = { type = idea_var_advisor_21 culture = bluefoot_halfling }
 			}
-			OR = {
-				trader = 1
-				idea_var_advisor_21 = 1
-			}
+			OR = { trader = 1 idea_var_advisor_21 = 1 }
 		}
-		change_variable = { which = burghers_apeased_var value = -5 }
+		if = {
+			limit = { has_disaster = gawed_initial_disaster_burghers } 
+			change_variable = { which = burghers_apeased_var value = 5 }
+		}
 	}
 }
 
@@ -8275,7 +8293,7 @@ on_mil_advisor_hired = { #ROOT - Country, executed after on_advisor_hired!
 		change_variable = { which = nobles_apeased_var value = 5 }
 	}
 	if = {
-		limit = { has_disaster = gawed_initial_disaster_nobles employed_advisor = { category = MIL culture = gawedi } } 
+		limit = { has_disaster = gawed_initial_disaster_burghers employed_advisor = { category = MIL culture = gawedi } } 
 		change_variable = { which = burghers_apeased_var value = -5 }
 	}
 }

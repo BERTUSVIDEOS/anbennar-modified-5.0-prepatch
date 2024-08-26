@@ -1929,12 +1929,17 @@ estate_burghers_magnate_council = {
 		NOT = { has_disaster = magnate_uprising }
 	}
 	can_select = {
+		has_estate_privilege = estate_burghers_magnate_council # Cannot go invalid by culture shifting
 		#always
 	}
 	on_granted = {
 		if = {
 			limit = { has_disaster = gawed_initial_disaster_peasants }
 			change_variable = { which = peasants_apeased_var value = -10 }
+		}
+		if = {
+			limit = { has_disaster = gawed_initial_disaster_nobles }
+			change_variable = { which = nobles_apeased_var value = -10 }
 		}
 		if = {
 			limit = { has_disaster = gawed_initial_disaster_burghers }

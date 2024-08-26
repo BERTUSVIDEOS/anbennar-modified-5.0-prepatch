@@ -66,7 +66,17 @@ leadered_peasant_rebels = {
  		NOT = { local_autonomy = 50 }
  	}
 	siege_won_effect = {
-		add_local_autonomy = 10	
+		add_local_autonomy = 10
+		if = {
+			limit = {
+				owner = { has_disaster = gawed_initial_disaster_peasants }
+				NOT = { has_province_modifier = gawed_disaster_peasants_control }
+			}
+			remove_province_modifier = gawed_disaster_nobles_control
+			remove_province_modifier = gawed_disaster_burghers_control
+			remove_province_modifier = gawed_disaster_mages_control
+			add_province_modifier = { name = gawed_disaster_peasants_control duration = -1 }
+		}
 	}
 	
 	# Country scope
