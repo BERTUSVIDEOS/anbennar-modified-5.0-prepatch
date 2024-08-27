@@ -2678,16 +2678,30 @@ get_treasury_fraction = {
 	}
 }
 get_yearly_income_fraction = {
-	$TARGET$ = {
-		set_variable = { which = income_to_transfer value = 1 }
-		export_to_variable = { which = income_to_transfer value = years_of_income }
-		multiply_variable = { which = income_to_transfer which = $fraction$ }
-		while = {
-			limit = { check_variable = { which = income_to_transfer value = 0 } }
-			subtract_variable = { which = income_to_transfer value = 1 }
-			add_treasury = -1
-			$RECIPIENT$ = {add_treasury = 1}
-		}
+	custom_tooltip = get_yearly_income_$fraction$_tt
+	hidden_effect = {
+		[[send]
+			set_variable = { which = income_to_transfer value = 0 }
+			export_to_variable = { which = income_to_transfer value = trigger_value:years_of_income }
+			multiply_variable = { which = income_to_transfer which = $fraction$ }
+			while = {
+				limit = { check_variable = { which = income_to_transfer value = 0 } }
+				subtract_variable = { which = income_to_transfer value = 1 }
+				add_treasury = -1
+				$RECIPIENT$ = {add_treasury = 1}
+			}
+		]
+		[[receive]
+			set_variable = { which = income_to_transfer value = 0 }
+			export_to_variable = { which = income_to_transfer value = trigger_value:years_of_income }
+			multiply_variable = { which = income_to_transfer which = $fraction$ }
+			while = {
+				limit = { check_variable = { which = income_to_transfer value = 0 } }
+				subtract_variable = { which = income_to_transfer value = 1 }
+				add_treasury = 1
+				$RECIPIENT$ = {add_treasury = -1}
+			}
+		]
 	}
 }
 increase_isolationism = {
