@@ -5,6 +5,7 @@ gawed_initial_disaster_peasants = {	#bertus mod
 	}
 
 	can_start = {
+		has_disaster = gawed_initial_disaster
 	}
 	
 	can_stop = {
@@ -16,19 +17,33 @@ gawed_initial_disaster_peasants = {	#bertus mod
 			factor = 9
 			always = yes
 		}
+		modifier = {
+			factor = 2
+			has_estate_privilege = estate_halfling_autonomy
+		}
+		modifier = {
+			factor = 2
+			any_neighbor_country = { has_country_modifier = orcish_military }
+		}
+		modifier = {
+			factor = 2
+			any_neighbor_country = { has_country_modifier = kobold_military }
+		}
 	}
 	
 	can_end = {
 		stability = 1
 		NOT = { war_exhaustion = 1 }
 		NOT = { has_spawned_rebels = leadered_peasant_rebels }
-		check_variable = { which = peasants_apeased_var value = 100 }
+		custom_trigger_tooltip = {
+			tooltip = gawed_initial_disaster_peasants_desc
+			check_variable = { which = peasants_apeased_var value = 100 }
+		}
 	}
 	
 	modifier = {
-		global_manpower_modifier = -0.33
+		development_cost = 0.33
 		global_tax_modifier = -0.33
-
 	}
 	
 	on_start = bertus_gawed_initial_disaster.1100

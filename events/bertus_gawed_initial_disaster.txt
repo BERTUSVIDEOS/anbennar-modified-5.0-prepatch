@@ -14,6 +14,7 @@ country_event = {	#start
 	option = {	#What a mess
 		name = bertus_gawed_initial_disaster.1000.a
 		add_stability = -2
+		add_legitimacy = -50
 	}
 	after = {
 	}
@@ -27,18 +28,12 @@ country_event = {	#start peasants
 	is_triggered_only = yes
 		
 	immediate = {
-		set_variable = {
-			which = peasants_apeased_var
-			value = 0
-		}
-	}
-	option = {	#What a mess
-		name = bertus_gawed_initial_disaster.1100.a
-		custom_tooltip = "Peasants will take control of up to 10 provinces"
 		hidden_effect = {
-			set_variable = { which = temp value = 10 }
+			set_variable = { which = peasants_apeased_var value = 0 }
+			
+			set_variable = { which = temp value = 7 }
 			while = {
-				limit = { check_variable = { which = temp value = 0 } }
+				limit = { check_variable = { which = temp value = 1 } }
 				change_variable = { which = temp value = -1 }
 				random_owned_province = {
 					limit = {
@@ -61,18 +56,9 @@ country_event = {	#start peasants
 			}
 			set_variable = { which = temp value = 3 }
 			while = {
-				limit = { check_variable = { which = temp value = 0 } }
+				limit = { check_variable = { which = temp value = 1 } }
 				change_variable = { which = temp value = -1 }
 				random_list = {
-					10 = {
-						random_owned_province = {
-							limit = {
-								culture_group = ROOT
-								has_province_modifier = gawed_disaster_peasants_control
-							}
-							spawn_rebels = { size = 3 type = leadered_peasant_rebels }
-						}
-					}
 					20 = {
 						random_owned_province = {
 							limit = {
@@ -95,10 +81,14 @@ country_event = {	#start peasants
 			}
 		}
 	}
+	option = {	#What a mess
+		name = bertus_gawed_initial_disaster.1100.a
+		custom_tooltip = "Peasants have taken control of up to 7 provinces"
+	}
 	after = {
 	}
 }
-country_event = {	# peasant demand tax exception
+country_event = {	# peasant demand tax exemption
 	id = bertus_gawed_initial_disaster.1101
 	title = bertus_gawed_initial_disaster.1101.t
 	desc = bertus_gawed_initial_disaster.1101.desc
@@ -106,21 +96,38 @@ country_event = {	# peasant demand tax exception
 			
 	is_triggered_only = yes
 	trigger = {
-		NOT = { has_country_modifier = gawed_peasant_diaster_tax_exception_modifier }
+		NOT = { 
+			any_owned_province = { has_province_modifier = gawed_peasant_diaster_tax_exemption_modifier }
+		}
 	}
 	immediate = {
+		hidden_effect = {
+			set_variable = { which = temp value = 0 }
+			every_owned_province = {
+				limit = { has_province_modifier = gawed_disaster_peasants_control }
+				owner = { change_variable = { which = value value = 1 } }
+			}
+		}
 	}
 	mean_time_to_happen = {
 		days = 1
 		modifier = {
 			factor = 4
-			NOT = { Has_country_modifier = gawed_peasant_diaster_tax_exception_modifier }
+			NOT = { 
+				any_owned_province = { has_province_modifier = gawed_peasant_diaster_tax_exemption_modifier }
+			}
 		}
 	}
 	option = {	#concede
 		name = bertus_gawed_initial_disaster.1101.a
-		add_country_modifier = { name = gawed_peasant_diaster_tax_exception_modifier duration = 365 } #1 YEAR
-		change_variable = { which = peasants_apeased_var value = 5 }
+		custom_tooltip = bertus_gawed_initial_disaster.1101.att
+		hidden_effect = {
+			every_owned_province = {
+				limit = { has_province_modifier = gawed_disaster_peasants_control }
+				add_province_modifier = { name = gawed_peasant_diaster_tax_exemption_modifier duration = 365 } #1 YEAR
+				owner = { change_variable = { which = peasants_apeased_var value = 1 } }
+			}
+		}
 	}
 	option = {	#reject
 		name = bertus_gawed_initial_disaster.1101.b
@@ -251,6 +258,9 @@ country_event = {	# bandits
 	}
 	option = {	#send troops
 		name = bertus_gawed_initial_disaster.1102.a
+		trigger = {
+			manpower = 2
+		}
 		add_manpower = -2
 		change_variable = { which = peasants_apeased_var value = 2 }
 	}
@@ -274,6 +284,8 @@ country_event = {	# prosperity
 	picture = INVENTION_eventPicture
 			
 	is_triggered_only = yes
+	hidden = yes
+
 	trigger = {
 		any_owned_province = {
 			has_province_modifier = gawed_disaster_peasants_control
@@ -311,6 +323,8 @@ country_event = {	# being looted by orcs
 	picture = INVENTION_eventPicture
 			
 	is_triggered_only = yes
+	hidden = yes
+
 	trigger = {
 		any_owned_province = {
 			has_province_modifier = gawed_disaster_peasants_control
@@ -348,6 +362,8 @@ country_event = {	# being looted by kobolds
 	picture = INVENTION_eventPicture
 			
 	is_triggered_only = yes
+	hidden = yes
+
 	trigger = {
 		any_owned_province = {
 			has_province_modifier = gawed_disaster_peasants_control
@@ -386,7 +402,9 @@ country_event = {	# just rebels
 			
 	is_triggered_only = yes
 	trigger = {
-		NOT = { has_country_modifier = gawed_peasant_diaster_tax_exception_modifier }
+		NOT = { 
+			any_owned_province = { has_province_modifier = gawed_peasant_diaster_tax_exemption_modifier }
+		}
 	}
 	immediate = {
 	}
@@ -394,26 +412,22 @@ country_event = {	# just rebels
 		days = 1
 		modifier = {
 			factor = 0.50
-			has_country_modifier = gawed_peasant_diaster_tax_exception_modifier
+			any_owned_province = { has_province_modifier = gawed_peasant_diaster_tax_exemption_modifier }
+		}
+		modifier = {
+			factor = 2.0
+			num_of_provinces_in_states = 40
 		}
 	}
 	option = {	#damn
 		name = bertus_gawed_initial_disaster.1108.a
+		custom_tooltip = "Revolt on Peasant Lands"
 		hidden_effect = {
-			set_variable = { which = temp value = 3 }
+			set_variable = { which = temp value = 2 }
 			while = {
-				limit = { check_variable = { which = temp value = 0 } }
+				limit = { check_variable = { which = temp value = 1 } }
 				change_variable = { which = temp value = -1 }
 				random_list = {
-					10 = {
-						random_owned_province = {
-							limit = {
-								culture_group = ROOT
-								has_province_modifier = gawed_disaster_peasants_control
-							}
-							spawn_rebels = { size = 3 type = leadered_peasant_rebels }
-						}
-					}
 					20 = {
 						random_owned_province = {
 							limit = {
@@ -447,7 +461,9 @@ country_event = {	# strike on farmable
 			
 	is_triggered_only = yes
 	trigger = {
-		NOT = { has_country_modifier = gawed_peasant_diaster_tax_exception_modifier }
+		NOT = { 
+			any_owned_province = { has_province_modifier = gawed_peasant_diaster_tax_exemption_modifier }
+		}
 		any_owned_province = {
 			has_province_modifier = gawed_disaster_peasants_control
 			province_with_farm_goods = yes
@@ -461,7 +477,7 @@ country_event = {	# strike on farmable
 		days = 1
 		modifier = {
 			factor = 0.50
-			has_country_modifier = gawed_peasant_diaster_tax_exception_modifier
+			any_owned_province = { has_province_modifier = gawed_peasant_diaster_tax_exemption_modifier }
 		}
 	}
 	option = {	#damn
@@ -504,7 +520,7 @@ country_event = {	#peasants really angry
 		ai_chance = {factor = 100 }
 		set_variable = { which = temp value = 3 }
 		while = {
-			limit = { check_variable = { which = temp value = 0 } }
+			limit = { check_variable = { which = temp value = 1 } }
 			change_variable = { which = temp value = -1 }
 			random_list = {
 				10 = {
@@ -626,7 +642,7 @@ country_event = {	#end peasants
 	immediate = {
 		set_country_flag = apeased_peasants_flag
 	}
-	option = {	#Finaly!
+	option = {	#Finally!
 		name = bertus_gawed_initial_disaster.1199.a
 	}
 }
@@ -639,19 +655,12 @@ country_event = {	#start burghers
 	is_triggered_only = yes
 		
 	immediate = {
-		set_variable = {
-			which = burghers_apeased_var
-			value = 0
-		}
-	}
-	option = {	#What a mess
-		name = bertus_gawed_initial_disaster.1200.a
-
-		custom_tooltip = "Burghers will take control of up to 10 provinces"
 		hidden_effect = {
-			set_variable = { which = temp value = 10 }
+			set_variable = { which = burghers_apeased_var value = 0 }
+
+			set_variable = { which = temp value = 7 }
 			while = {
-				limit = { check_variable = { which = temp value = 0 } }
+				limit = { check_variable = { which = temp value = 1 } }
 				change_variable = { which = temp value = -1 }
 				if = {
 					limit = {
@@ -699,28 +708,10 @@ country_event = {	#start burghers
 			}
 			set_variable = { which = temp value = 3 }
 			while = {
-				limit = { check_variable = { which = temp value = 0 } }
+				limit = { check_variable = { which = temp value = 1 } }
 				change_variable = { which = temp value = -1 }
 				random_list = {
-					10 = {
-						random_owned_province = {
-							limit = {
-								culture_group = ROOT
-								has_province_modifier = gawed_disaster_burghers_control
-							}
-							spawn_rebels = { size = 6 type = magnate_rebels }
-						}
-					}
 					20 = {
-						random_owned_province = {
-							limit = {
-								culture_group = ROOT
-								has_province_modifier = gawed_disaster_burghers_control
-							}
-							spawn_rebels = { size = 4 type = magnate_rebels }
-						}
-					}
-					30 = {
 						random_owned_province = {
 							limit = {
 								culture_group = ROOT
@@ -729,9 +720,23 @@ country_event = {	#start burghers
 							spawn_rebels = { size = 2 type = magnate_rebels }
 						}
 					}
+					30 = {
+						random_owned_province = {
+							limit = {
+								culture_group = ROOT
+								has_province_modifier = gawed_disaster_burghers_control
+							}
+							spawn_rebels = { size = 1 type = magnate_rebels }
+						}
+					}
 				}
 			}
 		}
+	}
+	option = {	#What a mess
+		name = bertus_gawed_initial_disaster.1200.a
+
+		custom_tooltip = "Burghers have taken control of up to 7 provinces"
 	}
 	after = {
 	}
@@ -744,7 +749,7 @@ country_event = {	# burghers demand tax exception
 			
 	is_triggered_only = yes
 	trigger = {
-		NOT = { has_country_modifier = gawed_burghers_diaster_tax_exception_modifier }
+		NOT = { has_country_modifier = gawed_burghers_diaster_tax_exemption_modifier }
 	}
 	immediate = {
 	}
@@ -752,16 +757,20 @@ country_event = {	# burghers demand tax exception
 		days = 1
 		modifier = {
 			factor = 4
-			NOT = { Has_country_modifier = gawed_burghers_diaster_tax_exception_modifier }
+			NOT = { Has_country_modifier = gawed_burghers_diaster_tax_exemption_modifier }
+		}
+		modifier = {
+			factor = 4
+			has_estate_privilege = estate_burghers_magnate_council
 		}
 	}
 	option = {	#concede
 		name = bertus_gawed_initial_disaster.1201.a
 		
 		home_trade_node_effect_scope = {
-			add_trade_node_income = -1
+			add_trade_node_income = -12
 		}
-		add_country_modifier = { name = gawed_burghers_diaster_tax_exception_modifier duration = 365 } #1 YEAR
+		add_country_modifier = { name = gawed_burghers_diaster_tax_exemption_modifier duration = 365 } #1 YEAR
 		change_variable = { which = burghers_apeased_var value = 5 }
 	}
 	option = {	#reject
@@ -882,6 +891,9 @@ country_event = {	# thieves
 	}
 	option = {	#send troops
 		name = bertus_gawed_initial_disaster.1202.a
+		trigger = {
+			manpower = 2
+		}
 		add_manpower = -2
 		change_variable = { which = burghers_apeased_var value = 2 }
 	}
@@ -905,6 +917,8 @@ country_event = {	# prosperity
 	picture = INVENTION_eventPicture
 			
 	is_triggered_only = yes
+	hidden = yes
+
 	trigger = {
 		any_owned_province = {
 			has_province_modifier = gawed_disaster_burghers_control
@@ -942,6 +956,8 @@ country_event = {	# being looted by orcs
 	picture = INVENTION_eventPicture
 			
 	is_triggered_only = yes
+	hidden = yes
+
 	trigger = {
 		any_owned_province = {
 			has_province_modifier = gawed_disaster_burghers_control
@@ -979,10 +995,15 @@ country_event = {	# privateers!
 	picture = INVENTION_eventPicture
 			
 	is_triggered_only = yes
+	hidden = yes
+	
 	trigger = {
-		home_trade_node = {
-			privateer_power = {
-				share = 10
+		any_country = {
+			222 = {
+				privateer_power = {
+					country = PREV
+					share = 10	
+				}
 			}
 		}
 	}
@@ -1009,7 +1030,7 @@ country_event = {	# privateers!
 	}
 	option = {	#f!
 		name = bertus_gawed_initial_disaster.1205.a
-		change_variable = { which = burghers_apeased_var value = -2 }
+		change_variable = { which = burghers_apeased_var value = -1 }
 	}
 	after = {
 	}
@@ -1022,7 +1043,7 @@ country_event = {	# merchants strike
 			
 	is_triggered_only = yes
 	trigger = {
-		NOT = { has_country_modifier = gawed_burghers_diaster_strike_modifier }
+		NOT = { has_country_modifier = gawed_burghers_disaster_strike_modifier }
 	}
 	immediate = {
 		random_neighbor_country = {
@@ -1070,7 +1091,7 @@ country_event = {	# merchants strike
 	option = {	#damn
 		name = bertus_gawed_initial_disaster.1206.a
 		add_country_modifier = {
-			name = gawed_burghers_diaster_strike_modifier
+			name = gawed_burghers_disaster_strike_modifier
 			duration = -730
 		}
 		home_trade_node_effect_scope = {
@@ -1094,7 +1115,7 @@ country_event = {	# merchants strike
 				}
 				culture_group = ROOT
 				has_province_modifier = gawed_disaster_burghers_control
-				NOT = { has_province_modifier = gawed_peasant_strike_on_textiles_modifier }
+				NOT = { has_province_modifier = gawed_burgher_strike_on_textiles_modifier }
 			}
 			area = {
 				limit = {
@@ -1107,7 +1128,7 @@ country_event = {	# merchants strike
 					has_province_modifier = gawed_disaster_burghers_control
 				}
 				add_province_modifier = {
-					name = gawed_peasant_strike_on_textiles_modifier
+					name = gawed_burgher_strike_on_textiles_modifier
 					duration = 1825
 				}
 			}
@@ -1176,6 +1197,10 @@ country_event = {	# burghers take land
 				}
 			}
 		}
+		modifier = {
+			factor = 2.0
+			num_of_provinces_in_states = 40
+		}
 	}
 	option = {	#
 		name = bertus_gawed_initial_disaster.1208.a
@@ -1183,25 +1208,16 @@ country_event = {	# burghers take land
 		hidden_effect = {
 			set_variable = { which = temp value = 3 }
 			while = {
-				limit = { check_variable = { which = temp value = 0 } }
+				limit = { check_variable = { which = temp value = 1 } }
 				change_variable = { which = temp value = -1 }
 				random_list = {
-					10 = {
-						random_owned_province = {
-							limit = {
-								culture_group = ROOT
-								NOT = { has_province_modifier = gawed_disaster_burghers_control }
-							}
-							spawn_rebels = { size = 6 type = magnate_rebels }
-						}
-					}
 					20 = {
 						random_owned_province = {
 							limit = {
 								culture_group = ROOT
 								NOT = { has_province_modifier = gawed_disaster_burghers_control }
 							}
-							spawn_rebels = { size = 4 type = magnate_rebels }
+							spawn_rebels = { size = 3 type = magnate_rebels }
 						}
 					}
 					30 = {
@@ -1235,25 +1251,16 @@ country_event = {	#burghers really angry
 		ai_chance = {factor = 100 }
 		set_variable = { which = temp value = 3 }
 		while = {
-			limit = { check_variable = { which = temp value = 0 } }
+			limit = { check_variable = { which = temp value = 1 } }
 			change_variable = { which = temp value = -1 }
 			random_list = {
-				10 = {
-					random_owned_province = {
-						limit = {
-							culture_group = ROOT
-							NOT = { has_province_modifier = gawed_disaster_burghers_control }
-						}
-						spawn_rebels = { size = 6 type = magnate_rebels }
-					}
-				}
 				20 = {
 					random_owned_province = {
 						limit = {
 							culture_group = ROOT
 							NOT = { has_province_modifier = gawed_disaster_burghers_control }
 						}
-						spawn_rebels = { size = 4 type = magnate_rebels }
+						spawn_rebels = { size = 2 type = magnate_rebels }
 					}
 				}
 				30 = {
@@ -1262,7 +1269,7 @@ country_event = {	#burghers really angry
 							culture_group = ROOT
 							NOT = { has_province_modifier = gawed_disaster_burghers_control }
 						}
-						spawn_rebels = { size = 2 type = magnate_rebels }
+						spawn_rebels = { size = 1 type = magnate_rebels }
 					}
 				}
 			}
@@ -1273,7 +1280,7 @@ country_event = {	#burghers really angry
 		name = bertus_gawed_initial_disaster.1210.b
 		set_variable = { which = temp value = 3 }
 		while = {
-			limit = { check_variable = { which = temp value = 0 } }
+			limit = { check_variable = { which = temp value = 1 } }
 			change_variable = { which = temp value = -1 }
 			random_owned_province = {
 				limit = {
@@ -1297,7 +1304,7 @@ country_event = {	#burghers really angry
 				}
 				culture_group = ROOT
 				has_province_modifier = gawed_disaster_burghers_control
-				NOT = { has_province_modifier = gawed_peasant_strike_on_textiles_modifier }
+				NOT = { has_province_modifier = gawed_burgher_strike_on_textiles_modifier }
 			}
 			area = {
 				limit = {
@@ -1310,7 +1317,7 @@ country_event = {	#burghers really angry
 					has_province_modifier = gawed_disaster_burghers_control
 				}
 				add_province_modifier = {
-					name = gawed_peasant_strike_on_textiles_modifier
+					name = gawed_burgher_strike_on_textiles_modifier
 					duration = 1825
 				}
 			}
@@ -1341,7 +1348,7 @@ country_event = {	#end burghers
 		set_country_flag = apeased_burghers_flag
 		clr_country_flag = gawed_burghers_disaster_embargoed_halfling
 	}
-	option = {	#Finaly!
+	option = {	#Finally!
 		name = bertus_gawed_initial_disaster.1299.a
 	}
 }
@@ -1354,15 +1361,12 @@ country_event = {	#start nobles
 	is_triggered_only = yes
 		
 	immediate = {
-		set_variable = { which = nobles_apeased_var value = 0 }
-	}
-	option = {	#What a mess
-		name = bertus_gawed_initial_disaster.1300.a
-		custom_tooltip = "Nobles will take control of up to 10 provinces"
 		hidden_effect = {
-			set_variable = { which = temp value = 10 }
+			set_variable = { which = nobles_apeased_var value = 0 }
+
+			set_variable = { which = temp value = 7 }
 			while = {
-				limit = { check_variable = { which = temp value = 0 } }
+				limit = { check_variable = { which = temp value = 1 } }
 				change_variable = { which = temp value = -1 }
 				random_owned_province = {
 					limit = {
@@ -1379,28 +1383,10 @@ country_event = {	#start nobles
 			}
 			set_variable = { which = temp value = 3 }
 			while = {
-				limit = { check_variable = { which = temp value = 0 } }
+				limit = { check_variable = { which = temp value = 1 } }
 				change_variable = { which = temp value = -1 }
 				random_list = {
-					10 = {
-						random_owned_province = {
-							limit = {
-								culture_group = ROOT
-								has_province_modifier = gawed_disaster_nobles_control
-							}
-							spawn_rebels = { size = 6 type = noble_rebels }
-						}
-					}
 					20 = {
-						random_owned_province = {
-							limit = {
-								culture_group = ROOT
-								has_province_modifier = gawed_disaster_nobles_control
-							}
-							spawn_rebels = { size = 4 type = noble_rebels }
-						}
-					}
-					30 = {
 						random_owned_province = {
 							limit = {
 								culture_group = ROOT
@@ -1409,9 +1395,22 @@ country_event = {	#start nobles
 							spawn_rebels = { size = 3 type = noble_rebels }
 						}
 					}
+					30 = {
+						random_owned_province = {
+							limit = {
+								culture_group = ROOT
+								has_province_modifier = gawed_disaster_nobles_control
+							}
+							spawn_rebels = { size = 2 type = noble_rebels }
+						}
+					}
 				}
 			}
 		}
+	}
+	option = {	#What a mess
+		name = bertus_gawed_initial_disaster.1300.a
+		custom_tooltip = "Nobles have taken control of up to 7 provinces"
 	}
 	after = {
 	}
@@ -1424,7 +1423,7 @@ country_event = {	# nobles demand lands
 			
 	is_triggered_only = yes
 	trigger = {
-		NOT = { has_country_modifier = gawed_burghers_diaster_tax_exception_modifier }
+		NOT = { has_country_modifier = gawed_burghers_diaster_tax_exemption_modifier }
 		any_owned_province = {
 			culture_group = ROOT
 			NOT = { has_province_modifier = gawed_disaster_nobles_control }
@@ -1445,6 +1444,10 @@ country_event = {	# nobles demand lands
 					has_province_modifier = gawed_disaster_peasants_control
 				}
 			}
+		}
+		modifier = {
+			factor = 2.0
+			num_of_provinces_in_states = 40
 		}
 	}
 	option = {	#concede
@@ -1506,25 +1509,16 @@ country_event = {	# nobles demand lands
 		hidden_effect = {
 			set_variable = { which = temp value = 1 }
 			while = {
-				limit = { check_variable = { which = temp value = 0 } }
+				limit = { check_variable = { which = temp value = 1 } }
 				change_variable = { which = temp value = -1 }
 				random_list = {
-					10 = {
-						random_owned_province = {
-							limit = {
-								culture_group = ROOT
-								has_province_modifier = gawed_disaster_nobles_control
-							}
-							spawn_rebels = { size = 6 type = noble_rebels }
-						}
-					}
 					20 = {
 						random_owned_province = {
 							limit = {
 								culture_group = ROOT
 								has_province_modifier = gawed_disaster_nobles_control
 							}
-							spawn_rebels = { size = 4 type = noble_rebels }
+							spawn_rebels = { size = 3 type = noble_rebels }
 						}
 					}
 					30 = {
@@ -1533,7 +1527,7 @@ country_event = {	# nobles demand lands
 								culture_group = ROOT
 								has_province_modifier = gawed_disaster_nobles_control
 							}
-							spawn_rebels = { size = 3 type = noble_rebels }
+							spawn_rebels = { size = 2 type = noble_rebels }
 						}
 					}
 				}
@@ -1581,6 +1575,8 @@ country_event = {	# strong
 	picture = INVENTION_eventPicture
 			
 	is_triggered_only = yes
+	hidden = yes
+
 	trigger = {
 		OR = {
 			any_country = { has_been_eclipsed_by = ROOT }
@@ -1595,10 +1591,18 @@ country_event = {	# strong
 	}
 	mean_time_to_happen = {
 		days = 1
+		modifier = {
+			factor = 2
+			all_neighbor_country = {
+				ROOT = {
+					military_strength = { who = PREV value = 3.0 }
+				}
+			}
+		}
 	}
 	option = {	#
 		name = bertus_gawed_initial_disaster.1303.a
-		change_variable = { which = nobles_apeased_var value = 5 }
+		change_variable = { which = nobles_apeased_var value = 1 }
 	}
 	after = {
 	}
@@ -1632,6 +1636,10 @@ country_event = {	# nobles take land
 				}
 			}
 		}
+		modifier = {
+			factor = 2.0
+			num_of_provinces_in_states = 40
+		}
 	}
 	option = {	#
 		name = bertus_gawed_initial_disaster.1304.a
@@ -1639,25 +1647,16 @@ country_event = {	# nobles take land
 		hidden_effect = {
 			set_variable = { which = temp value = 3 }
 			while = {
-				limit = { check_variable = { which = temp value = 0 } }
+				limit = { check_variable = { which = temp value = 1 } }
 				change_variable = { which = temp value = -1 }
 				random_list = {
-					10 = {
-						random_owned_province = {
-							limit = {
-								culture_group = ROOT
-								NOT = { has_province_modifier = gawed_disaster_nobles_control }
-							}
-							spawn_rebels = { size = 6 type = noble_rebels }
-						}
-					}
 					20 = {
 						random_owned_province = {
 							limit = {
 								culture_group = ROOT
 								NOT = { has_province_modifier = gawed_disaster_nobles_control }
 							}
-							spawn_rebels = { size = 4 type = noble_rebels }
+							spawn_rebels = { size = 3 type = noble_rebels }
 						}
 					}
 					30 = {
@@ -1706,12 +1705,20 @@ country_event = {	# nobles forces advisor to resign
 					employed_advisor = { category = ADM }
 				}
 				remove_advisor_by_category = ADM
+				if = {
+					limit = { employed_advisor = { type = court_mage culture = ROOT } }
+					change_variable = { which = mages_apeased_var value = -2 }
+				}
 			}
 			33 = {
 				trigger = {
 					employed_advisor = { category = DIP }
 				}
 				remove_advisor_by_category = DIP
+				if = {
+					limit = { OR = { employed_advisor = { type = trader culture = ROOT } employed_advisor = { type = idea_var_advisor_21 culture = ROOT } } }
+					change_variable = { which = burghers_apeased_var value = -2 }
+				}
 			}
 			33 = {
 				trigger = {
@@ -1740,25 +1747,16 @@ country_event = {	#nobles really angry
 		ai_chance = {factor = 100 }
 		set_variable = { which = temp value = 3 }
 		while = {
-			limit = { check_variable = { which = temp value = 0 } }
+			limit = { check_variable = { which = temp value = 1 } }
 			change_variable = { which = temp value = -1 }
 			random_list = {
-				10 = {
-					random_owned_province = {
-						limit = {
-							culture_group = ROOT
-							NOT = { has_province_modifier = gawed_disaster_nobles_control }
-						}
-						spawn_rebels = { size = 6 type = noble_rebels }
-					}
-				}
 				20 = {
 					random_owned_province = {
 						limit = {
 							culture_group = ROOT
 							NOT = { has_province_modifier = gawed_disaster_nobles_control }
 						}
-						spawn_rebels = { size = 4 type = noble_rebels }
+						spawn_rebels = { size = 3 type = noble_rebels }
 					}
 				}
 				30 = {
@@ -1778,7 +1776,7 @@ country_event = {	#nobles really angry
 		name = bertus_gawed_initial_disaster.1310.b
 		set_variable = { which = temp value = 3 }
 		while = {
-			limit = { check_variable = { which = temp value = 0 } }
+			limit = { check_variable = { which = temp value = 1 } }
 			change_variable = { which = temp value = -1 }
 			random_owned_province = {
 				limit = {
@@ -1862,7 +1860,7 @@ country_event = {	#end nobles
 	immediate = {
 		set_country_flag = apeased_nobles_flag
 	}
-	option = {	#Finaly!
+	option = {	#Finally!
 		name = bertus_gawed_initial_disaster.1399.a
 	}
 }
@@ -1875,32 +1873,33 @@ country_event = {	#start mages
 	is_triggered_only = yes
 		
 	immediate = {
-		set_variable = { which = mages_apeased_var value = 0 }
-	}
-	option = {	#What a mess
-		name = bertus_gawed_initial_disaster.1400.a
-		capital_scope = {
-			add_province_modifier = { name = gawed_disaster_mages_control duration = -1 }
-		}
-		custom_tooltip = "Mages will take control of up to 1 province"
 		hidden_effect = {
+			set_variable = { which = mages_apeased_var value = 0 }
+
+			capital_scope = {
+				add_province_modifier = { name = gawed_disaster_mages_control duration = -1 }
+			}
 			random_owned_province = {
 				limit = {
 					culture_group = ROOT
 					has_province_modifier = gawed_disaster_mages_control
 				}
-				spawn_rebels = { size = 6 type = mage_duelists_rebels }
+				spawn_rebels = { size = 1 type = mage_duelists_rebels }
 			}
-			set_variable = { which = temp value = 3 }
+			set_variable = { which = temp value = 2 }
 			while = {
-				limit = { check_variable = { which = temp value = 0 } }
+				limit = { check_variable = { which = temp value = 1 } }
 				change_variable = { which = temp value = -1 }
 				random_owned_province = {
 					limit = { culture_group = ROOT }
-					spawn_rebels = { size = 2 type = mage_duelists_rebels }
+					spawn_rebels = { size = 0.50 type = mage_duelists_rebels }
 				}
 			}
 		}
+	}
+	option = {	#What a mess
+		name = bertus_gawed_initial_disaster.1400.a
+		custom_tooltip = "Mages have taken control of up to 1 province"
 	}
 	after = {
 	}
@@ -1922,6 +1921,7 @@ country_event = {	# mages forces advisor
 	}
 	option = {	#accept
 		name = bertus_gawed_initial_disaster.1401.a
+		add_corruption = 4
 		hire_advisor = {
 			type = court_mage
 			skill = 2
@@ -2117,15 +2117,15 @@ country_event = {	# val vertesk CB
 						culture_group = ROOT
 						has_province_modifier = gawed_disaster_mages_control
 					}
-					spawn_rebels = { size = 2 type = mage_duelists_rebels }
+					spawn_rebels = { size = 1 type = mage_duelists_rebels }
 					random_neighbor_province = {
-						spawn_rebels = { size = 1 type = mage_duelists_rebels }
+						spawn_rebels = { size = 0.50 type = mage_duelists_rebels }
 					}
 					random_neighbor_province = {
-						spawn_rebels = { size = 1 type = mage_duelists_rebels }
+						spawn_rebels = { size = 0.50 type = mage_duelists_rebels }
 					}
 					random_neighbor_province = {
-						spawn_rebels = { size = 1 type = mage_duelists_rebels }
+						spawn_rebels = { size = 0.50 type = mage_duelists_rebels }
 					}
 				}
 			}
@@ -2195,6 +2195,10 @@ country_event = {	# mages demand stuff
 					has_province_modifier = gawed_disaster_mages_control
 				}
 			}
+		}
+		modifier = {
+			factor = 2.0
+			num_of_provinces_in_states = 40
 		}
 	}
 	immediate = { }
@@ -2284,15 +2288,12 @@ country_event = {	#mages really angry
 				culture_group = ROOT
 				has_province_modifier = gawed_disaster_mages_control
 			}
-			spawn_rebels = { size = 2 type = mage_duelists_rebels }
+			spawn_rebels = { size = 1 type = mage_duelists_rebels }
 			random_neighbor_province = {
-				spawn_rebels = { size = 1 type = mage_duelists_rebels }
+				spawn_rebels = { size = 0.50 type = mage_duelists_rebels }
 			}
 			random_neighbor_province = {
-				spawn_rebels = { size = 1 type = mage_duelists_rebels }
-			}
-			random_neighbor_province = {
-				spawn_rebels = { size = 1 type = mage_duelists_rebels }
+				spawn_rebels = { size = 0.50 type = mage_duelists_rebels }
 			}
 		}
 	}
@@ -2329,7 +2330,7 @@ country_event = {	#end mages
 	immediate = {
 		set_country_flag = apeased_mages_flag
 	}
-	option = {	#Finaly!
+	option = {	#Finally!
 		name = bertus_gawed_initial_disaster.1499.a
 	}
 }
@@ -2343,7 +2344,7 @@ country_event = {	#end
 		
 	immediate = {
 	}
-	option = {	#Finaly!
+	option = {	#Finally!
 		name = bertus_gawed_initial_disaster.1999.a
 	}
 }

@@ -5,6 +5,7 @@ gawed_initial_disaster_nobles = {	#bertus mod
 	}
 
 	can_start = {
+		has_disaster = gawed_initial_disaster
 	}
 	
 	can_stop = {
@@ -13,8 +14,20 @@ gawed_initial_disaster_nobles = {	#bertus mod
 	
 	progress = {
 		modifier = {
-			factor = 9
+			factor = 2
 			always = yes
+		}
+		modifier = {
+			factor = 2
+			has_heir = no
+		}
+		modifier = {
+			factor = 2
+			corruption = 1
+		}
+		modifier = {
+			factor = 2
+			NOT = { legitimacy = 90 }
 		}
 	}
 	
@@ -23,12 +36,15 @@ gawed_initial_disaster_nobles = {	#bertus mod
 		legitimacy = 90
 		NOT = { corruption = 1 }
 		NOT = { has_spawned_rebels = noble_rebels }
-		check_variable = { which = nobles_apeased_var value = 100 }
+		custom_trigger_tooltip = {
+			tooltip = gawed_initial_disaster_nobles_desc
+			check_variable = { which = nobles_apeased_var value = 100 }
+		}
 	}
 	
 	modifier = {
-		stability_cost_modifier = 0.5
-		global_unrest = 5
+		land_forcelimit_modifier = -0.20
+		vassal_forcelimit_bonus = -0.20
 	}
 	
 	on_start = bertus_gawed_initial_disaster.1300
