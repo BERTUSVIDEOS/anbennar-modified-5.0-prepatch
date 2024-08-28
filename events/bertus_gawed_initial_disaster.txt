@@ -470,7 +470,6 @@ country_event = {	# just rebels
 						culture_group = ROOT
 						has_province_modifier = gawed_disaster_peasants_control
 					}
-					save_event_target_as = province_target
 					random_list = {
 						30 = {
 							spawn_rebels = { size = 1 type = leadered_peasant_rebels }
@@ -1946,7 +1945,6 @@ country_event = {	# strong
 	picture = INVENTION_eventPicture
 			
 	is_triggered_only = yes
-	hidden = yes
 
 	trigger = {
 		OR = {
@@ -1960,6 +1958,7 @@ country_event = {	# strong
 	}
 	immediate = {
 	}
+	
 	mean_time_to_happen = {
 		days = 1
 		modifier = {
@@ -1974,16 +1973,26 @@ country_event = {	# strong
 	option = {	#
 		name = bertus_gawed_initial_disaster.1303.a
 		change_variable = { which = nobles_apeased_var value = 1 }
-		add_legitimacy = 5
-		add_years_of_owned_provinces_manpower = {
-			years = 1
-			trigger = {
-				has_province_modifier = gawed_disaster_nobles_control
-			}
+		add_legitimacy = 1
+		add_owned_provinces_development_manpower = {
+			multiplier = 1
+			age_multiplier = 1
+			trigger = { has_province_modifier = gawed_disaster_nobles_control }
 			custom_tooltip = ""
 		}
+		#add_years_of_owned_provinces_manpower = {
+		#	years = 1
+		#	trigger = {
+		#		has_province_flag = target_province_flag
+		#	}
+		#	custom_tooltip = ""
+		#}
 	}
 	after = {
+		every_owned_province = {
+			limit = { has_province_flag = target_province_flag }
+			clr_province_flag = target_province_flag
+		}
 	}
 }
 country_event = {	# nobles take land
@@ -2506,7 +2515,7 @@ country_event = {	# mages forces advisor
 	}
 	option = {	#reject
 		name = bertus_gawed_initial_disaster.1401.a
-		add_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = -50 }
+		add_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = -20 }
 	}
 	after = {
 	}
@@ -2897,22 +2906,16 @@ country_event = {	#mages really angry 1
 			while = {
 				limit = { check_variable = { which = temp value = 1 } }
 				change_variable = { which = temp value = -1 }
-				random_list = {
-					10 = {
-						random_owned_province = {
-							limit = {
-								culture_group = ROOT
-								NOT = { has_province_modifier = gawed_disaster_mages_control }
-							}
+				random_owned_province = {
+					limit = {
+						culture_group = ROOT
+						NOT = { has_province_modifier = gawed_disaster_mages_control }
+					}
+					random_list = {
+						10 = {
 							spawn_rebels = { size = 1 type = mage_duelists_rebels }
 						}
-					}
-					30 = {
-						random_owned_province = {
-							limit = {
-								culture_group = ROOT
-								NOT = { has_province_modifier = gawed_disaster_mages_control }
-							}
+						30 = {
 							spawn_rebels = { size = 0.5 type = mage_duelists_rebels }
 						}
 					}
