@@ -512,6 +512,22 @@ country_event = {	#peasants really angry
 	is_triggered_only = yes
 	hidden = yes
 		
+	mean_time_to_happen = {
+		days = 1
+		modifier = {
+			factor = 0.75
+			check_variable = { which = peasants_apeased_var value = 25 }
+		}
+		modifier = {
+			factor = 0.75
+			check_variable = { which = peasants_apeased_var value = 50 }
+		}
+		modifier = {
+			factor = 0.75
+			check_variable = { which = peasants_apeased_var value = 75 }
+		}
+	}
+
 	immediate = { }
 	option = {	#rebels
 		name = bertus_gawed_initial_disaster.1110.a
@@ -1430,6 +1446,22 @@ country_event = {	#burghers really angry
 	is_triggered_only = yes
 	hidden = yes
 		
+	mean_time_to_happen = {
+		days = 1
+		modifier = {
+			factor = 0.75
+			check_variable = { which = burghers_apeased_var value = 25 }
+		}
+		modifier = {
+			factor = 0.75
+			check_variable = { which = burghers_apeased_var value = 50 }
+		}
+		modifier = {
+			factor = 0.75
+			check_variable = { which = burghers_apeased_var value = 75 }
+		}
+	}
+
 	immediate = { }
 	option = {	#rebels
 		name = bertus_gawed_initial_disaster.1210.a
@@ -2135,6 +2167,22 @@ country_event = {	#nobles really angry
 	is_triggered_only = yes
 	hidden = yes
 		
+	mean_time_to_happen = {
+		days = 1
+		modifier = {
+			factor = 0.75
+			check_variable = { which = nobles_apeased_var value = 25 }
+		}
+		modifier = {
+			factor = 0.75
+			check_variable = { which = nobles_apeased_var value = 50 }
+		}
+		modifier = {
+			factor = 0.75
+			check_variable = { which = nobles_apeased_var value = 75 }
+		}
+	}
+
 	immediate = { }
 	option = {	#rebels
 		name = bertus_gawed_initial_disaster.1310.a
@@ -2443,7 +2491,7 @@ country_event = {	#end nobles
 		
 	immediate = {
 		hidden_effect = {
-			set_country_flag = apeased_mages_flag
+			set_country_flag = apeased_nobles_flag
 			every_owned_province = {
 				limit = { has_province_modifier = gawed_disaster_nobles_control } 
 				remove_province_modifier = gawed_disaster_nobles_control
@@ -2493,7 +2541,7 @@ country_event = {	#start mages
 	}
 	option = {	#What a mess
 		name = bertus_gawed_initial_disaster.1400.a
-		custom_tooltip = "Mages have taken control of up to 1 province"
+		custom_tooltip = "Mages have taken control of 1 province"
 	}
 	after = {
 	}
@@ -2526,7 +2574,10 @@ country_event = {	# mages forces advisor
 	}
 	option = {	#reject
 		name = bertus_gawed_initial_disaster.1401.a
-		add_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = -20 }
+		custom_tooltip = "Mages wont like that"
+		hidden_effect = {
+			country_event = { id = bertus_gawed_initial_disaster.1410 days = 5 random = 10}
+		}
 	}
 	after = {
 	}
@@ -2538,6 +2589,8 @@ country_event = {	# magisterium embassador opinion
 	picture = INVENTION_eventPicture
 			
 	is_triggered_only = yes
+	fire_only_once = yes
+
 	trigger = {
 		NOT = { has_estate_privilege = estate_mages_organization_magisterium }
 		NOT = { has_opinion_modifier = { who = A85 modifier = welcomed_the_magisterium } }
@@ -2559,6 +2612,10 @@ country_event = {	# magisterium embassador opinion
 		name = bertus_gawed_initial_disaster.1402.a
 		add_opinion = { who = A85 modifier = magisterium_disagrees_with_direction }
 		reverse_add_opinion = { who = A85 modifier = magisterium_disagrees_with_direction }
+		custom_tooltip = "Mages wont like that"
+		hidden_effect = {
+			country_event = { id = bertus_gawed_initial_disaster.1410 days = 5 random = 10}
+		}
 	}
 	after = {
 	}
@@ -2570,6 +2627,8 @@ country_event = {	# magisterium sphere envoy
 	picture = INVENTION_eventPicture
 			
 	is_triggered_only = yes
+	fire_only_once = yes
+
 	trigger = {
 		NOT = { has_estate_privilege = estate_mages_organization_magisterium }
 		has_opinion_modifier = { who = A85 modifier = welcomed_the_magisterium }
@@ -2595,6 +2654,10 @@ country_event = {	# magisterium sphere envoy
 		name = bertus_gawed_initial_disaster.1403.a
 		add_opinion = { who = A85 modifier = refused_magisterium_org }
 		reverse_add_opinion = { who = A85 modifier = refused_magisterium_org }
+		custom_tooltip = "Mages wont like that"
+		hidden_effect = {
+			country_event = { id = bertus_gawed_initial_disaster.1410 days = 5 random = 10}
+		}
 	}
 	after = {
 	}
@@ -2725,9 +2788,6 @@ country_event = {	# val vertesk CB
 					random_neighbor_province = {
 						spawn_rebels = { size = 0.50 type = mage_duelists_rebels }
 					}
-					random_neighbor_province = {
-						spawn_rebels = { size = 0.50 type = mage_duelists_rebels }
-					}
 				}
 			}
 		}
@@ -2739,6 +2799,10 @@ country_event = {	# val vertesk CB
 				}
 				spawn_rebels = { size = 1 type = mage_duelists_rebels }
 			}
+		}
+		custom_tooltip = "Mages wont like that"
+		hidden_effect = {
+			country_event = { id = bertus_gawed_initial_disaster.1410 days = 5 random = 10}
 		}
 	}
 	after = {
@@ -2884,6 +2948,22 @@ country_event = {	#mages really angry
 	is_triggered_only = yes
 	hidden = yes
 		
+	mean_time_to_happen = {
+		days = 1
+		modifier = {
+			factor = 0.75
+			check_variable = { which = mages_apeased_var value = 25 }
+		}
+		modifier = {
+			factor = 0.75
+			check_variable = { which = mages_apeased_var value = 50 }
+		}
+		modifier = {
+			factor = 0.75
+			check_variable = { which = mages_apeased_var value = 75 }
+		}
+	}
+
 	immediate = {
 	}
 	option = {	#rebels
@@ -2892,7 +2972,7 @@ country_event = {	#mages really angry
 		country_event = { id = bertus_gawed_initial_disaster.1411 }
 	}
 	option = {	#heir falls ill
-		ai_chance = {factor = 50 }
+		ai_chance = {factor = 10 }
 		name = bertus_gawed_initial_disaster.1410.b
 		trigger = {
 			has_heir = yes
@@ -2900,7 +2980,7 @@ country_event = {	#mages really angry
 		country_event = { id = 9456 }
 	}
 	option = {	#earthquake
-		ai_chance = {factor = 10 }
+		ai_chance = {factor = 25 }
 		name = bertus_gawed_initial_disaster.1410.c
 		country_event = { id = bertus_gawed_initial_disaster.1412 }
 	}
