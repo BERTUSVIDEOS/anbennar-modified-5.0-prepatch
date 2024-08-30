@@ -27,11 +27,23 @@ kobold_hoard_mechanic = {
 		grow_hoard = {
 			icon = GFX_buy_slaves_button
 			trigger = {
-				treasury = 1000
+				if = {
+					limit = { monthly_income = 166.7 }
+					years_of_income = 0.5
+				}
+				else = {
+					treasury = 1000
+				}
 				NOT = {num_of_loans = 1}
 			}
 			effect = {
-				add_treasury = -1000
+				if = {
+					limit = { monthly_income = 166.7 }
+					add_years_of_income = -0.5
+				}
+				else = {
+					add_treasury = -1000
+				}
 				add_government_power = { 
 					mechanic_type = kobold_hoard_mechanic 
 					power_type = hoard_amount 
