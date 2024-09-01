@@ -44,21 +44,24 @@ make_autonomous_vassal = {
 		}
 	}
 	on_accept = {
+		create_subject = {
+			subject_type = autonomous_vassal
+			subject = FROM 
+		}
 		if = {	#BERTUS MOD
 			limit = {
 				FROM = { is_subject_of_type = lorent_sphere_subject }
 			}
-			create_subject = {
-				subject_type = autonomous_vassal
-				subject = FROM 
+			if = {
+				limit = { NOT = { has_idea = buffer_states } }
+				add_stability = -1
+				FROM = { add_liberty_desire = 50 }
 			}
-			add_stability = -1
-			add_favors = {
-				who = FROM
-				amount = -100
+			else = {
+				FROM = { add_liberty_desire = 100 }
 			}
+			add_favors = { who = FROM amount = -100 }
 			FROM = {
-				add_liberty_desire = 100
 				add_trust = {
 					who = ROOT
 					value = -50
@@ -67,10 +70,6 @@ make_autonomous_vassal = {
 			}
 		}
 		else = {
-			create_subject = {
-				subject_type = autonomous_vassal
-				subject = FROM 
-			}
 			add_trust = {
 				who = FROM
 				value = 10
@@ -147,25 +146,26 @@ cancel_autonomous_vassal =  {
 	}
 	
 	on_accept = {
+		create_subject = { subject_type = vassal subject = FROM }
 		add_trust = {
 			who = FROM
 			value = -20
 			mutual = yes
 		}
-		create_subject = {
-			subject_type = vassal
-			subject = FROM  # dk check
+		if = {	#bertus mod
+			limit = { has_idea = buffer_states }
+			FROM = { add_liberty_desire = 37.5 }
 		}
-		FROM = {
-			add_liberty_desire = 65
+		else = {
+			FROM = { add_liberty_desire = 65 }
 		}
 		if = {
 			limit = {
 				NOT = { full_idea_group = diplomatic_ideas } #reduced_stab_impacts = yes
+				NOT = { has_idea = buffer_states } 
 			}
 			add_stability = -1
 		}
-
 	}
 	
 	ai_will_do = {

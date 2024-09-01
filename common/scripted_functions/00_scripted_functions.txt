@@ -347,7 +347,13 @@ can_burn_colony = {
 can_colonize_province = {
 	condition = { # AI Can't colonize if MP
 		potential = {
-			FROM = { ai = yes }
+			FROM = {
+				ai = yes
+				if = {
+					limit = { is_subject = yes }
+					overlord = { ai = no }
+				}
+			}
 			calc_true_if = {
 				all_country = { ai = no }
 				amount = 2
@@ -415,6 +421,7 @@ can_colonize_province = {
 	
 	condition = { # Can't colonize Gerudia if not from Gerudia or Escann
 		potential = {
+			NOT = {is_year = 1500}
 			FROM = {
 				ai = yes
 				NOT = {
@@ -422,11 +429,16 @@ can_colonize_province = {
 						OR = {
 							superregion = gerudia_superregion
 							superregion = escann_superregion
+							superregion = west_serpentspine_superregion
+							superregion = forbidden_lands_superregion
 						}
 					}
 				}
 			}
-			superregion = gerudia_superregion
+			OR = {
+				superregion = gerudia_superregion
+				region = northern_pass_region
+			}
 		}
 		allow = {
 			always = no

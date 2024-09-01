@@ -2343,6 +2343,44 @@ country_event = {	#
 		custom_tooltip = lord_alfonso_lvl_up_tt
 	}
 }
+country_event = {	#
+	id = bertus_changes.1045	#lord alfonse skill improve chance
+	title = bertus_changes.1045.title
+	desc = bertus_changes.1045.desc
+	picture = DIPLOMACY_eventPicture
+	
+	is_triggered_only = yes
+	hidden = yes
+	trigger = {}
+	
+	option = {
+		name = bertus_changes.1044.a
+		ai_chance = {factor = 40 }
+		
+		set_variable = {which = country_leader_lord_alfonso_shock value = 1}
+	}
+	option = {
+		name = bertus_changes.1044.b
+		ai_chance = {factor = 40 }
+		set_variable = {which = country_leader_lord_alfonso_fire value = 1}
+		
+	}
+	option = {
+		name = bertus_changes.1044.c
+		ai_chance = {factor = 15 }
+		set_variable = {which = country_leader_lord_alfonso_manuever value = 1}
+		
+	}
+	option = {
+		name = bertus_changes.1044.c
+		ai_chance = {factor = 5 }
+		set_variable = {which = country_leader_lord_alfonso_siege value = 1}
+		
+	}
+	after = {
+		country_event = { id = bertus_changes.1044 }
+	}
+}
 country_event = {	#setup provinces goods special modifiers 
 	id = bertus_changes.1090
 	title = bertus_changes.1090.t
@@ -3719,17 +3757,12 @@ province_event = {
 	goto = ROOT
 
 	immediate = {
-		controller = {
-			country_event = {
-				id = bertus_changes.2031
-				days = 365
-			}
-		}
 		hidden_effect = {
 			add_province_modifier = {
 				name = making_soup_modifier
-				duration = 366
+				duration = -1
 			}
+			set_province_flag = making_soup_flag
 		}
 	}
     option = {
@@ -3743,94 +3776,66 @@ country_event = {
     desc = bertus_changes.2031.desc
     picture = DHIMMI_ESTATE_eventPicture
 
-	is_triggered_only = yes
-	goto = FROM
-
 	trigger = {
 		has_estate_privilege = estate_ogre_stone_soup
-		FROM = {
+		any_province = {
+			controlled_by = ROOT
+			had_province_flag = { flag = making_soup_flag days = 365 }
 			unit_in_battle = no
 			has_province_modifier = making_soup_modifier
-			if = {
-				limit = { development = 100 }
-				num_of_units_in_province = { who = controller amount = 50 }
-			}
-			else_if = {
-				limit = { development = 90 }
-				num_of_units_in_province = { who = controller amount = 45 }
-			}
-			else_if = {
-				limit = { development = 80 }
-				num_of_units_in_province = { who = controller amount = 40 }
-			}
-			else_if = {
-				limit = { development = 70 }
-				num_of_units_in_province = { who = controller amount = 35 }
-			}
-			else_if = {
-				limit = { development = 60 }
-				num_of_units_in_province = { who = controller amount = 30 }
-			}
-			else_if = {
-				limit = { development = 50 }
-				num_of_units_in_province = { who = controller amount = 25 }
-			}
-			else_if = {
-				limit = { development = 40 }
-				num_of_units_in_province = { who = controller amount = 20 }
-			}
-			else_if = {
-				limit = { development = 30 }
-				num_of_units_in_province = { who = controller amount = 15 }
-			}
-			else_if = {
-				limit = { development = 20 }
-				num_of_units_in_province = { who = controller amount = 10 }
-			}
-			else_if = {
-				limit = { development = 18 }
-				num_of_units_in_province = { who = controller amount = 9 }
-			}
-			else_if = {
-				limit = { development = 16 }
-				num_of_units_in_province = { who = controller amount = 8 }
-			}
-			else_if = {
-				limit = { development = 14 }
-				num_of_units_in_province = { who = controller amount = 7 }
-			}
-			else_if = {
-				limit = { development = 12 }
-				num_of_units_in_province = { who = controller amount = 6 }
-			}
-			else_if = {
-				limit = { development = 10 }
-				num_of_units_in_province = { who = controller amount = 5 }
-			}
+			if = { limit = { development = 100 } num_of_units_in_province = { who = controller amount = 50 } }
+			else_if = { limit = { development = 90 } num_of_units_in_province = { who = controller amount = 45 } }
+			else_if = { limit = { development = 80 } num_of_units_in_province = { who = controller amount = 40 } }
+			else_if = { limit = { development = 70 } num_of_units_in_province = { who = controller amount = 35 } }
+			else_if = { limit = { development = 60 } num_of_units_in_province = { who = controller amount = 30 } }
+			else_if = { limit = { development = 50 } num_of_units_in_province = { who = controller amount = 25 } }
+			else_if = { limit = { development = 40 } num_of_units_in_province = { who = controller amount = 20 } }
+			else_if = { limit = { development = 30 } num_of_units_in_province = { who = controller amount = 15 } }
+			else_if = { limit = { development = 20 } num_of_units_in_province = { who = controller amount = 10 } }
+			else_if = { limit = { development = 18 } num_of_units_in_province = { who = controller amount = 9 } }
+			else_if = { limit = { development = 16 } num_of_units_in_province = { who = controller amount = 8 } }
+			else_if = { limit = { development = 14 } num_of_units_in_province = { who = controller amount = 7 } }
+			else_if = { limit = { development = 12 } num_of_units_in_province = { who = controller amount = 6 } }
+			else_if = { limit = { development = 10 } num_of_units_in_province = { who = controller amount = 5 } }
 			else = { num_of_units_in_province = { who = controller amount = 4 } }
 		}
 	}
 
+	mean_time_to_happen = {
+		months = 1
+	}
 	immediate = {
 		hidden_effect = {
-			FROM = {
+			random_province = {
+				limit = {
+					controlled_by = ROOT
+					had_province_flag = {
+						flag = making_soup_flag
+						days = 365
+					}
+					unit_in_battle = no
+					has_province_modifier = making_soup_modifier
+				}
+				clr_province_flag = making_soup_flag
 				set_variable = {which = province_manpower value = 0}
 				export_to_variable = {which = province_manpower value = base_manpower}
 				set_variable = {which = manpower_per_dev_tooltip value = 0}
 				change_variable = {which = manpower_per_dev_tooltip value = 100}
-				province_event = {
-					id = bertus_changes.2032
-				}
+				province_event = { id = bertus_changes.2032 }
+				save_event_target_as = province_event_target
+				remove_province_modifier = making_soup_modifier
+				clr_province_flag = making_soup_flag
 			}
+		}
+		event_target:province_event_target = {
+			gain_manpower_from_provinces = {manpower_per_dev = 0.1}
+			bertus_dev_reduction = {value = 0.25}
 		}
 	}
     option = {
         name = bertus_changes.2031.a #
+		goto = province_event_target
 		
-		FROM = {
-			gain_manpower_from_provinces = {manpower_per_dev = 0.1}
-			bertus_dev_reduction = {value = 0.25}
-		}
     }
 }
 province_event = {
@@ -3842,13 +3847,14 @@ province_event = {
 	is_triggered_only = yes
 	goto = FROM
 
-	immediate = {}
-
-    option = {
-        name = bertus_changes.2032.a #
+	immediate = {
 		tooltip = {
 			bertus_dev_reduction = {value = 0.25}
 		}
+	}
+
+    option = {
+        name = bertus_changes.2032.a #
     }
 }
 	
@@ -7757,7 +7763,7 @@ country_event = {	#incident magisterium isle rights violation
 		ai_chance = {factor = 25}
 		set_country_flag = magisterium_damesear_claim_removed
 		custom_tooltip = magisterium_damesear_claim_removed_tt
-		hidden = {
+		hidden_effect = {
 			every_province = {
 				limit = {
 					NOT = {

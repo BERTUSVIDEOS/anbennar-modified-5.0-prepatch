@@ -1,0 +1,53 @@
+
+po_proper_tributary = {
+	category = 6
+	power_projection = humiliated_rival 
+	power_cost_base = 0.0 
+	prestige_base = 0.50 # Prestige = WS cost * this so 5 prestige (quite a bit in comparison to other things)
+	ae_base = 1.0
+	warscore_cost = {
+		all_provinces = 1.0
+		no_provinces = 20.0
+		owner_keeps = 0.0
+		conquered = 0.0
+		returned_core = 0.0
+		released_nation = 0.0
+		cancelled_subject = 0.0 
+		concede_colonial_region = 0.0
+	}
+	warscore_cap = 160
+	requires_demand_independence = no 
+	is_make_subject = yes
+	requires_is_allowed = yes
+	applies_to_war_target = no
+	
+	is_visible = {
+		FROM = {
+			is_subject_of_type = tributary_state
+		}
+	}
+	is_allowed = {
+		FROM = {
+			is_subject_of_type = tributary_state
+		}
+	}
+	effect = {
+		create_subject = {
+			subject_type = tributary_state
+			subject = FROM 
+		}
+		FROM = {
+			add_opinion = {
+				who = ROOT
+				modifier = they_forced_tributary
+			}
+		}
+	}
+	ai_weight = { 
+		export_to_variable = {
+			variable_name = ai_value 
+			value = trigger_value:always # Not really sure what this means, will have to do some testing
+		}
+	}
+}
+

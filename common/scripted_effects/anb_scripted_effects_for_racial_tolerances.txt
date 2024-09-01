@@ -47,27 +47,8 @@ clear_racial_military = {
 	remove_country_modifier = hobgoblin_military
 	remove_country_modifier = lizardfolk_military
 	#BERTUS MOD racial links
-	if = {
-		limit = {
-			NOT = {
-				has_country_flag = elite_marine_flag
-				has_country_modifier = gnollish_military
-				has_idea = A11_seafaring_traditions
-				has_idea = Z50_ambitions_of_temar_ironsea
-				has_idea = A02_reaver_blood
-			}
-		}
-		remove_country_modifier = elite_marine_modifier
-	}
-	if = {
-		limit = {
-			NOT = {
-				has_country_modifier = goblin_military
-				check_variable = { which = fungi value = 10 }
-			}
-		}
-		remove_country_modifier = goblin_fungi_fanatic_modifier
-	}
+	if = { limit = { NOT = { has_country_flag = elite_marine_flag has_country_modifier = gnollish_military has_idea = A11_seafaring_traditions has_idea = Z50_ambitions_of_temar_ironsea has_idea = A02_reaver_blood } } remove_country_modifier = elite_marine_modifier }
+	if = { limit = { NOT = { has_country_modifier = goblin_military check_variable = { which = fungi value = 10 } } } remove_country_modifier = goblin_fungi_fanatic_modifier }
 }
 
 clear_racial_pop_migration_flags = {
@@ -103,9 +84,7 @@ save_primary_culture = {
 
 lock_racial_admin = {
     if = { 
-        limit = { 
-            end_game_tags_blocked = yes 
-        }
+        limit = { end_game_tags_blocked = yes }
         custom_tooltip = locked_racial_administration_tt
         hidden_effect = {
             save_primary_culture = yes
@@ -116,10 +95,7 @@ lock_racial_admin = {
 
 remove_racial_modifiers = {	#bertus mod
 	if = {
-		limit = {
-			has_gnomish_minority_trigger = no
-			culture_is_gnomish = no
-		}
+		limit = { has_gnomish_minority_trigger = no culture_is_gnomish = no }
 		remove_province_modifier = gnomish_institute_gommo 
 		remove_province_modifier = aqatbar_gnome_quarter
 		remove_province_modifier = rayavhashapal_gnome_quarter
@@ -137,3806 +113,274 @@ remove_racial_modifiers = {	#bertus mod
 
 #This should be use in a province scope
 update_racial_province_modifier_tolerance = {
-	#AddNewRaceHere
-
-	#elven
 	if = {
-		limit = { has_unmatching_elven_tolerance_trigger = yes }
-		#High Tolerance - Integrated
+		limit = { has_unmatching_$RACE$_tolerance_trigger = yes }
 		if = {
-			limit = { owner = { high_tolerance_elven_race_trigger = yes } }
-			#High Tolerance - Small Minority
+			limit = { owner = { high_tolerance_$RACE$_race_trigger = yes } }
 			if = {
-				limit = {
-					has_small_elven_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = elven_minority_integrated_small
-					duration = -1
-				}
-				remove_province_modifier = elven_minority_oppressed_small
-				remove_province_modifier = elven_minority_coexisting_small
+				limit = { has_small_$RACE$_minority_trigger = yes }
+				add_permanent_province_modifier = { name = $RACE$_minority_integrated_small duration = -1 }
+				remove_province_modifier = $RACE$_minority_oppressed_small
+				remove_province_modifier = $RACE$_minority_coexisting_small
 			}
-			#High Tolerance - Large Minority
 			else_if = {
-				limit = {
-					has_large_elven_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = elven_minority_integrated_large
-					duration = -1
-				}
-				remove_province_modifier = elven_minority_oppressed_large
-				remove_province_modifier = elven_minority_coexisting_large
+				limit = { has_large_$RACE$_minority_trigger = yes }
+				add_permanent_province_modifier = { name = $RACE$_minority_integrated_large duration = -1 }
+				remove_province_modifier = $RACE$_minority_oppressed_large
+				remove_province_modifier = $RACE$_minority_coexisting_large
 			}
-			#High Tolerance - Majority
 			else_if = {
-				limit = {
-					has_elven_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = elven_majority_integrated
-					duration = -1
-				}
-				remove_province_modifier = elven_majority_oppressed
-				remove_province_modifier = elven_majority_coexisting
-				remove_province_modifier = elven_majority_primary
+				limit = { has_$RACE$_majority_trigger = yes }
+				add_permanent_province_modifier = { name = $RACE$_majority_integrated duration = -1 }
+				remove_province_modifier = $RACE$_majority_oppressed
+				remove_province_modifier = $RACE$_majority_coexisting
+				remove_province_modifier = $RACE$_majority_primary
 			}
 		}
-		#Medium Tolerance - Coexisting
 		else_if = {
-			limit = { owner = { medium_tolerance_elven_race_trigger = yes } }
-			#Medium Tolerance - Small Minority
+			limit = { owner = { medium_tolerance_$RACE$_race_trigger = yes } }
 			if = {
-				limit = {
-					has_small_elven_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = elven_minority_coexisting_small
-					duration = -1
-				}
-				remove_province_modifier = elven_minority_oppressed_small
-				remove_province_modifier = elven_minority_integrated_small
+				limit = { has_small_$RACE$_minority_trigger = yes }
+				add_permanent_province_modifier = { name = $RACE$_minority_coexisting_small duration = -1 }
+				remove_province_modifier = $RACE$_minority_oppressed_small
+				remove_province_modifier = $RACE$_minority_integrated_small
 			}
-			#Medium Tolerance - Large Minority
 			else_if = {
-				limit = {
-					has_large_elven_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = elven_minority_coexisting_large
-					duration = -1
-				}
-				remove_province_modifier = elven_minority_oppressed_large
-				remove_province_modifier = elven_minority_integrated_large
+				limit = { has_large_$RACE$_minority_trigger = yes }
+				add_permanent_province_modifier = { name = $RACE$_minority_coexisting_large duration = -1 }
+				remove_province_modifier = $RACE$_minority_oppressed_large
+				remove_province_modifier = $RACE$_minority_integrated_large
 			}
-			#Medium Tolerance - Majority
 			else_if = {
-				limit = {
-					has_elven_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = elven_majority_coexisting
-					duration = -1
-				}
-				remove_province_modifier = elven_majority_oppressed
-				remove_province_modifier = elven_majority_integrated
-				remove_province_modifier = elven_majority_primary
+				limit = { has_$RACE$_majority_trigger = yes }
+				add_permanent_province_modifier = { name = $RACE$_majority_coexisting duration = -1 }
+				remove_province_modifier = $RACE$_majority_oppressed
+				remove_province_modifier = $RACE$_majority_integrated
+				remove_province_modifier = $RACE$_majority_primary
 			}
 		}
-		#Low Tolerance - Oppressed
 		else_if = {
-			limit = { owner = { low_tolerance_elven_race_trigger = yes } }
-			#Low Tolerance - Small Minority
+			limit = { owner = { low_tolerance_$RACE$_race_trigger = yes } }
 			if = {
-				limit = {
-					has_small_elven_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = elven_minority_oppressed_small
-					duration = -1
-				}
-				remove_province_modifier = elven_minority_integrated_small
-				remove_province_modifier = elven_minority_coexisting_small
+				limit = { has_small_$RACE$_minority_trigger = yes }
+				add_permanent_province_modifier = { name = $RACE$_minority_oppressed_small duration = -1 }
+				remove_province_modifier = $RACE$_minority_integrated_small
+				remove_province_modifier = $RACE$_minority_coexisting_small
 			}
-			#Low Tolerance - Majority
 			else_if = {
-				limit = {
-					has_large_elven_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = elven_minority_oppressed_large
-					duration = -1
-				}
-				remove_province_modifier = elven_minority_integrated_large
-				remove_province_modifier = elven_minority_coexisting_large
+				limit = { has_large_$RACE$_minority_trigger = yes }
+				add_permanent_province_modifier = { name = $RACE$_minority_oppressed_large duration = -1 }
+				remove_province_modifier = $RACE$_minority_integrated_large
+				remove_province_modifier = $RACE$_minority_coexisting_large
 			}
-			#Low Tolerance - Majority
 			else_if = {
-				limit = {
-					has_elven_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = elven_majority_oppressed
-					duration = -1
-				}
-				remove_province_modifier = elven_majority_integrated
-				remove_province_modifier = elven_majority_primary
-				remove_province_modifier = elven_majority_coexisting
+				limit = { has_$RACE$_majority_trigger = yes }
+				add_permanent_province_modifier = { name = $RACE$_majority_oppressed duration = -1 }
+				remove_province_modifier = $RACE$_majority_integrated
+				remove_province_modifier = $RACE$_majority_primary
+				remove_province_modifier = $RACE$_majority_coexisting
 			}
 		}
 	}
-
-
-	#Dwarven
-	if = {
-		limit = { has_unmatching_dwarven_tolerance_trigger = yes }
-		#High Tolerance - Integrated
-		if = {
-			limit = { owner = { high_tolerance_dwarven_race_trigger = yes } }
-			#High Tolerance - Small Minority
-			if = {
-				limit = {
-					has_small_dwarven_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = dwarven_minority_integrated_small
-					duration = -1
-				}
-				remove_province_modifier = dwarven_minority_oppressed_small
-				remove_province_modifier = dwarven_minority_coexisting_small
-			}
-			#High Tolerance - Large Minority
-			else_if = {
-				limit = {
-					has_large_dwarven_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = dwarven_minority_integrated_large
-					duration = -1
-				}
-				remove_province_modifier = dwarven_minority_oppressed_large
-				remove_province_modifier = dwarven_minority_coexisting_large
-			}
-			#High Tolerance - Majority
-			else_if = {
-				limit = {
-					has_dwarven_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = dwarven_majority_integrated
-					duration = -1
-				}
-				remove_province_modifier = dwarven_majority_oppressed
-				remove_province_modifier = dwarven_majority_coexisting
-				remove_province_modifier = dwarven_majority_primary
-			}
-		}
-		#Medium Tolerance - Coexisting
-		else_if = {
-			limit = { owner = { medium_tolerance_dwarven_race_trigger = yes } }
-			#Medium Tolerance - Small Minority
-			if = {
-				limit = {
-					has_small_dwarven_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = dwarven_minority_coexisting_small
-					duration = -1
-				}
-				remove_province_modifier = dwarven_minority_oppressed_small
-				remove_province_modifier = dwarven_minority_integrated_small
-			}
-			#Medium Tolerance - Large Minority
-			else_if = {
-				limit = {
-					has_large_dwarven_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = dwarven_minority_coexisting_large
-					duration = -1
-				}
-				remove_province_modifier = dwarven_minority_oppressed_large
-				remove_province_modifier = dwarven_minority_integrated_large
-			}
-			#Medium Tolerance - Majority
-			else_if = {
-				limit = {
-					has_dwarven_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = dwarven_majority_coexisting
-					duration = -1
-				}
-				remove_province_modifier = dwarven_majority_oppressed
-				remove_province_modifier = dwarven_majority_integrated
-				remove_province_modifier = dwarven_majority_primary
-			}
-		}
-		#Low Tolerance - Oppressed
-		else_if = {
-			limit = { owner = { low_tolerance_dwarven_race_trigger = yes } }
-			#Low Tolerance - Small Minority
-			if = {
-				limit = {
-					has_small_dwarven_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = dwarven_minority_oppressed_small
-					duration = -1
-				}
-				remove_province_modifier = dwarven_minority_integrated_small
-				remove_province_modifier = dwarven_minority_coexisting_small
-			}
-			#Low Tolerance - Majority
-			else_if = {
-				limit = {
-					has_large_dwarven_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = dwarven_minority_oppressed_large
-					duration = -1
-				}
-				remove_province_modifier = dwarven_minority_integrated_large
-				remove_province_modifier = dwarven_minority_coexisting_large
-			}
-			#Low Tolerance - Majority
-			else_if = {
-				limit = {
-					has_dwarven_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = dwarven_majority_oppressed
-					duration = -1
-				}
-				remove_province_modifier = dwarven_majority_integrated
-				remove_province_modifier = dwarven_majority_primary
-				remove_province_modifier = dwarven_majority_coexisting
-			}
-		}
-	}
-
-
-	#Halfling
-	if = {
-		limit = { has_unmatching_halfling_tolerance_trigger = yes }
-		#High Tolerance - Integrated
-		if = {
-			limit = { owner = { high_tolerance_halfling_race_trigger = yes } }
-			#High Tolerance - Small Minority
-			if = {
-				limit = {
-					has_small_halfling_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = halfling_minority_integrated_small
-					duration = -1
-				}
-				remove_province_modifier = halfling_minority_oppressed_small
-				remove_province_modifier = halfling_minority_coexisting_small
-			}
-			#High Tolerance - Large Minority
-			else_if = {
-				limit = {
-					has_large_halfling_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = halfling_minority_integrated_large
-					duration = -1
-				}
-				remove_province_modifier = halfling_minority_oppressed_large
-				remove_province_modifier = halfling_minority_coexisting_large
-			}
-			#High Tolerance - Majority
-			else_if = {
-				limit = {
-					has_halfling_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = halfling_majority_integrated
-					duration = -1
-				}
-				remove_province_modifier = halfling_majority_oppressed
-				remove_province_modifier = halfling_majority_coexisting
-				remove_province_modifier = halfling_majority_primary
-			}
-		}
-		#Medium Tolerance - Coexisting
-		else_if = {
-			limit = { owner = { medium_tolerance_halfling_race_trigger = yes } }
-			#Medium Tolerance - Small Minority
-			if = {
-				limit = {
-					has_small_halfling_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = halfling_minority_coexisting_small
-					duration = -1
-				}
-				remove_province_modifier = halfling_minority_oppressed_small
-				remove_province_modifier = halfling_minority_integrated_small
-			}
-			#Medium Tolerance - Large Minority
-			else_if = {
-				limit = {
-					has_large_halfling_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = halfling_minority_coexisting_large
-					duration = -1
-				}
-				remove_province_modifier = halfling_minority_oppressed_large
-				remove_province_modifier = halfling_minority_integrated_large
-			}
-			#Medium Tolerance - Majority
-			else_if = {
-				limit = {
-					has_halfling_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = halfling_majority_coexisting
-					duration = -1
-				}
-				remove_province_modifier = halfling_majority_oppressed
-				remove_province_modifier = halfling_majority_integrated
-				remove_province_modifier = halfling_majority_primary
-			}
-		}
-		#Low Tolerance - Oppressed
-		else_if = {
-			limit = { owner = { low_tolerance_halfling_race_trigger = yes } }
-			#Low Tolerance - Small Minority
-			if = {
-				limit = {
-					has_small_halfling_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = halfling_minority_oppressed_small
-					duration = -1
-				}
-				remove_province_modifier = halfling_minority_integrated_small
-				remove_province_modifier = halfling_minority_coexisting_small
-			}
-			#Low Tolerance - Majority
-			else_if = {
-				limit = {
-					has_large_halfling_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = halfling_minority_oppressed_large
-					duration = -1
-				}
-				remove_province_modifier = halfling_minority_integrated_large
-				remove_province_modifier = halfling_minority_coexisting_large
-			}
-			#Low Tolerance - Majority
-			else_if = {
-				limit = {
-					has_halfling_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = halfling_majority_oppressed
-					duration = -1
-				}
-				remove_province_modifier = halfling_majority_integrated
-				remove_province_modifier = halfling_majority_primary
-				remove_province_modifier = halfling_majority_coexisting
-			}
-		}
-	}
-
-
-	#Gnomish
-	if = {
-		limit = { has_unmatching_gnomish_tolerance_trigger = yes }
-		#High Tolerance - Integrated
-		if = {
-			limit = { owner = { high_tolerance_gnomish_race_trigger = yes } }
-			#High Tolerance - Small Minority
-			if = {
-				limit = {
-					has_small_gnomish_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = gnomish_minority_integrated_small
-					duration = -1
-				}
-				remove_province_modifier = gnomish_minority_oppressed_small
-				remove_province_modifier = gnomish_minority_coexisting_small
-			}
-			#High Tolerance - Large Minority
-			else_if = {
-				limit = {
-					has_large_gnomish_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = gnomish_minority_integrated_large
-					duration = -1
-				}
-				remove_province_modifier = gnomish_minority_oppressed_large
-				remove_province_modifier = gnomish_minority_coexisting_large
-			}
-			#High Tolerance - Majority
-			else_if = {
-				limit = {
-					has_gnomish_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = gnomish_majority_integrated
-					duration = -1
-				}
-				remove_province_modifier = gnomish_majority_oppressed
-				remove_province_modifier = gnomish_majority_coexisting
-				remove_province_modifier = gnomish_majority_primary
-			}
-		}
-		#Medium Tolerance - Coexisting
-		else_if = {
-			limit = { owner = { medium_tolerance_gnomish_race_trigger = yes } }
-			#Medium Tolerance - Small Minority
-			if = {
-				limit = {
-					has_small_gnomish_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = gnomish_minority_coexisting_small
-					duration = -1
-				}
-				remove_province_modifier = gnomish_minority_oppressed_small
-				remove_province_modifier = gnomish_minority_integrated_small
-			}
-			#Medium Tolerance - Large Minority
-			else_if = {
-				limit = {
-					has_large_gnomish_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = gnomish_minority_coexisting_large
-					duration = -1
-				}
-				remove_province_modifier = gnomish_minority_oppressed_large
-				remove_province_modifier = gnomish_minority_integrated_large
-			}
-			#Medium Tolerance - Majority
-			else_if = {
-				limit = {
-					has_gnomish_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = gnomish_majority_coexisting
-					duration = -1
-				}
-				remove_province_modifier = gnomish_majority_oppressed
-				remove_province_modifier = gnomish_majority_integrated
-				remove_province_modifier = gnomish_majority_primary
-			}
-		}
-		#Low Tolerance - Oppressed
-		else_if = {
-			limit = { owner = { low_tolerance_gnomish_race_trigger = yes } }
-			#Low Tolerance - Small Minority
-			if = {
-				limit = {
-					has_small_gnomish_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = gnomish_minority_oppressed_small
-					duration = -1
-				}
-				remove_province_modifier = gnomish_minority_integrated_small
-				remove_province_modifier = gnomish_minority_coexisting_small
-			}
-			#Low Tolerance - Majority
-			else_if = {
-				limit = {
-					has_large_gnomish_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = gnomish_minority_oppressed_large
-					duration = -1
-				}
-				remove_province_modifier = gnomish_minority_integrated_large
-				remove_province_modifier = gnomish_minority_coexisting_large
-			}
-			#Low Tolerance - Majority
-			else_if = {
-				limit = {
-					has_gnomish_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = gnomish_majority_oppressed
-					duration = -1
-				}
-				remove_province_modifier = gnomish_majority_integrated
-				remove_province_modifier = gnomish_majority_primary
-				remove_province_modifier = gnomish_majority_coexisting
-			}
-		}
-	}
-
-
-	#Half Orcish
-	if = {
-		limit = { has_unmatching_half_orcish_tolerance_trigger = yes }
-		#High Tolerance - Integrated
-		if = {
-			limit = { owner = { high_tolerance_half_orcish_race_trigger = yes } }
-			#High Tolerance - Small Minority
-			if = {
-				limit = {
-					has_small_half_orcish_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = half_orcish_minority_integrated_small
-					duration = -1
-				}
-				remove_province_modifier = half_orcish_minority_oppressed_small
-				remove_province_modifier = half_orcish_minority_coexisting_small
-			}
-			#High Tolerance - Large Minority
-			else_if = {
-				limit = {
-					has_large_half_orcish_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = half_orcish_minority_integrated_large
-					duration = -1
-				}
-				remove_province_modifier = half_orcish_minority_oppressed_large
-				remove_province_modifier = half_orcish_minority_coexisting_large
-			}
-			#High Tolerance - Majority
-			else_if = {
-				limit = {
-					has_half_orcish_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = half_orcish_majority_integrated
-					duration = -1
-				}
-				remove_province_modifier = half_orcish_majority_oppressed
-				remove_province_modifier = half_orcish_majority_coexisting
-				remove_province_modifier = half_orcish_majority_primary
-			}
-		}
-		#Medium Tolerance - Coexisting
-		else_if = {
-			limit = { owner = { medium_tolerance_half_orcish_race_trigger = yes } }
-			#Medium Tolerance - Small Minority
-			if = {
-				limit = {
-					has_small_half_orcish_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = half_orcish_minority_coexisting_small
-					duration = -1
-				}
-				remove_province_modifier = half_orcish_minority_oppressed_small
-				remove_province_modifier = half_orcish_minority_integrated_small
-			}
-			#Medium Tolerance - Large Minority
-			else_if = {
-				limit = {
-					has_large_half_orcish_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = half_orcish_minority_coexisting_large
-					duration = -1
-				}
-				remove_province_modifier = half_orcish_minority_oppressed_large
-				remove_province_modifier = half_orcish_minority_integrated_large
-			}
-			#Medium Tolerance - Majority
-			else_if = {
-				limit = {
-					has_half_orcish_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = half_orcish_majority_coexisting
-					duration = -1
-				}
-				remove_province_modifier = half_orcish_majority_oppressed
-				remove_province_modifier = half_orcish_majority_integrated
-				remove_province_modifier = half_orcish_majority_primary
-			}
-		}
-		#Low Tolerance - Oppressed
-		else_if = {
-			limit = { owner = { low_tolerance_half_orcish_race_trigger = yes } }
-			#Low Tolerance - Small Minority
-			if = {
-				limit = {
-					has_small_half_orcish_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = half_orcish_minority_oppressed_small
-					duration = -1
-				}
-				remove_province_modifier = half_orcish_minority_integrated_small
-				remove_province_modifier = half_orcish_minority_coexisting_small
-			}
-			#Low Tolerance - Majority
-			else_if = {
-				limit = {
-					has_large_half_orcish_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = half_orcish_minority_oppressed_large
-					duration = -1
-				}
-				remove_province_modifier = half_orcish_minority_integrated_large
-				remove_province_modifier = half_orcish_minority_coexisting_large
-			}
-			#Low Tolerance - Majority
-			else_if = {
-				limit = {
-					has_half_orcish_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = half_orcish_majority_oppressed
-					duration = -1
-				}
-				remove_province_modifier = half_orcish_majority_integrated
-				remove_province_modifier = half_orcish_majority_primary
-				remove_province_modifier = half_orcish_majority_coexisting
-			}
-		}
-	}
-
-
-	#Kobold
-	if = {
-		limit = { has_unmatching_kobold_tolerance_trigger = yes }
-		#High Tolerance - Integrated
-		if = {
-			limit = { owner = { high_tolerance_kobold_race_trigger = yes } }
-			#High Tolerance - Small Minority
-			if = {
-				limit = {
-					has_small_kobold_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = kobold_minority_integrated_small
-					duration = -1
-				}
-				remove_province_modifier = kobold_minority_oppressed_small
-				remove_province_modifier = kobold_minority_coexisting_small
-			}
-			#High Tolerance - Large Minority
-			else_if = {
-				limit = {
-					has_large_kobold_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = kobold_minority_integrated_large
-					duration = -1
-				}
-				remove_province_modifier = kobold_minority_oppressed_large
-				remove_province_modifier = kobold_minority_coexisting_large
-			}
-			#High Tolerance - Majority
-			else_if = {
-				limit = {
-					has_kobold_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = kobold_majority_integrated
-					duration = -1
-				}
-				remove_province_modifier = kobold_majority_oppressed
-				remove_province_modifier = kobold_majority_coexisting
-				remove_province_modifier = kobold_majority_primary
-			}
-		}
-		#Medium Tolerance - Coexisting
-		else_if = {
-			limit = { owner = { medium_tolerance_kobold_race_trigger = yes } }
-			#Medium Tolerance - Small Minority
-			if = {
-				limit = {
-					has_small_kobold_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = kobold_minority_coexisting_small
-					duration = -1
-				}
-				remove_province_modifier = kobold_minority_oppressed_small
-				remove_province_modifier = kobold_minority_integrated_small
-			}
-			#Medium Tolerance - Large Minority
-			else_if = {
-				limit = {
-					has_large_kobold_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = kobold_minority_coexisting_large
-					duration = -1
-				}
-				remove_province_modifier = kobold_minority_oppressed_large
-				remove_province_modifier = kobold_minority_integrated_large
-			}
-			#Medium Tolerance - Majority
-			else_if = {
-				limit = {
-					has_kobold_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = kobold_majority_coexisting
-					duration = -1
-				}
-				remove_province_modifier = kobold_majority_oppressed
-				remove_province_modifier = kobold_majority_integrated
-				remove_province_modifier = kobold_majority_primary
-			}
-		}
-		#Low Tolerance - Oppressed
-		else_if = {
-			limit = { owner = { low_tolerance_kobold_race_trigger = yes } }
-			#Low Tolerance - Small Minority
-			if = {
-				limit = {
-					has_small_kobold_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = kobold_minority_oppressed_small
-					duration = -1
-				}
-				remove_province_modifier = kobold_minority_integrated_small
-				remove_province_modifier = kobold_minority_coexisting_small
-			}
-			#Low Tolerance - Majority
-			else_if = {
-				limit = {
-					has_large_kobold_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = kobold_minority_oppressed_large
-					duration = -1
-				}
-				remove_province_modifier = kobold_minority_integrated_large
-				remove_province_modifier = kobold_minority_coexisting_large
-			}
-			#Low Tolerance - Majority
-			else_if = {
-				limit = {
-					has_kobold_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = kobold_majority_oppressed
-					duration = -1
-				}
-				remove_province_modifier = kobold_majority_integrated
-				remove_province_modifier = kobold_majority_primary
-				remove_province_modifier = kobold_majority_coexisting
-			}
-		}
-	}
-
-
-	#Orcish
-	if = {
-		limit = { has_unmatching_orcish_tolerance_trigger = yes }
-		#High Tolerance - Integrated
-		if = {
-			limit = { owner = { high_tolerance_orcish_race_trigger = yes } }
-			#High Tolerance - Small Minority
-			if = {
-				limit = {
-					has_small_orcish_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = orcish_minority_integrated_small
-					duration = -1
-				}
-				remove_province_modifier = orcish_minority_oppressed_small
-				remove_province_modifier = orcish_minority_coexisting_small
-			}
-			#High Tolerance - Large Minority
-			else_if = {
-				limit = {
-					has_large_orcish_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = orcish_minority_integrated_large
-					duration = -1
-				}
-				remove_province_modifier = orcish_minority_oppressed_large
-				remove_province_modifier = orcish_minority_coexisting_large
-			}
-			#High Tolerance - Majority
-			else_if = {
-				limit = {
-					has_orcish_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = orcish_majority_integrated
-					duration = -1
-				}
-				remove_province_modifier = orcish_majority_oppressed
-				remove_province_modifier = orcish_majority_coexisting
-				remove_province_modifier = orcish_majority_primary
-			}
-		}
-		#Medium Tolerance - Coexisting
-		else_if = {
-			limit = { owner = { medium_tolerance_orcish_race_trigger = yes } }
-			#Medium Tolerance - Small Minority
-			if = {
-				limit = {
-					has_small_orcish_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = orcish_minority_coexisting_small
-					duration = -1
-				}
-				remove_province_modifier = orcish_minority_oppressed_small
-				remove_province_modifier = orcish_minority_integrated_small
-			}
-			#Medium Tolerance - Large Minority
-			else_if = {
-				limit = {
-					has_large_orcish_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = orcish_minority_coexisting_large
-					duration = -1
-				}
-				remove_province_modifier = orcish_minority_oppressed_large
-				remove_province_modifier = orcish_minority_integrated_large
-			}
-			#Medium Tolerance - Majority
-			else_if = {
-				limit = {
-					has_orcish_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = orcish_majority_coexisting
-					duration = -1
-				}
-				remove_province_modifier = orcish_majority_oppressed
-				remove_province_modifier = orcish_majority_integrated
-				remove_province_modifier = orcish_majority_primary
-			}
-		}
-		#Low Tolerance - Oppressed
-		else_if = {
-			limit = { owner = { low_tolerance_orcish_race_trigger = yes } }
-			#Low Tolerance - Small Minority
-			if = {
-				limit = {
-					has_small_orcish_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = orcish_minority_oppressed_small
-					duration = -1
-				}
-				remove_province_modifier = orcish_minority_integrated_small
-				remove_province_modifier = orcish_minority_coexisting_small
-			}
-			#Low Tolerance - Majority
-			else_if = {
-				limit = {
-					has_large_orcish_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = orcish_minority_oppressed_large
-					duration = -1
-				}
-				remove_province_modifier = orcish_minority_integrated_large
-				remove_province_modifier = orcish_minority_coexisting_large
-			}
-			#Low Tolerance - Majority
-			else_if = {
-				limit = {
-					has_orcish_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = orcish_majority_oppressed
-					duration = -1
-				}
-				remove_province_modifier = orcish_majority_integrated
-				remove_province_modifier = orcish_majority_primary
-				remove_province_modifier = orcish_majority_coexisting
-			}
-		}
-	}
-
-
-	#Human
-	if = {
-		limit = { has_unmatching_human_tolerance_trigger = yes }
-		#High Tolerance - Integrated
-		if = {
-			limit = { owner = { high_tolerance_human_race_trigger = yes } }
-			#High Tolerance - Small Minority
-			if = {
-				limit = {
-					has_small_human_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = human_minority_integrated_small
-					duration = -1
-				}
-				remove_province_modifier = human_minority_oppressed_small
-				remove_province_modifier = human_minority_coexisting_small
-			}
-			#High Tolerance - Large Minority
-			else_if = {
-				limit = {
-					has_large_human_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = human_minority_integrated_large
-					duration = -1
-				}
-				remove_province_modifier = human_minority_oppressed_large
-				remove_province_modifier = human_minority_coexisting_large
-			}
-			#High Tolerance - Majority
-			else_if = {
-				limit = {
-					has_human_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = human_majority_integrated
-					duration = -1
-				}
-				remove_province_modifier = human_majority_oppressed
-				remove_province_modifier = human_majority_coexisting
-				remove_province_modifier = human_majority_primary
-			}
-		}
-		#Medium Tolerance - Coexisting
-		else_if = {
-			limit = { owner = { medium_tolerance_human_race_trigger = yes } }
-			#Medium Tolerance - Small Minority
-			if = {
-				limit = {
-					has_small_human_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = human_minority_coexisting_small
-					duration = -1
-				}
-				remove_province_modifier = human_minority_oppressed_small
-				remove_province_modifier = human_minority_integrated_small
-			}
-			#Medium Tolerance - Large Minority
-			else_if = {
-				limit = {
-					has_large_human_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = human_minority_coexisting_large
-					duration = -1
-				}
-				remove_province_modifier = human_minority_oppressed_large
-				remove_province_modifier = human_minority_integrated_large
-			}
-			#Medium Tolerance - Majority
-			else_if = {
-				limit = {
-					has_human_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = human_majority_coexisting
-					duration = -1
-				}
-				remove_province_modifier = human_majority_oppressed
-				remove_province_modifier = human_majority_integrated
-				remove_province_modifier = human_majority_primary
-			}
-		}
-		#Low Tolerance - Oppressed
-		else_if = {
-			limit = { owner = { low_tolerance_human_race_trigger = yes } }
-			#Low Tolerance - Small Minority
-			if = {
-				limit = {
-					has_small_human_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = human_minority_oppressed_small
-					duration = -1
-				}
-				remove_province_modifier = human_minority_integrated_small
-				remove_province_modifier = human_minority_coexisting_small
-			}
-			#Low Tolerance - Majority
-			else_if = {
-				limit = {
-					has_large_human_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = human_minority_oppressed_large
-					duration = -1
-				}
-				remove_province_modifier = human_minority_integrated_large
-				remove_province_modifier = human_minority_coexisting_large
-			}
-			#Low Tolerance - Majority
-			else_if = {
-				limit = {
-					has_human_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = human_majority_oppressed
-					duration = -1
-				}
-				remove_province_modifier = human_majority_integrated
-				remove_province_modifier = human_majority_primary
-				remove_province_modifier = human_majority_coexisting
-			}
-		}
-	}
-
-
-	#Gnollish
-	if = {
-		limit = { has_unmatching_gnollish_tolerance_trigger = yes }
-		#High Tolerance - Integrated
-		if = {
-			limit = { owner = { high_tolerance_gnollish_race_trigger = yes } }
-			#High Tolerance - Small Minority
-			if = {
-				limit = {
-					has_small_gnollish_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = gnollish_minority_integrated_small
-					duration = -1
-				}
-				remove_province_modifier = gnollish_minority_oppressed_small
-				remove_province_modifier = gnollish_minority_coexisting_small
-			}
-			#High Tolerance - Large Minority
-			else_if = {
-				limit = {
-					has_large_gnollish_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = gnollish_minority_integrated_large
-					duration = -1
-				}
-				remove_province_modifier = gnollish_minority_oppressed_large
-				remove_province_modifier = gnollish_minority_coexisting_large
-			}
-			#High Tolerance - Majority
-			else_if = {
-				limit = {
-					has_gnollish_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = gnollish_majority_integrated
-					duration = -1
-				}
-				remove_province_modifier = gnollish_majority_oppressed
-				remove_province_modifier = gnollish_majority_coexisting
-				remove_province_modifier = gnollish_majority_primary
-			}
-		}
-		#Medium Tolerance - Coexisting
-		else_if = {
-			limit = { owner = { medium_tolerance_gnollish_race_trigger = yes } }
-			#Medium Tolerance - Small Minority
-			if = {
-				limit = {
-					has_small_gnollish_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = gnollish_minority_coexisting_small
-					duration = -1
-				}
-				remove_province_modifier = gnollish_minority_oppressed_small
-				remove_province_modifier = gnollish_minority_integrated_small
-			}
-			#Medium Tolerance - Large Minority
-			else_if = {
-				limit = {
-					has_large_gnollish_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = gnollish_minority_coexisting_large
-					duration = -1
-				}
-				remove_province_modifier = gnollish_minority_oppressed_large
-				remove_province_modifier = gnollish_minority_integrated_large
-			}
-			#Medium Tolerance - Majority
-			else_if = {
-				limit = {
-					has_gnollish_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = gnollish_majority_coexisting
-					duration = -1
-				}
-				remove_province_modifier = gnollish_majority_oppressed
-				remove_province_modifier = gnollish_majority_integrated
-				remove_province_modifier = gnollish_majority_primary
-			}
-		}
-		#Low Tolerance - Oppressed
-		else_if = {
-			limit = { owner = { low_tolerance_gnollish_race_trigger = yes } }
-			#Low Tolerance - Small Minority
-			if = {
-				limit = {
-					has_small_gnollish_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = gnollish_minority_oppressed_small
-					duration = -1
-				}
-				remove_province_modifier = gnollish_minority_integrated_small
-				remove_province_modifier = gnollish_minority_coexisting_small
-			}
-			#Low Tolerance - Majority
-			else_if = {
-				limit = {
-					has_large_gnollish_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = gnollish_minority_oppressed_large
-					duration = -1
-				}
-				remove_province_modifier = gnollish_minority_integrated_large
-				remove_province_modifier = gnollish_minority_coexisting_large
-			}
-			#Low Tolerance - Majority
-			else_if = {
-				limit = {
-					has_gnollish_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = gnollish_majority_oppressed
-					duration = -1
-				}
-				remove_province_modifier = gnollish_majority_integrated
-				remove_province_modifier = gnollish_majority_primary
-				remove_province_modifier = gnollish_majority_coexisting
-			}
-		}
-	}
-
-
-	#ruinborn
-	if = {
-		limit = { has_unmatching_ruinborn_tolerance_trigger = yes }
-		#High Tolerance - Integrated
-		if = {
-			limit = { owner = { high_tolerance_ruinborn_race_trigger = yes } }
-			#High Tolerance - Small Minority
-			if = {
-				limit = {
-					has_small_ruinborn_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = ruinborn_minority_integrated_small
-					duration = -1
-				}
-				remove_province_modifier = ruinborn_minority_oppressed_small
-				remove_province_modifier = ruinborn_minority_coexisting_small
-			}
-			#High Tolerance - Large Minority
-			else_if = {
-				limit = {
-					has_large_ruinborn_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = ruinborn_minority_integrated_large
-					duration = -1
-				}
-				remove_province_modifier = ruinborn_minority_oppressed_large
-				remove_province_modifier = ruinborn_minority_coexisting_large
-			}
-			#High Tolerance - Majority
-			else_if = {
-				limit = {
-					has_ruinborn_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = ruinborn_majority_integrated
-					duration = -1
-				}
-				remove_province_modifier = ruinborn_majority_oppressed
-				remove_province_modifier = ruinborn_majority_coexisting
-				remove_province_modifier = ruinborn_majority_primary
-			}
-		}
-		#Medium Tolerance - Coexisting
-		else_if = {
-			limit = { owner = { medium_tolerance_ruinborn_race_trigger = yes } }
-			#Medium Tolerance - Small Minority
-			if = {
-				limit = {
-					has_small_ruinborn_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = ruinborn_minority_coexisting_small
-					duration = -1
-				}
-				remove_province_modifier = ruinborn_minority_oppressed_small
-				remove_province_modifier = ruinborn_minority_integrated_small
-			}
-			#Medium Tolerance - Large Minority
-			else_if = {
-				limit = {
-					has_large_ruinborn_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = ruinborn_minority_coexisting_large
-					duration = -1
-				}
-				remove_province_modifier = ruinborn_minority_oppressed_large
-				remove_province_modifier = ruinborn_minority_integrated_large
-			}
-			#Medium Tolerance - Majority
-			else_if = {
-				limit = {
-					has_ruinborn_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = ruinborn_majority_coexisting
-					duration = -1
-				}
-				remove_province_modifier = ruinborn_majority_oppressed
-				remove_province_modifier = ruinborn_majority_integrated
-				remove_province_modifier = ruinborn_majority_primary
-			}
-		}
-		#Low Tolerance - Oppressed
-		else_if = {
-			limit = { owner = { low_tolerance_ruinborn_race_trigger = yes } }
-			#Low Tolerance - Small Minority
-			if = {
-				limit = {
-					has_small_ruinborn_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = ruinborn_minority_oppressed_small
-					duration = -1
-				}
-				remove_province_modifier = ruinborn_minority_integrated_small
-				remove_province_modifier = ruinborn_minority_coexisting_small
-			}
-			#Low Tolerance - Majority
-			else_if = {
-				limit = {
-					has_large_ruinborn_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = ruinborn_minority_oppressed_large
-					duration = -1
-				}
-				remove_province_modifier = ruinborn_minority_integrated_large
-				remove_province_modifier = ruinborn_minority_coexisting_large
-			}
-			#Low Tolerance - Majority
-			else_if = {
-				limit = {
-					has_ruinborn_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = ruinborn_majority_oppressed
-					duration = -1
-				}
-				remove_province_modifier = ruinborn_majority_integrated
-				remove_province_modifier = ruinborn_majority_primary
-				remove_province_modifier = ruinborn_majority_coexisting
-			}
-		}
-	}
-
-
-	#Goblin
-	if = {
-		limit = { has_unmatching_goblin_tolerance_trigger = yes }
-		#High Tolerance - Integrated
-		if = {
-			limit = { owner = { high_tolerance_goblin_race_trigger = yes } }
-			#High Tolerance - Small Minority
-			if = {
-				limit = {
-					has_small_goblin_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = goblin_minority_integrated_small
-					duration = -1
-				}
-				remove_province_modifier = goblin_minority_oppressed_small
-				remove_province_modifier = goblin_minority_coexisting_small
-			}
-			#High Tolerance - Large Minority
-			else_if = {
-				limit = {
-					has_large_goblin_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = goblin_minority_integrated_large
-					duration = -1
-				}
-				remove_province_modifier = goblin_minority_oppressed_large
-				remove_province_modifier = goblin_minority_coexisting_large
-			}
-			#High Tolerance - Majority
-			else_if = {
-				limit = {
-					has_goblin_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = goblin_majority_integrated
-					duration = -1
-				}
-				remove_province_modifier = goblin_majority_oppressed
-				remove_province_modifier = goblin_majority_coexisting
-				remove_province_modifier = goblin_majority_primary
-			}
-		}
-		#Medium Tolerance - Coexisting
-		else_if = {
-			limit = { owner = { medium_tolerance_goblin_race_trigger = yes } }
-			#Medium Tolerance - Small Minority
-			if = {
-				limit = {
-					has_small_goblin_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = goblin_minority_coexisting_small
-					duration = -1
-				}
-				remove_province_modifier = goblin_minority_oppressed_small
-				remove_province_modifier = goblin_minority_integrated_small
-			}
-			#Medium Tolerance - Large Minority
-			else_if = {
-				limit = {
-					has_large_goblin_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = goblin_minority_coexisting_large
-					duration = -1
-				}
-				remove_province_modifier = goblin_minority_oppressed_large
-				remove_province_modifier = goblin_minority_integrated_large
-			}
-			#Medium Tolerance - Majority
-			else_if = {
-				limit = {
-					has_goblin_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = goblin_majority_coexisting
-					duration = -1
-				}
-				remove_province_modifier = goblin_majority_oppressed
-				remove_province_modifier = goblin_majority_integrated
-				remove_province_modifier = goblin_majority_primary
-			}
-		}
-		#Low Tolerance - Oppressed
-		else_if = {
-			limit = { owner = { low_tolerance_goblin_race_trigger = yes } }
-			#Low Tolerance - Small Minority
-			if = {
-				limit = {
-					has_small_goblin_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = goblin_minority_oppressed_small
-					duration = -1
-				}
-				remove_province_modifier = goblin_minority_integrated_small
-				remove_province_modifier = goblin_minority_coexisting_small
-			}
-			#Low Tolerance - Majority
-			else_if = {
-				limit = {
-					has_large_goblin_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = goblin_minority_oppressed_large
-					duration = -1
-				}
-				remove_province_modifier = goblin_minority_integrated_large
-				remove_province_modifier = goblin_minority_coexisting_large
-			}
-			#Low Tolerance - Majority
-			else_if = {
-				limit = {
-					has_goblin_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = goblin_majority_oppressed
-					duration = -1
-				}
-				remove_province_modifier = goblin_majority_integrated
-				remove_province_modifier = goblin_majority_primary
-				remove_province_modifier = goblin_majority_coexisting
-			}
-		}
-	}
-
-
-	#Harpy
-	if = {
-		limit = { has_unmatching_harpy_tolerance_trigger = yes }
-		#High Tolerance - Integrated
-		if = {
-			limit = { owner = { high_tolerance_harpy_race_trigger = yes } }
-			#High Tolerance - Small Minority
-			if = {
-				limit = {
-					has_small_harpy_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = harpy_minority_integrated_small
-					duration = -1
-				}
-				remove_province_modifier = harpy_minority_oppressed_small
-				remove_province_modifier = harpy_minority_coexisting_small
-			}
-			#High Tolerance - Large Minority
-			else_if = {
-				limit = {
-					has_large_harpy_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = harpy_minority_integrated_large
-					duration = -1
-				}
-				remove_province_modifier = harpy_minority_oppressed_large
-				remove_province_modifier = harpy_minority_coexisting_large
-			}
-			#High Tolerance - Majority
-			else_if = {
-				limit = {
-					has_harpy_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = harpy_majority_integrated
-					duration = -1
-				}
-				remove_province_modifier = harpy_majority_oppressed
-				remove_province_modifier = harpy_majority_coexisting
-				remove_province_modifier = harpy_majority_primary
-			}
-		}
-		#Medium Tolerance - Coexisting
-		else_if = {
-			limit = { owner = { medium_tolerance_harpy_race_trigger = yes } }
-			#Medium Tolerance - Small Minority
-			if = {
-				limit = {
-					has_small_harpy_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = harpy_minority_coexisting_small
-					duration = -1
-				}
-				remove_province_modifier = harpy_minority_oppressed_small
-				remove_province_modifier = harpy_minority_integrated_small
-			}
-			#Medium Tolerance - Large Minority
-			else_if = {
-				limit = {
-					has_large_harpy_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = harpy_minority_coexisting_large
-					duration = -1
-				}
-				remove_province_modifier = harpy_minority_oppressed_large
-				remove_province_modifier = harpy_minority_integrated_large
-			}
-			#Medium Tolerance - Majority
-			else_if = {
-				limit = {
-					has_harpy_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = harpy_majority_coexisting
-					duration = -1
-				}
-				remove_province_modifier = harpy_majority_oppressed
-				remove_province_modifier = harpy_majority_integrated
-				remove_province_modifier = harpy_majority_primary
-			}
-		}
-		#Low Tolerance - Oppressed
-		else_if = {
-			limit = { owner = { low_tolerance_harpy_race_trigger = yes } }
-			#Low Tolerance - Small Minority
-			if = {
-				limit = {
-					has_small_harpy_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = harpy_minority_oppressed_small
-					duration = -1
-				}
-				remove_province_modifier = harpy_minority_integrated_small
-				remove_province_modifier = harpy_minority_coexisting_small
-			}
-			#Low Tolerance - Majority
-			else_if = {
-				limit = {
-					has_large_harpy_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = harpy_minority_oppressed_large
-					duration = -1
-				}
-				remove_province_modifier = harpy_minority_integrated_large
-				remove_province_modifier = harpy_minority_coexisting_large
-			}
-			#Low Tolerance - Majority
-			else_if = {
-				limit = {
-					has_harpy_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = harpy_majority_oppressed
-					duration = -1
-				}
-				remove_province_modifier = harpy_majority_integrated
-				remove_province_modifier = harpy_majority_primary
-				remove_province_modifier = harpy_majority_coexisting
-			}
-		}
-	}
-
-
-	#Troll
-	if = {
-		limit = { has_unmatching_troll_tolerance_trigger = yes }
-		#High Tolerance - Integrated
-		if = {
-			limit = { owner = { high_tolerance_troll_race_trigger = yes } }
-			#High Tolerance - Small Minority
-			if = {
-				limit = {
-					has_small_troll_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = troll_minority_integrated_small
-					duration = -1
-				}
-				remove_province_modifier = troll_minority_oppressed_small
-				remove_province_modifier = troll_minority_coexisting_small
-			}
-			#High Tolerance - Large Minority
-			else_if = {
-				limit = {
-					has_large_troll_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = troll_minority_integrated_large
-					duration = -1
-				}
-				remove_province_modifier = troll_minority_oppressed_large
-				remove_province_modifier = troll_minority_coexisting_large
-			}
-			#High Tolerance - Majority
-			else_if = {
-				limit = {
-					has_troll_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = troll_majority_integrated
-					duration = -1
-				}
-				remove_province_modifier = troll_majority_oppressed
-				remove_province_modifier = troll_majority_coexisting
-				remove_province_modifier = troll_majority_primary
-			}
-		}
-		#Medium Tolerance - Coexisting
-		else_if = {
-			limit = { owner = { medium_tolerance_troll_race_trigger = yes } }
-			#Medium Tolerance - Small Minority
-			if = {
-				limit = {
-					has_small_troll_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = troll_minority_coexisting_small
-					duration = -1
-				}
-				remove_province_modifier = troll_minority_oppressed_small
-				remove_province_modifier = troll_minority_integrated_small
-			}
-			#Medium Tolerance - Large Minority
-			else_if = {
-				limit = {
-					has_large_troll_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = troll_minority_coexisting_large
-					duration = -1
-				}
-				remove_province_modifier = troll_minority_oppressed_large
-				remove_province_modifier = troll_minority_integrated_large
-			}
-			#Medium Tolerance - Majority
-			else_if = {
-				limit = {
-					has_troll_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = troll_majority_coexisting
-					duration = -1
-				}
-				remove_province_modifier = troll_majority_oppressed
-				remove_province_modifier = troll_majority_integrated
-				remove_province_modifier = troll_majority_primary
-			}
-		}
-		#Low Tolerance - Oppressed
-		else_if = {
-			limit = { owner = { low_tolerance_troll_race_trigger = yes } }
-			#Low Tolerance - Small Minority
-			if = {
-				limit = {
-					has_small_troll_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = troll_minority_oppressed_small
-					duration = -1
-				}
-				remove_province_modifier = troll_minority_integrated_small
-				remove_province_modifier = troll_minority_coexisting_small
-			}
-			#Low Tolerance - Majority
-			else_if = {
-				limit = {
-					has_large_troll_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = troll_minority_oppressed_large
-					duration = -1
-				}
-				remove_province_modifier = troll_minority_integrated_large
-				remove_province_modifier = troll_minority_coexisting_large
-			}
-			#Low Tolerance - Majority
-			else_if = {
-				limit = {
-					has_troll_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = troll_majority_oppressed
-					duration = -1
-				}
-				remove_province_modifier = troll_majority_integrated
-				remove_province_modifier = troll_majority_primary
-				remove_province_modifier = troll_majority_coexisting
-			}
-		}
-	}
-
-
-	#Half-elven
-	if = {
-		limit = { has_unmatching_half_elven_tolerance_trigger = yes }
-		#High Tolerance - Integrated
-		if = {
-			limit = { owner = { high_tolerance_half_elven_race_trigger = yes } }
-			#High Tolerance - Small Minority
-			if = {
-				limit = {
-					has_small_half_elven_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = half_elven_minority_integrated_small
-					duration = -1
-				}
-				remove_province_modifier = half_elven_minority_oppressed_small
-				remove_province_modifier = half_elven_minority_coexisting_small
-			}
-			#High Tolerance - Large Minority
-			else_if = {
-				limit = {
-					has_large_half_elven_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = half_elven_minority_integrated_large
-					duration = -1
-				}
-				remove_province_modifier = half_elven_minority_oppressed_large
-				remove_province_modifier = half_elven_minority_coexisting_large
-			}
-			#High Tolerance - Majority
-			else_if = {
-				limit = {
-					has_half_elven_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = half_elven_majority_integrated
-					duration = -1
-				}
-				remove_province_modifier = half_elven_majority_oppressed
-				remove_province_modifier = half_elven_majority_coexisting
-				remove_province_modifier = half_elven_majority_primary
-			}
-		}
-		#Medium Tolerance - Coexisting
-		else_if = {
-			limit = { owner = { medium_tolerance_half_elven_race_trigger = yes } }
-			#Medium Tolerance - Small Minority
-			if = {
-				limit = {
-					has_small_half_elven_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = half_elven_minority_coexisting_small
-					duration = -1
-				}
-				remove_province_modifier = half_elven_minority_oppressed_small
-				remove_province_modifier = half_elven_minority_integrated_small
-			}
-			#Medium Tolerance - Large Minority
-			else_if = {
-				limit = {
-					has_large_half_elven_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = half_elven_minority_coexisting_large
-					duration = -1
-				}
-				remove_province_modifier = half_elven_minority_oppressed_large
-				remove_province_modifier = half_elven_minority_integrated_large
-			}
-			#Medium Tolerance - Majority
-			else_if = {
-				limit = {
-					has_half_elven_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = half_elven_majority_coexisting
-					duration = -1
-				}
-				remove_province_modifier = half_elven_majority_oppressed
-				remove_province_modifier = half_elven_majority_integrated
-				remove_province_modifier = half_elven_majority_primary
-			}
-		}
-		#Low Tolerance - Oppressed
-		else_if = {
-			limit = { owner = { low_tolerance_half_elven_race_trigger = yes } }
-			#Low Tolerance - Small Minority
-			if = {
-				limit = {
-					has_small_half_elven_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = half_elven_minority_oppressed_small
-					duration = -1
-				}
-				remove_province_modifier = half_elven_minority_integrated_small
-				remove_province_modifier = half_elven_minority_coexisting_small
-			}
-			#Low Tolerance - Majority
-			else_if = {
-				limit = {
-					has_large_half_elven_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = half_elven_minority_oppressed_large
-					duration = -1
-				}
-				remove_province_modifier = half_elven_minority_integrated_large
-				remove_province_modifier = half_elven_minority_coexisting_large
-			}
-			#Low Tolerance - Majority
-			else_if = {
-				limit = {
-					has_half_elven_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = half_elven_majority_oppressed
-					duration = -1
-				}
-				remove_province_modifier = half_elven_majority_integrated
-				remove_province_modifier = half_elven_majority_primary
-				remove_province_modifier = half_elven_majority_coexisting
-			}
-		}
-	}
-
-
-	#Harimari
-	if = {
-		limit = { has_unmatching_harimari_tolerance_trigger = yes }
-		#High Tolerance - Integrated
-		if = {
-			limit = { owner = { high_tolerance_harimari_race_trigger = yes } }
-			#High Tolerance - Small Minority
-			if = {
-				limit = {
-					has_small_harimari_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = harimari_minority_integrated_small
-					duration = -1
-				}
-				remove_province_modifier = harimari_minority_oppressed_small
-				remove_province_modifier = harimari_minority_coexisting_small
-			}
-			#High Tolerance - Large Minority
-			else_if = {
-				limit = {
-					has_large_harimari_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = harimari_minority_integrated_large
-					duration = -1
-				}
-				remove_province_modifier = harimari_minority_oppressed_large
-				remove_province_modifier = harimari_minority_coexisting_large
-			}
-			#High Tolerance - Majority
-			else_if = {
-				limit = {
-					has_harimari_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = harimari_majority_integrated
-					duration = -1
-				}
-				remove_province_modifier = harimari_majority_oppressed
-				remove_province_modifier = harimari_majority_coexisting
-				remove_province_modifier = harimari_majority_primary
-			}
-		}
-		#Medium Tolerance - Coexisting
-		else_if = {
-			limit = { owner = { medium_tolerance_harimari_race_trigger = yes } }
-			#Medium Tolerance - Small Minority
-			if = {
-				limit = {
-					has_small_harimari_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = harimari_minority_coexisting_small
-					duration = -1
-				}
-				remove_province_modifier = harimari_minority_oppressed_small
-				remove_province_modifier = harimari_minority_integrated_small
-			}
-			#Medium Tolerance - Large Minority
-			else_if = {
-				limit = {
-					has_large_harimari_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = harimari_minority_coexisting_large
-					duration = -1
-				}
-				remove_province_modifier = harimari_minority_oppressed_large
-				remove_province_modifier = harimari_minority_integrated_large
-			}
-			#Medium Tolerance - Majority
-			else_if = {
-				limit = {
-					has_harimari_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = harimari_majority_coexisting
-					duration = -1
-				}
-				remove_province_modifier = harimari_majority_oppressed
-				remove_province_modifier = harimari_majority_integrated
-				remove_province_modifier = harimari_majority_primary
-			}
-		}
-		#Low Tolerance - Oppressed
-		else_if = {
-			limit = { owner = { low_tolerance_harimari_race_trigger = yes } }
-			#Low Tolerance - Small Minority
-			if = {
-				limit = {
-					has_small_harimari_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = harimari_minority_oppressed_small
-					duration = -1
-				}
-				remove_province_modifier = harimari_minority_integrated_small
-				remove_province_modifier = harimari_minority_coexisting_small
-			}
-			#Low Tolerance - Majority
-			else_if = {
-				limit = {
-					has_large_harimari_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = harimari_minority_oppressed_large
-					duration = -1
-				}
-				remove_province_modifier = harimari_minority_integrated_large
-				remove_province_modifier = harimari_minority_coexisting_large
-			}
-			#Low Tolerance - Majority
-			else_if = {
-				limit = {
-					has_harimari_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = harimari_majority_oppressed
-					duration = -1
-				}
-				remove_province_modifier = harimari_majority_integrated
-				remove_province_modifier = harimari_majority_primary
-				remove_province_modifier = harimari_majority_coexisting
-			}
-		}
-	}
-
-
-	#Hobgoblin
-	if = {
-		limit = { has_unmatching_hobgoblin_tolerance_trigger = yes }
-		#High Tolerance - Integrated
-		if = {
-			limit = { owner = { high_tolerance_hobgoblin_race_trigger = yes } }
-			#High Tolerance - Small Minority
-			if = {
-				limit = {
-					has_small_hobgoblin_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = hobgoblin_minority_integrated_small
-					duration = -1
-				}
-				remove_province_modifier = hobgoblin_minority_oppressed_small
-				remove_province_modifier = hobgoblin_minority_coexisting_small
-			}
-			#High Tolerance - Large Minority
-			else_if = {
-				limit = {
-					has_large_hobgoblin_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = hobgoblin_minority_integrated_large
-					duration = -1
-				}
-				remove_province_modifier = hobgoblin_minority_oppressed_large
-				remove_province_modifier = hobgoblin_minority_coexisting_large
-			}
-			#High Tolerance - Majority
-			else_if = {
-				limit = {
-					has_hobgoblin_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = hobgoblin_majority_integrated
-					duration = -1
-				}
-				remove_province_modifier = hobgoblin_majority_oppressed
-				remove_province_modifier = hobgoblin_majority_coexisting
-				remove_province_modifier = hobgoblin_majority_primary
-			}
-		}
-		#Medium Tolerance - Coexisting
-		else_if = {
-			limit = { owner = { medium_tolerance_hobgoblin_race_trigger = yes } }
-			#Medium Tolerance - Small Minority
-			if = {
-				limit = {
-					has_small_hobgoblin_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = hobgoblin_minority_coexisting_small
-					duration = -1
-				}
-				remove_province_modifier = hobgoblin_minority_oppressed_small
-				remove_province_modifier = hobgoblin_minority_integrated_small
-			}
-			#Medium Tolerance - Large Minority
-			else_if = {
-				limit = {
-					has_large_hobgoblin_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = hobgoblin_minority_coexisting_large
-					duration = -1
-				}
-				remove_province_modifier = hobgoblin_minority_oppressed_large
-				remove_province_modifier = hobgoblin_minority_integrated_large
-			}
-			#Medium Tolerance - Majority
-			else_if = {
-				limit = {
-					has_hobgoblin_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = hobgoblin_majority_coexisting
-					duration = -1
-				}
-				remove_province_modifier = hobgoblin_majority_oppressed
-				remove_province_modifier = hobgoblin_majority_integrated
-				remove_province_modifier = hobgoblin_majority_primary
-			}
-		}
-		#Low Tolerance - Oppressed
-		else_if = {
-			limit = { owner = { low_tolerance_hobgoblin_race_trigger = yes } }
-			#Low Tolerance - Small Minority
-			if = {
-				limit = {
-					has_small_hobgoblin_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = hobgoblin_minority_oppressed_small
-					duration = -1
-				}
-				remove_province_modifier = hobgoblin_minority_integrated_small
-				remove_province_modifier = hobgoblin_minority_coexisting_small
-			}
-			#Low Tolerance - Majority
-			else_if = {
-				limit = {
-					has_large_hobgoblin_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = hobgoblin_minority_oppressed_large
-					duration = -1
-				}
-				remove_province_modifier = hobgoblin_minority_integrated_large
-				remove_province_modifier = hobgoblin_minority_coexisting_large
-			}
-			#Low Tolerance - Majority
-			else_if = {
-				limit = {
-					has_hobgoblin_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = hobgoblin_majority_oppressed
-					duration = -1
-				}
-				remove_province_modifier = hobgoblin_majority_integrated
-				remove_province_modifier = hobgoblin_majority_primary
-				remove_province_modifier = hobgoblin_majority_coexisting
-			}
-		}
-	}
-
-
-	#Centaur
-	if = {
-		limit = { has_unmatching_centaur_tolerance_trigger = yes }
-		#High Tolerance - Integrated
-		if = {
-			limit = { owner = { high_tolerance_centaur_race_trigger = yes } }
-			#High Tolerance - Small Minority
-			if = {
-				limit = {
-					has_small_centaur_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = centaur_minority_integrated_small
-					duration = -1
-				}
-				remove_province_modifier = centaur_minority_oppressed_small
-				remove_province_modifier = centaur_minority_coexisting_small
-			}
-			#High Tolerance - Large Minority
-			else_if = {
-				limit = {
-					has_large_centaur_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = centaur_minority_integrated_large
-					duration = -1
-				}
-				remove_province_modifier = centaur_minority_oppressed_large
-				remove_province_modifier = centaur_minority_coexisting_large
-			}
-			#High Tolerance - Majority
-			else_if = {
-				limit = {
-					has_centaur_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = centaur_majority_integrated
-					duration = -1
-				}
-				remove_province_modifier = centaur_majority_oppressed
-				remove_province_modifier = centaur_majority_coexisting
-				remove_province_modifier = centaur_majority_primary
-			}
-		}
-		#Medium Tolerance - Coexisting
-		else_if = {
-			limit = { owner = { medium_tolerance_centaur_race_trigger = yes } }
-			#Medium Tolerance - Small Minority
-			if = {
-				limit = {
-					has_small_centaur_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = centaur_minority_coexisting_small
-					duration = -1
-				}
-				remove_province_modifier = centaur_minority_oppressed_small
-				remove_province_modifier = centaur_minority_integrated_small
-			}
-			#Medium Tolerance - Large Minority
-			else_if = {
-				limit = {
-					has_large_centaur_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = centaur_minority_coexisting_large
-					duration = -1
-				}
-				remove_province_modifier = centaur_minority_oppressed_large
-				remove_province_modifier = centaur_minority_integrated_large
-			}
-			#Medium Tolerance - Majority
-			else_if = {
-				limit = {
-					has_centaur_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = centaur_majority_coexisting
-					duration = -1
-				}
-				remove_province_modifier = centaur_majority_oppressed
-				remove_province_modifier = centaur_majority_integrated
-				remove_province_modifier = centaur_majority_primary
-			}
-		}
-		#Low Tolerance - Oppressed
-		else_if = {
-			limit = { owner = { low_tolerance_centaur_race_trigger = yes } }
-			#Low Tolerance - Small Minority
-			if = {
-				limit = {
-					has_small_centaur_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = centaur_minority_oppressed_small
-					duration = -1
-				}
-				remove_province_modifier = centaur_minority_integrated_small
-				remove_province_modifier = centaur_minority_coexisting_small
-			}
-			#Low Tolerance - Majority
-			else_if = {
-				limit = {
-					has_large_centaur_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = centaur_minority_oppressed_large
-					duration = -1
-				}
-				remove_province_modifier = centaur_minority_integrated_large
-				remove_province_modifier = centaur_minority_coexisting_large
-			}
-			#Low Tolerance - Majority
-			else_if = {
-				limit = {
-					has_centaur_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = centaur_majority_oppressed
-					duration = -1
-				}
-				remove_province_modifier = centaur_majority_integrated
-				remove_province_modifier = centaur_majority_primary
-				remove_province_modifier = centaur_majority_coexisting
-			}
-		}
-	}
-
-
-	#Ogre
-	if = {
-		limit = { has_unmatching_ogre_tolerance_trigger = yes }
-		#High Tolerance - Integrated
-		if = {
-			limit = { owner = { high_tolerance_ogre_race_trigger = yes } }
-			#High Tolerance - Small Minority
-			if = {
-				limit = {
-					has_small_ogre_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = ogre_minority_integrated_small
-					duration = -1
-				}
-				remove_province_modifier = ogre_minority_oppressed_small
-				remove_province_modifier = ogre_minority_coexisting_small
-			}
-			#High Tolerance - Large Minority
-			else_if = {
-				limit = {
-					has_large_ogre_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = ogre_minority_integrated_large
-					duration = -1
-				}
-				remove_province_modifier = ogre_minority_oppressed_large
-				remove_province_modifier = ogre_minority_coexisting_large
-			}
-			#High Tolerance - Majority
-			else_if = {
-				limit = {
-					has_ogre_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = ogre_majority_integrated
-					duration = -1
-				}
-				remove_province_modifier = ogre_majority_oppressed
-				remove_province_modifier = ogre_majority_coexisting
-				remove_province_modifier = ogre_majority_primary
-			}
-		}
-		#Medium Tolerance - Coexisting
-		else_if = {
-			limit = { owner = { medium_tolerance_ogre_race_trigger = yes } }
-			#Medium Tolerance - Small Minority
-			if = {
-				limit = {
-					has_small_ogre_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = ogre_minority_coexisting_small
-					duration = -1
-				}
-				remove_province_modifier = ogre_minority_oppressed_small
-				remove_province_modifier = ogre_minority_integrated_small
-			}
-			#Medium Tolerance - Large Minority
-			else_if = {
-				limit = {
-					has_large_ogre_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = ogre_minority_coexisting_large
-					duration = -1
-				}
-				remove_province_modifier = ogre_minority_oppressed_large
-				remove_province_modifier = ogre_minority_integrated_large
-			}
-			#Medium Tolerance - Majority
-			else_if = {
-				limit = {
-					has_ogre_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = ogre_majority_coexisting
-					duration = -1
-				}
-				remove_province_modifier = ogre_majority_oppressed
-				remove_province_modifier = ogre_majority_integrated
-				remove_province_modifier = ogre_majority_primary
-			}
-		}
-		#Low Tolerance - Oppressed
-		else_if = {
-			limit = { owner = { low_tolerance_ogre_race_trigger = yes } }
-			#Low Tolerance - Small Minority
-			if = {
-				limit = {
-					has_small_ogre_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = ogre_minority_oppressed_small
-					duration = -1
-				}
-				remove_province_modifier = ogre_minority_integrated_small
-				remove_province_modifier = ogre_minority_coexisting_small
-			}
-			#Low Tolerance - Majority
-			else_if = {
-				limit = {
-					has_large_ogre_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = ogre_minority_oppressed_large
-					duration = -1
-				}
-				remove_province_modifier = ogre_minority_integrated_large
-				remove_province_modifier = ogre_minority_coexisting_large
-			}
-			#Low Tolerance - Majority
-			else_if = {
-				limit = {
-					has_ogre_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = ogre_majority_oppressed
-					duration = -1
-				}
-				remove_province_modifier = ogre_majority_integrated
-				remove_province_modifier = ogre_majority_primary
-				remove_province_modifier = ogre_majority_coexisting
-			}
-		}
-	}
-
-
-	#Lizardfolk
-	if = {
-		limit = { has_unmatching_lizardfolk_tolerance_trigger = yes }
-		#High Tolerance - Integrated
-		if = {
-			limit = { owner = { high_tolerance_lizardfolk_race_trigger = yes } }
-			#High Tolerance - Small Minority
-			if = {
-				limit = {
-					has_small_lizardfolk_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = lizardfolk_minority_integrated_small
-					duration = -1
-				}
-				remove_province_modifier = lizardfolk_minority_oppressed_small
-				remove_province_modifier = lizardfolk_minority_coexisting_small
-			}
-			#High Tolerance - Large Minority
-			else_if = {
-				limit = {
-					has_large_lizardfolk_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = lizardfolk_minority_integrated_large
-					duration = -1
-				}
-				remove_province_modifier = lizardfolk_minority_oppressed_large
-				remove_province_modifier = lizardfolk_minority_coexisting_large
-			}
-			#High Tolerance - Majority
-			else_if = {
-				limit = {
-					has_lizardfolk_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = lizardfolk_majority_integrated
-					duration = -1
-				}
-				remove_province_modifier = lizardfolk_majority_oppressed
-				remove_province_modifier = lizardfolk_majority_coexisting
-				remove_province_modifier = lizardfolk_majority_primary
-			}
-		}
-		#Medium Tolerance - Coexisting
-		else_if = {
-			limit = { owner = { medium_tolerance_lizardfolk_race_trigger = yes } }
-			#Medium Tolerance - Small Minority
-			if = {
-				limit = {
-					has_small_lizardfolk_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = lizardfolk_minority_coexisting_small
-					duration = -1
-				}
-				remove_province_modifier = lizardfolk_minority_oppressed_small
-				remove_province_modifier = lizardfolk_minority_integrated_small
-			}
-			#Medium Tolerance - Large Minority
-			else_if = {
-				limit = {
-					has_large_lizardfolk_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = lizardfolk_minority_coexisting_large
-					duration = -1
-				}
-				remove_province_modifier = lizardfolk_minority_oppressed_large
-				remove_province_modifier = lizardfolk_minority_integrated_large
-			}
-			#Medium Tolerance - Majority
-			else_if = {
-				limit = {
-					has_lizardfolk_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = lizardfolk_majority_coexisting
-					duration = -1
-				}
-				remove_province_modifier = lizardfolk_majority_oppressed
-				remove_province_modifier = lizardfolk_majority_integrated
-				remove_province_modifier = lizardfolk_majority_primary
-			}
-		}
-		#Low Tolerance - Oppressed
-		else_if = {
-			limit = { owner = { low_tolerance_lizardfolk_race_trigger = yes } }
-			#Low Tolerance - Small Minority
-			if = {
-				limit = {
-					has_small_lizardfolk_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = lizardfolk_minority_oppressed_small
-					duration = -1
-				}
-				remove_province_modifier = lizardfolk_minority_integrated_small
-				remove_province_modifier = lizardfolk_minority_coexisting_small
-			}
-			#Low Tolerance - Majority
-			else_if = {
-				limit = {
-					has_large_lizardfolk_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = lizardfolk_minority_oppressed_large
-					duration = -1
-				}
-				remove_province_modifier = lizardfolk_minority_integrated_large
-				remove_province_modifier = lizardfolk_minority_coexisting_large
-			}
-			#Low Tolerance - Majority
-			else_if = {
-				limit = {
-					has_lizardfolk_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = lizardfolk_majority_oppressed
-					duration = -1
-				}
-				remove_province_modifier = lizardfolk_majority_integrated
-				remove_province_modifier = lizardfolk_majority_primary
-				remove_province_modifier = lizardfolk_majority_coexisting
-			}
-		}
-	}
-
-	make_majority_primary = yes
 }
 
 #This should be use in a province scope
-update_specific_racial_province_modifier_tolerance = { #$race$ = the race you're checking for
-
-	# REB = { change_variable = { specificRacialTolerance = 1 } }
+update_specific_racial_province_modifier_tolerance = { #$RACE$ = the race you're checking for
 	if = {
-		limit = { has_unmatching_$race$_tolerance_trigger = yes }
-		#High Tolerance - Integrated
+		limit = { has_unmatching_$RACE$_tolerance_trigger = yes }
 		if = {
-			limit = { owner = { high_tolerance_$race$_race_trigger = yes } }
-			#High Tolerance - Small Minority
+			limit = { owner = { high_tolerance_$RACE$_race_trigger = yes } }
 			if = {
-				limit = {
-					has_small_$race$_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = $race$_minority_integrated_small
-					duration = -1
-				}
-				remove_province_modifier = $race$_minority_oppressed_small
-				remove_province_modifier = $race$_minority_coexisting_small
+				limit = { has_small_$RACE$_minority_trigger = yes }
+				add_permanent_province_modifier = { name = $RACE$_minority_integrated_small duration = -1 }
+				remove_province_modifier = $RACE$_minority_oppressed_small
+				remove_province_modifier = $RACE$_minority_coexisting_small
 			}
-			#High Tolerance - Large Minority
 			else_if = {
-				limit = {
-					has_large_$race$_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = $race$_minority_integrated_large
-					duration = -1
-				}
-				remove_province_modifier = $race$_minority_oppressed_large
-				remove_province_modifier = $race$_minority_coexisting_large
+				limit = { has_large_$RACE$_minority_trigger = yes }
+				add_permanent_province_modifier = { name = $RACE$_minority_integrated_large duration = -1 }
+				remove_province_modifier = $RACE$_minority_oppressed_large
+				remove_province_modifier = $RACE$_minority_coexisting_large
 			}
-			#High Tolerance - Majority
 			else_if = {
-				limit = {
-					has_$race$_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = $race$_majority_integrated
-					duration = -1
-				}
-				remove_province_modifier = $race$_majority_primary
-				remove_province_modifier = $race$_majority_oppressed
-				remove_province_modifier = $race$_majority_coexisting
+				limit = { has_$RACE$_majority_trigger = yes }
+				add_permanent_province_modifier = { name = $RACE$_majority_integrated duration = -1 }
+				remove_province_modifier = $RACE$_majority_primary
+				remove_province_modifier = $RACE$_majority_oppressed
+				remove_province_modifier = $RACE$_majority_coexisting
 			}
 		}
-		#Medium Tolerance - Coexisting
 		else_if = {
-			limit = { owner = { medium_tolerance_$race$_race_trigger = yes } }
-			#Medium Tolerance - Small Minority
+			limit = { owner = { medium_tolerance_$RACE$_race_trigger = yes } }
 			if = {
-				limit = {
-					has_small_$race$_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = $race$_minority_coexisting_small
-					duration = -1
-				}
-				remove_province_modifier = $race$_minority_oppressed_small
-				remove_province_modifier = $race$_minority_integrated_small
+				limit = { has_small_$RACE$_minority_trigger = yes }
+				add_permanent_province_modifier = { name = $RACE$_minority_coexisting_small duration = -1 }
+				remove_province_modifier = $RACE$_minority_oppressed_small
+				remove_province_modifier = $RACE$_minority_integrated_small
 			}
-			#Medium Tolerance - Large Minority
 			else_if = {
-				limit = {
-					has_large_$race$_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = $race$_minority_coexisting_large
-					duration = -1
-				}
-				remove_province_modifier = $race$_minority_oppressed_large
-				remove_province_modifier = $race$_minority_integrated_large
+				limit = { has_large_$RACE$_minority_trigger = yes }
+				add_permanent_province_modifier = { name = $RACE$_minority_coexisting_large duration = -1 }
+				remove_province_modifier = $RACE$_minority_oppressed_large
+				remove_province_modifier = $RACE$_minority_integrated_large
 			}
-			#Medium Tolerance - Majority
 			else_if = {
-				limit = {
-					has_$race$_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = $race$_majority_coexisting
-					duration = -1
-				}
-				remove_province_modifier = $race$_majority_oppressed
-				remove_province_modifier = $race$_majority_integrated
-				remove_province_modifier = $race$_majority_primary
+				limit = { has_$RACE$_majority_trigger = yes }
+				add_permanent_province_modifier = { name = $RACE$_majority_coexisting duration = -1 }
+				remove_province_modifier = $RACE$_majority_oppressed
+				remove_province_modifier = $RACE$_majority_integrated
+				remove_province_modifier = $RACE$_majority_primary
 			}
 		}
-		#Low Tolerance - Oppressed
 		else_if = {
-			limit = { owner = { low_tolerance_$race$_race_trigger = yes } }
-			#Low Tolerance - Small Minority
+			limit = { owner = { low_tolerance_$RACE$_race_trigger = yes } }
 			if = {
-				limit = {
-					has_small_$race$_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = $race$_minority_oppressed_small
-					duration = -1
-				}
-				remove_province_modifier = $race$_minority_integrated_small
-				remove_province_modifier = $race$_minority_coexisting_small
+				limit = { has_small_$RACE$_minority_trigger = yes }
+				add_permanent_province_modifier = { name = $RACE$_minority_oppressed_small duration = -1 }
+				remove_province_modifier = $RACE$_minority_integrated_small
+				remove_province_modifier = $RACE$_minority_coexisting_small
 			}
-			#Low Tolerance - Majority
 			else_if = {
-				limit = {
-					has_large_$race$_minority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = $race$_minority_oppressed_large
-					duration = -1
-				}
-				remove_province_modifier = $race$_minority_integrated_large
-				remove_province_modifier = $race$_minority_coexisting_large
+				limit = { has_large_$RACE$_minority_trigger = yes }
+				add_permanent_province_modifier = { name = $RACE$_minority_oppressed_large duration = -1 }
+				remove_province_modifier = $RACE$_minority_integrated_large
+				remove_province_modifier = $RACE$_minority_coexisting_large
 			}
-			#Low Tolerance - Majority
 			else_if = {
-				limit = {
-					has_$race$_majority_trigger = yes
-				}
-				add_permanent_province_modifier = {
-					name = $race$_majority_oppressed
-					duration = -1
-				}
-				remove_province_modifier = $race$_majority_primary
-				remove_province_modifier = $race$_majority_integrated
-				remove_province_modifier = $race$_majority_coexisting
+				limit = { has_$RACE$_majority_trigger = yes }
+				add_permanent_province_modifier = { name = $RACE$_majority_oppressed duration = -1 }
+				remove_province_modifier = $RACE$_majority_primary
+				remove_province_modifier = $RACE$_majority_integrated
+				remove_province_modifier = $RACE$_majority_coexisting
 			}
 		}
-		make_majority_primary = yes
+	}
+}
+update_all_racial_province_majority = {
+	if = {
+		limit = {
+			has_$RACE$_majority_trigger = yes
+			OR = {
+				[[human] NOT = { culture_is_$RACE$ = yes} ]
+				[[elven] NOT = { culture_group = $RACE$ } ]
+				[[dwarven] NOT = { culture_group = $RACE$ } ]
+				[[gnomish] NOT = { culture_group = $RACE$ } ]
+				[[halfling] NOT = { culture_group = $RACE$ } ]
+				[[gnomish] NOT = { culture_group = $RACE$ } ]
+				[[ruinborn] NOT = { culture_is_$RACE$ = yes} ]
+				[[harimari] NOT = { culture_group = $RACE$ } ]
+				[[orcish] NOT = { culture_group = $RACE$ } ]
+				[[goblin] NOT = { culture_group = $RACE$ } ]
+				[[ogre] NOT = { culture_group = $RACE$ } ]
+				[[centaur] NOT = { culture_group = $RACE$ } ]
+				[[troll ] NOT = { culture_is_$RACE$ = yes} ]
+				[[harpy] NOT = { culture_group = $RACE$ } ]
+				[[half_orcish] NOT = { culture_is_$RACE$ = yes} ]
+				[[half_elven ] NOT = { culture_is_$RACE$ = yes} ]
+				[[kobold] NOT = { culture_group = $RACE$ } ]
+				[[hobgoblin] NOT = { culture_group = $RACE$ } ]
+				[[lizardfolk] NOT = { culture_group = $RACE$ } ]
+				[[lizardfolk] NOT = { culture_group = adzalan_$RACE$ } ]
+			}
+		}
+		add_permanent_province_modifier = { name = $RACE$_minority_coexisting_large duration = -1 }
+		remove_province_modifier = $RACE$_majority_primary
+		remove_province_modifier = $RACE$_majority_integrated
+		remove_province_modifier = $RACE$_majority_coexisting
+		remove_province_modifier = $RACE$_majority_oppressed
+	}
+	if = {
+		limit = {
+			has_$RACE$_majority_trigger = yes
+			OR = {
+				[[human] NOT = { culture_is_$RACE$ = yes} ]
+				[[elven] NOT = { culture_group = $RACE$ } ]
+				[[dwarven] NOT = { culture_group = $RACE$ } ]
+				[[gnomish] NOT = { culture_group = $RACE$ } ]
+				[[halfling] NOT = { culture_group = $RACE$ } ]
+				[[gnomish] NOT = { culture_group = $RACE$ } ]
+				[[ruinborn] NOT = { culture_is_$RACE$ = yes} ]
+				[[harimari] NOT = { culture_group = $RACE$ } ]
+				[[orcish] NOT = { culture_group = $RACE$ } ]
+				[[goblin] NOT = { culture_group = $RACE$ } ]
+				[[ogre] NOT = { culture_group = $RACE$ } ]
+				[[centaur] NOT = { culture_group = $RACE$ } ]
+				[[troll ] NOT = { culture_is_$RACE$ = yes} ]
+				[[harpy] NOT = { culture_group = $RACE$ } ]
+				[[half_orcish] NOT = { culture_is_$RACE$ = yes} ]
+				[[half_elven ] NOT = { culture_is_$RACE$ = yes} ]
+				[[kobold] NOT = { culture_group = $RACE$ } ]
+				[[hobgoblin] NOT = { culture_group = $RACE$ } ]
+				[[lizardfolk] NOT = { culture_group = $RACE$ } ]
+				[[lizardfolk] NOT = { culture_group = adzalan_$RACE$ } ]
+			}
+		}
+		add_permanent_province_modifier = { name = $RACE$_majority_coexisting duration = -1 }
 	}
 }
 
 update_racial_province_majority = {
 	if = {
-
-		#Culture Conversion Removal Squad - turns the old majority into a minority
-
 		limit = { is_colony = no }	#prevents updating for incomplete colonies
-
-		#AddNewRaceHere
-
-		#elven
-		if = {
-			limit = {
-				has_elven_majority_trigger = yes
-				NOT = { culture_group = elven }
-			}
-			add_permanent_province_modifier = {
-				name = elven_minority_coexisting_large
-				duration = -1
-			}
-			remove_province_modifier = elven_majority_primary
-			remove_province_modifier = elven_majority_integrated
-			remove_province_modifier = elven_majority_coexisting
-			remove_province_modifier = elven_majority_oppressed
-		}
-
-		#dwarven
-		else_if = {
-			limit = {
-				has_dwarven_majority_trigger = yes
-				NOT = { culture_group = dwarven }
-			}
-			add_permanent_province_modifier = {
-				name = dwarven_minority_coexisting_large
-				duration = -1
-			}
-			remove_province_modifier = dwarven_majority_primary
-			remove_province_modifier = dwarven_majority_integrated
-			remove_province_modifier = dwarven_majority_coexisting
-			remove_province_modifier = dwarven_majority_oppressed
-		}
-
-		#halfling
-		else_if = {
-			limit = {
-				has_halfling_majority_trigger = yes
-				NOT = { culture_group = halfling }
-			}
-			add_permanent_province_modifier = {
-				name = halfling_minority_coexisting_large
-				duration = -1
-			}
-			remove_province_modifier = halfling_majority_primary
-			remove_province_modifier = halfling_majority_integrated
-			remove_province_modifier = halfling_majority_coexisting
-			remove_province_modifier = halfling_majority_oppressed
-		}
-
-		#gnomish
-		else_if = {
-			limit = {
-				has_gnomish_majority_trigger = yes
-				NOT = { culture_group = gnomish }
-			}
-			add_permanent_province_modifier = {
-				name = gnomish_minority_coexisting_large
-				duration = -1
-			}
-			remove_province_modifier = gnomish_majority_primary
-			remove_province_modifier = gnomish_majority_integrated
-			remove_province_modifier = gnomish_majority_coexisting
-			remove_province_modifier = gnomish_majority_oppressed
-		}
-
-		#half_orcish
-		else_if = {
-			limit = {
-				has_half_orcish_majority_trigger = yes
-				NOT = { culture_is_half_orcish = yes }
-			}
-			add_permanent_province_modifier = {
-				name = half_orcish_minority_coexisting_large
-				duration = -1
-			}
-			remove_province_modifier = half_orcish_majority_primary
-			remove_province_modifier = half_orcish_majority_integrated
-			remove_province_modifier = half_orcish_majority_coexisting
-			remove_province_modifier = half_orcish_majority_oppressed
-		}
-
-		#orcish
-		else_if = {
-			limit = {
-				has_orcish_majority_trigger = yes
-				NOT = { culture_group = orcish }
-			}
-			add_permanent_province_modifier = {
-				name = orcish_minority_coexisting_large
-				duration = -1
-			}
-			remove_province_modifier = orcish_majority_primary
-			remove_province_modifier = orcish_majority_integrated
-			remove_province_modifier = orcish_majority_coexisting
-			remove_province_modifier = orcish_majority_oppressed
-		}
-
-		#human
-		else_if = {
-			limit = {
-				has_human_majority_trigger = yes
-				NOT = { culture_is_human = yes }
-			}
-			add_permanent_province_modifier = {
-				name = human_minority_coexisting_large
-				duration = -1
-			}
-			remove_province_modifier = human_majority_primary
-			remove_province_modifier = human_majority_integrated
-			remove_province_modifier = human_majority_coexisting
-			remove_province_modifier = human_majority_oppressed
-		}
-
-		#gnollish
-		else_if = {
-			limit = {
-				has_gnollish_majority_trigger = yes
-				NOT = { culture_group = gnollish }
-			}
-			add_permanent_province_modifier = {
-				name = gnollish_minority_coexisting_large
-				duration = -1
-			}
-			remove_province_modifier = gnollish_majority_primary
-			remove_province_modifier = gnollish_majority_integrated
-			remove_province_modifier = gnollish_majority_coexisting
-			remove_province_modifier = gnollish_majority_oppressed
-		}
-
-		#ruinborn
-		else_if = {
-			limit = {
-				has_ruinborn_majority_trigger = yes
-				NOT = { culture_is_ruinborn = yes }
-			}
-			add_permanent_province_modifier = {
-				name = ruinborn_minority_coexisting_large
-				duration = -1
-			}
-			remove_province_modifier = ruinborn_majority_primary
-			remove_province_modifier = ruinborn_majority_integrated
-			remove_province_modifier = ruinborn_majority_coexisting
-			remove_province_modifier = ruinborn_majority_oppressed
-		}
-
-		#goblin
-		else_if = {
-			limit = {
-				has_goblin_majority_trigger = yes
-				NOT = { culture_group = goblin }
-			}
-			add_permanent_province_modifier = {
-				name = goblin_minority_coexisting_large
-				duration = -1
-			}
-			remove_province_modifier = goblin_majority_primary
-			remove_province_modifier = goblin_majority_integrated
-			remove_province_modifier = goblin_majority_coexisting
-			remove_province_modifier = goblin_majority_oppressed
-		}
-
-		#harpy
-		else_if = {
-			limit = {
-				has_harpy_majority_trigger = yes
-				NOT = { culture_group = harpy }
-			}
-			add_permanent_province_modifier = {
-				name = harpy_minority_coexisting_large
-				duration = -1
-			}
-			remove_province_modifier = harpy_majority_primary
-			remove_province_modifier = harpy_majority_integrated
-			remove_province_modifier = harpy_majority_coexisting
-			remove_province_modifier = harpy_majority_oppressed
-		}
-
-		#troll
-		else_if = {
-			limit = {
-				has_troll_majority_trigger = yes
-				NOT = { culture_is_troll = yes }
-			}
-			add_permanent_province_modifier = {
-				name = troll_minority_coexisting_large
-				duration = -1
-			}
-			remove_province_modifier = troll_majority_primary
-			remove_province_modifier = troll_majority_integrated
-			remove_province_modifier = troll_majority_coexisting
-			remove_province_modifier = troll_majority_oppressed
-		}
-
-		#half_elven
-		else_if = {
-			limit = {
-				has_half_elven_majority_trigger = yes
-				NOT = { culture_is_half_elven = yes }
-			}
-			add_permanent_province_modifier = {
-				name = half_elven_minority_coexisting_large
-				duration = -1
-			}
-			remove_province_modifier = half_elven_majority_primary
-			remove_province_modifier = half_elven_majority_integrated
-			remove_province_modifier = half_elven_majority_coexisting
-			remove_province_modifier = half_elven_majority_oppressed
-		}
-
-		#kobold
-		else_if = {
-			limit = {
-				has_kobold_majority_trigger = yes
-				NOT = { culture_group = kobold }
-			}
-			add_permanent_province_modifier = {
-				name = kobold_minority_coexisting_large
-				duration = -1
-			}
-			remove_province_modifier = kobold_majority_primary
-			remove_province_modifier = kobold_majority_integrated
-			remove_province_modifier = kobold_majority_coexisting
-			remove_province_modifier = kobold_majority_oppressed
-		}
-
-		#harimari
-		else_if = {
-			limit = {
-				has_harimari_majority_trigger = yes
-				NOT = { culture_group = harimari }
-			}
-			add_permanent_province_modifier = {
-				name = harimari_minority_coexisting_large
-				duration = -1
-			}
-			remove_province_modifier = harimari_majority_primary
-			remove_province_modifier = harimari_majority_integrated
-			remove_province_modifier = harimari_majority_coexisting
-			remove_province_modifier = harimari_majority_oppressed
-		}
-
-		#hobgoblin
-		else_if = {
-			limit = {
-				has_hobgoblin_majority_trigger = yes
-				NOT = { culture_group = hobgoblin }
-			}
-			add_permanent_province_modifier = {
-				name = hobgoblin_minority_coexisting_large
-				duration = -1
-			}
-			remove_province_modifier = hobgoblin_majority_primary
-			remove_province_modifier = hobgoblin_majority_integrated
-			remove_province_modifier = hobgoblin_majority_coexisting
-			remove_province_modifier = hobgoblin_majority_oppressed
-		}
-
-		#centaur
-		else_if = {
-			limit = {
-				has_centaur_majority_trigger = yes
-				NOT = { culture_group = centaur }
-			}
-			add_permanent_province_modifier = {
-				name = centaur_minority_coexisting_large
-				duration = -1
-			}
-			remove_province_modifier = centaur_majority_primary
-			remove_province_modifier = centaur_majority_integrated
-			remove_province_modifier = centaur_majority_coexisting
-			remove_province_modifier = centaur_majority_oppressed
-		}
-
-		#ogre
-		else_if = {
-			limit = {
-				has_ogre_majority_trigger = yes
-				NOT = { culture_group = ogre }
-			}
-			add_permanent_province_modifier = {
-				name = ogre_minority_coexisting_large
-				duration = -1
-			}
-			remove_province_modifier = ogre_majority_primary
-			remove_province_modifier = ogre_majority_integrated
-			remove_province_modifier = ogre_majority_coexisting
-			remove_province_modifier = ogre_majority_oppressed
-		}
-
-		#lizardfolk
-		else_if = {
-			limit = {
-				has_lizardfolk_majority_trigger = yes
-				NOT = { culture_group = lizardfolk }
-				NOT = { culture_group = adzalan_lizardfolk }
-			}
-			add_permanent_province_modifier = {
-				name = lizardfolk_minority_coexisting_large
-				duration = -1
-			}
-			remove_province_modifier = lizardfolk_majority_primary
-			remove_province_modifier = lizardfolk_majority_integrated
-			remove_province_modifier = lizardfolk_majority_coexisting
-			remove_province_modifier = lizardfolk_majority_oppressed
-		}
-
-
-		#Remove Purging and Expelling majority modifiers
-		if = {
-			limit = { has_province_modifier = purging_majority }
-			remove_province_modifier = purging_majority
-		}
-		if = {
-			limit = { has_province_modifier = expelling_majority }
-			remove_province_modifier = expelling_majority
-		}
-
-
-		#Add Majorities to province
-		#elven
-		if = {
-			limit = {
-				NOT = { has_elven_majority_trigger = yes }
-				culture_group = elven
-			}
-			add_permanent_province_modifier = {
-				name = elven_majority_coexisting
-				duration = -1
-			}
-
-		}
-
-		#Dwarven
-		else_if = {
-			limit = {
-				NOT = { has_dwarven_majority_trigger = yes }
-				culture_group = dwarven
-			}
-			add_permanent_province_modifier = {
-				name = dwarven_majority_coexisting
-				duration = -1
-			}
-		}
-
-		#halfling
-		else_if = {
-			limit = {
-				NOT = { has_halfling_majority_trigger = yes }
-				culture_group = halfling
-			}
-			add_permanent_province_modifier = {
-				name = halfling_majority_coexisting
-				duration = -1
-			}
-		}
-
-		#gnomish
-		else_if = {
-			limit = {
-				NOT = { has_gnomish_majority_trigger = yes }
-				culture_group = gnomish
-			}
-			add_permanent_province_modifier = {
-				name = gnomish_majority_coexisting
-				duration = -1
-			}
-		}
-		#half_orcish
-		else_if = {
-			limit = {
-				NOT = { has_half_orcish_majority_trigger = yes }
-				culture_is_half_orcish = yes
-			}
-			add_permanent_province_modifier = {
-				name = half_orcish_majority_coexisting
-				duration = -1
-			}
-		}
-
-		#kobold
-		else_if = {
-			limit = {
-				NOT = { has_kobold_majority_trigger = yes }
-				culture_group = kobold
-			}
-			add_permanent_province_modifier = {
-				name = kobold_majority_coexisting
-				duration = -1
-			}
-		}
-
-		#orcish
-		else_if = {
-			limit = {
-				NOT = { has_orcish_majority_trigger = yes }
-				culture_group = orcish
-			}
-			add_permanent_province_modifier = {
-				name = orcish_majority_coexisting
-				duration = -1
-			}
-		}
-
-		#human
-		else_if = {
-			limit = {
-				NOT = { has_human_majority_trigger = yes }
-				culture_is_human = yes
-			}
-			add_permanent_province_modifier = {
-				name = human_majority_coexisting
-				duration = -1
-			}
-		}
-
-		#gnollish
-		else_if = {
-			limit = {
-				NOT = { has_gnollish_majority_trigger = yes }
-				culture_group = gnollish
-			}
-			add_permanent_province_modifier = {
-				name = gnollish_majority_coexisting
-				duration = -1
-			}
-		}
-		#ruinborn
-		else_if = {
-			limit = {
-				NOT = { has_ruinborn_majority_trigger = yes }
-				culture_is_ruinborn = yes
-			}
-			add_permanent_province_modifier = {
-				name = ruinborn_majority_coexisting
-				duration = -1
-			}
-		}
-
-		#goblin
-		else_if = {
-			limit = {
-				NOT = { has_goblin_majority_trigger = yes }
-				culture_group = goblin
-			}
-			add_permanent_province_modifier = {
-				name = goblin_majority_coexisting
-				duration = -1
-			}
-		}
-
-		#harpy
-		else_if = {
-			limit = {
-				NOT = { has_harpy_majority_trigger = yes }
-				culture_group = harpy
-			}
-			add_permanent_province_modifier = {
-				name = harpy_majority_coexisting
-				duration = -1
-			}
-		}
-
-		#troll
-		else_if = {
-			limit = {
-				NOT = { has_troll_majority_trigger = yes }
-				culture_is_troll = yes
-			}
-			add_permanent_province_modifier = {
-				name = troll_majority_coexisting
-				duration = -1
-			}
-		}
-
-		#half_elven
-		else_if = {
-			limit = {
-				NOT = { has_half_elven_majority_trigger = yes }
-				culture_is_half_elven = yes
-			}
-			add_permanent_province_modifier = {
-				name = half_elven_majority_coexisting
-				duration = -1
-			}
-		}
-
-		#kobold
-		else_if = {
-			limit = {
-				NOT = { has_kobold_majority_trigger = yes }
-				culture_group = kobold
-			}
-			add_permanent_province_modifier = {
-				name = kobold_majority_coexisting
-				duration = -1
-			}
-		}
-
-		#harimari
-		else_if = {
-			limit = {
-				NOT = { has_harimari_majority_trigger = yes }
-				culture_group = harimari
-			}
-			add_permanent_province_modifier = {
-				name = harimari_majority_coexisting
-				duration = -1
-			}
-		}
-
-		#hobgoblin
-		else_if = {
-			limit = {
-				NOT = { has_hobgoblin_majority_trigger = yes }
-				culture_group = hobgoblin
-			}
-			add_permanent_province_modifier = {
-				name = hobgoblin_majority_coexisting
-				duration = -1
-			}
-		}
-
-		#centaur
-		else_if = {
-			limit = {
-				NOT = { has_centaur_majority_trigger = yes }
-				culture_group = centaur
-			}
-			add_permanent_province_modifier = {
-				name = centaur_majority_coexisting
-				duration = -1
-			}
-		}
-
-		#ogre
-		else_if = {
-			limit = {
-				NOT = { has_ogre_majority_trigger = yes }
-				culture_group = ogre
-			}
-			add_permanent_province_modifier = {
-				name = ogre_majority_coexisting
-				duration = -1
-			}
-		}
-
-		#lizardfolk
-		else_if = {
-			limit = {
-				NOT = { has_lizardfolk_majority_trigger = yes }
-				OR = {
-					culture_group = lizardfolk
-					culture_group = adzalan_lizardfolk
-				}
-			}
-			add_permanent_province_modifier = {
-				name = lizardfolk_majority_coexisting
-				duration = -1
-			}
-		}
+		all_races_effect = { EFFECT = update_all_racial_province_majority }	#bertus mod
+		if = { limit = { has_province_modifier = purging_majority } remove_province_modifier = purging_majority }
+		if = { limit = { has_province_modifier = expelling_majority } remove_province_modifier = expelling_majority }
 	}
-	update_racial_province_modifier_tolerance = yes
+	all_races_effect = { EFFECT = update_racial_province_modifier_tolerance }	#bertus mod
+	all_races_effect = { EFFECT = make_majority_primary }	#bertus mod
 }
-
-cleanup_racial_province_minority_into_majority = {
-
-
-	#AddNewRaceHere
-
-	#dwarven
+cleanup_all_racial_province_minority_into_majority = {
 	if = {
 		limit = {
-			has_dwarven_minority_trigger = yes
-			culture_group = dwarven
+			has_$RACE$_minority_trigger = yes
+			OR = {
+				[[human] NOT = { culture_is_$RACE$ = yes} ]
+				[[elven] NOT = { culture_group = $RACE$ } ]
+				[[dwarven] NOT = { culture_group = $RACE$ } ]
+				[[gnomish] NOT = { culture_group = $RACE$ } ]
+				[[halfling] NOT = { culture_group = $RACE$ } ]
+				[[gnomish] NOT = { culture_group = $RACE$ } ]
+				[[ruinborn] NOT = { culture_is_$RACE$ = yes} ]
+				[[harimari] NOT = { culture_group = $RACE$ } ]
+				[[orcish] NOT = { culture_group = $RACE$ } ]
+				[[goblin] NOT = { culture_group = $RACE$ } ]
+				[[ogre] NOT = { culture_group = $RACE$ } ]
+				[[centaur] NOT = { culture_group = $RACE$ } ]
+				[[troll ] NOT = { culture_is_$RACE$ = yes} ]
+				[[harpy] NOT = { culture_group = $RACE$ } ]
+				[[half_orcish] NOT = { culture_is_$RACE$ = yes} ]
+				[[half_elven ] NOT = { culture_is_$RACE$ = yes} ]
+				[[kobold] NOT = { culture_group = $RACE$ } ]
+				[[hobgoblin] NOT = { culture_group = $RACE$ } ]
+				[[lizardfolk] NOT = { culture_group = $RACE$ } ]
+				[[lizardfolk] NOT = { culture_group = adzalan_$RACE$ } ]
+			}
 		}
-		remove_province_modifier = dwarven_minority_oppressed_small
-		remove_province_modifier = dwarven_minority_coexisting_small
-		remove_province_modifier = dwarven_minority_integrated_small
-		remove_province_modifier = dwarven_minority_oppressed_large
-		remove_province_modifier = dwarven_minority_coexisting_large
-		remove_province_modifier = dwarven_minority_integrated_large
-
-		add_province_modifier = {
-			name = minority_into_majority
-			duration = 3650	#10 years
-		}
+		remove_province_modifier = $RACE$_minority_oppressed_small
+		remove_province_modifier = $RACE$_minority_coexisting_small
+		remove_province_modifier = $RACE$_minority_integrated_small
+		remove_province_modifier = $RACE$_minority_oppressed_large
+		remove_province_modifier = $RACE$_minority_coexisting_large
+		remove_province_modifier = $RACE$_minority_integrated_large
+		add_province_modifier = { name = minority_into_majority duration = 3650 }
 	}
-
-	#elven
-	else_if = {
-		limit = {
-			has_elven_minority_trigger = yes
-			culture_group = elven
-		}
-		remove_province_modifier = elven_minority_oppressed_small
-		remove_province_modifier = elven_minority_coexisting_small
-		remove_province_modifier = elven_minority_integrated_small
-		remove_province_modifier = elven_minority_oppressed_large
-		remove_province_modifier = elven_minority_coexisting_large
-		remove_province_modifier = elven_minority_integrated_large
-
-		add_province_modifier = {
-			name = minority_into_majority
-			duration = 3650	#10 years
-		}
-	}
-
-	#halfling
-	else_if = {
-		limit = {
-			has_halfling_minority_trigger = yes
-			culture_group = halfling
-		}
-		remove_province_modifier = halfling_minority_oppressed_small
-		remove_province_modifier = halfling_minority_coexisting_small
-		remove_province_modifier = halfling_minority_integrated_small
-		remove_province_modifier = halfling_minority_oppressed_large
-		remove_province_modifier = halfling_minority_coexisting_large
-		remove_province_modifier = halfling_minority_integrated_large
-
-		add_province_modifier = {
-			name = minority_into_majority
-			duration = 3650	#10 years
-		}
-	}
-
-	#gnomish
-	else_if = {
-		limit = {
-			has_gnomish_minority_trigger = yes
-			culture_group = gnomish
-		}
-		remove_province_modifier = gnomish_minority_oppressed_small
-		remove_province_modifier = gnomish_minority_coexisting_small
-		remove_province_modifier = gnomish_minority_integrated_small
-		remove_province_modifier = gnomish_minority_oppressed_large
-		remove_province_modifier = gnomish_minority_coexisting_large
-		remove_province_modifier = gnomish_minority_integrated_large
-
-		add_province_modifier = {
-			name = minority_into_majority
-			duration = 3650	#10 years
-		}
-	}
-
-	#half_orcish
-	else_if = {
-		limit = {
-			has_half_orcish_minority_trigger = yes
-			culture_is_half_orcish = yes
-		}
-		remove_province_modifier = half_orcish_minority_oppressed_small
-		remove_province_modifier = half_orcish_minority_coexisting_small
-		remove_province_modifier = half_orcish_minority_integrated_small
-		remove_province_modifier = half_orcish_minority_oppressed_large
-		remove_province_modifier = half_orcish_minority_coexisting_large
-		remove_province_modifier = half_orcish_minority_integrated_large
-
-		add_province_modifier = {
-			name = minority_into_majority
-			duration = 3650	#10 years
-		}
-	}
-
-	#kobold
-	else_if = {
-		limit = {
-			has_kobold_minority_trigger = yes
-			culture_group = kobold
-		}
-		remove_province_modifier = kobold_minority_oppressed_small
-		remove_province_modifier = kobold_minority_coexisting_small
-		remove_province_modifier = kobold_minority_integrated_small
-		remove_province_modifier = kobold_minority_oppressed_large
-		remove_province_modifier = kobold_minority_coexisting_large
-		remove_province_modifier = kobold_minority_integrated_large
-
-		add_province_modifier = {
-			name = minority_into_majority
-			duration = 3650	#10 years
-		}
-	}
-
-	#orcish
-	else_if = {
-		limit = {
-			has_orcish_minority_trigger = yes
-			culture_group = orcish
-		}
-		remove_province_modifier = orcish_minority_oppressed_small
-		remove_province_modifier = orcish_minority_coexisting_small
-		remove_province_modifier = orcish_minority_integrated_small
-		remove_province_modifier = orcish_minority_oppressed_large
-		remove_province_modifier = orcish_minority_coexisting_large
-		remove_province_modifier = orcish_minority_integrated_large
-
-		add_province_modifier = {
-			name = minority_into_majority
-			duration = 3650	#10 years
-		}
-	}
-
-	#human
-	else_if = {
-		limit = {
-			has_human_minority_trigger = yes
-			culture_is_human = yes
-		}
-		remove_province_modifier = human_minority_oppressed_small
-		remove_province_modifier = human_minority_coexisting_small
-		remove_province_modifier = human_minority_integrated_small
-		remove_province_modifier = human_minority_oppressed_large
-		remove_province_modifier = human_minority_coexisting_large
-		remove_province_modifier = human_minority_integrated_large
-
-		add_province_modifier = {
-			name = minority_into_majority
-			duration = 3650	#10 years
-		}
-	}
-
-	#gnollish
-	else_if = {
-		limit = {
-			has_gnollish_minority_trigger = yes
-			culture_group = gnollish
-		}
-		remove_province_modifier = gnollish_minority_oppressed_small
-		remove_province_modifier = gnollish_minority_coexisting_small
-		remove_province_modifier = gnollish_minority_integrated_small
-		remove_province_modifier = gnollish_minority_oppressed_large
-		remove_province_modifier = gnollish_minority_coexisting_large
-		remove_province_modifier = gnollish_minority_integrated_large
-
-		add_province_modifier = {
-			name = minority_into_majority
-			duration = 3650	#10 years
-		}
-	}
-
-	#ruinborn
-	else_if = {
-		limit = {
-			has_ruinborn_minority_trigger = yes
-			culture_is_ruinborn = yes
-		}
-		remove_province_modifier = ruinborn_minority_oppressed_small
-		remove_province_modifier = ruinborn_minority_coexisting_small
-		remove_province_modifier = ruinborn_minority_integrated_small
-		remove_province_modifier = ruinborn_minority_oppressed_large
-		remove_province_modifier = ruinborn_minority_coexisting_large
-		remove_province_modifier = ruinborn_minority_integrated_large
-
-		add_province_modifier = {
-			name = minority_into_majority
-			duration = 3650	#10 years
-		}
-	}
-
-	#goblin
-	else_if = {
-		limit = {
-			has_goblin_minority_trigger = yes
-			culture_group = goblin
-		}
-		remove_province_modifier = goblin_minority_oppressed_small
-		remove_province_modifier = goblin_minority_coexisting_small
-		remove_province_modifier = goblin_minority_integrated_small
-		remove_province_modifier = goblin_minority_oppressed_large
-		remove_province_modifier = goblin_minority_coexisting_large
-		remove_province_modifier = goblin_minority_integrated_large
-
-		add_province_modifier = {
-			name = minority_into_majority
-			duration = 3650	#10 years
-		}
-	}
-
-	#harpy
-	else_if = {
-		limit = {
-			has_harpy_minority_trigger = yes
-			culture_group = harpy
-		}
-		remove_province_modifier = harpy_minority_oppressed_small
-		remove_province_modifier = harpy_minority_coexisting_small
-		remove_province_modifier = harpy_minority_integrated_small
-		remove_province_modifier = harpy_minority_oppressed_large
-		remove_province_modifier = harpy_minority_coexisting_large
-		remove_province_modifier = harpy_minority_integrated_large
-
-		add_province_modifier = {
-			name = minority_into_majority
-			duration = 3650	#10 years
-		}
-	}
-
-	#troll
-	else_if = {
-		limit = {
-			has_troll_minority_trigger = yes
-			culture_is_troll = yes
-		}
-		remove_province_modifier = troll_minority_oppressed_small
-		remove_province_modifier = troll_minority_coexisting_small
-		remove_province_modifier = troll_minority_integrated_small
-		remove_province_modifier = troll_minority_oppressed_large
-		remove_province_modifier = troll_minority_coexisting_large
-		remove_province_modifier = troll_minority_integrated_large
-
-		add_province_modifier = {
-			name = minority_into_majority
-			duration = 3650	#10 years
-		}
-	}
-
-	#half_elven
-	else_if = {
-		limit = {
-			has_half_elven_minority_trigger = yes
-			culture_is_half_elven = yes
-		}
-		remove_province_modifier = half_elven_minority_oppressed_small
-		remove_province_modifier = half_elven_minority_coexisting_small
-		remove_province_modifier = half_elven_minority_integrated_small
-		remove_province_modifier = half_elven_minority_oppressed_large
-		remove_province_modifier = half_elven_minority_coexisting_large
-		remove_province_modifier = half_elven_minority_integrated_large
-
-		add_province_modifier = {
-			name = minority_into_majority
-			duration = 3650	#10 years
-		}
-	}
-
-	#harimari
-	else_if = {
-		limit = {
-			has_harimari_minority_trigger = yes
-			culture_group = harimari
-		}
-		remove_province_modifier = harimari_minority_oppressed_small
-		remove_province_modifier = harimari_minority_coexisting_small
-		remove_province_modifier = harimari_minority_integrated_small
-		remove_province_modifier = harimari_minority_oppressed_large
-		remove_province_modifier = harimari_minority_coexisting_large
-		remove_province_modifier = harimari_minority_integrated_large
-
-		add_province_modifier = {
-			name = minority_into_majority
-			duration = 3650	#10 years
-		}
-	}
-
-	#hobgoblin
-	else_if = {
-		limit = {
-			has_hobgoblin_minority_trigger = yes
-			culture_group = harimari
-		}
-		remove_province_modifier = hobgoblin_minority_oppressed_small
-		remove_province_modifier = hobgoblin_minority_coexisting_small
-		remove_province_modifier = hobgoblin_minority_integrated_small
-		remove_province_modifier = hobgoblin_minority_oppressed_large
-		remove_province_modifier = hobgoblin_minority_coexisting_large
-		remove_province_modifier = hobgoblin_minority_integrated_large
-
-		add_province_modifier = {
-			name = minority_into_majority
-			duration = 3650	#10 years
-		}
-	}
-
-	#centaur
-	else_if = {
-		limit = {
-			has_centaur_minority_trigger = yes
-			culture_group = centaur
-		}
-		remove_province_modifier = centaur_minority_oppressed_small
-		remove_province_modifier = centaur_minority_coexisting_small
-		remove_province_modifier = centaur_minority_integrated_small
-		remove_province_modifier = centaur_minority_oppressed_large
-		remove_province_modifier = centaur_minority_coexisting_large
-		remove_province_modifier = centaur_minority_integrated_large
-
-		add_province_modifier = {
-			name = minority_into_majority
-			duration = 3650	#10 years
-		}
-	}
-
-	#ogre
-	else_if = {
-		limit = {
-			has_ogre_minority_trigger = yes
-			culture_group = ogre
-		}
-		remove_province_modifier = ogre_minority_oppressed_small
-		remove_province_modifier = ogre_minority_coexisting_small
-		remove_province_modifier = ogre_minority_integrated_small
-		remove_province_modifier = ogre_minority_oppressed_large
-		remove_province_modifier = ogre_minority_coexisting_large
-		remove_province_modifier = ogre_minority_integrated_large
-
-		add_province_modifier = {
-			name = minority_into_majority
-			duration = 3650	#10 years
-		}
-	}
-
-	#lizardfolk
-	else_if = {
-		limit = {
-			has_lizardfolk_minority_trigger = yes
-			culture_group = harimari
-		}
-		remove_province_modifier = lizardfolk_minority_oppressed_small
-		remove_province_modifier = lizardfolk_minority_coexisting_small
-		remove_province_modifier = lizardfolk_minority_integrated_small
-		remove_province_modifier = lizardfolk_minority_oppressed_large
-		remove_province_modifier = lizardfolk_minority_coexisting_large
-		remove_province_modifier = lizardfolk_minority_integrated_large
-
-		add_province_modifier = {
-			name = minority_into_majority
-			duration = 3650	#10 years
-		}
-	}
+}
+cleanup_racial_province_minority_into_majority = {
+	all_races_effect = { EFFECT = cleanup_all_racial_province_minority_into_majority }	#bertus mod
 }
 
 make_majority_primary = {
-	#AddNewRaceHere
-
-	#dwarven
 	if = {
-		limit = {
-			has_province_modifier = dwarven_majority_integrated
-			owner = { has_country_modifier = dwarven_administration }
-		}
-		remove_province_modifier = dwarven_majority_integrated
-
-		add_permanent_province_modifier = {
-			name = dwarven_majority_primary
-			duration = -1
-		}
-	}
-
-	#elven
-	else_if = {
-		limit = {
-			has_province_modifier = elven_majority_integrated
-			owner = { has_country_modifier = elven_administration }
-		}
-		remove_province_modifier = elven_majority_integrated
-
-		add_permanent_province_modifier = {
-			name = elven_majority_primary
-			duration = -1
-		}
-	}
-
-	#halfling
-	else_if = {
-		limit = {
-			has_province_modifier = halfling_majority_integrated
-			owner = { has_country_modifier = halfling_administration }
-		}
-		remove_province_modifier = halfling_majority_integrated
-
-		add_permanent_province_modifier = {
-			name = halfling_majority_primary
-			duration = -1
-		}
-	}
-
-	#gnomish
-	else_if = {
-		limit = {
-			has_province_modifier = gnomish_majority_integrated
-			owner = { has_country_modifier = gnomish_administration }
-		}
-		remove_province_modifier = gnomish_majority_integrated
-
-		add_permanent_province_modifier = {
-			name = gnomish_majority_primary
-			duration = -1
-		}
-	}
-
-	#half_orcish
-	else_if = {
-		limit = {
-			has_province_modifier = half_orcish_majority_integrated
-			owner = { has_country_modifier = half_orcish_administration }
-		}
-		remove_province_modifier = half_orcish_majority_integrated
-
-		add_permanent_province_modifier = {
-			name = half_orcish_majority_primary
-			duration = -1
-		}
-	}
-
-	#kobold
-	else_if = {
-		limit = {
-			has_province_modifier = kobold_majority_integrated
-			owner = { has_country_modifier = kobold_administration }
-		}
-		remove_province_modifier = kobold_majority_integrated
-
-		add_permanent_province_modifier = {
-			name = kobold_majority_primary
-			duration = -1
-		}
-	}
-
-	#orcish
-	else_if = {
-		limit = {
-			has_province_modifier = orcish_majority_integrated
-			owner = { has_country_modifier = orcish_administration }
-		}
-		remove_province_modifier = orcish_majority_integrated
-
-		add_permanent_province_modifier = {
-			name = orcish_majority_primary
-			duration = -1
-		}
-	}
-
-	#human
-	else_if = {
-		limit = {
-			has_province_modifier = human_majority_integrated
-			owner = { has_country_modifier = human_administration }
-		}
-		remove_province_modifier = human_majority_integrated
-
-		add_permanent_province_modifier = {
-			name = human_majority_primary
-			duration = -1
-		}
-	}
-
-	#gnollish
-	else_if = {
-		limit = {
-			has_province_modifier = gnollish_majority_integrated
-			owner = { has_country_modifier = gnollish_administration }
-		}
-		remove_province_modifier = gnollish_majority_integrated
-
-		add_permanent_province_modifier = {
-			name = gnollish_majority_primary
-			duration = -1
-		}
-	}
-
-	#ruinborn
-	else_if = {
-		limit = {
-			has_province_modifier = ruinborn_majority_integrated
-			owner = { has_country_modifier = ruinborn_administration }
-		}
-		remove_province_modifier = ruinborn_majority_integrated
-
-		add_permanent_province_modifier = {
-			name = ruinborn_majority_primary
-			duration = -1
-		}
-	}
-
-	#goblin
-	else_if = {
-		limit = {
-			has_province_modifier = goblin_majority_integrated
-			owner = { has_country_modifier = goblin_administration }
-		}
-		remove_province_modifier = goblin_majority_integrated
-
-		add_permanent_province_modifier = {
-			name = goblin_majority_primary
-			duration = -1
-		}
-	}
-
-	#harpy
-	else_if = {
-		limit = {
-			has_province_modifier = harpy_majority_integrated
-			owner = { has_country_modifier = harpy_administration }
-		}
-		remove_province_modifier = harpy_majority_integrated
-
-		add_permanent_province_modifier = {
-			name = harpy_majority_primary
-			duration = -1
-		}
-	}
-
-	#troll
-	else_if = {
-		limit = {
-			has_province_modifier = troll_majority_integrated
-			owner = { has_country_modifier = troll_administration }
-		}
-		remove_province_modifier = troll_majority_integrated
-
-		add_permanent_province_modifier = {
-			name = troll_majority_primary
-			duration = -1
-		}
-	}
-
-	#half_elven
-	else_if = {
-		limit = {
-			has_province_modifier = half_elven_majority_integrated
-			owner = { has_country_modifier = half_elven_administration }
-		}
-		remove_province_modifier = half_elven_majority_integrated
-
-		add_permanent_province_modifier = {
-			name = half_elven_majority_primary
-			duration = -1
-		}
-	}
-
-	#harimari
-	else_if = {
-		limit = {
-			has_province_modifier = harimari_majority_integrated
-			owner = { has_country_modifier = harimari_administration }
-		}
-		remove_province_modifier = harimari_majority_integrated
-
-		add_permanent_province_modifier = {
-			name = harimari_majority_primary
-			duration = -1
-		}
-	}
-
-	#hobgoblin
-	else_if = {
-		limit = {
-			has_province_modifier = hobgoblin_majority_integrated
-			owner = { has_country_modifier = hobgoblin_administration }
-		}
-		remove_province_modifier = hobgoblin_majority_integrated
-
-		add_permanent_province_modifier = {
-			name = hobgoblin_majority_primary
-			duration = -1
-		}
-	}
-
-	#centaur
-	else_if = {
-		limit = {
-			has_province_modifier = centaur_majority_integrated
-			owner = { has_country_modifier = centaur_administration }
-		}
-		remove_province_modifier = centaur_majority_integrated
-
-		add_permanent_province_modifier = {
-			name = centaur_majority_primary
-			duration = -1
-		}
-	}
-
-	#ogre
-	else_if = {
-		limit = {
-			has_province_modifier = ogre_majority_integrated
-			owner = { has_country_modifier = ogre_administration }
-		}
-		remove_province_modifier = ogre_majority_integrated
-
-		add_permanent_province_modifier = {
-			name = ogre_majority_primary
-			duration = -1
-		}
-	}
-
-	#lizardfolk
-	else_if = {
-		limit = {
-			has_province_modifier = lizardfolk_majority_integrated
-			owner = { has_country_modifier = lizardfolk_administration }
-		}
-		remove_province_modifier = lizardfolk_majority_integrated
-
-		add_permanent_province_modifier = {
-			name = lizardfolk_majority_primary
-			duration = -1
-		}
+		limit = { has_province_modifier = $RACE$_majority_integrated owner = { has_country_modifier = $RACE$_administration } }
+		remove_province_modifier = $RACE$_majority_integrated
+		add_permanent_province_modifier = { name = $RACE$_majority_primary duration = -1 }
 	}
 }
 
 #----# Scripted effects for pop menu #----#
 pop_menu_main_setup = {
 	pop_menu_calculations = yes
+	all_races_effect = { EFFECT = cleanup_all_racial_province_minority_into_majority }	#bertus mod
 	set_variable = { which = centaurRanking value = 1 }
 	set_variable = { which = dwarvenRanking value = 2 }
 	set_variable = { which = elvenRanking value = 3 }
@@ -3959,78 +403,20 @@ pop_menu_main_setup = {
 	pop_menu_main_sorting_effect = yes
 }
 
+set_variable_to_zero = {
+	set_variable = { which = nb$RACE$Majority value = 0 }
+	set_variable = { which = nb$RACE$Minority value = 0 }
+	set_variable = { which = nb$RACE$Dev value = 0 }
+}
 pop_menu_calculations = {
-	set_variable = { which = nbcentaurMajority value = 0 }
-	set_variable = { which = nbcentaurMinority value = 0 }
-	set_variable = { which = nbcentaurDev value = 0 }
-	set_variable = { which = nbdwarvenMajority value = 0 }
-	set_variable = { which = nbdwarvenMinority value = 0 }
-	set_variable = { which = nbdwarvenDev value = 0 }
-	set_variable = { which = nbelvenMajority value = 0 }
-	set_variable = { which = nbelvenMinority value = 0 }
-	set_variable = { which = nbelvenDev value = 0 }
-	set_variable = { which = nbgnollishMajority value = 0 }
-	set_variable = { which = nbgnollishMinority value = 0 }
-	set_variable = { which = nbgnollishDev value = 0 }
-	set_variable = { which = nbgnomishMajority value = 0 }
-	set_variable = { which = nbgnomishMinority value = 0 }
-	set_variable = { which = nbgnomishDev value = 0 }
-	set_variable = { which = nbgoblinMajority value = 0 }
-	set_variable = { which = nbgoblinMinority value = 0 }
-	set_variable = { which = nbgoblinDev value = 0 }
-	set_variable = { which = nbhalflingMajority value = 0 }
-	set_variable = { which = nbhalflingMinority value = 0 }
-	set_variable = { which = nbhalflingDev value = 0 }
-	set_variable = { which = nbhalf_elvenMajority value = 0 }
-	set_variable = { which = nbhalf_elvenMinority value = 0 }
-	set_variable = { which = nbhalf_elvenDev value = 0 }
-	set_variable = { which = nbhalf_orcishMajority value = 0 }
-	set_variable = { which = nbhalf_orcishMinority value = 0 }
-	set_variable = { which = nbhalf_orcishDev value = 0 }
-	set_variable = { which = nbharimariMajority value = 0 }
-	set_variable = { which = nbharimariMinority value = 0 }
-	set_variable = { which = nbharimariDev value = 0 }
-	set_variable = { which = nbharpyMajority value = 0 }
-	set_variable = { which = nbharpyMinority value = 0 }
-	set_variable = { which = nbharpyDev value = 0 }
-	set_variable = { which = nbhobgoblinMajority value = 0 }
-	set_variable = { which = nbhobgoblinMinority value = 0 }
-	set_variable = { which = nbhobgoblinDev value = 0 }
-	set_variable = { which = nbhumanMajority value = 0 }
-	set_variable = { which = nbhumanMinority value = 0 }
-	set_variable = { which = nbhumanDev value = 0 }
-	set_variable = { which = nbkoboldMajority value = 0 }
-	set_variable = { which = nbkoboldMinority value = 0 }
-	set_variable = { which = nbkoboldDev value = 0 }
-	set_variable = { which = nblizardfolkMajority value = 0 }
-	set_variable = { which = nblizardfolkMinority value = 0 }
-	set_variable = { which = nblizardfolkDev value = 0 }
-	# set_variable = { which = nbmechanismMajority value = 0 }
-	# set_variable = { which = nbmechanismMinority value = 0 }
-	# set_variable = { which = nbmechanismDev value = 0 }
-	set_variable = { which = nbogreMajority value = 0 }
-	set_variable = { which = nbogreMinority value = 0 }
-	set_variable = { which = nbogreDev value = 0 }
-	set_variable = { which = nborcishMajority value = 0 }
-	set_variable = { which = nborcishMinority value = 0 }
-	set_variable = { which = nborcishDev value = 0 }
-	set_variable = { which = nbruinbornMajority value = 0 }
-	set_variable = { which = nbruinbornMinority value = 0 }
-	set_variable = { which = nbruinbornDev value = 0 }
-	set_variable = { which = nbtrollMajority value = 0 }
-	set_variable = { which = nbtrollMinority value = 0 }
-	set_variable = { which = nbttrollDev value = 0 }
+	all_races_effect = { EFFECT = set_variable_to_zero }	#bertus mod
 
 	every_owned_province = {
 		[[cored]
-			limit = {
-				is_state = yes
-				is_state_core = ROOT
-			}
+			limit = { is_state = yes is_state_core = ROOT }
 		]
 		all_races_effect = { EFFECT = calculate_province_race_values }	#bertus mod
 	}
-
 	set_variable = { which = nbTotalDev which = nbcentaurDev }
 	change_variable = { which = nbTotalDev which = nbdwarvenDev }
 	change_variable = { which = nbTotalDev which = nbelvenDev }
@@ -4099,7 +485,6 @@ calculate_province_race_values = {
 		}
 	}
 }
-
 pop_menu_round_and_percent = {
 	divide_variable = { which = $which$ which = $total$ }
 	if = { limit = { check_variable = { which = $which$ value = 0.01 } }
@@ -4108,15 +493,10 @@ pop_menu_round_and_percent = {
 		divide_variable = { which = $which$ value = 10 }
 		multiply_variable = { which = $which$ value = 1000 }
 		subtract_variable = { which = temp which = $which$ }
-		if = { limit = { check_variable = { which = temp value = 0.5 } }
-			change_variable = { which = $which$ value = 1 }
-		}
+		if = { limit = { check_variable = { which = temp value = 0.5 } } change_variable = { which = $which$ value = 1 } }
 	}
-	else = {
-		multiply_variable = { which = $which$ value = 100 }
-	}
+	else = { multiply_variable = { which = $which$ value = 100 } }
 }
-
 pop_menu_main_sorting_effect = {
 	19 = { set_variable = { which = nbcentaurDev which = PREV } set_variable = { which = nbRaceDev which = nbcentaurDev } set_province_flag = not_sorted }
 	18 = { set_variable = { which = nbdwarvenDev which = PREV } set_variable = { which = nbRaceDev which = nbdwarvenDev } set_province_flag = not_sorted }
@@ -4140,14 +520,10 @@ pop_menu_main_sorting_effect = {
 
 	set_variable = { which = raceRanking value = 0 }
 	2 = { save_event_target_as = most_represented_race }
-
 	while = { limit = { NOT = { check_variable = { which = raceRanking value = 19 } } }	#19 = nb of races
 		change_variable = { which = raceRanking value = 1 }
 		pop_menu_variables = {	#province group that has all the provinces with stored variables
-			limit = {
-				has_province_flag = not_sorted
-				check_variable = { which = nbRaceDev which = event_target:most_represented_race }
-			}
+			limit = { has_province_flag = not_sorted check_variable = { which = nbRaceDev which = event_target:most_represented_race } }
 			save_event_target_as = most_represented_race
 		}
 		event_target:most_represented_race = {
@@ -4202,7 +578,6 @@ pop_menu_rank_effect = {
 	pop_menu_race_selected_effect = { RACE = ruinborn ORDER = $ORDER$ }
 	pop_menu_race_selected_effect = { RACE = troll ORDER = $ORDER$ }
 }
-
 pop_menu_race_selected_effect = {
 	if = { limit = { is_variable_equal = { which = $RACE$Ranking value = $ORDER$ } }
 		custom_tooltip = pop_menu_$RACE$_tt
@@ -4212,166 +587,72 @@ pop_menu_race_selected_effect = {
 		}
 	}
 }
-
 pop_menu_cored_dev_calculations = {
 	set_variable = { which = nbRaceCoredDev value = 0 }
 	set_variable = { which = nbTotalCoredDev value = 0 }
-
 	every_owned_province = {
-		limit = {
-			is_state = yes
-			is_state_core = ROOT
-		}
-
+		limit = { is_state = yes is_state_core = ROOT }
 		export_to_variable = { which = nbTotalCoredDev value = development }
 		export_to_variable = { which = nbRaceCoredDev value = development }
-
-		if = { limit = { has_$RACE$_majority_trigger = yes }
-			ROOT = { change_variable = { which = nbRaceCoredDev which = PREV } }
-		}
-		else_if = { limit = { has_small_$RACE$_minority_trigger = yes }
-			multiply_variable = { which = nbRaceCoredDev value = 0.05 }
-			ROOT = { change_variable = { which = nbRaceCoredDev which = PREV } }
-		}
-		else_if = { limit = { has_large_$RACE$_minority_trigger = yes }
-			multiply_variable = { which = nbRaceCoredDev value = 0.1 }
-			ROOT = { change_variable = { which = nbRaceCoredDev which = PREV } }
-		}
-
+		if = { limit = { has_$RACE$_majority_trigger = yes } ROOT = { change_variable = { which = nbRaceCoredDev which = PREV } } }
+		else_if = { limit = { has_small_$RACE$_minority_trigger = yes } multiply_variable = { which = nbRaceCoredDev value = 0.05 } ROOT = { change_variable = { which = nbRaceCoredDev which = PREV } } }
+		else_if = { limit = { has_large_$RACE$_minority_trigger = yes } multiply_variable = { which = nbRaceCoredDev value = 0.1 } ROOT = { change_variable = { which = nbRaceCoredDev which = PREV } } }
 		pop_menu_cored_minorities_calculations = yes
-
 		ROOT = {
 			change_variable = { which = nbTotalCoredDev which = PREV }
 			change_variable = { which = nbTotalCoredDev which = nbMinorityCoredDev }
 		}
 	}
-
 	pop_menu_round_and_percent = { which = nbRaceCoredDev total = nbTotalCoredDev }
 }
 
 pop_menu_cored_minorities_calculations = {
 	export_to_variable = { which = nbMinorityCoredDev value = development }
 	ROOT = { set_variable = { which = nbMinorityCoredDev value = 0 } }
-	if = { limit = { has_small_centaur_minority_trigger = yes }
-		ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.05 } }
-	}
-	else_if = { limit = { has_large_centaur_minority_trigger = yes }
-		ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.10 } }
-	}
-	if = { limit = { has_small_elven_minority_trigger = yes }
-		ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.05 } }
-	}
-	else_if = { limit = { has_large_elven_minority_trigger = yes }
-		ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.10 } }
-	}
-	if = { limit = { has_small_dwarven_minority_trigger = yes }
-		ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.05 } }
-	}
-	else_if = { limit = { has_large_dwarven_minority_trigger = yes }
-		ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.10 } }
-	}
-	if = { limit = { has_small_gnollish_minority_trigger = yes }
-		ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.05 } }
-	}
-	else_if = { limit = { has_large_gnollish_minority_trigger = yes }
-		ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.10 } }
-	}
-	if = { limit = { has_small_gnomish_minority_trigger = yes }
-		ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.05 } }
-	}
-	else_if = { limit = { has_large_gnomish_minority_trigger = yes }
-		ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.10 } }
-	}
-	if = { limit = { has_small_goblin_minority_trigger = yes }
-		ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.05 } }
-	}
-	else_if = { limit = { has_large_goblin_minority_trigger = yes }
-		ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.10 } }
-	}
-	if = { limit = { has_small_half_elven_minority_trigger = yes }
-		ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.05 } }
-	}
-	else_if = { limit = { has_large_half_elven_minority_trigger = yes }
-		ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.10 } }
-	}
-	if = { limit = { has_small_half_orcish_minority_trigger = yes }
-		ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.05 } }
-	}
-	else_if = { limit = { has_large_half_orcish_minority_trigger = yes }
-		ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.10 } }
-	}
-	if = { limit = { has_small_halfling_minority_trigger = yes }
-		ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.05 } }
-	}
-	else_if = { limit = { has_large_halfling_minority_trigger = yes }
-		ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.10 } }
-	}
-	if = { limit = { has_small_harimari_minority_trigger = yes }
-		ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.05 } }
-	}
-	else_if = { limit = { has_large_harimari_minority_trigger = yes }
-		ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.10 } }
-	}
-	if = { limit = { has_small_harpy_minority_trigger = yes }
-		ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.05 } }
-	}
-	else_if = { limit = { has_large_harpy_minority_trigger = yes }
-		ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.10 } }
-	}
-	if = { limit = { has_small_hobgoblin_minority_trigger = yes }
-		ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.05 } }
-	}
-	else_if = { limit = { has_large_hobgoblin_minority_trigger = yes }
-		ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.10 } }
-	}
-	if = { limit = { has_small_human_minority_trigger = yes }
-		ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.05 } }
-	}
-	else_if = { limit = { has_large_human_minority_trigger = yes }
-		ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.10 } }
-	}
-	if = { limit = { has_small_kobold_minority_trigger = yes }
-		ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.05 } }
-	}
-	else_if = { limit = { has_large_kobold_minority_trigger = yes }
-		ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.10 } }
-	}
-	if = { limit = { has_small_lizardfolk_minority_trigger = yes }
-		ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.05 } }
-	}
-	else_if = { limit = { has_large_lizardfolk_minority_trigger = yes }
-		ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.10 } }
-	}
+	if = { limit = { has_small_centaur_minority_trigger = yes } ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.05 } } }
+	else_if = { limit = { has_large_centaur_minority_trigger = yes } ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.10 } } }
+	if = { limit = { has_small_elven_minority_trigger = yes } ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.05 } } }
+	else_if = { limit = { has_large_elven_minority_trigger = yes } ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.10 } } }
+	if = { limit = { has_small_dwarven_minority_trigger = yes } ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.05 } } }
+	else_if = { limit = { has_large_dwarven_minority_trigger = yes } ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.10 } } }
+	if = { limit = { has_small_gnollish_minority_trigger = yes } ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.05 } } }
+	else_if = { limit = { has_large_gnollish_minority_trigger = yes } ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.10 } } }
+	if = { limit = { has_small_gnomish_minority_trigger = yes } ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.05 } } }
+	else_if = { limit = { has_large_gnomish_minority_trigger = yes } ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.10 } } }
+	if = { limit = { has_small_goblin_minority_trigger = yes } ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.05 } } }
+	else_if = { limit = { has_large_goblin_minority_trigger = yes } ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.10 } } }
+	if = { limit = { has_small_half_elven_minority_trigger = yes } ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.05 } } }
+	else_if = { limit = { has_large_half_elven_minority_trigger = yes } ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.10 } } }
+	if = { limit = { has_small_half_orcish_minority_trigger = yes } ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.05 } } }
+	else_if = { limit = { has_large_half_orcish_minority_trigger = yes } ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.10 } } }
+	if = { limit = { has_small_halfling_minority_trigger = yes } ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.05 } } }
+	else_if = { limit = { has_large_halfling_minority_trigger = yes } ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.10 } } }
+	if = { limit = { has_small_harimari_minority_trigger = yes } ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.05 } } }
+	else_if = { limit = { has_large_harimari_minority_trigger = yes } ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.10 } } }
+	if = { limit = { has_small_harpy_minority_trigger = yes } ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.05 } } }
+	else_if = { limit = { has_large_harpy_minority_trigger = yes } ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.10 } } }
+	if = { limit = { has_small_hobgoblin_minority_trigger = yes } ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.05 } } }
+	else_if = { limit = { has_large_hobgoblin_minority_trigger = yes } ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.10 } } }
+	if = { limit = { has_small_human_minority_trigger = yes } ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.05 } } }
+	else_if = { limit = { has_large_human_minority_trigger = yes } ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.10 } } }
+	if = { limit = { has_small_kobold_minority_trigger = yes } ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.05 } } }
+	else_if = { limit = { has_large_kobold_minority_trigger = yes } ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.10 } } }
+	if = { limit = { has_small_lizardfolk_minority_trigger = yes } ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.05 } } }
+	else_if = { limit = { has_large_lizardfolk_minority_trigger = yes } ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.10 } } }
 	# if = { limit = { has_small_mechanism_minority_trigger = yes }
 		# ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.05 } }
 	# }
 	# else_if = { limit = { has_large_mechanism_minority_trigger = yes }
 		# ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.10 } }
 	# }
-	if = { limit = { has_small_ogre_minority_trigger = yes }
-		ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.05 } }
-	}
-	else_if = { limit = { has_large_ogre_minority_trigger = yes }
-		ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.10 } }
-	}
-	if = { limit = { has_small_orcish_minority_trigger = yes }
-		ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.05 } }
-	}
-	else_if = { limit = { has_large_orcish_minority_trigger = yes }
-		ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.10 } }
-	}
-	if = { limit = { has_small_ruinborn_minority_trigger = yes }
-		ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.05 } }
-	}
-	else_if = { limit = { has_large_ruinborn_minority_trigger = yes }
-		ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.10 } }
-	}
-	if = { limit = { has_small_troll_minority_trigger = yes }
-		ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.05 } }
-	}
-	else_if = { limit = { has_large_troll_minority_trigger = yes }
-		ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.10 } }
-	}
+	if = { limit = { has_small_ogre_minority_trigger = yes } ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.05 } } }
+	else_if = { limit = { has_large_ogre_minority_trigger = yes } ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.10 } } }
+	if = { limit = { has_small_orcish_minority_trigger = yes } ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.05 } } }
+	else_if = { limit = { has_large_orcish_minority_trigger = yes } ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.10 } } }
+	if = { limit = { has_small_ruinborn_minority_trigger = yes } ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.05 } } }
+	else_if = { limit = { has_large_ruinborn_minority_trigger = yes } ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.10 } } }
+	if = { limit = { has_small_troll_minority_trigger = yes } ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.05 } } }
+	else_if = { limit = { has_large_troll_minority_trigger = yes } ROOT = { change_variable = { which = nbMinorityCoredDev value = 0.10 } } }
 	ROOT = { multiply_variable = { which = nbMinorityCoredDev which = PREV } }
 }
 
@@ -4403,10 +684,12 @@ pop_menu_military_setup = {
 pop_menu_military_sorting_setup = {
 	set_variable = { which = nb$RACE$Dev which = PREV }
 	set_variable = { which = nbRaceDev which = nb$RACE$Dev }
-	if = { limit = { ROOT = { has_country_modifier = $RACE$_military } }
+	if = {
+		limit = { ROOT = { has_country_modifier = $RACE$_military } }
 		ROOT = { set_variable = { which = $RACE$Ranking value = 1 } }
 	}
-	else_if = { limit = { ROOT = { check_variable = { which = nb$RACE$Dev value = 30 } } }
+	else_if = {
+		limit = { ROOT = { check_variable = { which = nb$RACE$Dev value = 30 } } }
 		set_province_flag = available_not_sorted
 		save_event_target_as = most_represented_race
 	}
@@ -4447,10 +730,7 @@ pop_menu_military_sorting_effect = {
 	while = { limit = { pop_menu_variables = { has_province_flag = available_not_sorted } }
 		change_variable = { which = raceRanking value = 1 }
 		pop_menu_variables = {	#province group that has all the provinces with stored variables
-			limit = {
-				has_province_flag = available_not_sorted
-				check_variable = { which = nbRaceDev which = event_target:most_represented_race }
-			}
+			limit = { has_province_flag = available_not_sorted check_variable = { which = nbRaceDev which = event_target:most_represented_race } }
 			save_event_target_as = most_represented_race
 		}
 		event_target:most_represented_race = {
@@ -4462,10 +742,7 @@ pop_menu_military_sorting_effect = {
 	while = { limit = { pop_menu_variables = { has_province_flag = unavailable_not_sorted } }
 		change_variable = { which = raceRanking value = 1 }
 		pop_menu_variables = {	#province group that has all the provinces with stored variables
-			limit = {
-				has_province_flag = unavailable_not_sorted
-				check_variable = { which = nbRaceDev which = event_target:most_represented_race }
-			}
+			limit = { has_province_flag = unavailable_not_sorted check_variable = { which = nbRaceDev which = event_target:most_represented_race } }
 			save_event_target_as = most_represented_race
 		}
 		event_target:most_represented_race = {
@@ -4506,42 +783,19 @@ pop_menu_military_change_mil_race = {
             tooltip = { add_country_modifier = { name = $RACE$_military duration = -1 desc = pop_military_modifier_duration_hidden } }
         }
         else_if = {
-            limit = {
-                mil_power = 200
-                high_tolerance_$RACE$_race_trigger = yes
-                OR = {
-                    check_variable = { which = nb$RACE$Dev value = 30 }
-                    AND = {
-                        has_country_modifier = $RACE$_administration
-                        NOT = { primary_culture = sunrise_elf }
-                    }
-                }
-            }
+            limit = { mil_power = 200 high_tolerance_$RACE$_race_trigger = yes OR = { check_variable = { which = nb$RACE$Dev value = 30 } AND = { has_country_modifier = $RACE$_administration NOT = { primary_culture = sunrise_elf } } } }
             add_mil_power = -200
             clear_racial_military = yes
-
             add_country_modifier = { name = restructuring_military duration = 3650 }
             add_country_modifier = { name = $RACE$_military duration = -1 }
             pop_menu_military_change_tech = { RACE = $RACE$ ORDER = $ORDER$ }
         }
         else = {
             custom_tooltip = pop_military_change_not_possible_tt
-            if = { limit = { NOT = { mil_power = 200 } }
-                custom_tooltip = pop_military_not_enough_milpower_tt
-            }
-            if = { limit = { NOT = { high_tolerance_$RACE$_race_trigger = yes } }
-                custom_tooltip = pop_military_tolerance_too_low_tt
-            }
-            if = { limit = { NOT = { check_variable = { which = nb$RACE$Dev value = 30 } } }
-                custom_tooltip = pop_military_dev_too_low_tt
-            }
-            if = {
-                limit = {
-					has_country_modifier = $RACE$_administration
-					primary_culture = sunrise_elf
-                }
-                custom_tooltip = pop_military_primary_is_sunrise_elf_tt
-            }
+            if = { limit = { NOT = { mil_power = 200 } } custom_tooltip = pop_military_not_enough_milpower_tt }
+            if = { limit = { NOT = { high_tolerance_$RACE$_race_trigger = yes } } custom_tooltip = pop_military_tolerance_too_low_tt }
+            if = { limit = { NOT = { check_variable = { which = nb$RACE$Dev value = 30 } } } custom_tooltip = pop_military_dev_too_low_tt }
+            if = { limit = { has_country_modifier = $RACE$_administration primary_culture = sunrise_elf } custom_tooltip = pop_military_primary_is_sunrise_elf_tt }
             custom_tooltip = pop_military_separator_tt
             tooltip = { add_country_modifier = { name = $RACE$_military duration = -1 desc = pop_military_modifier_duration_hidden } }
         }
@@ -4552,156 +806,48 @@ pop_menu_military_change_tech = {
 	if = {
 		limit = { is_variable_equal = { which = elvenRanking value = $ORDER$ } }
 		if = {
-			limit = {
-				OR = {
-					capital_scope = { superregion = deepwoods_superregion }
-					primary_culture = wood_elf
-					AND = {
-						accepted_culture = wood_elf
-						NOT = { culture_group = elven }
-					}
-				}
-			}
+			limit = { OR = { capital_scope = { superregion = deepwoods_superregion } primary_culture = wood_elf AND = { accepted_culture = wood_elf NOT = { culture_group = elven } } } }
 			change_unit_type = tech_wood_elf
 		}
 		else_if = {
-			limit = {
-				OR = {
-					primary_culture = sun_elf
-					primary_culture = dawn_elf
-					primary_culture = desert_elf
-					primary_culture = sunrise_elf
-					capital_scope = { continent = asia }
-					capital_scope = { continent = africa }
-					AND = {
-						religion_group = bulwari
-						OR = {
-							capital_scope = { continent = north_america }
-							capital_scope = { continent = south_america }
-						}
-					}
-					AND = {
-						accepted_culture = sun_elf
-						NOT = { culture_group = elven }
-					}
-					AND = {
-						accepted_culture = dawn_elf
-						NOT = { culture_group = elven }
-					}
-					AND = {
-						accepted_culture = desert_elf
-						NOT = { culture_group = elven }
-					}
-					AND = {
-						accepted_culture = sunrise_elf
-						NOT = { culture_group = elven }
-					}
-				}
-			}
+			limit = { OR = { primary_culture = sun_elf primary_culture = dawn_elf primary_culture = desert_elf primary_culture = sunrise_elf capital_scope = { continent = asia } capital_scope = { continent = africa } AND = { religion_group = bulwari OR = { capital_scope = { continent = north_america } capital_scope = { continent = south_america } } } AND = { accepted_culture = sun_elf NOT = { culture_group = elven } } AND = { accepted_culture = dawn_elf NOT = { culture_group = elven } } AND = { accepted_culture = desert_elf NOT = { culture_group = elven } } AND = { accepted_culture = sunrise_elf NOT = { culture_group = elven } } } }
 			change_unit_type = tech_east_elven
 		}
-		else = {
-			change_unit_type = tech_elven
-		}
+		else = { change_unit_type = tech_elven }
 	}
 	else_if = {
 		limit = { is_variable_equal = { which = half_orcishRanking value = $ORDER$ } }
 		if = {
-			limit = {
-				OR = {
-					capital_scope = { superregion = gerudia_superregion }
-					primary_culture = grombar_half_orc
-					primary_culture = grombar_orc
-					primary_culture = gray_orc
-					AND = {
-						accepted_culture = grombar_half_orc
-						NOT = { culture_is_half_orcish = yes }
-					}
-					AND = {
-						accepted_culture = grombar_orc
-						NOT = { culture_is_half_orcish = yes }
-					}
-					AND = {
-						accepted_culture = gray_orc
-						NOT = { culture_is_half_orcish = yes }
-					}
-				}
-			}
+			limit = { OR = { capital_scope = { superregion = gerudia_superregion } primary_culture = grombar_half_orc primary_culture = grombar_orc primary_culture = gray_orc AND = { accepted_culture = grombar_half_orc NOT = { culture_is_half_orcish = yes } } AND = { accepted_culture = grombar_orc NOT = { culture_is_half_orcish = yes } } AND = { accepted_culture = gray_orc NOT = { culture_is_half_orcish = yes } } } }
 			change_unit_type = tech_gerudian
 		}
-		else = {
-			change_unit_type = tech_cannorian
-		}
+		else = { change_unit_type = tech_cannorian }
 	}
 	else_if = {
 		limit = { is_variable_equal = { which = harimariRanking value = $ORDER$ } }
 		if = {
-			limit = {
-				OR = {
-					capital_scope = { superregion = yanshen_superregion }
-					capital_scope = { superregion = south_haless_superregion }
-					capital_scope = { superregion = north_haless_superregion }
-					primary_culture = serene_harimari
-					primary_culture = roaming_harimari
-					AND = {
-						accepted_culture = serene_harimari
-						NOT = { culture_group = harimari }
-					}
-					AND = {
-						accepted_culture = roaming_harimari
-						NOT = { culture_group = harimari }
-					}
-				}
-			}
+			limit = { OR = { capital_scope = { superregion = yanshen_superregion } capital_scope = { superregion = south_haless_superregion } capital_scope = { superregion = north_haless_superregion } primary_culture = serene_harimari primary_culture = roaming_harimari AND = { accepted_culture = serene_harimari NOT = { culture_group = harimari } } AND = { accepted_culture = roaming_harimari NOT = { culture_group = harimari } } } }
 			change_unit_type = tech_east_harimari
 		}
-		else = {
-			change_unit_type = tech_west_harimari
-		}
+		else = { change_unit_type = tech_west_harimari }
 	}
 	else_if = {
 		limit = { is_variable_equal = { which = harpyRanking value = $ORDER$ } }
 		if = {
-			limit = {
-				OR = {
-					capital_scope = { superregion = yanshen_superregion }
-					capital_scope = { superregion = south_haless_superregion }
-					capital_scope = { superregion = north_haless_superregion }
-					primary_culture = feng_harpy
-					AND = {
-						accepted_culture = feng_harpy
-						NOT = { culture_group = harpy }
-					}
-				}
-			}
+			limit = { OR = { capital_scope = { superregion = yanshen_superregion } capital_scope = { superregion = south_haless_superregion } capital_scope = { superregion = north_haless_superregion } primary_culture = feng_harpy AND = { accepted_culture = feng_harpy NOT = { culture_group = harpy } } } }
 			change_unit_type = tech_east_harpy
 		}
-		else = {
-			change_unit_type = tech_harpy
-		}
+		else = { change_unit_type = tech_harpy }
 	}
 	else_if = {
 		limit = { is_variable_equal = { which = humanRanking value = $ORDER$ } }
-		if = { limit = { capital_scope = { superregion = bulwar_superregion } }
-			change_unit_type = tech_bulwari
-		}
-		else_if = { limit = { capital_scope = { superregion = west_salahad_superregion } }
-			change_unit_type = tech_salahadesi
-		}
-		else_if = { limit = { capital_scope = { superregion = south_salahad_superregion } }
-			change_unit_type = tech_salahadesi
-		}
+		if = { limit = { capital_scope = { superregion = bulwar_superregion } } change_unit_type = tech_bulwari }
+		else_if = { limit = { capital_scope = { superregion = west_salahad_superregion } } change_unit_type = tech_salahadesi }
+		else_if = { limit = { capital_scope = { superregion = south_salahad_superregion } } change_unit_type = tech_salahadesi }
 		else_if = { 
 			limit = { capital_scope = { superregion = west_sarhal_superregion } }
 		    if = {
-				limit = { 
-					OR = {
-						accepted_culture = tanizu
-						accepted_culture = dakinshi
-						accepted_culture = antmvura
-					}
-					NOT = { culture_group = tanizu }
-				}
+				limit = { OR = { accepted_culture = tanizu accepted_culture = dakinshi accepted_culture = antmvura } NOT = { culture_group = tanizu } }
 				else = { change_unit_type = tech_tanizu }
 			}
 			change_unit_type = tech_west_sarhaly
@@ -4709,397 +855,523 @@ pop_menu_military_change_tech = {
 		else_if = { 
 			limit = { capital_scope = { superregion = south_sarhal_superregion } }
 			if = {
-				limit = { 
-					OR = {
-						accepted_culture = suhratbi
-						accepted_culture = dhebiji
-						accepted_culture = guryadagga
-						accepted_culture = ashamadi
-					}
-					NOT = { culture_group = baashidi }
-				}
+				limit = { OR = { accepted_culture = suhratbi accepted_culture = dhebiji accepted_culture = guryadagga accepted_culture = ashamadi } NOT = { culture_group = baashidi } }
 				change_unit_type = tech_baashidi
 			}
 			else = { change_unit_type = tech_south_sarhaly }
 		}
-		else_if = { limit = { capital_scope = { superregion = east_sarhal_superregion } }	#wingren again
-			change_unit_type = tech_east_sarhaly
-		}
-		else_if = { limit = { capital_scope = { superregion = rahen_superregion } }
-			change_unit_type = tech_raheni
-		}
+		else_if = { limit = { capital_scope = { superregion = east_sarhal_superregion } } change_unit_type = tech_east_sarhaly }	#wingren again
+		else_if = { limit = { capital_scope = { superregion = rahen_superregion } } change_unit_type = tech_raheni }
 		else_if = {
-			limit = {
-				OR = {
-					capital_scope = { superregion = yanshen_superregion }
-					capital_scope = { superregion = south_haless_superregion }
-				}
-			}
+			limit = { OR = { capital_scope = { superregion = yanshen_superregion } capital_scope = { superregion = south_haless_superregion } } }
 			change_unit_type = tech_halessi
 		}
-		else_if = { limit = { capital_scope = { superregion = north_haless_superregion } }
-			change_unit_type = tech_shuvuush
-		}
-		else_if = { limit = { capital_scope = { superregion = forbidden_lands_superregion } }
-			change_unit_type = tech_triunic
-		}
-		else_if = { limit = { capital_scope = { superregion = gerudia_superregion } }
-			change_unit_type = tech_gerudian
-		}
-		else = {
-			change_unit_type = tech_cannorian
-		}
+		else_if = { limit = { capital_scope = { superregion = north_haless_superregion } } change_unit_type = tech_shuvuush }
+		else_if = { limit = { capital_scope = { superregion = forbidden_lands_superregion } } change_unit_type = tech_triunic }
+		else_if = { limit = { capital_scope = { superregion = gerudia_superregion } } change_unit_type = tech_gerudian }
+		else = { change_unit_type = tech_cannorian }
 	}
 	else_if = {
 		limit = { is_variable_equal = { which = koboldRanking value = $ORDER$ } }
 		if = {
-			limit = {
-				OR = {
-					capital_scope = { superregion = yanshen_superregion }
-					capital_scope = { superregion = south_haless_superregion }
-					capital_scope = { superregion = north_haless_superregion }
-					capital_scope = { superregion = rahen_superregion }
-					primary_culture = goldscale_kobold
-					AND = {
-						accepted_culture = goldscale_kobold
-						NOT = { culture_group = kobold }
-					}
-				}
-			}
+			limit = { OR = { capital_scope = { superregion = yanshen_superregion } capital_scope = { superregion = south_haless_superregion } capital_scope = { superregion = north_haless_superregion } capital_scope = { superregion = rahen_superregion } primary_culture = goldscale_kobold AND = { accepted_culture = goldscale_kobold NOT = { culture_group = kobold } } } }
 			change_unit_type = tech_east_kobold
 		}
-		else = {
-			change_unit_type = tech_kobold
-		}
+		else = { change_unit_type = tech_kobold }
 	}
 	else_if = {
 		limit = { is_variable_equal = { which = ogreRanking value = $ORDER$ } }
 		if = {
-			limit = {
-				OR = {
-					capital_scope = { superregion = yanshen_superregion }
-					capital_scope = { superregion = south_haless_superregion }
-					capital_scope = { superregion = north_haless_superregion }
-					capital_scope = { superregion = rahen_superregion }
-					primary_culture = horned_ogre
-					AND = {
-						accepted_culture = horned_ogre
-						NOT = { culture_group = ogre }
-					}
-				}
-			}
+			limit = { OR = { capital_scope = { superregion = yanshen_superregion } capital_scope = { superregion = south_haless_superregion } capital_scope = { superregion = north_haless_superregion } capital_scope = { superregion = rahen_superregion } primary_culture = horned_ogre AND = { accepted_culture = horned_ogre NOT = { culture_group = ogre } } } }
 			change_unit_type = tech_eastern_ogre
 		}
-		else = {
-			change_unit_type = tech_ogre	#may need custom one
-		}
+		else = { change_unit_type = tech_ogre }	#may need custom one
 	}
 	else_if = {
 		limit = { is_variable_equal = { which = orcishRanking value = $ORDER$ } }
 		if = {
-			limit = {
-				OR = {
-					capital_scope = {
-						continent = serpentspine
-					}
-					primary_culture = black_orc
-					AND = {
-						accepted_culture = black_orc
-						NOT = { culture_group = orcish }
-					}
-				}
-			}
+			limit = { OR = { capital_scope = { continent = serpentspine } primary_culture = black_orc AND = { accepted_culture = black_orc NOT = { culture_group = orcish } } } }
 			change_unit_type = tech_black_orcish
 		}
 		else_if = {
-			limit = {
-				OR = {
-					capital_scope = {
-						continent = asia
-						NOT = { superregion = forbidden_lands_superregion }
-					}
-					primary_culture = brown_orc
-					AND = {
-						accepted_culture = brown_orc
-						NOT = { culture_group = orcish }
-					}
-				}
-			}
+			limit = { OR = { capital_scope = { continent = asia NOT = { superregion = forbidden_lands_superregion } } primary_culture = brown_orc AND = { accepted_culture = brown_orc NOT = { culture_group = orcish } } } }
 			change_unit_type = tech_east_orcish
 		}
-		else = {
-			change_unit_type = tech_orcish
-		}
+		else = { change_unit_type = tech_orcish }
 	}
 	else_if = {
 		limit = { is_variable_equal = { which = ruinbornRanking value = $ORDER$ } }
-		if = { 
-			limit = {
-				OR = {
-					capital_scope = { superregion = ynn_superregion }
-					capital_scope = { region = forest_of_the_cursed_ones_region }
-				}
-			}
-			change_unit_type = tech_ynnic
-		}
-		else_if = { limit = { capital_scope = { superregion = eordand_superregion } }
-			change_unit_type = tech_eordand
-		}
+		if = { limit = { OR = { capital_scope = { superregion = ynn_superregion } capital_scope = { region = forest_of_the_cursed_ones_region } } } change_unit_type = tech_ynnic }
+		else_if = { limit = { capital_scope = { superregion = eordand_superregion } } change_unit_type = tech_eordand }
+		else_if = { limit = { OR = { culture_group = devandi_ruinborn_elf culture_group = eltibhari_ruinborn_elf capital_scope = { region = chendhya_region } } } change_unit_type = tech_bharbhen }
+		else_if = { limit = { capital_scope = { superregion = kheionai_superregion } } change_unit_type = tech_kheionai }
+		else_if = { limit = { capital_scope = { superregion = greater_taychend_superregion } } change_unit_type = tech_taychendi }
+		else_if = { limit = { OR = { capital_scope = { region = haraf_region } capital_scope = { region = tor_nayyi_region } } } change_unit_type = tech_harafic }
+		else_if = { limit = { OR = { capital_scope = { superregion = north_aelantir_superregion } capital_scope = { superregion = ruined_sea_superregion } } } change_unit_type = tech_noruin }
 		else_if = {
-			limit = {
-				OR = {
-					culture_group = devandi_ruinborn_elf
-					culture_group = eltibhari_ruinborn_elf
-					capital_scope = { region = chendhya_region }
-				}
-			}
-			change_unit_type = tech_bharbhen
-		}
-		else_if = { limit = { capital_scope = { superregion = kheionai_superregion } }
-			change_unit_type = tech_kheionai
-		}
-		else_if = { limit = { capital_scope = { superregion = greater_taychend_superregion } }
-			change_unit_type = tech_taychendi
-		}
-		else_if = {
-			limit = {
-				OR = {
-					capital_scope = { region = haraf_region }
-					capital_scope = { region = tor_nayyi_region }
-				}
-			}
-			change_unit_type = tech_harafic
-		}
-		else_if = {
-			limit = {
-				OR = {
-					capital_scope = { superregion = north_aelantir_superregion }
-					capital_scope = { superregion = ruined_sea_superregion }
-				}
-			}
-			change_unit_type = tech_noruin
-		}
-		else_if = {
-			limit = {
-				OR = {
-					capital_scope = { superregion = effelai_superregion }
-					capital_scope = { region = amadia_region }
-				}
-			}
+			limit = { OR = { capital_scope = { superregion = effelai_superregion } capital_scope = { region = amadia_region } } }
 			if = {
-				limit = {
-					OR = {
-						culture_group = eltibhari_ruinborn_elf
-						culture_group = devandi_ruinborn_elf
-					}
-				}
+				limit = { OR = { culture_group = eltibhari_ruinborn_elf culture_group = devandi_ruinborn_elf } }
 				change_unit_type = tech_bharbhen
 			}
-			else = {
-				change_unit_type = tech_south_aelantiri
-			}
+			else = { change_unit_type = tech_south_aelantiri }
 		}
-		else = {
-			change_unit_type = tech_noruin
-		}
+		else = { change_unit_type = tech_noruin }
 	}
 	else_if = {
         limit = { is_variable_equal = { which = trollRanking value = $ORDER$ } }
         if = {
-            limit = {
-                OR = {
-                    capital_scope = { superregion = east_sarhal_superregion }
-                    primary_culture = swamp_troll
-                    AND = {
-                        accepted_culture = swamp_troll
-                        NOT = { culture_group = giantkind }
-                    }
-                }
-            }
+            limit = { OR = { capital_scope = { superregion = east_sarhal_superregion } primary_culture = swamp_troll AND = { accepted_culture = swamp_troll NOT = { culture_group = giantkind } } } }
             change_unit_type = tech_swamp_troll
         }
-        else = {
-            change_unit_type = tech_troll    #may need custom one
-        }
+        else = { change_unit_type = tech_troll }    #may need custom one
     }
 	else_if = {
         limit = { is_variable_equal = { which = halflingRanking value = $ORDER$ } }
         if = {
             limit = {
                 OR = {
-                    capital_scope = {
-						superregion = west_sarhal_superregion
-					}
+                    capital_scope = { superregion = west_sarhal_superregion }
 					culture_group = vyzemby
-                    AND = {
-						OR = {
-							accepted_culture = amezatany
-							accepted_culture = mboala
-							accepted_culture = mazava
-							accepted_culture = fomarati
-							accepted_culture = vyoronsi
-						}
-                        NOT = { culture_group = vyzemby }
-                    }
+                    AND = { OR = { accepted_culture = amezatany accepted_culture = mboala accepted_culture = mazava accepted_culture = fomarati accepted_culture = vyoronsi } NOT = { culture_group = vyzemby } }
                 }
             }
             change_unit_type = tech_vyzemby
         }
-        else = {
-            change_unit_type = tech_halfling    #may need custom one
-        }
+        else = { change_unit_type = tech_halfling }    #may need custom one
     }
-	else = {
-		change_unit_type = tech_$RACE$
+	else = { change_unit_type = tech_$RACE$ }
+}
+
+update_unit_sprites_for_racial_mil = {
+	if = {
+		limit = { has_country_modifier = human_military }
+		if = {
+			limit = { capital_scope = { superregion = rahen_superregion } }
+			custom_tooltip = swap_to_human_raheni_sprites_tooltip
+			hidden_effect = { apply_sprite_pack = indiangfx_sprite_pack }
+		}
+		else_if = {
+			limit = { capital_scope = { OR = { superregion = south_haless_superregion superregion = yanshen_superregion } } }
+			custom_tooltip = swap_to_human_yanshen_sprites_tooltip
+			hidden_effect = { apply_sprite_pack = asiangfx_sprite_pack }
+		}	
+		else_if = { limit = { capital_scope = { OR = { superregion = north_haless_superregion superregion = forbidden_plains_superregion } } }
+			custom_tooltip = swap_to_human_triunic_sprites_tooltip
+			hidden_effect = { apply_sprite_pack = triunicgfx_sprite_pack }
+		}
+		else_if = {
+			limit = { capital_scope = { OR = { superregion = east_sarhal_superregion superregion = south_sarhal_superregion } } }
+			custom_tooltip = swap_to_human_east_sarhal_sprites_tooltip
+			hidden_effect = { apply_sprite_pack = africangfx_sprite_pack }
+		}
+		else_if = {
+			limit = { capital_scope = { OR = { superregion = fangaula_superregion superregion = north_salahad_superregion superregion = south_salahad_superregion superregion = bulwar_superregion } } }
+			custom_tooltip = swap_to_human_bulwar_sprites_tooltip
+			hidden_effect = { apply_sprite_pack = muslimgfx_sprite_pack }
+		}
+		else_if = {
+			limit = { capital_scope = { OR = { continent = north_america continent = south_america } } }
+			custom_tooltip = swap_to_human_aelantir_sprites_tooltip
+			hidden_effect = { apply_sprite_pack = divenhalgfx_sprite_pack }
+		}
+		else = { custom_tooltip = swap_to_human_cannorian_sprites_tooltip hidden_effect = { apply_sprite_pack = westerngfx_sprite_pack } }	# cannor and gerudia (default fallback)
+	}
+	else_if = {
+		limit = { has_country_modifier = elven_military }
+		if = {
+			limit = { capital_scope = { superregion = deepwoods_superregion } }
+			custom_tooltip = swap_to_wood_elven_sprites_tooltip
+			hidden_effect = { apply_sprite_pack = moon_elf_sprite_pack }
+		}
+		else_if = {
+			limit = { capital_scope = { OR = { region = far_salahad_region region = far_bulwar_region } } }
+			custom_tooltip = swap_to_desert_elven_sprites_tooltip
+			hidden_effect = { apply_sprite_pack = moon_elf_sprite_pack }
+		}
+		else_if = {
+			limit = { capital_scope = { OR = { superregion = bulwar_superregion continent = south_america } } }
+			custom_tooltip = swap_to_sun_elven_sprites_tooltip
+			hidden_effect = { apply_sprite_pack = moon_elf_sprite_pack }
+		}
+		else = {
+			custom_tooltip = swap_to_moon_elven_sprites_tooltip
+			hidden_effect = { apply_sprite_pack = moon_elf_sprite_pack }
+		}
+	}
+	else_if = {
+		limit = { has_country_modifier = dwarven_military }
+		custom_tooltip = swap_to_dwarven_sprites_tooltip
+		hidden_effect = { apply_sprite_pack = group_dwarves_sprite_pack }
+	}
+	else_if = {
+		limit = { has_country_modifier = halfling_military }
+		if = {
+			limit = { capital_scope = { region = fahvanosy_region } }
+			custom_tooltip = swap_to_vyzemby_halfling_sprites_tooltip
+			hidden_effect = { apply_sprite_pack = africangfx_sprite_pack }
+		}
+		else = { custom_tooltip = swap_to_redfoot_halfling_sprites_tooltip hidden_effect = { apply_sprite_pack = redfoot_sprite_pack } }	# redfoot (default fallback)
+	}
+	else_if = {
+		limit = { has_country_modifier = gnomish_military }
+		custom_tooltip = swap_to_gnomish_sprites_tooltip
+		hidden_effect = { apply_sprite_pack = westerngfx_sprite_pack }
+	}
+	else_if = {
+		limit = { has_country_modifier = kobold_military }
+		if = {
+			limit = { capital_scope = { region = alenic_frontier_region } }
+			custom_tooltip = swap_to_greenscale_kobold_sprites_tooltip
+			hidden_effect = { apply_sprite_pack = greenscale_sprite_pack }
+		}
+		else_if = {
+			limit = { capital_scope = { continent = asia } }
+			custom_tooltip = swap_to_goldscale_kobold_sprites_tooltip
+			hidden_effect = { apply_sprite_pack = goldscale_sprite_pack }
+		}
+		else = { custom_tooltip = swap_to_redscale_kobold_sprites_tooltip hidden_effect = { apply_sprite_pack = redscale_sprite_pack } }	# redscale (default fallback)
+	}
+	else_if = { 
+		limit = { has_country_modifier = orcish_military }
+		if = {
+			limit = { capital_scope = { superregion = gerudia_superregion } }
+			custom_tooltip = swap_to_gray_orcish_sprites_tooltip
+			hidden_effect = { apply_sprite_pack = gray_orc_sprite_pack }
+		}
+		else_if = {
+			limit = { capital_scope = { continent = serpentspine } }
+			custom_tooltip = swap_to_black_orcish_sprites_tooltip
+			hidden_effect = { apply_sprite_pack = black_orc_sprite_pack }
+		}
+		else_if = {
+			limit = { capital_scope = { continent = asia } }
+			custom_tooltip = swap_to_brown_orcish_sprites_tooltip
+			hidden_effect = { apply_sprite_pack = brown_orc_sprite_pack }
+		}
+		else = { custom_tooltip = swap_to_green_orcish_sprites_tooltip hidden_effect = { apply_sprite_pack = green_orc_sprite_pack } }
+	}
+	else_if = { 
+		limit = { has_country_modifier = half_orcish_military }
+		if = {
+			limit = { capital_scope = { continent = asia } }
+			custom_tooltip = swap_to_raheni_half_orcish_sprites_tooltip
+			hidden_effect = { apply_sprite_pack = indiangfx_sprite_pack }
+		}
+		else = {
+			custom_tooltip = swap_to_cannorian_half_orcish_sprites_tooltip
+			hidden_effect = { apply_sprite_pack = westerngfx_sprite_pack }
+		}
+	}
+	else_if = {
+		limit = { has_country_modifier = gnollish_military }
+		custom_tooltip = swap_to_gnollish_sprites_tooltip
+		hidden_effect = { apply_sprite_pack = gnoll_sprite_pack }
+	}
+	else_if = {
+		limit = { has_country_modifier = ruinborn_military }
+		if = {
+			limit = { capital_scope = { superregion = kheionai_superregion } }
+			custom_tooltip = swap_to_kheionai_ruinborn_sprites_tooltip
+			hidden_effect = { apply_sprite_pack = kheionai_cool_units_sprite_pack }
+		}
+		else_if = {
+			limit = { capital_scope = { OR = { superregion = eordand_superregion superregion = taychend_superregion } } }
+			custom_tooltip = swap_to_eordand_ruinborn_sprites_tooltip
+			hidden_effect = { apply_sprite_pack = southamericagfx_sprite_pack }
+		}
+		else_if = {
+			limit = { capital_scope = { OR = {superregion = effelai_superregion superregion = ruin_proper_superregion superregion = torn_gates_superregion } } }
+			custom_tooltip = swap_to_effelai_ruinborn_sprites_tooltip
+			hidden_effect = { apply_sprite_pack = northamericagfx_sprite_pack }
+		}
+		else = { custom_tooltip = swap_to_ynnic_ruinborn_sprites_tooltip hidden_effect = { apply_sprite_pack = easterngfx_sprite_pack } }	# ynnic (default fallback)
+	}
+	else_if = {
+		limit = { has_country_modifier = goblin_military }
+		if = {
+			limit = { capital_scope = { superregion = bulwar_superregion } }
+			custom_tooltip = swap_to_exodus_goblin_sprites_tooltip
+			hidden_effect = { apply_sprite_pack = exodus_goblin_sprite_pack }
+		}
+		else_if = {
+			limit = { capital_scope = { superregion = deepwoods_superregion } }
+			custom_tooltip = swap_to_forest_goblin_ruinborn_sprites_tooltip
+			hidden_effect = { apply_sprite_pack = forest_goblin_sprite_pack }
+		}
+		else_if = {
+			limit = { capital_scope = { continent = serpentspine } }
+			custom_tooltip = swap_to_cave_goblin_sprites_tooltip
+			hidden_effect = { apply_sprite_pack = cave_goblin_sprite_pack }
+		}
+		else = {
+			custom_tooltip = swap_to_common_goblin_sprites_tooltip
+			hidden_effect = { apply_sprite_pack = common_goblin_sprite_pack }
+		}
+	}
+	else_if = {
+		limit = { has_country_modifier = harpy_military }
+		custom_tooltip = swap_to_harpy_sprites_tooltip
+		hidden_effect = { apply_sprite_pack = harpy_sprite_pack }
+	}
+	else_if = {
+		limit = { has_country_modifier = troll_military }
+		if = {
+			limit = { capital_scope = { region = yezel_mora_region } }
+			custom_tooltip = swap_to_swamp_troll_sprites_tooltip
+			hidden_effect = { apply_sprite_pack = africangfx_sprite_pack }
+		}
+		else = { custom_tooltip = swap_to_gerudian_troll_sprites_tooltip hidden_effect = { apply_sprite_pack = westerngfx_sprite_pack } }	# gerudian trolls (default fallback)
+	}
+	else_if = {
+		limit = { has_country_modifier = half_elven_military }
+		if = {
+			limit = { capital_scope = { OR = { superregion = bulwar_superregion superregion = far_salahad_superregion } } }
+			custom_tooltip = swap_to_bulwari_half_elven_sprites_tooltip
+			hidden_effect = { apply_sprite_pack = muslimgfx_sprite_pack }
+		}
+		else = { custom_tooltip = swap_to_cannorian_half_elven_sprites_tooltip hidden_effect = { apply_sprite_pack = westerngfx_sprite_pack } }	# cannor (default fallback)
+	}
+	else_if = {
+		limit = { has_country_modifier = harimari_military }
+		custom_tooltip = swap_to_harimari_sprites_tooltip
+		hidden_effect = { apply_sprite_pack = harimari_sprite_pack }
+	}
+	else_if = {
+		limit = { has_country_modifier = hobgoblin_military }
+		custom_tooltip = swap_to_hobgoblin_sprites_tooltip
+		hidden_effect = { apply_sprite_pack = hobgoblin_sprite_pack }
+	}
+	else_if = {
+		limit = { has_country_modifier = centaur_military }
+		custom_tooltip = swap_to_centaur_sprites_tooltip
+		hidden_effect = { apply_sprite_pack = centaur_sprite_pack }
+	}
+	else_if = {	# TODO update if ogres get unique models
+		limit = { has_country_modifier = ogre_military }
+		if = { limit = { capital_scope = { region = demon_hills_region } } custom_tooltip = swap_to_oni_sprites_tooltip hidden_effect = { apply_sprite_pack = asiangfx_sprite_pack } }	# oni
+		else = { custom_tooltip = swap_to_ogre_sprites_tooltip hidden_effect = { apply_sprite_pack = westerngfx_sprite_pack } }	# forbidden plains/miremaw ogres (default fallback)
+	}
+	else_if = {
+		limit = { has_country_modifier = lizardfolk_military }
+		# TODO update if lizardfolk get unique models
+		custom_tooltip = swap_to_lizardfolk_sprites_tooltip
+		hidden_effect = { apply_sprite_pack = muslimgfx_sprite_pack }
 	}
 }
 
+generic_start_purge = {
+	if = {
+		limit = { NOT = { has_country_modifier = racial_pop_$race$_purge } }
+		if = { limit = { NOT = { has_country_flag = unlimited_genocide } } generic_increase_state_action_malus = { action = genocide } }
+		add_country_modifier = { name = racial_pop_$race$_purge duration = -1 desc = while_policy_active }
+		generic_decrease_of_racial_tolerance_effect = { race = $race$ largest = yes }
+		custom_tooltip = racial_pop_events_debug.3.tooltip
+		custom_tooltip = pop_menu_purge_effect_unrest_tt
+		hidden_effect = {
+			if = { limit = { ai = yes } country_event = { id = racial_pop_events_$race$.14 days = 1 } }
+			if = { limit = { ai = no } country_event = { id = race_setup_events.9 days = 1 } }
+			every_owned_province = { limit = { has_small_$race$_minority_trigger = yes } add_unrest = 5 }
+			every_owned_province = { limit = { has_large_$race$_minority_trigger = yes } add_unrest = 7 }
+			every_owned_province = { limit = { has_$race$_majority_trigger = yes } add_unrest = 15 }
+		}
+	}
+}
+generic_start_expulsion = {
+	if = {
+		limit = { NOT = { has_country_modifier = racial_pop_$race$_expulsion } }
+		generic_increase_state_action_malus = { action = genocide }
+		add_country_modifier = { name = racial_pop_$race$_expulsion duration = -1 desc = while_policy_active }
+		generic_decrease_of_racial_tolerance_effect = { race = $race$ large = yes }
+		custom_tooltip = racial_pop_events_debug.2.tooltip
+		custom_tooltip = pop_menu_expel_effect_unrest_tt
+		hidden_effect = {
+			if = { limit = { ai = yes } country_event = { id = racial_pop_events_$race$.13 days = 1 } }
+			if = { limit = { ai = no } country_event = { id = race_setup_events.9 days = 1 } }
+			every_owned_province = { limit = { has_small_$race$_minority_trigger = yes } add_unrest = 2 }
+			every_owned_province = { limit = { has_large_$race$_minority_trigger = yes } add_unrest = 5 }
+			every_owned_province = { limit = { has_$race$_majority_trigger = yes } add_unrest = 10 }
+		}
+	}
+}
+generic_start_focus = {
+	if = {
+		limit = { NOT = { has_country_modifier = racial_focus_$race$ } }
+		generic_increase_state_action_malus = { action = focus }
+		add_country_modifier = { name = racial_focus_$race$ duration = -1  desc = while_policy_active}
+	}
+}
+generic_end_purge = {
+	if = {
+		limit = { has_country_modifier = racial_pop_$race$_purge }
+		generic_decrease_state_action_malus = { action = genocide }
+		remove_country_modifier = racial_pop_$race$_purge
+		hidden_effect = {
+			if = { limit = { ai = yes } country_event = { id = racial_pop_events_$race$.16 days = 1 } }
+			if = { limit = { ai = no } country_event = { id = race_setup_events.9 days = 1 } 	}
+		}
+	}
+}
+generic_end_expulsion = {
+	if = {
+		limit = { has_country_modifier = racial_pop_$race$_expulsion }
+		generic_decrease_state_action_malus = { action = genocide }
+		remove_country_modifier = racial_pop_$race$_expulsion
+		hidden_effect = {
+			if = { limit = { ai = yes } country_event = { id = racial_pop_events_$race$.15 days = 1 } }
+			if = { limit = { ai = no } country_event = { id = race_setup_events.9 days = 1 } }
+		}
+	}
+}
+generic_end_focus = {
+	if = {
+		limit = { has_country_modifier = racial_focus_$race$ }
+		generic_decrease_state_action_malus = { action = focus }
+		remove_country_modifier = racial_focus_$race$
+	}
+}
+generic_purge_expel_opinion_setup = {
+	if = {
+		limit = {
+			ROOT = { has_country_modifier = racial_pop_$race$_expulsion }
+			has_country_modifier = $race$_administration
+			NOT = { has_opinion_modifier = { who = ROOT modifier = opinion_expelling_race } }
+		}
+		add_opinion = { who = ROOT modifier = opinion_expelling_race }
+		remove_opinion = { who = ROOT modifier = opinion_persecuted_race }
+	}
+	if = {
+		limit = {
+			has_opinion_modifier = { who = ROOT modifier = opinion_expelling_race }
+			has_country_modifier = $race$_administration
+			ROOT = { NOT = { has_country_modifier = racial_pop_$race$_expulsion } }
+		}
+		remove_opinion = { who = ROOT modifier = opinion_expelling_race }
+		add_opinion = { who = ROOT modifier = opinion_persecuted_race }
+	}
+	if = {
+		limit = {
+			ROOT = { has_country_modifier = racial_pop_$race$_purge }
+			has_country_modifier = $race$_administration
+			NOT = { has_opinion_modifier = { who = ROOT modifier = opinion_purging_race } }
+		}
+		add_opinion = { who = ROOT modifier = opinion_purging_race }
+		remove_opinion = { who = ROOT modifier = opinion_persecuted_race }
+	}
+	if = {
+		limit = {
+			has_opinion_modifier = { who = ROOT modifier = opinion_purging_race }
+			has_country_modifier = $race$_administration
+			ROOT = { NOT = { has_country_modifier = racial_pop_$race$_purge } }
+		}
+		remove_opinion = { who = ROOT modifier = opinion_purging_race }
+		add_opinion = { who = ROOT modifier = opinion_persecuted_race }
+	}
+}
+# for newly spawned nations - no point doing the persecuted check here because
+# with how it currently works a newly spawned nation would never have one of the two modifiers, so would never get persecuted
+generic_purge_expel_opinion_setup_reverse = {
+	reverse_remove_opinion = { who = ROOT modifier = opinion_purging_race }
+	reverse_remove_opinion = { who = ROOT modifier = opinion_expelling_race }
+	if = {
+		limit = { ROOT = { has_country_modifier = $race$_administration } }
+		if = { limit = { has_country_modifier = racial_pop_$race$_expulsion } reverse_add_opinion = { who = ROOT modifier = opinion_expelling_race } }
+		if = { limit = { has_country_modifier = racial_pop_$race$_purge } reverse_add_opinion = { who = ROOT modifier = opinion_purging_race } }
+	}
+}
 racial_purge_disabled_tt =  {
     custom_tooltip = pop_menu_unavailable_tt
-    if = { limit = { has_country_modifier = forced_to_end_$RACE$_purge }
-		custom_tooltip = pop_menu_cannot_purge_forced_tt
-    }
-    if = { limit = { has_country_modifier = racial_pop_$RACE$_expulsion }
-		custom_tooltip = pop_menu_cannot_purge_while_expelling_tt
-    }
-    if = { limit = { has_country_modifier = $RACE$_administration }
-		custom_tooltip = pop_menu_cannot_purge_own_race_tt
-    }
-    if = { limit = { has_country_modifier = $RACE$_military }
-		custom_tooltip = pop_menu_cannot_purge_military_race_tt
-    }
-    if = { limit = { ruler_is_$RACE$ = yes }
-		custom_tooltip = pop_menu_cannot_purge_ruler_race_tt
-    }
-	if = {
-		limit = {
-			has_country_flag = has_caste_estates
-			is_race_in_any_caste = {
-				$RACE$ = yes
-			}
-		}
-		custom_tooltip = pop_menu_cannot_purge_castes_tt
-	}
-    if = { limit = { NOT = { adm_power = 100 } }
-		custom_tooltip = pop_menu_cannot_purge_not_enough_adm_tt
-    }
-	if = { limit = { OR = { has_government_attribute = disabled_purging has_government_attribute = disabled_purging_$RACE$ } }
-		custom_tooltip = pop_menu_cannot_purge_government_attribute_tt
-	}
-    hidden_effect = {
-		country_event = { id = racial_pop_events_$RACE$.24 }
-    }
+    if = { limit = { has_country_modifier = forced_to_end_$RACE$_purge } custom_tooltip = pop_menu_cannot_purge_forced_tt } if = { limit = { has_country_modifier = racial_pop_$RACE$_expulsion } custom_tooltip = pop_menu_cannot_purge_while_expelling_tt } if = { limit = { has_country_modifier = $RACE$_administration } custom_tooltip = pop_menu_cannot_purge_own_race_tt }
+    if = { limit = { has_country_modifier = $RACE$_military } custom_tooltip = pop_menu_cannot_purge_military_race_tt }
+    if = { limit = { ruler_is_$RACE$ = yes } custom_tooltip = pop_menu_cannot_purge_ruler_race_tt }
+    if = { limit = { NOT = { adm_power = 100 } } custom_tooltip = pop_menu_cannot_purge_not_enough_adm_tt }
+	if = { limit = { OR = { has_government_attribute = disabled_purging has_government_attribute = disabled_purging_$RACE$ } } custom_tooltip = pop_menu_cannot_purge_government_attribute_tt }
+    hidden_effect = { country_event = { id = racial_pop_events_$RACE$.24 } }
 }
-
 racial_expel_disabled_tt = {
 	custom_tooltip = pop_menu_unavailable_tt
-	if = { limit = { has_country_modifier = racial_pop_$RACE$_purge }
-		custom_tooltip = pop_menu_cannot_expel_while_purging_tt
-	}
-	if = { limit = { has_country_modifier = $RACE$_administration }
-		custom_tooltip = pop_menu_cannot_expel_own_race_tt
-	}
-	if = { limit = { has_country_modifier = $RACE$_military }
-		custom_tooltip = pop_menu_cannot_expel_military_race_tt
-	}
-	if = { limit = { ruler_is_$RACE$ = yes }
-		custom_tooltip = pop_menu_cannot_expel_ruler_race_tt
-	}
-	if = {
-		limit = {
-			has_country_flag = has_caste_estates
-			is_race_in_any_caste = {
-				$RACE$ = yes
-			}
-		}
-		custom_tooltip = pop_menu_cannot_purge_castes_tt
-	}
-	if = { limit = { NOT = { adm_power = 50 } }
-		custom_tooltip = pop_menu_cannot_expel_not_enough_adm_tt
-	}
-	if = { limit = { OR = { has_government_attribute = disabled_expelling has_government_attribute = disabled_expelling_$RACE$ } }
-		custom_tooltip = pop_menu_cannot_expel_government_attribute_tt
-	}
-	hidden_effect = {
-		country_event = { id = racial_pop_events_$RACE$.24 }
-    }
+	if = { limit = { has_country_modifier = racial_pop_$RACE$_purge } custom_tooltip = pop_menu_cannot_expel_while_purging_tt }
+	if = { limit = { has_country_modifier = $RACE$_administration } custom_tooltip = pop_menu_cannot_expel_own_race_tt }
+	if = { limit = { has_country_modifier = $RACE$_military } custom_tooltip = pop_menu_cannot_expel_military_race_tt }
+	if = { limit = { ruler_is_$RACE$ = yes } custom_tooltip = pop_menu_cannot_expel_ruler_race_tt }
+	if = { limit = { NOT = { adm_power = 50 } } custom_tooltip = pop_menu_cannot_expel_not_enough_adm_tt }
+	if = { limit = { OR = { has_government_attribute = disabled_expelling has_government_attribute = disabled_expelling_$RACE$ } } custom_tooltip = pop_menu_cannot_expel_government_attribute_tt }
+	hidden_effect = { country_event = { id = racial_pop_events_$RACE$.24 } }
 }
-
+racial_focus_disabled_tt = {
+	custom_tooltip = pop_menu_unavailable_tt
+	if = { limit = { NOT = { can_afford_state_action_diplomat_malus = { action = focus } } } custom_tooltip = pop_menu_need_a_diplomat_tt }
+	if = { limit = { NOT = { dip_power = 50 } } custom_tooltip = pop_menu_cannot_focus_not_enough_dip_tt }
+}
 remove_racial_majority = {
-	remove_province_modifier = centaur_majority_primary
-	remove_province_modifier = centaur_majority_integrated
-	remove_province_modifier = centaur_majority_coexisting
-	remove_province_modifier = centaur_majority_oppressed
-	remove_province_modifier = dwarven_majority_primary
-	remove_province_modifier = dwarven_majority_integrated
-	remove_province_modifier = dwarven_majority_coexisting
-	remove_province_modifier = dwarven_majority_oppressed
-	remove_province_modifier = elven_majority_primary
-	remove_province_modifier = elven_majority_integrated
-	remove_province_modifier = elven_majority_coexisting
-	remove_province_modifier = elven_majority_oppressed
-	remove_province_modifier = gnollish_majority_primary
-	remove_province_modifier = gnollish_majority_integrated
-	remove_province_modifier = gnollish_majority_coexisting
-	remove_province_modifier = gnollish_majority_oppressed
-	remove_province_modifier = gnomish_majority_primary
-	remove_province_modifier = gnomish_majority_integrated
-	remove_province_modifier = gnomish_majority_coexisting
-	remove_province_modifier = gnomish_majority_oppressed
-	remove_province_modifier = goblin_majority_primary
-	remove_province_modifier = goblin_majority_integrated
-	remove_province_modifier = goblin_majority_coexisting
-	remove_province_modifier = goblin_majority_oppressed
-	remove_province_modifier = halfling_majority_primary
-	remove_province_modifier = halfling_majority_integrated
-	remove_province_modifier = halfling_majority_coexisting
-	remove_province_modifier = halfling_majority_oppressed
-	remove_province_modifier = half_elven_majority_primary
-	remove_province_modifier = half_elven_majority_integrated
-	remove_province_modifier = half_elven_majority_coexisting
-	remove_province_modifier = half_elven_majority_oppressed
-	remove_province_modifier = half_orcish_majority_primary
-	remove_province_modifier = half_orcish_majority_integrated
-	remove_province_modifier = half_orcish_majority_coexisting
-	remove_province_modifier = half_orcish_majority_oppressed
-	remove_province_modifier = harimari_majority_primary
-	remove_province_modifier = harimari_majority_integrated
-	remove_province_modifier = harimari_majority_coexisting
-	remove_province_modifier = harimari_majority_oppressed
-	remove_province_modifier = harpy_majority_primary
-	remove_province_modifier = harpy_majority_integrated
-	remove_province_modifier = harpy_majority_coexisting
-	remove_province_modifier = harpy_majority_oppressed
-	remove_province_modifier = hobgoblin_majority_primary
-	remove_province_modifier = hobgoblin_majority_integrated
-	remove_province_modifier = hobgoblin_majority_coexisting
-	remove_province_modifier = hobgoblin_majority_oppressed
-	remove_province_modifier = human_majority_primary
-	remove_province_modifier = human_majority_integrated
-	remove_province_modifier = human_majority_coexisting
-	remove_province_modifier = human_majority_oppressed
-	remove_province_modifier = kobold_majority_primary
-	remove_province_modifier = kobold_majority_integrated
-	remove_province_modifier = kobold_majority_coexisting
-	remove_province_modifier = kobold_majority_oppressed
-	remove_province_modifier = lizardfolk_majority_primary
-	remove_province_modifier = lizardfolk_majority_integrated
-	remove_province_modifier = lizardfolk_majority_coexisting
-	remove_province_modifier = lizardfolk_majority_oppressed
-	remove_province_modifier = ogre_majority_primary
-	remove_province_modifier = ogre_majority_integrated
-	remove_province_modifier = ogre_majority_coexisting
-	remove_province_modifier = ogre_majority_oppressed
-	remove_province_modifier = orcish_majority_primary
-	remove_province_modifier = orcish_majority_integrated
-	remove_province_modifier = orcish_majority_coexisting
-	remove_province_modifier = orcish_majority_oppressed
-	remove_province_modifier = ruinborn_majority_primary
-	remove_province_modifier = ruinborn_majority_integrated
-	remove_province_modifier = ruinborn_majority_coexisting
-	remove_province_modifier = ruinborn_majority_oppressed
-	remove_province_modifier = troll_majority_primary
-	remove_province_modifier = troll_majority_integrated
-	remove_province_modifier = troll_majority_coexisting
-	remove_province_modifier = troll_majority_oppressed
+	remove_province_modifier = $RACE$_majority_oppressed
+	remove_province_modifier = $RACE$_majority_coexisting
+	remove_province_modifier = $RACE$_majority_integrated
+	remove_province_modifier = $RACE$_majority_primary
+}
+remove_all_racial_majority = {
+	all_races_effect = { EFFECT = remove_racial_majority }	#bertus mod
+}
+update_ruler_racial_flag = {
+	if = { limit = { ruler_is_half_elven = yes } set_ruler_flag = half_elven_ruler }
+	else_if = { limit = { ruler_is_elven = yes } set_ruler_flag = elven_ruler }
+	else_if = { limit = { ruler_is_dwarven = yes } set_ruler_flag = dwarven_ruler }
+	else_if = { limit = { ruler_is_gnomish = yes } set_ruler_flag = gnomish_ruler }
+	else_if = { limit = { ruler_is_human = yes } set_ruler_flag = human_ruler }
+	else_if = { limit = { ruler_is_half_orcish = yes } set_ruler_flag = half_orcish_ruler }
+	else_if = { limit = { ruler_is_orcish = yes } set_ruler_flag = orcish_ruler }
+	else_if = { limit = { ruler_is_goblin = yes } set_ruler_flag = goblin_ruler }
+	else_if = { limit = { ruler_is_gnollish = yes } set_ruler_flag = gnollish_ruler }
+	else_if = { limit = { ruler_is_kobold = yes } set_ruler_flag = kobold_ruler }
+	else_if = { limit = { ruler_is_lizardfolk = yes } set_ruler_flag = lizardfolk_ruler }
+	else_if = { limit = { ruler_is_halfling = yes } set_ruler_flag = halfling_ruler }
+	else_if = { limit = { ruler_is_harimari = yes } set_ruler_flag = harimari_ruler }
+	else_if = { limit = { ruler_is_hobgoblin = yes } set_ruler_flag = hobgoblin_ruler }
+	else_if = { limit = { ruler_is_troll = yes } set_ruler_flag = troll_ruler }
+	else_if = { limit = { ruler_is_ogre = yes } set_ruler_flag = ogre_ruler }
+	else_if = { limit = { ruler_is_harpy = yes } set_ruler_flag = harpy_ruler }
+	else_if = { limit = { ruler_is_centaur = yes } set_ruler_flag = centaur_ruler }
+	else_if = { limit = { ruler_is_ruinborn = yes } set_ruler_flag = ruinborn_ruler }
+}
+update_heir_racial_flag = {
+	if = { limit = { heir_is_half_elven = yes } set_heir_flag = half_elven_heir }
+	else_if = { limit = { heir_is_elven = yes } set_heir_flag = elven_heir }
+	else_if = { limit = { heir_is_dwarven = yes } set_heir_flag = dwarven_heir }
+	else_if = { limit = { heir_is_gnomish = yes } set_heir_flag = gnomish_heir }
+	else_if = { limit = { heir_is_human = yes } set_heir_flag = human_heir }
+	else_if = { limit = { heir_is_half_orcish = yes } set_heir_flag = half_orcish_heir }
+	else_if = { limit = { heir_is_orcish = yes } set_heir_flag = orcish_heir }
+	else_if = { limit = { heir_is_goblin = yes } set_heir_flag = goblin_heir }
+	else_if = { limit = { heir_is_gnollish = yes } set_heir_flag = gnollish_heir }
+	else_if = { limit = { heir_is_kobold = yes } set_heir_flag = kobold_heir }
+	else_if = { limit = { heir_is_lizardfolk = yes } set_heir_flag = lizardfolk_heir }
+	else_if = { limit = { heir_is_halfling = yes } set_heir_flag = halfling_heir }
+	else_if = { limit = { heir_is_harimari = yes } set_heir_flag = harimari_heir }
+	else_if = { limit = { heir_is_hobgoblin = yes } set_heir_flag = hobgoblin_heir }
+	else_if = { limit = { heir_is_troll = yes } set_heir_flag = troll_heir }
+	else_if = { limit = { heir_is_ogre = yes } set_heir_flag = ogre_heir }
+	else_if = { limit = { heir_is_harpy = yes } set_heir_flag = harpy_heir }
+	else_if = { limit = { heir_is_centaur = yes } set_heir_flag = centaur_heir }
+	else_if = { limit = { heir_is_ruinborn = yes } set_heir_flag = ruinborn_heir }
+}
+update_consort_racial_flag = {
+	if = { limit = { consort_is_half_elven = yes } set_consort_flag = half_elven_consort }
+	else_if = { limit = { consort_is_elven = yes } set_consort_flag = elven_consort }
+	else_if = { limit = { consort_is_dwarven = yes } set_consort_flag = dwarven_consort }
+	else_if = { limit = { consort_is_gnomish = yes } set_consort_flag = gnomish_consort }
+	else_if = { limit = { consort_is_human = yes } set_consort_flag = human_consort }
+	else_if = { limit = { consort_is_half_orcish = yes } set_consort_flag = half_orcish_consort }
+	else_if = { limit = { consort_is_orcish = yes } set_consort_flag = orcish_consort }
+	else_if = { limit = { consort_is_goblin = yes } set_consort_flag = goblin_consort }
+	else_if = { limit = { consort_is_gnollish = yes } set_consort_flag = gnollish_consort }
+	else_if = { limit = { consort_is_kobold = yes } set_consort_flag = kobold_consort }
+	else_if = { limit = { consort_is_lizardfolk = yes } set_consort_flag = lizardfolk_consort }
+	else_if = { limit = { consort_is_halfling = yes } set_consort_flag = halfling_consort }
+	else_if = { limit = { consort_is_harimari = yes } set_consort_flag = harimari_consort }
+	else_if = { limit = { consort_is_hobgoblin = yes } set_consort_flag = hobgoblin_consort }
+	else_if = { limit = { consort_is_troll = yes } set_consort_flag = troll_consort }
+	else_if = { limit = { consort_is_ogre = yes } set_consort_flag = ogre_consort }
+	else_if = { limit = { consort_is_harpy = yes } set_consort_flag = harpy_consort }
+	else_if = { limit = { consort_is_centaur = yes } set_consort_flag = centaur_consort }
+	else_if = { limit = { consort_is_ruinborn = yes } set_consort_flag = ruinborn_consort }
 }
