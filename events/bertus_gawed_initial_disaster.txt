@@ -707,7 +707,7 @@ country_event = {	#peasants really angry
 		}
 	}
 	option = {	#assault noble house
-		name = bertus_gawed_initial_disaster.1114.c
+		name = bertus_gawed_initial_disaster.1114.a
 		goto = province_target
 	}
 }
@@ -2014,7 +2014,7 @@ country_event = {	# happy
 	option = {	#
 		name = bertus_gawed_initial_disaster.1303.a
 		change_variable = { which = nobles_apeased_var value = 1 }
-		add_legitimacy = 1
+		add_legitimacy = 0.1
 		add_years_of_owned_provinces_manpower = {
 			years = 0.2
 			trigger = {
@@ -2709,6 +2709,7 @@ country_event = {	# val vertesk CB
 	trigger = {
 		has_estate_privilege = estate_mages_organization_magisterium
 		NOT = { owns = 216 }
+		is_at_war = no
 	}
 	mean_time_to_happen = {
 		days = 1
@@ -2895,9 +2896,6 @@ country_event = {	# mages demand stuff
 					}
 				}
 				add_province_modifier = { name = gawed_disaster_mages_control duration = -1 }
-				owner = {
-					change_variable = { which = mages_apeased_var value = 2 }
-				}
 			}
 		}
 		else = {
@@ -3029,24 +3027,40 @@ country_event = {	#mages really angry
 	is_triggered_only = yes
 		
 	immediate = {
-		hidden_effect = {
-			random_owned_province = {
-				save_event_target_as = province_target
-				add_province_modifier = {
-					name = siege_magic_earthquake
-					duration = 365
-				}
-				add_base_tax = -2
-				add_base_production = -2
-				add_base_manpower = -2
-				add_devastation = 10
+		random_owned_province = {
+			save_event_target_as = province_target
+			add_province_modifier = {
+				name = siege_magic_earthquake
+				duration = 365
 			}
+			add_base_tax = -2
+			add_base_production = -2
+			add_base_manpower = -2
+			add_devastation = 10
 		}
 	}
 
 	option = {	#earthquake
-		name = bertus_gawed_initial_disaster.1410.c
+		name = bertus_gawed_initial_disaster.1410.a
 		goto = province_target
+	}
+}
+country_event = {	#mages happy
+	id = bertus_gawed_initial_disaster.1420
+	title = bertus_gawed_initial_disaster.1420.t
+	desc = bertus_gawed_initial_disaster.1420.desc
+	picture = INVENTION_eventPicture
+	
+	is_triggered_only = yes
+	hidden = yes
+		
+	immediate = {
+		add_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 0.4166 }
+		change_variable = { which = mages_apeased_var value = 0.4166 }
+	}
+
+	option = {	#
+		name = bertus_gawed_initial_disaster.1420.a
 	}
 }
 country_event = {	#end mages
