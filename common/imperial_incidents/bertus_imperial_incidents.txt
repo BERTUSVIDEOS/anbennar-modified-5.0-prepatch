@@ -218,6 +218,7 @@ incident_magisterium_damesear_isle_rights_violation = {
 			NOT = {
 				area = west_damesear_area
 				area = east_damesear_area
+				area = ardail_island_area
 			}
 			is_part_of_hre = no
 			owner = {
@@ -235,4 +236,34 @@ incident_magisterium_damesear_isle_rights_violation = {
 	}	
 }
 
+incident_prince_tributary = {
+	event = bertus_changes.6054
+	default_option = 0
+	
+	can_stop = {
+		NOT = {
+			any_country = {
+				is_part_of_hre = yes
+				OR = {
+					NOT = { is_subject_of_type = tributary_state }
+					overlord = {
+						is_part_of_hre = no
+						has_country_flag = allowed_to_have_tributary_flag_@THIS@PREV
+						PREV = {
+							has_country_flag = allowed_to_be_tributary_flag_@PREV@THIS
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	0 = { # not allow
+		factor = 1
+	}
+	
+	1 = { # allow
+		factor = 1
+	}	
+}
 

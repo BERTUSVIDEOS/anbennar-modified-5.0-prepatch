@@ -4199,7 +4199,7 @@ country_event = {	#spawn the thought
 	}
 	option = {	#NOPE
 		name = bertus_changes.4001.b
-		owner = {set_country_flag = the_thought_prohibited_flag}
+		set_country_flag = the_thought_prohibited_flag
 	}
 }
 country_event = {	#
@@ -4879,6 +4879,7 @@ country_event = {	#wrong race elector
 	picture = DHIMMI_ESTATE_eventPicture
 	
 	trigger = {
+		NOT = { has_global_flag = aoa_incident_active_flag_tt }
 		is_part_of_hre = yes
 		NOT = {has_ruler_flag = legitimated_wrong_race_elector_target_flag}
 		NOT = {has_saved_event_target = wrong_race_elector_target}
@@ -4932,8 +4933,10 @@ country_event = {	#wrong race elector incident
 	immediate = {save_global_event_target_as = wrong_race_elector_target}
 	option = {
 		name = bertus_changes.6013.a #Let it pass
-		add_prestige = -20
-		add_legitimacy = -20
+		emperor = {
+			add_prestige = -20
+			add_legitimacy = -20
+		}
 		event_target:wrong_race_elector_target = {
 			set_ruler_flag = legitimated_wrong_race_elector_target_flag
 		}
@@ -7681,7 +7684,7 @@ country_event = {	#incident magisterium emperorship claim
 						is_subject_of_type = tributary_state
 					}
 				}
-				country_event = { id = bertus_changes.6050 days = 5 random = 15 }	#incident magisterium emperorship war sides
+				country_event = { id = bertus_changes.6053 days = 5 random = 15 }	#incident magisterium emperorship war sides
 			}
 			emperor = {
 				while = {	#give imperial authority back
@@ -7694,45 +7697,6 @@ country_event = {	#incident magisterium emperorship claim
 	}
 	after = {
 		clr_global_flag = aoa_incident_active_flag_tt
-	}
-}
-country_event = {	#incident magisterium emperorship war sides
-	id = bertus_changes.6050
-	title = bertus_changes.6050.t
-	desc = bertus_changes.6050.desc
-	picture = DIPLOMACY_eventPicture
-	
-	is_triggered_only = yes
-	major = yes
-	
-	option = {
-		name = bertus_changes.6050.a
-		ai_chance = {factor = 50}
-		custom_tooltip = tooltip_magisterium_emperorship_war_emperor_side_hre
-		set_country_flag = magisterium_emperorship_war_emperor_side_flag
-		join_all_defensive_wars_of = emperor
-	}
-	option = {	#
-		name = bertus_changes.6050.b
-		ai_chance = {factor = 50}
-		custom_tooltip = tooltip_magisterium_emperorship_war_magisterium_side_hre
-		set_country_flag = magisterium_emperorship_war_magisterium_side_flag
-		join_all_offensive_wars_of = A85
-	}
-	option = {	#
-		name = bertus_changes.6050.c
-		ai_chance = {factor = 25}
-		custom_tooltip = tooltip_magisterium_emperorship_war_no_side_hre
-		if = {
-			limit = { alliance_with = A85 }
-			break_alliance = A85
-			white_peace = emperor
-		}
-		if = {
-			limit = { alliance_with = emperor }
-			break_alliance = emperor
-			white_peace = A85
-		}
 	}
 }
 country_event = {	#incident magisterium isle rights violation
@@ -7753,10 +7717,10 @@ country_event = {	#incident magisterium isle rights violation
 				is_emperor = yes
 			}
 		}
-
 		A85 = {	#ultimatum
 			country_event = { id = bertus_changes.6052 }
 		}
+		custom_tooltip = IMPERIAL_WAR_CHANCE_TT
 	}
 	option = { #no return core
 		name = bertus_changes.6051.b
@@ -7769,6 +7733,7 @@ country_event = {	#incident magisterium isle rights violation
 					NOT = {
 						area = west_damesear_area
 						area = east_damesear_area
+						area = ardail_island_area
 					}
 					is_part_of_hre = yes
 					owner = {
@@ -7779,11 +7744,11 @@ country_event = {	#incident magisterium isle rights violation
 					add_imperial_influence = -5
 				}
 			}
-			clr_global_flag = aoa_incident_active_flag_tt
 		}
 		add_country_modifier = { name = magisterium_damesear_claim_broken_malus duration = 7300 }
 	}
 	after = {
+		clr_global_flag = aoa_incident_active_flag_tt
 	}
 }
 country_event = {	#incident magisterium isle rights violation - magisterium response
@@ -7801,6 +7766,7 @@ country_event = {	#incident magisterium isle rights violation - magisterium resp
 				NOT = {
 					area = west_damesear_area
 					area = east_damesear_area
+					area = ardail_island_area
 				}
 				is_part_of_hre = yes
 			}
@@ -7816,6 +7782,7 @@ country_event = {	#incident magisterium isle rights violation - magisterium resp
 				NOT = {
 					area = west_damesear_area
 					area = east_damesear_area
+					area = ardail_island_area
 				}
 				is_part_of_hre = yes
 			}
@@ -7840,6 +7807,7 @@ country_event = {	#incident magisterium isle rights violation - magisterium resp
 					NOT = {
 						area = west_damesear_area
 						area = east_damesear_area
+						area = ardail_island_area
 					}
 					is_part_of_hre = yes
 				}
@@ -7850,6 +7818,9 @@ country_event = {	#incident magisterium isle rights violation - magisterium resp
 		}
 		add_country_modifier = { name = magisterium_damesear_claim_broken_malus duration = 7300 }
 		hidden_effect = {
+			A85 = {
+				save_global_event_target_as = emperor_enemy_target
+			}
 			every_country = {
 				limit = {
 					NOT = { tag = A85 }
@@ -7860,12 +7831,12 @@ country_event = {	#incident magisterium isle rights violation - magisterium resp
 						is_subject_of_type = tributary_state
 					}
 				}
-				country_event = { id = bertus_changes.6053 days = 5 random = 15 }	#incident magisterium emperorship war sides
+				country_event = { id = bertus_changes.6053 days = 5 random = 15 }	#incident emperorship war sides
 			}
 		}
 	}
 	after = {
-		clr_global_flag = aoa_incident_active_flag_tt
+		country_event = { id = bertus_changes.6058 days = 365 }	#clear global target
 	}
 }
 country_event = {	#incident magisterium Damesear right violation war sides
@@ -7876,46 +7847,329 @@ country_event = {	#incident magisterium Damesear right violation war sides
 	
 	is_triggered_only = yes
 	major = yes
+
+	trigger = {
+		NOT = {
+			war_with = event_target:tributary_in_empire
+			war_with = event_target:emperor_enemy_target
+			war_with = emperor
+		}
+	}
 	
 	option = {
 		name = bertus_changes.6053.a
 		ai_chance = {factor = 50}
-		custom_tooltip = tooltip_magisterium_emperorship_war_emperor_side_hre
+		custom_tooltip = tooltip_imperial_war_emperor_side_hre
 		set_country_flag = magisterium_damesear_claim_emperor_side_flag
-		join_all_offensive_wars_of = emperor
+		if = {
+			limit = { any_country = { has_country_flag = tributary_wants_freedom_flag } }
+			join_all_offensive_wars_of = event_target:tributary_in_empire
+		}
+		else = {
+			join_all_offensive_wars_of = emperor
+		}
 	}
 	option = {	#
 		name = bertus_changes.6053.b
 		ai_chance = {factor = 10}
-		custom_tooltip = tooltip_magisterium_emperorship_war_magisterium_side_hre
-		set_country_flag = magisteriumdamesear_claim_magisterium_side_flag
-		join_all_defensive_wars_of = A85
+		custom_tooltip = tooltip_imperial_war_emperor_enemy_side_hre
+		set_country_flag = magisterium_damesear_claim_magisterium_side_flag
+		join_all_defensive_wars_of = event_target:emperor_enemy_target
 	}
 	option = {	#
 		name = bertus_changes.6053.c
 		ai_chance = {factor = 100}
-		custom_tooltip = tooltip_magisterium_emperorship_war_no_side_hre
+		custom_tooltip = tooltip_imperial_no_side_hre
 		if = {
-			limit = { alliance_with = A85 }
-			break_alliance = A85
-			white_peace = emperor
+			limit = { any_country = { has_country_flag = tributary_wants_freedom_flag } }
+			if = {
+				limit = { alliance_with = event_target:emperor_enemy_target }
+				break_alliance = event_target:emperor_enemy_target
+				if = {
+					limit = {
+						NOT = {
+							is_in_war = { attacker_leader = ROOT }
+							is_in_war = { defender_leader = ROOT }
+						}
+					}
+					white_peace = event_target:tributary_in_empire
+				}
+				add_truce_with = event_target:tributary_in_empire
+			}
+			if = {
+				limit = { alliance_with = event_target:tributary_in_empire }
+				break_alliance = event_target:tributary_in_empire
+				if = {
+					limit = {
+						NOT = {
+							is_in_war = { attacker_leader = ROOT }
+							is_in_war = { defender_leader = ROOT }
+						}
+					}
+					white_peace = event_target:emperor_enemy_target
+				}
+				add_truce_with = event_target:emperor_enemy_target
+			}
 		}
+		else = {
+			if = {
+				limit = { alliance_with = event_target:emperor_enemy_target }
+				break_alliance = event_target:emperor_enemy_target
+				if = {
+					limit = {
+						NOT = {
+							is_in_war = { attacker_leader = ROOT }
+							is_in_war = { defender_leader = ROOT }
+						}
+					}
+					white_peace = emperor
+				}
+				add_truce_with = emperor
+			}
+			if = {
+				limit = { alliance_with = emperor }
+				break_alliance = emperor
+				if = {
+					limit = {
+						NOT = {
+							is_in_war = { attacker_leader = ROOT }
+							is_in_war = { defender_leader = ROOT }
+						}
+					}
+					white_peace = event_target:emperor_enemy_target
+				}
+				add_truce_with = event_target:emperor_enemy_target
+			}
+		}
+	}
+}
+country_event = {	#incident tributary in empire
+	id = bertus_changes.6054
+	title = bertus_changes.6054.t
+	desc = bertus_changes.6054.desc
+	picture = DIPLOMACY_eventPicture
+	
+	hidden = yes
+	is_triggered_only = yes
+	immediate = { }
+
+	option = {	#not allow 
+		name = bertus_changes.6054.a
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 10
+				is_emperor = yes
+			}
+		}
+		event_target:overlord_of_tributary_in_empire = {	#ultimatum
+			country_event = { id = bertus_changes.6056 }
+		}
+		custom_tooltip = IMPERIAL_WAR_CHANCE_TT
+		event_target:tributary_in_empire = {	#add unlawful territory if he doesnt plead for help
+			if = {
+				limit = { NOT = { has_country_flag = tributary_wants_freedom_flag } }
+				every_owned_province = {
+					limit = { is_part_of_hre = yes }
+					add_province_modifier = { name = unlawful_territory duration = 3650 }
+				}
+			}
+		}
+	}
+	option = { #allow
+		name = bertus_changes.6054.b
+		ai_chance = {factor = 25}
+		
+		event_target:tributary_in_empire = {	#allow prince to be tributary
+			set_country_flag = allowed_to_be_tributary_flag_@overlord@THIS
+			overlord = {
+				set_country_flag = allowed_to_have_tributary_flag_@THIS@PREV
+			}
+		}
+		emperor = {
+			add_prestige = -20
+			add_legitimacy = -20
+		}
+	}
+	after = {
+		clr_global_flag = aoa_incident_active_flag_tt
+	}
+}
+country_event = {	#incident tributary in empire - tributary wants freedom
+	id = bertus_changes.6055
+	title = bertus_changes.6055.t
+	desc = bertus_changes.6055.desc
+	picture = DIPLOMACY_eventPicture
+	
+	is_triggered_only = yes
+
+    immediate = { }
+
+	option = {	#wants freedom
+		name = bertus_changes.6055.a
+		ai_chance = {factor = 50}
+		set_country_flag = tributary_wants_freedom_flag
+	}
+	option = { #I'm fine
+		name = bertus_changes.6055.b
+		ai_chance = {factor = 50}
+		
+	}
+	after = {
+	}
+}
+country_event = {	#incident tributary in empire - overlord response
+	id = bertus_changes.6056
+	title = bertus_changes.6056.t
+	desc = bertus_changes.6056.desc
+	picture = DIPLOMACY_eventPicture
+	
+	is_triggered_only = yes
+	major = yes
+
+    immediate = { }
+
+	option = {	#free the prince
+		name = bertus_changes.6056.a
+		ai_chance = {factor = 50}
+		event_target:tributary_in_empire = {	#allow prince to be tributary
+			grant_independence = yes
+		}
+	}
+	option = { #keep the tributary
+		name = bertus_changes.6056.b
+		ai_chance = {factor = 50}
+		
 		if = {
-			limit = { alliance_with = emperor }
-			break_alliance = emperor
-			white_peace = A85
+			limit = { event_target:tributary_in_empire = { has_country_flag = tributary_wants_freedom_flag } }
+			event_target:tributary_in_empire = {
+				declare_war_with_cb = {
+					who = event_target:overlord_of_tributary_in_empire
+					casus_belli = cb_independence_war
+				}
+			}
+			save_global_event_target_as = emperor_enemy_target
+			emperor = { join_all_offensive_wars_of = event_target:tributary_in_empire}
+		}
+		else = {
+			emperor = {
+				declare_war_with_cb = {
+					who = event_target:tributary_in_empire
+					casus_belli = cb_hre_attacked
+				}
+			}
+			event_target:tributary_in_empire = {
+				save_global_event_target_as = emperor_enemy_target
+			}
+		}
+		hidden_effect = {
+			every_country = {
+				limit = {
+					NOT = { tag = event_target:emperor_enemy_target }
+					NOT = { is_emperor = yes }
+					is_part_of_hre = yes
+					if = {
+						limit = { is_subject = yes }
+						is_subject_of_type = tributary_state
+					}
+				}
+				country_event = { id = bertus_changes.6053 days = 5 random = 15 }	#incident emperorship war sides
+			}
+		}
+	}
+	after = {
+		country_event = { id = bertus_changes.6058 days = 365 }	#clear global target
+	}
+}
+country_event = {	#incident tributary in empire - start
+	id = bertus_changes.6057
+	title = bertus_changes.6057.t
+	desc = bertus_changes.6057.desc
+	picture = DIPLOMACY_eventPicture
+	
+	hidden = yes
+	trigger = {
+		NOT = { has_global_flag = aoa_incident_active_flag_tt }
+		any_country = {
+			is_part_of_hre = yes
+			is_subject_of_type = tributary_state
+			overlord = {
+				is_part_of_hre = no
+				NOT = { has_country_flag = allowed_to_have_tributary_flag_@THIS@PREV }
+				PREV = {
+					NOT = { has_country_flag = allowed_to_be_tributary_flag_@PREV@THIS }
+				}
+				NOT = { truce_with = emperor }
+				NOT = { truce_with = PREV }
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+    immediate = {
+		random_country = {
+			limit = {
+				is_part_of_hre = yes
+				is_subject_of_type = tributary_state
+				overlord = { is_part_of_hre = no }
+				NOT = { has_country_flag = allowed_to_be_tributary_flag_@overlord@THIS }
+				overlord = {
+					NOT = { has_country_flag = allowed_to_have_tributary_flag_@THIS@PREV }
+				}
+			}
+			save_global_event_target_as = tributary_in_empire
+			overlord = {
+				save_global_event_target_as = overlord_of_tributary_in_empire
+			}
+			country_event = {	#wants freedom?
+				id = bertus_changes.6055
+			}
+		}
+		set_imperial_incident = incident_prince_tributary
+		set_global_flag = aoa_incident_active_flag_tt
+	}
+
+	option = {	#
+		name = bertus_changes.6057.a
+		ai_chance = {factor = 50}
+	}
+}
+country_event = {	#clear global targets
+	id = bertus_changes.6058
+	title = bertus_changes.6058.t
+	desc = bertus_changes.6058.desc
+	picture = DIPLOMACY_eventPicture
+	
+	is_triggered_only = yes
+	hidden = yes
+
+    immediate = { }
+
+	option = {
+		name = bertus_changes.6058.a
+		ai_chance = {factor = 50}
+		clear_global_event_target = tributary_in_empire
+		clear_global_event_target = overlord_of_tributary_in_empire
+		clear_global_event_target = emperor_enemy_target
+		every_country = {
+			limit = { has_country_flag = tributary_wants_freedom_flag }
+			clear_country_flag = tributary_wants_freedom_flag
 		}
 	}
 }
 country_event = {	#incidents from reforms posponed
-	id = bertus_changes.6054
-	title = bertus_changes.6054.t
-	desc = bertus_changes.6054.desc
+	id = bertus_changes.6100
+	title = bertus_changes.6100.t
+	desc = bertus_changes.6100.desc
 	picture = DIPLOMACY_eventPicture
 
 	hidden = yes
 	
 	trigger = {
+		NOT = { has_global_flag = aoa_incident_active_flag_tt }
 		is_emperor = yes
 		OR = {
 			has_global_flag = incident_imperial_colleges_delay_flag
@@ -7928,29 +8182,36 @@ country_event = {	#incidents from reforms posponed
 			has_global_flag = incident_resource_reform_delay_flag
 			has_global_flag = incident_high_ministery_reform_delay_flag
 			AND = {
-				has_global_flag = incident_magisterium_damesear_isle_rights_violation_flag
+				has_global_flag = incident_magisterium_damesear_isle_rights_violation_delay_flag
 				NOT = { war_with = A85 }
+			}
+			AND = {
+				has_global_flag = incident_prince_tributary_delay_flag
+				is_at_war = no
 			}
 		}
 	}
 
-	option = {	#
-		name = bertus_changes.6054.a
-		ai_chance = {factor = 25}
+	immediate = {
 		trigger_switch = {
 			on_trigger = has_global_flag
 			incident_imperial_colleges_delay_flag = { set_imperial_incident = incident_imperial_colleges }
-			incident_imperial_colleges_delay_flag = { set_imperial_incident = incident_imperial_call }
-			incident_imperial_colleges_delay_flag = { set_imperial_incident = incident_eralas_reform }
-			incident_imperial_colleges_delay_flag = { set_imperial_incident = incident_imperial_authority_reform }
-			incident_imperial_colleges_delay_flag = { set_imperial_incident = incident_market_reform }
-			incident_imperial_colleges_delay_flag = { set_imperial_incident = incident_religious_reform }
-			incident_imperial_colleges_delay_flag = { set_imperial_incident = incident_weddings_reform }
-			incident_imperial_colleges_delay_flag = { set_imperial_incident = incident_resource_reform }
-			incident_imperial_colleges_delay_flag = { set_imperial_incident = incident_high_ministery_reform }
-			incident_imperial_colleges_delay_flag = { set_imperial_incident = incident_magisterium_damesear_isle_rights_violation }
+			incident_imperial_call_delay_flag = { set_imperial_incident = incident_imperial_call }
+			incident_eralas_reform_delay_flag = { set_imperial_incident = incident_eralas_reform }
+			incident_imperial_authority_reform_delay_flag = { set_imperial_incident = incident_imperial_authority_reform }
+			incident_market_reform_delay_flag = { set_imperial_incident = incident_market_reform }
+			incident_religious_reform_delay_flag = { set_imperial_incident = incident_religious_reform }
+			incident_weddings_reform_delay_flag = { set_imperial_incident = incident_weddings_reform }
+			incident_resource_reform_delay_flag = { set_imperial_incident = incident_resource_reform }
+			incident_high_ministery_reform_delay_flag = { set_imperial_incident = incident_high_ministery_reform }
+			incident_magisterium_damesear_isle_rights_violation_delay_flag = { set_imperial_incident = incident_magisterium_damesear_isle_rights_violation }
+			incident_prince_tributary_delay_flag = { set_imperial_incident = incident_prince_tributary }
 		}
 		set_global_flag = aoa_incident_active_flag_tt
+	}
+	option = {	#
+		name = bertus_changes.6100.a
+		ai_chance = {factor = 25}
 	}
 	after = {
 		clr_global_flag = incident_imperial_colleges_delay_flag
@@ -7963,6 +8224,7 @@ country_event = {	#incidents from reforms posponed
 		clr_global_flag = incident_resource_reform_delay_flag
 		clr_global_flag = incident_high_ministery_reform_delay_flag
 		clr_global_flag = incident_magisterium_damesear_isle_rights_violation_delay_flag
+		clr_global_flag = incident_prince_tributary_delay_flag
 	}
 }
 country_event = {	#goods menu

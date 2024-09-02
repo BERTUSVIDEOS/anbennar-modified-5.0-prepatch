@@ -46,75 +46,10 @@ interaction = {	#8-2
 
     trigger = {
 		hidden_trigger = {
-			ai = no	#bertus mod
-		}
-		#NOT = {has_country_modifier = cant_cast_magic}
-		custom_trigger_tooltip = {
-			tooltip = has_magic_estate_tt
-			OR = {
-				has_estate = estate_mages
-				has_estate = estate_acolytes
-				has_estate_privilege = artifice_invention_korashi_tuners
-			}
-		}
-		if = { limit = { has_estate = estate_mages }
-			estate_influence = { estate = estate_mages influence = 15 }
-			if = { limit = { tag = Y63 has_country_flag = Y63_unlocked_minor_runes }
-				hidden_trigger = { NOT = { has_country_flag = V63_runes_menu_open } }
-			}
-			else = {
-				#NOT = { has_estate_privilege = estate_mages_cast_spells }	#into custom gui
-				if = { limit = { tag = I02 }	#krak
-					mission_completed = krak_relighting_forges
-					NOT = { has_estate_privilege = estate_mages_cast_spells }
-				}
-			}
-		}
-		else_if = { limit = { has_estate = estate_acolytes }
-			estate_influence = { estate = estate_acolytes influence = 15 }
-			NOT = { has_estate_privilege = estate_acolytes_cast_spells }
-		}
-		else_if = { limit = { has_estate_privilege = artifice_invention_korashi_tuners }
-			NOT = { has_country_modifier = magic_cooldown }
+			always = no
 		}
     }
-    effect = {
-		if = { limit = { has_estate = estate_mages }
-			if = { limit = { tag = Y63 has_country_flag = Y63_unlocked_minor_runes }
-				custom_tooltip = Y63_open_runes_manu_tt
-				set_country_flag = V63_runes_menu_open
-				hidden_effect = { country_event = { id = verkalozovar_events.100 } }
-			}
-			else = {
-				custom_tooltip = opens_magic_estate_menu_tt
-				custom_tooltip = cast_spell_effect_tt
-				hidden_effect = {
-					if = { limit = { tag = I02 }
-						country_event = { id = flavor_krak.100 }
-					}
-					#else = {	#into custom gui
-					#	country_event = { id = magic_estate.1 }
-					#}
-				}
-			}
-		}
-		else_if = { limit = { has_estate = estate_acolytes }
-			custom_tooltip = opens_magic_estate_menu_tt
-			custom_tooltip = cast_spell_effect_tt
-			hidden_effect = {
-				set_estate_privilege = estate_acolytes_cast_spells
-				country_event = { id = acolyte_estate.1 }
-			}
-		}
-		else_if = { limit = { has_estate_privilege = artifice_invention_korashi_tuners }
-			custom_tooltip = opens_magic_estate_menu_tt
-			custom_tooltip = cast_spell_effect_tt
-			hidden_effect = {
-				country_event = { id = magic_estate.1 }
-			}
-		}
-		clr_country_flag = revoke_mage_estate_spells
-    }
+    effect = { }
 	ai_will_do = {factor = 0}
 }
 interaction = {	#7-3

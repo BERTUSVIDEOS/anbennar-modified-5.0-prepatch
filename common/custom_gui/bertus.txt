@@ -889,7 +889,6 @@ custom_button = {
 			}
 		}
 	}
-	tooltip = "Change Chosen's Role"
 	effect = {
 		country_event = { id = bertus_changes.6033 }
 		hidden_effect = {
@@ -907,6 +906,7 @@ custom_button = {
 			}
 		}
 	}
+	tooltip = "Change Chosen's Role"
 }
 
 custom_button = {
@@ -1005,4 +1005,64 @@ custom_button = {
 		else_if = { limit = { fort_level = 1 } kill_units = { who = FROM type = infantry amount = 1 } }
 	}
 	tooltip = "Ogre Ram"
+}
+custom_button = {
+	name = abolish_the_elections
+	potential = {
+		is_emperor = yes
+	}
+	trigger = {
+		hidden_trigger = {
+			NOT = { has_global_flag = aoa_incident_active_flag_tt }
+			is_at_war = no
+			imperial_influence = 50
+			has_global_flag = flag_reform_hre_1
+			has_global_flag = flag_reform_hre_2
+			has_global_flag = flag_reform_hre_3
+			has_global_flag = flag_reform_hre_4
+			has_global_flag = flag_reform_hre_5
+		}
+	}
+	effect = {
+		custom_tooltip = abolish_the_elections_desc
+		if = {
+			limit = {
+				hre_religion_locked = no
+				hre_religion_treaty = no
+			}
+			set_hre_religion_treaty = yes
+		}
+		hidden_effect = { add_imperial_influence = -100 }
+		
+		hre_inheritable = yes
+		set_country_flag = emperorship_hereditary_flag
+		custom_tooltip = celebrate_space_tooltip
+		custom_tooltip = spacing_tooltip
+		if = {
+			limit = { is_at_war = yes }
+			custom_tooltip = no_reform_at_war_desc
+		}
+		if = {
+			limit = { has_global_flag = aoa_incident_active_flag_tt }
+			custom_tooltip = no_reform_on_incident_desc
+		}
+		custom_tooltip = abolish_the_elections_tooltip
+	}
+	tooltip = abolish_the_elections_tt
+}
+custom_icon = {
+	name = abolish_the_elections_off
+	potential = {
+		NOT = { is_emperor = yes }
+	}
+	tooltip = abolish_the_elections_off_tt
+}
+custom_icon = {
+	name = abolish_the_elections_on
+	potential = {
+		emperor = {
+			has_country_flag = emperorship_hereditary_flag
+		}
+	}
+	tooltip = abolish_the_elections_on_tt
 }
