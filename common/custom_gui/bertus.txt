@@ -1066,3 +1066,40 @@ custom_icon = {
 	}
 	tooltip = abolish_the_elections_on_tt
 }
+
+custom_button = {
+	name = red_button
+	potential = {
+		red_alert = yes
+	}
+	trigger = {
+		if = {
+			limit = {has_country_modifier = temporary_slacken_modifier}
+			NOT = { has_country_modifier = temporary_slacken_modifier }
+		}
+		if = {
+			limit = {has_country_modifier = mission_nuclear_modifier}
+			NOT = { has_country_modifier = mission_nuclear_modifier }
+		}
+		is_in_war = { duration = 100 }
+	}
+	effect = {
+		set_country_flag = red_button_already_used_flag
+		#red button effect
+		add_army_tradition = 20
+		hidden_effect = { add_country_modifier = { name = temporary_slacken_modifier duration = 1825 } }	#free slacken
+		custom_tooltip = temporary_slacken_modifier_5_years_tt
+		add_country_modifier = { name = mission_nuclear_modifier duration = 1825 }	#generic defensive bonus 
+		set_country_flag = hero_free_general_flag	#get great general
+		custom_tooltip = get_free_great_hero_general_tt
+		set_country_flag = get_adventurer_flag
+		custom_tooltip = get_adventurer_flag_tt
+		set_country_flag = great_general_extra_pips_flag
+		custom_tooltip = great_general_extra_pips_flag_tt
+		hidden_effect = {	#bertus mod
+			set_saved_name = {key = special_general_name type = advisor scope = ROOT}
+			country_event = {id = bertus_changes.6030}
+		}
+	}
+	tooltip = RED_BUTTON_TT
+}

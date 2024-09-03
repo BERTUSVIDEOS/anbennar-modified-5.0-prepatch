@@ -1,5 +1,54 @@
 
-
+red_alert = {	#unbalanced wars
+	OR = {
+		AND = {	#REGULAR SCENARIO CASE
+			NOT = { has_country_flag = red_button_already_used_flag }
+			OR = {
+				AND = {
+					NOT = {
+						any_ally = {
+							is_in_war = {
+								defender_leader = ROOT
+								participants = THIS
+							}
+						}
+					}
+					OR = {	#WAR WITH MORE THAN 2 OR A MAJOR
+						calc_true_if = {
+							all_country = {offensive_war_with = ROOT}
+							amount = 2
+						}
+						defensive_war_with = A01
+						defensive_war_with = A13
+						defensive_war_with = A30
+						defensive_war_with = A32
+						defensive_war_with = Z18
+						defensive_war_with = U01
+						defensive_war_with = F46
+						AND = {	#deepwoods defense
+							capital_scope = { superregion = deepwoods_superregion }
+							any_country = { capital_scope = { NOT = {superregion = deepwoods_superregion } } offensive_war_with = ROOT }
+						}
+						AND = {	#serpentspine defense
+							capital_scope = { continent = serpentspine }
+							any_country = { capital_scope = { NOT = { continent = serpentspine } } offensive_war_with = ROOT }
+						}
+					}
+					NOT = {
+						tag = A01
+						tag = A13
+						tag = A30
+						tag = A32
+						tag = Z18
+						tag = U01
+						tag = F46
+					}
+					NOT = { is_year = 1470}
+				}
+			}
+		}
+	}
+}
 has_unlocked_spell = {
 	custom_trigger_tooltip = {
 		tooltip = has_unlocked_$spell$_tt
