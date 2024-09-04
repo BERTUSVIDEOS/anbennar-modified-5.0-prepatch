@@ -3063,35 +3063,35 @@ on_war_ended_effects = {
 			has_country_modifier = mission_nuclear_modifier
 			OR = {
 				AND = {
-					FROM = { tag = event_target:red_button_attacker_target }
-					ROOT = { tag = event_target:red_button_defender_target }
+					FROM = { has_country_flag = red_button_attacker_target@FROM }
+					ROOT = { has_country_flag = red_button_defender_target@ROOT }
 				}
 				AND = {
-					ROOT = { tag = event_target:red_button_attacker_target }
-					FROM = { tag = event_target:red_button_defender_target }
+					ROOT = { has_country_flag = red_button_attacker_target@ROOT }
+					FROM = { has_country_flag = red_button_defender_target@FROM }
 				}
 			}
 		}
 		FROM = {
 			if = {
-				limit = { tag = event_target:red_button_defender_target }
+				limit = { has_country_flag = red_button_defender_target@THIS }
 				remove_country_modifier = mission_nuclear_modifier
 				remove_country_modifier = temporary_slacken_modifier
 				kill_leader = { type = "Mago Pop" }
 				add_army_tradition = -20
-				clear_global_event_target = red_button_attacker_target
-				clear_global_event_target = red_button_defender_target
+				clr_country_flag = red_button_attacker_target@FROM
+				clr_country_flag = red_button_defender_target@ROOT
 			}
 		}
 		ROOT = {
 			if = {
-				limit = { tag = event_target:red_button_defender_target }
+				limit = { has_country_flag = red_button_defender_target@THIS }
 				remove_country_modifier = mission_nuclear_modifier
 				remove_country_modifier = temporary_slacken_modifier
 				kill_leader = { type = "Mago Pop" }
 				add_army_tradition = -20
-				clear_global_event_target = red_button_attacker_target
-				clear_global_event_target = red_button_defender_target
+				clr_country_flag = red_button_attacker_target@THIS
+				clr_country_flag = red_button_defender_target@FROM
 			}
 		}
 	}
