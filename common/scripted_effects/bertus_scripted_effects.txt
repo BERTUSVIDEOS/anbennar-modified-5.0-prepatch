@@ -3057,15 +3057,52 @@ on_trade_good_changed_bertus_effect = {
 		}
     }
 }
-war_modifiers_effects = {
-	if = {	#BERTUS MOD
+on_war_ended_effects = {
+	if = {
+		limit = {
+			has_country_modifier = mission_nuclear_modifier
+			OR = {
+				AND = {
+					FROM = { tag = event_target:red_button_attacker_target@THIS }
+					ROOT = { tag = event_target:red_button_defender_target@THIS }
+				}
+				AND = {
+					ROOT = { tag = event_target:red_button_attacker_target@THIS }
+					FROM = { tag = event_target:red_button_defender_target@THIS }
+				}
+			}
+		}
+		FROM = {
+			if = {
+				limit = { tag = event_target:red_button_defender_target@THIS }
+				remove_country_modifier = mission_nuclear_modifier
+				remove_country_modifier = temporary_slacken_modifier
+				kill_leader = { type = "Mago Pop" }
+				add_army_tradition = -20
+				clear_global_event_target = red_button_attacker_target@ROOT
+				clear_global_event_target = red_button_defender_target@THIS
+			}
+		}
+		ROOT = {
+			if = {
+				limit = { tag = event_target:red_button_defender_target@THIS }
+				remove_country_modifier = mission_nuclear_modifier
+				remove_country_modifier = temporary_slacken_modifier
+				kill_leader = { type = "Mago Pop" }
+				add_army_tradition = -20
+				clear_global_event_target = red_button_attacker_target@FROM
+				clear_global_event_target = red_button_defender_target@THIS
+			}
+		}
+	}
+	if = {
 		limit = {
 			has_country_flag = agenda_target@ROOT
 		}
 		FROM = {remove_country_modifier = thriving_arms_industry_agenda}
 		clr_country_flag = agenda_target@ROOT
 	}
-	FROM = {	#BERTUS MOD
+	FROM = {
 		if = {
 			limit = {
 				has_country_flag = agenda_target@ROOT
@@ -3074,8 +3111,6 @@ war_modifiers_effects = {
 			clr_country_flag = agenda_target@ROOT
 		}
 	}
-}
-on_war_ended_effects = {
 	remove_country_modifier = call_to_action_hre_mechanic
 	remove_country_modifier = human_resilience_modifier
 	remove_country_modifier = dwarven_elven_hate_modifier
