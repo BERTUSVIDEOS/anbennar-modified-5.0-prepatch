@@ -963,7 +963,13 @@ on_battle_won_country_effect = {
 	if = {	#lord alfonso experience
 		limit = {
 			has_leader = "Lord Alfonso"
-			FROM = { OR = { ai = no overlord = { ai = no } } has_estate_privilege = estate_vampires_vampiric_military_command }
+			has_estate_privilege = estate_vampires_vampiric_military_command
+			FROM = {
+				if = {
+					limit = { has_global_flag = mp_lobby_flag }
+					OR = { ai = no overlord = { ai = no }  }
+				}
+			}
 		}
 		set_variable = { which = temp value = 0 }
 		change_variable = { which = temp which = land_units_killed }
