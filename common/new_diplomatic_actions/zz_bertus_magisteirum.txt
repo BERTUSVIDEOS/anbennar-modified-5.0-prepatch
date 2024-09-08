@@ -810,6 +810,46 @@ magisterium_cast_divination_spell_action = {
 	}
 	ai_will_do = {always = no}
 }
+magisterium_cast_fake_comet_spell_action = {
+	category = mages_influence_modifier
+	require_acceptance = no
+	alert_index = 21
+	
+	is_visible = {
+		if = {
+			limit = { has_estate_privilege = estate_mages_organization_magisterium }
+			A85 = { has_unlocked_spell = { spell = illusion_school_reform} }
+		}
+		else = {
+			has_unlocked_spell = { spell = illusion_school_reform}
+		}
+    }
+	
+	is_allowed = {
+		has_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 75 }
+		if = {
+			limit = { FROM = { has_country_modifier = comet_sighted_modifier_cd } }
+			FROM = { NOT = { has_country_modifier = comet_sighted_modifier_cd } }
+		}
+	}
+
+    on_accept = {
+		if = {
+			limit = {
+				has_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 75 }
+			}
+			add_mana_effect = { mana = -75 }
+			FROM = { country_event = { id = 5060 days = 5 random = 20 } }
+		}
+		else = {
+			custom_tooltip = magisters_need_75_mana_tt
+			tooltip = {
+				FROM = { country_event = { id = 5060 days = 5 random = 20 } }
+			}
+		}
+	}
+	ai_will_do = {always = no}
+}
 magisterium_cast_enchantment_spell_action = {
 	category = mages_influence_modifier
 	require_acceptance = no
@@ -893,6 +933,44 @@ magisterium_cast_abjuration_spell_action = {
 		add_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = -20 }
 		FROM = {
 			add_country_modifier = { name = abjuration_defender_school_reform_modifier duration = 1825 }
+		}
+	}
+	ai_will_do = {always = no}
+}
+magisterium_cast_banishment_spell_action = {
+	category = mages_influence_modifier
+	require_acceptance = no
+	alert_index = 21
+	
+	is_visible = {
+		if = {
+			limit = { has_estate_privilege = estate_mages_organization_magisterium }
+			A85 = { has_unlocked_spell = { spell = transmutation_school_reform} }
+		}
+		else = {
+			has_unlocked_spell = { spell = transmutation_school_reform }
+		}
+    }
+	
+	is_allowed = {
+		has_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 75 }
+		if = {
+			limit = { FROM = { has_country_modifier = spell_banished_army_modifier } }
+			FROM = { NOT = { has_country_modifier = spell_banished_army_modifier } }
+		}
+	}
+
+    on_accept = {
+		if = {
+			limit = { has_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 75 } }
+			add_mana_effect = { mana = -75 }
+			FROM = { add_country_modifier = { name = spell_banished_army_modifier duration = 730 } }
+		}
+		else = {
+			custom_tooltip = magisters_need_75_mana_tt
+			tooltip = {
+				FROM = { add_country_modifier = { name = spell_banished_army_modifier duration = 730 } }
+			}
 		}
 	}
 	ai_will_do = {always = no}
