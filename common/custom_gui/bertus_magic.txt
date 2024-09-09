@@ -306,15 +306,15 @@ custom_button = {
     potential = {
 		ai = no	
 		has_country_flag = estate_mages_cast_spells
-		has_country_flag = estate_mages_cast_spell_illusion
+		has_country_flag = estate_mages_cast_spell_abjuration
 	}
 	trigger = {
 		if = {
 			limit = { has_estate_privilege = estate_mages_organization_magisterium }
-			A85 = { has_unlocked_spell = { spell = transmutation_school_reform} }
+			A85 = { has_unlocked_spell = { spell = abjuration_school_reform} }
 		}
 		else = {
-			has_unlocked_spell = { spell = transmutation_school_reform }
+			has_unlocked_spell = { spell = abjuration_school_reform }
 		}
 		has_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 75 }
 		custom_trigger_tooltip = {
@@ -848,7 +848,7 @@ custom_button = {
 			limit = { 
 				has_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 10 }
 			}
-			add_mana_effect = { mana = -75 }
+			add_mana_effect = { mana = -10 }
 			add_country_modifier = { name = magic_estate_magnificent_feast_1 duration = 3650 }
 			custom_tooltip = magisters_need_20_mana_tt
 			custom_tooltip = "to get lvl 2 Spell"
@@ -1971,6 +1971,23 @@ custom_button = {
 	}
 	tooltip = "Fire Ball"
 }
+custom_icon = {
+	name = fire_ball_spell_icon
+	
+    potential = {
+		ai = no	
+		has_country_flag = estate_mages_cast_spells
+		has_country_flag = estate_mages_cast_spell_enchantment
+		if = {
+			limit = { has_estate_privilege = estate_mages_organization_magisterium }
+			A85 = { has_unlocked_spell = { spell = evocation_school_reform} }
+		}
+		else = {
+			has_unlocked_spell = { spell = evocation_school_reform}
+		}
+	}
+	tooltip = "Fire Ball - Used on a siege"
+}
 custom_button = {
 	name = earthquake_spell
 	potential = {
@@ -1992,14 +2009,31 @@ custom_button = {
 	}
 	effect = {
 		custom_tooltip = change_siege_progress_by_3_tt
-		hidden_effect = { change_siege = 3 }
+		hidden_effect = { change_siege = 4 }
 		add_province_modifier = {name = siege_magic_earthquake duration = 365}
-		add_base_tax = -2
-		add_base_production = -2
-		add_base_manpower = -2
+		add_base_tax = -1
+		add_base_production = -1
+		add_base_manpower = -1
 		add_devastation = 10
 		hidden_effect = {magic_siege_defence = yes}
-		FROM = { add_mana_effect = { mana = -40 } }
+		FROM = { add_mana_effect = { mana = -60 } }
 	}
 	tooltip = "Earthquake"
+}
+custom_icon = {
+	name = earthquake_spell_icon
+	
+    potential = {
+		ai = no	
+		has_country_flag = estate_mages_cast_spells
+		has_country_flag = estate_mages_cast_spell_enchantment
+		if = {
+			limit = { has_estate_privilege = estate_mages_organization_magisterium }
+			A85 = { has_unlocked_spell = { spell = evocation_school_reform} }
+		}
+		else = {
+			has_unlocked_spell = { spell = evocation_school_reform}
+		}
+	}
+	tooltip = "Earthquake - Used on a siege"
 }
