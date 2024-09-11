@@ -2108,7 +2108,7 @@ on_new_monarch = {
 
 on_new_consort = {
 	country_event = { id = consort_events.2 }
-	if = {
+	if = {	#bertus mod
 		limit = { has_idea = buffer_states }
 		remove_country_modifier = buffer_states_consort_modifier_adm_6
 		remove_country_modifier = buffer_states_consort_modifier_adm_4
@@ -2221,7 +2221,7 @@ on_monarch_death = {
 		flavor_luciande.38 #death of lucian
 		government_events.3 #1.35
 	}
-	if = {
+	if = {	#bertus mod
 		limit = { has_idea = buffer_states }
 		remove_country_modifier = buffer_states_consort_modifier_adm_6
 		remove_country_modifier = buffer_states_consort_modifier_adm_4
@@ -2507,6 +2507,18 @@ on_heir_death = {
 
 # country
 on_queen_death = {
+	if = {	#bertus mod
+		limit = { has_idea = buffer_states }
+		remove_country_modifier = buffer_states_consort_modifier_adm_6
+		remove_country_modifier = buffer_states_consort_modifier_adm_4
+		remove_country_modifier = buffer_states_consort_modifier_adm_2
+		remove_country_modifier = buffer_states_consort_modifier_dip_6
+		remove_country_modifier = buffer_states_consort_modifier_dip_4
+		remove_country_modifier = buffer_states_consort_modifier_dip_2
+		remove_country_modifier = buffer_states_consort_modifier_mil_6
+		remove_country_modifier = buffer_states_consort_modifier_mil_4
+		remove_country_modifier = buffer_states_consort_modifier_mil_2
+	}
 	if = {
 		limit = { has_ruler_modifier = consort_mage_personality_mod }
 		remove_country_modifier = consort_mage_personality_mod
@@ -6239,6 +6251,10 @@ on_province_culture_converted = {
 	on_province_culture_converted_estate_privilges_effect = yes
 	on_province_culture_change_effect = yes #1.35
 
+	if = {	#bertus mod
+		limit = {owner = {has_idea = assimilation3} }
+		add_base_manpower = 2
+	}
 	province_event = { id = race_setup_events.15 days = 3 }
 	if = {
 		limit = {
@@ -8062,27 +8078,50 @@ on_capital_moved = {
 on_expanded_infrastructure = {
 	change_variable = { infrastructure_level = 1 }
 	if = {
-		limit = { NOT = { has_province_flag = expanded_infrastructure_lvl_1 } development = 10 }
+		limit = { NOT = { has_province_flag = expanded_infrastructure_lvl_1 } }
 		set_province_flag = expanded_infrastructure_lvl_1
 	}
 	else_if = {
-		limit = { has_province_flag = expanded_infrastructure_lvl_1 NOT = { has_province_flag = expanded_infrastructure_lvl_2 } development = 20 }
+		limit = { has_province_flag = expanded_infrastructure_lvl_1 NOT = { has_province_flag = expanded_infrastructure_lvl_2 } }
 		set_province_flag = expanded_infrastructure_lvl_2
 	}
 	else_if = {
-		limit = { has_province_flag = expanded_infrastructure_lvl_2 NOT = { has_province_flag = expanded_infrastructure_lvl_3 } development = 30 }
+		limit = { has_province_flag = expanded_infrastructure_lvl_2 NOT = { has_province_flag = expanded_infrastructure_lvl_3 } }
 		set_province_flag = expanded_infrastructure_lvl_3
 	}
 	else_if = {
-		limit = { has_province_flag = expanded_infrastructure_lvl_3 NOT = { has_province_flag = expanded_infrastructure_lvl_4 } development = 40 }
+		limit = { has_province_flag = expanded_infrastructure_lvl_3 NOT = { has_province_flag = expanded_infrastructure_lvl_4 } }
 		set_province_flag = expanded_infrastructure_lvl_4
 	}
 	else_if = {
-		limit = { has_province_flag = expanded_infrastructure_lvl_4 NOT = { has_province_flag = expanded_infrastructure_lvl_5 } development = 50 }
+		limit = { has_province_flag = expanded_infrastructure_lvl_4 NOT = { has_province_flag = expanded_infrastructure_lvl_5 } }
 		set_province_flag = expanded_infrastructure_lvl_5
 	}
 }
 
+on_expanded_infrastructure_removed = {
+	if = {
+		limit = { has_province_flag = expanded_infrastructure_lvl_5 }
+		clr_province_flag = expanded_infrastructure_lvl_5
+	}
+	else_if = {
+		limit = { has_province_flag = expanded_infrastructure_lvl_4 }
+		clr_province_flag = expanded_infrastructure_lvl_4
+	}
+	else_if = {
+		limit = { has_province_flag = expanded_infrastructure_lvl_3 }
+		clr_province_flag = expanded_infrastructure_lvl_3
+	}
+	else_if = {
+		limit = { has_province_flag = expanded_infrastructure_lvl_2 }
+		clr_province_flag = expanded_infrastructure_lvl_2
+	}
+	else_if = {
+		limit = { has_province_flag = expanded_infrastructure_lvl_1 }
+		clr_province_flag = expanded_infrastructure_lvl_1
+	}
+
+}
 #ROOT = province that was centralized in
 on_centralized_state = {
 	if = {

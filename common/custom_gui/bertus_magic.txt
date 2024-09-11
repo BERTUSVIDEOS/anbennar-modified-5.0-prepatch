@@ -1531,6 +1531,8 @@ custom_button = {
 			clr_country_flag = estate_mages_cast_spells
 			clr_country_flag = estate_mages_cast_spell_transmutation
 		}
+		custom_tooltip = gold_transmutation_spell_tooltip
+		custom_tooltip = gold_transmutation_spell_lore_tooltip
 	}
 	tooltip = "Gold Transmutation"
 }
@@ -1946,6 +1948,51 @@ custom_button = {
 	tooltip = "Control Mind"
 }
 custom_button = {
+    name = magic_menu_siege
+    
+    potential = {
+		fort_level = 1
+		has_siege = yes
+		sieged_by = FROM
+		FROM = { 
+			ai = no
+			has_estate = estate_mages
+			NOT = { has_country_flag = Y63_unlocked_minor_runes }
+			if = { limit = { tag = I02 }	#krak
+				mission_completed = krak_relighting_forges
+			}
+			NOT = { has_estate = estate_acolytes }
+			NOT = { has_estate_privilege = artifice_invention_korashi_tuners }
+		}
+	}
+	trigger = {}
+	effect = {
+		hidden_effect = {
+			FROM = {
+				if = {
+					limit = { NOT = { has_country_flag = siege_cast_spells_flag } }
+					set_country_flag = siege_cast_spells_flag
+				}
+				else = {
+					clr_country_flag = siege_cast_spells_flag
+				}
+			}
+		}
+	}
+	tooltip = "Siege Magic"
+}
+custom_icon = {
+	name = siege_magic_background_icon
+	
+    potential = {
+		FROM = {
+			ai = no	
+			has_country_flag = siege_cast_spells_flag
+		}
+	}
+	tooltip = ""
+}
+custom_button = {
 	name = fire_ball_spell
 	potential = {
 		fort_level = 1
@@ -1959,6 +2006,7 @@ custom_button = {
 			else = {
 				has_unlocked_spell = { spell = evocation_school_reform}
 			}
+			has_country_flag = siege_cast_spells_flag
 		}
 	}
 	trigger = {
@@ -1977,7 +2025,7 @@ custom_icon = {
     potential = {
 		ai = no	
 		has_country_flag = estate_mages_cast_spells
-		has_country_flag = estate_mages_cast_spell_enchantment
+		has_country_flag = estate_mages_cast_spell_evocation
 		if = {
 			limit = { has_estate_privilege = estate_mages_organization_magisterium }
 			A85 = { has_unlocked_spell = { spell = evocation_school_reform} }
@@ -1986,7 +2034,7 @@ custom_icon = {
 			has_unlocked_spell = { spell = evocation_school_reform}
 		}
 	}
-	tooltip = "Fire Ball - Used on a siege"
+	tooltip = fire_ball_spell_icon_tt
 }
 custom_button = {
 	name = earthquake_spell
@@ -2002,13 +2050,22 @@ custom_button = {
 			else = {
 				has_unlocked_spell = { spell = evocation_school_reform}
 			}
+			has_country_flag = siege_cast_spells_flag
 		}
 	}
 	trigger = {
+		if = {
+			limit = { has_province_modifier = dookan_shake_the_earth_province }
+			NOT = { has_province_modifier = dookan_shake_the_earth_province }
+		}
+		if = {
+			limit = { has_province_modifier = siege_magic_earthquake }
+			NOT = { has_province_modifier = siege_magic_earthquake }
+		}
 		FROM = { has_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 40 } }
 	}
 	effect = {
-		custom_tooltip = change_siege_progress_by_3_tt
+		custom_tooltip = change_siege_progress_by_4_tt
 		hidden_effect = { change_siege = 4 }
 		add_province_modifier = {name = siege_magic_earthquake duration = 365}
 		add_base_tax = -1
@@ -2026,7 +2083,7 @@ custom_icon = {
     potential = {
 		ai = no	
 		has_country_flag = estate_mages_cast_spells
-		has_country_flag = estate_mages_cast_spell_enchantment
+		has_country_flag = estate_mages_cast_spell_evocation
 		if = {
 			limit = { has_estate_privilege = estate_mages_organization_magisterium }
 			A85 = { has_unlocked_spell = { spell = evocation_school_reform} }
@@ -2035,5 +2092,5 @@ custom_icon = {
 			has_unlocked_spell = { spell = evocation_school_reform}
 		}
 	}
-	tooltip = "Earthquake - Used on a siege"
+	tooltip = earthquake_spell_icon_tt
 }

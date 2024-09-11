@@ -935,17 +935,30 @@ custom_button = {
 		FROM = { religion = old_dookan }
 	}
 	trigger = {
-		FROM = { church_power = 50 }
 		FROM = {
-			church_power = 50
-			NOT = { has_country_modifier = dookan_shake_the_earth }
+			if = {
+				limit = { NOT = { church_power = 33 } }
+				church_power = 33
+			}
+			if = {
+				limit = { has_country_modifier = dookan_shake_the_earth }
+				NOT = { has_country_modifier = dookan_shake_the_earth }
+			}
+		}
+		if = {
+			limit = { has_province_modifier = dookan_shake_the_earth_province }
+			NOT = { has_province_modifier = dookan_shake_the_earth_province }
+		}
+		if = {
+			limit = { has_province_modifier = siege_magic_earthquake }
+			NOT = { has_province_modifier = siege_magic_earthquake }
 		}
 	}
 	effect = {
 		custom_tooltip = change_siege_progress_by_3_tt
 		hidden_effect = { change_siege = 3 }
 		add_province_modifier = { name = dookan_shake_the_earth_province duration = 90 }
-		FROM = { add_church_power = -50 }
+		FROM = { add_church_power = -33 }
 	}
 	tooltip = "Shake the Earth"
 }
@@ -959,16 +972,29 @@ custom_button = {
 	}
 	trigger = {
 		FROM = {
-			church_power = 50
-			NOT = { has_country_modifier = dookan_shake_the_earth }
+			if = {
+				limit = { NOT = { church_power = 33 } }
+				church_power = 33
+			}
+			if = {
+				limit = { has_country_modifier = dookan_shake_the_earth }
+				NOT = { has_country_modifier = dookan_shake_the_earth }
+			}
 		}
-		NOT = { has_province_modifier = dookan_shake_the_earth_province }
+		if = {
+			limit = { has_province_modifier = dookan_shake_the_earth_province }
+			NOT = { has_province_modifier = dookan_shake_the_earth_province }
+		}
+		if = {
+			limit = { has_province_modifier = siege_magic_earthquake }
+			NOT = { has_province_modifier = siege_magic_earthquake }
+		}
 	}
 	effect = {
 		custom_tooltip = change_siege_progress_by_3_tt
 		hidden_effect = { change_siege = 3 }
 		add_province_modifier = { name = dookan_shake_the_earth_province duration = 90 }
-		FROM = { add_church_power = -50 }
+		FROM = { add_church_power = -33 }
 	}
 	tooltip = "Shake the Earth"
 }

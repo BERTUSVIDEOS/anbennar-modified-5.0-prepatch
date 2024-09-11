@@ -689,6 +689,7 @@ magisterium_favor_mana_action = {
 	
 	is_visible = {
 		has_government_mechanic = magisterium_mechanic
+		FROM = { is_subject = no }
     }
 	
 	is_allowed = {
@@ -958,6 +959,10 @@ magisterium_cast_banishment_spell_action = {
 			limit = { FROM = { has_country_modifier = spell_banished_army_modifier } }
 			FROM = { NOT = { has_country_modifier = spell_banished_army_modifier } }
 		}
+		if = {
+			limit = { FROM = { NOT = { has_country_modifier = undead_military } } }
+			FROM = { has_country_modifier = undead_military }
+		}
 	}
 
     on_accept = {
@@ -1099,15 +1104,15 @@ magisterium_cast_conjuration_spell_action = {
 	is_allowed = {
 		if = {
 			limit = { NOT = { has_government_power = {  mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 20 } } }
-			has_government_power = {  mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 20 }
+			has_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 20 }
 		}
 		if = {
-			limit = { FROM = { any_owned_province = {has_province_modifier = conjuration_spell_reform_elemental_extraction_modifier} } }
-			FROM = { NOT = { any_owned_province = {has_province_modifier = conjuration_spell_reform_elemental_extraction_modifier} } }
+			limit = { FROM = { any_owned_province = {has_province_modifier = conjuration_spell_reform_elemental_extraction_modifier } } }
+			FROM = { NOT = { any_owned_province = {has_province_modifier = conjuration_spell_reform_elemental_extraction_modifier } } }
 		}
 		if = {
-			limit = { FROM = { war_with = ROOT} }
-			FROM = { NOT = {war_with = ROOT}}
+			limit = { FROM = { war_with = ROOT } }
+			FROM = { NOT = {war_with = ROOT } }
 		}
 		FROM = { any_owned_province = { province_with_mine_goods = yes } }
 	}
