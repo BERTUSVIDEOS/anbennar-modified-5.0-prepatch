@@ -1,5 +1,22 @@
 
 
+upgrade_magic_shcool = {
+	add_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = -75 }
+	if = {
+		limit = { has_unlocked_magic_school = { school =  $school$ level = 2 } }
+		custom_tooltip = $school$_3_tt
+		set_country_flag = $school$_3_school_reform_flag
+	}
+	else_if = {
+		limit = { has_unlocked_magic_school = { school = $school$ level = 1 } }
+		custom_tooltip = $school$_2_tt
+		set_country_flag = $school$_2_school_reform_flag
+	}
+	else = {
+		custom_tooltip = $school$_1_tt
+		set_country_flag = $school$_1_school_reform_flag
+	}
+}
 market_build_effect = {
 	if = {
 		limit = {
@@ -5882,6 +5899,10 @@ add_mana_effect = {
 	if = {
 		limit = { has_country_flag = invention_spell_in_a_box_use }
 		clr_country_flag = invention_spell_in_a_box_use
+	}
+	else_if = {
+		limit = { NOT = { has_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = $mana$ } } }
+		custom_tooltip = magisters_need_$mana$_mana_tt
 	}
 	else = {
 		add_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = $mana$ }

@@ -83,7 +83,7 @@ magisterium_study_assistance_action = {
 	is_visible = {
 		tag = A85
 		FROM = { has_estate_privilege = estate_mages_organization_magisterium }
-		FROM = {NOT = { has_ruler_flag = magisterium_study_assistance_flag}}
+		FROM = { NOT = { has_ruler_flag = magisterium_study_assistance_flag } }
     }
 	
 	is_allowed = {
@@ -93,25 +93,17 @@ magisterium_study_assistance_action = {
 		}
 		custom_trigger_tooltip = {
 			tooltip = from_has_100_opinion_tt
-			FROM = { has_opinion = {who = ROOT value = 100}}
+			FROM = { has_opinion = { who = ROOT value = 100 } }
 		}
 		custom_trigger_tooltip = {
 			tooltip = not_war_with_root_tt
-			FROM = { NOT = {war_with = ROOT}}
+			FROM = { NOT = { war_with = ROOT } }
 		}
-		estate_loyalty = {
-			estate = estate_mages
-			loyalty = 60
-		}
+		estate_loyalty = { estate = estate_mages loyalty = 60 }
 	}
 
     on_accept = {
-		ROOT = {
-			add_estate_loyalty = {
-				estate = estate_mages
-				loyalty = -20
-			}
-		}
+		ROOT = { add_estate_loyalty = { estate = estate_mages loyalty = -20 } }
 		FROM = {
 			set_ruler_flag = magisterium_study_assistance_flag 
 			country_event = {id = bertus_changes.1118}
@@ -819,15 +811,15 @@ magisterium_cast_fake_comet_spell_action = {
 	is_visible = {
 		if = {
 			limit = { has_estate_privilege = estate_mages_organization_magisterium }
-			A85 = { has_unlocked_spell = { spell = illusion_school_reform} }
+			A85 = { has_unlocked_magic_school = { school = illusion level = 1} }
 		}
 		else = {
-			has_unlocked_spell = { spell = illusion_school_reform}
+			has_unlocked_magic_school = { school = illusion level = 1 }
 		}
     }
 	
 	is_allowed = {
-		has_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 75 }
+		has_mana = { mana = 75 }
 		if = {
 			limit = { FROM = { has_country_modifier = comet_sighted_modifier_cd } }
 			FROM = { NOT = { has_country_modifier = comet_sighted_modifier_cd } }
@@ -837,7 +829,7 @@ magisterium_cast_fake_comet_spell_action = {
     on_accept = {
 		if = {
 			limit = {
-				has_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 75 }
+				has_mana = { mana = 75 }
 			}
 			add_mana_effect = { mana = -75 }
 			FROM = { country_event = { id = 5060 days = 5 random = 20 } }
@@ -946,15 +938,15 @@ magisterium_cast_banishment_spell_action = {
 	is_visible = {
 		if = {
 			limit = { has_estate_privilege = estate_mages_organization_magisterium }
-			A85 = { has_unlocked_spell = { spell = transmutation_school_reform} }
+			A85 = { has_unlocked_magic_school = { school = transmutation level = 1 } }
 		}
 		else = {
-			has_unlocked_spell = { spell = transmutation_school_reform }
+			has_unlocked_magic_school = { school = transmutation level = 1 }
 		}
     }
 	
 	is_allowed = {
-		has_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 75 }
+		has_mana = { mana = 75 }
 		if = {
 			limit = { FROM = { has_country_modifier = spell_banished_army_modifier } }
 			FROM = { NOT = { has_country_modifier = spell_banished_army_modifier } }
@@ -967,7 +959,7 @@ magisterium_cast_banishment_spell_action = {
 
     on_accept = {
 		if = {
-			limit = { has_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 75 } }
+			limit = { has_mana = { mana = 75 } }
 			add_mana_effect = { mana = -75 }
 			FROM = { add_country_modifier = { name = spell_banished_army_modifier duration = 730 } }
 		}
@@ -1104,7 +1096,7 @@ magisterium_cast_conjuration_spell_action = {
 	is_allowed = {
 		if = {
 			limit = { NOT = { has_government_power = {  mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 20 } } }
-			has_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 20 }
+			has_mana = { mana = 20 }
 		}
 		if = {
 			limit = { FROM = { any_owned_province = {has_province_modifier = conjuration_spell_reform_elemental_extraction_modifier } } }

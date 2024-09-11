@@ -668,32 +668,37 @@ rubenaire_middle = {
 		required_missions = { rubenaire_a_rubenaire_back_in_control rubenaire_merchants_and_priests }
 		position = 4
 		
-		trigger = {
-			OR = {
-				AND = {
-					total_development = A01
-					prestige = A01
-					army_strength = {
-						who = A01
-						value = 2
-					}
-				}	
+		trigger = {	#bertus mod
+			if = {
+				limit = { exists = A01 }
+				NOT = { is_subject_of_type = lorent_sphere_subject }
+				total_development = A01
+				prestige = A01
+				army_strength = { who = A01 value = 2 }
+			}
+			else = {
 				NOT = { exists = A01 }
 			}
 		}
 
-		effect = {
+		effect = {	#bertus mod
 			if = {
-				limit = { exists = A01 }
-				ROOT = {
-					vassalize = A01	
+				limit = {
+					exists = A01 
+					A01 = { is_subject = no }
+				}
+				add_casus_belli = {
+					type = cb_vassalize_mission
+					target = A01
+					months = 240
 				}
 			}
 			else = {
 				add_dip_power = 300
-				add_prestige_or_monarch_power = {amount =  20}
+				add_prestige_or_monarch_power = {amount =  100}
 				add_republican_tradition = 10
 			}
+			add_prestige_or_monarch_power = {amount =  20}
 		}	
 	}
 	

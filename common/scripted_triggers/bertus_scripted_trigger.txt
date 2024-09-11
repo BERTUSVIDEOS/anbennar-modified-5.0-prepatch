@@ -55,10 +55,30 @@ red_alert = {	#unbalanced wars
 		}
 	}
 }
-has_unlocked_spell = {
-	custom_trigger_tooltip = {
-		tooltip = has_unlocked_$spell$_tt
-		has_country_flag = $spell$_flag
+has_mana = {
+	if = {
+		limit = { has_country_flag = invention_spell_in_a_box_use }
+		custom_trigger_tooltip = {
+			tooltip = invention_spell_in_a_box_use_tt
+		}
+	}
+	else = {
+		has_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = $mana$ }
+	}
+}
+has_unlocked_magic_school = {
+	if = {
+		limit = { has_estate_privilege = estate_mages_organization_magisterium }
+		custom_trigger_tooltip = {
+			tooltip = has_unlocked_$school$_$level$_tt
+			A85 = { has_country_flag = $school$_$level$_school_reform_flag }
+		}
+	}
+	else = {
+		custom_trigger_tooltip = {
+			tooltip = has_unlocked_$school$_$level$_tt
+			has_country_flag = $school$_$level$_school_reform_flag
+		}
 	}
 }
 has_unlocked_invention = {

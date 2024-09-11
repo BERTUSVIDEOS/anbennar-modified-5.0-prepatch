@@ -1973,16 +1973,36 @@ on_new_monarch = {
 		harpy_events.122	#Harpy parentage insight
 	}
 
-	country_event = { id = estate_organization.1 days = 35 }		#choose magical organization for mage estate
-	country_event = { id = estate_organization.4 days = 35 }		#choose organization for adventurer estate
-	country_event = { id = estate_organization.5 days = 35 }		#choose organization for artificer estate
-	country_event = { id = racial_modifiers.5 days = 1 }			#Racial admin change if unmatching
+	if = {
+		limit = { NOT = { has_mages_organization_privilege = yes } }
+		country_event = { id = estate_organization.1 days = 35 }		#choose organization for adventurer estate
+	}
+	if = {
+		limit = { NOT = { has_adventurers_organization_privilege = yes } }
+		country_event = { id = estate_organization.1 days = 35 }		#choose magical organization for mage estate
+	}
+	if = {
+		limit = {
+			NOT = { has_artificers_organization_privilege = yes }
+			OR = {
+				has_estate = estate_artificers
+				AND = {
+					has_estate = estate_dragon_command
+					has_institution = manufactories
+				}
+			}
+		}
+		country_event = { id = estate_organization.5 days = 35 }		#choose magical organization for mage estate
+	}
+	if = {
+		limit = { has_unmatching_administration_to_primary_culture = yes }
+		country_event = { id = racial_modifiers.5 days = 35 }		#Racial admin change if unmatching
+	}
 	#country_event = { id = racial_modifiers.6 days = 1 }			#Racial mil change if unmatching
 
-	country_event = { id = monstrous.100 days = 35 }
 	if = {
-		limit = { is_year = 1445 }
-		country_event = { id = great_conqueror.0 days = 35 }
+		limit = { NOT = { any_country = { has_opinion_modifier = { who = ROOT modifier = root_monstrous } } } }
+		country_event = { id = monstrous.100 days = 35 }
 	}
 	if = {
 		limit = {
@@ -2271,9 +2291,15 @@ on_monarch_death = {
 			}
 		}
 	}
+	if = {
+		limit = { has_country_flag = vampire_ruler }
+		country_event = { id = vampires_estate_events.13  days = 1 } # Revival
+	}
+	if = {
+		limit = { has_country_modifier = undead_military }
+		country_event = { id = magic_misc_events.4 days = 60 } #Undead Army
+	}
 	#Anbennar
-	country_event = { id = vampires_estate_events.13  days = 1 } # Revival
-	country_event = { id = magic_misc_events.4 days = 60 } #Undead Army
 	if = {
 		limit = {
 			has_reform = godhood_reform
