@@ -112,6 +112,70 @@ custom_text_box = {
 	tooltip = ""
 }
 custom_button = {
+	name = schools_mana_contribution
+    potential = {
+		has_country_flag = estate_mages_cast_spells
+		NOT = {tag = A85}
+	}
+	trigger = {
+		if = {
+			limit = {has_estate_influence_modifier = { estate = estate_mages modifier = EST_VAL_GAVE_MANA_influence} }
+			custom_trigger_tooltip = {
+				tooltip = EST_VAL_GAVE_MANA_TT
+				NOT = {has_estate_influence_modifier = { estate = estate_mages modifier = EST_VAL_GAVE_MANA_influence } }
+				NOT = {has_estate_loyalty_modifier = { estate = estate_mages modifier = EST_VAL_GAVE_MANA_loyalty } }
+			}
+		}
+		if = {
+			limit = { NOT = {has_estate_privilege = estate_mages_organization_magisterium} }
+			has_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 33 }
+		}
+	}
+	effect = {
+		if = {
+			limit = {has_estate_privilege = estate_mages_organization_magisterium}
+			if = {
+				limit = {NOT = {has_country_flag = contribute_mana_flag}}
+				custom_tooltip = activate_contribute_magisterium_mana_tt
+				set_country_flag = contribute_mana_flag
+			}
+			else = {
+				clr_country_flag = contribute_mana_flag
+				custom_tooltip = deactivate_contribute_magisterium_mana_tt
+			}
+		}
+		else = {
+			custom_tooltip = activate_contribute_mana_tt
+			add_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = -33 }
+			add_estate_influence_modifier = { estate = estate_mages desc = EST_VAL_GAVE_MANA_influence influence = 10 duration = 7300 }
+			add_estate_loyalty_modifier = { estate = estate_mages desc = EST_VAL_GAVE_MANA_loyalty loyalty = 10 duration = 7300 }
+		}
+	}
+	tooltip = "Mana Contribution"
+}
+custom_button = {
+	name = schools_of_magic
+    potential = {
+		has_country_flag = estate_mages_cast_spells
+		tag = A85
+	}
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = "Magisters Menu Closed"
+			NOT = {has_country_flag = magisters_mechanic_menu_flag}
+		}
+		if = {
+			limit = { ai = yes }
+			has_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 75 }
+		}
+	}
+	effect = {
+		set_country_flag = magisters_mechanic_menu_flag
+		country_event = { id = bertus_changes.6037 }
+	}
+	tooltip = "Encat Magisterium Decree"
+}
+custom_button = {
 	name = divination_school_spells
     potential = {
 		has_country_flag = estate_mages_cast_spells
@@ -160,6 +224,36 @@ custom_button = {
 		upgrade_magic_shcool = { school = divination }
 	}
 	tooltip = "Upgrade Divination"
+}
+custom_icon = {
+	name = divination_school_level_icon
+	potential = {
+		has_country_flag = estate_mages_cast_spells
+	}
+	tooltip = ""
+	frame = {
+	    number = 4
+	    trigger = { 
+			has_unlocked_magic_school = { school = divination level = 3 }
+		}
+	}
+	frame = {
+	    number = 3
+	    trigger = { 
+			has_unlocked_magic_school = { school = divination level = 2 }
+		}
+	}
+	frame = {
+	    number = 2
+	    trigger = { 
+			has_unlocked_magic_school = { school = divination level = 1 }
+		}
+	}
+	frame = { #First matched frame clause will be used.
+	    number = 1
+	    trigger = { 
+		}
+	}
 }
 custom_button = {
     name = magic_menu_scrying_rivals
@@ -428,23 +522,23 @@ custom_button = {
 		}
 		has_mana = { mana = 25 }
 		if = {
-			limit = {has_country_modifier = divination_1_school_reform_modifier}
-			NOT = {has_country_modifier = divination_1_school_reform_modifier}
+			limit = {has_country_modifier = divination_foretelling_1_school_modifier }
+			NOT = {has_country_modifier = divination_foretelling_1_school_modifier }
 		}
 		if = {
-			limit = {has_country_modifier = divination_2_school_reform_modifier}
-			NOT = {has_country_modifier = divination_2_school_reform_modifier}
+			limit = {has_country_modifier = divination_foretelling_2_school_modifier }
+			NOT = {has_country_modifier = divination_foretelling_2_school_modifier }
 		}
 	}
 	effect = {
 		if = {
 			limit = { has_unlocked_magic_school = { school = divination level = 2 } has_mana = { mana = 50 } }
 			add_mana_effect = { mana = -50 }
-			add_country_modifier = { name = divination_2_school_reform_modifier duration = 365 }
+			add_country_modifier = { name = divination_foretelling_2_school_modifier duration = 365 }
 		}
 		else = {
 			add_mana_effect = { mana = -25 }
-			add_country_modifier = { name = divination_1_school_reform_modifier duration = 365 }
+			add_country_modifier = { name = divination_foretelling_1_school_modifier duration = 365 }
 			custom_tooltip = magisters_need_50_mana_tt
 			custom_tooltip = "to get lvl 2 Spell"
 		}
@@ -507,6 +601,36 @@ custom_button = {
 		upgrade_magic_shcool = { school = enchantment }
 	}
 	tooltip = "Upgrade Enchantment"
+}
+custom_icon = {
+	name = enchantment_school_level_icon
+	potential = {
+		has_country_flag = estate_mages_cast_spells
+	}
+	tooltip = ""
+	frame = {
+	    number = 4
+	    trigger = { 
+			has_unlocked_magic_school = { school = enchantment level = 3 }
+		}
+	}
+	frame = {
+	    number = 3
+	    trigger = { 
+			has_unlocked_magic_school = { school = enchantment level = 2 }
+		}
+	}
+	frame = {
+	    number = 2
+	    trigger = { 
+			has_unlocked_magic_school = { school = enchantment level = 1 }
+		}
+	}
+	frame = { #First matched frame clause will be used.
+	    number = 1
+	    trigger = { 
+		}
+	}
 }
 custom_button = {
     name = magic_menu_aid_war_effort
@@ -765,6 +889,36 @@ custom_button = {
 	}
 	tooltip = "Upgrade Abjuration"
 }
+custom_icon = {
+	name = abjuration_school_level_icon
+	potential = {
+		has_country_flag = estate_mages_cast_spells
+	}
+	tooltip = ""
+	frame = {
+	    number = 4
+	    trigger = { 
+			has_unlocked_magic_school = { school = abjuration level = 3 }
+		}
+	}
+	frame = {
+	    number = 3
+	    trigger = { 
+			has_unlocked_magic_school = { school = abjuration level = 2 }
+		}
+	}
+	frame = {
+	    number = 2
+	    trigger = { 
+			has_unlocked_magic_school = { school = abjuration level = 1 }
+		}
+	}
+	frame = { #First matched frame clause will be used.
+	    number = 1
+	    trigger = { 
+		}
+	}
+}
 custom_button = {
     name = magic_menu_abjuration_shield
     
@@ -773,8 +927,8 @@ custom_button = {
 	}
 	trigger = {
 		if = {
-			limit = { NOT = { has_unlocked_magic_school = { school = abjuration level = 1 } } }
-			has_unlocked_magic_school = { school = abjuration level = 1 }
+			limit = { NOT = { has_unlocked_magic_school = { school = abjuration level = 2 } } }
+			has_unlocked_magic_school = { school = abjuration level = 2 }
 		}
 		has_mana = { mana = 25 }
 		if = {
@@ -788,7 +942,7 @@ custom_button = {
 	}
 	effect = {
 		if = {
-			limit = { has_unlocked_magic_school = { school = abjuration level = 2 } has_mana = { mana = 50 } }
+			limit = { has_unlocked_magic_school = { school = abjuration level = 3 } has_mana = { mana = 50 } }
 			add_mana_effect = { mana = -50 }
 			add_country_modifier = { name = abjuration_shield_2_modifier duration = 365 }
 		}
@@ -908,10 +1062,7 @@ custom_button = {
 				}
 			}
 		}
-		else_if = { 
-			limit = { 
-				has_mana = { mana = 20 }
-			}
+		else = { 
 			add_mana_effect = { mana = -20 }
 			custom_tooltip = estate_ward_1_tt
 			custom_tooltip = magisters_need_30_mana_tt
@@ -1018,8 +1169,7 @@ custom_button = {
 			custom_tooltip = magisters_need_50_mana_tt
 			custom_tooltip = "to get lvl 3 Spell"
 		}
-		else_if = {
-			limit = { has_mana = { mana = 30 } }
+		else = {
 			add_mana_effect = { mana = -30 }
 			capital_scope = {
 				every_province = {
@@ -1048,7 +1198,7 @@ custom_button = {
 			clr_country_flag = estate_mages_cast_spell_abjuration
 		}
 	}
-	tooltip = "Broad Wards"
+	tooltip = "Narrow Wards"
 }
 custom_button = {
 	name = transmutation_school_spells
@@ -1102,6 +1252,36 @@ custom_button = {
 		upgrade_magic_shcool = { school = transmutation }
 	}
 	tooltip = "Upgrade Transmutation"
+}
+custom_icon = {
+	name = transmutation_school_level_icon
+	potential = {
+		has_country_flag = estate_mages_cast_spells
+	}
+	tooltip = ""
+	frame = {
+	    number = 4
+	    trigger = { 
+			has_unlocked_magic_school = { school = transmutation level = 3 }
+		}
+	}
+	frame = {
+	    number = 3
+	    trigger = { 
+			has_unlocked_magic_school = { school = transmutation level = 2 }
+		}
+	}
+	frame = {
+	    number = 2
+	    trigger = { 
+			has_unlocked_magic_school = { school = transmutation level = 1 }
+		}
+	}
+	frame = { #First matched frame clause will be used.
+	    number = 1
+	    trigger = { 
+		}
+	}
 }
 custom_button = {
     name = magic_menu_plant_growth
@@ -1321,6 +1501,36 @@ custom_button = {
 	}
 	tooltip = "Upgrade Evocation"
 }
+custom_icon = {
+	name = evocation_school_level_icon
+	potential = {
+		has_country_flag = estate_mages_cast_spells
+	}
+	tooltip = ""
+	frame = {
+	    number = 4
+	    trigger = { 
+			has_unlocked_magic_school = { school = evocation level = 3 }
+		}
+	}
+	frame = {
+	    number = 3
+	    trigger = { 
+			has_unlocked_magic_school = { school = evocation level = 2 }
+		}
+	}
+	frame = {
+	    number = 2
+	    trigger = { 
+			has_unlocked_magic_school = { school = evocation level = 1 }
+		}
+	}
+	frame = { #First matched frame clause will be used.
+	    number = 1
+	    trigger = { 
+		}
+	}
+}
 custom_button = {
 	name = fire_ball_spell_icon
 	
@@ -1480,6 +1690,36 @@ custom_button = {
 	}
 	tooltip = "Upgrade Illusion"
 }
+custom_icon = {
+	name = illusion_school_level_icon
+	potential = {
+		has_country_flag = estate_mages_cast_spells
+	}
+	tooltip = ""
+	frame = {
+	    number = 4
+	    trigger = { 
+			has_unlocked_magic_school = { school = illusion level = 3 }
+		}
+	}
+	frame = {
+	    number = 3
+	    trigger = { 
+			has_unlocked_magic_school = { school = illusion level = 2 }
+		}
+	}
+	frame = {
+	    number = 2
+	    trigger = { 
+			has_unlocked_magic_school = { school = illusion level = 1 }
+		}
+	}
+	frame = { #First matched frame clause will be used.
+	    number = 1
+	    trigger = { 
+		}
+	}
+}
 custom_button = {
     name = magic_menu_delusions
     
@@ -1532,8 +1772,8 @@ custom_button = {
 	}
 	trigger = {
 		if = {
-			limit = { NOT = { has_unlocked_magic_school = { school = illusion level = 1 } } }
-			has_unlocked_magic_school = { school = illusion level = 1 }
+			limit = { NOT = { has_unlocked_magic_school = { school = illusion level = 2 } } }
+			has_unlocked_magic_school = { school = illusion level = 2 }
 		}
 		has_mana = { mana = 75 }
 		custom_trigger_tooltip = {
@@ -1603,6 +1843,36 @@ custom_button = {
 	}
 	tooltip = "Upgrade Necromancy"
 }
+custom_icon = {
+	name = necromancy_school_level_icon
+	potential = {
+		has_country_flag = estate_mages_cast_spells
+	}
+	tooltip = ""
+	frame = {
+	    number = 4
+	    trigger = { 
+			has_unlocked_magic_school = { school = necromancy level = 3 }
+		}
+	}
+	frame = {
+	    number = 3
+	    trigger = { 
+			has_unlocked_magic_school = { school = necromancy level = 2 }
+		}
+	}
+	frame = {
+	    number = 2
+	    trigger = { 
+			has_unlocked_magic_school = { school = necromancy level = 1 }
+		}
+	}
+	frame = { #First matched frame clause will be used.
+	    number = 1
+	    trigger = { 
+		}
+	}
+}
 custom_button = {
 	name = conjuration_school_spells
     potential = {
@@ -1655,6 +1925,36 @@ custom_button = {
 		upgrade_magic_shcool = { school = conjuration }
 	}
 	tooltip = "Upgrade Conjuration"
+}
+custom_icon = {
+	name = conjuration_school_level_icon
+	potential = {
+		has_country_flag = estate_mages_cast_spells
+	}
+	tooltip = ""
+	frame = {
+	    number = 4
+	    trigger = { 
+			has_unlocked_magic_school = { school = conjuration level = 3 }
+		}
+	}
+	frame = {
+	    number = 3
+	    trigger = { 
+			has_unlocked_magic_school = { school = conjuration level = 2 }
+		}
+	}
+	frame = {
+	    number = 2
+	    trigger = { 
+			has_unlocked_magic_school = { school = conjuration level = 1 }
+		}
+	}
+	frame = { #First matched frame clause will be used.
+	    number = 1
+	    trigger = { 
+		}
+	}
 }
 custom_button = {
     name = magic_menu_magnificent_feast
