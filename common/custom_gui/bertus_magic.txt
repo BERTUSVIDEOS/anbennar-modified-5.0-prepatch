@@ -34,6 +34,77 @@ custom_button = {
 	}
 	tooltip = "Cast Spell"
 }
+custom_window = {
+	name = magic_magisterium_sphere_window
+	
+    potential = {
+		has_estate_privilege = estate_mages_organization_magisterium
+	}
+	tooltip = ""
+}
+custom_shield = {
+    name = magic_magisterium_sphere
+    potential = { has_estate_privilege = estate_mages_organization_magisterium }
+    trigger = { }
+    effect = {
+		custom_tooltip = magic_magisterium_sphere_desc
+		every_country = {
+			limit = { has_estate_privilege = estate_mages_organization_magisterium }
+			custom_tooltip = ""
+		}
+		hidden_effect = {
+			A85 = {
+				set_variable = { which = magisterium_sphere_members_value = value = 0 }
+				change_variable = { which = magisterium_sphere_members_value = value = 1 }
+			}
+		}
+	}
+	tooltip = "Magisterium Sphere"
+    global_event_target = magisterium
+    open_country = yes
+}
+custom_button = {
+	name = schools_mana_contribution
+    potential = {
+		has_country_flag = estate_mages_cast_spells
+		NOT = { tag = A85 } 
+	}
+	trigger = {
+		if = {
+			limit = {has_estate_influence_modifier = { estate = estate_mages modifier = EST_VAL_GAVE_MANA_influence} }
+			custom_trigger_tooltip = {
+				tooltip = EST_VAL_GAVE_MANA_TT
+				NOT = {has_estate_influence_modifier = { estate = estate_mages modifier = EST_VAL_GAVE_MANA_influence } }
+				NOT = {has_estate_loyalty_modifier = { estate = estate_mages modifier = EST_VAL_GAVE_MANA_loyalty } }
+			}
+		}
+		if = {
+			limit = { NOT = { has_estate_privilege = estate_mages_organization_magisterium } }
+			has_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 33 }
+		}
+	}
+	effect = {
+		if = {
+			limit = { has_estate_privilege = estate_mages_organization_magisterium }
+			if = {
+				limit = { NOT = { has_country_flag = contribute_mana_flag } }
+				custom_tooltip = activate_contribute_magisterium_mana_tt
+				set_country_flag = contribute_mana_flag
+			}
+			else = {
+				clr_country_flag = contribute_mana_flag
+				custom_tooltip = deactivate_contribute_magisterium_mana_tt
+			}
+		}
+		else = {
+			custom_tooltip = activate_contribute_mana_tt
+			add_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = -33 }
+			add_estate_influence_modifier = { estate = estate_mages desc = EST_VAL_GAVE_MANA_influence influence = 10 duration = 7300 }
+			add_estate_loyalty_modifier = { estate = estate_mages desc = EST_VAL_GAVE_MANA_loyalty loyalty = 10 duration = 7300 }
+		}
+	}
+	tooltip = "Mana Contribution"
+}
 custom_icon = {
 	name = topbar_mana_overlay
 	
@@ -49,6 +120,14 @@ custom_text_box = {
 		ai = no	
 	}
 	tooltip = magic_menu_topbar_mana_overlay_value_tt
+}
+custom_window = {
+	name = magic_menu_window
+	
+    potential = {
+		has_country_flag = estate_mages_cast_spells
+	}
+	tooltip = ""
 }
 custom_icon = {
 	name = magic_menu_background
@@ -112,48 +191,6 @@ custom_text_box = {
 	tooltip = ""
 }
 custom_button = {
-	name = schools_mana_contribution
-    potential = {
-		has_country_flag = estate_mages_cast_spells
-		NOT = {tag = A85}
-	}
-	trigger = {
-		if = {
-			limit = {has_estate_influence_modifier = { estate = estate_mages modifier = EST_VAL_GAVE_MANA_influence} }
-			custom_trigger_tooltip = {
-				tooltip = EST_VAL_GAVE_MANA_TT
-				NOT = {has_estate_influence_modifier = { estate = estate_mages modifier = EST_VAL_GAVE_MANA_influence } }
-				NOT = {has_estate_loyalty_modifier = { estate = estate_mages modifier = EST_VAL_GAVE_MANA_loyalty } }
-			}
-		}
-		if = {
-			limit = { NOT = {has_estate_privilege = estate_mages_organization_magisterium} }
-			has_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 33 }
-		}
-	}
-	effect = {
-		if = {
-			limit = {has_estate_privilege = estate_mages_organization_magisterium}
-			if = {
-				limit = {NOT = {has_country_flag = contribute_mana_flag}}
-				custom_tooltip = activate_contribute_magisterium_mana_tt
-				set_country_flag = contribute_mana_flag
-			}
-			else = {
-				clr_country_flag = contribute_mana_flag
-				custom_tooltip = deactivate_contribute_magisterium_mana_tt
-			}
-		}
-		else = {
-			custom_tooltip = activate_contribute_mana_tt
-			add_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = -33 }
-			add_estate_influence_modifier = { estate = estate_mages desc = EST_VAL_GAVE_MANA_influence influence = 10 duration = 7300 }
-			add_estate_loyalty_modifier = { estate = estate_mages desc = EST_VAL_GAVE_MANA_loyalty loyalty = 10 duration = 7300 }
-		}
-	}
-	tooltip = "Mana Contribution"
-}
-custom_button = {
 	name = schools_of_magic
     potential = {
 		has_country_flag = estate_mages_cast_spells
@@ -199,6 +236,14 @@ custom_button = {
 		}
 	}
 	tooltip = "Divination School"
+}
+custom_window = {
+	name = magic_menu_divination_window
+	
+    potential = {
+		has_country_flag = estate_mages_cast_spell_divination
+	}
+	tooltip = ""
 }
 custom_icon = {
 	name = divination_school_icon
@@ -577,6 +622,14 @@ custom_button = {
 	}
 	tooltip = "Enchantment School"
 }
+custom_window = {
+	name = magic_menu_enchantment_window
+	
+    potential = {
+		has_country_flag = estate_mages_cast_spell_enchantment
+	}
+	tooltip = ""
+}
 custom_icon = {
 	name = enchantment_school_icon
     potential = {
@@ -863,6 +916,14 @@ custom_button = {
 		}
 	}
 	tooltip = "Abjuration School"
+}
+custom_window = {
+	name = magic_menu_abjuration_window
+	
+    potential = {
+		has_country_flag = estate_mages_cast_spell_abjuration
+	}
+	tooltip = ""
 }
 custom_icon = {
 	name = abjuration_school_icon
@@ -1228,6 +1289,14 @@ custom_button = {
 	}
 	tooltip = "Transmutation School"
 }
+custom_window = {
+	name = magic_menu_transmutation_window
+	
+    potential = {
+		has_country_flag = estate_mages_cast_spell_transmutation
+	}
+	tooltip = ""
+}
 custom_icon = {
 	name = transmutation_school_icon
     potential = {
@@ -1476,6 +1545,14 @@ custom_button = {
 	}
 	tooltip = "Evocation School"
 }
+custom_window = {
+	name = magic_menu_evocation_window
+	
+    potential = {
+		has_country_flag = estate_mages_cast_spell_evocation
+	}
+	tooltip = ""
+}
 custom_icon = {
 	name = evocation_school_icon
     potential = {
@@ -1665,6 +1742,14 @@ custom_button = {
 	}
 	tooltip = "Illusion School"
 }
+custom_window = {
+	name = magic_menu_illusion_window
+	
+    potential = {
+		has_country_flag = estate_mages_cast_spell_illusion
+	}
+	tooltip = ""
+}
 custom_icon = {
 	name = illusion_school_icon
     potential = {
@@ -1818,6 +1903,14 @@ custom_button = {
 	}
 	tooltip = "Necromancy School"
 }
+custom_window = {
+	name = magic_menu_necromancy_window
+	
+    potential = {
+		has_country_flag = estate_mages_cast_spell_necromancy
+	}
+	tooltip = ""
+}
 custom_icon = {
 	name = necromancy_school_icon
     potential = {
@@ -1900,6 +1993,14 @@ custom_button = {
 		}
 	}
 	tooltip = "Conjuration School"
+}
+custom_window = {
+	name = magic_menu_conjuration_window
+	
+    potential = {
+		has_country_flag = estate_mages_cast_spell_conjuration
+	}
+	tooltip = ""
 }
 custom_icon = {
 	name = conjuration_school_icon

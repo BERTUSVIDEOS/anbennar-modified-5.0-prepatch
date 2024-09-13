@@ -1,101 +1,5 @@
 namespace = sjr_lorent_set_up
 
-province_event = {
-	id = sjr_lorent_set_up.1
-	title = sjr_lorent_set_up.1.t
-	desc = sjr_lorent_set_up.1.desc
-	picture = DIPLOMACY_eventPicture
-	
-	hidden = yes
-
-    trigger = {
-		OR = {
-			AND = { #cuando hay que ponerlo
-				OR = {
-					region = lencenor_region
-					region = west_dameshead_region
-					region = small_country_region
-					area = beepeck_area
-					area = iochand_area
-				}
-				NOT = {has_province_modifier = peace_under_lorent_modifier}
-				owner = {
-					OR = {
-						tag = A01
-						is_subject_of = A01
-					}
-					NOT = { had_recent_war = 2 }
-					is_at_war = no
-				}
-				NOT = { has_global_flag = peace_under_lorent_flag_off }
-			}
-			AND = {  #Cuando hay que quitarlo
-				has_province_modifier = peace_under_lorent_modifier
-				OR =  { 
-					owner = {
-						NOT = {
-							OR = {
-								tag = A01
-								is_subject_of = A01
-							}
-						}
-					}
-					owner = { is_at_war = yes }
-					has_global_flag = peace_under_lorent_flag_off
-				}
-			}
-		}
-    }
-	
-	immediate = {
-	}
-	option = {
-		name = sjr_lorent_set_up.1.a
-		trigger = {
-			NOT = {
-				has_province_modifier = peace_under_lorent_modifier
-			}
-		}
-		add_province_modifier = { 
-			name = peace_under_lorent_modifier
-			duration = -1  
-		}
-	}
-	option = {
-		name = sjr_lorent_set_up.1.b
-		trigger = {
-			has_province_modifier = peace_under_lorent_modifier
-		}
-		remove_province_modifier = peace_under_lorent_modifier
-	}
-}
-
-country_event = {
-	id = sjr_lorent_set_up.2
-	title = sjr_lorent_set_up_off.2.t
-	desc = sjr_lorent_set_up_off.2.desc
-	picture = DIPLOMACY_eventPicture
-	
-	hidden = yes
-
-    trigger = {
-		A01 = {
-			not = { lorent_sphere_subject = 5 }
-		}
-		not = { has_global_flag = peace_under_lorent_flag_off }
-	}
-		
-	immediate = {
-	
-	}
-	option = {
-		name = sjr_lorent_set_up.2.a
-		trigger = {
-		}
-		set_global_flag = peace_under_lorent_flag_off
-	}
-}
-
 country_event = {
 	id = sjr_lorent_set_up.3
 	title = sjr_lorent_set_up_off.3.t
@@ -107,31 +11,20 @@ country_event = {
 	
     trigger = {
 		NOT = {is_year = 1445}
+		tag = A01
 	}
 		
 	immediate = {
 		hidden_effect = {
 			every_subject_country = {
 				add_truce_with = ROOT
-				ROOT = {
-					add_truce_with = PREV
-				}
+				ROOT = { add_truce_with = PREV }
 			}
 		}
-		name = sjr_lorent_set_up.3.a
 		if = {
-			limit = {
-				AI = no
-			}
-			add_country_modifier = { 
-				name = lorent_player_modifier
-				duration = 7300
-			}
-			add_country_modifier = { 
-				name = lorent_aristocratic_military_modifier
-				duration = -1
-				desc = lorent_aristocratic_military_modifier_DESC_TOOLTIP
-			}
+			limit = { AI = no }
+			add_country_modifier = { name = lorent_player_modifier duration = 7300 }
+			add_country_modifier = { name = lorent_aristocratic_military_modifier duration = -1 desc = lorent_aristocratic_military_modifier_DESC_TOOLTIP }
 			add_war_exhaustion = 10
 			add_corruption = 5
 			add_manpower = -100
@@ -140,19 +33,10 @@ country_event = {
 	}
 	option = {
 		name = sjr_lorent_set_up.3.a
-		trigger = {
-			AI = no
-		}
+		trigger = { AI = no }
 		tooltip = {
-			add_country_modifier = { 
-				name = lorent_player_modifier
-				duration = 7300
-			}
-			add_country_modifier = { 
-				name = lorent_aristocratic_military_modifier
-				duration = -1
-				desc = lorent_aristocratic_military_modifier_DESC_TOOLTIP
-			}
+			add_country_modifier = { name = lorent_player_modifier duration = 7300 }
+			add_country_modifier = { name = lorent_aristocratic_military_modifier duration = -1 desc = lorent_aristocratic_military_modifier_DESC_TOOLTIP }
 			add_war_exhaustion = 10
 			add_corruption = 5
 			add_manpower = -100
@@ -161,13 +45,8 @@ country_event = {
 	}
 	option = {
 		name = sjr_lorent_set_up.3.b
-		trigger = {
-			AI = YES
-		}
-		add_country_modifier = { 
-			name = lorent_AI_modifier
-			duration = 3650
-		}
+		trigger = { AI = YES }
+		add_country_modifier = { name = lorent_AI_modifier duration = 3650 }
 	}
 }
 
@@ -187,9 +66,7 @@ country_event = {
 	}
 	option = {
 		name = sjr_lorent_set_up.4.a
-		trigger = {
-			NOT = { tag = A01 }
-		}	
+		trigger = { NOT = { tag = A01 } }	
 		name = sjr_lorent_set_up.4.a
 		add_manpower = 10
 		add_army_tradition = 10
@@ -197,18 +74,12 @@ country_event = {
 	}
 	option = {
 		name = sjr_lorent_set_up.4.b
-		trigger = {
-			tag = A01
-			ai = no
-		}
+		trigger = { tag = A01 ai = no }
 		add_manpower = -10
 	}
 	option = {
 		name = sjr_lorent_set_up.4.c
-		trigger = {
-			tag = A01
-			ai = yes
-		}
+		trigger = { tag = A01 ai = yes }
 	}
 }
 
@@ -233,38 +104,24 @@ country_event = {
 	}
 	option = {
 		name = sjr_lorent_set_up.5.a
-		trigger = {
-			ai = no
-		}
+		trigger = { ai = no }
 		white_peace = A01
 		A01 = {
-			create_subject = {
-				subject_type = lorent_sphere_subject
-				subject = A20
-			}
+			create_subject = { subject_type = lorent_sphere_subject subject = A20 }
 		}
 		emperor = {
 			add_imperial_influence = -5
 		}
 		emperor = {
-			add_opinion = {
-				who = ROOT
-				modifier = resentful
-			}
+			add_opinion = { who = ROOT modifier = resentful }
 		}
 		every_elector = {
-			add_opinion = {
-				who = ROOT
-				modifier = resentful
-			}
+			add_opinion = { who = ROOT modifier = resentful }
 		}
 	}
 	option = {
 		name = sjr_lorent_set_up.5.b
-		add_country_modifier = { 
-			name = defend_the_empire_modifier
-			duration = 730 
-		}
+		add_country_modifier = { name = defend_the_empire_modifier duration = 730 }
 	}
 }
 
