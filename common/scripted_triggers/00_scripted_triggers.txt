@@ -40,12 +40,6 @@ is_free_or_tributary_trigger = { #I.e. Tags that can conduct independent diploma
 	}
 }
 
-
-# Third Rome Triggers
-
-
-#RIGHTS OF MAN TRIGGERS
-
 #Ruler personality triggers
 ruler_has_good_adm_personality = {
 	has_dlc = "Rights of Man"
@@ -308,18 +302,8 @@ can_have_center_of_reformation_trigger = { #Province Scope
 	is_island = no
 	expelling_minorities = no
 	development = 10
-	NOT = {
-		any_neighbor_province = {
-			is_reformation_center = yes
-		}
-	}
-	NOT = {
-		any_province = {
-			area = PREV
-			is_reformation_center = yes
-			religion = $RELIGION$
-		}
-	}
+	NOT = { any_neighbor_province = { is_reformation_center = yes } }
+	NOT = { any_province = { area = PREV is_reformation_center = yes religion = $RELIGION$ } }
 	NOT = { has_climate = arctic }
 	NOT = { has_climate = arid }
 	NOT = { has_terrain = coastline }
@@ -333,10 +317,7 @@ can_have_center_of_reformation_trigger = { #Province Scope
 province_viable_for_industrialization_events_trigger = { #Province Scope
 	is_state = yes
 	NOT = { devastation = 1 }
-	OR = {
-		is_in_capital_area = yes
-		continent = CAPITAL
-	}
+	OR = { is_in_capital_area = yes continent = CAPITAL }
 	enlightenment = 100
 }
 
@@ -1621,7 +1602,16 @@ has_completed_idea_group_of_category = {
 				full_idea_group = expansion_ideas
 				full_idea_group = administrative_ideas
 				full_idea_group = humanist_ideas
-				full_idea_group = infrastructure_ideas
+				full_idea_group = entwicklung0
+				full_idea_group = zentra0
+				full_idea_group = dezentra0
+				full_idea_group = justiz0
+				full_idea_group = staatsverwaltung0
+				full_idea_group = gesundheit0
+				full_idea_group = monarchie0
+				full_idea_group = republik0
+				full_idea_group = aristo0
+				full_idea_group = horde0
 			}
 		}
 	]
@@ -1635,7 +1625,15 @@ has_completed_idea_group_of_category = {
 				full_idea_group = exploration_ideas
 				full_idea_group = maritime_ideas
 				full_idea_group = influence_ideas
-				full_idea_group = court_ideas
+				full_idea_group = dynasty0
+				full_idea_group = flottenbasis0
+				full_idea_group = kolonialimperium0
+				full_idea_group = assimilation0
+				full_idea_group = gesellschaft0
+				full_idea_group = propaganda0
+				full_idea_group = nationalismus0
+				full_idea_group = konigreich0
+				full_idea_group = imperialismus0
 			}
 		}
 	]
@@ -1653,6 +1651,20 @@ has_completed_idea_group_of_category = {
 				full_idea_group = indigenous_ideas
 				full_idea_group = horde_gov_ideas
 				full_idea_group = plutocracy_ideas
+				full_idea_group = waffenqualitat0
+				full_idea_group = kriegsproduktion0
+				full_idea_group = shock0
+				full_idea_group = shock0_ogre
+				full_idea_group = shock0_centaur
+				full_idea_group = fire0
+				full_idea_group = fire0_centaur
+				full_idea_group = militarismus0
+				full_idea_group = formation0
+				full_idea_group = festung0
+				full_idea_group = generalstab0
+				full_idea_group = stehendesheer0
+				full_idea_group = soldnerheer0
+				full_idea_group = wehrpflicht0
 			}
 		}
 	]
@@ -1667,7 +1679,16 @@ num_of_completed_idea_groups_adm = {
 		full_idea_group = expansion_ideas
 		full_idea_group = administrative_ideas
 		full_idea_group = humanist_ideas
-		full_idea_group = infrastructure_ideas
+		full_idea_group = entwicklung0
+		full_idea_group = zentra0
+		full_idea_group = dezentra0
+		full_idea_group = justiz0
+		full_idea_group = staatsverwaltung0
+		full_idea_group = gesundheit0
+		full_idea_group = monarchie0
+		full_idea_group = republik0
+		full_idea_group = aristo0
+		full_idea_group = horde0
 		amount = $amount$
 	}
 }
@@ -1681,7 +1702,15 @@ num_of_completed_idea_groups_dip = {
 		full_idea_group = exploration_ideas
 		full_idea_group = maritime_ideas
 		full_idea_group = influence_ideas
-		full_idea_group = court_ideas
+		full_idea_group = dynasty0
+		full_idea_group = flottenbasis0
+		full_idea_group = kolonialimperium0
+		full_idea_group = assimilation0
+		full_idea_group = gesellschaft0
+		full_idea_group = propaganda0
+		full_idea_group = nationalismus0
+		full_idea_group = konigreich0
+		full_idea_group = imperialismus0
 		amount = $amount$
 	}
 }
@@ -1699,6 +1728,20 @@ num_of_completed_idea_groups_mil = {
 		full_idea_group = indigenous_ideas
 		full_idea_group = horde_gov_ideas
 		full_idea_group = plutocracy_ideas
+		full_idea_group = waffenqualitat0
+		full_idea_group = kriegsproduktion0
+		full_idea_group = shock0
+		full_idea_group = shock0_ogre
+		full_idea_group = shock0_centaur
+		full_idea_group = fire0
+		full_idea_group = fire0_centaur
+		full_idea_group = militarismus0
+		full_idea_group = formation0
+		full_idea_group = festung0
+		full_idea_group = generalstab0
+		full_idea_group = stehendesheer0
+		full_idea_group = soldnerheer0
+		full_idea_group = wehrpflicht0
 		amount = $amount$
 	}
 }
@@ -1779,10 +1822,7 @@ mal_will_accept_offer = {
 			OR = {
 				alliance_with = ROOT
 				is_subject_of = ROOT
-				has_opinion = {
-					who = ROOT
-					value = 100
-				}
+				has_opinion = { who = ROOT value = 100 }
 			}
 		}
 	}
@@ -1790,42 +1830,22 @@ mal_will_accept_offer = {
 
 mal_very_highly_to_accept_offer = {
 	$province$ = {
-		owner = {
-			has_opinion = {
-				who = ROOT
-				value = 50
-			}
-		}
+		owner = { has_opinion = { who = ROOT value = 50 } }
 	}
 }
 
 mal_might_or_might_not_accept_offer = {
 	$province$ = {
 		owner = {
-			has_opinion = {
-				who = ROOT
-				value = -50
-			}
-			NOT = {
-				has_opinion = {
-					who = ROOT
-					value = 50
-				}
-			}
+			has_opinion = { who = ROOT value = -50 }
+			NOT = { has_opinion = { who = ROOT value = 50 } }
 		}
 	}
 }
 
 mal_very_likely_to_not_accept_offer = {
 	$province$ = {
-		owner = {
-			NOT = {
-				has_opinion = {
-					who = ROOT
-					value = 50
-				}
-			}
-		}
+		owner = { NOT = { has_opinion = { who = ROOT value = 50 } } }
 	}
 }
 
@@ -1835,12 +1855,7 @@ mal_will_never_accept_offer = {
 			OR = {
 				is_rival = ROOT
 				is_enemy = ROOT
-				NOT = {
-					has_opinion = {
-						who = ROOT
-						value = 100
-					}
-				}
+				NOT = { has_opinion = { who = ROOT value = 100 } }
 			}
 		}
 	}
@@ -1931,10 +1946,7 @@ has_more_institutions_than_westerns = {
 		NOT = {
 			calc_true_if = {
 				all_country = {
-					institution_difference = {
-						who = ROOT
-						value = 1
-					}
+					institution_difference = { who = ROOT value = 1 }
 					technology_group = western
 					NOT = { tag = ROOT } #1.35
 				}
@@ -2380,198 +2392,72 @@ has_valuable_resource = {
 ruler_total_stats = {
 	variable_arithmetic_trigger = {
 		custom_tooltip = ruler_total_stats_$amount$
-		export_to_variable = {
-			variable_name = ruler_adm
-			value = ADM
-			who = ROOT
-		}
-		export_to_variable = {
-			variable_name = ruler_dip
-			value = DIP
-			who = ROOT
-		}
-		export_to_variable = {
-			variable_name = ruler_mil
-			value = MIL
-			who = ROOT
-		}
-		change_variable = {
-			which = ruler_adm
-			which = ruler_dip
-		}
-		change_variable = {
-			which = ruler_adm
-			which = ruler_mil
-		}
-		check_variable = {
-			which = ruler_adm
-			value = $amount$
-		}
+		export_to_variable = { variable_name = ruler_adm value = ADM who = ROOT }
+		export_to_variable = { variable_name = ruler_dip value = DIP who = ROOT }
+		export_to_variable = { variable_name = ruler_mil value = MIL who = ROOT }
+		change_variable = { which = ruler_adm which = ruler_dip }
+		change_variable = { which = ruler_adm which = ruler_mil }
+		check_variable = { which = ruler_adm value = $amount$ }
 	}
 }
 
 ruler_total_stats_target = {
 	variable_arithmetic_trigger = {
 		custom_tooltip = $custom_tooltip$
-		export_to_variable = {
-			variable_name = ruler_adm
-			value = ADM
-			who = $who$
-		}
-		export_to_variable = {
-			variable_name = ruler_dip
-			value = DIP
-			who = $who$
-		}
-		export_to_variable = {
-			variable_name = ruler_mil
-			value = MIL
-			who = $who$
-		}
-		change_variable = {
-			which = ruler_adm
-			which = ruler_dip
-		}
-		change_variable = {
-			which = ruler_adm
-			which = ruler_mil
-		}
-		check_variable = {
-			which = ruler_adm
-			value = $amount$
-		}
+		export_to_variable = { variable_name = ruler_adm value = ADM who = $who$ }
+		export_to_variable = { variable_name = ruler_dip value = DIP who = $who$ }
+		export_to_variable = { variable_name = ruler_mil value = MIL who = $who$ }
+		change_variable = { which = ruler_adm which = ruler_dip }
+		change_variable = { which = ruler_adm which = ruler_mil }
+		check_variable = { which = ruler_adm value = $amount$ }
 	}
 }
 
 heir_total_stats = {
 	variable_arithmetic_trigger = {
 		custom_tooltip = heir_total_stats_$amount$
-		export_to_variable = {
-			variable_name = heir_adm_var
-			value = heir_adm
-			who = ROOT
-		}
-		export_to_variable = {
-			variable_name = heir_dip_var
-			value = heir_dip
-			who = ROOT
-		}
-		export_to_variable = {
-			variable_name = heir_mil_var
-			value = heir_mil
-			who = ROOT
-		}
-		change_variable = {
-			which = heir_adm_var
-			which = heir_dip_var
-		}
-		change_variable = {
-			which = heir_adm_var
-			which = heir_mil_var
-		}
-		check_variable = {
-			which = heir_adm_var
-			value = $amount$
-		}
+		export_to_variable = { variable_name = heir_adm_var value = heir_adm who = ROOT }
+		export_to_variable = { variable_name = heir_dip_var value = heir_dip who = ROOT }
+		export_to_variable = { variable_name = heir_mil_var value = heir_mil who = ROOT }
+		change_variable = { which = heir_adm_var which = heir_dip_var }
+		change_variable = { which = heir_adm_var which = heir_mil_var }
+		check_variable = { which = heir_adm_var value = $amount$ }
 	}
 }
 
 heir_total_stats_target = {
 	variable_arithmetic_trigger = {
 		custom_tooltip = $custom_tooltip$
-		export_to_variable = {
-			variable_name = heir_adm_var
-			value = heir_adm
-			who = $who$
-		}
-		export_to_variable = {
-			variable_name = heir_dip_var
-			value = heir_dip
-			who = $who$
-		}
-		export_to_variable = {
-			variable_name = heir_mil_var
-			value = heir_mil
-			who = $who$
-		}
-		change_variable = {
-			which = heir_adm_var
-			which = heir_dip_var
-		}
-		change_variable = {
-			which = heir_adm_var
-			which = heir_mil_var
-		}
-		check_variable = {
-			which = heir_adm_var
-			value = $amount$
-		}
+		export_to_variable = { variable_name = heir_adm_var value = heir_adm who = $who$ }
+		export_to_variable = { variable_name = heir_dip_var value = heir_dip who = $who$ }
+		export_to_variable = { variable_name = heir_mil_var value = heir_mil who = $who$ }
+		change_variable = { which = heir_adm_var which = heir_dip_var }
+		change_variable = { which = heir_adm_var which = heir_mil_var }
+		check_variable = { which = heir_adm_var value = $amount$ }
 	}
 }
 
 consort_total_stats = {
 	variable_arithmetic_trigger = {
 		custom_tooltip = consort_total_stats_$amount$
-		export_to_variable = {
-			variable_name = consort_adm_var
-			value = consort_adm
-			who = ROOT
-		}
-		export_to_variable = {
-			variable_name = consort_dip_var
-			value = consort_dip
-			who = ROOT
-		}
-		export_to_variable = {
-			variable_name = consort_mil_var
-			value = consort_mil
-			who = ROOT
-		}
-		change_variable = {
-			which = consort_adm_var
-			which = consort_dip_var
-		}
-		change_variable = {
-			which = consort_adm_var
-			which = consort_mil_var
-		}
-		check_variable = {
-			which = consort_adm_var
-			value = $amount$
-		}
+		export_to_variable = { variable_name = consort_adm_var value = consort_adm who = ROOT }
+		export_to_variable = { variable_name = consort_dip_var value = consort_dip who = ROOT }
+		export_to_variable = { variable_name = consort_mil_var value = consort_mil who = ROOT }
+		change_variable = { which = consort_adm_var which = consort_dip_var }
+		change_variable = { which = consort_adm_var which = consort_mil_var }
+		check_variable = { which = consort_adm_var value = $amount$ }
 	}
 }
 
 consort_total_stats_target = {
 	variable_arithmetic_trigger = {
 		custom_tooltip = $custom_tooltip$
-		export_to_variable = {
-			variable_name = consort_adm_var
-			value = consort_adm
-			who = $who$
-		}
-		export_to_variable = {
-			variable_name = consort_dip_var
-			value = consort_dip
-			who = $who$
-		}
-		export_to_variable = {
-			variable_name = consort_mil_var
-			value = consort_mil
-			who = $who$
-		}
-		change_variable = {
-			which = consort_adm_var
-			which = consort_dip_var
-		}
-		change_variable = {
-			which = consort_adm_var
-			which = consort_mil_var
-		}
-		check_variable = {
-			which = consort_adm_var
-			value = $amount$
-		}
+		export_to_variable = { variable_name = consort_adm_var value = consort_adm who = $who$ }
+		export_to_variable = { variable_name = consort_dip_var value = consort_dip who = $who$ }
+		export_to_variable = { variable_name = consort_mil_var value = consort_mil who = $who$ }
+		change_variable = { which = consort_adm_var which = consort_dip_var }
+		change_variable = { which = consort_adm_var which = consort_mil_var }
+		check_variable = { which = consort_adm_var value = $amount$ }
 	}
 }
 
@@ -2641,165 +2527,84 @@ num_of_ruler_traits = {
 every_estate_loyalty = {
 	if = {
 		limit = { has_estate = estate_church }
-		estate_loyalty = {
-			estate = estate_church
-			loyalty = $loyalty$
-		}
+		estate_loyalty = { estate = estate_church loyalty = $loyalty$ }
 	}
 	if = {
 		limit = { has_estate = estate_brahmins }
-		estate_loyalty = {
-			estate = estate_brahmins
-			loyalty = $loyalty$
-		}
+		estate_loyalty = { estate = estate_brahmins loyalty = $loyalty$ }
 	}
 	if = {
 		limit = { has_estate = estate_burghers }
-		estate_loyalty = {
-			estate = estate_burghers
-			loyalty = $loyalty$
-		}
+		estate_loyalty = { estate = estate_burghers loyalty = $loyalty$ }
 	}
 	if = {
 		limit = { has_estate = estate_cossacks }
-		estate_loyalty = {
-			estate = estate_cossacks
-			loyalty = $loyalty$
-		}
+		estate_loyalty = { estate = estate_cossacks loyalty = $loyalty$ }
 	}
 	if = {
 		limit = { has_estate = estate_dhimmi }
-		estate_loyalty = {
-			estate = estate_dhimmi
-			loyalty = $loyalty$
-		}
+		estate_loyalty = { estate = estate_dhimmi loyalty = $loyalty$ }
 	}
 	if = {
 		limit = { has_estate = estate_jains }
-		estate_loyalty = {
-			estate = estate_jains
-			loyalty = $loyalty$
-		}
+		estate_loyalty = { estate = estate_jains loyalty = $loyalty$ }
 	}
 	if = {
 		limit = { has_estate = estate_nobles }
-		estate_loyalty = {
-			estate = estate_nobles
-			loyalty = $loyalty$
-		}
+		estate_loyalty = { estate = estate_nobles loyalty = $loyalty$ }
 	}
 	if = {
 		limit = { has_estate = estate_nomadic_tribes }
-		estate_loyalty = {
-			estate = estate_nomadic_tribes
-			loyalty = $loyalty$
-		}
+		estate_loyalty = { estate = estate_nomadic_tribes loyalty = $loyalty$ }
 	}
 }
 
 has_points_for_livonian_military_monarchy = {
-	check_variable = {
-		which = liv_mil
-		value = 5
-	}
+	check_variable = { which = liv_mil value = 5 }
 }
 has_points_for_livonian_naval_monarchy = {
-	check_variable = {
-		which = liv_dip
-		value = 5
-	}
+	check_variable = { which = liv_dip value = 5 }
 }
 has_points_for_livonian_trade_monarchy = {
-	check_variable = {
-		which = liv_adm
-		value = 3
-	}
-	check_variable = {
-		which = liv_dip
-		value = 3
-	}
+	check_variable = { which = liv_adm value = 3 }
+	check_variable = { which = liv_dip value = 3 }
 }
 has_points_for_livonian_constitutional_monarchy = {
-	is_variable_equal = {
-		which = liv_adm
-		value = 3
-	}
+	is_variable_equal = { which = liv_adm value = 3 }
 }
 has_points_for_livonian_theocratic_monarchy = {
-	check_variable = {
-		which = liv_adm
-		value = 3
-	}
-	check_variable = {
-		which = liv_mil
-		value = 3
-	}
+	check_variable = { which = liv_adm value = 3 }
+	check_variable = { which = liv_mil value = 3 }
 }
 has_points_for_livonian_elective_monarchy = {
-	check_variable = {
-		which = liv_dip
-		value = 3
-	}
+	check_variable = { which = liv_dip value = 3 }
 }
 has_points_for_livonian_diplomatic_monarchy = {
-	check_variable = {
-		which = liv_dip
-		value = 4
-	}
+	check_variable = { which = liv_dip value = 4 }
 }
 has_points_for_livonian_administrative_monarchy = {
-	check_variable = {
-		which = liv_adm
-		value = 5
-	}
+	check_variable = { which = liv_adm value = 5 }
 }
 has_points_for_livonian_mercenary_monarchy = {
-	check_variable = {
-		which = liv_mil
-		value = 3
-	}
+	check_variable = { which = liv_mil value = 3 }
 }
 has_points_for_livonian_admiral_monarchy = {
-	check_variable = {
-		which = liv_dip
-		value = 4
-	}
+	check_variable = { which = liv_dip value = 4 }
 }
 has_points_for_livonian_naval_controlled_monarchy = {
-	check_variable = {
-		which = liv_dip
-		value = 3
-	}
-	check_variable = {
-		which = liv_mil
-		value = 3
-	}
+	check_variable = { which = liv_dip value = 3 }
+	check_variable = { which = liv_mil value = 3 }
 }
 has_points_for_livonian_general_controlled_monarchy = {
-	check_variable = {
-		which = liv_mil
-		value = 4
-	}
+	check_variable = { which = liv_mil value = 4 }
 }
 has_points_for_livonian_absolute_monarchy = {
-	check_variable = {
-		which = liv_adm
-		value = 4
-	}
+	check_variable = { which = liv_adm value = 4 }
 }
 has_points_for_livonian_enlightened_monarchy = {
-	is_variable_equal = {
-		which = liv_adm
-		value = 2
-	}
-	is_variable_equal = {
-		which = liv_dip
-		value = 2
-	}
-	is_variable_equal = {
-		which = liv_mil
-		value = 2
-	}
+	is_variable_equal = { which = liv_adm value = 2 }
+	is_variable_equal = { which = liv_dip value = 2 }
+	is_variable_equal = { which = liv_mil value = 2 }
 }
 
 has_points_for_livonian_monarchy = {
@@ -3149,12 +2954,7 @@ is_not_eligible_for_trade_good_slaves = {
 	OR = {
 		island = yes
 		NOT = { continent = africa }
-		owner = {
-			OR = {
-				has_country_modifier = abolish_slavery
-				has_reform = war_against_the_world_doctrine_reform
-			}
-		}
+		owner = { OR = { has_country_modifier = abolish_slavery has_reform = war_against_the_world_doctrine_reform } }
 	}
 }
 #1.35
@@ -3754,14 +3554,8 @@ has_not_disabled_trading_policy = {
 
 trading_policy_or_upgraded_policy_in_node = {
 	OR = {
-		trading_policy_in_node = {
-			node = $node$
-			policy = $policy$
-		}
-		trading_policy_in_node = {
-			node = $node$
-			policy = $policy$_upgraded
-		}
+		trading_policy_in_node = { node = $node$ policy = $policy$ }
+		trading_policy_in_node = { node = $node$ policy = $policy$_upgraded }
 	}
 }
 
@@ -3885,10 +3679,7 @@ has_any_ongoing_construction = {
 total_non_estate_disasters_completed = {
 	custom_trigger_tooltip = {
 		tooltip = total_non_estate_disasters_completed_$value$_tt
-		check_variable = {
-			which = total_disasters_completed_counter
-			value = $value$
-		}
+		check_variable = { which = total_disasters_completed_counter value = $value$ }
 	}
 }
 #---1.36 end---
@@ -3897,12 +3688,7 @@ total_non_estate_disasters_completed = {
 
 #country scope, used to check if a neighbor country has an institution the in scope one does not
 neighbor_is_ahead_in_institution = {
-	any_neighbor_country = {
-		institution_difference = {
-            who = ROOT
-            value = 1
-        }
-	}
+	any_neighbor_country = { institution_difference = { who = ROOT value = 1 } }
 }
 
 is_legendary_mage = { #Made for Elikhand but generally usable. The tooltip is with Elikhand's loc if somebody wants to move it.

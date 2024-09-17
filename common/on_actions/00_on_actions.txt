@@ -1620,7 +1620,7 @@ on_abandon_colony = {
 # root = location, from = country that owns it
 # Fired right after the great project is constructed
 on_great_project_constructed = {
-	ROOT = { remove_province_modifier_effect = { MODIFIER = reveria_golden_dome_leviathan} }
+	remove_province_modifier_effect = { MODIFIER = reveria_golden_dome_leviathan}
 }
 
 # OBS: Consider that the following on_actions can be called for Personal Union juniors as well.
@@ -6251,19 +6251,21 @@ on_janissaries_raised = {
 
 on_cawa_raised = {
 	hidden_effect = {
-		if = {
-			limit = { NOT = {manpower = 1} }
-			add_mil_power = -2
-		}
-		else = {
-			add_manpower = -1
-		}
-		if = {
-			limit = { NOT = {treasury = 10} }
-			add_adm_power = -2
-		}
-		else = {
-			add_treasury = -10
+		owner = {
+			if = {
+				limit = { NOT = {manpower = 1} }
+				add_mil_power = -2
+			}
+			else = {
+				add_manpower = -1
+			}
+			if = {
+				limit = { NOT = {treasury = 10} }
+				add_adm_power = -2
+			}
+			else = {
+				add_treasury = -10
+			}
 		}
 	}
 }

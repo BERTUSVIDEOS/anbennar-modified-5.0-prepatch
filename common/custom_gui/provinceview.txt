@@ -8,10 +8,7 @@ custom_button = {
 		#Owner needs to be you, and also not be native/horde since raze/settle buttons get in the way.
 		owner = {
 			tag = FROM
-			NOT = {
-				government = native
-				is_nomad = yes
-			}
+			NOT = { government = native is_nomad = yes }
 		}
 		#Blorcs can't repair non-capital holds
 		OR = {
@@ -52,27 +49,15 @@ custom_button = {
 							has_province_modifier = damaged_hold
 						}
 					}
-					owner = {
-						PREV = {
-							setup_restoration_speed = yes
-						}
-					}
+					owner = { PREV = { setup_restoration_speed = yes } }
 				}
 				else = {
 					if = {
 						limit = { is_capital = yes }
-						owner = {
-							PREV = {
-								setup_digging_deeper_capital = yes
-							}
-						}
+						owner = { PREV = { setup_digging_deeper_capital = yes } }
 					}
 					else = {
-						owner = {
-							PREV = {
-								setup_digging_deeper_non_capital = yes
-							}
-						}
+						owner = { PREV = { setup_digging_deeper_non_capital = yes } }
 					}
 				}
 			}
@@ -90,9 +75,7 @@ custom_icon = {
     name = diggy_diggy_estimate
     potential = {
 		has_province_flag = diggy_diggy_estimate_flag
-		owner = {
-			tag = FROM
-		}
+		owner = { tag = FROM }
 	}
 }
 
@@ -105,9 +88,7 @@ custom_button = {
 			has_province_modifier = partially_ruined_hold
 			has_province_modifier = damaged_hold
 		}
-		owner = {
-			tag = FROM
-		}
+		owner = { tag = FROM }
 	}
 	trigger = {
 		if = {
@@ -122,19 +103,19 @@ custom_button = {
 		}
 		owner = {
 			if = {
-				limit = { NOT = { has_country_modifier = dwarven_administration } }
-				if = {
-					limit = {
-						OR = {
-							dwarovar_goblin_culture_primary = yes
-							primary_culture = darkscale_kobold
-						}
-					}
-					adm_tech = 5
-				}
-				else = {
-					adm_tech = 7
-				}
+				limit = { has_country_modifier = dwarven_administration }
+				adm_tech = 4
+			}
+			else_if = {
+				limit = { dwarovar_goblin_culture_primary = yes }
+				adm_tech = 5
+			}
+			else_if = {
+				limit = { primary_culture = darkscale_kobold}
+				adm_tech = 5
+			}
+			else = {
+				adm_tech = 7
 			}
 			if = {
 				limit = { has_disaster = remnant_stagnation_disaster }
@@ -153,11 +134,13 @@ custom_button = {
 			limit = { is_capital = yes }
 			custom_trigger_tooltip = {
 				tooltip = building_diggy_tooltip
-				NOT = {
-					owner = {
-						has_country_flag = building_diggy
-					}
-				}
+				NOT = { owner = { has_country_flag = building_diggy } }
+			}
+		}
+		else = {
+			custom_trigger_tooltip = {
+				tooltip = has_centralized_hold_operations_tt
+				owner = { has_country_flag = hold_operation }
 			}
 		}
 		if = {
@@ -189,46 +172,16 @@ custom_button = {
 			limit = { hold_condition = { Damaged = yes } } 
 			hold_condition = { Repaired = yes }
 		}
-		else_if = {
-			limit = { has_province_modifier = dig_1 }
-			development = 40
-		}
-		else_if = {
-			limit = { has_province_modifier = dig_2 }
-			development = 50
-		}
-		else_if = {
-			limit = { has_province_modifier = dig_3 }
-			development = 60
-		}
-		else_if = {
-			limit = { has_province_modifier = dig_4 }
-			development = 70
-		}
-		else_if = {
-			limit = { has_province_modifier = dig_5 }
-			development = 80
-		}
-		else_if = {
-			limit = { has_province_modifier = dig_6 }
-			development = 90
-		}
-		else_if = {
-			limit = { has_province_modifier = dig_7 }
-			development = 100
-		}
-		else_if = {
-			limit = { has_province_modifier = dig_8 }
-			development = 110
-		}
-		else_if = {
-			limit = { has_province_modifier = dig_9 }
-			development = 120
-		}
-		else_if = {
-			limit = { has_province_modifier = dig_10 OR = { province_id = 4119 province_id = 4311 } }
-			development = 130
-		}
+		else_if = { limit = { has_province_modifier = dig_1 } development = 40 }
+		else_if = { limit = { has_province_modifier = dig_2 } development = 50 }
+		else_if = { limit = { has_province_modifier = dig_3 } development = 60 }
+		else_if = { limit = { has_province_modifier = dig_4 } development = 70 }
+		else_if = { limit = { has_province_modifier = dig_5 } development = 80 }
+		else_if = { limit = { has_province_modifier = dig_6 } development = 90 }
+		else_if = { limit = { has_province_modifier = dig_7 } development = 100 }
+		else_if = { limit = { has_province_modifier = dig_8 } development = 110 }
+		else_if = { limit = { has_province_modifier = dig_9 } development = 120 }
+		else_if = { limit = { has_province_modifier = dig_10 OR = { province_id = 4119 province_id = 4311 } } development = 130 }
 		if = {
 			limit = { owner = { has_country_flag = I98_can_befuddle_flag } }
 			custom_trigger_tooltip = {
@@ -266,9 +219,7 @@ custom_button = {
 			has_province_modifier = partially_ruined_hold
 			has_province_modifier = damaged_hold
 		}
-		owner = {
-			tag = FROM
-		}
+		owner = { tag = FROM }
 	}
 	trigger = {
 		NOT = { has_construction = any }
@@ -307,9 +258,7 @@ custom_text_box = {
 	name = diggy_cost_text
 	potential = {
 		has_province_flag = diggy_diggy_estimate_flag
-		owner = {
-			tag = FROM
-		}
+		owner = { tag = FROM }
 	}
 }
 
@@ -317,9 +266,7 @@ custom_text_box = {
 	name = diggy_cost_text_label
 	potential = {
 		has_province_flag = diggy_diggy_estimate_flag
-		owner = {
-			tag = FROM
-		}
+		owner = { tag = FROM }
 	}
 }
 
@@ -327,9 +274,7 @@ custom_text_box = {
 	name = diggy_time_text
 	potential = {
 		has_province_flag = diggy_diggy_estimate_flag
-		owner = {
-			tag = FROM
-		}
+		owner = { tag = FROM }
 	}
 }
 
@@ -337,9 +282,7 @@ custom_text_box = {
 	name = diggy_time_text_label
 	potential = {
 		has_province_flag = diggy_diggy_estimate_flag
-		owner = {
-			tag = FROM
-		}
+		owner = { tag = FROM }
 	}
 }
 
@@ -351,29 +294,15 @@ custom_icon = {
 			has_construction = digging_deeper
 			has_construction = restoring_hold
 		}
-		owner = {
-			tag = FROM
-		}
+		owner = { tag = FROM }
 		if = {
 			limit = { is_capital = yes has_construction = digging_deeper }
 			variable_arithmetic_trigger = {
-				export_to_variable = {
-					which = cProgress
-					value = trigger_value:construction_progress
-				}
-				change_variable = {
-					which = cProgress
-					which = cons_prog
-				}
-				subtract_variable = {
-					cProgress = 0.5
-				}
-				multiply_variable = {
-					cProgress = 2
-				}
-				check_variable = {
-					cProgress = 0.2
-				}
+				export_to_variable = { which = cProgress value = trigger_value:construction_progress }
+				change_variable = { which = cProgress which = cons_prog }
+				subtract_variable = { cProgress = 0.5 }
+				multiply_variable = { cProgress = 2 }
+				check_variable = { cProgress = 0.2 }
 			}
 		}
 		else = {
@@ -390,29 +319,15 @@ custom_icon = {
 			has_construction = digging_deeper
 			has_construction = restoring_hold
 		}
-		owner = {
-			tag = FROM
-		}
+		owner = { tag = FROM }
 		if = {
 			limit = { is_capital = yes has_construction = digging_deeper }
 			variable_arithmetic_trigger = {
-				export_to_variable = {
-					which = cProgress
-					value = trigger_value:construction_progress
-				}
-				change_variable = {
-					which = cProgress
-					which = cons_prog
-				}
-				subtract_variable = {
-					cProgress = 0.5
-				}
-				multiply_variable = {
-					cProgress = 2
-				}
-				check_variable = {
-					cProgress = 0.4
-				}
+				export_to_variable = { which = cProgress value = trigger_value:construction_progress }
+				change_variable = { which = cProgress which = cons_prog }
+				subtract_variable = { cProgress = 0.5 }
+				multiply_variable = { cProgress = 2 }
+				check_variable = { cProgress = 0.4 }
 			}
 		}
 		else = {
@@ -429,29 +344,15 @@ custom_icon = {
 			has_construction = digging_deeper
 			has_construction = restoring_hold
 		}
-		owner = {
-			tag = FROM
-		}
+		owner = { tag = FROM }
 		if = {
 			limit = { is_capital = yes has_construction = digging_deeper }
 			variable_arithmetic_trigger = {
-				export_to_variable = {
-					which = cProgress
-					value = trigger_value:construction_progress
-				}
-				change_variable = {
-					which = cProgress
-					which = cons_prog
-				}
-				subtract_variable = {
-					cProgress = 0.5
-				}
-				multiply_variable = {
-					cProgress = 2
-				}
-				check_variable = {
-					cProgress = 0.6
-				}
+				export_to_variable = { which = cProgress value = trigger_value:construction_progress }
+				change_variable = { which = cProgress which = cons_prog }
+				subtract_variable = { cProgress = 0.5 }
+				multiply_variable = { cProgress = 2 }
+				check_variable = { cProgress = 0.6 }
 			}
 		}
 		else = {
@@ -468,29 +369,15 @@ custom_icon = {
 			has_construction = digging_deeper
 			has_construction = restoring_hold
 		}
-		owner = {
-			tag = FROM
-		}
+		owner = { tag = FROM }
 		if = {
 			limit = { is_capital = yes has_construction = digging_deeper }
 			variable_arithmetic_trigger = {
-				export_to_variable = {
-					which = cProgress
-					value = trigger_value:construction_progress
-				}
-				change_variable = {
-					which = cProgress
-					which = cons_prog
-				}
-				subtract_variable = {
-					cProgress = 0.5
-				}
-				multiply_variable = {
-					cProgress = 2
-				}
-				check_variable = {
-					cProgress = 0.8
-				}
+				export_to_variable = { which = cProgress value = trigger_value:construction_progress }
+				change_variable = { which = cProgress which = cons_prog }
+				subtract_variable = { cProgress = 0.5 }
+				multiply_variable = { cProgress = 2 }
+				check_variable = { cProgress = 0.8 }
 			}
 		}
 		else = {
@@ -507,29 +394,15 @@ custom_icon = {
 			has_construction = digging_deeper
 			has_construction = restoring_hold
 		}
-		owner = {
-			tag = FROM
-		}
+		owner = { tag = FROM }
 		if = {
 			limit = { is_capital = yes has_construction = digging_deeper }
 			variable_arithmetic_trigger = {
-				export_to_variable = {
-					which = cProgress
-					value = trigger_value:construction_progress
-				}
-				change_variable = {
-					which = cProgress
-					which = cons_prog
-				}
-				subtract_variable = {
-					cProgress = 0.5
-				}
-				multiply_variable = {
-					cProgress = 2
-				}
-				check_variable = {
-					cProgress = 0.99
-				}
+				export_to_variable = { which = cProgress value = trigger_value:construction_progress }
+				change_variable = { which = cProgress which = cons_prog }
+				subtract_variable = { cProgress = 0.5 }
+				multiply_variable = { cProgress = 2 }
+				check_variable = { cProgress = 0.99 }
 			}
 		}
 		else = {
@@ -542,9 +415,7 @@ custom_icon = {
 	name = diggy_diggy_bar_label
 	potential = {
 		has_province_flag = diggy_diggy_estimate_flag
-		owner = {
-			tag = FROM
-		}
+		owner = { tag = FROM }
 		OR = {
 			has_construction = digging_deeper
 			has_construction = restoring_hold

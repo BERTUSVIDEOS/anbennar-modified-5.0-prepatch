@@ -4,10 +4,7 @@
 # removed.
 crown_stronger_than_estate = {
 	crown_land_share = $estate$
-	estate_loyalty = {
-		estate = $estate$
-		higher_than_influence = yes
-	}
+	estate_loyalty = { estate = $estate$ higher_than_influence = yes }
 }
 
 has_any_estates = {
@@ -142,38 +139,10 @@ estate_not_has_exempt_from_seize_land_privilege = {
 can_swap_out_of_estate_granting_reform = {
 	OR = {
 		NOT = { has_estate = $estate$ }
-		NOT = {
-			num_of_estate_privileges = {
-				estate = $estate$
-				value = 1
-			}
-		}
+		NOT = { num_of_estate_privileges = { estate = $estate$ value = 1 } }
 	}
-	#custom_trigger_tooltip = {
-	#	tooltip = did_not_sell_crownland_tt
-	#	NOT = { has_country_flag = recent_land_distribution }
-	#}
 }
 
-#Country scope
-#Bugged for whatever reason...
-#any_estate_influence = {
-#	OR = {
-#		if = { limit = { has_estate = estate_church }			estate_influence = { estate = estate_church			influence = $influence$ } }
-#		if = { limit = { has_estate = estate_brahmins }			estate_influence = { estate = estate_brahmins		influence = $influence$ } }
-#		if = { limit = { has_estate = estate_burghers }			estate_influence = { estate = estate_burghers		influence = $influence$ } }
-#		if = { limit = { has_estate = estate_cossacks }			estate_influence = { estate = estate_cossacks		influence = $influence$ } }
-#		if = { limit = { has_estate = estate_dhimmi }			estate_influence = { estate = estate_dhimmi			influence = $influence$ } }
-#		if = { limit = { has_estate = estate_jains }			estate_influence = { estate = estate_jains			influence = $influence$ } }
-#		if = { limit = { has_estate = estate_maratha }			estate_influence = { estate = estate_maratha		influence = $influence$ } }
-#		if = { limit = { has_estate = estate_nobles }			estate_influence = { estate = estate_nobles			influence = $influence$ } }
-#		if = { limit = { has_estate = estate_nomadic_tribes }	estate_influence = { estate = estate_nomadic_tribes	influence = $influence$ } }
-#		if = { limit = { has_estate = estate_rajput }			estate_influence = { estate = estate_rajput			influence = $influence$ } }
-#		if = { limit = { has_estate = estate_vaisyas }			estate_influence = { estate = estate_vaisyas		influence = $influence$ } }
-#		if = { limit = { has_estate = estate_janissaries }		estate_influence = { estate = estate_janissaries	influence = $influence$ } }
-#		if = { limit = { has_estate = estate_eunuchs }			estate_influence = { estate = estate_eunuchs		influence = $influence$ } }
-#	}
-#}
 any_estate_loyalty = {
 	OR = {
 		if = { limit = { has_estate = estate_church }			estate_loyalty = { estate = estate_church			loyalty = $loyalty$ } }
@@ -303,12 +272,7 @@ has_absolutism_reduction_for_estate_privileges = {
 # estate_janissaries
 # estate_eunuchs
 has_estate_agenda_auto_completion = {
-	hidden_trigger = {
-		OR = {
-			has_country_flag = auto_complete_estate_agenda_$estate$
-			has_country_flag = auto_complete_estate_agenda_all
-		}
-	}
+	hidden_trigger = { OR = { has_country_flag = auto_complete_estate_agenda_$estate$ has_country_flag = auto_complete_estate_agenda_all } }
 }
 
 # Supports the following paramters
@@ -334,10 +298,7 @@ estate_action_off_cooldown = {
 		tooltip = CAN_USE_ESTATE_ACTION_EVERY_$days$
 		OR = {
 			NOT = { has_country_flag = $estate_action$_flag }
-			had_country_flag = {
-				flag = $estate_action$_flag
-				days = $days$
-			}
+			had_country_flag = { flag = $estate_action$_flag days = $days$ }
 		}
 	}
 }
@@ -353,10 +314,7 @@ estate_action_off_shared_cooldown = {
 		tooltip = CAN_USE_SHARED_ESTATE_ACTION_EVERY_$days$
 		OR = {
 			NOT = { has_country_flag = $estate_action$_flag }
-			had_country_flag = {
-				flag = $estate_action$_flag
-				days = $days$
-			}
+			had_country_flag = { flag = $estate_action$_flag days = $days$ }
 		}
 	}
 }
@@ -518,9 +476,7 @@ has_estate_agenda_of_estate = {
 }
 is_not_blocked_by_estate_privilege = {
 	if = {
-		limit = {
-			has_country_flag = block_$estate$_removing_reform
-		}
+		limit = { has_country_flag = block_$estate$_removing_reform }
 		custom_trigger_tooltip = {
 			tooltip = is_blocked_by_estate_privilege_tt
 			NOT = { has_country_flag = block_$estate$_removing_reform }

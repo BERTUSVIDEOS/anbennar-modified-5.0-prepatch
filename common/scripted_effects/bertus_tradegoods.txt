@@ -1,70 +1,25 @@
 
 update_goods = {
-	set_variable = {
-		which = $GOODS$_provinces
-		value = 0.00
-	}
-	set_variable = {
-		which = $GOODS$
-		value = 0.00
-	}
-	set_variable = {
-		which = $GOODS$_total
-		value = 0.00
-	}
-	set_variable = {
-		which = $GOODS$_used
-		value = 0.00
-	}
-	set_variable = {
-		which = $GOODS$_maximum_stored
-		value = 0.00
-	}
+	set_variable = { which = $GOODS$_provinces value = 0.00 }
+	set_variable = { which = $GOODS$ value = 0.00 }
+	set_variable = { which = $GOODS$_total value = 0.00 }
+	set_variable = { which = $GOODS$_used value = 0.00 }
+	set_variable = { which = $GOODS$_maximum_stored value = 0.00 }
 
 	every_owned_province = {
-		limit = {
-			trade_goods = $GOODS$
-			controlled_by = owner
-		}
-		export_to_variable = {
-			variable_name = $GOODS$
-			value = modifier:trade_goods_size
-		}
-		export_to_variable = {
-			variable_name = tradegood_modifier
-			value = modifier:trade_goods_size_modifier
-		}		
+		limit = { trade_goods = $GOODS$ controlled_by = owner }
+		export_to_variable = { variable_name = $GOODS$ value = modifier:trade_goods_size }
+		export_to_variable = { variable_name = tradegood_modifier value = modifier:trade_goods_size_modifier }		
 		owner = {
-			export_to_variable = {
-				variable_name = tradegood_modifier
-				value = modifier:global_trade_goods_size_modifier 
-			}
+			export_to_variable = { variable_name = tradegood_modifier value = modifier:global_trade_goods_size_modifier  }
 			PREV = {
-				change_variable = {
-					which = tradegood_modifier
-					which = PREV
-				}
-				change_variable = {
-					which = tradegood_modifier
-					value = 1
-				}
-				multiply_variable = {
-					which = $GOODS$
-					which = tradegood_modifier
-				}
+				change_variable = { which = tradegood_modifier which = PREV }
+				change_variable = { which = tradegood_modifier value = 1 }
+				multiply_variable = { which = $GOODS$ which = tradegood_modifier }
 			}
-			change_variable = {
-				which = $GOODS$
-				which = PREV
-			}
-			set_variable = {
-				which = tradegood_modifier
-				value = 0
-			}
-			change_variable = {
-				which = $GOODS$_provinces
-				value = 1
-			}
+			change_variable = { which = $GOODS$ which = PREV }
+			set_variable = { which = tradegood_modifier value = 0 }
+			change_variable = { which = $GOODS$_provinces value = 1 }
 		}
 	}
 	every_province = {
@@ -74,185 +29,78 @@ update_goods = {
 			country_or_non_sovereign_subject_holds = PREV
 			NOT = {owned_by = ROOT}
 		}
-		limit = {
-			trade_goods = $GOODS$
-			controlled_by = owner
-		}
-		export_to_variable = {
-			variable_name = $GOODS$
-			value = modifier:trade_goods_size
-		}
-		export_to_variable = {
-			variable_name = tradegood_modifier
-			value = modifier:trade_goods_size_modifier
-		}		
+		export_to_variable = { variable_name = $GOODS$ value = modifier:trade_goods_size }
+		export_to_variable = { variable_name = tradegood_modifier value = modifier:trade_goods_size_modifier }		
 		owner = {
-			export_to_variable = {
-				variable_name = tradegood_modifier
-				value = modifier:global_trade_goods_size_modifier 
-			}
+			export_to_variable = { variable_name = tradegood_modifier value = modifier:global_trade_goods_size_modifier  }
 			PREV = {
-				change_variable = {
-					which = tradegood_modifier
-					which = PREV
-				}
-				change_variable = {
-					which = tradegood_modifier
-					value = 1
-				}
-				multiply_variable = {
-					which = $GOODS$
-					which = tradegood_modifier
-				}
+				change_variable = { which = tradegood_modifier which = PREV }
+				change_variable = { which = tradegood_modifier value = 1 }
+				multiply_variable = { which = $GOODS$ which = tradegood_modifier }
 			}
 			if = {
-				limit = {
-					is_subject = yes
-				}
-				change_variable = {
-					which = $GOODS$
-					which = PREV
-				}
-				change_variable = {
-					which = $GOODS$_provinces
-					value = 1
-				}
+				limit = { is_subject = yes }
+				change_variable = { which = $GOODS$ which = PREV }
+				change_variable = { which = $GOODS$_provinces value = 1 }
 			}
-			set_variable = {
-				which = tradegood_modifier
-				value = 0
-			}
+			set_variable = { which = tradegood_modifier value = 0 }
 		}
 		ROOT = {
-			change_variable = {
-				which = $GOODS$
-				which = PREV
-			}
-			change_variable = {
-				which = $GOODS$_provinces
-				value = 1
-			}
+			change_variable = { which = $GOODS$ which = PREV }
+			change_variable = { which = $GOODS$_provinces value = 1 }
 		}
 	}
-	change_variable = {
-		which = $GOODS$_total
-		which = $GOODS$
-	}
-	set_variable = {
-		which = $GOODS$_maximum_stored
-		value = 0
-	}
-	export_to_variable = {
-		which = $GOODS$_maximum_stored
-		value = total_development
-	}
-	multiply_variable = {
-		which = $GOODS$_maximum_stored
-		value = 0.5
+	change_variable = { which = $GOODS$_total which = $GOODS$ }
+	set_variable = { which = $GOODS$_maximum_stored value = 0 }
+	export_to_variable = { which = $GOODS$_maximum_stored value = total_development }
+	multiply_variable = { which = $GOODS$_maximum_stored value = 0.5 }
+	if = {
+		limit = { has_country_modifier = dwarven_administration }
+		multiply_variable = { which = $GOODS$_maximum_stored value = 2 }
 	}
 	if = {
-		limit = { has_country_modifier = dwarven_administration}
-		multiply_variable = {
-			which = $GOODS$_maximum_stored
-			value = 2
-		}
-	}
-	if = {
-		limit = {has_institution = industrialization}
-		multiply_variable = {
-			which = $GOODS$_maximum_stored
-			value = 3.0
-		}
+		limit = { has_institution = industrialization }
+		multiply_variable = { which = $GOODS$_maximum_stored value = 3.0 }
 	}
 	else_if = {
-		limit = {has_institution = enlightenment}
-		multiply_variable = {
-			which = $GOODS$_maximum_stored
-			value = 2.5
-		}
+		limit = { has_institution = enlightenment }
+		multiply_variable = { which = $GOODS$_maximum_stored value = 2.5 }
 	}
 	else_if = {
-		limit = {has_institution = manufactories}
-		multiply_variable = {
-			which = $GOODS$_maximum_stored
-			value = 2.0
-		}
+		limit = { has_institution = manufactories }
+		multiply_variable = { which = $GOODS$_maximum_stored value = 2.0 }
 	}
 	else_if = {
-		limit = {	has_institution = global_trade}
-		multiply_variable = {
-			which = $GOODS$_maximum_stored
-			value = 1.5
-		}
+		limit = { has_institution = global_trade }
+		multiply_variable = { which = $GOODS$_maximum_stored value = 1.5 }
 	}
 	else_if = {
-		limit = {	has_institution = printing_press}
-		multiply_variable = {
-			which = $GOODS$_maximum_stored
-			value = 1.25
-		}
+		limit = { has_institution = printing_press }
+		multiply_variable = { which = $GOODS$_maximum_stored value = 1.25 }
 	}
 	else_if = {
-		limit = {	has_institution = renaissance}
-		multiply_variable = {
-			which = $GOODS$_maximum_stored
-			value = 0.75
-		}
+		limit = { has_institution = renaissance }
+		multiply_variable = { which = $GOODS$_maximum_stored value = 0.75 }
 	}
 	else = {
-		multiply_variable = {
-			which = $GOODS$_maximum_stored
-			value = 0.5
-		}
+		multiply_variable = { which = $GOODS$_maximum_stored value = 0.5 }
 	}
 	if = {
-		limit = {		
-			check_variable = {
-				which = $GOODS$_stored
-				which = $GOODS$_maximum_stored
-			}
-		}
-		set_variable = {
-			which = $GOODS$_stored
-			which = $GOODS$_maximum_stored
-		}
+		limit = { check_variable = { which = $GOODS$_stored which = $GOODS$_maximum_stored } }
+		set_variable = { which = $GOODS$_stored which = $GOODS$_maximum_stored }
 	}
 }
 update_goods_prov = {
-	export_to_variable = {
-		variable_name = $GOODS$
-		value = modifier:trade_goods_size
-	}
-	export_to_variable = {
-		variable_name = tradegood_modifier
-		value = modifier:trade_goods_size_modifier
-	}
+	export_to_variable = { variable_name = $GOODS$ value = modifier:trade_goods_size }
+	export_to_variable = { variable_name = tradegood_modifier value = modifier:trade_goods_size_modifier }
 	owner = {
-		export_to_variable = {
-			variable_name = tradegood_modifier
-			value = modifier:global_trade_goods_size_modifier 
-		}
+		export_to_variable = { variable_name = tradegood_modifier value = modifier:global_trade_goods_size_modifier  }
 		PREV = {
-			change_variable = {
-				which = tradegood_modifier
-				which = PREV
-			}
-			change_variable = {
-				which = tradegood_modifier
-				value = 1
-			}
-			multiply_variable = {
-				which = $GOODS$
-				which = tradegood_modifier
-			}
+			change_variable = { which = tradegood_modifier which = PREV }
+			change_variable = { which = tradegood_modifier value = 1 }
+			multiply_variable = { which = $GOODS$ which = tradegood_modifier }
 		}
-		change_variable = {
-			which = $GOODS$
-			which = PREV
-		}
-		set_variable = {
-			which = tradegood_modifier
-			value = 0
-		}
+		change_variable = { which = $GOODS$ which = PREV }
+		set_variable = { which = tradegood_modifier value = 0 }
 	}
 }

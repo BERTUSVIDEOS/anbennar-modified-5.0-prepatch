@@ -1,11 +1,6 @@
 halves_parliament_bribe_costs = {
     if = {
-        limit = {
-			OR = {
-				has_dlc = "Common Sense"
-				has_dlc = "Domination"
-			}
-		}
+        limit = { OR = { has_dlc = "Common Sense" has_dlc = "Domination" } }
         custom_tooltip = halves_parliament_bribe_costs_tt
     }
     set_country_flag = halved_parliament_bribe_costs
@@ -13,12 +8,7 @@ halves_parliament_bribe_costs = {
 
 unlock_new_issues = {
 	if = {
-        limit = {
-			OR = {
-				has_dlc = "Common Sense"
-				has_dlc = "Domination"
-			}
-		}
+        limit = { OR = { has_dlc = "Common Sense" has_dlc = "Domination" } }
 		custom_tooltip = pol_unlock_new_issues_tt 
 	}
 	set_country_flag = pol_new_issues_tt
@@ -44,73 +34,35 @@ issue_effect_scaling_with_estate_influence = {
 	if = {
 		limit = { has_government_attribute = english_parliament }
 		if = {
-			limit = {
-				has_estate = $estate$
-			}
+			limit = { has_estate = $estate$ }
 			custom_tooltip = issue_effects_with_$estate$_influence_tt
 			if = {
-				limit = {
-					NOT = {
-						estate_influence = {
-							influence = 20
-							estate = $estate$
-						}
-					}
-				}
+				limit = { NOT = { estate_influence = { influence = 20 estate = $estate$ } } }
 				[[effect1]$effect1$]
 			}
 			if = {
 				limit = {
-					estate_influence = {
-						influence = 20
-						estate = $estate$
-					}
-					NOT = {
-						estate_influence = {
-							influence = 40
-							estate = $estate$
-						}
-					}
+					estate_influence = { influence = 20 estate = $estate$ }
+					NOT = { estate_influence = { influence = 40 estate = $estate$ } }
 				}
 				$effect2$
 			}
 			if = {
 				limit = {
-					estate_influence = {
-						influence = 40
-						estate = $estate$
-					}
-					NOT = {
-						estate_influence = {
-							influence = 60
-							estate = $estate$
-						}
-					}
+					estate_influence = { influence = 40 estate = $estate$ }
+					NOT = { estate_influence = { influence = 60 estate = $estate$ } }
 				}
 				$effect3$
 			}
 			if = {
 				limit = {
-					estate_influence = {
-						influence = 60
-						estate = $estate$
-					}
-					NOT = {
-						estate_influence = {
-							influence = 80
-							estate = $estate$
-						}
-					}
+					estate_influence = { influence = 60 estate = $estate$ }
+					NOT = { estate_influence = { influence = 80 estate = $estate$ } }
 				}
 				$effect4$
 			}
 			if = {
-				limit = {
-					estate_influence = {
-						influence = 80
-						estate = $estate$
-					}
-				}
+				limit = { estate_influence = { influence = 80 estate = $estate$ } }
 				$effect5$
 			}
 		}
@@ -126,58 +78,35 @@ issue_effect_scaling_with_estate_influence = {
 bribe_effect_scaling_with_absolutism= {
 	custom_tooltip = bribe_effect_scales_with_absolutism_tt
 	if = {
-		limit = {
-			NOT = {absolutism = 20}
-		}
-		$effect_20$
+		limit = { absolutism = 140 }
+		$effect_max$
 	}
-	if = {
-		limit = {
-			absolutism = 20
-			NOT = {absolutism = 40}
-		}
-		$effect_40$
-	}
-	if = {
-		limit = {
-			absolutism = 40
-			NOT = {absolutism = 60}
-		}
-		$effect_60$
-	}
-	if = {
-		limit = {
-			absolutism = 60
-			NOT = {absolutism = 80}
-		}
-		$effect_80$
-	}
-	if = {
-		limit = {
-			absolutism = 80
-			NOT = {absolutism = 100}
-		}
-		$effect_100$
-	}
-	if = {
-		limit = {
-			absolutism = 100
-			NOT = {absolutism = 120}
-		}
-		$effect_120$
-	}
-	if = {
-		limit = {
-			absolutism = 120
-			NOT = {absolutism = 140}
-		}
+	else_if = {
+		limit = { absolutism = 120 }
 		$effect_140$
 	}
-	if = {
-		limit = {
-			absolutism = 140
-		}
-		$effect_max$
+	else_if = {
+		limit = { absolutism = 100 }
+		$effect_120$
+	}
+	else_if = {
+		limit = { absolutism = 80 }
+		$effect_100$
+	}
+	else_if = {
+		limit = { absolutism = 60 }
+		$effect_80$
+	}
+	else_if = {
+		limit = { absolutism = 40 }
+		$effect_60$
+	}
+	else_if = {
+		limit = { absolutism = 20 }
+		$effect_40$
+	}
+	else = {
+		$effect_20$
 	}
 }
 
@@ -185,43 +114,21 @@ bribe_effect_scaling_with_estate_loyalty = {
 	if = {
 		limit = { has_government_attribute = english_parliament }
 		if = {
-			limit = {
-				has_estate = $estate$
-			}
+			limit = { has_estate = $estate$ }
 			custom_tooltip = bribe_effect_scales_with_$estate$_tt
 			if = {
-				limit = {
-					NOT = {
-						estate_loyalty = {
-							estate = $estate$
-							loyalty = 30
-						}
-					}
-				}
+				limit = { NOT = { estate_loyalty = { estate = $estate$ loyalty = 30 } } }
 				$effect_angry$
 			}
 			if = {
 				limit = {
-					estate_loyalty = {
-						estate = $estate$
-						loyalty = 30
-					}
-					NOT = {
-						estate_loyalty = {
-							estate = $estate$
-							loyalty = 60
-						}
-					}
+					estate_loyalty = { estate = $estate$ loyalty = 30 }
+					NOT = { estate_loyalty = { estate = $estate$ loyalty = 60 } }
 				}
 				$effect_neutral$
 			}
 			if = {
-				limit = {
-					estate_loyalty = {
-						loyalty = 60
-						estate = $estate$
-					}
-				}
+				limit = { estate_loyalty = { loyalty = 60 estate = $estate$ } }
 				$effect_happy$
 			}
 		}
@@ -235,12 +142,7 @@ bribe_effect_scaling_with_estate_loyalty = {
 }
 
 increase_issue_passed_counter = {
-	hidden_effect = {
-		change_variable = {
-			which = issues_passed
-			value = 1
-		}
-	}
+	hidden_effect = { change_variable = { which = issues_passed value = 1 } }
 }
 
 # Supports the following issues
@@ -305,88 +207,37 @@ bribe_estate_effect = {
 			has_expensive_debate = yes
 			NOT = { halved_parliament_bribes = yes }
 		}
-		add_estate_influence_modifier = {
-			estate = $estate$
-			desc = EST_VAL_SEAT_BRIBED
-			influence = 4
-			duration = 9125
-			add = yes
-		}
+		add_estate_influence_modifier = { estate = $estate$ desc = EST_VAL_SEAT_BRIBED influence = 4 duration = 9125 add = yes }
 	}
 	else_if = {
 		limit = {
 			OR = {
-				AND = {
-					has_expensive_debate = yes
-					halved_parliament_bribes = yes
-				}
-				AND = {
-					NOT = { has_expensive_debate = yes }
-					NOT = { halved_parliament_bribes = yes }
-				}
+				AND = { has_expensive_debate = yes halved_parliament_bribes = yes }
+				AND = { NOT = { has_expensive_debate = yes } NOT = { halved_parliament_bribes = yes } }
 			}
 		}
-		add_estate_influence_modifier = {
-			estate = $estate$
-			desc = EST_VAL_SEAT_BRIBED
-			influence = 2
-			duration = 9125
-			add = yes
-		}
+		add_estate_influence_modifier = { estate = $estate$ desc = EST_VAL_SEAT_BRIBED influence = 2 duration = 9125 add = yes }
 	}
 	else = {
-		add_estate_influence_modifier = {
-			estate = $estate$
-			desc = EST_VAL_SEAT_BRIBED
-			influence = 1
-			duration = 9125
-			add = yes
-		}
+		add_estate_influence_modifier = { estate = $estate$ desc = EST_VAL_SEAT_BRIBED influence = 1 duration = 9125 add = yes }
 	}
 }
 
 national_bribe_estate_effect = {
 	if = {
-		limit = {
-			has_expensive_debate = yes
-			NOT = { halved_parliament_bribes = yes }
-		}
-		add_estate_influence_modifier = {
-			estate = $estate$
-			desc = EST_VAL_SEAT_BRIBED
-			influence = 20
-			duration = 9125
-			add = yes
-		}
+		limit = { has_expensive_debate = yes NOT = { halved_parliament_bribes = yes } }
+		add_estate_influence_modifier = { estate = $estate$ desc = EST_VAL_SEAT_BRIBED influence = 20 duration = 9125 add = yes }
 	}
 	else_if = {
 		limit = {
 			OR = {
-				AND = {
-					has_expensive_debate = yes
-					halved_parliament_bribes = yes
-				}
-				AND = {
-					NOT = { has_expensive_debate = yes }
-					NOT = { halved_parliament_bribes = yes }
-				}
+				AND = { has_expensive_debate = yes halved_parliament_bribes = yes }
+				AND = { NOT = { has_expensive_debate = yes } NOT = { halved_parliament_bribes = yes } }
 			}
 		}
-		add_estate_influence_modifier = {
-			estate = $estate$
-			desc = EST_VAL_SEAT_BRIBED
-			influence = 10
-			duration = 9125
-			add = yes
-		}
+		add_estate_influence_modifier = { estate = $estate$ desc = EST_VAL_SEAT_BRIBED influence = 10 duration = 9125 add = yes }
 	}
 	else = {
-		add_estate_influence_modifier = {
-			estate = $estate$
-			desc = EST_VAL_SEAT_BRIBED
-			influence = 5
-			duration = 9125
-			add = yes
-		}
+		add_estate_influence_modifier = { estate = $estate$ desc = EST_VAL_SEAT_BRIBED influence = 5 duration = 9125 add = yes }
 	}
 }

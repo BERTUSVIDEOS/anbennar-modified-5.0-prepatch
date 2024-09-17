@@ -1,9 +1,6 @@
 
 bertus_power_calculator = {
-	set_variable = {
-		which = country_power_var
-		value = 0
-	}
+	set_variable = { which = country_power_var value = 0 }
 	set_base_discipline = yes
 	set_base_morale = yes
 	set_fire_shock_modifiers = yes
@@ -19,62 +16,23 @@ bertus_power_calculator = {
 	
 	
 	#FORMULA final: quality*quantity*15%income
-	change_variable = {
-		which = country_power_var
-		which = quantity_power_var
-	}	
-	multiply_variable = {
-		which = country_power_var
-		which = quality_power_var
-	}
-	multiply_variable = {
-		which = country_power_var
-		which = monthly_income_power_var
-	}
-	divide_variable = {
-		which = country_power_var
-		value = 1000
-	}
+	change_variable = { which = country_power_var which = quantity_power_var }	
+	multiply_variable = { which = country_power_var which = quality_power_var }
+	multiply_variable = { which = country_power_var which = monthly_income_power_var }
+	divide_variable = { which = country_power_var value = 1000 }
 }
 set_base_discipline = {
-	set_variable = {
-		which = discipline_var
-		value = 0
-	}
-	set_variable = {
-		which = discipline_power_var
-		value = 0
-	}
-	export_to_variable = {
-		which = discipline_var
-		value = modifier:discipline
-	}
-	change_variable = {
-		which = discipline_var
-		value = 1
-	}
-	change_variable = {
-		which = discipline_power_var
-		which = discipline_var
-	}
-	multiply_variable = {
-		which = discipline_power_var
-		which = discipline_k_var
-	}
-	multiply_variable = {
-		which = discipline_var
-		value = 100
-	}
+	set_variable = { which = discipline_var value = 0 }
+	set_variable = { which = discipline_power_var value = 0 }
+	export_to_variable = { which = discipline_var value = modifier:discipline }
+	change_variable = { which = discipline_var value = 1 }
+	change_variable = { which = discipline_power_var which = discipline_var }
+	multiply_variable = { which = discipline_power_var which = discipline_k_var }
+	multiply_variable = { which = discipline_var value = 100 }
 }
 set_base_morale = {
-	set_variable = {
-		which = morale_var
-		value = 0
-	}
-	set_variable = {
-		which = base_morale_var
-		value = 0
-	}	
+	set_variable = { which = morale_var value = 0 }
+	set_variable = { which = base_morale_var value = 0 }	
 	if = {limit = {mil_tech = 30} change_variable = { which = base_morale_var value = 1.0}}
 	if = {limit = {mil_tech = 26} change_variable = { which = base_morale_var value = 1.0}}
 	if = {limit = {mil_tech = 15} change_variable = { which = base_morale_var value = 1.0}}
@@ -82,52 +40,19 @@ set_base_morale = {
 	if = {limit = {mil_tech = 3} change_variable = { which = base_morale_var value = 0.5}}
 	if = {limit = {mil_tech = 0} change_variable = { which = base_morale_var value = 2.0}}
 	
-	export_to_variable = {
-		which = morale_var
-		value = modifier:land_morale
-	}
-	change_variable = {
-		which = morale_var
-		value = 1
-	}
-	multiply_variable = {
-		which = morale_var
-		which = base_morale_var
-	}
-	multiply_variable = {
-		which = morale_var
-		which = morale_k_var
-	}
+	export_to_variable = { which = morale_var value = modifier:land_morale }
+	change_variable = { which = morale_var value = 1 }
+	multiply_variable = { which = morale_var which = base_morale_var }
+	multiply_variable = { which = morale_var which = morale_k_var }
 }
 set_infantry_power = {
-	set_variable = {
-		which = infantry_power_var
-		value = 0
-	}
-	set_variable = {
-		which = infantry_ca_var
-		value = 0
-	}
-	set_variable = {
-		which = infantry_base_damage_var
-		value = 0
-	}
-	export_to_variable = {
-		which = infantry_ca_var
-		value = modifier:infantry_power
-	}
-	change_variable = {
-		which = infantry_ca_var
-		value = 1
-	}
-	set_variable = {
-		which = infantry_fire_var
-		value = 0
-	}
-	export_to_variable = {
-		which = infantry_fire_var
-		value = modifier:infantry_fire
-	}
+	set_variable = { which = infantry_power_var value = 0 }
+	set_variable = { which = infantry_ca_var value = 0 }
+	set_variable = { which = infantry_base_damage_var value = 0 }
+	export_to_variable = { which = infantry_ca_var value = modifier:infantry_power }
+	change_variable = { which = infantry_ca_var value = 1 }
+	set_variable = { which = infantry_fire_var value = 0 }
+	export_to_variable = { which = infantry_fire_var value = modifier:infantry_fire }
 	if = {limit = {mil_tech = 31} change_variable = { which = infantry_fire_var value = 1.0}}
 	if = {limit = {mil_tech = 27} change_variable = { which = infantry_fire_var value = 0.5}}
 	if = {limit = {mil_tech = 20} change_variable = { which = infantry_fire_var value = 0.5}}
@@ -136,14 +61,8 @@ set_infantry_power = {
 	if = {limit = {mil_tech = 6} change_variable = { which = infantry_fire_var value = 0.20}}
 	if = {limit = {mil_tech = 1} change_variable = { which = infantry_fire_var value = 0.10}}
 	if = {limit = {mil_tech = 0} change_variable = { which = infantry_fire_var value = 0.25}}
-	set_variable = {
-		which = infantry_shock_var
-		value = 0
-	}
-	export_to_variable = {
-		which = infantry_shock_var
-		value = modifier:infantry_shock
-	}
+	set_variable = { which = infantry_shock_var value = 0 }
+	export_to_variable = { which = infantry_shock_var value = modifier:infantry_shock }
 	if = {limit = {mil_tech = 28} change_variable = { which = infantry_shock_var value = 0.5}}
 	if = {limit = {mil_tech = 21} change_variable = { which = infantry_shock_var value = 0.5}}
 	if = {limit = {mil_tech = 11} change_variable = { which = infantry_shock_var value = 0.2}}
@@ -153,78 +72,27 @@ set_infantry_power = {
 	if = {limit = {mil_tech = 1} change_variable = { which = infantry_shock_var value = 0.10}}
 	if = {limit = {mil_tech = 0} change_variable = { which = infantry_shock_var value = 0.20}}
 	
-	change_variable = {
-		which = infantry_base_damage_var
-		which = infantry_fire_var
-	}
-	change_variable = {
-		which = infantry_base_damage_var
-		which = infantry_shock_var
-	}
-	change_variable = {
-		which = infantry_power_var
-		which = infantry_base_damage_var
-	}
-	multiply_variable = {
-		which = infantry_power_var
-		which = infantry_ca_var
-	}
-	multiply_variable = {
-		which = infantry_power_var
-		which = infantry_fraction_var
-	}
-	multiply_variable = {
-		which = infantry_power_var
-		which = infantry_power_k_var
-	}
-	multiply_variable = {
-		which = infantry_fraction_var
-		value = 100
-	}
-	multiply_variable = {
-		which = infantry_ca_var
-		value = 100
-	}
+	change_variable = { which = infantry_base_damage_var which = infantry_fire_var }
+	change_variable = { which = infantry_base_damage_var which = infantry_shock_var }
+	change_variable = { which = infantry_power_var which = infantry_base_damage_var }
+	multiply_variable = { which = infantry_power_var which = infantry_ca_var }
+	multiply_variable = { which = infantry_power_var which = infantry_fraction_var }
+	multiply_variable = { which = infantry_power_var which = infantry_power_k_var }
+	multiply_variable = { which = infantry_fraction_var value = 100 }
+	multiply_variable = { which = infantry_ca_var value = 100 }
 }
 set_cavalry_power = {
-	set_variable = {
-		which = cavalry_power_var
-		value = 0
-	}
-	set_variable = {
-		which = cavalry_ca_var
-		value = 0
-	}
-	set_variable = {
-		which = cavalry_base_damage_var
-		value = 0
-	}
-	export_to_variable = {
-		which = cavalry_ca_var
-		value = modifier:cavalry_power
-	}
-	change_variable = {
-		which = cavalry_ca_var
-		value = 1
-	}
-	set_variable = {
-		which = cavalry_fire_var
-		value = 0
-	}
-	export_to_variable = {
-		which = cavalry_fire_var
-		value = modifier:cavalry_fire
-	}
+	set_variable = { which = cavalry_power_var value = 0 }
+	set_variable = { which = cavalry_ca_var value = 0 }
+	set_variable = { which = cavalry_base_damage_var value = 0 }
+	export_to_variable = { which = cavalry_ca_var value = modifier:cavalry_power }
+	change_variable = { which = cavalry_ca_var value = 1 }
+	set_variable = { which = cavalry_fire_var value = 0 }
+	export_to_variable = { which = cavalry_fire_var value = modifier:cavalry_fire }
 	if = {limit = {mil_tech = 22} change_variable = { which = cavalry_fire_var value = 0.5}}
 	if = {limit = {mil_tech = 11} change_variable = { which = cavalry_fire_var value = 0.5}}
-	set_variable = {
-		which = cavalry_shock_var
-		value = 0
-	}
-	export_to_variable = {
-		which = cavalry_shock_var
-		value = modifier:cavalry_shock
-	}
+	set_variable = { which = cavalry_shock_var value = 0 }
+	export_to_variable = { which = cavalry_shock_var value = modifier:cavalry_shock }
 	if = {limit = {mil_tech = 32} change_variable = { which = cavalry_shock_var value = 0.5}}
 	if = {limit = {mil_tech = 30} change_variable = { which = cavalry_shock_var value = 0.5}}
 	if = {limit = {mil_tech = 26} change_variable = { which = cavalry_shock_var value = 0.5}}
@@ -236,94 +104,34 @@ set_cavalry_power = {
 	if = {limit = {mil_tech = 2} change_variable = { which = cavalry_shock_var value = 0.5}}
 	if = {limit = {mil_tech = 0} change_variable = { which = cavalry_shock_var value = 0.5}}
 	
-	change_variable = {
-		which = cavalry_base_damage_var
-		which = cavalry_fire_var
-	}
-	change_variable = {
-		which = cavalry_base_damage_var
-		which = cavalry_shock_var
-	}
-	change_variable = {
-		which = cavalry_power_var
-		which = cavalry_base_damage_var
-	}
-	multiply_variable = {
-		which = cavalry_power_var
-		which = cavalry_ca_var
-	}
-	multiply_variable = {
-		which = cavalry_power_var
-		which = cavalry_fraction_var
-	}
-	multiply_variable = {
-		which = cavalry_power_var
-		which = cavalry_power_k_var
-	}
-	multiply_variable = {
-		which = cavalry_fraction_var
-		value = 100
-	}
-	multiply_variable = {
-		which = cavalry_ca_var
-		value = 100
-	}
+	change_variable = { which = cavalry_base_damage_var which = cavalry_fire_var }
+	change_variable = { which = cavalry_base_damage_var which = cavalry_shock_var }
+	change_variable = { which = cavalry_power_var which = cavalry_base_damage_var }
+	multiply_variable = { which = cavalry_power_var which = cavalry_ca_var }
+	multiply_variable = { which = cavalry_power_var which = cavalry_fraction_var }
+	multiply_variable = { which = cavalry_power_var which = cavalry_power_k_var }
+	multiply_variable = { which = cavalry_fraction_var value = 100 }
+	multiply_variable = { which = cavalry_ca_var value = 100 }
 }
 set_artillery_power = {
-	set_variable = {
-		which = artillery_power_var
-		value = 0
-	}
-	set_variable = {
-		which = artillery_ca_var
-		value = 0
-	}
-	set_variable = {
-		which = artillery_backrow_var
-		value = 0
-	}
-	set_variable = {
-		which = artillery_base_damage_var
-		value = 0
-	}
-	export_to_variable = {
-		which = artillery_ca_var
-		value = modifier:artillery_power
-	}
-	export_to_variable = {
-		which = artillery_backrow_var
-		value = modifier:backrow_artillery_damage
-	}
-	change_variable = {
-		which = artillery_ca_var
-		value = 1
-	}
-	change_variable = {
-		which = artillery_backrow_var
-		value = 1
-	}
-	set_variable = {
-		which = artillery_fire_var
-		value = 0
-	}
-	export_to_variable = {
-		which = artillery_fire_var
-		value = modifier:artillery_fire
-	}
+	set_variable = { which = artillery_power_var value = 0 }
+	set_variable = { which = artillery_ca_var value = 0 }
+	set_variable = { which = artillery_backrow_var value = 0 }
+	set_variable = { which = artillery_base_damage_var value = 0 }
+	export_to_variable = { which = artillery_ca_var value = modifier:artillery_power }
+	export_to_variable = { which = artillery_backrow_var value = modifier:backrow_artillery_damage }
+	change_variable = { which = artillery_ca_var value = 1 }
+	change_variable = { which = artillery_backrow_var value = 1 }
+	set_variable = { which = artillery_fire_var value = 0 }
+	export_to_variable = { which = artillery_fire_var value = modifier:artillery_fire }
 	if = {limit = {mil_tech = 32} change_variable = { which = artillery_fire_var value = 1.0}}
 	if = {limit = {mil_tech = 25} change_variable = { which = artillery_fire_var value = 1.0}}
 	if = {limit = {mil_tech = 22} change_variable = { which = artillery_fire_var value = 1.0}}
 	if = {limit = {mil_tech = 16} change_variable = { which = artillery_fire_var value = 1.0}}
 	if = {limit = {mil_tech = 13} change_variable = { which = artillery_fire_var value = 0.5}}
 	if = {limit = {mil_tech = 7} change_variable = { which = artillery_fire_var value = 0.5}}
-	set_variable = {
-		which = artillery_shock_var
-		value = 0
-	}
-	export_to_variable = {
-		which = artillery_shock_var
-		value = modifier:artillery_shock
-	}
+	set_variable = { which = artillery_shock_var value = 0 }
+	export_to_variable = { which = artillery_shock_var value = modifier:artillery_shock }
 	if = {limit = {mil_tech = 32} change_variable = { which = artillery_shock value = 0.10}}
 	if = {limit = {mil_tech = 25} change_variable = { which = artillery_shock value = 0.10}}
 	if = {limit = {mil_tech = 22} change_variable = { which = artillery_shock value = 0.10}}
@@ -331,481 +139,139 @@ set_artillery_power = {
 	if = {limit = {mil_tech = 13} change_variable = { which = artillery_shock value = 0.10}}
 	if = {limit = {mil_tech = 7} change_variable = { which = artillery_shock value = 0.10}}
 	
-	change_variable = {
-		which = artillery_base_damage_var
-		which = artillery_fire_var
-	}
-	change_variable = {
-		which = artillery_base_damage_var
-		which = artillery_shock_var
-	}
-	change_variable = {
-		which = artillery_power_var
-		which = artillery_base_damage_var
-	}
-	multiply_variable = {
-		which = artillery_power_var
-		which = artillery_ca_var
-	}
-	multiply_variable = {
-		which = artillery_power_var
-		which = artillery_backrow_var
-	}
-	multiply_variable = {
-		which = artillery_power_var
-		which = artillery_fraction_var
-	}
-	multiply_variable = {
-		which = artillery_power_var
-		which = artillery_power_k_var
-	}
-	multiply_variable = {
-		which = artillery_fraction_var
-		value = 100
-	}
-	multiply_variable = {
-		which = artillery_ca_var
-		value = 100
-	}
-	multiply_variable = {
-		which = artillery_backrow_var
-		value = 100
-	}
+	change_variable = { which = artillery_base_damage_var which = artillery_fire_var }
+	change_variable = { which = artillery_base_damage_var which = artillery_shock_var }
+	change_variable = { which = artillery_power_var which = artillery_base_damage_var }
+	multiply_variable = { which = artillery_power_var which = artillery_ca_var }
+	multiply_variable = { which = artillery_power_var which = artillery_backrow_var }
+	multiply_variable = { which = artillery_power_var which = artillery_fraction_var }
+	multiply_variable = { which = artillery_power_var which = artillery_power_k_var }
+	multiply_variable = { which = artillery_fraction_var value = 100 }
+	multiply_variable = { which = artillery_ca_var value = 100 }
+	multiply_variable = { which = artillery_backrow_var value = 100 }
 }
 set_fire_shock_modifiers = {
-	set_variable = {
-		which = fire_damage_power_var
-		value = 0
-	}
-	set_variable = {
-		which = fire_damage_var
-		value = 0
-	}
-	set_variable = {
-		which = shock_damage_power_var
-		value = 0
-	}
-	set_variable = {
-		which = shock_damage_var
-		value = 0
-	}
-	set_variable = {
-		which = fire_damage_received_var
-		value = 0
-	}
-	set_variable = {
-		which = fire_damage_received_power_var
-		value = 0
-	}
-	set_variable = {
-		which = shock_damage_received_var
-		value = 0
-	}
-	set_variable = {
-		which = shock_damage_received_power_var
-		value = 0
-	}
-	set_variable = {
-		which = damage_bonus_power_var
-		value = 0
-	}
-	set_variable = {
-		which = damage_reduction_power_var
-		value = 0
-	}
-	export_to_variable = {
-		which = fire_damage_var
-		value = modifier:fire_damage
-	}
-	export_to_variable = {
-		which = shock_damage_var
-		value = modifier:shock_damage
-	}
-	change_variable = {
-		which = fire_damage_power_var
-		which = fire_damage_var
-	}
-	multiply_variable = {
-		which = fire_damage_power_var
-		which = fire_damage_power_k_var
-	}
-	change_variable = {
-		which = fire_damage_power_var
-		value = 1
-	}
-	change_variable = {
-		which = shock_damage_power_var
-		which = shock_damage_var
-	}
-	multiply_variable = {
-		which = shock_damage_power_var
-		which = shock_damage_power_k_var
-	}
-	change_variable = {
-		which = shock_damage_power_var
-		value = 1
-	}
-	change_variable = {
-		which = damage_bonus_power_var
-		which = fire_damage_power_var
-	}
-	change_variable = {
-		which = damage_bonus_power_var
-		which = shock_damage_power_var
-	}
-	export_to_variable = {
-		which = fire_damage_received_var
-		value = modifier:fire_damage_received
-	}
-	export_to_variable = {
-		which = shock_damage_received_var
-		value = modifier:shock_damage_received
-	}
-	change_variable = {
-		which = fire_damage_received_power_var
-		which = fire_damage_received_var
-	}
-	change_variable = {
-		which = shock_damage_received_power_var
-		which = shock_damage_received_var
-	}
-	multiply_variable = {
-		which = fire_damage_received_power_var
-		value = -1
-	}
-	multiply_variable = {
-		which = shock_damage_received_power_var
-		value = -1
-	}
-	multiply_variable = {
-		which = fire_damage_received_power_var
-		which = fire_damage_received_power_k_var
-	}
-	multiply_variable = {
-		which = shock_damage_received_power_var
-		which = shock_damage_received_power_k_var
-	}
-	change_variable = {
-		which = damage_reduction_power_var
-		which = fire_damage_received_power_var
-	}
-	change_variable = {
-		which = damage_reduction_power_var
-		which = shock_damage_received_power_var
-	}
-	change_variable = {
-		which = damage_reduction_power_var
-		value = 1
-	}
-	multiply_variable = {
-		which = fire_damage_var
-		value = 100
-	}
-	multiply_variable = {
-		which = shock_damage_var
-		value = 100
-	}
-	multiply_variable = {
-		which = fire_damage_received_var
-		value = 100
-	}
-	multiply_variable = {
-		which = shock_damage_received_var
-		value = 100
-	}
+	set_variable = { which = fire_damage_power_var value = 0 }
+	set_variable = { which = fire_damage_var value = 0 }
+	set_variable = { which = shock_damage_power_var value = 0 }
+	set_variable = { which = shock_damage_var value = 0 }
+	set_variable = { which = fire_damage_received_var value = 0 }
+	set_variable = { which = fire_damage_received_power_var value = 0 }
+	set_variable = { which = shock_damage_received_var value = 0 }
+	set_variable = { which = shock_damage_received_power_var value = 0 }
+	set_variable = { which = damage_bonus_power_var value = 0 }
+	set_variable = { which = damage_reduction_power_var value = 0 }
+	export_to_variable = { which = fire_damage_var value = modifier:fire_damage }
+	export_to_variable = { which = shock_damage_var value = modifier:shock_damage }
+	change_variable = { which = fire_damage_power_var which = fire_damage_var }
+	multiply_variable = { which = fire_damage_power_var which = fire_damage_power_k_var }
+	change_variable = { which = fire_damage_power_var value = 1 }
+	change_variable = { which = shock_damage_power_var which = shock_damage_var }
+	multiply_variable = { which = shock_damage_power_var which = shock_damage_power_k_var }
+	change_variable = { which = shock_damage_power_var value = 1 }
+	change_variable = { which = damage_bonus_power_var which = fire_damage_power_var }
+	change_variable = { which = damage_bonus_power_var which = shock_damage_power_var }
+	export_to_variable = { which = fire_damage_received_var value = modifier:fire_damage_received }
+	export_to_variable = { which = shock_damage_received_var value = modifier:shock_damage_received }
+	change_variable = { which = fire_damage_received_power_var which = fire_damage_received_var }
+	change_variable = { which = shock_damage_received_power_var which = shock_damage_received_var }
+	multiply_variable = { which = fire_damage_received_power_var value = -1 }
+	multiply_variable = { which = shock_damage_received_power_var value = -1 }
+	multiply_variable = { which = fire_damage_received_power_var which = fire_damage_received_power_k_var }
+	multiply_variable = { which = shock_damage_received_power_var which = shock_damage_received_power_k_var }
+	change_variable = { which = damage_reduction_power_var which = fire_damage_received_power_var }
+	change_variable = { which = damage_reduction_power_var which = shock_damage_received_power_var }
+	change_variable = { which = damage_reduction_power_var value = 1 }
+	multiply_variable = { which = fire_damage_var value = 100 }
+	multiply_variable = { which = shock_damage_var value = 100 }
+	multiply_variable = { which = fire_damage_received_var value = 100 }
+	multiply_variable = { which = shock_damage_received_var value = 100 }
 	
 }
 set_manpower_power = {
-	set_variable = {
-		which = manpower_power_var
-		value = 0
-	}
-	set_variable = {
-		which = manpower_var
-		value = 0
-	}
-	export_to_variable = {
-		which = manpower_var
-		value = trigger_value:max_manpower
-	}
-	set_variable = {
-		which = manpower_recovery_var
-		value = 0
-	}
-	set_variable = {
-		which = manpower_recovery_power_var
-		value = 0
-	}
-	export_to_variable = {
-		which = manpower_recovery_var
-		value = modifier:manpower_recovery_speed
-	}
-	change_variable = {
-		which = manpower_recovery_var
-		value = 1
-	}
-	change_variable = {
-		which = manpower_recovery_power_var
-		which = manpower_recovery_var
-	}
-	multiply_variable = {
-		which = manpower_recovery_var
-		which = manpower_var
-	}
-	divide_variable = {
-		which = manpower_recovery_var
-		value = 120
-	}
-	multiply_variable = {
-		which = manpower_recovery_power_var
-		which = manpower_var
-	}
-	divide_variable = {
-		which = manpower_recovery_power_var
-		value = 120
-	}
-	multiply_variable = {
-		which = manpower_recovery_power_var
-		which = manpower_recovery_k_var
-	}
-	change_variable = {
-		which = manpower_power_var
-		which = manpower_var
-	}
-	multiply_variable = {
-		which = manpower_power_var
-		which = manpower_k_var
-	}
-	change_variable = {
-		which = manpower_power_var
-		which = manpower_recovery_power_var
-	}
-	multiply_variable = {
-		which = manpower_power_var
-		which = damage_reduction_power_var
-	}
+	set_variable = { which = manpower_power_var value = 0 }
+	set_variable = { which = manpower_var value = 0 }
+	export_to_variable = { which = manpower_var value = trigger_value:max_manpower }
+	set_variable = { which = manpower_recovery_var value = 0 }
+	set_variable = { which = manpower_recovery_power_var value = 0 }
+	export_to_variable = { which = manpower_recovery_var value = modifier:manpower_recovery_speed }
+	change_variable = { which = manpower_recovery_var value = 1 }
+	change_variable = { which = manpower_recovery_power_var which = manpower_recovery_var }
+	multiply_variable = { which = manpower_recovery_var which = manpower_var }
+	divide_variable = { which = manpower_recovery_var value = 120 }
+	multiply_variable = { which = manpower_recovery_power_var which = manpower_var }
+	divide_variable = { which = manpower_recovery_power_var value = 120 }
+	multiply_variable = { which = manpower_recovery_power_var which = manpower_recovery_k_var }
+	change_variable = { which = manpower_power_var which = manpower_var }
+	multiply_variable = { which = manpower_power_var which = manpower_k_var }
+	change_variable = { which = manpower_power_var which = manpower_recovery_power_var }
+	multiply_variable = { which = manpower_power_var which = damage_reduction_power_var }
 }
 set_forcelimit_power = {
-	set_variable = {
-		which = land_forcelimit_var
-		value = 0
-	}
-	set_variable = {
-		which = land_forcelimit_power_var
-		value = 0
-	}
-	set_variable = {
-		which = land_forcelimit_modifier_var
-		value = 0
-	}
-	set_variable = {
-		which = infantry_fraction_var
-		value = 0
-	}
-	set_variable = {
-		which = cavalry_fraction_var
-		value = 0
-	}
-	set_variable = {
-		which = artillery_fraction_var
-		value = 0
-	}
-	set_variable = {
-		which = total_army_var
-		value = 0
-	}
-	export_to_variable = {
-		which = infantry_fraction_var
-		value = trigger_value:num_of_infantry
-	}
-	export_to_variable = {
-		which = cavalry_fraction_var
-		value = trigger_value:num_of_cavalry
-	}
-	export_to_variable = {
-		which = artillery_fraction_var
-		value = trigger_value:num_of_artillery
-	}
-	change_variable = {
-		which = total_army_var
-		which = infantry_fraction_var
-	}
-	change_variable = {
-		which = total_army_var
-		which = cavalry_fraction_var
-	}
-	change_variable = {
-		which = total_army_var
-		which = artillery_fraction_var
-	}
-	divide_variable = {
-		which = infantry_fraction_var
-		which = total_army_var
-	}
-	divide_variable = {
-		which = cavalry_fraction_var
-		which = total_army_var
-	}
-	divide_variable = {
-		which = artillery_fraction_var
-		which = total_army_var
-	}
-	export_to_variable = {
-		which = land_forcelimit_var
-		value = modifier:land_forcelimit
-	}
-	export_to_variable = {
-		which = land_forcelimit_modifier_var
-		value = modifier:land_forcelimit_modifier
-	}
-	change_variable = {
-		which = land_forcelimit_modifier_var
-		value = 1
-	}
-	change_variable = {
-		which = land_forcelimit_power_var
-		which = land_forcelimit_var
-	}
-	multiply_variable = {
-		which = land_forcelimit_power_var
-		which = land_forcelimit_modifier_var
-	}
-	multiply_variable = {
-		which = land_forcelimit_power_var
-		which = land_forcelimit_k_var
-	}
+	set_variable = { which = land_forcelimit_var value = 0 }
+	set_variable = { which = land_forcelimit_power_var value = 0 }
+	set_variable = { which = land_forcelimit_modifier_var value = 0 }
+	set_variable = { which = infantry_fraction_var value = 0 }
+	set_variable = { which = cavalry_fraction_var value = 0 }
+	set_variable = { which = artillery_fraction_var value = 0 }
+	set_variable = { which = total_army_var value = 0 }
+	export_to_variable = { which = infantry_fraction_var value = trigger_value:num_of_infantry }
+	export_to_variable = { which = cavalry_fraction_var value = trigger_value:num_of_cavalry }
+	export_to_variable = { which = artillery_fraction_var value = trigger_value:num_of_artillery }
+	change_variable = { which = total_army_var which = infantry_fraction_var }
+	change_variable = { which = total_army_var which = cavalry_fraction_var }
+	change_variable = { which = total_army_var which = artillery_fraction_var }
+	divide_variable = { which = infantry_fraction_var which = total_army_var }
+	divide_variable = { which = cavalry_fraction_var which = total_army_var }
+	divide_variable = { which = artillery_fraction_var which = total_army_var }
+	export_to_variable = { which = land_forcelimit_var value = modifier:land_forcelimit }
+	export_to_variable = { which = land_forcelimit_modifier_var value = modifier:land_forcelimit_modifier }
+	change_variable = { which = land_forcelimit_modifier_var value = 1 }
+	change_variable = { which = land_forcelimit_power_var which = land_forcelimit_var }
+	multiply_variable = { which = land_forcelimit_power_var which = land_forcelimit_modifier_var }
+	multiply_variable = { which = land_forcelimit_power_var which = land_forcelimit_k_var }
 }
 set_quality_power = {
 	#FORMULA quality: 
 	#K*discipline*K*morale*(K*I/C/A CA*fire/shock base dmg*fraction of each unit)
-	set_variable = {
-		which = quality_power_var
-		value = 0
-	}
-	set_variable = {
-		which = regiment_power_var
-		value = 0
-	}
-	change_variable = {
-		which = quality_power_var
-		which = morale_var
-	}
-	multiply_variable = {
-		which = quality_power_var
-		which = discipline_power_var
-	}
-	change_variable = {
-		which = regiment_power_var
-		which = infantry_power_var
-	}
-	change_variable = {
-		which = regiment_power_var
-		which = cavalry_power_var
-	}
-	change_variable = {
-		which = regiment_power_var
-		which = artillery_power_var
-	}
-	multiply_variable = {
-		which = quality_power_var
-		which = regiment_power_var
-	}
-	multiply_variable = {
-		which = quality_power_var
-		which = damage_bonus_power_var
-	}
+	set_variable = { which = quality_power_var value = 0 }
+	set_variable = { which = regiment_power_var value = 0 }
+	change_variable = { which = quality_power_var which = morale_var }
+	multiply_variable = { which = quality_power_var which = discipline_power_var }
+	change_variable = { which = regiment_power_var which = infantry_power_var }
+	change_variable = { which = regiment_power_var which = cavalry_power_var }
+	change_variable = { which = regiment_power_var which = artillery_power_var }
+	multiply_variable = { which = quality_power_var which = regiment_power_var }
+	multiply_variable = { which = quality_power_var which = damage_bonus_power_var }
 }
 set_quantity_power = {
 	#FORMULA quantity: 
 	#K*FL+50%max manpower+5yearly manpower
-	set_variable = {
-		which = quantity_power_var
-		value = 0
-	}
-	change_variable = {
-		which = quantity_power_var
-		which = land_forcelimit_power_var
-	}
-	change_variable = {
-		which = quantity_power_var
-		which = manpower_power_var
-	}
+	set_variable = { which = quantity_power_var value = 0 }
+	change_variable = { which = quantity_power_var which = land_forcelimit_power_var }
+	change_variable = { which = quantity_power_var which = manpower_power_var }
 }
 set_income_power = {
-	set_variable = {
-		which = monthly_income_var
-		value = 0
-	}
-	set_variable = {
-		which = monthly_income_power_var
-		value = 0
-	}
-	export_to_variable = {
-		which = monthly_income_var
-		value = trigger_value:monthly_income
-	}
-	change_variable = {
-		which = monthly_income_power_var
-		which = monthly_income_var
-	}
-	multiply_variable = {
-		which = monthly_income_power_var
-		which = monthly_income_k_var
-	}
+	set_variable = { which = monthly_income_var value = 0 }
+	set_variable = { which = monthly_income_power_var value = 0 }
+	export_to_variable = { which = monthly_income_var value = trigger_value:monthly_income }
+	change_variable = { which = monthly_income_power_var which = monthly_income_var }
+	multiply_variable = { which = monthly_income_power_var which = monthly_income_k_var }
 }
 set_constants = {
-	set_variable = {
-		which = morale_k_var
-		value = 1
-	}
-	set_variable = {
-		which = discipline_k_var
-		value = 1
-	}
-	set_variable = {
-		which = infantry_power_k_var
-		value = 1
-	}
-	set_variable = {
-		which = cavalry_power_k_var
-		value = 1
-	}
-	set_variable = {
-		which = artillery_power_k_var
-		value = 1
-	}
-	set_variable = {
-		which = fire_damage_power_k_var
-		value = 0.25
-	}
-	set_variable = {
-		which = shock_damage_power_k_var
-		value = 0.25
-	}
-	set_variable = {
-		which = fire_damage_received_power_k_var
-		value = 0.5
-	}
-	set_variable = {
-		which = shock_damage_received_power_k_var
-		value = 0.5
-	}
-	set_variable = {
-		which = manpower_k_var
-		value = 0.5
-	}
-	set_variable = {
-		which = manpower_recovery_k_var
-		value = 60.0
-	}
-	set_variable = {
-		which = land_forcelimit_k_var
-		value = 1
-	}
-	set_variable = {
-		which = monthly_income_k_var
-		value = 0.33
-	}
+	set_variable = { which = morale_k_var value = 1 }
+	set_variable = { which = discipline_k_var value = 1 }
+	set_variable = { which = infantry_power_k_var value = 1 }
+	set_variable = { which = cavalry_power_k_var value = 1 }
+	set_variable = { which = artillery_power_k_var value = 1 }
+	set_variable = { which = fire_damage_power_k_var value = 0.25 }
+	set_variable = { which = shock_damage_power_k_var value = 0.25 }
+	set_variable = { which = fire_damage_received_power_k_var value = 0.5 }
+	set_variable = { which = shock_damage_received_power_k_var value = 0.5 }
+	set_variable = { which = manpower_k_var value = 0.5 }
+	set_variable = { which = manpower_recovery_k_var value = 60.0 }
+	set_variable = { which = land_forcelimit_k_var value = 1 }
+	set_variable = { which = monthly_income_k_var value = 0.33 }
 }
 assign_tag_to_players = {
 	if = {limit = {check_variable = {which = tag_counter_var value = 50 }} set_country_flag = is_player_50_flag save_global_event_target_as = is_player_50_target}
