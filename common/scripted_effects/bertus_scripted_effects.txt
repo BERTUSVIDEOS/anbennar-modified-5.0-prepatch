@@ -3902,8 +3902,12 @@ update_race_modifiers = {
 		}
 	}
 	if = {
-		limit = { has_idea = foreign_embassies_2 has_new_dynasty = no }
+		limit = { has_idea = foreign_embassies_2 }
 		get_dynastic_bonus_modifier = yes
+	}
+	if = {
+		limit = { has_idea = experienced_diplomats }
+		get_dynastic_consort_bonus_modifier = yes
 	}
 	if = {
 		limit = {
@@ -4876,6 +4880,27 @@ get_dynastic_bonus_modifier = {
 		limit = { calc_true_if = { all_country = {dynasty = ROOT total_development = 100} amount = 1 } }
 		add_country_modifier = {name = dynastic_bonus_1 duration = -1 hidden = yes}
 	}
+}
+get_dynastic_consort_bonus_modifier = {	
+	remove_country_modifier = experienced_diplomats_consort_modifier_adm_6
+	remove_country_modifier = experienced_diplomats_consort_modifier_adm_4
+	remove_country_modifier = experienced_diplomats_consort_modifier_adm_2
+	remove_country_modifier = experienced_diplomats_consort_modifier_dip_6
+	remove_country_modifier = experienced_diplomats_consort_modifier_dip_4
+	remove_country_modifier = experienced_diplomats_consort_modifier_dip_2
+	remove_country_modifier = experienced_diplomats_consort_modifier_mil_6
+	remove_country_modifier = experienced_diplomats_consort_modifier_mil_4
+	remove_country_modifier = experienced_diplomats_consort_modifier_mil_2
+	if = { limit = { consort_adm = 6 } add_country_modifier = { name = experienced_diplomats_consort_modifier_adm_6 duration = -1 hidden = yes } }
+	else_if = { limit = { consort_adm = 4 } add_country_modifier = { name = experienced_diplomats_consort_modifier_adm_4 duration = -1 hidden = yes } }
+	else_if = { limit = { consort_adm = 2 } add_country_modifier = { name = experienced_diplomats_consort_modifier_adm_2 duration = -1 hidden = yes } }
+	if = { limit = { consort_dip = 6 } add_country_modifier = { name = experienced_diplomats_consort_modifier_dip_6 duration = -1 hidden = yes } }
+	else_if = { limit = { consort_dip = 4 } add_country_modifier = { name = experienced_diplomats_consort_modifier_dip_4 duration = -1 hidden = yes } }
+	else_if = { limit = { consort_dip = 2 } add_country_modifier = { name = experienced_diplomats_consort_modifier_dip_2 duration = -1 hidden = yes } }
+	if = { limit = { consort_mil = 6 } add_country_modifier = { name = experienced_diplomats_consort_modifier_mil_6 duration = -1 hidden = yes } }
+	else_if = { limit = { consort_mil = 4 } add_country_modifier = { name = experienced_diplomats_consort_modifier_mil_4 duration = -1 hidden = yes } }
+	else_if = { limit = { consort_mil = 2 } add_country_modifier = { name = experienced_diplomats_consort_modifier_mil_2 duration = -1 hidden = yes } }
+
 }
 
 add_colony_amount_modifier = {

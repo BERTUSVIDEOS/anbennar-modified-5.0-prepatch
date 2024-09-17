@@ -39,7 +39,7 @@ country_event = {
 		}
 		if = {
 			limit = {
-				has_reform = deity_duality_reform
+				has_government_attribute = deity_duality_reform_mechanic
 			}
 			trigger_switch = {
 				on_trigger = has_personal_deity
@@ -68,11 +68,14 @@ country_event = {
 		name = "bertus_changes.1001.a"
 		trigger = {
 			NOT = { has_global_flag = "castellos_is_dead_pantheonic_council" }
-			NOT = {has_ruler_modifier = castellos_deity}
+			if = {
+				limit = { has_global_flag = "castellos_is_dead_pantheonic_council" }
+				352 = { has_great_project = { type = temple_of_castellos tier = 3 } owned_by = ROOT } 
+			}
 		}
 		change_personal_deity = castellos
 		if = {
-			limit = { any_owned_province = { has_great_project = { type = temple_of_castellos tier = 3 } } }
+			limit = { 352 = { has_great_project = { type = temple_of_castellos tier = 3 } owned_by = ROOT } }
 			#no effect
 		}
 		else = {
@@ -2200,7 +2203,6 @@ country_event = {	#
 	is_triggered_only = yes
 	trigger = {
 		ai = no
-		NOT = {is_year = 1446}
 	}
 	
 	option = {

@@ -1,13 +1,17 @@
 custom_button = {
     name = racial_pop_menu
     potential = {
-		always = yes
+		ai = no
 	}
 	trigger = {
 		hidden_trigger = {
-			NOT = { has_country_flag = racial_military_menu_opened }
-			NOT = { has_country_flag = racial_pop_menu_opened }
-			NOT = { has_country_modifier = racial_pop_menu_cooldown }
+			OR = {
+				NOT = {has_country_flag = racial_adm_menu_cd}
+				had_country_flag = {
+					flag = racial_adm_menu_cd
+					days = 30
+				}
+			}
 		}
 	}
 	effect = {
@@ -36,14 +40,11 @@ custom_button = {
 		custom_tooltip = spacing_tooltip
 		custom_tooltip = pop_menu_access_tt
 		hidden_effect = {
-			if = { limit = { ai = yes }
-				country_event = { id = racial_pop_misc.1 }
-			}
-			else = {	
-				pop_menu_calculations = yes
-				country_event = { id = racial_pop_misc.3 }
-			}
-			set_country_flag = racial_pop_menu_opened
+			#pop_menu_main_setup = yes
+			#country_event = { id = racial_pop_misc.3 }
+			clr_country_flag = racial_adm_menu_cd
+			set_country_flag = racial_adm_menu_cd
+			#set_country_flag = racial_pop_menu_opened
 		}
 	}
 	tooltip = pop_menu_access_tt
