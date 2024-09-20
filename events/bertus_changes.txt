@@ -2352,7 +2352,7 @@ country_event = {	#
 		custom_tooltip = lord_alfonso_lvl_up_tt
 	}
 }
-country_event = {	#
+province_event = {	#
 	id = bertus_changes.1045	#lord alfonso skill improve chance
 	title = bertus_changes.1045.title
 	desc = bertus_changes.1045.desc
@@ -2363,34 +2363,34 @@ country_event = {	#
 	trigger = {}
 	
 	option = {
-		name = bertus_changes.1044.a
+		name = bertus_changes.1045.a
 		ai_chance = {factor = 40 }
 		
-		change_variable = {which = country_leader_lord_alfonso_shock value = 1}
+		owner = { change_variable = {which = country_leader_lord_alfonso_shock value = 1} }
 	}
 	option = {
-		name = bertus_changes.1044.b
+		name = bertus_changes.1045.b
 		ai_chance = {factor = 40 }
-		change_variable = {which = country_leader_lord_alfonso_fire value = 1}
-		
+
+		owner = { change_variable = {which = country_leader_lord_alfonso_fire value = 1} }
 	}
 	option = {
-		name = bertus_changes.1044.c
+		name = bertus_changes.1045.c
 		ai_chance = {factor = 15 }
-		change_variable = {which = country_leader_lord_alfonso_manuever value = 1}
-		
+
+		owner = { change_variable = {which = country_leader_lord_alfonso_manuever value = 1} }
 	}
 	option = {
-		name = bertus_changes.1044.c
+		name = bertus_changes.1045.c
 		ai_chance = {factor = 5 }
-		change_variable = {which = country_leader_lord_alfonso_siege value = 1}
-		
+
+		owner = { change_variable = {which = country_leader_lord_alfonso_siege value = 1} }
 	}
 	after = {
-		country_event = { id = bertus_changes.1044 }
+		owner = { country_event = { id = bertus_changes.1044 } }
 	}
 }
-country_event = {	#setup provinces goods special modifiers 
+country_event = {	#setup provinces colonial
 	id = bertus_changes.1090
 	title = bertus_changes.1090.t
 	desc = bertus_changes.1090.desc
@@ -2786,18 +2786,8 @@ country_event = {	#setup players electors & other stuff
 		if = {
 			limit = { has_government_mechanic = enslavement_mechanic}
 			if = {
-				limit = {
-					NOT = {
-						check_variable = {
-							which = global_slave_cost_var
-							value = 10.0
-						}
-					}
-				}
-				set_variable = {
-					which = global_slave_cost_var
-					value = 10.0
-				}
+				limit = { NOT = { check_variable = { which = global_slave_cost_var value = 10.0 } } }
+				set_variable = { which = global_slave_cost_var value = 10.0 }
 			}
 		}
 		if = {
@@ -2863,6 +2853,7 @@ province_event = {	#underhold
 			add_base_tax = 1
 			add_base_production = 1
 			add_base_manpower = 1
+			add_nationalism = -20
 			if = {
 				limit = {event_target:hold_owner_target = {tag = A20}}
 				event_target:hold_owner_target = {
@@ -3255,6 +3246,13 @@ country_event = {
 		trigger = {has_country_flag = estate_kobold_present_agenda}
 		start_estate_agenda = estate_kobold
 		goto = agenda_province_kobold
+		ai_chance = {factor = 1}
+	}
+	option = {
+		name = bertus_changes.1112.lizardfolk
+		trigger = {has_country_flag = estate_lizardfolk_present_agenda}
+		start_estate_agenda = estate_lizardfolk
+		goto = agenda_province_lizardfolk
 		ai_chance = {factor = 1}
 	}
 }
@@ -5989,10 +5987,12 @@ country_event = {
 	is_triggered_only = yes
 	trigger = {}
 	immediate = {}
+	after = {
+		clr_country_flag = magisters_mechanic_menu_flag
+	}
     option = {
         name = bertus_changes.6037.back # back
 		ai_chance = {factor = 10}
-		clr_country_flag = magisters_mechanic_menu_flag
     }
     option = {
         name = bertus_changes.6037.high_court_mages # High Court Mages

@@ -829,10 +829,9 @@ on_battle_won_country_effect = {
 				}
 			}
 		}
-		set_variable = { which = temp value = 0 }
-		change_variable = { which = temp which = land_units_killed }
-		divide_variable = { which = temp value = 100 }	#1 exp every 100 kills
-		change_variable = { which = lord_alfonso_exp which = temp }
+		set_variable = { which = land_units_killed_var which = land_units_killed }
+		divide_variable = { which = land_units_killed_var value = 100 }	#1 exp every 100 kills
+		change_variable = { which = lord_alfonso_exp which = land_units_killed_var }
 		update_lord_alfonso_level = yes
 	}
 	if = {	#bertus mod - Military Reform
@@ -859,31 +858,26 @@ on_battle_won_country_effect = {
 	}
 	if = {	#bertus mod
 		limit = {
-			ROOT = {
-				religion = corinite
-				has_church_aspect = corinite_purim_teachings_aspect
-			}
+			religion = corinite
+			has_church_aspect = corinite_purim_teachings_aspect
 		}
-		ROOT = {
-			remove_country_modifier = corinite_purim_teachings_aspect_modifier
-			add_country_modifier = { name = corinite_purim_teachings_aspect_modifier duration = 730 }
-		}
-	}
+		remove_country_modifier = corinite_purim_teachings_aspect_modifier
+		add_country_modifier = { name = corinite_purim_teachings_aspect_modifier duration = 730 }
+}
 	if = {
-		limit = { ROOT = { has_government_attribute = manpower_from_defeating_armies } }
-		ROOT = {
-			multiply_variable = { which = land_units_killed_var value = 0.1 }
-			while = {
-				limit = { check_variable = { which = land_units_killed_var value = 1000 } }
-				subtract_variable = { which = land_units_killed_var value = 1000 }
-				add_manpower = 1
-			}
-			multiply_variable = { which = land_units_killed_var value = 1000 }
-			while = {
-				limit = { check_variable = { which = land_units_killed_var value = 1000 } }
-				subtract_variable = { which = land_units_killed_var value = 1000 }
-				add_manpower = 0.001
-			}
+		limit = { has_government_attribute = manpower_from_defeating_armies }
+		set_variable = { which = land_units_killed_var which = land_units_killed }
+		multiply_variable = { which = land_units_killed_var value = 0.1 }
+		while = {
+			limit = { check_variable = { which = land_units_killed_var value = 1000 } }
+			subtract_variable = { which = land_units_killed_var value = 1000 }
+			add_manpower = 1
+		}
+		multiply_variable = { which = land_units_killed_var value = 1000 }
+		while = {
+			limit = { check_variable = { which = land_units_killed_var value = 1000 } }
+			subtract_variable = { which = land_units_killed_var value = 1000 }
+			add_manpower = 0.001
 		}
 	}
 }
