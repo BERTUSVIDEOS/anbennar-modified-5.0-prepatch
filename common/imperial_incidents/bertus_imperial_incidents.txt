@@ -214,16 +214,24 @@ incident_magisterium_damesear_isle_rights_violation = {
 	default_option = 0
 	
 	can_stop = {
-		all_province = {
-			NOT = {
-				area = west_damesear_area
-				area = east_damesear_area
-				area = ardail_island_area
-			}
-			is_part_of_hre = no
-			owner = {
+		all_country = {
+			OR = {
 				NOT = { has_government_attribute = magisterium_damesear_claim }
+				AND = {
+					has_government_attribute = magisterium_damesear_claim
+					NOT = {
+						any_owned_province = {
+							NOT = {
+								area = west_damesear_area
+								area = east_damesear_area
+								area = ardail_island_area
+							}
+							is_part_of_hre = yes
+						}
+					}
+				}
 			}
+
 		}
 	}
 	

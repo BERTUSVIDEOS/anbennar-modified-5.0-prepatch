@@ -52,6 +52,8 @@ country_event = {
 				munas_moonsinger_ibevar = {add_ruler_modifier = {name = munas_moonsinger_ibevar_deity duration = -1}}
 				ara = {add_ruler_modifier = {name = ara_deity duration = -1}}
 				balgar = {add_ruler_modifier = {name = balgar_deity duration = -1}}
+				balgar_deity = {add_ruler_modifier = {name = balgar_deity duration = -1}}
+				balgar_bal_hyl = {add_ruler_modifier = {name = balgar_deity duration = -1}}
 				esmaryal = {add_ruler_modifier = {name = esmaryal_deity duration = -1}}
 				ryala = {add_ruler_modifier = {name = ryala_deity duration = -1}}
 				minara = {add_ruler_modifier = {name = minara_deity duration = -1}}
@@ -179,7 +181,44 @@ country_event = {
 		trigger = {
 			NOT = {has_ruler_modifier = balgar_deity}
 		}
-		change_personal_deity = balgar
+		if = {
+			limit = {
+				OR = {
+					religion = cannorian_pantheon
+					religion = regent_court
+				}
+				# For the Silverforge mission tree
+				OR = {
+					has_country_flag = bal_hyl_high_temple
+					308 = {
+						owned_by = ROOT
+						has_great_project = { type = balgar_high_temple tier = 3 }
+					}
+				}
+			}
+			change_personal_deity = balgar_bal_hyl
+		}
+		else_if = {
+			limit = {
+				OR = {
+					religion = cannorian_pantheon
+					religion = regent_court
+				}
+				# For the Silverforge mission tree
+				OR = {
+					has_country_flag = bal_hyl_high_temple
+					308 = {
+						owned_by = ROOT
+						has_great_project = { type = balgar_high_temple tier = 3 }
+					}
+				}
+			}
+			change_personal_deity = balgar_khug
+		}
+		else = {
+			change_personal_deity = balgar
+		}
+
 		if = {
 			limit = { any_owned_province = { has_great_project = { type = balgar_high_temple tier = 3 } } }
 			#no effect
@@ -4010,9 +4049,9 @@ country_event = {	#religion general
 		ai_chance = {factor = 50}
 		trigger_switch = {
 			on_trigger = religion
-			great_dookan = {set_country_flag = ShaggtFiremouth_flag set_saved_name = {key = special_general_name type = simple name = "Shagg't Firemouth"}}
-			old_dookan = {set_country_flag = ShaggtFiremouth_flag set_saved_name = {key = special_general_name type = simple name = "Shagg't Firemouth"}}
-			ik_magthaal = {set_country_flag = Zathnar_longlegged_flag set_saved_name = {key = special_general_name type = simple name = "Zathnar longlegged"}}
+			great_dookan = {set_country_flag = ShaggtFiremouth_flag set_saved_name = {key = special_general_name type = simple name = "Shagg't 'Firemouth'"}}
+			old_dookan = {set_country_flag = ShaggtFiremouth_flag set_saved_name = {key = special_general_name type = simple name = "Shagg't 'Firemouth'"}}
+			ik_magthaal = {set_country_flag = Zathnar_longlegged_flag set_saved_name = {key = special_general_name type = simple name = "Zathnar 'Longlegged'"}}
 			feast_of_the_gods = {set_country_flag = Carl_The_Loony_flag set_saved_name = {key = special_general_name type = simple name = "Carl 'The Loony'"}}
 		}
 	}
@@ -4021,8 +4060,8 @@ country_event = {	#religion general
 		ai_chance = {factor = 50}
 		trigger_switch = {
 			on_trigger = religion
-			great_dookan = {set_country_flag = KrambruStrongarm_flag set_saved_name = {key = special_general_name type = simple name = "Krambru Strongarm"}}
-			old_dookan = {set_country_flag = KrambruStrongarm_flag set_saved_name = {key = special_general_name type = simple name = "Krambru Strongarm"}}
+			great_dookan = {set_country_flag = KrambruStrongarm_flag set_saved_name = {key = special_general_name type = simple name = "Krambru 'Strongarm'"}}
+			old_dookan = {set_country_flag = KrambruStrongarm_flag set_saved_name = {key = special_general_name type = simple name = "Krambru 'Strongarm'"}}
 			ik_magthaal = {set_country_flag = DrogoTheGreat_flag set_saved_name = {key = special_general_name type = simple name = "Drogo 'The Great'"}}
 			feast_of_the_gods = {set_country_flag = MikeTheBrainy_flag set_saved_name = {key = special_general_name type = simple name = "Mike 'The Brainy'"}}
 		}
@@ -7300,17 +7339,17 @@ country_event = {	#incidents from reforms posponed
 	immediate = {
 		trigger_switch = {
 			on_trigger = has_global_flag
-			incident_imperial_colleges_delay_flag = { set_imperial_incident = incident_imperial_colleges }
-			incident_imperial_call_delay_flag = { set_imperial_incident = incident_imperial_call }
-			incident_eralas_reform_delay_flag = { set_imperial_incident = incident_eralas_reform }
-			incident_imperial_authority_reform_delay_flag = { set_imperial_incident = incident_imperial_authority_reform }
-			incident_market_reform_delay_flag = { set_imperial_incident = incident_market_reform }
-			incident_religious_reform_delay_flag = { set_imperial_incident = incident_religious_reform }
-			incident_weddings_reform_delay_flag = { set_imperial_incident = incident_weddings_reform }
-			incident_resource_reform_delay_flag = { set_imperial_incident = incident_resource_reform }
-			incident_high_ministery_reform_delay_flag = { set_imperial_incident = incident_high_ministery_reform }
-			incident_magisterium_damesear_isle_rights_violation_delay_flag = { set_imperial_incident = incident_magisterium_damesear_isle_rights_violation }
-			incident_prince_tributary_delay_flag = { set_imperial_incident = incident_prince_tributary }
+			incident_imperial_colleges_delay_flag = { set_imperial_incident = incident_imperial_colleges clr_global_flag = incident_imperial_colleges_delay_flag }
+			incident_imperial_call_delay_flag = { set_imperial_incident = incident_imperial_call clr_global_flag = incident_imperial_call_delay_flag }
+			incident_eralas_reform_delay_flag = { set_imperial_incident = incident_eralas_reform clr_global_flag = incident_eralas_reform_delay_flag }
+			incident_imperial_authority_reform_delay_flag = { set_imperial_incident = incident_imperial_authority_reform clr_global_flag = incident_imperial_authority_reform_delay_flag }
+			incident_market_reform_delay_flag = { set_imperial_incident = incident_market_reform clr_global_flag = incident_market_reform_delay_flag }
+			incident_religious_reform_delay_flag = { set_imperial_incident = incident_religious_reform clr_global_flag = incident_religious_reform_delay_flag }
+			incident_weddings_reform_delay_flag = { set_imperial_incident = incident_weddings_reform clr_global_flag = incident_weddings_reform_delay_flag }
+			incident_resource_reform_delay_flag = { set_imperial_incident = incident_resource_reform clr_global_flag = incident_resource_reform_delay_flag }
+			incident_high_ministery_reform_delay_flag = { set_imperial_incident = incident_high_ministery_reform clr_global_flag = incident_high_ministery_reform_delay_flag }
+			incident_magisterium_damesear_isle_rights_violation_delay_flag = { set_imperial_incident = incident_magisterium_damesear_isle_rights_violation clr_global_flag = incident_magisterium_damesear_isle_rights_violation_delay_flag }
+			incident_prince_tributary_delay_flag = { set_imperial_incident = incident_prince_tributary clr_global_flag = incident_prince_tributary_delay_flag }
 		}
 		set_global_flag = aoa_incident_active_flag_tt
 	}
@@ -7318,19 +7357,7 @@ country_event = {	#incidents from reforms posponed
 		name = bertus_changes.6100.a
 		ai_chance = {factor = 25}
 	}
-	after = {
-		clr_global_flag = incident_imperial_colleges_delay_flag
-		clr_global_flag = incident_imperial_call_delay_flag
-		clr_global_flag = incident_eralas_reform_delay_flag
-		clr_global_flag = incident_imperial_authority_reform_delay_flag
-		clr_global_flag = incident_market_reform_delay_flag
-		clr_global_flag = incident_religious_reform_delay_flag
-		clr_global_flag = incident_weddings_reform_delay_flag
-		clr_global_flag = incident_resource_reform_delay_flag
-		clr_global_flag = incident_high_ministery_reform_delay_flag
-		clr_global_flag = incident_magisterium_damesear_isle_rights_violation_delay_flag
-		clr_global_flag = incident_prince_tributary_delay_flag
-	}
+	after = { }
 }
 country_event = {	#goods menu
 	id = bertus_changes.7000

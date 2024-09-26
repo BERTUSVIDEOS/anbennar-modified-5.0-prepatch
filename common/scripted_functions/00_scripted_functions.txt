@@ -563,6 +563,43 @@ can_colonize_province = {
 }
 
 can_colonize_province_siberian_frontier = {
+	condition = { # AI Can't colonize if MP
+		potential = {
+			FROM = {
+				ai = yes
+				if = {
+					limit = { is_subject = yes }
+					overlord = { ai = no }
+				}
+			}
+			calc_true_if = {
+				all_country = { ai = no }
+				amount = 2
+			}
+		}
+		allow = {
+			always = no
+		}
+	}
+	condition = { # 
+		potential = {
+			OR = {
+				has_terrain = dwarven_under_hold
+				has_province_modifier = deepwoods_blocked_path
+			}
+		}
+		allow = {
+			always = no
+		}
+	}
+	condition = { # Cant colonize those province
+		potential = {
+			has_province_flag = cant_colonize_bertus_flag
+		}
+		allow = {
+			always = no
+		}
+	}
 	condition = { # Cant colonize those province
 		potential = {
 			has_province_modifier = cant_colonize
