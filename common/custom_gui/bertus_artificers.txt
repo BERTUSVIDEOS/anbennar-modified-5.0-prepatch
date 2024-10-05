@@ -32,12 +32,12 @@ custom_button = {
 			if = {
 				limit = {
 					OR = {
-						has_country_flag = update_artifice_points_cd
-						had_country_flag = { flag = update_artifice_points_cd days = 30 }
+						has_country_flag = update_artifice_points_cd_flag
+						had_country_flag = { flag = update_artifice_points_cd_flag days = 30 }
 					}
 				}
-				clr_country_flag = update_artifice_points_cd
-				set_country_flag = update_artifice_points_cd
+				clr_country_flag = update_artifice_points_cd_flag
+				set_country_flag = update_artifice_points_cd_flag
 				hidden_effect = { country_event = { id = artificers_estate_events.100 } }
 			}
 		}
@@ -1489,12 +1489,9 @@ custom_button = {
 	trigger = {
 		has_unlocked_invention = { invention = unlocked_artifice_invention_spell_in_a_box}
 		has_estate_privilege = artifice_invention_spell_in_a_box
-		if = {
-			limit = {
-				has_country_flag = invention_spell_in_a_box_cd
-				NOT = { had_country_flag = { flag = invention_spell_in_a_box_cd days = 3650 } }
-			}
-			had_country_flag = { flag = invention_spell_in_a_box_cd days = 3650 }
+		cooldown_trigger = {
+			name = invention_spell_in_a_box
+			cooldown = 3650
 		}
 		if = {
 			limit = { has_country_flag = invention_spell_in_a_box_use }
@@ -1505,8 +1502,8 @@ custom_button = {
 		}
 	}
 	effect = {
-		clr_country_flag = invention_spell_in_a_box_cd
-		set_country_flag = invention_spell_in_a_box_cd
+		clr_country_flag = invention_spell_in_a_box_cd_flag
+		set_country_flag = invention_spell_in_a_box_cd_flag
 		custom_tooltip = invention_spell_in_a_box_tt
 		set_country_flag = invention_spell_in_a_box_use
 	}

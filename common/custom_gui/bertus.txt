@@ -8,8 +8,18 @@ custom_button = {
 			ai = no	#bertus mod
 			NOT = { has_ruler_flag = magic_menu_opened }
 		}
-		NOT = { has_country_flag = in_magocracy_heir_selection }
-		NOT = { has_ruler_modifier = magic_realm_menu_cooldown }
+		if = {
+			limit = { has_country_flag = in_magocracy_heir_selection }
+			NOT = { has_country_flag = in_magocracy_heir_selection }
+		}
+		if = {
+			limit = { has_country_flag = in_magocracy_magister_selection }
+			NOT = { has_country_flag = in_magocracy_magister_selection }
+		}
+		if = {
+			limit = { has_ruler_modifier = magic_realm_menu_cooldown }
+			NOT = { has_ruler_modifier = magic_realm_menu_cooldown }
+		}
 		if = { limit = { NOT = {months_of_ruling = 2 }}
 			months_of_ruling = 2
 		}
@@ -132,18 +142,15 @@ custom_button = {
 		ai = no
 	}
 	trigger = {
-		if = {
-			limit = {
-				has_country_flag = racial_mil_menu_cd
-				NOT = { had_country_flag = { flag = racial_mil_menu_cd days = 30 } }
-			}
-			had_country_flag = { flag = racial_mil_menu_cd days = 30 }
+		cooldown_trigger = {
+			name = racial_mil_menu
+			cooldown = 30
 		}
 	}
 	effect = {
 		hidden_effect = {
-			clr_country_flag = racial_mil_menu_cd
-			set_country_flag = racial_mil_menu_cd
+			clr_country_flag = racial_mil_menu_cd_flag
+			set_country_flag = racial_mil_menu_cd_flag
 			country_event = {id = bertus_racial_military.1001}
 		}
 		country_administration_effect = {
@@ -167,12 +174,9 @@ custom_button = {
 		always = yes
 	}
 	trigger = {
-		if = {
-			limit = {
-				has_country_flag = trade_goods_update_cd
-				NOT = { had_country_flag = { flag = trade_goods_update_cd days = 30 } }
-			}
-			had_country_flag = { flag = trade_goods_update_cd days = 30 }
+		cooldown_trigger = {
+			name = trade_goods_update
+			cooldown = 30
 		}
 	}
 	effect = {
@@ -180,8 +184,8 @@ custom_button = {
 		hidden_effect = {
 			country_event = {id = ANEX_event.34}
 			country_event = {id = bertus_changes.7000}
-			clr_country_flag = trade_goods_update_cd
-			set_country_flag = trade_goods_update_cd
+			clr_country_flag = trade_goods_update_cd_flag
+			set_country_flag = trade_goods_update_cd_flag
 		}
 	}
     tooltip = bertus_open_goods_menu
@@ -237,20 +241,17 @@ custom_button = {
 		ai = no
 	}
 	trigger = {
-		if = {
-			limit = {
-				has_country_flag = first_chairman_interaction_cd
-				NOT = { had_country_flag = { flag = first_chairman_interaction_cd days = 3650 } }
-			}
-			had_country_flag = { flag = first_chairman_interaction_cd days = 3650 }
+		cooldown_trigger = {
+			name = first_chairman_interaction
+			cooldown = 3650
 		}
 	}
 	effect = {
 		country_chairman_effect = { type = first_hand }
 		country_event = { id = bertus_racial_military.5200 }
 		hidden_effect = {
-			clr_country_flag = first_chairman_interaction_cd
-			set_country_flag = first_chairman_interaction_cd
+			clr_country_flag = first_chairman_interaction_cd_flag
+			set_country_flag = first_chairman_interaction_cd_flag
 		}
 	}
     tooltip = first_chairman_interaction_tt
@@ -261,20 +262,17 @@ custom_button = {
 		ai = no
 	}
 	trigger = {
-		if = {
-			limit = {
-				has_country_flag = diplomacy_chairman_interaction_cd
-				NOT = { had_country_flag = { flag = diplomacy_chairman_interaction_cd days = 3650 } }
-			}
-			had_country_flag = { flag = diplomacy_chairman_interaction_cd days = 3650 }
+		cooldown_trigger = {
+			name = diplomacy_chairman_interaction
+			cooldown = 3650
 		}
 	}
 	effect = {
 		country_chairman_effect = { type = diplomacy }
 		country_event = { id = bertus_racial_military.5201 }
 		hidden_effect = {
-			clr_country_flag = diplomacy_chairman_interaction_cd
-			set_country_flag = diplomacy_chairman_interaction_cd
+			clr_country_flag = diplomacy_chairman_interaction_cd_flag
+			set_country_flag = diplomacy_chairman_interaction_cd_flag
 		}
 	}
     tooltip = diplomacy_chairman_interaction_tt
@@ -285,20 +283,17 @@ custom_button = {
 		ai = no
 	}
 	trigger = {
-		if = {
-			limit = {
-				has_country_flag = military_chairman_interaction_cd
-				NOT = { had_country_flag = { flag = military_chairman_interaction_cd days = 3650 } }
-			}
-			had_country_flag = { flag = military_chairman_interaction_cd days = 3650 }
+		cooldown_trigger = {
+			name = military_chairman_interaction
+			cooldown = 3650
 		}
 	}
 	effect = {
 		country_chairman_effect = { type = military }
 		country_event = { id = bertus_racial_military.5202 }
 		hidden_effect = {
-			clr_country_flag = military_chairman_interaction_cd
-			set_country_flag = military_chairman_interaction_cd
+			clr_country_flag = military_chairman_interaction_cd_flag
+			set_country_flag = military_chairman_interaction_cd_flag
 		}
 	}
     tooltip = military_chairman_interaction_tt
@@ -309,12 +304,9 @@ custom_button = {
 		ai = no
 	}
 	trigger = {
-		if = {
-			limit = {
-				has_country_flag = economic_chairman_interaction_cd
-				NOT = { had_country_flag = { flag = economic_chairman_interaction_cd days = 3650 } }
-			}
-			had_country_flag = { flag = economic_chairman_interaction_cd days = 3650 }
+		cooldown_trigger = {
+			name = economic_chairman_interaction
+			cooldown = 3650
 		}
 	}
 	effect = {
@@ -327,8 +319,8 @@ custom_button = {
 			custom_tooltip = estate_halfling_economic_chairman_tooltip
 		}
 		hidden_effect = {
-			clr_country_flag = economic_chairman_interaction_cd
-			set_country_flag = economic_chairman_interaction_cd
+			clr_country_flag = economic_chairman_interaction_cd_flag
+			set_country_flag = economic_chairman_interaction_cd_flag
 		}
 	}
     tooltip = economic_chairman_interaction_tt
@@ -343,20 +335,17 @@ custom_button = {
 			limit = { all_owned_province = { has_port = no } }
 			any_owned_province = { has_port = yes }
 		}
-		if = {
-			limit = {
-				has_country_flag = navy_chairman_interaction_cd
-				NOT = { had_country_flag = { flag = navy_chairman_interaction_cd days = 3650 } }
-			}
-			had_country_flag = { flag = navy_chairman_interaction_cd days = 3650 }
+		cooldown_trigger = {
+			name = navy_chairman_interaction
+			cooldown = 3650
 		}
 	}
 	effect = {
 		country_chairman_effect = { type = navy }
 		country_event = { id = bertus_racial_military.5204 }
 		hidden_effect = {
-			clr_country_flag = navy_chairman_interaction_cd
-			set_country_flag = navy_chairman_interaction_cd
+			clr_country_flag = navy_chairman_interaction_cd_flag
+			set_country_flag = navy_chairman_interaction_cd_flag
 		}
 	}
     tooltip = navy_chairman_interaction_tt
@@ -577,7 +566,7 @@ custom_icon = {
 			has_country_modifier = dookans_guidance_war
 		}
 	}
-	frame = { #First matched frame clause will be used.
+	frame = {
 	    number = 3
 	    trigger = { 
 		}
@@ -840,51 +829,33 @@ custom_button = {
 		if = {
 			limit = { has_government_attribute = praise_surael_reform_mechanic }
 			OR = {
-				if = {
-					limit = {
-						has_country_flag = elven_interaction_cd
-						NOT = { had_country_flag = { flag = elven_interaction_cd days = 3650 } }
-					}
-					had_country_flag = { flag = elven_interaction_cd days = 3650 }
+				cooldown_trigger = {
+					name = elven_interaction
+					cooldown = 3650
 				}
-				if = {
-					limit = {
-						has_country_flag = human_interaction_cd
-						NOT = { had_country_flag = { flag = human_interaction_cd days = 3650 } }
-					}
-					had_country_flag = { flag = human_interaction_cd days = 3650 }
+				cooldown_trigger = {
+					name = human_interaction
+					cooldown = 3650
 				}
-				if = {
-					limit = {
-						has_country_flag = half_elven_interaction_cd
-						NOT = { had_country_flag = { flag = half_elven_interaction_cd days = 3650 } }
-					}
-					had_country_flag = { flag = half_elven_interaction_cd days = 3650 }
+				cooldown_trigger = {
+					name = half_elven_interaction
+					cooldown = 3650
 				}
 			}
 		}
 		else = {
 			OR = {
-				if = {
-					limit = {
-						has_country_flag = elven_interaction_cd
-						NOT = { had_country_flag = { flag = elven_interaction_cd days = 5475 } }
-					}
-					had_country_flag = { flag = elven_interaction_cd days = 5475 }
+				cooldown_trigger = {
+					name = elven_interaction
+					cooldown = 5475
 				}
-				if = {
-					limit = {
-						has_country_flag = human_interaction_cd
-						NOT = { had_country_flag = { flag = human_interaction_cd days = 5475 } }
-					}
-					had_country_flag = { flag = human_interaction_cd days = 5475 }
+				cooldown_trigger = {
+					name = human_interaction
+					cooldown = 5475
 				}
-				if = {
-					limit = {
-						has_country_flag = half_elven_interaction_cd
-						NOT = { had_country_flag = { flag = half_elven_interaction_cd days = 5475 } }
-					}
-					had_country_flag = { flag = half_elven_interaction_cd days = 5475 }
+				cooldown_trigger = {
+					name = half_elven_interaction
+					cooldown = 5475
 				}
 			}
 		}
@@ -895,30 +866,30 @@ custom_button = {
 			if = {
 				limit = { has_government_attribute = praise_surael_reform_mechanic }
 				if = {
-					limit = { had_country_flag = { flag = elven_interaction_cd days = 3650 } }
-					clr_country_flag = elven_interaction_cd
+					limit = { had_country_flag = { flag = elven_interaction_cd_flag days = 3650 } }
+					clr_country_flag = elven_interaction_cd_flag
 				}
 				else_if = {
-					limit = { had_country_flag = { flag = human_interaction_cd days = 3650 } }
-					clr_country_flag = human_interaction_cd
+					limit = { had_country_flag = { flag = human_interaction_cd_flag days = 3650 } }
+					clr_country_flag = human_interaction_cd_flag
 				}
 				else_if = {
-					limit = { had_country_flag = { flag = half_elven_interaction_cd days = 3650 } }
-					clr_country_flag = half_elven_interaction_cd
+					limit = { had_country_flag = { flag = half_elven_interaction_cd_flag days = 3650 } }
+					clr_country_flag = half_elven_interaction_cd_flag
 				}
 			}
 			else = {
 				if = {
-					limit = { had_country_flag = { flag = elven_interaction_cd days = 5475 } }
-					clr_country_flag = elven_interaction_cd
+					limit = { had_country_flag = { flag = elven_interaction_cd_flag days = 5475 } }
+					clr_country_flag = elven_interaction_cd_flag
 				}
 				else_if = {
-					limit = { had_country_flag = { flag = human_interaction_cd days = 5475 } }
-					clr_country_flag = human_interaction_cd
+					limit = { had_country_flag = { flag = human_interaction_cd_flag days = 5475 } }
+					clr_country_flag = human_interaction_cd_flag
 				}
 				else_if = {
-					limit = { had_country_flag = { flag = half_elven_interaction_cd days = 5475 } }
-					clr_country_flag = half_elven_interaction_cd
+					limit = { had_country_flag = { flag = half_elven_interaction_cd_flag days = 5475 } }
+					clr_country_flag = half_elven_interaction_cd_flag
 				}
 			}
 		}
@@ -1160,4 +1131,49 @@ custom_button = {
 		}
 	}
 	tooltip = RED_BUTTON_TT
+}
+
+custom_button = {
+	name = dwarven_sea_fortress
+	potential = {
+		num_of_man_of_war = 1
+	}
+	trigger = {
+		cooldown_trigger = {
+			name = dwarven_fortress
+			cooldown = 20
+		}
+	}
+	effect = {
+		clr_country_flag = dwarven_fortress_cd_flag
+		set_country_flag = dwarven_fortress_cd_flag
+		if = {
+			limit = { has_country_modifier = dwarven_fortress_transition_modifier }
+			custom_tooltip = dwarven_sea_fortress_process_tt
+		}
+		else_if = {
+			limit = { NOT = { has_country_modifier = dwarven_fortress_set_modifier } }
+			custom_tooltip = dwarven_sea_fortress_set_up_tt
+			add_country_modifier = { name = dwarven_fortress_transition_modifier duration = 10 }
+			hidden_effect = {country_event = { id = bertus_changes.6035 days = 10 } }
+		}
+		else = {
+			custom_tooltip = dwarven_sea_fortress_set_down_tt
+			remove_country_modifier = dwarven_fortress_set_modifier
+			add_country_modifier = { name = dwarven_fortress_transition_modifier duration = 10 }
+		}
+	}
+	frame = {
+		number = 1
+		trigger = { has_country_modifier = dwarven_fortress_transition_modifier }
+	}
+	frame = {
+		number = 2
+		trigger = { NOT = { has_country_modifier = dwarven_fortress_set_modifier } }
+	}
+	frame = {
+		number = 3
+		trigger = {  }
+	}
+	tooltip = dwarven_sea_fortress_tt
 }

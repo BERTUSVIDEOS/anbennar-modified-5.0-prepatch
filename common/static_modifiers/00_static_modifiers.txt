@@ -157,10 +157,14 @@ seat_in_parliament = {
 
 non_coastal = {
 	local_naval_engagement_modifier = 0.20	#0→0.20
+	local_defender_dice_roll_bonus = 10	#0→5
+	local_attacker_dice_roll_bonus = 10	#0→5
 }
 
 coastal_sea = {
 	local_naval_engagement_modifier = -0.20
+	local_defender_dice_roll_bonus = 5	#0→5
+	local_attacker_dice_roll_bonus = 5	#0→5
 }
 
 tropical = {
@@ -696,7 +700,8 @@ base_values = {
 	allowed_cossack_fraction = 0.10
 	allow_free_estate_privilege_revocation = yes	#bertus mod
 	global_rebel_suppression_efficiency = -0.90
-	max_flagships = 1 #1.35
+	max_flagships = 1
+	amount_of_man_of_war = 1 #1.35
 	num_of_parliament_issues = 10 #1.35
 	leader_naval_manuever = -2	#0→-2
 	warscore_from_battles_modifier = -0.33	#0→-0.33
@@ -1622,6 +1627,8 @@ absolutism = {
 	expand_administration_cost = -0.5	#0→-0.5
 	state_maintenance_modifier = -0.5	#0→0.5
 	autonomy_change_time = -0.5	#0→-0.5
+	nationalist_influence_modifier = 0.50
+	nationalist_loyalty_modifier = 0.50
 
 	#Anbennar
 	tec_mechanists_influence = 0.1
@@ -1647,6 +1654,7 @@ high_army_professionalism = {
 }
 
 streltsy_modifier = { #1.35
+	military_reform_power_gain_modifier = -1.0
 }
 
 cossacks_modifier = { #1.35
@@ -1709,8 +1717,9 @@ land_forcelimit = {
 
 #100 Naval Forcelimit = 1
 naval_forcelimit = {
-   free_navy_leader_pool = 0.6	#1.25→0.6 #166 Naval Forcelimit -> +1 Free Leader
-   max_flagships = 1	#0→1
+ 	free_navy_leader_pool = 0.6	#1.25→0.6 #166 Naval Forcelimit -> +1 Free Leader
+	max_flagships = 1
+	amount_of_man_of_war = 1	#0→1
 }
 
 trade_company_strong = {
@@ -2573,12 +2582,16 @@ revolutionary_guard_regiment = {	#bertus mod	#
 geobukseon_ship = {	#bertus mod	#	unused
 }
 
-man_of_war_ship = {	#bertus mod	#	unused
+man_of_war_ship = {	#bertus mod	#	dwarven fortress
+	heavy_ship_cost = 4.0
+	disengagement_chance = -0.10
+	movement_speed_in_fleet_modifier = -5
+	cannons_for_hunting_pirates_in_fleet = -10.0
 }
 
 galleon_ship = {	#bertus mod	#	Great Purussaurus (kobold)
 	hull_size = 10
-	global_naval_engagement = -1
+	engagement_cost = -1
 	movement_speed_in_fleet_modifier = 2
 }
 
@@ -2593,10 +2606,12 @@ caravel_ship = {	#bertus mod	#	unused
 
 voc_indiamen_ship = {	#bertus mod	#	Elven frigate
 	can_transport_units = yes
-	number_of_cannons_modifier = 0.50
-	hull_size_modifier = 0.50
+	number_of_cannons_modifier = 2.0
+	engagement_cost = 0.5
+	hull_size_modifier = 1.0
 	movement_speed_in_fleet_modifier = 1
 	ship_trade_power_modifier = -2.0
+	light_ship_cost = 0.5
 }
 
 innovativeness = {

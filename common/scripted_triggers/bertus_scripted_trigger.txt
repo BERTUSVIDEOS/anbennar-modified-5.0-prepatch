@@ -1,5 +1,14 @@
 
 
+cooldown_trigger = {
+	if = {
+		limit = {
+			has_country_flag = $name$_cd_flag
+			NOT = { had_country_flag = { flag = dwarven_fortress_cd_flag days = $cooldown$ } }
+		}
+		had_country_flag = { flag = $name$_cd_flag days = $cooldown$ }
+	}
+}
 red_alert = {	#unbalanced wars
 	OR = {
 		AND = {	#REGULAR SCENARIO CASE
@@ -75,17 +84,17 @@ has_unlocked_magic_school = {
 			A85 = { has_country_flag = $school$_$level$_school_reform_flag }
 		}
 	}
+	else = {
+		custom_trigger_tooltip = {
+			tooltip = has_unlocked_$school$_$level$_tt
+			has_country_flag = $school$_$level$_school_reform_flag
+		}
+	}
 	if = {
 		limit = { is_colonial_nation = yes }
 		custom_trigger_tooltip = {
 			tooltip = has_unlocked_$school$_$level$_tt
 			overlord = { has_country_flag = $school$_$level$_school_reform_flag }
-		}
-	}
-	else = {
-		custom_trigger_tooltip = {
-			tooltip = has_unlocked_$school$_$level$_tt
-			has_country_flag = $school$_$level$_school_reform_flag
 		}
 	}
 }

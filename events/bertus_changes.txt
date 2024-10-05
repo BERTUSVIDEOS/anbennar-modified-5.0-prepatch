@@ -5793,21 +5793,21 @@ country_event = {	 #surael stuff
 	immediate = {
 		if = {
 			limit = {
-				NOT = { has_country_flag = elven_interaction_cd }
+				NOT = { has_country_flag = elven_interaction_cd_flag }
 			}
-			set_country_flag = elven_interaction_cd
+			set_country_flag = elven_interaction_cd_flag
 		}
 		else_if = {
 			limit = {
-				NOT = { has_country_flag = human_interaction_cd }
+				NOT = { has_country_flag = human_interaction_cd_flag }
 			}
-			set_country_flag = human_interaction_cd
+			set_country_flag = human_interaction_cd_flag
 		}
 		else_if = {
 			limit = {
-				NOT = { has_country_flag = half_elven_interaction_cd }
+				NOT = { has_country_flag = half_elven_interaction_cd_flag }
 			}
-			set_country_flag = half_elven_interaction_cd
+			set_country_flag = half_elven_interaction_cd_flag
 		}
 	}
     option = {
@@ -5969,7 +5969,27 @@ province_event = {
     }
 }
 
-# id = bertus_changes.6035	#unused
+country_event = {
+    id = bertus_changes.6035
+    title = bertus_changes.6035.title
+    desc = bertus_changes.6035.desc
+    picture = DHIMMI_ESTATE_eventPicture
+
+	is_triggered_only = yes
+	hidden = yes
+
+	trigger = {}
+	immediate = {
+	}
+
+    option = {
+        name = bertus_changes.6035.a
+		
+		add_country_modifier = { name = dwarven_fortress_set_modifier duration = -1 }
+    }
+
+}
+
 # id = bertus_changes.6036	#unused
 
 country_event = {
@@ -6381,12 +6401,9 @@ country_event = {	#
 		
 	trigger = {
 		ai = no
-		OR = {
-			NOT = {has_country_flag = max_mana_hint_cd_flag}
-			had_country_flag = {
-				flag = max_mana_hint_cd_flag
-				days = 365
-			}
+		cooldown_trigger = {
+			name = max_mana_hint
+			cooldown = 365
 		}
 	}
 	immediate = {

@@ -356,6 +356,7 @@ estate_halfling_recruitment_2 = {
 	}
 	modifier_by_land_ownership = {
 		cavalry_shock = -0.5
+		cavalry_fire = 0.20
 		infantry_fire = 0.07
 		infantry_shock = -0.25	
 	}
@@ -414,7 +415,7 @@ estate_halfling_recruitment_5 = {
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
-		cavalry_fire = 0.25
+		cavalry_fire = 0.40
 		cavalry_shock = -0.6
 		infantry_fire = 0.07
 		infantry_shock = -0.325	
@@ -474,7 +475,7 @@ estate_halfling_recruitment_6 = {
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
-		cavalry_fire = 0.25
+		cavalry_fire = 0.40
 		cavalry_shock = -0.6
 		infantry_fire = 0.11
 		infantry_shock = -0.475	
@@ -534,7 +535,7 @@ estate_halfling_recruitment_7 = {
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
-		cavalry_fire = 0.25
+		cavalry_fire = 0.40
 		cavalry_shock = -0.6
 		infantry_fire = 0.11
 		infantry_shock = -0.475	
@@ -575,6 +576,67 @@ estate_halfling_recruitment_8 = {
 	influence = 0.10
 	is_valid = {
 		mil_tech = 8
+		NOT = {mil_tech = 9}
+	}
+	can_select = {		
+		high_tolerance_halfling_race_trigger = yes
+		any_owned_province = {
+			has_halfling_majority_trigger = yes
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			set_country_flag = estate_halfling_recruitment_flag
+			country_event = { id = bertus_racial_military.1001 }
+			if = {
+				limit = { NOT = { has_country_flag = estate_halfling_recruitment_cooldown_flag } }
+				set_country_flag = estate_halfling_recruitment_cooldown_flag
+			}
+		}
+		custom_tooltip = malus_if_monstrous_mechanic_tooltip
+	}
+	modifier_by_land_ownership = {
+		cavalry_fire = 0.40
+		cavalry_shock = -1.0
+		infantry_fire = 0.16
+		infantry_shock = -0.475
+		artillery_fire = 0.10	
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	mechanics = {
+		enables_cossack_regiments
+	}
+	can_revoke = {
+		had_country_flag = {
+			flag = estate_halfling_recruitment_cooldown_flag
+			days = 7300
+		}
+	}
+	on_revoked = {
+		hidden_effect = {
+			clr_country_flag = estate_halfling_recruitment_flag
+			clr_country_flag = estate_halfling_recruitment_cooldown_flag
+			country_event = { id = bertus_racial_military.1001 }
+		}	
+	}
+	on_invalid = {
+		clr_country_flag = estate_halfling_recruitment_flag
+		update_halfling_recruitment = yes
+		set_estate_privilege = estate_halfling_recruitment_9
+	}
+	ai_will_do = {
+		factor = 1000
+	}
+}
+estate_halfling_recruitment_9 = {
+	icon = privilege_demand_more_troops
+	loyalty = -0.10
+	influence = 0.10
+	is_valid = {
+		mil_tech = 9
 		NOT = {mil_tech = 11}
 	}
 	can_select = {		
@@ -595,7 +657,7 @@ estate_halfling_recruitment_8 = {
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
-		cavalry_fire = 0.25
+		cavalry_fire = 0.60
 		cavalry_shock = -1.0
 		infantry_fire = 0.16
 		infantry_shock = -0.475
@@ -656,7 +718,7 @@ estate_halfling_recruitment_11 = {
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
-		cavalry_fire = 0.25
+		cavalry_fire = 0.60
 		cavalry_shock = -1.0
 		infantry_fire = 0.16
 		infantry_shock = -0.575
@@ -717,7 +779,7 @@ estate_halfling_recruitment_13 = {
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
-		cavalry_fire = 0.5
+		cavalry_fire = 0.80
 		cavalry_shock = -1.0
 		infantry_fire = 0.16
 		infantry_shock = -0.575
@@ -778,7 +840,7 @@ estate_halfling_recruitment_14 = {
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
-		cavalry_fire = 0.5
+		cavalry_fire = 0.80
 		cavalry_shock = -1.0
 		infantry_fire = 0.22
 		infantry_shock = -0.575	
@@ -839,7 +901,7 @@ estate_halfling_recruitment_16 = {
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
-		cavalry_fire = 0.75
+		cavalry_fire = 0.80
 		cavalry_shock = -1.0
 		infantry_fire = 0.22
 		infantry_shock = -0.575
@@ -900,7 +962,7 @@ estate_halfling_recruitment_17 = {
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
-		cavalry_fire = 0.75
+		cavalry_fire = 1.0
 		cavalry_shock = -1.5
 		infantry_fire = 0.22
 		infantry_shock = -0.575
@@ -961,7 +1023,7 @@ estate_halfling_recruitment_20 = {
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
-		cavalry_fire = 0.75
+		cavalry_fire = 1.0
 		cavalry_shock = -1.5
 		infantry_fire = 0.32
 		infantry_shock = -0.575
@@ -1022,7 +1084,7 @@ estate_halfling_recruitment_21 = {
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
-		cavalry_fire = 0.75
+		cavalry_fire = 1.20
 		cavalry_shock = -1.5
 		infantry_fire = 0.32
 		infantry_shock = -0.825
@@ -1083,7 +1145,7 @@ estate_halfling_recruitment_22 = {
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
-		cavalry_fire = 0.75
+		cavalry_fire = 1.20
 		cavalry_shock = -1.5
 		infantry_fire = 0.32
 		infantry_shock = -0.825	
@@ -1144,7 +1206,7 @@ estate_halfling_recruitment_23 = {
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
-		cavalry_fire = 0.75
+		cavalry_fire = 1.20
 		cavalry_shock = -2.0
 		infantry_fire = 0.32
 		infantry_shock = -0.825	
@@ -1205,7 +1267,7 @@ estate_halfling_recruitment_25 = {
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
-		cavalry_fire = 1.0
+		cavalry_fire = 1.40
 		cavalry_shock = -2.0
 		infantry_fire = 0.32
 		infantry_shock = -0.825
@@ -1266,7 +1328,7 @@ estate_halfling_recruitment_27 = {
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
-		cavalry_fire = 1.0
+		cavalry_fire = 1.40
 		cavalry_shock = -2.0
 		infantry_fire = 0.42
 		infantry_shock = -0.825	
@@ -1307,6 +1369,67 @@ estate_halfling_recruitment_28 = {
 	influence = 0.10
 	is_valid = {
 		mil_tech = 28
+		NOT = {mil_tech = 29}
+	}
+	can_select = {		
+		high_tolerance_halfling_race_trigger = yes
+		any_owned_province = {
+			has_halfling_majority_trigger = yes
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			set_country_flag = estate_halfling_recruitment_flag
+			country_event = { id = bertus_racial_military.1001 }
+			if = {
+				limit = { NOT = { has_country_flag = estate_halfling_recruitment_cooldown_flag } }
+				set_country_flag = estate_halfling_recruitment_cooldown_flag
+			}
+		}
+		custom_tooltip = malus_if_monstrous_mechanic_tooltip
+	}
+	modifier_by_land_ownership = {
+		cavalry_fire = 1.40
+		cavalry_shock = -2.0
+		infantry_fire = 0.42
+		infantry_shock = -1.075
+		artillery_fire = 0.80
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	mechanics = {
+		enables_cossack_regiments
+	}
+	can_revoke = {
+		had_country_flag = {
+			flag = estate_halfling_recruitment_cooldown_flag
+			days = 7300
+		}
+	}
+	on_revoked = {
+		hidden_effect = {
+			clr_country_flag = estate_halfling_recruitment_flag
+			clr_country_flag = estate_halfling_recruitment_cooldown_flag
+			country_event = { id = bertus_racial_military.1001 }
+		}	
+	}
+	on_invalid = {
+		clr_country_flag = estate_halfling_recruitment_flag
+		update_halfling_recruitment = yes
+		set_estate_privilege = estate_halfling_recruitment_29
+	}
+	ai_will_do = {
+		factor = 1000
+	}
+}
+estate_halfling_recruitment_29 = {
+	icon = privilege_demand_more_troops
+	loyalty = -0.10
+	influence = 0.10
+	is_valid = {
+		mil_tech = 29
 		NOT = {mil_tech = 31}
 	}
 	can_select = {		
@@ -1327,7 +1450,7 @@ estate_halfling_recruitment_28 = {
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
-		cavalry_fire = 1.0
+		cavalry_fire = 1.60
 		cavalry_shock = -2.0
 		infantry_fire = 0.42
 		infantry_shock = -1.075
@@ -1388,7 +1511,7 @@ estate_halfling_recruitment_31 = {
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
-		cavalry_fire = 1.0
+		cavalry_fire = 1.60
 		cavalry_shock = -2.5
 		infantry_fire = 0.62
 		infantry_shock = -1.075
@@ -1448,7 +1571,7 @@ estate_halfling_recruitment_32 = {
 		custom_tooltip = malus_if_monstrous_mechanic_tooltip
 	}
 	modifier_by_land_ownership = {
-		cavalry_fire = 1.0
+		cavalry_fire = 1.80
 		cavalry_shock = -2.5
 		infantry_fire = 0.62
 		infantry_shock = -1.075
