@@ -1770,7 +1770,8 @@ remove_racial_culture = {
 		limit = {
 			any_owned_province = {
 				culture_is_$race$ = yes
-				owner = {accepted_culture = PREV}
+				has_owner_accepted_culture = yes
+				has_owner_culture = no
 			}
 		}
 		custom_tooltip = $race$_culture_removal_tt
@@ -1778,13 +1779,15 @@ remove_racial_culture = {
 			limit = {
 				any_owned_province = {
 					culture_is_$race$ = yes
-					owner = {accepted_culture = PREV}
+					has_owner_accepted_culture = yes
+					has_owner_culture = no
 				}
 			}
 			random_owned_province = {
 				limit = {
 					culture_is_$race$ = yes
-					owner = {accepted_culture = PREV}
+					has_owner_accepted_culture = yes
+					has_owner_culture = no
 				}
 				owner = {remove_accepted_culture = PREV}
 			}
@@ -2673,12 +2676,26 @@ on_war_started_effects = {
 			limit = {
 				is_at_war = yes
 				OR = {
-					has_estate_privilege = estate_orcish_first_hand_chairman
-					has_estate_privilege = estate_ogre_first_hand_chairman
-					has_estate_privilege = estate_centaur_first_hand_chairman
-					has_estate_privilege = estate_troll_first_hand_chairman
-					has_estate_privilege = estate_half_orcish_first_hand_chairman
-					has_estate_privilege = estate_hobgoblin_first_hand_chairman
+					has_country_modifier = monstrous_nation
+					estate_territory = { estate = estate_orcish territory = 60 }
+					estate_territory = { estate = estate_ogre territory = 60 }
+					estate_territory = { estate = estate_centaur territory = 60 }
+					estate_territory = { estate = estate_troll territory = 60 }
+					estate_territory = { estate = estate_half_orcish territory = 60 }
+					estate_territory = { estate = estate_hobgoblin territory = 60 }
+					estate_territory = { estate = estate_gnollish territory = 60 }
+					AND = {
+						estate_territory = { estate = estate_orcish territory = 30 }
+						estate_territory = { estate = estate_half_orcish territory = 30 }
+					}
+					AND = {
+						estate_territory = { estate = estate_orcish territory = 20 }
+						estate_territory = { estate = estate_half_orcish territory = 40 }
+					}
+					AND = {
+						estate_territory = { estate = estate_orcish territory = 40 }
+						estate_territory = { estate = estate_half_orcish territory = 20 }
+					}
 				}
 			}
 			add_country_modifier = {name = monstrous_love_war_modifier duration = -1 hidden = yes}
@@ -3064,10 +3081,18 @@ update_recruitment_modifiers = {
 			}
 			NOT = {
 				has_race_recruitment = {race = human}
+				has_race_recruitment = {race = elven}
+				has_race_recruitment = {race = dwarven}
+				has_race_recruitment = {race = halfling}
+				has_race_recruitment = {race = gnomish}
+				has_race_recruitment = {race = ruinborn}
 				has_race_recruitment = {race = harimari}
 				has_race_recruitment = {race = gnollish}
-				has_race_recruitment = {race = ruinborn}
 				has_race_recruitment = {race = orcish}
+				has_race_recruitment = {race = goblin}
+				has_race_recruitment = {race = centaur}
+				has_race_recruitment = {race = half_orcish}
+				has_race_recruitment = {race = half_elven}
 				has_race_recruitment = {race = hobgoblin}
 				has_race_recruitment = {race = lizardfolk}
 			}

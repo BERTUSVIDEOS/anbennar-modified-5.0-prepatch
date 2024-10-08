@@ -49,10 +49,7 @@ A97_conquering = {
 
 		effect = {
 			add_accepted_culture = redfoot_halfling
-			add_country_modifier = {
-				name = "army_enthusiasm"
-				duration = 7300 #20 years
-			}
+			add_country_modifier = { name = army_enthusiasm duration = 7300 }	#20 years
 		}
 	}
 
@@ -74,10 +71,7 @@ A97_conquering = {
 		}
 
 		effect = {
-			add_country_modifier = {
-				name = "small_country_unification"
-				duration = 7300 #20 years
-			}
+			add_country_modifier = { name = small_country_unification duration = 7300 }	#20 years
 			iochand_area = {
 				limit = {
 					NOT = { is_core = ROOT }
@@ -120,50 +114,6 @@ A97_conquering = {
 				}
 				add_permanent_claim = ROOT
 			}
-			if = {
-				limit = { 
-					167 = {
-						NOT = { is_core = ROOT }
-						NOT = { owned_by = ROOT }
-					}
-				}
-				167 = {
-					add_permanent_claim = ROOT
-				}
-			}
-			if = {
-				limit = { 
-					148 = {
-						NOT = { is_core = ROOT }
-						NOT = { owned_by = ROOT }
-					}
-				}
-				148 = {
-					add_permanent_claim = ROOT
-				}
-			}
-			if = {
-				limit = { 
-					144 = {
-						NOT = { is_core = ROOT }
-						NOT = { owned_by = ROOT }
-					}
-				}
-				144 = {
-					add_permanent_claim = ROOT
-				}
-			}
-			if = {
-				limit = { 
-					145 = {
-						NOT = { is_core = ROOT }
-						NOT = { owned_by = ROOT }
-					}
-				}
-				145 = {
-					add_permanent_claim = ROOT
-				}
-			}
 		}
 	}
 
@@ -175,10 +125,6 @@ A97_conquering = {
 		provinces_to_highlight = {
 			OR = {
 				area = reaver_coast_area
-				province_id = 167
-				province_id = 148
-				province_id = 144
-				province_id = 145
 			}
 			NOT = { country_or_non_sovereign_subject_holds = ROOT }
 		}
@@ -188,10 +134,6 @@ A97_conquering = {
 				type = all
 				country_or_non_sovereign_subject_holds = ROOT
 			}
-			owns_or_non_sovereign_subject_of = 167
-			owns_or_non_sovereign_subject_of = 148
-			owns_or_non_sovereign_subject_of = 144
-			owns_or_non_sovereign_subject_of = 145
 		}
 
 		effect = {
@@ -209,7 +151,28 @@ A97_conquering = {
 				}
 				add_permanent_claim = ROOT
 			}
+			gnomish_pass_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
 			southroy_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			portnamm_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			north_deranne_area = {
 				limit = {
 					NOT = { is_core = ROOT }
 					NOT = { owned_by = ROOT }
@@ -239,6 +202,7 @@ A97_conquering = {
 			OR = {
 				area = dragonhills_area
 				area = west_dragonhills_area
+				area = gnomish_pass_area
 			}
 			NOT = { country_or_non_sovereign_subject_holds = ROOT }
 		}
@@ -252,10 +216,21 @@ A97_conquering = {
 				type = all
 				country_or_non_sovereign_subject_holds = ROOT
 			}
+			gnomish_pass_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
 		}
 
 		effect = {
 			east_dragonhills_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			dragonhills_area = {
 				limit = {
 					NOT = { is_core = ROOT }
 					NOT = { owned_by = ROOT }
@@ -268,28 +243,6 @@ A97_conquering = {
 					NOT = { owned_by = ROOT }
 				}
 				add_permanent_claim = ROOT
-			}
-			if = {
-				limit = { 
-					216 = {
-						NOT = { is_core = ROOT }
-						NOT = { owned_by = ROOT }
-					}
-				}
-				216 = {
-					add_permanent_claim = ROOT
-				}
-			}
-			if = {
-				limit = { 
-					1157 = {
-						NOT = { is_core = ROOT }
-						NOT = { owned_by = ROOT }
-					}
-				}
-				1157 = {
-					add_permanent_claim = ROOT
-				}
 			}
 		}
 	}
@@ -302,6 +255,7 @@ A97_conquering = {
 		provinces_to_highlight = {
 			OR = {
 				area = floodmarches_area
+				area = dragonhills_area
 				area = east_dragonhills_area
 			}
 			NOT = { country_or_non_sovereign_subject_holds = ROOT }
@@ -313,6 +267,10 @@ A97_conquering = {
 				type = all
 				country_or_non_sovereign_subject_holds = ROOT
 			}
+			dragonhills_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
 			east_dragonhills_area = {
 				type = all
 				country_or_non_sovereign_subject_holds = ROOT
@@ -321,11 +279,15 @@ A97_conquering = {
 
 		effect = {
 			add_mil_power = -50
-			215 = {
-				add_permanent_province_modifier = {
-					name = small_country_border_fort
-					duration = -1
+			every_owned_province = {
+				limit = {
+					has_fort_building_trigger = yes
+					OR = {
+						area = floodmarches_area
+						area = east_dragonhills_area
+					}
 				}
+				add_province_modifier = { name = small_country_border_fort duration = -1 }
 			}
 		}
 	}
@@ -372,10 +334,7 @@ A97_misc = {
 
 		effect = {
 			add_accepted_culture = bluefoot_halfling
-			add_country_modifier = {
-				name = "thriving_arms_industry"
-				duration = 7300 #20 years
-			}
+			add_country_modifier = { name = thriving_arms_industry duration = 7300 } #20 years
 		}
 	}
 
@@ -390,10 +349,7 @@ A97_misc = {
 
 		effect = {
 			add_prestige_or_monarch_power = {amount =  10}
-			add_country_modifier = {
-				name = "naval_enthusiasm_mission"
-				duration = 7300 #20 years
-			}			
+			add_country_modifier = { name = naval_enthusiasm_mission duration = 7300 }			#20 years
 		}
 	}
 
@@ -415,10 +371,7 @@ A97_misc = {
 
 		effect = {
 			add_mercantilism = 2
-			add_country_modifier = {
-				name = "small_country_westport_colonist"
-				duration = 10950 #30 years
-			}
+			add_country_modifier = { name = small_country_westport_colonist duration = 10950 }	#30 years
 		}
 	}
 
@@ -447,10 +400,7 @@ A97_misc = {
 			}
 		}
 		effect = {
-			add_or_extend_country_modifier_effect = {
-				MODIFIER = colonial_enthusiasm
-				DURATION = 7300
-			}	
+			add_or_extend_country_modifier_effect = { MODIFIER = colonial_enthusiasm DURATION = 7300 }	
 		}
 	}
 	
@@ -514,6 +464,8 @@ A97_misc = {
 		
 		provinces_to_highlight = {
 			area = southroy_area
+			area = portnamm_area
+			area = north_deranne_area
 			NOT = { country_or_non_sovereign_subject_holds = ROOT }
 		}
 		
@@ -523,15 +475,28 @@ A97_misc = {
 				type = all
 				country_or_non_sovereign_subject_holds = ROOT
 			}
+			portnamm_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			north_deranne_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
 		}
 
 		effect = {
 			add_mil_power = -50
-			124 = {
-				add_permanent_province_modifier = {
-					name = small_country_border_fort
-					duration = -1
+			every_owned_province = {
+				limit = {
+					has_fort_building_trigger = yes
+					OR = {
+						area = portnamm_area
+						area = north_deranne_area
+						area = southroy_area
+					}
 				}
+				add_province_modifier = { name = small_country_border_fort duration = -1 }
 			}
 		}
 	}
@@ -561,14 +526,8 @@ A97_misc = {
 		}
 
 		effect = {
-			add_power_projection = {
-				type = mission_rewards_power_projection
-				amount = 50
-			}
-			add_country_modifier = {
-				name = "small_country_defeated_oppressors"
-				duration = -1
-			}
+			add_power_projection = { type = mission_rewards_power_projection amount = 50 }
+			add_country_modifier = { name = small_country_defeated_oppressors duration = -1 }
 		}
 	}
 	
@@ -597,10 +556,7 @@ A97_misc = {
 		}
 		
 		effect = {
-			add_country_modifier = {
-				name = "east_india_trade_rush"
-				duration = 7300 #20 years
-			}
+			add_country_modifier = { name = east_india_trade_rush duration = 7300 }	#20 years
 		}
 	}
 
@@ -610,11 +566,9 @@ A97_misc = {
 		position = 10
 		
 		trigger = {
-		
 		}
 		
 		effect = {
-
 		}
 	}
 }
@@ -708,12 +662,7 @@ A97_something = {
 			}
 			if = {
 				limit = { has_saved_event_target = reward_province }
-				event_target:reward_province = {
-					add_province_modifier = {
-						name = "dominant_trade_hub"
-						duration = -1
-					}
-				}
+				event_target:reward_province = { add_province_modifier = { name = dominant_trade_hub duration = -1 } }
 			}
 			else = {
 				custom_tooltip = dominant_home_node_reward_tooltip
@@ -728,29 +677,16 @@ A97_something = {
 		
 		provinces_to_highlight = {
 			province_id = 1294
-			NOT = {
-				trade_share = {
-					country = ROOT
-					share = 33
-				}
-			}
+			NOT = { trade_share = { country = ROOT share = 33 } }
 		}
 		
 		trigger = {
-			1294 = {
-				trade_share = {
-					country = ROOT
-					share = 33
-				}
-			}
+			1294 = { trade_share = { country = ROOT share = 33 } }
 		}
 
 		effect = {
 			add_mercantilism = 1
-			add_country_modifier = {
-				name = "small_country_northern_trade"
-				duration = 7300 #20 years
-			}
+			add_country_modifier = { name = small_country_northern_trade duration = 7300 }	#20 years
 		}
 	}
 	
@@ -764,20 +700,12 @@ A97_something = {
 		}
 		
 		trigger = {
-			1266 = {
-				trade_share = {
-					country = ROOT
-					share = 75
-				}
-			}
+			1266 = { trade_share = { country = ROOT share = 75 } }
 		}
 
 		effect = {
 			add_mercantilism = 2
-			add_country_modifier = {
-				name = "beepeck_damescrown_trade_draw"
-				duration = 7300 #20 years
-			}
+			add_country_modifier = { name = beepeck_damescrown_trade_draw duration = 7300 }	#20 years
 		}
 	}
 
@@ -832,17 +760,11 @@ A97_something = {
 		effect = {
 			131 = {
 				change_trade_goods  = maize
-				add_permanent_province_modifier = {
-					name = small_country_corn
-					duration = -1
-				}
+				add_permanent_province_modifier = { name = small_country_corn duration = -1 }
 			}
 			136 = {
 				change_trade_goods  = maize
-				add_permanent_province_modifier = {
-					name = small_country_corn
-					duration = -1
-				}
+				add_permanent_province_modifier = { name = small_country_corn duration = -1 }
 			}
 		}
 	}
@@ -875,13 +797,9 @@ A97_something = {
 		
 		effect = {
 			add_treasury = -400
-			add_country_modifier = {
-				name = "small_country_colonial_office"
-				duration = -1
-			}	
+			add_country_modifier = { name = small_country_colonial_office duration = -1 }	
 		}
 	}
-
 }
 
 A97_development = {
@@ -938,10 +856,7 @@ A97_development = {
 			}
 			viswall_area = {
 				limit = { owned_by = ROOT }
-				add_province_modifier = {
-					name = "growth_of_capital"
-					duration = 7300	#20 years
-				}
+				add_province_modifier = { name = growth_of_capital duration = 7300 }	#20 years
 			}
 		}
 	}
@@ -967,16 +882,8 @@ A97_development = {
 		
 		effect = {
 			add_adm_power = -100
-			norley_area = {
-				add_permanent_province_modifier = {
-					name = small_country_greymill
-					duration = -1
-				}
-			}
-			add_country_modifier = {
-				name = "building_spree"
-				duration = 7300 #20 years
-			}
+			norley_area = { add_permanent_province_modifier = { name = small_country_greymill duration = -1 } }
+			add_country_modifier = { name = building_spree duration = 7300 }	#20 years
 		}
 	}
 	
@@ -1032,34 +939,19 @@ A97_development = {
 		effect = {
 			147 = {
 				change_trade_goods = champagne
-				add_permanent_province_modifier = {
-					name = small_country_brandy
-					duration = -1
-				}
+				add_permanent_province_modifier = { name = small_country_brandy duration = -1 }
 			}
 			2667 = {
 				change_trade_goods = champagne
-				add_permanent_province_modifier = {
-					name = small_country_brandy
-					duration = -1
-				}
+				add_permanent_province_modifier = { name = small_country_brandy duration = -1 }
 			}
 			63 = {
-				add_permanent_province_modifier = {
-					name = small_country_brandy
-					duration = -1
-				}
+				add_permanent_province_modifier = { name = small_country_brandy duration = -1 }
 			}
 			66 = {
-				add_permanent_province_modifier = {
-					name = small_country_brandy
-					duration = -1
-				}
+				add_permanent_province_modifier = { name = small_country_brandy duration = -1 }
 			}
-			add_country_modifier = {
-				name = "beepeck_new_market"
-				duration = 7300 #20 years
-			}
+			add_country_modifier = { name = beepeck_new_market duration = 7300 }	#20 years
 		}
 	}
 	
@@ -1085,16 +977,10 @@ A97_development = {
 		
 		effect = {
 			348 = {
-				add_permanent_province_modifier = {
-					name = small_country_hardwood
-					duration = -1
-				}
+				add_permanent_province_modifier = { name = small_country_hardwood duration = -1 }
 				hidden_effect = {province_event = { id = bertus_pops.1045}}	#boost pop goods produced
 			}
-			add_country_modifier = {
-				name = "growing_economy"
-				duration = 7300 #20 years
-			}
+			add_country_modifier = { name = growing_economy duration = 7300 }	#20 years
 		}
 	}
 
@@ -1140,27 +1026,19 @@ A97_development = {
 		
 		effect = {
 			160 = {
-				add_permanent_province_modifier = {
-					name = small_country_coppertown_industry
-					duration = -1
-				}
+				add_permanent_province_modifier = { name = small_country_coppertown_industry duration = -1 }
 				hidden_effect = {province_event = { id = bertus_pops.1045}}	#boost pop goods produced
 			}
 			161 = {
-				add_permanent_province_modifier = {
-					name = small_country_coppertown_industry
-					duration = -1
-				}
+				add_permanent_province_modifier = { name = small_country_coppertown_industry duration = -1 }
 				hidden_effect = {province_event = { id = bertus_pops.1045}}	#boost pop goods produced
 			}
-			164 = {
-				add_building = cannon_foundry
+			164 = {	#bertus mod
 				add_building = weapons
+				add_building = cannon_foundry
+				add_permanent_province_modifier = { name = small_country_cannon_foundry duration = -1 }
 			}
-			add_country_modifier = {
-				name = "thriving_arms_industry"
-				duration = 7300 #20 years
-			}
+			add_country_modifier = { name = thriving_arms_industry duration = 7300 } #20 years
 		}
 	}
 
@@ -1228,10 +1106,7 @@ A97_development = {
 			small_country_region = {
 				add_prosperity = 50
 			}
-			add_country_modifier = {
-				name = "small_country_prosperity"
-				duration = 18250
-			}
+			add_country_modifier = { name = small_country_prosperity duration = 18250 }
 		}
 	}
 	
