@@ -343,35 +343,21 @@ country_event = {
 	
 	mean_time_to_happen = {
 		months = 12
-		modifier = {
-			factor = 2
-			has_ruler_flag = homunculus_current_humanlike
-		}
-		modifier = {
-			factor = 0.05
-			had_ruler_flag = {
-				flag = magic_project_homunculus_5
-				days = 1095
-			}
-		}
+		modifier = { factor = 2 has_ruler_flag = homunculus_current_humanlike }
+		modifier = { factor = 0.05 had_ruler_flag = { flag = magic_project_homunculus_5 days = 1095 } }
 	}
 	
 	option = {	#A familiar to aid in my magical research
 		name = magic_project_homunculus.6.a
 		trigger = {
+			NOT = { has_country_flag = ruler_studying_homunculus_familiar }
 			always = no #bertus mod
 		}
-		trigger = {
-			NOT = { has_country_flag = ruler_studying_homunculus_familiar }
-		}
 		ai_chance = {factor = 50}
-		
 		set_country_flag = ruler_studying_homunculus_familiar
 		custom_tooltip = tooltip_homunculus_familiar
-		
 		set_ruler_flag = magic_project_homunculus_complete
 		custom_tooltip = tooltip_magic_project_complete
-		
 		magic_project_clear_homunculus_flags = yes
 	}
 	
@@ -382,16 +368,9 @@ country_event = {
 		}
 		ai_chance = {
 			factor = 50
-			modifier = {
-				factor = 2
-				is_at_war = yes
-			}
-			modifier = {
-				factor = 0.25
-				num_of_generals = 3
-			}
+			modifier = { factor = 2 is_at_war = yes }
+			modifier = { factor = 0.25 num_of_generals = 3 }
 		}
-		
 		set_country_flag = hero_free_general_flag
 		custom_tooltip = get_free_great_hero_general_tt
 		set_country_flag = get_adventurer_flag
@@ -402,12 +381,9 @@ country_event = {
 			set_saved_name = {key = special_general_name type = advisor scope = ROOT}
 			country_event = {id = bertus_changes.6030}
 		}
-		
 		set_ruler_flag = magic_project_homunculus_complete
 		custom_tooltip = tooltip_magic_project_complete
-		
 		magic_project_clear_homunculus_flags = yes
-		
 	}
 	
 	option = {	#Admiral
@@ -417,26 +393,12 @@ country_event = {
 		}
 		ai_chance = {
 			factor = 50
-			modifier = {
-				factor = 2
-				is_at_war = yes
-			}
-			modifier = {
-				factor = 0	
-				NOT = { navy_size = 10 }
-			}
-			modifier = {
-				factor = 0.25
-				num_of_admirals = 3
-			}
+			modifier = { factor = 2 is_at_war = yes }
+			modifier = { factor = 0	NOT = { navy_size = 10 } }
+			modifier = { factor = 0.25 num_of_admirals = 3 }
 		}
-		
-		create_admiral = {
-			tradition = 100
-		}
-		
+		create_admiral = { tradition = 100 }
 		magic_project_clear_homunculus_flags = yes
-		
 		set_ruler_flag = magic_project_homunculus_complete
 		custom_tooltip = tooltip_magic_project_complete
 	}
@@ -451,19 +413,8 @@ country_event = {
 			NOT = { has_reform = magisterium_reform }
 			NOT = { has_reform = states_general_reform }	#mamluk and iqta also apply here
 		}
-		ai_chance = {
-			factor = 50
-			modifier = {
-				factor = 0.25
-				OR = {
-					heir_adm = 3
-					heir_dip = 3
-					heir_mil = 3
-				}
-			}
-		}
+		ai_chance = { factor = 50 modifier = { factor = 0.25 OR = { heir_adm = 3 heir_dip = 3 heir_mil = 3 } } }
 		remove_heir = {  }
-		
 		if = {
 			limit = {
 				OR = {
@@ -471,43 +422,18 @@ country_event = {
 					has_ruler_flag = homunculus_current_androgyne
 				}
 			}
-			define_heir = {
-				dynasty = ROOT
-				age = 18
-				change_adm = 4
-				change_dip = 4
-				change_mil = 4
-				claim = 25
-				no_consort_with_heir = yes
-				male = yes
-			}
+			define_heir = { dynasty = ROOT age = 18 change_adm = 4 change_dip = 4 change_mil = 4 claim = 25 no_consort_with_heir = yes male = yes }
 		}
 		if = {
-			limit = {
-				has_ruler_flag = homunculus_current_female
-			}
-			define_heir = {
-				dynasty = ROOT
-				age = 18
-				change_adm = 4
-				change_dip = 4
-				change_mil = 4
-				claim = 25
-				no_consort_with_heir = yes
-				female = yes	
-			}
+			limit = { has_ruler_flag = homunculus_current_female }
+			define_heir = { dynasty = ROOT age = 18 change_adm = 4 change_dip = 4 change_mil = 4 claim = 25 no_consort_with_heir = yes female = yes	 }
 		}
 		hidden_effect = { add_heir_personality = immortal_personality }
-		
 		set_heir_flag = is_a_secret_homunculus
-		
 		set_ruler_flag = magic_project_homunculus_complete
 		custom_tooltip = tooltip_magic_project_complete
-		
 		magic_project_clear_homunculus_flags = yes
 	}
-	
-	
 	option = {	#Make em my consort
 		name = magic_project_homunculus.6.e
 		trigger = {
@@ -535,60 +461,26 @@ country_event = {
 				}
 			}
 		}
-		ai_chance = {
-			factor = 50
-			modifier = {
-				factor = 0.25
-				OR = {
-					consort_adm = 3
-					consort_dip = 3
-					consort_mil = 3
-				}
-			}
-		}
-
+		ai_chance = { factor = 50 modifier = { factor = 0.25 OR = { consort_adm = 3 consort_dip = 3 consort_mil = 3 } } }
 		remove_consort = yes
 		if = {
-			limit = {
-				is_female = no
-			}
-			define_consort = {
-				age = 18
-				adm = 4
-				dip = 4
-				mil = 4
-				female = yes
-			}
+			limit = { is_female = no }
+			define_consort = { age = 18 adm = 4 dip = 4 mil = 4 female = yes }
 		}
 		else_if = {
-			limit = {
-				is_female = yes
-			}
-			define_consort = {
-				dynasty = ROOT
-				age = 18
-				adm = 4
-				dip = 4
-				mil = 4
-				male = yes	
-			}
+			limit = { is_female = yes }
+			define_consort = { dynasty = ROOT age = 18 adm = 4 dip = 4 mil = 4 male = yes }
 		}
 		hidden_effect = { add_queen_personality = immortal_personality }
-		
 		set_consort_flag = is_a_secret_homunculus
-		
 		set_ruler_flag = magic_project_homunculus_complete
 		custom_tooltip = tooltip_magic_project_complete
-		
 		magic_project_clear_homunculus_flags = yes
 	}
-	
 	option = {	#Advisor
 		name = magic_project_homunculus.6.f
 		ai_chance = {factor = 50}
-		
 		country_event = { id = magic_project_homunculus.7 days = 1 }
-		
 		set_ruler_flag = magic_project_homunculus_complete
 		custom_tooltip = "Give half the stats of Ruler as monarch power"
 		get_homonculus_skill = yes

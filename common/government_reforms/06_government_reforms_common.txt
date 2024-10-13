@@ -1513,15 +1513,14 @@ sustained_discipline_reform = {
 				has_not_modifier_locking_military_tier = yes
 			}
 		}
-		NOT = { num_of_cawa = 1 }
-		NOT = { num_of_carolean = 1 }
 	}
 	modifiers = {
 		#land_attrition = -0.15	#-0.15→0
 		#drill_decay_modifier = -0.33	#-0.33→0
 		allowed_cossack_fraction = 0.20	#0→0.20
-		amount_of_cawa = -2.0
-		amount_of_carolean = -2.0
+		mercenary_discipline = -0.10	#0→-0.10
+		adventurers_loyalty_modifier = -0.10
+		adventurers_influence_modifier = -0.10
 	}
 	effect = {
 		add_country_modifier = { name = sustained_discipline_elite duration = -1 }
@@ -1624,6 +1623,7 @@ mercenary_leadership_reform = {
 	potential = {
 		NOT = { has_adventurer_reform = yes }
 		is_colonial_nation = no
+		NOT = { has_estate = estate_adventurers }
 	}
 	trigger = {
 		if = {
@@ -2404,6 +2404,8 @@ magical_guild_reform = {	#bertus mod
 			NOT = {culture_group = dwarven}
 			culture = ruby_dwarf
 		}
+	}
+	trigger = {
 		NOT = { num_of_carolean = 1 }
 	}
 	modifiers = {
@@ -2411,8 +2413,6 @@ magical_guild_reform = {	#bertus mod
 		mages_influence_modifier = 0.10
 		artificers_loyalty_modifier = -0.10
 		artificers_influence_modifier = -0.10
-		adventurers_loyalty_modifier = -0.10
-		adventurers_influence_modifier = -0.10
 		monthly_magisterium_mana = 0.41666	#0→0.4166	#5 yearly
 		yearly_corruption = 0.2
 		army_tradition_from_battle = -0.20
@@ -2459,13 +2459,13 @@ artificer_guild_reform = {	#bertus mod
 				NOT = { primary_culture = sun_elf }
 			}
 		}
+	}
+	trigger = {
 		NOT = { num_of_cawa = 1 }
 	}
 	modifiers = {
 		artificers_loyalty_modifier = 0.10
 		artificers_influence_modifier = 0.10
-		adventurers_loyalty_modifier = -0.10
-		adventurers_influence_modifier = -0.10
 		mages_loyalty_modifier = -0.10
 		mages_influence_modifier = -0.10
 		monthly_artificers_capacity = 0.41666	#0→0.4166	#5 yearly
@@ -2518,10 +2518,7 @@ adventurer_guild_reform = {	#bertus mod
 		allow_mercenary_drill = yes
 		adventurers_loyalty_modifier = 0.10
 		adventurers_influence_modifier = 0.10
-		artificers_loyalty_modifier = -0.10
-		artificers_influence_modifier = -0.10
-		mages_loyalty_modifier = -0.10
-		mages_influence_modifier = -0.10
+		allowed_cossack_fraction = -0.10	#0→-0.10
 		yearly_corruption = 0.2
 		free_leader_pool = -1
 	}

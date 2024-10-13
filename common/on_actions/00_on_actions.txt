@@ -1702,6 +1702,20 @@ on_new_monarch = {
 		harpy_events.122	#Harpy parentage insight
 	}
 
+	if = {	#bertus mod
+		limit = {
+			OR = {
+				has_country_flag = employs_adm_homunculus
+				has_country_flag = employs_dip_homunculus
+				has_country_flag = employs_mil_homunculus
+			}
+		}
+		kill_adm_homunculus = yes
+		kill_dip_homunculus = yes
+		kill_mil_homunculus = yes
+		country_event = { id = magic_project_homunculus.7 days = 1 }
+		get_homonculus_skill = yes
+	}
 	if = {
 		limit = { NOT = { has_mages_organization_privilege = yes } }
 		country_event = { id = estate_organization.1 days = 35 }		#choose organization for adventurer estate
@@ -1941,16 +1955,6 @@ on_monarch_death = {
 	if = {
 		limit = {has_reform = military_dictatorship_reform}
 		remove_government_reform = military_dictatorship_reform	#bertus mod
-	}
-	if = {	#bertus mod
-		limit = {
-			OR = {
-				has_country_flag = employs_adm_homunculus
-				has_country_flag = employs_dip_homunculus
-				has_country_flag = employs_mil_homunculus
-			}
-		}
-		get_homonculus_skill = yes
 	}
 	if = {	#bertus mod
 		limit = {			
