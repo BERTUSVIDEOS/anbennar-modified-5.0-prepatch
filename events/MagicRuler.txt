@@ -5759,49 +5759,7 @@ country_event = {
 		custom_tooltip = magic_war_magic_desc_tt
 	}
 	#3 - #Meteor Strike
-	option = {
-		name = magic_ruler.5.g	#available
-		trigger = {
-			#NOT = { has_ruler_modifier = ruler_recently_casted_spell }	#bertus mod
-			#NOT = {has_country_modifier = ruler_recently_casted_spell}	#bertus mod
-			OR = {
-				has_ruler_flag = evocation_3
-				AND = {
-					has_ruler_flag = evocation_2
-					has_ruler_flag = rakshasa_patron
-				}
-			}
-			is_at_war = yes
-			is_lesser_in_union = no
-			any_army = {
-				location = {
-					fort_level = 1
-					sieged_by = ROOT
-					unit_has_leader = yes
-					has_ruler_leader_from = ROOT
-				}
-			}
-			NOT = { has_ruler_modifier = magic_siege_cooldown }
-			has_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 100 }
-		}
-		ai_chance = {factor = 50}
-		
-		country_event = { id = magic_siege.14 }
-		if = {
-			limit = {
-				has_ruler_flag = rakshasa_patron
-				NOT = { has_ruler_flag = evocation_3 }
-			}
-			custom_tooltip = magic_spell_available_by_patron_tt
-		}
-		custom_tooltip = magic_if_siege_magic_succeeds_tt
-		tooltip = {
-			custom_tooltip = change_siege_progress_by_10_tt
-			hidden_effect = { change_siege = 10 }
-			add_devastation = 50
-		}
-		custom_tooltip = magic_meteor_desc_tt
-	}
+	#available through siege interface
 	option = {
 		name = magic_ruler.5.gm	#unavailable - low mastery
 		trigger = {
@@ -5823,6 +5781,7 @@ country_event = {
 			hidden_effect = { change_siege = 10 }
 			add_devastation = 50
 		}
+		custom_tooltip = magic_menu_siege_spell_tt
 		custom_tooltip = magic_meteor_desc_tt
 	}
 	option = {
@@ -5892,10 +5851,22 @@ country_event = {
 		custom_tooltip = magic_if_siege_magic_succeeds_tt
 		tooltip = {
 			add_mana_effect = { mana = -100 }
-			custom_tooltip = change_siege_progress_by_10_tt
-			hidden_effect = { change_siege = 10 }
-			add_devastation = 50
+			custom_tooltip = change_siege_progress_by_8_tt
+			hidden_effect = { change_siege = 8 }
+			add_devastation = 100
+			add_base_tax = -5
+			add_base_production = -5
+			add_base_manpower = -5
+			add_province_modifier = {
+				name = meteor_strike_modifier
+				duration = 182
+			}
+			add_province_modifier = {
+				name = meteor_strike_mark_modifier
+				duration = 3650
+			}
 		}
+		custom_tooltip = magic_menu_siege_spell_tt
 		custom_tooltip = magic_meteor_desc_tt
 	}
 	#Go back

@@ -18,24 +18,11 @@ custom_button = {
 	trigger = {}
 	effect = {
 		hidden_effect = {
+			if = { limit = { NOT = { has_country_flag = estate_artificers_innovations_flag } } set_country_flag = estate_artificers_innovations_flag }
+			else = { clr_country_flag = estate_artificers_innovations_flag }
+			if = { limit = { has_country_flag = estate_mages_cast_spells } clr_country_flag = estate_mages_cast_spells }
 			if = {
-				limit = { NOT = { has_country_flag = estate_artificers_innovations_flag } }
-				set_country_flag = estate_artificers_innovations_flag
-			}
-			else = {
-				clr_country_flag = estate_artificers_innovations_flag
-			}
-			if = {
-				limit = { has_country_flag = estate_mages_cast_spells }
-				clr_country_flag = estate_mages_cast_spells
-			}
-			if = {
-				limit = {
-					OR = {
-						has_country_flag = update_artifice_points_cd_flag
-						had_country_flag = { flag = update_artifice_points_cd_flag days = 30 }
-					}
-				}
+				limit = { cooldown_trigger = { name = update_artifice_points cooldown = 30 } }
 				clr_country_flag = update_artifice_points_cd_flag
 				set_country_flag = update_artifice_points_cd_flag
 				hidden_effect = { country_event = { id = artificers_estate_events.100 } }

@@ -11,10 +11,7 @@ update_artifice_points = {
 			# If you're adding a modifier here make sure to also add it to the artifice localization (in artifice_l_english and anb_custom_artifice_localization) otherwise it will not show up in game
 
 			#unique hold wonder
-			if = {
-				limit = { any_owned_province = { has_province_modifier = artificier_hall } }
-				change_variable = { which = MaxArtificePoints value = 5 } }
-
+			if = { limit = { any_owned_province = { has_province_modifier = artificier_hall } } change_variable = { which = MaxArtificePoints value = 5 } }
 			#dwarovar artifice dungeon
 			if = {
 				limit = {
@@ -33,25 +30,16 @@ update_artifice_points = {
 					}
 				}
 				change_variable = { which = MaxArtificePoints value = 5 } }
-			if = {
-				limit = { damestear = 1 NOT = { is_colonial_nation = yes } }
-				change_variable = { which = MaxArtificePoints which = damestear_total }
-				change_variable = { which = DamestearArtificePoints which = damestear_total } }
-			if = {
-				limit = { precursor_relics = 1 NOT = { is_colonial_nation = yes } }
-				change_variable = { which = MaxArtificePoints which = precursor_relics_total }
-				change_variable = { which = RelicsArtificePoints which = precursor_relics_total } }
-			if = {
-				limit = { coal = 1 NOT = { is_colonial_nation = yes } }
-				change_variable = { which = MaxArtificePoints which = coal_total }
-				change_variable = { which = CoalArtificePoints which = coal_total } }
-					
+			if = { limit = { damestear = 1 NOT = { is_colonial_nation = yes } } change_variable = { which = MaxArtificePoints which = damestear_total } change_variable = { which = DamestearArtificePoints which = damestear_total } }
+			if = { limit = { precursor_relics = 1 NOT = { is_colonial_nation = yes } } change_variable = { which = MaxArtificePoints which = precursor_relics_total } change_variable = { which = RelicsArtificePoints which = precursor_relics_total } }
+			if = { limit = { coal = 1 NOT = { is_colonial_nation = yes } } change_variable = { which = MaxArtificePoints which = coal_total } change_variable = { which = CoalArtificePoints which = coal_total } }
+						
 			#0.01 point per dev on universities.
 			if = {
-				limit = {university = 1}
+				limit = {education_lvl_1 = 1}
 				every_owned_province = {
-					limit = { has_building = university }					
-					set_variable = { which = university_artifice_development value = 0.00 }
+					limit = { has_building = education_lvl_1 }					
+					set_variable = { which = university_artifice_development value = 0 }
 					export_to_variable = { which = university_artifice_development value = development }
 					multiply_variable = { which = university_artifice_development value = 0.01 }
 					owner = {
@@ -60,39 +48,53 @@ update_artifice_points = {
 						change_variable = { which = MaxArtificePoints which = university_artifice_development }
 						set_variable = { which = university_artifice_development value = 0 }
 					}
-				} }
-			if = {	#bertus mod
-				limit = {has_estate_privilege = estate_gnomish_first_hand_chairman}
-				change_variable = { which = MaxArtificePoints value = 5 } }
+				}
+			}	
+			#0.05 point per dev on universities.
+			if = {
+				limit = {education_lvl_2 = 1}
+				every_owned_province = {
+					limit = { has_building = education_lvl_2 }					
+					set_variable = { which = university_artifice_development value = 0 }
+					export_to_variable = { which = university_artifice_development value = development }
+					multiply_variable = { which = university_artifice_development value = 0.05 }
+					owner = {
+						change_variable = { which = university_artifice_development which = PREV }
+						change_variable = { which = UniversityArtificePoints which = university_artifice_development }
+						change_variable = { which = MaxArtificePoints which = university_artifice_development }
+						set_variable = { which = university_artifice_development value = 0 }
+					}
+				}
+			}
+			#0.1 point per dev on universities.
+			if = {
+				limit = {university = 1}
+				every_owned_province = {
+					limit = { has_building = university }					
+					set_variable = { which = university_artifice_development value = 0 }
+					export_to_variable = { which = university_artifice_development value = development }
+					multiply_variable = { which = university_artifice_development value = 0.1 }
+					owner = {
+						change_variable = { which = university_artifice_development which = PREV }
+						change_variable = { which = UniversityArtificePoints which = university_artifice_development }
+						change_variable = { which = MaxArtificePoints which = university_artifice_development }
+						set_variable = { which = university_artifice_development value = 0 }
+					}
+				}
+			}
+			if = { limit = {has_estate_privilege = estate_gnomish_first_hand_chairman} change_variable = { which = MaxArtificePoints value = 5 } }	#bertus mod
 			change_variable = { which = MaxArtificePoints which = artifice_investment_var}	#bertus mod
 
 			# Feiten's mercs cost artificer cap
-			if = {
-				limit = { any_hired_mercenary_company = { template = merc_feiten_lightning_jellyfish } }
-				change_variable = { which = MaxArtificePoints value = -5 } }
-			if = {
-				limit = { any_hired_mercenary_company = { template = merc_feiten_stasis } }
-				change_variable = { which = MaxArtificePoints value = -5 } }
-			if = {
-				limit = { any_hired_mercenary_company = { template = merc_feiten_firestorm } }
-				change_variable = { which = MaxArtificePoints value = -5 } }
-			if = {
-				limit = { any_hired_mercenary_company = { template = merc_feiten_sky_factory } }
-				change_variable = { which = MaxArtificePoints value = -5 } }
-			if = {
-				limit = { has_country_flag = feiten_firestorm_active }
-				change_variable = { which = MaxArtificePoints value = -25 } }
-			if = {
-				limit = { has_country_flag = feiten_stasis_field_active }
-				change_variable = { which = MaxArtificePoints value = -50 } }
-			if = {
-				limit = { has_country_flag = feiten_skyfactory_active }
-				change_variable = { which = MaxArtificePoints value = -10 } }
+			if = { limit = { any_hired_mercenary_company = { template = merc_feiten_lightning_jellyfish } } change_variable = { which = MaxArtificePoints value = -5 } }
+			if = { limit = { any_hired_mercenary_company = { template = merc_feiten_stasis } } change_variable = { which = MaxArtificePoints value = -5 } }
+			if = { limit = { any_hired_mercenary_company = { template = merc_feiten_firestorm } } change_variable = { which = MaxArtificePoints value = -5 } }
+			if = { limit = { any_hired_mercenary_company = { template = merc_feiten_sky_factory } } change_variable = { which = MaxArtificePoints value = -5 } }
+			if = { limit = { has_country_flag = feiten_firestorm_active } change_variable = { which = MaxArtificePoints value = -25 } }
+			if = { limit = { has_country_flag = feiten_stasis_field_active } change_variable = { which = MaxArtificePoints value = -50 } }
+			if = { limit = { has_country_flag = feiten_skyfactory_active } change_variable = { which = MaxArtificePoints value = -10 } }
 			# Investments done as Feiten
-			if = {
-				limit = { OR = { tag = Y20 was_tag = Y20 } }
-				change_variable = { which = MaxArtificePoints which = feiten_number_of_shuimu_engineering_cadre_facilities_investments } }
-
+			if = { limit = { OR = { tag = Y20 was_tag = Y20 } } change_variable = { which = MaxArtificePoints which = feiten_number_of_shuimu_engineering_cadre_facilities_investments } }
 			#Varainé artificer cap from allies/subjects
 			if = {
 				limit = { has_government_attribute = is_varaine_alchemical_corps }
@@ -131,7 +133,8 @@ update_artifice_points = {
 							change_variable = { which = VaraineForeignAlliesArtificePoints value = 4 }
 						}
 					}
-				} }
+				}
+			}
 			#artificer admin/mil/religion
 			if = {
 				limit = {
@@ -141,7 +144,8 @@ update_artifice_points = {
 						has_country_modifier = kobold_administration
 					}
 				}
-				multiply_variable = { which = MaxArtificePoints value = 1.25 } }
+				multiply_variable = { which = MaxArtificePoints value = 1.25 }
+			}
 			if = {
 				limit = {
 					OR = {
@@ -150,15 +154,11 @@ update_artifice_points = {
 						has_country_modifier = kobold_military
 					}
 				}
-				multiply_variable = { which = MaxArtificePoints value = 1.25 } }
-			if = {
-				limit = { OR = { religion = ravelian religion = the_thought } }
-				multiply_variable = { which = MaxArtificePoints value = 1.25 } }
-			# School of Starry Eye somewhat more supportive of artificery
-			if = {
-				limit = { religious_school = { group = raheni school = starry_eye_school } }
-				multiply_variable = { which = MaxArtificePoints value = 1.1 }	#bertus mod 
+				multiply_variable = { which = MaxArtificePoints value = 1.25 }
 			}
+			if = { limit = { OR = { religion = ravelian religion = the_thought } } multiply_variable = { which = MaxArtificePoints value = 1.25 } }
+			# School of Starry Eye somewhat more supportive of artificery
+			if = { limit = { religious_school = { group = raheni school = starry_eye_school } } multiply_variable = { which = MaxArtificePoints value = 1.1 } }	#bertus mod 
 			#trolls get a penalty because they are stupid. elves, harimari get a penalty because they are traditionalist. Emerald orcs because they hate technology
 			if = {
 				limit = {
@@ -170,7 +170,8 @@ update_artifice_points = {
 						#culture = emerald_orc
 					}
 				}
-				multiply_variable = { which = MaxArtificePoints value = 0.9 } }
+				multiply_variable = { which = MaxArtificePoints value = 0.9 }
+			}
 			if = {
 				limit = {
 					OR = {
@@ -180,20 +181,13 @@ update_artifice_points = {
 						#culture = emerald_orc
 					}
 				}
-				multiply_variable = { which = MaxArtificePoints value = 0.9 } }
-		
+				multiply_variable = { which = MaxArtificePoints value = 0.9 }
+			}
 			#deepwoods fey hate tech
-			if = {
-				limit = { OR = { religion = fey_court religion = ashentree_pact } }
-				multiply_variable = { which = MaxArtificePoints value = 0.9 } }
-		
+			if = { limit = { OR = { religion = fey_court religion = ashentree_pact } } multiply_variable = { which = MaxArtificePoints value = 0.9 } }
 			#liches and witch kings have no need for artifice and are distrustful of the threat it represents to them
-			if = {
-				limit = {has_ruler_flag = lich_ruler}
-				multiply_variable = { which = MaxArtificePoints value = 0.5 } }
-			if = {
-				limit = { OR = { has_ruler_modifier = witch_king_modifier has_country_flag = witch_king_flag } }
-				multiply_variable = { which = MaxArtificePoints value = 0.75 } }
+			if = { limit = {has_ruler_flag = lich_ruler} multiply_variable = { which = MaxArtificePoints value = 0.5 } }
+			if = { limit = { OR = { has_ruler_modifier = witch_king_modifier has_country_flag = witch_king_flag } } multiply_variable = { which = MaxArtificePoints value = 0.75 } }
 			#a gnome/goblin/kobold technocracy with industrialization embraced that follows the thought would have 16 points before anything else. Enough for a full set of basic inventions
 		
 			#estates
@@ -202,151 +196,63 @@ update_artifice_points = {
 			#If you want both artifice and magic, you need to have a lot of other sources of points
 			
 			set_variable = { which = estate_mage_influence_var value = 0 }
-			if = {
-				limit = { estate_influence = { estate = estate_mages influence = 100 } }
-				multiply_variable = { which = MaxArtificePoints value = 0.50 } }
-			else_if = {
-				limit = { estate_influence = { estate = estate_mages influence = 90 } }
-				multiply_variable = { which = MaxArtificePoints value = 0.55 } }
-			else_if = {
-				limit = { estate_influence = { estate = estate_mages influence = 80 } }
-				multiply_variable = { which = MaxArtificePoints value = 0.60 } }
-			else_if = {
-				limit = { estate_influence = { estate = estate_mages influence = 70 } }
-				multiply_variable = { which = MaxArtificePoints value = 0.65 } }
-			else_if = {
-				limit = { estate_influence = { estate = estate_mages influence = 60 } }
-				multiply_variable = { which = MaxArtificePoints value = 0.70 } }
-			else_if = {
-				limit = { estate_influence = { estate = estate_mages influence = 50 } }
-				multiply_variable = { which = MaxArtificePoints value = 0.75 } }
-			else_if = {
-				limit = { estate_influence = { estate = estate_mages influence = 40 } }
-				multiply_variable = { which = MaxArtificePoints value = 0.80 } }
-			else_if = {
-				limit = { estate_influence = { estate = estate_mages influence = 30 } }
-				multiply_variable = { which = MaxArtificePoints value = 0.85 } }
-			else_if = {
-				limit = { estate_influence = { estate = estate_mages influence = 20 } }
-				multiply_variable = { which = MaxArtificePoints value = 0.90 } }
-			else_if = {
-				limit = { estate_influence = { estate = estate_mages influence = 10 } }
-				multiply_variable = { which = MaxArtificePoints value = 0.95 } }
-			
+			if = { limit = { estate_influence = { estate = estate_mages influence = 100 } } multiply_variable = { which = MaxArtificePoints value = 0.50 } }
+			else_if = { limit = { estate_influence = { estate = estate_mages influence = 90 } } multiply_variable = { which = MaxArtificePoints value = 0.55 } }
+			else_if = { limit = { estate_influence = { estate = estate_mages influence = 80 } } multiply_variable = { which = MaxArtificePoints value = 0.60 } }
+			else_if = { limit = { estate_influence = { estate = estate_mages influence = 70 } } multiply_variable = { which = MaxArtificePoints value = 0.65 } }
+			else_if = { limit = { estate_influence = { estate = estate_mages influence = 60 } } multiply_variable = { which = MaxArtificePoints value = 0.70 } }
+			else_if = { limit = { estate_influence = { estate = estate_mages influence = 50 } } multiply_variable = { which = MaxArtificePoints value = 0.75 } }
+			else_if = { limit = { estate_influence = { estate = estate_mages influence = 40 } } multiply_variable = { which = MaxArtificePoints value = 0.80 } }
+			else_if = { limit = { estate_influence = { estate = estate_mages influence = 30 } } multiply_variable = { which = MaxArtificePoints value = 0.85 } }
+			else_if = { limit = { estate_influence = { estate = estate_mages influence = 20 } } multiply_variable = { which = MaxArtificePoints value = 0.90 } }
+			else_if = { limit = { estate_influence = { estate = estate_mages influence = 10 } } multiply_variable = { which = MaxArtificePoints value = 0.95 } }
 			set_variable = { which = estate_artificers_influence_var value = 0 }
-			if = {
-				limit = { estate_influence = { estate = estate_artificers influence = 100 } }
-				multiply_variable = { which = MaxArtificePoints value = 1.250 } }
-			else_if = {
-				limit = { estate_influence = { estate = estate_artificers influence = 90 } }
-				multiply_variable = { which = MaxArtificePoints value = 1.225 } }
-			else_if = {
-				limit = { estate_influence = { estate = estate_artificers influence = 80 } }
-				multiply_variable = { which = MaxArtificePoints value = 1.200 } }
-			else_if = {
-				limit = { estate_influence = { estate = estate_artificers influence = 70 } }
-				multiply_variable = { which = MaxArtificePoints value = 1.175 } }
-			else_if = {
-				limit = { estate_influence = { estate = estate_artificers influence = 60 } }
-				multiply_variable = { which = MaxArtificePoints value = 1.150 } }
-			else_if = {
-				limit = { estate_influence = { estate = estate_artificers influence = 50 } }
-				multiply_variable = { which = MaxArtificePoints value = 1.125 } }
-			else_if = {
-				limit = { estate_influence = { estate = estate_artificers influence = 40 } }
-				multiply_variable = { which = MaxArtificePoints value = 1.100 } }
-			else_if = {
-				limit = { estate_influence = { estate = estate_artificers influence = 30 } }
-				multiply_variable = { which = MaxArtificePoints value = 1.075 } }
-			else_if = {
-				limit = { estate_influence = { estate = estate_artificers influence = 20 } }
-				multiply_variable = { which = MaxArtificePoints value = 1.050 } }
-			else_if = {
-				limit = { estate_influence = { estate = estate_artificers influence = 10 } }
-				multiply_variable = { which = MaxArtificePoints value = 1.025 } }
-			if = {
-				limit = {innovativeness = 100 }
-				multiply_variable = { which = MaxArtificePoints value = 1.250 } }
-			else_if = {
-				limit = {innovativeness = 90 }
-				multiply_variable = { which = MaxArtificePoints value = 1.225 } }
-			else_if = {
-				limit = {innovativeness = 80 }
-				multiply_variable = { which = MaxArtificePoints value = 1.200 } }
-			else_if = {
-				limit = {innovativeness = 70 }
-				multiply_variable = { which = MaxArtificePoints value = 1.175 } }
-			else_if = {
-				limit = {innovativeness = 60 }
-				multiply_variable = { which = MaxArtificePoints value = 1.150 } }
-			else_if = {
-				limit = {innovativeness = 50 }
-				multiply_variable = { which = MaxArtificePoints value = 1.125 } }
-			else_if = {
-				limit = {innovativeness = 40 }
-				multiply_variable = { which = MaxArtificePoints value = 1.100 } }
-			else_if = {
-				limit = {innovativeness = 30 }
-				multiply_variable = { which = MaxArtificePoints value = 1.075 } }
-			else_if = {
-				limit = {innovativeness = 20 }
-				multiply_variable = { which = MaxArtificePoints value = 1.050 } }
-			else_if = {
-				limit = {innovativeness = 10 }
-				multiply_variable = { which = MaxArtificePoints value = 1.025 } }
+			if = { limit = { estate_influence = { estate = estate_artificers influence = 100 } } multiply_variable = { which = MaxArtificePoints value = 1.250 } }
+			else_if = { limit = { estate_influence = { estate = estate_artificers influence = 90 } } multiply_variable = { which = MaxArtificePoints value = 1.225 } }
+			else_if = { limit = { estate_influence = { estate = estate_artificers influence = 80 } } multiply_variable = { which = MaxArtificePoints value = 1.200 } }
+			else_if = { limit = { estate_influence = { estate = estate_artificers influence = 70 } } multiply_variable = { which = MaxArtificePoints value = 1.175 } }
+			else_if = { limit = { estate_influence = { estate = estate_artificers influence = 60 } } multiply_variable = { which = MaxArtificePoints value = 1.150 } }
+			else_if = { limit = { estate_influence = { estate = estate_artificers influence = 50 } } multiply_variable = { which = MaxArtificePoints value = 1.125 } }
+			else_if = { limit = { estate_influence = { estate = estate_artificers influence = 40 } } multiply_variable = { which = MaxArtificePoints value = 1.100 } }
+			else_if = { limit = { estate_influence = { estate = estate_artificers influence = 30 } } multiply_variable = { which = MaxArtificePoints value = 1.075 } }
+			else_if = { limit = { estate_influence = { estate = estate_artificers influence = 20 } } multiply_variable = { which = MaxArtificePoints value = 1.050 } }
+			else_if = { limit = { estate_influence = { estate = estate_artificers influence = 10 } } multiply_variable = { which = MaxArtificePoints value = 1.025 } }
+			if = { limit = {innovativeness = 100 } multiply_variable = { which = MaxArtificePoints value = 1.250 } }
+			else_if = { limit = {innovativeness = 90 } multiply_variable = { which = MaxArtificePoints value = 1.225 } }
+			else_if = { limit = {innovativeness = 80 } multiply_variable = { which = MaxArtificePoints value = 1.200 } }
+			else_if = { limit = {innovativeness = 70 } multiply_variable = { which = MaxArtificePoints value = 1.175 } }
+			else_if = { limit = {innovativeness = 60 } multiply_variable = { which = MaxArtificePoints value = 1.150 } }
+			else_if = { limit = {innovativeness = 50 } multiply_variable = { which = MaxArtificePoints value = 1.125 } }
+			else_if = { limit = {innovativeness = 40 } multiply_variable = { which = MaxArtificePoints value = 1.100 } }
+			else_if = { limit = {innovativeness = 30 } multiply_variable = { which = MaxArtificePoints value = 1.075 } }
+			else_if = { limit = {innovativeness = 20 } multiply_variable = { which = MaxArtificePoints value = 1.050 } }
+			else_if = { limit = {innovativeness = 10 } multiply_variable = { which = MaxArtificePoints value = 1.025 } }
 			#institutions
-			if = {
-				limit = {has_institution = manufactories}
-				multiply_variable = { which = MaxArtificePoints value = 1.25 } }
-			else = {
-				multiply_variable = { which = MaxArtificePoints value = 0.5 } }
-			if = {
-				limit = {has_institution = industrialization}
-				multiply_variable = { which = MaxArtificePoints value = 1.25 } }
+			if = { limit = {has_institution = manufactories} multiply_variable = { which = MaxArtificePoints value = 1.25 } }
+			else = { multiply_variable = { which = MaxArtificePoints value = 0.5 } }
+			if = { limit = {has_institution = industrialization} multiply_variable = { which = MaxArtificePoints value = 1.25 } }
 			# Points Multiplier
 			set_variable = { which = ArtificePointsMultiplier value = 1 }
-
 			#IF YOU WANT TO ADD MORE MULTIPLIERS MAKE SURE TO add to getArtificeHasMultipliers in anb_custom_artifice_localization or the multipliers may not show up correctly
 
 			#Multipliers from government
-			if = {
-				limit = { has_government_attribute = is_technocracy }
-				change_variable = { which = ArtificePointsMultiplier value = 0.25 } }
-			else_if = {
-				limit = { has_government_attribute = is_magocracy }
-				subtract_variable = { which = ArtificePointsMultiplier value = 0.25 } }
-			else_if = {
-				limit = { has_government_attribute = is_feiten_keju }
-				change_variable = { which = ArtificePointsMultiplier value = 0.25 } }
-
-			if = {	#Artificer Hegemon
-				limit = { is_hegemon_of_type = military_hegemon hegemon_strength = 100 }
-				change_variable = { which = ArtificePointsMultiplier value = 0.50 } }
-			
+			if = { limit = { has_government_attribute = is_technocracy } change_variable = { which = ArtificePointsMultiplier value = 0.25 } }
+			else_if = { limit = { has_government_attribute = is_magocracy } subtract_variable = { which = ArtificePointsMultiplier value = 0.25 } }
+			else_if = { limit = { has_government_attribute = is_feiten_keju } change_variable = { which = ArtificePointsMultiplier value = 0.25 } }
+			if = { limit = { is_hegemon_of_type = military_hegemon hegemon_strength = 100 } change_variable = { which = ArtificePointsMultiplier value = 0.50 } }	#Artificer Hegemon
 			#static sources from things like missions and upkeep
 			change_variable = { which = MaxArtificePoints which = StaticArtificePoints }
 			# Floor at 0
-			if = {
-				limit = { NOT = { check_variable = { which = ArtificePointsMultiplier value = 0 } } }
-				set_variable = { which = ArtificePointsMultiplier value = 0 } }
-			else = {
-				multiply_variable = { which = MaxArtificePoints which = ArtificePointsMultiplier } }
-
+			if = { limit = { NOT = { check_variable = { which = ArtificePointsMultiplier value = 0 } } } set_variable = { which = ArtificePointsMultiplier value = 0 } }
+			else = { multiply_variable = { which = MaxArtificePoints which = ArtificePointsMultiplier } } 
 			# Floor at 0
-			if = {
-				limit = { NOT = { check_variable = { which = MaxArtificePoints value = 0 } } }
-				set_variable = { which = MaxArtificePoints value = 0 } }
+			if = { limit = { NOT = { check_variable = { which = MaxArtificePoints value = 0 } } } set_variable = { which = MaxArtificePoints value = 0 } }
 			set_variable = { which = RemainingArtificePoints value = 0 }
 			change_variable = { which = RemainingArtificePoints which = MaxArtificePoints }
 			subtract_variable = { which = RemainingArtificePoints which = ArtificeUpkeep }
-
 			# If over capacity
-			if = {
-				limit = { NOT = { check_variable = { which = RemainingArtificePoints value = 0 } } }
-				add_country_modifier = { name =  artificers_over_artifice_capacity duration = -1 } }
-			else = {
-				remove_country_modifier = artificers_over_artifice_capacity
-			}
+			if = { limit = { NOT = { check_variable = { which = RemainingArtificePoints value = 0 } } } add_country_modifier = { name =  artificers_over_artifice_capacity duration = -1 } }
+			else = { remove_country_modifier = artificers_over_artifice_capacity }
 		}
 	}
 }
