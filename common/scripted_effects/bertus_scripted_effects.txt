@@ -1,5 +1,26 @@
 
 
+get_monthly_mana = {
+	export_to_variable = { which = monthly_mana_var value = modifier:monthly_mana_modifier }
+	change_variable = { which = mana_var which = monthly_mana_var }
+	if = {
+		limit = { check_variable = { which = mana_var which = max_mana_var } }
+		export_to_variable = { which = max_mana_var value = modifier:max_mana_modifier }
+		if = {
+			limit = { has_country_flag = contribute_mana_flag }
+			add_estate_loyalty = { estate = estate_mages loyalty = 1.0 }
+			A85 = { add_mana_effect = { mana = 0.5 no_spell_in_a_box = yes } }
+			add_mana_effect = { mana = -1 no_spell_in_a_box = yes }
+			if = {
+				limit = { check_variable = { which = mana_var which = max_mana_var } }
+				set_variable = { which = mana_var which = max_mana_var }
+			}
+		}
+		else = {
+			set_variable = { which = mana_var which = max_mana_var }
+		}
+	}
+}
 change_ideas_effect = {
 	remove_country_modifier = ideas_undead_country_ideas_10_manpower_usage_modifier
 	if = {
@@ -9,15 +30,11 @@ change_ideas_effect = {
 				tag = XA8
 			}
 		}
-		add_country_modifier = {
-			name = ideas_undead_country_ideas_10_manpower_usage_modifier
-			duration = -1
-			hidden = yes
-		}
+		add_country_modifier = { name = ideas_undead_country_ideas_10_manpower_usage_modifier duration = -1 hidden = yes }
 	}
 }
 upgrade_magic_shcool = {
-	add_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = -75 }
+	add_mana_effect = { mana = -75 no_spell_in_a_box = yes }
 	if = {
 		limit = { has_unlocked_magic_school = { school =  $school$ level = 2 } }
 		custom_tooltip = $school$_3_tt
@@ -5125,15 +5142,15 @@ spawn_dev_dependant_rebels = {
 }
 add_mana_effect = {
 	if = {
-		limit = { has_country_flag = invention_spell_in_a_box_use }
+		limit = { has_country_flag = invention_spell_in_a_box_use [[no_spell_in_a_box] always = no ] }
 		clr_country_flag = invention_spell_in_a_box_use
 	}
 	else_if = {
-		limit = { NOT = { has_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = $mana$ } } }
+		limit = { NOT = { check_variable = { which = mana_var value = $mana$  } } }
 		custom_tooltip = magisters_need_$mana$_mana_tt
 	}
 	else = {
-		add_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = $mana$ }
+		change_variable = { which = mana_var value = $mana$  }
 	}
 }
 get_homonculus_skill = {

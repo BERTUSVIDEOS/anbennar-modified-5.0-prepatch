@@ -665,13 +665,16 @@ magisterium_vacuum_mana_action = {
 			limit = { is_colonial_nation = yes }
 			is_colonial_nation = no
 		}
+		FROM = {
+			has_mana = { mana = 33 no_spell_in_a_box = yes }
+		}
 	}
 
     on_accept = {
-		add_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 10 }
+		add_mana_effect = { mana = 10 no_spell_in_a_box = yes }
 		add_spy_network_in = { who = FROM value = -75 }
 		FROM = {
-			add_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = -10 }
+			add_mana_effect = { mana = -10 no_spell_in_a_box = yes }
 			country_event = {id = bertus_changes.6039}
 		}
 	}
@@ -700,9 +703,9 @@ magisterium_favor_mana_action = {
 	}
     on_accept = {
 		add_favors = { who = FROM amount = -25 }
-		add_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 10 }
+		add_mana_effect = { mana = 10 no_spell_in_a_box = yes }
 		FROM = {
-			add_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = -10 }
+			add_mana_effect = { mana = -10 no_spell_in_a_box = yes }
 		}
 	}
 	ai_will_do = {always = no}
@@ -713,10 +716,7 @@ magisterium_favor_mana_action = {
 				FROM = { NOT = { stability = 1 } }
 			}
 			export_to_variable = { variable_name = ai_value value = 1 }
-			multiply_variable = {
-				which = ai_value 
-				value = 25
-			}
+			multiply_variable = { which = ai_value value = 25 }
 		}
 	}
 }
@@ -736,10 +736,9 @@ give_magisterium_mana_action = {
 			tooltip = not_war_with_root_tt
 			NOT = {war_with = FROM}
 		}
-		has_government_power = {
-			mechanic_type = magisterium_mechanic 
-			power_type = magisterium_mana
-			value = 10
+		if = {
+			limit = { NOT = { has_mana = { mana = 10 no_spell_in_a_box = yes } } }
+			has_mana = { mana = 10 no_spell_in_a_box = yes }
 		}
 		NOT = { war_with = FROM }
 	}
@@ -747,21 +746,17 @@ give_magisterium_mana_action = {
     on_accept = {
 		if = {
 			limit = { ai = yes }
-			add_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = -50 }
+			add_mana_effect = { mana = -50 no_spell_in_a_box = yes }
 		}
-		add_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = -10 }
+		add_mana_effect = { mana = -10 no_spell_in_a_box = yes }
 		add_estate_loyalty = { estate = estate_mages loyalty = 10 }
 		FROM = {
-			add_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 10 }
+			add_mana_effect = { mana = 10 no_spell_in_a_box = yes }
 		}
 		add_favors = { who = FROM amount = 1 }
 	}
 	ai_will_do = {
-		has_government_power = { 
-			mechanic_type = magisterium_mechanic 
-			power_type = magisterium_mana
-			value = 90
-		}
+		has_mana = { mana = 90 no_spell_in_a_box = yes }
 		FROM = { has_opinion = {who = ROOT value = 100}}
 		NOT = { is_rival = FROM }
 		overlord = { NOT = { is_rival = FROM } }
@@ -786,12 +781,12 @@ magisterium_cast_divination_spell_action = {
 	
 	is_allowed = {
 		if = {
-			limit = { NOT = { has_government_power = {  mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 20 } } }
-			has_government_power = {  mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 20 }
+			limit = { NOT = { has_mana = { mana = 20 } } }
+			has_mana = { mana = 20 }
 		}
 		if = {
-			limit = { FROM = { has_country_modifier = divination_spell_reform_modifier} }
-			FROM = { NOT = { has_country_modifier = divination_spell_reform_modifier} }
+			limit = { FROM = { has_country_modifier = divination_school_reform_modifier} }
+			FROM = { NOT = { has_country_modifier = divination_school_reform_modifier} }
 		}
 		if = {
 			limit = { FROM = { war_with = ROOT} }
@@ -800,9 +795,9 @@ magisterium_cast_divination_spell_action = {
 	}
 
     on_accept = {
-		add_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = -20 }
+		add_mana_effect = { mana = -20 }
 		FROM = {
-			add_country_modifier = { name = divination_spell_reform_modifier duration = 1825 }
+			add_country_modifier = { name = divination_school_reform_modifier duration = 1825 }
 		}
 	}
 	ai_will_do = {always = no}
@@ -836,9 +831,7 @@ magisterium_cast_fake_comet_spell_action = {
 
     on_accept = {
 		if = {
-			limit = {
-				has_mana = { mana = 75 }
-			}
+			limit = { has_mana = { mana = 75 } }
 			add_mana_effect = { mana = -75 }
 			FROM = { country_event = { id = 5060 days = 5 random = 20 } }
 		}
@@ -864,8 +857,8 @@ magisterium_cast_enchantment_spell_action = {
 	
 	is_allowed = {
 		if = {
-			limit = { NOT = { has_government_power = {  mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 20 } } }
-			has_government_power = {  mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 20 }
+			limit = { NOT = { has_mana = { mana = 20 } } }
+			has_mana = { mana = 20 }
 		}
 		if = {
 			limit = { FROM = { has_country_modifier = enchantment_diplo_school_reform_modifier} }
@@ -878,7 +871,7 @@ magisterium_cast_enchantment_spell_action = {
 	}
 
     on_accept = {
-		add_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = -20 }
+		add_mana_effect = { mana = -20 }
 		FROM = {
 			small_increase_of_human_tolerance_effect = yes
 			small_increase_of_elven_tolerance_effect = yes
@@ -917,8 +910,8 @@ magisterium_cast_abjuration_spell_action = {
 	
 	is_allowed = {
 		if = {
-			limit = { NOT = { has_government_power = {  mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 20 } } }
-			has_government_power = {  mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 20 }
+			limit = { NOT = { has_mana = { mana = 20 } } }
+			has_mana = { mana = 20 }
 		}
 		if = {
 			limit = { FROM = { has_country_modifier = abjuration_defender_school_reform_modifier} }
@@ -931,7 +924,7 @@ magisterium_cast_abjuration_spell_action = {
 	}
 
     on_accept = {
-		add_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = -20 }
+		add_mana_effect = { mana = -20 }
 		FROM = {
 			add_country_modifier = { name = abjuration_defender_school_reform_modifier duration = 1825 }
 		}
@@ -954,7 +947,10 @@ magisterium_cast_banishment_spell_action = {
     }
 	
 	is_allowed = {
-		has_mana = { mana = 75 }
+		if = {
+			limit = { NOT = { has_mana = { mana = 75 } } }
+			has_mana = { mana = 75 }
+		}
 		if = {
 			limit = { FROM = { has_country_modifier = spell_banished_army_modifier } }
 			FROM = { NOT = { has_country_modifier = spell_banished_army_modifier } }
@@ -993,8 +989,8 @@ magisterium_cast_transmutation_spell_action = {
 	
 	is_allowed = {
 		if = {
-			limit = { NOT = { has_government_power = {  mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 20 } } }
-			has_government_power = {  mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 20 }
+			limit = { NOT = { has_mana = { mana = 20 } } }
+			has_mana = { mana = 20 }
 		}
 		if = {
 			limit = { FROM = { any_owned_province = {has_province_modifier = transmutation_spell_reform_elemental_climate_control_modifier} } }
@@ -1008,7 +1004,7 @@ magisterium_cast_transmutation_spell_action = {
 	}
 
     on_accept = {
-		add_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = -20 }
+		add_mana_effect = { mana = -20 }
 		FROM = {
 			every_owned_province = {
 				limit = {province_with_farm_goods = yes}
@@ -1032,8 +1028,8 @@ magisterium_cast_evocation_spell_action = {
 	
 	is_allowed = {
 		if = {
-			limit = { NOT = { has_government_power = {  mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 20 } } }
-			has_government_power = {  mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 20 }
+			limit = { NOT = { has_mana = { mana = 20 } } }
+			has_mana = { mana = 20 }
 		}
 		if = {
 			limit = { FROM = { has_country_modifier = evocation_spell_school_reform_modifier} }
@@ -1046,7 +1042,7 @@ magisterium_cast_evocation_spell_action = {
 	}
 
     on_accept = {
-		add_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = -20 }
+		add_mana_effect = { mana = -20 }
 		FROM = {
 			add_country_modifier = { name = evocation_spell_school_reform_modifier duration = 1825 }
 		}
@@ -1066,11 +1062,11 @@ magisterium_cast_illusion_spell_action = {
 	
 	is_allowed = {
 		if = {
-			limit = { NOT = { has_government_power = {  mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 20 } } }
-			has_government_power = {  mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 20 }
+			limit = { NOT = { has_mana = { mana = 20 } } }
+			has_mana = { mana = 20 }
 		}
 		if = {
-			limit = { FROM = { any_owned_province = {has_province_modifier = illusion_school_reform_magisterium_modifier} } }
+			limit = { FROM = { any_owned_province = {has_province_modifier = illusion_school_reform_magisterium_modifier } } }
 			FROM = { NOT = { any_owned_province = {has_province_modifier = illusion_school_reform_magisterium_modifier} } }
 		}
 		if = {
@@ -1080,7 +1076,7 @@ magisterium_cast_illusion_spell_action = {
 	}
 
     on_accept = {
-		add_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = -20 }
+		add_mana_effect = { mana = -20 }
 		FROM = {
 			every_owned_province = {
 				remove_province_modifier = illusion_school_reform_magisterium_modifier
@@ -1103,7 +1099,7 @@ magisterium_cast_conjuration_spell_action = {
 	
 	is_allowed = {
 		if = {
-			limit = { NOT = { has_government_power = {  mechanic_type = magisterium_mechanic power_type = magisterium_mana value = 20 } } }
+			limit = { NOT = { has_mana = { mana = 20 } } }
 			has_mana = { mana = 20 }
 		}
 		if = {
@@ -1118,7 +1114,7 @@ magisterium_cast_conjuration_spell_action = {
 	}
 
     on_accept = {
-		add_government_power = { mechanic_type = magisterium_mechanic power_type = magisterium_mana value = -20 }
+		add_mana_effect = { mana = -20 }
 		FROM = {
 			every_owned_province = {
 				limit = {owner = {has_estate_privilege = estate_mages_organization_magisterium} province_with_mine_goods = yes }
