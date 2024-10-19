@@ -841,7 +841,6 @@ on_battle_won_country_effect = {
 			FROM = { OR = {ai = no overlord = { ai = no } } }
 			ai = no
 			is_at_war = yes
-			has_government_mechanic = military_reforms_mechanic
 		}
 		set_variable = { which = military_reform_unit_kill_losses value = 0 }
 		change_variable = { which = military_reform_unit_kill_losses which = land_units_lost }
@@ -855,7 +854,12 @@ on_battle_won_country_effect = {
 		while = {
 			limit = { check_variable = { which = military_reform_unit_kill_losses value = 0.1 } }
 			change_variable = { which = military_reform_unit_kill_losses value = -0.1 }
-			add_government_power = { mechanic_type = military_reforms_mechanic power_type = military_reform_power value = 0.01 }
+			change_variable = { which = military_reform_progress_var value = 0.01 }
+			if = {
+				limit = { check_variable = { which = military_reform_progress_var value = 100 } }
+				change_variable = { which = military_reforms_tokens_var value = 1 }
+				change_variable = { which = military_reform_progress_var value = -100 }
+			}
 		}
 	}
 	if = {	#bertus mod
@@ -890,7 +894,6 @@ on_battle_lost_country_effect = {
 			FROM = { OR = {ai = no overlord = { ai = no } } }
 			ai = no
 			is_at_war = yes
-			has_government_mechanic = military_reforms_mechanic
 		}
 		set_variable = { which = military_reform_unit_kill_losses value = 0 }
 		change_variable = { which = military_reform_unit_kill_losses which = land_units_lost }
@@ -904,7 +907,12 @@ on_battle_lost_country_effect = {
 		while = {
 			limit = { check_variable = { which = military_reform_unit_kill_losses value = 0.1 } }
 			change_variable = { which = military_reform_unit_kill_losses value = -0.1 }
-			add_government_power = { mechanic_type = military_reforms_mechanic power_type = military_reform_power value = 0.01 }
+			change_variable = { which = military_reform_progress_var value = 0.01 }
+			if = {
+				limit = { check_variable = { which = military_reform_progress_var value = 100 } }
+				change_variable = { which = military_reforms_tokens_var value = 1 }
+				change_variable = { which = military_reform_progress_var value = -100 }
+			}
 		}
 	}
 }
