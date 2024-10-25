@@ -1107,20 +1107,25 @@ get_special_general_stats = {
 		if = {
 			limit = {
 				OR = {
-					has_estate_privilege = estate_mages_water_academy
 					has_estate_privilege = estate_mages_air_academy
 					has_estate_privilege = estate_mages_earth_academy
-					has_estate_privilege = estate_mages_divination_academy
-					has_estate_privilege = estate_mages_necromancy_academy
 					has_estate_privilege = estate_mages_conjuration_academy
-					has_estate_privilege = estate_mages_enchantment_academy
 				}
 			}
 			change_variable = {which = country_leader_shock_var value = 1}
 		}
 		if = {
-			limit = {has_estate_privilege = estate_mages_water_academy }
+			limit = {
+				OR = {
+					has_estate_privilege = estate_mages_earth_academy
+					has_estate_privilege = estate_mages_necromancy_academy
+					has_estate_privilege = estate_mages_enchantment_academy
+			}
 			change_variable = {which = country_leader_manuever_var value = 1}
+		}
+		if = {
+			limit = {has_estate_privilege = estate_mages_water_academy }
+			change_variable = {which = country_leader_siege_var value = 1}
 		}
 		if = {
 			limit = {estate_influence = {estate = estate_mages influence = 100}}

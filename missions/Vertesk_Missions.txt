@@ -428,8 +428,8 @@ vertesk_1_missions = {
 		
 		provinces_to_highlight = {
 			OR = { 	
-				area = vertesk_area
-				area = floodmarches_area
+				area = alenic_expanse_area
+				area = south_alen_area
 			}
 			OR = {
 				NOT = { owned_by = ROOT }
@@ -438,12 +438,12 @@ vertesk_1_missions = {
 		}
 		
 		trigger = {
-			vertesk_area = {
+			alenic_expanse_area = {
 				type = all
 				owned_by = ROOT
 				is_core = ROOT
 			}
-			floodmarches_area = {
+			south_alen_area = {
 				type = all
 				owned_by = ROOT
 				is_core = ROOT
@@ -451,14 +451,14 @@ vertesk_1_missions = {
 		}
 		
 		effect = {
-			dragonhills_area = {
+			westmounts_area = {
 				limit = {
 					NOT = { is_core = ROOT }
 					NOT = { owned_by = ROOT }
 				}
 				add_claim = ROOT
 			}
-			lorentish_approach_area = {
+			east_dragonhills_area = {
 				limit = {
 					NOT = { is_core = ROOT }
 					NOT = { owned_by = ROOT }
@@ -468,94 +468,109 @@ vertesk_1_missions = {
 		}
 	}
 	
-	A23_contact_reachmen = {
+	A23_contact_reachmen = {	#bertus mod
 		icon = mission_alliances
 		required_missions = { A23_beat_gawed }
 		position = 8
 		
 		provinces_to_highlight = {
-			owner = { primary_culture = blue_reachman is_vassal = no }
+			owner = { 
+				OR = {
+					primary_culture = blue_reachman
+					owns = 723
+				}
+				is_vassal = no
+			}
 			is_capital = yes
 		}
 		
 		trigger = {
-			#dip_power = 300	#bertus mod#
-			any_known_country = {
-				primary_culture = blue_reachman
-				has_opinion = {
-					who = A23
-					value = 120
-				}
-				is_vassal = no
-			}
-		}
-		
-		effect = {
-			every_country = {
-				limit = { 
-					primary_culture = blue_reachman 
-					has_opinion = {
-						who = A23
-						value = 120
+			if = {
+				limit = {
+					any_known_country = {
+						OR = {
+							primary_culture = blue_reachman
+							owns = 723
+						}
 					}
-					is_vassal = no
 				}
-				add_trust = {
-					who = A23
-					value = 30
-					mutual = yes 
+				any_known_country = {
+					OR = {
+						primary_culture = blue_reachman
+						owns = 723
+					}
+					alliance_with = ROOT
 				}
 			}
-			#add_dip_power = -300	#bertus mod#
-			country_event = { id = flavor_vertesk.2 }
-		}
-	}
-	
-	A23_brothers_war = {
-		icon = mission_rb_rein_in_the_highland_clans
-		required_missions = { A23_contact_reachmen }
-		position = 9
-		
-		provinces_to_highlight = {
-			OR = {
-				area = lorentish_approach_area
-				area = dragonhills_area
-				area = east_dragonhills_area
-				area = eaglecrest_area
-			}
-			owned_by = A13
-		}
-		
-		trigger = {
-			lorentish_approach_area = {
-				type = all
-				NOT = { owned_by = A13 }
-			}
-			dragonhills_area = {
-				type = all
-				NOT = { owned_by = A13 }
-			}
-			east_dragonhills_area = {
-				type = all
-				NOT = { owned_by = A13 }
-			}
-			eaglecrest_area = {
-				type = all
-				NOT = { owned_by = A13 }
-			}
-			army_strength = {
-				who = A13
-				value = 0.6
-			}
-			OR = { 
-				alliance_with = A01
-				any_ally = { primary_culture = blue_reachman }
+			else = {
+				723 = {
+					OR = {
+						owner = {
+							ROOT = {
+								has_won_war_against = {
+									who = PREV
+									max_years_since = 20
+								}
+							}
+						}
+						owned_by = ROOT
+					}
+				}
 			}
 		}
 		
-		effect = {
-			221 = { add_permanent_claim = ROOT }
-			south_alen_area = {
+		effect = {	#bertus mod#
+			if = {
+				limit = {
+					any_known_country = {
+						alliance_with = ROOT
+						OR = {
+							primary_culture = blue_reachman
+							owns = 723
+						}
+					}
+				}
+				every_country = {
+					limit = { 
+						alliance_with = ROOT
+						OR = {
+							primary_culture = blue_reachman
+							owns = 723
+						}
+					}
+					add_trust = {
+						who = A23
+						value = 30
+						mutual = yes 
+					}
+					add_country_modifier = {
+						name = "thriving_arms_industry"
+						duration = 3650
+					}
+				}
+			}
+			add_country_modifier = {
+				name = "thriving_arms_industry"
+				duration = 3650
+			}
+			set_country_flag = hero_free_general_flag
+			custom_tooltip = get_free_great_hero_general_tt
+			set_country_flag = get_adventurer_flag
+			custom_tooltip = get_adventurer_flag_tt
+			set_country_flag = great_general_extra_pips_flag
+			custom_tooltip = great_general_extra_pips_flag_tt
+			hidden_effect = {
+				set_saved_name = {key = special_general_name type = simple name = "Ruben 'Blueface'"}
+				country_event = {id = bertus_changes.6030}
+			}
+			gawed_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			greatmarches_area = {
 				limit = {
 					NOT = { is_core = ROOT }
 					NOT = { owned_by = ROOT }
@@ -565,82 +580,156 @@ vertesk_1_missions = {
 		}
 	}
 	
-	A23_dominion_of_gawed = {
+	A23_brothers_war = {	#bertus mod
+		icon = mission_rb_rein_in_the_highland_clans
+		required_missions = { A23_contact_reachmen }
+		position = 9
+		
+		provinces_to_highlight = {
+			OR = {
+				area = gawed_area
+				area = greatmarches_area
+			}
+			NOT = { owned_by = ROOT }
+		}
+		
+		trigger = {
+			gawed_area = {
+				type = all
+				owned_by = ROOT 
+			}
+			greatmarches_area = {
+				type = all
+				owned_by = ROOT 
+			}
+		}
+		
+		effect = {
+			custom_tooltip = "Add a Permanent Claim on every province owned by Gawed on Alenic Frontier Region"
+			hidden_effect = {
+				every_province = {
+					limit = { owned_by = A13 region = alenic_frontier_region }
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+	
+	A23_dominion_of_gawed = {	#bertus mod
 		icon = avoid_fragmentation
 		required_missions = { A23_brothers_war }
 		position = 10
 		
 		provinces_to_highlight = {
-			OR = {
-				AND = {
-					area = south_alen_area
-					OR = {
-						NOT = { owned_by = ROOT }
-						NOT = { is_core = ROOT }
-					}
+			A13 = { is_subject = no }
+			region = alenic_frontier_region
+			owned_by = A13
+			
+			if = {
+				limit = { exists = A13 }
+				if = {
+					limit = { A13 = { is_subject_of = ROOT } }
+					A13 = { is_subject_of = ROOT } 
 				}
-				AND = {
-					province_id = 221
+				else = {
+					region = lencenor_region
+					ROOT = {
+						NOT = {
+							num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+								region = alenic_frontier_region
+								value = 30
+							}
+						}
+					}
 					NOT = { country_or_non_sovereign_subject_holds = ROOT }
 				}
+			}
+			else = {
+				region = lencenor_region
+				ROOT = {
+					NOT = {
+						num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+							region = alenic_frontier_region
+							value = 30
+						}
+					}
+				}
+				NOT = { country_or_non_sovereign_subject_holds = ROOT }
 			}
 		}
 		
 		trigger = {
-			south_alen_area = {
-				type = all
-				owned_by = ROOT
-				is_core = ROOT
+			if = {
+				limit = { exists = A13 }
+				if = {
+					limit = { A13 = { is_subject_of = ROOT } }
+					A13 = { is_subject_of = ROOT } 
+				}
+				else = {
+					num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+						value = 30
+						region = alenic_frontier_region
+					}
+				}
 			}
-			221 = { country_or_non_sovereign_subject_holds = ROOT }
+			else = {
+				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+					value = 30
+					region = alenic_frontier_region
+				}
+			}
 		}
 		
 		effect = { 
 			add_prestige_or_monarch_power = {amount =  20}
-			add_power_projection = {
-				type = mission_rewards_power_projection
-				amount = 20
+			if = {
+				limit = { A13 = { is_subject_of = ROOT } }
+				A13 = {
+					add_liberty_desire = -50
+				}
 			}
-			add_casus_belli = {
-				target = A13
-				type = cb_vassalize_mission
-				months = 480
-			}	
+			country_event = { id = flavor_vertesk.2 }
 		}
 	}
-	
+}
+vertesk_1_expansion_missions = { 
+	slot = 1
+	generic = no
+	ai = yes 
+	has_country_shield = yes
+	potential = { tag = A23 has_country_flag = A23_no_gawed }
+
 	A23_secure_west = {
 		icon = mission_unite_home_region
 		required_missions = { A23_are_we_the_baddies }
 		position = 13
 		
 		provinces_to_highlight = {
+			OR = { 	
+				area = beronmoor_area
+				area = moorhills_area
+				area = westmoor_proper_area
+				area = coddorran_heights_area
+				area = cosan_area
+				area = east_moorhills_area
+			}
 			OR = {
-				AND = {
-					continent = europe
-					owned_by = A24
-				}
-				AND = {
-					OR = { 	
-						area = beronmoor_area
-						area = moorhills_area
-						area = westmoor_proper_area
-						area = coddorran_heights_area
-					}
-					OR = {
-						NOT = { owned_by = ROOT }
-						NOT = { is_core = ROOT }
-					}
-				}
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
 			}
 		}
 		
 		trigger = {
-			europe = {
+			east_moorhills_area = {
 				type = all
-				NOT = { owned_by = A24 }
+				owned_by = ROOT
+				is_core = ROOT
 			}
-			accepted_culture = moorman
+			cosan_area = {
+				type = all
+				owned_by = ROOT
+				is_core = ROOT
+			}
 			beronmoor_area = {
 				type = all
 				owned_by = ROOT
@@ -664,7 +753,6 @@ vertesk_1_missions = {
 		}
 		
 		effect = {
-			add_mil_power = 200
 			mawriver_area = {
 				limit = {
 					NOT = { is_core = ROOT }
@@ -685,6 +773,21 @@ vertesk_1_missions = {
 					NOT = { owned_by = ROOT }
 				}
 				add_permanent_claim = ROOT
+			}
+			add_owned_provinces_development_manpower = {
+				multiplier = 1
+				age_multiplier = 1
+				trigger = { 
+					OR = {
+						area = beronmoor_area
+						area = moorhills_area
+						area = westmoor_proper_area
+						area = coddorran_heights_area
+						area = cosan_area
+						area = east_moorhills_area
+					}
+				}
+				custom_tooltip = MENTIONED_PROVINCES_PROV_TT
 			}
 		}
 	}
@@ -1229,9 +1332,17 @@ vertesk_2_missions = {
 			}	
 		}
 	}
-	
-	A23_teal_tower = {
-		icon = a_question_of_spain
+}
+
+vertesk_2_expansion_locked_missions = { 
+	slot = 2
+	generic = no
+	ai = yes 
+	has_country_shield = yes
+	potential = { tag = A23 NOT = { has_country_flag = A23_no_gawed } }
+
+	A23_teal_tower_locked = {
+		icon = mission_locked_mission
 		required_missions = { A23_dominion_of_gawed }
 		position = 11
 		
@@ -1261,6 +1372,42 @@ vertesk_2_missions = {
 			}
 		}
 	}
+}
+	
+vertesk_2_expansion_missions = { 
+	slot = 2
+	generic = no
+	ai = yes 
+	has_country_shield = yes
+	potential = { tag = A23 has_country_flag = A23_no_gawed }
+
+	A23_teal_tower = {
+		icon = a_question_of_spain
+		required_missions = { A23_dominion_of_gawed }
+		position = 11
+		
+		provinces_to_highlight = {
+			province_id = 221
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		trigger = {
+			221 = { country_or_non_sovereign_subject_holds = ROOT }
+			treasury = 3000
+			#adm_power = 200	#bertus mod#
+		}
+		
+		effect = {
+			add_treasury = -3000
+			#add_adm_power = -200	#bertus mod#
+			221 = {
+				add_permanent_province_modifier = {
+					name = A23_teal_tower
+					duration = -1
+				}
+			}
+		}
+	}
 	
 	A23_secure_gawed = {
 		icon = mission_unite_home_region
@@ -1268,85 +1415,26 @@ vertesk_2_missions = {
 		position = 13
 		
 		provinces_to_highlight = {
+			region = alenic_reach_region
 			OR = {
-				AND = {
-					continent = europe
-					owned_by = A13
-				}
-				AND = {
-					province_id = 221
-					OR = {
-						NOT = { owned_by = ROOT }
-						NOT = { has_fort_building_trigger = yes }
-					}
-				}
-				AND = {
-					OR = { 	
-						area = south_alen_area
-						area = westmounts_area
-						area = gawed_area
-						area = alenic_expanse_area
-					}
-					OR = {
-						NOT = { owned_by = ROOT }
-						NOT = { is_core = ROOT }
-					}
-				}
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
 			}
 		}
 		
 		trigger = {
-			europe = {
-				type = all
-				NOT = { owned_by = A13 }
-			}
-			accepted_culture = gawedi
-			221 = { 
-				has_fort_building_trigger = yes
-				owned_by = ROOT
-			}
-			south_alen_area = {
-				type = all
-				owned_by = ROOT
-				is_core = ROOT
-			}
-			westmounts_area = {
-				type = all
-				owned_by = ROOT
-				is_core = ROOT
-			}
-			gawed_area = {
-				type = all
-				owned_by = ROOT
-				is_core = ROOT
-			}
-			alenic_expanse_area = {
-				type = all
-				owned_by = ROOT
-				is_core = ROOT
-			}
-			alenic_reach_region = {
-				type = all
-				owned_by = ROOT
-				is_core = ROOT
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 30
+				region = alenic_reach_region
 			}
 		}
 		
 		effect = {
-			add_adm_power = 200
-			dinesck_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { owned_by = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-			northern_greatwoods_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { owned_by = ROOT }
-				}
-				add_permanent_claim = ROOT
+			add_owned_provinces_development_manpower = {
+				multiplier = 1
+				age_multiplier = 1
+				trigger = { region = alenic_reach_region }
+				custom_tooltip = MENTIONED_PROVINCES_PROV_TT
 			}
 		}
 	}
@@ -1451,6 +1539,10 @@ vertesk_2_missions = {
 		effect = {
 			add_navy_tradition = 20
 			create_admiral = { tradition = 90 }
+			add_country_modifier = {
+				name = vertesk_alenic_navy_modifier
+				duration = -1
+			}
 		}
 	}
 }
@@ -1909,7 +2001,42 @@ vertesk_3_missions = {
 			}
 		}
 	}
+}
+vertesk_3_expansion_locked_missions = { 
+	slot = 3
+	generic = no
+	ai = yes 
+	has_country_shield = yes
+	potential = { tag = A23 NOT = { has_country_flag = A23_no_gawed } }
+
+	A23_destiny_locked = {
+		icon = mission_locked_mission
+		required_missions = { A23_northern_jewel A23_green_trade_hegemony }
+		position = 11
+		
+		trigger = {	
+			is_at_war = no
+			stability = 3
+			#adm_power = 200	#bertus mod#
+		}
+		
+		effect = {
+			#add_adm_power = -200	#bertus mod#
+			A23 = { set_in_empire = no }
+			country_event = { id = flavor_vertesk.4 }	#government reform
+			override_country_name = VERTESK_DOMINION
+		}
+	}
+}
 	
+
+vertesk_3_expansion_missions = { 
+	slot = 3
+	generic = no
+	ai = yes 
+	has_country_shield = yes
+	potential = { tag = A23 has_country_flag = A23_no_gawed }
+
 	A23_destiny = {
 		icon = mission_empire
 		required_missions = { A23_northern_jewel A23_green_trade_hegemony }
@@ -1926,7 +2053,6 @@ vertesk_3_missions = {
 		}
 		
 		effect = {
-			add_stability = -3
 			#add_adm_power = -200	#bertus mod#
 			A23 = { set_in_empire = no }
 			country_event = { id = flavor_vertesk.4 }	#government reform
@@ -1934,23 +2060,17 @@ vertesk_3_missions = {
 		}
 	}
 	
-	A23_are_we_the_baddies = {
+	A23_are_we_the_baddies = {		#bertus mod#
 		icon = mission_assemble_an_army
 		required_missions = { A23_destiny A23_teal_tower }
 		position = 12
 		
 		trigger = {
 			is_at_war = no
-			stability = 2		#bertus mod#
-			#adm_power = 300	#bertus mod#
-			#dip_power = 300	#bertus mod#
-			#mil_power = 300	#bertus mod#
+			stability = 2
 		}
 		
 		effect = {
-			#add_adm_power = -300	#bertus mod#
-			#add_dip_power = -300	#bertus mod#
-			#add_mil_power = -300	#bertus mod#
 			add_country_modifier = {
 				name = A23_consolidation_period
 				duration = -1
@@ -1962,12 +2082,47 @@ vertesk_3_missions = {
 				}
 				add_permanent_claim = ROOT
 			}
+			alenic_reach_region = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			arbaran_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			golden_plains_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			norcestir_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			cestir_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
 		}
 	}
 	
 	A23_end_consolidation = {
 		icon = mission_monarch_in_throne_room
-		required_missions = { A23_secure_gawed A23_secure_arbaran A23_are_we_the_baddies }
+		required_missions = { A23_secure_gawed A23_secure_arbaran A23_are_we_the_baddies A23_secure_west A23_secure_east }
 		position = 14
 		
 		provinces_to_highlight = {
@@ -2046,29 +2201,30 @@ vertesk_3_missions = {
 		}
 		
 		trigger = {
-			estate_loyalty = {
-				estate = estate_artificers
-				loyalty = 60
+			estate_loyalty = { estate = estate_artificers loyalty = 60 }
+			estate_influence = { estate = estate_artificers influence = 60 }
+			check_variable = {
+				which = MaxArtificePoints
+				value = 20
 			}
-			estate_influence = {
-				estate = estate_artificers
-				influence = 30
-			}
+			has_unlocked_magic_school = { school = transmutation level = 3 }
+			has_unlocked_magic_school = { school = divination level = 3 }
+			has_mana = { mana = 100 }
 			217 = { 
 				owned_by = ROOT
-				has_building = furnace
+				development = 30
 			}
 			337 = { 
 				owned_by = ROOT
-				has_building = furnace
+				development = 30
 			}
 			222 = { 
 				owned_by = ROOT
-				has_building = furnace
+				development = 30
 			}
 			344 = { 
 				owned_by = ROOT
-				has_building = furnace
+				development = 30
 			}
 			num_of_owned_provinces_with = {
 				value = 30
@@ -2077,12 +2233,13 @@ vertesk_3_missions = {
 		}
 		
 		effect = {
+			add_mana_effect = { mana = -100 }
 			alen_river_cities = { add_base_production = 2 }
-			217 = { add_base_production = 5 }
-			337 = { add_base_production = 5 }
-			222 = { add_base_production = 5 }
-			344 = { add_base_production = 5 }
-			337 = {change_trade_goods = coal}
+			217 = { change_trade_goods = coal }
+			337 = { change_trade_goods = coal }
+			222 = { change_trade_goods = coal }
+			344 = { change_trade_goods = coal }
+			337 = { change_trade_goods = coal }
 		}
 	}
 	
@@ -2528,7 +2685,15 @@ vertesk_4_missions = {
 			medium_increase_of_orcish_tolerance_effect = yes
 		}
 	}
-	
+}
+
+vertesk_4_expansion_missions = { 
+	slot = 4
+	generic = no
+	ai = yes 
+	has_country_shield = yes
+	potential = { tag = A23 has_country_flag = A23_no_gawed }
+
 	A23_secure_arbaran = {
 		icon = mission_unite_home_region
 		required_missions = { A23_are_we_the_baddies }
@@ -2545,6 +2710,7 @@ vertesk_4_missions = {
 						area = cestir_area
 						area = golden_plains_area
 						area = arbaran_area
+						area = norcestir_area
 					}
 					OR = {
 						NOT = { owned_by = ROOT }
@@ -2555,9 +2721,10 @@ vertesk_4_missions = {
 		}
 		
 		trigger = {
-			europe = {
+			norcestir_area = {
 				type = all
-				NOT = { owned_by = A46 }
+				owned_by = ROOT
+				is_core = ROOT
 			}
 			cestir_area = {
 				type = all
@@ -2577,24 +2744,22 @@ vertesk_4_missions = {
 		}
 		
 		effect = {
-			arbaran_area = { 
-				add_base_manpower = -2
-				add_base_production = -2
-				add_base_tax = -2
-				add_devastation = 20
-			}
-			golden_plains_area = { 
-				add_base_manpower = -1
-				add_base_production = -1
-				add_base_tax = -1
-				add_devastation = 10
-			}
-			vertesk_area = { 
+			arbaran_area = {
 				add_base_manpower = 2
 				add_base_production = 2
 				add_base_tax = 2
 			}
-			floodmarches_area = {
+			golden_plains_area = {
+				add_base_manpower = 2
+				add_base_production = 2
+				add_base_tax = 2
+			}
+			norcestir_area = {
+				add_base_manpower = 2
+				add_base_production = 2
+				add_base_tax = 2
+			}
+			cestir_area = {
 				add_base_manpower = 2
 				add_base_production = 2
 				add_base_tax = 2
@@ -2612,7 +2777,7 @@ vertesk_4_missions = {
 			}
 		}
 	}
-	
+
 	A23_grey_tower = {
 		icon = mission_develop_cordoba
 		required_missions = { A23_secure_east }
@@ -2659,7 +2824,7 @@ vertesk_4_missions = {
 		}
 	}
 	
-	A23_invest_north = {
+	A23_invest_north = {	#bertus mod
 		icon = mission_develop_nevas_port
 		required_missions = { A23_grey_tower }
 		position = 15
@@ -2706,15 +2871,21 @@ vertesk_4_missions = {
 		
 		effect = {
 			add_treasury = -2000
-			every_owned_province = {
-				limit = {
-					OR = {
-						trade_goods = fish
-						trade_goods = fur
+			add_country_modifier = {
+				name = vertesk_alenic_prosperity_modifier
+				duration = -1
+			}
+			custom_tooltip = "Every owned province producing Fur or fish gets 2 Base Production"
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							trade_goods = fish
+							trade_goods = fur
+						}
 					}
+					add_base_production = 2
 				}
-				add_base_production = 2	#1→2
-				#add_base_tax = 1	#1→0
 			}
 		}
 	}
@@ -2796,6 +2967,7 @@ vertesk_5_missions = {
 				name = more_merchants
 				duration = 12775
 			}
+			
 		}
 	}
 	
@@ -3079,37 +3251,38 @@ vertesk_5_missions = {
 			}
 		}
 	}
+}
 	
+vertesk_5_expansion_missions = { 
+	slot = 5
+	generic = no
+	ai = yes 
+	has_country_shield = yes
+	potential = { tag = A23 has_country_flag = A23_no_gawed }
+
 	A23_secure_east = {
 		icon = mission_unite_home_region
 		required_missions = { A23_are_we_the_baddies }
 		position = 13
 		
 		provinces_to_highlight = {
+			OR = { 	
+				area = woldvord_area
+				area = alenvord_area
+				area = balvord_area
+				area = jonsway_area
+			}
 			OR = {
-				AND = {
-					continent = europe
-					owned_by = A50
-				}
-				AND = {
-					OR = { 	
-						area = alenvord_area
-						area = balvord_area
-						area = jonsway_area
-					}
-					OR = {
-						NOT = { owned_by = ROOT }
-						NOT = { is_core = ROOT }
-					}
-				}
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
 			}
 		}
 		
 		trigger = {
-			accepted_culture = old_alenic
-			europe = {
+			woldvord_area = {
 				type = all
-				NOT = { owned_by = A50 }
+				owned_by = ROOT
+				is_core = ROOT
 			}
 			alenvord_area = {
 				type = all
@@ -3129,27 +3302,25 @@ vertesk_5_missions = {
 		}
 		
 		effect = {
-			add_dip_power = 200
-			west_chillsbay_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { owned_by = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-			drowned_giant_isles_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { owned_by = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
 			gerudian_coast_region = {
 				limit = {
 					NOT = { is_core = ROOT }
 					NOT = { owned_by = ROOT }
 				}
 				add_permanent_claim = ROOT
+			}
+			add_owned_provinces_development_manpower = {
+				multiplier = 1
+				age_multiplier = 1
+				trigger = {
+					OR = { 	
+						area = woldvord_area
+						area = alenvord_area
+						area = balvord_area
+						area = jonsway_area
+					}
+				}
+				custom_tooltip = MENTIONED_PROVINCES_PROV_TT
 			}
 		}
 	}
@@ -3299,7 +3470,7 @@ vertesk_5_missions = {
 				add_base_production = 2	#0→2
 			}
 			add_country_modifier = {
-				name = more_merchants
+				name = vertesk_more_merchants
 				duration = -1
 			}
 		}

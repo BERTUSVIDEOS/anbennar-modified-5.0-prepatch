@@ -47,12 +47,29 @@ country_event = { #An offer
 
 	}
 	option = { #Accept
-			name = "flavor_vertesk.2.a"
+		name = "flavor_vertesk.2.a"
+		alenic_frontier_region = {
+			limit = {
+				NOT = { owned_by = ROOT }
+			}
+			add_permanent_claim = ROOT
+		}
 	}
 	option = { #Don't accept
-			name = "flavor_vertesk.2.b"
-			hidden_effect = { set_country_flag = A23_no_gawed }
-			#Can't form Gawed no more
+		name = "flavor_vertesk.2.b"
+		hidden_effect = { set_country_flag = A23_no_gawed }
+		swap_non_generic_missions = yes	#bertus mod
+		set_mid_tier_formable = yes
+		add_prestige_or_monarch_power = {amount = 50}
+		add_country_modifier = {
+			name = "centralization_modifier"
+			duration = 7300
+		}
+		add_power_projection = {
+			type = mission_rewards_power_projection
+			amount = 20
+		}
+		#Can't form Gawed no more
 	}
 }
 
@@ -117,20 +134,25 @@ country_event = { #New government
 		#mission
 
 	}
-	option = { #Keep merchant republic, why would you do it though, it sucks
+	option = { #Keep merchant republic
 		name = "flavor_vertesk.4.b"
-		change_government = republic
+		if = {
+			limit = { NOT = { government = republic } }
+			change_government = republic
+		}
 		add_government_reform = merchants_reform
 		add_stability_or_adm_power = yes
-		add_mercantilism = 10	#0→10
-		add_republican_tradition = 25	#0→25
-		add_dip_power = 200	#0→200
+		add_mercantilism = 10
+		change_government_reform_progress = 100
+		add_republican_tradition = 25
 	}
 	option = { #Establish military dictatorship
 		name = "flavor_vertesk.4.a"
-		change_government = republic
+		if = {
+			limit = { NOT = { government = republic } }
+			change_government = republic
+		}
 		add_government_reform = military_dictatorship_reform
-		add_mil_power = 200
 		216 = {
 			spawn_rebels = {
 				type = pretender_rebels
@@ -155,9 +177,20 @@ country_event = { #New government
 			age = 28
 			claim = 30
 		}
-		add_ruler_personality = mage_personality
 		add_ruler_personality = cruel_personality
 		add_ruler_personality = well_connected_personality
+		add_ruler_personality = mage_personality
+		custom_tooltip = talented_in_all_schools_tt
+		hidden_effect = {
+			set_ruler_flag = divination_1
+			set_ruler_flag = enchantment_1
+			set_ruler_flag = abjuration_1
+			set_ruler_flag = transmutation_1
+			set_ruler_flag = evocation_1
+			set_ruler_flag = illusion_1
+			set_ruler_flag = necromancy_1
+			set_ruler_flag = conjuration_1
+		}
 		
 		if = {
 			limit = { has_estate_privilege = estate_mages_organization_magisterium }
