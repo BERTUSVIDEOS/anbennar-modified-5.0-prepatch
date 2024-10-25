@@ -4,6 +4,7 @@ estate_human_hire_advisor = {
 	can_select = {
 		high_tolerance_human_race_trigger = no
 		any_owned_province = {
+			is_state_core = root
 			has_human_majority_trigger = yes
 			ROOT = {
 				NOT = {employed_advisor = {category = DIP culture = PREV}}
@@ -69,6 +70,7 @@ estate_human_fire_advisor = {
 			}
 		}
 		any_owned_province = {
+			is_state_core = root
 			has_human_majority_trigger = yes
 		}
 	}
@@ -260,7 +262,12 @@ estate_human_get_cash = {
 	task_completed_effect = {
 		add_estate_loyalty = {estate = estate_human loyalty = 10}
 		if = {
-			limit = {any_owned_province = {has_human_majority_trigger = yes}}
+			limit = {
+				any_owned_province = {
+					has_human_majority_trigger = yes
+					is_state_core = root
+				}
+			}
 			random_owned_province = {
 				limit = {has_human_majority_trigger = yes}
 				owner = {
@@ -385,7 +392,10 @@ estate_human_reduce_corruption = {
 estate_human_three_privileges = {
 	can_select = {
 		high_tolerance_human_race_trigger = no
-		any_owned_province = {has_human_majority_trigger = yes}
+		any_owned_province = {
+			has_human_majority_trigger = yes
+			is_state_core = root
+		}
 		NOT = {has_estate_privilege = estate_human_autonomy}
 	}
 	selection_weight = {
@@ -1450,7 +1460,7 @@ estate_human_war_with_non_human = {
 		is_at_war = no
 		has_estate_privilege = estate_human_intolerance_policy
 		any_neighbor_country = {
-			culture_is_human = no
+			has_human_majority_trigger = no
 			is_free_or_tributary_trigger = yes
 			NOT = { is_subject_of = root }
 			NOT = { overlord_of = root }
@@ -1473,7 +1483,7 @@ estate_human_war_with_non_human = {
 	pre_effect = {
 		random_neighbor_country = {
 			limit = {
-				culture_is_human = no
+				has_human_majority_trigger = no
 				is_free_or_tributary_trigger = yes
 				NOT = { is_subject_of = root }
 				NOT = { overlord_of = root }
@@ -1749,7 +1759,7 @@ estate_human_develop_manpower_x = {
 		modifier = {factor = 1.5 mil_power = 800 }
 	}
 	can_select = {
-		any_owned_province = {			
+		any_owned_province = {
 			is_state_core = root
 			has_any_human_pop_trigger = yes
 			NOT = {has_province_modifier = non_military_pop}
@@ -1923,6 +1933,7 @@ estate_human_recruitment_agenda = {
 		high_tolerance_human_race_trigger = yes
 		NOT = {has_race_recruitment = {race = human}}
 		any_owned_province = {
+			is_state_core = root
 			has_human_majority_trigger = yes
 		}
 	}

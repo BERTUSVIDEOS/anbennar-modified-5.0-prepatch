@@ -126,20 +126,22 @@ on_adm_development_extra_dev_effect = {
 		else = { owner = {add_church_power = 2} }
 	}
 	if = {
-		limit = { 
-			has_global_flag = emperors_will_hre_flag
+		limit = {
 			owner = {is_part_of_hre = yes}
 			is_part_of_hre = yes
 		}
-		random = { chance = 10 province_event = {id = bertus_changes.6014} }
-	}
-	if = {
-		limit = { 
-			has_global_flag = xenophobe_weddings_hre_flag
-			owner = {is_part_of_hre = yes}
-			is_part_of_hre = yes
+		if = {
+			limit = { 
+				has_global_flag = emperors_will_hre_flag
+			}
+			random = { chance = 10 province_event = {id = bertus_changes.6014} }
 		}
-		random = { chance = 10 province_event = {id = bertus_changes.6015} }
+		if = {
+			limit = { 
+				has_global_flag = xenophobe_weddings_hre_flag
+			}
+			random = { chance = 10 province_event = {id = bertus_changes.6015} }
+		}
 	}
 	if = {
 		limit = { has_province_modifier = jaddari_blessed_land }
@@ -252,19 +254,21 @@ on_dip_development_extra_dev_effect = {
 	}
 	if = {
 		limit = { 
-			has_global_flag = emperors_will_hre_flag
-			owner = {is_part_of_hre = yes}
 			is_part_of_hre = yes
-		}
-		random = { chance = 10 province_event = {id = bertus_changes.6014 days = 2 } }
-	}
-	if = {
-		limit = { 
-			has_global_flag = xenophobe_weddings_hre_flag
 			owner = {is_part_of_hre = yes}
-			is_part_of_hre = yes
 		}
-		random = { chance = 10 province_event = {id = bertus_changes.6015 days = 2} }
+		if = {
+			limit = { 
+				has_global_flag = emperors_will_hre_flag
+			}
+			random = { chance = 10 province_event = {id = bertus_changes.6014 days = 2 } }
+		}
+		if = {
+			limit = { 
+				has_global_flag = xenophobe_weddings_hre_flag
+			}
+			random = { chance = 10 province_event = {id = bertus_changes.6015 days = 2} }
+		}
 	}
 	if = {	#bertus mod
 		limit = {owner = {current_debate = nationwide_land_survey}}
@@ -395,19 +399,21 @@ on_mil_development_extra_dev_effect = {
 	}
 	if = {
 		limit = { 
-			has_global_flag = emperors_will_hre_flag
 			owner = {is_part_of_hre = yes}
 			is_part_of_hre = yes
 		}
-		random = { chance = 10 province_event = {id = bertus_changes.6014 days = 2} }
-	}
-	if = {
-		limit = { 
-			has_global_flag = xenophobe_weddings_hre_flag
-			owner = {is_part_of_hre = yes}
-			is_part_of_hre = yes
+		if = {
+			limit = { 
+				has_global_flag = emperors_will_hre_flag
+			}
+			random = { chance = 10 province_event = {id = bertus_changes.6014 days = 2} }
 		}
-		random = { chance = 10 province_event = {id = bertus_changes.6015 days = 2} }
+		if = {
+			limit = { 
+				has_global_flag = xenophobe_weddings_hre_flag
+			}
+			random = { chance = 10 province_event = {id = bertus_changes.6015 days = 2} }
+		}
 	}
 	if = {	#bertus mod
 		limit = {owner = {current_debate = nationwide_census}}
@@ -503,28 +509,32 @@ on_mil_development_extra_dev_effect = {
 on_development_modifiers_effect = {
 	if = {
 		limit = {
-			owner = {has_idea = entwicklung1}
 			development = 25
-			NOT = { has_province_modifier = zentra_dev }
 		}
-		add_province_modifier = {name = zentra_dev duration = -1}
-	}
-	if = {
-		limit = {
-			owner = {has_idea = zentra3}
-			development = 40
-			NOT = { has_province_modifier = centralized_province }
-		}
-		add_province_modifier = {name = centralized_province duration = -1}
-	}
-	if = {
-		limit = {owner = {has_government_attribute = boost_30_dev_provinces}}
 		if = {
 			limit = {
-				development = 30
-				NOT = {has_province_modifier = centralized_provinces_modifier}
+				owner = {has_idea = entwicklung1}
+				NOT = { has_province_modifier = zentra_dev }
 			}
-			add_province_modifier = {name = centralized_provinces_modifier duration = -1}
+			add_province_modifier = {name = zentra_dev duration = -1}
+		}
+		if = {
+			limit = { development = 30 }
+			if = {
+				limit = {
+					owner = {has_government_attribute = boost_30_dev_provinces}
+					NOT = {has_province_modifier = centralized_provinces_modifier}
+				}
+				add_province_modifier = {name = centralized_provinces_modifier duration = -1}
+			}
+			if = {
+				limit = {
+					owner = {has_idea = zentra3}
+					development = 40
+					NOT = { has_province_modifier = centralized_province }
+				}
+				add_province_modifier = {name = centralized_province duration = -1}
+			}
 		}
 	}
 }
@@ -561,23 +571,24 @@ on_development_scaled_modifiers_effect = {
 		add_pop_modifier = {race = all class = bonus amount = 50percent resource = trade_power onbase = development}
 	}
 	if = {
-		limit = {
-			has_port = yes
-			OR = {
-				has_harimari_majority_trigger = yes
-				has_dwarven_majority_trigger = yes
-				has_elven_majority_trigger = yes
-				has_gnomish_majority_trigger = yes
+		limit = { has_port = yes }
+		if = {
+			limit = {
+				OR = {
+					has_harimari_majority_trigger = yes
+					has_dwarven_majority_trigger = yes
+					has_elven_majority_trigger = yes
+					has_gnomish_majority_trigger = yes
+				}
 			}
+			add_pop_modifier = {race = all class = malus amount = 20percent resource = sailors onbase = development}
 		}
-		add_pop_modifier = {race = all class = malus amount = 20percent resource = sailors onbase = development}
-	}
-	if = {
-		limit = {
-			has_port = yes
-			has_kobold_majority_trigger = yes
+		if = {
+			limit = {
+				has_kobold_majority_trigger = yes
+			}
+			add_pop_modifier = {race = all class = bonus amount = 20percent resource = sailors onbase = development}
 		}
-		add_pop_modifier = {race = all class = bonus amount = 20percent resource = sailors onbase = development}
 	}
 }
 on_adm_development_modifiers_effect = {
@@ -917,49 +928,49 @@ on_dip_development_modifiers_effect = {
 		province_event = { id = bertus_pops.1045 days = 2 } 	#boost pop goods produced
 		add_permanent_province_modifier = {name = blue_marble_trade_modifier duration = -1}
 	}
-	if = {	#grey oak
-		limit = {
-			trade_goods = lumber
-			OR = {
-				province_id = 716
-				province_id = 706
-				province_id = 702
-				province_id = 742
-				province_id = 2835
-				province_id = 971
-				province_id = 970
+	if = {
+		limit = { trade_goods = lumber }
+		if = {	#grey oak
+			limit = {
+				OR = {
+					province_id = 716
+					province_id = 706
+					province_id = 702
+					province_id = 742
+					province_id = 2835
+					province_id = 971
+					province_id = 970
+				}
 			}
+			province_event = { id = bertus_pops.1045 days = 2 } 	#boost pop goods produced
+			add_permanent_province_modifier = {name = lumber_grey_oak_trade_modifier duration = -1}
 		}
-		province_event = { id = bertus_pops.1045 days = 2 } 	#boost pop goods produced
-		add_permanent_province_modifier = {name = lumber_grey_oak_trade_modifier duration = -1}
-	}
-	if = {	#red oak
-		limit = {
-			trade_goods = lumber
-			OR = {
-				province_id = 1931
-				province_id = 120
+		if = {	#red oak
+			limit = {
+				OR = {
+					province_id = 1931
+					province_id = 120
+				}
 			}
+			province_event = { id = bertus_pops.1045 days = 2 } 	#boost pop goods produced
+			add_permanent_province_modifier = {name = lumber_red_oak_trade_modifier duration = -1}
 		}
-		province_event = { id = bertus_pops.1045 days = 2 } 	#boost pop goods produced
-		add_permanent_province_modifier = {name = lumber_red_oak_trade_modifier duration = -1}
-	}
-	if = {	#special oak
-		limit = {
-			trade_goods = lumber
-			OR = {
-				province_id = 134
-				province_id = 435
-				province_id = 434
-				province_id = 361
-				province_id = 360
-				has_province_modifier = deranne_aelvar_wood
-				has_province_modifier = small_country_hardwood
-				has_province_modifier = silver_good_lumber_modifier
+		if = {	#special oak
+			limit = {
+				OR = {
+					province_id = 134
+					province_id = 435
+					province_id = 434
+					province_id = 361
+					province_id = 360
+					has_province_modifier = deranne_aelvar_wood
+					has_province_modifier = small_country_hardwood
+					has_province_modifier = silver_good_lumber_modifier
+				}
 			}
+			province_event = { id = bertus_pops.1045 days = 2 } 	#boost pop goods produced
+			add_permanent_province_modifier = {name = lumber_trade_modifier duration = -1}
 		}
-		province_event = { id = bertus_pops.1045 days = 2 } 	#boost pop goods produced
-		add_permanent_province_modifier = {name = lumber_trade_modifier duration = -1}
 	}
 	if = {
 		limit = {
@@ -1101,30 +1112,30 @@ on_dip_development_modifiers_effect = {
 		province_event = { id = bertus_pops.1047 }
 	}
 	if = {
-		limit = {
-			is_part_of_hre = yes
-			province_with_farm_goods = yes
-			has_global_flag = agriculture_reform_hre_flag
+		limit = { is_part_of_hre = yes }
+		if = {
+			limit = {
+				province_with_farm_goods = yes
+				has_global_flag = agriculture_reform_hre_flag
+			}
+			add_pop_modifier = {race = all class = agriculture_bonus amount = 25percent resource = goods_produced onbase = base_production}
+			add_province_modifier = {name = agricultural_reform_province_modifier duration = -1}
 		}
-		add_pop_modifier = {race = all class = agriculture_bonus amount = 25percent resource = goods_produced onbase = base_production}
-		add_province_modifier = {name = agricultural_reform_province_modifier duration = -1}
-	}
-	if = {
-		limit = {
-			has_global_flag = emperor_college_hre_flag
-			is_part_of_hre = yes
-			trade_goods = slaves
+		if = {
+			limit = {
+				has_global_flag = emperor_college_hre_flag
+				trade_goods = slaves
+			}
+			add_pop_modifier = {race = all class = emperor_college_bonus amount = 25percent resource = goods_produced onbase = base_production}
 		}
-		add_pop_modifier = {race = all class = emperor_college_bonus amount = 25percent resource = goods_produced onbase = base_production}
-	}
-	if = {
-		limit = {
-			is_part_of_hre = yes
-			province_with_mine_goods = yes
-			has_global_flag = minery_reform_hre_flag
+		if = {
+			limit = {
+				province_with_mine_goods = yes
+				has_global_flag = minery_reform_hre_flag
+			}
+			add_pop_modifier = {race = all class = minery_bonus amount = 25percent resource = goods_produced onbase = base_production}
+			add_province_modifier = {name = minery_reform_province_modifier duration = -1}
 		}
-		add_pop_modifier = {race = all class = minery_bonus amount = 25percent resource = goods_produced onbase = base_production}
-		add_province_modifier = {name = minery_reform_province_modifier duration = -1}
 	}
 	if = {
 		limit = { owner = {has_government_attribute = parliamnet_seats_boost} } 
@@ -1199,13 +1210,6 @@ on_mil_development_modifiers_effect = {
 	}
 	if = {
 		limit = {
-			has_port = yes
-			has_gnollish_majority_trigger = yes
-		}
-		add_pop_modifier = {race = gnollish class = sea_bonus amount = 20percent resource = manpower_sailors onbase = base_manpower}
-	}
-	if = {
-		limit = {
 			OR = {
 				has_gnollish_majority_trigger = yes
 				has_harimari_majority_trigger = yes
@@ -1216,10 +1220,16 @@ on_mil_development_modifiers_effect = {
 	}
 	if = {
 		limit = {
-			has_climate = arid
 			has_gnollish_majority_trigger = yes
 		}
-		add_pop_modifier = {race = gnollish class = arid_bonus amount = 20percent  resource = manpower  onbase = base_manpower}
+		if = {
+			limit = { has_port = yes }
+			add_pop_modifier = {race = gnollish class = sea_bonus amount = 20percent resource = manpower_sailors onbase = base_manpower}
+		}
+		if = {
+			limit = { has_climate = arid }
+			add_pop_modifier = {race = gnollish class = arid_bonus amount = 20percent  resource = manpower  onbase = base_manpower}
+		}
 	}
 	if = {
 		limit = {
@@ -1367,7 +1377,6 @@ get_slaves = {
 				set_variable = { which = province_development value = 0 }
 				export_to_variable = { which = province_development value = development who = ROOT }
 				multiply_variable = { which = province_development which = enslavement_efficiency_var }
-				divide_variable = { which = province_development value = 50 }
 				while = {
 					limit = { check_variable = { which = province_development value = 0.01 } }
 					change_variable = { which = province_development value = -0.01 }
@@ -1379,7 +1388,6 @@ get_slaves = {
 			set_variable = { which = province_development value = 0 }
 			export_to_variable = { which = province_development value = development who = ROOT }
 			multiply_variable = { which = province_development which = enslavement_efficiency_var }
-			divide_variable = { which = province_development value = 50 }
 			while = {
 				limit = { check_variable = { which = province_development value = 0.01 } }
 				change_variable = { which = province_development value = -0.01 }
@@ -1959,29 +1967,6 @@ decrease_isolationism = {
 }
 get_isolationsim_bonus = {
 	if = {
-		limit = { isolationism = 0 NOT = {isolationism = 1} }
-		add_years_of_income = 0.5
-	}
-	else_if = {
-		limit = { isolationism = 1 NOT = {isolationism = 2} }
-		country_event = { id = bertus_changes.1011 }	#long lived advisor
-	}
-	else_if = {
-		limit = { isolationism = 2 NOT = {isolationism = 3} }
-		set_country_flag = get_adventurer_flag
-		custom_tooltip = get_great_hero_general_tt
-		set_country_flag = great_general_extra_pips_flag
-		custom_tooltip = great_general_extra_pips_flag_tt
-		hidden_effect = {
-			set_saved_name = {key = special_general_name type = advisor scope = ROOT}
-			country_event = {id = bertus_changes.6030}
-		}
-	}
-	else_if = {
-		limit = { isolationism = 3 NOT = {isolationism = 4} }
-		add_yearly_manpower = 2
-	}
-	else_if = {
 		limit = { isolationism = 4 NOT = {isolationism = 5} }
 		random_list = {
 			33 = {
@@ -2003,6 +1988,28 @@ get_isolationsim_bonus = {
 				add_mil_power = 100
 			}
 		}
+	}
+	else_if = {
+		limit = { isolationism = 3 }
+		add_yearly_manpower = 2
+	}
+	else_if = {
+		limit = { isolationism = 2 }
+		set_country_flag = get_adventurer_flag
+		custom_tooltip = get_great_hero_general_tt
+		set_country_flag = great_general_extra_pips_flag
+		custom_tooltip = great_general_extra_pips_flag_tt
+		hidden_effect = {
+			set_saved_name = {key = special_general_name type = advisor scope = ROOT}
+			country_event = {id = bertus_changes.6030}
+		}
+	}
+	else_if = {
+		limit = { isolationism = 1 }
+		country_event = { id = bertus_changes.1011 }	#long lived advisor
+	}
+	else = {
+		add_years_of_income = 0.5
 	}
 }
 kobold_celebrate_effect = {
@@ -2454,19 +2461,16 @@ on_trade_good_changed_bertus_effect = {
 	
 	hidden_effect = {
 		if = {
-			limit = {
-				trade_goods = wine
-				FROM = { has_reform = monastic_breweries_reform }
+			limit = { trade_goods = wine }
+			if = {
+				limit = { FROM = { has_reform = monastic_breweries_reform } }
+				remove_province_modifier_effect = {MODIFIER = grain_bonus_prod}
+				add_province_modifier = {name = wine_bonus_prod duration = -1 hidden = yes}
 			}
-			remove_province_modifier_effect = {MODIFIER = grain_bonus_prod}
-			add_province_modifier = {name = wine_bonus_prod duration = -1 hidden = yes}
-		}
-		if = {
-			limit = {
-				trade_goods = wine
-				FROM = { has_government_attribute = winelord_boost}
+			if = {
+				limit = { FROM = { has_government_attribute = winelord_boost} }
+				add_province_modifier = {name = wine_lord_wine duration = -1 hidden = yes}
 			}
-			add_province_modifier = {name = wine_lord_wine duration = -1 hidden = yes}
 		}
 		if = {
 			limit = {
@@ -2486,18 +2490,15 @@ on_trade_good_changed_bertus_effect = {
 			add_province_modifier = {name = artifice_ageifier_bonus duration = -1 hidden = yes}
 		}
 		if = {
-			limit = {
-				owner = { has_estate_privilege = artifice_invention_growth_beans }
-				province_with_farm_goods = yes
+			limit = { province_with_farm_goods = yes }
+			if = {
+				limit = { owner = { has_estate_privilege = artifice_invention_growth_beans } }
+				add_province_modifier = { name = artifice_growthbeans_bonus duration = -1 hidden = yes}
 			}
-			add_province_modifier = { name = artifice_growthbeans_bonus duration = -1 hidden = yes}
-		}
-		if = {
-			limit = {
-				owner = { has_estate_privilege = artifice_invention_gene_food_cultivation }
-				province_with_farm_goods = yes
+			if = {
+				limit = { owner = { has_estate_privilege = artifice_invention_gene_food_cultivation } }
+				add_province_modifier = {name = artifice_gene_food_cultivation_bonus duration = -1 hidden = yes}
 			}
-			add_province_modifier = {name = artifice_gene_food_cultivation_bonus duration = -1 hidden = yes}
 		}
 		if = {
 			limit = {
@@ -2667,31 +2668,31 @@ on_war_started_effects = {
 			add_country_modifier = {name = call_to_action_hre_mechanic duration = -1 hidden = yes}
 		}
 		if = {
-			limit = {
+			limit = {	#human resiliense
 				estate_territory = { estate = estate_human territory = 60 }
 				any_country = { NOT = { estate_territory = { estate = estate_human territory = 40 } } war_with = ROOT }
 			}
 			add_country_modifier = {name = human_resilience_modifier duration = -1 hidden = yes}
 		}
 		if = {
-			limit = {
+			limit = {	#elves hate dwarfs
 				estate_territory = { estate = estate_elven territory = 60 }
 				any_country = { estate_territory = {estate = estate_dwarven territory = 40} war_with = ROOT }
 			}
 			add_country_modifier = {name = dwarven_elven_hate_modifier duration = -1 hidden = yes}
 		}
-		if = {
+		if = {	#elves hate war
 			limit = { estate_territory = { estate = estate_elven territory = 60 } is_at_war = yes }
 			add_country_modifier = {name = elves_hate_war_modifier duration = -1 hidden = yes}
 		}
 		if = {
-			limit = {
+			limit = {	#dwarven hate elves
 				estate_territory = { estate = estate_dwarven territory = 60 }
 				any_country = { estate_territory = { estate = estate_elven territory = 40 } war_with = ROOT }
 			}
 			add_country_modifier = {name = dwarven_elven_hate_modifier duration = -1 hidden = yes}
 		}
-		if = {
+		if = {	#dwarves hate goblins
 			limit = {
 				estate_territory = { estate = estate_dwarven territory = 60 }
 				any_country = { OR = { estate_territory = { estate = estate_goblin territory = 40 } estate_territory = {estate = estate_orcish territory = 40} } war_with = ROOT }
@@ -2699,7 +2700,7 @@ on_war_started_effects = {
 			add_country_modifier = {name = dwarven_hate_greenskins_modifier duration = -1 hidden = yes}
 		}
 		if = {
-			limit = {
+			limit = {	#halflings attitude
 				estate_territory = { estate = estate_halfling territory = 60 }
 				any_country = { offensive_war_with = ROOT NOT = {estate_territory = {estate = estate_halfling territory = 30}} }
 			}
@@ -2734,21 +2735,21 @@ on_war_started_effects = {
 			add_country_modifier = {name = monstrous_love_war_modifier duration = -1 hidden = yes}
 		}
 		if = {
-			limit = {
+			limit = {	#orcs hate dwarfs
 				estate_territory = { estate = estate_orcish territory = 60 }
 				any_country = { estate_territory = {estate = estate_dwarven territory = 40} war_with = ROOT }
 			}
 			add_country_modifier = {name = orcs_hate_dwarven_modifier duration = -1 hidden = yes}
 		}
 		if = {
-			limit = {
+			limit = {	#goblins hate dwarfs
 				estate_territory = { estate = estate_goblin territory = 60 }
 				any_country = { estate_territory = { estate = estate_dwarven territory = 40 } war_with = ROOT }
 			}
 			add_country_modifier = {name = goblins_hate_dwarfs_modifier duration = -1 hidden = yes}
 		}
 		if = {
-			limit = {
+			limit = {	#goblins hate elves
 				estate_territory = { estate = estate_goblin territory = 60 }
 				any_country = { estate_territory = { estate = estate_elven territory = 40 } war_with = ROOT }
 			}
@@ -3968,118 +3969,120 @@ update_race_modifiers = {
 		get_dynastic_consort_bonus_modifier = yes
 	}
 	if = {
-		limit = {
-			has_global_flag = imperial_faith_hre_flag
-			is_part_of_hre = yes
-			OR = { has_matching_religion = emperor is_emperor = yes }
-		}
-		add_country_modifier = {name = imperial_faith_hre_mechanic duration = -1 hidden = yes}
-	}
-	if = {
-		limit = { has_global_flag = religious_tolerance_hre_flag is_part_of_hre = yes }
-		add_country_modifier = {name = religious_tolerance_hre_mechanic duration = -1 hidden = yes}
-	}
-	if = {
-		limit = { has_global_flag = closed_market_hre_flag is_part_of_hre = yes }
-		add_country_modifier = {name = closed_market_hre_mechanic duration = -1 hidden = yes}
-	}
-	if = {
-		limit = { has_global_flag = open_market_hre_flag is_part_of_hre = yes }
-		add_country_modifier = {name = open_market_hre_mechanic duration = -1 hidden = yes}
-	}
-	if = {
-		limit = {
-			has_global_flag = imperial_emperors_will_hre_flag
-			is_part_of_hre = yes
-			OR = {
-				is_emperor = yes
-				AND = {emperor = {has_country_modifier = human_administration} has_country_modifier = human_administration}
-				AND = {emperor = {has_country_modifier = elven_administration} has_country_modifier = elven_administration}
-				AND = {emperor = {has_country_modifier = dwarven_administration} has_country_modifier = dwarven_administration}
-				AND = {emperor = {has_country_modifier = halfling_administration} has_country_modifier = halfling_administration}
-				AND = {emperor = {has_country_modifier = gnomish_administration} has_country_modifier = gnomish_administration}
-				AND = {emperor = {has_country_modifier = harimari_administration} has_country_modifier = harimari_administration}
-				AND = {emperor = {has_country_modifier = gnollish_administration} has_country_modifier = gnollish_administration}
-				AND = {emperor = {has_country_modifier = ruinborn_administration} has_country_modifier = ruinborn_administration}
-				AND = {emperor = {has_country_modifier = orcish_administration} has_country_modifier = orcish_administration}
-				AND = {emperor = {has_country_modifier = goblin_administration} has_country_modifier = goblin_administration}
-				AND = {emperor = {has_country_modifier = ogre_administration} has_country_modifier = ogre_administration}
-				AND = {emperor = {has_country_modifier = centaur_administration} has_country_modifier = centaur_administration}
-				AND = {emperor = {has_country_modifier = troll_administration} has_country_modifier = troll_administration}
-				AND = {emperor = {has_country_modifier = harpy_administration} has_country_modifier = harpy_administration}
-				AND = {emperor = {has_country_modifier = half_orcish_administration} has_country_modifier = half_orcish_administration}
-				AND = {emperor = {has_country_modifier = half_elven_administration} has_country_modifier = half_elven_administration}
-				AND = {emperor = {has_country_modifier = hobgoblin_administration} has_country_modifier = hobgoblin_administration}
-				AND = {emperor = {has_country_modifier = kobold_administration} has_country_modifier = kobold_administration}
+		limit = { is_part_of_hre = yes }
+		if = {
+			limit = {
+				has_global_flag = imperial_faith_hre_flag
+				OR = { has_matching_religion = emperor is_emperor = yes }
 			}
+			add_country_modifier = {name = imperial_faith_hre_mechanic duration = -1 hidden = yes}
 		}
-		add_country_modifier = {name = emperors_will_mechanic duration = -1 hidden = yes}
-	}
-	if = {
-		limit = {
-			has_global_flag = imperial_dominance_hre_flag
-			is_emperor = yes
-			OR = {
-				AND = {any_elector = {NOT = { has_country_modifier = human_administration}} has_country_modifier = human_administration}
-				AND = {any_elector = {NOT = { has_country_modifier = elven_administration}} has_country_modifier = elven_administration}
-				AND = {any_elector = {NOT = { has_country_modifier = dwarven_administration}} has_country_modifier = dwarven_administration}
-				AND = {any_elector = {NOT = { has_country_modifier = halfling_administration}} has_country_modifier = halfling_administration}
-				AND = {any_elector = {NOT = { has_country_modifier = gnomish_administration}} has_country_modifier = gnomish_administration}
-				AND = {any_elector = {NOT = { has_country_modifier = harimari_administration}} has_country_modifier = harimari_administration}
-				AND = {any_elector = {NOT = { has_country_modifier = gnollish_administration}} has_country_modifier = gnollish_administration}
-				AND = {any_elector = {NOT = { has_country_modifier = ruinborn_administration}} has_country_modifier = ruinborn_administration}
-				AND = {any_elector = {NOT = { has_country_modifier = orcish_administration}} has_country_modifier = orcish_administration}
-				AND = {any_elector = {NOT = { has_country_modifier = goblin_administration}} has_country_modifier = goblin_administration}
-				AND = {any_elector = {NOT = { has_country_modifier = ogre_administration}} has_country_modifier = ogre_administration}
-				AND = {any_elector = {NOT = { has_country_modifier = centaur_administration}} has_country_modifier = centaur_administration}
-				AND = {any_elector = {NOT = { has_country_modifier = troll_administration}} has_country_modifier = troll_administration}
-				AND = {any_elector = {NOT = { has_country_modifier = harpy_administration}} has_country_modifier = harpy_administration}
-				AND = {any_elector = {NOT = { has_country_modifier = half_orcish_administration}} has_country_modifier = half_orcish_administration}
-				AND = {any_elector = {NOT = { has_country_modifier = half_elven_administration}} has_country_modifier = half_elven_administration}
-				AND = {any_elector = {NOT = { has_country_modifier = hobgoblin_administration}} has_country_modifier = hobgoblin_administration}
-				AND = {any_elector = {NOT = { has_country_modifier = kobold_administration}} has_country_modifier = kobold_administration}
+		if = {
+			limit = { has_global_flag = religious_tolerance_hre_flag }
+			add_country_modifier = {name = religious_tolerance_hre_mechanic duration = -1 hidden = yes}
+		}
+		if = {
+			limit = { has_global_flag = closed_market_hre_flag }
+			add_country_modifier = {name = closed_market_hre_mechanic duration = -1 hidden = yes}
+		}
+		if = {
+			limit = { has_global_flag = open_market_hre_flag }
+			add_country_modifier = {name = open_market_hre_mechanic duration = -1 hidden = yes}
+		}
+		if = {
+			limit = {
+				has_global_flag = imperial_emperors_will_hre_flag
+				OR = {
+					is_emperor = yes
+					AND = {emperor = {has_country_modifier = human_administration} has_country_modifier = human_administration}
+					AND = {emperor = {has_country_modifier = elven_administration} has_country_modifier = elven_administration}
+					AND = {emperor = {has_country_modifier = dwarven_administration} has_country_modifier = dwarven_administration}
+					AND = {emperor = {has_country_modifier = halfling_administration} has_country_modifier = halfling_administration}
+					AND = {emperor = {has_country_modifier = gnomish_administration} has_country_modifier = gnomish_administration}
+					AND = {emperor = {has_country_modifier = harimari_administration} has_country_modifier = harimari_administration}
+					AND = {emperor = {has_country_modifier = gnollish_administration} has_country_modifier = gnollish_administration}
+					AND = {emperor = {has_country_modifier = ruinborn_administration} has_country_modifier = ruinborn_administration}
+					AND = {emperor = {has_country_modifier = orcish_administration} has_country_modifier = orcish_administration}
+					AND = {emperor = {has_country_modifier = goblin_administration} has_country_modifier = goblin_administration}
+					AND = {emperor = {has_country_modifier = ogre_administration} has_country_modifier = ogre_administration}
+					AND = {emperor = {has_country_modifier = centaur_administration} has_country_modifier = centaur_administration}
+					AND = {emperor = {has_country_modifier = troll_administration} has_country_modifier = troll_administration}
+					AND = {emperor = {has_country_modifier = harpy_administration} has_country_modifier = harpy_administration}
+					AND = {emperor = {has_country_modifier = half_orcish_administration} has_country_modifier = half_orcish_administration}
+					AND = {emperor = {has_country_modifier = half_elven_administration} has_country_modifier = half_elven_administration}
+					AND = {emperor = {has_country_modifier = hobgoblin_administration} has_country_modifier = hobgoblin_administration}
+					AND = {emperor = {has_country_modifier = kobold_administration} has_country_modifier = kobold_administration}
+				}
 			}
+			add_country_modifier = {name = emperors_will_mechanic duration = -1 hidden = yes}
 		}
-		add_country_modifier = {name = salere_reform_hre_malus_mechanic duration = -1 hidden = yes}
+		if = {
+			limit = { has_global_flag = federal_dominance_hre_flag all_races_represented = yes }
+			add_country_modifier = {name = races_represented_bonus_mechanic duration = -1 hidden = yes}
+		}
 	}
 	if = {
-		limit = {
-			has_global_flag = imperial_dominance_hre_flag
-			is_emperor = yes
-			OR = {
-				AND = {all_elector = {has_country_modifier = human_administration} has_country_modifier = human_administration}
-				AND = {all_elector = {has_country_modifier = elven_administration} has_country_modifier = elven_administration}
-				AND = {all_elector = {has_country_modifier = dwarven_administration} has_country_modifier = dwarven_administration}
-				AND = {all_elector = {has_country_modifier = halfling_administration} has_country_modifier = halfling_administration}
-				AND = {all_elector = {has_country_modifier = gnomish_administration} has_country_modifier = gnomish_administration}
-				AND = {all_elector = {has_country_modifier = harimari_administration} has_country_modifier = harimari_administration}
-				AND = {all_elector = {has_country_modifier = gnollish_administration} has_country_modifier = gnollish_administration}
-				AND = {all_elector = {has_country_modifier = ruinborn_administration} has_country_modifier = ruinborn_administration}
-				AND = {all_elector = {has_country_modifier = orcish_administration} has_country_modifier = orcish_administration}
-				AND = {all_elector = {has_country_modifier = goblin_administration} has_country_modifier = goblin_administration}
-				AND = {all_elector = {has_country_modifier = ogre_administration} has_country_modifier = ogre_administration}
-				AND = {all_elector = {has_country_modifier = centaur_administration} has_country_modifier = centaur_administration}
-				AND = {all_elector = {has_country_modifier = troll_administration} has_country_modifier = troll_administration}
-				AND = {all_elector = {has_country_modifier = harpy_administration} has_country_modifier = harpy_administration}
-				AND = {all_elector = {has_country_modifier = half_orcish_administration} has_country_modifier = half_orcish_administration}
-				AND = {all_elector = {has_country_modifier = half_elven_administration} has_country_modifier = half_elven_administration}
-				AND = {all_elector = {has_country_modifier = hobgoblin_administration} has_country_modifier = hobgoblin_administration}
-				AND = {all_elector = {has_country_modifier = kobold_administration} has_country_modifier = kobold_administration}
+		limit = { is_emperor = yes }
+		if = {
+			limit = {
+				has_global_flag = imperial_dominance_hre_flag
+				OR = {
+					AND = {any_elector = {NOT = { has_country_modifier = human_administration}} has_country_modifier = human_administration}
+					AND = {any_elector = {NOT = { has_country_modifier = elven_administration}} has_country_modifier = elven_administration}
+					AND = {any_elector = {NOT = { has_country_modifier = dwarven_administration}} has_country_modifier = dwarven_administration}
+					AND = {any_elector = {NOT = { has_country_modifier = halfling_administration}} has_country_modifier = halfling_administration}
+					AND = {any_elector = {NOT = { has_country_modifier = gnomish_administration}} has_country_modifier = gnomish_administration}
+					AND = {any_elector = {NOT = { has_country_modifier = harimari_administration}} has_country_modifier = harimari_administration}
+					AND = {any_elector = {NOT = { has_country_modifier = gnollish_administration}} has_country_modifier = gnollish_administration}
+					AND = {any_elector = {NOT = { has_country_modifier = ruinborn_administration}} has_country_modifier = ruinborn_administration}
+					AND = {any_elector = {NOT = { has_country_modifier = orcish_administration}} has_country_modifier = orcish_administration}
+					AND = {any_elector = {NOT = { has_country_modifier = goblin_administration}} has_country_modifier = goblin_administration}
+					AND = {any_elector = {NOT = { has_country_modifier = ogre_administration}} has_country_modifier = ogre_administration}
+					AND = {any_elector = {NOT = { has_country_modifier = centaur_administration}} has_country_modifier = centaur_administration}
+					AND = {any_elector = {NOT = { has_country_modifier = troll_administration}} has_country_modifier = troll_administration}
+					AND = {any_elector = {NOT = { has_country_modifier = harpy_administration}} has_country_modifier = harpy_administration}
+					AND = {any_elector = {NOT = { has_country_modifier = half_orcish_administration}} has_country_modifier = half_orcish_administration}
+					AND = {any_elector = {NOT = { has_country_modifier = half_elven_administration}} has_country_modifier = half_elven_administration}
+					AND = {any_elector = {NOT = { has_country_modifier = hobgoblin_administration}} has_country_modifier = hobgoblin_administration}
+					AND = {any_elector = {NOT = { has_country_modifier = kobold_administration}} has_country_modifier = kobold_administration}
+				}
 			}
+			add_country_modifier = {name = salere_reform_hre_malus_mechanic duration = -1 hidden = yes}
 		}
-		add_country_modifier = {name = salere_reform_hre_bonus_mechanic duration = -1 hidden = yes}
-	}
-	if = {
-		limit = { has_global_flag = federal_dominance_hre_flag is_emperor = yes all_races_represented = no }
-		add_country_modifier = {name = races_represented_malus_mechanic duration = -1 hidden = yes}
-	}
-	if = {
-		limit = { has_global_flag = federal_dominance_hre_flag is_part_of_hre = yes all_races_represented = yes }
-		add_country_modifier = {name = races_represented_bonus_mechanic duration = -1 hidden = yes}
-	}
-	if = {
-		limit = { has_global_flag = federal_dominance_hre_flag is_emperor = yes }
-		add_country_modifier = {name = federal_dominance_hre_extra_electors duration = -1 hidden = yes}
+		if = {
+			limit = {
+				has_global_flag = imperial_dominance_hre_flag
+				OR = {
+					AND = {all_elector = {has_country_modifier = human_administration} has_country_modifier = human_administration}
+					AND = {all_elector = {has_country_modifier = elven_administration} has_country_modifier = elven_administration}
+					AND = {all_elector = {has_country_modifier = dwarven_administration} has_country_modifier = dwarven_administration}
+					AND = {all_elector = {has_country_modifier = halfling_administration} has_country_modifier = halfling_administration}
+					AND = {all_elector = {has_country_modifier = gnomish_administration} has_country_modifier = gnomish_administration}
+					AND = {all_elector = {has_country_modifier = harimari_administration} has_country_modifier = harimari_administration}
+					AND = {all_elector = {has_country_modifier = gnollish_administration} has_country_modifier = gnollish_administration}
+					AND = {all_elector = {has_country_modifier = ruinborn_administration} has_country_modifier = ruinborn_administration}
+					AND = {all_elector = {has_country_modifier = orcish_administration} has_country_modifier = orcish_administration}
+					AND = {all_elector = {has_country_modifier = goblin_administration} has_country_modifier = goblin_administration}
+					AND = {all_elector = {has_country_modifier = ogre_administration} has_country_modifier = ogre_administration}
+					AND = {all_elector = {has_country_modifier = centaur_administration} has_country_modifier = centaur_administration}
+					AND = {all_elector = {has_country_modifier = troll_administration} has_country_modifier = troll_administration}
+					AND = {all_elector = {has_country_modifier = harpy_administration} has_country_modifier = harpy_administration}
+					AND = {all_elector = {has_country_modifier = half_orcish_administration} has_country_modifier = half_orcish_administration}
+					AND = {all_elector = {has_country_modifier = half_elven_administration} has_country_modifier = half_elven_administration}
+					AND = {all_elector = {has_country_modifier = hobgoblin_administration} has_country_modifier = hobgoblin_administration}
+					AND = {all_elector = {has_country_modifier = kobold_administration} has_country_modifier = kobold_administration}
+				}
+			}
+			add_country_modifier = {name = salere_reform_hre_bonus_mechanic duration = -1 hidden = yes}
+		}
+		if = {
+			limit = { has_global_flag = federal_dominance_hre_flag all_races_represented = no }
+			add_country_modifier = {name = races_represented_malus_mechanic duration = -1 hidden = yes}
+		}
+		if = {
+			limit = { has_global_flag = federal_dominance_hre_flag }
+			add_country_modifier = {name = federal_dominance_hre_extra_electors duration = -1 hidden = yes}
+		}
 	}
 	if = {
 		limit = { has_global_flag = aggresive_expansion_deactivated_flag ai = no }
@@ -4154,16 +4157,19 @@ on_colonial_condition_effects = {
 	remove_country_modifier = kolo6_9_bonus
 	remove_country_modifier = kolo6_10_bonus
 	if = {
-		limit = { has_idea = kolonialimperium4 colony = 1 }
-		add_colony_amount_modifier = {type = kolo3}
-	}
-	if = {
-		limit = { has_idea = kolonialimperium3 colony = 1 }
-		add_colony_amount_modifier = {type = kolo4}
-	}
-	if = {
-		limit = { has_idea = kolonialimperium6 colony = 1 }
-		add_colony_amount_modifier = {type = kolo6}
+		limit = { colony = 1 }
+		if = {
+			limit = { has_idea = kolonialimperium4 }
+			add_colony_amount_modifier = {type = kolo3}
+		}
+		if = {
+			limit = { has_idea = kolonialimperium3 }
+			add_colony_amount_modifier = {type = kolo4}
+		}
+		if = {
+			limit = { has_idea = kolonialimperium6 }
+			add_colony_amount_modifier = {type = kolo6}
+		}
 	}
 }
 on_culture_update_effect = {
@@ -4734,181 +4740,61 @@ get_empire_centralization_modifier = {
 	remove_country_modifier = empire_centralization_1
 	if = {
 		limit = {
-			calc_true_if = {
-				has_global_flag = imperial_centralization_10_flag
-				has_global_flag = imperial_centralization_9_flag
-				has_global_flag = imperial_centralization_8_flag
-				has_global_flag = imperial_centralization_7_flag
-				has_global_flag = imperial_centralization_6_flag
-				has_global_flag = imperial_centralization_5_flag
-				has_global_flag = imperial_centralization_4_flag
-				has_global_flag = imperial_centralization_3_flag
-				has_global_flag = imperial_centralization_2_flag
-				has_global_flag = imperial_centralization_1_flag
-				amount = 10
-			}
+			has_global_flag = imperial_centralization_10_flag
 		}
 		add_country_modifier = {name = empire_centralization_10 duration = -1}
 	}
 	else_if = {
 		limit = {
-			calc_true_if = {
-				has_global_flag = imperial_centralization_10_flag
-				has_global_flag = imperial_centralization_9_flag
-				has_global_flag = imperial_centralization_8_flag
-				has_global_flag = imperial_centralization_7_flag
-				has_global_flag = imperial_centralization_6_flag
-				has_global_flag = imperial_centralization_5_flag
-				has_global_flag = imperial_centralization_4_flag
-				has_global_flag = imperial_centralization_3_flag
-				has_global_flag = imperial_centralization_2_flag
-				has_global_flag = imperial_centralization_1_flag
-				amount = 9
-			}
+			has_global_flag = imperial_centralization_9_flag
 		}
 		add_country_modifier = {name = empire_centralization_9 duration = -1}
 	}
 	else_if = {
 		limit = {
-			calc_true_if = {
-				has_global_flag = imperial_centralization_10_flag
-				has_global_flag = imperial_centralization_9_flag
-				has_global_flag = imperial_centralization_8_flag
-				has_global_flag = imperial_centralization_7_flag
-				has_global_flag = imperial_centralization_6_flag
-				has_global_flag = imperial_centralization_5_flag
-				has_global_flag = imperial_centralization_4_flag
-				has_global_flag = imperial_centralization_3_flag
-				has_global_flag = imperial_centralization_2_flag
-				has_global_flag = imperial_centralization_1_flag
-				amount = 8
-			}
+			has_global_flag = imperial_centralization_8_flag
 		}
 		add_country_modifier = {name = empire_centralization_8 duration = -1}
 	}
 	else_if = {
 		limit = {
-			calc_true_if = {
-				has_global_flag = imperial_centralization_10_flag
-				has_global_flag = imperial_centralization_9_flag
-				has_global_flag = imperial_centralization_8_flag
-				has_global_flag = imperial_centralization_7_flag
-				has_global_flag = imperial_centralization_6_flag
-				has_global_flag = imperial_centralization_5_flag
-				has_global_flag = imperial_centralization_4_flag
-				has_global_flag = imperial_centralization_3_flag
-				has_global_flag = imperial_centralization_2_flag
-				has_global_flag = imperial_centralization_1_flag
-				amount = 7
-			}
+			has_global_flag = imperial_centralization_7_flag
 		}
 		add_country_modifier = {name = empire_centralization_7 duration = -1}
 	}
 	else_if = {
 		limit = {
-			calc_true_if = {
-				has_global_flag = imperial_centralization_10_flag
-				has_global_flag = imperial_centralization_9_flag
-				has_global_flag = imperial_centralization_8_flag
-				has_global_flag = imperial_centralization_7_flag
-				has_global_flag = imperial_centralization_6_flag
-				has_global_flag = imperial_centralization_5_flag
-				has_global_flag = imperial_centralization_4_flag
-				has_global_flag = imperial_centralization_3_flag
-				has_global_flag = imperial_centralization_2_flag
-				has_global_flag = imperial_centralization_1_flag
-				amount = 6
-			}
+			has_global_flag = imperial_centralization_6_flag
 		}
 		add_country_modifier = {name = empire_centralization_6 duration = -1}
 	}
 	else_if = {
 		limit = {
-			calc_true_if = {
-				has_global_flag = imperial_centralization_10_flag
-				has_global_flag = imperial_centralization_9_flag
-				has_global_flag = imperial_centralization_8_flag
-				has_global_flag = imperial_centralization_7_flag
-				has_global_flag = imperial_centralization_6_flag
-				has_global_flag = imperial_centralization_5_flag
-				has_global_flag = imperial_centralization_4_flag
-				has_global_flag = imperial_centralization_3_flag
-				has_global_flag = imperial_centralization_2_flag
-				has_global_flag = imperial_centralization_1_flag
-				amount = 5
-			}
+			has_global_flag = imperial_centralization_5_flag
 		}
 		add_country_modifier = {name = empire_centralization_5 duration = -1}
 	}
 	else_if = {
 		limit = {
-			calc_true_if = {
-				has_global_flag = imperial_centralization_10_flag
-				has_global_flag = imperial_centralization_9_flag
-				has_global_flag = imperial_centralization_8_flag
-				has_global_flag = imperial_centralization_7_flag
-				has_global_flag = imperial_centralization_6_flag
-				has_global_flag = imperial_centralization_5_flag
-				has_global_flag = imperial_centralization_4_flag
-				has_global_flag = imperial_centralization_3_flag
-				has_global_flag = imperial_centralization_2_flag
-				has_global_flag = imperial_centralization_1_flag
-				amount = 4
-			}
+			has_global_flag = imperial_centralization_4_flag
 		}
 		add_country_modifier = {name = empire_centralization_4 duration = -1}
 	}
 	else_if = {
 		limit = {
-			calc_true_if = {
-				has_global_flag = imperial_centralization_10_flag
-				has_global_flag = imperial_centralization_9_flag
-				has_global_flag = imperial_centralization_8_flag
-				has_global_flag = imperial_centralization_7_flag
-				has_global_flag = imperial_centralization_6_flag
-				has_global_flag = imperial_centralization_5_flag
-				has_global_flag = imperial_centralization_4_flag
-				has_global_flag = imperial_centralization_3_flag
-				has_global_flag = imperial_centralization_2_flag
-				has_global_flag = imperial_centralization_1_flag
-				amount = 3
-			}
+			has_global_flag = imperial_centralization_3_flag
 		}
 		add_country_modifier = {name = empire_centralization_3 duration = -1}
 	}
 	else_if = {
 		limit = {
-			calc_true_if = {
-				has_global_flag = imperial_centralization_10_flag
-				has_global_flag = imperial_centralization_9_flag
-				has_global_flag = imperial_centralization_8_flag
-				has_global_flag = imperial_centralization_7_flag
-				has_global_flag = imperial_centralization_6_flag
-				has_global_flag = imperial_centralization_5_flag
-				has_global_flag = imperial_centralization_4_flag
-				has_global_flag = imperial_centralization_3_flag
-				has_global_flag = imperial_centralization_2_flag
-				has_global_flag = imperial_centralization_1_flag
-				amount = 2
-			}
+			has_global_flag = imperial_centralization_2_flag
 		}
 		add_country_modifier = {name = empire_centralization_2 duration = -1}
 	}
 	else_if = {
 		limit = {
-			calc_true_if = {
-				has_global_flag = imperial_centralization_10_flag
-				has_global_flag = imperial_centralization_9_flag
-				has_global_flag = imperial_centralization_8_flag
-				has_global_flag = imperial_centralization_7_flag
-				has_global_flag = imperial_centralization_6_flag
-				has_global_flag = imperial_centralization_5_flag
-				has_global_flag = imperial_centralization_4_flag
-				has_global_flag = imperial_centralization_3_flag
-				has_global_flag = imperial_centralization_2_flag
-				has_global_flag = imperial_centralization_1_flag
-				amount = 1
-			}
+			has_global_flag = imperial_centralization_1_flag
 		}
 		add_country_modifier = {name = empire_centralization_1 duration = -1}
 	}

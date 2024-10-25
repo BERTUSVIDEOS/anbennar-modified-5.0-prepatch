@@ -844,6 +844,51 @@ magisterium_cast_fake_comet_spell_action = {
 	}
 	ai_will_do = {always = no}
 }
+magisterium_cast_flesh_necrosis_spell_action = {
+	category = mages_influence_modifier
+	require_acceptance = no
+	alert_index = 21
+	
+	is_visible = {
+		if = {
+			limit = { has_estate_privilege = estate_mages_organization_magisterium }
+			A85 = { has_unlocked_magic_school = { school = necromancy level = 1} }
+		}
+		else = {
+			has_unlocked_magic_school = { school = necromancy level = 1 }
+		}
+    }
+	
+	is_allowed = {
+		has_mana = { mana = 50 }
+		if = {
+			limit = { FROM = { has_country_modifier = spell_flesh_necrosis_1_modifier } }
+			FROM = { NOT = { has_country_modifier = spell_flesh_necrosis_1_modifier } }
+		}
+		if = {
+			limit = { FROM = { has_country_modifier = spell_flesh_necrosis_2_modifier } }
+			FROM = { NOT = { has_country_modifier = spell_flesh_necrosis_2_modifier } }
+		}
+		if = {
+			limit = { is_colonial_nation = yes }
+			is_colonial_nation = no
+		}
+	}
+
+    on_accept = {
+		add_mana_effect = { mana = -50 }
+		if = {
+			limit = { has_unlocked_magic_school = { school = necromancy level = 2 } }
+			FROM = { add_country_modifier = { name = spell_flesh_necrosis_2_modifier duration = 730 } }
+		}
+		else = {
+			FROM = { add_country_modifier = { name = spell_flesh_necrosis_1_modifier duration = 730 } }
+			custom_tooltip = magisters_need_tier_2_necromancy_tt
+			custom_tooltip = "to get lvl 2 Spell"
+		}
+	}
+	ai_will_do = {always = no}
+}
 magisterium_cast_enchantment_spell_action = {
 	category = mages_influence_modifier
 	require_acceptance = no

@@ -1033,9 +1033,7 @@ country_event = {	# gnollish tolerance update
 		name = gnollish_tolerance_events.5004.a
 
 		every_owned_province = {
-			limit = {
-				has_any_gnollish_pop_trigger = yes
-			}
+			limit = { has_any_gnollish_pop_trigger = yes }
 			update_specific_racial_province_modifier_tolerance = { RACE = gnollish }
 			all_races_effect = { EFFECT = make_majority_primary }	#bertus mod
 		}
@@ -1051,12 +1049,9 @@ country_event = {	# gnollish tolerance update
 	hidden = yes
 
 	trigger = {
-		OR = {
-			NOT = {has_country_flag = just_updated_gnollish_tolerance_flag}
-			had_country_flag = {
-				flag = just_updated_gnollish_tolerance_flag
-				days = 180
-			}
+		cooldown_trigger = {
+			name = just_updated_gnollish_tolerance
+			cooldown = 180
 		}
 		ai = no	#bertus mod
 	}
@@ -1086,9 +1081,7 @@ country_event = {	#Expulsion/Purge - Minority
 			has_country_modifier = racial_pop_gnollish_expulsion
 			has_country_modifier = racial_pop_gnollish_purge
 		}
-		any_owned_province = {
-			has_gnollish_minority_trigger = yes
-		}
+		any_owned_province = { has_gnollish_minority_trigger = yes }
 	}
 	
 	mean_time_to_happen = {
@@ -1110,30 +1103,18 @@ country_event = {	#Expulsion/Purge - Minority
 		}
 		modifier = {
 			factor = 0.5
-			calc_true_if = {
-				all_owned_province = {
-					has_gnollish_minority_trigger = yes
-				}
-				amount = 50
-			}
+			calc_true_if = { all_owned_province = { has_gnollish_minority_trigger = yes } amount = 50 }
 		}
 		modifier = {
 			factor = 0.75
-			calc_true_if = {
-				all_owned_province = {
-					has_gnollish_minority_trigger = yes
-				}
-				amount = 25
-			}
+			calc_true_if = { all_owned_province = { has_gnollish_minority_trigger = yes } amount = 25 }
 		}
 	}
 	
 	immediate = {
 		hidden_effect = {	#Make this the monstrous purge thing
 			random_owned_province = {
-				limit = {
-					has_gnollish_minority_trigger = yes
-				}
+				limit = { has_gnollish_minority_trigger = yes }
 				save_event_target_as = racial_pop_province_origin
 			}
 			random_owned_province = {
@@ -1177,9 +1158,7 @@ country_event = {	#Expulsion/Purge - Minority
 				limit = {
 					NOT = { has_country_modifier = racial_pop_gnollish_purge }
 					NOT = { has_country_modifier = racial_pop_gnollish_expulsion }
-					any_owned_province = {
-						development = 20
-					}
+					any_owned_province = { development = 20 }
 				}
 				save_event_target_as = racial_pop_migration_country
 			}
@@ -1196,9 +1175,7 @@ country_event = {	#Expulsion/Purge - Minority
 					NOT = { has_country_modifier = racial_pop_gnollish_purge }
 					NOT = { has_country_modifier = racial_pop_gnollish_expulsion }
 					medium_tolerance_gnollish_race_trigger = yes
-					any_owned_province = {
-						development = 20
-					}
+					any_owned_province = { development = 20 }
 				}
 				save_event_target_as = racial_pop_migration_country
 			}
@@ -1237,15 +1214,9 @@ country_event = {	#Expulsion/Purge - Minority
 			add_devastation = 10
 		}
 		if = {	#only does this if they have an adjacent country
-			limit = {
-				any_neighbor_country = { 
-					NOT = { low_tolerance_gnollish_race_trigger = yes }
-				}
-			}
+			limit = { any_neighbor_country = { NOT = { low_tolerance_gnollish_race_trigger = yes } } }
 			event_target:racial_pop_migration_country  = {	#Calls Migrants Arrive to Migration Country
-				country_event = {
-					id = racial_pop_events_gnollish.10
-				}
+				country_event = { id = racial_pop_events_gnollish.10 }
 			}
 		}
 		medium_decrease_of_gnollish_tolerance_effect = yes
@@ -1257,9 +1228,7 @@ country_event = {	#Expulsion/Purge - Minority
 		if = {
 			limit = { 
 				ruler_has_personality = cruel_personality 
-				event_target:racial_pop_province_origin = {
-					has_large_gnollish_minority_trigger = yes
-				}
+				event_target:racial_pop_province_origin = { has_large_gnollish_minority_trigger = yes }
 			}
 			event_target:racial_pop_province_origin = {	#Remove Minority from Origin Province
 				remove_gnollish_minority_size_effect = yes
@@ -1385,6 +1354,7 @@ country_event = {	#Expulsion/Purge - Majority
 					NOT = {has_construction = culture}
 				}
 				save_event_target_as = province_event_target
+				save_event_target_as = racial_pop_province_origin
 			}
 		}
 	}

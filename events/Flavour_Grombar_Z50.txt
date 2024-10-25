@@ -95,6 +95,7 @@ country_event = {
 			change_heir_adm = 2
 			change_heir_dip = 2
 			change_heir_mil = 2
+			custom_tooltip = "Increase Heir's ADM/DIP/MIL by 2"
 		}
 		else = {
 			define_heir = {
@@ -1439,7 +1440,7 @@ country_event = {
 }
 
 #Frozenmaw victorious
-country_event = {
+country_event = {	#bertus mod
 	id = flavor_grombar.56
 	title = flavor_grombar.56.t
 	desc = flavor_grombar.56.d
@@ -1465,23 +1466,14 @@ country_event = {
 		months = 1
 	}
 	
-	#Victory for Frozenmaw
-	option = {
-		name = flavor_grombar.56.a
-		ai_chance = { factor = 100 }
-		add_years_of_income = 2
-		if = {
-			limit = { ai = yes }
-			add_years_of_income = 5
-		}
+	immediate = {
+		set_global_flag = crovis_defeated
+		clr_global_flag = crovis_invasion
+		white_peace = Z45
 		Z45 = {
-			every_owned_province = {
-				add_devastation = 90
+			every_subject_country {
+				ROOT = { vassalize = PREV }
 			}
-		}
-		hidden_effect = {
-			white_peace = Z45
-			white_peace = Z26
 		}
 		Z23 = {
 			inherit = Z45
@@ -1504,9 +1496,19 @@ country_event = {
 				limit = { is_colony = yes }
 				destroy_province = yes
 			}
+			country_event = {
+				id = flavor_grombar.58
+			}
 		}
 		add_historical_friend = Z23
 		vassalize = Z23
+	}
+	#Victory for Frozenmaw
+	option = {
+		name = flavor_grombar.56.a
+		ai_chance = { factor = 100 }
+
+		add_years_of_income = 2
 		add_ruler_modifier = {
 			name = grombar_crovis_crushed
 			duration = -1
@@ -1514,39 +1516,6 @@ country_event = {
 		add_stability_or_adm_power = yes
 		add_prestige_or_monarch_power = {amount =  15}
 		add_legitimacy = 25
-		if = {
-			limit = {
-				Z27 = { 
-					vassal_of = Z45
-				}
-			}
-			vassalize = Z27
-		}
-		if = {
-			limit = {
-				Z49 = { 
-					vassal_of = Z45
-				}
-			}
-			vassalize = Z49
-		}
-		if = {
-			limit = {
-				Z48 = { 
-					vassal_of = Z45
-				}
-			}
-			vassalize = Z48
-		}
-		hidden_effect = {
-			Z45 = {
-				country_event = {
-					id = flavor_grombar.58
-				}
-			}
-			set_global_flag = crovis_defeated
-			clr_global_flag = crovis_invasion
-		}
 	}
 }
 
@@ -1594,7 +1563,8 @@ country_event = {
 	option = {
 		name = flavor_grombar.58.a
 		ai_chance = { factor = 100 }
-		add_stability = -2
+		#add_stability = -2	#-2→0
+		add_liberty_desire = -50	#0→-50
 		add_prestige = -20
 		add_legitimacy = -25
 	}
@@ -1793,25 +1763,6 @@ country_event = {	#bertus mod
 				}
 			}
 			change_primary_culture = grombar_half_orc
-			clear_racial_military = yes
-			
-			add_country_modifier = { 
-				name = restructuring_military
-				duration = 3650
-			}
-			add_country_modifier = { 
-				name = half_orcish_military
-				duration = -1  
-			}
-			change_unit_type = tech_half_orcish
-			custom_tooltip = "Every Grombar Orc province:"
-			every_owned_province = {
-				limit = { culture = grombar_half_orc }
-				change_culture = grombar_half_orc
-			}
-		}
-		hidden_effect = {
-			country_event = { id = racial_modifiers.5 }
 		}
 		add_adm_power = 200
 		add_dip_power = 200

@@ -245,7 +245,7 @@ custom_icon = {
     potential = {
 		has_country_flag = estate_mages_cast_spell_divination
 	}
-	tooltip = "Divination School"
+	tooltip = divination_school_spells_tt
 }
 custom_button = {
 	name = upgrade_icon_divination
@@ -669,7 +669,7 @@ custom_icon = {
     potential = {
 		has_country_flag = estate_mages_cast_spell_enchantment
 	}
-	tooltip = "Enchantment School"
+	tooltip = enchantment_school_spells_tt
 }
 custom_button = {
 	name = upgrade_icon_enchantment
@@ -925,20 +925,7 @@ custom_button = {
 		
 		custom_tooltip = magic_mind_control_desc_tt
 		hidden_effect = {
-			random_list = {
-				33 = {
-					trigger = { employed_advisor = { category = ADM } NOT = { has_country_modifier = magic_menu_mind_control_spell_adm_modifier } }
-					add_country_modifier = { name = magic_menu_mind_control_spell_adm_modifier duration = -1 }
-				}
-				33 = {
-					trigger = { employed_advisor = { category = DIP } NOT = { has_country_modifier = magic_menu_mind_control_spell_dip_modifier } }
-					add_country_modifier = { name = magic_menu_mind_control_spell_dip_modifier duration = -1 }
-				}
-				33 = {
-					trigger = { employed_advisor = { category = MIL } NOT = { has_country_modifier = magic_menu_mind_control_spell_mil_modifier } }
-					add_country_modifier = { name = magic_menu_mind_control_spell_mil_modifier duration = -1 }
-				}
-			}
+			country_event = { id = bertus_changes.6040 }
 		}
 	}
 	tooltip = "Control Mind"
@@ -983,7 +970,7 @@ custom_icon = {
     potential = {
 		has_country_flag = estate_mages_cast_spell_abjuration
 	}
-	tooltip = "Abjuration School"
+	tooltip = abjuration_school_spells_tt
 }
 custom_button = {
 	name = upgrade_icon_abjuration
@@ -1385,7 +1372,7 @@ custom_icon = {
     potential = {
 		has_country_flag = estate_mages_cast_spell_transmutation
 	}
-	tooltip = "Transmutation School"
+	tooltip = transmutation_school_spells_tt
 }
 custom_button = {
 	name = upgrade_icon_transmutation
@@ -1656,7 +1643,7 @@ custom_icon = {
     potential = {
 		has_country_flag = estate_mages_cast_spell_evocation
 	}
-	tooltip = "Evocation School"
+	tooltip = evocation_school_spells_tt
 }
 custom_button = {
 	name = upgrade_icon_evocation
@@ -1864,7 +1851,7 @@ custom_icon = {
     potential = {
 		has_country_flag = estate_mages_cast_spell_illusion
 	}
-	tooltip = "Illusion School"
+	tooltip = illusion_school_spells_tt
 }
 custom_button = {
 	name = upgrade_icon_illusion
@@ -2032,7 +2019,7 @@ custom_icon = {
     potential = {
 		has_country_flag = estate_mages_cast_spell_necromancy
 	}
-	tooltip = "Necromancy School"
+	tooltip = necromancy_school_spells_tt
 }
 custom_button = {
 	name = upgrade_icon_necromancy
@@ -2087,6 +2074,54 @@ custom_icon = {
 	}
 }
 custom_button = {
+    name = magic_menu_flesh_necrosis
+    
+    potential = {
+		has_country_flag = estate_mages_cast_spell_necromancy
+	}
+	trigger = {
+		if = {
+			limit = { NOT = { has_unlocked_magic_school = { school = necromancy level = 1 } } }
+			has_unlocked_magic_school = { school = necromancy level = 1 }
+		}
+		has_mana = { mana = 50 }
+		custom_trigger_tooltip = {
+			tooltip = magic_menu_diplomatic_actions_spell_tt
+			always = no
+		}
+		if = {
+			limit = { is_colonial_nation = yes }
+			is_colonial_nation = no
+		}
+	}
+	effect = {
+		tooltip = {
+			if = {
+				limit = { has_mana = { mana = 50 } }
+				add_mana_effect = { mana = -50 }
+				custom_tooltip = "Target Country gets:"
+				if = {
+					limit = { has_unlocked_magic_school = { school = necromancy level = 2 } }
+					add_country_modifier = { name = spell_flesh_necrosis_2_modifier duration = 730 }
+				}
+				else = {
+					add_country_modifier = { name = spell_flesh_necrosis_1_modifier duration = 730 }
+					custom_tooltip = magisters_need_tier_2_necromancy_tt
+					custom_tooltip = "to get lvl 2 Spell"
+				}
+			}
+			else = {
+				custom_tooltip = magisters_need_50_mana_tt
+			}
+		}
+		hidden_effect = {
+			clr_country_flag = estate_mages_cast_spells
+			clr_country_flag = estate_mages_cast_spell_necromancy
+		}
+	}
+	tooltip = "Flesh Necrosis"
+}
+custom_button = {
 	name = conjuration_school_spells
     potential = {
 		has_country_flag = estate_mages_cast_spells
@@ -2126,7 +2161,7 @@ custom_icon = {
     potential = {
 		has_country_flag = estate_mages_cast_spell_conjuration
 	}
-	tooltip = "Conjuration School"
+	tooltip = conjuration_school_spells_tt
 }
 custom_button = {
 	name = upgrade_icon_conjuration

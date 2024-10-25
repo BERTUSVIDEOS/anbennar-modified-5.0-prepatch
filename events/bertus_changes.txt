@@ -3389,30 +3389,14 @@ country_event = {	#set up enslavement efficiency
 	option = {	#
 		name = bertus_changes.1121.a
 		ai_chance = {factor = 10}
-		set_variable = {
-			which = enslavement_efficiency_var
-			value = 0
-		}
-		change_variable = {
-			which = enslavement_efficiency_var
-			value = 1
-		}
-		export_to_variable = {
-			which = available_province_loot_var
-			value = modifier:available_province_loot
-		}
-		change_variable = {
-			which = enslavement_efficiency_var
-			which = available_province_loot_var
-		}
+		set_variable = { which = enslavement_efficiency_var value = 0 }
+		change_variable = { which = enslavement_efficiency_var value = 0.02 }	#1/50 per dev
+		export_to_variable = { which = available_province_loot_var value = modifier:available_province_loot }
+		divide_variable = { which = available_province_loot_var value = 50 }
+		change_variable = { which = enslavement_efficiency_var which = available_province_loot_var }
 		if = {
-			limit = {
-				has_country_modifier = monstrous_nation
-			}
-			change_variable = {
-				which = enslavement_efficiency_var
-				value = 1
-			}
+			limit = { has_country_modifier = monstrous_nation }
+			change_variable = { which = enslavement_efficiency_var value = 0.02 }	#1/50 per dev
 		}
 	}
 }
@@ -3973,26 +3957,9 @@ country_event = {	#religion general
 		hidden_effect = {country_event = {id = bertus_changes.3000}}
 	}
 }
-#anoint slave herd province from great_dookan_events.5 event
-province_event = {
-	id = bertus_changes.3002
-	title = bertus_changes.3002.t
-	desc = bertus_changes.3002.desc
-	picture = FAMINE_eventPicture
-	
-	is_triggered_only = yes
-	goto = ROOT
 
-	option = {
-		name = bertus_changes.3002.a
-		owner = {clr_country_flag = anoint_slave_herd_great_flag}
-		area = {
-			add_prosperity = 100
-			add_devastation = -50
-			add_province_modifier = {name = dookan_anointed_slave_herd duration = 3650}
-		}
-	}
-}
+# id = bertus_changes.3002 #unused
+
 country_event = {
     id = bertus_changes.3004
     title = bertus_changes.3004.title
@@ -6313,7 +6280,32 @@ country_event = {	#
 	}
 }
 
-# id = bertus_changes.6040	#unused
+country_event = {
+    id = bertus_changes.6040
+    title = bertus_changes.6040.title
+    desc = bertus_changes.6040.desc
+    picture = DHIMMI_ESTATE_eventPicture
+
+	is_triggered_only = yes
+	hidden = yes
+
+    option = {
+        name = bertus_changes.6040.a # 
+		trigger = { employed_advisor = { category = ADM } NOT = { has_country_modifier = magic_menu_mind_control_spell_adm_modifier } }
+		add_country_modifier = { name = magic_menu_mind_control_spell_adm_modifier duration = -1 }
+    }
+    option = {
+        name = bertus_changes.6040.b # 
+		trigger = { employed_advisor = { category = DIP } NOT = { has_country_modifier = magic_menu_mind_control_spell_dip_modifier } }
+		add_country_modifier = { name = magic_menu_mind_control_spell_dip_modifier duration = -1 }
+    }
+    option = {
+        name = bertus_changes.6040.c # 
+		trigger = { employed_advisor = { category = MIL } NOT = { has_country_modifier = magic_menu_mind_control_spell_mil_modifier } }
+		add_country_modifier = { name = magic_menu_mind_control_spell_mil_modifier duration = -1 }
+    }
+
+}
 
 country_event = {	#no first hand
     id = bertus_changes.6041
