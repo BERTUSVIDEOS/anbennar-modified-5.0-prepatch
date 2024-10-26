@@ -74,7 +74,7 @@ fort_15th = {
 			limit = {
 				owner = {has_government_attribute = noble_castles_boost}
 				NOT = {has_province_modifier = noble_castles_boost_modifier}
-				has_fort_trigger = yes
+				has_fort_building_trigger = yes
 			}
 			add_province_modifier = {name = noble_castles_boost_modifier duration = -1}
 		}
@@ -120,7 +120,7 @@ fort_16th = {
 			limit = {
 				owner = {has_government_attribute = noble_castles_boost}
 				NOT = {has_province_modifier = noble_castles_boost_modifier}
-				has_fort_trigger = yes
+				has_fort_building_trigger = yes
 			}
 			add_province_modifier = {name = noble_castles_boost_modifier duration = -1}
 		}
@@ -166,7 +166,7 @@ fort_17th = {
 			limit = {
 				owner = {has_government_attribute = noble_castles_boost}
 				NOT = {has_province_modifier = noble_castles_boost_modifier}
-				has_fort_trigger = yes
+				has_fort_building_trigger = yes
 			}
 			add_province_modifier = {name = noble_castles_boost_modifier duration = -1}
 		}
@@ -218,7 +218,7 @@ fort_18th = {
 			limit = {
 				owner = {has_government_attribute = noble_castles_boost}
 				NOT = {has_province_modifier = noble_castles_boost_modifier}
-				has_fort_trigger = yes
+				has_fort_building_trigger = yes
 			}
 			add_province_modifier = {name = noble_castles_boost_modifier duration = -1}
 		}
@@ -1301,7 +1301,6 @@ wharf = {
 			}
 			set_province_flag = latest_manufactory_built_is_wharf
 			clr_province_flag = latest_manufactory_built_is_farm_estate
-			clr_province_flag = latest_manufactory_built_is_ramparts
 			clr_province_flag = latest_manufactory_built_is_impressment_offices
 			clr_province_flag = latest_manufactory_built_is_textile
 			clr_province_flag = latest_manufactory_built_is_weapons
@@ -1349,7 +1348,6 @@ weapons = {
 			}
 			set_province_flag = latest_manufactory_built_is_weapons
 			clr_province_flag = latest_manufactory_built_is_farm_estate
-			clr_province_flag = latest_manufactory_built_is_ramparts
 			clr_province_flag = latest_manufactory_built_is_impressment_offices
 			clr_province_flag = latest_manufactory_built_is_wharf
 			clr_province_flag = latest_manufactory_built_is_textile
@@ -1392,7 +1390,6 @@ textile = {
 			}
 			set_province_flag = latest_manufactory_built_is_textile
 			clr_province_flag = latest_manufactory_built_is_farm_estate
-			clr_province_flag = latest_manufactory_built_is_ramparts
 			clr_province_flag = latest_manufactory_built_is_impressment_offices
 			clr_province_flag = latest_manufactory_built_is_wharf
 			clr_province_flag = latest_manufactory_built_is_weapons
@@ -1435,7 +1432,6 @@ plantations = {
 			}
 			set_province_flag = latest_manufactory_built_is_plantations
 			clr_province_flag = latest_manufactory_built_is_farm_estate
-			clr_province_flag = latest_manufactory_built_is_ramparts
 			clr_province_flag = latest_manufactory_built_is_impressment_offices
 			clr_province_flag = latest_manufactory_built_is_wharf
 			clr_province_flag = latest_manufactory_built_is_textile
@@ -1484,7 +1480,6 @@ tradecompany = {
 			}
 			set_province_flag = latest_manufactory_built_is_tradecompany
 			clr_province_flag = latest_manufactory_built_is_farm_estate
-			clr_province_flag = latest_manufactory_built_is_ramparts
 			clr_province_flag = latest_manufactory_built_is_impressment_offices
 			clr_province_flag = latest_manufactory_built_is_wharf
 			clr_province_flag = latest_manufactory_built_is_textile
@@ -1539,7 +1534,6 @@ farm_estate = {
 				area = castonath_area
 			}
 			set_province_flag = latest_manufactory_built_is_farm_estate
-			clr_province_flag = latest_manufactory_built_is_ramparts
 			clr_province_flag = latest_manufactory_built_is_impressment_offices
 			clr_province_flag = latest_manufactory_built_is_wharf
 			clr_province_flag = latest_manufactory_built_is_textile
@@ -1591,7 +1585,6 @@ mills = {
 			}
 			set_province_flag = latest_manufactory_built_is_mills
 			clr_province_flag = latest_manufactory_built_is_farm_estate
-			clr_province_flag = latest_manufactory_built_is_ramparts
 			clr_province_flag = latest_manufactory_built_is_impressment_offices
 			clr_province_flag = latest_manufactory_built_is_wharf
 			clr_province_flag = latest_manufactory_built_is_textile
@@ -1631,7 +1624,6 @@ furnace = {
 			}
 			set_province_flag = latest_manufactory_built_is_furnace
 			clr_province_flag = latest_manufactory_built_is_farm_estate
-			clr_province_flag = latest_manufactory_built_is_ramparts
 			clr_province_flag = latest_manufactory_built_is_impressment_offices
 			clr_province_flag = latest_manufactory_built_is_wharf
 			clr_province_flag = latest_manufactory_built_is_textile
@@ -1650,10 +1642,28 @@ furnace = {
 	ai_will_do = {factor = 1000}
 }
 
-ramparts = {
+
+blacksmith = {	#bertus mod
+
+	build_trigger = {
+		development = 30
+	}
 	manufactory = {
 		all
 	}
+	modifier = {
+		supply_limit = 10
+		land_forcelimit = 2
+		amount_of_mamluks = 2
+	}
+	onmap = yes
+	show_separate = yes # Means as a manufactory it will be shown according to the old way
+	ai_will_do = {factor = 1}
+}
+
+ramparts = {
+	cost = 500
+	time = 60
 	build_trigger = {
 		OR = {
 			has_building = fort_15th
@@ -1680,24 +1690,6 @@ ramparts = {
 		local_state_maintenance_modifier = 0.50
 	}
 	on_built = {
-		if = {
-			limit = {
-				area = castonath_area
-			}
-			set_province_flag = latest_manufactory_built_is_ramparts
-			clr_province_flag = latest_manufactory_built_is_farm_estate
-			clr_province_flag = latest_manufactory_built_is_impressment_offices
-			clr_province_flag = latest_manufactory_built_is_wharf
-			clr_province_flag = latest_manufactory_built_is_textile
-			clr_province_flag = latest_manufactory_built_is_weapons
-			clr_province_flag = latest_manufactory_built_is_state_house
-			clr_province_flag = latest_manufactory_built_is_plantations
-			clr_province_flag = latest_manufactory_built_is_tradecompany
-			clr_province_flag = latest_manufactory_built_is_soldier_households
-			clr_province_flag = latest_manufactory_built_is_mills
-			clr_province_flag = latest_manufactory_built_is_furnace
-			clr_province_flag = latest_manufactory_built_is_mage_tower
-		}
 	}
 	onmap = no
 	show_separate = yes # Means as a manufactory it will be shown according to the old way
@@ -1759,7 +1751,6 @@ soldier_households = {
 			}
 			set_province_flag = latest_manufactory_built_is_soldier_households
 			clr_province_flag = latest_manufactory_built_is_farm_estate
-			clr_province_flag = latest_manufactory_built_is_ramparts
 			clr_province_flag = latest_manufactory_built_is_impressment_offices
 			clr_province_flag = latest_manufactory_built_is_wharf
 			clr_province_flag = latest_manufactory_built_is_textile
@@ -1816,7 +1807,6 @@ impressment_offices = {
 			}
 			set_province_flag = latest_manufactory_built_is_impressment_offices
 			clr_province_flag = latest_manufactory_built_is_farm_estate
-			clr_province_flag = latest_manufactory_built_is_ramparts
 			clr_province_flag = latest_manufactory_built_is_wharf
 			clr_province_flag = latest_manufactory_built_is_textile
 			clr_province_flag = latest_manufactory_built_is_weapons
@@ -1878,7 +1868,6 @@ state_house = {
 			}
 			set_province_flag = latest_manufactory_built_is_state_house
 			clr_province_flag = latest_manufactory_built_is_farm_estate
-			clr_province_flag = latest_manufactory_built_is_ramparts
 			clr_province_flag = latest_manufactory_built_is_impressment_offices
 			clr_province_flag = latest_manufactory_built_is_wharf
 			clr_province_flag = latest_manufactory_built_is_textile
@@ -1925,7 +1914,6 @@ tax_house = {
 			}
 			set_province_flag = latest_manufactory_built_is_soldier_households
 			clr_province_flag = latest_manufactory_built_is_farm_estate
-			clr_province_flag = latest_manufactory_built_is_ramparts
 			clr_province_flag = latest_manufactory_built_is_impressment_offices
 			clr_province_flag = latest_manufactory_built_is_wharf
 			clr_province_flag = latest_manufactory_built_is_textile
@@ -1983,7 +1971,6 @@ mage_tower = {
 			}
 			set_province_flag = latest_manufactory_built_is_mage_tower
 			clr_province_flag = latest_manufactory_built_is_farm_estate
-			clr_province_flag = latest_manufactory_built_is_ramparts
 			clr_province_flag = latest_manufactory_built_is_impressment_offices
 			clr_province_flag = latest_manufactory_built_is_wharf
 			clr_province_flag = latest_manufactory_built_is_textile
@@ -3035,35 +3022,6 @@ black_castle = {
 ################################################
 # Общие
 ################################################
-
-blacksmith = {	#bertus mod
-	cost = 500
-	time = 60
-	build_trigger = {
-		development = 30
-	}
-	modifier = {
-		supply_limit = 5
-		land_forcelimit = 1
-		amount_of_mamluks = 1
-	}
-
-	bonus_manufactory = { # bertus mod #		TESTING
-		iron
-		copper
-		tin
-		mithril
-		lead
-		sulfur
-	}
-
-	bonus_modifier = {
-		supply_limit = 5
-		land_forcelimit = 1
-		amount_of_mamluks = 1
-	}
-	ai_will_do = {factor = 1}
-}
 
 theatre_lvl_1 = {
 	cost = 200	#350→200

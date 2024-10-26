@@ -1000,6 +1000,16 @@ on_province_culture_change_effect = {
 			owner = { add_adm_power = 25 }
 		}
 	}
+	if = {	#bertus mod
+		limit = { has_idea = assimilation1 }
+		set_variable = { which = development_var value = 0 }
+		export_to_variable = { which = development_var value = development who = PREV }
+		while = {
+			limit = { check_variable = { which = development_var value = 1 } }
+			subtract_variable = { which = development_var value = 1 }
+			add_prestige_or_monarch_power = {amount =  0.25 }
+		}
+	}
 }
 
 on_colony_finished_effect = {
