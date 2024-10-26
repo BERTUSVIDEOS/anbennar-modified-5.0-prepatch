@@ -4,7 +4,6 @@ estate_human_hire_advisor = {
 	can_select = {
 		high_tolerance_human_race_trigger = no
 		any_owned_province = {
-			is_state_core = root
 			has_human_majority_trigger = yes
 			ROOT = {
 				NOT = {employed_advisor = {category = DIP culture = PREV}}
@@ -70,7 +69,6 @@ estate_human_fire_advisor = {
 			}
 		}
 		any_owned_province = {
-			is_state_core = root
 			has_human_majority_trigger = yes
 		}
 	}
@@ -394,7 +392,6 @@ estate_human_three_privileges = {
 		high_tolerance_human_race_trigger = no
 		any_owned_province = {
 			has_human_majority_trigger = yes
-			is_state_core = root
 		}
 		NOT = {has_estate_privilege = estate_human_autonomy}
 	}
@@ -1458,10 +1455,7 @@ estate_human_war_with_non_human = {
 	can_select = {
 		is_free_or_tributary_trigger = yes
 		is_at_war = no
-		has_estate_privilege = estate_human_intolerance_policy
 		any_neighbor_country = {
-			has_human_majority_trigger = no
-			is_free_or_tributary_trigger = yes
 			NOT = { is_subject_of = root }
 			NOT = { overlord_of = root }
 			NOT = { alliance_with = root }
@@ -1472,6 +1466,10 @@ estate_human_war_with_non_human = {
 				is_part_of_hre = no
 				NOT = { hre_reform_passed = landfriede }
 				ROOT = { is_part_of_hre = no }
+			}
+			reverse_has_opinion_modifier  = {
+				who = ROOT
+				modifier = opinion_supremacy_race
 			}
 		}
 	}

@@ -577,6 +577,13 @@ vertesk_1_missions = {
 				}
 				add_permanent_claim = ROOT
 			}
+			alenvord_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
 		}
 	}
 	
@@ -589,6 +596,7 @@ vertesk_1_missions = {
 			OR = {
 				area = gawed_area
 				area = greatmarches_area
+				area = alenvord_area
 			}
 			NOT = { owned_by = ROOT }
 		}
@@ -597,10 +605,17 @@ vertesk_1_missions = {
 			gawed_area = {
 				type = all
 				owned_by = ROOT 
+				is_core = ROOT
 			}
 			greatmarches_area = {
 				type = all
 				owned_by = ROOT 
+				is_core = ROOT
+			}
+			alenvord_area = {
+				type = all
+				owned_by = ROOT 
+				is_core = ROOT
 			}
 		}
 		
@@ -753,6 +768,10 @@ vertesk_1_expansion_missions = {
 		}
 		
 		effect = {
+			add_or_extend_country_modifier_effect = {
+				MODIFIER = expansionist_country
+				DURATION = 7300
+			}
 			mawriver_area = {
 				limit = {
 					NOT = { is_core = ROOT }
@@ -761,6 +780,20 @@ vertesk_1_expansion_missions = {
 				add_permanent_claim = ROOT
 			}
 			serpentshead_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			cold_market_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			adderwood_area = {
 				limit = {
 					NOT = { is_core = ROOT }
 					NOT = { owned_by = ROOT }
@@ -818,7 +851,9 @@ vertesk_1_expansion_missions = {
     				who = A23
    				 	modifier = vertesker_sabotage
 				}
+				add_mana_effect = { mana = -50 }
 			}
+			add_mana_effect = { mana = 50 }
 			hidden_effect = { 
 				add_spy_network_in = {
 					who = Z08
@@ -1415,7 +1450,12 @@ vertesk_2_expansion_missions = {
 		position = 13
 		
 		provinces_to_highlight = {
-			region = alenic_reach_region
+			OR = {
+				area = dinesck_area
+				area = northern_greatwoods_area
+				area = frostwall_area
+				area = west_chillsbay_area
+			}
 			OR = {
 				NOT = { owned_by = ROOT }
 				NOT = { is_core = ROOT }
@@ -1423,17 +1463,59 @@ vertesk_2_expansion_missions = {
 		}
 		
 		trigger = {
-			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
-				value = 30
-				region = alenic_reach_region
+			dinesck_area = {
+				type = all
+				owned_by = ROOT
+				is_core = ROOT
+			}
+			northern_greatwoods_area = {
+				type = all
+				owned_by = ROOT
+				is_core = ROOT
+			}
+			frostwall_area = {
+				type = all
+				owned_by = ROOT
+				is_core = ROOT
+			}
+			west_chillsbay_area = {
+				type = all
+				owned_by = ROOT
+				is_core = ROOT
+			}
+			228 = {
+				owned_by = ROOT
+				province_has_current_tech_fort_trigger = yes
+				has_great_project = {
+					type = gard_fort
+					tier = 2
+				}
 			}
 		}
 		
 		effect = {
+			add_or_extend_country_modifier_effect = {
+				MODIFIER = expansionist_country
+				DURATION = 7300
+			}
+			gerudian_coast_region = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
 			add_owned_provinces_development_manpower = {
 				multiplier = 1
 				age_multiplier = 1
-				trigger = { region = alenic_reach_region }
+				trigger = { 
+					OR = {
+						area = dinesck_area
+						area = northern_greatwoods_area
+						area = frostwall_area
+						area = west_chillsbay_area
+					}
+				}
 				custom_tooltip = MENTIONED_PROVINCES_PROV_TT
 			}
 		}
@@ -2700,23 +2782,15 @@ vertesk_4_expansion_missions = {
 		position = 13
 		
 		provinces_to_highlight = {
+			OR = { 	
+				area = cestir_area
+				area = golden_plains_area
+				area = arbaran_area
+				area = norcestir_area
+			}
 			OR = {
-				AND = {
-					continent = europe
-					owned_by = A46
-				}
-				AND = {
-					OR = { 	
-						area = cestir_area
-						area = golden_plains_area
-						area = arbaran_area
-						area = norcestir_area
-					}
-					OR = {
-						NOT = { owned_by = ROOT }
-						NOT = { is_core = ROOT }
-					}
-				}
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
 			}
 		}
 		
@@ -2744,29 +2818,63 @@ vertesk_4_expansion_missions = {
 		}
 		
 		effect = {
+			add_or_extend_country_modifier_effect = {
+				MODIFIER = expansionist_country
+				DURATION = 7300
+			}
 			arbaran_area = {
-				add_base_manpower = 2
-				add_base_production = 2
-				add_base_tax = 2
+				change_culture = ROOT
+				change_religion = ROOT
+				bertus_dev_reduction = {value = 0.75}
+				add_province_modifier = {
+					name = expulsion_of_arbaranians
+					duration = 7300
+				}
+				add_permanent_province_modifier = { name = purge_unrest_modifier duration = 1825 }
 			}
 			golden_plains_area = {
-				add_base_manpower = 2
-				add_base_production = 2
-				add_base_tax = 2
+				change_culture = ROOT
+				change_religion = ROOT
+				bertus_dev_reduction = {value = 0.75}
+				add_province_modifier = {
+					name = expulsion_of_arbaranians
+					duration = 7300
+				}
+				add_permanent_province_modifier = { name = purge_unrest_modifier duration = 1825 }
 			}
 			norcestir_area = {
-				add_base_manpower = 2
-				add_base_production = 2
-				add_base_tax = 2
+				change_culture = ROOT
+				change_religion = ROOT
+				bertus_dev_reduction = {value = 0.75}
+				add_province_modifier = {
+					name = expulsion_of_arbaranians
+					duration = 7300
+				}
+				add_permanent_province_modifier = { name = purge_unrest_modifier duration = 1825 }
 			}
 			cestir_area = {
-				add_base_manpower = 2
-				add_base_production = 2
-				add_base_tax = 2
+				change_culture = ROOT
+				change_religion = ROOT
+				bertus_dev_reduction = {value = 0.75}
+				add_province_modifier = {
+					name = expulsion_of_arbaranians
+					duration = 7300
+				}
+				add_permanent_province_modifier = { name = purge_unrest_modifier duration = 1825 }
 			}
 			if = { 
 				limit = { government = monarchy }
 				add_legitimacy = 30
+			}
+			set_country_flag = hero_free_general_flag
+			custom_tooltip = get_free_great_mage_general_tt
+			set_country_flag = get_mage_flag
+			custom_tooltip = get_mage_flag_tt
+			set_country_flag = great_general_extra_pips_flag
+			custom_tooltip = great_general_extra_pips_flag_tt
+			hidden_effect = {	#bertus mod
+			set_saved_name = {key = special_general_name type = advisor scope = ROOT}
+				country_event = {id = bertus_changes.6030}
 			}
 			forlorn_vale_region = {
 				limit = {
@@ -3268,7 +3376,6 @@ vertesk_5_expansion_missions = {
 		provinces_to_highlight = {
 			OR = { 	
 				area = woldvord_area
-				area = alenvord_area
 				area = balvord_area
 				area = jonsway_area
 			}
@@ -3284,11 +3391,6 @@ vertesk_5_expansion_missions = {
 				owned_by = ROOT
 				is_core = ROOT
 			}
-			alenvord_area = {
-				type = all
-				owned_by = ROOT
-				is_core = ROOT
-			}
 			balvord_area = {
 				type = all
 				owned_by = ROOT
@@ -3298,29 +3400,51 @@ vertesk_5_expansion_missions = {
 				type = all
 				owned_by = ROOT
 				is_core = ROOT
-			}	
+			}
+			242 = {
+				province_has_current_tech_fort_trigger = yes
+				has_great_project = {
+					type = mos_fort
+					tier = 2
+				}
+			}
 		}
 		
 		effect = {
-			gerudian_coast_region = {
+			add_or_extend_country_modifier_effect = {
+				MODIFIER = expansionist_country
+				DURATION = 7300
+			}
+			229 = {
+				add_trade_modifier = {
+					who = ROOT
+					duration = 7300
+					power = 50
+					key = STRONG_MERCHANTS
+				}
+			}
+			840 = {
+				add_trade_modifier = {
+					who = ROOT
+					duration = 7300
+					power = 50
+					key = STRONG_MERCHANTS
+				}
+			}
+			756 = {
+				add_trade_modifier = {
+					who = ROOT
+					duration = 7300
+					power = 50
+					key = STRONG_MERCHANTS
+				}
+			}
+			west_castanor_region = {
 				limit = {
 					NOT = { is_core = ROOT }
 					NOT = { owned_by = ROOT }
 				}
 				add_permanent_claim = ROOT
-			}
-			add_owned_provinces_development_manpower = {
-				multiplier = 1
-				age_multiplier = 1
-				trigger = {
-					OR = { 	
-						area = woldvord_area
-						area = alenvord_area
-						area = balvord_area
-						area = jonsway_area
-					}
-				}
-				custom_tooltip = MENTIONED_PROVINCES_PROV_TT
 			}
 		}
 	}
@@ -3351,7 +3475,9 @@ vertesk_5_expansion_missions = {
     				who = A23
    				 	modifier = vertesker_sabotage
 				}
+				add_mana_effect = { mana = -50 }
 			}
+			add_mana_effect = { mana = 50 }
 			hidden_effect = {
 				add_spy_network_in = {
 					who = Z50
