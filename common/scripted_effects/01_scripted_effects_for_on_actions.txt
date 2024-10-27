@@ -838,7 +838,12 @@ on_battle_won_country_effect = {
 	}
 	if = {	#bertus mod - Military Reform
 		limit = {
-			FROM = { OR = {ai = no overlord = { ai = no } } }
+			FROM = {
+				if = {
+					limit = { has_global_flag = mp_lobby_flag }
+					OR = { ai = no overlord = { ai = no }  }
+				}
+			}
 			ai = no
 			is_at_war = yes
 		}
@@ -860,6 +865,26 @@ on_battle_won_country_effect = {
 				change_variable = { which = military_reforms_tokens_var value = 1 }
 				change_variable = { which = military_reform_progress_var value = -100 }
 			}
+		}
+	}
+	if = {	#bertus mod - war production
+		limit = {
+			FROM = {
+				if = {
+					limit = { has_global_flag = mp_lobby_flag }
+					OR = { ai = no overlord = { ai = no }  }
+				}
+			}
+			ai = no
+			is_at_war = yes
+		}
+		set_variable = { which = war_production_unit_kill_losses value = 0 }
+		change_variable = { which = military_reform_unit_kill_losses which = land_units_lost }
+		divide_variable = { which = military_reform_unit_kill_losses value = 100 }
+		while = {
+			limit = { check_variable = { which = military_reform_unit_kill_losses value = 1 } }
+			change_variable = { which = military_reform_unit_kill_losses value = -1 }
+			add_treasury = 3
 		}
 	}
 	if = {	#bertus mod
