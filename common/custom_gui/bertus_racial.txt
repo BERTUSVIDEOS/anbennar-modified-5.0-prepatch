@@ -1,0 +1,489 @@
+
+custom_button = {
+    name = racial_mil_update
+    potential = {
+		ai = no
+	}
+	trigger = {
+		cooldown_trigger = {
+			name = racial_mil_menu
+			cooldown = 30
+		}
+	}
+	effect = {
+		hidden_effect = {
+			clr_country_flag = racial_mil_menu_cd_flag
+			set_country_flag = racial_mil_menu_cd_flag
+			country_event = {id = bertus_racial_military.1001}
+		}
+		country_administration_effect = {
+			type = military
+			military = yes
+		}
+		custom_tooltip = "Update Military Recruitment"
+	}
+	tooltip = mil_menu_access_tt
+}
+custom_text_box = {
+    name = bertus_racial_military
+    potential = {
+		ai = no
+	}
+    tooltip = "racial_mil_update"
+}
+custom_button = {
+    name = first_chairman_interaction
+    potential = {
+		ai = no
+	}
+	trigger = {
+		cooldown_trigger = {
+			name = first_chairman_interaction
+			cooldown = 3650
+		}
+	}
+	effect = {
+		country_chairman_effect = { type = first_hand }
+		country_event = { id = bertus_racial_military.5200 }
+		hidden_effect = {
+			clr_country_flag = first_chairman_interaction_cd_flag
+			set_country_flag = first_chairman_interaction_cd_flag
+		}
+	}
+    tooltip = first_chairman_interaction_tt
+}
+custom_button = {
+    name = diplomacy_chairman_interaction
+    potential = {
+		ai = no
+	}
+	trigger = {
+		cooldown_trigger = {
+			name = diplomacy_chairman_interaction
+			cooldown = 3650
+		}
+	}
+	effect = {
+		country_chairman_effect = { type = diplomacy }
+		country_event = { id = bertus_racial_military.5201 }
+		hidden_effect = {
+			clr_country_flag = diplomacy_chairman_interaction_cd_flag
+			set_country_flag = diplomacy_chairman_interaction_cd_flag
+		}
+	}
+    tooltip = diplomacy_chairman_interaction_tt
+}
+custom_button = {
+    name = military_chairman_interaction
+    potential = {
+		ai = no
+	}
+	trigger = {
+		cooldown_trigger = {
+			name = military_chairman_interaction
+			cooldown = 3650
+		}
+	}
+	effect = {
+		country_chairman_effect = { type = military }
+		country_event = { id = bertus_racial_military.5202 }
+		hidden_effect = {
+			clr_country_flag = military_chairman_interaction_cd_flag
+			set_country_flag = military_chairman_interaction_cd_flag
+		}
+	}
+    tooltip = military_chairman_interaction_tt
+}
+custom_button = {
+    name = economic_chairman_interaction
+    potential = {
+		ai = no
+	}
+	trigger = {
+		cooldown_trigger = {
+			name = economic_chairman_interaction
+			cooldown = 3650
+		}
+	}
+	effect = {
+		country_chairman_effect = { type = economic }
+		country_event = { id = bertus_racial_military.5203 }
+		if = {
+			limit = {
+				has_country_modifier = estate_halfling_economic_chairman_modifier
+			}
+			custom_tooltip = estate_halfling_economic_chairman_tooltip
+		}
+		hidden_effect = {
+			clr_country_flag = economic_chairman_interaction_cd_flag
+			set_country_flag = economic_chairman_interaction_cd_flag
+		}
+	}
+    tooltip = economic_chairman_interaction_tt
+}
+custom_button = {
+    name = navy_chairman_interaction
+    potential = {
+		ai = no
+	}
+	trigger = {
+		if = {
+			limit = { all_owned_province = { has_port = no } }
+			any_owned_province = { has_port = yes }
+		}
+		cooldown_trigger = {
+			name = navy_chairman_interaction
+			cooldown = 3650
+		}
+	}
+	effect = {
+		country_chairman_effect = { type = navy }
+		country_event = { id = bertus_racial_military.5204 }
+		hidden_effect = {
+			clr_country_flag = navy_chairman_interaction_cd_flag
+			set_country_flag = navy_chairman_interaction_cd_flag
+		}
+	}
+    tooltip = navy_chairman_interaction_tt
+}
+custom_icon = {
+	name = special_abilities_background
+	potential = {
+		is_city = yes
+		controller = { has_estate_privilege = estate_ogre_stone_soup }
+		NOT = { controlled_by = owner }
+		FROM = { ai = no }
+	}
+	tooltip = ""
+}
+custom_button = {
+    name = stone_soup
+    potential = {
+		is_city = yes
+		NOT = { controlled_by = owner }
+		FROM = {
+			ai = no
+			has_estate_privilege = estate_ogre_stone_soup
+		}
+	}
+	trigger = {
+		if = { limit = { unit_in_battle = yes } unit_in_battle = no }
+		if = { limit = { has_province_modifier = making_soup_modifier } NOT = { has_province_modifier = making_soup_modifier } }
+		if = { limit = { development = 100 } num_of_units_in_province = { who = controller amount = 50 } }
+		else_if = { limit = { development = 90 } num_of_units_in_province = { who = controller amount = 45 } }
+		else_if = { limit = { development = 80 } num_of_units_in_province = { who = controller amount = 40 } }
+		else_if = { limit = { development = 70 } num_of_units_in_province = { who = controller amount = 35 } }
+		else_if = { limit = { development = 60 } num_of_units_in_province = { who = controller amount = 30 } }
+		else_if = { limit = { development = 50 } num_of_units_in_province = { who = controller amount = 25 } }
+		else_if = { limit = { development = 40 } num_of_units_in_province = { who = controller amount = 20 } }
+		else_if = { limit = { development = 30 } num_of_units_in_province = { who = controller amount = 15 } }
+		else_if = { limit = { development = 20 } num_of_units_in_province = { who = controller amount = 10 } }
+		else_if = { limit = { development = 18 } num_of_units_in_province = { who = controller amount = 9 } }
+		else_if = { limit = { development = 16 } num_of_units_in_province = { who = controller amount = 8 } }
+		else_if = { limit = { development = 14 } num_of_units_in_province = { who = controller amount = 7 } }
+		else_if = { limit = { development = 12 } num_of_units_in_province = { who = controller amount = 6 } }
+		else_if = { limit = { development = 10 } num_of_units_in_province = { who = controller amount = 5 } }
+		else = { num_of_units_in_province = { who = controller amount = 4 } }
+	}
+	effect = {
+		province_event = { id = bertus_changes.2030 }	#making soup
+		custom_tooltip = "Our troops will be working 1 year for the Soup making"
+	}
+	tooltip = "Make Stone Soup"
+}
+custom_icon = {
+	name = human_image_background
+	potential = {
+		ai = no
+		has_country_modifier = human_administration
+	}
+	tooltip = ""
+}
+custom_icon = {
+	name = elven_image_background
+	potential = {
+		ai = no
+		has_country_modifier = elven_administration
+	}
+	tooltip = ""
+}
+custom_icon = {
+	name = dwarven_image_background
+	potential = {
+		ai = no
+		has_country_modifier = dwarven_administration
+	}
+	tooltip = ""
+}
+custom_icon = {
+	name = halfling_image_background
+	potential = {
+		ai = no
+		has_country_modifier = halfling_administration
+	}
+	tooltip = ""
+}
+custom_icon = {
+	name = gnomish_image_background
+	potential = {
+		ai = no
+		has_country_modifier = gnomish_administration
+	}
+	tooltip = ""
+}
+custom_icon = {
+	name = harimari_image_background
+	potential = {
+		ai = no
+		has_country_modifier = harimari_administration
+	}
+	tooltip = ""
+}
+custom_icon = {
+	name = gnollish_image_background
+	potential = {
+		ai = no
+		has_country_modifier = gnollish_administration
+	}
+	tooltip = ""
+}
+custom_icon = {
+	name = ruinborn_image_background
+	potential = {
+		ai = no
+		has_country_modifier = ruinborn_administration
+	}
+	tooltip = ""
+}
+custom_icon = {
+	name = orcish_image_background
+	potential = {
+		ai = no
+		has_country_modifier = orcish_administration
+	}
+	tooltip = ""
+}
+custom_icon = {
+	name = goblin_image_background
+	potential = {
+		ai = no
+		has_country_modifier = goblin_administration
+	}
+	tooltip = ""
+}
+custom_icon = {
+	name = ogre_image_background
+	potential = {
+		ai = no
+		has_country_modifier = ogre_administration
+	}
+	tooltip = ""
+}
+custom_icon = {
+	name = centaur_image_background
+	potential = {
+		ai = no
+		has_country_modifier = centaur_administration
+	}
+	tooltip = ""
+}
+custom_icon = {
+	name = troll_image_background
+	potential = {
+		ai = no
+		has_country_modifier = troll_administration
+	}
+	tooltip = ""
+}
+custom_icon = {
+	name = harpy_image_background
+	potential = {
+		ai = no
+		has_country_modifier = harpy_administration
+	}
+	tooltip = ""
+}
+custom_icon = {
+	name = half_orcish_image_background
+	potential = {
+		ai = no
+		has_country_modifier = half_orcish_administration
+	}
+	tooltip = ""
+}
+custom_icon = {
+	name = half_elven_image_background
+	potential = {
+		ai = no
+		has_country_modifier = half_elven_administration
+	}
+	tooltip = ""
+}
+custom_icon = {
+	name = kobold_image_background
+	potential = {
+		ai = no
+		has_country_modifier = kobold_administration
+	}
+	tooltip = ""
+}
+custom_icon = {
+	name = hobgoblin_image_background
+	potential = {
+		ai = no
+		has_country_modifier = hobgoblin_administration
+	}
+	tooltip = ""
+}
+custom_icon = {
+	name = lizardfolk_image_background
+	potential = {
+		ai = no
+		has_country_modifier = lizardfolk_administration
+	}
+	tooltip = ""
+}
+custom_button = {
+	name = purge_action
+	potential = {
+		owned_by = FROM
+		owner = { is_part_of_hre = no }
+		at_least_one_race_trigger = {
+			TRIGGER = is_purging_or_expelling_province_race
+			type = owner
+		}
+	}
+	trigger = {
+		if = {
+			limit = { unit_in_battle = yes }
+			unit_in_battle = no
+		}
+		if = { limit = { development = 100 } num_of_units_in_province = { who = controller amount = 50 } }
+		else_if = { limit = { development = 90 } num_of_units_in_province = { who = controller amount = 45 } }
+		else_if = { limit = { development = 80 } num_of_units_in_province = { who = controller amount = 40 } }
+		else_if = { limit = { development = 70 } num_of_units_in_province = { who = controller amount = 35 } }
+		else_if = { limit = { development = 60 } num_of_units_in_province = { who = controller amount = 30 } }
+		else_if = { limit = { development = 50 } num_of_units_in_province = { who = controller amount = 25 } }
+		else_if = { limit = { development = 40 } num_of_units_in_province = { who = controller amount = 20 } }
+		else_if = { limit = { development = 30 } num_of_units_in_province = { who = controller amount = 15 } }
+		else_if = { limit = { development = 20 } num_of_units_in_province = { who = controller amount = 10 } }
+		else_if = { limit = { development = 18 } num_of_units_in_province = { who = controller amount = 9 } }
+		else_if = { limit = { development = 16 } num_of_units_in_province = { who = controller amount = 8 } }
+		else_if = { limit = { development = 14 } num_of_units_in_province = { who = controller amount = 7 } }
+		else_if = { limit = { development = 12 } num_of_units_in_province = { who = controller amount = 6 } }
+		else_if = { limit = { development = 10 } num_of_units_in_province = { who = controller amount = 5 } }
+		else = { num_of_units_in_province = { who = controller amount = 4 } }
+	}
+	effect = {
+		hidden_effect = {
+			all_races_effect = {
+				EFFECT = race_event
+				type = province
+			}
+		}
+		custom_tooltip = "This may cause Revolts"
+	}
+	tooltip = "Remove Undesirables"
+}
+custom_button = {
+	name = ogre_ram
+	potential = {
+		fort_level = 1
+		has_siege = yes
+		sieged_by = FROM
+		FROM = { has_country_modifier = ogre_military }
+	}
+	trigger = {
+		infantry_in_province = FROM	
+		if = { limit = { fort_level = 20 } num_of_units_in_province = { who = FROM type = infantry amount = 21 } }
+		else_if = { limit = { fort_level = 19 } num_of_units_in_province = { who = FROM type = infantry amount = 20 } }
+		else_if = { limit = { fort_level = 18 } num_of_units_in_province = { who = FROM type = infantry amount = 19 } }
+		else_if = { limit = { fort_level = 17 } num_of_units_in_province = { who = FROM type = infantry amount = 18 } }
+		else_if = { limit = { fort_level = 16 } num_of_units_in_province = { who = FROM type = infantry amount = 17 } }
+		else_if = { limit = { fort_level = 15 } num_of_units_in_province = { who = FROM type = infantry amount = 16 } }
+		else_if = { limit = { fort_level = 14 } num_of_units_in_province = { who = FROM type = infantry amount = 15 } }
+		else_if = { limit = { fort_level = 13 } num_of_units_in_province = { who = FROM type = infantry amount = 14 } }
+		else_if = { limit = { fort_level = 12 } num_of_units_in_province = { who = FROM type = infantry amount = 13 } }
+		else_if = { limit = { fort_level = 11 } num_of_units_in_province = { who = FROM type = infantry amount = 12 } }
+		else_if = { limit = { fort_level = 10 } num_of_units_in_province = { who = FROM type = infantry amount = 11 } }
+		else_if = { limit = { fort_level = 9 } num_of_units_in_province = { who = FROM type = infantry amount = 10 } }
+		else_if = { limit = { fort_level = 8 } num_of_units_in_province = { who = FROM type = infantry amount = 9 } }
+		else_if = { limit = { fort_level = 7 } num_of_units_in_province = { who = FROM type = infantry amount = 8 } }
+		else_if = { limit = { fort_level = 6 } num_of_units_in_province = { who = FROM type = infantry amount = 7 } }
+		else_if = { limit = { fort_level = 5 } num_of_units_in_province = { who = FROM type = infantry amount = 6 } }
+		else_if = { limit = { fort_level = 4 } num_of_units_in_province = { who = FROM type = infantry amount = 5 } }
+		else_if = { limit = { fort_level = 3 } num_of_units_in_province = { who = FROM type = infantry amount = 4 } }
+		else_if = { limit = { fort_level = 2 } num_of_units_in_province = { who = FROM type = infantry amount = 3 } }
+		else_if = { limit = { fort_level = 1 } num_of_units_in_province = { who = FROM type = infantry amount = 2 } }
+	}
+	effect = {
+		custom_tooltip = change_siege_progress_by_1_tt
+		hidden_effect = { change_siege = 1 }
+		if = { limit = { fort_level = 20 } kill_units = { who = FROM type = infantry amount = 20 } }
+		else_if = { limit = { fort_level = 19 } kill_units = { who = FROM type = infantry amount = 19 } }
+		else_if = { limit = { fort_level = 18 } kill_units = { who = FROM type = infantry amount = 18 } }
+		else_if = { limit = { fort_level = 17 } kill_units = { who = FROM type = infantry amount = 17 } }
+		else_if = { limit = { fort_level = 16 } kill_units = { who = FROM type = infantry amount = 16 } }
+		else_if = { limit = { fort_level = 15 } kill_units = { who = FROM type = infantry amount = 15 } }
+		else_if = { limit = { fort_level = 14 } kill_units = { who = FROM type = infantry amount = 14 } }
+		else_if = { limit = { fort_level = 13 } kill_units = { who = FROM type = infantry amount = 13 } }
+		else_if = { limit = { fort_level = 12 } kill_units = { who = FROM type = infantry amount = 12 } }
+		else_if = { limit = { fort_level = 11 } kill_units = { who = FROM type = infantry amount = 11 } }
+		else_if = { limit = { fort_level = 10 } kill_units = { who = FROM type = infantry amount = 10 } }
+		else_if = { limit = { fort_level = 9 } kill_units = { who = FROM type = infantry amount = 9 } }
+		else_if = { limit = { fort_level = 8 } kill_units = { who = FROM type = infantry amount = 8 } }
+		else_if = { limit = { fort_level = 7 } kill_units = { who = FROM type = infantry amount = 7 } }
+		else_if = { limit = { fort_level = 6 } kill_units = { who = FROM type = infantry amount = 6 } }
+		else_if = { limit = { fort_level = 5 } kill_units = { who = FROM type = infantry amount = 5 } }
+		else_if = { limit = { fort_level = 4 } kill_units = { who = FROM type = infantry amount = 4 } }
+		else_if = { limit = { fort_level = 3 } kill_units = { who = FROM type = infantry amount = 3 } }
+		else_if = { limit = { fort_level = 2 } kill_units = { who = FROM type = infantry amount = 2 } }
+		else_if = { limit = { fort_level = 1 } kill_units = { who = FROM type = infantry amount = 1 } }
+	}
+	tooltip = "Ogre Ram"
+}
+
+custom_button = {
+	name = dwarven_sea_fortress
+	potential = {
+		num_of_man_of_war = 1
+	}
+	trigger = {
+		cooldown_trigger = {
+			name = dwarven_fortress
+			cooldown = 20
+		}
+	}
+	effect = {
+		clr_country_flag = dwarven_fortress_cd_flag
+		set_country_flag = dwarven_fortress_cd_flag
+		if = {
+			limit = { has_country_modifier = dwarven_fortress_transition_modifier }
+			custom_tooltip = dwarven_sea_fortress_process_tt
+		}
+		else_if = {
+			limit = { NOT = { has_country_modifier = dwarven_fortress_set_modifier } }
+			custom_tooltip = dwarven_sea_fortress_set_up_tt
+			add_country_modifier = { name = dwarven_fortress_transition_modifier duration = 10 }
+			hidden_effect = {country_event = { id = bertus_changes.6035 days = 10 } }
+		}
+		else = {
+			custom_tooltip = dwarven_sea_fortress_set_down_tt
+			remove_country_modifier = dwarven_fortress_set_modifier
+			add_country_modifier = { name = dwarven_fortress_transition_modifier duration = 10 }
+		}
+	}
+	frame = {
+		number = 1
+		trigger = { has_country_modifier = dwarven_fortress_transition_modifier }
+	}
+	frame = {
+		number = 2
+		trigger = { NOT = { has_country_modifier = dwarven_fortress_set_modifier } }
+	}
+	frame = {
+		number = 3
+		trigger = {  }
+	}
+	tooltip = dwarven_sea_fortress_tt
+}

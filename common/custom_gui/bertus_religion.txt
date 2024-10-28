@@ -1,0 +1,386 @@
+
+
+custom_icon = {
+	name = dookan_guidance_activated
+	potential = {
+		ai = no
+		religion = old_dookan
+	}
+	tooltip = "[Root.getGreatDookanGuidanceName]"
+	frame = {
+	    number = 1
+	    trigger = { 
+			has_country_modifier = dookans_guidance_peace
+		}
+	}
+	frame = {
+	    number = 2
+	    trigger = { 
+			has_country_modifier = dookans_guidance_war
+		}
+	}
+	frame = {
+	    number = 3
+	    trigger = { 
+		}
+	}
+}
+custom_button = {
+	name = dookan_slave_herd
+	potential = {
+		owned_by = FROM
+		owner = {
+			ai = no
+			OR = {
+				religion = old_dookan
+				religion = great_dookan
+				religion = feast_of_the_gods
+			}
+		}
+	}
+	trigger = {
+		if = {
+			limit = { owner = {NOT = { check_variable = { which = slave_herd_amount_var value = 1 } } } }
+			owner = { check_variable = { which = slave_herd_amount_var value = 1 } }
+		}
+		area_for_scope_province = {
+			type = all
+			has_owner_accepted_culture = yes
+			religion = FROM
+			NOT = {has_province_modifier = dookan_anointed_slave_herd}
+		}
+	}
+	effect = {
+		owner = {
+			change_variable = { which = slave_herd_amount_var value = -1 }
+		}
+		area = {
+			add_prosperity = 100
+			add_devastation = -50
+			add_province_modifier = {name = dookan_anointed_slave_herd duration = 3650}
+		}
+	}
+	tooltip = "Get Slave Herd"
+}
+custom_button = {
+	name = corinite_state_communities
+	potential = {
+		owned_by = FROM
+		owner = {
+			ai = no
+			religion = corinite
+		}
+	}
+	trigger = {
+		if = {
+			limit = { owner = {NOT = { check_variable = { which = corinite_building_amount_var value = 1 } } } }
+			owner = { check_variable = { which = corinite_building_amount_var value = 1 } }
+		}
+		area_for_scope_province = {
+			type = all
+			religion = FROM
+			is_state_core = FROM
+			controlled_by = FROM
+			NOT = {has_province_modifier = corinite_communities_aspect_modifier}
+		}
+	}
+	effect = {
+		owner = {
+			change_variable = { which = corinite_building_amount_var value = -1 }
+		}
+		province_event = {id = bertus_changes.1109}
+	}
+	tooltip = "Get Corins Community"
+}
+custom_button = {
+	name = corinite_state_blessing
+	potential = {
+		owned_by = FROM
+		owner = {
+			ai = no
+			religion = corinite
+		}
+	}
+	trigger = {
+		if = {
+			limit = { owner = {NOT = { check_variable = { which = corinite_development_amount_var value = 1 } } } }
+			owner = { check_variable = { which = corinite_development_amount_var value = 1 } }
+		}
+		is_state = yes
+		area_for_scope_province = {
+			type = all
+			religion = FROM
+			is_state_core = FROM
+			controlled_by = FROM
+			NOT = {has_province_modifier = corinite_diplomatic_rabbi_aspect_modifier}
+		}
+	}
+	effect = {
+		owner = {
+			change_variable = { which = corinite_development_amount_var value = -1 }
+		}
+		province_event = {id = bertus_changes.1110}
+	}
+	tooltip = "Get Corins Blassing"
+}
+custom_button = {
+	name = corinite_state_wisdom
+	potential = {
+		owned_by = FROM
+		owner = {
+			ai = no
+			religion = corinite
+		}
+	}
+	trigger = {
+		if = {
+			limit = { owner = {NOT = { check_variable = { which = corinite_religion_amount_var value = 1 } } } }
+			owner = { check_variable = { which = corinite_religion_amount_var value = 1 } }
+		}
+		is_state = yes
+		area_for_scope_province = {
+			type = all
+			NOT = {religion = FROM}
+			is_state_core = FROM
+			controlled_by = FROM
+			NOT = {has_province_modifier = corinite_abrahamic_aspect_modifier}
+		}
+	}
+	effect = {
+		owner = {
+			change_variable = { which = corinite_religion_amount_var value = -1 }
+		}
+		province_event = {id = bertus_changes.1111}
+	}
+	tooltip = "Get Corins Wisdom Assistant"
+}
+custom_button = {
+	name = one_v_one_high_piety_action
+	potential = {
+		ai = no
+		uses_piety = yes
+	}
+	trigger = {
+		hidden_trigger = {
+			OR = {
+				NOT = { has_country_flag = one_v_one_high_piety_action_flag }
+				had_country_flag = { flag = one_v_one_high_piety_action_flag days = 1825 }
+			}
+			piety = 0.75
+		}
+	}
+	effect = {
+		tooltip = { add_years_of_income = 0.5 }
+		if = {
+			limit = { NOT = { has_country_flag = one_v_one_piety_action_confirm_flag } }
+			set_country_flag = one_v_one_high_piety_action_confirm_flag
+			set_country_flag = one_v_one_piety_action_confirm_flag
+			if = {
+				limit = { has_country_flag = one_v_one_high_piety_action_flag NOT = { had_country_flag = { flag = one_v_one_high_piety_action_flag days = 1825 } } }
+				custom_tooltip = one_v_one_high_piety_action_cooldown_tt
+			}
+		}
+		hidden_effect = { save_yearly_income = yes }
+	}
+	tooltip = one_v_one_high_piety_action_tt
+}
+custom_icon = {
+	name = one_v_one_high_piety_action_confirm_background
+	potential = {
+		ai = no
+		has_country_flag = one_v_one_high_piety_action_confirm_flag
+	}
+}
+custom_text_box = {
+    name = one_v_one_high_piety_action_effect
+    potential = {
+		ai = no
+		has_country_flag = one_v_one_high_piety_action_confirm_flag
+	}
+    tooltip = one_v_one_high_piety_action_effect
+}
+custom_button = {
+	name = one_v_one_piety_action_not_confirm
+	potential = {
+		ai = no
+		has_country_flag = one_v_one_piety_action_confirm_flag
+	}
+	trigger = {}
+	effect = {
+		clr_country_flag = one_v_one_piety_action_confirm_flag
+		clr_country_flag = one_v_one_low_piety_action_confirm_flag
+		clr_country_flag = one_v_one_high_piety_action_confirm_flag
+	}
+}
+custom_button = {
+	name = one_v_one_piety_action_confirm
+	potential = { 
+		ai = no
+		has_country_flag = one_v_one_piety_action_confirm_flag
+	}
+	trigger = {}
+	effect = {
+		clr_country_flag = one_v_one_piety_action_confirm_flag
+		clr_country_flag = one_v_one_low_piety_action_confirm_flag
+		clr_country_flag = one_v_one_high_piety_action_confirm_flag
+		add_years_of_income = 1
+		hidden_effect = { add_piety = -0.5 }
+		set_country_flag = one_v_one_high_piety_action_flag
+		hidden_effect = {
+			export_to_variable = { which = one_v_one_high_piety_action_was_set_year value = trigger_value:is_year }
+			export_to_variable = { which = one_v_one_high_piety_action_was_set_month value = trigger_value:is_month }
+			set_variable = { which = one_v_one_high_piety_action_length value = 5 }
+			change_variable = { which = one_v_one_high_piety_action_length which = one_v_one_high_piety_action_was_set_year }
+		}
+	}
+}
+custom_button = {
+	name = surael_interaction
+	potential = { 
+		ai = no
+		religion = bulwari_sun_cult
+	}
+	trigger = {
+		if = {
+			limit = { has_government_attribute = praise_surael_reform_mechanic }
+			OR = {
+				cooldown_trigger = {
+					name = elven_interaction
+					cooldown = 3650
+				}
+				cooldown_trigger = {
+					name = human_interaction
+					cooldown = 3650
+				}
+				cooldown_trigger = {
+					name = half_elven_interaction
+					cooldown = 3650
+				}
+			}
+		}
+		else = {
+			OR = {
+				cooldown_trigger = {
+					name = elven_interaction
+					cooldown = 5475
+				}
+				cooldown_trigger = {
+					name = human_interaction
+					cooldown = 5475
+				}
+				cooldown_trigger = {
+					name = half_elven_interaction
+					cooldown = 5475
+				}
+			}
+		}
+	}
+	effect = {
+		country_event = { id = bertus_changes.6033 }
+		hidden_effect = {
+			if = {
+				limit = { has_government_attribute = praise_surael_reform_mechanic }
+				if = {
+					limit = { had_country_flag = { flag = elven_interaction_cd_flag days = 3650 } }
+					clr_country_flag = elven_interaction_cd_flag
+				}
+				else_if = {
+					limit = { had_country_flag = { flag = human_interaction_cd_flag days = 3650 } }
+					clr_country_flag = human_interaction_cd_flag
+				}
+				else_if = {
+					limit = { had_country_flag = { flag = half_elven_interaction_cd_flag days = 3650 } }
+					clr_country_flag = half_elven_interaction_cd_flag
+				}
+			}
+			else = {
+				if = {
+					limit = { had_country_flag = { flag = elven_interaction_cd_flag days = 5475 } }
+					clr_country_flag = elven_interaction_cd_flag
+				}
+				else_if = {
+					limit = { had_country_flag = { flag = human_interaction_cd_flag days = 5475 } }
+					clr_country_flag = human_interaction_cd_flag
+				}
+				else_if = {
+					limit = { had_country_flag = { flag = half_elven_interaction_cd_flag days = 5475 } }
+					clr_country_flag = half_elven_interaction_cd_flag
+				}
+			}
+		}
+	}
+	tooltip = "Change Chosen's Role"
+}
+
+custom_button = {
+	name = shake_the_earth_old
+	potential = {
+		fort_level = 1
+		has_siege = yes
+		sieged_by = FROM
+		FROM = { religion = old_dookan }
+	}
+	trigger = {
+		FROM = {
+			if = {
+				limit = { NOT = { church_power = 33 } }
+				church_power = 33
+			}
+			if = {
+				limit = { has_country_modifier = dookan_shake_the_earth }
+				NOT = { has_country_modifier = dookan_shake_the_earth }
+			}
+		}
+		if = {
+			limit = { has_province_modifier = dookan_shake_the_earth_province }
+			NOT = { has_province_modifier = dookan_shake_the_earth_province }
+		}
+		if = {
+			limit = { has_province_modifier = siege_magic_earthquake }
+			NOT = { has_province_modifier = siege_magic_earthquake }
+		}
+	}
+	effect = {
+		custom_tooltip = change_siege_progress_by_3_tt
+		hidden_effect = { change_siege = 3 }
+		add_province_modifier = { name = dookan_shake_the_earth_province duration = 90 }
+		FROM = { add_church_power = -33 }
+	}
+	tooltip = "Shake the Earth"
+}
+custom_button = {
+	name = shake_the_earth_great
+	potential = {
+		fort_level = 1
+		has_siege = yes
+		sieged_by = FROM
+		FROM = { religion = great_dookan }
+	}
+	trigger = {
+		FROM = {
+			if = {
+				limit = { NOT = { church_power = 33 } }
+				church_power = 33
+			}
+			if = {
+				limit = { has_country_modifier = dookan_shake_the_earth }
+				NOT = { has_country_modifier = dookan_shake_the_earth }
+			}
+		}
+		if = {
+			limit = { has_province_modifier = dookan_shake_the_earth_province }
+			NOT = { has_province_modifier = dookan_shake_the_earth_province }
+		}
+		if = {
+			limit = { has_province_modifier = siege_magic_earthquake }
+			NOT = { has_province_modifier = siege_magic_earthquake }
+		}
+	}
+	effect = {
+		custom_tooltip = change_siege_progress_by_3_tt
+		hidden_effect = { change_siege = 3 }
+		add_province_modifier = { name = dookan_shake_the_earth_province duration = 90 }
+		FROM = { add_church_power = -33 }
+	}
+	tooltip = "Shake the Earth"
+}

@@ -820,6 +820,25 @@ on_battle_lost_unit_effect = {
 }
 
 on_battle_won_country_effect = {
+	if = {	#militarism great hero
+		limit = {
+			has_idea = militarismus2
+			num_of_units_in_province = { who = FROM amount = 20 }
+		}
+		random = {
+			chance = 10
+			custom_tooltip = get_great_hero_general_tt
+			set_country_flag = get_adventurer_flag
+			custom_tooltip = get_adventurer_flag_tt
+			set_country_flag = great_general_extra_pips_flag
+			set_country_flag = hero_free_general_flag
+			custom_tooltip = great_general_extra_pips_flag_tt
+			hidden_effect = {
+				set_saved_name = {key = special_general_name type = advisor scope = ROOT}
+				country_event = {id = bertus_changes.6030}
+			}
+		}
+	}
 	if = {	#lord alfonso experience
 		limit = {
 			has_leader = "Lord Alfonso"
@@ -869,6 +888,7 @@ on_battle_won_country_effect = {
 	}
 	if = {	#bertus mod - war production
 		limit = {
+			has_idea = kriegsproduktion3
 			FROM = {
 				if = {
 					limit = { has_global_flag = mp_lobby_flag }
@@ -879,12 +899,13 @@ on_battle_won_country_effect = {
 			is_at_war = yes
 		}
 		set_variable = { which = war_production_unit_kill_losses value = 0 }
-		change_variable = { which = military_reform_unit_kill_losses which = land_units_lost }
-		divide_variable = { which = military_reform_unit_kill_losses value = 100 }
+		change_variable = { which = war_production_unit_kill_losses which = land_units_lost }
+		change_variable = { which = war_production_unit_kill_losses which = land_units_killed }
+		divide_variable = { which = war_production_unit_kill_losses value = 100 }
 		while = {
-			limit = { check_variable = { which = military_reform_unit_kill_losses value = 1 } }
-			change_variable = { which = military_reform_unit_kill_losses value = -1 }
-			add_treasury = 3
+			limit = { check_variable = { which = war_production_unit_kill_losses value = 1 } }
+			change_variable = { which = war_production_unit_kill_losses value = -1 }
+			add_treasury = 1
 		}
 	}
 	if = {	#bertus mod
