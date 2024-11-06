@@ -104,6 +104,16 @@ KOB_2 = {
 				add_base_manpower = 2
 				add_base_production = 1
 			}
+			set_country_flag = hero_free_general_flag
+			custom_tooltip = get_free_great_hero_general_tt
+			set_country_flag = get_adventurer_flag
+			custom_tooltip = get_adventurer_flag_tt
+			set_country_flag = great_general_extra_pips_flag
+			custom_tooltip = great_general_extra_pips_flag_tt
+			hidden_effect = {
+				set_saved_name = {key = special_general_name type = advisor scope = ROOT}
+				country_event = {id = bertus_changes.6030}
+			}
 		}
 	}
 	
@@ -219,11 +229,11 @@ KOB_3 = {
 		}
 		
 		effect = {
-			add_prestige_or_monarch_power = {amount =  15}
+			add_prestige_or_monarch_power = { amount = 50 }
 			add_adm_power = 100
 			add_country_modifier = {
 				name = kobold_unified_clan
-				duration = 18250
+				duration = 9125
 			}
 		}
 	}
@@ -262,7 +272,7 @@ KOB_3 = {
 		}
 		
 		effect = {
-			add_prestige_or_monarch_power = {amount =  10}
+			add_prestige_or_monarch_power = { amount = 25 }
 			add_country_modifier = {
 				name = kobold_nimscodd_end
 				duration = 9125
@@ -271,8 +281,8 @@ KOB_3 = {
 		}
 	}
 	
-	KOB_exterminate_the_gnome = {
-		icon = mission_three_death
+	KOB_defeat_reveria = {
+		icon = mission_viking
 		ai = yes
 		position = 5
 		required_missions = {
@@ -280,20 +290,39 @@ KOB_3 = {
 		}
 		
 		provinces_to_highlight = {
-			province_id = 126
+			OR = {
+				area = reaver_coast_area
+				province_id = 129
+				province_id = 141
+				province_id = 142
+				province_id = 143
+				province_id = 2592
+				province_id = 2271
+			}
 			NOT = { owned_by = ROOT }
 		}
 		
 		trigger = {
-			126 = { owned_by = ROOT }
+			reaver_coast_area = {
+				type = all
+				owned_by = ROOT
+			}
+			129 = { owned_by = ROOT }
+			141 = { owned_by = ROOT }
+			142 = { owned_by = ROOT }
+			143 = { owned_by = ROOT }
+			2592 = { owned_by = ROOT }
+			2271 = { owned_by = ROOT }
 		}
 		
 		effect = {
-			add_prestige_or_monarch_power = {amount =  10}
-			126 = {
-				change_culture = ROOT
-				change_religion = ROOT
-				add_devastation = 25
+			add_prestige_or_monarch_power = { amount = 25 }
+			dragonhills_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
 			}
 		}
 	}
@@ -305,7 +334,7 @@ KOB_3 = {
 		required_missions = {
 			KOB_exterminate_the_gnome
 			KOB_brave_the_storm
-			KOB_conquer_the_dragon_hills
+			KOB_defeat_reveria
 		}
 		
 		provinces_to_highlight = {
@@ -326,7 +355,7 @@ KOB_3 = {
 		effect = {
 			add_country_modifier = {
 				name = kobold_survivor
-				duration = 18250
+				duration = 9125
 			}
 		}
 	}
@@ -348,15 +377,15 @@ KOB_3 = {
 			if = {
 				limit = { ai = no }
 				num_of_owned_provinces_with = {
-					value = 5
-					has_tax_building_trigger = yes
+					value = 50
+					religion = ROOT
 				}
 			}
 		}
 		effect = {
 			add_country_modifier = {
 				name = kobold_pious
-				duration = 12775
+				duration = 9125
 			}
 		}
 	}
@@ -410,12 +439,19 @@ KOB_4 = {
 		}
 		
 		provinces_to_highlight = {
-			area = gnomish_pass_area
+			OR = {
+				area = gnomish_pass_area
+				area = west_dragonhills_area
+			}
 			NOT = { owned_by = ROOT }
 		}
 		
 		trigger = {
 			gnomish_pass_area = {
+				type = all
+				owned_by = ROOT
+			}
+			west_dragonhills_area = {
 				type = all
 				owned_by = ROOT
 			}
@@ -451,12 +487,28 @@ KOB_4 = {
 				}
 				add_permanent_claim = ROOT
 			}
-			add_prestige_or_monarch_power = {amount =  10}
+			dragonhills_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+					NOT = { province_id = 126 }
+				}
+				add_permanent_claim = ROOT
+			}
+			east_dragonhills_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+					NOT = { province_id = 126 }
+				}
+				add_permanent_claim = ROOT
+			}
+			add_prestige_or_monarch_power = { amount = 25 }
 		}
 	}
 	
-	KOB_defeat_reveria = {
-		icon = mission_viking
+	KOB_conquer_the_dragon_hills = {
+		icon = mission_treasure_room
 		ai = yes
 		position = 4
 		required_missions = {
@@ -465,58 +517,52 @@ KOB_4 = {
 		
 		provinces_to_highlight = {
 			OR = {
-				area = reaver_coast_area
-				province_id = 129
-				province_id = 141
-				province_id = 142
-				province_id = 143
+				area = east_dragonhills_area
+				area = dragonhills_area
 			}
 			NOT = { owned_by = ROOT }
 		}
 		
 		trigger = {
-			reaver_coast_area = {
+			east_dragonhills_area = {
 				type = all
 				owned_by = ROOT
 			}
-			OR = {
-				129 = { owned_by = ROOT }
-				141 = { owned_by = ROOT }
-				142 = { owned_by = ROOT }
-				143 = { owned_by = ROOT }
-			}
-		}
-		
-		effect = {
 			dragonhills_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { is_permanent_claim = ROOT }
-				}
-				add_permanent_claim = ROOT
+				type = all
+				owned_by = ROOT
 			}
-		}
-	}
-	
-	KOB_conquer_the_dragon_hills = {
-		icon = mission_treasure_room
-		ai = yes
-		position = 5
-		required_missions = {
-			KOB_defeat_reveria
-		}
-		
-		provinces_to_highlight = {
-			province_id = 213
-			NOT = { owned_by = ROOT }
-		}
-		
-		trigger = {
-			213 = { owned_by = ROOT }
 		}
 		effect = {
 			country_event = { id = flavor_kobildzan.30 }
 			add_prestige_or_monarch_power = {amount =  10}
+		}
+	}
+
+	KOB_exterminate_the_gnome = {
+		icon = mission_three_death
+		ai = yes
+		position = 5
+		required_missions = {
+			KOB_end_the_gnomish_hierarchy
+		}
+		
+		provinces_to_highlight = {
+			province_id = 126
+			NOT = { owned_by = ROOT }
+		}
+		
+		trigger = {
+			126 = { owned_by = ROOT }
+		}
+		
+		effect = {
+			add_prestige_or_monarch_power = {amount =  10}
+			126 = {
+				change_culture = ROOT
+				change_religion = ROOT
+				add_devastation = 25
+			}
 		}
 	}
 }
