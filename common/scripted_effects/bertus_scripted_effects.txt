@@ -1,4 +1,36 @@
 
+increase_interest = {
+	if = {
+		limit = { NOT = { check_variable = { which = num_of_bankrupcies value = 1 } } } 
+		add_country_modifier = { name = bankrupcy_1_modifier duration = -1 }
+	}
+	else_if = {
+		limit = { NOT = { check_variable = { which = num_of_bankrupcies value = 2 } } } 
+		remove_country_modifier = bankrupcy_1_modifier
+		add_country_modifier = { name = bankrupcy_2_modifier duration = -1 }
+	}
+	else_if = {
+		limit = { NOT = { check_variable = { which = num_of_bankrupcies value = 3 } } } 
+		remove_country_modifier = bankrupcy_2_modifier
+		add_country_modifier = { name = bankrupcy_3_modifier duration = -1 }
+	}
+	else_if = {
+		limit = { NOT = { check_variable = { which = num_of_bankrupcies value = 4 } } } 
+		remove_country_modifier = bankrupcy_3_modifier
+		add_country_modifier = { name = bankrupcy_4_modifier duration = -1 }
+	}
+	else_if = {
+		limit = { NOT = { check_variable = { which = num_of_bankrupcies value = 5 } } } 
+		remove_country_modifier = bankrupcy_4_modifier
+		add_country_modifier = { name = bankrupcy_5_modifier duration = -1 }
+	}
+	else_if = {
+		limit = { NOT = { check_variable = { which = num_of_bankrupcies value = 6 } } } 
+		remove_country_modifier = bankrupcy_5_modifier
+		add_country_modifier = { name = bankrupcy_6_modifier duration = -1 }
+	}
+	change_variable = { which = num_of_bankrupcies value = 1 }
+}
 allow_estate_province = {
 	$province_id$ = {
 		custom_tooltip = "Allow to State this province"
@@ -5192,10 +5224,6 @@ add_mana_effect = {
 	if = {
 		limit = { has_country_flag = invention_spell_in_a_box_use [[no_spell_in_a_box] always = no ] }
 		clr_country_flag = invention_spell_in_a_box_use
-	}
-	else_if = {
-		limit = { NOT = { check_variable = { which = mana_var value = $mana$  } } }
-		custom_tooltip = magisters_need_$mana$_mana_tt
 	}
 	else = {
 		change_variable = { which = mana_var value = $mana$  }

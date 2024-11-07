@@ -2144,6 +2144,7 @@ on_bankruptcy = {
 	}
 	#hoardcurse modifier
 	remove_country_modifier = the_reformist
+	increase_interest = yes
 }
 
 # country (country annexing, root = target)
@@ -7158,63 +7159,23 @@ on_capital_moved = {
 on_expanded_infrastructure = {
 	change_variable = { infrastructure_level = 1 }
 	if = {
-		limit = { NOT = { has_province_flag = expanded_infrastructure_lvl_1 } }
-		set_province_flag = expanded_infrastructure_lvl_1
+		limit = { owner = { has_idea = konigreich2 } NOT = { has_province_modifier = konigreich2_infrastructure_fl_modifier } }
+		add_province_modifier = { name = konigreich2_infrastructure_fl_modifier duration = -1 hidden = yes }
 	}
-	else_if = {
-		limit = { has_province_flag = expanded_infrastructure_lvl_1 NOT = { has_province_flag = expanded_infrastructure_lvl_2 } }
-		set_province_flag = expanded_infrastructure_lvl_2
-	}
-	else_if = {
-		limit = { has_province_flag = expanded_infrastructure_lvl_2 NOT = { has_province_flag = expanded_infrastructure_lvl_3 } }
-		set_province_flag = expanded_infrastructure_lvl_3
-	}
-	else_if = {
-		limit = { has_province_flag = expanded_infrastructure_lvl_3 NOT = { has_province_flag = expanded_infrastructure_lvl_4 } }
-		set_province_flag = expanded_infrastructure_lvl_4
-	}
-	else_if = {
-		limit = { has_province_flag = expanded_infrastructure_lvl_4 NOT = { has_province_flag = expanded_infrastructure_lvl_5 } }
-		set_province_flag = expanded_infrastructure_lvl_5
-	}
-	else_if = {
-		limit = { has_province_flag = expanded_infrastructure_lvl_5 NOT = { has_province_flag = expanded_infrastructure_lvl_6 } }
-		set_province_flag = expanded_infrastructure_lvl_6
-	}
-	else_if = {
-		limit = { has_province_flag = expanded_infrastructure_lvl_6 NOT = { has_province_flag = expanded_infrastructure_lvl_7 } }
-		set_province_flag = expanded_infrastructure_lvl_7
-	}
-	else_if = {
-		limit = { has_province_flag = expanded_infrastructure_lvl_7 NOT = { has_province_flag = expanded_infrastructure_lvl_8 } }
-		set_province_flag = expanded_infrastructure_lvl_8
-	}
-	else_if = {
-		limit = { has_province_flag = expanded_infrastructure_lvl_8 NOT = { has_province_flag = expanded_infrastructure_lvl_9 } }
-		set_province_flag = expanded_infrastructure_lvl_9
+	if = {
+		limit = { owner = { has_idea = konigreich5 } has_port = yes NOT = { has_province_modifier = konigreich5_infrastructure_naval_fl_modifier } }
+		add_province_modifier = { name = konigreich5_infrastructure_naval_fl_modifier duration = -1 hidden = yes }
 	}
 }
 
 on_expanded_infrastructure_removed = {
 	if = {
-		limit = { has_province_flag = expanded_infrastructure_lvl_5 }
-		clr_province_flag = expanded_infrastructure_lvl_5
+		limit = { has_province_modifier = konigreich2_infrastructure_fl_modifier NOT = { num_of_times_expanded_infrastructure = 1 } }
+		remove_province_modifier = konigreich2_infrastructure_fl_modifier
 	}
-	else_if = {
-		limit = { has_province_flag = expanded_infrastructure_lvl_4 }
-		clr_province_flag = expanded_infrastructure_lvl_4
-	}
-	else_if = {
-		limit = { has_province_flag = expanded_infrastructure_lvl_3 }
-		clr_province_flag = expanded_infrastructure_lvl_3
-	}
-	else_if = {
-		limit = { has_province_flag = expanded_infrastructure_lvl_2 }
-		clr_province_flag = expanded_infrastructure_lvl_2
-	}
-	else_if = {
-		limit = { has_province_flag = expanded_infrastructure_lvl_1 }
-		clr_province_flag = expanded_infrastructure_lvl_1
+	if = {
+		limit = { has_province_modifier = konigreich5_infrastructure_naval_fl_modifier NOT = { num_of_times_expanded_infrastructure = 1 } }
+		remove_province_modifier = konigreich5_infrastructure_naval_fl_modifier
 	}
 }
 #ROOT = province that was centralized in
