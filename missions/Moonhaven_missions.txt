@@ -11,27 +11,21 @@ moonhaven_regent_court_missions = {
 		required_missions = { }
 		position = 1
 		
+		provinces_to_highlight = {
+			province_id = 5
+		}
 		trigger = {
 			if = {
 				limit = { ai = no }
 				monthly_dip = 8
 			}
 			OR = {
-				AND = {
-					exists = Z42
-					Z42 = {
+				owns = 5
+				5 = {
+					ower = {
 						has_opinion = {
-							who = A31
+							who = ROOT
 							value = 150
-						}
-					}
-				}
-				AND = {
-					NOT = { exists = Z42 }
-					A30 = {
-						has_opinion = {
-							who = A31
-							value = 100
 						}
 					}
 				}
@@ -40,11 +34,21 @@ moonhaven_regent_court_missions = {
 		
 		effect = {
 			if = {
-				limit = { exists = Z42 }
-				add_prestige_or_monarch_power = {amount =  30}
+				limit = { 
+					5 = {
+						ower = { has_opinion = { who = ROOT value = 150 } }
+					}
+				}
+				largest_increase_of_half_elven_tolerance_effect = yes
+				largest_increase_of_human_tolerance_effect = yes
 			}
 			else = {
-				A30 = { country_event = { id = A31_flavour.6 } }
+				add_splendor = 800
+				add_prestige_or_monarch_power = {amount =  50 }
+			}
+			random_owned_area = {
+				add_human_minority_size_effect = yes
+				add_half_elven_minority_size_effect = yes
 			}
 		}
 	}
@@ -55,27 +59,40 @@ moonhaven_regent_court_missions = {
 		position = 2
 		
 		trigger = {
-			has_ruler = "Varion 'the Young'"
-			dip_power = 50
-			A32 = {
-				has_opinion = {
-					who = A31
-					value = 150
+			OR = {
+				A32 = {
+					has_opinion = {
+						who = ROOT
+						value = 150
+					}
+				}
+				has_won_war_against = {
+					who = A32
+					max_years_since = 30
 				}
 			}
 		}
 		
 		effect = {
 			change_dip = 1
-			add_dip_power = -50
-			A32 = {
-				add_trust = {
-					who = A31
-					value = 10
-					mutual = yes
+			if = {
+				limit = {
+					A32 = {
+						has_opinion = {
+							who = ROOT
+							value = 150
+						}
+					}
 				}
+				country_event = { id = A31_flavour.21 }
 			}
-			country_event = { id = A31_flavour.21 }
+			else = {
+				add_splendor = 800
+				add_prestige_or_monarch_power = {amount =  50 }
+			}
+			capital_scope = {
+				add_human_minority_size_effect = yes
+			}
 		}
 	}
 	
@@ -106,7 +123,7 @@ moonhaven_regent_court_missions = {
 				A38 = {
 					add_trust = {
 						who = A31
-						value = 10
+						value = 100
 						mutual = yes
 					}
 				}
@@ -213,11 +230,6 @@ moonhaven_regent_missions = {
 					alliance_with = A31
 				}
 				add_army_tradition = 10
-					add_trust = {
-						who = A31
-						value = 30
-						mutual = yes
-					}
 			}
 		}
 	}
@@ -429,22 +441,14 @@ moonhaven_basic_2_missions = {
 				limit = {
 					alliance_with = A45
 				}
-				A45 = {
-					add_trust = {
-						who = A31
-						value = 20
-						mutual = yes
-					}
-				}
-				define_advisor = {
-					type = diplomat
-					skill = 3
-					cost_multiplier = 0.50
-					culture = east_damerian
-				}
+				define_advisor = { type = diplomat skill = 3 cost_multiplier = 0.50 culture = east_damerian }
+				largest_increase_of_human_tolerance_effect = yes
 			}
 			else = {
 				define_advisor = { skill = 3 type = idea_var_advisor_23 cost_multiplier = 0.50  culture = ROOT religion = ROOT}
+				capital_scope = {
+					add_half_elven_minority_size_effect = yes
+				}
 			}
 		}
 	}
@@ -723,48 +727,33 @@ moonhaven_development_missions = {
 		position = 1
 		
 		trigger = {
-			has_ruler = "Varion 'the Young'"
 			OR = {
-				AND = {
-					treasury = 75
-					A03 = {
-						has_opinion = {
-							who = A31
-							value = 150
-						}
+				A03 = {
+					has_opinion = {
+						who = ROOT
+						value = 150
 					}
 				}
-				AND = {
-					treasury = 120
-					NOT = { exists = A03 }
-					A01 = {
-						has_opinion = {
-							who = A31
-							value = 120
-						}
-					}
+				has_won_war_against = {
+					who = A03
+					max_years_since = 30
 				}
 			}
 		}
 		
 		effect = {
-			add_adm_power = 30
-			add_dip_power = 30
-			add_mil_power = 30
-			country_event = { id = A31_flavour.20 }
 			if = {
-				add_treasury = -75
 				limit = { exists = A03 }
-				add_prestige_or_monarch_power = {amount =  15}
-				A03 = {
-					add_trust = {
-						who = A31
-						value = 10
-						mutual = yes
-					}
-				}
+				add_prestige_or_monarch_power = {amount =  25}
+				country_event = { id = A31_flavour.20 }
 			}
-			else = { add_treasury = -120 }
+			else = {
+				add_splendor = 800
+				add_prestige_or_monarch_power = {amount =  50 }
+			}
+			capital_scope = {
+				add_half_elven_minority_size_effect = yes
+			}
 		}
 	}
 	
@@ -776,20 +765,20 @@ moonhaven_development_missions = {
 		trigger = {
 			has_institution = renaissance
 			OR = {
-				A83 = {
-					has_opinion = {
-						who = A31
-						value = 150
+				350 = {
+					owner = {
+						has_opinion = {
+							who = ROOT
+							value = 120
+						}
 					}
 				}
-				AND = {
-					NOT = { exists = A83 }
-					dip_power = 75
-					350 = {
-						owner = {
-							has_opinion = {
-								who = A31
-								value = 120
+				350 = {
+					owner = {
+						ROOT = {
+							has_won_war_against = {
+								who = prev
+								max_years_since = 30
 							}
 						}
 					}
@@ -798,16 +787,28 @@ moonhaven_development_missions = {
 		}
 		
 		effect = {
-			define_advisor = {
-				type = philosopher
-				skill = 2
-				discount = yes
-				culture = moon_elf
-				religion = elven_forebears
-			}
 			if = {
-				limit = { NOT = { exists = A83 } }
-				add_dip_power = -75
+				limit = {
+					350 = {
+						owner = {
+							has_opinion = {
+								who = ROOT
+								value = 120
+							}
+						}
+					}
+				}
+				define_advisor = {
+					type = philosopher
+					skill = 2
+					cost_multiplier = 0.50
+					culture = moon_elf
+					religion = elven_forebears
+				}
+			}
+			else = {
+				add_splendor = 800
+				add_prestige_or_monarch_power = {amount =  50 }
 			}
 		}
 	}
@@ -1221,7 +1222,6 @@ moonhaven_colonial_missions = {
 		position = 1
 		
 		trigger = {
-			dip_power = 50
 			if = {
 				limit = { ai = no }
 				OR = {
@@ -1241,7 +1241,6 @@ moonhaven_colonial_missions = {
 		}
 		
 		effect = {
-			add_dip_power = -50
 			if = {
 				limit = { NOT = { exists = A21 } }
 				add_navy_tradition = 20
@@ -1254,15 +1253,7 @@ moonhaven_colonial_missions = {
 				}
 			}
 			else = {
-				add_navy_tradition = 10
-				52 = {
-					add_unit_construction = {
-						type = light_ship
-						amount = 3
-						cost = 0
-						speed = 0
-					}
-				}
+				add_navy_tradition = 20
 				create_explorer = { tradition = 100 }
 			}
 			add_country_modifier = {
@@ -1674,28 +1665,38 @@ moonhaven_exploration_missions = {
 		position = 2
 		
 		trigger = {
-			treasury = 75
-			dip_tech = 6
-			Z22 = {
-				has_opinion = {
-					who = A31
-					value = 150
+			OR = {
+				Z22 = {
+					has_opinion = {
+						who = A31
+						value = 150
+					}
+				}
+				has_won_war_against = {
+					who = Z22
+					max_years_since = 30
 				}
 			}
 		}
 		
 		effect = {
-			add_treasury = -75
-			add_sailors = 500
-			Z22 = {
-				add_trust = {
-					who = A31
-					value = 10
-					mutual = yes
+			if = {
+				limit = {
+					Z22 = {
+						has_opinion = {
+							who = A31
+							value = 150
+						}
+					}
 				}
+				add_sailors = 500
+				52 = { add_elven_minority_size_effect = yes }
+				696 = { add_elven_minority_size_effect = yes }
 			}
-			52 = { add_base_production = 1 }
-			696 = { add_base_production = 1 }
+			else = {
+				add_splendor = 800
+				add_prestige_or_monarch_power = {amount =  50 }
+			}
 			create_explorer = { tradition = 100 }	#bertus mod
 		}
 	}

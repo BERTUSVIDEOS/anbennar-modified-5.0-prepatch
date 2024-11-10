@@ -1195,7 +1195,6 @@ estate_human_black_knights_academies = {
 		has_race_recruitment = {race = human}
 		OR = {
 			has_idea = A59_black_knights_of_corvuria
-			has_country_flag = A59_black_knights_of_corvuria_flag
 		}
 	}
 	can_select = {
@@ -1206,7 +1205,6 @@ estate_human_black_knights_academies = {
 	on_granted = {
 		add_country_modifier = {name = black_knights_academies_modifier duration = -1 hidden = yes}
 		custom_tooltip = estate_human_black_knights_academies_tt
-		set_country_flag = A59_black_knights_of_corvuria_flag
 	}
 	penalties = {
 	}
@@ -1228,7 +1226,6 @@ estate_human_fencing_academies = {
 		has_race_recruitment = {race = human}
 		OR = {
 			has_idea = A30_wexonard_school_of_fencing
-			has_country_flag = A30_wexonard_school_of_fencing_flag
 		}
 	}
 	can_select = {
@@ -1239,7 +1236,6 @@ estate_human_fencing_academies = {
 	on_granted = {
 		add_country_modifier = {name = fencing_academy_modifier duration = -1 hidden = yes}
 		custom_tooltip = estate_human_black_knights_academies_tt
-		set_country_flag = A30_wexonard_school_of_fencing_flag
 	}
 	benefits = {
 		allowed_mamluks_fraction = 0.10
@@ -1375,7 +1371,12 @@ estate_human_administrative_education = {
 	influence = 0.10
 	is_valid = {
 		OR = {
-			NOT = {heir_adm = 5}
+			if = {
+				limit = {
+					NOT = { has_idea = establish_cadet_branches }
+				}
+				NOT = { heir_adm = 5 }
+			}
 			AND = {
 				NOT = {heir_mil = 5}
 				has_idea = B33_calindal_the_gleaming_blade
@@ -1419,9 +1420,12 @@ estate_human_administrative_education = {
 	on_invalid = {}
 	cooldown_years = 5
 	on_cooldown_expires = {
-		remove_estate_privilege = estate_human_administrative_education		
+		remove_estate_privilege = estate_human_administrative_education
 		if = {
-			limit = {NOT = {heir_adm = 5}}
+			limit = {
+				NOT = { has_idea = establish_cadet_branches }
+				NOT = { heir_adm = 5 }
+			}
 			change_heir_adm = 1
 		}
 		if = {

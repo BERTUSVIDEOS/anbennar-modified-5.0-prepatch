@@ -332,3 +332,37 @@ promote_tributary_to_vassal = {
 		}
 	}
 }
+
+spread_dynasty_action = {
+	category = dynastic 
+	require_acceptance = no
+	
+	is_visible = {
+		has_idea = foreign_embassies_2
+		FROM = { has_government_attribute = heir }
+    }
+	
+	is_allowed = {
+		custom_trigger_tooltip = {
+			tooltip = need_75_spy_network_tt
+			has_spy_network_in = {who = FROM value = 75}
+		}
+		has_heir = no
+	}
+
+    on_accept = {
+		ROOT = {
+			add_spy_network_in = {
+				who = FROM
+				value = -75
+			}
+		}
+		FROM = {
+			define_heir = { dynasty = ROOT }
+		}
+    }
+    
+    on_decline = {
+    }
+	ai_will_do = {always = no}
+}

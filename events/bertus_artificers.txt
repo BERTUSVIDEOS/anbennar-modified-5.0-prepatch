@@ -2506,72 +2506,43 @@ country_event = {	#baloon exploration
 	}
 
 	immediate = {
-	}
-
-	option = {	#
-		name = bertus_artificers.1001.z
-		#event_target:baloon_exploration_target = { remove_fow = 1}
-		every_war_enemy_country = {
-			every_owned_province = {
-				limit = {
-					NOT = {units_in_province = PREV}
-					NOT = {units_in_province = ROOT}
-					NOT = {	fort_level = 1}
-					owned_by = PREV
-					controlled_by = PREV
-					any_province =  {
-						owned_by = ROOT 
-						controlled_by = ROOT
-						NOT = {
-							province_distance = {
-								who = PREV
-								distance = 50
-							}
-						}
-					}
-				}
-				#save_event_target_as = baloon_exploration_target
-				set_province_flag = baloon_exploration_target_flag
-				change_controller = ROOT
+		if = {
+			limit = { is_at_war = yes }
+			random_war_enemy_country = {
+				save_event_target_as = baloon_exploration_target_1
+			}
+			random_war_enemy_country = {
+				save_event_target_as = baloon_exploration_target_2
+			}
+			random_war_enemy_country = {
+				save_event_target_as = baloon_exploration_target_3
+			}
+		}
+		else = {
+			random_neighbor_country = {
+				save_event_target_as = baloon_exploration_target_1
+			}
+			random_neighbor_country = {
+				save_event_target_as = baloon_exploration_target_2
+			}
+			random_neighbor_country = {
+				save_event_target_as = baloon_exploration_target_3
 			}
 		}
 	}
-	after = {
-		country_event = { id = bertus_artificers.1002 days = 1 }
-	}
-}
-country_event = {	#baloon exploration
-	id = bertus_artificers.1002
-	title = bertus_artificers.1002.t
-	desc = bertus_artificers.1002.desc
-	picture = INVENTION_eventPicture
-	
-	is_triggered_only = yes
-	hidden = yes
-
-	immediate = {}
 
 	option = {	#
-		name = bertus_artificers.1001.z
-		every_province = {
-			limit = {has_province_flag = baloon_exploration_target_flag}
-			clr_province_flag = baloon_exploration_target_flag
-			change_controller = owner
-		}
+		name = bertus_artificers.1001.a
+		event_target:baloon_exploration_target_1 = { remove_fow = 1}
+	}
+	option = {	#
+		name = bertus_artificers.1001.b
+		event_target:baloon_exploration_target_2 = { remove_fow = 1}
+	}
+	option = {	#
+		name = bertus_artificers.1001.c
+		event_target:baloon_exploration_target_3 = { remove_fow = 1}
 	}
 	after = {
-		if = {
-			limit = {NOT = {has_country_flag = sent_baloons_flag}}
-			set_variable = {which = temp value = 5}
-			set_country_flag = sent_baloons_flag
-		}
-		if = {
-			limit = {check_variable = {which = temp value = 0}}
-			change_variable = {which = temp value = -1}
-			country_event = { id = bertus_artificers.1001 days = 1}
-		}
-		else = {
-			clr_country_flag = sent_baloons_flag
-		}
 	}
 }

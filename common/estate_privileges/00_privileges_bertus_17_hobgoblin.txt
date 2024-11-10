@@ -908,8 +908,11 @@ estate_hobgoblin_militar_education = {
 	icon = privilege_promote_maratha_nobility
 	influence = 0.10
 	is_valid = {
-		NOT = {
-			heir_mil = 5
+		if = {
+			limit = {
+				NOT = { has_idea = establish_cadet_branches }
+			}
+			NOT = { heir_mil = 5 }
 		}
 		has_heir = yes
 	}
@@ -970,9 +973,8 @@ estate_hobgoblin_militar_education = {
 		remove_estate_privilege = estate_hobgoblin_militar_education
 		if = {
 			limit = {
-				NOT = {
-					heir_mil = 5
-				}
+				NOT = { has_idea = establish_cadet_branches }
+				NOT = { heir_mil = 5 }
 			}
 			change_heir_mil = 1
 		}

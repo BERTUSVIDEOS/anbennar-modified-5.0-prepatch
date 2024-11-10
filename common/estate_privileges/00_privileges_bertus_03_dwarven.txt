@@ -955,7 +955,12 @@ estate_dwarven_administrative_education = {
 	icon = privilege_promote_maratha_nobility
 	influence = 0.10
 	is_valid = {
-		NOT = {heir_adm = 5}
+		if = {
+			limit = {
+				NOT = { has_idea = establish_cadet_branches }
+			}
+			NOT = { heir_adm = 5 }
+		}
 		has_heir = yes
 	}
 	can_select = {
@@ -1012,12 +1017,11 @@ estate_dwarven_administrative_education = {
 	}
 	cooldown_years = 5
 	on_cooldown_expires = {
-		remove_estate_privilege = estate_dwarven_administrative_education		
+		remove_estate_privilege = estate_dwarven_administrative_education
 		if = {
 			limit = {
-				NOT = {
-					heir_adm = 5
-				}
+				NOT = { has_idea = establish_cadet_branches }
+				NOT = { heir_adm = 5 }
 			}
 			change_heir_adm = 1
 		}
