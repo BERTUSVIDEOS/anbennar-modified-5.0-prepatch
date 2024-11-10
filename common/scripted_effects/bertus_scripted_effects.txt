@@ -46,6 +46,31 @@ set_cooldown_effect = {
 	set_country_flag = $name$_cd_flag
 }
 
+get_monthly_manpower = {
+	if = {
+		limit = {
+			has_country_modifier = slackening_modifier
+			NOT = {has_country_modifier = cheat_engine_modifier}
+		}
+		add_yearly_manpower = 0.0833
+		if = {
+			limit = {has_government_attribute = slacken_give_sailors}
+			add_yearly_sailors = 0.0833
+		}
+	}
+	if = {
+		limit = { has_country_modifier = temporary_slacken_modifier }
+		add_yearly_manpower = 0.0833
+	}
+	if = {
+		limit = {has_country_modifier = PA_temporary_manpower_recovery_boost_modifier}
+		add_yearly_manpower = 0.0416
+	}
+	if = {
+		limit = { has_idea = militarismus4 is_at_war = yes }
+		add_yearly_manpower = 0.00833
+	}
+}
 get_monthly_mana = {
 	export_to_variable = { which = monthly_mana_var value = modifier:monthly_mana_modifier }
 	change_variable = { which = mana_var which = monthly_mana_var }

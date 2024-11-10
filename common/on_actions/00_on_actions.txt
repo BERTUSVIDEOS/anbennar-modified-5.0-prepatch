@@ -2999,36 +2999,13 @@ on_siberian_pulse = {
 
 # country random events
 on_monthly_pulse = {
-	if = {
+	if = {	#bertus mod
 		limit = { ai = no }
 		get_monthly_mana = yes
 	}
 	if = {	#bertus mod
-		limit = {
-			has_country_modifier = slackening_modifier
-			NOT = {has_country_modifier = cheat_engine_modifier}
-		}
-		add_yearly_manpower = 0.0833
-		if = {	#bertus mod
-			limit = {has_government_attribute = slacken_give_sailors}
-			add_yearly_sailors = 0.0833
-		}
-	}
-	if = {	#bertus mod
-		limit = { has_country_modifier = temporary_slacken_modifier }
-		add_yearly_manpower = 0.0833
-	}
-	if = {	#bertus mod
-		limit = {has_country_modifier = PA_temporary_manpower_recovery_boost_modifier}
-		add_yearly_manpower = 0.0416
-	}
-	if = {	#bertus mod
-		limit = { has_idea = militarismus4 is_at_war = yes }
-		add_yearly_manpower = 0.00833
-	}
-	if = {	#bertus mod
-		limit = { has_idea = militarismus4 is_at_war = no }
-		add_yearly_manpower = 0.00833
+		limit = { ai = no }
+		get_monthly_manpower = yes
 	}
 	if = {	#bertus mod
 		limit = {has_government_mechanic = enslavement_mechanic}
@@ -3045,53 +3022,60 @@ on_monthly_pulse = {
 		limit = {
 			any_owned_province = {
 				has_province_modifier = making_soup_modifier
-				OR = {
-					controlled_by = owner
-					NOT = {
-						if = { limit = { development = 100 } num_of_units_in_province = { who = controller amount = 50 } }
-						else_if = { limit = { development = 90 } num_of_units_in_province = { who = controller amount = 45 } }
-						else_if = { limit = { development = 80 } num_of_units_in_province = { who = controller amount = 40 } }
-						else_if = { limit = { development = 70 } num_of_units_in_province = { who = controller amount = 35 } }
-						else_if = { limit = { development = 60 } num_of_units_in_province = { who = controller amount = 30 } }
-						else_if = { limit = { development = 50 } num_of_units_in_province = { who = controller amount = 25 } }
-						else_if = { limit = { development = 40 } num_of_units_in_province = { who = controller amount = 20 } }
-						else_if = { limit = { development = 30 } num_of_units_in_province = { who = controller amount = 15 } }
-						else_if = { limit = { development = 20 } num_of_units_in_province = { who = controller amount = 10 } }
-						else_if = { limit = { development = 18 } num_of_units_in_province = { who = controller amount = 9 } }
-						else_if = { limit = { development = 16 } num_of_units_in_province = { who = controller amount = 8 } }
-						else_if = { limit = { development = 14 } num_of_units_in_province = { who = controller amount = 7 } }
-						else_if = { limit = { development = 12 } num_of_units_in_province = { who = controller amount = 6 } }
-						else_if = { limit = { development = 10 } num_of_units_in_province = { who = controller amount = 5 } }
-						else = { num_of_units_in_province = { who = controller amount = 4 } }
-					}
-				}
 			}
 		}
-		every_owned_province = {
+		if = {	#bertus mod
 			limit = {
-				has_province_modifier = making_soup_modifier
-				OR = {
-					controlled_by = owner
-					NOT = {
-						if = { limit = { development = 100 } num_of_units_in_province = { who = controller amount = 50 } }
-						else_if = { limit = { development = 90 } num_of_units_in_province = { who = controller amount = 45 } }
-						else_if = { limit = { development = 80 } num_of_units_in_province = { who = controller amount = 40 } }
-						else_if = { limit = { development = 70 } num_of_units_in_province = { who = controller amount = 35 } }
-						else_if = { limit = { development = 60 } num_of_units_in_province = { who = controller amount = 30 } }
-						else_if = { limit = { development = 50 } num_of_units_in_province = { who = controller amount = 25 } }
-						else_if = { limit = { development = 40 } num_of_units_in_province = { who = controller amount = 20 } }
-						else_if = { limit = { development = 30 } num_of_units_in_province = { who = controller amount = 15 } }
-						else_if = { limit = { development = 20 } num_of_units_in_province = { who = controller amount = 10 } }
-						else_if = { limit = { development = 18 } num_of_units_in_province = { who = controller amount = 9 } }
-						else_if = { limit = { development = 16 } num_of_units_in_province = { who = controller amount = 8 } }
-						else_if = { limit = { development = 14 } num_of_units_in_province = { who = controller amount = 7 } }
-						else_if = { limit = { development = 12 } num_of_units_in_province = { who = controller amount = 6 } }
-						else_if = { limit = { development = 10 } num_of_units_in_province = { who = controller amount = 5 } }
-						else = { num_of_units_in_province = { who = controller amount = 4 } }
+				any_owned_province = {
+					has_province_modifier = making_soup_modifier
+					OR = {
+						controlled_by = owner
+						NOT = {
+							if = { limit = { development = 100 } num_of_units_in_province = { who = controller amount = 50 } }
+							else_if = { limit = { development = 90 } num_of_units_in_province = { who = controller amount = 45 } }
+							else_if = { limit = { development = 80 } num_of_units_in_province = { who = controller amount = 40 } }
+							else_if = { limit = { development = 70 } num_of_units_in_province = { who = controller amount = 35 } }
+							else_if = { limit = { development = 60 } num_of_units_in_province = { who = controller amount = 30 } }
+							else_if = { limit = { development = 50 } num_of_units_in_province = { who = controller amount = 25 } }
+							else_if = { limit = { development = 40 } num_of_units_in_province = { who = controller amount = 20 } }
+							else_if = { limit = { development = 30 } num_of_units_in_province = { who = controller amount = 15 } }
+							else_if = { limit = { development = 20 } num_of_units_in_province = { who = controller amount = 10 } }
+							else_if = { limit = { development = 18 } num_of_units_in_province = { who = controller amount = 9 } }
+							else_if = { limit = { development = 16 } num_of_units_in_province = { who = controller amount = 8 } }
+							else_if = { limit = { development = 14 } num_of_units_in_province = { who = controller amount = 7 } }
+							else_if = { limit = { development = 12 } num_of_units_in_province = { who = controller amount = 6 } }
+							else_if = { limit = { development = 10 } num_of_units_in_province = { who = controller amount = 5 } }
+							else = { num_of_units_in_province = { who = controller amount = 4 } }
+						}
 					}
 				}
 			}
-			remove_province_modifier = making_soup_modifier
+			every_owned_province = {
+				limit = {
+					has_province_modifier = making_soup_modifier
+					OR = {
+						controlled_by = owner
+						NOT = {
+							if = { limit = { development = 100 } num_of_units_in_province = { who = controller amount = 50 } }
+							else_if = { limit = { development = 90 } num_of_units_in_province = { who = controller amount = 45 } }
+							else_if = { limit = { development = 80 } num_of_units_in_province = { who = controller amount = 40 } }
+							else_if = { limit = { development = 70 } num_of_units_in_province = { who = controller amount = 35 } }
+							else_if = { limit = { development = 60 } num_of_units_in_province = { who = controller amount = 30 } }
+							else_if = { limit = { development = 50 } num_of_units_in_province = { who = controller amount = 25 } }
+							else_if = { limit = { development = 40 } num_of_units_in_province = { who = controller amount = 20 } }
+							else_if = { limit = { development = 30 } num_of_units_in_province = { who = controller amount = 15 } }
+							else_if = { limit = { development = 20 } num_of_units_in_province = { who = controller amount = 10 } }
+							else_if = { limit = { development = 18 } num_of_units_in_province = { who = controller amount = 9 } }
+							else_if = { limit = { development = 16 } num_of_units_in_province = { who = controller amount = 8 } }
+							else_if = { limit = { development = 14 } num_of_units_in_province = { who = controller amount = 7 } }
+							else_if = { limit = { development = 12 } num_of_units_in_province = { who = controller amount = 6 } }
+							else_if = { limit = { development = 10 } num_of_units_in_province = { who = controller amount = 5 } }
+							else = { num_of_units_in_province = { who = controller amount = 4 } }
+						}
+					}
+				}
+				remove_province_modifier = making_soup_modifier
+			}
 		}
 	}
 }
