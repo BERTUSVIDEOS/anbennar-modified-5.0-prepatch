@@ -662,8 +662,14 @@ province_event = {	#orc+human into half-orc
     trigger = {
 		is_city = yes
 		owner = {
-			medium_tolerance_human_race_trigger = yes 
-			medium_tolerance_orcish_race_trigger = yes 
+			OR = {
+				medium_tolerance_orcish_race_trigger = yes
+				high_tolerance_orcish_race_trigger = yes
+			} 
+			OR = {
+				medium_tolerance_human_race_trigger = yes 
+				high_tolerance_human_race_trigger = yes 
+			} 
 			OR = {
 				medium_tolerance_half_orcish_race_trigger = yes 
 				high_tolerance_half_orcish_race_trigger = yes 
@@ -738,7 +744,13 @@ province_event = {	#orc+human into half-orc
 			change_culture = chippengarder_half_orc
 		}
 		else_if = {
-			limit = {owner = {has_country_flag = half_orc_grombar}}		
+			limit = {
+				owner = {
+					primary_culture = gray_orc
+					primary_culture = grombar_half_orc
+					primary_culture = grombar_orc
+				}
+			}		
 			change_culture = grombar_half_orc
 		}
 		else = {
@@ -766,8 +778,14 @@ province_event = {	#elfs+humans  into half-elf
     trigger = {
 		is_city = yes
 		owner = {
-			medium_tolerance_elven_race_trigger = yes 
-			medium_tolerance_human_race_trigger = yes 
+			OR = {
+				medium_tolerance_elven_race_trigger = yes
+				high_tolerance_elven_race_trigger = yes
+			} 
+			OR = {
+				medium_tolerance_human_race_trigger = yes 
+				high_tolerance_human_race_trigger = yes 
+			} 
 			OR = {
 				medium_tolerance_half_elven_race_trigger = yes 
 				high_tolerance_half_elven_race_trigger = yes 

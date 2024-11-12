@@ -107,7 +107,13 @@ country_decisions = {
 			is_free_or_tributary_trigger = yes
 			is_nomad = no
 			owns_core_province = 8	# Anbenncost
-			NOT = { has_global_flag = aoa_incident_active_flag_tt }
+			if = {
+				limit = {
+					has_global_flag = aoa_incident_active_flag_cd_flag
+					NOT = { had_global_flag = { flag = aoa_incident_active_flag_cd_flag days = 730 } }
+				}
+				had_global_flag = { flag = aoa_incident_active_flag_cd_flag days = 730 }
+			}
 			OR = {
 				is_emperor = yes
 				AND = {
@@ -194,7 +200,7 @@ country_decisions = {
 					add_imperial_influence = -100
 				}
 				set_imperial_incident = incident_magisterium_emperorship_war
-				set_global_flag = aoa_incident_active_flag_tt
+				set_global_flag = aoa_incident_active_flag_cd_flag
 				custom_tooltip = tooltip_option_alpha
 				custom_tooltip = tooltip_abdicate_emperorship_hre
 				custom_tooltip = tooltip_option_beta

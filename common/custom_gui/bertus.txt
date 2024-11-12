@@ -27,7 +27,13 @@ custom_button = {
 	}
 	trigger = {
 		hidden_trigger = {
-			NOT = { has_global_flag = aoa_incident_active_flag_tt }
+			if = {
+				limit = {
+					has_global_flag = aoa_incident_active_flag_cd_flag
+					NOT = { had_global_flag = { flag = aoa_incident_active_flag_cd_flag days = 730 } }
+				}
+				had_global_flag = { flag = aoa_incident_active_flag_cd_flag days = 730 }
+			}
 			NOT = { has_global_flag = emperorship_hereditary_flag }
 			is_at_war = no
 			imperial_influence = 50
@@ -58,7 +64,7 @@ custom_button = {
 			custom_tooltip = no_reform_at_war_desc
 		}
 		if = {
-			limit = { has_global_flag = aoa_incident_active_flag_tt }
+			limit = { has_global_flag = aoa_incident_active_flag_cd_flag }
 			custom_tooltip = no_reform_on_incident_desc
 		}
 		custom_tooltip = abolish_the_elections_tooltip
