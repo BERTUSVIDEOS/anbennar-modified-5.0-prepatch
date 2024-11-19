@@ -38,6 +38,16 @@ country_event = {
 		}
 		
 		add_prestige = -10
+		add_manpower = -20	#0?-20
+		add_imperial_influence = -20	#0?-20
+		every_country = {
+			limit = { is_part_of_hre = yes }
+			add_opinion = {
+				who = ROOT
+				modifier = aggressive_expansion
+				multiplier = 20	#0?20
+			}
+		}
 	}
 }
 
@@ -130,22 +140,196 @@ country_event = {
 	picture = WEX_PRECIPICE_eventPicture
 	#Event Image: King Arthur by Ekaterina Belousova
 	
-	fire_only_once = yes
-	
 	trigger = {
 		tag = A30
+		is_emperor = yes
+		NOT = {
+			check_variable = { which = wex_limitation_var value = 5 }
+		}
+		cooldown_trigger = {
+			name = wex_limitation
+			cooldown = 1825
+		}
 	}
 	
 	mean_time_to_happen = {
-		days = 14
+		days = 1
+	}
+
+	immediate = {
+		set_cooldown_effect = { name = wex_limitation }
+		change_variable = { which = wex_limitation_var value = 1 }
 	}
 	
 	option = {
 		name = flavor_wex.3.a
-		
-		add_imperial_influence = 10	
+		tooltip = {
+			custom_tooltip = "For every prince in Esmaria Region get:"
+			add_truce_with = ROOT
+			add_imperial_influence = 0.5
+		}
+		hidden_effect = {
+			every_country = {
+				limit = {
+					capital_scope = { region = esmaria_region is_part_of_hre = yes }
+				}
+				ROOT = {
+					add_truce_with = PREV
+					add_imperial_influence = 0.5
+				}
+			}
+		}
 	}
-
+	option = {
+		name = flavor_wex.3.b
+		trigger = {
+			check_variable = { which = wex_limitation_var value = 1 }
+			NOT = { has_country_flag = wex_limitation_elector_privilege }
+		}
+		set_country_flag = wex_limitation_elector_privilege 
+		tooltip = {
+			custom_tooltip = "For every Elector get:"
+			add_imperial_influence = 2
+			add_prestige = -2
+			add_truce_with = ROOT
+			custom_tooltip = ""
+			custom_tooltip = "Every Elector get:"
+			add_prestige = 10
+			add_truce_with = ROOT
+		}
+		hidden_effect = {
+			every_country = {
+				limit = { is_elector = yes }
+				add_prestige = 10
+				add_truce_with = PREV
+				ROOT = {
+					add_imperial_influence = 2
+					add_prestige = -2
+					add_truce_with = PREV
+				}
+			}
+		}
+	}
+	option = {	#elven privilege
+		name = flavor_wex.3.c
+		trigger = {
+			check_variable = { which = wex_limitation_var value = 1 }
+			NOT = { has_country_flag = wex_limitation_elven_privilege }
+		}
+		set_country_flag = wex_limitation_elven_privilege 
+		tooltip = {
+			custom_tooltip = "For every Elven Prince get:"
+			add_imperial_influence = 2
+			add_treasury = -50
+			add_truce_with = ROOT
+			custom_tooltip = ""
+			custom_tooltip = "Every Elven Prince get:"
+			add_adm_power = 100
+			add_truce_with = ROOT
+		}
+		hidden_effect = {
+			every_country = {
+				limit = { culture_is_elven = yes }
+				add_adm_power = 100
+				add_truce_with = PREV
+				ROOT = {
+					add_imperial_influence = 2
+					add_treasury = -50
+					add_truce_with = PREV
+				}
+			}
+		}
+	}
+	option = {	#Dwarven privilege
+		name = flavor_wex.3.d
+		trigger = {
+			check_variable = { which = wex_limitation_var value = 1 }
+			NOT = { has_country_flag = wex_limitation_dwarven_privilege }
+		}
+		set_country_flag = wex_limitation_dwarven_privilege 
+		tooltip = {
+			custom_tooltip = "For every Dwarven Prince get:"
+			add_imperial_influence = 2
+			add_treasury = -50
+			add_truce_with = ROOT
+			custom_tooltip = ""
+			custom_tooltip = "Every Dwarven Prince get:"
+			add_dip_power = 100
+			add_truce_with = ROOT
+		}
+		hidden_effect = {
+			every_country = {
+				limit = { culture_is_dwarven = yes }
+				add_dip_power = 100
+				add_truce_with = PREV
+				ROOT = {
+					add_imperial_influence = 2
+					add_treasury = -50
+					add_truce_with = PREV
+				}
+			}
+		}
+	}
+	option = {	#Gnomish privilege
+		name = flavor_wex.3.e
+		trigger = {
+			check_variable = { which = wex_limitation_var value = 1 }
+			NOT = { has_country_flag = wex_limitation_gnomish_privilege }
+		}
+		set_country_flag = wex_limitation_gnomish_privilege 
+		tooltip = {
+			custom_tooltip = "For every Gnomish Prince get:"
+			add_imperial_influence = 2
+			add_treasury = -50
+			add_truce_with = ROOT
+			custom_tooltip = ""
+			custom_tooltip = "Every Gnomish Prince get:"
+			change_innovativeness = 2
+			add_truce_with = ROOT
+		}
+		hidden_effect = {
+			every_country = {
+				limit = { culture_is_gnomish = yes }
+				change_innovativeness = 2
+				add_truce_with = PREV
+				ROOT = {
+					add_imperial_influence = 2
+					add_treasury = -50
+					add_truce_with = PREV
+				}
+			}
+		}
+	}
+	option = {	#Halfling privilege
+		name = flavor_wex.3.f
+		trigger = {
+			check_variable = { which = wex_limitation_var value = 1 }
+			NOT = { has_country_flag = wex_limitation_halfling_privilege }
+		}
+		set_country_flag = wex_limitation_halfling_privilege 
+		tooltip = {
+			custom_tooltip = "For every Halfling Prince get:"
+			add_imperial_influence = 2
+			add_prestige = -5
+			add_truce_with = ROOT
+			custom_tooltip = ""
+			custom_tooltip = "Every Halfling Prince get:"
+			add_mercantilism = 2
+			add_truce_with = ROOT
+		}
+		hidden_effect = {
+			every_country = {
+				limit = { culture_is_halfling = yes }
+				add_mercantilism = 2
+				add_truce_with = PREV
+				ROOT = {
+					add_imperial_influence = 2
+					add_prestige = -5
+					add_truce_with = PREV
+				}
+			}
+		}
+	}
 }
 
 country_event = {
