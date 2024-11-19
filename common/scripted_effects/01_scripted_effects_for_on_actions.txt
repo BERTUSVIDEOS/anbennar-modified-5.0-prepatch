@@ -790,27 +790,33 @@ on_battle_won_unit_effect = {
 	if = {
 		limit = {
 			enemy_unit = { unit_owner = { OR = {ai = no overlord = { ai = no } } } }
-			unit_owner = { uses_church_aspects = yes OR = { religion_group = orcish religion_group = giantkin } }
 		}
-		unit_owner = {
-			set_variable = { which = amount_kill which = land_units_killed }
-			divide_variable = { which = amount_kill value = 1000 }
-			while = {
-				limit = { check_variable = { which = amount_kill value = 1 } }
-				add_church_power = 1
-				change_variable = { which = amount_kill value = -1 }
+		if = {
+			limit = {
+				unit_owner = { uses_church_aspects = yes OR = { religion_group = orcish religion_group = giantkin } }
+			}
+			unit_owner = {
+				set_variable = { which = amount_kill which = land_units_killed }
+				divide_variable = { which = amount_kill value = 1000 }
+				divide_variable = { which = amount_kill value = 10 }	#0.1 per 1
+				while = {
+					limit = { check_variable = { which = amount_kill value = 1 } }
+					add_church_power = 1
+					change_variable = { which = amount_kill value = -1 }
+				}
 			}
 		}
-	}
-	if = {
-		limit = { unit_owner = { has_government_attribute = warlock_religion_actions_mechanic } }
-		unit_owner = {
-			set_variable = { which = amount_kill which = land_units_killed }
-			divide_variable = { which = amount_kill value = 1000 }
-			while = {
-				limit = { check_variable = { which = amount_kill value = 1 } }
-				add_church_power = 1
-				change_variable = { which = amount_kill value = -1 }
+		if = {
+			limit = { unit_owner = { has_government_attribute = warlock_religion_actions_mechanic } }
+			unit_owner = {
+				set_variable = { which = amount_kill which = land_units_killed }
+				divide_variable = { which = amount_kill value = 1000 }
+				divide_variable = { which = amount_kill value = 10 }	#0.1 per 1
+				while = {
+					limit = { check_variable = { which = amount_kill value = 1 } }
+					add_church_power = 1
+					change_variable = { which = amount_kill value = -1 }
+				}
 			}
 		}
 	}

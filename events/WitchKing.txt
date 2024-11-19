@@ -443,6 +443,9 @@ country_event = {
 				id = witch_king.6
 				days = 1
 			}
+			event_target:imperial_witch_king = {
+				save_global_event_target_as = emperor_enemy_target
+			}
 		}
 	}
 	
@@ -504,7 +507,20 @@ country_event = {
 				duration = 3650
 			}
 		}
-		
+		hidden_effect = {
+			every_country = {
+				limit = {
+					NOT = { tag = event_target:emperor_enemy_target }
+					NOT = { is_emperor = yes }
+					is_part_of_hre = yes
+					if = {
+						limit = { is_subject = yes }
+						is_subject_of_type = tributary_state
+					}
+				}
+				country_event = { id = bertus_changes.6053 days = 5 random = 15 }	#incident emperorship war sides
+			}
+		}
 	}
 	
 	option = { # Denounce them
@@ -547,6 +563,7 @@ country_event = {
 	}
 	after = {
 		clr_global_flag = aoa_incident_active_flag_cd_flag
+		country_event = { id = bertus_changes.6058 days = 365 }	#clear global target
 	}
 }
 
