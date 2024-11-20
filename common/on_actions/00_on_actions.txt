@@ -5538,11 +5538,6 @@ on_province_culture_converted = {
 	}
 	remove_province_modifier = noble_castles_boost_modifier
 
-
-	if = {	#bertus mod
-		limit = {owner = {has_idea = assimilation3} }
-		add_base_manpower = 2
-	}
 	province_event = { id = race_setup_events.15 days = 3 }
 	if = {
 		limit = { has_province_modifier = Z26_axzo_vurte NOT = { culture = greenscale_kobold } }
@@ -6870,6 +6865,19 @@ on_conquest = {
 	remove_named_unrest = estate_land_seized
 	clr_province_flag = has_estate_unrest_flag
 
+	if = {	#bertus mod
+		limit = {
+			owner = { has_idea = justiz5 }
+		}
+		add_local_autonomy = -10
+		set_variable = { which = temp value = 0 }
+		export_to_variable = { which = temp value = development }
+		while = {
+			limit = { check_variable = { which = temp value = 0 } }
+			change_variable = { which = temp value = -1 }
+			owner = { change_government_reform_progress = 1 }
+		}
+	}
 	# Re-add their influence to Castonath if gets conquered from nation with the estate
 	if = {
 		limit = {
@@ -7403,10 +7411,10 @@ on_dip_advisor_hired = { #ROOT - Country, executed after on_advisor_hired!
 }
 
 on_mil_advisor_hired = { #ROOT - Country, executed after on_advisor_hired!
-if = {	#bertus mod
-	limit = { has_country_modifier = magic_menu_mind_control_spell_mil_modifier }
-	remove_country_modifier = magic_menu_mind_control_spell_mil_modifier
-}
+	if = {	#bertus mod
+		limit = { has_country_modifier = magic_menu_mind_control_spell_mil_modifier }
+		remove_country_modifier = magic_menu_mind_control_spell_mil_modifier
+	}
 }
 
 on_core = { #ROOT - Province, #FROM - Country that gets the core
@@ -7418,7 +7426,12 @@ on_tech_taken = { #ROOT - Country
 }
 
 on_adm_tech_taken = { #ROOT - Country, executed after on_tech_taken!
-
+	if = {
+		limit = {
+			has_idea = civil_servants
+		}
+		change_government_reform_progress = 25
+	}
 }
 
 on_dip_tech_taken = { #ROOT - Country, executed after on_tech_taken!
