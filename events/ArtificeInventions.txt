@@ -2042,7 +2042,6 @@ country_event = {
 
 	is_triggered_only = yes
 
-
 	option = {
 		name = artifice_inventions.69.a
 
@@ -2052,6 +2051,28 @@ country_event = {
 		}
 
 		custom_tooltip = new_artifice_invention_tooltip
+		if = {
+			limit = { has_country_modifier = regular_tanks_modifier  }
+			remove_country_modifier = regular_tanks_modifier
+			add_country_modifier = {
+				name = improved_tanks_modifier
+				duration = -1
+			}
+		}
+		else_if = {
+			limit = { has_country_modifier = prototype_tanks_modifier }
+			add_country_modifier = {
+				name = regular_tanks_modifier
+				duration = -1
+			}
+		}
+		else = {
+			add_country_modifier = {
+				name = prototype_tanks_modifier
+				duration = -1
+				hidden = yes
+			}
+		}
 	}
 }
 

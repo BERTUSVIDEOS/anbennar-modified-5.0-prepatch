@@ -186,6 +186,12 @@ hammerhome_1 = {
 					duration = -1  
 				}
 			}
+			marrhold_underhold_area = {
+				add_permanent_province_modifier	 = { 
+					name = Z36_balgaric_strip_mine
+					duration = -1  
+				}
+			}
 			country_event = { id = flavor_hammerhome.30 }
 		}
 	}
@@ -300,7 +306,7 @@ hammerhome_2 = {
 		
 		trigger = {
 			OR = { 
-				I07 = { has_opinion = { who = ROOT value = 150 } }
+				2863 = { owner = { has_opinion = { who = ROOT value = 150 } } }
 				owns = 2863
 			}
 		}
@@ -308,8 +314,10 @@ hammerhome_2 = {
 		effect = {
 			if = {
 				limit = {
-					I07 = {
-						owns_core_province = 2863
+					2863 = {
+						owner = {
+							owns_core_province = 2863
+						}
 					}
 				}
 				add_country_modifier = { 
@@ -317,22 +325,8 @@ hammerhome_2 = {
 					duration = 9125
 				}
 			}
-			if = {
-				limit = {
-					owns = 2863
-				}
-				khugdihr_area = {
-					limit = { owned_by = ROOT }
-					hidden_effect = {
-						remove_core = ROOT
-						add_core = I07
-					}
-					cede_province = I07
-				}
-				create_subject = {
-					subject_type = autonomous_vassal
-					subject = I07
-				}
+			else = {
+				add_prestige_or_monarch_power = { amount = 50 }
 			}
 		}
 	}
@@ -353,10 +347,20 @@ hammerhome_2 = {
 					share = 35
 				}
 			}
-			2868 = {
-				trade_share = {
-					country = I07
-					share = 35
+			OR = {
+				any_ally = {
+					2868 = {
+						trade_share = {
+							country = PREV
+							share = 35
+						}
+					}
+				}
+				2868 = {
+					trade_share = {
+						country = ROOT
+						share = 35
+					}
 				}
 			}
 		}
@@ -576,30 +580,39 @@ hammerhome_2 = {
 		}
 		trigger = {
 			OR = {
-				I07 = { 
-					trust = { who = ROOT value = 100 }
+				2868 = { 
+					owner = {
+						trust = { who = ROOT value = 100 }
+					}
 				}
 				AND = {
-					I07 = {
-						ai = no
-					}
-					I07 = {
-						alliance_with = ROOT
+					2868 = { 
+						owner = {
+							ai = no
+							alliance_with = ROOT
+						}
 					}
 				}
-				I07 = {
-					is_subject_of = ROOT
+				2868 = { 
+					owner = {
+						is_subject_of = ROOT
+					}
 				}
 			}
 		}
 		effect = {
 			if = {
 				limit = {
-					I07 = {
-						is_subject_of = ROOT
+					2868 = { 
+						owner = {
+							OR = {
+								is_subject_of = ROOT
+								tag = ROOT
+							}
+						}
 					}
 				}
-				add_prestige_or_monarch_power = {amount =  25}
+				add_prestige_or_monarch_power = { amount = 50 }
 			}
 			else = {
 				country_event = { id = flavor_hammerhome.2 }
@@ -666,7 +679,7 @@ hammerhome_3 = {
 			castonath_area = {
 				add_permanent_province_modifier	 = { 
 					name = Z36_protecting_the_ancient_capital
-					duration = -1  
+					duration = -1
 				}
 			}
 			nortmere_area = {
@@ -1247,6 +1260,7 @@ hammerhome_3 = {
 			set_country_flag = Z36_expanded_missions
 			override_country_name = BALGARIC_EMPIRE
 			swap_non_generic_missions = yes
+			set_country_flag = super_nation_formed
 			if = {
 				limit = { religion = regent_court }
 				custom_tooltip = Z36_balgar_would_be_proud_balgar_upgrade
@@ -1510,7 +1524,7 @@ hammerhome_4 = {
 		effect = {
 			add_country_modifier = {
 				name = Z36_dwarf_influx
-				duration = 9125
+				duration = 7300
 			}
 			castonath_area = {
 				add_dwarven_minority_size_effect = yes #Change
@@ -2227,35 +2241,12 @@ hammerhome_2b = {
 		
 		trigger = {
 			total_development = 1000
-			I07 = {
-				total_development = 1000
-			}
 		}
 		
 		effect = {
-			custom_tooltip = Z36_the_twin_empires_tt
-			hidden_effect = {
-				if = { 
-					limit = { I07 = { is_subject_of = ROOT } }
-					create_subject = {
-						subject_type = twin_empire
-						subject = I07
-					}
-				}
-				else = {
-					I07 = {
-						add_country_modifier = { 
-							name = Z36_balgaric_union_strengthened
-							duration = -1
-						}
-					}
-					ROOT = {
-						add_country_modifier = { 
-							name = Z36_balgaric_union_strengthened
-							duration = -1
-						}
-					}
-				}
+			add_country_modifier = { 
+				name = Z36_balgaric_union_strengthened
+				duration = -1
 			}
 		}
 	}
@@ -2486,12 +2477,15 @@ hammerhome_3b = {
 						trade_goods = serpentbloom 
 					}
 				}
-				I07 = {
-					num_of_owned_provinces_with = {
-						value = 5
-						OR = {
-							trade_goods = fungi
-							trade_goods = serpentbloom 
+				2863 = {
+					owner = {
+						alliance_with = ROOT
+						num_of_owned_provinces_with = {
+							value = 5
+							OR = {
+								trade_goods = fungi
+								trade_goods = serpentbloom 
+							}
 						}
 					}
 				}
@@ -2503,16 +2497,14 @@ hammerhome_3b = {
 					#has_opinion = { who = ROOT value = 150 }
 				#}
 			}
-			dip_power = 100
-			manpower = 5
+			manpower = 10
 		}
 		
 		effect = {
-			add_dip_power = -100
-			add_manpower = -5
+			add_manpower = -10
 			854 = {
 				add_base_production = 4
-				change_trade_goods = wine
+				change_trade_goods = beer
 				add_permanent_province_modifier	 = { 
 					name = Z36_escanni_dark_prov_mod
 					duration = -1  
@@ -2841,28 +2833,22 @@ hammerhome_4b = {
 			Z36_uplift_the_smallkin
 		}
 		trigger = {
-			num_of_owned_provinces_with = {
-				value = 50
-				NOT = { culture_group = dwarven }
+			development_in_provinces = {
+				value = 500
+				has_human_majority_trigger = yes
 				OR = {
 					has_manufactory_trigger = yes
 					has_production_building_trigger = yes
 				}
 			}
-			num_of_owned_provinces_with = {
-				value = 100
-				NOT = { culture_group = dwarven }
-			}
-			dip_power = 500
 		}
 		
 		effect = {
-			add_dip_power = -500
 			custom_tooltip = Z36_a_second_upheaval_tt
 			hidden_effect = {
 				every_owned_province = {
 					limit = {
-						NOT = { has_human_majority_trigger = yes }
+						has_human_majority_trigger = yes
 						OR = {
 							has_manufactory_trigger = yes
 							has_production_building_trigger = yes

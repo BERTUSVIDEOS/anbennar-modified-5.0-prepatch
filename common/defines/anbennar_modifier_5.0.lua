@@ -37,6 +37,7 @@ NDefines.NDiplomacy.HEGEMONY_MONTHLY_PROGRESS = 1.0                             
 NDefines.NDiplomacy.TRIBUTE_MAX_MONARCH_POWER = 24                      --12→24
 NDefines.NDiplomacy.DECLINE_FAVOR_ACTION_STAB_HIT = 1                   --0→1
 
+NDefines.NCountry.INNOVATIVENESS_MAX = 500.0
 NDefines.NCountry.COUNTRY_DEVELOPMENT_SCALE = 1000                      --600→1000
 NDefines.NCountry.CHANGE_COLONIAL_TYPE_COOLDOWN_DURATION = 0            --10→0
 NDefines.NCountry.CORRUPTION_FROM_BANNERS = 0	                        --5→0
