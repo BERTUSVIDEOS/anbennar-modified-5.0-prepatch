@@ -3014,26 +3014,45 @@ esthili_academy_of_magic = {
 	on_built = {}
 	on_destroyed = {}
 	can_use_modifiers_trigger = {
-		AND = {
-			province_is_or_accepts_culture = yes
-			owner = {NOT = {has_country_modifier = monstrous_nation}}
+		if = {
+			limit = { owner = { has_country_modifier = monstrous_nation } }
+			owner = {
+				has_unlocked_magic_school = { school = conjuration level = 3 }
+			}
+			OR = {
+				culture_group = goblin
+				culture_group = orcish
+				culture_is_half_orcish = yes
+			}
+		}
+		else = {
 			OR = {
 				culture_group = escanni
 				culture = marrodic
 				culture_is_half_elven = yes
+				culture_is_half_orcish = yes
 			}
 		}
+		province_is_or_accepts_culture = yes
 	}
 	can_upgrade_trigger = {
-		AND = {
-			province_is_or_accepts_culture = yes
-			owner = {NOT = {has_country_modifier = monstrous_nation}}
+		if = {
+			limit = { owner = { has_country_modifier = monstrous_nation } }
+			OR = {
+				culture_group = goblin
+				culture_group = orcish
+				culture_is_half_orcish = yes
+			}
+		}
+		else = {
 			OR = {
 				culture_group = escanni
 				culture = marrodic
 				culture_is_half_elven = yes
+				culture_is_half_orcish = yes
 			}
 		}
+		province_is_or_accepts_culture = yes
 	}
 	keep_trigger = {}
 	tier_0 = {
@@ -3130,34 +3149,45 @@ hammerhome_artificers_guild = {
 	on_built = {}
 	on_destroyed = {}
 	can_use_modifiers_trigger = {
-		owner = {
-			has_estate = estate_artificers
-			NOT = {has_country_modifier = monstrous_nation}
+		if = {
+			limit = { owner = { has_country_modifier = monstrous_nation } }
+			owner = { high_tolerance_goblin_race_trigger = yes }
+			OR = {
+				culture_group = goblin
+				culture_is_half_orcish = yes
+			}
+		}
+		else = {
+			OR = {
+				culture_group = escanni
+				culture_group = dwarven
+				culture_group = gnomish
+				culture = marrodic
+				culture_is_half_orcish = yes
+				culture_is_half_elven = yes
+			}
 		}
 		province_is_or_accepts_culture = yes
-		OR = {
-			culture_group = escanni
-			culture_group = dwarven
-			culture_group = gnomish
-			culture = marrodic
-			culture_is_half_orcish = yes
-			culture_is_half_elven = yes
-		}
 	}
 	can_upgrade_trigger = {
-		owner = {
-			has_estate = estate_artificers
-			NOT = {has_country_modifier = monstrous_nation}
+		if = {
+			limit = { owner = { has_country_modifier = monstrous_nation } }
+			OR = {
+				culture_group = goblin
+				culture_is_half_orcish = yes
+			}
+		}
+		else = {
+			OR = {
+				culture_group = escanni
+				culture_group = dwarven
+				culture_group = gnomish
+				culture = marrodic
+				culture_is_half_orcish = yes
+				culture_is_half_elven = yes
+			}
 		}
 		province_is_or_accepts_culture = yes
-		OR = {
-			culture_group = escanni
-			culture_group = dwarven
-			culture_group = gnomish
-			culture = marrodic
-			culture_is_half_orcish = yes
-			culture_is_half_elven = yes
-		}
 	}	
 	keep_trigger = {}
 	tier_0 = {
@@ -3616,22 +3646,40 @@ adenica_longlance_knights_academy = {
 	on_built = {}
 	on_destroyed = {}
 	can_use_modifiers_trigger = {
-		owner = {NOT = {has_country_modifier = monstrous_nation}}
-		province_is_or_accepts_culture = yes
-		OR = {
-			culture_group = escanni
-			culture_is_half_elven = yes
-			culture_is_half_orcish = yes
+		if = {
+			limit = { owner = { has_country_modifier = monstrous_nation } }
+			owner = { high_tolerance_half_orcish_race_trigger = yes }
+			OR = {
+				culture_group = orcish
+				culture_is_half_orcish = yes
+			}
 		}
+		else = {
+			OR = {
+				culture_group = escanni
+				culture_is_half_elven = yes
+				culture_is_half_orcish = yes
+			}
+		}
+		province_is_or_accepts_culture = yes
 	}	
 	can_upgrade_trigger = {
-		owner = {NOT = {has_country_modifier = monstrous_nation}}
-		province_is_or_accepts_culture = yes
-		OR = {
-			culture_group = escanni
-			culture_is_half_elven = yes
-			culture_is_half_orcish = yes
+		if = {
+			limit = { owner = { has_country_modifier = monstrous_nation } }
+			owner = { high_tolerance_half_orcish_race_trigger = yes }
+			OR = {
+				culture_group = orcish
+				culture_is_half_orcish = yes
+			}
 		}
+		else = {
+			OR = {
+				culture_group = escanni
+				culture_is_half_elven = yes
+				culture_is_half_orcish = yes
+			}
+		}
+		province_is_or_accepts_culture = yes
 	}	
 	keep_trigger = {}
 	tier_0 = {

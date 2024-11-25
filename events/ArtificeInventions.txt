@@ -2041,6 +2041,14 @@ country_event = {
 	picture = INVENTION_eventPicture
 
 	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			set_variable = {
+				which = tank_invention_progress_var
+				value = 0
+			}
+		}
+	}
 
 	option = {
 		name = artifice_inventions.69.a
@@ -2050,23 +2058,34 @@ country_event = {
 			influence = 15
 		}
 
-		custom_tooltip = new_artifice_invention_tooltip
 		if = {
 			limit = { has_country_modifier = regular_tanks_modifier  }
-			remove_country_modifier = regular_tanks_modifier
+			set_country_flag = unlocked_artifice_invention_improved_tanks
+			hidden_effect = { remove_country_modifier = regular_tanks_modifier }
+			custom_tooltip = "Improve Tank model to:"
+			custom_tooltip = tanks_lvl_3_modifiers_tt
 			add_country_modifier = {
 				name = improved_tanks_modifier
 				duration = -1
+				hidden = yes
 			}
 		}
 		else_if = {
 			limit = { has_country_modifier = prototype_tanks_modifier }
+			set_country_flag = unlocked_artifice_invention_tanks
+			hidden_effect = { remove_country_modifier = prototype_tanks_modifier }
+			custom_tooltip = "Improve Tank model to:"
+			custom_tooltip = tanks_lvl_2_modifiers_tt
 			add_country_modifier = {
 				name = regular_tanks_modifier
 				duration = -1
+				hidden = yes
 			}
 		}
 		else = {
+			set_country_flag = unlocked_artifice_invention_prototype_tanks
+			custom_tooltip = "Improve Tank model to:"
+			custom_tooltip = tanks_lvl_1_modifiers_tt
 			add_country_modifier = {
 				name = prototype_tanks_modifier
 				duration = -1

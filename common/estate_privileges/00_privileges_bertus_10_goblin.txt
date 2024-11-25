@@ -1382,10 +1382,12 @@ estate_goblin_intolerance_policy = {
 		}
 		has_country_modifier = goblin_military
 		has_country_modifier = goblin_administration
-		NOT = { has_estate_privilege = estate_orcish_green_supremacy_policy }
-		NOT = { has_estate_privilege = estate_goblin_green_supremacy_policy }
 	}
 	can_select = {
+		NOT = { has_estate_privilege = estate_orcish_green_supremacy_policy }
+		NOT = { has_estate_privilege = estate_goblin_green_supremacy_policy }
+		NOT = { has_estate_privilege = estate_orcish_intolerance_policy }
+		NOT = { has_estate_privilege = estate_half_orcish_intolerance_policy }
 		estate_territory = {
 			estate = estate_goblin
 			territory = 50
@@ -1662,13 +1664,14 @@ estate_goblin_green_supremacy_policy = {
 			has_estate_privilege = estate_orcish_first_hand_chairman
 			has_estate_privilege = estate_half_orcish_first_hand_chairman
 		}
-		NOT = { has_estate_privilege = estate_orcish_green_supremacy_policy }
 	}
 	can_select = {
 		high_tolerance_goblin_race_trigger = yes
 		high_tolerance_orcish_race_trigger = yes
 		NOT = { has_estate_privilege = estate_goblin_intolerance_policy }
 		NOT = { has_estate_privilege = estate_orcish_intolerance_policy }
+		NOT = { has_estate_privilege = estate_half_orcish_intolerance_policy }
+		NOT = { has_estate_privilege = estate_orcish_green_supremacy_policy }
 	}
 	on_granted = {
 		custom_tooltip = estate_green_one_culture_gta
@@ -2235,6 +2238,9 @@ estate_goblin_militar_education = {
 				NOT = { has_idea = establish_cadet_branches }
 			}
 			NOT = { heir_mil = 5 }
+		}
+		else = {
+			NOT = { heir_mil = 6 }
 		}
 		has_heir = yes
 	}

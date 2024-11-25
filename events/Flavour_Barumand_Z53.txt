@@ -95,6 +95,12 @@ country_event = {
 			factor = 50
 		}
 		medium_decrease_of_human_tolerance_effect = yes
+		add_owned_provinces_development_manpower = {
+			multiplier = 2
+			age_multiplier = 1
+			trigger = { culture_group = orcish }
+			custom_tooltip = "Orcish Provinces"
+		}
 	}
 }
 
@@ -242,37 +248,100 @@ country_event = {
 			add_base_production = 1
 			add_base_manpower = 1
 			change_province_name = "Dustandar"
+			area = {
+				limit = { owned_by = ROOT }
+				add_province_modifier = {
+					name = "growth_of_capital"
+					duration = -1
+				}
+			}
 		}
 	}
 	option = {
 		name = flavour_barumand.8.b
-		813 = {
+		4097 = {
 			add_base_tax = 1
 			add_base_production = 1
 			add_base_manpower = 1
-			change_province_name = "Dustandar"
+			change_province_name = "Dusthold"
+			if = {
+				limit = {
+					owner = { high_tolerance_goblin_race_trigger = yes }
+					NOT = { culture_group = goblin }
+				}
+				change_culture = common_goblin
+				if = {
+					limit = {
+						owner = { NOT = { accepted_culture = common_goblin } }
+					}
+					owner = {
+						add_accepted_culture = common_goblin
+					}
+				}
+			}
+			area = {
+				limit = { owned_by = ROOT }
+				add_province_modifier = {
+					name = "growth_of_capital"
+					duration = -1
+				}
+			}
 		}
-		set_capital = 813
+		set_capital = 4097
+		add_dip_power = 200
 	}
 	option = {
 		name = flavour_barumand.8.c
-		827 = {
-			add_base_tax = 1
-			add_base_production = 1
-			add_base_manpower = 1
-			change_province_name = "Dustandar"
+		large_increase_of_human_tolerance_effect = yes
+		833 = {
+			change_province_name = "Dustonath"
+			area = {
+				limit = { owned_by = ROOT }
+				add_province_modifier = {
+					name = "growth_of_capital"
+					duration = -1
+				}
+				add_base_tax = 1
+				add_base_production = 1
+				add_base_manpower = 1
+				add_human_minority_size_effect = yes
+				add_human_minority_size_effect = yes
+			}
 		}
-		set_capital = 827
+		set_capital = 833
 	}
 	option = {
 		name = flavour_barumand.8.e
-		808 = {
+		change_government_reform_progress = 100
+		774 = {
 			add_base_tax = 1
 			add_base_production = 1
 			add_base_manpower = 1
-			change_province_name = "Dustandar"
+			change_province_name = "Dustanton"
+			area = {
+				limit = { owned_by = ROOT }
+				add_province_modifier = {
+					name = "growth_of_capital"
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+					owner = { high_tolerance_half_orcish_race_trigger = yes }
+					NOT = { culture_group = half_orc }
+				}
+				change_culture = cannor_half_orc
+				if = {
+					limit = {
+						owner = { NOT = { accepted_culture = cannor_half_orc } }
+					}
+					owner = {
+						add_accepted_culture = cannor_half_orc
+					}
+				}
+			}
 		}
-		set_capital = 808
+		set_capital = 774
 	}
 }
 
@@ -287,6 +356,7 @@ country_event = {
 	
 	option = {
 		name = flavour_barumand.9.a
+		custom_tooltip = "Can Create Tributaries"
 		set_country_flag = can_create_tributaries_flag
 		set_country_flag = can_use_tributary_cb_flag
 		add_prestige = -10
@@ -320,6 +390,14 @@ country_event = {
 				type = cb_force_tributary_mission
 				months = 600 
 			}
+		}
+		add_owned_provinces_development_manpower = {
+			multiplier = 1
+			age_multiplier = 2
+			trigger = {
+				has_owner_accepted_culture = yes
+			}
+			custom_tooltip = "From any accepted culture province"
 		}
 	}
 }
@@ -369,7 +447,7 @@ country_event = {
 	option = {
 		name = flavour_barumand.12.a
 		Z53 = { override_country_name = barumand_baranthad }
-		add_prestige_or_monarch_power = {amount =  20}
+		add_prestige_or_monarch_power = { amount =  50 }
 		every_subject_country = { add_liberty_desire = -10 }
 	}
 }
@@ -460,10 +538,8 @@ country_event = {
 				capital_scope = {
 					OR = {
 						region = south_castanor_region
-						region = inner_castanor_region 
-						region = west_castanor_region 
-						area = whistlevale_area 
-						area = cursewood_area
+						region = inner_castanor_region
+						region = west_castanor_region
 					}
 				}
 			}

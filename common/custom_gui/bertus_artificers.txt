@@ -1,4 +1,110 @@
 
+
+
+custom_window = {
+	name = artificers_menu_window
+	
+    potential = {
+		has_country_flag = estate_artificers_innovations_flag
+	}
+}
+custom_icon = {
+	name = artificers_menu_background_top
+	
+    potential = {
+		has_country_flag = estate_artificers_innovations_flag
+	}
+	tooltip = ""
+}
+custom_icon = {
+	name = topbar_artificer_overlay
+	
+	potential = {
+		ai = no	
+		has_estate = estate_artificers
+	}
+	tooltip = ""
+}
+
+custom_button = {
+    name = invention_gnomish_tank
+    
+    potential = {
+	}
+	trigger = {
+		NOT = { has_country_modifier = improved_tanks_modifier }
+		if = {
+			limit = { NOT = { check_variable = { which = tank_invention_progress_var value = 100 } } }
+			NOT = { check_variable = { which = tank_invention_progress_var value = 100 } } 
+			has_government_power = {
+				mechanic_type = artificers_capacity_mechanic
+				power_type = artificers_capacity
+				value = 25
+			}
+		}
+	}
+	effect = {
+		if = {
+			limit = { check_variable = { which = tank_invention_progress_var value = 100 } }
+			country_event = {
+				id = artifice_inventions.912
+			}
+		}
+		else = {
+			change_variable = {
+				which = tank_invention_progress_var
+				value = 10
+			}
+			add_government_power = {
+				mechanic_type = artificers_capacity_mechanic
+				power_type = artificers_capacity
+				value = -25
+			}
+		}
+		if = {
+			limit = { has_country_modifier = improved_tanks_modifier }
+			custom_tooltip = tanks_lvl_3_modifiers_tt
+		}
+		else_if = {
+			limit = { has_country_modifier = regular_tanks_modifier }
+			custom_tooltip = tanks_lvl_2_modifiers_tt
+		}
+		else_if = {
+			limit = { has_country_modifier = prototype_tanks_modifier }
+			custom_tooltip = tanks_lvl_1_modifiers_tt
+		}
+	}
+	tooltip = "Tanks"
+}
+custom_icon = {
+	name = invention_gnomish_tank_level_icon
+	potential = {
+	}
+	tooltip = ""
+	frame = {
+	    number = 4
+	    trigger = { 
+			has_country_modifier = improved_tanks_modifier
+		}
+	}
+	frame = {
+	    number = 3
+	    trigger = { 
+			has_country_modifier = regular_tanks_modifier
+		}
+	}
+	frame = {
+	    number = 2
+	    trigger = { 
+			has_country_modifier = prototype_tanks_modifier
+		}
+	}
+	frame = { #First matched frame clause will be used.
+	    number = 1
+	    trigger = { 
+		}
+	}
+}
 custom_button = {
     name = artificers_menu_estate
     

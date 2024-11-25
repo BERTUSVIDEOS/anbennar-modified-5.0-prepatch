@@ -528,6 +528,7 @@ country_event = {
 	picture = VILLAGE_BURNING_eventPicture
 
 	fire_only_once = yes
+	is_triggered_only = yes
 
 	major = yes
 	major_trigger = {
@@ -542,11 +543,9 @@ country_event = {
 
 	trigger = {
 		has_country_modifier = monstrous_nation
-		OR = {
-			owns = 831
-			owns = 832
-			owns = 833
-		}
+		owns = 831
+		owns = 832
+		owns = 833
 		831 = {
 			NOT = {
 				OR = {
@@ -577,10 +576,6 @@ country_event = {
 				}
 			}
 		}
-	}
-
-	mean_time_to_happen = {
-		months = 1
 	}
 
 	# Nice
@@ -588,51 +583,38 @@ country_event = {
 		name = castonath_patricians_events.69.a
 		set_global_flag = castonath_patricians_wiped_out
 		add_stability_or_adm_power = yes
-		if = {
-			limit = {
-				owns = 831
-				owns = 832
-				owns = 833
-			}
-			add_treasury = 1000
-		}
-		else_if = {
-			limit = {
-				OR = {
-					AND = {
-						owns = 831
-						owns = 832
-					}
-					AND = {
-						owns = 831
-						owns = 833
-					}
-					AND = {
-						owns = 832
-						owns = 833
-					}
-				}
-			}
-			add_treasury = 666
-		}
-		else = { add_treasury = 333 }
-		add_adm_power = 33
-		add_dip_power = 33
-		add_mil_power = 33
 		add_prestige_or_monarch_power = {amount =  10}
 		831 = {
+			add_scaled_local_adm_power = 5
+			add_scaled_local_dip_power = 5
+			add_scaled_local_mil_power = 5
+			add_loot_from_rich_province_general_effect = {
+				LOOTER = ROOT
+			}
 			add_province_modifier = {
 				name = castonath_patricians_wiped
 				duration = 3650
 			}
 		}
 		832 = {
+			add_scaled_local_adm_power = 5
+			add_scaled_local_dip_power = 5
+			add_scaled_local_mil_power = 5
+			add_loot_from_rich_province_general_effect = {
+				LOOTER = ROOT
+			}
 			add_province_modifier = {
 				name = castonath_patricians_wiped
 				duration = 3650
 			}
 		}
 		833 = {
+			add_scaled_local_adm_power = 5
+			add_scaled_local_dip_power = 5
+			add_scaled_local_mil_power = 5
+			add_loot_from_rich_province_general_effect = {
+				LOOTER = ROOT
+			}
 			add_province_modifier = {
 				name = castonath_patricians_wiped
 				duration = 3650
@@ -2057,6 +2039,9 @@ country_event = {
 	# Seize their things and expel them!
 	option = {
 		name = castonath_patricians_events.200.a
+		trigger = {
+			NOT = { has_country_modifier = monstrous_nation }
+		}
 		ai_chance = { factor = 0 }
 		set_country_flag = castonath_patricians_curtailing_relationship
 		custom_tooltip = curtailed_patricians_tt
@@ -2110,6 +2095,9 @@ country_event = {
 	# Let them have some nominal autonomy
 	option = {
 		name = castonath_patricians_events.200.b
+		trigger = {
+			NOT = { has_country_modifier = monstrous_nation }
+		}
 		ai_chance = { factor = 5 }
 		set_country_flag = castonath_patricians_autonomous
 		833 = {
@@ -2161,6 +2149,9 @@ country_event = {
 	# We can use them in our court
 	option = {
 		name = castonath_patricians_events.200.c
+		trigger = {
+			NOT = { has_country_modifier = monstrous_nation }
+		}
 		ai_chance = { factor = 5 }
 		set_country_flag = castonath_patricians_reinstated
 		custom_tooltip = remove_burghers_for_patricians_tt
@@ -2199,6 +2190,16 @@ country_event = {
 	# Not yet
 	option = {
 		name = castonath_patricians_events.200.d
+	}
+	# wipe them out (monstrous)
+	option = {
+		name = castonath_patricians_events.200.e
+		trigger = {
+			has_country_modifier = monstrous_nation
+		}
+		country_event = {
+			id = castonath_patricians_events.69
+		}
 	}
 }
 

@@ -1831,35 +1831,20 @@ state_house = {
 		all
 	}
 
-	bonus_manufactory = { # Will apply an extra modifier if these goods
-		coal	#bertus mod
-		damestear	#bertus mod
-		precursor_relics	#bertus mod
-		paper
-		glass
-		gems
-		#bertus
-		jade
-		pearls
-		chinaware
-	}
-
 	build_trigger = {
-		development = 10
+		development = 20
+		FROM = { has_estate = estate_artificers }
 		NOT = {has_building = mage_tower }
 	}
 
 	keep_trigger = {
+		FROM = { has_estate = estate_artificers }
 		NOT = {has_building = mage_tower }
 	}
 
 	modifier = {	#bertus mod
 		local_development_cost_modifier = -0.05
-		local_amount_of_carolean = 0.50
-	}
-	bonus_modifier = {	#bertus mod
-		local_development_cost_modifier = -0.05
-		local_amount_of_carolean = 0.50
+		local_amount_of_carolean = 1.0
 	}
 	on_built = {
 		if = {
@@ -1936,7 +1921,8 @@ mage_tower = {
 	manufactory = {
 		all
 	}
-	build_trigger = {	
+	build_trigger = {
+		FROM = { has_estate = estate_mages }
 		NOT = {has_building = state_house }	
 		NOT = {
 			has_great_project = {
@@ -1944,26 +1930,13 @@ mage_tower = {
 				tier = 0
 			}
 		}
-		OR = {
-			FROM = { NOT = { has_country_flag = banned_magic } }
-			FROM = { has_country_modifier = command_the_korashi_secret }
-		}
-		development = 10
+		development = 20
 	}
 	keep_trigger = {
+		FROM = { has_estate = estate_mages }
 		NOT = {has_building = state_house }
 	}
 
-	bonus_manufactory = { # Will apply an extra modifier if these goods
-		damestear
-		precursor_relics
-		incense
-		chinaware
-		#bertus mod
-		gems
-		jade
-		amber		
-	}
 	on_built = {
 		if = {
 			limit = {
@@ -1986,11 +1959,7 @@ mage_tower = {
 	on_destroyed = {
 	}
 	modifier = {	#bertus mod
-		local_amount_of_cawa = 0.50
-		local_development_cost_modifier = -0.05
-	}
-	bonus_modifier = {	#bertus mod
-		local_amount_of_cawa = 0.50
+		local_amount_of_cawa = 1.0
 		local_development_cost_modifier = -0.05
 	}
 	onmap = no
