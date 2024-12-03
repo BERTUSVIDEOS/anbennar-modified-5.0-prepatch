@@ -851,11 +851,18 @@ on_battle_won_country_effect = {
 	if = {	#lord alfonso experience
 		limit = {
 			has_leader = "Lord Alfonso"
-			has_estate_privilege = estate_vampires_vampiric_military_command
 			FROM = {
 				if = {
 					limit = { has_global_flag = mp_lobby_flag }
 					OR = { ai = no overlord = { ai = no }  }
+				}
+			}
+			has_estate_privilege = estate_vampires_vampiric_military_command
+			ai = no
+			is_at_war = yes
+			any_country = { 
+				ROOT = {
+					NOT = { is_renting_condottieri_to = PREV }
 				}
 			}
 		}
