@@ -874,6 +874,11 @@ on_battle_won_country_effect = {
 			}
 			ai = no
 			is_at_war = yes
+			any_country = { 
+				ROOT = {
+					NOT = { is_renting_condottieri_to = PREV }
+				}
+			}
 		}
 		set_variable = { which = military_reform_unit_kill_losses value = 0 }
 		change_variable = { which = military_reform_unit_kill_losses which = land_units_lost }
@@ -888,6 +893,22 @@ on_battle_won_country_effect = {
 		export_to_variable = { which = military_reform_power_gain_modifier_var value = modifier:military_reform_power_gain_modifier }
 		change_variable = { which = military_reform_power_gain_modifier_var value = 1 }
 		multiply_variable = { which = military_reform_unit_kill_losses which = military_reform_power_gain_modifier_var }
+		#set_variable = { which = military_reform_players_invested value = 0 }
+		#if = {
+		#	limit = { is_in_war = { attackers = THIS } }
+		#	every_country = {
+		#		limit = { is_in_war = { attackers = THIS } ai = no }
+		#		ROOT = { change_variable = { which = military_reform_players_invested value = 1 } }
+		#	}
+		#}
+		#if = {
+		#	limit = { is_in_war = { defenders = THIS } }
+		#	every_country = {
+		#		limit = { is_in_war = { defenders = THIS } ai = no }
+		#		ROOT = { change_variable = { which = military_reform_players_invested value = 1 } }
+		#	}
+		#}
+		#divide_variable = { which = military_reform_unit_kill_losses which = military_reform_players_invested }
 		while = {
 			limit = { check_variable = { which = military_reform_unit_kill_losses value = 0.1 } }
 			change_variable = { which = military_reform_unit_kill_losses value = -0.1 }
@@ -913,8 +934,7 @@ on_battle_won_country_effect = {
 		}
 		set_variable = { which = war_production_unit_kill_losses value = 0 }
 		change_variable = { which = war_production_unit_kill_losses which = land_units_lost }
-		change_variable = { which = war_production_unit_kill_losses which = land_units_killed }
-		divide_variable = { which = war_production_unit_kill_losses value = 100 }
+		divide_variable = { which = war_production_unit_kill_losses value = 200 }
 		while = {
 			limit = { check_variable = { which = war_production_unit_kill_losses value = 1 } }
 			change_variable = { which = war_production_unit_kill_losses value = -1 }
@@ -964,9 +984,25 @@ on_battle_lost_country_effect = {
 		divide_variable = { which = military_reform_unit_kill_losses which = land_forcelimit_unit_kill_losses }
 		multiply_variable = { which = military_reform_unit_kill_losses which = army_size_unit_kill_losses }
 		set_variable = { which = military_reform_power_gain_modifier_var value = 0 }
-		export_to_variable = { which = military_reform_power_gain_modifier_var value = military_reform_power_gain_modifier }
+		export_to_variable = { which = military_reform_power_gain_modifier_var value = modifier:military_reform_power_gain_modifier }
 		change_variable = { which = military_reform_power_gain_modifier_var value = 1 }
 		multiply_variable = { which = military_reform_unit_kill_losses which = military_reform_power_gain_modifier_var }
+		#set_variable = { which = military_reform_players_invested value = 0 }
+		#if = {
+		#	limit = { is_in_war = { attackers = THIS } }
+		#	every_country = {
+		#		limit = { is_in_war = { attackers = THIS } ai = no }
+		#		ROOT = { change_variable = { which = military_reform_players_invested value = 1 } }
+		#	}
+		#}
+		#if = {
+		#	limit = { is_in_war = { defenders = THIS } }
+		#	every_country = {
+		#		limit = { is_in_war = { defenders = THIS } ai = no }
+		#		ROOT = { change_variable = { which = military_reform_players_invested value = 1 } }
+		#	}
+		#}
+		#divide_variable = { which = military_reform_unit_kill_losses which = military_reform_players_invested }
 		while = {
 			limit = { check_variable = { which = military_reform_unit_kill_losses value = 0.1 } }
 			change_variable = { which = military_reform_unit_kill_losses value = -0.1 }

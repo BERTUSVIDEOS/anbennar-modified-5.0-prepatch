@@ -941,6 +941,7 @@ custom_button = {
 				has_mana = { mana = 90 }
 			}
 			add_mana_effect = { mana = -90 }
+			custom_tooltip = weaken_mind_resistance_tt
 			add_country_modifier = { name = magic_estate_scrying_military_intelligence_3 duration = 1825 }
 			every_country = {
 				limit = { war_with = ROOT }
@@ -953,6 +954,7 @@ custom_button = {
 				has_mana = { mana = 60 }
 			}
 			add_mana_effect = { mana = -60 }
+			custom_tooltip = weaken_mind_resistance_tt
 			add_country_modifier = { name = magic_estate_scrying_military_intelligence_2 duration = 1825 }
 			every_country = {
 				limit = { war_with = ROOT }
@@ -969,6 +971,7 @@ custom_button = {
 		}
 		else = { 
 			add_mana_effect = { mana = -30 }
+			custom_tooltip = weaken_mind_resistance_tt
 			add_country_modifier = { name = magic_estate_scrying_military_intelligence_1 duration = 1825 }
 			every_country = {
 				limit = { war_with = ROOT }
@@ -1092,6 +1095,11 @@ custom_button = {
 		if = {
 			limit = { NOT = { has_unlocked_magic_school = { school = enchantment level = 3 } } }
 			has_unlocked_magic_school = { school = enchantment level = 3 }
+		}
+		OR = {
+			NOT = { employed_advisor = { category = ADM } }
+			NOT = { employed_advisor = { category = DIP } }
+			NOT = { employed_advisor = { category = MIL } }
 		}
 		OR = {
 			custom_trigger_tooltip = {
@@ -1770,7 +1778,8 @@ custom_button = {
 	tooltip = "Healing Spells"
 }
 custom_button = {
-	name = gold_transmutation_spell
+	name = gold_transmutation_spell_icon
+	
     potential = {
 		has_country_flag = estate_mages_cast_spell_transmutation
 	}
@@ -1779,25 +1788,150 @@ custom_button = {
 			limit = { NOT = { has_unlocked_magic_school = { school = transmutation level = 2 } } }
 			has_unlocked_magic_school = { school = transmutation level = 2 }
 		}
+		if = {
+			limit = {
+				NOT = {
+					any_owned_province = {
+						NOT = {
+							trade_goods = gold
+							trade_goods = silver
+							trade_goods = damestear
+							trade_goods = coal
+							has_terrain = dwarven_hold
+							has_terrain = city_terrain
+						}
+					}
+				}
+			}
+			any_owned_province = { NOT = { trade_goods = gold trade_goods = damestear trade_goods = coal } }
+		}
 		has_mana = { mana = 33 }
+		custom_trigger_tooltip = {
+			tooltip = magic_menu_siege_spell_tt
+			always = no
+		}
 	}
 	effect = {
-		add_mana_effect = { mana = -33 }
-		if = {
-			limit = { has_unlocked_magic_school = { school = transmutation level = 3 } }
-			add_years_of_income = 0.50
-			add_inflation = 4
-		}
-		else = {
-			add_years_of_income = 0.25
-			add_inflation = 2
+		tooltip = {
+			add_mana_effect = { mana = -33 }
+			if = {
+				limit = { has_unlocked_magic_school = { school = transmutation level = 3 } }
+				custom_tooltip = "Target Province gets:"
+				custom_tooltip = "For 10 years:"
+				change_trade_goods = gold
+			}
+			else = {
+				custom_tooltip = "Target Province gets:"
+				custom_tooltip = "For 5 years:"
+				change_trade_goods = gold
+			}
 		}
 		custom_tooltip = gold_transmutation_spell_tooltip
 		custom_tooltip = gold_transmutation_spell_lore_tooltip
-		hidden_effect = {
-			clr_country_flag = estate_mages_cast_spells
-			clr_country_flag = estate_mages_cast_spell_transmutation
+	}
+	tooltip = "Gold Transmutation"
+}
+custom_button = {
+	name = gold_transmutation_spell
+    potential = {
+		FROM = { has_country_flag = estate_mages_cast_province_spells }
+	}
+	trigger = {
+		FROM = { 
+			if = {
+				limit = { NOT = { has_unlocked_magic_school = { school = transmutation level = 2 } } }
+				has_unlocked_magic_school = { school = transmutation level = 2 }
+			}
+			has_mana = { mana = 33 }
 		}
+
+		if = {
+			limit = { 
+				OR = {
+					trade_goods = gold
+					trade_goods = silver
+					trade_goods = damestear
+					trade_goods = coal
+					has_terrain = dwarven_hold
+					has_terrain = city_terrain
+				}
+			}
+			NOT = {
+				trade_goods = gold
+				trade_goods = silver
+				trade_goods = damestear
+				trade_goods = coal
+				has_terrain = dwarven_hold
+				has_terrain = city_terrain
+			}
+		}
+	}
+	effect = {
+		FROM = {
+			add_mana_effect = { mana = -33 }
+			if = {
+				limit = { has_unlocked_magic_school = { school = transmutation level = 3 } }
+				ROOT = {
+					save_trade_goods = yes
+					custom_tooltip = "For 10 years:"
+					change_trade_goods = gold
+					hidden_effect = {
+						add_province_modifier = {
+							name = gold_transmutation_spell_modifier
+							duration = 3650
+						}
+						province_event = { id = bertus_pops.1042 }
+						province_event = { id = bertus_changes.6036 days = 3650 }
+					}
+				}
+			}
+			else = {
+				ROOT = {
+					save_trade_goods = yes
+					custom_tooltip = "For 5 years:"
+					change_trade_goods = gold
+					hidden_effect = {
+						add_province_modifier = {
+							name = gold_transmutation_spell_modifier
+							duration = 1825
+						}
+						province_event = { id = bertus_pops.1042 }
+						province_event = { id = bertus_changes.6036 days = 1825 }
+					}
+				}
+			}
+		}
+		hidden_effect = {
+			if = {
+				limit = { FROM = { has_unlocked_magic_school = { school = transmutation level = 3 } } }
+				every_country = {
+					limit = {
+						NOT = { is_rival = ROOT }
+						NOT = { war_with = ROOT }
+						NOT = { truce_with = ROOT }
+						any_owned_province = {
+							NOT = { province_distance = { who = ROOT distance = 75 } }
+						}
+					}
+					country_event = { id = bertus_changes.6040 }
+				}
+			}
+			else = {
+				every_country = {
+					limit = {
+						NOT = { is_rival = ROOT }
+						NOT = { war_with = ROOT }
+						NOT = { truce_with = ROOT }
+						any_owned_province = {
+							NOT = { province_distance = { who = ROOT distance = 50 } }
+						}
+					}
+					country_event = { id = bertus_changes.6040 }
+				}
+			}
+		}
+		custom_tooltip = gold_transmutation_spell_tooltip
+		custom_tooltip = gold_transmutation_spell_lore_tooltip
 	}
 	tooltip = "Gold Transmutation"
 }
@@ -2644,6 +2778,52 @@ custom_button = {
 	tooltip = "Aid Constructions"
 }
 custom_button = {
+	name = special_province_spells
+	potential = {
+		controlled_by = FROM
+		owned_by = FROM
+		owner = {
+			ai = no
+			has_estate = estate_mages
+		}
+	}
+	trigger = {
+	}
+	effect = {
+		clr_province_flag = diggy_diggy_estimate_flag
+		FROM = {
+			if = {
+				limit = { NOT = { has_country_flag = estate_mages_cast_province_spells } }
+				set_country_flag = estate_mages_cast_province_spells
+			}
+			else = {
+				clr_country_flag = estate_mages_cast_province_spells
+			}
+		}
+	}
+	tooltip = "Cast Spell"
+}
+custom_window = {
+	name = special_province_spells_window
+	
+    potential = {
+		controlled_by = FROM
+		owned_by = FROM
+		owner = {
+			ai = no
+			has_estate = estate_mages
+		}
+		FROM = { has_country_flag = estate_mages_cast_province_spells }
+	}
+}
+custom_icon = {
+	name = special_province_spells_background
+	
+    potential = {
+	}
+	tooltip = ""
+}
+custom_button = {
     name = magic_menu_siege
     
     potential = {
@@ -2684,7 +2864,6 @@ custom_icon = {
 		fort_level = 1
 		has_siege = yes
 		sieged_by = FROM
-		FROM = { has_country_flag = siege_cast_spells_flag }
 	}
 	tooltip = ""
 }
@@ -2694,7 +2873,6 @@ custom_button = {
 		fort_level = 1
 		has_siege = yes
 		sieged_by = FROM
-		FROM = { has_country_flag = siege_cast_spells_flag }
 	}
 	trigger = {
 		FROM = { 
@@ -2788,7 +2966,6 @@ custom_button = {
 		fort_level = 1
 		has_siege = yes
 		sieged_by = FROM
-		FROM = { has_country_flag = siege_cast_spells_flag }
 	}
 	trigger = {
 		FROM = {
@@ -2884,7 +3061,6 @@ custom_button = {
 		fort_level = 1
 		has_siege = yes
 		sieged_by = FROM
-		FROM = { has_country_flag = siege_cast_spells_flag }
 	}
 	trigger = {
 		FROM = {

@@ -1312,74 +1312,21 @@ country_event = {
 	is_triggered_only = yes
 	
 	trigger = {
-		government = theocracy
 		NOT = { has_reform = black_demesne_reform }	#they have their own stuffs about this
 		NOT = { has_reform = black_acolyte_reform }
-	}
-	
-	#immediate = {
-	#	if = {
-	#		limit = {
-	#			government = monarchy
-	#		}
-	#		set_country_flag = wizard_king_magocracy
-	#		set_country_flag = lich_original_gov_monarchy
-	#	}
-	#	if = {
-	#		limit = {
-	#			government = republic
-	#		}
-	#		set_country_flag = lich_original_gov_republic
-	#	}
-	#	if = {
-	#		limit = {
-	#			government = monarchy
-	#		}
-	#		set_country_flag = lich_original_gov_theocracy
-	#	}
-	#}
-	
-	#...unfortunately late lich raised a worthy successor
-	option = {
-		name = magic_project_lichdom.16.a
-		trigger = {
-			ruler_has_mage_personality = yes 
-		}
-		ai_chance = {factor = 75}
-		
-		add_prestige_or_monarch_power = {amount =  10}
-		
-	}
-	
-	#...the dark acolytes retained controlled of the state
-	option = {
-		name = magic_project_lichdom.16.b
-		ai_chance = {
-			factor = 33
-			modifier = {
-				factor = 100
-				OR = {
-					estate_influence = {
-						estate = estate_mages
-						influence = 60
-					}
-					estate_influence = {
-						estate = estate_acolytes	#maybe acolytes should just be mages?
-						influence = 60
-					}
-				}
-			}
-		}
-		
-		add_prestige = -10
-		
 	}
 	
 	#revert to old ways
 	option = {
 		name = magic_project_lichdom.16.c
 		ai_chance = {factor = 66}
-		
+		kill_ruler = yes
+		if = {
+			limit = {
+				has_government_attribute = magisterium_election
+			}
+			country_event = { id = magocracy.2 } 
+		}
 		if = {
 			limit = {
 				has_country_flag = original_gov_monarchy
@@ -1400,7 +1347,6 @@ country_event = {
 			limit = {
 				has_country_flag = original_gov_theocracy
 			}
-			
 			if = {
 				limit = {
 					has_country_flag = original_gov_clergy

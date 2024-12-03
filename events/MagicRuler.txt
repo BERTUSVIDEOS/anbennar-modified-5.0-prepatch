@@ -6793,6 +6793,14 @@ country_event = {
 			has_ruler_flag = illusion_3
 			NOT = { magical_project_in_progress = yes }
 			NOT = { has_ruler_flag = magic_project_simulacrum_complete }
+			NOT = { has_ruler_flag = is_a_lich }
+			NOT = {
+				OR = {
+					has_country_flag = employs_adm_homunculus
+					has_country_flag = employs_dip_homunculus
+					has_country_flag = employs_mil_homunculus
+				}
+			}
 			has_mana = { mana = 100 }
 		}
 		ai_chance = {factor = 50}
@@ -6836,9 +6844,26 @@ country_event = {
 			has_ruler_flag = illusion_3
 			OR = {
 				has_ruler_flag = magic_project_simulacrum_complete
+				has_ruler_flag = is_a_lich
+				has_country_flag = employs_adm_homunculus
+				has_country_flag = employs_dip_homunculus
+				has_country_flag = employs_mil_homunculus
 				magical_project_in_progress = yes
 				NOT = { has_mana = { mana = 100 } }
 			}
+		}
+		if = { limit = { has_ruler_flag = is_a_lich }
+			custom_tooltip = magic_project_already_done_tt
+		}
+		if = {
+			limit = { 
+				OR = {
+					has_country_flag = employs_adm_homunculus
+					has_country_flag = employs_dip_homunculus
+					has_country_flag = employs_mil_homunculus
+				}
+			}
+			custom_tooltip = magic_project_already_done_tt
 		}
 		if = { limit = { has_ruler_flag = magic_project_simulacrum_complete }
 			custom_tooltip = magic_project_already_done_tt
@@ -7291,6 +7316,14 @@ country_event = {
 			NOT = { magical_project_in_progress = yes }
 			NOT = { has_ruler_flag = is_a_vampire }
 			NOT = { has_ruler_flag = is_a_lich }
+			NOT = {
+				OR = {
+					has_country_flag = employs_adm_homunculus
+					has_country_flag = employs_dip_homunculus
+					has_country_flag = employs_mil_homunculus
+				}
+			}
+			NOT = { has_ruler_flag = magic_project_simulacrum_complete }
 			is_lesser_in_union = no
 			has_mana = { mana = 100 }
 		}
@@ -7346,6 +7379,10 @@ country_event = {
 			OR = {
 				has_ruler_flag = is_a_vampire
 				has_ruler_flag = is_a_lich
+				has_country_flag = employs_adm_homunculus
+				has_country_flag = employs_dip_homunculus
+				has_country_flag = employs_mil_homunculus
+				has_ruler_flag = magic_project_simulacrum_complete
 				magical_project_in_progress = yes
 				is_lesser_in_union = yes
 				NOT = { has_mana = { mana = 100 } }
@@ -7353,6 +7390,19 @@ country_event = {
 		}
 		if = { limit = { NOT = { has_mana = { mana = 100 } } }
 			custom_tooltip = magisters_need_100_mana_tt
+		}
+		if = { limit = { has_ruler_flag = magic_project_simulacrum_complete }
+			custom_tooltip = magic_project_already_done_tt
+		}
+		if = {
+			limit = {
+				OR = {
+					has_country_flag = employs_adm_homunculus
+					has_country_flag = employs_dip_homunculus
+					has_country_flag = employs_mil_homunculus
+				}
+			}
+			custom_tooltip = magic_project_already_done_tt
 		}
 		if = { limit = { has_ruler_flag = is_a_lich }
 			custom_tooltip = magic_project_already_done_tt
@@ -8879,7 +8929,15 @@ country_event = {
 			#NOT = {has_country_modifier = ruler_recently_casted_spell}	#bertus mod
 			has_ruler_flag = transmutation_3
 			NOT = { magical_project_in_progress = yes }
-			NOT = { has_ruler_flag = magic_project_homunculus_complete }
+			NOT = {
+				OR = {
+					has_country_flag = employs_adm_homunculus
+					has_country_flag = employs_dip_homunculus
+					has_country_flag = employs_mil_homunculus
+				}
+			}
+			NOT = { has_ruler_flag = is_a_lich }
+			NOT = { has_ruler_flag = magic_project_simulacrum_complete }
 			has_mana = { mana = 100 }
 		}
 		ai_chance = {factor = 50}
@@ -8926,11 +8984,28 @@ country_event = {
 			has_ruler_flag = transmutation_3
 			OR = {
 				magical_project_in_progress = yes
-				has_ruler_flag = magic_project_homunculus_complete
+				has_ruler_flag = is_a_lich
+				has_country_flag = employs_adm_homunculus
+				has_country_flag = employs_dip_homunculus
+				has_country_flag = employs_mil_homunculus
+				has_ruler_flag = magic_project_simulacrum_complete
 				NOT = { has_mana = { mana = 100 } } 
 			}
 		}
-		if = { limit = { has_ruler_flag = magic_project_homunculus_complete }
+		if = { limit = { has_ruler_flag = is_a_lich }
+			custom_tooltip = magic_project_already_done_tt
+		}
+		if = { limit = { has_ruler_flag = magic_project_simulacrum_complete }
+			custom_tooltip = magic_project_already_done_tt
+		}
+		if = {
+			limit = {
+				OR = {
+					has_country_flag = employs_adm_homunculus
+					has_country_flag = employs_dip_homunculus
+					has_country_flag = employs_mil_homunculus
+				}
+			}
 			custom_tooltip = magic_project_already_done_tt
 		}
 		else = {
