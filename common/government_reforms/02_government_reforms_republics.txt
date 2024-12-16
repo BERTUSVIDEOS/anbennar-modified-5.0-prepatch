@@ -1507,7 +1507,6 @@ united_federation = {
 	}
 
 	custom_attributes = {
-		blocked_call_diet = yes
 		locked_government_type = yes
 		republican_name = yes
 	}
@@ -2277,6 +2276,7 @@ republican_authoritarianism_reform = {
 	icon = "merchant"
 	allow_normal_conversion = yes
 	potential = {
+		always = no	#bertus mod
 		NOT = {
 			has_government_attribute = is_pirate_republic_reform
 		}
@@ -2292,11 +2292,6 @@ republican_authoritarianism_reform = {
 		}
 	}
 	modifiers = {
-		global_unrest = -1
-		max_absolutism = 10
-		yearly_absolutism = 0.5
-		election_cycle = 1
-		monthly_mana_modifier = 0.41666	#0→0.4166	#5 yearly
 	}
 	ai = {
 		factor = 1
@@ -2320,27 +2315,12 @@ nepotism_reform = {
 		}
 	}
 	trigger = {
-		NOT = { 
-			OR = {
-				has_government_attribute = has_dutch_election
-				has_reform = presidential_despot_reform
-				has_reform = military_dictatorship_reform
-				has_reform = admiralty_reform
-				has_reform = military_rulership_reform
-				has_reform = prussian_republic
-				#Anbennar
-				has_government_attribute = anb_special_elections
-				has_reform = northern_league_magnates
-				has_reform = eternal_council
-				has_reform = stratocracy_reform
-				has_reform = free_slave_reform
-				has_reform = golden_republic_reform
-				has_reform = feiten_reformist_movement
-			}
-		}
 	}
 	modifiers = {
-		candidate_random_bonus = 1
+		max_absolutism = 10
+		yearly_absolutism = 0.5
+		election_cycle = 1
+		monthly_mana_modifier = 0.41666	#0→0.4166	#5 yearly
 	}
 
 	custom_attributes = {
@@ -2364,6 +2344,7 @@ republicanism_reform = {
 			#has_reform = nezkaru_council_reform
 			has_reform = northern_league_magnates
 			has_reform = krak_clan_council
+			has_reform = lottery_reform
 		}
 		OR = {
 			is_revolutionary = no
@@ -2371,10 +2352,35 @@ republicanism_reform = {
 		}
 	}
 	modifiers = {
-		republican_tradition = 0.2
+		max_terms = 5
+		candidate_random_bonus = 2
 	}
-	custom_attributes = {
-		republican_tradition_from_advisors = yes
+	conditional = {
+		allow = { has_dlc = "Domination" }
+		custom_attributes = {
+			has_limited_terms = yes
+			has_candidate_bonus = yes
+		}
+	}
+	effect = {
+		hidden_effect = {
+			set_variable = {
+				which = election_term
+				value = 1
+			}
+		}
+	}
+	removed_effect = {
+		hidden_effect = {
+			set_variable = {
+				which = election_term
+				value = 1
+			}
+		}
+		clr_ruler_focus_modifiers = yes
+	}
+	post_removed_effect = {
+		clr_ruler_focus_modifiers = yes
 	}
 	ai = {
 		factor = 1.5
@@ -2720,19 +2726,19 @@ frequent_elections_reform = {
 		}
 	}
 	trigger = {
-		NOT = { has_reform = damescrown_republic_reform}
 		OR = {
 			custom_trigger_tooltip = {
 				tooltip = "NEEDS_REGULAR_ELECTIONS"
 				has_government_attribute = has_term_election
 			}
-			has_reform = lottery_reform
 			has_reform = golden_republic_reform
 		}
 	}
 	modifiers = {
 		#max_absolutism = -10	#-10→0
 		election_cycle = -1
+		max_terms = -1
+		candidate_random_bonus = 1
 	}
 	custom_attributes = {
 		can_force_election = yes
@@ -2761,7 +2767,7 @@ consolidation_of_power_reform = {
 		max_absolutism = 10
 		election_cycle = 1
 		yearly_absolutism = 0.5
-		candidate_random_bonus = 1
+		republican_tradition = 0.2
 	}
 	effect = {
 	}
@@ -2795,6 +2801,7 @@ lottery_reform = {
 	trigger = {
 		NOT = { 
 			OR = {
+				has_reform = republicanism_reform
 				has_reform = anisikheioni_naval_stratocracy
 				has_reform = eternal_council
 				has_reform = ameion_conquerers_reform
@@ -3129,7 +3136,7 @@ dwarovar_elder_wisdom = {
 	
 	modifiers = {
 		election_cycle = 2	#4→2
-		candidate_random_bonus = 1
+		candidate_random_bonus = 2
 	}
 
 	custom_attributes = { reelection_depowers_estates = yes }
@@ -3443,12 +3450,13 @@ presidential_reform = {
 		}
 	}
 	modifiers = {
-		max_absolutism = 10
-		yearly_absolutism = 1
-		republican_tradition = 0.2
-		stability_cost_modifier = -0.1
 		reform_progress_growth = 0.2
 		all_estate_loyalty_equilibrium = 0.05
+		candidate_random_bonus = 1
+	}
+	custom_attributes = {
+		republican_tradition_from_advisors = yes
+		elections_influence_estates = yes
 	}
 	ai = {
 		factor = 1
@@ -3472,14 +3480,13 @@ estate_council_reform = {
 	trigger = {
 	}
 	modifiers = {
-		yearly_army_professionalism = 0.002
-		drill_gain_modifier = 0.25
-		war_exhaustion = -0.02
+		max_absolutism = 10
+		yearly_absolutism = 1
+		republican_tradition = 0.2
+		stability_cost_modifier = -0.1
 	}
 	custom_attributes = {
 		reelection_increases_absolutism = yes
-		diet_increases_not_influence = yes
-		elections_influence_estates = yes
 	}
 	ai = {
 		factor = 1
@@ -3495,7 +3502,8 @@ attorney_general_reform = {
 	}
 	allow_normal_conversion = yes
 	modifiers = {
-		same_culture_advisor_cost = -0.10
+		advisor_cost = -0.10
+		monthly_mana_modifier = 0.41666	#0→0.4166	#5 yearly
 	}
 	custom_attributes = {
 		mil_advisors_give_manpower_recovery_from_skill_level = yes
@@ -3698,7 +3706,6 @@ trollsbayer_pluralism_reform = {
 		cannot_become_dictatorship = yes
 		disabled_expelling_halfling = yes
 		disabled_purging_halfling = yes
-		blocked_call_diet = yes
 	}
 	effect = {
 		custom_tooltip = break_every_non_republic_alliance_tt
@@ -4546,7 +4553,6 @@ dynastic_rulership_reform = {	#bertus mod
 	}
 	modifiers = {
 		max_absolutism = 20
-		republican_tradition = -0.20
 		mages_loyalty_modifier = 0.05
 		mages_influence_modifier = 0.05
 		monthly_mana_modifier = 0.41666	#0→0.4166	#5 yearly
@@ -6078,7 +6084,6 @@ theinosi_synkletos = {
 		}
 		has_parliament = yes
 		custom_attributes = {
-			blocked_call_diet = yes
 			disables_estate_nobles = yes
 		}
 	}

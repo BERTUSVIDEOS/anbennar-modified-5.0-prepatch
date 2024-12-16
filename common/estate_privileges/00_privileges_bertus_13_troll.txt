@@ -46,11 +46,10 @@ estate_troll_first_hand_chairman = {
 	}
 	benefits = {
 		governing_cost = -0.10
-		garrison_size = 0.2	
+		garrison_damage = 0.20
 	}
 	penalties = {
 		technology_cost = 0.05
-		global_autonomy = 0.1
 	}
 	on_revoked = {
 	}
@@ -2369,6 +2368,95 @@ estate_troll_non_military_swap = {
 	}
 	cooldown_years = 10
 	on_cooldown_expires = {
+	}
+}
+estate_troll_militar_education = {
+	icon = privilege_promote_maratha_nobility
+	influence = 0.10
+	is_valid = {
+		if = {
+			limit = {
+				NOT = { has_idea = establish_cadet_branches }
+			}
+			NOT = { heir_mil = 5 }
+		}
+		else = {
+			NOT = { heir_mil = 6 }
+		}
+		has_heir = yes
+	}
+	can_select = {	
+		estate_influence = {
+			estate = estate_troll
+			influence = 40
+		}
+		high_tolerance_troll_race_trigger = yes
+		NOT = {has_estate_privilege = estate_troll_militar_education}
+	}
+	on_granted = {
+		custom_tooltip = estate_militar_education_tooltip
+	}
+	penalties = {
+		yearly_corruption = 0.2
+	}
+	benefits = {
+	}
+	conditional_modifier = {
+		trigger = {
+			has_country_modifier = short_lived_personality
+		}
+		modifier = {
+			yearly_corruption = -0.1
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			has_country_modifier = elven_administration
+		}
+		modifier = {
+			yearly_corruption = 0.6
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			has_country_modifier = gnomish_administration
+		}
+		modifier = {
+			yearly_corruption = 0.4
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			has_country_modifier = dwarven_administration
+		}
+		modifier = {
+			yearly_corruption = 0.2
+		}
+	}
+	on_revoked = {
+	}
+	on_invalid = {
+	}
+	cooldown_years = 5
+	on_cooldown_expires = {
+		remove_estate_privilege = estate_troll_militar_education
+		if = {
+			limit = {
+				NOT = { has_idea = establish_cadet_branches }
+				NOT = { heir_mil = 5 }
+			}
+			change_heir_mil = 1
+		}
+		else_if = {
+			limit = {
+				has_idea = establish_cadet_branches
+				NOT = { heir_mil = 6 }
+			}
+			change_heir_mil = 1
+		}
+	}
+	ai_will_do = {
+		factor = 5
 	}
 }
 estate_troll_colonizers = {

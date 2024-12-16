@@ -375,7 +375,13 @@ custom_button = {
 		fort_level = 1
 		has_siege = yes
 		sieged_by = FROM
-		FROM = { has_country_modifier = ogre_military }
+		FROM = {
+			OR = {
+				has_country_modifier = ogre_military
+				has_country_modifier = estate_troll_military_chairman_modifier
+			}
+			NOT = { has_country_modifier = just_sieged_ram }
+		}
 	}
 	trigger = {
 		infantry_in_province = FROM	
@@ -402,29 +408,12 @@ custom_button = {
 	}
 	effect = {
 		custom_tooltip = change_siege_progress_by_1_tt
-		hidden_effect = { change_siege = 1 }
-		if = { limit = { fort_level = 20 } kill_units = { who = FROM type = infantry amount = 20 } }
-		else_if = { limit = { fort_level = 19 } kill_units = { who = FROM type = infantry amount = 19 } }
-		else_if = { limit = { fort_level = 18 } kill_units = { who = FROM type = infantry amount = 18 } }
-		else_if = { limit = { fort_level = 17 } kill_units = { who = FROM type = infantry amount = 17 } }
-		else_if = { limit = { fort_level = 16 } kill_units = { who = FROM type = infantry amount = 16 } }
-		else_if = { limit = { fort_level = 15 } kill_units = { who = FROM type = infantry amount = 15 } }
-		else_if = { limit = { fort_level = 14 } kill_units = { who = FROM type = infantry amount = 14 } }
-		else_if = { limit = { fort_level = 13 } kill_units = { who = FROM type = infantry amount = 13 } }
-		else_if = { limit = { fort_level = 12 } kill_units = { who = FROM type = infantry amount = 12 } }
-		else_if = { limit = { fort_level = 11 } kill_units = { who = FROM type = infantry amount = 11 } }
-		else_if = { limit = { fort_level = 10 } kill_units = { who = FROM type = infantry amount = 10 } }
-		else_if = { limit = { fort_level = 9 } kill_units = { who = FROM type = infantry amount = 9 } }
-		else_if = { limit = { fort_level = 8 } kill_units = { who = FROM type = infantry amount = 8 } }
-		else_if = { limit = { fort_level = 7 } kill_units = { who = FROM type = infantry amount = 7 } }
-		else_if = { limit = { fort_level = 6 } kill_units = { who = FROM type = infantry amount = 6 } }
-		else_if = { limit = { fort_level = 5 } kill_units = { who = FROM type = infantry amount = 5 } }
-		else_if = { limit = { fort_level = 4 } kill_units = { who = FROM type = infantry amount = 4 } }
-		else_if = { limit = { fort_level = 3 } kill_units = { who = FROM type = infantry amount = 3 } }
-		else_if = { limit = { fort_level = 2 } kill_units = { who = FROM type = infantry amount = 2 } }
-		else_if = { limit = { fort_level = 1 } kill_units = { who = FROM type = infantry amount = 1 } }
+		hidden_effect = { change_siege = 4 }
+		FROM = {
+			add_country_modifier = { name = just_sieged_ram duration = 60 }
+		}
 	}
-	tooltip = "Ogre Ram"
+	tooltip = "Giant-Head Ram"
 }
 
 custom_button = {

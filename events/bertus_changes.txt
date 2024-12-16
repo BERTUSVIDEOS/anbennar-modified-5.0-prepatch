@@ -3916,6 +3916,7 @@ country_event = {	#religion general
 		}
 	}	
 	after = {
+		set_country_flag = get_adventurer_flag
 		country_event = {id = bertus_changes.6030}
 	}
 }
@@ -3942,16 +3943,19 @@ country_event = {	#religion general
 		name = bertus_changes.3001.a
 		trigger = {religion_group = orcish}
 		custom_tooltip = get_great_dookan_general_tt
+		custom_tooltip = get_adventurer_flag_tt
 	}
 	option = {	#
 		name = bertus_changes.3001.b
 		trigger = {religion = ik_magthaal}
 		custom_tooltip = get_great_ik_magthaal_general_tt
+		custom_tooltip = get_adventurer_flag_tt
 	}
 	option = {	#
 		name = bertus_changes.3001.c
 		trigger = {religion = feast_of_the_gods}
 		custom_tooltip = get_great_feast_of_the_gods_general_tt
+		custom_tooltip = get_adventurer_flag_tt
 	}
 	after = {
 		hidden_effect = {country_event = {id = bertus_changes.3000}}
@@ -5473,6 +5477,7 @@ country_event = {	#incident: Resources
 						has_global_flag = minery_reform_hre_flag
 					}
 					add_province_modifier = {name = minery_reform_province_modifier duration = -1}
+					add_pop_modifier = {race = all class = minery_bonus amount = 25percent resource = goods_produced onbase = base_production}
 				}
 				if = {
 					limit = {
@@ -5480,6 +5485,7 @@ country_event = {	#incident: Resources
 						has_global_flag = agriculture_reform_hre_flag
 					}
 					add_province_modifier = {name = agricultural_reform_province_modifier duration = -1}
+					add_pop_modifier = {race = all class = agriculture_bonus amount = 25percent resource = goods_produced onbase = base_production}
 				}
 			}
 		}
@@ -5906,7 +5912,7 @@ province_event = {
 		ai_chance = { factor = 100 }
 		
 		set_from_saved_trade_goods = yes
-		province_event = { id = bertus_pops.1042 }
+		hidden_effect = { province_event = { id = bertus_pops.1042  } }
 	}
 }
 
@@ -6751,6 +6757,10 @@ country_event = {	#incident magisterium emperorship claim
 		ai_chance = {factor = 25}
 		custom_tooltip = tooltip_abdicate_emperorship_hre
 		set_global_flag = abdicate_emperorship_flag
+		add_country_modifier = {
+			name = losing_war_against_emperor_modifier
+			duration = 7300
+		}
 		A85 = {
 			set_emperor = yes
 		}
@@ -6760,7 +6770,19 @@ country_event = {	#incident magisterium emperorship claim
 		ai_chance = {factor = 75}
 		custom_tooltip = tooltip_keep_emperorship_hre
 		set_global_flag = keep_emperorship_flag
-		A85 = { declare_war_with_cb = { who = emperor casus_belli = cb_usurp_emperorship } }
+		add_country_modifier = {
+			name = empire_challanged_modifier
+			duration = 7300
+		}
+		set_country_flag = emperor_no_white_peaceflag
+		A85 = {
+			declare_war_with_cb = { who = emperor casus_belli = cb_usurp_emperorship }
+			add_country_modifier = {
+				name = losing_war_against_emperor_modifier
+				duration = 7300
+			}
+			set_country_flag = emperor_opposer_no_white_peaceflag
+		}
 		hidden_effect = {
 			every_country = {
 				limit = {
@@ -6858,7 +6880,15 @@ country_event = {	#incident magisterium isle rights violation - magisterium resp
 		name = bertus_changes.6052.b
 		ai_chance = {factor = 50}
 		set_country_flag = magisterium_damesear_claim_removed
-		emperor = { declare_war_with_cb = { who = A85 casus_belli = cb_damesear_privilege } }
+		set_country_flag = emperor_opposer_no_white_peaceflag
+		emperor = {
+			set_country_flag = emperor_no_white_peaceflag
+			add_country_modifier = {
+				name = empire_challanged_modifier
+				duration = 7300
+			}
+			declare_war_with_cb = { who = A85 casus_belli = cb_damesear_privilege }
+		}
 		custom_tooltip = magisterium_damesear_claim_removed_tt
 		hidden_effect = {
 			every_owned_province = {
@@ -7096,6 +7126,11 @@ country_event = {	#incident tributary in empire - overlord response
 					who = event_target:overlord_of_tributary_in_empire
 					casus_belli = cb_independence_war
 				}
+				set_country_flag = emperor_opposer_no_white_peaceflag
+				add_country_modifier = {
+					name = losing_war_against_emperor_modifier
+					duration = 7300
+				}
 			}
 			save_global_event_target_as = emperor_enemy_target
 			emperor = { join_all_offensive_wars_of = event_target:tributary_in_empire}
@@ -7110,6 +7145,11 @@ country_event = {	#incident tributary in empire - overlord response
 					who = event_target:overlord_of_tributary_in_empire
 					casus_belli = cb_hre_attacked
 				}
+				add_country_modifier = {
+					name = empire_challanged_modifier
+					duration = 7300
+				}
+				set_country_flag = emperor_no_white_peaceflag
 			}
 			event_target:tributary_in_empire = {
 				join_all_defensive_wars_of = event_target:overlord_of_tributary_in_empire

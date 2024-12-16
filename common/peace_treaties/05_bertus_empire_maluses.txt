@@ -1,0 +1,49 @@
+
+po_win_imperial_war = {
+	category = 6
+	power_projection = humiliated_rival 
+	power_cost_base = 10.0 
+	prestige_base = 0
+	ae_base = 0
+	warscore_cost = {
+		all_provinces = 0.0
+		no_provinces = 20.0
+		owner_keeps = 0.0
+		conquered = 0.0
+		returned_core = 0.0
+		released_nation = 0.0
+		cancelled_subject = 0.0 
+		concede_colonial_region = 0.0
+	}
+	warscore_cap = 10
+	requires_demand_independence = no 
+	is_make_subject = no
+	requires_is_allowed = no
+	applies_to_war_target = no
+	
+	is_visible = {
+		OR = {
+			AND = {
+				has_country_flag = emperor_opposer_no_white_peaceflag
+				FROM = { has_country_flag = emperor_no_white_peaceflag }
+			}
+			AND = {
+				has_country_flag = emperor_no_white_peaceflag
+				FROM = { has_country_flag = emperor_opposer_no_white_peaceflag }
+			}
+		}
+	}
+	is_allowed = {
+	}
+	effect = {
+		remove_country_modifier = empire_challanged_modifier
+		remove_country_modifier = losing_war_against_emperor_modifier
+	}
+	ai_weight = { 
+		export_to_variable = {
+			variable_name = ai_value 
+			value = trigger_value:always # Not really sure what this means, will have to do some testing
+		}
+	}
+}
+

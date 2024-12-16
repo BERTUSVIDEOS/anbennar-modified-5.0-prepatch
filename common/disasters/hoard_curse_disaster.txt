@@ -17,13 +17,14 @@ hoardcurse = {
 			}
 		}
 	}
-
-	
 	
 	can_start = {
-		OR = {
-			treasury = 10000
-			monthly_income = 150
+		if = {
+			limit = {
+				any_country = {
+					ROOT = { monthly_income = PREV }
+				}
+			}
 		}
 		NOT = { has_country_modifier = shadow_of_the_hoardcurse }
 		has_any_disaster = no
@@ -85,32 +86,29 @@ hoardcurse = {
 		}
 		modifier = {
 			factor = 2
-			treasury = 2500
-		}
-		modifier = {
-			factor = 3
-			treasury = 5000
+			treasury = 2000
 		}
 		modifier = {
 			factor = 4
-			treasury = 10000
+			treasury = 4000
+		}
+		modifier = {
+			factor = 6
+			treasury = 8000
 		}
 		modifier = {
 			factor = 8
-			treasury = 50000
+			treasury = 16000
+		}
+		modifier = {
+			factor = 10
+			treasury = 32000
 		}
 		modifier = {
 			factor = 12
-			treasury = 75000
+			treasury = 68000
 		}
-		modifier = {
-			factor = 30
-			treasury = 100000
-		}
-		
 	}
-	
-	
 	
 	can_end = {
 		has_country_modifier = crackdown_hoard_reform
@@ -120,7 +118,6 @@ hoardcurse = {
 		has_country_modifier = curtail_reform
 		NOT = { ruler_has_personality = greedy_personality }
 	}
-	
 
 	modifier = {
 		yearly_corruption = 1.0	#2.5→1.0
@@ -141,7 +138,6 @@ hoardcurse = {
 		min_autonomy = 0	#30→0
 		global_autonomy = 0.3	#0→0.3
 	}
-	
 	
 	on_start = hoardcurse.5
 	on_end = hoardcurse.25
