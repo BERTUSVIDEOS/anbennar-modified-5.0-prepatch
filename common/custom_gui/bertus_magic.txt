@@ -1314,6 +1314,90 @@ custom_button = {
 	tooltip = "Banishment"
 }
 custom_button = {
+    name = magic_menu_spy_ward
+    
+    potential = {
+		has_country_flag = estate_mages_cast_spell_abjuration
+	}
+	trigger = {
+		if = {
+			limit = { NOT = { has_unlocked_magic_school = { school = abjuration level = 1 } } }
+			has_unlocked_magic_school = { school = abjuration level = 1 }
+		}
+		has_mana = { mana = 10 }
+		if = {
+			limit = { has_country_modifier = magic_estate_spy_ward_1 }
+			NOT = { has_country_modifier = magic_estate_spy_ward_1 }
+		}
+		if = {
+			limit = { has_country_modifier = magic_estate_spy_ward_2 }
+			NOT = { has_country_modifier = magic_estate_spy_ward_2 }
+		}
+		if = {
+			limit = { has_country_modifier = magic_estate_spy_ward_3 }
+			NOT = { has_country_modifier = magic_estate_spy_ward_3 }
+		}
+	}
+	effect = {
+		if = { 
+			limit = { 
+				has_unlocked_magic_school = { school = abjuration level = 3 }
+				has_mana = { mana = 30 }
+			}
+			add_mana_effect = { mana = -30 }
+			add_country_modifier = { name = magic_estate_spy_ward_3 duration = 1825 }
+		}
+		else_if = { 
+			limit = { 
+				has_unlocked_magic_school = { school = abjuration level = 2 }
+				has_mana = { mana = 20 }
+			}
+			add_mana_effect = { mana = -20 }
+			if = {
+				limit = { has_unlocked_magic_school = { school = abjuration level = 3 } }
+				custom_tooltip = magisters_need_30_mana_tt
+				custom_tooltip = "to get lvl 3 Spell"
+			}
+			else = {
+				custom_tooltip = magisters_need_tier_3_abjuration_tt
+			}
+			add_country_modifier = { name = magic_estate_spy_ward_2 duration = 1825 }
+		}
+		else = { 
+			add_mana_effect = { mana = -10 }
+			custom_tooltip = magisters_need_20_mana_tt
+			custom_tooltip = "to get lvl 2 Spell"
+			add_country_modifier = { name = magic_estate_spy_ward_1 duration = 1825 }
+		}
+		if = {
+			limit = {
+				OR = {
+					has_country_modifier = magic_estate_spy_ward_1
+					has_country_modifier = magic_estate_spy_ward_2
+					has_country_modifier = magic_estate_spy_ward_3
+
+				}
+			}
+			every_known_country = {
+				limit = {
+					has_spy_network_in = {
+						who = ROOT
+						value = 20
+					}
+				}
+				custom_tooltip = magic_spy_activity_tt
+			}
+		}
+		
+		custom_tooltip = magic_ward_desc_tt
+		hidden_effect = {
+			clr_country_flag = estate_mages_cast_spells
+			clr_country_flag = estate_mages_cast_spell_abjuration
+		}
+	}
+	tooltip = "Magic Surveillance"
+}
+custom_button = {
     name = magic_menu_broad_ward
     
     potential = {
@@ -1844,7 +1928,6 @@ custom_button = {
 			}
 			has_mana = { mana = 33 }
 		}
-
 		if = {
 			limit = { 
 				OR = {
@@ -1898,35 +1981,6 @@ custom_button = {
 						province_event = { id = bertus_pops.1042 }
 						province_event = { id = bertus_changes.6036 days = 1825 }
 					}
-				}
-			}
-		}
-		hidden_effect = {
-			if = {
-				limit = { FROM = { has_unlocked_magic_school = { school = transmutation level = 3 } } }
-				every_country = {
-					limit = {
-						NOT = { is_rival = ROOT }
-						NOT = { war_with = ROOT }
-						NOT = { truce_with = ROOT }
-						any_owned_province = {
-							NOT = { province_distance = { who = ROOT distance = 75 } }
-						}
-					}
-					country_event = { id = bertus_changes.6040 }
-				}
-			}
-			else = {
-				every_country = {
-					limit = {
-						NOT = { is_rival = ROOT }
-						NOT = { war_with = ROOT }
-						NOT = { truce_with = ROOT }
-						any_owned_province = {
-							NOT = { province_distance = { who = ROOT distance = 50 } }
-						}
-					}
-					country_event = { id = bertus_changes.6040 }
 				}
 			}
 		}
@@ -2780,11 +2834,25 @@ custom_button = {
 custom_button = {
 	name = special_province_spells
 	potential = {
-		controlled_by = FROM
-		owned_by = FROM
-		owner = {
-			ai = no
-			has_estate = estate_mages
+		controlled_by = owner
+		owned_by = owner
+		if = {
+			limit = {
+				owner = { is_subject = yes }
+			}
+			owner = {
+				is_subject_of = FROM
+			}
+			FROM = {
+				ai = no
+				has_estate = estate_mages
+			}
+		}
+		else = {
+			owner = {
+				ai = no
+				has_estate = estate_mages
+			}
 		}
 	}
 	trigger = {
@@ -2807,11 +2875,25 @@ custom_window = {
 	name = special_province_spells_window
 	
     potential = {
-		controlled_by = FROM
-		owned_by = FROM
-		owner = {
-			ai = no
-			has_estate = estate_mages
+		controlled_by = owner
+		owned_by = owner
+		if = {
+			limit = {
+				owner = { is_subject = yes }
+			}
+			owner = {
+				is_subject_of = FROM
+			}
+			FROM = {
+				ai = no
+				has_estate = estate_mages
+			}
+		}
+		else = {
+			owner = {
+				ai = no
+				has_estate = estate_mages
+			}
 		}
 		FROM = { has_country_flag = estate_mages_cast_province_spells }
 	}
@@ -3133,4 +3215,12 @@ custom_button = {
 		}
 	}
 	tooltip = "Meteor Strike"
+}
+custom_icon = {
+	name = diplo_spells_display
+	
+    potential = {
+		ai = no	
+	}
+	tooltip = "Spell Display"
 }

@@ -3,25 +3,25 @@ at_least_one_race_trigger = {
 	custom_trigger_tooltip = {
 		tooltip = at_least_one_race_trigger_tt
 		OR = {
-			$TRIGGER$ = { RACE = human [[type] type = $type$]}
-			$TRIGGER$ = { RACE = elven [[type] type = $type$] }
-			$TRIGGER$ = { RACE = dwarven [[type] type = $type$] }
-			$TRIGGER$ = { RACE = halfling [[type] type = $type$] }
-			$TRIGGER$ = { RACE = gnomish [[type] type = $type$] }
-			$TRIGGER$ = { RACE = harimari [[type] type = $type$] }
-			$TRIGGER$ = { RACE = gnollish [[type] type = $type$] }
-			$TRIGGER$ = { RACE = ruinborn [[type] type = $type$] }
-			$TRIGGER$ = { RACE = orcish [[type] type = $type$] }
-			$TRIGGER$ = { RACE = goblin [[type] type = $type$] }
-			$TRIGGER$ = { RACE = ogre [[type] type = $type$] }
-			$TRIGGER$ = { RACE = centaur [[type] type = $type$] }
-			$TRIGGER$ = { RACE = troll [[type] type = $type$] }
-			$TRIGGER$ = { RACE = harpy [[type] type = $type$] }
-			$TRIGGER$ = { RACE = half_orcish [[type] type = $type$] }
-			$TRIGGER$ = { RACE = half_elven [[type] type = $type$] }
-			$TRIGGER$ = { RACE = hobgoblin [[type] type = $type$] }
-			$TRIGGER$ = { RACE = kobold [[type] type = $type$] }
-			$TRIGGER$ = { RACE = lizardfolk [[type] type = $type$] }
+			$TRIGGER$ = { RACE = human [[type] type = $type$] [[subject] subject = yes ] }
+			$TRIGGER$ = { RACE = elven [[type] type = $type$] [[subject] subject = yes ] }
+			$TRIGGER$ = { RACE = dwarven [[type] type = $type$] [[subject] subject = yes ] }
+			$TRIGGER$ = { RACE = halfling [[type] type = $type$] [[subject] subject = yes ] }
+			$TRIGGER$ = { RACE = gnomish [[type] type = $type$] [[subject] subject = yes ] }
+			$TRIGGER$ = { RACE = harimari [[type] type = $type$] [[subject] subject = yes ] }
+			$TRIGGER$ = { RACE = gnollish [[type] type = $type$] [[subject] subject = yes ] }
+			$TRIGGER$ = { RACE = ruinborn [[type] type = $type$] [[subject] subject = yes ] }
+			$TRIGGER$ = { RACE = orcish [[type] type = $type$] [[subject] subject = yes ] }
+			$TRIGGER$ = { RACE = goblin [[type] type = $type$] [[subject] subject = yes ] }
+			$TRIGGER$ = { RACE = ogre [[type] type = $type$] [[subject] subject = yes ] }
+			$TRIGGER$ = { RACE = centaur [[type] type = $type$] [[subject] subject = yes ] }
+			$TRIGGER$ = { RACE = troll [[type] type = $type$] [[subject] subject = yes ] }
+			$TRIGGER$ = { RACE = harpy [[type] type = $type$] [[subject] subject = yes ] }
+			$TRIGGER$ = { RACE = half_orcish [[type] type = $type$] [[subject] subject = yes ] }
+			$TRIGGER$ = { RACE = half_elven [[type] type = $type$] [[subject] subject = yes ] }
+			$TRIGGER$ = { RACE = hobgoblin [[type] type = $type$] [[subject] subject = yes ] }
+			$TRIGGER$ = { RACE = kobold [[type] type = $type$] [[subject] subject = yes ] }
+			$TRIGGER$ = { RACE = lizardfolk [[type] type = $type$] [[subject] subject = yes ] }
 		}
 	}
 }
@@ -31,6 +31,14 @@ is_purging_or_expelling_province_race = {
 			OR = {
 				has_country_modifier = racial_pop_$RACE$_expulsion
 				has_country_modifier = racial_pop_$RACE$_purge
+				[[subject]
+					overlord = {
+						has_country_modifier = racial_pop_$RACE$_expulsion
+					}
+					overlord = {
+						has_country_modifier = racial_pop_$RACE$_purge
+					}
+				]
 			}
 		}
 		OR = {

@@ -2168,7 +2168,10 @@ get_isolationsim_bonus = {
 	}
 	else_if = {
 		limit = { isolationism = 3 }
-		add_yearly_manpower = 2
+		if = {
+			limit = { NOT = { manpower = 1.0 } }
+			add_yearly_manpower = 2
+		}
 	}
 	else_if = {
 		limit = { isolationism = 2 }
@@ -2192,15 +2195,24 @@ get_isolationsim_bonus = {
 kobold_celebrate_effect = {
 	if = {	#red
 		limit = {has_dragon_aspect = {color = red amount = 3}}
-		add_yearly_manpower = 0.60
+		if = {
+			limit = { NOT = { manpower = 1.0 } }
+			add_yearly_manpower = 0.30
+		}
 	}
 	else_if = {	#red
 		limit = {has_dragon_aspect = {color = red amount = 2}}
-		add_yearly_manpower = 0.30
+		if = {
+			limit = { NOT = { manpower = 1.0 } }
+			add_yearly_manpower = 0.15
+		}
 	}
 	else_if = {	#red
 		limit = {has_dragon_aspect = {color = red amount = 1}}
-		add_yearly_manpower = 0.15
+		if = {
+			limit = { NOT = { manpower = 1.0 } }
+			add_yearly_manpower = 0.075
+		}
 	}
 	if = {	#blue
 		limit = {has_dragon_aspect = {color = blue amount = 3}}
@@ -2423,7 +2435,7 @@ dwarven_celebrate_effect = {
 		custom_tooltip = durvorazir_adm_aspect_tt
 		hidden_effect = {
 			every_owned_province = {
-				limit = {development = 40 has_owner_religion = yes province_with_mine_goods = yes}
+				limit = { OR = { has_terrain = dwarven_hold has_terrain = dwarven_under_hold } }
 				add_base_production = 1
 			}
 		}
@@ -2433,7 +2445,7 @@ dwarven_celebrate_effect = {
 		custom_tooltip = durvorazir_mil_aspect_tt
 		hidden_effect = {
 			every_owned_province = {
-				limit = {development = 40 has_owner_religion = yes has_manpower_building_trigger = yes}
+				limit = { OR = { has_terrain = dwarven_hold has_terrain = dwarven_under_hold } }
 				add_base_manpower = 1
 			}
 		}
@@ -2444,11 +2456,11 @@ dwarven_celebrate_effect = {
 		custom_tooltip = margurz_dip_aspect_effect_tt
 		hidden_effect = {
 			every_owned_province = {
-				limit = {development = 40 has_owner_religion = yes is_prosperous = yes }
-				add_1_dev_to_provinces = yes
-			}
-			every_owned_province = {
-				limit = {development = 40 has_owner_religion = yes is_prosperous = no }
+				limit = { OR = { has_terrain = dwarven_hold has_terrain = dwarven_under_hold } }
+				add_province_modifier = {
+					name = margurz_dip_aspect_modifier
+					duration = 7300
+				}
 				add_devastation = -20
 				add_prosperity = 10
 			}
@@ -2456,10 +2468,14 @@ dwarven_celebrate_effect = {
 	}
 	if = {
 		limit = {has_church_aspect = margurz_mil_aspect}
-		add_yearly_manpower = 2
+		if = {
+			limit = { NOT = { manpower = 1.0 } }
+			add_yearly_manpower = 1
+		}
 	}
 	if = {
 		limit = {has_church_aspect = miradeth_dip_aspect}
+		add_mercantilism_excess_to_diplo_power_effect = { VAL = 2 }
 		get_cash_from_mercantilism = yes
 	}
 	if = {
@@ -2477,12 +2493,11 @@ dwarven_celebrate_effect = {
 		custom_tooltip = azmirethazin_adm_aspect_effect_tt
 		hidden_effect = {
 			every_owned_province = {
-				limit = {
-					has_manufactory_trigger = yes
-					development = 30
-					has_owner_religion = yes
+				limit = { OR = { has_terrain = dwarven_hold has_terrain = dwarven_under_hold } }
+				add_province_modifier = {
+					name = azmirethazin_adm_aspect_modifier
+					duration = 7300
 				}
-				add_base_production = 1
 			}
 		}
 	}
@@ -3302,6 +3317,65 @@ update_recruitment_modifiers = {
 			}
 		}
 		add_country_modifier = {name = very_fast_pace_race_mechanic duration = -1 hidden = yes}
+	}
+	
+	if = {
+		limit = { estate_territory = { estate = estate_ogre territory = 90 } }
+		if = {limit = {mil_tech = 32} update_special_regiment_modifier = { race = ogre value = 31 } }
+		else_if = {limit = {mil_tech = 31}	update_special_regiment_modifier = { race = ogre value = 31 } }
+		else_if = {limit = {mil_tech = 30}	update_special_regiment_modifier = { race = ogre value = 30 } }
+		else_if = {limit = {mil_tech = 28}	update_special_regiment_modifier = { race = ogre value = 28 } }
+		else_if = {limit = {mil_tech = 27}	update_special_regiment_modifier = { race = ogre value = 27 } }
+		else_if = {limit = {mil_tech = 25}	update_special_regiment_modifier = { race = ogre value = 25 } }
+		else_if = {limit = {mil_tech = 24}	update_special_regiment_modifier = { race = ogre value = 24 } }
+		else_if = {limit = {mil_tech = 23}	update_special_regiment_modifier = { race = ogre value = 23 } }
+		else_if = {limit = {mil_tech = 22} update_special_regiment_modifier = { race = ogre value = 22 } }
+		else_if = {limit = {mil_tech = 21} update_special_regiment_modifier = { race = ogre value = 21 } }
+		else_if = {limit = {mil_tech = 20} update_special_regiment_modifier = { race = ogre value = 20 } }
+		else_if = {limit = {mil_tech = 19} update_special_regiment_modifier = { race = ogre value = 19 } }
+		else_if = {limit = {mil_tech = 16} update_special_regiment_modifier = { race = ogre value = 16 } }
+		else_if = {limit = {mil_tech = 15} update_special_regiment_modifier = { race = ogre value = 15 } }
+		else_if = {limit = {mil_tech = 14} update_special_regiment_modifier = { race = ogre value = 14 } }
+		else_if = {limit = {mil_tech = 13} update_special_regiment_modifier = { race = ogre value = 13 } }
+		else_if = {limit = {mil_tech = 12} update_special_regiment_modifier = { race = ogre value = 12 } }
+		else_if = {limit = {mil_tech = 11} update_special_regiment_modifier = { race = ogre value = 11 } }
+		else_if = {limit = {mil_tech = 9} update_special_regiment_modifier = { race = ogre value = 9 } }
+		else_if = {limit = {mil_tech = 8} update_special_regiment_modifier = { race = ogre value = 8 } }
+		else_if = {limit = {mil_tech = 7} update_special_regiment_modifier = { race = ogre value = 7 } }
+		else_if = {limit = {mil_tech = 6} update_special_regiment_modifier = { race = ogre value = 6 } }
+		else_if = {limit = {mil_tech = 5} update_special_regiment_modifier = { race = ogre value = 5 } }
+		else_if = {limit = {mil_tech = 4} update_special_regiment_modifier = { race = ogre value = 4 } }
+		else_if = {limit = {mil_tech = 2} update_special_regiment_modifier = { race = ogre value = 2 } }
+		else_if = {limit = {mil_tech = 1} update_special_regiment_modifier = { race = ogre value = 1 } }
+	}
+	if = {
+		limit = { estate_territory = { estate = estate_troll territory = 90 } }
+		if = {limit = {mil_tech = 32} update_special_regiment_modifier = { race = troll value = 31 } }
+		else_if = {limit = {mil_tech = 31}	update_special_regiment_modifier = { race = troll value = 31 } }
+		else_if = {limit = {mil_tech = 30}	update_special_regiment_modifier = { race = troll value = 30 } }
+		else_if = {limit = {mil_tech = 28}	update_special_regiment_modifier = { race = troll value = 28 } }
+		else_if = {limit = {mil_tech = 27}	update_special_regiment_modifier = { race = troll value = 27 } }
+		else_if = {limit = {mil_tech = 25}	update_special_regiment_modifier = { race = troll value = 25 } }
+		else_if = {limit = {mil_tech = 24}	update_special_regiment_modifier = { race = troll value = 24 } }
+		else_if = {limit = {mil_tech = 23}	update_special_regiment_modifier = { race = troll value = 23 } }
+		else_if = {limit = {mil_tech = 22} update_special_regiment_modifier = { race = troll value = 22 } }
+		else_if = {limit = {mil_tech = 21} update_special_regiment_modifier = { race = troll value = 21 } }
+		else_if = {limit = {mil_tech = 20} update_special_regiment_modifier = { race = troll value = 20 } }
+		else_if = {limit = {mil_tech = 19} update_special_regiment_modifier = { race = troll value = 19 } }
+		else_if = {limit = {mil_tech = 16} update_special_regiment_modifier = { race = troll value = 16 } }
+		else_if = {limit = {mil_tech = 15} update_special_regiment_modifier = { race = troll value = 15 } }
+		else_if = {limit = {mil_tech = 14} update_special_regiment_modifier = { race = troll value = 14 } }
+		else_if = {limit = {mil_tech = 13} update_special_regiment_modifier = { race = troll value = 13 } }
+		else_if = {limit = {mil_tech = 12} update_special_regiment_modifier = { race = troll value = 12 } }
+		else_if = {limit = {mil_tech = 11} update_special_regiment_modifier = { race = troll value = 11 } }
+		else_if = {limit = {mil_tech = 9} update_special_regiment_modifier = { race = troll value = 9 } }
+		else_if = {limit = {mil_tech = 8} update_special_regiment_modifier = { race = troll value = 8 } }
+		else_if = {limit = {mil_tech = 7} update_special_regiment_modifier = { race = troll value = 7 } }
+		else_if = {limit = {mil_tech = 6} update_special_regiment_modifier = { race = troll value = 6 } }
+		else_if = {limit = {mil_tech = 5} update_special_regiment_modifier = { race = troll value = 5 } }
+		else_if = {limit = {mil_tech = 4} update_special_regiment_modifier = { race = troll value = 4 } }
+		else_if = {limit = {mil_tech = 2} update_special_regiment_modifier = { race = troll value = 2 } }
+		else_if = {limit = {mil_tech = 1} update_special_regiment_modifier = { race = troll value = 1 } }
 	}
 }
 update_military_modifiers = {

@@ -291,11 +291,13 @@ obrtrol_missiontree_2 = {
 		}
 		
 		trigger = {
-			treasury = 100
-			adm_tech = 3
 			num_of_owned_provinces_with = {
 				value = 8
 				culture_group = gerudian
+			}
+			975 = {
+				country_or_non_sovereign_subject_holds = ROOT
+				has_construction = any
 			}
 		}
 		
@@ -304,7 +306,7 @@ obrtrol_missiontree_2 = {
 			capital_scope = {
 				add_province_modifier = {
 					name = obrtrol_draell_labour
-					duration = 7300 #20 years
+					duration = -1
 				}
 				add_province_modifier = {
 					name = obrtrol_expanded_infrastructure
@@ -312,8 +314,8 @@ obrtrol_missiontree_2 = {
 				}
 				add_building_construction = {
 					building = mage_tower
-					speed = 0.5
-					cost = 0.2
+					speed = 2.0
+					cost = 0.10
 				}
 			}
 		}
@@ -417,7 +419,14 @@ obrtrol_missiontree_3 = {
  		effect = {
 			add_country_modifier = {
  				name = "obrtrol_drums_of_war"
- 				duration = 5475 #15 years
+ 				duration = 3650 #10 years
+			}
+			capital_scope = {
+				samurai_infantry = ROOT
+				samurai_infantry = ROOT
+				samurai_infantry = ROOT
+				samurai_infantry = ROOT
+				samurai_infantry = ROOT
 			}
 			set_country_flag = hero_free_general_flag
 			custom_tooltip = get_free_great_mage_general_tt
@@ -555,11 +564,18 @@ obrtrol_missiontree_3 = {
 		
 		effect = {
 			add_country_modifier = {
-				name = "obrtrol_mountain_runes_amplified"
+				name = obrtrol_mountain_runes_amplified
 				duration = -1
 			}
 			995 = {
 				add_base_tax = 2
+				area = {
+					limit = { owned_by = ROOT }
+					add_province_modifier = {
+						name = growth_of_capital
+						duration = -1
+					}
+				}
 			}
 		}
 	}
@@ -576,7 +592,6 @@ obrtrol_missiontree_3 = {
 			OR = {
 				NOT = { country_or_non_sovereign_subject_holds = ROOT }
 				NOT = { has_tax_building_trigger = yes }
-				NOT = { has_building = mage_tower }
 			}
 		}
 		
@@ -584,7 +599,7 @@ obrtrol_missiontree_3 = {
 			985 = {
 				country_or_non_sovereign_subject_holds = ROOT
 				has_tax_building_trigger = yes
-				has_building = mage_tower
+				has_construction = any
 			}
 		}
 		
@@ -594,6 +609,11 @@ obrtrol_missiontree_3 = {
 				add_base_tax = 2
 				add_base_production = 1
 				add_base_manpower = 1
+				add_building_construction = {
+					building = mage_tower
+					speed = 2.0
+					cost = 0
+				}
 			}
 		}
 	}
@@ -1050,7 +1070,7 @@ obrtrol_missiontree_5 = {
  		}
  	}
 	
- 	obrtrol_gold_in_far_gerudia = {
+ 	obrtrol_gold_in_far_gerudia = {	#bertus mod
  		icon = mission_entrepot_of_india
  		required_missions = {
  			obrtrol_build_the_zein_market
@@ -1068,7 +1088,7 @@ obrtrol_missiontree_5 = {
  		trigger = {
  			2831 = {
  				owned_by = ROOT
- 				base_production = 7
+ 				base_production = 10
  			}
  		}
 		
@@ -1077,7 +1097,9 @@ obrtrol_missiontree_5 = {
  				limit = { 2831 = { NOT = { trade_goods = gold } } }
  				2831 = {
 					change_trade_goods = gold
-					add_base_manpower = 2
+					add_base_production = 2
+					add_human_minority_size_effect = yes
+					add_permanent_province_modifier = { name  = tluukt_new_veins duration = -1}
  				}
  			}
  		}
@@ -1120,8 +1142,8 @@ obrtrol_missiontree_5 = {
  		effect = {
 			977 = {
 				if = {
-					limit = { NOT = { trade_goods = wool } }
-					change_trade_goods = wool
+					limit = { NOT = { trade_goods = fur } }
+					change_trade_goods = fur
 				}
 				province_event = {id = bertus_changes.1013}	#culture change
 				add_base_manpower = 2
@@ -1144,6 +1166,10 @@ obrtrol_missiontree_5 = {
 			}
  			980 = {
  				province_event = {id = bertus_changes.1013}	#culture change
+				 if = {
+					 limit = { NOT = { trade_goods = fur } }
+					 change_trade_goods = fur
+				 }
  				add_base_manpower = 2
  				add_province_modifier = {
 					name = "obrtrol_mammoth_grazing"
@@ -1546,7 +1572,7 @@ obrtrol_missiontree_2_b = {
 		effect = {
 			add_country_modifier = {
 				name = "obrtrol_resettlement_grant"
-				duration = 14600 #40 years
+				duration = 7300 #20 years
 			}
 		}
 	}
@@ -1596,11 +1622,7 @@ obrtrol_missiontree_2_b = {
 		
 		trigger = {
 			has_country_modifier = troll_military
-			num_of_cavalry = 35
-			has_global_modifier_value = {
-				which = cavalry_power
-				value = 0.2
-			}
+			num_of_hussars = 20
 		}
 		
 		effect = {
@@ -1736,7 +1758,7 @@ obrtrol_missiontree_3_b = {
 		position = 9
 		
 		provinces_to_highlight = {
-			province_id = 975
+			province_id = 956
 			OR = {
 				NOT = { owned_by = ROOT }
 				NOT = { is_core = ROOT }
@@ -1746,15 +1768,15 @@ obrtrol_missiontree_3_b = {
 		trigger = {
 			is_at_war = no
 			treasury = 300
-			owns_core_province = 975
+			owns_core_province = 956
 		}
 		
 		effect = {
 			add_treasury = -300
-			set_capital = 975
-			975 = {
+			set_capital = 956
+			956 = {
 			 	if = {
- 					limit = { 975 = { NOT = { trade_goods = cloth } } }
+ 					limit = { NOT = { trade_goods = cloth } }
  					change_trade_goods = cloth
  				}
 				change_province_name = "Vésimli" #holy home
@@ -1762,11 +1784,6 @@ obrtrol_missiontree_3_b = {
 				add_base_tax = 2
 				add_base_production = 2
 				add_base_manpower = 2
-			}
-			995 = {
-				add_base_tax = -2
-				add_base_production = -2
-				add_base_manpower = -2
 			}
 		}
 	}
@@ -1815,18 +1832,13 @@ obrtrol_missiontree_3_b = {
 		position = 11
 		
 		trigger = {
-			dip_power = 100
-			custom_trigger_tooltip = {
-				tooltip = obrtrol_the_ordning_tooltip
-				Z74 = {
-					has_orcish_accepted_culture = yes
-					has_ogre_accepted_culture = yes
-				}
+			development_in_provinces = {
+				value = 1500
+				culture_group = ROOT
 			}
 		}
 		
 		effect = {
-			add_dip_power = -100
 			add_government_reform = the_ordning
 		}
 	}
@@ -1839,19 +1851,10 @@ obrtrol_missiontree_3_b = {
 		position = 13
 		
 		provinces_to_highlight = {
-			province_id = 985
-			OR = {
-				NOT = { country_or_non_sovereign_subject_holds = ROOT }
-				NOT = { fort_level = 2 }
-			}
 		}
 		
 		trigger = {
 			treasury = 5000
-			985 = {
-				country_or_non_sovereign_subject_holds = ROOT
-				fort_level = 2
-			}
 		}
 		
 		effect = {
@@ -1957,7 +1960,9 @@ obrtrol_missiontree_4_b = {
 		
 		effect = {
 			4187 = {
-				change_culture = olavish
+				add_human_minority_size_effect = yes
+				change_trade_goods = iron
+				custom_tooltip = 25_trade_goods_bonus_tt
 				add_province_modifier = {
 					name = "obrtrol_slave_mine"
 					duration = -1
@@ -1965,7 +1970,9 @@ obrtrol_missiontree_4_b = {
 				hidden_effect = {province_event = { id = bertus_pops.1045}}	#boost pop goods produced
 			}
 			4186 = {
-				change_culture = olavish
+				add_human_minority_size_effect = yes
+				change_trade_goods = iron
+				custom_tooltip = 25_trade_goods_bonus_tt
 				add_province_modifier = {
 					name = "obrtrol_slave_mine"
 					duration = -1
@@ -1973,7 +1980,9 @@ obrtrol_missiontree_4_b = {
 				hidden_effect = {province_event = { id = bertus_pops.1045}}	#boost pop goods produced
 			}
 			4185 = {
-				change_culture = olavish
+				add_human_minority_size_effect = yes
+				change_trade_goods = iron
+				custom_tooltip = 25_trade_goods_bonus_tt
 				add_province_modifier = {
 					name = "obrtrol_slave_mine"
 					duration = -1
@@ -1981,7 +1990,9 @@ obrtrol_missiontree_4_b = {
 				hidden_effect = {province_event = { id = bertus_pops.1045}}	#boost pop goods produced
 			}
 			4188 = {
-				change_culture = olavish
+				add_human_minority_size_effect = yes
+				change_trade_goods = iron
+				custom_tooltip = 25_trade_goods_bonus_tt
 				add_province_modifier = {
 					name = "obrtrol_slave_mine"
 					duration = -1
@@ -2131,6 +2142,18 @@ obrtrol_missiontree_4_b = {
 		
 		effect = {
 			if = {
+				limit = {
+					high_tolerance_ogre_race_trigger = yes
+				}
+				dalr_region = {
+					limit = {
+						NOT = { is_core = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_ogre_minority_size_effect = yes
+				}
+			}
+			if = {
 				limit = { exists = I90 }
 				add_casus_belli = {
 					target = I90
@@ -2179,10 +2202,6 @@ obrtrol_missiontree_4_b = {
 				country_or_non_sovereign_subject_holds = ROOT
 			}
 			northern_pass_region = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			yyl_moista_region = {
 				type = all
 				country_or_non_sovereign_subject_holds = ROOT
 			}
@@ -2314,59 +2333,61 @@ obrtrol_missiontree_5_b = {
 		
 		effect = {
 			add_prestige_or_monarch_power = {amount =  50}
-			4119 = {
-				add_base_tax = -3
-				add_base_production = -3
-				add_base_manpower = -3
-				add_devastation = 90
+
+			amldihr_area = {
+				limit = {
+					owned_by = ROOT 
+					NOT = { culture = ROOT }
+				}
+				change_culture = owner
+				change_religion = owner
+				add_devastation = 30
+				bertus_dev_reduction = {value = 0.5}
+				add_permanent_province_modifier = { name = expulsion_unrest_modifier duration = 1825 }
 			}
-			4149 = {
-				add_base_tax = -3
-				add_base_production = -3
-				add_base_manpower = -3
-				add_devastation = 90
+			amldihr_underhold_area = {
+				limit = {
+					owned_by = ROOT 
+					NOT = { culture = ROOT }
+				}
+				change_culture = owner
+				change_religion = owner
+				add_devastation = 30
+				bertus_dev_reduction = {value = 0.5}
+				add_permanent_province_modifier = { name = expulsion_unrest_modifier duration = 1825 }
 			}
-			4128 = {
-				add_base_tax = -3
-				add_base_production = -3
-				add_base_manpower = -3
-				add_devastation = 90
+			vazkron_underhold_area = {
+				limit = {
+					owned_by = ROOT 
+					NOT = { culture = ROOT }
+				}
+				change_culture = owner
+				change_religion = owner
+				add_devastation = 30
+				bertus_dev_reduction = {value = 0.5}
+				add_permanent_province_modifier = { name = expulsion_unrest_modifier duration = 1825 }
 			}
-			4122 = {
-				add_base_tax = -3
-				add_base_production = -3
-				add_base_manpower = -3
-				add_devastation = 90
+			amlharaz_underhold_area = {
+				limit = {
+					owned_by = ROOT 
+					NOT = { culture = ROOT }
+				}
+				change_culture = owner
+				change_religion = owner
+				add_devastation = 30
+				bertus_dev_reduction = {value = 0.5}
+				add_permanent_province_modifier = { name = expulsion_unrest_modifier duration = 1825 }
 			}
-			975 = {
-				add_base_tax = 3
-				add_base_production = 3
-				add_base_manpower = 3
-			}
-			740 = {
-				add_base_tax = 2
-				add_base_production = 2
-				add_base_manpower = 2
-			}
-			6173 = {
-				add_base_tax = 2
-				add_base_production = 2
-				add_base_manpower = 2
-			}
-			985 = {
-				add_base_tax = 2
-				add_base_production = 2
-				add_base_manpower = 2
-			}
-			995 = {
-				add_base_tax = 1
-				add_base_production = 1
-				add_base_manpower = 1
-			}
-			707 = {
-				add_base_tax = 1
-				add_base_production = 1
-				add_base_manpower = 1
+			ancestors_underhold_area = {
+				limit = {
+					owned_by = ROOT 
+					NOT = { culture = ROOT }
+				}
+				change_culture = owner
+				change_religion = owner
+				add_devastation = 30
+				bertus_dev_reduction = {value = 0.5}
+				add_permanent_province_modifier = { name = expulsion_unrest_modifier duration = 1825 }
 			}
 		}
 	}
@@ -2385,9 +2406,7 @@ obrtrol_missiontree_5_b = {
 				province_id = 4151
 				province_id = 4129
 				province_id = 4143
-				province_id = 4145
 				province_id = 4198
-				province_id = 4201
 			}
 			OR = {
 				NOT = { fort_level = 4 }
@@ -2416,15 +2435,7 @@ obrtrol_missiontree_5_b = {
 				fort_level = 4
 				country_or_non_sovereign_subject_holds = ROOT
 			}
-			4145 = {
-				fort_level = 4
-				country_or_non_sovereign_subject_holds = ROOT
-			}
 			4198 = {
-				fort_level = 4
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			4201 = {
 				fort_level = 4
 				country_or_non_sovereign_subject_holds = ROOT
 			}
@@ -2466,21 +2477,7 @@ obrtrol_missiontree_5_b = {
 					duration = -1
 				}
 			}
-			4145 = {
-				add_base_manpower = 2
-				add_permanent_province_modifier = {
-					name = "obrtrol_runic_ward"
-					duration = -1
-				}
-			}
 			4198 = {
-				add_base_manpower = 2
-				add_permanent_province_modifier = {
-					name = "obrtrol_runic_ward"
-					duration = -1
-				}
-			}
-			4201 = {
 				add_base_manpower = 2
 				add_permanent_province_modifier = {
 					name = "obrtrol_runic_ward"

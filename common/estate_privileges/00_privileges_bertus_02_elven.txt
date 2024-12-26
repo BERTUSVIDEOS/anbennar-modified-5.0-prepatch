@@ -437,7 +437,11 @@ estate_elven_elite_academies = {
 		has_race_recruitment = { race = elven }
 		has_elite_regiments = no
 	}
-	on_granted = {}
+	on_granted = {
+		remove_country_modifier = ibevar_by_the_bottom
+		remove_country_modifier = ibevar_by_the_top
+		custom_tooltip = estate_elven_elite_academies_tt
+	}
 	modifier_by_land_ownership = {
 		discipline = 0.10
 		mercenary_discipline = -0.10
@@ -446,7 +450,72 @@ estate_elven_elite_academies = {
 	}
 	penalties = {}
 	benefits = {
-		allowed_mamluks_fraction = -0.05
+		has_mamluks = no										#bertus mod
+		#allowed_mamluks_fraction = -0.05
+	}
+	conditional_modifier = {
+		trigger = {
+			has_country_flag = ibevar_by_the_bottom_flag
+		}
+		modifier = {
+			drill_decay_modifier = -0.10
+			drill_gain_modifier = 0.50
+			infantry_cost = 0.20
+			infantry_power = 0.20
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			has_country_flag = ibevar_by_the_top_flag
+		}
+		modifier = {
+			leader_cost = 0.5
+			free_leader_pool = 1
+			leader_land_fire = 2
+			leader_land_shock = 2
+			leader_land_manuever = 2
+			max_general_shock = 2
+			max_general_fire = 2
+			max_general_maneuver = 2
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			has_country_modifier = warrior_priest_modifier
+		}
+		modifier = {
+			discipline = 0.10
+			shock_damage_received = -0.10
+			fire_damage_received = -0.10
+			land_maintenance_modifier = 0.10
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			has_country_modifier = sustained_discipline_elite
+		}
+		modifier = {
+			land_morale = 0.10
+			land_maintenance_modifier = 0.10
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			has_country_modifier = aristocratic_discipline_modifier
+		}
+		modifier = {
+			discipline = 0.05
+			land_maintenance_modifier = 0.10
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			has_country_modifier = emperor_guard_modifier
+		}
+		modifier = {
+			infantry_power = 0.10
+			land_maintenance_modifier = 0.10
+		}
 	}
 	mechanics = {}
 	can_revoke = {}

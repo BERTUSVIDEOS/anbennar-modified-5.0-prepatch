@@ -10,7 +10,12 @@ update_artifice_points = {
 			set_variable = { which = UniversityArtificePoints value = 0 }
 			set_variable = { which = ArtificePointsMultiplier value = 1 }
 			export_to_variable = { which = ArtificePointsMultiplier value = modifier:artificers_capacity_multiplier_modifier }
-			export_to_variable = { which = MaxArtificePoints value = modifier:artificers_capacity_flat_modifier }
+			export_to_variable = { which = ArtificePointsFlatModifier value = modifier:artificers_capacity_flat_modifier }
+			change_variable = { which = MaxArtificePoints which = ArtificePointsFlatModifier }
+			subtract_variable = { which = ArtificeUpkeep which = ArtificeStaticUpkeep }
+			set_variable = { which = ArtificeStaticUpkeep value = 0 }
+			export_to_variable = { which = ArtificeStaticUpkeep value = modifier:artificers_capacity_upkeep_modifier }
+			multiply_variable = { which = ArtificeStaticUpkeep value = -1 }
 			# If you're adding a modifier here make sure to also add it to the artifice localization (in artifice_l_english and anb_custom_artifice_localization) otherwise it will not show up in game
 
 			if = { limit = { damestear = 1 NOT = { is_colonial_nation = yes } } change_variable = { which = MaxArtificePoints which = damestear_total } change_variable = { which = DamestearArtificePoints which = damestear_total } }
@@ -76,6 +81,7 @@ update_artifice_points = {
 			if = { limit = { NOT = { check_variable = { which = MaxArtificePoints value = 0 } } } set_variable = { which = MaxArtificePoints value = 0 } }
 			set_variable = { which = RemainingArtificePoints value = 0 }
 			change_variable = { which = RemainingArtificePoints which = MaxArtificePoints }
+			change_variable = { which = ArtificeUpkeep which = ArtificeStaticUpkeep }
 			subtract_variable = { which = RemainingArtificePoints which = ArtificeUpkeep }
 			# If over capacity
 			if = { limit = { NOT = { check_variable = { which = RemainingArtificePoints value = 0 } } } add_country_modifier = { name =  artificers_over_artifice_capacity duration = -1 } }

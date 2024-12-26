@@ -33,13 +33,16 @@ custom_button = {
 		has_country_modifier = gnomish_military
 	}
 	trigger = {
-		NOT = { has_country_modifier = improved_tanks_modifier }
+		if = {
+			limit = { has_country_modifier = improved_tanks_modifier }
+			NOT = { has_country_modifier = improved_tanks_modifier }
+		}
 		if = {
 			limit = { NOT = { check_variable = { which = tank_invention_progress_var value = 100 } } }
 			NOT = { check_variable = { which = tank_invention_progress_var value = 100 } } 
 			has_government_power = {
 				mechanic_type = artificers_capacity_mechanic
-				power_type = artificers_capacity
+				power_type = artificers_innovation
 				value = 25
 			}
 		}
@@ -54,11 +57,11 @@ custom_button = {
 		else = {
 			change_variable = {
 				which = tank_invention_progress_var
-				value = 10
+				value = 25
 			}
 			add_government_power = {
 				mechanic_type = artificers_capacity_mechanic
-				power_type = artificers_capacity
+				power_type = artificers_innovation
 				value = -25
 			}
 		}
@@ -73,6 +76,10 @@ custom_button = {
 		else_if = {
 			limit = { has_country_modifier = prototype_tanks_modifier }
 			custom_tooltip = tanks_lvl_1_modifiers_tt
+		}
+		else = {
+			limit = { has_country_modifier = experimental_tanks_modifier }
+			custom_tooltip = tanks_lvl_0_modifiers_tt
 		}
 	}
 	tooltip = "Tanks"
