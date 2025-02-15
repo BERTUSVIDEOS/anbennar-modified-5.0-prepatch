@@ -6947,6 +6947,7 @@ country_event = {
 		trigger = {
 			NOT = { has_ruler_flag = necromancy_3 }
 			NOT = { ruler_studying_magic = yes }
+			NOT = { has_government_attribute = negromancy_forbidden }
 		}
 		ai_chance = {
 			factor = 50
@@ -6984,6 +6985,7 @@ country_event = {
 			ai = no
 			NOT = { has_ruler_flag = ruler_studying_necromancy }
 			OR = {
+				has_government_attribute = negromancy_forbidden
 				has_ruler_flag = necromancy_3
 				ruler_studying_magic = yes
 				has_finished_magical_studies = yes
@@ -6995,6 +6997,9 @@ country_event = {
 		}
 		if = { limit = { ruler_studying_magic = yes }
 			custom_tooltip = already_studying_magic_tt
+		}
+		if = { limit = { has_government_attribute = negromancy_forbidden }
+			custom_tooltip = study_negromancy_forbidden_tt
 		}
 		set_country_flag = necromancy_menu
 		#clr_ruler_flag = magic_just_casted_spell #bertus mod
