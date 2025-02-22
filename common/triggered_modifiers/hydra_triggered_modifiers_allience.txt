@@ -1,0 +1,79 @@
+indipendent_power = {
+	potential = {
+		ai = no
+		is_subject = no
+	}
+	trigger  = {
+		all_ally = { ai = yes }
+		if = {
+			limit = {
+				is_at_war = yes
+			}
+			OR = {
+				is_in_war = {
+					attacker_leader = ROOT
+				}
+				is_in_war = {
+					defender_leader = ROOT
+				}
+			}
+			NOT = {
+				any_country = {
+					NOT = { tag = ROOT }
+					ai = no
+					OR = {
+						is_in_war = {
+							attacker_leader = ROOT
+							attackers = THIS
+						}
+						is_in_war = {
+							defender_leader = ROOT
+							defenders = THIS
+						}
+					}
+				}
+			}
+		}
+		NOT = { has_country_modifier = ally_less_than_5_years_ago_modifier }
+	}
+	manpower_recovery_speed = 0.10
+	discipline = 0.05
+}
+
+Minor = {
+	potential = {
+		ai = no
+		is_subject = no
+		is_great_power = no
+	}
+	trigger = {
+		any_neighbor_country = {
+			ai = no
+			OR = {
+				is_subject = no
+				AND = {
+					is_subject = yes
+					overlord = { ai = no }
+				}
+			}
+			OR = {
+				AND = {
+					is_at_war = yes
+					army_strength = { who = ROOT value = 4.0 }
+				}
+				AND = {
+					is_at_war = no
+					army_strength = { who = ROOT value = 2.0 }
+				}
+			}
+		}
+	}
+	all_power_cost = -0.05
+	development_cost_modifier = -0.05
+	own_territory_dice_roll_bonus = 1
+	recover_army_morale_speed = 0.05
+	reinforce_speed = 0.20
+	manpower_recovery_speed = 0.10
+	mercenary_cost = -0.10
+	mercenary_manpower = 0.20
+}
