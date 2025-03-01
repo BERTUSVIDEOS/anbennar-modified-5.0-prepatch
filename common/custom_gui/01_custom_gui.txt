@@ -144,13 +144,38 @@ custom_button = {
 		}
     }
     trigger = {
-		FROM = {
-			treasury = 200
-			dip_power = 50
-			is_at_war = no
+		if = {
+			limit = {
+				is_owned_by_trade_company = yes
+			}
+			is_core = owner
+			has_trade_company_investment_in_area  = {
+				investment = company_depot
+				investor = ROOT
+			}
+			has_trade_company_investment_in_area  = {
+				investment = brokers_exchange
+				investor = ROOT
+			}
+			has_trade_company_investment_in_area  = {
+				investment = district
+				investor = ROOT
+			}
+			FROM = { #This will apply to the country
+				treasury = 500
+				dip_power = 200
+				is_at_war = no
+			}
 		}
-		is_state_core = owner
-		development = 40
+		else = {
+			FROM = {
+				treasury = 200
+				dip_power = 50
+				is_at_war = no
+			}
+			is_state_core = owner
+			development = 30
+		}
 		OR = {
 			has_building = marketplace
 			has_building = trade_depot
@@ -159,9 +184,20 @@ custom_button = {
 		}
 	}
     effect = { 
-		FROM = { #This will apply to the country
-			add_treasury = -200
-			add_dip_power = -50
+		if = {
+			limit = {
+				is_owned_by_trade_company = yes
+			}
+			FROM = { #This will apply to the country
+				add_treasury = -500
+				add_dip_power = -200
+			}
+		}
+		else = {
+			FROM = { #This will apply to the country
+				add_treasury = -200
+				add_dip_power = -50
+			}
 		}
 		center_of_trade = 1		#These will apply on the province
 	}	

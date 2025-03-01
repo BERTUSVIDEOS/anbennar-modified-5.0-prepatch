@@ -25,7 +25,153 @@ custom_icon = {
 	}
 	tooltip = ""
 }
-
+custom_text_box = {
+	name = artificer_menu_topbar_invention_overlay_value
+	
+    potential = {
+		ai = no	
+		has_estate = estate_artificers
+	}
+	tooltip = artificer_menu_topbar_invention_overlay_value_tt
+}
+custom_button = {
+    name = artificers_menu_estate
+    
+    potential = {
+		ai = no
+		custom_trigger_tooltip = {
+			tooltip = has_artificer_estate_tt
+			OR = {
+				has_estate = estate_artificers
+				AND = {
+					has_estate = estate_dragon_command
+					has_institution = manufactories
+				}
+			}
+		}
+	}
+	trigger = {}
+	effect = {
+		hidden_effect = {
+			if = { limit = { NOT = { has_country_flag = estate_artificers_innovations_flag } } set_country_flag = estate_artificers_innovations_flag }
+			else = { clr_country_flag = estate_artificers_innovations_flag }
+			if = { limit = { has_country_flag = estate_mages_cast_spells } clr_country_flag = estate_mages_cast_spells }
+			hidden_effect = { country_event = { id = artificers_estate_events.100 } }
+		}
+	}
+	tooltip = "artifice_breakdown_short"
+}
+custom_icon = {
+	name = artificers_menu_background
+	
+    potential = {
+		ai = no	
+		has_country_flag = estate_artificers_innovations_flag
+	}
+	tooltip = ""
+}
+custom_text_box = {
+	name = artificers_capacity_progress_text
+	
+    potential = {
+		ai = no	
+		has_country_flag = estate_artificers_innovations_flag
+	}
+	tooltip = "artifice_breakdown"
+}
+custom_icon = {
+	name = artificer_invention_progress
+	
+    potential = {
+		ai = no	
+		has_country_flag = estate_artificers_innovations_flag
+	}
+	frame = {
+		number = 21
+		trigger = { check_variable = { which = invention_var value = 100 } }
+	}
+	frame = {
+		number = 20
+		trigger = { check_variable = { which = invention_var value = 95 } }
+	}
+	frame = {
+		number = 19
+		trigger = { check_variable = { which = invention_var value = 90 } }
+	}
+	frame = {
+		number = 18
+		trigger = { check_variable = { which = invention_var value = 85 } }
+	}
+	frame = {
+		number = 17
+		trigger = { check_variable = { which = invention_var value = 80 } }
+	}
+	frame = {
+		number = 16
+		trigger = { check_variable = { which = invention_var value = 75 } }
+	}
+	frame = {
+		number = 15
+		trigger = { check_variable = { which = invention_var value = 70 } }
+	}
+	frame = {
+		number = 14
+		trigger = { check_variable = { which = invention_var value = 65 } }
+	}
+	frame = {
+		number = 13
+		trigger = { check_variable = { which = invention_var value = 60 } }
+	}
+	frame = {
+		number = 12
+		trigger = { check_variable = { which = invention_var value = 55 } }
+	}
+	frame = {
+		number = 11
+		trigger = { check_variable = { which = invention_var value = 50 } }
+	}
+	frame = {
+		number = 10
+		trigger = { check_variable = { which = invention_var value = 45 } }
+	}
+	frame = {
+		number = 9
+		trigger = { check_variable = { which = invention_var value = 40 } }
+	}
+	frame = {
+		number = 8
+		trigger = { check_variable = { which = invention_var value = 35 } }
+	}
+	frame = {
+		number = 7
+		trigger = { check_variable = { which = invention_var value = 30 } }
+	}
+	frame = {
+		number = 6
+		trigger = { check_variable = { which = invention_var value = 25 } }
+	}
+	frame = {
+		number = 5
+		trigger = { check_variable = { which = invention_var value = 20 } }
+	}
+	frame = {
+		number = 4
+		trigger = { check_variable = { which = invention_var value = 15 } }
+	}
+	frame = {
+		number = 3
+		trigger = { check_variable = { which = invention_var value = 10 } }
+	}
+	frame = {
+		number = 2
+		trigger = { check_variable = { which = invention_var value = 5 } }
+	}
+	frame = {
+		number = 1
+		trigger = { check_variable = { which = invention_var value = 0 } }
+	}
+	tooltip = ""
+}
 custom_button = {
     name = invention_gnomish_tank
     
@@ -39,31 +185,18 @@ custom_button = {
 		}
 		if = {
 			limit = { NOT = { check_variable = { which = tank_invention_progress_var value = 100 } } }
-			NOT = { check_variable = { which = tank_invention_progress_var value = 100 } } 
-			has_government_power = {
-				mechanic_type = artificers_capacity_mechanic
-				power_type = artificers_innovation
-				value = 25
-			}
+			NOT = { check_variable = { which = tank_invention_progress_var value = 100 } }
+			check_variable = { which = invention_var value = 25 }
 		}
 	}
 	effect = {
 		if = {
 			limit = { check_variable = { which = tank_invention_progress_var value = 100 } }
-			country_event = {
-				id = artifice_inventions.912
-			}
+			country_event = { id = artifice_inventions.912 }
 		}
 		else = {
-			change_variable = {
-				which = tank_invention_progress_var
-				value = 25
-			}
-			add_government_power = {
-				mechanic_type = artificers_capacity_mechanic
-				power_type = artificers_innovation
-				value = -25
-			}
+			change_variable = { which = tank_invention_progress_var value = 25 }
+			change_variable = { which = invention_var value = -25 }
 		}
 		if = {
 			limit = { has_country_modifier = improved_tanks_modifier }
@@ -113,148 +246,6 @@ custom_icon = {
 	    trigger = { 
 		}
 	}
-}
-custom_button = {
-    name = artificers_menu_estate
-    
-    potential = {
-		ai = no
-		custom_trigger_tooltip = {
-			tooltip = has_artificer_estate_tt
-			OR = {
-				has_estate = estate_artificers
-				AND = {
-					has_estate = estate_dragon_command
-					has_institution = manufactories
-				}
-			}
-		}
-	}
-	trigger = {}
-	effect = {
-		hidden_effect = {
-			if = { limit = { NOT = { has_country_flag = estate_artificers_innovations_flag } } set_country_flag = estate_artificers_innovations_flag }
-			else = { clr_country_flag = estate_artificers_innovations_flag }
-			if = { limit = { has_country_flag = estate_mages_cast_spells } clr_country_flag = estate_mages_cast_spells }
-			if = {
-				limit = { cooldown_trigger = { name = update_artifice_points cooldown = 30 } }
-				set_cooldown_effect = { name = update_artifice_points }
-				hidden_effect = { country_event = { id = artificers_estate_events.100 } }
-			}
-		}
-	}
-	tooltip = "artifice_breakdown_short"
-}
-custom_icon = {
-	name = artificers_menu_background
-	
-    potential = {
-		ai = no	
-		has_country_flag = estate_artificers_innovations_flag
-	}
-	tooltip = ""
-}
-custom_text_box = {
-	name = artificers_capacity_progress_text
-	
-    potential = {
-		ai = no	
-		has_country_flag = estate_artificers_innovations_flag
-	}
-	tooltip = "artifice_breakdown"
-}
-custom_icon = {
-	name = artificers_capacity_progress
-	
-    potential = {
-		ai = no	
-		has_country_flag = estate_artificers_innovations_flag
-	}
-	frame = {
-		number = 21
-		trigger = { check_variable = { which = RemainingArtificePoints value = 100 } }
-	}
-	frame = {
-		number = 20
-		trigger = { check_variable = { which = RemainingArtificePoints value = 95 } }
-	}
-	frame = {
-		number = 19
-		trigger = { check_variable = { which = RemainingArtificePoints value = 90 } }
-	}
-	frame = {
-		number = 18
-		trigger = { check_variable = { which = RemainingArtificePoints value = 85 } }
-	}
-	frame = {
-		number = 17
-		trigger = { check_variable = { which = RemainingArtificePoints value = 80 } }
-	}
-	frame = {
-		number = 16
-		trigger = { check_variable = { which = RemainingArtificePoints value = 75 } }
-	}
-	frame = {
-		number = 15
-		trigger = { check_variable = { which = RemainingArtificePoints value = 70 } }
-	}
-	frame = {
-		number = 14
-		trigger = { check_variable = { which = RemainingArtificePoints value = 65 } }
-	}
-	frame = {
-		number = 13
-		trigger = { check_variable = { which = RemainingArtificePoints value = 60 } }
-	}
-	frame = {
-		number = 12
-		trigger = { check_variable = { which = RemainingArtificePoints value = 55 } }
-	}
-	frame = {
-		number = 11
-		trigger = { check_variable = { which = RemainingArtificePoints value = 50 } }
-	}
-	frame = {
-		number = 10
-		trigger = { check_variable = { which = RemainingArtificePoints value = 45 } }
-	}
-	frame = {
-		number = 9
-		trigger = { check_variable = { which = RemainingArtificePoints value = 40 } }
-	}
-	frame = {
-		number = 8
-		trigger = { check_variable = { which = RemainingArtificePoints value = 35 } }
-	}
-	frame = {
-		number = 7
-		trigger = { check_variable = { which = RemainingArtificePoints value = 30 } }
-	}
-	frame = {
-		number = 6
-		trigger = { check_variable = { which = RemainingArtificePoints value = 25 } }
-	}
-	frame = {
-		number = 5
-		trigger = { check_variable = { which = RemainingArtificePoints value = 20 } }
-	}
-	frame = {
-		number = 4
-		trigger = { check_variable = { which = RemainingArtificePoints value = 15 } }
-	}
-	frame = {
-		number = 3
-		trigger = { check_variable = { which = RemainingArtificePoints value = 10 } }
-	}
-	frame = {
-		number = 2
-		trigger = { check_variable = { which = RemainingArtificePoints value = 5 } }
-	}
-	frame = {
-		number = 1
-		trigger = { check_variable = { which = RemainingArtificePoints value = 0 } }
-	}
-	tooltip = ""
 }
 custom_button = {
     name = invention_portable_turrets

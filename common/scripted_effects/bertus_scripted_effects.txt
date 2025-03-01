@@ -165,23 +165,43 @@ get_monthly_manpower = {
 	}
 }
 get_monthly_mana = {
-	export_to_variable = { which = monthly_mana_var value = modifier:monthly_mana_modifier }
-	change_variable = { which = mana_var which = monthly_mana_var }
 	if = {
-		limit = { check_variable = { which = mana_var which = max_mana_var } }
-		export_to_variable = { which = max_mana_var value = modifier:max_mana_modifier }
+		limit = {
+			has_estate = estate_mages
+		}
+		export_to_variable = { which = monthly_mana_var value = modifier:monthly_mana_modifier }
+		change_variable = { which = mana_var which = monthly_mana_var }
 		if = {
-			limit = { has_country_flag = contribute_mana_flag }
-			add_estate_loyalty = { estate = estate_mages loyalty = 1.0 }
-			A85 = { add_mana_effect = { mana = 0.5 no_spell_in_a_box = yes } }
-			add_mana_effect = { mana = -1 no_spell_in_a_box = yes }
+			limit = { check_variable = { which = mana_var which = max_mana_var } }
+			export_to_variable = { which = max_mana_var value = modifier:max_mana_modifier }
 			if = {
-				limit = { check_variable = { which = mana_var which = max_mana_var } }
+				limit = { has_country_flag = contribute_mana_flag }
+				add_estate_loyalty = { estate = estate_mages loyalty = 1.0 }
+				A85 = { add_mana_effect = { mana = 0.5 no_spell_in_a_box = yes } }
+				add_mana_effect = { mana = -1 no_spell_in_a_box = yes }
+				if = {
+					limit = { check_variable = { which = mana_var which = max_mana_var } }
+					set_variable = { which = mana_var which = max_mana_var }
+				}
+			}
+			else = {
 				set_variable = { which = mana_var which = max_mana_var }
 			}
 		}
-		else = {
-			set_variable = { which = mana_var which = max_mana_var }
+	}
+}
+get_monthly_invention = {
+	if = {
+		limit = {
+			has_estate = estate_artificers
+		}
+		export_to_variable = { which = monthly_invention_var value = modifier:monthly_invention_flat_modifier }
+		export_to_variable = { which = monthly_invention_multiplier_var value = modifier:monthly_invention_multiplier_modifier }
+		multiply_variable = { which = invention_var which = monthly_invention_multiplier_var }
+		change_variable = { which = invention_var which = monthly_invention_var }
+		if = {
+			limit = { check_variable = { which = invention_var value = 100 } }
+			country_event = { id = artifice_events.1 }
 		}
 	}
 }

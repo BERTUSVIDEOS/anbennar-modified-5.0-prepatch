@@ -210,7 +210,19 @@ EscannGob1 = {
 		}
 		trigger = {
 			OR = {
-				has_adopted_cult = cannorian_cult
+				if = {
+					limit = {
+						uses_cults = yes
+					}
+					has_adopted_cult = cannorian_cult
+				}
+				if = {
+					limit = {
+						religion_group = orcish
+					}
+					religious_unity = 1.0
+					church_power = 400
+				}
 				religion_group = cannorian
 				religion_group = kheteratan
 			}
@@ -337,9 +349,9 @@ EscannGob2 = {
 		}
 		trigger = {
 			army_size_percentage = 0.9
-			manpower_percentage = 0.50
 		}
 		effect = {
+			create_general = { tradition = 50 } 	#bertus mod
 			add_country_modifier = {
 				name = "goblin_force_to_defend"
 				duration = 5475
@@ -539,7 +551,7 @@ EscannGob3 = {
 		}
 		trigger = {
 			stability = 1
-			legitimacy = 100
+			legitimacy = 90 	#100→90
 			prestige = 20
 		}
 		effect = {

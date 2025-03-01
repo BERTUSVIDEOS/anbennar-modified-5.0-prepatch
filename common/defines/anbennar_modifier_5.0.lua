@@ -161,6 +161,9 @@ NDefines.NMilitary.STRAIT_CROSSING_PENALTY = 4                          --2→4
 NDefines.NMilitary.SEA_LANDING_PENALTY = 4                              --2→4
 
 
+NDefines.NAI.PEACE_ALLY_CAPITAL_MULT = 1                                    -- 1   -- Aceptacion de la IA aliada por no controlar su capital
+NDefines.NAI.PEACE_DESPERATION_FACTOR = 40                                  -- 40  -- Aceptacion de la IA, por tierras ocupadas
+NDefines.NAI.PEACE_CALL_FOR_PEACE_FACTOR = 3                                -- 3   -- cuanto una IA quiere la paz basado en sus peticiones de paz
 NDefines.NAI.UNCONDITIONAL_SURRENDER_HOPELESS_STRENGTH_COMPARISON = 10      --20→10             -- if they have 20 times the army strength you do, wave the white flag
 NDefines.NAI.UNCONDITIONAL_SURRENDER_WARSCORE_LIMIT = -75                   --                  -- AI won't surrender unless it's this bad.
 NDefines.NAI.PEACE_TIME_MONTHS = 12                                         -- 60→12            -- Tiempo de "AI stubbornness in a war", un modificador de aceptar la paz
