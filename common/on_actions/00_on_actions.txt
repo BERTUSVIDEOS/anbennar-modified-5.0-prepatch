@@ -7530,19 +7530,35 @@ on_mil_tech_taken = { #ROOT - Country, executed after on_tech_taken!
 
 on_barrage = { #ROOT - barraging country, FROM - barraged province 
 	if = {
-		limit = { has_country_flag = marrhold_grenadiers_flag has_estate_privilege = estate_human_griffon_academies }
-		FROM = { change_siege = 2 add_devastation = 10 }
-	}
-	if = {	#bertus mod
-		limit = { has_government_attribute = extra_siege_on_breach }
-		FROM = { change_siege = 2 }
+		limit = {
+			has_global_modifier_value = { which = land_barrage_progress value = 1 }
+		}
+		set_variable = { which = temp value = 1 }
+		export_to_variable = { which = temp value = modifier:land_barrage_progress }
+		export_to_variable = { which = province_temp value = modifier:local_land_barrage_progress who = FROM }
+		change_variable = { which = temp which = province_temp }
+		while = {
+			limit = { check_variable = { which = temp value = 1 } }
+			change_variable = { which = temp value = -1 }
+			FROM = { change_siege = 1 }
+		}
 	}
 }
 
 on_naval_barrage = { #ROOT - barraging country, FROM - barraged province 
 	if = {
-		limit = {has_idea = maritim3}
-		FROM = {change_siege = 1}
+		limit = {
+			has_global_modifier_value = { which = naval_barrage_progress value = 1 }
+		}
+		set_variable = { which = temp value = 1 }
+		export_to_variable = { which = temp value = modifier:naval_barrage_progress }
+		export_to_variable = { which = province_temp value = modifier:local_naval_barrage_progress who = FROM }
+		change_variable = { which = temp which = province_temp }
+		while = {
+			limit = { check_variable = { which = temp value = 1 } }
+			change_variable = { which = temp value = -1 }
+			FROM = { change_siege = 1 }
+		}
 	}
 }
 
