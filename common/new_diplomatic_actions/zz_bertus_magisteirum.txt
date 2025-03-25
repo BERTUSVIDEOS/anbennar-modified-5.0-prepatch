@@ -892,6 +892,55 @@ magisterium_cast_flesh_necrosis_spell_action = {
 	}
 	ai_will_do = {always = no}
 }
+magisterium_cast_genital_cancer_spell_action = {
+	category = mages_influence_modifier
+	require_acceptance = no
+	alert_index = 21
+	
+	is_visible = {
+		if = {
+			limit = { has_estate_privilege = estate_mages_organization_magisterium }
+			A85 = { has_unlocked_magic_school = { school = necromancy level = 2} }
+		}
+		else = {
+			has_unlocked_magic_school = { school = necromancy level = 2 }
+		}
+    }
+	
+	is_allowed = {
+		has_mana = { mana = 50 }
+		if = {
+			limit = { FROM = { NOT = { government = monarchy } } }
+			FROM = { government = monarchy }
+		}
+		if = {
+			limit = { FROM = { has_ruler_modifier = spell_genital_cancer_1_modifier } }
+			FROM = { NOT = { has_ruler_modifier = spell_genital_cancer_1_modifier } }
+		}
+		if = {
+			limit = { FROM = { has_ruler_modifier = spell_genital_cancer_2_modifier } }
+			FROM = { NOT = { has_ruler_modifier = spell_genital_cancer_2_modifier } }
+		}
+		if = {
+			limit = { is_colonial_nation = yes }
+			is_colonial_nation = no
+		}
+	}
+
+    on_accept = {
+		add_mana_effect = { mana = -50 }
+		if = {
+			limit = { has_unlocked_magic_school = { school = necromancy level = 3 } }
+			FROM = { add_ruler_modifier = { name = spell_genital_cancer_2_modifier duration = 7300 } }
+		}
+		else = {
+			FROM = { add_ruler_modifier = { name = spell_genital_cancer_1_modifier duration = 3650 } }
+			custom_tooltip = magisters_need_tier_3_necromancy_tt
+			custom_tooltip = "to get lvl 3 Spell"
+		}
+	}
+	ai_will_do = {always = no}
+}
 magisterium_cast_enchantment_spell_action = {
 	category = mages_influence_modifier
 	require_acceptance = no

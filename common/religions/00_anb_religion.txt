@@ -296,7 +296,7 @@ cannorian = {
 		country = {
 			tolerance_heathen = 2
 			global_institution_spread = 0.2
-			artificers_capacity_multiplier_modifier = 0.25	#bertus mod
+			monthly_invention_flat_modifier = 0.8333	#	#10 yearly 	#bertus mod
 		}
 
 		country_as_secondary = {
@@ -575,48 +575,29 @@ cannorian = {
 						}
 					}
 				}
-				ai_will_do = {
-					factor = 1
-					modifier = {
-						factor = 2
-						NOT = {
-							adm = 3
-							mil = 3
-							dip = 3
-						}
-					}
-				}
+				ai_will_do = { factor = 1 }
 			}
 			send_ravelian_scholars = {
-				cost = 50
+				cost = 200
 				potential = {
 					NOT = { tag = Z97 }
 				}
 				allow = {
 					NOT = { war_with = Z97 }
-					NOT = { innovativeness = 100 }
 				}
 				effect = {
-					if = {
-						limit = {
-							NOT = { innovativeness = 100 }
-							has_dlc = "Rule Britannia"
-						}
-						change_innovativeness = 2
-					}
-					else = {
-						add_adm_power = 10
-						add_dip_power = 10
-						add_mil_power = 10
+					set_country_flag = hero_free_general_flag
+					custom_tooltip = get_free_great_artificer_general_tt
+					set_country_flag = get_artificer_flag
+					custom_tooltip = get_artificer_flag_tt
+					set_country_flag = great_general_extra_pips_flag
+					custom_tooltip = great_general_extra_pips_flag_tt
+					hidden_effect = {
+						set_saved_name = {key = special_general_name type = advisor scope = ROOT}
+						country_event = {id = bertus_changes.6030}
 					}
 				}
-				ai_will_do = {
-					factor = 1
-					modifier = {
-						factor = 0
-						NOT = { has_idea_group = innovativeness_ideas }
-					}
-				}
+				ai_will_do = { factor = 1 }
 			}
 			bless_monarch = {
 				cost = 50
@@ -634,13 +615,7 @@ cannorian = {
 						duration = 7300
 					}
 				}
-				ai_will_do = {
-					factor = 1
-					modifier = {
-						factor = 0
-						prestige = 95
-					}
-				}
+				ai_will_do = { factor = 1 }
 			}
 			local_saint = {
 				cost = 100
@@ -654,13 +629,7 @@ cannorian = {
 				effect = {
 					add_stability = 1
 				}
-				ai_will_do = {
-					factor = 1
-					modifier = {
-						factor = 2
-						NOT = { stability = 0 }
-					}
-				}
+				ai_will_do = { factor = 1 }
 			}
 			use_warrior_automata = {
 				cost = 50
@@ -685,13 +654,7 @@ cannorian = {
 					else_if = {limit = {mil_tech = 6} add_country_modifier = {name = warrior_automata_tech_6 duration = 7300 hidden = yes}}
 					else_if = {limit = {mil_tech = 1} add_country_modifier = {name = warrior_automata_tech_1 duration = 7300 hidden = yes}}
 				}
-				ai_will_do = {
-					factor = 0.5
-					modifier = {
-						factor = 3
-						is_at_war = yes
-					}
-				}
+				ai_will_do = { factor = 1 }
 			}
 			proclaim_holy_research = {
 				cost = 50
@@ -701,20 +664,27 @@ cannorian = {
 				allow = {
 					NOT = { war_with = Z97 }
 					NOT = { has_country_modifier = holy_research }
+					NOT = { innovativeness = 500 }
 				}
 				effect = {
+					if = {
+						limit = {
+							NOT = { innovativeness = 500 }
+							has_dlc = "Rule Britannia"
+						}
+						change_innovativeness = 2
+					}
+					else = {
+						add_adm_power = 10
+						add_dip_power = 10
+						add_mil_power = 10
+					}
 					add_country_modifier = {
 						name = "holy_research"
-						duration = 7300
+						duration = 1825
 					}
 				}
-				ai_will_do = {
-					factor = 1
-					modifier = {
-						factor = 0
-						is_lacking_institutions = no
-					}
-				}
+				ai_will_do = { factor = 1 }
 			}
 			sanction_commercial_monopoly = {
 				cost = 50
@@ -723,18 +693,11 @@ cannorian = {
 				}
 				allow = {
 					NOT = { war_with = Z97 }
-					NOT = { mercantilism = 100 }
 				}
 				effect = {
-					add_mercantilism = 1
+					add_mercantilism_excess_to_diplo_power_effect = { VAL = 1 }
 				}
-				ai_will_do = {
-					factor = 1
-					modifier = {
-						factor = 0
-						NOT = { has_idea_group = trade_ideas }
-					}
-				}
+				ai_will_do = { factor = 1 }
 			}
 		}
 	}

@@ -257,6 +257,7 @@ estate_elven_recruitment = {
 	loyalty = -0.10
 	influence = 0.10
 	is_valid = {
+		NOT = {mil_tech = 4}
 		high_tolerance_elven_race_trigger = yes	
 		any_owned_province = {
 			has_elven_majority_trigger = yes
@@ -272,25 +273,32 @@ estate_elven_recruitment = {
 		hidden_effect = {
 			set_country_flag = estate_elven_recruitment_flag
 			country_event = { id = bertus_racial_military.1001 }
+			if = {
+				limit = { NOT = { has_country_flag = estate_elven_recruitment_cooldown_flag } }
+				set_country_flag = estate_elven_recruitment_cooldown_flag
+			}
 		}
 	}
-	modifier_by_land_ownership = {}
+	modifier_by_land_ownership = {
+		military_tactics = 0.15
+	}
 	penalties = {}
 	benefits = {}
-	mechanics = {
-		
-	}
+	mechanics = {}
 	conditional_modifier = {
 		trigger = { estate_territory = { estate = estate_elven territory = 90 } }
 		modifier = {
 			drill_decay_modifier = -0.2
-			max_general_shock = 1
-			max_general_fire = 1
-			max_general_maneuver = 1
+			great_general_shock = 1
+			max_general_shock = 2
+			great_general_fire = 1
+			max_general_fire = 2
+			great_general_manuever = 1
+			max_general_maneuver = 2
 			max_general_siege = 1
-			max_admiral_shock = 1
-			max_admiral_fire = 1
-			max_admiral_maneuver = 1
+			max_admiral_shock = 2
+			max_admiral_fire = 2
+			max_admiral_maneuver = 2
 			max_admiral_siege = 1
 		}
 	}
@@ -299,15 +307,864 @@ estate_elven_recruitment = {
 	on_revoked = {
 		hidden_effect = {
 			clr_country_flag = estate_elven_recruitment_flag
+			clr_country_flag = estate_elven_recruitment_cooldown_flag
 			country_event = { id = bertus_racial_military.1001 }
 		}
-		add_mil_power = -100
 	}
 	on_invalid = {
+		clr_country_flag = estate_elven_recruitment_flag
+		country_event = { id = bertus_racial_military.1001 }
+		update_elven_recruitment = yes
+	}
+	ai_will_do = {factor = 1000}
+}
+estate_elven_recruitment_4 = {
+	icon = privilege_demand_more_troops
+	loyalty = -0.10
+	influence = 0.10
+	is_valid = {
+		mil_tech = 4
+		NOT = {mil_tech = 6}
+		high_tolerance_elven_race_trigger = yes
+		any_owned_province = {
+			has_elven_majority_trigger = yes
+		}
+	}
+	can_select = {		
+		high_tolerance_elven_race_trigger = yes	
+		any_owned_province = {
+			has_elven_majority_trigger = yes
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			set_country_flag = estate_elven_recruitment_flag
+			country_event = { id = bertus_racial_military.1001 }
+			if = {
+				limit = { NOT = { has_country_flag = estate_elven_recruitment_cooldown_flag } }
+				set_country_flag = estate_elven_recruitment_cooldown_flag
+			}
+		}
+	}
+	modifier_by_land_ownership = {
+		military_tactics = 0.20
+	}
+	penalties = {}
+	benefits = {}
+	mechanics = {}
+	conditional_modifier = {
+		trigger = { estate_territory = { estate = estate_elven territory = 90 } }
+		modifier = {
+			drill_decay_modifier = -0.2
+			great_general_shock = 1
+			max_general_shock = 2
+			great_general_fire = 1
+			max_general_fire = 2
+			great_general_manuever = 1
+			max_general_maneuver = 2
+			max_general_siege = 1
+			max_admiral_shock = 2
+			max_admiral_fire = 2
+			max_admiral_maneuver = 2
+			max_admiral_siege = 1
+		}
+	}
+	can_revoke = {
+		had_country_flag = {
+			flag = estate_elven_recruitment_cooldown_flag
+			days = 7300
+		}
+	}
+	on_revoked = {
 		hidden_effect = {
 			clr_country_flag = estate_elven_recruitment_flag
+			clr_country_flag = estate_elven_recruitment_cooldown_flag
 			country_event = { id = bertus_racial_military.1001 }
 		}
+	}
+	on_invalid = {
+		clr_country_flag = estate_elven_recruitment_flag
+		country_event = { id = bertus_racial_military.1001 }
+		update_elven_recruitment = yes
+	}
+	ai_will_do = {factor = 1000}
+}
+estate_elven_recruitment_6 = {
+	icon = privilege_demand_more_troops
+	loyalty = -0.10
+	influence = 0.10
+	is_valid = {
+		mil_tech = 6
+		NOT = {mil_tech = 7}
+		high_tolerance_elven_race_trigger = yes
+		any_owned_province = {
+			has_elven_majority_trigger = yes
+		}
+	}
+	can_select = {		
+		high_tolerance_elven_race_trigger = yes	
+		any_owned_province = {
+			has_elven_majority_trigger = yes
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			set_country_flag = estate_elven_recruitment_flag
+			country_event = { id = bertus_racial_military.1001 }
+			if = {
+				limit = { NOT = { has_country_flag = estate_elven_recruitment_cooldown_flag } }
+				set_country_flag = estate_elven_recruitment_cooldown_flag
+			}
+		}
+	}
+	modifier_by_land_ownership = {
+		military_tactics = 0.25
+	}
+	penalties = {}
+	benefits = {}
+	mechanics = {}
+	conditional_modifier = {
+		trigger = { estate_territory = { estate = estate_elven territory = 90 } }
+		modifier = {
+			drill_decay_modifier = -0.2
+			great_general_shock = 1
+			max_general_shock = 2
+			great_general_fire = 1
+			max_general_fire = 2
+			great_general_manuever = 1
+			max_general_maneuver = 2
+			max_general_siege = 1
+			max_admiral_shock = 2
+			max_admiral_fire = 2
+			max_admiral_maneuver = 2
+			max_admiral_siege = 1
+		}
+	}
+	can_revoke = {
+		had_country_flag = {
+			flag = estate_elven_recruitment_cooldown_flag
+			days = 7300
+		}
+	}
+	on_revoked = {
+		hidden_effect = {
+			clr_country_flag = estate_elven_recruitment_flag
+			clr_country_flag = estate_elven_recruitment_cooldown_flag
+			country_event = { id = bertus_racial_military.1001 }
+		}
+	}
+	on_invalid = {
+		clr_country_flag = estate_elven_recruitment_flag
+		country_event = { id = bertus_racial_military.1001 }
+		update_elven_recruitment = yes
+	}
+	ai_will_do = {factor = 1000}
+}
+estate_elven_recruitment_7 = {
+	icon = privilege_demand_more_troops
+	loyalty = -0.10
+	influence = 0.10
+	is_valid = {
+		mil_tech = 7
+		NOT = {mil_tech = 9}
+		high_tolerance_elven_race_trigger = yes
+		any_owned_province = {
+			has_elven_majority_trigger = yes
+		}
+	}
+	can_select = {		
+		high_tolerance_elven_race_trigger = yes	
+		any_owned_province = {
+			has_elven_majority_trigger = yes
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			set_country_flag = estate_elven_recruitment_flag
+			country_event = { id = bertus_racial_military.1001 }
+			if = {
+				limit = { NOT = { has_country_flag = estate_elven_recruitment_cooldown_flag } }
+				set_country_flag = estate_elven_recruitment_cooldown_flag
+			}
+		}
+	}
+	modifier_by_land_ownership = {
+		military_tactics = 0.30
+	}
+	penalties = {}
+	benefits = {}
+	mechanics = {}
+	conditional_modifier = {
+		trigger = { estate_territory = { estate = estate_elven territory = 90 } }
+		modifier = {
+			drill_decay_modifier = -0.2
+			great_general_shock = 1
+			max_general_shock = 2
+			great_general_fire = 1
+			max_general_fire = 2
+			great_general_manuever = 1
+			max_general_maneuver = 2
+			max_general_siege = 1
+			max_admiral_shock = 2
+			max_admiral_fire = 2
+			max_admiral_maneuver = 2
+			max_admiral_siege = 1
+		}
+	}
+	can_revoke = {
+		had_country_flag = {
+			flag = estate_elven_recruitment_cooldown_flag
+			days = 7300
+		}
+	}
+	on_revoked = {
+		hidden_effect = {
+			clr_country_flag = estate_elven_recruitment_flag
+			clr_country_flag = estate_elven_recruitment_cooldown_flag
+			country_event = { id = bertus_racial_military.1001 }
+		}
+	}
+	on_invalid = {
+		clr_country_flag = estate_elven_recruitment_flag
+		country_event = { id = bertus_racial_military.1001 }
+		update_elven_recruitment = yes
+	}
+	ai_will_do = {factor = 1000}
+}
+estate_elven_recruitment_9 = {
+	icon = privilege_demand_more_troops
+	loyalty = -0.10
+	influence = 0.10
+	is_valid = {
+		mil_tech = 9
+		NOT = {mil_tech = 12}
+		high_tolerance_elven_race_trigger = yes
+		any_owned_province = {
+			has_elven_majority_trigger = yes
+		}
+	}
+	can_select = {		
+		high_tolerance_elven_race_trigger = yes	
+		any_owned_province = {
+			has_elven_majority_trigger = yes
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			set_country_flag = estate_elven_recruitment_flag
+			country_event = { id = bertus_racial_military.1001 }
+			if = {
+				limit = { NOT = { has_country_flag = estate_elven_recruitment_cooldown_flag } }
+				set_country_flag = estate_elven_recruitment_cooldown_flag
+			}
+		}
+	}
+	modifier_by_land_ownership = {
+		military_tactics = 0.35
+	}
+	penalties = {}
+	benefits = {}
+	mechanics = {}
+	conditional_modifier = {
+		trigger = { estate_territory = { estate = estate_elven territory = 90 } }
+		modifier = {
+			drill_decay_modifier = -0.2
+			great_general_shock = 1
+			max_general_shock = 2
+			great_general_fire = 1
+			max_general_fire = 2
+			great_general_manuever = 1
+			max_general_maneuver = 2
+			max_general_siege = 1
+			max_admiral_shock = 2
+			max_admiral_fire = 2
+			max_admiral_maneuver = 2
+			max_admiral_siege = 1
+		}
+	}
+	can_revoke = {
+		had_country_flag = {
+			flag = estate_elven_recruitment_cooldown_flag
+			days = 7300
+		}
+	}
+	on_revoked = {
+		hidden_effect = {
+			clr_country_flag = estate_elven_recruitment_flag
+			clr_country_flag = estate_elven_recruitment_cooldown_flag
+			country_event = { id = bertus_racial_military.1001 }
+		}
+	}
+	on_invalid = {
+		clr_country_flag = estate_elven_recruitment_flag
+		country_event = { id = bertus_racial_military.1001 }
+		update_elven_recruitment = yes
+	}
+	ai_will_do = {factor = 1000}
+}
+estate_elven_recruitment_12 = {
+	icon = privilege_demand_more_troops
+	loyalty = -0.10
+	influence = 0.10
+	is_valid = {
+		mil_tech = 12
+		NOT = {mil_tech = 15}
+		high_tolerance_elven_race_trigger = yes
+		any_owned_province = {
+			has_elven_majority_trigger = yes
+		}
+	}
+	can_select = {		
+		high_tolerance_elven_race_trigger = yes	
+		any_owned_province = {
+			has_elven_majority_trigger = yes
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			set_country_flag = estate_elven_recruitment_flag
+			country_event = { id = bertus_racial_military.1001 }
+			if = {
+				limit = { NOT = { has_country_flag = estate_elven_recruitment_cooldown_flag } }
+				set_country_flag = estate_elven_recruitment_cooldown_flag
+			}
+		}
+	}
+	modifier_by_land_ownership = {
+		military_tactics = 0.40
+	}
+	penalties = {}
+	benefits = {}
+	mechanics = {}
+	conditional_modifier = {
+		trigger = { estate_territory = { estate = estate_elven territory = 90 } }
+		modifier = {
+			drill_decay_modifier = -0.2
+			great_general_shock = 1
+			max_general_shock = 2
+			great_general_fire = 1
+			max_general_fire = 2
+			great_general_manuever = 1
+			max_general_maneuver = 2
+			max_general_siege = 1
+			max_admiral_shock = 2
+			max_admiral_fire = 2
+			max_admiral_maneuver = 2
+			max_admiral_siege = 1
+		}
+	}
+	can_revoke = {
+		had_country_flag = {
+			flag = estate_elven_recruitment_cooldown_flag
+			days = 7300
+		}
+	}
+	on_revoked = {
+		hidden_effect = {
+			clr_country_flag = estate_elven_recruitment_flag
+			clr_country_flag = estate_elven_recruitment_cooldown_flag
+			country_event = { id = bertus_racial_military.1001 }
+		}
+	}
+	on_invalid = {
+		clr_country_flag = estate_elven_recruitment_flag
+		country_event = { id = bertus_racial_military.1001 }
+		update_elven_recruitment = yes
+	}
+	ai_will_do = {factor = 1000}
+}
+estate_elven_recruitment_15 = {
+	icon = privilege_demand_more_troops
+	loyalty = -0.10
+	influence = 0.10
+	is_valid = {
+		mil_tech = 15
+		NOT = {mil_tech = 19}
+		high_tolerance_elven_race_trigger = yes
+		any_owned_province = {
+			has_elven_majority_trigger = yes
+		}
+	}
+	can_select = {		
+		high_tolerance_elven_race_trigger = yes	
+		any_owned_province = {
+			has_elven_majority_trigger = yes
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			set_country_flag = estate_elven_recruitment_flag
+			country_event = { id = bertus_racial_military.1001 }
+			if = {
+				limit = { NOT = { has_country_flag = estate_elven_recruitment_cooldown_flag } }
+				set_country_flag = estate_elven_recruitment_cooldown_flag
+			}
+		}
+	}
+	modifier_by_land_ownership = {
+		military_tactics = 0.45
+	}
+	penalties = {}
+	benefits = {}
+	mechanics = {}
+	conditional_modifier = {
+		trigger = { estate_territory = { estate = estate_elven territory = 90 } }
+		modifier = {
+			drill_decay_modifier = -0.2
+			great_general_shock = 1
+			max_general_shock = 2
+			great_general_fire = 1
+			max_general_fire = 2
+			great_general_manuever = 1
+			max_general_maneuver = 2
+			max_general_siege = 1
+			max_admiral_shock = 2
+			max_admiral_fire = 2
+			max_admiral_maneuver = 2
+			max_admiral_siege = 1
+		}
+	}
+	can_revoke = {
+		had_country_flag = {
+			flag = estate_elven_recruitment_cooldown_flag
+			days = 7300
+		}
+	}
+	on_revoked = {
+		hidden_effect = {
+			clr_country_flag = estate_elven_recruitment_flag
+			clr_country_flag = estate_elven_recruitment_cooldown_flag
+			country_event = { id = bertus_racial_military.1001 }
+		}
+	}
+	on_invalid = {
+		clr_country_flag = estate_elven_recruitment_flag
+		country_event = { id = bertus_racial_military.1001 }
+		update_elven_recruitment = yes
+	}
+	ai_will_do = {factor = 1000}
+}
+estate_elven_recruitment_19 = {
+	icon = privilege_demand_more_troops
+	loyalty = -0.10
+	influence = 0.10
+	is_valid = {
+		mil_tech = 19
+		NOT = {mil_tech = 21}
+		high_tolerance_elven_race_trigger = yes
+		any_owned_province = {
+			has_elven_majority_trigger = yes
+		}
+	}
+	can_select = {		
+		high_tolerance_elven_race_trigger = yes	
+		any_owned_province = {
+			has_elven_majority_trigger = yes
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			set_country_flag = estate_elven_recruitment_flag
+			country_event = { id = bertus_racial_military.1001 }
+			if = {
+				limit = { NOT = { has_country_flag = estate_elven_recruitment_cooldown_flag } }
+				set_country_flag = estate_elven_recruitment_cooldown_flag
+			}
+		}
+	}
+	modifier_by_land_ownership = {
+		military_tactics = 0.50
+	}
+	penalties = {}
+	benefits = {}
+	mechanics = {}
+	conditional_modifier = {
+		trigger = { estate_territory = { estate = estate_elven territory = 90 } }
+		modifier = {
+			drill_decay_modifier = -0.2
+			great_general_shock = 1
+			max_general_shock = 2
+			great_general_fire = 1
+			max_general_fire = 2
+			great_general_manuever = 1
+			max_general_maneuver = 2
+			max_general_siege = 1
+			max_admiral_shock = 2
+			max_admiral_fire = 2
+			max_admiral_maneuver = 2
+			max_admiral_siege = 1
+		}
+	}
+	can_revoke = {
+		had_country_flag = {
+			flag = estate_elven_recruitment_cooldown_flag
+			days = 7300
+		}
+	}
+	on_revoked = {
+		hidden_effect = {
+			clr_country_flag = estate_elven_recruitment_flag
+			clr_country_flag = estate_elven_recruitment_cooldown_flag
+			country_event = { id = bertus_racial_military.1001 }
+		}
+	}
+	on_invalid = {
+		clr_country_flag = estate_elven_recruitment_flag
+		country_event = { id = bertus_racial_military.1001 }
+		update_elven_recruitment = yes
+	}
+	ai_will_do = {factor = 1000}
+}
+estate_elven_recruitment_21 = {
+	icon = privilege_demand_more_troops
+	loyalty = -0.10
+	influence = 0.10
+	is_valid = {
+		mil_tech = 21
+		NOT = {mil_tech = 23}
+		high_tolerance_elven_race_trigger = yes
+		any_owned_province = {
+			has_elven_majority_trigger = yes
+		}
+	}
+	can_select = {		
+		high_tolerance_elven_race_trigger = yes	
+		any_owned_province = {
+			has_elven_majority_trigger = yes
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			set_country_flag = estate_elven_recruitment_flag
+			country_event = { id = bertus_racial_military.1001 }
+			if = {
+				limit = { NOT = { has_country_flag = estate_elven_recruitment_cooldown_flag } }
+				set_country_flag = estate_elven_recruitment_cooldown_flag
+			}
+		}
+	}
+	modifier_by_land_ownership = {
+		military_tactics = 0.55
+	}
+	penalties = {}
+	benefits = {}
+	mechanics = {}
+	conditional_modifier = {
+		trigger = { estate_territory = { estate = estate_elven territory = 90 } }
+		modifier = {
+			drill_decay_modifier = -0.2
+			great_general_shock = 1
+			max_general_shock = 2
+			great_general_fire = 1
+			max_general_fire = 2
+			great_general_manuever = 1
+			max_general_maneuver = 2
+			max_general_siege = 1
+			max_admiral_shock = 2
+			max_admiral_fire = 2
+			max_admiral_maneuver = 2
+			max_admiral_siege = 1
+		}
+	}
+	can_revoke = {
+		had_country_flag = {
+			flag = estate_elven_recruitment_cooldown_flag
+			days = 7300
+		}
+	}
+	on_revoked = {
+		hidden_effect = {
+			clr_country_flag = estate_elven_recruitment_flag
+			clr_country_flag = estate_elven_recruitment_cooldown_flag
+			country_event = { id = bertus_racial_military.1001 }
+		}
+	}
+	on_invalid = {
+		clr_country_flag = estate_elven_recruitment_flag
+		country_event = { id = bertus_racial_military.1001 }
+		update_elven_recruitment = yes
+	}
+	ai_will_do = {factor = 1000}
+}
+estate_elven_recruitment_23 = {
+	icon = privilege_demand_more_troops
+	loyalty = -0.10
+	influence = 0.10
+	is_valid = {
+		mil_tech = 23
+		NOT = {mil_tech = 24}
+		high_tolerance_elven_race_trigger = yes
+		any_owned_province = {
+			has_elven_majority_trigger = yes
+		}
+	}
+	can_select = {		
+		high_tolerance_elven_race_trigger = yes	
+		any_owned_province = {
+			has_elven_majority_trigger = yes
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			set_country_flag = estate_elven_recruitment_flag
+			country_event = { id = bertus_racial_military.1001 }
+			if = {
+				limit = { NOT = { has_country_flag = estate_elven_recruitment_cooldown_flag } }
+				set_country_flag = estate_elven_recruitment_cooldown_flag
+			}
+		}
+	}
+	modifier_by_land_ownership = {
+		military_tactics = 0.60
+	}
+	penalties = {}
+	benefits = {}
+	mechanics = {}
+	conditional_modifier = {
+		trigger = { estate_territory = { estate = estate_elven territory = 90 } }
+		modifier = {
+			drill_decay_modifier = -0.2
+			great_general_shock = 1
+			max_general_shock = 2
+			great_general_fire = 1
+			max_general_fire = 2
+			great_general_manuever = 1
+			max_general_maneuver = 2
+			max_general_siege = 1
+			max_admiral_shock = 2
+			max_admiral_fire = 2
+			max_admiral_maneuver = 2
+			max_admiral_siege = 1
+		}
+	}
+	can_revoke = {
+		had_country_flag = {
+			flag = estate_elven_recruitment_cooldown_flag
+			days = 7300
+		}
+	}
+	on_revoked = {
+		hidden_effect = {
+			clr_country_flag = estate_elven_recruitment_flag
+			clr_country_flag = estate_elven_recruitment_cooldown_flag
+			country_event = { id = bertus_racial_military.1001 }
+		}
+	}
+	on_invalid = {
+		clr_country_flag = estate_elven_recruitment_flag
+		country_event = { id = bertus_racial_military.1001 }
+		update_elven_recruitment = yes
+	}
+	ai_will_do = {factor = 1000}
+}
+estate_elven_recruitment_24 = {
+	icon = privilege_demand_more_troops
+	loyalty = -0.10
+	influence = 0.10
+	is_valid = {
+		mil_tech = 24
+		NOT = {mil_tech = 30}
+		high_tolerance_elven_race_trigger = yes
+		any_owned_province = {
+			has_elven_majority_trigger = yes
+		}
+	}
+	can_select = {		
+		high_tolerance_elven_race_trigger = yes	
+		any_owned_province = {
+			has_elven_majority_trigger = yes
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			set_country_flag = estate_elven_recruitment_flag
+			country_event = { id = bertus_racial_military.1001 }
+			if = {
+				limit = { NOT = { has_country_flag = estate_elven_recruitment_cooldown_flag } }
+				set_country_flag = estate_elven_recruitment_cooldown_flag
+			}
+		}
+	}
+	modifier_by_land_ownership = {
+		military_tactics = 0.65
+	}
+	penalties = {}
+	benefits = {}
+	mechanics = {}
+	conditional_modifier = {
+		trigger = { estate_territory = { estate = estate_elven territory = 90 } }
+		modifier = {
+			drill_decay_modifier = -0.2
+			great_general_shock = 1
+			max_general_shock = 2
+			great_general_fire = 1
+			max_general_fire = 2
+			great_general_manuever = 1
+			max_general_maneuver = 2
+			max_general_siege = 1
+			max_admiral_shock = 2
+			max_admiral_fire = 2
+			max_admiral_maneuver = 2
+			max_admiral_siege = 1
+		}
+	}
+	can_revoke = {
+		had_country_flag = {
+			flag = estate_elven_recruitment_cooldown_flag
+			days = 7300
+		}
+	}
+	on_revoked = {
+		hidden_effect = {
+			clr_country_flag = estate_elven_recruitment_flag
+			clr_country_flag = estate_elven_recruitment_cooldown_flag
+			country_event = { id = bertus_racial_military.1001 }
+		}
+	}
+	on_invalid = {
+		clr_country_flag = estate_elven_recruitment_flag
+		country_event = { id = bertus_racial_military.1001 }
+		update_elven_recruitment = yes
+	}
+	ai_will_do = {factor = 1000}
+}
+estate_elven_recruitment_30 = {
+	icon = privilege_demand_more_troops
+	loyalty = -0.10
+	influence = 0.10
+	is_valid = {
+		mil_tech = 30
+		NOT = {mil_tech = 32}
+		high_tolerance_elven_race_trigger = yes
+		any_owned_province = {
+			has_elven_majority_trigger = yes
+		}
+	}
+	can_select = {		
+		high_tolerance_elven_race_trigger = yes	
+		any_owned_province = {
+			has_elven_majority_trigger = yes
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			set_country_flag = estate_elven_recruitment_flag
+			country_event = { id = bertus_racial_military.1001 }
+			if = {
+				limit = { NOT = { has_country_flag = estate_elven_recruitment_cooldown_flag } }
+				set_country_flag = estate_elven_recruitment_cooldown_flag
+			}
+		}
+	}
+	modifier_by_land_ownership = {
+		military_tactics = 0.70
+	}
+	penalties = {}
+	benefits = {}
+	mechanics = {}
+	conditional_modifier = {
+		trigger = { estate_territory = { estate = estate_elven territory = 90 } }
+		modifier = {
+			drill_decay_modifier = -0.2
+			great_general_shock = 1
+			max_general_shock = 2
+			great_general_fire = 1
+			max_general_fire = 2
+			great_general_manuever = 1
+			max_general_maneuver = 2
+			max_general_siege = 1
+			max_admiral_shock = 2
+			max_admiral_fire = 2
+			max_admiral_maneuver = 2
+			max_admiral_siege = 1
+		}
+	}
+	can_revoke = {
+		had_country_flag = {
+			flag = estate_elven_recruitment_cooldown_flag
+			days = 7300
+		}
+	}
+	on_revoked = {
+		hidden_effect = {
+			clr_country_flag = estate_elven_recruitment_flag
+			clr_country_flag = estate_elven_recruitment_cooldown_flag
+			country_event = { id = bertus_racial_military.1001 }
+		}
+	}
+	on_invalid = {
+		clr_country_flag = estate_elven_recruitment_flag
+		country_event = { id = bertus_racial_military.1001 }
+		update_elven_recruitment = yes
+	}
+	ai_will_do = {factor = 1000}
+}
+estate_elven_recruitment_32 = {
+	icon = privilege_demand_more_troops
+	loyalty = -0.10
+	influence = 0.10
+	is_valid = {
+		mil_tech = 32
+		high_tolerance_elven_race_trigger = yes
+		any_owned_province = {
+			has_elven_majority_trigger = yes
+		}
+	}
+	can_select = {		
+		high_tolerance_elven_race_trigger = yes	
+		any_owned_province = {
+			has_elven_majority_trigger = yes
+		}
+	}
+	on_granted = {
+		hidden_effect = {
+			set_country_flag = estate_elven_recruitment_flag
+			country_event = { id = bertus_racial_military.1001 }
+			if = {
+				limit = { NOT = { has_country_flag = estate_elven_recruitment_cooldown_flag } }
+				set_country_flag = estate_elven_recruitment_cooldown_flag
+			}
+		}
+	}
+	modifier_by_land_ownership = {
+		military_tactics = 0.75
+	}
+	penalties = {}
+	benefits = {}
+	mechanics = {}
+	conditional_modifier = {
+		trigger = { estate_territory = { estate = estate_elven territory = 90 } }
+		modifier = {
+			drill_decay_modifier = -0.2
+			great_general_shock = 1
+			max_general_shock = 2
+			great_general_fire = 1
+			max_general_fire = 2
+			great_general_manuever = 1
+			max_general_maneuver = 2
+			max_general_siege = 1
+			max_admiral_shock = 2
+			max_admiral_fire = 2
+			max_admiral_maneuver = 2
+			max_admiral_siege = 1
+		}
+	}
+	can_revoke = {
+		had_country_flag = {
+			flag = estate_elven_recruitment_cooldown_flag
+			days = 7300
+		}
+	}
+	on_revoked = {
+		hidden_effect = {
+			clr_country_flag = estate_elven_recruitment_flag
+			clr_country_flag = estate_elven_recruitment_cooldown_flag
+			country_event = { id = bertus_racial_military.1001 }
+		}
+	}
+	on_invalid = {
+		clr_country_flag = estate_elven_recruitment_flag
+		country_event = { id = bertus_racial_military.1001 }
 	}
 	ai_will_do = {factor = 1000}
 }
@@ -445,7 +1302,6 @@ estate_elven_elite_academies = {
 	modifier_by_land_ownership = {
 		discipline = 0.10
 		mercenary_discipline = -0.10
-		military_tactics = 0.20
 		global_regiment_cost = 0.20
 	}
 	penalties = {}
@@ -469,7 +1325,7 @@ estate_elven_elite_academies = {
 			has_country_flag = ibevar_by_the_top_flag
 		}
 		modifier = {
-			leader_cost = 0.5
+			leader_cost = 0.50
 			free_leader_pool = 1
 			leader_land_fire = 2
 			leader_land_shock = 2
@@ -477,6 +1333,46 @@ estate_elven_elite_academies = {
 			max_general_shock = 2
 			max_general_fire = 2
 			max_general_maneuver = 2
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			has_country_modifier = military_investment_national_elite_1_modifier
+		}
+		modifier = {
+			discipline = 0.02
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			has_country_modifier = military_investment_national_elite_2_modifier
+		}
+		modifier = {
+			discipline = 0.04
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			has_country_modifier = military_investment_national_elite_3_modifier
+		}
+		modifier = {
+			discipline = 0.06
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			has_country_modifier = military_investment_national_elite_4_modifier
+		}
+		modifier = {
+			discipline = 0.08
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			has_country_modifier = military_investment_national_elite_5_modifier
+		}
+		modifier = {
+			discipline = 0.10
 		}
 	}
 	conditional_modifier = {

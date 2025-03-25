@@ -6157,13 +6157,13 @@ country_event = {
 			add_mana_effect = { mana = -50 }
 			tooltip = {
 				custom_tooltip = every_magister_sphere_member_tt
-				add_country_modifier = { name = transmutation_school_reform_modifier duration = 730 }
+				add_country_modifier = { name = transmutation_school_healing_spell_modifier duration = 730 }
 			}
 			hidden_effect = {
 				every_country = {
 					limit = {has_estate_privilege = estate_mages_organization_magisterium}
-					remove_country_modifier = transmutation_school_reform_modifier
-					add_country_modifier = { name = transmutation_school_reform_modifier duration = 730 }
+					remove_country_modifier = transmutation_school_healing_spell_modifier
+					add_country_modifier = { name = transmutation_school_healing_spell_modifier duration = 730 }
 				}
 			}
 		}
@@ -6173,7 +6173,7 @@ country_event = {
 				custom_tooltip = "Would give:"
 				add_mana_effect = { mana = -50 }
 				custom_tooltip = every_magister_sphere_member_tt
-				add_country_modifier = { name = transmutation_school_reform_modifier duration = 730 }
+				add_country_modifier = { name = transmutation_school_healing_spell_modifier duration = 730 }
 			}
 		}
     }
@@ -6940,6 +6940,7 @@ country_event = {	#incident magisterium Damesear right violation war sides
 		else = {
 			join_all_offensive_wars_of = emperor
 		}
+		add_truce_with = emperor
 	}
 	option = {	#
 		name = bertus_changes.6053.b
@@ -6947,8 +6948,9 @@ country_event = {	#incident magisterium Damesear right violation war sides
 		custom_tooltip = tooltip_imperial_war_emperor_enemy_side_hre
 		set_country_flag = magisterium_damesear_claim_magisterium_side_flag
 		join_all_defensive_wars_of = event_target:emperor_enemy_target
+		add_truce_with = event_target:emperor_enemy_target
 	}
-	option = {	#
+	option = {	# stay neutral
 		name = bertus_changes.6053.c
 		ai_chance = {factor = 100}
 		custom_tooltip = tooltip_imperial_no_side_hre
@@ -7122,9 +7124,13 @@ country_event = {	#incident tributary in empire - overlord response
 		if = {
 			limit = { event_target:tributary_in_empire = { has_country_flag = tributary_wants_freedom_flag } }
 			event_target:tributary_in_empire = {
+				add_casus_belli = {
+					type = cb_forced_break_alliance
+					target = event_target:overlord_of_tributary_in_empire
+				}
 				declare_war_with_cb = {
 					who = event_target:overlord_of_tributary_in_empire
-					casus_belli = cb_independence_war
+					casus_belli = cb_forced_break_alliance
 				}
 				set_country_flag = emperor_opposer_no_white_peaceflag
 				add_country_modifier = {
@@ -7138,12 +7144,12 @@ country_event = {	#incident tributary in empire - overlord response
 		else = {
 			emperor = {
 				add_casus_belli = {
-					type = cb_hre_attacked
+					type = cb_forced_break_alliance
 					target = event_target:overlord_of_tributary_in_empire
 				}
 				declare_war_with_cb = {
 					who = event_target:overlord_of_tributary_in_empire
-					casus_belli = cb_hre_attacked
+					casus_belli = cb_forced_break_alliance
 				}
 				add_country_modifier = {
 					name = empire_challanged_modifier

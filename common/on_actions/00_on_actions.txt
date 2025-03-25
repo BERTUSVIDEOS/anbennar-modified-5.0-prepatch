@@ -2712,11 +2712,26 @@ on_chinese_empire_dismantled = {
 on_mandate_of_heaven_gained = {
 	save_global_event_target_as = EmperorOfChina
 	if = {
-		limit = { OR = { NOT = { government = monarchy } government = tribal } }
+		limit = { owns_core_province = 475 }
+		set_capital = 475
+	}
+	else_if = {
+		limit = { owns_core_province = 471 }
+		set_capital = 471
+	}
+	else_if = {
+		limit = { owns_core_province = 464 }
+		set_capital = 464
+	}
+	else_if = {
+		limit = { owns_core_province = 475 }
+		set_capital = 479
+	}
+	if = {
+		limit = { NOT = { government = monarchy }  }
 		change_government_to_monarchy = yes
 	}
 	add_government_reform = kheteratan_empire	#bertus mod
-	change_religion = khetist	#bertus mod
 	# add_government_reform = celestial_empire
 	set_mandate = 60
 	set_meritocracy = 60
@@ -5960,6 +5975,9 @@ on_province_owner_change = {
 # country 1.35
 on_parliament_debate_reset = {
 	on_parliament_debate_reset_effect = yes
+	clr_country_flag = nationwide_land_survey_flag
+	clr_country_flag = appropriation_of_land_flag
+	clr_country_flag = nationwide_census_flag
 }
 
 #province 1.35
@@ -5975,6 +5993,9 @@ on_parliament_seat_lost = {
 # country
 on_parliament_debate_failed = {
 	on_parliament_debate_failed_effect = yes #1.35
+	clr_country_flag = nationwide_land_survey_flag
+	clr_country_flag = appropriation_of_land_flag
+	clr_country_flag = nationwide_census_flag
 }
 
 # country
