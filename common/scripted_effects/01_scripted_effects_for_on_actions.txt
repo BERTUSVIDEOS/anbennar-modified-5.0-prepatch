@@ -789,11 +789,24 @@ on_battle_won_unit_effect = {
 	}
 	if = {
 		limit = {
-			enemy_unit = { unit_owner = { OR = {ai = no overlord = { ai = no } } } }
+			enemy_unit = {
+				unit_owner = {
+					if = {
+						limit = { has_global_flag = mp_lobby_flag }
+						OR = { ai = no overlord = { ai = no }  }
+					}
+				}
+			}
 		}
 		if = {
 			limit = {
-				unit_owner = { uses_church_aspects = yes OR = { religion_group = orcish religion_group = giantkin } }
+				unit_owner = {
+					if = {
+						limit = { has_global_flag = mp_lobby_flag }
+						OR = { ai = no overlord = { ai = no }  }
+					}
+					uses_church_aspects = yes OR = { religion_group = orcish religion_group = giantkin }
+				}
 			}
 			unit_owner = {
 				set_variable = { which = amount_kill which = land_units_killed }
@@ -807,7 +820,15 @@ on_battle_won_unit_effect = {
 			}
 		}
 		if = {
-			limit = { unit_owner = { has_government_attribute = warlock_religion_actions_mechanic } }
+			limit = {
+				unit_owner = {
+					if = {
+						limit = { has_global_flag = mp_lobby_flag }
+						OR = { ai = no overlord = { ai = no }  }
+					}
+					has_government_attribute = warlock_religion_actions_mechanic
+				}
+			}
 			unit_owner = {
 				set_variable = { which = amount_kill which = land_units_killed }
 				divide_variable = { which = amount_kill value = 1000 }
@@ -1125,6 +1146,37 @@ imperial_modifiers_on_primary_culture_change_effect = {
 
 #EVERYTHING BELOW IS 1.35
 on_war_declaration_effect = {
+	if = { 	#bertus mod
+		limit = {
+			NOT = { has_global_modifier_value = { which = stability_cost_to_declare_war value = 0 } }
+		}
+		set_variable = { which = temp value = 0 }
+		export_to_variable = { which = temp value = modifier:stability_cost_to_declare_war }
+		multiply_variable = { which = temp value = -1 }
+		while = {
+			limit = { check_variable = { which = temp value = 1 } }
+			change_variable = { which = temp value = -1 }
+			add_stability = 1
+		}
+	}
+	if = {
+		limit = {
+			has_country_flag = wex_imperial_privileges_electors_NAP_flag
+			is_emperor = yes
+			FROM = {
+				is_elector = yes
+			}
+		}
+		add_imperial_influence = -10
+		every_country = {
+			limit = { is_part_of_hre = yes }
+			add_aggressive_expansion = {
+				who = ROOT
+				value = 20
+				apply_calc = no
+			}
+		}
+	}
 	random_list = {
 		1 = { country_event = { id = new_court_flavour_events.21 } }
 		9 = {}

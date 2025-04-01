@@ -1,10 +1,68 @@
 
-wex_slot_1 = {
+wex_slot_1_split_path_branch = {
 	slot = 1
 	generic = no
 	ai = yes
 	potential = {
 		tag = A30
+		NOT = { has_country_flag = lothane_benevolent }
+		NOT = { has_country_flag = lothane_conqueror }
+	}
+	has_country_shield = yes
+	
+	A30_split_path_branch_1 = {
+		icon = mission_locked_mission
+		required_missions = { A30_lothane_triumph }
+		position = 2
+		
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = selectable_mission_trigger_tt
+				always = no
+			}
+		}
+		
+		effect = {
+		}
+	}
+	A30_split_path_branch_2 = {
+		icon = mission_locked_mission
+		required_missions = { A30_split_path_branch_1 }
+		position = 3
+		
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = selectable_mission_trigger_tt
+				always = no
+			}
+		}
+		
+		effect = {
+		}
+	}
+	A30_split_path_branch_3 = {
+		icon = mission_locked_mission
+		required_missions = { A30_split_path_branch_2 }
+		position = 4
+		
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = selectable_mission_trigger_tt
+				always = no
+			}
+		}
+		
+		effect = {
+		}
+	}
+}
+wex_slot_1_branch_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		tag = A30
+		has_country_flag = lothane_benevolent
 	}
 	has_country_shield = yes
 	
@@ -14,10 +72,6 @@ wex_slot_1 = {
 		position = 2
 		
 		trigger = {
-			custom_trigger_tooltip = {
-				tooltip = wex_bene_tt
-				has_country_flag = lothane_benevolent
-			}
 			Z41 = {
 				OR = {
 					AND = {
@@ -93,7 +147,111 @@ wex_slot_1 = {
 			country_event = { id = flavor_wex.10 }
 		}
 	}
+}
+
+wex_slot_1_branch_2 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		tag = A30
+		has_country_flag = lothane_conqueror
+	}
+	has_country_shield = yes
 	
+	A30_rotten_fruit = {
+		icon = mission_fire_judgement
+		required_missions = { A30_lothane_triumph }
+		position = 2
+		
+		provinces_to_highlight = {
+			OR = {
+				province_id = 281
+				province_id = 910
+				province_id = 299
+			}
+			NOT = { development = 15 }
+		}
+		
+		trigger = {
+			if = {
+				limit = { ai = no }
+				accepted_culture = east_damerian
+				281 = { development = 15 }
+				910 = { development = 15 }
+				299 = { development = 15 }
+			}
+		}
+		
+		effect = {
+			custom_tooltip = wex_unrest1_tt
+			281 = { remove_province_modifier = wex_rebellious_damerians }
+			910 = { remove_province_modifier = wex_rebellious_damerians }
+			299 = { remove_province_modifier = wex_rebellious_damerians }
+		}
+	}
+	
+	A30_mines_of_damecross = {
+		icon = mission_torch_fire
+		required_missions = { A30_rotten_fruit }
+		position = 3
+		
+		provinces_to_highlight = {
+			OR = {
+				province_id = 276
+				province_id = 330
+			}
+			NOT = { development = 15 }
+		}
+		
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = wex_conq_tt
+				has_country_flag = lothane_conqueror
+			}
+			if = {
+				limit = { ai = no }
+				330 = { development = 15 }
+				276 = { development = 15 }
+			}
+		}
+		
+		effect = {
+			custom_tooltip = wex_unrest2_tt
+			330 = { remove_province_modifier = wex_rebellious_damerians }
+			276 = { remove_province_modifier = wex_rebellious_damerians }
+		}
+	}
+	
+	A30_secure_eargate = {	#bertus mod
+		icon = mission_murder
+		required_missions = { A30_mines_of_damecross }
+		position = 4
+		
+		provinces_to_highlight = {
+		}
+		
+		trigger = {
+			manpower_percentage = 0.90
+			army_size_percentage = 0.90
+		}
+		effect = {
+			add_prestige_or_monarch_power = {amount =  50}
+			east_dameshead_region = {
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+}
+wex_slot_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		tag = A30
+	}
+	has_country_shield = yes
+
 	A30_true_elfrealm = {
 		icon = mission_candide_letter
 		required_missions = { A30_imperial_dukes }
@@ -498,7 +656,14 @@ wex_slot_3 = {
 				}
 			}
 			legitimacy = 90
-			imperial_influence = 50
+			if = { 	#bertus mod
+				limit = { is_emperor = yes }
+				imperial_influence = 50
+			}
+			else = {
+				prestige = 50
+				stability = 2
+			}
 			estate_loyalty = {
 				estate = estate_human
 				loyalty = 80
@@ -547,6 +712,11 @@ wex_slot_3 = {
 					capital_scope = { add_random_development = 5 }
 					custom_tooltip = bertus_missions.1009.c_tt
 				"
+			}
+			if = {
+				limit = { senior_union_with = A93 }
+				add_dip_power = 200
+				add_prestige_or_monarch_power = { amount =  25 }
 			}
 		}
 	}
@@ -1008,94 +1178,7 @@ wex_slot_5 = {
 		tag = A30
 	}
 	has_country_shield = yes
-	
-	A30_rotten_fruit = {
-		icon = mission_fire_judgement
-		required_missions = { A30_lothane_triumph }
-		position = 2
-		
-		provinces_to_highlight = {
-			OR = {
-				province_id = 281
-				province_id = 910
-				province_id = 299
-			}
-			development = 20
-		}
-		
-		trigger = {
-			custom_trigger_tooltip = {
-				tooltip = wex_conq_tt
-				has_country_flag = lothane_conqueror
-			}
-			if = {
-				limit = { ai = no }
-				281 = { NOT = { development = 20 } }
-				910 = { NOT = { development = 20 } }
-				299 = { NOT = { development = 20 } }
-			}
-		}
-		
-		effect = {
-			custom_tooltip = wex_unrest1_tt
-			281 = { remove_province_modifier = wex_rebellious_damerians }
-			910 = { remove_province_modifier = wex_rebellious_damerians }
-			299 = { remove_province_modifier = wex_rebellious_damerians }
-		}
-	}
-	
-	A30_mines_of_damecross = {
-		icon = mission_torch_fire
-		required_missions = { A30_rotten_fruit }
-		position = 3
-		
-		provinces_to_highlight = {
-			OR = {
-				province_id = 276
-				province_id = 330
-			}
-			development = 20
-		}
-		
-		trigger = {
-			custom_trigger_tooltip = {
-				tooltip = wex_conq_tt
-				has_country_flag = lothane_conqueror
-			}
-			if = {
-				limit = { ai = no }
-				330 = { NOT = { development = 20 } }
-				276 = { NOT = { development = 20 } }
-			}
-		}
-		
-		effect = {
-			custom_tooltip = wex_unrest2_tt
-			330 = { remove_province_modifier = wex_rebellious_damerians }
-			276 = { remove_province_modifier = wex_rebellious_damerians }
-		}
-	}
-	
-	A30_secure_eargate = {	#bertus mod
-		icon = mission_murder
-		required_missions = { A30_mines_of_damecross }
-		position = 4
-		
-		provinces_to_highlight = {
-		}
-		
-		trigger = {
-			manpower_percentage = 0.90
-			army_size_percentage = 0.90
-		}
-		effect = {
-			add_prestige_or_monarch_power = {amount =  50}
-			east_dameshead_region = {
-				add_permanent_claim = ROOT
-			}
-		}
-	}
-	
+
 	A30_arannese_affairs = {
 		icon = mission_princess_writing
 		required_missions = { A30_imperial_dukes }

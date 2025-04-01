@@ -1,4 +1,258 @@
 
+custom_icon = {
+	name = hre_compromises_icon
+	potential = {
+	}
+	tooltip = "Emperor Compromises"
+}
+custom_button = {
+    name = wex_imperial_privileges_electors_NAP
+    potential = {
+		A30 = {
+			has_estate_privilege = estate_human_wex_empire_privileges
+			is_emperor = yes
+		}
+		ai = no
+	}
+	trigger = {
+		if = {
+			limit = {
+				A30 = {
+					NOT = { has_country_flag = wex_imperial_privileges_electors_NAP_flag }
+				}
+			}
+			hidden_trigger = {
+				always = no
+			}
+		}
+		else = {
+			emperor = {
+				imperial_influence = 50
+			}
+		}
+	}
+	effect = {
+		if = {
+			limit = {
+				A30 = {
+					has_country_flag = wex_imperial_privileges_electors_NAP_flag
+				}
+			}
+			custom_tooltip = wex_imperial_privileges_electors_NAP_tt
+			clr_country_flag = wex_imperial_privileges_electors_NAP_flag
+			custom_tooltip = "Revoking Wexonard Non Aggression Compromise will have the following effects:"
+			add_imperial_influence = -50
+			custom_tooltip = "Further consequences on attacking any elector"
+
+			hidden_effect = {
+				country_event = {id = flavor_wex.12}
+			}
+		}
+		else = {
+			custom_tooltip = "This Compromise has been revoked and will have no further effects"
+		}
+	}
+    tooltip = "Wexonard Non Aggression Compromise"
+}
+custom_icon = {
+	name = wex_imperial_privileges_electors_NAP_completed
+	potential = {
+		A30 = {
+			has_estate_privilege = estate_human_wex_empire_privileges
+			is_emperor = yes
+			NOT = { has_country_flag = wex_imperial_privileges_electors_NAP_flag }
+		}
+	}
+	tooltip = ""
+}
+custom_button = {
+    name = wex_imperial_privileges_electors_non_alliance
+    potential = {
+		A30 = {
+			has_estate_privilege = estate_human_wex_empire_privileges
+			is_emperor = yes
+		}
+		ai = no
+	}
+	trigger = {
+		if = {
+			limit = {
+				A30 = {
+					NOT = { has_country_flag = wex_imperial_privileges_electors_non_alliance_flag }
+				}
+			}
+			hidden_trigger = {
+				always = no
+			}
+		}
+		else = {
+			OR = {
+				imperial_influence = 50
+				emperor = {
+					calc_true_if = {
+						amount = 5
+						all_elector = {
+							preferred_emperor = emperor
+							has_opinion = {
+								who = emperor
+								value = 150
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	effect = {
+		if = {
+			limit = {
+				A30 = {
+					has_country_flag = wex_imperial_privileges_electors_non_alliance_flag
+				}
+			}
+			if = {
+				limit = {
+					emperor = {
+						calc_true_if = {
+							amount = 5
+							all_elector = {
+								preferred_emperor = emperor
+								has_opinion = {
+									who = emperor
+									value = 150
+								}
+							}
+						}
+					}
+				}
+			}
+			else = {
+				add_imperial_influence = -50
+			}
+			custom_tooltip = wex_imperial_privileges_electors_non_alliance_tt
+			clr_country_flag = wex_imperial_privileges_electors_non_alliance_flag
+			custom_tooltip = "Revoking Wexonard Diplomatic Non Interference Compromise will have the following effects:"
+			custom_tooltip = "Further consequences on allying any elector"
+			hidden_effect = {
+				country_event = {id = flavor_wex.13}
+			}
+		}
+		else = {
+			custom_tooltip = "This Compromise has been revoked and will have no further effects"
+		}
+	}
+    tooltip = "Wexonard Diplomatic Non Interference Compromise"
+}
+custom_icon = {
+	name = wex_imperial_privileges_electors_non_alliance_completed
+	potential = {
+		A30 = {
+			has_estate_privilege = estate_human_wex_empire_privileges
+			is_emperor = yes
+			NOT = { has_country_flag = wex_imperial_privileges_electors_non_alliance_flag }
+		}
+	}
+	tooltip = ""
+}
+custom_button = {
+    name = wex_imperial_privileges_guarantee_anbennarian_culture
+    potential = {
+		A30 = {
+			has_estate_privilege = estate_human_wex_empire_privileges
+			is_emperor = yes
+		}
+		ai = no
+	}
+	trigger = {
+		if = {
+			limit = {
+				A30 = {
+					NOT = { has_country_flag = wex_imperial_privileges_guarantee_anbennarian_culture_flag }
+				}
+			}
+			hidden_trigger = {
+				always = no
+			}
+		}
+		else = {
+			OR = {
+				emperor = {
+					all_owned_province = {
+						has_owner_accepted_culture = yes
+					}
+					calc_true_if = {
+						amount = 10
+		
+						all_country = {
+							culture_group = anbennarian
+							is_part_of_hre = yes
+							has_opinion = {
+								who = emperor
+								value = 150
+							}
+						}
+					}
+				}
+				imperial_influence = 50
+			}
+		}
+	}
+	effect = {
+		if = {
+			limit = {
+				A30 = {
+					has_country_flag = wex_imperial_privileges_guarantee_anbennarian_culture_flag
+				}
+			}
+			if = {
+				limit = {
+					emperor = {
+						all_owned_province = {
+							has_owner_accepted_culture = yes
+						}
+						calc_true_if = {
+							amount = 10
+			
+							all_country = {
+								culture_group = anbennarian
+								is_part_of_hre = yes
+								has_opinion = {
+									who = emperor
+									value = 150
+								}
+							}
+						}
+					}
+				}
+			}
+			else = {
+				add_imperial_influence = -50
+			}
+			custom_tooltip = wex_imperial_privileges_guarantee_anbennarian_culture_tt
+			clr_country_flag = wex_imperial_privileges_guarantee_anbennarian_culture_flag
+			custom_tooltip = "Revoking Wexonard Anbennarian guarantee Compromise will have the following effects:"
+			custom_tooltip = "Further consequences on conquering any Anbennarian province"
+			hidden_effect = {
+				country_event = {id = flavor_wex.14}
+			}
+		}
+		else = {
+			custom_tooltip = "This Compromise has been revoked and will have no further effects"
+		}
+	}
+    tooltip = "Wexonard Anbennarian guarantee Compromise"
+}
+custom_icon = {
+	name = wex_imperial_privileges_guarantee_anbennarian_culture_completed
+	potential = {
+		A30 = {
+			has_estate_privilege = estate_human_wex_empire_privileges
+			is_emperor = yes
+			NOT = { has_country_flag = wex_imperial_privileges_guarantee_anbennarian_culture_flag }
+		}
+	}
+	tooltip = ""
+}
 custom_button = {
     name = trade_goods_update
     potential = {

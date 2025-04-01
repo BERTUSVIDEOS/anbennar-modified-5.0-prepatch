@@ -125,6 +125,9 @@ on_startup = {
 		country_event = { id = sjr_lorent_set_up.3 }		#bertus mod
 		country_event = { id = bertus_changes.1090 days = 1	}	#bertus mod: setup global
 	}
+	A30 = {
+		country_event = { id = flavor_wex.1 days = 3	}	#bertus mod
+	}
 	country_event = { id = anbennar_setup.20 days = 32 }	#update_artifice_points = yes
 	country_event = { id = bertus_changes.1121 days = 5 }	#enslavement
 	F29 = { country_event = { id = zokka_jaddari_war.1 days = 120 } }	#Jaddari-Zokka War
@@ -1119,6 +1122,12 @@ on_battle_lost_country = {
 # province
 # root = location, from = loser country
 on_battle_won_province = {
+	if = {	#bertus mod
+		limit = {
+			owned_by = FROM
+		}
+		remove_province_modifier = halfling_barricades_modifier
+	}
 	if = {
 		limit = {
 			from = {
@@ -1528,6 +1537,7 @@ on_siege_lost_country = {
 on_siege_won_province = {
 	remove_siege_spells_from_province = yes
 	remove_province_modifier = making_soup_modifier	#bertus mod
+	remove_province_modifier = halfling_barricades_modifier	#bertus mod
 	events = {
 		flavor_vazhatun.111
 	}
@@ -5627,6 +5637,17 @@ on_convert_by_trade_policy = {
 # province
 # FROM = old owner
 on_province_owner_change = {
+	if = {
+		limit = {
+			owner = {
+				has_country_flag = wex_imperial_privileges_guarantee_anbennarian_culture_flag
+				is_emperor = yes
+			}
+			culture_group = anbennarian
+		}
+		owner = { add_imperial_influence = -1 }
+		add_province_modifier = { name = unlawful_territory duration = 7300}
+	}
 	if = { limit = { culture = noculture } change_culture = owner }
 	if = { limit = { religion = noreligion } change_religion = owner }
 	if = {
@@ -7624,7 +7645,24 @@ on_royal_marriage_broken = { #ROOT - Original marriage creator, FROM - Marriage 
 }
 
 on_alliance_created = { #ROOT - Alliance sender, FROM - Alliance accepter
-
+	if = {
+		limit = {
+			has_country_flag = wex_imperial_privileges_electors_non_alliance_flag
+			is_emperor = yes
+			FROM = { is_elector = yes }
+		}
+		add_imperial_influence = -10
+	}
+	if = {
+		limit = {
+			is_elector = yes
+			FROM = { 
+				has_country_flag = wex_imperial_privileges_electors_non_alliance_flag
+				is_emperor = yes
+			}
+		}
+		FROM = { add_imperial_influence = -10 }
+	}
 }
 
 on_royal_marriage = { #ROOT - Marraige sender, FROM - marriage accepter

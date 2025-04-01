@@ -375,6 +375,7 @@ estate_mithril_academies = {
 		NOT = {has_race_recruitment = {race = orcish}}
 		NOT = {has_race_recruitment = {race = goblin}}
 		NOT = {has_race_recruitment = {race = elven}}
+		has_elite_regiments = no
 	}
 	on_granted = {
 		add_country_modifier = {name = mithradhum_mithril_armory duration = -1 hidden = yes}
@@ -390,6 +391,114 @@ estate_mithril_academies = {
 	}
 	on_invalid = {
 		hidden_effect = {remove_country_modifier = mithradhum_mithril_armory}
+	}
+	cooldown_years = 20
+	ai_will_do = {factor = 100}
+}
+estate_ruby_academies = {
+	icon = privilege_recruit_rajput_general
+	is_valid = {
+		has_country_modifier = dwarven_military
+		has_race_recruitment = {race = dwarven}
+		NOT = {has_race_recruitment = {race = orcish}}
+		NOT = {has_race_recruitment = {race = goblin}}
+		NOT = {has_race_recruitment = {race = elven}}
+		has_country_flag = rubyhold_shock_flag
+	}
+	can_select = {
+		has_country_modifier = dwarven_military
+		has_race_recruitment = {race = dwarven}
+		NOT = {has_race_recruitment = {race = orcish}}
+		NOT = {has_race_recruitment = {race = goblin}}
+		NOT = {has_race_recruitment = {race = elven}}
+		has_elite_regiments = no
+	}
+	on_granted = {
+		if = {
+			limit = { mission_completed = rubyhold_arrow_lumber_camps }
+			add_country_modifier = { name = rubyhold_ranger_training_3 duration = -1 }
+		}
+		else_if = {
+			limit = { mission_completed = rubyhold_launch_the_expedition }
+			add_country_modifier = { name = rubyhold_ranger_training_2 duration = -1 }
+		}
+		else = {
+			add_country_modifier = { name = rubyhold_ranger_training_1 duration = -1 }
+		}
+	}
+	benefits = {
+		allowed_mamluks_fraction = 0.10
+	}
+	penalties = {
+		yearly_corruption = 0.20
+	}
+	on_revoked = {
+		hidden_effect = {
+			remove_country_modifier = rubyhold_ranger_training_1
+			remove_country_modifier = rubyhold_ranger_training_2
+			remove_country_modifier = rubyhold_ranger_training_3
+		}
+	}
+	on_invalid = {
+		hidden_effect = {
+			remove_country_modifier = rubyhold_ranger_training_1
+			remove_country_modifier = rubyhold_ranger_training_2
+			remove_country_modifier = rubyhold_ranger_training_3
+		}
+	}
+	cooldown_years = 20
+	ai_will_do = {factor = 100}
+}
+estate_silver_academies = {
+	icon = privilege_recruit_rajput_general
+	is_valid = {
+		has_country_modifier = dwarven_military
+		has_race_recruitment = {race = dwarven}
+		NOT = {has_race_recruitment = {race = orcish}}
+		NOT = {has_race_recruitment = {race = goblin}}
+		NOT = {has_race_recruitment = {race = elven}}
+		has_country_flag = silverforge_fire_flag
+	}
+	can_select = {
+		has_country_modifier = dwarven_military
+		has_race_recruitment = {race = dwarven}
+		NOT = {has_race_recruitment = {race = orcish}}
+		NOT = {has_race_recruitment = {race = goblin}}
+		NOT = {has_race_recruitment = {race = elven}}
+		has_elite_regiments = no
+	}
+	on_granted = {
+		if = {
+			limit = { mission_completed = silverforge_arrow_lumber_camps }
+			add_country_modifier = { name = silverforge_ranger_training_3 duration = -1 }
+		}
+		else_if = {
+			limit = { mission_completed = silverforge_launch_the_expedition }
+			add_country_modifier = { name = silverforge_ranger_training_2 duration = -1 }
+		}
+		else = {
+			add_country_modifier = { name = silverforge_ranger_training_1 duration = -1 }
+		}
+	}
+	benefits = {
+		allowed_mamluks_fraction = 0.10
+	}
+	penalties = {
+		yearly_corruption = 0.20
+	}
+	on_revoked = {
+		hidden_effect = {
+			remove_country_modifier = silverforge_ranger_training_1
+			remove_country_modifier = silverforge_ranger_training_2
+			remove_country_modifier = silverforge_ranger_training_3
+		}
+	}
+	on_invalid = {
+		hidden_effect = {
+			remove_country_modifier = silverforge_ranger_training_1
+			remove_country_modifier = silverforge_ranger_training_2
+			remove_country_modifier = silverforge_ranger_training_3
+		}
 	}
 	cooldown_years = 20
 	ai_will_do = {factor = 100}

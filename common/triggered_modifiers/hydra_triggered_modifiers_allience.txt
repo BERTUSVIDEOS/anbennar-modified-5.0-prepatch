@@ -44,25 +44,21 @@ Minor = {
 	potential = {
 		ai = no
 		is_subject = no
-		is_great_power = no
+		great_power_rank = 5
 	}
 	trigger = {
-		any_neighbor_country = {
-			ai = no
-			OR = {
-				is_subject = no
-				AND = {
-					is_subject = yes
-					overlord = { ai = no }
-				}
-			}
+		all_neighbor_country = {
 			OR = {
 				AND = {
+					NOT = { war_with = ROOT }
 					is_at_war = yes
 					army_strength = { who = ROOT value = 4.0 }
 				}
 				AND = {
-					is_at_war = no
+					OR = {
+						is_at_war = no
+						war_with = ROOT
+					}
 					army_strength = { who = ROOT value = 2.0 }
 				}
 			}
@@ -70,7 +66,7 @@ Minor = {
 	}
 	all_power_cost = -0.05
 	development_cost_modifier = -0.05
-	own_territory_dice_roll_bonus = 1
+	own_territory_dice_roll_bonus = 2
 	recover_army_morale_speed = 0.05
 	reinforce_speed = 0.20
 	manpower_recovery_speed = 0.10

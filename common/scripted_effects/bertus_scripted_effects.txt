@@ -305,9 +305,12 @@ increase_vampire_skill = {
 }
 on_adm_development_extra_dev_effect = {
 	if = {	#bertus mod
-		limit = { religion = elven_forebears culture_is_elven = yes owner = { OR = { overlord = { has_government_attribute = elven_forebears_boost} has_government_attribute = elven_forebears_boost}}}
-		if = { limit = { owner = {is_subject = yes} } owner = { overlord = {add_church_power = 2} } }
-		else = { owner = {add_church_power = 2} }
+		limit = { owner = { has_idea = A13_alenic_industrialization } has_manufactory_trigger = yes }
+		random = { chance = 20  add_base_production = 1 }
+	}
+	if = {	#bertus mod
+		limit = { religion = elven_forebears culture_is_elven = yes owner = { has_government_attribute = elven_forebears_boost } }
+		FROM = { add_church_power = 2 } 
 	}
 	if = {
 		limit = {
@@ -362,11 +365,11 @@ on_adm_development_extra_dev_effect = {
 		if = { limit = {has_integrated_lizardfolk_minority_trigger = yes} random = { chance = 10 add_base_tax = 1 } }
 	}
 	if = {	#bertus mod
-		limit = {owner = {overlord = {has_idea = Z43_pulsar_economy}}}
+		limit = { owner = { is_colonial_nation_of = FROM overlord = { has_idea = Z43_pulsar_economy } } }
 		random = { chance = 25 add_base_tax = 1 }
 	}
 	if = {	#bertus mod
-		limit = {trade_goods = salt owner = {has_idea = A72_the_salt_lion_of_arannen}}
+		limit = { trade_goods = salt owner = { has_idea = A72_the_salt_lion_of_arannen } }
 		random = { chance = 20 add_base_production = 1 }
 	}
 	if = {	#bertus mod
@@ -378,15 +381,37 @@ on_adm_development_extra_dev_effect = {
 		random = { chance = 20 add_base_tax = 1 }
 	}
 	if = {	#bertus mod
-		limit = {culture = arannese owner = {has_idea = A72_the_grand_city_of_arannen}}
+		limit = {
+			culture = arannese
+			owner = {
+				if = {
+					limit = { is_colonial_nation_of = FROM }
+					overlord = { has_idea = A72_the_grand_city_of_arannen }
+				}
+				else = {
+					has_idea = A72_the_grand_city_of_arannen
+				}
+			}
+		}
 		random = { chance = 20 add_base_tax = 1 }
 	}
 	if = {	#bertus mod
-		limit = {culture_group = gnomish owner = { OR = { has_idea = A79_redevelopment_initiative overlord = { has_idea = A79_redevelopment_initiative } } } }
+		limit = {
+			culture_group = gnomish
+			owner = {
+				if = {
+					limit = { is_colonial_nation_of = FROM }
+					overlord = { has_idea = A79_redevelopment_initiative }
+				}
+				else = {
+					has_idea = A79_redevelopment_initiative
+				}
+			}
+		}
 		random = { chance = 20 add_base_tax = 1 }
 	}
 	if = {	#bertus mod
-		limit = {culture_group = gnomish owner = {overlord = {has_idea = A79_the_eyes_of_dr_tj_ecklebozz}}}
+		limit = { culture_group = gnomish owner = { is_colonial_nation_of = FROM overlord = { has_idea = A79_the_eyes_of_dr_tj_ecklebozz } } }
 		random = { chance = 33 add_base_tax = 1 }
 	}
 	if = {	#bertus mod
@@ -432,9 +457,12 @@ on_adm_development_extra_dev_effect = {
 }
 on_dip_development_extra_dev_effect = {
 	if = {	#bertus mod
-		limit = { religion = elven_forebears culture_is_elven = yes owner = { OR = { overlord = { has_government_attribute = elven_forebears_boost} has_government_attribute = elven_forebears_boost}}}
-		if = { limit = { owner = {is_subject = yes} } owner = { overlord = {add_church_power = 2}} }
-		else = { owner = {add_church_power = 2} }
+		limit = { owner = { has_idea = A13_alenic_industrialization } has_manufactory_trigger = yes }
+		random = { chance = 20  add_base_production = 1 }
+	}
+	if = {	#bertus mod
+		limit = { religion = elven_forebears culture_is_elven = yes owner = { has_government_attribute = elven_forebears_boost } }
+		FROM = { add_church_power = 2 } 
 	}
 	if = {
 		limit = { 
@@ -471,7 +499,7 @@ on_dip_development_extra_dev_effect = {
 		add_base_production = 1
 	}
 	if = {	#bertus mod
-		limit = {owner = {overlord = {has_government_attribute = extra_dev_on_colonial}}}
+		limit = { owner = { overlord = { has_government_attribute = extra_dev_on_colonial } } }
 		random = { chance = 50 add_base_production = 1 }
 	}
 	if = {	#bertus mod
@@ -497,11 +525,11 @@ on_dip_development_extra_dev_effect = {
 		if = { limit = {has_integrated_lizardfolk_minority_trigger = yes} random = { chance = 10 add_base_production = 1 } }
 	}
 	if = {	#bertus mod
-		limit = {owner = {overlord = {has_idea = Z43_pulsar_economy}}}
+		limit = { owner = { overlord = { is_colonial_nation_of = FROM has_idea = Z43_pulsar_economy } } }
 		random = { chance = 25 add_base_production = 1 }
 	}
 	if = {	#bertus mod
-		limit = {trade_goods = salt owner = {overlord = {has_idea = A72_the_salt_lion_of_arannen}}}
+		limit = { trade_goods = salt owner = { has_idea = A72_the_salt_lion_of_arannen } }
 		random = { chance = 20 add_base_production = 1 }
 	}
 	if = {	#bertus mod
@@ -513,15 +541,37 @@ on_dip_development_extra_dev_effect = {
 		random = { chance = 20 add_base_production = 1 }
 	}
 	if = {	#bertus mod
-		limit = {culture = arannese owner = {overlord = {has_idea = A72_the_grand_city_of_arannen}}}
+		limit = {
+			culture = arannese
+			owner = {
+				if = {
+					limit = { is_colonial_nation_of = FROM }
+					overlord = { has_idea = A72_the_grand_city_of_arannen }
+				}
+				else = {
+					has_idea = A72_the_grand_city_of_arannen
+				}
+			}
+		}
 		random = { chance = 20 add_base_production = 1 }
 	}
 	if = {	#bertus mod
-		limit = {culture_group = gnomish owner = { OR = { has_idea = A79_redevelopment_initiative overlord = { has_idea = A79_redevelopment_initiative } } } }
+		limit = {
+			culture_group = gnomish
+			owner = {
+				if = {
+					limit = { is_colonial_nation_of = FROM }
+					overlord = { has_idea = A79_redevelopment_initiative }
+				}
+				else = {
+					has_idea = A79_redevelopment_initiative
+				}
+			}
+		}
 		random = { chance = 20 add_base_production = 1 }
 	}
 	if = {	#bertus mod
-		limit = {culture_group = gnomish owner = {overlord = {has_idea = A79_the_eyes_of_dr_tj_ecklebozz}}}
+		limit = { culture_group = gnomish owner = { is_colonial_nation_of = FROM overlord = { has_idea = A79_the_eyes_of_dr_tj_ecklebozz } } }
 		random = { chance = 33 add_base_production = 1 }
 	}
 	if = {	#bertus mod
@@ -585,13 +635,12 @@ on_dip_development_extra_dev_effect = {
 }
 on_mil_development_extra_dev_effect = {
 	if = {	#bertus mod
-		limit = {owner = {has_idea = A13_alenic_industrialization} has_manufactory_trigger = yes }
+		limit = { owner = { has_idea = A13_alenic_industrialization } has_manufactory_trigger = yes }
 		random = { chance = 20  add_base_production = 1 }
 	}
 	if = {	#bertus mod
-		limit = { religion = elven_forebears culture_is_elven = yes owner = { OR = { overlord = {has_government_attribute = elven_forebears_boost} has_government_attribute = elven_forebears_boost}}}
-		if = { limit = { owner = {is_subject = yes} } owner = {overlord = {add_church_power = 2}} }
-		else = { owner = {add_church_power = 2} }
+		limit = { religion = elven_forebears culture_is_elven = yes owner = { has_government_attribute = elven_forebears_boost } }
+		FROM = { add_church_power = 2 } 
 	}
 	if = {
 		limit = { 
@@ -642,7 +691,7 @@ on_mil_development_extra_dev_effect = {
 		if = { limit = {has_integrated_lizardfolk_minority_trigger = yes} random = { chance = 10 add_base_manpower = 1 } }
 	}
 	if = {	#bertus mod
-		limit = {owner = {overlord = {has_idea = Z43_pulsar_economy}}}
+		limit = { owner = { is_colonial_nation_of = FROM overlord = { has_idea = Z43_pulsar_economy } } }
 		random = { chance = 25 add_base_manpower = 1 }
 	}
 	if = {	#bertus mod
@@ -654,7 +703,7 @@ on_mil_development_extra_dev_effect = {
 		random = { chance = 20 add_base_manpower = 1 }
 	}
 	if = {	#bertus mod
-		limit = {trade_goods = salt owner = {overlord = {has_idea = A72_the_salt_lion_of_arannen}}}
+		limit = { trade_goods = salt owner = { has_idea = A72_the_salt_lion_of_arannen } }
 		random = { chance = 20 add_base_production = 1 }
 	}
 	if = {	#bertus mod
@@ -666,15 +715,37 @@ on_mil_development_extra_dev_effect = {
 		random = { chance = 20 add_base_manpower = 1 }
 	}
 	if = {	#bertus mod
-		limit = {culture = arannese owner = {overlord = {has_idea = A72_the_grand_city_of_arannen}}}
+		limit = {
+			culture = arannese
+			owner = {
+				if = {
+					limit = { is_colonial_nation_of = FROM }
+					overlord = { has_idea = A72_the_grand_city_of_arannen }
+				}
+				else = {
+					has_idea = A72_the_grand_city_of_arannen
+				}
+			}
+		}
 		random = { chance = 20 add_base_manpower = 1 }
 	}
 	if = {	#bertus mod
-		limit = {culture_group = gnomish owner = { OR = { has_idea = A79_redevelopment_initiative overlord = { has_idea = A79_redevelopment_initiative } } } }
+		limit = {
+			culture_group = gnomish
+			owner = {
+				if = {
+					limit = { is_colonial_nation_of = FROM }
+					overlord = { has_idea = A79_redevelopment_initiative }
+				}
+				else = {
+					has_idea = A79_redevelopment_initiative
+				}
+			}
+		}
 		random = { chance = 20 add_base_manpower = 1 }
 	}
 	if = {	#bertus mod
-		limit = { culture_group = gnomish owner = { overlord = {has_idea = A79_the_eyes_of_dr_tj_ecklebozz } } }
+		limit = { culture_group = gnomish owner = { is_colonial_nation_of = FROM overlord = { has_idea = A79_the_eyes_of_dr_tj_ecklebozz } } }
 		random = { chance = 33 add_base_manpower = 1 }
 	}
 	if = {	#bertus mod
@@ -1571,8 +1642,7 @@ get_slaves = {
 	controller = {
 		if = {
 			limit = {
-				is_subject = yes
-				NOT = {is_subject_of_type = tributary_state}
+				is_subject_other_than_tributary_trigger = yes
 			}
 			overlord = {
 				set_variable = { which = province_development value = 0 }

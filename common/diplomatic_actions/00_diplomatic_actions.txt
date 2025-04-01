@@ -231,6 +231,17 @@ transfer_trade_power = {
 #Cut because the Grand Crusade war doesn't really have any place in the current content, but it could be very useful for the future.
 #Also modders should have the chance to just uncomment it all so they can experience the great 30 Years War like Crusade.
 declarewar = {
+	condition = {
+		tooltip = wex_imperial_privileges_electors_NAP_tt
+		potential = {
+			has_country_flag = wex_imperial_privileges_electors_NAP_flag
+			is_emperor = yes
+			FROM = { is_elector = yes }
+		}
+		allow = {
+			imperial_influence = 10
+		}
+	}
 	condition = { #1.35
 		tooltip = AI_CANNOT_DECLARE_WHEN_STABILITY_LOSS
 		potential = {
@@ -628,6 +639,30 @@ declarewar = {
 }
 
 allianceaction = {
+	condition = { #1.35
+		tooltip = wex_imperial_privileges_electors_non_alliance_tt
+		potential = {
+			has_country_flag = wex_imperial_privileges_electors_non_alliance_flag
+			is_emperor = yes
+			FROM = { is_elector = yes }
+		}
+		allow = {
+			imperial_influence = 10
+		}
+	}
+	condition = { #1.35
+		tooltip = wex_imperial_privileges_electors_non_alliance_tt
+		potential = {
+			is_elector = yes
+			FROM = { 
+				has_country_flag = wex_imperial_privileges_electors_non_alliance_flag
+				is_emperor = yes
+			}
+		}
+		allow = {
+			FROM = { imperial_influence = 10 }
+		}
+	}
 	condition = {
 		tooltip = PIRATE_DENIED_ALLIANCE
 		potential = {

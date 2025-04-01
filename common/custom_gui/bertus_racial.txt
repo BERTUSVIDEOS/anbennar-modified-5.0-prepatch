@@ -453,6 +453,94 @@ custom_button = {
 }
 
 custom_button = {
+	name = province_racial_abilities
+	potential = {
+		owned_by = FROM
+		owner = {
+			ai = no
+		}
+	}
+	trigger = {
+	}
+	effect = {
+		clr_province_flag = diggy_diggy_estimate_flag
+		FROM = {
+			clr_country_flag = estate_mages_cast_province_spells
+			if = {
+				limit = { NOT = { has_country_flag = province_racial_abilities_flag } }
+				set_country_flag = province_racial_abilities_flag
+			}
+			else = {
+				clr_country_flag = province_racial_abilities_flag
+			}
+		}
+	}
+	tooltip = "Cast Spell"
+}
+custom_icon = {
+	name = province_racial_abilities_background
+	
+    potential = {
+	}
+	tooltip = ""
+}
+custom_window = {
+	name = province_racial_abilities_window
+	
+    potential = {
+		owned_by = FROM
+		owner = {
+			ai = no
+		}
+		FROM = { has_country_flag = province_racial_abilities_flag }
+	}
+}
+custom_button = {
+	name = halfling_barricades
+	potential = {
+		owned_by = FROM
+		controlled_by = owner
+		FROM = {
+			has_race_recruitment = { race = halfling }
+		}
+	}
+	trigger = {
+		if = { limit = { unit_in_battle = yes } unit_in_battle = no }
+		if = { limit = { development = 100 } num_of_units_in_province = { amount = 50 who = FROM } }
+		else_if = { limit = { development = 90 } num_of_units_in_province = { amount = 45 who = FROM } }
+		else_if = { limit = { development = 80 } num_of_units_in_province = { amount = 40 who = FROM } }
+		else_if = { limit = { development = 70 } num_of_units_in_province = { amount = 35 who = FROM } }
+		else_if = { limit = { development = 60 } num_of_units_in_province = { amount = 30 who = FROM } }
+		else_if = { limit = { development = 50 } num_of_units_in_province = { amount = 25 who = FROM } }
+		else_if = { limit = { development = 40 } num_of_units_in_province = { amount = 20 who = FROM } }
+		else_if = { limit = { development = 30 } num_of_units_in_province = { amount = 15 who = FROM } }
+		else_if = { limit = { development = 20 } num_of_units_in_province = { amount = 10 who = FROM } }
+		else_if = { limit = { development = 10 } num_of_units_in_province = { amount = 5 who = FROM } }
+		else = { num_of_units_in_province = { amount = 4 who = FROM } }
+	}
+	effect = {
+		if = {
+			limit = { NOT = { has_province_modifier = halfling_barricades_modifier } }
+			if = { limit = { development = 100 } FROM = { add_mil_power = -100 } }
+			else_if = { limit = { development = 90 } FROM = { add_mil_power = -90 } }
+			else_if = { limit = { development = 80 } FROM = { add_mil_power = -80 } }
+			else_if = { limit = { development = 70 } FROM = { add_mil_power = -70 } }
+			else_if = { limit = { development = 60 } FROM = { add_mil_power = -60 } }
+			else_if = { limit = { development = 50 } FROM = { add_mil_power = -50 } }
+			else_if = { limit = { development = 40 } FROM = { add_mil_power = -40 } }
+			else_if = { limit = { development = 30 } FROM = { add_mil_power = -30 } }
+			else_if = { limit = { development = 20 } FROM = { add_mil_power = -20 } }
+			else = { FROM = { add_mil_power = -10 } }
+			add_province_modifier = { name = halfling_barricades_modifier duration = -1 }
+		}
+		else = {
+			remove_province_modifier = halfling_barricades_modifier
+		}
+	}
+	tooltip = "Halfling Barricades"
+}
+
+custom_button = {
 	name = dwarven_sea_fortress
 	potential = {
 		num_of_man_of_war = 1

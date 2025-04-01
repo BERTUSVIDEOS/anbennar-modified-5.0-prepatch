@@ -10,6 +10,7 @@ country_event = {
 	picture = BORDER_TENSION_eventPicture
 	
 	fire_only_once = yes
+	is_triggered_only = yes
 	
 	trigger = {
 		tag = A30
@@ -38,16 +39,16 @@ country_event = {
 		}
 		
 		add_prestige = -10
-		add_manpower = -20	#0?-20
 		add_imperial_influence = -20	#0?-20
 		every_country = {
 			limit = { is_part_of_hre = yes }
-			add_opinion = {
+			add_aggressive_expansion = {
 				who = ROOT
-				modifier = aggressive_expansion
-				multiplier = 20	#0?20
+				value = 20
+				apply_calc = no
 			}
 		}
+		set_estate_privilege = estate_human_wex_empire_privileges	#bertus mod
 	}
 }
 
@@ -58,7 +59,6 @@ country_event = {	#bertus mod
 	picture = STREET_SPEECH_eventPicture
 	
 	fire_only_once = yes
-	
 	is_triggered_only = yes
 	
 	trigger = {
@@ -72,26 +72,25 @@ country_event = {	#bertus mod
 	
 	option = {
 		name = flavor_wex.2.a
-		
-		ai_chance = {
-			factor = 0
+		ai_chance = { factor = 100 }
+
+		hidden_effect = {
+			create_vassal = Z40
+			create_vassal = Z41
 		}
-		create_vassal = Z40
-		create_subject = {
-			subject_type = autonomous_vassal
-			subject = Z40
-		}
-		Z40 = { 
-			remove_opinion = {who = A30 modifier = released_vassal}
-			add_opinion = {who = A30 modifier = wex_loyalist_rule}
-			add_liberty_desire = -25
-		}
-		create_vassal = Z41
+		create_subject = { subject_type = autonomous_vassal subject = Z40 }
 		create_subject = {subject_type = autonomous_vassal subject = Z41}
-		Z41 = { 
-			add_liberty_desire = -25
-			remove_opinion = {who = A30 modifier = released_vassal}
-			add_opinion = {who = A30 modifier = wex_loyalist_rule}
+		hidden_effect = {
+			Z40 = { 
+				remove_opinion = {who = A30 modifier = released_vassal}
+				add_opinion = {who = A30 modifier = wex_loyalist_rule}
+				add_liberty_desire = -25
+			}
+			Z41 = { 
+				remove_opinion = {who = A30 modifier = released_vassal}
+				add_opinion = {who = A30 modifier = wex_loyalist_rule}
+				add_liberty_desire = -25
+			}
 		}
 		add_ruler_personality = careful_personality
 
@@ -99,37 +98,34 @@ country_event = {	#bertus mod
 	}
 	option = {
 		name = flavor_wex.2.b
-		
-		ai_chance = {factor = 100}
-		damerian_dales_area = {add_claim = ROOT}
-		the_commons_area = {add_claim = ROOT}
+		ai_chance = { factor = 0 }
+
+		damerian_dales_area = { add_claim = ROOT }
+		the_commons_area = { add_claim = ROOT }
+		add_stability = -1
+		add_ruler_personality = babbling_buffoon_personality
+		inherit = Z40
+		inherit = Z41
+		custom_tooltip = "Will make Wexonard Imperial Privileges worse"
 		custom_tooltip = wex_rebellion_tt
 		hidden_effect = {
 			every_owned_province = {
 				limit = {
-					OR = {
-						owned_by = Z40
-						owned_by = Z41
-						province_id = 299
-					}
+					culture = east_damerian
 				}
 				add_core = ROOT
-				hidden_effect = {
-					add_permanent_province_modifier = {
-						name = wex_rebellious_damerians
-						duration = -1
-						desc = desc_wex_rebellious_damerians
-					}
+				add_permanent_province_modifier = {
+					name = wex_rebellious_damerians
+					duration = -1
+					desc = desc_wex_rebellious_damerians
 				}
 			}
 		}
-		inherit = Z40
-		inherit = Z41
-		add_stability = -1
-		add_ruler_personality = cruel_personality
 
 		set_country_flag = lothane_conqueror
-		
+	}
+	after = {
+		swap_non_generic_missions = yes
 	}
 }
 
@@ -143,9 +139,7 @@ country_event = {
 	trigger = {
 		tag = A30
 		is_emperor = yes
-		NOT = {
-			check_variable = { which = wex_limitation_var value = 10 }
-		}
+		has_estate_privilege = estate_human_wex_empire_privileges
 		cooldown_trigger = {
 			name = wex_limitation
 			cooldown = 1825
@@ -158,17 +152,22 @@ country_event = {
 
 	immediate = {
 		set_cooldown_effect = { name = wex_limitation }
-		change_variable = { which = wex_limitation_var value = 1 }
 		custom_tooltip = wex_limitation_var_tt
 	}
 	
+	after = {
+		change_variable = { which = wex_limitation_var value = 1 }
+	}
+
 	option = {
 		name = flavor_wex.3.a
 		tooltip = {
 			custom_tooltip = "For every prince in Esmaria Region get:"
 			add_truce_with = ROOT
-			white_peace = PREV
-			custom_tooltip = flavor_wex.3.att		#gain 0.5 IA
+			white_peace = PREVw
+			esmaria_region = {
+				remove_claim = ROOT
+			}
 		}
 		hidden_effect = {
 			every_country = {
@@ -180,19 +179,23 @@ country_event = {
 					add_truce_with = PREV
 					white_peace = PREV
 				}
+				every_owned_province = {
+					limit = { is_claim = ROOT }
+					remove_claim = ROOT
+				}
 			}
 		}
 	}
 	option = {
 		name = flavor_wex.3.b
 		trigger = {
-			check_variable = { which = wex_limitation_var value = 2 }
+			check_variable = { which = wex_limitation_var value = 1 }
 			NOT = { has_country_flag = wex_limitation_elector_privilege }
 		}
 		set_country_flag = wex_limitation_elector_privilege 
 		tooltip = {
 			custom_tooltip = "For every Elector get:"
-			add_imperial_influence = 2
+			add_imperial_influence = 1
 			add_prestige = -2
 			custom_tooltip = get_truce_with_tt
 			custom_tooltip = ""
@@ -200,6 +203,9 @@ country_event = {
 			add_prestige = 10
 			add_truce_with = ROOT
 			white_peace = PREV
+			capital_scope = {
+				remove_claim = ROOT
+			}
 		}
 		hidden_effect = {
 			every_country = {
@@ -207,10 +213,14 @@ country_event = {
 				add_prestige = 10
 				add_truce_with = PREV
 				ROOT = {
-					add_imperial_influence = 2
+					add_imperial_influence = 1
 					add_prestige = -2
 					add_truce_with = PREV
 					white_peace = PREV
+				}
+				every_owned_province = {
+					limit = { is_claim = ROOT }
+					remove_claim = ROOT
 				}
 			}
 		}
@@ -218,13 +228,13 @@ country_event = {
 	option = {	#elven privilege
 		name = flavor_wex.3.c
 		trigger = {
-			check_variable = { which = wex_limitation_var value = 2 }
+			check_variable = { which = wex_limitation_var value = 1 }
 			NOT = { has_country_flag = wex_limitation_elven_privilege }
 		}
 		set_country_flag = wex_limitation_elven_privilege 
 		tooltip = {
 			custom_tooltip = "For every Elven Prince get:"
-			add_imperial_influence = 2
+			add_imperial_influence = 1
 			add_treasury = -50
 			custom_tooltip = get_truce_with_tt
 			custom_tooltip = ""
@@ -232,6 +242,9 @@ country_event = {
 			add_adm_power = 100
 			add_truce_with = ROOT
 			white_peace = PREV
+			capital_scope = {
+				remove_claim = ROOT
+			}
 		}
 		hidden_effect = {
 			every_country = {
@@ -242,10 +255,14 @@ country_event = {
 				add_adm_power = 100
 				add_truce_with = PREV
 				ROOT = {
-					add_imperial_influence = 2
+					add_imperial_influence = 1
 					add_treasury = -50
 					add_truce_with = PREV
 					white_peace = PREV
+				}
+				every_owned_province = {
+					limit = { is_claim = ROOT }
+					remove_claim = ROOT
 				}
 			}
 		}
@@ -253,13 +270,13 @@ country_event = {
 	option = {	#Dwarven privilege
 		name = flavor_wex.3.d
 		trigger = {
-			check_variable = { which = wex_limitation_var value = 2 }
+			check_variable = { which = wex_limitation_var value = 1 }
 			NOT = { has_country_flag = wex_limitation_dwarven_privilege }
 		}
 		set_country_flag = wex_limitation_dwarven_privilege 
 		tooltip = {
 			custom_tooltip = "For every Dwarven Prince get:"
-			add_imperial_influence = 2
+			add_imperial_influence = 1
 			add_treasury = -50
 			custom_tooltip = get_truce_with_tt
 			custom_tooltip = ""
@@ -267,6 +284,9 @@ country_event = {
 			add_dip_power = 100
 			add_truce_with = ROOT
 			white_peace = PREV
+			capital_scope = {
+				remove_claim = ROOT
+			}
 		}
 		hidden_effect = {
 			every_country = {
@@ -277,10 +297,14 @@ country_event = {
 				add_dip_power = 100
 				add_truce_with = PREV
 				ROOT = {
-					add_imperial_influence = 2
+					add_imperial_influence = 1
 					add_treasury = -50
 					add_truce_with = PREV
 					white_peace = PREV
+				}
+				every_owned_province = {
+					limit = { is_claim = ROOT }
+					remove_claim = ROOT
 				}
 			}
 		}
@@ -288,13 +312,13 @@ country_event = {
 	option = {	#Gnomish privilege
 		name = flavor_wex.3.e
 		trigger = {
-			check_variable = { which = wex_limitation_var value = 2 }
+			check_variable = { which = wex_limitation_var value = 1 }
 			NOT = { has_country_flag = wex_limitation_gnomish_privilege }
 		}
 		set_country_flag = wex_limitation_gnomish_privilege 
 		tooltip = {
 			custom_tooltip = "For every Gnomish Prince get:"
-			add_imperial_influence = 2
+			add_imperial_influence = 1
 			add_treasury = -50
 			custom_tooltip = get_truce_with_tt
 			custom_tooltip = ""
@@ -302,6 +326,9 @@ country_event = {
 			change_innovativeness = 2
 			add_truce_with = ROOT
 			white_peace = PREV
+			capital_scope = {
+				remove_claim = ROOT
+			}
 		}
 		hidden_effect = {
 			every_country = {
@@ -312,10 +339,14 @@ country_event = {
 				change_innovativeness = 2
 				add_truce_with = PREV
 				ROOT = {
-					add_imperial_influence = 2
+					add_imperial_influence = 1
 					add_treasury = -50
 					add_truce_with = PREV
 					white_peace = PREV
+				}
+				every_owned_province = {
+					limit = { is_claim = ROOT }
+					remove_claim = ROOT
 				}
 			}
 		}
@@ -323,13 +354,13 @@ country_event = {
 	option = {	#Halfling privilege
 		name = flavor_wex.3.f
 		trigger = {
-			check_variable = { which = wex_limitation_var value = 2 }
+			check_variable = { which = wex_limitation_var value = 1 }
 			NOT = { has_country_flag = wex_limitation_halfling_privilege }
 		}
 		set_country_flag = wex_limitation_halfling_privilege 
 		tooltip = {
 			custom_tooltip = "For every Halfling Prince get:"
-			add_imperial_influence = 2
+			add_imperial_influence = 1
 			add_prestige = -5
 			custom_tooltip = get_truce_with_tt
 			custom_tooltip = ""
@@ -337,6 +368,9 @@ country_event = {
 			add_mercantilism = 2
 			add_truce_with = ROOT
 			white_peace = PREV
+			capital_scope = {
+				remove_claim = ROOT
+			}
 		}
 		hidden_effect = {
 			every_country = {
@@ -347,10 +381,14 @@ country_event = {
 				add_mercantilism = 2
 				add_truce_with = PREV
 				ROOT = {
-					add_imperial_influence = 2
+					add_imperial_influence = 1
 					add_prestige = -5
 					add_truce_with = PREV
 					white_peace = PREV
+				}
+				every_owned_province = {
+					limit = { is_claim = ROOT }
+					remove_claim = ROOT
 				}
 			}
 		}
@@ -730,5 +768,60 @@ country_event = {
 			set_saved_name = {key = special_general_name type = simple name = "Godric síl Acromton" }
 			country_event = {id = bertus_changes.6030}
 		}
+	}
+}
+
+country_event = {
+	id = flavor_wex.12
+	title = flavor_wex.12.title
+	desc = flavor_wex.12.desc
+	picture = TRADEGOODS_eventPicture
+	
+	is_triggered_only = yes
+	major = yes
+	
+	trigger = {
+		always = yes
+	}
+
+	option = {
+		name = flavor_wex.12.a
+		ai_chance = { factor = 50 }
+	}
+}
+country_event = {
+	id = flavor_wex.13
+	title = flavor_wex.13.title
+	desc = flavor_wex.13.desc
+	picture = TRADEGOODS_eventPicture
+	
+	is_triggered_only = yes
+	major = yes
+	
+	trigger = {
+		always = yes
+	}
+
+	option = {
+		name = flavor_wex.13.a
+		ai_chance = { factor = 50 }
+	}
+}
+country_event = {
+	id = flavor_wex.14
+	title = flavor_wex.14.title
+	desc = flavor_wex.14.desc
+	picture = TRADEGOODS_eventPicture
+	
+	is_triggered_only = yes
+	major = yes
+	
+	trigger = {
+		always = yes
+	}
+
+	option = {
+		name = flavor_wex.14.a
+		ai_chance = { factor = 50 }
 	}
 }

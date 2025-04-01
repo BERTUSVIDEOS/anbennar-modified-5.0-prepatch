@@ -67,18 +67,33 @@ giberd_imperial = {
 		}
 		position = 3
 		
-		trigger = {
-			OR = {
-				calc_true_if = {
-					all_elector = {
-						has_opinion = {
-							who = ROOT
-							value = 150
-						}
-					}
-					amount = 5
+		trigger = { 	#bertus mod
+			if = {
+				limit = {
+					is_part_of_hre = yes
 				}
-				eoa_is_dismantled = yes
+				OR = {
+					calc_true_if = {
+						all_elector = {
+							has_opinion = {
+								who = ROOT
+								value = 150
+							}
+						}
+						any_rival_country = {
+							humiliated_by = ROOT
+						}
+						amount = 5
+					}
+					power_projection = 100
+				}
+			}
+			else = {
+				OR = {
+					prestige = 75
+					republican_tradition = 75
+					eoa_is_dismantled = yes
+				}
 			}
 		}
 		
@@ -99,11 +114,9 @@ giberd_imperial = {
 		
 		trigger = {
 			diplomatic_reputation = 3
-			dip_power = 50
 		}
 		
 		effect = {
-			add_dip_power = -50
 			define_advisor = {
 				type = diplomat
 				name = "Cobbob Fidgetspinner"

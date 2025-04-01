@@ -573,6 +573,198 @@ estate_human_intolerance_policy = {
 	}
 	ai_will_do = {factor = 0}
 }
+estate_human_wex_empire_privileges = {
+	icon = privilege_human_autonomy
+	is_valid = {
+		tag = A30
+	}
+	can_select = {
+	}
+	on_granted = {
+		custom_tooltip = wex_limitation_var_tt
+		set_variable = { which = wex_limitation_var value = 0 }
+		set_country_flag = wex_imperial_privileges_electors_NAP_flag
+		set_country_flag = wex_imperial_privileges_electors_non_alliance_flag
+		set_country_flag = wex_imperial_privileges_guarantee_anbennarian_culture_flag
+		country_event = { id = flavor_wex.3 days = 1 }
+	}
+	benefits = {
+	}
+	penalties = {
+		imperial_mercenary_cost = 0.33
+	}
+	conditional_modifier = {
+		trigger = {
+			is_emperor = yes
+		}
+		modifier = {
+			spy_offence = -0.10
+			prestige = -0.5
+			advisor_pool = -1 
+			legitimacy = -0.20
+			free_leader_pool = -1
+			yearly_absolutism = -1.0
+			land_forcelimit = -10
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			check_variable = { which = wex_limitation_var value = 9 }
+			NOT = { check_variable = { which = wex_limitation_var value = 10 } }
+			is_emperor = yes
+		}
+		modifier = {
+			imperial_authority = -0.02
+			land_forcelimit_modifier = -0.02
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			check_variable = { which = wex_limitation_var value = 8 }
+			NOT = { check_variable = { which = wex_limitation_var value = 9 } }
+			is_emperor = yes
+		}
+		modifier = {
+			imperial_authority = -0.04
+			land_forcelimit_modifier = -0.04
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			check_variable = { which = wex_limitation_var value = 7 }
+			NOT = { check_variable = { which = wex_limitation_var value = 8 } }
+			is_emperor = yes
+		}
+		modifier = {
+			imperial_authority = -0.06
+			land_forcelimit_modifier = -0.06
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			check_variable = { which = wex_limitation_var value = 6 }
+			NOT = { check_variable = { which = wex_limitation_var value = 7 } }
+			is_emperor = yes
+		}
+		modifier = {
+			imperial_authority = -0.08
+			land_forcelimit_modifier = -0.08
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			check_variable = { which = wex_limitation_var value = 5 }
+			NOT = { check_variable = { which = wex_limitation_var value = 6 } }
+			is_emperor = yes
+		}
+		modifier = {
+			imperial_authority = -0.10
+			land_forcelimit_modifier = -0.10
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			check_variable = { which = wex_limitation_var value = 4 }
+			NOT = { check_variable = { which = wex_limitation_var value = 5 } }
+			is_emperor = yes
+		}
+		modifier = {
+			imperial_authority = -0.12
+			land_forcelimit_modifier = -0.12
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			check_variable = { which = wex_limitation_var value = 3 }
+			NOT = { check_variable = { which = wex_limitation_var value = 4 } }
+			is_emperor = yes
+		}
+		modifier = {
+			imperial_authority = -0.14
+			land_forcelimit_modifier = -0.14
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			check_variable = { which = wex_limitation_var value = 2 }
+			NOT = { check_variable = { which = wex_limitation_var value = 3 } }
+			is_emperor = yes
+		}
+		modifier = {
+			imperial_authority = -0.16
+			land_forcelimit_modifier = -0.16
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			check_variable = { which = wex_limitation_var value = 1 }
+			NOT = { check_variable = { which = wex_limitation_var value = 2 } }
+			is_emperor = yes
+		}
+		modifier = {
+			imperial_authority = -0.18
+			land_forcelimit_modifier = -0.18
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			NOT = { check_variable = { which = wex_limitation_var value = 1 } }
+			is_emperor = yes
+		}
+		modifier = {
+			imperial_authority = -0.20
+			land_forcelimit_modifier = -0.20
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			has_country_flag = lothane_conqueror
+		}
+		modifier = {
+			ae_impact = 0.33
+			fabricate_claims_cost = 0.50
+			legitimacy = -0.25
+			monthly_heir_claim_increase = -0.025
+		}
+	}
+	can_revoke = {
+		if = {
+			limit = {
+				is_emperor = yes
+			}
+			NOT = { check_variable = { which = wex_limitation_var value = 10 } }
+			custom_trigger_tooltip = {
+				tooltip = "Has Revoked 'Wexonard Non Aggression Compromise'"
+				NOT = { has_country_flag = wex_imperial_privileges_electors_NAP_flag }
+			}
+			custom_trigger_tooltip = {
+				tooltip = "Has Revoked 'Wexonard Diplomatic Non Interference Compromise'"
+				NOT = { has_country_flag = wex_imperial_privileges_electors_non_alliance_flag }
+			}
+			custom_trigger_tooltip = {
+				tooltip = "Has Revoked 'Wexonard Anbennarian guarantee Compromise'"
+				NOT = { has_country_flag = wex_imperial_privileges_guarantee_anbennarian_culture_flag }
+			}
+		}
+		else = {
+			had_country_flag = {
+				flag = wex_imperial_privileges_electors_NAP_flag
+				days = 18250
+			}
+			had_country_flag = {
+				flag = wex_imperial_privileges_electors_non_alliance_flag
+				days = 18250
+			}
+			had_country_flag = {
+				flag = wex_imperial_privileges_guarantee_anbennarian_culture_flag
+				days = 18250
+			}
+		}
+	}
+	on_revoked = { }
+	on_invalid = { }
+	ai_will_do = {factor = 1}
+}
 estate_human_autonomy = {
 	icon = privilege_human_autonomy
 	loyalty = 0.2
