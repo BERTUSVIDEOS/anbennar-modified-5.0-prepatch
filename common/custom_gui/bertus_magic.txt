@@ -588,10 +588,7 @@ custom_button = {
 				custom_tooltip = magisters_need_tier_3_enchantment_tt
 			}
 		}
-		hidden_effect = {
-			clr_country_flag = estate_mages_cast_spells
-			clr_country_flag = estate_mages_cast_spell_divination
-		}
+		
 	}
 	tooltip = "Scrying Rivals"
 }
@@ -720,10 +717,7 @@ custom_button = {
 		}
 		
 		custom_tooltip = magic_scrying_desc_tt
-		hidden_effect = {
-			clr_country_flag = estate_mages_cast_spells
-			clr_country_flag = estate_mages_cast_spell_divination
-		}
+		
 	}
 	tooltip = "Scrying Neighbours"
 }
@@ -805,10 +799,7 @@ custom_button = {
 			}
 		}
 		custom_tooltip = magic_scrying_desc_tt
-		hidden_effect = {
-			clr_country_flag = estate_mages_cast_spells
-			clr_country_flag = estate_mages_cast_spell_divination
-		}
+		
 	}
 	tooltip = "Scrying Internal Dissidents"
 }
@@ -857,10 +848,7 @@ custom_button = {
 			custom_tooltip = magisters_need_40_mana_tt
 			custom_tooltip = "to get lvl 2 Spell"
 		}
-		hidden_effect = {
-			clr_country_flag = estate_mages_cast_spells
-			clr_country_flag = estate_mages_cast_spell_divination
-		}
+		
 	}
 	tooltip = "Foretelling"
 }
@@ -1063,10 +1051,7 @@ custom_button = {
 		}
 		
 		custom_tooltip = magic_scrying_desc_tt
-		hidden_effect = {
-			clr_country_flag = estate_mages_cast_spells
-			clr_country_flag = estate_mages_cast_spell_enchantment
-		}
+		
 	}
 	tooltip = "Overwrite Fear"
 }
@@ -1131,10 +1116,7 @@ custom_button = {
 				add_country_modifier = { name = enchantment_school_reform_modifier duration = 730 }
 			}
 		}
-		hidden_effect = {
-			clr_country_flag = estate_mages_cast_spells
-			clr_country_flag = estate_mages_cast_spell_enchantment
-		}
+		
 	}
 	tooltip = "Weaken Minds"
 }
@@ -1196,8 +1178,6 @@ custom_button = {
 		custom_tooltip = magic_conception_desc_tt
 		hidden_effect = {
 			country_event = { id = acolyte_estate.9 }
-			clr_country_flag = estate_mages_cast_spells
-			clr_country_flag = estate_mages_cast_spell_enchantment
 		}
 	}
 	tooltip = "Rite of Conception"
@@ -1392,10 +1372,7 @@ custom_button = {
 				custom_tooltip = magisters_need_tier_3_abjuration_tt
 			}
 		}
-		hidden_effect = {
-			clr_country_flag = estate_mages_cast_spells
-			clr_country_flag = estate_mages_cast_spell_abjuration
-		}
+		
 	}
 	tooltip = "Abjuration Shield"
 }
@@ -1532,10 +1509,7 @@ custom_button = {
 		}
 		
 		custom_tooltip = magic_ward_desc_tt
-		hidden_effect = {
-			clr_country_flag = estate_mages_cast_spells
-			clr_country_flag = estate_mages_cast_spell_abjuration
-		}
+		
 	}
 	tooltip = "Magic Surveillance"
 }
@@ -1652,10 +1626,7 @@ custom_button = {
 		}
 		
 		custom_tooltip = magic_ward_desc_tt
-		hidden_effect = {
-			clr_country_flag = estate_mages_cast_spells
-			clr_country_flag = estate_mages_cast_spell_abjuration
-		}
+		
 	}
 	tooltip = "Broad Ward"
 }
@@ -1683,10 +1654,10 @@ custom_button = {
 			limit = { NOT = { has_unlocked_magic_school = { school = abjuration level = 1 } } }
 			has_unlocked_magic_school = { school = abjuration level = 1 }
 		}
-		has_mana = { mana = 10 }
-		if = {
-			limit = {any_owned_province = { has_province_modifier = magic_estate_ward_1} }
-			NOT = {any_owned_province = { has_province_modifier = magic_estate_ward_1} }
+		has_mana = { mana = 20 }
+		custom_trigger_tooltip = {
+			tooltip = magic_menu_province_spell_tt
+			always = no
 		}
 	}
 	effect = {
@@ -1696,110 +1667,85 @@ custom_button = {
 				has_mana = { mana = 30 }
 			}
 			add_mana_effect = { mana = -30 }
-			custom_tooltip = magic_menu_narrow_wards_effect_75_tt
-			capital_scope = {
-				every_province = {
-					limit = {
-						owned_by = ROOT
-						is_city = yes
-						OR = {
-							has_building = mage_tower
-							NOT = { province_distance = { who = PREV distance = 75 } }
-						}
-						OR = {
-							fort_level = 2
-							is_capital = yes
-						}
-					}
-					remove_province_modifier = magic_estate_ward_1
-					add_province_modifier = { name = magic_estate_ward_1 duration = 1825 }
-				}
-			}
+			custom_tooltip = "Target Province gets:"
+			custom_tooltip = "For 2 years:"
+			add_province_modifier = { name = magic_estate_ward_2 duration = 730 }
 		}
-		else_if = { 
-			limit = { 
-				has_unlocked_magic_school = { school = abjuration level = 2 }
-				has_mana = { mana = 20 }
-			}
+		else = {
 			add_mana_effect = { mana = -20 }
-			custom_tooltip = magic_menu_narrow_wards_effect_50_tt
-			capital_scope = {
-				every_province = {
-					limit = {
-						owned_by = ROOT
-						is_city = yes
-						OR = {
-							has_building = mage_tower
-							NOT = { province_distance = { who = PREV distance = 50 } }
-						}
-						OR = {
-							fort_level = 2
-							is_capital = yes
-						}
-					}
-					remove_province_modifier = magic_estate_ward_1
-					add_province_modifier = { name = magic_estate_ward_1 duration = 1825 }
-				}
-			}
+			custom_tooltip = "Target Province gets:"
+			custom_tooltip = "For 2 years:"
+			add_province_modifier = { name = magic_estate_ward_1 duration = 730 }
 			if = {
 				limit = { has_unlocked_magic_school = { school = abjuration level = 3 } }
 				custom_tooltip = magisters_need_30_mana_tt
 				custom_tooltip = "to get lvl 3 Spell"
 			}
 			else = {
-				custom_tooltip = magisters_need_tier_3_abjuration_tt
-			}
-		}
-		else = {
-			add_mana_effect = { mana = -10 }
-			custom_tooltip = magic_menu_narrow_wards_effect_25_tt
-			capital_scope = {
-				every_province = {
-					limit = {
-						owned_by = ROOT
-						is_city = yes
-						OR = {
-							has_building = mage_tower
-							NOT = { province_distance = { who = PREV distance = 25 } }
-						}
-						OR = {
-							fort_level = 2
-							is_capital = yes
-						}
-					}
-					remove_province_modifier = magic_estate_ward_1
-					add_province_modifier = { name = magic_estate_ward_1 duration = 1825 }
-				}
-			}
-			if = {
-				limit = { has_unlocked_magic_school = { school = abjuration level = 2 } }
-				custom_tooltip = magisters_need_20_mana_tt
-				custom_tooltip = "to get lvl 2 Spell"
-			}
-			else = {
 				custom_tooltip = magisters_need_tier_2_abjuration_tt
 			}
 		}
 		custom_tooltip = magic_ward_desc_tt
-		hidden_effect = {
-			clr_country_flag = estate_mages_cast_spells
-			clr_country_flag = estate_mages_cast_spell_abjuration
-		}
 	}
 	tooltip = "Narrow Wards"
 }
-custom_icon = {
-	name = magic_menu_narrow_wards_glow
+custom_button = {
+	name = magic_menu_narrow_wards_province
     potential = {
-		has_country_flag = estate_mages_cast_spell_abjuration
-		OR = {
-			any_owned_province = { has_province_modifier = magic_estate_ward_1 }
-			any_owned_province = { has_province_modifier = magic_estate_ward_2 }
-			any_owned_province = { has_province_modifier = magic_estate_ward_3 }
-
+		has_siege = no
+		FROM = {
+			ai = no
+			has_estate = estate_mages
+		}
+		if = {
+			limit = { 
+				owner = { is_subject_other_than_tributary_trigger = yes }
+			}
+			owner = {
+				is_subject_of = FROM
+			}
+		}
+		else = {
+			owned_by = FROM
 		}
 	}
-	tooltip = "Narrow Wards"
+	trigger = {
+		FROM = { 
+			if = {
+				limit = { NOT = { has_unlocked_magic_school = { school = abjuration level = 2 } } }
+				has_unlocked_magic_school = { school = abjuration level = 2 }
+			}
+			has_mana = { mana = 20 }
+		}
+	}
+	effect = {
+		FROM = {
+			if = {
+				limit = { has_unlocked_magic_school = { school = abjuration level = 3 } }
+				ROOT = {
+					add_province_modifier = { name = magic_estate_ward_2 duration = 730 }
+				}
+				add_mana_effect = { mana = -30 }
+			}
+			else = {
+				ROOT = {
+					add_province_modifier = { name = magic_estate_ward_1 duration = 730 }
+				}
+				add_mana_effect = { mana = -20 }
+				if = {
+					limit = { has_unlocked_magic_school = { school = abjuration level = 3 } }
+					custom_tooltip = magisters_need_30_mana_tt
+					custom_tooltip = "to get lvl 3 Spell"
+				}
+				else = {
+					custom_tooltip = magisters_need_tier_2_abjuration_tt
+				}
+			}
+		}
+		custom_tooltip = magic_ward_desc_tt
+		custom_tooltip = magic_ward_lore_tooltip
+	}
+	tooltip = "Narrow Ward"
 }
 custom_button = {
 	name = transmutation_school_spells
@@ -2006,10 +1952,7 @@ custom_button = {
 		hidden_effect = { country_event = { id = magic_estate.100 } } #Devastation ticks up
 		
 		custom_tooltip = magic_plant_growth_desc_tt
-		hidden_effect = {
-			clr_country_flag = estate_mages_cast_spells
-			clr_country_flag = estate_mages_cast_spell_transmutation
-		}
+		
 	}
 	tooltip = "Pland Growth"
 }
@@ -2059,10 +2002,7 @@ custom_button = {
 				add_country_modifier = { name = transmutation_school_healing_spell_modifier duration = 730 }
 			}
 		}
-		hidden_effect = {
-			clr_country_flag = estate_mages_cast_spells
-			clr_country_flag = estate_mages_cast_spell_transmutation
-		}
+		
 	}
 	tooltip = "Healing Spells"
 }
@@ -2106,7 +2046,7 @@ custom_button = {
 		}
 		has_mana = { mana = 33 }
 		custom_trigger_tooltip = {
-			tooltip = magic_menu_siege_spell_tt
+			tooltip = magic_menu_province_spell_tt
 			always = no
 		}
 	}
@@ -2134,6 +2074,7 @@ custom_button = {
 	name = gold_transmutation_spell
     potential = {
 		FROM = { has_country_flag = estate_mages_cast_province_spells }
+		has_siege = no
 		if = {
 			limit = { 
 				owner = { is_subject_other_than_tributary_trigger = yes }
@@ -2420,29 +2361,43 @@ custom_button = {
 			limit = { NOT = { has_unlocked_magic_school = { school = evocation level = 1 } } }
 			has_unlocked_magic_school = { school = evocation level = 1 }
 		}
-		has_mana = { mana = 33 }
+		has_mana = { mana = 20 }
 		if = {
-			limit = {has_country_modifier = evocation_school_reform_modifier}
-			NOT = {has_country_modifier = evocation_school_reform_modifier}
+			limit = {has_country_modifier = evocation_school_evocated_weapons_1_modifier}
+			NOT = {has_country_modifier = evocation_school_evocated_weapons_1_modifier}
+		}
+		if = {
+			limit = {has_country_modifier = evocation_school_evocated_weapons_2_modifier}
+			NOT = {has_country_modifier = evocation_school_evocated_weapons_2_modifier}
 		}
 	}
 	effect = {
-		if = {
-			limit = { has_mana = { mana = 33 } }
-			add_mana_effect = { mana = -33 }
-			add_country_modifier = { name = evocation_school_reform_modifier duration = 730 }
+		if = { 
+			limit = {
+				has_unlocked_magic_school = { school = evocation level = 3 }
+				has_mana = { mana = 30 }
+			}
+			add_mana_effect = { mana = -30 }
+			add_country_modifier = { name = evocation_school_evocated_weapons_2_modifier duration = 730 }
 		}
 		else = {
-			tooltip = {
-				custom_tooltip = "Would give:"
-				add_mana_effect = { mana = -33 }
-				add_country_modifier = { name = evocation_school_reform_modifier duration = 730 }
+			add_mana_effect = { mana = -20 }
+			add_country_modifier = { name = evocation_school_evocated_weapons_1_modifier duration = 730 }
+			if = {
+				limit = { has_unlocked_magic_school = { school = evocation level = 3 } }
+				custom_tooltip = magisters_need_30_mana_tt
+				custom_tooltip = "to get lvl 2 Spell"
+			}
+			else = {
+				tooltip = {
+					custom_tooltip = "Would give:"
+					add_mana_effect = { mana = -20 }
+					add_country_modifier = { name = evocation_school_evocated_weapons_1_modifier duration = 730 }
+				}
 			}
 		}
-		hidden_effect = {
-			clr_country_flag = estate_mages_cast_spells
-			clr_country_flag = estate_mages_cast_spell_transmutation
-		}
+		custom_tooltip = evocated_weapons_desc_tt
+		
 	}
 	tooltip = "Evocated Weapons"
 }
@@ -2451,8 +2406,8 @@ custom_icon = {
     potential = {
 		has_country_flag = estate_mages_cast_spell_evocation
 		OR = {
-			has_country_modifier = evocation_school_reform_modifier
-
+			has_country_modifier = evocated_weapons_1_modifier
+			has_country_modifier = evocated_weapons_2_modifier
 		}
 	}
 	tooltip = "Evocated Weapons"
@@ -2610,10 +2565,7 @@ custom_button = {
 				add_province_modifier = { name = illusion_school_delusions_modifier duration = 730 }
 			}
 		}
-		hidden_effect = {
-			clr_country_flag = estate_mages_cast_spells
-			clr_country_flag = estate_mages_cast_spell_illusion
-		}
+		
 	}
 	tooltip = "Delusions"
 }
@@ -2724,10 +2676,7 @@ custom_button = {
 			}
 		}
 		custom_tooltip = magic_miracle_desc_tt
-		hidden_effect = {
-			clr_country_flag = estate_mages_cast_spells
-			clr_country_flag = estate_mages_cast_spell_illusion
-		}
+		
 	}
 	tooltip = "Perform Miracle"
 }
@@ -2894,10 +2843,7 @@ custom_button = {
 				custom_tooltip = "to get lvl 2 Spell"
 			}
 		}
-		hidden_effect = {
-			clr_country_flag = estate_mages_cast_spells
-			clr_country_flag = estate_mages_cast_spell_necromancy
-		}
+		
 	}
 	tooltip = "Flesh Necrosis"
 }
@@ -2936,10 +2882,7 @@ custom_button = {
 				custom_tooltip = "to get lvl 3 Spell"
 			}
 		}
-		hidden_effect = {
-			clr_country_flag = estate_mages_cast_spells
-			clr_country_flag = estate_mages_cast_spell_necromancy
-		}
+		
 	}
 	tooltip = "Genital Cancer"
 }
@@ -3118,10 +3061,7 @@ custom_button = {
 			}
 		}
 		custom_tooltip = magic_feast_desc_tt
-		hidden_effect = {
-			clr_country_flag = estate_mages_cast_spells
-			clr_country_flag = estate_mages_cast_spell_conjuration
-		}
+		
 	}
 	tooltip = "Magnificent Feast"
 }
@@ -3157,10 +3097,7 @@ custom_button = {
 	effect = {
 		add_mana_effect = { mana = -30 }
 		add_country_modifier = { name = conjuration_school_reform_modifier duration = 730 }
-		hidden_effect = {
-			clr_country_flag = estate_mages_cast_spells
-			clr_country_flag = estate_mages_cast_spell_conjuration
-		}
+		
 	}
 	tooltip = "Elemental Summoning"
 }
@@ -3280,10 +3217,7 @@ custom_button = {
 		}
 		
 		custom_tooltip = magic_construction_desc_tt
-		hidden_effect = {
-			clr_country_flag = estate_mages_cast_spells
-			clr_country_flag = estate_mages_cast_spell_conjuration
-		}
+		
 	}
 	tooltip = "Aid Constructions"
 }
@@ -3411,6 +3345,7 @@ custom_window = {
 	
     potential = {
 		FROM = { has_country_flag = siege_cast_spells_flag }
+		sieged_by = ROOT
 	}
 }
 custom_icon = {

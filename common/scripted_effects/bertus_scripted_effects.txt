@@ -138,31 +138,56 @@ set_cooldown_effect = {
 get_monthly_manpower = {
 	if = {
 		limit = {
-			has_country_modifier = slackening_modifier
-			NOT = {has_country_modifier = cheat_engine_modifier}
+			#always = no
+			NOT = { manpower_percentage = 1.0 }
+			has_global_modifier_value = { which = monthly_manpower_modifier value = 0.01 }
 		}
-		add_yearly_manpower = 0.0833
+		export_to_variable = { which = monthly_manpower_modifier_var value = modifier:monthly_manpower_modifier }
+		export_to_variable = { which = manpower_recovery_var value = modifier:manpower_recovery_speed }
+		change_variable = { which = manpower_recovery_var value = 1 }
+		export_to_variable = { which = max_manpower value = trigger_value:max_manpower }
+		multiply_variable = { which = monthly_manpower_modifier_var which = manpower_recovery_var }
+		multiply_variable = { which = monthly_manpower_modifier_var which = max_manpower }
+		divide_variable = { which = monthly_manpower_modifier_var value = 24 }
+
+		while = {
+			limit = { check_variable = { which = monthly_manpower_modifier_var value = 0 } }
+			change_variable = { which = monthly_manpower_modifier_var value = -1 }
+			add_manpower = 0.1
+		}
 		if = {
-			limit = {has_government_attribute = slacken_give_sailors}
-			add_yearly_sailors = 0.0833
+			limit = {
+				has_country_modifier = slackening_modifier
+				NOT = {has_country_modifier = cheat_engine_modifier}
+			}
+			#add_yearly_manpower = 0.0833
+			if = {
+				limit = {has_government_attribute = slacken_give_sailors}
+				add_yearly_sailors = 0.0833
+			}
 		}
 	}
-	if = {
-		limit = { has_country_modifier = temporary_slacken_modifier }
-		add_yearly_manpower = 0.0833
-	}
-	if = {
-		limit = {has_country_modifier = PA_temporary_manpower_recovery_boost_modifier}
-		add_yearly_manpower = 0.0416
-	}
-	if = {
-		limit = { has_idea = militarismus4 is_at_war = yes }
-		add_yearly_manpower = 0.00833
-	}
-	if = {
-		limit = { current_icon = invocation_of_blood }
-		add_yearly_manpower = 0.0416
-	}
+	#if = {
+	#	limit = {
+	#		always = no
+	#	}
+	#	if = {
+	#		limit = { has_country_modifier = temporary_slacken_modifier }
+	#		add_yearly_manpower = 0.0833
+	#	}
+	#	if = {
+	#		limit = {has_country_modifier = PA_temporary_manpower_recovery_boost_modifier}
+	#		add_yearly_manpower = 0.0416
+	#	}
+	#	if = {
+	#		limit = { has_idea = militarismus4 is_at_war = yes }
+	#		add_yearly_manpower = 0.00833
+	#	}
+	#	if = {
+	#		limit = { current_icon = invocation_of_blood }
+	#		add_yearly_manpower = 0.0416
+	#	}
+	#}
 }
 get_monthly_mana = {
 	if = {
@@ -824,9 +849,12 @@ on_development_scaled_modifiers_effect = {
 	}
 	if = {
 		limit = {
-			has_kobold_majority_trigger = yes
+			OR = {
+				has_kobold_majority_trigger = yes
+				has_goblin_majority_trigger = yes
+			}
 		}
-		add_pop_modifier = {race = kobold class = bonus amount = 50percent resource = land_forcelimit onbase = development}
+		add_pop_modifier = {race = smallkind class = bonus amount = 50percent resource = land_forcelimit onbase = development}
 	}
 	if = {
 		limit = {

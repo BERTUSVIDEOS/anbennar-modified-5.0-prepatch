@@ -2630,14 +2630,52 @@ country_event = {	#setup players electors & other stuff
 				elven = {set_estate_privilege = estate_elven_recruitment}
 				dwarven = {set_estate_privilege = estate_dwarven_recruitment}
 				halfling = {set_estate_privilege = estate_halfling_recruitment_2}
-				gnomish = {set_estate_privilege = estate_gnomish_recruitment_2}
+				gnomish = {
+					set_estate_privilege = estate_gnomish_recruitment_2
+					export_to_variable = { which = temp value = trigger_value:num_of_cavalry  }
+					while = {
+						limit = { check_variable = { which = temp value = 1 } }
+						change_variable = { which = temp value = -1 }
+						capital_scope = { infantry = ROOT }
+					}
+					every_owned_province = {
+						limit = { cavalry_in_province = ROOT }
+						kill_units = { who = owner type = cavalry }
+					}
+				}
 				harimari = {set_estate_privilege = estate_harimari_recruitment_2}
 				gnollish = {set_estate_privilege = estate_gnollish_recruitment_2}
 				orcish = {set_estate_privilege = estate_orcish_recruitment_2}
 				goblin = {set_estate_privilege = estate_goblin_recruitment_2}
-				ogre = {set_estate_privilege = estate_ogre_recruitment_2}
+				ogre = {
+					set_estate_privilege = estate_ogre_recruitment_2
+					every_owned_province = {
+						limit = { units_in_province = 1 }
+						kill_units = { who = owner type = infantry }
+					}
+					export_to_variable = {which = temp value = land_forcelimit}
+					multiply_variable = {which = temp value = 0.66}
+					while = {
+						limit = { check_variable = { which = temp value = 1 } }
+						change_variable = { which = temp value = -1 }
+						capital_scope = { samurai_infantry = ROOT }
+					}
+				}
 				centaur = {set_estate_privilege = estate_centaur_recruitment_2}
-				giantkind = {set_estate_privilege = estate_troll_recruitment_2}
+				giantkind = {
+					set_estate_privilege = estate_troll_recruitment_2
+					every_owned_province = {
+						limit = { units_in_province = 1 }
+						kill_units = { who = owner type = infantry }
+					}
+					export_to_variable = {which = temp value = land_forcelimit}
+					multiply_variable = {which = temp value = 0.66}
+					while = {
+						limit = { check_variable = { which = temp value = 1 } }
+						change_variable = { which = temp value = -1 }
+						capital_scope = { samurai_infantry = ROOT }
+					}
+				}
 				harpy = {set_estate_privilege = estate_harpy_recruitment}
 				half_orc = {set_estate_privilege = estate_half_orcish_recruitment}
 				half_elf = {set_estate_privilege = estate_half_elven_recruitment}
@@ -3152,34 +3190,19 @@ country_event = {	#Spell Show resourcess
 	hidden = yes
 
 	immediate = {
-		set_variable = {which = current_treasury value = 0}
 		export_to_variable = {which = current_treasury value = treasury}
-		set_variable = {which = current_income value = 0}
 		export_to_variable = {which = current_income value = monthly_income}
-		set_variable = {which = current_balance value = 0}
 		export_to_variable = {which = current_balance value = trigger_value:current_income_balance}
-		set_variable = {which = current_loans value = 0}
 		export_to_variable = {which = current_loans value = trigger_value:num_of_loans}
-		set_variable = {which = current_troops value = 0}
 		export_to_variable = {which = current_troops value = army_size}
-		set_variable = {which = current_forcelimit value = 0}
 		export_to_variable = {which = current_forcelimit value = land_forcelimit}
-		set_variable = {which = current_marines value = 0}
 		export_to_variable = {which = current_marines value = trigger_value:num_of_marines}
-		set_variable = {which = current_battlemages value = 0}
 		export_to_variable = {which = current_battlemages value = trigger_value:num_of_cawa}
-		set_variable = {which = current_national_elites value = 0}
 		export_to_variable = {which = current_national_elites value = trigger_value:num_of_mamluks}
-		set_variable = {which = current_undead value = 0}
 		export_to_variable = {which = current_undead value = trigger_value:num_of_streltsy}
-		set_variable = {which = current_artificers value = 0}
 		export_to_variable = {which = current_artificers value = modifier:amount_of_carolean}
-		set_variable = {which = current_peasants value = 0}
 		export_to_variable = {which = current_peasants value = trigger_value:num_of_rajput}
-		set_variable = {which = current_mercs value = 0}
 		export_to_variable = {which = current_mercs value = trigger_value:num_of_mercenaries}
-		set_variable = {which = current_manpower value = 0}
-		set_variable = {which = max_manpower value = 0}
 		export_to_variable = {which = current_manpower value = manpower}
 		export_to_variable = {which = max_manpower value = max_manpower}
 		set_base_morale = yes
@@ -3187,30 +3210,20 @@ country_event = {	#Spell Show resourcess
 		set_cavalry_power = yes
 		set_artillery_power = yes
 		set_fire_shock_modifiers = yes		
-		set_variable = {which = current_morale_damage value = 0}
 		export_to_variable = {which = current_morale_damage value = modifier:morale_damage}
 		multiply_variable = {which = current_morale_damage value = 100}
-		set_variable = {which = current_morale_damage_received value = 0}
 		export_to_variable = {which = current_morale_damage_received value = modifier:morale_damage_received}
 		multiply_variable = {which = current_morale_damage_received value = 100}
-		set_variable = {which = current_infantry value = 0}
 		export_to_variable = {which = current_infantry value = trigger_value:num_of_infantry}
-		set_variable = {which = current_cavalry value = 0}
 		export_to_variable = {which = current_cavalry value = trigger_value:num_of_cavalry}
-		set_variable = {which = current_artillery value = 0}
 		export_to_variable = {which = current_artillery value = trigger_value:num_of_artillery}
 		set_base_discipline = yes
-		set_variable = {which = current_professionalism value = 0}
 		export_to_variable = {which = current_professionalism value = trigger_value:army_professionalism}
 		multiply_variable = {which = current_professionalism value = 100}
-		set_variable = {which = current_tech_cost value = 0}
 		export_to_variable = {which = current_tech_cost value = modifier:technology_cost}
 		multiply_variable = {which = current_tech_cost value = 100}
-		set_variable = {which = current_adm_power value = 0}
 		export_to_variable = {which = current_adm_power value = trigger_value:adm_power}
-		set_variable = {which = current_dip_power value = 0}
 		export_to_variable = {which = current_dip_power value = trigger_value:dip_power}
-		set_variable = {which = current_mil_power value = 0}
 		export_to_variable = {which = current_mil_power value = trigger_value:mil_power}
 	}
 	option = {	#
@@ -3690,7 +3703,6 @@ country_event = {
 					has_province_modifier = making_soup_modifier
 				}
 				clr_province_flag = making_soup_flag
-				set_variable = {which = province_manpower value = 0}
 				export_to_variable = {which = province_manpower value = base_manpower}
 				set_variable = {which = manpower_per_dev_tooltip value = 0}
 				change_variable = {which = manpower_per_dev_tooltip value = 100}
@@ -3970,7 +3982,37 @@ country_event = {	#religion general
 	}
 }
 
-# id = bertus_changes.3002 #unused
+country_event = {
+    id = bertus_changes.3002
+    title = bertus_changes.3002.title
+    desc = bertus_changes.3002.desc
+    picture = MERCHANTS_TALKING_eventPicture
+
+    is_triggered_only = yes
+	hidden = yes
+
+    immediate = {}
+
+    option = {
+        name = bertus_changes.3002.a
+		ai_chance = { factor = 90 }
+	}
+
+    option = {
+        name = bertus_changes.3002.b
+		ai_chance = { factor = 10 }
+		custom_tooltip = get_great_hero_general_tt
+		set_country_flag = get_adventurer_flag
+		custom_tooltip = get_adventurer_flag_tt
+		set_country_flag = great_general_extra_pips_flag
+		set_country_flag = hero_free_general_flag
+		custom_tooltip = great_general_extra_pips_flag_tt
+		hidden_effect = {
+			set_saved_name = {key = special_general_name type = advisor scope = ROOT}
+			country_event = {id = bertus_changes.6030}
+		}
+    }
+}
 
 country_event = {
     id = bertus_changes.3004
@@ -5665,7 +5707,6 @@ province_event = {
 	}
 	immediate = {
 		hidden_effect = {
-			set_variable = {which = province_manpower value = 0}
 			export_to_variable = {which = province_manpower value = base_manpower}
 			set_variable = {which = manpower_per_dev_tooltip value = 0}
 			change_variable = {which = manpower_per_dev_tooltip value = 100}
