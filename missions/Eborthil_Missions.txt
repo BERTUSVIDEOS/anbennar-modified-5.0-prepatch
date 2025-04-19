@@ -279,6 +279,7 @@ A47_cannor = {
 					owned_by = A33
 				}
 			}
+			has_estate_privilege = estate_human_eborthil_academy
 		}
 		
 		effect = {
@@ -290,10 +291,8 @@ A47_cannor = {
 				}
 			}
 			set_country_flag = elite_marine_flag
-			add_country_modifier = {	#bertus mod
-				name = elite_marine_modifier
-				duration = -1
-			}
+			custom_tooltip = "Toref Citadel Academy gives:"
+			add_country_modifier = { name = elite_marine_modifier duration = -1 }
 		}
 	}
 }
@@ -749,6 +748,8 @@ A47_cash = {
 					duration = -1
 				}
 			}
+			set_country_flag = eborthil_the_eborthili_arsenal_flag
+			custom_tooltip = eborthil_the_eborthili_arsenal_tt
 		}
 	}
 }
@@ -947,9 +948,10 @@ A47_navy = {
 		}
 		
 		effect = {
-			add_country_modifier = {
-				name = eborthil_expanded_goldwaters_recruitment
-				duration = -1
+			set_country_flag = estate_human_eborthil_academy_flag
+			custom_tooltip = "Unlocks Toref Citadel Academy"
+			tooltip = {
+				set_estate_privilege = estate_human_eborthil_academy
 			}
 		}
 	}
@@ -977,13 +979,13 @@ A47_navy = {
 				value = 5
 				has_shipyard_building_trigger = yes
 			}
+			has_estate_privilege = estate_human_eborthil_academy
 		}
 		
 		effect = {
-			add_country_modifier = {
-				name = eborthil_specialized_saboteurs
-				duration = -1
-			}
+			set_country_flag = eborthil_specialized_saboteurs_flag
+			custom_tooltip = "Toref Citadel Academy gives:"
+			add_country_modifier = { name = eborthil_specialized_saboteurs duration = -1 }
 		}
 	}
 	
@@ -1064,9 +1066,10 @@ A47_navy = {
 			add_treasury = -500
 			add_dip_power = -100
 			add_mil_power = -100
-			add_country_modifier = {	#bertus mod
-				name = eborthil_goldwaters_school
-				duration = -1
+			set_country_flag = eborthil_goldwaters_school_flag
+			custom_tooltip = "Toref Citadel Academy gives:"
+			tooltip = {
+				add_country_modifier = { name = eborthil_goldwaters_school duration = -1 }
 			}
 		}
 	}
@@ -1086,9 +1089,10 @@ A47_navy = {
 		}
 		
 		effect = {
-			add_country_modifier = {
-				name = eborthil_rules_the_waves
-				duration = -1
+			set_country_flag = eborthil_rules_the_waves_flag
+			custom_tooltip = "Toref Citadel Academy gives:"
+			tooltip = {
+				add_country_modifier = { name = eborthil_rules_the_waves duration = -1 }
 			}
 			set_government_rank = 3
 			add_prestige_or_monarch_power = {amount =  50}
@@ -1265,13 +1269,23 @@ A47_development = {
 		
 		trigger = {
 			mil_power = 100
+			has_estate_privilege = estate_human_eborthil_academy
 		}
 		
 		effect = {
 			add_mil_power = -100
-			add_country_modifier = {
-				name = eborthil_bombs_away
-				duration = -1
+			set_country_flag = eborthil_bombs_away_flag
+			if = {
+				limit = {
+					has_estate_privilege = estate_human_eborthil_academy
+				}
+				add_country_modifier = { name = eborthil_bombs_away duration = -1 }
+			}
+			else = {
+				custom_tooltip = "Toref Citadel Academy gives:"
+				tooltip = {
+					add_country_modifier = { name = eborthil_bombs_away duration = -1 }
+				}
 			}
 		}
 	}
@@ -1694,7 +1708,7 @@ A47_western_aelantir = {
 		provinces_to_highlight = {
 			OR = {
 				AND = {
-					colonial_region = colonial_kheionai
+					colonial_region = tor_nayyi_region
 					OR = {
 						NOT = { is_city = yes }
 						NOT = { country_or_non_sovereign_subject_holds = ROOT }
@@ -1703,7 +1717,7 @@ A47_western_aelantir = {
 						ROOT = {
 							num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
 								value = 20
-								colonial_region = colonial_kheionai
+								colonial_region = tor_nayyi_region
 								is_city = yes
 							}
 						}
@@ -1716,7 +1730,7 @@ A47_western_aelantir = {
 		trigger = {
 			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
 				value = 20
-				colonial_region = colonial_kheionai
+				colonial_region = tor_nayyi_region
 				is_city = yes
 			}
 		}

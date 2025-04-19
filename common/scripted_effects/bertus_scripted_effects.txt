@@ -138,56 +138,62 @@ set_cooldown_effect = {
 get_monthly_manpower = {
 	if = {
 		limit = {
-			#always = no
 			NOT = { manpower_percentage = 1.0 }
 			has_global_modifier_value = { which = monthly_manpower_modifier value = 0.01 }
 		}
-		export_to_variable = { which = monthly_manpower_modifier_var value = modifier:monthly_manpower_modifier }
-		export_to_variable = { which = manpower_recovery_var value = modifier:manpower_recovery_speed }
-		change_variable = { which = manpower_recovery_var value = 1 }
+
+		set_variable = { which = temp value = 0 }
+		export_to_variable = { which = temp value = modifier:manpower_recovery_speed }
+		change_variable = { which = temp value = 1 }											# (1+x)
+
+		set_variable = { which = manpower_recovery_var value = 0 }
+		change_variable = { which = manpower_recovery_var which = temp }						#save for later
+
 		export_to_variable = { which = max_manpower value = trigger_value:max_manpower }
-		multiply_variable = { which = monthly_manpower_modifier_var which = manpower_recovery_var }
-		multiply_variable = { which = monthly_manpower_modifier_var which = max_manpower }
-		divide_variable = { which = monthly_manpower_modifier_var value = 24 }
+		multiply_variable = { which = temp which = max_manpower }
+		divide_variable = { which = temp value = 24 }
+		
+		set_variable = { which = monthly_manpower_gain value = 0 }
+		change_variable = { which = monthly_manpower_gain which = temp }						#save for later
+
+		export_to_variable = { which = monthly_manpower_modifier_var value = modifier:monthly_manpower_modifier }
+		multiply_variable = { which = temp which = monthly_manpower_modifier_var }
+
+		set_variable = { which = monthly_manpower_gain_after_modifiers value = 0 }
+		change_variable = { which = monthly_manpower_gain_after_modifiers which = temp }		#save for later
+		multiply_variable = { which = monthly_manpower_gain_after_modifiers value = 0.1 }		#save for later
 
 		while = {
-			limit = { check_variable = { which = monthly_manpower_modifier_var value = 0 } }
-			change_variable = { which = monthly_manpower_modifier_var value = -1 }
+			limit = { check_variable = { which = temp value = 0 } }
+			change_variable = { which = temp value = -1 }
 			add_manpower = 0.1
 		}
+	}
+}
+get_monthly_sailors = {
+	if = {
+		limit = {
+			NOT = { sailors_percentage = 1.0 }
+		}
 		if = {
-			limit = {
-				has_country_modifier = slackening_modifier
-				NOT = {has_country_modifier = cheat_engine_modifier}
-			}
-			#add_yearly_manpower = 0.0833
-			if = {
-				limit = {has_government_attribute = slacken_give_sailors}
-				add_yearly_sailors = 0.0833
+			limit = { has_government_attribute = manpower_to_sailors_fraction }
+	
+			set_variable = { which = temp value = 0 }
+			change_variable = { which = temp which = monthly_manpower_gain }
+			change_variable = { which = monthly_manpower_modifier_var value = 1 }					# (1+x)
+			multiply_variable = { which = temp which = monthly_manpower_modifier_var }
+			change_variable = { which = monthly_manpower_modifier_var value = -1 }					#back to base
+			multiply_variable = { which = temp value = 0.20 }
+			set_variable = { which = monthly_sailors_gain_after_modifiers value = 0 }
+			change_variable = { which = monthly_sailors_gain_after_modifiers which = temp }		#save for later
+			multiply_variable = { which = monthly_sailors_gain_after_modifiers value = 0.1 }		#save for later
+			while = {
+				limit = { check_variable = { which = temp value = 0 } }
+				change_variable = { which = temp value = -1 }
+				add_sailors = 100
 			}
 		}
 	}
-	#if = {
-	#	limit = {
-	#		always = no
-	#	}
-	#	if = {
-	#		limit = { has_country_modifier = temporary_slacken_modifier }
-	#		add_yearly_manpower = 0.0833
-	#	}
-	#	if = {
-	#		limit = {has_country_modifier = PA_temporary_manpower_recovery_boost_modifier}
-	#		add_yearly_manpower = 0.0416
-	#	}
-	#	if = {
-	#		limit = { has_idea = militarismus4 is_at_war = yes }
-	#		add_yearly_manpower = 0.00833
-	#	}
-	#	if = {
-	#		limit = { current_icon = invocation_of_blood }
-	#		add_yearly_manpower = 0.0416
-	#	}
-	#}
 }
 get_monthly_mana = {
 	if = {
@@ -518,10 +524,6 @@ on_dip_development_extra_dev_effect = {
 	if = {	#bertus mod
 		limit = { owner = { has_country_flag = nationwide_land_survey_flag } }
 		random = { chance = 20 add_base_production = 1 }
-	}
-	if = {	#bertus mod
-		limit = { owner = { has_country_modifier = estate_kobold_economic_chairman_modifier } trade_goods = gold }
-		add_base_production = 1
 	}
 	if = {	#bertus mod
 		limit = { owner = { overlord = { has_government_attribute = extra_dev_on_colonial } } }
@@ -855,6 +857,18 @@ on_development_scaled_modifiers_effect = {
 			}
 		}
 		add_pop_modifier = {race = smallkind class = bonus amount = 50percent resource = land_forcelimit onbase = development}
+		if = {
+			limit = { has_building = forcelimit_lvl_3 }
+			add_permanent_province_modifier = { name = smallkind_bonus_50percent_land_forcelimit_forcelimit_lvl_3 duration = -1 }
+		}
+		else_if = {
+			limit = { has_building = conscription_center }
+			add_permanent_province_modifier = { name = smallkind_bonus_50percent_land_forcelimit_conscription_center duration = -1 }
+		}
+		else_if = {
+			limit = { has_building = regimental_camp }
+			add_permanent_province_modifier = { name = smallkind_bonus_50percent_land_forcelimit_regimental_camp duration = -1 }
+		}
 	}
 	if = {
 		limit = {
@@ -1383,7 +1397,8 @@ on_dip_development_modifiers_effect = {
 						trade_goods = silver
 					}
 					OR = {
-						owner = {current_icon = invocation_of_gold}
+						owner = { current_icon = invocation_of_gold }
+						owner = { has_country_modifier = estate_kobold_economic_chairman_modifier }
 						has_province_modifier = eborthil_expansion_of_mines
 						has_province_modifier = tluukt_new_veins
 					}
@@ -1479,71 +1494,6 @@ on_dip_development_racial_modifiers_effect = {
 	}
 }
 on_mil_development_modifiers_effect = {
-	if = {
-		limit = {
-			OR = {
-				has_dwarven_majority_trigger = yes
-				has_centaur_majority_trigger = yes
-			}
-		}
-		add_pop_modifier = {race = all class = malus amount = 20percent resource = manpower onbase = base_manpower}
-	}
-	if = {
-		limit = {
-			OR = {
-				has_elven_majority_trigger = yes
-				has_gnomish_majority_trigger = yes
-				has_ogre_majority_trigger = yes
-				has_troll_majority_trigger = yes
-			}
-		}
-		add_pop_modifier = {race = all class = malus amount = 40percent resource = manpower onbase = base_manpower}
-	}
-	if = {
-		limit = {
-			OR = {
-				has_gnollish_majority_trigger = yes
-				has_harimari_majority_trigger = yes
-				has_half_orcish_majority_trigger = yes
-			}
-		}
-		add_pop_modifier = {race = all class = bonus amount = 20percent resource = manpower onbase = base_manpower}
-	}
-	if = {
-		limit = {
-			OR = {
-				has_orcish_majority_trigger = yes
-				has_kobold_majority_trigger = yes
-			}
-		}
-		add_pop_modifier = {race = all class = bonus amount = 40percent resource = manpower onbase = base_manpower}
-	}
-	if = {
-		limit = {
-			has_goblin_majority_trigger = yes
-		}
-		add_pop_modifier = {race = all class = bonus amount = 60percent resource = manpower onbase = base_manpower}
-	}
-	if = {
-		limit = {
-			has_gnollish_majority_trigger = yes
-		}
-		if = {
-			limit = { has_port = yes }
-			add_pop_modifier = {race = gnollish class = sea_bonus amount = 20percent resource = manpower_sailors onbase = base_manpower}
-		}
-		if = {
-			limit = { has_climate = arid }
-			add_pop_modifier = {race = gnollish class = arid_bonus amount = 20percent  resource = manpower  onbase = base_manpower}
-		}
-	}
-	if = {
-		limit = {
-			has_climate = tropical
-			has_harimari_majority_trigger = yes
-		}
-		add_pop_modifier = {race = harimari class = tropical_bonus amount = 20percent  resource = manpower  onbase = base_manpower}
-	}
 	if = {
 		limit = { owner = {has_government_attribute = parliamnet_seats_boost} } 
 		add_pop_modifier = {race = all class = parliament amount = 10percent resource = manpower onbase = base_manpower }
@@ -2287,7 +2237,7 @@ get_isolationsim_bonus = {
 	else_if = {
 		limit = { isolationism = 3 }
 		if = {
-			limit = { NOT = { manpower = 1.0 } }
+			limit = { NOT = { manpower_percentage = 1.0 } }
 			add_yearly_manpower = 2
 		}
 	}
@@ -2314,21 +2264,21 @@ kobold_celebrate_effect = {
 	if = {	#red
 		limit = {has_dragon_aspect = {color = red amount = 3}}
 		if = {
-			limit = { NOT = { manpower = 1.0 } }
+			limit = { NOT = { manpower_percentage = 1.0 } }
 			add_yearly_manpower = 0.30
 		}
 	}
 	else_if = {	#red
 		limit = {has_dragon_aspect = {color = red amount = 2}}
 		if = {
-			limit = { NOT = { manpower = 1.0 } }
+			limit = { NOT = { manpower_percentage = 1.0 } }
 			add_yearly_manpower = 0.15
 		}
 	}
 	else_if = {	#red
 		limit = {has_dragon_aspect = {color = red amount = 1}}
 		if = {
-			limit = { NOT = { manpower = 1.0 } }
+			limit = { NOT = { manpower_percentage = 1.0 } }
 			add_yearly_manpower = 0.075
 		}
 	}
@@ -2587,7 +2537,7 @@ dwarven_celebrate_effect = {
 	if = {
 		limit = {has_church_aspect = margurz_mil_aspect}
 		if = {
-			limit = { NOT = { manpower = 1.0 } }
+			limit = { NOT = { manpower_percentage = 1.0 } }
 			add_yearly_manpower = 1
 		}
 	}

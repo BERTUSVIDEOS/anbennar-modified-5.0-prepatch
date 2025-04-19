@@ -525,7 +525,10 @@ railskulker_column_4 = {
 		trigger = {
 			railyard_area = {
 				type = all
-				owned_by = ROOT
+				OR = {
+					owned_by = ROOT
+					is_city = no
+				}
 			}
 			railyard_exchange_area = {
 				type = all
@@ -825,12 +828,18 @@ railskulker_column_2_pt2 = {
 				limit = { 
 					amldihr_area = {
 						type = all
-						owned_by = ROOT
+						OR = {
+							owned_by = ROOT
+							is_city = no
+						}
 					}
 				}
 				amldihr_area = {
 					type = all
-					owned_by = ROOT
+					OR = {
+						owned_by = ROOT
+						is_city = no
+					}
 				}
 			}
 			else = {
@@ -887,8 +896,14 @@ railskulker_column_2_pt2 = {
 		trigger = {
 			amldihr_area = {
 				type = all
-				owned_by = ROOT
-				hold_condition = { Repaired = yes }
+				OR = {
+					AND = {
+						owned_by = ROOT
+						hold_condition = { Repaired = yes }
+					}
+					has_terrain = dwarven_under_hold
+					is_city = no
+				}
 			}
 		}
 			

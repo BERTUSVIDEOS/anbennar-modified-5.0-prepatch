@@ -154,12 +154,13 @@ NDefines.NMilitary.SIEGE_MEMORY = 19	                                --11→19
 NDefines.NMilitary.RAJPUT_BASE_COST_MODIFIER = 1.0                      --5.0→1.0
 NDefines.NMilitary.LEADER_MAX_PIPS = 8                                  --6→8
 NDefines.NMilitary.SLAVE_RAIDS_SAILOR_FACTOR = -0.10
-NDefines.NMilitary.SLACKEN_MIN_AP = 0.40                                --0→0.40
+NDefines.NMilitary.SLACKEN_MIN_AP = 1.01                                --0→not allowed
 NDefines.NMilitary.STRELTSY_MANPOWER_COST_MODIFIER = 0                  --1.0→0
 NDefines.NMilitary.RIVER_CROSSING_PENALTY = 2                           --1→2
 NDefines.NMilitary.STRAIT_CROSSING_PENALTY = 4                          --2→4
 NDefines.NMilitary.SEA_LANDING_PENALTY = 4                              --2→4
 NDefines.NMilitary.MAX_MANPOWER = 20                                    --10→20
+NDefines.NMilitary.MIN_MONTHLY_MANPOWER = 0						        -- 100→0 men/month is minimum
 
 
 NDefines.NAI.PEACE_ALLY_CAPITAL_MULT = 1                                    -- 1   -- Aceptacion de la IA aliada por no controlar su capital

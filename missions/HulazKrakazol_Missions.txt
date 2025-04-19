@@ -134,8 +134,10 @@ krakazol_2 = {
 			}
 			ovdal_az_an_area = {
 				type = all
-				owned_by = ROOT
-				is_city = yes
+				OR = {
+					owned_by = ROOT
+					is_city = no
+				}
 			}
 		}
 		
@@ -1042,8 +1044,10 @@ krakazol_5b = {
 		trigger = {
 			grozumdihr_area = {
 				type = all
-				owned_by = ROOT
-				is_city = yes
+				OR = {
+					owned_by = ROOT
+					is_city = no
+				}
 			}
 			4265 = {
 				hold_condition = { Repaired = yes }
@@ -1418,8 +1422,10 @@ krakazol_2c = {
 		trigger = {
 			kanzad_area = {
 				type = all
-				owned_by = ROOT
-				is_city = yes
+				OR = {
+					owned_by = ROOT
+					is_city = no
+				}
 			}
 			4247 = { hold_condition = { Repaired = yes } }
 		}
@@ -2009,9 +2015,24 @@ krakazol_3c = {
 		}
 
 		trigger = {
-			tuwad_area = { type = all owned_by = ROOT }
+			tuwad_area = {
+				type = all
+				OR = {
+					owned_by = ROOT
+					is_city = no
+				}
+			}
 			dwarovrod_71_74_area = { type = all owned_by = ROOT }
-			gronstunad_area = { type = all owned_by = ROOT hold_condition = { Repaired = yes } }
+			gronstunad_area = {
+				type = all
+				OR = {
+					AND = {
+						owned_by = ROOT
+						hold_condition = { Repaired = yes }
+					}
+					has_terrain = dwarven_under_hold
+				}
+			}
 		}
 		
 		effect = {
@@ -3090,7 +3111,7 @@ krakazol_1d = {
 			}
 			if = {
 				limit = { exists = Y02 }
-				add_casus_belli = { type = cb_humiliate target = Y02  months = 300 }
+				add_casus_belli = { type = cb_humiliate target = Y02 months = 300 }
 			}
 			else = { 4842 = { owner = { ROOT = { add_casus_belli = { type = cb_humiliate target = PREV months = 300 } } } } }
 		}

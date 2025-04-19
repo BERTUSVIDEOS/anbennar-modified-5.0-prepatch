@@ -99,9 +99,12 @@ amldihr_1 = {
 			4122 = {
 				owned_by = ROOT
 			}
-			amldihr_area = {
-				fort_level = 2
-				type = all
+			calc_true_if = {
+				amldihr_area = {
+					fort_level = 2
+					type = all
+				}
+				amount = 4
 			}
 			fortification_expert = 2
 		}
@@ -321,9 +324,14 @@ amldihr_2 = {
 		}
 		trigger = {
 			amldihr_area = {
-				NOT = { has_province_modifier = ruined_hold }
-				NOT = { has_province_modifier = infested_hold }
-				culture_group = dwarven
+				OR = {
+					AND = {
+						NOT = { has_province_modifier = ruined_hold }
+						NOT = { has_province_modifier = infested_hold }
+						culture_group = dwarven
+					}
+					is_city = no
+				}
 				type = all
 			}
 		}
@@ -417,7 +425,11 @@ amldihr_2 = {
 				has_dwarven_hold_6 = yes
 			}
 			amldihr_area = {
-				development = 45
+				OR = {
+					development = 45
+					has_terrain = dwarven_under_hold
+					is_city = no
+				}
 				type = all
 			}
 		}
@@ -1333,6 +1345,9 @@ amldihr_5 = {
 		}
 		effect = {
 			amldihr_area = {
+				limit = {
+					has_terrain = dwarven_hold
+				}
 				add_base_tax = 1
 				add_base_production = 1
 				add_base_manpower = 1

@@ -571,11 +571,7 @@ krakdhumvror_2 = {
 			krakdhum_area = { discover_country = ROOT }
 			dead_end_tunnel_area = { discover_country = ROOT }
 			anvils_horn_area = { discover_country = ROOT }
-			add_country_modifier = { name = krak_resettle_anvil duration = 10950 }	
-			krakdhum_area = {
-				limit = {has_colonist = no is_city = no}
-				create_colony = 400
-			}
+			add_country_modifier = { name = krak_resettle_anvil duration = 10950 }
 			anvils_horn_area = {
 				limit = {has_colonist = no is_city = no}
 				create_colony = 400
@@ -604,8 +600,10 @@ krakdhumvror_2 = {
 		trigger = {
 			krakdhum_area = {
 				type = all
-				is_city = yes
-				owned_by = ROOT
+				OR = {
+					owned_by = ROOT
+					is_city = no
+				}
 			}
 			anvils_horn_area = {
 				type = all
@@ -699,8 +697,13 @@ krakdhumvror_2 = {
 		trigger = {
 			amldihr_area = {
 				type = all
-				owned_by = ROOT
-				is_core = ROOT
+				OR = {
+					AND = {
+						owned_by = ROOT
+						is_core = ROOT
+					}
+					is_city = no
+				}
 			}
 			stability = 1
 		}
@@ -912,8 +915,13 @@ krakdhumvror_2b = {
 			}
 			railyard_area = {
 				type = all
-				owned_by = ROOT
-				NOT = { has_province_modifier = dwarovar_rail }
+				OR = {
+					AND = {
+						owned_by = ROOT
+						NOT = { has_province_modifier = dwarovar_rail }
+					}
+					is_city = no
+				}
 			}
 			dagrinrod_4_6_area = {
 				type = all
@@ -927,8 +935,13 @@ krakdhumvror_2b = {
 			}
 			orlazam_area = {
 				type = all
-				owned_by = ROOT
-				NOT = { has_province_modifier = dwarovar_rail }
+				OR = {
+					AND = {
+						owned_by = ROOT
+						NOT = { has_province_modifier = dwarovar_rail }
+					}
+					is_city = no
+				}
 			}
 			dagrinrod_13_15_area = {
 				type = all
@@ -937,8 +950,13 @@ krakdhumvror_2b = {
 			}
 			vazhatun_area = {
 				type = all
-				owned_by = ROOT
-				NOT = { has_province_modifier = dwarovar_rail }
+				OR = {
+					AND = {
+						NOT = { has_province_modifier = dwarovar_rail }
+						owned_by = ROOT
+					}
+					is_city = no
+				}
 			}
 		}
 		
@@ -1580,7 +1598,10 @@ krakdhumvror_3b = {
 			}
 			gor_burad_area = {
 				type = all
-				owned_by = ROOT
+				OR = {
+					owned_by = ROOT
+					is_city = no
+				}
 			}
 		}
 		

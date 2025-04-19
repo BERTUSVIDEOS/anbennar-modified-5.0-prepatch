@@ -3035,6 +3035,7 @@ on_monthly_pulse = {
 		get_monthly_mana = yes
 		get_monthly_invention = yes
 		get_monthly_manpower = yes
+		get_monthly_sailors = yes
 		if = {	#bertus mod
 			limit = {has_government_mechanic = enslavement_mechanic}
 			if = {	#bertus mod
@@ -5559,6 +5560,10 @@ on_province_culture_converted = {
 			}
 		}
 		bertus_dev_reduction = {value = 0.5}	#bertus mod 
+		if = {	#bertus mod
+			limit = {owner = {has_idea = assimilation3} }
+			add_base_manpower = 2
+		}
 	}
 	remove_province_modifier = noble_castles_boost_modifier
 
@@ -5609,11 +5614,6 @@ on_province_culture_changed = {
 	on_province_culture_converted_estate_privilges_effect = yes
 	on_province_culture_change_effect = yes
 	province_event = { id = race_setup_events.15 }	#update races
-	if = {	#bertus mod
-		limit = {owner = {has_idea = assimilation3} }
-		add_base_manpower = 2
-	}
-
 	if = {
 		limit = { NOT = {has_province_flag = bertus_pops_1038_flag} }	#overall pop removal
 		set_province_flag = bertus_pops_1038_flag

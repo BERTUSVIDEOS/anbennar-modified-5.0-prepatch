@@ -256,7 +256,6 @@ estate_human_extensive_recruitment = {
 	icon = privilege_recruit_rajput_general
 	loyalty = -0.20
 	is_valid = {
-		always = no
 		has_race_recruitment = {
 			race = human
 		}
@@ -270,12 +269,11 @@ estate_human_extensive_recruitment = {
 	benefits = {}
 	modifier_by_land_ownership = {
 		yearly_army_professionalism = -0.03
-		manpower_recovery_speed = 0.5
+		monthly_manpower_modifier = 2.0
 	}
 	mechanics = {}
 	on_revoked = {}
 	on_invalid = {}
-	cooldown_years = 5
 	ai_will_do = {factor = 1}
 }
 estate_human_elite_regiments = {
@@ -1560,6 +1558,102 @@ estate_human_lencenor_academy = {
 	}
 	on_invalid = {
 		remove_country_modifier = lorent_reformed_knights_of_the_rose
+	}
+	cooldown_years = 20
+	ai_will_do = {factor = 1}
+}
+estate_human_eborthil_academy = {
+	icon = privilege_recruit_rajput_general
+	is_valid = {
+		has_country_modifier = human_military
+		has_race_recruitment = {race = human}
+		has_country_flag = estate_human_eborthil_academy_flag
+	}
+	can_select = {
+		has_country_modifier = human_military
+		has_race_recruitment = {race = human}
+		has_elite_regiments = no
+	}
+	on_granted = {
+		if = {
+			limit = {
+				has_country_flag = eborthil_specialized_saboteurs_flag
+			}
+			tooltip = {
+				add_country_modifier = { name = eborthil_specialized_saboteurs duration = -1 }
+			}
+			add_country_modifier = {name = eborthil_specialized_saboteurs duration = -1 hidden = yes}
+		}
+		if = {
+			limit = {
+				has_country_flag = elite_marine_flag
+			}
+			tooltip = {
+				add_country_modifier = { name = elite_marine_modifier duration = -1 }
+			}
+			add_country_modifier = {name = elite_marine_modifier duration = -1 hidden = yes}
+		}
+	}
+	penalties = {
+		yearly_corruption = 0.20
+	}
+	benefits = {
+		sailors_recovery_speed = 0.20
+		allowed_marine_fraction = 0.10
+	}
+	conditional_modifier = {
+		trigger = {
+			has_country_flag = eborthil_bombs_away_flag
+		}
+		modifier = {
+			global_naval_barrage_cost = -0.25
+			blockade_efficiency = 0.5
+			siege_blockade_progress = 1
+			naval_barrage_progress = 1
+			naval_attrition = -0.10
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			has_country_flag = eborthil_goldwaters_school_flag
+		}
+		modifier = {
+			navy_tradition = 1
+			free_leader_pool = 1
+			leader_naval_manuever = 1
+			leader_naval_fire = 1
+			leader_naval_shock = 1
+			max_admiral_shock = 1
+			max_admiral_fire = 1
+			max_admiral_maneuver = 1
+			admiral_cost = 0.25
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			has_country_flag = eborthil_the_eborthili_arsenal_flag
+		}
+		modifier = {
+			ship_durability = 0.10
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			has_country_flag = eborthil_rules_the_waves_flag
+		}
+		modifier = {
+			global_naval_engagement_modifier = 0.10
+			naval_morale = 0.10
+		}
+	}
+	can_revoke = { }
+	on_revoked = {
+		hidden_effect = {remove_country_modifier = eborthil_specialized_saboteurs}
+		hidden_effect = {remove_country_modifier = elite_marine_modifier}
+	}
+	on_invalid = {
+		hidden_effect = {remove_country_modifier = eborthil_specialized_saboteurs}
+		hidden_effect = {remove_country_modifier = elite_marine_modifier}
 	}
 	cooldown_years = 20
 	ai_will_do = {factor = 1}

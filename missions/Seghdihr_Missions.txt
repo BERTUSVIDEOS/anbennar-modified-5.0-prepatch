@@ -162,16 +162,20 @@ seghdihr_1 = {
 					is_subject_of = ROOT 
 					hehos_legacy_area = {
 						type = all
-						owned_by = I15
-						is_city = yes
+						OR = {
+							owned_by = ROOT
+							is_city = no
+						}
 					}
 				}
 			}
 			else = {
 				hehos_legacy_area = {
 					type = all
-					owned_by = ROOT
-					is_city = yes
+					OR = {
+						country_or_subject_holds = ROOT
+						is_city = no
+					}
 				}
 				4078 = {
 					NOT = {
@@ -190,6 +194,9 @@ seghdihr_1 = {
 			add_mil_power = 50
 			add_prestige_or_monarch_power = {amount =  10}
 			hehos_legacy_area = {
+				limit = {
+					is_city = yes
+				}
 				hidden_effect = {
 					remove_core = ROOT
 					add_core = I15
@@ -399,8 +406,10 @@ seghdihr_2 = {
 				limit = { NOT = { exists = F47 } }
 				verkal_gulan_area = {
 					type = all
-					owned_by = ROOT
-					is_city = yes
+					OR = {
+						owned_by = ROOT
+						is_city = no
+					}
 				}
 				2915 = {
 					owned_by = ROOT
@@ -542,16 +551,20 @@ seghdihr_2 = {
 					is_subject_of = ROOT 
 					ozumbrog_area = {
 						type = all
-						owned_by = I17
-						is_city = yes
+						OR = {
+							owned_by = I17
+							is_city = no
+						}
 					}
 				}
 			}
 			else = {
 				ozumbrog_area = {
 					type = all
-					country_or_subject_holds = ROOT
-					is_city = yes
+					OR = {
+						country_or_subject_holds = ROOT
+						is_city = no
+					}
 				}
 				4218 = {
 					NOT = {
@@ -570,6 +583,9 @@ seghdihr_2 = {
 			add_mil_power = 50
 			add_prestige_or_monarch_power = {amount =  10}
 			ozumbrog_area = {
+				limit = {
+					is_city = yes
+				}
 				hidden_effect = {
 					remove_core = owner
 					add_core = I17
@@ -701,8 +717,10 @@ seghdihr_3 = {
 		trigger = {
 			seghdihr_area = {
 				type = all
-				owned_by = ROOT
-				is_city = yes
+				OR = {
+					owned_by = ROOT
+					is_city = no
+				}
 			}
 		}
 		
@@ -1043,16 +1061,20 @@ seghdihr_4 = {
 					is_subject_of = ROOT 
 					vazumbrog_area = {
 						type = all
-						owned_by = I14
-						is_city = yes
+						OR = {
+							owned_by = I14
+							is_city = no
+						}
 					}
 				}
 			}
 			else = {
 				vazumbrog_area = {
 					type = all
-					country_or_subject_holds = ROOT
-					is_city = yes
+					OR = {
+						country_or_subject_holds = ROOT
+						is_city = no
+					}
 				}
 				4217 = {
 					NOT = {
@@ -1071,7 +1093,7 @@ seghdihr_4 = {
 			add_prestige_or_monarch_power = {amount =  10}
 			vazumbrog_area = {
 				if = {
-					limit = { NOT = { culture_group = dwarven } }
+					limit = { NOT = { culture_group = dwarven } is_city = yes }
 					add_base_tax = -2
 					add_base_production = -2
 					add_base_manpower = -2
@@ -1638,6 +1660,7 @@ seghdihr_1b = {
 				verkal_gulan_area = {
 					type = all
 					OR = {
+						is_city = no
 						NOT = { has_province_modifier = dwarovar_rail }
 						province_group = hold_province
 					}
@@ -1805,7 +1828,13 @@ seghdihr_1b = {
 				
 			}
 			earthseed_area = { type = all country_or_subject_holds = ROOT is_city = yes }
-			grozumdihr_area = { type = all country_or_subject_holds = ROOT is_city = yes }
+			grozumdihr_area = {
+				type = all
+				OR = {
+					country_or_subject_holds = ROOT
+					is_city = no
+				}
+			}
 		}
 		
 		effect = {
@@ -1816,7 +1845,7 @@ seghdihr_1b = {
 			if = {
 				limit = { grozumdihr_area = { NOT = { owned_by = I18 } } }
 				grozumdihr_area = {
-					limit = { NOT = { owned_by = I18 } }
+					limit = { NOT = { owned_by = I18 } is_city = yes }
 					hidden_effect = {
 						remove_core = owner
 						add_core = I18
@@ -3108,7 +3137,13 @@ seghdihr_1c = {
 		trigger = {
 			the_kariats_area = { type = all country_or_subject_holds = ROOT is_city = yes }
 			ibran_pass_area = { type = all country_or_subject_holds = ROOT is_city = yes }
-			ovdal_az_an_area = { type = all country_or_subject_holds = ROOT is_city = yes }
+			ovdal_az_an_area = {
+				type = all
+				OR = {
+					country_or_subject_holds = ROOT
+					is_city = no
+				}
+			}
 			4259 = { country_or_subject_holds = ROOT is_city = yes }
 			4284 = {
 				country_or_subject_holds = ROOT
@@ -3142,6 +3177,9 @@ seghdihr_1c = {
 				cede_province = I19
 			}
 			ovdal_az_an_area = {
+				limit = {
+					is_city = yes
+				}
 				hidden_effect = {
 					remove_core = owner
 					add_core = I19
@@ -3253,6 +3291,9 @@ seghdihr_1c = {
 		effect = {
 			add_power_projection = { type = mission_rewards_power_projection amount = 10 }
 			hul_az_krakazol_area = {
+				limit = {
+					is_city = yes
+				}
 				hidden_effect = {
 					remove_core = owner
 					add_core = I20
@@ -3959,9 +4000,9 @@ seghdihr_5c = {
 					exists = R38 
 					1361 = { strongest_trade_power = { tag = R38 } }
 				}
-				add_casus_belli = { type = cb_trade_war target = R38 }
+				add_casus_belli = { type = cb_trade_war target = R38 months = 120 }
 			}
-			else = { 1361 = { strongest_trade_power = { ROOT = { add_casus_belli = { type = cb_trade_war target = PREV } } } } }
+			else = { 1361 = { strongest_trade_power = { ROOT = { add_casus_belli = { type = cb_trade_war target = PREV months = 120 } } } } }
 		}
 	}
 

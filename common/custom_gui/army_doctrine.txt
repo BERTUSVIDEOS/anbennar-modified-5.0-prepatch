@@ -11,6 +11,32 @@ custom_button = {
 			clr_country_flag = PA_has_army_doctrine_window_enabled_flag
 		}
 	}
+	tooltip = "Army Doctrines"
+}
+
+custom_button = {
+	name = army_doctrines_investment_button
+    potential = { has_country_flag = PA_has_army_doctrine_window_enabled_flag }
+  	trigger = { army_tradition = 10 }
+  	effect = {
+		add_army_tradition = -10
+		custom_tooltip = army_doctrines_investment_button_tt
+		hidden_effect = {
+			export_to_variable = { which = military_reform_power_gain_modifier_var value = modifier:military_reform_power_gain_modifier }
+			export_to_variable = { which = temp value = modifier:military_reform_power_gain_modifier }
+			while = {
+				limit = { check_variable = { which = temp value = 0.01 } }
+				change_variable = { which = temp value = -0.01 }
+				change_variable = { which = military_reform_progress_var value = 0.1 }
+				if = {
+					limit = { check_variable = { which = military_reform_progress_var value = 100 } }
+					change_variable = { which = military_reforms_tokens_var value = 1 }
+					change_variable = { which = military_reform_progress_var value = -100 }
+				}
+			}
+		}
+	}
+	tooltip = "Invest in Army Doctrines"
 }
 
 custom_window = {

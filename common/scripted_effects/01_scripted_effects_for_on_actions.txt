@@ -809,9 +809,11 @@ on_battle_won_unit_effect = {
 				}
 			}
 			unit_owner = {
-				export_to_variable = { which = amount_kill which = land_units_lost }
-				divide_variable = { which = amount_kill value = 1000 }
-				divide_variable = { which = amount_kill value = 10 }	#0.1 per 1
+				set_variable = { which = temp  value = 0 }
+				change_variable = { which = temp which = land_units_lost }
+				change_variable = { which = temp which = land_units_killed }
+				divide_variable = { which = temp value = 1000 }
+				divide_variable = { which = temp value = 20 }	#0.05 per 1
 				while = {
 					limit = { check_variable = { which = amount_kill value = 1 } }
 					add_church_power = 1
@@ -830,9 +832,11 @@ on_battle_won_unit_effect = {
 				}
 			}
 			unit_owner = {
-				export_to_variable = { which = amount_kill which = land_units_lost }
-				divide_variable = { which = amount_kill value = 1000 }
-				divide_variable = { which = amount_kill value = 10 }	#0.1 per 1
+				set_variable = { which = temp  value = 0 }
+				change_variable = { which = temp which = land_units_lost }
+				change_variable = { which = temp which = land_units_killed }
+				divide_variable = { which = temp value = 1000 }
+				divide_variable = { which = temp value = 20 }	#0.05 per 1
 				while = {
 					limit = { check_variable = { which = amount_kill value = 1 } }
 					add_church_power = 1
@@ -876,92 +880,12 @@ on_battle_won_country_effect = {
 				}
 			}
 		}
-		set_variable = { which = land_units_killed_var which = land_units_lost }
-		divide_variable = { which = land_units_killed_var value = 100 }	#1 exp every 100 kills
-		change_variable = { which = lord_alfonso_exp which = land_units_killed_var }
+		set_variable = { which = temp  value = 0 }
+		change_variable = { which = temp which = land_units_lost }
+		change_variable = { which = temp which = land_units_killed }
+		divide_variable = { which = temp value = 200 }	#1 exp every 200 kills
+		change_variable = { which = lord_alfonso_exp which = temp }
 		update_lord_alfonso_level = yes
-	}
-	if = {	#bertus mod - Military Reform
-		limit = {
-			FROM = {
-				if = {
-					limit = { has_global_flag = mp_lobby_flag }
-					OR = { ai = no overlord = { ai = no }  }
-				}
-			}
-			ai = no
-			is_at_war = yes
-			NOT = { 
-				any_country = { 
-					ROOT = {
-						is_renting_condottieri_to = PREV
-					}
-				}
-			}
-		}
-		set_variable = { which = military_reform_losses_var value = 0 }
-		set_variable = { which = mercenary_fraction_divider_var value = 1 }
-		set_variable = { which = peasants_fraction_divider_var value = 1 }
-		set_variable = { which = banners_fraction_divider_var value = 1 }
-		export_to_variable = { which = army_size_var value = army_size }
-		export_to_variable = { which = military_reform_power_gain_modifier_var value = modifier:military_reform_power_gain_modifier }
-		export_to_variable = { which = land_forcelimit_var value = land_forcelimit }
-		#special units fraction
-		export_to_variable = { which = mercenary_fraction_var value = trigger_value:num_of_mercenaries  }
-		divide_variable = { which = mercenary_fraction_var which = land_forcelimit_var }
-		divide_variable = { which = mercenary_fraction_var value = 4 }
-		subtract_variable = { which = mercenary_fraction_divider_var which = mercenary_fraction_var }		#	1 - mercenary fraction
-		export_to_variable = { which = banners_fraction_var value = trigger_value:num_of_banners  }
-		divide_variable = { which = banners_fraction_var which = land_forcelimit_var }
-		subtract_variable = { which = banners_fraction_divider_var which = banners_fraction_var }		#	1 - illusions fraction
-		export_to_variable = { which = peasants_fraction_var value = trigger_value:num_of_rajput  }
-		divide_variable = { which = peasants_fraction_var which = land_forcelimit_var }
-		subtract_variable = { which = peasants_fraction_divider_var which = peasants_fraction_var }		#	1 - peasants fraction
-		
-		change_variable = { which = military_reform_losses_var which = land_units_killed } 	#setup base
-		if = {
-			limit = {
-				NOT = { check_variable = { which = military_reform_losses_var value = 0 } }
-			}
-			multiply_variable = { which = military_reform_losses_var value = -1 }
-		}
-		divide_variable = { which = military_reform_losses_var value = 10 } 	#1000/100 progress to tokens
-		multiply_variable = { which = military_reform_losses_var which = army_size_var }
-		multiply_variable = { which = military_reform_losses_var which = military_reform_power_gain_modifier_var }
-		multiply_variable = { which = military_reform_losses_var which = mercenary_fraction_divider_var } 	#subtract merc fraction
-		multiply_variable = { which = military_reform_losses_var which = banners_fraction_divider_var } 	#subtract illusions fraction
-		multiply_variable = { which = military_reform_losses_var which = peasants_fraction_divider_var } 	#subtract peasants fraction
-		divide_variable = { which = military_reform_losses_var which = land_forcelimit_var }
-		divide_variable = { which = military_reform_losses_var which = land_forcelimit_var }
-		if = {
-			limit = {
-				OR = {
-					is_in_war = { attacker_leader = ROOT }
-					is_in_war = { defender_leader = ROOT }
-				}
-				NOT = {
-					any_country = {
-						NOT = { tag = ROOT }
-						ai = no
-						OR = {
-							is_in_war = { attacker_leader = ROOT attackers = THIS }
-							is_in_war = { defender_leader = ROOT defenders = THIS }
-						}
-					}
-				}
-			}
-			multiply_variable = { which = military_reform_losses_var value = 2 }
-		}
-		while = {
-			limit = { check_variable = { which = military_reform_losses_var value = 0.1 } }
-			change_variable = { which = military_reform_losses_var value = -0.1 }
-			change_variable = { which = military_reform_progress_var value = 0.1 }
-			if = {
-				limit = { check_variable = { which = military_reform_progress_var value = 100 } }
-				change_variable = { which = military_reforms_tokens_var value = 1 }
-				change_variable = { which = military_reform_progress_var value = -100 }
-			}
-		}
 	}
 	if = {	#bertus mod - war production
 		limit = {
@@ -975,12 +899,13 @@ on_battle_won_country_effect = {
 			ai = no
 			is_at_war = yes
 		}
-		set_variable = { which = war_production_losses_var value = 0 }
-		change_variable = { which = war_production_losses_var which = land_units_killed }
-		divide_variable = { which = war_production_losses_var value = 1000 }
+		set_variable = { which = temp  value = 0 }
+		change_variable = { which = temp which = land_units_lost }
+		change_variable = { which = temp which = land_units_killed }
+		divide_variable = { which = temp value = 2000 }
 		while = {
-			limit = { check_variable = { which = war_production_losses_var value = 1 } }
-			change_variable = { which = war_production_losses_var value = -1 }
+			limit = { check_variable = { which = temp value = 1 } }
+			change_variable = { which = temp value = -1 }
 			add_treasury = 1
 		}
 	}
@@ -991,114 +916,16 @@ on_battle_won_country_effect = {
 		}
 		remove_country_modifier = corinite_purim_teachings_aspect_modifier
 		add_country_modifier = { name = corinite_purim_teachings_aspect_modifier duration = 730 }
-}
-	if = {
-		limit = { has_government_attribute = manpower_from_defeating_armies }
-		set_variable = { which = land_units_killed_var which = land_units_lost }
-		multiply_variable = { which = land_units_killed_var value = 0.1 }
-		while = {
-			limit = { check_variable = { which = land_units_killed_var value = 1000 } }
-			subtract_variable = { which = land_units_killed_var value = 1000 }
-			add_manpower = 1
-		}
-		multiply_variable = { which = land_units_killed_var value = 1000 }
-		while = {
-			limit = { check_variable = { which = land_units_killed_var value = 1000 } }
-			subtract_variable = { which = land_units_killed_var value = 1000 }
-			add_manpower = 0.001
-		}
 	}
 }
 
 on_battle_lost_country_effect = {
-	if = {	#bertus mod - Military Reform
-		limit = {
-			FROM = {
-				if = {
-					limit = { has_global_flag = mp_lobby_flag }
-					OR = { ai = no overlord = { ai = no }  }
-				}
-			}
-			ai = no
-			is_at_war = yes
-			NOT = { 
-				any_country = { 
-					ROOT = {
-						is_renting_condottieri_to = PREV
-					}
-				}
-			}
-		}
-		set_variable = { which = military_reform_losses_var value = 0 }
-		set_variable = { which = mercenary_fraction_divider_var value = 1 }
-		set_variable = { which = peasants_fraction_divider_var value = 1 }
-		set_variable = { which = banners_fraction_divider_var value = 1 }
-		export_to_variable = { which = army_size_var value = army_size }
-		export_to_variable = { which = military_reform_power_gain_modifier_var value = modifier:military_reform_power_gain_modifier }
-		export_to_variable = { which = land_forcelimit_var value = land_forcelimit }
-		#special units fraction
-		export_to_variable = { which = mercenary_fraction_var value = trigger_value:num_of_mercenaries  }
-		divide_variable = { which = mercenary_fraction_var which = land_forcelimit_var }
-		divide_variable = { which = mercenary_fraction_var value = 4 }
-		subtract_variable = { which = mercenary_fraction_divider_var which = mercenary_fraction_var }		#	1 - mercenary fraction
-		export_to_variable = { which = banners_fraction_var value = trigger_value:num_of_banners  }
-		divide_variable = { which = banners_fraction_var which = land_forcelimit_var }
-		subtract_variable = { which = banners_fraction_divider_var which = banners_fraction_var }		#	1 - illusions fraction
-		export_to_variable = { which = peasants_fraction_var value = trigger_value:num_of_rajput  }
-		divide_variable = { which = peasants_fraction_var which = land_forcelimit_var }
-		subtract_variable = { which = peasants_fraction_divider_var which = peasants_fraction_var }		#	1 - peasants fraction
-		
-		change_variable = { which = military_reform_losses_var which = land_units_killed } 	#setup base
-		if = {
-			limit = {
-				NOT = { check_variable = { which = military_reform_losses_var value = 0 } }
-			}
-			multiply_variable = { which = military_reform_losses_var value = -1 }
-		}
-		divide_variable = { which = military_reform_losses_var value = 10 } 	#1000/100 progress to tokens
-		multiply_variable = { which = military_reform_losses_var which = army_size_var }
-		multiply_variable = { which = military_reform_losses_var which = military_reform_power_gain_modifier_var }
-		multiply_variable = { which = military_reform_losses_var which = mercenary_fraction_divider_var } 	#subtract merc fraction
-		multiply_variable = { which = military_reform_losses_var which = banners_fraction_divider_var } 	#subtract illusions fraction
-		multiply_variable = { which = military_reform_losses_var which = peasants_fraction_divider_var } 	#subtract peasants fraction
-		divide_variable = { which = military_reform_losses_var which = land_forcelimit_var }
-		divide_variable = { which = military_reform_losses_var which = land_forcelimit_var }
-		if = {
-			limit = {
-				OR = {
-					is_in_war = { attacker_leader = ROOT }
-					is_in_war = { defender_leader = ROOT }
-				}
-				NOT = {
-					any_country = {
-						NOT = { tag = ROOT }
-						ai = no
-						OR = {
-							is_in_war = { attacker_leader = ROOT attackers = THIS }
-							is_in_war = { defender_leader = ROOT defenders = THIS }
-						}
-					}
-				}
-			}
-			multiply_variable = { which = military_reform_losses_var value = 2 }
-		}
-		while = {
-			limit = { check_variable = { which = military_reform_losses_var value = 0.1 } }
-			change_variable = { which = military_reform_losses_var value = -0.1 }
-			change_variable = { which = military_reform_progress_var value = 0.1 }
-			if = {
-				limit = { check_variable = { which = military_reform_progress_var value = 100 } }
-				change_variable = { which = military_reforms_tokens_var value = 1 }
-				change_variable = { which = military_reform_progress_var value = -100 }
-			}
-		}
-	}
 }
 #1.35
 on_battle_ended_effect = {
 	ROOT = {
 		change_variable = { which = total_land_units_killed which = land_units_killed }
-		change_variable = { which = total_land_units_lost which = land_units_killed }
+		change_variable = { which = total_land_units_lost which = land_units_lost }
 		change_variable = { which = total_naval_units_killed which = naval_units_killed }
 		change_variable = { which = total_naval_units_lost which = naval_units_lost }
 	}

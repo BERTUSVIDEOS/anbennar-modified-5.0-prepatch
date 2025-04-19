@@ -292,6 +292,7 @@ A33_western_missions_slot = {
 			add_casus_belli = {
 				target = A11
 				type = cb_vassalize_mission
+				months = 300
 			}
 			damespearl_area = {
 				limit = {
@@ -720,20 +721,28 @@ A33_colonial_missions_slot = {
 		}
 		
 		trigger = {
-			OR = {
-				A47 = {
-					alliance_with = ROOT
-					has_opinion = {
-						who = ROOT
-						value = 190
-					}
+			if = {
+				limit = {
+					exists = A47
 				}
-				is_rival = A47
-				NOT = { exists = A47 }
+				OR = {
+					A47 = {
+						alliance_with = ROOT
+						has_opinion = {
+							who = ROOT
+							value = 190
+						}
+					}
+					is_rival = A47
+					NOT = { exists = A47 }
+				}
+			}
+			else = {
+				navy_size_percentage = 0.90
 			}
 		}
 		
-		effect = {
+		effect = { 	#bertus mod
 			increase_legitimacy_huge_effect = yes
 			country_event = { id = verne.1 }
 			akan_isles_area = {
@@ -743,18 +752,35 @@ A33_colonial_missions_slot = {
 				}
 				add_permanent_claim = ROOT
 			}
-			elizna_area = {
+			if = {
 				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { owned_by = ROOT }
+					alliance_with = A47
 				}
-				add_permanent_claim = ROOT
+				verne_area = {
+					add_province_modifier = {
+						name = general_mission_local_trade_value_boost
+						duration = 7300
+					}
+				}
+				isle_of_tef_area = {
+					add_province_modifier = {
+						name = general_mission_local_trade_value_boost
+						duration = 7300
+					}
+				}
 			}
 			if = {
 				limit = {
 					NOT = {alliance_with = A47}
 				}				
 				isle_of_tef_area = {
+					limit = {
+						NOT = { is_core = ROOT }
+						NOT = { owned_by = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+				crathanor_area = {
 					limit = {
 						NOT = { is_core = ROOT }
 						NOT = { owned_by = ROOT }
@@ -770,6 +796,10 @@ A33_colonial_missions_slot = {
 		required_missions = { A33_new_friends }
 		position = 3
 		
+		provinces_to_highlight = {
+			area = akan_isles_area
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
 		trigger = {
 			akan_isles_area = {
 				type = all
