@@ -215,8 +215,6 @@ on_startup = {
 	}
 	F21 = { country_event = { id = flavour_birsartanses.0 } }	#Birsartanses setup
 
-	update_magic_study_experience_modifier = {}
-
 	# Expedition
 	REB = { country_event = { id = diggy_expedition.0 } }
 
@@ -1952,10 +1950,6 @@ on_monarch_death = {
 		government_events.3 #1.35
 	}
 	if = {	#bertus mod
-		limit = { has_ruler_flag = magisterium_study_assistance_flag }
-		update_magic_study_experience_modifier = { value = -25 }
-	}
-	if = {	#bertus mod
 		limit = { has_idea = experienced_diplomats }
 		remove_country_modifier = experienced_diplomats_consort_modifier_adm_6
 		remove_country_modifier = experienced_diplomats_consort_modifier_adm_4
@@ -1981,7 +1975,6 @@ on_monarch_death = {
 				has_country_flag = no_stab_hit_on_ruler_death
 			}
 			OR = {
-				government = tribal
 				government = monarchy
 			}
 		}
@@ -3031,7 +3024,12 @@ on_siberian_pulse = {
 # country random events
 on_monthly_pulse = {
 	if = {	#bertus mod
-		limit = { ai = no }
+		limit = {
+			if = {
+				limit = { has_global_flag = mp_lobby_flag }
+				OR = { ai = no overlord = { ai = no }  }
+			}
+		}
 		get_monthly_mana = yes
 		get_monthly_invention = yes
 		get_monthly_manpower = yes
@@ -6546,7 +6544,59 @@ on_dependency_gained = {
 	#It must be done in an event, or the game can crash
 	##############################################################################################
 
-	FROM = { update_nsc_level_secondary_effects = yes }
+	FROM = {
+		update_nsc_level_secondary_effects = yes
+		if = {
+			limit = {
+				is_subject_of_type = acolyte_dominion
+			}
+			if = {
+				limit = {
+					ROOT = { has_estate_privilege = estate_acolytes_dominions_law_ibevaries_lab_rats }
+				}
+				add_country_modifier = {
+					name = estate_acolytes_dominions_law_ibevaries_lab_rats_modifier_subjects
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+					ROOT = { has_estate_privilege = estate_acolytes_dominions_law_gnomish_brain }
+				}
+				add_country_modifier = {
+					name = estate_acolytes_dominions_law_gnomish_brain_modifier_subjects
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+					ROOT = { has_estate_privilege = estate_acolytes_dominions_law_warden_of_the_state_mage_minions }
+				}
+				add_country_modifier = {
+					name = estate_acolytes_dominions_law_warden_of_the_state_mage_minions_modifier_subjects
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+					ROOT = { has_estate_privilege = estate_acolytes_dominions_law_timed_research }
+				}
+				add_country_modifier = {
+					name = estate_acolytes_dominions_law_timed_research_modifier_subjects
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+					ROOT = { has_estate_privilege = estate_acolytes_dominions_law_sanguine_knowledge }
+				}
+				add_country_modifier = {
+					name = estate_acolytes_dominions_law_sanguine_knowledge_modifier_subjects
+					duration = -1
+				}
+			}
+		}
+	}
 	if = {	#Command Slave States subject
 		limit = {
 			ROOT = { tag = R62 } # The Command
@@ -6591,7 +6641,14 @@ on_dependency_gained = {
 # ROOT = Overlord, FROM = Minor
 on_dependency_lost = {
 	#Anbennar
-	FROM = { update_nsc_level_secondary_effects = yes }
+	FROM = {
+		update_nsc_level_secondary_effects = yes
+		remove_country_modifier = estate_acolytes_dominions_law_ibevaries_lab_rats_modifier_subjects
+		remove_country_modifier = estate_acolytes_dominions_law_gnomish_brain_modifier_subjects
+		remove_country_modifier = estate_acolytes_dominions_law_warden_of_the_state_mage_minions_modifier_subjects
+		remove_country_modifier = estate_acolytes_dominions_law_timed_research_modifier_subjects
+		remove_country_modifier = estate_acolytes_dominions_law_sanguine_knowledge_modifier_subjects
+	}
 }
 
 # ROOT = New vassal, FROM = Overlord

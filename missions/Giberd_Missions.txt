@@ -90,17 +90,50 @@ giberd_imperial = {
 			}
 			else = {
 				OR = {
-					prestige = 75
-					republican_tradition = 75
+					AND = {
+						power_projection = 75
+						prestige = 75
+					}
 					eoa_is_dismantled = yes
 				}
 			}
 		}
 		
 		effect = {
-			add_country_modifier = {
-				name = giberd_elector_support
-				duration = 7300 # 20 years
+			if = {
+				limit = {
+					calc_true_if = {
+						all_elector = {
+							has_opinion = {
+								who = ROOT
+								value = 150
+							}
+						}
+						any_rival_country = {
+							humiliated_by = ROOT
+						}
+						amount = 5
+					}
+				}
+				add_country_modifier = {
+					name = giberd_elector_support
+					duration = 7300 # 20 years
+				}
+			}
+			else_if = {
+				limit = {
+					power_projection = 100
+				}
+				add_country_modifier = {
+					name = general_mission_merc_boost
+					duration = 7300 # 20 years
+				}
+			}
+			else = {
+				add_country_modifier = {
+					name = thriving_arms_industry
+					duration = 7300 # 20 years
+				}
 			}
 		}
 	}
@@ -134,23 +167,41 @@ giberd_imperial = {
 		position = 5
 		
 		trigger = {
-			OR = {
-				eoa_is_dismantled = yes
-				AND = {
-					NOT = { num_of_electors = 8 }
-					emperor = {
-						has_opinion = {
-							who = ROOT
-							value = 150
-						}
+			if = { 
+				limit = {
+					is_part_of_hre = yes
+				}
+				is_elector = yes
+				emperor = {
+					has_opinion = {
+						who = ROOT
+						value = 150
 					}
 				}
+			}
+			else = {
+				eoa_is_dismantled = yes
 			}
 		}
 		
 		effect = {
-			emperor = {
-				country_event = { id = flavor_giberd.2 days = 30 random = 30 }
+			if = { 
+				limit = {
+					is_part_of_hre = yes
+				}
+				emperor = {
+					country_event = { id = flavor_giberd.2 days = 30 random = 30 }
+				}
+			}
+			else = {
+				capital_scope = {
+					area = {
+						add_province_modifier = {
+							name = general_mission_local_trade_value_boost
+							duration = -1
+						}
+					}
+				}
 			}
 		}
 	}

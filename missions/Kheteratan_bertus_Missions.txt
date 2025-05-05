@@ -1,0 +1,217 @@
+kheterata_elephant_3_missions = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+        tag = U01
+    }
+
+    bestias_de_la_arena = {
+        icon = mission_indian_soldier_elephant
+        required_missions = { mandate_mt_reclaim_kheterata }
+        position = 2
+
+        provinces_to_highlight = {
+            trade_goods = elephants
+        }
+
+        trigger = {
+            check_variable = {
+                which = elephants
+                value = 4
+            }
+        }
+        effect = {
+            add_legitimacy_equivalent = {
+                amount = 10
+                republican_tradition = 5
+            }
+            every_owned_province = {
+                limit = {
+                    trade_goods = elephants
+                }
+                add_permanent_province_modifier = {
+                    name = elephant_camp
+                    duration = -1
+                }
+            }
+        }
+    }
+
+    sendero_de_titanes = {
+        icon = mission_sunset
+        required_missions = { bestias_de_la_arena }
+        position = 3
+
+        provinces_to_highlight = {
+            trade_goods = elephants
+            NOT = { development = 30 }
+        }
+
+        trigger = {
+            calc_true_if = {
+                amount = 2
+                all_owned_province = {
+                    trade_goods = elephants
+                    development = 30
+                }
+            }
+        }
+        effect = {
+            every_owned_province = {
+                limit = {
+                    trade_goods = elephants
+                }
+                remove_province_modifier = elephant_camp
+                add_permanent_province_modifier = {
+                    name = elephant_war_camp
+                    duration = -1
+                }
+            }
+        }
+    }
+
+    forja_de_colosos = {
+        icon = mission_smith
+        required_missions = { sendero_de_titanes }
+        position = 4
+
+        provinces_to_highlight = {
+            OR = {
+                trade_goods = elephants
+                trade_goods = iron
+                trade_goods = copper
+            }
+        }
+
+        trigger = {
+            check_variable = {
+                which = elephants
+                value = 15
+            }
+            OR = {
+                check_variable = {
+                    which = copper
+                    value = 10
+                }
+                check_variable = {
+                    which = iron
+                    value = 10
+                }
+                trading_bonus = {
+                    trade_goods = copper
+                    value = yes
+                }
+                trading_bonus = {
+                    trade_goods = iron
+                    value = yes
+                }
+            }
+        }
+        effect = {
+            add_country_modifier = {
+                name = "elephant_army"
+                duration = -1
+            }
+        }
+    }
+
+    guardia_colosal = {
+        icon = mission_indian_soldier_elephant
+        required_missions = { forja_de_colosos }
+        position = 5
+        trigger = {
+            army_professionalism = 0.50
+            army_tradition = 50
+        }
+        effect = {
+            add_country_modifier = {
+                name = "elephant_army_morale"
+                duration = -1
+            }
+        }
+    }
+
+    domadores_de_titanes = {
+        icon = mission_indian_soldier_elephant
+        required_missions = { guardia_colosal escuela_de_guerra_colosal }
+        position = 6
+        trigger = {
+            num_of_hussars = 5
+        }
+        effect = {
+            remove_country_modifier = elephant_army_morale
+            add_country_modifier = {
+                name = "elephant_march_speed"
+                duration = -1
+            }
+        }
+    }
+
+    los_siete_colosos = {
+        icon = mission_a_million_elephants
+        required_missions = { doctrina_del_gran_paso domadores_de_titanes }
+        position = 7
+        trigger = {
+            num_of_hussars = 7
+			has_mana = { mana = 75 no_spell_in_a_box = yes }
+        }
+        effect = {
+			add_mana_effect = { mana = -75 no_spell_in_a_box = yes }
+            remove_country_modifier = elephant_march_speed
+            add_country_modifier = {
+                name = "elephant_veteran_bonus"
+                duration = -1
+            }
+        }
+    }
+}
+
+kheterata_elephant_4_missions = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+        tag = U01
+    }
+    escuela_de_guerra_colosal = {
+        icon = mission_rb_unite_the_clans
+        required_missions = { forja_de_colosos }
+        position = 5
+        trigger = {
+            army_professionalism = 0.60
+            has_leader_with = {
+                total_pips = 30
+            }
+        }
+        effect = {
+            add_army_professionalism = -0.30
+            add_country_modifier = {
+                name = "elephant_leader_bonus"
+                duration = -1
+            }
+        }
+    }
+
+    doctrina_del_gran_paso = {
+        icon = mission_burning_man
+        required_missions = { escuela_de_guerra_colosal }
+        position = 6
+        trigger = {
+            army_professionalism = 0.70
+        }
+        effect = {
+            add_army_professionalism = -0.30
+            custom_tooltip = get_great_hero_general_tt
+            set_country_flag = get_adventurer_flag
+            custom_tooltip = get_adventurer_flag_tt
+            set_country_flag = great_general_extra_pips_flag
+            set_country_flag = hero_free_general_flag
+            custom_tooltip = great_general_extra_pips_flag_tt
+            hidden_effect = {
+                set_saved_name = {key = special_general_name type = simple name = "Tadehut 'The colossus'" }
+                country_event = {id = bertus_changes.6030}
+            }
+        }
+    }
+}

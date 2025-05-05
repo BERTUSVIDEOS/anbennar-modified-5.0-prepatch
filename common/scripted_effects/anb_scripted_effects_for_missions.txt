@@ -4135,13 +4135,30 @@ krakazol_drink_effect = {
 				#done this way because it gets reset to 0 with every round
 				if = {
 					limit = { check_variable = { drink_lvl = 7 } }
-					update_magic_study_experience_modifier = { value = 30 }
+					remove_country_modifier = drink_lvl_6_study_experience
+					remove_country_modifier = drink_study_experience
+					add_ruler_modifier = {
+						name = drink_lvl_7_study_experience
+						duration = -1
+					}
 				}
 				else_if = {
 					limit = { check_variable = { drink_lvl = 6 } }
-					update_magic_study_experience_modifier = { value = 20 }
+					remove_country_modifier = drink_lvl_7_study_experience
+					remove_country_modifier = drink_study_experience
+					add_ruler_modifier = {
+						name = drink_lvl_6_study_experience
+						duration = -1
+					}
 				}
-				else = { update_magic_study_experience_modifier = { value = 10 } }
+				else = { 
+					remove_country_modifier = drink_lvl_7_study_experience
+					remove_country_modifier = drink_lvl_6_study_experience
+					add_ruler_modifier = {
+						name = drink_study_experience
+						duration = -1
+					}
+				}
 			}
 			krakazol_drink_cost = { High = yes } 
 		}

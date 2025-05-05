@@ -83,6 +83,7 @@ NDefines.NCountry.AUTONOMY_AT_CONQUEST = 25	                            --50→2
 NDefines.NCountry.AUTONOMY_AT_CONQUEST_CLAIM = 20	                    -- 40→20
 NDefines.NCountry.REVOLUTION_EMBRACE_MIN_SPREAD = 0.50
 NDefines.NCountry.BREAK_ALLIANCE_ACTION_COOLDOWN = 0                    -- 10→0
+NDefines.NCountry.GOLDEN_ERA_YEARS = 30                                                   -- 50→30
 	
 NDefines.NEconomy.COLONIAL_MAINTENANCE_FACTOR = 2.0	                    -- 8→2                  -- _EDEF_COLONIAL_MAINTENANCE_FACTOR_
 NDefines.NEconomy.TRADE_PROPAGATE_DIVIDER = 10	                        -- 5→10

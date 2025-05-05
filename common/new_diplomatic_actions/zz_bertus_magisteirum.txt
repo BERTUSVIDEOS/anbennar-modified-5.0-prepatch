@@ -83,7 +83,7 @@ magisterium_study_assistance_action = {
 	is_visible = {
 		tag = A85
 		FROM = { has_estate_privilege = estate_mages_organization_magisterium }
-		FROM = { NOT = { has_ruler_flag = magisterium_study_assistance_flag } }
+		FROM = { NOT = { has_ruler_modifier = magisterium_study_assistance_modifier } }
     }
 	
 	is_allowed = {
@@ -124,7 +124,7 @@ cancel_magisterium_study_assistance_action = {
 	require_acceptance = no
 	
 	is_visible = {
-		FROM = { has_ruler_flag = magisterium_study_assistance_flag }
+		FROM = { has_ruler_modifier = magisterium_study_assistance_modifier }
     }
 	
 	is_allowed = {
@@ -834,8 +834,8 @@ magisterium_cast_fake_comet_spell_action = {
 
     on_accept = {
 		if = {
-			limit = { has_mana = { mana = 3 } }
-			add_mana_effect = { mana = -3 }
+			limit = { has_mana = { mana = 33 } }
+			add_mana_effect = { mana = -33 }
 			FROM = { country_event = { id = 5060 days = 5 random = 20 } }
 		}
 		else = {
@@ -1163,8 +1163,8 @@ magisterium_cast_illusion_spell_action = {
 			has_mana = { mana = 20 }
 		}
 		if = {
-			limit = { FROM = { any_owned_province = {has_province_modifier = illusion_school_reform_magisterium_modifier } } }
-			FROM = { NOT = { any_owned_province = {has_province_modifier = illusion_school_reform_magisterium_modifier} } }
+			limit = { FROM = { has_country_modifier = illusion_school_reform_magisterium_modifier} }
+			FROM = { NOT = { has_country_modifier = illusion_school_reform_magisterium_modifier} }
 		}
 		if = {
 			limit = { FROM = { war_with = ROOT} }
@@ -1175,10 +1175,7 @@ magisterium_cast_illusion_spell_action = {
     on_accept = {
 		add_mana_effect = { mana = -20 }
 		FROM = {
-			every_owned_province = {
-				remove_province_modifier = illusion_school_reform_magisterium_modifier
-				add_province_modifier = { name = illusion_school_reform_magisterium_modifier duration = 3650 }
-			}
+			add_country_modifier = { name = illusion_school_reform_magisterium_modifier duration = 3650 }
 		}
 	}
 	ai_will_do = {always = no}
@@ -1207,14 +1204,14 @@ magisterium_cast_conjuration_spell_action = {
 			limit = { FROM = { war_with = ROOT } }
 			FROM = { NOT = {war_with = ROOT } }
 		}
-		FROM = { any_owned_province = { province_with_mine_goods = yes } }
+		FROM = { any_owned_province = { province_with_mine_goods = yes NOT = { trade_goods = gold } } }
 	}
 
     on_accept = {
 		add_mana_effect = { mana = -20 }
 		FROM = {
 			every_owned_province = {
-				limit = {owner = {has_estate_privilege = estate_mages_organization_magisterium} province_with_mine_goods = yes }
+				limit = {owner = {has_estate_privilege = estate_mages_organization_magisterium} province_with_mine_goods = yes NOT = { trade_goods = gold } }
 				remove_province_modifier = conjuration_spell_reform_elemental_extraction_modifier
 				add_province_modifier =	 { name = conjuration_spell_reform_elemental_extraction_modifier duration = 3650 }
 			}

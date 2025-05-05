@@ -226,3 +226,56 @@ custom_button = {
 		}
 	}	
 }
+#Economic Golden Age button
+custom_button = {
+    name = economic_golden_age
+	tooltip = economic_golden_age_title
+    potential = {
+		FROM = {
+			ai  = no
+			NOT = { has_country_modifier = economic_golden_age }
+		}
+    }
+    trigger = {
+		FROM = {
+			splendor = 800
+			if = {
+				limit = {
+					has_country_flag = economic_golden_age
+				}
+				NOT = { has_country_flag = economic_golden_age }
+			}
+		}	
+	}
+    effect = { 
+		FROM = { #This will apply to the country
+			add_splendor = -800
+			add_country_modifier = {
+				name = "economic_golden_age"
+				duration = 10950
+			}
+			set_country_flag = economic_golden_age
+		}
+	}	
+}
+custom_icon = {
+	name = economic_golden_age_icon
+    potential = {
+		FROM = {
+			ai  = no
+			has_country_modifier = economic_golden_age
+		}
+	}
+	tooltip = "Economic Golden Era!"
+}
+custom_text_box = {
+	name = economic_golden_age_text
+	
+    potential = {
+		FROM = {
+			ai  = no
+			has_country_modifier = economic_golden_age
+		}
+	}
+	tooltip = ""
+}

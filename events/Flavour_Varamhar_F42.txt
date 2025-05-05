@@ -366,7 +366,7 @@ country_event = { #Complications
 	}
 }
 
-country_event = { #A Burst of Light
+country_event = { #A Burst of Light  	#bertus mod
 	id = varamhar_flavour.13
 	title = varamhar_flavour.13.t
 	picture = STREET_SPEECH_eventPicture
@@ -394,6 +394,10 @@ country_event = { #A Burst of Light
 	}
 	
 	is_triggered_only = yes
+
+	immediate = {
+		set_ruler_flag = is_immortal_flag
+	}
 	
 	option = {
 		name = varamhar_flavour.13.a
@@ -404,15 +408,15 @@ country_event = { #A Burst of Light
 			name = varamhar_loss_of_magical_talent
 			duration = 7300
 		}
-		add_ruler_modifier = {
-			name = varamhar_the_sun_reborn
+		add_country_modifier = {
+			name = varamhar_ascended_ruler
 			duration = -1
 		}
 		hidden_effect = {
 			country_event = {
 				id = varamhar_flavour.21
-				days = 7300
-				random = 7300
+				days = 3650
+				random = 3650
 			}
 		}
 		
@@ -462,16 +466,17 @@ country_event = { #A Burst of Light
 			NOT = { check_variable = { which = varamharProjectDivinityCounter value = 9 } }
 		}
 		
-		kill_ruler = yes
+		remove_country_modifier = varamhar_temporary_absence_of_the_monarch
+		
 		add_country_modifier = {
 			name = varamhar_loss_of_magical_talent
 			duration = 7300
 		}
-		add_prestige_or_monarch_power = {amount =  10}
-		add_country_modifier = {
-			name = varamhar_ascended_ruler
+		add_ruler_modifier = {
+			name = varamhar_blessed_of_surael
 			duration = -1
 		}
+		add_prestige_or_monarch_power = {amount =  10}
 	}
 	option = {
 		name = varamhar_flavour.13.c
@@ -480,12 +485,8 @@ country_event = { #A Burst of Light
 		}
 		
 		remove_country_modifier = varamhar_temporary_absence_of_the_monarch
-		add_country_modifier = {
-			name = varamhar_loss_of_magical_talent
-			duration = 7300
-		}
 		add_ruler_modifier = {
-			name = varamhar_blessed_of_surael
+			name = varamhar_the_sun_reborn
 			duration = -1
 		}
 		
@@ -671,7 +672,7 @@ country_event = {
 	picture = STREET_SPEECH_eventPicture
 	
 	trigger = {
-		has_country_modifier = varamhar_ascended_ruler
+		has_ruler_flag = is_immortal_flag
 	}
 	
 	mean_time_to_happen = {
@@ -752,7 +753,91 @@ country_event = {
 	option = {
 		name = varamhar_flavour.21.a
 		
-		kill_ruler = yes
+		tooltip = {
+			random_list = {
+				33 = {
+					change_adm = -1
+				}
+				33 = {
+					change_dip = -1
+				}
+				33 = {
+					change_mil = -1
+				}
+				33 = {
+					if = {
+						limit = {
+							has_country_modifier = varamhar_ascended_ruler
+						}
+						add_ruler_modifier = { name = varamhar_blessed_of_surael duration = -1 }
+					}
+					else_if = {
+						limit = {
+							has_country_modifier = varamhar_blessed_of_surael
+						}
+						add_ruler_modifier = { name = varamhar_the_sun_reborn duration = -1 }
+					}
+				}
+			}
+		}
+	}
+	after = {
+		country_event = { id = varamhar_flavour.22 }
 	}
 }
 
+#A Sun Burned too Bright RANDOMNESS
+country_event = {
+	id = varamhar_flavour.22
+	title = varamhar_flavour.22.t
+	desc = varamhar_flavour.22.d
+	picture = STREET_SPEECH_eventPicture
+	
+	is_triggered_only = yes
+	hidden = yes
+
+	trigger = {
+		NOT = { has_country_modifier = varamhar_the_sun_reborn }
+	}
+	
+	option = {
+		name = varamhar_flavour.22.a
+		ai_chance = { factor = 33 }
+		change_adm = -1
+	}
+	option = {
+		name = varamhar_flavour.22.a
+		ai_chance = { factor = 33 }
+		change_dip = -1
+	}
+	option = {
+		name = varamhar_flavour.22.a
+		ai_chance = { factor = 33 }
+		change_mil = -1
+	}
+	option = {
+		name = varamhar_flavour.22.a
+		ai_chance = { factor = 33 }
+		if = {
+			limit = {
+				has_country_modifier = varamhar_ascended_ruler
+			}
+			add_ruler_modifier = { name = varamhar_blessed_of_surael duration = -1 }
+		}
+		else_if = {
+			limit = {
+				has_country_modifier = varamhar_blessed_of_surael
+			}
+			add_ruler_modifier = { name = varamhar_the_sun_reborn duration = -1 }
+		}
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = varamhar_flavour.21
+				days = 3650
+				random = 3650
+			}
+		}
+	}
+}

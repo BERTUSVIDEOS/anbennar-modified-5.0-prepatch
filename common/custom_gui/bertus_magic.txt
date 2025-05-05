@@ -214,13 +214,6 @@ custom_button = {
 	}
 	tooltip = "Cast Spell"
 }
-custom_window = {
-	name = magic_magisterium_sphere_window
-	
-    potential = {
-		has_estate_privilege = estate_mages_organization_magisterium
-	}
-}
 custom_shield = {
     name = magic_magisterium_sphere
     potential = { has_estate_privilege = estate_mages_organization_magisterium }
@@ -236,7 +229,7 @@ custom_shield = {
 				set_variable = { which = magisterium_sphere_members_value value = 0 }
 				every_country = {
 					limit = { has_estate_privilege = estate_mages_organization_magisterium }
-					change_variable = { which = magisterium_sphere_members_value value = 1 }
+					ROOT = { change_variable = { which = magisterium_sphere_members_value value = 1 } }
 				}
 			}
 		}
@@ -294,20 +287,503 @@ custom_button = {
 		tag = A85
 	}
 	trigger = {
-		custom_trigger_tooltip = {
-			tooltip = "Magisters Menu Closed"
-			NOT = {has_country_flag = magisters_mechanic_menu_flag}
-		}
 		if = {
 			limit = { ai = yes }
 			has_mana = { mana = 75 no_spell_in_a_box = yes }
 		}
 	}
 	effect = {
-		set_country_flag = magisters_mechanic_menu_flag
-		country_event = { id = bertus_changes.6037 }
+		if = {
+			limit = { has_country_flag = magisters_mechanic_menu_flag }
+			clr_country_flag = magisters_mechanic_menu_flag
+		}
+		else = {
+			set_country_flag = magisters_mechanic_menu_flag
+			clr_country_flag = estate_mages_cast_spell_enchantment
+			clr_country_flag = estate_mages_cast_spell_abjuration
+			clr_country_flag = estate_mages_cast_spell_transmutation
+			clr_country_flag = estate_mages_cast_spell_evocation
+			clr_country_flag = estate_mages_cast_spell_illusion
+			clr_country_flag = estate_mages_cast_spell_necromancy
+			clr_country_flag = estate_mages_cast_spell_conjuration
+			clr_country_flag = estate_mages_cast_spell_divination
+		}
 	}
 	tooltip = "Encat Magisterium Decree"
+}
+custom_window = {
+	name = magic_magisterium_sphere_window
+	
+    potential = {
+		has_country_flag = magisters_mechanic_menu_flag
+	}
+}
+custom_button = {
+    name = magic_menu_magisterium_court_mage
+    
+    potential = {
+		has_country_flag = magisters_mechanic_menu_flag
+	}
+	trigger = {
+		has_mana = { mana = 80 }
+		if = {
+			limit = {has_country_modifier = high_court_mages_modifier}
+			NOT = {has_country_modifier = high_court_mages_modifier}
+		}
+	}
+	effect = {
+		custom_tooltip = every_magister_sphere_member_tt
+		tooltip = {
+			add_country_modifier = { name = high_court_mages_modifier duration = 3650 }
+		}
+		custom_tooltip = high_court_mages_decree_tt
+		hidden_effect = {
+			every_country = {
+				limit = { has_estate_privilege = estate_mages_organization_magisterium }
+				add_country_modifier = { name = high_court_mages_modifier duration = 3650 }
+			}
+		}
+		add_mana_effect = { mana = -80 }
+	}
+	tooltip = "Magisterium Mages"
+}
+custom_icon = {
+	name = magic_menu_magisterium_court_mage_glow
+    potential = {
+		has_country_flag = magisters_mechanic_menu_flag
+		OR = {
+			has_country_modifier = high_court_mages_modifier
+		}
+	}
+	tooltip = "Magisterium Mages"
+}
+custom_button = {
+    name = magic_menu_magisterium_foretelling
+    
+    potential = {
+		has_country_flag = magisters_mechanic_menu_flag
+	}
+	trigger = {
+		if = {
+			limit = { NOT = { has_unlocked_magic_school = { school = divination level = 1 } } }
+			has_unlocked_magic_school = { school = divination level = 1 }
+		}
+		has_mana = { mana = 80 }
+		if = {
+			limit = {has_country_modifier = divination_school_reform_modifier}
+			NOT = {has_country_modifier = divination_school_reform_modifier}
+		}
+	}
+	effect = {
+		#Effect
+		add_mana_effect = { mana = -80 }
+		tooltip = {
+			custom_tooltip = every_magister_sphere_member_tt
+			add_country_modifier = { name = divination_school_reform_modifier duration = 730 }
+		}
+		hidden_effect = {
+			every_country = {
+				limit = { has_estate_privilege = estate_mages_organization_magisterium }
+				add_country_modifier = { name = divination_school_reform_modifier duration = 730 }
+			}
+		}
+	}
+	tooltip = "Magisterium Foretelling"
+}
+custom_icon = {
+	name = magic_menu_magisterium_foretelling_glow
+    potential = {
+		has_country_flag = magisters_mechanic_menu_flag
+		OR = {
+			has_country_modifier = divination_school_reform_modifier
+		}
+	}
+	tooltip = "Magisterium Foretelling"
+}
+custom_button = {
+    name = magic_menu_magisterium_tolerance
+    
+    potential = {
+		has_country_flag = magisters_mechanic_menu_flag
+	}
+	trigger = {
+		if = {
+			limit = { NOT = { has_unlocked_magic_school = { school = enchantment level = 1 } } }
+			has_unlocked_magic_school = { school = enchantment level = 1 }
+		}
+		has_mana = { mana = 80 }
+	}
+	effect = {
+		#Effect
+		add_mana_effect = { mana = -80 }
+		tooltip = {
+			custom_tooltip = every_magister_sphere_member_tt
+			all_races_effect = {
+				EFFECT = medium_increase_of_all_tolerance_in_hre_effect
+			}
+		}
+		hidden_effect = {
+			every_country = {
+				limit = { has_estate_privilege = estate_mages_organization_magisterium }
+				all_races_effect = {
+					EFFECT = medium_increase_of_all_tolerance_in_hre_effect
+				}
+			}
+		}
+	}
+	tooltip = "Magisterium Racial Blindness"
+}
+custom_icon = {
+	name = magic_menu_magisterium_tolerance_glow
+    potential = {
+		has_country_flag = magisters_mechanic_menu_flag
+		always = no
+	}
+	tooltip = "Magisterium Racial Blindness"
+}
+custom_button = {
+    name = magic_menu_magisterium_broadward
+    
+    potential = {
+		has_country_flag = magisters_mechanic_menu_flag
+	}
+	trigger = {
+		if = {
+			limit = { NOT = { has_unlocked_magic_school = { school = abjuration level = 1 } } }
+			has_unlocked_magic_school = { school = abjuration level = 1 }
+		}
+		has_mana = { mana = 80 }
+		if = {
+			limit = {has_country_modifier = abjuration_defender_school_reform_modifier}
+			NOT = {has_country_modifier = abjuration_defender_school_reform_modifier}
+		}
+	}
+	effect = {
+		#Effect
+		add_mana_effect = { mana = -80 }
+		tooltip = {
+			custom_tooltip = every_magister_sphere_member_tt
+			add_country_modifier = { name = abjuration_defender_school_reform_modifier duration = 730 }
+		}
+		hidden_effect = {
+			every_country = {
+				limit = { has_estate_privilege = estate_mages_organization_magisterium }
+				add_country_modifier = { name = abjuration_defender_school_reform_modifier duration = 730 }
+			}
+		}
+	}
+	tooltip = "Magisterium Shield"
+}
+custom_icon = {
+	name = magic_menu_magisterium_broadward_glow
+    potential = {
+		has_country_flag = magisters_mechanic_menu_flag
+		OR = {
+			has_country_modifier = abjuration_defender_school_reform_modifier
+		}
+	}
+	tooltip = "Magisterium Shield"
+}
+custom_button = {
+    name = magic_menu_magisterium_healing
+    
+    potential = {
+		has_country_flag = magisters_mechanic_menu_flag
+	}
+	trigger = {
+		if = {
+			limit = { NOT = { has_unlocked_magic_school = { school = transmutation level = 1 } } }
+			has_unlocked_magic_school = { school = transmutation level = 1 }
+		}
+		has_mana = { mana = 80 }
+		if = {
+			limit = {has_country_modifier = transmutation_school_healing_spell_modifier}
+			NOT = {has_country_modifier = transmutation_school_healing_spell_modifier}
+		}
+	}
+	effect = {
+		#Effect
+		add_mana_effect = { mana = -80 }
+		tooltip = {
+			custom_tooltip = every_magister_sphere_member_tt
+			add_country_modifier = { name = transmutation_school_healing_spell_modifier duration = 730 }
+		}
+		hidden_effect = {
+			every_country = {
+				limit = { has_estate_privilege = estate_mages_organization_magisterium }
+				add_country_modifier = { name = transmutation_school_healing_spell_modifier duration = 730 }
+			}
+		}
+	}
+	tooltip = "Magisterium Healing"
+}
+custom_icon = {
+	name = magic_menu_magisterium_healing_glow
+    potential = {
+		has_country_flag = magisters_mechanic_menu_flag
+		OR = {
+			has_country_modifier = transmutation_school_healing_spell_modifier
+		}
+	}
+	tooltip = "Magisterium Healing"
+}
+custom_button = {
+    name = magic_menu_magisterium_evocated_weapons
+    
+    potential = {
+		has_country_flag = magisters_mechanic_menu_flag
+	}
+	trigger = {
+		if = {
+			limit = { NOT = { has_unlocked_magic_school = { school = evocation level = 1 } } }
+			has_unlocked_magic_school = { school = evocation level = 1 }
+		}
+		has_mana = { mana = 80 }
+		if = {
+			limit = {has_country_modifier = evocation_spell_school_reform_modifier}
+			NOT = {has_country_modifier = evocation_spell_school_reform_modifier}
+		}
+	}
+	effect = {
+		#Effect
+		add_mana_effect = { mana = -80 }
+		tooltip = {
+			custom_tooltip = every_magister_sphere_member_tt
+			add_country_modifier = { name = evocation_spell_school_reform_modifier duration = 730 }
+		}
+		hidden_effect = {
+			every_country = {
+				limit = { has_estate_privilege = estate_mages_organization_magisterium }
+				add_country_modifier = { name = evocation_spell_school_reform_modifier duration = 730 }
+			}
+		}
+	}
+	tooltip = "Magisterium Magical Weapons"
+}
+custom_icon = {
+	name = magic_menu_magisterium_evocated_weapons_glow
+    potential = {
+		has_country_flag = magisters_mechanic_menu_flag
+		OR = {
+			has_country_modifier = evocation_spell_school_reform_modifier
+		}
+	}
+	tooltip = "Magisterium Magical Weapons"
+}
+custom_button = {
+    name = magic_menu_magisterium_spectacle
+    
+    potential = {
+		has_country_flag = magisters_mechanic_menu_flag
+	}
+	trigger = {
+		if = {
+			limit = { NOT = { has_unlocked_magic_school = { school = illusion level = 1 } } }
+			has_unlocked_magic_school = { school = illusion level = 1 }
+		}
+		has_mana = { mana = 80 }
+		if = {
+			limit = {has_country_modifier = illusion_school_reform_magisterium_modifier}
+			NOT = {has_country_modifier = illusion_school_reform_magisterium_modifier}
+		}
+	}
+	effect = {
+		#Effect
+		add_mana_effect = { mana = -80 }
+		tooltip = {
+			custom_tooltip = every_magister_sphere_member_tt
+			add_country_modifier = { name = illusion_school_reform_magisterium_modifier duration = 3650 }
+		}
+		hidden_effect = {
+			every_country = {
+				limit = { has_estate_privilege = estate_mages_organization_magisterium }
+				add_country_modifier = { name = illusion_school_reform_magisterium_modifier duration = 3650 }
+			}
+		}
+	}
+	tooltip = "Magisterium Spectacle"
+}
+custom_icon = {
+	name = magic_menu_magisterium_spectacle_glow
+    potential = {
+		has_country_flag = magisters_mechanic_menu_flag
+		OR = {
+			has_country_modifier = magic_estate_magister_feast
+		}
+	}
+	tooltip = "Magisterium Spectacle"
+}
+custom_button = {
+    name = magic_menu_magisterium_magical_feast
+    
+    potential = {
+		has_country_flag = magisters_mechanic_menu_flag
+	}
+	trigger = {
+		if = {
+			limit = { NOT = { has_unlocked_magic_school = { school = conjuration level = 1 } } }
+			has_unlocked_magic_school = { school = conjuration level = 1 }
+		}
+		has_mana = { mana = 80 }
+		if = {
+			limit = {has_country_modifier = magic_estate_magister_feast}
+			NOT = {has_country_modifier = magic_estate_magister_feast}
+		}
+	}
+	effect = {
+		#Effect
+		add_mana_effect = { mana = -80 }
+		tooltip = {
+			custom_tooltip = every_magister_sphere_member_tt
+			add_country_modifier = { name = magic_estate_magister_feast duration = 730 }
+		}
+		hidden_effect = {
+			every_country = {
+				limit = { has_estate_privilege = estate_mages_organization_magisterium }
+				add_country_modifier = { name = magic_estate_magister_feast duration = 730 }
+			}
+		}
+	}
+	tooltip = "Magisterium Feast"
+}
+custom_icon = {
+	name = magic_menu_magisterium_magical_feast_glow
+    potential = {
+		has_country_flag = magisters_mechanic_menu_flag
+		OR = {
+			has_country_modifier = magic_estate_magister_feast
+		}
+	}
+	tooltip = "Magisterium Feast"
+}
+custom_button = {
+    name = magic_menu_magisterium_construction
+    
+    potential = {
+		has_country_flag = magisters_mechanic_menu_flag
+	}
+	trigger = {
+		if = {
+			limit = { NOT = { has_unlocked_magic_school = { school = conjuration level = 1 } } }
+			has_unlocked_magic_school = { school = conjuration level = 1 }
+		}
+		has_mana = { mana = 80 }
+		if = {
+			limit = {has_country_modifier = conjuration_school_reform_elemental_construction_modifier}
+			NOT = {has_country_modifier = conjuration_school_reform_elemental_construction_modifier}
+		}
+	}
+	effect = {
+		#Effect
+		add_mana_effect = { mana = -80 }
+		tooltip = {
+			custom_tooltip = every_magister_sphere_member_tt
+			add_country_modifier = { name = conjuration_school_reform_elemental_construction_modifier duration = 1825 }
+		}
+		hidden_effect = {
+			every_country = {
+				limit = { has_estate_privilege = estate_mages_organization_magisterium }
+				add_country_modifier = { name = conjuration_school_reform_elemental_construction_modifier duration = 1825 }
+			}
+		}
+	}
+	tooltip = "Magisterium Construction Elementals"
+}
+custom_icon = {
+	name = magic_menu_magisterium_construction_glow
+    potential = {
+		has_country_flag = magisters_mechanic_menu_flag
+		OR = {
+			has_country_modifier = conjuration_school_reform_elemental_construction_modifier
+		}
+	}
+	tooltip = "Magisterium Construction Elementals"
+}
+custom_button = {
+    name = magic_menu_magisterium_damestear
+    
+    potential = {
+		has_country_flag = magisters_mechanic_menu_flag
+	}
+	trigger = {
+		if = {
+			limit = { NOT = { has_unlocked_magic_school = { school = conjuration level = 1 } } }
+			has_unlocked_magic_school = { school = conjuration level = 1 }
+		}
+		has_mana = { mana = 80 }
+		if = {
+			limit = {has_country_modifier = conjuration_school_reform_elemental_extraction_modifier}
+			NOT = {has_country_modifier = conjuration_school_reform_elemental_extraction_modifier}
+		}
+	}
+	effect = {
+		#Effect
+		add_mana_effect = { mana = -80 }
+		tooltip = {
+			custom_tooltip = every_magister_sphere_member_tt
+			add_country_modifier = { name = conjuration_school_reform_elemental_extraction_modifier duration = 3650 }
+		}
+		hidden_effect = {
+			every_country = {
+				limit = { has_estate_privilege = estate_mages_organization_magisterium }
+				add_country_modifier = { name = conjuration_school_reform_elemental_extraction_modifier duration = 3650 }
+			}
+		}
+	}
+	tooltip = "Magisterium Elemental Extraction"
+}
+custom_icon = {
+	name = magic_menu_magisterium_damestear_glow
+    potential = {
+		has_country_flag = magisters_mechanic_menu_flag
+		OR = {
+			has_country_modifier = conjuration_school_reform_elemental_extraction_modifier
+		}
+	}
+	tooltip = "Magisterium Elemental Extraction"
+}
+custom_button = {
+    name = magic_menu_magisterium_farm
+    
+    potential = {
+		has_country_flag = magisters_mechanic_menu_flag
+	}
+	trigger = {
+		if = {
+			limit = { NOT = { has_unlocked_magic_school = { school = conjuration level = 1 } } }
+			has_unlocked_magic_school = { school = conjuration level = 1 }
+		}
+		has_mana = { mana = 80 }
+		if = {
+			limit = {has_country_modifier = transmutation_school_reform_elemental_climate_control_modifier}
+			NOT = {has_country_modifier = transmutation_school_reform_elemental_climate_control_modifier}
+		}
+	}
+	effect = {
+		#Effect
+		add_mana_effect = { mana = -80 }
+		tooltip = {
+			custom_tooltip = every_magister_sphere_member_tt
+			add_country_modifier = { name = transmutation_school_reform_elemental_climate_control_modifier duration = 3650 }
+		}
+		hidden_effect = {
+			every_country = {
+				limit = { has_estate_privilege = estate_mages_organization_magisterium }
+				add_country_modifier = { name = transmutation_school_reform_elemental_climate_control_modifier duration = 3650 }
+			}
+		}
+	}
+	tooltip = "Magisterium Climate Control"
+}
+custom_icon = {
+	name = magic_menu_magisterium_farm_glow
+    potential = {
+		has_country_flag = magisters_mechanic_menu_flag
+		OR = {
+			has_country_modifier = transmutation_school_reform_elemental_climate_control_modifier
+		}
+	}
+	tooltip = "Magisterium Climate Control"
 }
 custom_icon = {
 	name = topbar_mana_overlay
@@ -414,6 +890,7 @@ custom_button = {
 			clr_country_flag = estate_mages_cast_spell_illusion
 			clr_country_flag = estate_mages_cast_spell_necromancy
 			clr_country_flag = estate_mages_cast_spell_conjuration
+			clr_country_flag = magisters_mechanic_menu_flag
 		}
 	}
 	tooltip = "Divination School"
@@ -878,21 +1355,19 @@ custom_button = {
 	}
 	effect = {
 		if = {
-			limit = { ai = no }
-			if = {
-				limit = { has_country_flag = estate_mages_cast_spell_enchantment }
-				clr_country_flag = estate_mages_cast_spell_enchantment
-			}
-			else = {
-				set_country_flag = estate_mages_cast_spell_enchantment
-				clr_country_flag = estate_mages_cast_spell_divination
-				clr_country_flag = estate_mages_cast_spell_abjuration
-				clr_country_flag = estate_mages_cast_spell_transmutation
-				clr_country_flag = estate_mages_cast_spell_evocation
-				clr_country_flag = estate_mages_cast_spell_illusion
-				clr_country_flag = estate_mages_cast_spell_necromancy
-				clr_country_flag = estate_mages_cast_spell_conjuration
-			}
+			limit = { has_country_flag = estate_mages_cast_spell_enchantment }
+			clr_country_flag = estate_mages_cast_spell_enchantment
+		}
+		else = {
+			set_country_flag = estate_mages_cast_spell_enchantment
+			clr_country_flag = estate_mages_cast_spell_divination
+			clr_country_flag = estate_mages_cast_spell_abjuration
+			clr_country_flag = estate_mages_cast_spell_transmutation
+			clr_country_flag = estate_mages_cast_spell_evocation
+			clr_country_flag = estate_mages_cast_spell_illusion
+			clr_country_flag = estate_mages_cast_spell_necromancy
+			clr_country_flag = estate_mages_cast_spell_conjuration
+			clr_country_flag = magisters_mechanic_menu_flag
 		}
 	}
 	tooltip = "Enchantment School"
@@ -1240,21 +1715,19 @@ custom_button = {
 	}
 	effect = {
 		if = {
-			limit = { ai = no }
-			if = {
-				limit = { has_country_flag = estate_mages_cast_spell_abjuration }
-				clr_country_flag = estate_mages_cast_spell_abjuration
-			}
-			else = {
-				set_country_flag = estate_mages_cast_spell_abjuration
-				clr_country_flag = estate_mages_cast_spell_divination
-				clr_country_flag = estate_mages_cast_spell_enchantment
-				clr_country_flag = estate_mages_cast_spell_transmutation
-				clr_country_flag = estate_mages_cast_spell_evocation
-				clr_country_flag = estate_mages_cast_spell_illusion
-				clr_country_flag = estate_mages_cast_spell_necromancy
-				clr_country_flag = estate_mages_cast_spell_conjuration
-			}
+			limit = { has_country_flag = estate_mages_cast_spell_abjuration }
+			clr_country_flag = estate_mages_cast_spell_abjuration
+		}
+		else = {
+			set_country_flag = estate_mages_cast_spell_abjuration
+			clr_country_flag = estate_mages_cast_spell_divination
+			clr_country_flag = estate_mages_cast_spell_enchantment
+			clr_country_flag = estate_mages_cast_spell_transmutation
+			clr_country_flag = estate_mages_cast_spell_evocation
+			clr_country_flag = estate_mages_cast_spell_illusion
+			clr_country_flag = estate_mages_cast_spell_necromancy
+			clr_country_flag = estate_mages_cast_spell_conjuration
+			clr_country_flag = magisters_mechanic_menu_flag
 		}
 	}
 	tooltip = "Abjuration School"
@@ -1762,21 +2235,19 @@ custom_button = {
 	}
 	effect = {
 		if = {
-			limit = { ai = no }
-			if = {
-				limit = { has_country_flag = estate_mages_cast_spell_transmutation }
-				clr_country_flag = estate_mages_cast_spell_transmutation
-			}
-			else = {
-				set_country_flag = estate_mages_cast_spell_transmutation
-				clr_country_flag = estate_mages_cast_spell_enchantment
-				clr_country_flag = estate_mages_cast_spell_abjuration
-				clr_country_flag = estate_mages_cast_spell_divination
-				clr_country_flag = estate_mages_cast_spell_evocation
-				clr_country_flag = estate_mages_cast_spell_illusion
-				clr_country_flag = estate_mages_cast_spell_necromancy
-				clr_country_flag = estate_mages_cast_spell_conjuration
-			}
+			limit = { has_country_flag = estate_mages_cast_spell_transmutation }
+			clr_country_flag = estate_mages_cast_spell_transmutation
+		}
+		else = {
+			set_country_flag = estate_mages_cast_spell_transmutation
+			clr_country_flag = estate_mages_cast_spell_enchantment
+			clr_country_flag = estate_mages_cast_spell_abjuration
+			clr_country_flag = estate_mages_cast_spell_divination
+			clr_country_flag = estate_mages_cast_spell_evocation
+			clr_country_flag = estate_mages_cast_spell_illusion
+			clr_country_flag = estate_mages_cast_spell_necromancy
+			clr_country_flag = estate_mages_cast_spell_conjuration
+			clr_country_flag = magisters_mechanic_menu_flag
 		}
 	}
 	tooltip = "Transmutation School"
@@ -2180,21 +2651,19 @@ custom_button = {
 	}
 	effect = {
 		if = {
-			limit = { ai = no }
-			if = {
-				limit = { has_country_flag = estate_mages_cast_spell_evocation }
-				clr_country_flag = estate_mages_cast_spell_evocation
-			}
-			else = {
-				set_country_flag = estate_mages_cast_spell_evocation
-				clr_country_flag = estate_mages_cast_spell_enchantment
-				clr_country_flag = estate_mages_cast_spell_abjuration
-				clr_country_flag = estate_mages_cast_spell_transmutation
-				clr_country_flag = estate_mages_cast_spell_divination
-				clr_country_flag = estate_mages_cast_spell_illusion
-				clr_country_flag = estate_mages_cast_spell_necromancy
-				clr_country_flag = estate_mages_cast_spell_conjuration
-			}
+			limit = { has_country_flag = estate_mages_cast_spell_evocation }
+			clr_country_flag = estate_mages_cast_spell_evocation
+		}
+		else = {
+			set_country_flag = estate_mages_cast_spell_evocation
+			clr_country_flag = estate_mages_cast_spell_enchantment
+			clr_country_flag = estate_mages_cast_spell_abjuration
+			clr_country_flag = estate_mages_cast_spell_transmutation
+			clr_country_flag = estate_mages_cast_spell_divination
+			clr_country_flag = estate_mages_cast_spell_illusion
+			clr_country_flag = estate_mages_cast_spell_necromancy
+			clr_country_flag = estate_mages_cast_spell_conjuration
+			clr_country_flag = magisters_mechanic_menu_flag
 		}
 	}
 	tooltip = "Evocation School"
@@ -2412,8 +2881,8 @@ custom_icon = {
     potential = {
 		has_country_flag = estate_mages_cast_spell_evocation
 		OR = {
-			has_country_modifier = evocated_weapons_1_modifier
-			has_country_modifier = evocated_weapons_2_modifier
+			has_country_modifier = evocation_school_evocated_weapons_1_modifier
+			has_country_modifier = evocation_school_evocated_weapons_2_modifier
 		}
 	}
 	tooltip = "Evocated Weapons"
@@ -2427,21 +2896,19 @@ custom_button = {
 	}
 	effect = {
 		if = {
-			limit = { ai = no }
-			if = {
-				limit = { has_country_flag = estate_mages_cast_spell_illusion }
-				clr_country_flag = estate_mages_cast_spell_illusion
-			}
-			else = {
-				set_country_flag = estate_mages_cast_spell_illusion
-				clr_country_flag = estate_mages_cast_spell_enchantment
-				clr_country_flag = estate_mages_cast_spell_abjuration
-				clr_country_flag = estate_mages_cast_spell_transmutation
-				clr_country_flag = estate_mages_cast_spell_evocation
-				clr_country_flag = estate_mages_cast_spell_divination
-				clr_country_flag = estate_mages_cast_spell_necromancy
-				clr_country_flag = estate_mages_cast_spell_conjuration
-			}
+			limit = { has_country_flag = estate_mages_cast_spell_illusion }
+			clr_country_flag = estate_mages_cast_spell_illusion
+		}
+		else = {
+			set_country_flag = estate_mages_cast_spell_illusion
+			clr_country_flag = estate_mages_cast_spell_enchantment
+			clr_country_flag = estate_mages_cast_spell_abjuration
+			clr_country_flag = estate_mages_cast_spell_transmutation
+			clr_country_flag = estate_mages_cast_spell_evocation
+			clr_country_flag = estate_mages_cast_spell_divination
+			clr_country_flag = estate_mages_cast_spell_necromancy
+			clr_country_flag = estate_mages_cast_spell_conjuration
+			clr_country_flag = magisters_mechanic_menu_flag
 		}
 	}
 	tooltip = "Illusion School"
@@ -2714,21 +3181,19 @@ custom_button = {
 	}
 	effect = {
 		if = {
-			limit = { ai = no }
-			if = {
-				limit = { has_country_flag = estate_mages_cast_spell_necromancy }
-				clr_country_flag = estate_mages_cast_spell_necromancy
-			}
-			else = {
-				set_country_flag = estate_mages_cast_spell_necromancy
-				clr_country_flag = estate_mages_cast_spell_enchantment
-				clr_country_flag = estate_mages_cast_spell_abjuration
-				clr_country_flag = estate_mages_cast_spell_transmutation
-				clr_country_flag = estate_mages_cast_spell_evocation
-				clr_country_flag = estate_mages_cast_spell_illusion
-				clr_country_flag = estate_mages_cast_spell_divination
-				clr_country_flag = estate_mages_cast_spell_conjuration
-			}
+			limit = { has_country_flag = estate_mages_cast_spell_necromancy }
+			clr_country_flag = estate_mages_cast_spell_necromancy
+		}
+		else = {
+			set_country_flag = estate_mages_cast_spell_necromancy
+			clr_country_flag = estate_mages_cast_spell_enchantment
+			clr_country_flag = estate_mages_cast_spell_abjuration
+			clr_country_flag = estate_mages_cast_spell_transmutation
+			clr_country_flag = estate_mages_cast_spell_evocation
+			clr_country_flag = estate_mages_cast_spell_illusion
+			clr_country_flag = estate_mages_cast_spell_divination
+			clr_country_flag = estate_mages_cast_spell_conjuration
+			clr_country_flag = magisters_mechanic_menu_flag
 		}
 	}
 	tooltip = "Necromancy School"
@@ -2908,21 +3373,19 @@ custom_button = {
 	}
 	effect = {
 		if = {
-			limit = { ai = no }
-			if = {
-				limit = { has_country_flag = estate_mages_cast_spell_conjuration }
-				clr_country_flag = estate_mages_cast_spell_conjuration
-			}
-			else = {
-				set_country_flag = estate_mages_cast_spell_conjuration
-				clr_country_flag = estate_mages_cast_spell_enchantment
-				clr_country_flag = estate_mages_cast_spell_abjuration
-				clr_country_flag = estate_mages_cast_spell_transmutation
-				clr_country_flag = estate_mages_cast_spell_evocation
-				clr_country_flag = estate_mages_cast_spell_illusion
-				clr_country_flag = estate_mages_cast_spell_necromancy
-				clr_country_flag = estate_mages_cast_spell_divination
-			}
+			limit = { has_country_flag = estate_mages_cast_spell_conjuration }
+			clr_country_flag = estate_mages_cast_spell_conjuration
+		}
+		else = {
+			set_country_flag = estate_mages_cast_spell_conjuration
+			clr_country_flag = estate_mages_cast_spell_enchantment
+			clr_country_flag = estate_mages_cast_spell_abjuration
+			clr_country_flag = estate_mages_cast_spell_transmutation
+			clr_country_flag = estate_mages_cast_spell_evocation
+			clr_country_flag = estate_mages_cast_spell_illusion
+			clr_country_flag = estate_mages_cast_spell_necromancy
+			clr_country_flag = estate_mages_cast_spell_divination
+			clr_country_flag = magisters_mechanic_menu_flag
 		}
 	}
 	tooltip = "Conjuration School"

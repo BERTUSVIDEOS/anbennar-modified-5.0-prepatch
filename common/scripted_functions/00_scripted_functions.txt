@@ -406,28 +406,31 @@ can_burn_colony = {
 can_colonize_province = {
 	condition = { # AI Can't colonize if MP
 		potential = {
+			has_global_flag = mp_lobby_flag
+		}
+		allow = {
 			FROM = {
-				ai = yes
-				if = {
-					limit = { is_subject = yes }
+				OR = {
+					ai = no
 					overlord = { ai = no }
+					num_of_colonists = 3
 				}
 			}
-			calc_true_if = {
-				all_country = { ai = no }
-				amount = 2
-			}
+		}
+	}
+	condition = { # 
+		tooltip = "Deepwoods Blocked Path"
+		potential = {
+			has_province_modifier = deepwoods_blocked_path
 		}
 		allow = {
 			always = no
 		}
 	}
 	condition = { # 
+		tooltip = "Dwarven Underholds can not be colonized, must be digged"
 		potential = {
-			OR = {
-				has_terrain = dwarven_under_hold
-				has_province_modifier = deepwoods_blocked_path
-			}
+			has_terrain = dwarven_under_hold
 		}
 		allow = {
 			always = no
@@ -616,28 +619,30 @@ can_colonize_province = {
 can_colonize_province_siberian_frontier = {
 	condition = { # AI Can't colonize if MP
 		potential = {
+			has_global_flag = mp_lobby_flag
+		}
+		allow = {
 			FROM = {
-				ai = yes
-				if = {
-					limit = { is_subject = yes }
+				OR = {
+					ai = no
 					overlord = { ai = no }
 				}
 			}
-			calc_true_if = {
-				all_country = { ai = no }
-				amount = 2
-			}
+		}
+	}
+	condition = { # 
+		tooltip = "Deepwoods Blocked Path"
+		potential = {
+			has_province_modifier = deepwoods_blocked_path
 		}
 		allow = {
 			always = no
 		}
 	}
 	condition = { # 
+		tooltip = "Dwarven Underholds can not be colonized, must be digged"
 		potential = {
-			OR = {
-				has_terrain = dwarven_under_hold
-				has_province_modifier = deepwoods_blocked_path
-			}
+			has_terrain = dwarven_under_hold
 		}
 		allow = {
 			always = no

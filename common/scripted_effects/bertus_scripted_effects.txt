@@ -1,4 +1,51 @@
 
+add_double_deity_effect = {
+	hidden_effect = {
+		remove_country_modifier = castellos_deity
+		remove_country_modifier = the_dame_deity
+		remove_country_modifier = corin_deity
+		remove_country_modifier = adean_deity
+		remove_country_modifier = munas_moonsinger_deity
+		remove_country_modifier = munas_moonsinger_ibevar_deity
+		remove_country_modifier = ara_deity
+		remove_country_modifier = balgar_deity
+		remove_country_modifier = esmaryal_deity
+		remove_country_modifier = ryala_deity
+		remove_country_modifier = minara_deity
+		remove_country_modifier = falah_deity
+		remove_country_modifier = falah_freemarches_deity
+		remove_country_modifier = nerat_deity
+		remove_country_modifier = nathalyne_deity
+		remove_country_modifier = adean_adenica_admin_deity
+		remove_country_modifier = adean_adenica_war_deity
+	}
+	if = {
+		limit = { has_government_attribute = deity_duality_reform_mechanic }
+		trigger_switch = {
+			on_trigger = has_personal_deity
+			castellos = {add_ruler_modifier = {name = castellos_deity duration = -1}}
+			the_dame = {add_ruler_modifier = {name = the_dame_deity duration = -1}}
+			corin = {add_ruler_modifier = {name = corin_deity duration = -1}}
+			adean = {add_ruler_modifier = {name = adean_deity duration = -1}}
+			munas_moonsinger = {add_ruler_modifier = {name = munas_moonsinger_deity duration = -1}}
+			munas_seinathil_muse = {add_ruler_modifier = {name = munas_moonsinger_deity duration = -1}}
+			munas_moonsinger_ibevar = {add_ruler_modifier = {name = munas_moonsinger_ibevar_deity duration = -1}}
+			ara = {add_ruler_modifier = {name = ara_deity duration = -1}}
+			balgar = {add_ruler_modifier = {name = balgar_deity duration = -1}}
+			balgar_deity = {add_ruler_modifier = {name = balgar_deity duration = -1}}
+			balgar_bal_hyl = {add_ruler_modifier = {name = balgar_deity duration = -1}}
+			esmaryal = {add_ruler_modifier = {name = esmaryal_deity duration = -1}}
+			ryala = {add_ruler_modifier = {name = ryala_deity duration = -1}}
+			minara = {add_ruler_modifier = {name = minara_deity duration = -1}}
+			falah = {add_ruler_modifier = {name = falah_deity duration = -1}}
+			falah_freemarches = {add_ruler_modifier = {name = falah_freemarches_deity duration = -1}}
+			nerat = {add_ruler_modifier = {name = nerat_deity duration = -1}}
+			nathalyne = {add_ruler_modifier = {name = nathalyne_deity duration = -1}}
+			adean_adenica_admin = {add_ruler_modifier = {name = adean_adenica_admin_deity duration = -1}}
+			adean_adenica_war = {add_ruler_modifier = {name = adean_adenica_war_deity duration = -1}}
+		}
+	}
+}
 get_expanded_infrastructure_bonus = {
 	if = {
 		limit = { owner = { has_idea = konigreich2 } }
@@ -201,7 +248,24 @@ get_monthly_mana = {
 			has_estate = estate_mages
 		}
 		export_to_variable = { which = monthly_mana_var value = modifier:monthly_mana_modifier }
+		export_to_variable = { which = monthly_negative_mana_var value = modifier:monthly_negative_mana_modifier }
+		if = { 	# magisterium  mana tribute
+			limit = { has_estate_privilege = estate_mages_organization_magisterium NOT = { tag = A85 } }
+			set_variable = { which = temp value = 0 }
+			set_variable = { which = mana_trasnfered_to_magisterium_var value = 0 }
+			change_variable = { which = mana_trasnfered_to_magisterium_var which = monthly_mana_var }
+			divide_variable = { which = mana_trasnfered_to_magisterium_var value = 5 }
+			change_variable = { which = temp which = mana_trasnfered_to_magisterium_var }
+			A85 = { 	#give mana
+				set_variable = { which = temp value = 0 }
+				change_variable = { which = temp which = PREV }
+				change_variable = { which = mana_var which = temp }
+			}
+			subtract_variable = { which = monthly_mana_var which = mana_trasnfered_to_magisterium_var } 	#subtract mana
+		}
+		
 		change_variable = { which = mana_var which = monthly_mana_var }
+		change_variable = { which = mana_var which = monthly_negative_mana_var }
 		if = {
 			limit = { check_variable = { which = mana_var which = max_mana_var } }
 			export_to_variable = { which = max_mana_var value = modifier:max_mana_modifier }
@@ -217,6 +281,26 @@ get_monthly_mana = {
 			}
 			else = {
 				set_variable = { which = mana_var which = max_mana_var }
+			}
+		}
+		
+		if = {
+			limit = { NOT = { check_variable = { which = mana_var value = 0 } } }
+			set_variable = { which = mana_var value = 0 }
+		}
+		if = { 	# magisterium  mana tribute
+			limit = { has_estate_privilege = estate_mages_organization_magisterium tag = A85 }
+			set_variable = { which = mana_trasnfered_to_magisterium_var value = 0 }
+			every_country = {
+				limit = { check_variable = { which = mana_trasnfered_to_magisterium_var value = 0.01 } NOT = { tag = A85 } }
+				set_variable = { which = temp value = 0 }
+				change_variable = { which = temp which = mana_trasnfered_to_magisterium_var } 	#mana tooltip
+				A85 = {
+					set_variable = { which = temp value = 0 }
+					change_variable = { which = mana_trasnfered_to_magisterium_var which = PREV } 	#mana tooltip
+					change_variable = { which = temp which = PREV }
+					change_variable = { which = monthly_mana_var which = temp } 	#mana tooltip
+				}
 			}
 		}
 	}
@@ -630,7 +714,7 @@ on_dip_development_extra_dev_effect = {
 		random = { chance = 20 owner = { add_mercantilism = 1} }
 	}
 	if = {	#bertus mod
-		limit = {has_province_modifier = zentra_dev owner = {has_idea = entwicklung7} OR = {trade_goods = gold trade_goods = silver}}
+		limit = { NOT = { has_province_modifier = gold_transmutation_spell_modifier } has_province_modifier = zentra_dev owner = {has_idea = entwicklung7} OR = {trade_goods = gold trade_goods = silver}}
 		#set_province_flag = get_entwicklung7_gold
 		random = {
 			chance = 20
@@ -1990,6 +2074,12 @@ small_increase_of_all_tolerance_in_hre_effect = {
 		small_increase_of_$RACE$_tolerance_effect = yes
 	}
 }
+medium_increase_of_all_tolerance_in_hre_effect = {
+	if = {
+		limit = {any_country = {is_part_of_hre = yes has_country_modifier = $RACE$_administration}}
+		medium_increase_of_$RACE$_tolerance_effect = yes
+	}
+}
 add_expulsion_unrest = {
 	every_owned_province = {
 		limit = { has_small_$race$_minority_trigger = yes }
@@ -2179,9 +2269,8 @@ get_yearly_income_fraction = {
 	custom_tooltip = get_yearly_income_$fraction$_tt
 	hidden_effect = {
 		[[send]
-			set_variable = { which = income_to_transfer value = 0 }
 			export_to_variable = { which = income_to_transfer value = trigger_value:years_of_income }
-			multiply_variable = { which = income_to_transfer which = $fraction$ }
+			multiply_variable = { which = income_to_transfer value = $fraction$ }
 			while = {
 				limit = { check_variable = { which = income_to_transfer value = 0 } }
 				subtract_variable = { which = income_to_transfer value = 1 }
@@ -2190,9 +2279,8 @@ get_yearly_income_fraction = {
 			}
 		]
 		[[receive]
-			set_variable = { which = income_to_transfer value = 0 }
 			export_to_variable = { which = income_to_transfer value = trigger_value:years_of_income }
-			multiply_variable = { which = income_to_transfer which = $fraction$ }
+			multiply_variable = { which = income_to_transfer value = $fraction$ }
 			while = {
 				limit = { check_variable = { which = income_to_transfer value = 0 } }
 				subtract_variable = { which = income_to_transfer value = 1 }
@@ -2261,6 +2349,12 @@ get_isolationsim_bonus = {
 	}
 }
 kobold_celebrate_effect = {
+	if = {
+		limit = { has_government_attribute = praise_the_dragon_effect }
+		add_church_power = -50
+		add_government_power = { mechanic_type = kobold_hoard_mechanic power_type = hoard_amount value = 1 }
+		country_event = { id = flavor_kobildzan.3 }
+	}
 	if = {	#red
 		limit = {has_dragon_aspect = {color = red amount = 3}}
 		if = {
