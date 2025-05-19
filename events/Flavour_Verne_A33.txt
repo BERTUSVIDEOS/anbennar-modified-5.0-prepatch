@@ -580,14 +580,7 @@ country_event = {
 	picture = EXPLORERS_eventPicture
 	
 	trigger = {
-		any_owned_province = {
-			has_province_modifier = "verne_sanctuary"
-		}
-		has_country_modifier = verne_wyvern_riders
-		OR = {
-			accepted_culture = vernman
-			primary_culture = vernman
-		}
+		has_estate_privilege = estate_human_wyvern_rider_academies
 	}
 		
 	mean_time_to_happen = {
@@ -596,173 +589,80 @@ country_event = {
 	
 	immediate = {
 		hidden_effect = {
-			set_saved_name = {
-				key = root_name_male
-				type = advisor
-				scope = ROOT
-			}
-			set_saved_name = {
-				key = root_name_female
-				type = advisor
-				female = yes
-				scope = ROOT
+			random_list = {
+				10 = {
+					trigger = {
+						NOT = { has_leader = "Alfons Grey 'Wyvern Rider'" }
+					}
+					set_saved_name = {key = special_general_name type = simple name = "Alfons Grey 'Wyvern Rider'"}
+				}
+				10 = {
+					trigger = {
+						NOT = { has_leader = "Awen Silnara 'Wyvern Rider'" }
+					}
+					set_saved_name = {key = special_general_name type = simple name = "Awen Silnara 'Wyvern Rider'"}
+				}
+				10 = {
+					trigger = {
+						NOT = { has_leader = "Awen Jercostarn 'Wyvern Rider'" }
+					}
+					set_saved_name = {key = special_general_name type = simple name = "Awen Jercostarn 'Wyvern Rider'"}
+				}
+				10 = {
+					trigger = {
+						NOT = { has_leader = "Aucan Avusillern 'Wyvern Rider'" }
+					}
+					set_saved_name = {key = special_general_name type = simple name = "Aucan Avusillern 'Wyvern Rider'"}
+				}
+				10 = {
+					trigger = {
+						NOT = { has_leader = "Varil Cam 'Wyvern Rider'" }
+					}
+					set_saved_name = {key = special_general_name type = simple name = "Varil Cam 'Wyvern Rider'"}
+				}
+				10 = {
+					trigger = {
+						NOT = { has_leader = "Evin Adenern 'Wyvern Rider'" }
+					}
+					set_saved_name = {key = special_general_name type = simple name = "Evin Adenern 'Wyvern Rider'"}
+				}
+				10 = {
+					trigger = {
+						NOT = { has_leader = "Erel Díhr 'Wyvern Rider'" }
+					}
+					set_saved_name = {key = special_general_name type = simple name = "Erel Díhr 'Wyvern Rider'"}
+				}
+				10 = {
+					trigger = {
+						NOT = { has_leader = "Varian Eúnech 'Wyvern Rider'" }
+					}
+					set_saved_name = {key = special_general_name type = simple name = "Varian Eúnech 'Wyvern Rider'"}
+				}
+				10 = {
+					trigger = {
+						NOT = { has_leader = "Borian Dhíarn 'Wyvern Rider'" }
+					}
+					set_saved_name = {key = special_general_name type = simple name = "Borian Dhíarn 'Wyvern Rider'"}
+				}
+				1 = {
+					set_saved_name = {key = special_general_name type = advisor scope = ROOT }
+				}
 			}
 		}
 	}
 	
-	option = {
+	option = { 	#bertus mod
 		name = verne.13.a
-		if = {
-			limit = {
-				army_tradition = 0.00
-				NOT = { army_tradition = 20 }
-			}
-			random_list = {
-				50 = {
-					define_conquistador = {
-						fire = 2
-						shock = 6
-						manuever = 3
-						siege = 2
-						trait = wyvern_rider_personality
-						name = root_name_male
-					}
-				}
-				50 = {
-					define_conquistador = {
-						fire = 2
-						shock = 6
-						manuever = 3
-						siege = 2
-						trait = wyvern_rider_personality
-						female = yes
-						name = root_name_female
-					}
-				}
-			}
+		set_country_flag = hero_free_general_flag
+		custom_tooltip = get_free_great_hero_general_tt
+		set_country_flag = get_adventurer_flag
+		custom_tooltip = get_adventurer_flag_tt
+		set_country_flag = great_general_extra_pips_flag
+		custom_tooltip = great_general_extra_pips_flag_tt
+		hidden_effect = {
+			#name saved on "immediate"
+			country_event = {id = bertus_changes.6030}
 		}
-		
-		if = {
-			limit = {
-				army_tradition = 20
-				NOT = { army_tradition = 40 }
-			}
-			random_list = {
-				50 = {
-					define_conquistador = {
-						fire = 3
-						shock = 7
-						manuever = 4
-						siege = 3
-						trait = wyvern_rider_personality
-						name = root_name_male
-					}
-				}
-				50 = {
-					define_conquistador = {
-						fire = 3
-						shock = 7
-						manuever = 4
-						siege = 3
-						trait = wyvern_rider_personality
-						female = yes
-						name = root_name_female
-					}
-				}
-			}
-		}
-		
-		if = {
-			limit = {
-				army_tradition = 40
-				NOT = { army_tradition = 60 }
-			}
-			random_list = {
-				50 = {
-					define_conquistador = {
-						fire = 4
-						shock = 8
-						manuever = 6
-						siege = 4
-						trait = wyvern_rider_personality
-						name = root_name_male
-					}
-				}
-				50 = {
-					define_conquistador = {
-						fire = 4
-						shock = 8
-						manuever = 6
-						siege = 4
-						trait = wyvern_rider_personality
-						female = yes
-						name = root_name_female
-					}
-				}
-			}
-		}
-		
-		if = {
-			limit = {
-				army_tradition = 60
-				NOT = { army_tradition = 80 }
-			}
-			random_list = {
-				50 = {
-					define_conquistador = {
-						fire = 5
-						shock = 9
-						manuever = 6
-						siege = 5
-						trait = wyvern_rider_personality
-						name = root_name_male
-					}
-				}
-				50 = {
-					define_conquistador = {
-						fire = 5
-						shock = 9
-						manuever = 6
-						siege = 5
-						trait = wyvern_rider_personality
-						female = yes
-						name = root_name_female
-					}
-				}
-			}
-		}
-		
-		if = {
-			limit = {
-				army_tradition = 80
-			}
-			random_list = {
-				50 = {
-					define_conquistador = {
-						fire = 6
-						shock = 10
-						manuever = 6
-						siege = 6
-						trait = wyvern_rider_personality
-						name = root_name_male
-					}
-				}
-				50 = {
-					define_conquistador = {
-						fire = 6
-						shock = 10
-						manuever = 6
-						siege = 6
-						trait = wyvern_rider_personality
-						female = yes
-						name = root_name_female
-					}
-				}
-			}
-		}
-		
-		clear_saved_name = root_name_male
-		clear_saved_name = root_name_female
 	}
 	
 	option = {

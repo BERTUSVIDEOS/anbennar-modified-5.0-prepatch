@@ -252,7 +252,7 @@ magisterium_send_mage_general_action = {
 	}
 
     on_accept = {
-		get_yearly_income_fraction = { receive = yes SCOPE = FROM fraction = 0.50 } #get 1/2th of target yearly income
+		get_yearly_income_fraction = { receive = yes SCOPE = FROM months = 2 } #get 1/2th of ROOT yearly income
 		FROM = {
 			set_saved_name = {key = special_general_name type = advisor scope = ROOT}
 			save_event_target_as = get_general_event_target
@@ -303,7 +303,7 @@ magisterium_request_mage_general_action = {
 		add_favors = { who = FROM amount = -50 }
 	}
     on_accept = {
-		get_yearly_income_fraction = { send = yes SCOPE = FROM fraction = 0.50 } #get 1/2th of target yearly income
+		get_yearly_income_fraction = { send = yes SCOPE = FROM months = 2 } #get 1/2th of target yearly income
 		add_favors = { who = FROM amount = -50 }
 
 		set_saved_name = {key = special_general_name type = advisor scope = FROM}
@@ -356,7 +356,7 @@ magisterium_send_mage_advisor_action = {
 	}
 
     on_accept = {
-		get_yearly_income_fraction = { receive = yes SCOPE = FROM fraction = 0.50 } #get 1/2th of target yearly income
+		get_yearly_income_fraction = { receive = yes SCOPE = FROM months = 2 } #get 1/2th of target yearly income
 		add_estate_loyalty = {estate = estate_mages loyalty = -20 }
 
 		set_saved_name = {key = special_general_name type = advisor scope = FROM}
@@ -453,7 +453,7 @@ magisterium_request_mage_advisor_action = {
 		add_favors = { who = FROM amount = -50 }
 	}
     on_accept = {
-		get_yearly_income_fraction = { send = yes SCOPE = FROM fraction = 0.50 } #get 1/2th of target yearly income
+		get_yearly_income_fraction = { send = yes SCOPE = FROM months = 2 } #get 1/2th of target yearly income
 		add_favors = { who = FROM amount = -50 }
 
 		FROM = {
@@ -567,7 +567,7 @@ magisterium_organize_magical_council_action = {
 	}
 
     on_accept = {
-		get_yearly_income_fraction = { receive = yes SCOPE = FROM fraction = 0.50 } #get 1/2th of target yearly income
+		get_yearly_income_fraction = { receive = yes SCOPE = FROM months = 2 } #get 1/2th of target yearly income
 		add_estate_loyalty = { estate = estate_mages loyalty = -20 }
 
 		FROM = {
@@ -620,7 +620,7 @@ magisterium_request_organize_magical_council_action = {
 		add_favors = { who = FROM amount = -50 }
 	}
     on_accept = {
-		get_yearly_income_fraction = { send = yes SCOPE = FROM fraction = 0.50 } #get 1/2th of target yearly income
+		get_yearly_income_fraction = { send = yes SCOPE = FROM months = 2 } #get 1/2th of target yearly income
 		add_favors = { who = FROM amount = -50 }
 
 		ROOT = {
@@ -1093,7 +1093,7 @@ magisterium_cast_transmutation_spell_action = {
 			limit = { FROM = { any_owned_province = {has_province_modifier = transmutation_spell_reform_elemental_climate_control_modifier} } }
 			FROM = { NOT = { any_owned_province = {has_province_modifier = transmutation_spell_reform_elemental_climate_control_modifier} } }
 		}
-		FROM = { any_owned_province = { province_with_farm_goods = yes } }
+		FROM = { any_owned_province = { plant_growth_target = yes } }
 		if = {
 			limit = { FROM = { war_with = ROOT} }
 			FROM = { NOT = {war_with = ROOT}}
@@ -1104,9 +1104,9 @@ magisterium_cast_transmutation_spell_action = {
 		add_mana_effect = { mana = -20 }
 		FROM = {
 			every_owned_province = {
-				limit = {province_with_farm_goods = yes}
+				limit = { plant_growth_target = yes}
 				remove_province_modifier = transmutation_spell_reform_elemental_climate_control_modifier
-				add_province_modifier = { name = transmutation_spell_reform_elemental_climate_control_modifier duration = 3650 }
+				add_province_modifier = { name = transmutation_spell_reform_elemental_climate_control_modifier duration = 3650  desc = all_growing_trade_goods_provinces_tt }
 			}
 		}
 	}
@@ -1204,16 +1204,16 @@ magisterium_cast_conjuration_spell_action = {
 			limit = { FROM = { war_with = ROOT } }
 			FROM = { NOT = {war_with = ROOT } }
 		}
-		FROM = { any_owned_province = { province_with_mine_goods = yes NOT = { trade_goods = gold } } }
+		FROM = { any_owned_province = { province_with_mine_goods = yes NOT = { trade_goods = gold trade_goods = silver } } }
 	}
 
     on_accept = {
 		add_mana_effect = { mana = -20 }
 		FROM = {
 			every_owned_province = {
-				limit = {owner = {has_estate_privilege = estate_mages_organization_magisterium} province_with_mine_goods = yes NOT = { trade_goods = gold } }
+				limit = {owner = {has_estate_privilege = estate_mages_organization_magisterium} province_with_mine_goods = yes NOT = { trade_goods = gold trade_goods = silver } }
 				remove_province_modifier = conjuration_spell_reform_elemental_extraction_modifier
-				add_province_modifier =	 { name = conjuration_spell_reform_elemental_extraction_modifier duration = 3650 }
+				add_province_modifier =	 { name = conjuration_spell_reform_elemental_extraction_modifier duration = 3650 desc = all_non_gold_mining_trade_goods_provinces_tt }
 			}
 		}
 	}

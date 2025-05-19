@@ -365,14 +365,18 @@ verkalgulan_world_bank_missions = {
 		trigger = {
 			owns_core_province = 4078
 			4078 = { NOT = { has_province_modifier = infested_hold } }
+			years_of_manpower = 1
 		}
 		
 		effect = {
+			add_stability_or_adm_power = yes
 			add_yearly_manpower = -1
 			4078 = {				
-				add_province_modifier = {
-					name = verkalgulan_reclaimed_hold
-					duration = -1
+				area = {
+					add_province_modifier = {
+						name = verkalgulan_reclaimed_hold
+						duration = -1
+					}
 				}
 			}
 		}
@@ -651,16 +655,18 @@ verkalgulan_the_delve_missions = {
 		
 		trigger = {
 			owns_core_province = 4124
+			years_of_manpower = 1
 		}
 		
 		effect = {
 			add_stability_or_adm_power = yes
-			add_adm_power = 100
 			add_yearly_manpower = -1
-			4124 = {				
-				add_province_modifier = {
-					name = verkalgulan_reclaimed_hold
-					duration = -1
+			4124 = {
+				area = {
+					add_province_modifier = {
+						name = verkalgulan_reclaimed_hold
+						duration = -1
+					}
 				}
 			}
 		}
@@ -719,12 +725,22 @@ verkalgulan_the_delve_missions = {
 		provinces_to_highlight = {
 			region = middle_dwarovar_region
 			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			NOT = {
+				has_terrain = dwarven_under_hold
+				is_city = no
+			}
 		}
 		
 		trigger = {
 			middle_dwarovar_region = {
 				type = all
-				country_or_non_sovereign_subject_holds = ROOT
+				OR = {
+					country_or_non_sovereign_subject_holds = ROOT
+					AND = {
+						is_city = no
+						has_terrain = dwarven_under_hold
+					}
+				}
 			}
 		}
 		
@@ -796,7 +812,7 @@ verkalgulan_the_citadel_missions = {
 				area = {
 					add_province_modifier = {
 						name = growth_of_capital
-						duration = 5475 #10 years
+						duration = -1
 					}
 				}
 			}
@@ -946,14 +962,18 @@ verkalgulan_the_citadel_missions = {
 		trigger = {
 			owns_core_province = 4218
 			4218 = { NOT = { has_province_modifier = infested_hold } }
+			years_of_manpower = 1
 		}
 		
 		effect = {
+			add_stability_or_adm_power = yes
 			add_yearly_manpower = -1
 			4218 = {
-				add_province_modifier = {
-					name = verkalgulan_reclaimed_hold
-					duration = -1
+				area = {
+					add_province_modifier = {
+						name = verkalgulan_reclaimed_hold
+						duration = -1
+					}
 				}
 			}
 		}
@@ -1154,14 +1174,18 @@ verkalgulan_great_works_missions = {
 		
 		trigger = {
 			owns_core_province = 4217
+			years_of_manpower = 1
 		}
 		
 		effect = {
+			add_stability_or_adm_power = yes
 			add_yearly_manpower = -1
 			4217 = {
-				add_province_modifier = {
-					name = verkalgulan_reclaimed_hold
-					duration = -1
+				area = {
+					add_province_modifier = {
+						name = verkalgulan_reclaimed_hold
+						duration = -1
+					}
 				}
 			}
 		}

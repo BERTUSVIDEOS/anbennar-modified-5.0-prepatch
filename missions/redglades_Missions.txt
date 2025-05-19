@@ -361,32 +361,45 @@ A03_redglades_trade = {
 		required_missions = { A03_redglades_officials }
 		position = 6
 		
-		trigger = {
-			army_professionalism = 0.6
-			OR = {
-				all_neighbor_country = {
-					OR = {
-						is_subject_of = ROOT
-						NOT = {
-							army_strength = {
-								who = ROOT
-								value = 1.0
-							} 
+		provinces_to_highlight = {
+			owner = {
+				is_neighbor_of = ROOT
+				NOT = {
+					is_subject_of = ROOT
+					alliance_with = ROOT
+					ROOT = {
+						has_won_war_against = {
+							who = PREV
+							max_years_since = 50
 						}
 					}
 				}
+				army_strength = {
+					who = ROOT
+					value = 1.0
+				}
+			}
+		}
+
+		trigger = {
+			army_professionalism = 0.6
+			OR = {
+				army_professionalism = 0.80
 				all_neighbor_country = {
-					army_strength = {
-						who = ROOT
-						value = 1.0
-					} 
 					OR = {
+						is_subject_of = ROOT
 						alliance_with = ROOT					
 						ROOT = {
 							has_won_war_against = {
 								who = PREV
 								max_years_since = 50
 							}
+						}
+						NOT = {
+							army_strength = {
+								who = ROOT
+								value = 1.0
+							} 
 						}
 					}
 				}

@@ -2492,6 +2492,26 @@ save_trade_goods = {
 		}
 		set_province_flag = had_manufactory_flag
 	}
+	if = {
+		limit = { has_building = workshop }
+		set_province_flag = had_workshop_flag
+	}
+	else_if = {
+		limit = { has_building = counting_house }
+		set_province_flag = had_counting_house_flag
+	}
+	else_if = {
+		limit = { has_building = production_lvl_3 }
+		set_province_flag = had_production_lvl_3_flag
+	}
+	else_if = {
+		limit = { has_building = production_lvl_4 }
+		set_province_flag = had_production_lvl_4_flag
+	}
+	else_if = {
+		limit = { has_building = production_lvl_5 }
+		set_province_flag = had_production_lvl_5_flag
+	}
 	trigger_switch = {
 		on_trigger = trade_goods
 		grain = { set_province_flag = had_grain }
@@ -2590,6 +2610,7 @@ save_trade_goods = {
 set_from_saved_trade_goods = {
 	custom_tooltip = "Restore Trade Goods"
 	hidden_effect = { change_trade_goods = unknown } 
+	
 	trigger_switch = {
 		on_trigger = has_province_flag
 		had_dyes = { change_trade_goods = dyes clr_province_flag = had_dyes }	#Dyes moved to the top because of flavor_vazhatun.25
@@ -2682,6 +2703,31 @@ set_from_saved_trade_goods = {
 		had_indigo = { change_trade_goods = indigo clr_province_flag = had_indigo }
 		had_sea_turtle = { change_trade_goods = sea_turtle clr_province_flag = had_sea_turtle }
 		had_uniforms = { change_trade_goods = uniforms clr_province_flag = had_uniforms }
+	}
+	if = {
+		limit = { has_province_flag = had_manufactory_flag }
+		clr_province_flag = had_manufactory_flag
+		add_manufactory = yes
+	}
+	if = {
+		limit = { has_province_flag = had_workshop_flag }
+		add_building = had_workshop_flag
+	}
+	else_if = {
+		limit = { has_province_flag = had_counting_house_flag }
+		add_building = had_counting_house_flag
+	}
+	else_if = {
+		limit = { has_province_flag = had_production_lvl_3_flag }
+		add_building = had_production_lvl_3_flag
+	}
+	else_if = {
+		limit = { has_province_flag = had_production_lvl_4_flag }
+		add_building = had_production_lvl_4_flag
+	}
+	else_if = {
+		limit = { has_province_flag = had_production_lvl_5_flag }
+		add_building = had_production_lvl_5_flag
 	}
 }
 

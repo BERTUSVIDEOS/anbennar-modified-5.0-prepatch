@@ -332,6 +332,7 @@ custom_button = {
 		}
 	}
 	effect = {
+		add_mana_effect = { mana = -80 }
 		custom_tooltip = every_magister_sphere_member_tt
 		tooltip = {
 			add_country_modifier = { name = high_court_mages_modifier duration = 3650 }
@@ -341,9 +342,9 @@ custom_button = {
 			every_country = {
 				limit = { has_estate_privilege = estate_mages_organization_magisterium }
 				add_country_modifier = { name = high_court_mages_modifier duration = 3650 }
+				country_event = { id = bertus_changes.1121 }
 			}
 		}
-		add_mana_effect = { mana = -80 }
 	}
 	tooltip = "Magisterium Mages"
 }
@@ -385,6 +386,7 @@ custom_button = {
 			every_country = {
 				limit = { has_estate_privilege = estate_mages_organization_magisterium }
 				add_country_modifier = { name = divination_school_reform_modifier duration = 730 }
+				country_event = { id = bertus_changes.1122 }
 			}
 		}
 	}
@@ -428,6 +430,7 @@ custom_button = {
 				all_races_effect = {
 					EFFECT = medium_increase_of_all_tolerance_in_hre_effect
 				}
+				country_event = { id = bertus_changes.1123 }
 			}
 		}
 	}
@@ -469,6 +472,7 @@ custom_button = {
 			every_country = {
 				limit = { has_estate_privilege = estate_mages_organization_magisterium }
 				add_country_modifier = { name = abjuration_defender_school_reform_modifier duration = 730 }
+				country_event = { id = bertus_changes.1124 }
 			}
 		}
 	}
@@ -512,6 +516,7 @@ custom_button = {
 			every_country = {
 				limit = { has_estate_privilege = estate_mages_organization_magisterium }
 				add_country_modifier = { name = transmutation_school_healing_spell_modifier duration = 730 }
+				country_event = { id = bertus_changes.1125 }
 			}
 		}
 	}
@@ -555,6 +560,7 @@ custom_button = {
 			every_country = {
 				limit = { has_estate_privilege = estate_mages_organization_magisterium }
 				add_country_modifier = { name = evocation_spell_school_reform_modifier duration = 730 }
+				country_event = { id = bertus_changes.1126 }
 			}
 		}
 	}
@@ -598,6 +604,7 @@ custom_button = {
 			every_country = {
 				limit = { has_estate_privilege = estate_mages_organization_magisterium }
 				add_country_modifier = { name = illusion_school_reform_magisterium_modifier duration = 3650 }
+				country_event = { id = bertus_changes.1127 }
 			}
 		}
 	}
@@ -635,12 +642,13 @@ custom_button = {
 		add_mana_effect = { mana = -80 }
 		tooltip = {
 			custom_tooltip = every_magister_sphere_member_tt
-			add_country_modifier = { name = magic_estate_magister_feast duration = 730 }
+			add_country_modifier = { name = magic_estate_magister_feast duration = 1825 }
 		}
 		hidden_effect = {
 			every_country = {
 				limit = { has_estate_privilege = estate_mages_organization_magisterium }
-				add_country_modifier = { name = magic_estate_magister_feast duration = 730 }
+				add_country_modifier = { name = magic_estate_magister_feast duration = 1825 }
+				country_event = { id = bertus_changes.1128 }
 			}
 		}
 	}
@@ -678,12 +686,13 @@ custom_button = {
 		add_mana_effect = { mana = -80 }
 		tooltip = {
 			custom_tooltip = every_magister_sphere_member_tt
-			add_country_modifier = { name = conjuration_school_reform_elemental_construction_modifier duration = 1825 }
+			add_country_modifier = { name = conjuration_school_reform_elemental_construction_modifier duration = 730 }
 		}
 		hidden_effect = {
 			every_country = {
 				limit = { has_estate_privilege = estate_mages_organization_magisterium }
-				add_country_modifier = { name = conjuration_school_reform_elemental_construction_modifier duration = 1825 }
+				add_country_modifier = { name = conjuration_school_reform_elemental_construction_modifier duration = 730 }
+				country_event = { id = bertus_changes.1129 }
 			}
 		}
 	}
@@ -712,8 +721,8 @@ custom_button = {
 		}
 		has_mana = { mana = 80 }
 		if = {
-			limit = {has_country_modifier = conjuration_school_reform_elemental_extraction_modifier}
-			NOT = {has_country_modifier = conjuration_school_reform_elemental_extraction_modifier}
+			limit = {any_owned_province = { has_province_modifier = conjuration_school_reform_elemental_extraction_modifier} }
+			NOT = {any_owned_province = { has_province_modifier = conjuration_school_reform_elemental_extraction_modifier} }
 		}
 	}
 	effect = {
@@ -721,12 +730,23 @@ custom_button = {
 		add_mana_effect = { mana = -80 }
 		tooltip = {
 			custom_tooltip = every_magister_sphere_member_tt
-			add_country_modifier = { name = conjuration_school_reform_elemental_extraction_modifier duration = 3650 }
+			#custom_tooltip = all_damestear_provinces_tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = {  trade_goods = damestear }
+					add_province_modifier = { name = conjuration_school_reform_elemental_extraction_modifier duration = 3650 }
+				}
+			}
+			add_country_modifier = { name = conjuration_school_reform_elemental_extraction_modifier duration = 3650 desc = all_damestear_provinces_tt }
 		}
 		hidden_effect = {
 			every_country = {
 				limit = { has_estate_privilege = estate_mages_organization_magisterium }
-				add_country_modifier = { name = conjuration_school_reform_elemental_extraction_modifier duration = 3650 }
+				every_owned_province = {
+					limit = { trade_goods = damestear }
+					add_province_modifier = { name = conjuration_school_reform_elemental_extraction_modifier duration = 3650 }
+				}
+				country_event = { id = bertus_changes.1130 }
 			}
 		}
 	}
@@ -755,8 +775,8 @@ custom_button = {
 		}
 		has_mana = { mana = 80 }
 		if = {
-			limit = {has_country_modifier = transmutation_school_reform_elemental_climate_control_modifier}
-			NOT = {has_country_modifier = transmutation_school_reform_elemental_climate_control_modifier}
+			limit = {any_owned_province = { has_province_modifier = transmutation_school_reform_elemental_climate_control_modifier} }
+			NOT = {any_owned_province = { has_province_modifier = transmutation_school_reform_elemental_climate_control_modifier} }
 		}
 	}
 	effect = {
@@ -764,12 +784,23 @@ custom_button = {
 		add_mana_effect = { mana = -80 }
 		tooltip = {
 			custom_tooltip = every_magister_sphere_member_tt
-			add_country_modifier = { name = transmutation_school_reform_elemental_climate_control_modifier duration = 3650 }
+			custom_tooltip = all_growing_trade_goods_provinces_tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = { plant_growth_target = yes }
+					add_province_modifier = { name = transmutation_school_reform_elemental_climate_control_modifier duration = 3650 }
+				}
+			}
+			add_country_modifier = { name = transmutation_school_reform_elemental_climate_control_modifier duration = 3650  desc = all_growing_trade_goods_provinces_tt }
 		}
 		hidden_effect = {
 			every_country = {
 				limit = { has_estate_privilege = estate_mages_organization_magisterium }
-				add_country_modifier = { name = transmutation_school_reform_elemental_climate_control_modifier duration = 3650 }
+				every_owned_province = {
+					limit = { plant_growth_target = yes }
+					add_province_modifier = { name = transmutation_school_reform_elemental_climate_control_modifier duration = 3650 }
+				}
+				country_event = { id = bertus_changes.1131 }
 			}
 		}
 	}
@@ -2826,6 +2857,41 @@ custom_button = {
 	tooltip = earthquake_spell_icon_tt
 }
 custom_button = {
+	name = meteor_spell_icon
+	
+    potential = {
+		has_country_flag = estate_mages_cast_spell_evocation
+	}
+	trigger = {
+		if = {
+			limit = { NOT = { has_unlocked_magic_school = { school = evocation level = 3 } } }
+			has_unlocked_magic_school = { school = evocation level = 3 }
+		}
+		has_mana = { mana = 150 }
+		custom_trigger_tooltip = {
+			tooltip = magic_menu_siege_spell_tt
+			always = no
+		}
+		if = {
+			limit = { is_colonial_nation = yes }
+			is_colonial_nation = no
+		}
+	}
+	effect = {
+		tooltip = {
+			add_mana_effect = { mana = -150 }
+			custom_tooltip = "Target Province gets:"
+			custom_tooltip = change_siege_progress_by_4_tt
+			add_province_modifier = {name = meteor_strike_mark_modifier duration = 365}
+			add_base_tax = -5
+			add_base_production = -5
+			add_base_manpower = -5
+			add_devastation = 50
+		}
+	}
+	tooltip = "Meteor Strike"
+}
+custom_button = {
     name = magic_menu_evocated_weapons
     
     potential = {
@@ -3324,6 +3390,37 @@ custom_button = {
 		
 	}
 	tooltip = "Flesh Necrosis"
+}
+custom_button = {
+    name = magic_menu_plague_necrosis
+    
+    potential = {
+		has_country_flag = estate_mages_cast_spell_necromancy
+	}
+	trigger = {
+		if = {
+			limit = { NOT = { has_unlocked_magic_school = { school = necromancy level = 3 } } }
+			has_unlocked_magic_school = { school = necromancy level = 3 }
+		}
+		has_mana = { mana = 150 }
+		custom_trigger_tooltip = {
+			tooltip = magic_menu_diplomatic_actions_spell_tt
+			always = no
+		}
+		if = {
+			limit = { is_colonial_nation = yes }
+			is_colonial_nation = no
+		}
+	}
+	effect = {
+		tooltip = {
+			add_mana_effect = { mana = -150 }
+			custom_tooltip = "Target Country gets:"
+			add_country_modifier = { name = spell_plague_modifier duration = 730 }
+		}
+		
+	}
+	tooltip = "Black Death"
 }
 custom_button = {
     name = magic_menu_genital_cancer

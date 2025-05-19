@@ -20,9 +20,7 @@ country_event = {
 				modifier = EST_VAL_HELPING_RULER_STUDY
 			}
 		}
-		
 		NOT = { has_ruler_flag = ruler_studying_magisterial_support }
-		
 		NOT = {
 			tag = Y85 
 			has_ruler_flag = ruler_studying_divination
@@ -33,33 +31,22 @@ country_event = {
 		days = 7300
 		modifier = {
 			factor = 0.5
-			estate_loyalty = {
-				estate = estate_mages
-				loyalty = 60
-			}
+			estate_loyalty = { estate = estate_mages loyalty = 60 }
 		}
 		modifier = {
 			factor = 0.5
-			estate_influence = {
-				estate = estate_mages
-				influence = 50
-			}
+			estate_influence = { estate = estate_mages influence = 50 }
+		}
+		modifier = {
+			factor = 0.5
+			court_mage = 3	#If you have a high level court mage its way more likely to fire
 		}
 	}
 	
 	#Accept Help
 	option = {	
 		name = magic_study_events_good.1.a
-		ai_chance = {
-			factor = 90
-			modifier = {
-				factor = 0
-				estate_influence = {
-					estate = estate_mages
-					influence = 80
-				}
-			}
-		}
+		ai_chance = { factor = 90 }
 		
 		add_estate_influence_modifier = {
 			estate = estate_mages
@@ -103,6 +90,14 @@ country_event = {
 		modifier = {
 			factor = 0.8
 			stability = 1
+		}
+		modifier = {
+			factor = 0.5
+			estate_loyalty = { estate = estate_mages loyalty = 60 }
+		}
+		modifier = {
+			factor = 0.5
+			estate_influence = { estate = estate_mages influence = 50 }
 		}
 		modifier = {
 			factor = 0.5
@@ -164,14 +159,47 @@ country_event = {
 			}
 		}
 		modifier = {
+			factor = 0.9
+			any_owned_province = {
+				has_building = education_lvl_1
+			}
+		}
+		modifier = {
 			factor = 0.8
+			any_owned_province = {
+				has_building = education_lvl_2
+			}
+		}
+		modifier = {
+			factor = 0.7
 			any_owned_province = {
 				has_building = university
 			}
 		}
 		modifier = {
+			factor = 0.7
+			any_owned_province = {
+				has_great_project = {
+					type = damish_temple_moonmount_library
+					tier = 2
+				}
+			}
+		}
+		modifier = {
 			factor = 0.8
 			ruler_has_personality = scholar_personality
+		}
+		modifier = {
+			factor = 0.5
+			estate_loyalty = { estate = estate_mages loyalty = 60 }
+		}
+		modifier = {
+			factor = 0.5
+			estate_influence = { estate = estate_mages influence = 50 }
+		}
+		modifier = {
+			factor = 0.5
+			court_mage = 3	#If you have a high level court mage its way more likely to fire
 		}
 	}
 	
@@ -220,16 +248,7 @@ country_event = {
 		trigger = {
 			has_estate = estate_adventurers
 		}
-		ai_chance = {
-			factor = 50
-			modifier = {
-				factor = 0
-					estate_influence = {
-						estate = estate_adventurers
-						influence = 80
-					}
-			}
-		}
+		ai_chance = { factor = 50 }
 		
 		add_years_of_income = -0.25
 		
@@ -273,17 +292,13 @@ country_event = {
 	
 	trigger = {
 		has_ruler_modifier = ruler_studying_magic
-		
 		NOT = { has_ruler_flag = ruler_studying_magic_relic }
-		
 		NOT = {
 			has_estate_influence_modifier = {
 				estate = estate_adventurers
 				modifier = EST_VAL_PROCURING_MAGICAL_ARTIFACTS_FOR_RULER_STUDY
 			}
 		}
-		
-		
 	}
 	
 	mean_time_to_happen = {
@@ -291,6 +306,41 @@ country_event = {
 		modifier = {
 			factor = 0.8
 			ruler_has_personality = intricate_web_weaver_personality
+		}
+		modifier = {
+			factor = 0.5
+			estate_loyalty = { estate = estate_mages loyalty = 60 }
+		}
+		modifier = {
+			factor = 0.5
+			estate_influence = { estate = estate_mages influence = 50 }
+		}
+		modifier = {
+			factor = 0.5
+			court_mage = 3	#If you have a high level court mage its way more likely to fire
+		}
+		# Resources
+		modifier = {
+			factor = 0.9
+			precursor_relics = 1
+		}
+		modifier = {
+			factor = 0.75
+			trading_bonus = {
+				trade_goods = precursor_relics
+				value = yes
+			}
+		}
+		modifier = {
+			factor = 0.9
+			damestear = 1
+		}
+		modifier = {
+			factor = 0.75
+			trading_bonus = {
+				trade_goods = damestear
+				value = yes
+			}
 		}
 	}
 	
@@ -300,16 +350,7 @@ country_event = {
 		trigger = {
 			has_estate = estate_adventurers
 		}
-		ai_chance = {
-			factor = 50
-			modifier = {
-				factor = 0
-					estate_influence = {
-						estate = estate_adventurers
-						influence = 80
-					}
-			}
-		}
+		ai_chance = { factor = 50 }
 		
 		add_years_of_income = -0.25
 		
@@ -330,7 +371,7 @@ country_event = {
 	#I'll get it myself!
 	option = {	
 		name = magic_study_events_good.5.b
-		ai_chance = {factor = 50}
+		ai_chance = { factor = 50 }
 		
 		add_adm_power = -10
 		add_dip_power = -10
@@ -353,10 +394,7 @@ country_event = {
 	
 	trigger = {
 		has_ruler_modifier = ruler_studying_magic
-		
 		NOT = { has_ruler_flag = ruler_studying_magic_precursor_knowledge }
-		
-		
 		OR = {
 			any_subject_country = {
 				vassal_of = ROOT
@@ -364,15 +402,8 @@ country_event = {
 					trade_goods = precursor_relics 
 				}
 			}
-		
-			ROOT = {
-				any_owned_province = {
-					trade_goods = precursor_relics 
-					#owned_by = ROOT
-				}
-			}
+			precursor_relics = 1
 		}
-		
 	}
 	
 	mean_time_to_happen = {
@@ -382,31 +413,30 @@ country_event = {
 			ruler_has_personality = expansionist_personality
 		}
 		modifier = {
-			factor = 0.9
-			has_idea_group = kolonialimperium0
-		}
-		modifier = {
 			factor = 0.75
 			trading_bonus = {
 				trade_goods = precursor_relics
 				value = yes
 			}
 		}
+		modifier = {
+			factor = 0.5
+			estate_loyalty = { estate = estate_mages loyalty = 60 }
+		}
+		modifier = {
+			factor = 0.5
+			estate_influence = { estate = estate_mages influence = 50 }
+		}
+		modifier = {
+			factor = 0.5
+			court_mage = 3	#If you have a high level court mage its way more likely to fire
+		}
 	}
 	
 	#Hire some adventurers to retrieve it
 	option = {	
 		name = magic_study_events_good.6.a
-		ai_chance = {
-			factor = 50
-			modifier = {
-				factor = 0
-					estate_influence = {
-						estate = estate_adventurers
-						influence = 80
-					}
-			}
-		}
+		ai_chance = { factor = 50 }
 		
 		add_years_of_income = -0.25
 		
@@ -427,7 +457,7 @@ country_event = {
 	#Send an expeditionary force
 	option = {	
 		name = magic_study_events_good.6.b
-		ai_chance = {factor = 50}
+		ai_chance = { factor = 50 }
 		
 		add_mil_power = -50
 		
@@ -468,33 +498,22 @@ country_event = {
 		days = 7300
 		modifier = {
 			factor = 0.5
-			estate_loyalty = {
-				estate = estate_mages
-				loyalty = 60
-			}
+			estate_loyalty = { estate = estate_mages loyalty = 60 }
 		}
 		modifier = {
 			factor = 0.5
-			estate_influence = {
-				estate = estate_mages
-				influence = 60
-			}
+			estate_influence = { estate = estate_mages influence = 50 }
+		}
+		modifier = {
+			factor = 0.5
+			court_mage = 3	#If you have a high level court mage its way more likely to fire
 		}
 	}
 	
 	#Accept Help
 	option = {	
 		name = magic_study_events_good.7.a
-		ai_chance = {
-			factor = 90
-			modifier = {
-				factor = 0
-				estate_influence = {
-					estate = estate_mages
-					influence = 60
-				}
-			}
-		}
+		ai_chance = { factor = 90 }
 		
 		add_prestige = -10
 		
@@ -515,7 +534,7 @@ country_event = {
 	#Nah
 	option = {
 		name = magic_study_events_good.7.b
-		ai_chance = {factor = 10}
+		ai_chance = { factor = 10 }
 		
 		reduce_estate_mages_loyalty_effect = yes
 	}
@@ -530,9 +549,7 @@ country_event = {
 	
 	trigger = {
 		has_ruler_modifier = ruler_studying_magic
-		
 		NOT = { has_ruler_flag = ruler_studying_magisterial_support }
-		
 		NOT = { has_ruler_flag = ruler_studying_mana_3 }
 	}
 	
@@ -565,6 +582,18 @@ country_event = {
 		modifier = {
 			factor = 1.2
 			has_ruler_flag = ruler_studying_mana_2
+		}
+		modifier = {
+			factor = 0.5
+			estate_loyalty = { estate = estate_mages loyalty = 60 }
+		}
+		modifier = {
+			factor = 0.5
+			estate_influence = { estate = estate_mages influence = 50 }
+		}
+		modifier = {
+			factor = 0.5
+			court_mage = 3	#If you have a high level court mage its way more likely to fire
 		}
 	}
 	
@@ -614,16 +643,7 @@ country_event = {
 	#Nah
 	option = {
 		name = magic_study_events_good.8.b
-		ai_chance = {
-			factor = 10
-			modifier = {
-				factor = 100
-				NOT = { adm_power = 50 }
-				NOT = { dip_power = 50 }
-				NOT = { mil_power = 50 }
-			}
-		}
-		
+		ai_chance = { factor = 10 }
 	}
 	
 	#Free Thinker
@@ -681,9 +701,7 @@ country_event = {
 	
 	trigger = {
 		has_ruler_modifier = ruler_studying_magic
-		
 		NOT = { has_ruler_flag = ruler_studying_magisterial_support }
-		
 		NOT = { has_ruler_flag = ruler_studying_gold_3 }
 	}
 	
@@ -716,6 +734,18 @@ country_event = {
 		modifier = {
 			factor = 1.2
 			has_ruler_flag = ruler_studying_gold_2
+		}
+		modifier = {
+			factor = 0.5
+			estate_loyalty = { estate = estate_mages loyalty = 60 }
+		}
+		modifier = {
+			factor = 0.5
+			estate_influence = { estate = estate_mages influence = 50 }
+		}
+		modifier = {
+			factor = 0.5
+			court_mage = 3	#If you have a high level court mage its way more likely to fire
 		}
 	}
 	
@@ -757,30 +787,7 @@ country_event = {
 	#Nah
 	option = {
 		name = magic_study_events_good.9.b
-		ai_chance = {
-			factor = 10
-			modifier = {
-				factor = 100
-				NOT = { has_ruler_flag = ruler_studying_gold_1 }
-				NOT = { has_ruler_flag = ruler_studying_gold_2 }
-				NOT = { has_ruler_flag = ruler_studying_gold_3 }
-				NOT = { years_of_income = 0.75 }
-			}
-			modifier = {
-				factor = 100
-				has_ruler_flag = ruler_studying_gold_1
-				NOT = { has_ruler_flag = ruler_studying_gold_2 }
-				NOT = { has_ruler_flag = ruler_studying_gold_3 }
-				NOT = { years_of_income = 1.5 }
-			}
-			modifier = {
-				factor = 100
-				has_ruler_flag = ruler_studying_gold_2
-				NOT = { has_ruler_flag = ruler_studying_gold_3 }
-				NOT = { years_of_income = 2.5 }
-			}
-		}
-		
+		ai_chance = { factor = 10 }
 	}
 	
 	#Greedy
@@ -879,6 +886,18 @@ country_event = {
 		modifier = {
 			factor = 0.75
 			ruler_has_personality = scholar_personality 
+		}
+		modifier = {
+			factor = 0.5
+			estate_loyalty = { estate = estate_mages loyalty = 60 }
+		}
+		modifier = {
+			factor = 0.5
+			estate_influence = { estate = estate_mages influence = 50 }
+		}
+		modifier = {
+			factor = 0.5
+			court_mage = 3	#If you have a high level court mage its way more likely to fire
 		}
 	}
 	

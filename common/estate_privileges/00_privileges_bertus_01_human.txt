@@ -1078,7 +1078,9 @@ estate_human_alenic_academies = {
 	on_granted = {
 		custom_tooltip = estate_human_alenic_academies_tt
 		custom_tooltip = alenic_academies_mechanic_tooltip
-		custom_tooltip = estate_human_alenic_academies_infantry_modifiers_tt
+		tooltip = {
+			add_country_modifier = { name = alenic_academies_modifier duration = -1 }
+		}
 		add_country_modifier = {name = alenic_academies_modifier duration = -1 hidden = yes}
 	}
 	benefits = {
@@ -1130,7 +1132,9 @@ estate_human_castanor_academies = {
 	on_granted = {
 		custom_tooltip = estate_human_castanor_academies_tt
 		custom_tooltip = castanor_academies_mechanic_tooltip
-		custom_tooltip = estate_human_castanor_academies_infantry_modifier_tt
+		tooltip = {
+			add_country_modifier = { name = castanor_academies_modifier duration = -1 }
+		}
 		add_country_modifier = {name = castanor_academies_modifier duration = -1 hidden = yes}
 	}
 	benefits = {
@@ -1218,7 +1222,9 @@ estate_human_urviksten_academies = {
 	}
 	on_granted = {
 		custom_tooltip = estate_human_urviksten_academies_tt
-		custom_tooltip = estate_human_urviksten_academies_infantry_modifier_tt
+		tooltip = {
+			add_country_modifier = { name = urviksten_academies_modifier duration = -1 }
+		}
 		add_country_modifier = {name = urviksten_academies_modifier duration = -1 hidden = yes}
 	}
 	benefits = {
@@ -1286,6 +1292,9 @@ estate_human_griffon_academies = {
 	}
 	on_granted = {
 		custom_tooltip = estate_human_griffon_academies_tt
+		tooltip = {
+			add_country_modifier = { name = griffon_academies_modifier duration = -1 }
+		}
 		if = {limit = {mil_tech = 32} add_country_modifier = {name = griffon_academies_modifier_tech_32 duration = -1 hidden = yes}}
 		else_if = {limit = {mil_tech = 30}	add_country_modifier = {name = griffon_academies_modifier_tech_30 duration = -1 hidden = yes}}
 		else_if = {limit = {mil_tech = 26} add_country_modifier = {name = griffon_academies_modifier_tech_26 duration = -1 hidden = yes}}
@@ -1304,18 +1313,24 @@ estate_human_griffon_academies = {
 		custom_tooltip = estate_human_griffon_academies_griffon_modifiers_tt
 		if = {
 			limit = { has_country_flag = marrhold_steel_bird_flag }
+			tooltip = {
+				add_country_modifier = { name = marrhold_steel_bird_modifier duration = -1 }
+			}
 			add_country_modifier = {name = marrhold_steel_bird_modifier duration = -1 hidden = yes}
-			custom_tooltip = marrhold_steel_bird_tt
 		}
 		if = {
 			limit = { has_country_flag = marrhold_sky_lancers_flag }
+			tooltip = {
+				add_country_modifier = { name = marrhold_sky_lancers_modifier duration = -1 }
+			}
 			add_country_modifier = {name = marrhold_sky_lancers_modifier duration = -1 hidden = yes}
-			custom_tooltip = marrhold_sky_lancers_tt
 		}
 		if = {
 			limit = { has_country_flag = marrhold_Plan_B_flag }
+			tooltip = {
+				add_country_modifier = { name = marrhold_Plan_B_modifier duration = -1 }
+			}
 			add_country_modifier = {name = marrhold_Plan_B_modifier duration = -1 hidden = yes}
-			custom_tooltip = marrhold_Plan_B_tt
 		}
 	}
 	penalties = {}
@@ -1396,11 +1411,15 @@ estate_human_black_knights_academies = {
 		has_elite_regiments = no
 	}
 	on_granted = {
+		tooltip = {
+			add_country_modifier = {name = black_knights_academies_modifier duration = -1 }
+		}
 		add_country_modifier = {name = black_knights_academies_modifier duration = -1 hidden = yes}
 		custom_tooltip = estate_human_black_knights_academies_tt
 	}
 	penalties = {
 		yearly_corruption = 0.20
+		cav_to_inf_ratio = -0.10
 	}
 	benefits = {}
 	can_revoke = { }
@@ -1428,8 +1447,10 @@ estate_human_fencing_academies = {
 		has_elite_regiments = no
 	}
 	on_granted = {
+		tooltip = {
+			add_country_modifier = {name = fencing_academy_modifier duration = -1 }
+		}
 		add_country_modifier = {name = fencing_academy_modifier duration = -1 hidden = yes}
-		custom_tooltip = estate_human_black_knights_academies_tt
 	}
 	benefits = {
 		allowed_mamluks_fraction = 0.10
@@ -1443,6 +1464,48 @@ estate_human_fencing_academies = {
 	}
 	on_invalid = {
 		hidden_effect = {remove_country_modifier = fencing_academy_modifier}
+	}
+	cooldown_years = 20
+	ai_will_do = {factor = 1}
+}
+estate_human_wyvern_rider_academies = {
+	icon = privilege_recruit_rajput_general
+	is_valid = {
+		has_country_modifier = human_military
+		has_race_recruitment = {race = human}
+		OR = {
+			has_country_flag = verne_wyvern_riders_flag
+		}
+	}
+	can_select = {
+		has_country_modifier = human_military
+		has_race_recruitment = {race = human}
+		has_elite_regiments = no
+		OR = {
+			accepted_culture = vernman
+			primary_culture = vernman
+		}
+	}
+	on_granted = {
+		tooltip = {
+			add_country_modifier = {name = verne_wyvern_riders duration = -1 }
+		}
+		add_country_modifier = {name = verne_wyvern_riders duration = -1 hidden = yes}
+		custom_tooltip = verne_wyvern_aces_tt
+	}
+	benefits = {
+		allowed_mamluks_fraction = 0.10
+		can_recruit_hussars = yes
+	}
+	penalties = {
+		yearly_corruption = 0.20
+	}
+	can_revoke = { }
+	on_revoked = {
+		hidden_effect = { remove_country_modifier = verne_wyvern_riders }
+	}
+	on_invalid = {
+		hidden_effect = { remove_country_modifier = verne_wyvern_riders }
 	}
 	cooldown_years = 20
 	ai_will_do = {factor = 1}
@@ -1489,10 +1552,10 @@ estate_human_vernham_academy = {
 	}
 	on_granted = {
 		custom_tooltip = estate_human_vernham_academy_tt
-		add_country_modifier = {
-			name = blademarches_vernham_university
-			duration = -1
+		tooltip = {
+			add_country_modifier = { name = blademarches_vernham_university duration = -1 }
 		}
+		add_country_modifier = { name = blademarches_vernham_university duration = -1 hidden = yes }
 	}
 	penalties = {
 		yearly_corruption = 0.20
@@ -1543,10 +1606,10 @@ estate_human_lencenor_academy = {
 	}
 	on_granted = {
 		custom_tooltip = estate_human_lencenor_academy_tt
-		add_country_modifier = {
-			name = lorent_reformed_knights_of_the_rose
-			duration = -1
+		tooltip = {
+			add_country_modifier = { name = lorent_reformed_knights_of_the_rose duration = -1 }
 		}
+		add_country_modifier = { name = lorent_reformed_knights_of_the_rose duration = -1 hidden = yes }
 	}
 	penalties = {
 		yearly_corruption = 0.20
