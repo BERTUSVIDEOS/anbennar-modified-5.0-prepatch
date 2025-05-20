@@ -1550,20 +1550,88 @@ estate_gnomish_tank_academy = {
 	can_select = {
 		has_race_recruitment = { race = gnomish }
 		has_elite_regiments = no
+		NOT = { num_of_mamluks = 1}
+	}
+	can_revoke = {
+		NOT = { num_of_hussars = 1}
 	}
 	on_granted = {
+		if = {
+			limit = { has_country_flag = unlocked_artifice_invention_improved_tanks  }
+			custom_tooltip = "Get Tank model:"
+			custom_tooltip = tanks_lvl_3_modifiers_tt
+			add_country_modifier = {
+				name = improved_tanks_modifier
+				duration = -1
+				hidden = yes
+			}
+		}
+		else_if = {
+			limit = { has_country_flag = unlocked_artifice_invention_tanks }
+			custom_tooltip = "Get Tank model:"
+			custom_tooltip = tanks_lvl_2_modifiers_tt
+			add_country_modifier = {
+				name = regular_tanks_modifier
+				duration = -1
+				hidden = yes
+			}
+		}
+		else_if = {
+			limit = { has_country_flag = unlocked_artifice_invention_prototype_tanks }
+			custom_tooltip = "Get Tank model:"
+			custom_tooltip = tanks_lvl_1_modifiers_tt
+			add_country_modifier = {
+				name = prototype_tanks_modifier
+				duration = -1
+				hidden = yes
+			}
+		}
+		else = {
+			custom_tooltip = "Get Tank model:"
+			custom_tooltip = tanks_lvl_0_modifiers_tt
+			add_country_modifier = {
+				name = experimental_tanks_modifier
+				duration = -1
+				hidden = yes
+			}
+		}
 	}
 	penalties = {
 		yearly_corruption = 0.20
 		cavalry_power = -1.0
 	}
 	benefits = {
-		allowed_mamluks_fraction = -0.05
+		allowed_mamluks_fraction = -2.0
 		can_recruit_hussars = yes
 	}
 	mechanics = {}
-	on_revoked = {}
-	on_invalid = {}
+	on_revoked = {
+		hidden_effect = {
+			remove_country_modifier = improved_tanks_modifier
+			remove_country_modifier = regular_tanks_modifier
+			remove_country_modifier = prototype_tanks_modifier
+			remove_country_modifier = experimental_tanks_modifier
+		}
+	}
+	on_invalid = {
+		hidden_effect = {
+			remove_country_modifier = improved_tanks_modifier
+			remove_country_modifier = regular_tanks_modifier
+			remove_country_modifier = prototype_tanks_modifier
+			remove_country_modifier = experimental_tanks_modifier
+			if = {
+				limit = {
+					num_of_hussars = 1
+				}
+				every_province = {
+					kill_units = {
+						who = ROOT
+						type = cavalry
+					}
+				}
+			}
+		}
+	}
 	cooldown_years = 20
 	ai_will_do = {factor = 1}
 }

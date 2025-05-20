@@ -258,7 +258,7 @@ get_monthly_mana = {
 		export_to_variable = { which = monthly_mana_var value = modifier:monthly_mana_modifier }
 		export_to_variable = { which = monthly_negative_mana_var value = modifier:monthly_negative_mana_modifier }
 		if = { 	# magisterium  mana tribute
-			limit = { has_estate_privilege = estate_mages_organization_magisterium NOT = { tag = A85 } }
+			limit = { has_estate_privilege = estate_mages_organization_magisterium NOT = { tag = A85 } NOT = { war_with = A85 } }
 			set_variable = { which = temp value = 0 }
 			set_variable = { which = mana_trasnfered_to_magisterium_var value = 0 }
 			change_variable = { which = mana_trasnfered_to_magisterium_var which = monthly_mana_var }
@@ -300,7 +300,11 @@ get_monthly_mana = {
 			limit = { has_estate_privilege = estate_mages_organization_magisterium tag = A85 }
 			set_variable = { which = mana_trasnfered_to_magisterium_var value = 0 }
 			every_country = {
-				limit = { check_variable = { which = mana_trasnfered_to_magisterium_var value = 0.01 } NOT = { tag = A85 } }
+				limit = {
+					check_variable = { which = mana_trasnfered_to_magisterium_var value = 0.01 }
+					NOT = { tag = A85 }
+					NOT = { war_with = A85 }
+				}
 				set_variable = { which = temp value = 0 }
 				change_variable = { which = temp which = mana_trasnfered_to_magisterium_var } 	#mana tooltip
 				A85 = {
