@@ -294,6 +294,25 @@ dwarovar_assembly_of_holds_reform = {	#bertus mod
 		allow = { has_dlc = "Common Sense" }
 		has_parliament = yes
 	}
+	custom_attributes = {
+		improved_holds = yes
+	}
+	effect = {
+		hidden_effect = {
+			every_owned_province = {
+				limit = { OR = { has_terrain = dwarven_hold has_terrain = dwarven_under_hold has_terrain = dwarven_hold_surface } }
+				add_province_modifier = { name = hold_has_parliament duration = -1 }
+			}
+		}
+	}
+	removed_effect = {
+		hidden_effect = {
+			every_owned_province = {
+				limit = { has_province_modifier = hold_has_parliament }
+				remove_province_modifier = hold_has_parliament
+			}
+		}
+	}
 }
 
 #tier 5 - parliament

@@ -288,9 +288,12 @@ estate_human_elite_regiments = {
 		has_elite_regiments = no
 	}
 	on_granted = {
-		add_country_modifier = {
-			name = elite_guard_modifier
-			duration = -1
+		add_country_modifier = { name = elite_guard_modifier duration = -1 }
+		if = {
+			limit = {
+				has_country_flag = adenica_nobility_is_knights_flag
+			}
+			add_country_modifier = { name = adenica_nobility_is_knights duration = -1 }
 		}
 	}
 	penalties = {
@@ -313,9 +316,11 @@ estate_human_elite_regiments = {
 	mechanics = {}
 	on_revoked = {
 		remove_country_modifier = elite_guard_modifier
+		remove_country_modifier = adenica_nobility_is_knights
 	}
 	on_invalid = {
 		remove_country_modifier = elite_guard_modifier
+		remove_country_modifier = adenica_nobility_is_knights
 	}
 	cooldown_years = 20
 	ai_will_do = {factor = 1}
